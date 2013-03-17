@@ -1,0 +1,131 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Manatee.Json;
+using Manatee.Json.Enumerations;
+using Manatee.Trello.Implementation;
+
+namespace Manatee.Trello
+{
+	//{
+	//   "id":"5144051cbd0da66812002022",
+	//   "idMember":"50b693ad6f122b4310000a3c",
+	//   "memberType":"admin",
+	//   "deactivated":false
+	//},
+	public class BoardMembership : OwnedEntityBase<Board>
+	{
+		private static readonly OneToOneMap<BoardMembershipType, string> _typeMap;
+
+		private string _apiMembershipType;
+		private bool? _isDeactivated;
+		private string _memberId;
+		private Member _member;
+		private BoardMembershipType _membershipType;
+
+		public string Id { get; private set; }
+		public bool? IsDeactivated
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _isDeactivated;
+			}
+			set { _isDeactivated = value; }
+		}
+		public Member Member
+		{
+			get
+			{
+				VerifyNotExpired();
+				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
+			}
+		}
+		public BoardMembershipType MembershipType
+		{
+			get { return _membershipType; }
+			set
+			{
+				_membershipType = value;
+				UpdateApiType();
+			}
+		}
+
+		static BoardMembership()
+		{
+			_typeMap = new OneToOneMap<BoardMembershipType, string>
+			           	{
+			           		{BoardMembershipType.Admin, "admin"},
+			           		{BoardMembershipType.Normal, "normal"},
+			           	};
+		}
+		public BoardMembership() {}
+		internal BoardMembership(TrelloService svc, Board owner)
+			: base(svc, owner) {}
+
+		public override void FromJson(JsonValue json)
+		{
+			if (json == null) return;
+			if (json.Type != JsonValueType.Object) return;
+			var obj = json.Object;
+			Id = obj.TryGetString("id");
+			_apiMembershipType = obj.TryGetString("memberType");
+			_isDeactivated = obj.TryGetBoolean("deactivated");
+			_memberId = obj.TryGetString("idMember");
+			UpdateType();
+		}
+		public override JsonValue ToJson()
+		{
+			var json = new JsonObject
+			           	{
+			           		{"id", Id},
+							{"deactivated", _isDeactivated.HasValue ? _isDeactivated.Value : JsonValue.Null},
+			           		{"idMember", _memberId},
+			           		{"memberType", _apiMembershipType}
+			           	};
+			return json;
+		}
+		public override bool Equals(EquatableExpiringObject other)
+		{
+			var membership = other as BoardMembership;
+			if (membership == null) return false;
+			return Id == membership.Id;
+		}
+
+		internal override void Refresh(EquatableExpiringObject entity)
+		{
+			var membership = entity as BoardMembership;
+			if (membership == null) return;
+			_apiMembershipType = membership._apiMembershipType;
+			_isDeactivated = membership._isDeactivated;
+			_memberId = membership._memberId;
+		}
+		internal override bool Match(string id)
+		{
+			return Id == id;
+		}
+
+		protected override void Refresh()
+		{
+			var entity = Svc.Api.GetOwnedEntity<Board, BoardMembership>(Owner.Id);
+			Refresh(entity);
+		}
+		protected override void PropigateSerivce()
+		{
+			if (_member != null) _member.Svc = Svc;
+		}
+
+		private void UpdateType()
+		{
+			_membershipType = _typeMap.Any(kvp => kvp.Value == _apiMembershipType)
+			                  	? _typeMap[_apiMembershipType]
+			                  	: _membershipType = BoardMembershipType.Normal;
+		}
+		private void UpdateApiType()
+		{
+			if (_typeMap.Any(kvp => kvp.Key == _membershipType))
+				_apiMembershipType = _typeMap[_membershipType];
+		}
+	}
+}

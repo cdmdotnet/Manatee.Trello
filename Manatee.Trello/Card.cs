@@ -1,0 +1,293 @@
+﻿using System;
+using Manatee.Json;
+using Manatee.Json.Enumerations;
+using Manatee.Trello.Implementation;
+
+namespace Manatee.Trello
+{
+	//{
+	//   "id":"5144071650af56251f001927",
+	//   "badges":{
+	//      "votes":0,
+	//      "viewingMemberVoted":false,
+	//      "subscribed":false,
+	//      "fogbugz":"",
+	//      "due":null,
+	//      "description":true,
+	//      "comments":0,
+	//      "checkItemsChecked":1,
+	//      "checkItems":4,
+	//      "attachments":0
+	//   },
+	//   "checkItemStates":[
+	//      {
+	//         "idCheckItem":"514463bfd02ebee350000d1c",
+	//         "state":"complete"
+	//      }
+	//   ],
+	//   "closed":false,
+	//   "desc":"Allow others to contribute to project once the basics are up and running.",
+	//   "due":null,
+	//   "idBoard":"5144051cbd0da6681200201e",
+	//   "idChecklists":[
+	//      "514463bce0807abe320028a2"
+	//   ],
+	//   "idList":"5144051cbd0da6681200201f",
+	//   "idMembers":[
+
+	//   ],
+	//   "idShort":6,
+	//   "idAttachmentCover":null,
+	//   "manualCoverAttachment":false,
+	//   "labels":[
+	//      {
+	//         "color":"green",
+	//         "name":""
+	//      },
+	//      {
+	//         "color":"yellow",
+	//         "name":""
+	//      }
+	//   ],
+	//   "name":"Publish Beta to SourceForge",
+	//   "pos":393215,
+	//   "url":"https://trello.com/card/publish-beta-to-sourceforge/5144051cbd0da6681200201e/6"
+	//}
+	public class Card : EntityBase
+	{
+		private readonly ExpiringList<Card, Action> _actions;
+		private string _attachmentCoverId;
+		private readonly ExpiringList<Card, Attachment> _attachments;
+		private readonly Badges _badges;
+		private string _boardId;
+		private Board _board;
+		private readonly ExpiringList<Card, CheckItemState> _checkItemStates;
+		private readonly ExpiringList<Card, CheckList> _checkLists;
+		private string _description;
+		private DateTime? _dueDate;
+		private bool? _isClosed;
+		private readonly ExpiringList<Card, Label> _labels;
+		private string _listId;
+		private List _list;
+		private bool? _manualCoverAttachment;
+		private readonly ExpiringList<Card, Member> _members;
+		private string _name;
+		private int? _position;
+		private int? _shortId;
+		private string _url;
+		private readonly ExpiringList<Card, VotingMember> _votingMembers;
+
+		public IEntityCollection<Action> Actions { get { return _actions; } }
+		public string AttachmentCoverId
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _attachmentCoverId;
+			}
+		}
+		public IEntityCollection<Attachment> Attachments { get { return _attachments; } }
+		public Badges Badges { get { return _badges; } }
+		public Board Board
+		{
+			get
+			{
+				VerifyNotExpired();
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
+			}
+		}
+		public IEntityCollection<CheckItemState> CheckItemStates { get { return _checkItemStates; } }
+		public IEntityCollection<CheckList> CheckLists { get { return _checkLists; } }
+		public string Description
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _description;
+			}
+			set { _description = value; }
+		}
+		public DateTime? DueDate
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _dueDate;
+			}
+			set { _dueDate = value; }
+		}
+		public bool? IsClosed
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _isClosed;
+			}
+			set { _isClosed = value; }
+		}
+		public IEntityCollection<Label> Labels { get { return _labels; } }
+		public List List
+		{
+			get
+			{
+				VerifyNotExpired();
+				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Retrieve<List>(_listId)) : _list;
+			}
+		}
+		public bool? ManualCoverAttachment
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _manualCoverAttachment;
+			}
+			set { _manualCoverAttachment = value; }
+		}
+		public IEntityCollection<Member> Members { get { return _members; } }
+		public string Name
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _name;
+			}
+			set { _name = value; }
+		}
+		public int? Position
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _position;
+			}
+			set { _position = value; }
+		}
+		public int? ShortId
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _shortId;
+			}
+		}
+		public string Url
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _url;
+			}
+		}
+		//private IEntityCollection<Member> VotingMembers { get { return _votingMembers; } }
+
+		public Card()
+		{
+			_actions = new ExpiringList<Card, Action>(this);
+			_attachments = new ExpiringList<Card, Attachment>(this);
+			_badges = new Badges(null, this);
+			_checkItemStates = new ExpiringList<Card, CheckItemState>(this);
+			_checkLists = new ExpiringList<Card, CheckList>(this);
+			_labels = new ExpiringList<Card, Label>(this);
+			_members = new ExpiringList<Card, Member>(this);
+			_votingMembers = new ExpiringList<Card, VotingMember>(this);
+		}
+		internal Card(TrelloService svc, string id)
+			: base(svc, id)
+		{
+			_actions = new ExpiringList<Card, Action>(svc, this);
+			_attachments = new ExpiringList<Card, Attachment>(this);
+			_badges = new Badges(svc, this);
+			_checkItemStates = new ExpiringList<Card, CheckItemState>(svc, this);
+			_checkLists = new ExpiringList<Card, CheckList>(svc, this);
+			_labels = new ExpiringList<Card, Label>(svc, this);
+			_members = new ExpiringList<Card, Member>(svc, this);
+			_votingMembers = new ExpiringList<Card, VotingMember>(this);
+		}
+
+		public override void FromJson(JsonValue json)
+		{
+			if (json == null) return;
+			if (json.Type != JsonValueType.Object) return;
+			var obj = json.Object;
+			Id = obj.TryGetString("id");
+			_attachmentCoverId = obj.TryGetString("idAttachmentCover");
+			_boardId = obj.TryGetString("idBoard");
+			_description = obj.TryGetString("desc");
+			var due = obj.TryGetString("due");
+			_dueDate = string.IsNullOrWhiteSpace(due) ? (DateTime?)null : DateTime.Parse(due);
+			_isClosed = obj.TryGetBoolean("closed");
+			_listId = obj.TryGetString("idList");
+			_manualCoverAttachment = obj.TryGetBoolean("manualCoverAttachment");
+			_name = obj.TryGetString("name");
+			_position = (int?) obj.TryGetNumber("pos");
+			_shortId = (int?) obj.TryGetNumber("idShort");
+			_url = obj.TryGetString("url");
+		}
+		public override JsonValue ToJson()
+		{
+			VerifyNotExpired();
+			var json = new JsonObject
+			           	{
+			           		{"id", Id},
+			           		{"idAttachmentCover", _attachmentCoverId},
+			           		{"badges", _badges != null ? _badges.ToJson() : JsonValue.Null},
+			           		{"idBoard", _boardId},
+			           		{"checkItemStates", _checkItemStates.ToJson()},
+			           		{"desc", _description},
+			           		{"due", _dueDate.HasValue ? _dueDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
+			           		{"closed", _isClosed.HasValue ? _isClosed.Value : JsonValue.Null},
+			           		{"labels", _labels.ToJson()},
+			           		{"idList", _listId},
+			           		{"manualCoverAttachment", _manualCoverAttachment.HasValue ? _manualCoverAttachment.Value : JsonValue.Null},
+			           		{"name", _name},
+			           		{"pos", _position.HasValue ? _position.Value : JsonValue.Null},
+			           		{"idShort", _shortId.HasValue ? _shortId.Value : JsonValue.Null},
+			           		{"url", _url}
+			           	};
+			return json;
+		}
+		public override bool Equals(EquatableExpiringObject other)
+		{
+			var card = other as Card;
+			if (card == null) return false;
+			return Id == card.Id;
+		}
+
+		internal override void Refresh(EquatableExpiringObject entity)
+		{
+			var card = entity as Card;
+			if (card == null) return;
+			_attachmentCoverId = card._attachmentCoverId;
+			_boardId = card._boardId;
+			_description = card._description;
+			_dueDate = card._dueDate;
+			_isClosed = card._isClosed;
+			_manualCoverAttachment = card._manualCoverAttachment;
+			_name = card._name;
+			_position = card._position;
+			_shortId = card._shortId;
+			_url = card._url;
+		}
+		internal override bool Match(string id)
+		{
+			return Id == id;
+		}
+
+		protected override void Refresh()
+		{
+			var entity = Svc.Api.GetEntity<Card>(Id);
+			Refresh(entity);
+		}
+		protected override void PropigateSerivce()
+		{
+			_actions.Svc = Svc;
+			_badges.Svc = Svc;
+			_checkItemStates.Svc = Svc;
+			_checkLists.Svc = Svc;
+			_labels.Svc = Svc;
+			_members.Svc = Svc;
+			if (_board != null) _board.Svc = Svc;
+			if (_list != null) _list.Svc = Svc;
+		}
+	}
+}

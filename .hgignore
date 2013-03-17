@@ -1,0 +1,8 @@
+syntax: glob
+_ReSharper.Manatee.Trello/
+Manatee.Trello/bin/
+Manatee.Trello/obj/
+packages/
+Manatee.Trello.Test/bin/
+Manatee.Trello.Test/obj/
+Manatee.Trello.5.1.ReSharper.user
