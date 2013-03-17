@@ -1,11 +1,8 @@
-﻿/*
- *	Source: http://stackoverflow.com/a/268545/878701
- *	Modified as follows:
- *		- refactored to conform to personal coding practices
- *		- added ICollection<KeyValuePair<TFirst, TSecond>> implementation
- *		- added indexers
-*/
-
+﻿//	Source: http://stackoverflow.com/a/268545/878701
+//	Modified as follows:
+//		- refactored to conform to personal coding practices
+//		- added ICollection<KeyValuePair<TFirst, TSecond>> implementation
+//		- added indexers
 using System;
 using System.Collections;
 using System.Collections.Generic;

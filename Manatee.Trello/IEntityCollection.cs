@@ -1,7 +1,26 @@
-﻿using System;
+﻿/***************************************************************************************
+
+	Copyright 2013 Little Crab Solutions
+
+	   Licensed under the Apache License, Version 2.0 (the "License");
+	   you may not use this file except in compliance with the License.
+	   You may obtain a copy of the License at
+
+		 http://www.apache.org/licenses/LICENSE-2.0
+
+	   Unless required by applicable law or agreed to in writing, software
+	   distributed under the License is distributed on an "AS IS" BASIS,
+	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	   See the License for the specific language governing permissions and
+	   limitations under the License.
+ 
+	File Name:		IEntityCollection.cs
+	Namespace:		Manatee.Trello
+	Class Name:		IEntityCollection
+	Purpose:		A public interface which exposes the ExpiringCollection class.
+
+***************************************************************************************/
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
@@ -10,25 +29,5 @@ namespace Manatee.Trello
 		where T : EquatableExpiringObject, new()
 	{
 		T this[string id] { get; set; }
-		//bool All(Func<T, bool> predicate);
-		//bool Any();
-		//bool Any(Func<T, bool> predicate);
-		//IEntityCollection<TResult> Cast<TResult>() where TResult : EquatableExpiringObject, new();
-		//IEntityCollection<T> Concat(IEntityCollection<T> other);
-		//bool Contains(T value, Func<T, bool> predicate);
-		//int Count();
-		//int Count(Func<T, bool> predicate);
-		//IEntityCollection<T> DefaultIfEmpty();
-		//IEntityCollection<T> DefaultIfEmpty(T defaultValue);
-		//IEntityCollection<T> Distinct();
-		//IEntityCollection<T> Distinct(IEqualityComparer<T> comparer);
-		//T ElementAt(int index);
-		//T ElementAtOrDefault(int index);
-		//IEntityCollection<T> Except(IEntityCollection<T> other);
-		//IEntityCollection<T> Except(IEntityCollection<T> other, Func<T, bool> predicate);
-		//T First();
-		//T First(Func<T, bool> predicate);
-		//T FirstOrDefault();
-		//T FirstOrDefault(Func<T, bool> predicate);
 	}
 }
