@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Manatee.Trello.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -64,7 +67,6 @@
     <Compile Include="CheckItemStates.cs" />
     <Compile Include="IEntityCollection.cs" />
     <Compile Include="Implementation\EntityBase.cs" />
-    <Compile Include="Implementation\EntityComparer.cs" />
     <Compile Include="Implementation\EquatableExpiringObject.cs" />
     <Compile Include="Implementation\ExpiringList.cs" />
     <Compile Include="Implementation\ExpiringObject.cs" />
