@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Manatee.Json;
+using Manatee.Json.Enumerations;
+using Manatee.Json.Serialization;
+using Manatee.Trello.Implementation;
+
+namespace Manatee.Trello
+{
+	//   "labelNames":{
+	//      "red":"",
+	//      "orange":"",
+	//      "yellow":"",
+	//      "green":"",
+	//      "blue":"",
+	//      "purple":""
+	//   }
+	public class LabelNames : OwnedEntityBase<Board>
+	{
+		private string _red;
+		private string _orange;
+		private string _yellow;
+		private string _green;
+		private string _blue;
+		private string _purple;
+
+		public string Red
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _red;
+			}
+			set { _red = value; }
+		}
+		public string Orange
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _orange;
+			}
+			set { _orange = value; }
+		}
+		public string Yellow
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _yellow;
+			}
+			set { _yellow = value; }
+		}
+		public string Green
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _green;
+			}
+			set { _green = value; }
+		}
+		public string Blue
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _blue;
+			}
+			set { _blue = value; }
+		}
+		public string Purple
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _purple;
+			}
+			set { _purple = value; }
+		}
+
+		public LabelNames() {}
+		public LabelNames(TrelloService svc, Board owner)
+			: base(svc, owner) {}
+
+		public override void FromJson(JsonValue json)
+		{
+			if (json == null) return;
+			if (json.Type != JsonValueType.Object) return;
+			var obj = json.Object;
+			_red = obj.TryGetString("red");
+			_orange = obj.TryGetString("orange");
+			_yellow = obj.TryGetString("yellow");
+			_green = obj.TryGetString("green");
+			_blue = obj.TryGetString("blue");
+			_purple = obj.TryGetString("purple");
+		}
+		public override JsonValue ToJson()
+		{
+			var json = new JsonObject
+			           	{
+			           		{"red", _red},
+			           		{"orange", _orange},
+			           		{"yellow", _yellow},
+			           		{"green", _green},
+			           		{"blue", _blue},
+			           		{"purple", _purple}
+			           	};
+			return json;
+		}
+		public override bool Equals(EquatableExpiringObject other)
+		{
+			return true;
+		}
+
+		internal override void Refresh(EquatableExpiringObject entity)
+		{
+			var labels = entity as LabelNames;
+			if (labels == null) return;
+			_red = labels._red;
+			_orange = labels._orange;
+			_yellow = labels._yellow;
+			_green = labels._green;
+			_blue = labels._blue;
+			_purple = labels._purple;
+		}
+		internal override bool Match(string id)
+		{
+			return false;
+		}
+
+		protected override void Refresh()
+		{
+			var entity = Svc.Api.GetOwnedEntity<Board, LabelNames>(Owner.Id);
+			Refresh(entity);
+		}
+		protected override void PropigateSerivce() {}
+	}
+}
