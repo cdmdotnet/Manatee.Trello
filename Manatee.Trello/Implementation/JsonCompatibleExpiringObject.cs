@@ -26,10 +26,10 @@ using Manatee.Json.Serialization;
 
 namespace Manatee.Trello.Implementation
 {
-	public abstract class JsonCompatibleEquatableExpiringObject : EquatableExpiringObject, IJsonCompatible
+	public abstract class JsonCompatibleExpiringObject : ExpiringObject, IJsonCompatible
 	{
-		public JsonCompatibleEquatableExpiringObject() {}
-		internal JsonCompatibleEquatableExpiringObject(TrelloService svc)
+		public JsonCompatibleExpiringObject() {}
+		internal JsonCompatibleExpiringObject(TrelloService svc)
 			: base(svc) {}
 
 		public abstract void FromJson(JsonValue json);

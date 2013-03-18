@@ -21,12 +21,19 @@
 					menu on Trello.com.
 
 ***************************************************************************************/
+using System;
+
 namespace Manatee.Trello.Implementation
 {
-	internal class PinnedBoard : Board
+	internal class PinnedBoard : Board, IEquatable<PinnedBoard>
 	{
-		public PinnedBoard() { }
+		public PinnedBoard() {}
 		internal PinnedBoard(TrelloService svc, string id)
-			: base(svc, id) { }
+			: base(svc, id) {}
+
+		public bool Equals(PinnedBoard other)
+		{
+			return base.Equals(this);
+		}
 	}
 }

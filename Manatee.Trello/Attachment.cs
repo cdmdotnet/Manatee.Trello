@@ -28,7 +28,7 @@ using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
 {
-	public class Attachment : OwnedEntityBase<Card>
+	public class Attachment : OwnedEntityBase<Card>, IEquatable<Attachment>
 	{
 		private int? _bytes;
 		private DateTime? _date;
@@ -94,14 +94,13 @@ namespace Manatee.Trello
 			}
 			set { _name = value; }
 		}
-		public List<AttachmentPreview> Previews
+		public IEnumerable<AttachmentPreview> Previews
 		{
 			get
 			{
 				VerifyNotExpired();
 				return _previews;
 			}
-			set { _previews = value; }
 		}
 		public string Url
 		{
@@ -148,14 +147,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public  bool Equals(Attachment other)
 		{
-			var attachment = other as Attachment;
-			if (attachment == null) return false;
-			return Id == attachment.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var attachment = entity as Attachment;
 			if (attachment == null) return;

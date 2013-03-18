@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
@@ -75,7 +76,7 @@ namespace Manatee.Trello
 	//   "pos":393215,
 	//   "url":"https://trello.com/card/publish-beta-to-sourceforge/5144051cbd0da6681200201e/6"
 	//}
-	public class Card : EntityBase
+	public class Card : EntityBase, IEquatable<Card>
 	{
 		private readonly ExpiringList<Card, Action> _actions;
 		private string _attachmentCoverId;
@@ -99,7 +100,7 @@ namespace Manatee.Trello
 		private string _url;
 		private readonly ExpiringList<Card, VotingMember> _votingMembers;
 
-		public IEntityCollection<Action> Actions { get { return _actions; } }
+		public IEnumerable<Action> Actions { get { return _actions; } }
 		public string AttachmentCoverId
 		{
 			get
@@ -108,7 +109,7 @@ namespace Manatee.Trello
 				return _attachmentCoverId;
 			}
 		}
-		public IEntityCollection<Attachment> Attachments { get { return _attachments; } }
+		public IEnumerable<Attachment> Attachments { get { return _attachments; } }
 		public Badges Badges { get { return _badges; } }
 		public Board Board
 		{
@@ -118,8 +119,8 @@ namespace Manatee.Trello
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
-		public IEntityCollection<CheckItemState> CheckItemStates { get { return _checkItemStates; } }
-		public IEntityCollection<CheckList> CheckLists { get { return _checkLists; } }
+		public IEnumerable<CheckItemState> CheckItemStates { get { return _checkItemStates; } }
+		public IEnumerable<CheckList> CheckLists { get { return _checkLists; } }
 		public string Description
 		{
 			get
@@ -147,7 +148,7 @@ namespace Manatee.Trello
 			}
 			set { _isClosed = value; }
 		}
-		public IEntityCollection<Label> Labels { get { return _labels; } }
+		public IEnumerable<Label> Labels { get { return _labels; } }
 		public List List
 		{
 			get
@@ -165,7 +166,7 @@ namespace Manatee.Trello
 			}
 			set { _manualCoverAttachment = value; }
 		}
-		public IEntityCollection<Member> Members { get { return _members; } }
+		public IEnumerable<Member> Members { get { return _members; } }
 		public string Name
 		{
 			get
@@ -200,7 +201,7 @@ namespace Manatee.Trello
 				return _url;
 			}
 		}
-		//private IEntityCollection<Member> VotingMembers { get { return _votingMembers; } }
+		private IEnumerable<Member> VotingMembers { get { return _votingMembers; } }
 
 		public Card()
 		{
@@ -268,14 +269,14 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(Card other)
 		{
 			var card = other as Card;
 			if (card == null) return false;
 			return Id == card.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var card = entity as Card;
 			if (card == null) return;

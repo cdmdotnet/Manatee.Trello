@@ -49,7 +49,7 @@ namespace Manatee.Trello
 	//         "username":"gregsdennis"
 	//      }
 	//   },
-	public class Notification : EntityBase
+	public class Notification : EntityBase, IEquatable<Notification>
 	{
 		private static readonly OneToOneMap<NotificationType, string> _typeMap;
 
@@ -159,14 +159,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(Notification other)
 		{
-			var notification = other as Notification;
-			if (notification == null) return false;
-			return Id == notification.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var notification = entity as Notification;
 			if (notification == null) return;

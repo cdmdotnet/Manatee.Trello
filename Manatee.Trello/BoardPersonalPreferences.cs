@@ -115,12 +115,8 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
-		{
-			return true;
-		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var prefs = entity as BoardPersonalPreferences;
 			if (prefs == null) return;

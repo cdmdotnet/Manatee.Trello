@@ -20,12 +20,19 @@
 	Purpose:		Represents a single premium organization on Trello.com.
 
 ***************************************************************************************/
+using System;
+
 namespace Manatee.Trello.Implementation
 {
-	internal class PremiumOrganization : Organization
+	internal class PremiumOrganization : Organization, IEquatable<PremiumOrganization>
 	{
-		public PremiumOrganization() { }
+		public PremiumOrganization() {}
 		internal PremiumOrganization(TrelloService svc, string id)
-			: base(svc, id) { }
+			: base(svc, id) {}
+
+		public bool Equals(PremiumOrganization other)
+		{
+			return base.Equals(this);
+		}
 	}
 }

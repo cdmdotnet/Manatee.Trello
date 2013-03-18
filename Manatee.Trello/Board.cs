@@ -20,6 +20,8 @@
 	Purpose:		Represents a board on Trello.com.
 
 ***************************************************************************************/
+using System;
+using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
@@ -51,7 +53,7 @@ namespace Manatee.Trello
 	//      "purple":""
 	//   }
 	//}
-	public class Board : EntityBase
+	public class Board : EntityBase, IEquatable<Board>
 	{
 		private readonly ExpiringList<Board, Action> _actions;
 		private string _description;
@@ -67,7 +69,7 @@ namespace Manatee.Trello
 		private readonly BoardPersonalPreferences _personalPreferences;
 		private string _url;
 
-		public IEntityCollection<Action> Actions { get { return _actions; } }
+		public IEnumerable<Action> Actions { get { return _actions; } }
 		public string Description
 		{
 			get
@@ -96,8 +98,8 @@ namespace Manatee.Trello
 			set { _isPinned = value; }
 		}
 		public LabelNames LabelNames { get { return _labelNames; } }
-		public IEntityCollection<List> Lists { get { return _lists; } }
-		public IEntityCollection<BoardMembership> Members { get { return _members; } }
+		public IEnumerable<List> Lists { get { return _lists; } }
+		public IEnumerable<BoardMembership> Members { get { return _members; } }
 		public string Name
 		{
 			get
@@ -177,14 +179,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(Board other)
 		{
-			var board = other as Board;
-			if (board == null) return false;
-			return Id == board.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var board = entity as Board;
 			if (board == null) return;

@@ -20,12 +20,19 @@
 	Purpose:		Represents a single member who voted for a Card on Trello.com.
 
 ***************************************************************************************/
+using System;
+
 namespace Manatee.Trello.Implementation
 {
-	internal class VotingMember : Member
+	internal class VotingMember : Member, IEquatable<VotingMember>
 	{
 		public VotingMember() {}
 		internal VotingMember(TrelloService svc, string id)
 			: base(svc, id) {}
+
+		public bool Equals(VotingMember other)
+		{
+			return base.Equals(this);
+		}
 	}
 }

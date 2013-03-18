@@ -23,7 +23,7 @@
 ***************************************************************************************/
 namespace Manatee.Trello.Implementation
 {
-	public abstract class EntityBase : JsonCompatibleEquatableExpiringObject
+	public abstract class EntityBase : JsonCompatibleExpiringObject
 	{
 		public string Id { get; protected set; }
 

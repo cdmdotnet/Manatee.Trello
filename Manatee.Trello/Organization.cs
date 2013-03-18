@@ -20,6 +20,7 @@
 	Purpose:		Represents an organization on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using System.Collections.Generic;
 using Manatee.Json.Enumerations;
@@ -38,7 +39,7 @@ namespace Manatee.Trello
 	//   "powerUps":[
 	//   ]
 	//}
-	public class Organization : EntityBase
+	public class Organization : EntityBase, IEquatable<Organization>
 	{
 		private readonly ExpiringList<Organization, Action> _actions;
 		private readonly ExpiringList<Organization, Board> _boards;
@@ -52,8 +53,8 @@ namespace Manatee.Trello
 		private string _url;
 		private string _website;
 
-		public IEntityCollection<Action> Actions { get { return _actions; } }
-		public IEntityCollection<Board> Boards { get { return _boards; } }
+		public IEnumerable<Action> Actions { get { return _actions; } }
+		public IEnumerable<Board> Boards { get { return _boards; } }
 		public string Description
 		{
 			get
@@ -81,7 +82,7 @@ namespace Manatee.Trello
 			}
 			set { _logoHash = value; }
 		}
-		public IEntityCollection<Member> Members { get { return _members; } }
+		public IEnumerable<Member> Members { get { return _members; } }
 		public string Name
 		{
 			get
@@ -164,14 +165,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(Organization other)
 		{
-			var org = other as Organization;
-			if (org == null) return false;
-			return Id == org.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var org = entity as Organization;
 			if (org == null) return;

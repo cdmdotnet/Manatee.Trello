@@ -20,6 +20,7 @@
 	Purpose:		Represents a label as applied to a card on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
@@ -31,7 +32,7 @@ namespace Manatee.Trello
 	//         "color":"green",
 	//         "name":""
 	//      },
-	public class Label : OwnedEntityBase<Card>
+	public class Label : OwnedEntityBase<Card>, IEquatable<Label>
 	{
 		private string _color;
 		private string _name;
@@ -76,14 +77,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(Label other)
 		{
-			var label = other as Label;
-			if (label == null) return false;
-			return (_color == label._color) && (_name == label._name);
+			return (_color == other._color) && (_name == other._name);
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var label = entity as Label;
 			if (label == null) return;
