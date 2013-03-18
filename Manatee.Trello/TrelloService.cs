@@ -50,12 +50,13 @@ namespace Manatee.Trello
 			T item = _cache.OfType<T>().FirstOrDefault(i => i.Match(id));
 			if (item != null) return item;
 			item = Api.GetEntity<T>(id);
-			item.Svc = this;
+			if (item != null)
+				item.Svc = this;
 			return item;
 		}
 		internal List<TContent> RetrieveContent<TSource, TContent>(string sourceId)
 			where TSource : EntityBase
-			where TContent : EquatableExpiringObject
+			where TContent : ExpiringObject
 		{
 			if (string.IsNullOrWhiteSpace(sourceId)) return null;
 			var items = Api.GetContents<TSource, TContent>(sourceId);

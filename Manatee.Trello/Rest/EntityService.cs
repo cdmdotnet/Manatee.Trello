@@ -66,7 +66,7 @@ namespace Manatee.Trello.Rest
 			_api = new TrelloApi(authKey, authToken);
 		}
 
-		public T GetEntity<T>(string id) where T : JsonCompatibleEquatableExpiringObject, new()
+		public T GetEntity<T>(string id) where T : JsonCompatibleExpiringObject, new()
 		{
 			string section = SectionStrings[typeof (T)];
 			return _api.GetRequest<T>("{0}/{1}/", section, id);
@@ -85,11 +85,12 @@ namespace Manatee.Trello.Rest
 			       itemType = SectionStrings[typeof (TContent)];
 			return _api.GetRequest<List<TContent>>("{0}/{1}/{2}", section, id, itemType);
 		}
-		//public List<TContent> GetContents<TContent>(Type sourceType, string id)
-		//{
-		//    string section = SectionStrings[sourceType],
-		//           itemType = SectionStrings[typeof(TContent)];
-		//    return _api.GetRequest<List<TContent>>("{0}/{1}/{2}", section, id, itemType);
-		//}
+		public TEntity Create<TEntity, TRequest>(TRequest request)
+			where TRequest : RequestBase<TEntity>
+			where TEntity : EntityBase, new()
+		{
+			string section = SectionStrings[typeof (TEntity)];
+			return _api.PostRequest<TEntity, TRequest>(request, "{0}?{1}", section, request.Parameters);
+		}
 	}
 }

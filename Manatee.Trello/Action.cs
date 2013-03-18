@@ -55,7 +55,7 @@ namespace Manatee.Trello
 	//     "username":"gregsdennis"
 	//  }
 	//}
-	public class Action : EntityBase
+	public class Action : EntityBase, IEquatable<Action>
 	{
 		private static readonly OneToOneMap<ActionType, string> _typeMap;
 
@@ -177,14 +177,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(Action other)
 		{
-			var action = other as Action;
-			if (action == null) return false;
-			return Id == action.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var action = entity as Action;
 			if (action == null) return;

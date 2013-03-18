@@ -20,6 +20,8 @@
 	Purpose:		Represents a checklist on Trello.com.
 
 ***************************************************************************************/
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
@@ -60,7 +62,7 @@ namespace Manatee.Trello
 	//      }
 	//   ]
 	//}
-	public class CheckList : EntityBase
+	public class CheckList : EntityBase, IEquatable<CheckList>
 	{
 		private string _boardId;
 		private Board _board;
@@ -68,7 +70,7 @@ namespace Manatee.Trello
 		private Card _card;
 		private readonly ExpiringList<CheckList, CheckItem> _checkItems;
 		private string _name;
-		private int _pos;
+		private int? _pos;
 
 		public Board Board
 		{
@@ -86,10 +88,7 @@ namespace Manatee.Trello
 				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
-		public IEntityCollection<CheckItem> CheckItems
-		{
-			get { return _checkItems; }
-		}
+		public IEnumerable<CheckItem> CheckItems { get { return _checkItems; } }
 		public string Name
 		{
 			get
@@ -99,7 +98,7 @@ namespace Manatee.Trello
 			}
 			set { _name = value; }
 		}
-		public int Pos
+		public int? Pos
 		{
 			get
 			{
@@ -128,7 +127,7 @@ namespace Manatee.Trello
 			_boardId = obj.TryGetString("idBoard");
 			_cardId = obj.TryGetString("idCard");
 			_name = obj.TryGetString("name");
-			_pos = (int)obj.TryGetNumber("pos");
+			_pos = (int?) obj.TryGetNumber("pos");
 		}
 		public override JsonValue ToJson()
 		{
@@ -140,18 +139,16 @@ namespace Manatee.Trello
 			           		{"idCard", _cardId},
 			           		{"checkItems", _checkItems.Select(c => c.Id).ToJson()},
 			           		{"name", _name},
-			           		{"pos", _pos}
+			           		{"pos", _pos.HasValue ? _pos.Value : JsonValue.Null}
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public  bool Equals(CheckList other)
 		{
-			var checkList = other as CheckList;
-			if (checkList == null) return false;
-			return Id == checkList.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var checkList = entity as CheckList;
 			if (checkList == null) return;

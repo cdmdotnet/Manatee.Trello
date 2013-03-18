@@ -21,6 +21,7 @@
 					card on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
@@ -32,7 +33,7 @@ namespace Manatee.Trello
 	//         "idCheckItem":"514463bfd02ebee350000d1c",
 	//         "state":"complete"
 	//      }
-	public class CheckItemState : OwnedEntityBase<Card>
+	public class CheckItemState : OwnedEntityBase<Card>, IEquatable<CheckItemState>
 	{
 		private static readonly OneToOneMap<CheckItemStates, string> _stateMap;
 
@@ -88,14 +89,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(CheckItemState other)
 		{
-			var state = other as CheckItemState;
-			if (state == null) return false;
-			return (Owner == state.Owner) && (_checkItemId == state._checkItemId);
+			return (Owner == other.Owner) && (_checkItemId == other._checkItemId);
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var checkItemState = entity as CheckItemState;
 			if (checkItemState == null) return;

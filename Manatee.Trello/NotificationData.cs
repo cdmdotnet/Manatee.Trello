@@ -51,12 +51,8 @@ namespace Manatee.Trello
 		{
 			return Data;
 		}
-		public override bool Equals(EquatableExpiringObject other)
-		{
-			return true;
-		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var data = entity as ActionData;
 			if (data == null) return;

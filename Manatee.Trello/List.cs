@@ -20,9 +20,12 @@
 	Purpose:		Represents a list on Trello.com.
 
 ***************************************************************************************/
+using System;
+using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -33,7 +36,7 @@ namespace Manatee.Trello
 	//   "idBoard":"5144051cbd0da6681200201e",
 	//   "pos":16384
 	//}
-	public class List : EntityBase
+	public class List : EntityBase, IEquatable<List>
 	{
 		private readonly ExpiringList<List, Action> _actions;
 		private string _boardId;
@@ -44,7 +47,7 @@ namespace Manatee.Trello
 		private string _name;
 		private int? _position;
 
-		public IEntityCollection<Action> Actions { get { return _actions; } }
+		public IEnumerable<Action> Actions { get { return _actions; } }
 		public Board Board
 		{
 			get
@@ -53,7 +56,7 @@ namespace Manatee.Trello
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
-		public IEntityCollection<Card> Cards { get { return _cards; } }
+		public IEnumerable<Card> Cards { get { return _cards; } }
 		public bool? IsClosed
 		{
 			get
@@ -103,6 +106,13 @@ namespace Manatee.Trello
 			_cards = new ExpiringList<List, Card>(svc, this);
 		}
 
+		public Card AddCard(string description)
+		{
+			var request = new CreateCardRequest(description, Id);
+			var card = Svc.Api.Create<Card, CreateCardRequest>(request);
+			_cards.MarkForUpdate();
+			return card;
+		}
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -128,14 +138,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(List other)
 		{
-			var list = other as List;
-			if (list == null) return false;
-			return Id == list.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var list = entity as List;
 			if (list == null) return;

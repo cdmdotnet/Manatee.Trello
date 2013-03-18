@@ -20,6 +20,7 @@
 	Purpose:		Represents a member of a board on Trello.com.
 
 ***************************************************************************************/
+using System;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
@@ -33,7 +34,7 @@ namespace Manatee.Trello
 	//   "memberType":"admin",
 	//   "deactivated":false
 	//},
-	public class BoardMembership : OwnedEntityBase<Board>
+	public class BoardMembership : OwnedEntityBase<Board>, IEquatable<BoardMembership>
 	{
 		private static readonly OneToOneMap<BoardMembershipType, string> _typeMap;
 
@@ -105,14 +106,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(BoardMembership other)
 		{
-			var membership = other as BoardMembership;
-			if (membership == null) return false;
-			return Id == membership.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var membership = entity as BoardMembership;
 			if (membership == null) return;

@@ -20,6 +20,7 @@
 	Purpose:		Represents a member (user) on Trello.com.
 
 ***************************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
@@ -74,7 +75,7 @@ namespace Manatee.Trello
 	//   ],
 	//   "uploadedAvatarHash":null
 	//}
-	public class Member : EntityBase
+	public class Member : EntityBase, IEquatable<Member>
 	{
 		private static readonly OneToOneMap<MemberStatus, string> _statusMap;
 
@@ -92,6 +93,7 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Member, InvitedOrganization> _invitedOrganizations;
 		private List<string> _loginTypes;
 		private string _memberType;
+		private readonly ExpiringList<Member, Notification> _notifications;
 		private readonly ExpiringList<Member, Organization> _organizations;
 		private readonly ExpiringList<Member, PinnedBoard> _pinnedBoards;
 		private readonly MemberPreferences _preferences;
@@ -129,7 +131,7 @@ namespace Manatee.Trello
 			}
 			set { _bio = value; }
 		}
-		public IEntityCollection<Board> Boards { get { return _boards; } }
+		public IEnumerable<Board> Boards { get { return _boards; } }
 		private bool? Confirmed
 		{
 			get
@@ -175,8 +177,8 @@ namespace Manatee.Trello
 			}
 			set { _initials = value; }
 		}
-		//public IEntityCollection<Board> InvitedBoardIds { get { return _invitedBoards; } }
-		//public IEntityCollection<Organization> InvitedOrganizations { get { return _invitedOrganizations; } }
+		public IEnumerable<Board> InvitedBoardIds { get { return _invitedBoards; } }
+		public IEnumerable<Organization> InvitedOrganizations { get { return _invitedOrganizations; } }
 		public List<string> LoginTypes
 		{
 			get { return _loginTypes; }
@@ -186,10 +188,11 @@ namespace Manatee.Trello
 			get { return _memberType; }
 			set { _memberType = value; }
 		}
-		public IEntityCollection<Organization> Organizations { get { return _organizations; } }
-		//public IEntityCollection<Board> PinnedBoards { get { return _pinnedBoards; } }
+		public IEnumerable<Notification> Notifications { get { return _notifications; } }
+		public IEnumerable<Organization> Organizations { get { return _organizations; } }
+		public IEnumerable<Board> PinnedBoards { get { return _pinnedBoards; } }
 		public MemberPreferences Preferences { get { return _preferences; } }
-		//public IEntityCollection<Organization> PremiumOrganizations { get { return _premiumOrganizations; } }
+		public IEnumerable<Organization> PremiumOrganizations { get { return _premiumOrganizations; } }
 		public MemberStatus Status
 		{
 			get { return _status; }
@@ -249,6 +252,7 @@ namespace Manatee.Trello
 			_boards = new ExpiringList<Member, Board>(this);
 			_invitedBoards = new ExpiringList<Member, InvitedBoard>(this);
 			_invitedOrganizations = new ExpiringList<Member, InvitedOrganization>(this);
+			_notifications = new ExpiringList<Member, Notification>(this);
 			_organizations = new ExpiringList<Member, Organization>(this);
 			_pinnedBoards = new ExpiringList<Member, PinnedBoard>(this);
 			_preferences = new MemberPreferences(null, this);
@@ -260,6 +264,7 @@ namespace Manatee.Trello
 			_boards = new ExpiringList<Member, Board>(svc, this);
 			_invitedBoards = new ExpiringList<Member, InvitedBoard>(svc, this);
 			_invitedOrganizations = new ExpiringList<Member, InvitedOrganization>(svc, this);
+			_notifications = new ExpiringList<Member, Notification>(svc, this);
 			_organizations = new ExpiringList<Member, Organization>(svc, this);
 			_pinnedBoards = new ExpiringList<Member, PinnedBoard>(svc, this);
 			_preferences = new MemberPreferences(svc, this);
@@ -311,14 +316,12 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(Member other)
 		{
-			var member = other as Member;
-			if (member == null) return false;
-			return Id == member.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var member = entity as Member;
 			if (member == null) return;
@@ -355,6 +358,7 @@ namespace Manatee.Trello
 			_boards.Svc = Svc;
 			_invitedBoards.Svc = Svc;
 			_invitedOrganizations.Svc = Svc;
+			_notifications.Svc = Svc;
 			_organizations.Svc = Svc;
 			_pinnedBoards.Svc = Svc;
 			_preferences.Svc = Svc;

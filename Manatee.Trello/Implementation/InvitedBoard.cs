@@ -20,12 +20,19 @@
 	Purpose:		Represents a single board to which a user is invited on Trello.com.
 
 ***************************************************************************************/
+using System;
+
 namespace Manatee.Trello.Implementation
 {
-	internal class InvitedBoard : Board
+	internal class InvitedBoard : Board, IEquatable<InvitedBoard>
 	{
 		public InvitedBoard() {}
 		internal InvitedBoard(TrelloService svc, string id)
 			: base(svc, id) {}
+
+		public bool Equals(InvitedBoard other)
+		{
+			return base.Equals(this);
+		}
 	}
 }

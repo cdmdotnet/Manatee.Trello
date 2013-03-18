@@ -65,9 +65,7 @@
     <Compile Include="BoardPersonalPreferences.cs" />
     <Compile Include="BoardVotingType.cs" />
     <Compile Include="CheckItemStates.cs" />
-    <Compile Include="IEntityCollection.cs" />
     <Compile Include="Implementation\EntityBase.cs" />
-    <Compile Include="Implementation\EquatableExpiringObject.cs" />
     <Compile Include="Implementation\ExpiringList.cs" />
     <Compile Include="Implementation\ExpiringObject.cs" />
     <Compile Include="Implementation\JsonCompatibleEquatableExpiringObject.cs" />
@@ -100,6 +98,8 @@
     <Compile Include="Organization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\JsonExtensions.cs" />
+    <Compile Include="Rest\CreateCardRequest.cs" />
+    <Compile Include="Rest\RequestBase.cs" />
     <Compile Include="Rest\Serializer.cs" />
     <Compile Include="Rest\TrelloApi.cs" />
     <Compile Include="TrelloService.cs" />

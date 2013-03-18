@@ -20,6 +20,7 @@
 	Purpose:		Represents an item in a checklist on Trello.com.
 
 ***************************************************************************************/
+using System;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
@@ -34,13 +35,13 @@ namespace Manatee.Trello
 	//         "name":"Test development",
 	//         "pos":16703
 	//      },
-	public class CheckItem : OwnedEntityBase<CheckList>
+	public class CheckItem : OwnedEntityBase<CheckList>, IEquatable<CheckItem>
 	{
 		private static readonly OneToOneMap<CheckItemStates, string> _stateMap;
 
 		private string _apiState;
 		private string _name;
-		private int _pos;
+		private int? _pos;
 		private CheckItemStates _state;
 
 		public string Id { get; private set; }
@@ -53,7 +54,7 @@ namespace Manatee.Trello
 			}
 			set { _name = value; }
 		}
-		public int Pos
+		public int? Pos
 		{
 			get
 			{
@@ -91,7 +92,7 @@ namespace Manatee.Trello
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Name = obj.TryGetString("name");
-			Pos = (int) obj.TryGetNumber("pos");
+			Pos = (int?) obj.TryGetNumber("pos");
 			_apiState = obj.TryGetString("state");
 			UpdateState();
 		}
@@ -101,19 +102,17 @@ namespace Manatee.Trello
 			           	{
 			           		{"id", Id},
 			           		{"name", Name},
-			           		{"pos", Pos},
+			           		{"pos", Pos.HasValue ? Pos.Value : JsonValue.Null},
 			           		{"state", _apiState}
 			           	};
 			return json;
 		}
-		public override bool Equals(EquatableExpiringObject other)
+		public bool Equals(CheckItem other)
 		{
-			var checkItem = other as CheckItem;
-			if (checkItem == null) return false;
-			return Id == checkItem.Id;
+			return Id == other.Id;
 		}
 
-		internal override void Refresh(EquatableExpiringObject entity)
+		internal override void Refresh(ExpiringObject entity)
 		{
 			var checkItem = entity as CheckItem;
 			if (checkItem == null) return;

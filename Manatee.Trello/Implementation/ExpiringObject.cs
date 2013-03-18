@@ -58,12 +58,13 @@ namespace Manatee.Trello.Implementation
 			Refresh();
 			_expires = DateTime.Now + Options.ItemDuration;
 		}
-
-		private void MarkForUpdate()
+		internal void MarkForUpdate()
 		{
 			_expires = DateTime.Now - TimeSpan.FromSeconds(1);
 		}
 
+		internal abstract void Refresh(ExpiringObject entity);
+		internal abstract bool Match(string id);
 		protected abstract void Refresh();
 		protected abstract void PropigateSerivce();
 	}

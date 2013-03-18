@@ -23,17 +23,20 @@
 ***************************************************************************************/
 using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;	
+using Manatee.Trello.Implementation;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;	
 
 namespace Manatee.Trello.Test
 {
-	// To re-authorize and receive new token
+	// To re-authorize and receive new token (must have login access for the user to approve the token)
+	// Other developers working on this should create their own sandbox boards and use their user accounts during the tests
 	// https://trello.com/1/authorize?key=062109670e7f56b88783721892f8f66f&name=Manatee.Trello&expiration=1day&response_type=token&scope=read,write
 	[TestClass]
 	public class UnitTest1
 	{
 		private const string Key = "062109670e7f56b88783721892f8f66f";
-		private const string Token = "8403d8784a518c6930297b9ab07ef4488f945296f0911180de63d765359f924a";
+		private const string Token = "";
 		private const string UserName = "s_littlecrabsolutions";
 		private const string BoardId = "5144051cbd0da6681200201e";
 		private const string ListId = "5144051cbd0da6681200201f";
@@ -46,12 +49,12 @@ namespace Manatee.Trello.Test
 		public void GetMember()
 		{
 			var service = new TrelloService(Key, Token);
-			var member = service.Retrieve<Member>(UserName);
-			var boards = member.Boards;
-			var board = boards.First();
-			var pref = board.Preferences.Comments;
 
-			Console.WriteLine(pref);
+			var member = service.Retrieve<Member>(UserName);
+			var notifications = member.Notifications;
+			var notification = notifications.FirstOrDefault();
+
+			Assert.IsNotNull(notification);
 		}
 	}
 }

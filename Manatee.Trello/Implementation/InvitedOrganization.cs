@@ -21,12 +21,19 @@
 					invited on Trello.com.
 
 ***************************************************************************************/
+using System;
+
 namespace Manatee.Trello.Implementation
 {
-	internal class InvitedOrganization : Organization
+	internal class InvitedOrganization : Organization, IEquatable<InvitedOrganization>
 	{
 		public InvitedOrganization() {}
 		internal InvitedOrganization(TrelloService svc, string id)
 			: base(svc, id) {}
+
+		public bool Equals(InvitedOrganization other)
+		{
+			return base.Equals(this);
+		}
 	}
 }
