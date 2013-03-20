@@ -26,6 +26,7 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -117,7 +118,19 @@ namespace Manatee.Trello
 		{
 			_checkItems = new ExpiringList<CheckList, CheckItem>(svc, this);
 		}
-
+		
+		//public CheckItem AddCheckItem(string name)
+		//{
+		//    var request = new AddCheckItemToCheckListRequest(this, name);
+		//    var checkItem = Svc.PostAndCache<CheckList, CheckItem, AddCheckItemToCheckListRequest>(request);
+		//    checkItem.Svc = Svc;
+		//    _checkItems.MarkForUpdate();
+		//    return checkItem;
+		//}
+		public void Delete()
+		{
+			
+		}
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -164,7 +177,7 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetEntity<CheckList>(Id);
+			var entity = Svc.Api.Get(new Request<CheckList>(Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce()

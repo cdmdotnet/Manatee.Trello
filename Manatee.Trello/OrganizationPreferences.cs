@@ -21,11 +21,13 @@
 					on Trello.com.
 
 ***************************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -139,7 +141,7 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetOwnedEntity<Board, BoardPreferences>(Owner.Id);
+			var entity = Svc.Api.Get(new Request<Board, BoardPreferences>(Owner.Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}

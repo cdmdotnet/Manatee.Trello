@@ -21,9 +21,11 @@
 
 ***************************************************************************************/
 using System;
+using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -34,17 +36,19 @@ namespace Manatee.Trello
 	//      },
 	public class Label : OwnedEntityBase<Card>, IEquatable<Label>
 	{
-		private string _color;
+		private static readonly OneToOneMap<LabelColor, string> _colorMap;
+
+		private string _apicolor;
+		private LabelColor _color;
 		private string _name;
 
-		public string Color
+		public LabelColor Color
 		{
 			get
 			{
 				VerifyNotExpired();
 				return _color;
 			}
-			set { _color = value; }
 		}
 		public string Name
 		{
@@ -53,9 +57,20 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set { _name = value; }
 		}
 
+		static Label()
+		{
+			_colorMap = new OneToOneMap<LabelColor, string>
+			            	{
+			            		{LabelColor.Green, "green"},
+			            		{LabelColor.Yellow, "yellow"},
+			            		{LabelColor.Orange, "orange"},
+			            		{LabelColor.Red, "red"},
+			            		{LabelColor.Purple, "purple"},
+			            		{LabelColor.Blue, "blue"},
+			            	};
+		}
 		public Label() {}
 		internal Label(TrelloService svc, Card owner)
 			: base(svc, owner) {}
@@ -65,29 +80,31 @@ namespace Manatee.Trello
 			if (json == null) return;
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			_color = obj.TryGetString("color");
+			_apicolor = obj.TryGetString("color");
 			_name = obj.TryGetString("name");
+			UpdateColor();
 		}
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
 			           	{
-			           		{"color", _color},
+			           		{"color", _apicolor},
 			           		{"name", _name}
 			           	};
 			return json;
 		}
 		public bool Equals(Label other)
 		{
-			return (_color == other._color) && (_name == other._name);
+			return _apicolor == other._apicolor;
 		}
 
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var label = entity as Label;
 			if (label == null) return;
-			_color = label._color;
+			_apicolor = label._apicolor;
 			_name = label._name;
+			UpdateColor();
 		}
 		internal override bool Match(string id)
 		{
@@ -96,9 +113,19 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetOwnedEntity<Card, Label>(Owner.Id);
+			var entity = Svc.Api.Get(new Request<Card, Label>(Owner.Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}
+
+		private void UpdateColor()
+		{
+			_color = _colorMap.Any(kvp => kvp.Value == _apicolor) ? _colorMap[_apicolor] : LabelColor.Unknown;
+		}
+		private void UpdateApiColor()
+		{
+			if (_colorMap.Any(kvp => kvp.Key == _color))
+				_apicolor = _colorMap[_color];
+		}
 	}
 }

@@ -21,9 +21,11 @@
 					on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -47,7 +49,11 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _colorBlind;
 			}
-			set { _colorBlind = value; }
+			set
+			{
+				_colorBlind = value;
+				//Update(colorBlind: _colorBlind);
+			}
 		}
 		public int? MinutesBetweenSummaries
 		{
@@ -56,7 +62,11 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _minutesBetweenSummaries;
 			}
-			set { _minutesBetweenSummaries = value; }
+			set
+			{
+				_minutesBetweenSummaries = value;
+				//Update(minutesBetweenSummaries: _minutesBetweenSummaries);
+			}
 		}
 		public bool? SendSummaries
 		{
@@ -65,7 +75,11 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _sendSummaries;
 			}
-			set { _sendSummaries = value; }
+			set
+			{
+				_sendSummaries = value;
+				//Update(sendSummaries: _sendSummaries);
+			}
 		}
 		public int? MinutesBeforeDeadlineToNotify
 		{
@@ -74,13 +88,26 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _minutesBeforeDeadlineToNotify;
 			}
-			set { _minutesBeforeDeadlineToNotify = value; }
+			set
+			{
+				_minutesBeforeDeadlineToNotify = value;
+			//	Update(minutesBeforeDeadlineToNotify: _minutesBeforeDeadlineToNotify);
+			}
 		}
 
 		public MemberPreferences() {}
 		public MemberPreferences(TrelloService svc, Member owner)
 			: base(svc, owner) {}
 
+		//public void Update(bool? colorBlind = null,
+		//                   int? minutesBetweenSummaries = null,
+		//                   bool? sendSummaries = null,
+		//                   int? minutesBeforeDeadlineToNotify = null)
+		//{
+		//    var request = new UpdateMemberPreferencesRequest(Owner, colorBlind, minutesBetweenSummaries,
+		//                                                     sendSummaries, minutesBeforeDeadlineToNotify);
+		//    Svc.PutAndCache<Member, MemberPreferences, UpdateMemberPreferencesRequest>(request);
+		//}
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -119,7 +146,7 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetOwnedEntity<Member, MemberPreferences>(Owner.Id);
+			var entity = Svc.Api.Get(new Request<Member, MemberPreferences>(Owner.Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}

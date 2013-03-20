@@ -27,16 +27,15 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	// TODO: Review all entities for unchanging properties, such as Url, and remove calls to VerifyNotExpired() and Refresh() implementations
 	public class TrelloService
 	{
-		internal readonly EntityService Api;
+		internal readonly TrelloRest Api;
 
 		private readonly List<EntityBase> _cache;
 
 		public TrelloService(string authKey, string authToken)
 		{
-			Api = new EntityService(authKey, authToken);
+			Api = new TrelloRest(authKey, authToken);
 			_cache = new List<EntityBase>();
 		}
 		~TrelloService()
@@ -49,24 +48,63 @@ namespace Manatee.Trello
 			if (string.IsNullOrWhiteSpace(id)) return null;
 			T item = _cache.OfType<T>().FirstOrDefault(i => i.Match(id));
 			if (item != null) return item;
-			item = Api.GetEntity<T>(id);
+			var request = new Request<T>(id);
+			item = Api.Get(request);
 			if (item != null)
 				item.Svc = this;
+			_cache.Add(item);
 			return item;
 		}
-		internal List<TContent> RetrieveContent<TSource, TContent>(string sourceId)
-			where TSource : EntityBase
-			where TContent : ExpiringObject
+		public void Flush()
+		{
+			var remove = _cache.Where(e => e.IsExpired).ToList();
+			remove.ForEach(e => _cache.Remove(e));
+		}
+
+		internal IEnumerable<TEntity> RetrieveContent<TOwner, TEntity>(string sourceId)
+			where TOwner : EntityBase
+			where TEntity : ExpiringObject, new()
 		{
 			if (string.IsNullOrWhiteSpace(sourceId)) return null;
-			var items = Api.GetContents<TSource, TContent>(sourceId);
-			var ofType = _cache.OfType<TContent>();
+			var request = new CollectionRequest<TOwner, TEntity>(sourceId);
+			var items = Api.Get(request);
+			var ofType = _cache.OfType<TEntity>();
 			if (ofType.Any())
 			{
 				var cacheItems = ofType.Where(items.Contains);
 				items = cacheItems.Union(items).ToList();
+				_cache.AddRange(items.Except(ofType).Cast<EntityBase>());
 			}
 			return items;
 		}
+		//internal TEntity PostAndCache<TEntity, TRequest>(TRequest request)
+		//    where TEntity : EntityBase, new()
+		//    where TRequest : Request<TEntity>
+		//{
+		//    var retVal = _Api.Post<TEntity, TRequest>(request);
+		//    var entity = retVal as EntityBase;
+		//    _cache.Add(entity);
+		//    return retVal;
+		//}
+		//internal TEntity PostAndCache<TOwner, TEntity, TRequest>(TRequest request)
+		//    where TOwner : EntityBase
+		//    where TEntity : OwnedEntityBase<TOwner>, new()
+		//    where TRequest : Request<TOwner, TEntity>
+		//{
+		//    var retVal = _Api.Post<TOwner, TEntity, TRequest>(request);
+		//    var entity = retVal as EntityBase;
+		//    _cache.Add(entity);
+		//    return retVal;
+		//}
+		//internal TEntity PutAndCache<TOwner, TEntity, TRequest>(TRequest request)
+		//    where TOwner : EntityBase
+		//    where TEntity : OwnedEntityBase<TOwner>, new()
+		//    where TRequest : Request<TOwner, TEntity>
+		//{
+		//    var retVal = _Api.Put<TOwner, TEntity, TRequest>(request);
+		//    var entity = retVal as EntityBase;
+		//    _cache.Add(entity);
+		//    return retVal;
+		//}
 	}
 }

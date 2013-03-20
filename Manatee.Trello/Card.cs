@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -95,7 +96,7 @@ namespace Manatee.Trello
 		private bool? _manualCoverAttachment;
 		private readonly ExpiringList<Card, Member> _members;
 		private string _name;
-		private int? _position;
+		private Position _position;
 		private int? _shortId;
 		private string _url;
 		private readonly ExpiringList<Card, VotingMember> _votingMembers;
@@ -174,9 +175,13 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set { _name = value; }
+			set
+			{
+				_name = value;
+				Parameters.Add("name", _name);
+			}
 		}
-		public int? Position
+		public Position Position
 		{
 			get
 			{
@@ -213,6 +218,7 @@ namespace Manatee.Trello
 			_labels = new ExpiringList<Card, Label>(this);
 			_members = new ExpiringList<Card, Member>(this);
 			_votingMembers = new ExpiringList<Card, VotingMember>(this);
+			Parameters = new RestParameterCollection();
 		}
 		internal Card(TrelloService svc, string id)
 			: base(svc, id)
@@ -227,6 +233,76 @@ namespace Manatee.Trello
 			_votingMembers = new ExpiringList<Card, VotingMember>(this);
 		}
 
+		//public CheckList AddCheckList(string title)
+		//{
+		//    var request = new CreateCheckListInCardRequest(this, title);
+		//    var checkList = Svc.PostAndCache<Card, CheckList, CreateCheckListInCardRequest>(request);
+		//    checkList.Svc = Svc;
+		//    _checkLists.MarkForUpdate();
+		//    return checkList;
+		//}
+		//public void AddComment(string comment)
+		//{
+		//    var request = new AddCommentToCardRequest(this, comment);
+		//    Svc.PostAndCache<Card, PostComment, AddCommentToCardRequest>(request);
+		//    _actions.MarkForUpdate();
+		//}
+		//public void ApplyLabel(LabelColor color)
+		//{
+		//    var request = new ApplyLabelToCardRequest(this, color);
+		//    Svc.PostAndCache<Card, Label, ApplyLabelToCardRequest>(request);
+		//    _actions.MarkForUpdate();
+		//}
+		public void Archive()
+		{
+
+		}
+		public void AssignDueDate(DateTime? date)
+		{
+
+		}
+		//public void AssignMember(Member member)
+		//{
+		//    var request = new AddMemberToCardRequest(this, member.Id);
+		//    Svc.PostAndCache<Card, Member, AddMemberToCardRequest>(request);
+		//    _members.MarkForUpdate();
+		//}
+		public void AttachFile(string name, string uri)
+		{
+
+		}
+		public void Delete()
+		{
+
+		}
+		public void Move(Board board, List list, int? position = null)
+		{
+
+		}
+		public void RemoveLabel(LabelColor color)
+		{
+			
+		}
+		public void RemoveMember(Member member)
+		{
+			
+		}
+		public void Rename(string name)
+		{
+
+		}
+		public void SendToBoard()
+		{
+
+		}
+		public void Subscribe()
+		{
+
+		}
+		public void Unsubscribe()
+		{
+
+		}
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -242,7 +318,9 @@ namespace Manatee.Trello
 			_listId = obj.TryGetString("idList");
 			_manualCoverAttachment = obj.TryGetBoolean("manualCoverAttachment");
 			_name = obj.TryGetString("name");
-			_position = (int?) obj.TryGetNumber("pos");
+			_position = new Position(PositionValue.Unknown);
+			if (obj.ContainsKey("pos"))
+				_position.FromJson(obj["pos"]);
 			_shortId = (int?) obj.TryGetNumber("idShort");
 			_url = obj.TryGetString("url");
 		}
@@ -263,7 +341,7 @@ namespace Manatee.Trello
 			           		{"idList", _listId},
 			           		{"manualCoverAttachment", _manualCoverAttachment.HasValue ? _manualCoverAttachment.Value : JsonValue.Null},
 			           		{"name", _name},
-			           		{"pos", _position.HasValue ? _position.Value : JsonValue.Null},
+			           		{"pos", _position.ToJson()},
 			           		{"idShort", _shortId.HasValue ? _shortId.Value : JsonValue.Null},
 			           		{"url", _url}
 			           	};
@@ -271,9 +349,7 @@ namespace Manatee.Trello
 		}
 		public bool Equals(Card other)
 		{
-			var card = other as Card;
-			if (card == null) return false;
-			return Id == card.Id;
+			return Id == other.Id;
 		}
 
 		internal override void Refresh(ExpiringObject entity)
@@ -298,12 +374,13 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetEntity<Card>(Id);
+			var entity = Svc.Api.Get(new Request<Card>(Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce()
 		{
 			_actions.Svc = Svc;
+			_attachments.Svc = Svc;
 			_badges.Svc = Svc;
 			_checkItemStates.Svc = Svc;
 			_checkLists.Svc = Svc;
