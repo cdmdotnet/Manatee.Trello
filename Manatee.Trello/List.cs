@@ -106,12 +106,41 @@ namespace Manatee.Trello
 			_cards = new ExpiringList<List, Card>(svc, this);
 		}
 
-		public Card AddCard(string description)
+		//public Card AddCard(string description)
+		//{
+		//    var request = new CreateCardInListRequest(this, description);
+		//    var card = Svc.PostAndCache<List, Card, CreateCardInListRequest>(request);
+		//    card.Svc = Svc;
+		//    _cards.MarkForUpdate();
+		//    return card;
+		//}
+		public void Archive()
 		{
-			var request = new CreateCardRequest(description, Id);
-			var card = Svc.Api.Create<Card, CreateCardRequest>(request);
-			_cards.MarkForUpdate();
-			return card;
+			
+		}
+		public void Delete()
+		{
+			
+		}
+		public void Move(Board board, int? position = null)
+		{
+			
+		}
+		public void SendToBoard()
+		{
+			
+		}
+		public void Subscribe()
+		{
+			
+		}
+		public void Unsubscribe()
+		{
+			
+		}
+		public void UpdateName(string name)
+		{
+			
 		}
 		public override void FromJson(JsonValue json)
 		{
@@ -160,7 +189,7 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetEntity<List>(Id);
+			var entity = Svc.Api.Get(new Request<List>(Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce()

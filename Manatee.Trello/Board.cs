@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -149,6 +150,55 @@ namespace Manatee.Trello
 			_preferences = new BoardPreferences(svc, this);
 		}
 
+		//public List AddList(string title, Position position)
+		//{
+		//    var request = new CreateListOnBoardRequest(this, title, position);
+		//    var list = Svc.PostAndCache<Board, List, CreateListOnBoardRequest>(request);
+		//    list.Svc = Svc;
+		//    _lists.MarkForUpdate();
+		//    return list;
+		//}
+		public void AddMember(Member member)
+		{
+			
+		}
+		//public void MarkAsViewed()
+		//{
+		//    var request = new MarkBoardAsViewedRequest(this);
+		//    Svc.PostAndCache<Board, object, MarkBoardAsViewedRequest>(request);
+		//}
+		public void Close()
+		{
+			
+		}
+		public void Move(Organization organization)
+		{
+			
+		}
+		public void InviteMember(Member member)
+		{
+			
+		}
+		public void RemoveMember(Member member)
+		{
+			
+		}
+		public void Rename(string name)
+		{
+
+		}
+		public void RescindInvitation(Member member)
+		{
+			
+		}
+		public void Subscribe()
+		{
+
+		}
+		public void Unsubscribe()
+		{
+
+		}
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -202,7 +252,7 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetEntity<Board>(Id);
+			var entity = Svc.Api.Get(new Request<Board>(Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce()

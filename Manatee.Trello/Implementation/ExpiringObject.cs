@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 
 namespace Manatee.Trello.Implementation
 {
@@ -29,6 +30,8 @@ namespace Manatee.Trello.Implementation
 	{
 		private DateTime _expires;
 		private TrelloService _svc;
+
+		internal Dictionary<string, object> Parameters { get; set; }
 
 		internal TrelloService Svc
 		{
@@ -41,6 +44,7 @@ namespace Manatee.Trello.Implementation
 				MarkForUpdate();
 			}
 		}
+		internal bool IsExpired { get { return DateTime.Now >= _expires; } }
 
 		public ExpiringObject()
 		{
@@ -52,15 +56,16 @@ namespace Manatee.Trello.Implementation
 			MarkForUpdate();
 		}
 
-		protected void VerifyNotExpired()
-		{
-			if ((Svc == null) || (Svc.Api == null) || !Options.AutoRefresh || (DateTime.Now < _expires)) return;
-			Refresh();
-			_expires = DateTime.Now + Options.ItemDuration;
-		}
 		internal void MarkForUpdate()
 		{
 			_expires = DateTime.Now - TimeSpan.FromSeconds(1);
+		}
+
+		protected void VerifyNotExpired()
+		{
+			if ((Svc == null) || !Options.AutoRefresh || !IsExpired) return;
+			Refresh();
+			_expires = DateTime.Now + Options.ItemDuration;
 		}
 
 		internal abstract void Refresh(ExpiringObject entity);

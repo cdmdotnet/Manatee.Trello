@@ -17,7 +17,7 @@
 	File Name:		JsonCompatibleEquatableExpiringObject.cs
 	Namespace:		Manatee.Trello.Implementation
 	Class Name:		JsonCompatibleEquatableExpiringObject
-	Purpose:		Base class which extends an EquatableObject to implement
+	Purpose:		Base class which extends an ExpiringObject to implement
 					IJsonCompatible.
 
 ***************************************************************************************/

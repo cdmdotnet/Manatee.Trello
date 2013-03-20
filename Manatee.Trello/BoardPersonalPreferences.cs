@@ -21,9 +21,11 @@
 					on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -49,7 +51,11 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _showListGuide;
 			}
-			set { _showListGuide = value; }
+			set
+			{
+				_showListGuide = value;
+				Update(showListGuide: _showListGuide);
+			}
 		}
 		public bool? ShowSidebar
 		{
@@ -58,7 +64,11 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _showSidebar;
 			}
-			set { _showSidebar = value; }
+			set
+			{
+				_showSidebar = value;
+				Update(showSidebar: _showSidebar);
+			}
 		}
 		public bool? ShowSidebarActivity
 		{
@@ -67,7 +77,11 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _showSidebarActivity;
 			}
-			set { _showSidebarActivity = value; }
+			set
+			{
+				_showSidebarActivity = value;
+				Update(showSidebarActivity: _showSidebarActivity);
+			}
 		}
 		public bool? ShowSidebarBoardActions
 		{
@@ -76,7 +90,11 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _showSidebarBoardActions;
 			}
-			set { _showSidebarBoardActions = value; }
+			set
+			{
+				_showSidebarBoardActions = value;
+				Update(showSidebarBoardActions: _showSidebarBoardActions);
+			}
 		}
 		public bool? ShowSidebarMembers
 		{
@@ -85,13 +103,27 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _showSidebarMembers;
 			}
-			set { _showSidebarMembers = value; }
+			set
+			{
+				_showSidebarMembers = value;
+				Update(showSidebarMembers: _showSidebarMembers);
+			}
 		}
 
 		public BoardPersonalPreferences() {}
 		public BoardPersonalPreferences(TrelloService svc, Board owner)
 			: base(svc, owner) {}
 
+		public void Update(bool? showSidebar = null,
+						   bool? showSidebarMembers = null,
+						   bool? showSidebarBoardActions = null,
+						   bool? showSidebarActivity = null,
+						   bool? showListGuide = null)
+		{
+			//var request = new UpdateBoardPersonalPreferencesRequest(Owner, showSidebar, showSidebarMembers,
+			//                                                        showSidebarBoardActions, showSidebarActivity, showListGuide);
+			//Svc.PostAndCache<Board, BoardPersonalPreferences, UpdateBoardPersonalPreferencesRequest>(request);
+		}
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -133,7 +165,7 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetOwnedEntity<Board, BoardPersonalPreferences>(Owner.Id);
+			var entity = Svc.Api.Get(new Request<Board, BoardPersonalPreferences>(Owner.Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}

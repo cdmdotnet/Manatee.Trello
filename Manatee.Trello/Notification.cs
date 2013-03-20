@@ -25,6 +25,7 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -181,7 +182,7 @@ namespace Manatee.Trello
 
 		protected override sealed void Refresh()
 		{
-			var entity = Svc.Api.GetEntity<Notification>(Id);
+			var entity = Svc.Api.Get(new Request<Notification>(Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce()

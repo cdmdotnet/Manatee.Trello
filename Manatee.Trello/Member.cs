@@ -26,6 +26,7 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -270,6 +271,37 @@ namespace Manatee.Trello
 			_preferences = new MemberPreferences(svc, this);
 		}
 
+		//public void MarkAllNotificationsAsRead()
+		//{
+		//    var request = new MarkAllNotificationsAsReadRequest();
+		//    Svc.PostAndCache<Notification, MarkAllNotificationsAsReadRequest>(request);
+		//}
+		//public void PinBoard(Board board)
+		//{
+		//    var request = new PinBoardForMemberRequest(this, board);
+		//    Svc.PostAndCache<Member, Board, PinBoardForMemberRequest>(request);
+		//    _pinnedBoards.MarkForUpdate();
+		//}
+		public void UnpinBoard(Board board)
+		{
+			
+		}
+		public void UpdateBio(string bio)
+		{
+			
+		}
+		public void UpdateFullName(string fullName)
+		{
+			
+		}
+		public void UpdateInitials(string initials)
+		{
+			
+		}
+		public void UpdateUserame(string name)
+		{
+			
+		}
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -349,7 +381,7 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetEntity<CheckItem>(Id);
+			var entity = Svc.Api.Get(new Request<Member>(Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce()

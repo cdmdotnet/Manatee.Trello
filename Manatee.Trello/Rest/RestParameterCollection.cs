@@ -14,26 +14,23 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		EntityBase.cs
-	Namespace:		Manatee.Trello.Implementation
-	Class Name:		EntityBase
-	Purpose:		Base class for entities which are not exclusively owned by
-					another entitity.
+	File Name:		RestParameterCollection.cs
+	Namespace:		Manatee.Trello.Rest
+	Class Name:		RestParameterCollection
+	Purpose:		Implements a dictionary to automatically concatenate a collection
+					of properties into a RESTful parameter list.
 
 ***************************************************************************************/
-using Manatee.Trello.Rest;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Manatee.Trello.Implementation
+namespace Manatee.Trello.Rest
 {
-	public abstract class EntityBase : JsonCompatibleExpiringObject
+	internal class RestParameterCollection : Dictionary<string, object>
 	{
-		public string Id { get; protected set; }
-		
-		public EntityBase() {}
-		internal EntityBase(TrelloService svc, string id)
-			: base(svc)
+		public override string ToString()
 		{
-			Id = id;
+			return string.Join("&", this.Select(o => string.Format("{0}={1}", o.Key, o.Value)));
 		}
 	}
 }

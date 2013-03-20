@@ -26,7 +26,7 @@ namespace Manatee.Trello.Implementation
 	public abstract class OwnedEntityBase<TOwner> : JsonCompatibleExpiringObject
 		where TOwner : EntityBase
 	{
-		public TOwner Owner { get; protected set; }
+		public TOwner Owner { get; internal set; }
 
 		public OwnedEntityBase() {}
 		internal OwnedEntityBase(TrelloService svc, TOwner owner)

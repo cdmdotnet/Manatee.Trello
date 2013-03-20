@@ -25,6 +25,7 @@ using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -94,24 +95,13 @@ namespace Manatee.Trello
 			return (Owner == other.Owner) && (_checkItemId == other._checkItemId);
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var checkItemState = entity as CheckItemState;
-			if (checkItemState == null) return;
-			_checkItemId = checkItemState._checkItemId;
-			_apiState = checkItemState._apiState;
-			UpdateState();
-		}
+		internal override void Refresh(ExpiringObject entity) {}
 		internal override bool Match(string id)
 		{
 			return false;
 		}
 
-		protected override void Refresh()
-		{
-			var entity = Svc.Api.GetOwnedEntity<Card, Badges>(Owner.Id);
-			Refresh(entity);
-		}
+		protected override void Refresh() {}
 		protected override void PropigateSerivce() {}
 
 		private void UpdateState()

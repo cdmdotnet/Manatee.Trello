@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -152,29 +153,13 @@ namespace Manatee.Trello
 			return Id == other.Id;
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var attachment = entity as Attachment;
-			if (attachment == null) return;
-			_bytes = attachment._bytes;
-			_date = attachment._date;
-			_memberId = attachment._memberId;
-			_isUpload = attachment._isUpload;
-			_mimeType = attachment._mimeType;
-			_name = attachment._name;
-			_previews = attachment._previews;
-			_url = attachment._url;
-		}
+		internal override void Refresh(ExpiringObject entity) {}
 		internal override bool Match(string id)
 		{
 			return Id == id;
 		}
 
-		protected override void Refresh()
-		{
-			var entity = Svc.Api.GetOwnedEntity<Card, Attachment>(Owner.Id);
-			Refresh(entity);
-		}
+		protected override void Refresh() {}
 		protected override void PropigateSerivce()
 		{
 			if (_member != null) _member.Svc = Svc;

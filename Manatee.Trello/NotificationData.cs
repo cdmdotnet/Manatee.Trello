@@ -20,9 +20,11 @@
 	Purpose:		Represents relevant data for a notification on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -65,7 +67,7 @@ namespace Manatee.Trello
 
 		protected override void Refresh()
 		{
-			var entity = Svc.Api.GetOwnedEntity<Action, ActionData>(Owner.Id);
+			var entity = Svc.Api.Get(new Request<Action, ActionData>(Owner.Id));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}

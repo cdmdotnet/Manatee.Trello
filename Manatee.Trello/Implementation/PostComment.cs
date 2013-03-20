@@ -14,26 +14,44 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		EntityBase.cs
+	File Name:		PostComment.cs
 	Namespace:		Manatee.Trello.Implementation
-	Class Name:		EntityBase
-	Purpose:		Base class for entities which are not exclusively owned by
-					another entitity.
+	Class Name:		PostComment
+	Purpose:		Represents a card comment on Trello.com.  Implemented solely
+					as a name-holder in the EntityService class.
 
 ***************************************************************************************/
+using System;
+using Manatee.Json;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Implementation
 {
-	public abstract class EntityBase : JsonCompatibleExpiringObject
+	internal class PostComment : OwnedEntityBase<Card>
 	{
-		public string Id { get; protected set; }
-		
-		public EntityBase() {}
-		internal EntityBase(TrelloService svc, string id)
-			: base(svc)
+		internal override void Refresh(ExpiringObject entity)
 		{
-			Id = id;
+			throw new NotImplementedException();
+		}
+		internal override bool Match(string id)
+		{
+			throw new NotImplementedException();
+		}
+		protected override void Refresh()
+		{
+			throw new NotImplementedException();
+		}
+		protected override void PropigateSerivce()
+		{
+			throw new NotImplementedException();
+		}
+		public override void FromJson(JsonValue json)
+		{
+			throw new NotImplementedException();
+		}
+		public override JsonValue ToJson()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -14,22 +14,24 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		EntityService.cs
+	File Name:		RequestBase.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		EntityService
-	Purpose:		Retrieves Trello objects as requested while abstracting RESTful
-					details.
+	Class Name:		RequestBase
+	Purpose:		Base class for RESTful requests.
 
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using Manatee.Json;
+using Manatee.Json.Serialization;
 using Manatee.Trello.Implementation;
+using RestSharp;
 
 namespace Manatee.Trello.Rest
 {
-	internal class EntityService
+	internal abstract class RequestBase : RestRequest
 	{
-		private static readonly Dictionary<Type, string> SectionStrings =
+		protected static readonly Dictionary<Type, string> SectionStrings =
 			new Dictionary<Type, string>
 				{
 					{typeof (Action), "actions"},
@@ -54,43 +56,16 @@ namespace Manatee.Trello.Rest
 					{typeof (Notification), "notifications"},
 					{typeof (Organization), "organizations"},
 					{typeof (OrganizationPreferences), "prefs"},
-					{typeof (PinnedBoard), "idPinnedBoards"},
+					{typeof (PinnedBoard), "idBoardsPinned"},
+					{typeof (PostComment), "actions/comments"},
 					{typeof (PremiumOrganization), "idPremOrgsAdmin"},
 					{typeof (VotingMember), "membersVoted"},
 				};
 
-		private readonly TrelloApi _api;
-
-		public EntityService(string authKey, string authToken)
+		public RequestBase(string path) : base(path)
 		{
-			_api = new TrelloApi(authKey, authToken);
-		}
-
-		public T GetEntity<T>(string id) where T : JsonCompatibleExpiringObject, new()
-		{
-			string section = SectionStrings[typeof (T)];
-			return _api.GetRequest<T>("{0}/{1}/", section, id);
-		}
-		public TContent GetOwnedEntity<TSource, TContent>(string id)
-			where TSource : EntityBase
-			where TContent : OwnedEntityBase<TSource>, new()
-		{
-			string section = SectionStrings[typeof(TSource)],
-				   itemType = SectionStrings[typeof(TContent)];
-			return _api.GetRequest<TContent>("{0}/{1}/{2}", section, id, itemType);
-		}
-		public List<TContent> GetContents<TSource, TContent>(string id) where TSource : EntityBase
-		{
-			string section = SectionStrings[typeof (TSource)],
-			       itemType = SectionStrings[typeof (TContent)];
-			return _api.GetRequest<List<TContent>>("{0}/{1}/{2}", section, id, itemType);
-		}
-		public TEntity Create<TEntity, TRequest>(TRequest request)
-			where TRequest : RequestBase<TEntity>
-			where TEntity : EntityBase, new()
-		{
-			string section = SectionStrings[typeof (TEntity)];
-			return _api.PostRequest<TEntity, TRequest>(request, "{0}?{1}", section, request.Parameters);
+			RequestFormat = DataFormat.Json;
+			DateFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
 		}
 	}
 }

@@ -30,9 +30,9 @@ namespace Manatee.Trello
 	public class AttachmentPreview : IJsonCompatible
 	{
 		public string Id { get; set; }
-		public int Height { get; set; }
+		public int? Height { get; set; }
 		public string Url { get; set; }
-		public int Width { get; set; }
+		public int? Width { get; set; }
 
 		public void FromJson(JsonValue json)
 		{
@@ -40,18 +40,18 @@ namespace Manatee.Trello
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			Height = (int) obj.TryGetNumber("height");
+			Height = (int?) obj.TryGetNumber("height");
 			Url = obj.TryGetString("url");
-			Width = (int) obj.TryGetNumber("width");
+			Width = (int?) obj.TryGetNumber("width");
 		}
 		public JsonValue ToJson()
 		{
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
-			           		{"height", Height},
+			           		{"height", Height.HasValue ? Height.Value : JsonValue.Null},
 			           		{"url", Url},
-			           		{"width", Width}
+			           		{"width", Width.HasValue ? Width.Value : JsonValue.Null}
 			           	};
 			return json;
 		}

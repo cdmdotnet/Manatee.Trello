@@ -21,6 +21,8 @@
 					RestSharp.
 
 ***************************************************************************************/
+using System;
+using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using RestSharp;
@@ -33,23 +35,32 @@ namespace Manatee.Trello.Rest
 	internal class Serializer : ISerializer, IDeserializer
 	{
 		private readonly JsonSerializer _serializer;
+		private readonly MethodInfo _method;
 
 		public Serializer()
 		{
 			_serializer = new JsonSerializer();
 
+			JsonSerializationTypeRegistry.RegisterListType<Attachment>();
 			JsonSerializationTypeRegistry.RegisterListType<Board>();
+			JsonSerializationTypeRegistry.RegisterListType<BoardMembership>();
 			JsonSerializationTypeRegistry.RegisterListType<Card>();
+			JsonSerializationTypeRegistry.RegisterListType<CheckItem>();
+			JsonSerializationTypeRegistry.RegisterListType<CheckItemState>();
 			JsonSerializationTypeRegistry.RegisterListType<CheckList>();
+			JsonSerializationTypeRegistry.RegisterListType<Label>();
 			JsonSerializationTypeRegistry.RegisterListType<List>();
 			JsonSerializationTypeRegistry.RegisterListType<Member>();
 			JsonSerializationTypeRegistry.RegisterListType<Notification>();
 			JsonSerializationTypeRegistry.RegisterListType<Organization>();
+
+			_method = _serializer.GetType().GetMethod("Serialize");
 		}
 
 		public string Serialize(object obj)
 		{
-			var json = _serializer.Serialize(obj);
+			var method = _method.MakeGenericMethod(new[] {obj.GetType()});
+			var json = method.Invoke(_serializer, new[] {obj});
 			return json.ToString();
 		}
 		public T Deserialize<T>(IRestResponse response)
