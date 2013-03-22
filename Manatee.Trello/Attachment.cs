@@ -25,11 +25,10 @@ using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	public class Attachment : OwnedEntityBase<Card>, IEquatable<Attachment>
+	public class Attachment : JsonCompatibleExpiringObject, IEquatable<Attachment>
 	{
 		private int? _bytes;
 		private DateTime? _date;
@@ -49,7 +48,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _bytes;
 			}
-			set { _bytes = value; }
 		}
 		public DateTime? Date
 		{
@@ -58,7 +56,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _date;
 			}
-			set { _date = value; }
 		}
 		public Member Member
 		{
@@ -75,7 +72,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _isUpload;
 			}
-			set { _isUpload = value; }
 		}
 		public string MimeType
 		{
@@ -84,7 +80,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _mimeType;
 			}
-			set { _mimeType = value; }
 		}
 		public string Name
 		{
@@ -93,7 +88,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set { _name = value; }
 		}
 		public IEnumerable<AttachmentPreview> Previews
 		{
@@ -124,7 +118,7 @@ namespace Manatee.Trello
 			Id = obj.TryGetString("id");
 			_bytes = (int?) obj.TryGetNumber("bytes");
 			var date = obj.TryGetString("date");
-			_date = string.IsNullOrWhiteSpace(date) ? (DateTime?)null : DateTime.Parse(date);
+			_date = string.IsNullOrWhiteSpace(date) ? (DateTime?) null : DateTime.Parse(date);
 			_memberId = obj.TryGetString("idMember");
 			_isUpload = obj.TryGetBoolean("isUpload");
 			_mimeType = obj.TryGetString("mimeType");
@@ -159,7 +153,7 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override void Refresh() {}
+		protected override void Get() {}
 		protected override void PropigateSerivce()
 		{
 			if (_member != null) _member.Svc = Svc;

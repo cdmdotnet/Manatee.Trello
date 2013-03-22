@@ -39,15 +39,15 @@ namespace Manatee.Trello
 	//   ],
 	//   "externalMembersDisabled":false
 	//}
-	public class OrganizationPreferences : OwnedEntityBase<Organization>
+	public class OrganizationPreferences : JsonCompatibleExpiringObject
 	{
-		private static readonly OneToOneMap<OrganizationPermissionLevel, string> _permissionLevelMap;
+		private static readonly OneToOneMap<OrganizationPermissionLevelType, string> _permissionLevelMap;
 
 		private string _apiPermissionLevel;
 		private object _boardVisibilityRestrict;
 		private bool? _externalMembersDisabled;
 		private List<object> _orgInviteRestrict;
-		private OrganizationPermissionLevel _permissionLevel;
+		private OrganizationPermissionLevelType _permissionLevel;
 
 		// TODO: Determine structure of this object
 		public object BoardVisibilityRestrict
@@ -78,7 +78,7 @@ namespace Manatee.Trello
 			}
 			set { _orgInviteRestrict = value; }
 		}
-		public OrganizationPermissionLevel PermissionLevel
+		public OrganizationPermissionLevelType PermissionLevel
 		{
 			get { return _permissionLevel; }
 			set
@@ -90,10 +90,10 @@ namespace Manatee.Trello
 
 		static OrganizationPreferences()
 		{
-			_permissionLevelMap = new OneToOneMap<OrganizationPermissionLevel, string>
+			_permissionLevelMap = new OneToOneMap<OrganizationPermissionLevelType, string>
 			                      	{
-			                      		{OrganizationPermissionLevel.Private, "private"},
-			                      		{OrganizationPermissionLevel.Public, "public"},
+			                      		{OrganizationPermissionLevelType.Private, "private"},
+			                      		{OrganizationPermissionLevelType.Public, "public"},
 			                      	};
 		}
 		public OrganizationPreferences() {}
@@ -139,9 +139,9 @@ namespace Manatee.Trello
 			return false;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Board, BoardPreferences>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<OrganizationPreferences>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}
@@ -150,19 +150,12 @@ namespace Manatee.Trello
 		{
 			_permissionLevel = _permissionLevelMap.Any(kvp => kvp.Value == _apiPermissionLevel)
 			                   	? _permissionLevelMap[_apiPermissionLevel]
-			                   	: OrganizationPermissionLevel.Unknown;
+			                   	: OrganizationPermissionLevelType.Unknown;
 		}
 		private void UpdateApiPermissionLevel()
 		{
 			if (_permissionLevelMap.Any(kvp => kvp.Key == _permissionLevel))
 				_apiPermissionLevel = _permissionLevelMap[_permissionLevel];
 		}
-	}
-
-	public enum OrganizationPermissionLevel
-	{
-		Unknown = -1,
-		Private,
-		Public
 	}
 }

@@ -5,12 +5,15 @@ using System.Text;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Serialization;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
 	public class Position : IJsonCompatible
 	{
 		private PositionValue _value;
+
+		public bool IsValid { get { return _value > PositionValue.Unknown; } }
 
 		public Position(PositionValue value)
 		{
@@ -67,7 +70,7 @@ namespace Manatee.Trello
 		}
 		public override string ToString()
 		{
-			return _value.ToString().ToLower();
+			return _value.ToLowerString();
 		}
 		public static implicit operator Position(PositionValue value)
 		{
@@ -84,6 +87,34 @@ namespace Manatee.Trello
 		public static implicit operator int(Position position)
 		{
 			return (int) position._value;
+		}
+		public static bool operator ==(Position a, Position b)
+		{
+			if (ReferenceEquals(a, b)) return true;
+			if (Equals(a, null) && Equals(b, null)) return true;
+			if (Equals(a, null) || Equals(b, null)) return false;
+			return a._value == b._value;
+		}
+		public static bool operator !=(Position a, Position b)
+		{
+			return !(a == b);
+		}
+		public bool Equals(Position other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return Equals(other._value, _value);
+		}
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != typeof (Position)) return false;
+			return Equals((Position) obj);
+		}
+		public override int GetHashCode()
+		{
+			return _value.GetHashCode();
 		}
 	}
 	public enum PositionValue

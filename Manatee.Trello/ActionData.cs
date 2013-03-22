@@ -35,7 +35,7 @@ namespace Manatee.Trello
 	//     },
 	//     "idMember":"514464db3fa062da6e00254f"
 	//  },
-	public class ActionData : OwnedEntityBase<Action>
+	public class ActionData : JsonCompatibleExpiringObject
 	{
 		public JsonObject Data { get; set; }
 
@@ -66,9 +66,9 @@ namespace Manatee.Trello
 			return false;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Action, ActionData>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<ActionData>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}

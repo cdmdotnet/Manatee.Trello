@@ -50,7 +50,7 @@ namespace Manatee.Trello
 	//         "username":"gregsdennis"
 	//      }
 	//   },
-	public class Notification : EntityBase, IEquatable<Notification>
+	public class Notification : JsonCompatibleExpiringObject, IEquatable<Notification>
 	{
 		private static readonly OneToOneMap<NotificationType, string> _typeMap;
 
@@ -70,7 +70,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _date;
 			}
-			set { _date = value; }
 		}
 		public bool? IsUnread
 		{
@@ -79,7 +78,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _isUnread;
 			}
-			set { _isUnread = value; }
+			set
+			{
+				_isUnread = value;
+				Parameters.Add("unread", _isUnread.ToLowerString());
+				Put();
+			}
 		}
 		private Member MemberCreator
 		{
@@ -93,11 +97,10 @@ namespace Manatee.Trello
 		}
 		public NotificationType Type
 		{
-			get { return _type; }
-			set
+			get
 			{
-				_type = value;
-				UpdateApiType();
+				VerifyNotExpired();
+				return _type;
 			}
 		}
 
@@ -180,7 +183,7 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override sealed void Refresh()
+		protected override sealed void Get()
 		{
 			var entity = Svc.Api.Get(new Request<Notification>(Id));
 			Refresh(entity);
@@ -189,6 +192,11 @@ namespace Manatee.Trello
 		{
 			_data.Svc = Svc;
 			if (_member != null) _member.Svc = Svc;
+		}
+		
+		private void Put()
+		{
+			Svc.PutAndCache(new Request<Notification>(this));
 		}
 
 		private void UpdateType()

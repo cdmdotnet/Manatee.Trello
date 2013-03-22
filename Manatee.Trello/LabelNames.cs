@@ -36,7 +36,7 @@ namespace Manatee.Trello
 	//      "blue":"",
 	//      "purple":""
 	//   }
-	public class LabelNames : OwnedEntityBase<Board>
+	public class LabelNames : JsonCompatibleExpiringObject
 	{
 		private string _red;
 		private string _orange;
@@ -52,7 +52,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _red;
 			}
-			set { _red = value; }
+			set
+			{
+				_red = value;
+				Parameters.Add("value", value);
+				Put("red");
+			}
 		}
 		public string Orange
 		{
@@ -61,7 +66,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _orange;
 			}
-			set { _orange = value; }
+			set
+			{
+				_orange = value;
+				Parameters.Add("value", value);
+				Put("orange");
+			}
 		}
 		public string Yellow
 		{
@@ -70,7 +80,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _yellow;
 			}
-			set { _yellow = value; }
+			set
+			{
+				_yellow = value;
+				Parameters.Add("value", value);
+				Put("yellow");
+			}
 		}
 		public string Green
 		{
@@ -79,7 +94,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _green;
 			}
-			set { _green = value; }
+			set
+			{
+				_green = value;
+				Parameters.Add("value", value);
+				Put("green");
+			}
 		}
 		public string Blue
 		{
@@ -88,7 +108,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _blue;
 			}
-			set { _blue = value; }
+			set
+			{
+				_blue = value;
+				Parameters.Add("value", value);
+				Put("blue");
+			}
 		}
 		public string Purple
 		{
@@ -97,7 +122,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _purple;
 			}
-			set { _purple = value; }
+			set
+			{
+				_purple = value;
+				Parameters.Add("value", value);
+				Put("purple");
+			}
 		}
 
 		public LabelNames() {}
@@ -146,11 +176,17 @@ namespace Manatee.Trello
 			return false;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Board, LabelNames>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<LabelNames>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}
+
+		private void Put(string extension)
+		{
+			var request = new Request<LabelNames>(new[] {Owner, this}, this, extension);
+			Svc.PutAndCache(request);
+		}
 	}
 }

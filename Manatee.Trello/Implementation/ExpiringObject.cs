@@ -23,6 +23,8 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Rest;
+using RestSharp;
 
 namespace Manatee.Trello.Implementation
 {
@@ -31,7 +33,10 @@ namespace Manatee.Trello.Implementation
 		private DateTime _expires;
 		private TrelloService _svc;
 
-		internal Dictionary<string, object> Parameters { get; set; }
+		public string Id { get; internal set; }
+		public ExpiringObject Owner { get; internal set; }
+
+		internal ParameterCollection Parameters { get; private set; }
 
 		internal TrelloService Svc
 		{
@@ -46,14 +51,25 @@ namespace Manatee.Trello.Implementation
 		}
 		internal bool IsExpired { get { return DateTime.Now >= _expires; } }
 
-		public ExpiringObject()
+		internal ExpiringObject()
 		{
+			Parameters = new ParameterCollection();
 			MarkForUpdate();
 		}
 		internal ExpiringObject(TrelloService svc)
+			: this()
 		{
 			Svc = svc;
-			MarkForUpdate();
+		}
+		internal ExpiringObject(TrelloService svc, string id)
+			: this(svc)
+		{
+			Id = id;
+		}
+		internal ExpiringObject(TrelloService svc, ExpiringObject owner)
+			: this(svc)
+		{
+			Owner = owner;
 		}
 
 		internal void MarkForUpdate()
@@ -64,13 +80,13 @@ namespace Manatee.Trello.Implementation
 		protected void VerifyNotExpired()
 		{
 			if ((Svc == null) || !Options.AutoRefresh || !IsExpired) return;
-			Refresh();
+			Get();
 			_expires = DateTime.Now + Options.ItemDuration;
 		}
 
 		internal abstract void Refresh(ExpiringObject entity);
 		internal abstract bool Match(string id);
-		protected abstract void Refresh();
 		protected abstract void PropigateSerivce();
+		protected abstract void Get();
 	}
 }

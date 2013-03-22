@@ -61,7 +61,8 @@ namespace Manatee.Trello.Rest
 		{
 			var method = _method.MakeGenericMethod(new[] {obj.GetType()});
 			var json = method.Invoke(_serializer, new[] {obj});
-			return json.ToString();
+			var text = json.ToString();
+			return text;
 		}
 		public T Deserialize<T>(IRestResponse response)
 		{

@@ -41,7 +41,7 @@ namespace Manatee.Trello
 	//      "checkItems":4,
 	//      "attachments":0
 	//   },
-	public class Badges : OwnedEntityBase<Card>
+	public class Badges : JsonCompatibleExpiringObject
 	{
 		private int? _attachments;
 		private int? _checkItems;
@@ -194,9 +194,9 @@ namespace Manatee.Trello
 			return false;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Card, Badges>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<Badges>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}

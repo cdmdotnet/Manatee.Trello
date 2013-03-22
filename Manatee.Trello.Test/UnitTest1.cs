@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test
@@ -37,7 +38,7 @@ namespace Manatee.Trello.Test
 	public class UnitTest1
 	{
 		private const string Key = "062109670e7f56b88783721892f8f66f";
-		private const string Token = "";
+		private const string Token = "b54b979e405695ac0f9b5cb34458754ec69cfd6727bb2aaab67d8f47cce184ed";
 		private const string UserName = "s_littlecrabsolutions";
 		private const string BoardId = "51478f6469fd3d9341001dae";
 		private const string ListId = "51478f6469fd3d9341001daf";
@@ -50,10 +51,12 @@ namespace Manatee.Trello.Test
 		public void TestMethod()
 		{
 			var service = new TrelloService(Key, Token);
-			var member = service.Retrieve<Member>(UserName);
-			var board = member.Boards.FirstOrDefault();
 
-			Assert.IsNotNull(board);
+			var board = service.Retrieve<Board>(BoardId);
+			var member = service.Retrieve<Member>(UserName);
+			var cards = board.Lists.SelectMany(l => l.Cards).Where(c => c.Members.Contains(member));
+
+			Assert.IsNotNull(cards);
 		}
 	}
 }

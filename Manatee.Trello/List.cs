@@ -26,6 +26,8 @@ using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
+using RestSharp;
+using JsonObject = Manatee.Json.JsonObject;
 
 namespace Manatee.Trello
 {
@@ -36,7 +38,7 @@ namespace Manatee.Trello
 	//   "idBoard":"5144051cbd0da6681200201e",
 	//   "pos":16384
 	//}
-	public class List : EntityBase, IEquatable<List>
+	public class List : JsonCompatibleExpiringObject, IEquatable<List>
 	{
 		private readonly ExpiringList<List, Action> _actions;
 		private string _boardId;
@@ -64,7 +66,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _isClosed;
 			}
-			set { _isClosed = value; }
+			set
+			{
+				_isClosed = value;
+				Parameters.Add("closed", _isClosed.ToLowerString());
+				Put();
+			}
 		}
 		public bool? IsSubscribed
 		{
@@ -73,7 +80,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _isSubscribed;
 			}
-			set { _isSubscribed = value; }
+			set
+			{
+				_isSubscribed = value;
+				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
+				Put();
+			}
 		}
 		public string Name
 		{
@@ -82,7 +94,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set { _name = value; }
+			set
+			{
+				_name = value;
+				Parameters.Add("name", _name);
+				Put();
+			}
 		}
 		public int? Position
 		{
@@ -91,7 +108,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _position;
 			}
-			set { _position = value; }
+			set
+			{
+				_position = value;
+				Parameters.Add("pos", _position);
+				Put();
+			}
 		}
 
 		public List()
@@ -106,41 +128,30 @@ namespace Manatee.Trello
 			_cards = new ExpiringList<List, Card>(svc, this);
 		}
 
-		//public Card AddCard(string description)
-		//{
-		//    var request = new CreateCardInListRequest(this, description);
-		//    var card = Svc.PostAndCache<List, Card, CreateCardInListRequest>(request);
-		//    card.Svc = Svc;
-		//    _cards.MarkForUpdate();
-		//    return card;
-		//}
-		public void Archive()
+		public Card AddCard(string name, string description = null, Position position = null)
 		{
-			
+			var request = new Request<Card>(this);
+			Parameters.Add("name", name);
+			Parameters.Add("idList", Id);
+			if (description != null)
+				Parameters.Add("desc", description);
+			if ((position != null) && position.IsValid)
+				Parameters.Add("pos", position);
+			var card = Svc.PostAndCache(request);
+			_cards.MarkForUpdate();
+			return card;
 		}
-		public void Delete()
+		private void Delete()
 		{
-			
+			throw new NotSupportedException("Deleting lists is not yet supported by Trello.");
 		}
 		public void Move(Board board, int? position = null)
 		{
-			
-		}
-		public void SendToBoard()
-		{
-			
-		}
-		public void Subscribe()
-		{
-			
-		}
-		public void Unsubscribe()
-		{
-			
-		}
-		public void UpdateName(string name)
-		{
-			
+			Parameters.Add(new Parameter { Name = "idBoard", Value = board.Id });
+			if (position != null)
+				Parameters.Add(new Parameter { Name = "pos", Value = position });
+			Svc.PutAndCache(new Request<List>(this));
+			_actions.MarkForUpdate();
 		}
 		public override void FromJson(JsonValue json)
 		{
@@ -187,7 +198,7 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
 			var entity = Svc.Api.Get(new Request<List>(Id));
 			Refresh(entity);
@@ -197,6 +208,12 @@ namespace Manatee.Trello
 			_actions.Svc = Svc;
 			_cards.Svc = Svc;
 			if (_board != null) _board.Svc = Svc;
+		}
+
+		private void Put()
+		{
+			Svc.PutAndCache(new Request<List>(this));
+			_actions.MarkForUpdate();
 		}
 	}
 }

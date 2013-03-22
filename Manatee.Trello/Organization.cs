@@ -40,7 +40,7 @@ namespace Manatee.Trello
 	//   "powerUps":[
 	//   ]
 	//}
-	public class Organization : EntityBase, IEquatable<Organization>
+	public class Organization : JsonCompatibleExpiringObject, IEquatable<Organization>
 	{
 		private readonly ExpiringList<Organization, Action> _actions;
 		private readonly ExpiringList<Organization, Board> _boards;
@@ -63,7 +63,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _description;
 			}
-			set { _description = value; }
+			set
+			{
+				_description = value;
+				Parameters.Add("desc", _description);
+				Put();
+			}
 		}
 		public string DisplayName
 		{
@@ -72,7 +77,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _displayName;
 			}
-			set { _displayName = value; }
+			set
+			{
+				_displayName = value;
+				Parameters.Add("displayName", _displayName);
+				Put();
+			}
 		}
 		public string LogoHash
 		{
@@ -91,7 +101,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set { _name = value; }
+			set
+			{
+				_name = value;
+				Parameters.Add("name", _name);
+				Put();
+			}
 		}
 		public List<string> PowerUps
 		{
@@ -100,7 +115,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _powerUps;
 			}
-			private set { _powerUps = value; }
 		}
 		public OrganizationPreferences Preferences { get { return _preferences; } }
 		public string Url
@@ -118,7 +132,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _website;
 			}
-			set { _website = value; }
+			set
+			{
+				_website = value;
+				Parameters.Add("website", _website);
+				Put();
+			}
 		}
 
 		public Organization()
@@ -137,6 +156,36 @@ namespace Manatee.Trello
 			_preferences = new OrganizationPreferences(svc, this);
 		}
 
+		public Board AddBoard(string name)
+		{
+			var board = Svc.PostAndCache(new Request<Board>(new[] {new Board()}));
+			_boards.MarkForUpdate();
+			return board;
+		}
+		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
+		{
+			var request = new Request<Member>(new ExpiringObject[] {this, member}, this);
+			Parameters.Add("type", type.ToLowerString());
+			Svc.PutAndCache(request);
+			_members.MarkForUpdate();
+			_actions.MarkForUpdate();
+		}
+		public void Delete()
+		{
+			Svc.DeleteFromCache(new Request<Organization>(Id));
+		}
+		private void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
+		{
+			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
+		}
+		public void RemoveMember(Member member)
+		{
+			Svc.DeleteFromCache(new Request<Board>(new ExpiringObject[] {this, member}));
+		}
+		private void RescindInvitation(Member member)
+		{
+			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
+		}
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -188,7 +237,7 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
 			var entity = Svc.Api.Get(new Request<Organization>(Id));
 			Refresh(entity);
@@ -199,6 +248,12 @@ namespace Manatee.Trello
 			_boards.Svc = Svc;
 			_members.Svc = Svc;
 			_preferences.Svc = Svc;
+		}
+
+		private void Put()
+		{
+			Svc.PutAndCache(new Request<Organization>(this));
+			_actions.MarkForUpdate();
 		}
 	}
 }

@@ -22,8 +22,6 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using Manatee.Json;
-using Manatee.Json.Serialization;
 using Manatee.Trello.Implementation;
 using RestSharp;
 
@@ -57,12 +55,11 @@ namespace Manatee.Trello.Rest
 					{typeof (Organization), "organizations"},
 					{typeof (OrganizationPreferences), "prefs"},
 					{typeof (PinnedBoard), "idBoardsPinned"},
-					{typeof (PostComment), "actions/comments"},
 					{typeof (PremiumOrganization), "idPremOrgsAdmin"},
 					{typeof (VotingMember), "membersVoted"},
 				};
 
-		public RequestBase(string path) : base(path)
+		protected RequestBase(string path) : base(path)
 		{
 			RequestFormat = DataFormat.Json;
 			DateFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";

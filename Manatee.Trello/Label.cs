@@ -34,7 +34,7 @@ namespace Manatee.Trello
 	//         "color":"green",
 	//         "name":""
 	//      },
-	public class Label : OwnedEntityBase<Card>, IEquatable<Label>
+	public class Label : JsonCompatibleExpiringObject, IEquatable<Label>
 	{
 		private static readonly OneToOneMap<LabelColor, string> _colorMap;
 
@@ -111,9 +111,9 @@ namespace Manatee.Trello
 			return false;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Card, Label>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<Label>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}

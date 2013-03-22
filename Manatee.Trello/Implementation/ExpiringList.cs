@@ -23,12 +23,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Implementation
 {
 	internal class ExpiringList<TSource, TContent> : ExpiringObject, IEnumerable<TContent>
 		where TContent : ExpiringObject, IEquatable<TContent>, new()
-		where TSource : EntityBase
+		where TSource : ExpiringObject
 	{
 		private readonly List<TContent> _list;
 		private readonly TSource _source;
@@ -67,21 +68,23 @@ namespace Manatee.Trello.Implementation
 
 		internal override void Refresh(ExpiringObject entity)
 		{
-			Refresh();
+			Get();
 		}
 		internal override bool Match(string id)
 		{
 			return false;
 		}
 
-		protected override sealed void Refresh()
+		protected override sealed void Get()
 		{
 			_list.Clear();
-			var entities = Svc.RetrieveContent<TSource, TContent>(_source.Id);
+			var request = new CollectionRequest<TContent>(new ExpiringObject[] {_source, new TContent()});
+			var entities = Svc.Get(request);
 			if (entities == null) return;
 			foreach (var entity in entities)
 			{
 				entity.Svc = Svc;
+				entity.Owner = _source;
 			}
 			_list.AddRange(entities);
 		}

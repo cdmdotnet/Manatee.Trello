@@ -63,7 +63,7 @@ namespace Manatee.Trello
 	//      }
 	//   ]
 	//}
-	public class CheckList : EntityBase, IEquatable<CheckList>
+	public class CheckList : JsonCompatibleExpiringObject, IEquatable<CheckList>
 	{
 		private string _boardId;
 		private Board _board;
@@ -71,7 +71,7 @@ namespace Manatee.Trello
 		private Card _card;
 		private readonly ExpiringList<CheckList, CheckItem> _checkItems;
 		private string _name;
-		private int? _pos;
+		private int? _position;
 
 		public Board Board
 		{
@@ -88,6 +88,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
+			set
+			{
+				_cardId = value.Id;
+				Parameters.Add("idCard", _cardId);
+				Put();
+			}
 		}
 		public IEnumerable<CheckItem> CheckItems { get { return _checkItems; } }
 		public string Name
@@ -97,16 +103,26 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set { _name = value; }
+			set
+			{
+				_name = value;
+				Parameters.Add("name", _name);
+				Put();
+			}
 		}
 		public int? Pos
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _pos;
+				return _position;
 			}
-			set { _pos = value; }
+			set
+			{
+				_position = value;
+				Parameters.Add("pos", _position);
+				Put();
+			}
 		}
 
 		public CheckList()
@@ -118,18 +134,21 @@ namespace Manatee.Trello
 		{
 			_checkItems = new ExpiringList<CheckList, CheckItem>(svc, this);
 		}
-		
-		//public CheckItem AddCheckItem(string name)
-		//{
-		//    var request = new AddCheckItemToCheckListRequest(this, name);
-		//    var checkItem = Svc.PostAndCache<CheckList, CheckItem, AddCheckItemToCheckListRequest>(request);
-		//    checkItem.Svc = Svc;
-		//    _checkItems.MarkForUpdate();
-		//    return checkItem;
-		//}
+
+		public CheckItem AddCheckItem(string name, bool isChecked = false, Position position = null)
+		{
+			var request = new Request<CheckItem>(new[] {Owner, this}, this);
+			Parameters.Add("name", name);
+			Parameters.Add("checked", isChecked);
+			if ((position != null) && position.IsValid)
+				Parameters.Add("pos", position);
+			var checkItem = Svc.PostAndCache(request);
+			_checkItems.MarkForUpdate();
+			return checkItem;
+		}
 		public void Delete()
 		{
-			
+			Svc.DeleteFromCache(new Request<CheckList>(Id));	
 		}
 		public override void FromJson(JsonValue json)
 		{
@@ -140,7 +159,7 @@ namespace Manatee.Trello
 			_boardId = obj.TryGetString("idBoard");
 			_cardId = obj.TryGetString("idCard");
 			_name = obj.TryGetString("name");
-			_pos = (int?) obj.TryGetNumber("pos");
+			_position = (int?) obj.TryGetNumber("pos");
 		}
 		public override JsonValue ToJson()
 		{
@@ -152,7 +171,7 @@ namespace Manatee.Trello
 			           		{"idCard", _cardId},
 			           		{"checkItems", _checkItems.Select(c => c.Id).ToJson()},
 			           		{"name", _name},
-			           		{"pos", _pos.HasValue ? _pos.Value : JsonValue.Null}
+			           		{"pos", _position.HasValue ? _position.Value : JsonValue.Null}
 			           	};
 			return json;
 		}
@@ -168,14 +187,14 @@ namespace Manatee.Trello
 			_boardId = checkList._boardId;
 			_cardId = checkList._cardId;
 			_name = checkList._name;
-			_pos = checkList._pos;
+			_position = checkList._position;
 		}
 		internal override bool Match(string id)
 		{
 			return Id == id;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
 			var entity = Svc.Api.Get(new Request<CheckList>(Id));
 			Refresh(entity);
@@ -185,6 +204,11 @@ namespace Manatee.Trello
 			_checkItems.Svc = Svc;
 			if (_board != null) _board.Svc = Svc;
 			if (_card != null) _card.Svc = Svc;
+		}
+
+		private void Put()
+		{
+			Svc.PutAndCache(new Request<CheckItem>(new[] {Owner, this}, this));
 		}
 	}
 }
