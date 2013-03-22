@@ -35,7 +35,7 @@ namespace Manatee.Trello
 	//   "memberType":"admin",
 	//   "deactivated":false
 	//},
-	public class BoardMembership : OwnedEntityBase<Board>, IEquatable<BoardMembership>
+	public class BoardMembership : JsonCompatibleExpiringObject, IEquatable<BoardMembership>
 	{
 		private static readonly OneToOneMap<BoardMembershipType, string> _typeMap;
 
@@ -53,7 +53,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _isDeactivated;
 			}
-			set { _isDeactivated = value; }
 		}
 		public Member Member
 		{
@@ -63,15 +62,7 @@ namespace Manatee.Trello
 				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
 			}
 		}
-		public BoardMembershipType MembershipType
-		{
-			get { return _membershipType; }
-			set
-			{
-				_membershipType = value;
-				UpdateApiType();
-			}
-		}
+		public BoardMembershipType MembershipType { get { return _membershipType; } }
 
 		static BoardMembership()
 		{
@@ -79,6 +70,7 @@ namespace Manatee.Trello
 			           	{
 			           		{BoardMembershipType.Admin, "admin"},
 			           		{BoardMembershipType.Normal, "normal"},
+			           		{BoardMembershipType.Observer, "observer"},
 			           	};
 		}
 		public BoardMembership() {}
@@ -125,9 +117,9 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Board, BoardMembership>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<BoardMembership>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce()

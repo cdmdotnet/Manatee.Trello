@@ -36,16 +36,15 @@ namespace Manatee.Trello
 	//         "name":"Test development",
 	//         "pos":16703
 	//      },
-	public class CheckItem : OwnedEntityBase<CheckList>, IEquatable<CheckItem>
+	public class CheckItem : JsonCompatibleExpiringObject, IEquatable<CheckItem>
 	{
-		private static readonly OneToOneMap<CheckItemStates, string> _stateMap;
+		private static readonly OneToOneMap<CheckItemStateType, string> _stateMap;
 
 		private string _apiState;
 		private string _name;
-		private int? _pos;
-		private CheckItemStates _state;
+		private int? _position;
+		private CheckItemStateType _state;
 
-		public string Id { get; private set; }
 		public string Name
 		{
 			get
@@ -53,38 +52,55 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set { _name = value; }
+			set
+			{
+				_name = value;
+				Parameters.Add("value", value);
+				Put("name");
+			}
 		}
-		public int? Pos
+		public int? Position
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _pos;
+				return _position;
 			}
-			set { _pos = value; }
+			set
+			{
+				_position = value;
+				Parameters.Add("value", value);
+				Put("pos");
+			}
 		}
-		public CheckItemStates State
+		public CheckItemStateType State
 		{
 			get { return _state; }
 			set
 			{
 				_state = value;
 				UpdateApiState();
+				Parameters.Add("value", value);
+				Put("state");
 			}
 		}
 
 		static CheckItem()
 		{
-			_stateMap = new OneToOneMap<CheckItemStates, string>
-			           	{
-			           		{CheckItemStates.Incomplete, "incomplete"},
-			           		{CheckItemStates.Complete, "complete"},
-			           	};
+			_stateMap = new OneToOneMap<CheckItemStateType, string>
+						{
+							{CheckItemStateType.Incomplete, "incomplete"},
+							{CheckItemStateType.Complete, "complete"},
+						};
 		}
 		public CheckItem() {}
 		internal CheckItem(TrelloService svc, CheckList owner)
 			: base(svc, owner) {}
+
+		public void Delete()
+		{
+			Svc.DeleteFromCache(new Request<CheckItem>(new[] {Owner, this}));
+		}
 
 		public override void FromJson(JsonValue json)
 		{
@@ -92,20 +108,20 @@ namespace Manatee.Trello
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			Name = obj.TryGetString("name");
-			Pos = (int?) obj.TryGetNumber("pos");
+			_name = obj.TryGetString("name");
+			_position = (int?) obj.TryGetNumber("pos");
 			_apiState = obj.TryGetString("state");
 			UpdateState();
 		}
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
-			           	{
-			           		{"id", Id},
-			           		{"name", Name},
-			           		{"pos", Pos.HasValue ? Pos.Value : JsonValue.Null},
-			           		{"state", _apiState}
-			           	};
+						{
+							{"id", Id},
+							{"name", _name},
+							{"pos", _position.HasValue ? _position.Value : JsonValue.Null},
+							{"state", _apiState}
+						};
 			return json;
 		}
 		public bool Equals(CheckItem other)
@@ -123,16 +139,20 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<CheckList, CheckItem>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<CheckItem>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}
 
+		private void Put(string extension)
+		{
+			Svc.PutAndCache(new Request<CheckItem>(new[] {((CheckList) Owner).Card, Owner, this}, this, extension));
+		}
 		private void UpdateState()
 		{
-			_state = _stateMap.Any(kvp => kvp.Value == _apiState) ? _stateMap[_apiState] : CheckItemStates.Unknown;
+			_state = _stateMap.Any(kvp => kvp.Value == _apiState) ? _stateMap[_apiState] : CheckItemStateType.Unknown;
 		}
 		private void UpdateApiState()
 		{

@@ -1,71 +1,66 @@
-﻿using Manatee.Trello.Implementation;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Manatee.Trello.Implementation;
 using RestSharp;
 
 namespace Manatee.Trello.Rest
 {
 	internal class Request<T> : RequestBase
-		where T : EntityBase, new()
+		where T : ExpiringObject
 	{
-		public T Entity { get; private set; }
+		public ExpiringObject ParameterSource { get; private set; }
 
-		public Request(T obj)
+		public Request()
+			: base(GetPath()) {}
+		public Request(ExpiringObject obj)
 			: this(obj.Id)
 		{
-			Entity = obj;
+			ParameterSource = obj;
 		}
 		public Request(string id)
-			: base(GetPath())
+			: base(GetPathWithId())
 		{
 			AddParameter("id", id, ParameterType.UrlSegment);
+		}
+		public Request(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
+			: base(GetPath(tokens, urlExtension))
+		{
+			ParameterSource = entity;
 		}
 
 		public void AddParameters()
 		{
-			foreach (var parameter in Entity.Parameters)
+			if (ParameterSource == null) return;
+			foreach (var parameter in ParameterSource.Parameters)
 			{
-				AddParameter(parameter.Key, parameter.Value);
+				AddParameter(parameter.Name, parameter.Value);
 			}
-			Entity.Parameters.Clear();
+			ParameterSource.Parameters.Clear();
 		}
 
 		private static string GetPath()
+		{
+			var section = SectionStrings[typeof(T)];
+			return string.Format("{0}", section);
+		}
+		private static string GetPathWithId()
 		{
 			var section = SectionStrings[typeof (T)];
 			return string.Format("{0}/{{id}}", section);
 		}
-	}
-
-	internal class Request<TOwner, TEntity> : RequestBase
-		where TOwner : EntityBase
-		where TEntity : OwnedEntityBase<TOwner>, new()
-	{
-		public TEntity Entity { get; private set; }
-
-		public Request(string ownerId, TEntity obj)
-			: this(ownerId)
+		private static string GetPath(IEnumerable<ExpiringObject> tokens, string urlExtension)
 		{
-			Entity = obj;
-		}
-		public Request(string ownerId)
-			: base(GetPath())
-		{
-			AddParameter("id", ownerId, ParameterType.UrlSegment);
-		}
-
-		public void AddParameters()
-		{
-			foreach (var parameter in Entity.Parameters)
+			var segments = new List<string>();
+			foreach (var token in tokens)
 			{
-				AddParameter(parameter.Key, parameter.Value);
+				segments.Add(SectionStrings[token.GetType()]);
+				if (token.Id != null)
+					segments.Add(token.Id);
 			}
-			Entity.Parameters.Clear();
-		}
-
-		private static string GetPath()
-		{
-			string section = SectionStrings[typeof(TOwner)],
-				   itemType = SectionStrings[typeof(TEntity)];
-			return string.Format("{0}/{{id}}/{1}", section, itemType);
+			if (urlExtension != null)
+				segments.Add(urlExtension);
+			return string.Join("/", segments);
 		}
 	}
 }

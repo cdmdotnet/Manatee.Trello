@@ -34,13 +34,13 @@ namespace Manatee.Trello
 	//         "idCheckItem":"514463bfd02ebee350000d1c",
 	//         "state":"complete"
 	//      }
-	public class CheckItemState : OwnedEntityBase<Card>, IEquatable<CheckItemState>
+	public class CheckItemState : JsonCompatibleExpiringObject, IEquatable<CheckItemState>
 	{
-		private static readonly OneToOneMap<CheckItemStates, string> _stateMap;
+		private static readonly OneToOneMap<CheckItemStateType, string> _stateMap;
 
 		private string _apiState;
 		private string _checkItemId;
-		private CheckItemStates _state;
+		private CheckItemStateType _state;
 
 		public string CheckItemId
 		{
@@ -50,7 +50,7 @@ namespace Manatee.Trello
 				return _checkItemId;
 			}
 		}
-		public CheckItemStates State
+		public CheckItemStateType State
 		{
 			get { return _state; }
 			set
@@ -62,10 +62,10 @@ namespace Manatee.Trello
 
 		static CheckItemState()
 		{
-			_stateMap = new OneToOneMap<CheckItemStates, string>
+			_stateMap = new OneToOneMap<CheckItemStateType, string>
 			           	{
-			           		{CheckItemStates.Incomplete, "incomplete"},
-			           		{CheckItemStates.Complete, "complete"},
+			           		{CheckItemStateType.Incomplete, "incomplete"},
+			           		{CheckItemStateType.Complete, "complete"},
 			           	};
 		}
 		public CheckItemState() {}
@@ -101,7 +101,7 @@ namespace Manatee.Trello
 			return false;
 		}
 
-		protected override void Refresh() {}
+		protected override void Get() {}
 		protected override void PropigateSerivce() {}
 
 		private void UpdateState()

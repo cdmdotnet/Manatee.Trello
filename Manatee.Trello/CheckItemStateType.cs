@@ -1,4 +1,4 @@
-/***************************************************************************************
+﻿/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,19 +14,18 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		MemberStatus.cs
+	File Name:		CheckItemStates.cs
 	Namespace:		Manatee.Trello
-	Class Name:		MemberStatus
-	Purpose:		Eumerates known values for member status on Trello.com.
+	Class Name:		CheckItemStates
+	Purpose:		Enumerates known values for an item in a checklist on Trello.com.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
-	public enum MemberStatus
+	public enum CheckItemStateType
 	{
 		Unknown = -1,
-		Disconnected,
-		Idle,
-		Active
+		Incomplete,
+		Complete
 	}
 }

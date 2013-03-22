@@ -44,104 +44,59 @@ namespace Manatee.Trello.Rest
 		}
 
 		public T Get<T>(Request<T> request)
-			where T : EntityBase, new()
+			where T : ExpiringObject, new()
 		{
 			return Execute(request, Method.GET);
 		}
-		public TEntity Get<TOwner, TEntity>(Request<TOwner, TEntity> request)
-			where TOwner : EntityBase
-			where TEntity : OwnedEntityBase<TOwner>, new()
-		{
-			return Execute(request, Method.GET);
-		}
-		public IEnumerable<TEntity> Get<TOwner, TEntity>(CollectionRequest<TOwner, TEntity> request)
-			where TOwner : EntityBase
-			where TEntity : ExpiringObject, new()
+		public IEnumerable<T> Get<T>(CollectionRequest<T> request)
+			where T : ExpiringObject, new()
 		{
 			return Execute(request, Method.GET);
 		}
 		public T Put<T>(Request<T> request)
-			where T : EntityBase, new()
-		{
-			return Execute(request, Method.PUT);
-		}
-		public TEntity Put<TOwner, TEntity>(Request<TOwner, TEntity> request)
-			where TOwner : EntityBase
-			where TEntity : OwnedEntityBase<TOwner>, new()
+			where T : ExpiringObject, new()
 		{
 			return Execute(request, Method.PUT);
 		}
 		public T Post<T>(Request<T> request)
-			where T : EntityBase, new()
+			where T : ExpiringObject, new()
 		{
 			return Execute(request, Method.POST);
 		}
+		public T Delete<T>(Request<T> request)
+			where T : ExpiringObject, new()
+		{
+			return Execute(request, Method.DELETE);
+		}
 
 		private void PrepRequest<T>(Request<T> request, Method method)
-			where T : EntityBase, new()
+			where T : ExpiringObject, new()
 		{
-			if (_authToken != null)
-				request.AddParameter("token", _authToken);
 			request.Method = method;
 			request.JsonSerializer = _serializer;
+			if (_authToken != null)
+				request.AddParameter("token", _authToken);
 			if (method.In(Method.PUT, Method.POST))
 			{
 				request.AddParameters();
-				request.AddBody(request.Entity);
-			}
-		}
-		private void PrepRequest<TOwner, TEntity>(Request<TOwner, TEntity> request, Method method)
-			where TOwner : EntityBase
-			where TEntity : OwnedEntityBase<TOwner>, new()
-		{
-			if (_authToken != null)
-				request.AddParameter("token", _authToken);
-			request.Method = method;
-			request.JsonSerializer = _serializer;
-			if (method.In(Method.PUT, Method.POST))
-			{
-				request.AddParameters();
-				request.AddBody(request.Entity);
-			}
-		}
-		private void PrepRequest<TOwner, TEntity>(CollectionRequest<TOwner, TEntity> request, Method method)
-			where TOwner : EntityBase
-			where TEntity : ExpiringObject, new()
-		{
-			if (_authToken != null)
-				request.AddParameter("token", _authToken);
-			request.Method = method;
-			request.JsonSerializer = _serializer;
-			if (method.In(Method.PUT, Method.POST))
-			{
-				request.AddParameters();
-				request.AddBody(request.Entity);
+				if (request.ParameterSource != null)
+					request.AddBody(request.ParameterSource);
 			}
 		}
 		private T Execute<T>(Request<T> request, Method method)
-			where T : EntityBase, new()
+			where T : ExpiringObject, new()
 		{
 			var client = GenerateRestClient();
 			PrepRequest(request, method);
 			var response = client.Execute<T>(request);
 			return response.Data;
 		}
-		private TEntity Execute<TOwner, TEntity>(Request<TOwner, TEntity> request, Method method)
-			where TOwner : EntityBase
-			where TEntity : OwnedEntityBase<TOwner>, new()
+		private IEnumerable<T> Execute<T>(CollectionRequest<T> request, Method method)
+			where T : ExpiringObject, new()
 		{
 			var client = GenerateRestClient();
 			PrepRequest(request, method);
-			var response = client.Execute<TEntity>(request);
-			return response.Data;
-		}
-		private IEnumerable<TEntity> Execute<TOwner, TEntity>(CollectionRequest<TOwner, TEntity> request, Method method)
-			where TOwner : EntityBase
-			where TEntity : ExpiringObject, new()
-		{
-			var client = GenerateRestClient();
-			PrepRequest(request, method);
-			var response = client.Execute<List<TEntity>>(request);
+			var response = client.Execute<List<T>>(request);
 			return response.Data;
 		}
 		private RestClient GenerateRestClient()

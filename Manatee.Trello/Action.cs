@@ -56,7 +56,7 @@ namespace Manatee.Trello
 	//     "username":"gregsdennis"
 	//  }
 	//}
-	public class Action : EntityBase, IEquatable<Action>
+	public class Action : JsonCompatibleExpiringObject, IEquatable<Action>
 	{
 		private static readonly OneToOneMap<ActionType, string> _typeMap;
 
@@ -81,11 +81,6 @@ namespace Manatee.Trello
 		public ActionType Type
 		{
 			get { return _type; }
-			set
-			{
-				_type = value;
-				UpdateApiType();
-			}
 		}
 		private DateTime? Date
 		{
@@ -197,7 +192,7 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
 			var entity = Svc.Api.Get(new Request<Action>(Id));
 			Refresh(entity);

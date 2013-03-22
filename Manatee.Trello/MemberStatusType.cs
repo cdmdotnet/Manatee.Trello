@@ -1,4 +1,4 @@
-﻿/***************************************************************************************
+/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,26 +14,19 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		EntityBase.cs
-	Namespace:		Manatee.Trello.Implementation
-	Class Name:		EntityBase
-	Purpose:		Base class for entities which are not exclusively owned by
-					another entitity.
+	File Name:		MemberStatus.cs
+	Namespace:		Manatee.Trello
+	Class Name:		MemberStatus
+	Purpose:		Eumerates known values for member status on Trello.com.
 
 ***************************************************************************************/
-using Manatee.Trello.Rest;
-
-namespace Manatee.Trello.Implementation
+namespace Manatee.Trello
 {
-	public abstract class EntityBase : JsonCompatibleExpiringObject
+	public enum MemberStatusType
 	{
-		public string Id { get; protected set; }
-		
-		public EntityBase() {}
-		internal EntityBase(TrelloService svc, string id)
-			: base(svc)
-		{
-			Id = id;
-		}
+		Unknown = -1,
+		Disconnected,
+		Idle,
+		Active
 	}
 }

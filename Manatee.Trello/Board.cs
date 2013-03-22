@@ -54,12 +54,13 @@ namespace Manatee.Trello
 	//      "purple":""
 	//   }
 	//}
-	public class Board : EntityBase, IEquatable<Board>
+	public class Board : JsonCompatibleExpiringObject, IEquatable<Board>
 	{
 		private readonly ExpiringList<Board, Action> _actions;
 		private string _description;
 		private bool? _isClosed;
 		private bool? _isPinned;
+		private bool? _isSubscribed;
 		private readonly LabelNames _labelNames;
 		private readonly ExpiringList<Board, List> _lists;
 		private readonly ExpiringList<Board, BoardMembership> _members;
@@ -78,7 +79,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _description;
 			}
-			set { _description = value; }
+			set
+			{
+				_description = value;
+				Parameters.Add("desc", _description);
+				Put();
+			}
 		}
 		public bool? IsClosed
 		{
@@ -87,7 +93,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _isClosed;
 			}
-			set { _isClosed = value; }
+			set
+			{
+				_isClosed = value;
+				Parameters.Add("closed", _isClosed.ToLowerString());
+				Put();
+			}
 		}
 		public bool? IsPinned
 		{
@@ -96,7 +107,26 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _isPinned;
 			}
-			set { _isPinned = value; }
+			set
+			{
+				_isPinned = value;
+				Parameters.Add("pinned", _isPinned.ToLowerString());
+				Put();
+			}
+		}
+		public bool? IsSubscribed
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _isSubscribed;
+			}
+			set
+			{
+				_isPinned = value;
+				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
+				Put();
+			}
 		}
 		public LabelNames LabelNames { get { return _labelNames; } }
 		public IEnumerable<List> Lists { get { return _lists; } }
@@ -108,9 +138,14 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set { _name = value; }
+			set
+			{
+				_name = value;
+				Parameters.Add("name", _name);
+				Put();
+			}
 		}
-		private Organization Organization
+		public Organization Organization
 		{
 			get
 			{
@@ -119,7 +154,14 @@ namespace Manatee.Trello
 				       	? (_organization = Svc.Retrieve<Organization>(_organizationId))
 				       	: _organization;
 			}
+			set
+			{
+				_organizationId = value.Id;
+				Parameters.Add("idOrganization", _organizationId);
+				Put();
+			}
 		}
+		public BoardPersonalPreferences PersonalPreferences { get { return _personalPreferences; } }
 		public BoardPreferences Preferences { get { return _preferences; } }
 		public string Url
 		{
@@ -150,54 +192,43 @@ namespace Manatee.Trello
 			_preferences = new BoardPreferences(svc, this);
 		}
 
-		//public List AddList(string title, Position position)
-		//{
-		//    var request = new CreateListOnBoardRequest(this, title, position);
-		//    var list = Svc.PostAndCache<Board, List, CreateListOnBoardRequest>(request);
-		//    list.Svc = Svc;
-		//    _lists.MarkForUpdate();
-		//    return list;
-		//}
-		public void AddMember(Member member)
+		public List AddList(string title, Position position = null)
 		{
-			
+			var request = new Request<List>(this);
+			Parameters.Add("name", title);
+			Parameters.Add("idBoard", Id);
+			if ((position != null) && position.IsValid)
+				Parameters.Add("pos", position);
+			var list = Svc.PostAndCache(request);
+			_lists.MarkForUpdate();
+			_actions.MarkForUpdate();
+			return list;
 		}
-		//public void MarkAsViewed()
-		//{
-		//    var request = new MarkBoardAsViewedRequest(this);
-		//    Svc.PostAndCache<Board, object, MarkBoardAsViewedRequest>(request);
-		//}
-		public void Close()
+		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			
+			var request = new Request<Member>(new ExpiringObject[]{this, member}, this);
+			Parameters.Add("type", type.ToLowerString());
+			Svc.PutAndCache(request);
+			_members.MarkForUpdate();
+			_actions.MarkForUpdate();
 		}
-		public void Move(Organization organization)
+		public void MarkAsViewed()
 		{
-			
+			var request = new Request<Board>(new ExpiringObject[] {this}, urlExtension: "markAsViewed");
+			Svc.PostAndCache(request);
+			_actions.MarkForUpdate();
 		}
-		public void InviteMember(Member member)
+		private void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			
+			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");
 		}
 		public void RemoveMember(Member member)
 		{
-			
+			Svc.DeleteFromCache(new Request<Board>(new ExpiringObject[] {this, member}));
 		}
-		public void Rename(string name)
+		private void RescindInvitation(Member member)
 		{
-
-		}
-		public void RescindInvitation(Member member)
-		{
-			
-		}
-		public void Subscribe()
-		{
-
-		}
-		public void Unsubscribe()
-		{
-
+			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");
 		}
 		public override void FromJson(JsonValue json)
 		{
@@ -208,6 +239,7 @@ namespace Manatee.Trello
 			_description = obj.TryGetString("desc");
 			_isClosed = obj.TryGetBoolean("closed");
 			_isPinned = obj.TryGetBoolean("pinned");
+			_isSubscribed = obj.TryGetBoolean("subscribed");
 			_name = obj.TryGetString("name");
 			_organizationId = obj.TryGetString("idOrganization");
 			_url = obj.TryGetString("url");
@@ -220,6 +252,7 @@ namespace Manatee.Trello
 			           		{"desc", _description},
 			           		{"closed", _isClosed.HasValue ? _isClosed.Value : JsonValue.Null},
 			           		{"pinned", _isPinned.HasValue ? _isPinned.Value : JsonValue.Null},
+			           		{"subscribed", _isSubscribed.HasValue ? _isSubscribed.Value : JsonValue.Null},
 			           		{"labelNames", _labelNames != null ? _labelNames.ToJson() : JsonValue.Null},
 			           		{"name", _name},
 			           		{"idOrganization", _organizationId},
@@ -250,7 +283,7 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
 			var entity = Svc.Api.Get(new Request<Board>(Id));
 			Refresh(entity);
@@ -264,6 +297,12 @@ namespace Manatee.Trello
 			_personalPreferences.Svc = Svc;
 			_preferences.Svc = Svc;
 			if (_organization != null) _organization.Svc = Svc;
+		}
+
+		private void Put()
+		{
+			Svc.PutAndCache(new Request<Board>(this));
+			_actions.MarkForUpdate();
 		}
 	}
 }

@@ -26,6 +26,7 @@ namespace Manatee.Trello
 	{
 		Unknown = -1,
 		Admin,
-		Normal
+		Normal,
+		Observer
 	}
 }

@@ -27,6 +27,8 @@ using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
+using RestSharp;
+using JsonObject = Manatee.Json.JsonObject;
 
 namespace Manatee.Trello
 {
@@ -76,10 +78,13 @@ namespace Manatee.Trello
 	//   ],
 	//   "uploadedAvatarHash":null
 	//}
-	public class Member : EntityBase, IEquatable<Member>
+	public class Member : JsonCompatibleExpiringObject, IEquatable<Member>
 	{
-		private static readonly OneToOneMap<MemberStatus, string> _statusMap;
+		private static readonly OneToOneMap<MemberStatusType, string> _statusMap;
 
+		internal static readonly Dictionary<string, Func<Member, object>> _propertyMap;
+
+		private readonly ExpiringList<Member, Action> _actions;
 		private string _apiStatus;
 		private string _avatarHash;
 		private string _avatarSource;
@@ -99,7 +104,7 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Member, PinnedBoard> _pinnedBoards;
 		private readonly MemberPreferences _preferences;
 		private readonly ExpiringList<Member, PremiumOrganization> _premiumOrganizations;
-		private MemberStatus _status;
+		private MemberStatusType _status;
 		private List<string> _trophies;
 		private string _uploadedAvatarHash;
 		private string _url;
@@ -112,7 +117,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _avatarHash;
 			}
-			set { _avatarHash = value; }
 		}
 		public string AvatarSource
 		{
@@ -121,7 +125,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _avatarSource;
 			}
-			set { _avatarSource = value; }
+			set
+			{
+				_avatarSource = value;
+				Parameters.Add("avatarSource", _avatarSource);
+				Put();
+			}
 		}
 		public string Bio
 		{
@@ -130,7 +139,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _bio;
 			}
-			set { _bio = value; }
+			set
+			{
+				_bio = value;
+				Parameters.Add("bio", _bio);
+				Put();
+			}
 		}
 		public IEnumerable<Board> Boards { get { return _boards; } }
 		private bool? Confirmed
@@ -140,7 +154,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _confirmed;
 			}
-			set { _confirmed = value; }
 		}
 		public string Email
 		{
@@ -149,7 +162,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _email;
 			}
-			set { _email = value; }
 		}
 		public string FullName
 		{
@@ -158,7 +170,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _fullName;
 			}
-			set { _fullName = value; }
+			set
+			{
+				_fullName = value;
+				Parameters.Add("fullName", _fullName);
+				Put();
+			}
 		}
 		public string GravatarHash
 		{
@@ -167,7 +184,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _gravatarHash;
 			}
-			set { _gravatarHash = value; }
 		}
 		public string Initials
 		{
@@ -176,31 +192,42 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _initials;
 			}
-			set { _initials = value; }
+			set
+			{
+				_initials = value;
+				Parameters.Add("initials", _initials);
+				Put();
+			}
 		}
 		public IEnumerable<Board> InvitedBoardIds { get { return _invitedBoards; } }
 		public IEnumerable<Organization> InvitedOrganizations { get { return _invitedOrganizations; } }
 		public List<string> LoginTypes
 		{
-			get { return _loginTypes; }
+			get
+			{
+				VerifyNotExpired();
+				return _loginTypes;
+			}
 		}
 		public string MemberType
 		{
-			get { return _memberType; }
-			set { _memberType = value; }
+			get
+			{
+				VerifyNotExpired();
+				return _memberType;
+			}
 		}
 		public IEnumerable<Notification> Notifications { get { return _notifications; } }
 		public IEnumerable<Organization> Organizations { get { return _organizations; } }
 		public IEnumerable<Board> PinnedBoards { get { return _pinnedBoards; } }
 		public MemberPreferences Preferences { get { return _preferences; } }
 		public IEnumerable<Organization> PremiumOrganizations { get { return _premiumOrganizations; } }
-		public MemberStatus Status
+		public MemberStatusType Status
 		{
-			get { return _status; }
-			set
+			get
 			{
-				_status = value;
-				UpdateApiStatus();
+				VerifyNotExpired();
+				return _status;
 			}
 		}
 		public List<string> Trophies
@@ -218,7 +245,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _uploadedAvatarHash;
 			}
-			set { _uploadedAvatarHash = value; }
 		}
 		public string Url
 		{
@@ -235,20 +261,32 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _username;
 			}
-			set { _username = value; }
+			set
+			{
+				_username = value;
+				Parameters.Add("username", _username);
+				Put();
+			}
 		}
 
 		static Member()
 		{
-			_statusMap = new OneToOneMap<MemberStatus, string>
+			_statusMap = new OneToOneMap<MemberStatusType, string>
 			           	{
-			           		{MemberStatus.Disconnected, "disconnected"},
-			           		{MemberStatus.Idle, "idle"},
-			           		{MemberStatus.Active, "active"},
+			           		{MemberStatusType.Disconnected, "disconnected"},
+			           		{MemberStatusType.Idle, "idle"},
+			           		{MemberStatusType.Active, "active"},
 			           	};
+			_propertyMap = new Dictionary<string, Func<Member, object>>
+			               	{
+			               		{"email", m => m._email},
+			               		{"username", m => m._username},
+			               		{"fullName", m => m._fullName},
+			               	};
 		}
 		public Member()
 		{
+			_actions = new ExpiringList<Member, Action>(this);
 			_premiumOrganizations = new ExpiringList<Member, PremiumOrganization>(this);
 			_boards = new ExpiringList<Member, Board>(this);
 			_invitedBoards = new ExpiringList<Member, InvitedBoard>(this);
@@ -261,6 +299,7 @@ namespace Manatee.Trello
 		internal Member(TrelloService svc, string id)
 			: base(svc, id)
 		{
+			_actions = new ExpiringList<Member, Action>(svc, this);
 			_premiumOrganizations = new ExpiringList<Member, PremiumOrganization>(svc, this);
 			_boards = new ExpiringList<Member, Board>(svc, this);
 			_invitedBoards = new ExpiringList<Member, InvitedBoard>(svc, this);
@@ -271,36 +310,27 @@ namespace Manatee.Trello
 			_preferences = new MemberPreferences(svc, this);
 		}
 
-		//public void MarkAllNotificationsAsRead()
-		//{
-		//    var request = new MarkAllNotificationsAsReadRequest();
-		//    Svc.PostAndCache<Notification, MarkAllNotificationsAsReadRequest>(request);
-		//}
-		//public void PinBoard(Board board)
-		//{
-		//    var request = new PinBoardForMemberRequest(this, board);
-		//    Svc.PostAndCache<Member, Board, PinBoardForMemberRequest>(request);
-		//    _pinnedBoards.MarkForUpdate();
-		//}
+		public void MarkAllNotificationsAsRead()
+		{
+			Svc.PostAndCache(new Request<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
+		}
+		public void PinBoard(Board board)
+		{
+			Parameters.Add("value", board.Id);
+			Svc.PostAndCache(new Request<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
+		}
+		public void RescindVoteForCard(Card card)
+		{
+			Svc.DeleteFromCache(new Request<Card>(new ExpiringObject[] {card, new VotingMember {Id = Id}}));
+		}
 		public void UnpinBoard(Board board)
 		{
-			
+			Svc.DeleteFromCache(new Request<Member>(new ExpiringObject[] {this, new PinnedBoard {Id = board.Id}}));
 		}
-		public void UpdateBio(string bio)
+		public void VoteForCard(Card card)
 		{
-			
-		}
-		public void UpdateFullName(string fullName)
-		{
-			
-		}
-		public void UpdateInitials(string initials)
-		{
-			
-		}
-		public void UpdateUserame(string name)
-		{
-			
+			Parameters.Add("value", Id);
+			Svc.PostAndCache(new Request<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
 		}
 		public override void FromJson(JsonValue json)
 		{
@@ -378,8 +408,12 @@ namespace Manatee.Trello
 		{
 			return (Id == id) || (Username == id);
 		}
+		internal void AddParameter(string property)
+		{
+			Parameters.Add(new Parameter{Name = property, Value = _propertyMap[property](this)});
+		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
 			var entity = Svc.Api.Get(new Request<Member>(Id));
 			Refresh(entity);
@@ -396,9 +430,13 @@ namespace Manatee.Trello
 			_preferences.Svc = Svc;
 		}
 
+		private void Put()
+		{
+			Svc.PutAndCache(new Request<Member>(this));
+		}
 		private void UpdateStatus()
 		{
-			_status = _statusMap.Any(kvp => kvp.Value == _apiStatus) ? _statusMap[_apiStatus] : MemberStatus.Unknown;
+			_status = _statusMap.Any(kvp => kvp.Value == _apiStatus) ? _statusMap[_apiStatus] : MemberStatusType.Unknown;
 		}
 		private void UpdateApiStatus()
 		{

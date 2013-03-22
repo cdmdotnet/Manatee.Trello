@@ -15,5 +15,9 @@ namespace Manatee.Trello.Rest
 		{
 			return items.Contains(item);
 		}
+		public static string ToLowerString<T>(this T item)
+		{
+			return item.ToString().ToLower();
+		}
 	}
 }

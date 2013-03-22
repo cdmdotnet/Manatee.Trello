@@ -21,7 +21,6 @@
 					on Trello.com.
 
 ***************************************************************************************/
-using System;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
@@ -38,7 +37,7 @@ namespace Manatee.Trello
 	//      "selfJoin":false,
 	//      "cardCovers":true
 	//   },
-	public class BoardPreferences : OwnedEntityBase<Board>
+	public class BoardPreferences : JsonCompatibleExpiringObject
 	{
 		private static readonly OneToOneMap<BoardCommentType, string> _commentMap;
 		private static readonly OneToOneMap<BoardInvitationType, string> _invitationMap;
@@ -63,7 +62,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _allowsSelfJoin;
 			}
-			set { _allowsSelfJoin = value; }
+			set
+			{
+				_allowsSelfJoin = value;
+				Parameters.Add("value", _allowsSelfJoin.ToLowerString());
+				Put("selfJoin");
+			}
 		}
 		public BoardCommentType Comments
 		{
@@ -76,6 +80,8 @@ namespace Manatee.Trello
 			{
 				_comments = value;
 				UpdateApiComments();
+				Parameters.Add("value", _apiComments);
+				Put("comments");
 			}
 		}
 		public BoardInvitationType Invitations
@@ -89,6 +95,8 @@ namespace Manatee.Trello
 			{
 				_invitations = value;
 				UpdateApiInvitations();
+				Parameters.Add("value", _apiInvitations);
+				Put("invitations");
 			}
 		}
 		public BoardPermissionLevelType PermissionLevel
@@ -102,6 +110,8 @@ namespace Manatee.Trello
 			{
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
+				Parameters.Add("value", _apiPermissionLevel);
+				Put("permissionLevel");
 			}
 		}
 		public bool? ShowCardCovers
@@ -111,7 +121,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _showCardCovers;
 			}
-			set { _showCardCovers = value; }
+			set
+			{
+				_showCardCovers = value;
+				Parameters.Add("value", _apiInvitations.ToLowerString());
+				Put("cardCovers");
+			}
 		}
 		public BoardVotingType Voting
 		{
@@ -124,6 +139,8 @@ namespace Manatee.Trello
 			{
 				_voting = value;
 				UpdateApiVoting();
+				Parameters.Add("value", _apiVoting);
+				Put("voting");
 			}
 		}
 
@@ -209,13 +226,18 @@ namespace Manatee.Trello
 			return false;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Board, BoardPreferences>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<BoardPreferences>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}
 
+		private void Put(string extension)
+		{
+			var request = new Request<BoardPreferences>(new[] {Owner, this}, this, extension);
+			Svc.PutAndCache(request);
+		}
 		private void UpdateComments()
 		{
 			_comments = _commentMap.Any(kvp => kvp.Value == _apiComments) ? _commentMap[_apiComments] : BoardCommentType.Unknown;

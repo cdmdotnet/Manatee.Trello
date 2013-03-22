@@ -77,7 +77,7 @@ namespace Manatee.Trello
 	//   "pos":393215,
 	//   "url":"https://trello.com/card/publish-beta-to-sourceforge/5144051cbd0da6681200201e/6"
 	//}
-	public class Card : EntityBase, IEquatable<Card>
+	public class Card : JsonCompatibleExpiringObject, IEquatable<Card>
 	{
 		private readonly ExpiringList<Card, Action> _actions;
 		private string _attachmentCoverId;
@@ -90,6 +90,7 @@ namespace Manatee.Trello
 		private string _description;
 		private DateTime? _dueDate;
 		private bool? _isClosed;
+		private bool? _isSubscribed;
 		private readonly ExpiringList<Card, Label> _labels;
 		private string _listId;
 		private List _list;
@@ -129,7 +130,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _description;
 			}
-			set { _description = value; }
+			set
+			{
+				_description = value;
+				Parameters.Add("desc", value);
+				Put();
+			}
 		}
 		public DateTime? DueDate
 		{
@@ -138,7 +144,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _dueDate;
 			}
-			set { _dueDate = value; }
+			set
+			{
+				_dueDate = value;
+				Parameters.Add("due", _dueDate);
+				Put();
+			}
 		}
 		public bool? IsClosed
 		{
@@ -147,7 +158,26 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _isClosed;
 			}
-			set { _isClosed = value; }
+			set
+			{
+				_isClosed = value;
+				Parameters.Add("closed", _isClosed.ToLowerString());
+				Put();
+			}
+		}
+		public bool? IsSubscribed
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _isSubscribed;
+			}
+			set
+			{
+				_isSubscribed = value;
+				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
+				Put();
+			}
 		}
 		public IEnumerable<Label> Labels { get { return _labels; } }
 		public List List
@@ -165,7 +195,6 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _manualCoverAttachment;
 			}
-			set { _manualCoverAttachment = value; }
 		}
 		public IEnumerable<Member> Members { get { return _members; } }
 		public string Name
@@ -179,6 +208,7 @@ namespace Manatee.Trello
 			{
 				_name = value;
 				Parameters.Add("name", _name);
+				Put();
 			}
 		}
 		public Position Position
@@ -188,7 +218,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _position;
 			}
-			set { _position = value; }
+			set
+			{
+				_position = value;
+				Parameters.Add("pos", _position);
+				Put();
+			}
 		}
 		public int? ShortId
 		{
@@ -218,7 +253,6 @@ namespace Manatee.Trello
 			_labels = new ExpiringList<Card, Label>(this);
 			_members = new ExpiringList<Card, Member>(this);
 			_votingMembers = new ExpiringList<Card, VotingMember>(this);
-			Parameters = new RestParameterCollection();
 		}
 		internal Card(TrelloService svc, string id)
 			: base(svc, id)
@@ -233,75 +267,61 @@ namespace Manatee.Trello
 			_votingMembers = new ExpiringList<Card, VotingMember>(this);
 		}
 
-		//public CheckList AddCheckList(string title)
-		//{
-		//    var request = new CreateCheckListInCardRequest(this, title);
-		//    var checkList = Svc.PostAndCache<Card, CheckList, CreateCheckListInCardRequest>(request);
-		//    checkList.Svc = Svc;
-		//    _checkLists.MarkForUpdate();
-		//    return checkList;
-		//}
-		//public void AddComment(string comment)
-		//{
-		//    var request = new AddCommentToCardRequest(this, comment);
-		//    Svc.PostAndCache<Card, PostComment, AddCommentToCardRequest>(request);
-		//    _actions.MarkForUpdate();
-		//}
-		//public void ApplyLabel(LabelColor color)
-		//{
-		//    var request = new ApplyLabelToCardRequest(this, color);
-		//    Svc.PostAndCache<Card, Label, ApplyLabelToCardRequest>(request);
-		//    _actions.MarkForUpdate();
-		//}
-		public void Archive()
+		public Attachment AddAttachment()
 		{
-
+			throw new NotImplementedException();
 		}
-		public void AssignDueDate(DateTime? date)
+		public CheckList AddCheckList(string title, Position position = null)
 		{
-
+			var request = new Request<CheckList>(new ExpiringObject[] {new CheckList()}, this);
+			Parameters.Add("name", title);
+			if ((position != null) && position.IsValid)
+				Parameters.Add("position", position);
+			Parameters.Add("idCard", Id);
+			var checkList = Svc.PostAndCache(request);
+			_checkLists.MarkForUpdate();
+			return checkList;
 		}
-		//public void AssignMember(Member member)
-		//{
-		//    var request = new AddMemberToCardRequest(this, member.Id);
-		//    Svc.PostAndCache<Card, Member, AddMemberToCardRequest>(request);
-		//    _members.MarkForUpdate();
-		//}
-		public void AttachFile(string name, string uri)
+		public void AddComment(string comment)
 		{
-
+			var request = new Request<Card>(new ExpiringObject[] {this, new Action()}, this, "comments");
+			Parameters.Add("text", comment);
+			Svc.Api.Post(request);
+			_actions.MarkForUpdate();
+		}
+		public void ApplyLabel(LabelColor color)
+		{
+			Parameters.Add("value", color.ToLowerString());
+			Svc.PostAndCache(new Request<Label>(new ExpiringObject[] {this, new Label()}, this));
+			_actions.MarkForUpdate();
+		}
+		public void AssignMember(Member member)
+		{
+			var request = new Request<Label>(new ExpiringObject[] {this, new Member()}, this);
+			Parameters.Add("value", member.Id);
+			Svc.PostAndCache(request);
+			_actions.MarkForUpdate();
 		}
 		public void Delete()
 		{
-
+			Svc.DeleteFromCache(new Request<Card>(Id));
 		}
-		public void Move(Board board, List list, int? position = null)
+		public void Move(Board board, List list, Position position = null)
 		{
-
+			Parameters.Add("idBoard", board.Id);
+			Parameters.Add("idList", list.Id);
+			if (position != null)
+				Parameters.Add("pos", position);
+			Svc.PutAndCache(new Request<Card>(this));
+			_actions.MarkForUpdate();
 		}
 		public void RemoveLabel(LabelColor color)
 		{
-			
+			Svc.DeleteFromCache(new Request<Card>(new ExpiringObject[] {this, new Label()}, urlExtension: color.ToLowerString()));
 		}
 		public void RemoveMember(Member member)
 		{
-			
-		}
-		public void Rename(string name)
-		{
-
-		}
-		public void SendToBoard()
-		{
-
-		}
-		public void Subscribe()
-		{
-
-		}
-		public void Unsubscribe()
-		{
-
+			Svc.DeleteFromCache(new Request<Card>(new ExpiringObject[] {this, member}));
 		}
 		public override void FromJson(JsonValue json)
 		{
@@ -315,6 +335,7 @@ namespace Manatee.Trello
 			var due = obj.TryGetString("due");
 			_dueDate = string.IsNullOrWhiteSpace(due) ? (DateTime?)null : DateTime.Parse(due);
 			_isClosed = obj.TryGetBoolean("closed");
+			_isSubscribed = obj.TryGetBoolean("subscribed");
 			_listId = obj.TryGetString("idList");
 			_manualCoverAttachment = obj.TryGetBoolean("manualCoverAttachment");
 			_name = obj.TryGetString("name");
@@ -337,6 +358,7 @@ namespace Manatee.Trello
 			           		{"desc", _description},
 			           		{"due", _dueDate.HasValue ? _dueDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
 			           		{"closed", _isClosed.HasValue ? _isClosed.Value : JsonValue.Null},
+			           		{"subscribed", _isSubscribed.HasValue ? _isSubscribed.Value : JsonValue.Null},
 			           		{"labels", _labels.ToJson()},
 			           		{"idList", _listId},
 			           		{"manualCoverAttachment", _manualCoverAttachment.HasValue ? _manualCoverAttachment.Value : JsonValue.Null},
@@ -361,6 +383,7 @@ namespace Manatee.Trello
 			_description = card._description;
 			_dueDate = card._dueDate;
 			_isClosed = card._isClosed;
+			_isSubscribed = card._isSubscribed;
 			_manualCoverAttachment = card._manualCoverAttachment;
 			_name = card._name;
 			_position = card._position;
@@ -372,7 +395,7 @@ namespace Manatee.Trello
 			return Id == id;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
 			var entity = Svc.Api.Get(new Request<Card>(Id));
 			Refresh(entity);
@@ -388,6 +411,12 @@ namespace Manatee.Trello
 			_members.Svc = Svc;
 			if (_board != null) _board.Svc = Svc;
 			if (_list != null) _list.Svc = Svc;
+		}
+
+		private void Put()
+		{
+			Svc.PutAndCache(new Request<Card>(this));
+			_actions.MarkForUpdate();
 		}
 	}
 }

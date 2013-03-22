@@ -20,7 +20,6 @@
 	Purpose:		Represents relevant data for a notification on Trello.com.
 
 ***************************************************************************************/
-using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
@@ -34,7 +33,7 @@ namespace Manatee.Trello
 	//            "id":"50d227239c7b29575f000f99"
 	//         }
 	//      },
-	public class NotificationData : OwnedEntityBase<Notification>
+	public class NotificationData : JsonCompatibleExpiringObject
 	{
 		public JsonObject Data { get; set; }
 
@@ -65,9 +64,9 @@ namespace Manatee.Trello
 			return false;
 		}
 
-		protected override void Refresh()
+		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Action, ActionData>(Owner.Id));
+			var entity = Svc.Api.Get(new Request<NotificationData>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		protected override void PropigateSerivce() {}
