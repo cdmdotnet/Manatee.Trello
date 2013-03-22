@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		CheckItemStates.cs
+	File Name:		CheckItemStateType.cs
 	Namespace:		Manatee.Trello
-	Class Name:		CheckItemStates
+	Class Name:		CheckItemStateType
 	Purpose:		Enumerates known values for an item in a checklist on Trello.com.
 
 ***************************************************************************************/
