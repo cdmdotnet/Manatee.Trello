@@ -25,10 +25,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
-using RestSharp;
-using JsonObject = Manatee.Json.JsonObject;
 
 namespace Manatee.Trello
 {
@@ -78,11 +77,12 @@ namespace Manatee.Trello
 	//   ],
 	//   "uploadedAvatarHash":null
 	//}
+	/// <summary>
+	/// Represents a member (user).
+	/// </summary>
 	public class Member : JsonCompatibleExpiringObject, IEquatable<Member>
 	{
 		private static readonly OneToOneMap<MemberStatusType, string> _statusMap;
-
-		internal static readonly Dictionary<string, Func<Member, object>> _propertyMap;
 
 		private readonly ExpiringList<Member, Action> _actions;
 		private string _apiStatus;
@@ -110,6 +110,13 @@ namespace Manatee.Trello
 		private string _url;
 		private string _username;
 
+		///<summary>
+		/// Enumerates all actions associated with this member.
+		///</summary>
+		public IEnumerable<Action> Actions { get { return _actions; } }
+		/// <summary>
+		/// Gets the member's avatar hash.
+		/// </summary>
 		public string AvatarHash
 		{
 			get
@@ -118,6 +125,9 @@ namespace Manatee.Trello
 				return _avatarHash;
 			}
 		}
+		/// <summary>
+		/// Gets and sets the source URL for the member's avatar.
+		/// </summary>
 		public string AvatarSource
 		{
 			get
@@ -132,6 +142,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets and sets the bio of the member.
+		/// </summary>
 		public string Bio
 		{
 			get
@@ -146,8 +159,14 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Enumerates the boards owned by the member.
+		/// </summary>
 		public IEnumerable<Board> Boards { get { return _boards; } }
-		private bool? Confirmed
+		/// <summary>
+		/// Gets whether the member is confirmed.
+		/// </summary>
+		public bool? Confirmed
 		{
 			get
 			{
@@ -155,6 +174,9 @@ namespace Manatee.Trello
 				return _confirmed;
 			}
 		}
+		/// <summary>
+		/// Gets the member's registered email address.
+		/// </summary>
 		public string Email
 		{
 			get
@@ -163,6 +185,9 @@ namespace Manatee.Trello
 				return _email;
 			}
 		}
+		/// <summary>
+		/// Gets the member's full name.
+		/// </summary>
 		public string FullName
 		{
 			get
@@ -177,6 +202,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets the member's Gravatar hash.
+		/// </summary>
 		public string GravatarHash
 		{
 			get
@@ -185,6 +213,9 @@ namespace Manatee.Trello
 				return _gravatarHash;
 			}
 		}
+		/// <summary>
+		/// Gets or sets the member's initials.
+		/// </summary>
 		public string Initials
 		{
 			get
@@ -199,9 +230,18 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Enumerates the boards to which the member has been invited to join.
+		/// </summary>
 		public IEnumerable<Board> InvitedBoardIds { get { return _invitedBoards; } }
+		/// <summary>
+		/// Enumerates the organizations to which the member has been invited to join.
+		/// </summary>
 		public IEnumerable<Organization> InvitedOrganizations { get { return _invitedOrganizations; } }
-		public List<string> LoginTypes
+		/// <summary>
+		/// Enumerates the login types for the member.
+		/// </summary>
+		public IEnumerable<string> LoginTypes
 		{
 			get
 			{
@@ -209,6 +249,9 @@ namespace Manatee.Trello
 				return _loginTypes;
 			}
 		}
+		/// <summary>
+		/// Gets the type of member.
+		/// </summary>
 		public string MemberType
 		{
 			get
@@ -217,11 +260,29 @@ namespace Manatee.Trello
 				return _memberType;
 			}
 		}
+		/// <summary>
+		/// Enumerates the member's notifications.
+		/// </summary>
 		public IEnumerable<Notification> Notifications { get { return _notifications; } }
+		/// <summary>
+		/// Enumerates the organizations to which the member belongs.
+		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return _organizations; } }
+		/// <summary>
+		/// Enumerates the boards the member has pinnned to their boards menu.
+		/// </summary>
 		public IEnumerable<Board> PinnedBoards { get { return _pinnedBoards; } }
+		///<summary>
+		/// Gets the set of preferences for the member.
+		///</summary>
 		public MemberPreferences Preferences { get { return _preferences; } }
+		/// <summary>
+		/// Enumerates the premium organizations to which the member belongs.
+		/// </summary>
 		public IEnumerable<Organization> PremiumOrganizations { get { return _premiumOrganizations; } }
+		/// <summary>
+		/// Gets the member's activity status.
+		/// </summary>
 		public MemberStatusType Status
 		{
 			get
@@ -230,7 +291,10 @@ namespace Manatee.Trello
 				return _status;
 			}
 		}
-		public List<string> Trophies
+		/// <summary>
+		/// Enumerates the trophies obtained by the member.
+		/// </summary>
+		public IEnumerable<string> Trophies
 		{
 			get
 			{
@@ -238,6 +302,9 @@ namespace Manatee.Trello
 				return _trophies;
 			}
 		}
+		/// <summary>
+		/// Gets the user's uploaded avatar hash.
+		/// </summary>
 		public string UploadedAvatarHash
 		{
 			get
@@ -246,6 +313,9 @@ namespace Manatee.Trello
 				return _uploadedAvatarHash;
 			}
 		}
+		/// <summary>
+		/// Gets the URL to the member's profile.
+		/// </summary>
 		public string Url
 		{
 			get
@@ -254,6 +324,9 @@ namespace Manatee.Trello
 				return _url;
 			}
 		}
+		/// <summary>
+		/// Gets or sets the member's username.
+		/// </summary>
 		public string Username
 		{
 			get
@@ -277,13 +350,10 @@ namespace Manatee.Trello
 			           		{MemberStatusType.Idle, "idle"},
 			           		{MemberStatusType.Active, "active"},
 			           	};
-			_propertyMap = new Dictionary<string, Func<Member, object>>
-			               	{
-			               		{"email", m => m._email},
-			               		{"username", m => m._username},
-			               		{"fullName", m => m._fullName},
-			               	};
 		}
+		/// <summary>
+		/// Creates a new instance of the Member class.
+		/// </summary>
 		public Member()
 		{
 			_actions = new ExpiringList<Member, Action>(this);
@@ -310,23 +380,42 @@ namespace Manatee.Trello
 			_preferences = new MemberPreferences(svc, this);
 		}
 
+		/// <summary>
+		/// Marks all unread notifications for the member as read.
+		/// </summary>
 		public void MarkAllNotificationsAsRead()
 		{
 			Svc.PostAndCache(new Request<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
 		}
+		/// <summary>
+		/// Adds a board to the member's boards menu.
+		/// </summary>
+		/// <param name="board">The board to pin.</param>
 		public void PinBoard(Board board)
 		{
 			Parameters.Add("value", board.Id);
 			Svc.PostAndCache(new Request<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
 		}
+		/// <summary>
+		/// Removes the member's vote from a card.
+		/// </summary>
+		/// <param name="card"></param>
 		public void RescindVoteForCard(Card card)
 		{
 			Svc.DeleteFromCache(new Request<Card>(new ExpiringObject[] {card, new VotingMember {Id = Id}}));
 		}
+		/// <summary>
+		/// Removes a board from the member's boards menu.
+		/// </summary>
+		/// <param name="board"></param>
 		public void UnpinBoard(Board board)
 		{
 			Svc.DeleteFromCache(new Request<Member>(new ExpiringObject[] {this, new PinnedBoard {Id = board.Id}}));
 		}
+		/// <summary>
+		/// Applies the member's vote to a card.
+		/// </summary>
+		/// <param name="card"></param>
 		public void VoteForCard(Card card)
 		{
 			Parameters.Add("value", Id);
@@ -346,10 +435,14 @@ namespace Manatee.Trello
 			_fullName = obj.TryGetString("fullName");
 			_gravatarHash = obj.TryGetString("gravatarHash");
 			_initials = obj.TryGetString("initials");
-			_loginTypes = obj.TryGetArray("loginTypes").StringsFromJson();
+			var logins = obj.TryGetArray("loginTypes");
+			if (logins != null)
+				_loginTypes = logins.Select(v => v.Type == JsonValueType.Null ? null : v.String).ToList();
 			_memberType = obj.TryGetString("memberType");
 			_apiStatus = obj.TryGetString("status");
-			_trophies = obj.TryGetArray("trophies").StringsFromJson();
+			var trophies = obj.TryGetArray("trophies");
+			if (trophies != null)
+				_trophies = trophies.Select(v => v.Type == JsonValueType.Null ? null : v.String).ToList();
 			_uploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
 			_url = obj.TryGetString("url");
 			_username = obj.TryGetString("username");
@@ -407,10 +500,6 @@ namespace Manatee.Trello
 		internal override bool Match(string id)
 		{
 			return (Id == id) || (Username == id);
-		}
-		internal void AddParameter(string property)
-		{
-			Parameters.Add(new Parameter{Name = property, Value = _propertyMap[property](this)});
 		}
 
 		protected override void Get()

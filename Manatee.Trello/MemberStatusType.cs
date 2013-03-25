@@ -17,16 +17,31 @@
 	File Name:		MemberStatus.cs
 	Namespace:		Manatee.Trello
 	Class Name:		MemberStatus
-	Purpose:		Eumerates known values for member status on Trello.com.
+	Purpose:		Enumerates known values for member status on Trello.com.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Enumerates known values for a member's activity status.
+	/// </summary>
 	public enum MemberStatusType
 	{
+		/// <summary>
+		/// Not recognized.  May have been created since the current version of this API.
+		/// </summary>
 		Unknown = -1,
+		/// <summary>
+		/// Indicates the member is not connected to the website.
+		/// </summary>
 		Disconnected,
+		/// <summary>
+		/// Indicates the member is connected to the website but inactive.
+		/// </summary>
 		Idle,
+		/// <summary>
+		/// Indicates the member is actively using the website.
+		/// </summary>
 		Active
 	}
 }

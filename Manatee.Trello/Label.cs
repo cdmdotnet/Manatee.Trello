@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -34,6 +35,9 @@ namespace Manatee.Trello
 	//         "color":"green",
 	//         "name":""
 	//      },
+	/// <summary>
+	/// Represents a label as applied to a card.
+	/// </summary>
 	public class Label : JsonCompatibleExpiringObject, IEquatable<Label>
 	{
 		private static readonly OneToOneMap<LabelColor, string> _colorMap;
@@ -42,6 +46,9 @@ namespace Manatee.Trello
 		private LabelColor _color;
 		private string _name;
 
+		/// <summary>
+		/// Gets the color of the label.
+		/// </summary>
 		public LabelColor Color
 		{
 			get
@@ -50,6 +57,9 @@ namespace Manatee.Trello
 				return _color;
 			}
 		}
+		/// <summary>
+		/// Gets the name of the label.  Tied to the board which contains the card.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -71,6 +81,9 @@ namespace Manatee.Trello
 			            		{LabelColor.Blue, "blue"},
 			            	};
 		}
+		/// <summary>
+		/// Creates a new instance of the Label class.
+		/// </summary>
 		public Label() {}
 		internal Label(TrelloService svc, Card owner)
 			: base(svc, owner) {}

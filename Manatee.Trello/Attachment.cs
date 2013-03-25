@@ -22,12 +22,17 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
 {
+	///<summary>
+	/// Represents an attachment to a Card.
+	///</summary>
 	public class Attachment : JsonCompatibleExpiringObject, IEquatable<Attachment>
 	{
 		private int? _bytes;
@@ -40,7 +45,9 @@ namespace Manatee.Trello
 		private List<AttachmentPreview> _previews;
 		private string _url;
 
-		public string Id { get; private set; }
+		///<summary>
+		/// The size of the attachment.
+		///</summary>
 		public int? Bytes
 		{
 			get
@@ -49,6 +56,9 @@ namespace Manatee.Trello
 				return _bytes;
 			}
 		}
+		/// <summary>
+		/// The date on which the attachment was created.
+		/// </summary>
 		public DateTime? Date
 		{
 			get
@@ -57,6 +67,9 @@ namespace Manatee.Trello
 				return _date;
 			}
 		}
+		///<summary>
+		/// The member who created the attachment
+		///</summary>
 		public Member Member
 		{
 			get
@@ -65,6 +78,8 @@ namespace Manatee.Trello
 				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
 			}
 		}
+		///<summary>
+		///</summary>
 		public bool? IsUpload
 		{
 			get
@@ -73,6 +88,9 @@ namespace Manatee.Trello
 				return _isUpload;
 			}
 		}
+		///<summary>
+		/// Indicates the type of attachment.
+		///</summary>
 		public string MimeType
 		{
 			get
@@ -81,6 +99,9 @@ namespace Manatee.Trello
 				return _mimeType;
 			}
 		}
+		///<summary>
+		/// The name of the attachment.
+		///</summary>
 		public string Name
 		{
 			get
@@ -89,6 +110,9 @@ namespace Manatee.Trello
 				return _name;
 			}
 		}
+		///<summary>
+		/// Enumerates a collection of previews for the attachment.
+		///</summary>
 		public IEnumerable<AttachmentPreview> Previews
 		{
 			get
@@ -97,6 +121,9 @@ namespace Manatee.Trello
 				return _previews;
 			}
 		}
+		///<summary>
+		/// Indicates the attachment storage location.
+		///</summary>
 		public string Url
 		{
 			get
@@ -106,8 +133,11 @@ namespace Manatee.Trello
 			}
 		}
 
-		public Attachment() {}
-		public Attachment(TrelloService svc, Card owner)
+		/// <summary>
+		/// Creates a new instance of an Attachment.
+		/// </summary>
+		public Attachment() { }
+		internal Attachment(TrelloService svc, Card owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)
@@ -123,7 +153,7 @@ namespace Manatee.Trello
 			_isUpload = obj.TryGetBoolean("isUpload");
 			_mimeType = obj.TryGetString("mimeType");
 			_name = obj.TryGetString("name");
-			_previews = obj.TryGetArray("previews").FromJson<AttachmentPreview>();
+			_previews = obj.TryGetArray("previews").FromJson<AttachmentPreview>().ToList();
 			_url = obj.TryGetString("url");
 		}
 		public override JsonValue ToJson()
@@ -142,7 +172,14 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
-		public  bool Equals(Attachment other)
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public bool Equals(Attachment other)
 		{
 			return Id == other.Id;
 		}

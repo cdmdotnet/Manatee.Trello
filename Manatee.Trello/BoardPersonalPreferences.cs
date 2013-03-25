@@ -23,6 +23,7 @@
 ***************************************************************************************/
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -35,6 +36,9 @@ namespace Manatee.Trello
 	//   "showSidebarActivity":true,
 	//   "showListGuide":false
 	//}
+	///<summary>
+	/// Represents a member's viewing preferences for a board
+	///</summary>
 	public class BoardPersonalPreferences : JsonCompatibleExpiringObject
 	{
 		private bool? _showListGuide;
@@ -43,6 +47,12 @@ namespace Manatee.Trello
 		private bool? _showSidebarBoardActions;
 		private bool? _showSidebarMembers;
 
+		///<summary>
+		/// Gets and sets whether the list guide (left side of the screen) is expanded.
+		///</summary>
+		/// <remarks>
+		/// The option to show the list guide is only active when horizontal scrolling is enabled.
+		/// </remarks>
 		public bool? ShowListGuide
 		{
 			get
@@ -57,6 +67,9 @@ namespace Manatee.Trello
 				Post();
 			}
 		}
+		///<summary>
+		/// Gets or sets whether the side bar (right side of the screen) is shown
+		///</summary>
 		public bool? ShowSidebar
 		{
 			get
@@ -71,6 +84,9 @@ namespace Manatee.Trello
 				Post();
 			}
 		}
+		/// <summary>
+		/// Gets or sets whether the activity section of the side bar is shown.
+		/// </summary>
 		public bool? ShowSidebarActivity
 		{
 			get
@@ -85,6 +101,9 @@ namespace Manatee.Trello
 				Post();
 			}
 		}
+		/// <summary>
+		/// Gets or sets whether the board actions (Add List/Add Member/Filter Cards) section of the side bar is shown.
+		/// </summary>
 		public bool? ShowSidebarBoardActions
 		{
 			get
@@ -99,6 +118,9 @@ namespace Manatee.Trello
 				Post();
 			}
 		}
+		///<summary>
+		/// Gets or sets whether the members section of the list of the side bar is shown.
+		///</summary>
 		public bool? ShowSidebarMembers
 		{
 			get
@@ -114,8 +136,11 @@ namespace Manatee.Trello
 			}
 		}
 
+		/// <summary>
+		/// Creates a new instance of the BoardPersonalPreferences class.
+		/// </summary>
 		public BoardPersonalPreferences() {}
-		public BoardPersonalPreferences(TrelloService svc, Board owner)
+		internal BoardPersonalPreferences(TrelloService svc, Board owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)

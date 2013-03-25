@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -50,6 +51,9 @@ namespace Manatee.Trello
 	//         "username":"gregsdennis"
 	//      }
 	//   },
+	/// <summary>
+	/// Represents a member notification.
+	/// </summary>
 	public class Notification : JsonCompatibleExpiringObject, IEquatable<Notification>
 	{
 		private static readonly OneToOneMap<NotificationType, string> _typeMap;
@@ -62,7 +66,13 @@ namespace Manatee.Trello
 		private string _apiType;
 		private NotificationType _type;
 
-		private object Data { get { return _data; } }
+		/// <summary>
+		/// Data associated with the notification.  Contents depend upon the notification's type.
+		/// </summary>
+		public object Data { get { return _data; } }
+		///<summary>
+		/// The date on which the notification was created.
+		///</summary>
 		public DateTime? Date
 		{
 			get
@@ -71,6 +81,9 @@ namespace Manatee.Trello
 				return _date;
 			}
 		}
+		/// <summary>
+		/// Gets or sets whether the notification has been read.
+		/// </summary>
 		public bool? IsUnread
 		{
 			get
@@ -85,6 +98,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets the member whose action spawned the notification.
+		/// </summary>
 		private Member MemberCreator
 		{
 			get
@@ -95,6 +111,9 @@ namespace Manatee.Trello
 				       	: _member;
 			}
 		}
+		/// <summary>
+		/// Gets the notification's type.
+		/// </summary>
 		public NotificationType Type
 		{
 			get
@@ -134,6 +153,9 @@ namespace Manatee.Trello
 			           		{NotificationType.CardDueSoon, "cardDueSoon"},
 			           	};
 		}
+		/// <summary>
+		/// Creates a new instance of the Notification class.
+		/// </summary>
 		public Notification() {}
 		internal Notification(TrelloService svc, string id)
 			: base(svc, id) {}

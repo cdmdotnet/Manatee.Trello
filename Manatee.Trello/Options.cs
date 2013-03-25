@@ -24,11 +24,23 @@ using System;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Exposes a set of run-time options for all automatically-refreshing objects.
+	/// </summary>
 	public static class Options
 	{
+		/// <summary>
+		/// The default persistence time for object data.  Value is one minute.
+		/// </summary>
 		public static readonly TimeSpan DefaultItemDuration;
 
+		/// <summary>
+		/// Gets and sets the global duration setting for all auto-refreshing objects.
+		/// </summary>
 		public static TimeSpan ItemDuration { get; set; }
+		/// <summary>
+		/// Enables/disables auto-refreshing for all auto-refreshing objects.
+		/// </summary>
 		public static bool AutoRefresh { get; set; }
 
 		static Options()

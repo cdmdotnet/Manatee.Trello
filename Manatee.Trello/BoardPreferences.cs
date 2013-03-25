@@ -24,6 +24,7 @@
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -37,6 +38,9 @@ namespace Manatee.Trello
 	//      "selfJoin":false,
 	//      "cardCovers":true
 	//   },
+	///<summary>
+	/// Represents available preferences setting for a board
+	///</summary>
 	public class BoardPreferences : JsonCompatibleExpiringObject
 	{
 		private static readonly OneToOneMap<BoardCommentType, string> _commentMap;
@@ -55,6 +59,9 @@ namespace Manatee.Trello
 		private bool? _showCardCovers;
 		private BoardVotingType _voting;
 
+		/// <summary>
+		/// Gets and sets whether any Trello member may join a board without an invitation.
+		/// </summary>
 		public bool? AllowsSelfJoin
 		{
 			get
@@ -69,6 +76,9 @@ namespace Manatee.Trello
 				Put("selfJoin");
 			}
 		}
+		/// <summary>
+		/// Gets and sets who may comment on cards.
+		/// </summary>
 		public BoardCommentType Comments
 		{
 			get
@@ -84,6 +94,9 @@ namespace Manatee.Trello
 				Put("comments");
 			}
 		}
+		/// <summary>
+		/// Gets and sets who may extend invitations to join the board.
+		/// </summary>
 		public BoardInvitationType Invitations
 		{
 			get
@@ -99,6 +112,9 @@ namespace Manatee.Trello
 				Put("invitations");
 			}
 		}
+		/// <summary>
+		/// Gets and sets who may view the board.
+		/// </summary>
 		public BoardPermissionLevelType PermissionLevel
 		{
 			get
@@ -114,6 +130,9 @@ namespace Manatee.Trello
 				Put("permissionLevel");
 			}
 		}
+		/// <summary>
+		/// Gets and sets whether card covers are shown on the board.
+		/// </summary>
 		public bool? ShowCardCovers
 		{
 			get
@@ -128,6 +147,9 @@ namespace Manatee.Trello
 				Put("cardCovers");
 			}
 		}
+		/// <summary>
+		/// Gets and sets who may vote on cards.
+		/// </summary>
 		public BoardVotingType Voting
 		{
 			get
@@ -172,8 +194,11 @@ namespace Manatee.Trello
 			             		{BoardVotingType.Disabled, "disabled"},
 			             	};
 		}
+		/// <summary>
+		/// Creates a new instance of the BoardPreferences class.
+		/// </summary>
 		public BoardPreferences() {}
-		public BoardPreferences(TrelloService svc, Board owner)
+		internal BoardPreferences(TrelloService svc, Board owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)

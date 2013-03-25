@@ -14,30 +14,36 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		BoardInvitationType.cs
-	Namespace:		Manatee.Trello
-	Class Name:		BoardInvitationType
-	Purpose:		Enumerates known board invitation permission levels on Trello.com.
+	File Name:		GeneralExtensions.cs
+	Namespace:		Manatee.Trello.Implementation
+	Class Name:		GeneralExtensions
+	Purpose:		A set of general extension methods used throughout the
+					project.
 
 ***************************************************************************************/
-namespace Manatee.Trello
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Manatee.Trello.Implementation
 {
-	///<summary>
-	/// Enumerates known board invitation permission levels.
-	///</summary>
-	public enum BoardInvitationType
+	internal static class GeneralExtensions
 	{
-		/// <summary>
-		/// Not recognized.  May have been created since the current version of this API.
-		/// </summary>
-		Unknown = -1,
-		/// <summary>
-		/// Indicates that any member of the board may extend an invitation to join the board.
-		/// </summary>
-		Members,
-		/// <summary>
-		/// Indicates that only admins of the board may extend an invitation to joni the board.
-		/// </summary>
-		Admins
+		public static bool In<T>(this T item, IEnumerable<T> items)
+		{
+			return items.Contains(item);
+		}
+		public static bool In<T>(this T item, params T[] items)
+		{
+			return items.Contains(item);
+		}
+		public static string ToLowerString<T>(this T item)
+		{
+			return item.ToString().ToLower();
+		}
+		public static string LimitLength(this string str, int maxLength)
+		{
+			return str.Substring(0, Math.Min(str.Length, maxLength));
+		}
 	}
 }

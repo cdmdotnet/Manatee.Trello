@@ -14,29 +14,45 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		LabelColor.cs
+	File Name:		Position.cs
 	Namespace:		Manatee.Trello
-	Class Name:		LabelColor
-	Purpose:		Represents the position of a card or a list on Trello.com.
+	Class Name:		Position
+	Purpose:		Represents the position of a checklist in a card, a card
+					in a list, or list in a board on Trello.com.
 
 ***************************************************************************************/
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Serialization;
-using Manatee.Trello.Rest;
+using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the position of a checklist in a card, a card in a list,
+	/// or list in a board
+	/// </summary>
 	public class Position : IJsonCompatible
 	{
 		private PositionValue _value;
 
+		/// <summary>
+		/// Gets whether the position is valid.
+		/// </summary>
 		public bool IsValid { get { return _value > PositionValue.Unknown; } }
 
+		/// <summary>
+		/// Creates a new instance of the Position class.
+		/// </summary>
+		/// <param name="value">A positive integer, Top, or Bottom.</param>
 		public Position(PositionValue value)
 		{
 			_value = value;
 		}
+		/// <summary>
+		/// Creates a new instance of the Position class.
+		/// </summary>
+		/// <param name="value">A positive integer.</param>
 		public Position(int value)
 		{
 			_value = (PositionValue) value;
@@ -90,22 +106,48 @@ namespace Manatee.Trello
 		{
 			return _value.ToLowerString();
 		}
+		/// <summary>
+		/// Implicitly casts a PositionValue to a Position.
+		/// </summary>
+		/// <param name="value">The PositionValue value.</param>
+		/// <returns>The Position object.</returns>
 		public static implicit operator Position(PositionValue value)
 		{
 			return new Position(value);
 		}
+		/// <summary>
+		/// Implicitly casts an int to a Position.
+		/// </summary>
+		/// <param name="value">a positive integer.</param>
+		/// <returns>The Position object.</returns>
 		public static implicit operator Position(int value)
 		{
 			return new Position(value);
 		}
+		/// <summary>
+		/// Explicitly casts a Position to a PositionValue.
+		/// </summary>
+		/// <param name="position">The Position object.</param>
+		/// <returns>The PositionValue value.</returns>
 		public static explicit operator PositionValue(Position position)
 		{
 			return position._value;
 		}
-		public static implicit operator int(Position position)
+		/// <summary>
+		/// Explicitly casts a Position to an int.
+		/// </summary>
+		/// <param name="position">The Position object.</param>
+		/// <returns>The int value.</returns>
+		public static explicit operator int(Position position)
 		{
 			return (int) position._value;
 		}
+		/// <summary>
+		/// Compares two Position object by examining their content.
+		/// </summary>
+		/// <param name="a">A Position object.</param>
+		/// <param name="b">A Position object.</param>
+		/// <returns>True if equivalent, false otherwise.</returns>
 		public static bool operator ==(Position a, Position b)
 		{
 			if (ReferenceEquals(a, b)) return true;
@@ -113,10 +155,21 @@ namespace Manatee.Trello
 			if (Equals(a, null) || Equals(b, null)) return false;
 			return a._value == b._value;
 		}
+		/// <summary>
+		/// Compares two Position object by examining their content.
+		/// </summary>
+		/// <param name="a">A Position object.</param>
+		/// <param name="b">A Position object.</param>
+		/// <returns>False if equivalent, true otherwise.</returns>
 		public static bool operator !=(Position a, Position b)
 		{
 			return !(a == b);
 		}
+		/// <summary>
+		/// Compares two Position object by examining their content.
+		/// </summary>
+		/// <param name="other">A Position object.</param>
+		/// <returns>True if equivalent, false otherwise.</returns>
 		public bool Equals(Position other)
 		{
 			if (ReferenceEquals(null, other)) return false;
@@ -134,11 +187,5 @@ namespace Manatee.Trello
 		{
 			return _value.GetHashCode();
 		}
-	}
-	public enum PositionValue
-	{
-		Unknown = -2,
-		Top = -1,
-		Bottom = 0
 	}
 }

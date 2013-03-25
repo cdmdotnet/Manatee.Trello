@@ -21,9 +21,11 @@
 
 ***************************************************************************************/
 using System;
+using System.Linq;
 using Manatee.Json;
 using System.Collections.Generic;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -40,6 +42,9 @@ namespace Manatee.Trello
 	//   "powerUps":[
 	//   ]
 	//}
+	/// <summary>
+	/// Represents an organization.
+	/// </summary>
 	public class Organization : JsonCompatibleExpiringObject, IEquatable<Organization>
 	{
 		private readonly ExpiringList<Organization, Action> _actions;
@@ -54,8 +59,17 @@ namespace Manatee.Trello
 		private string _url;
 		private string _website;
 
+		///<summary>
+		/// Enumerates all actions associated with this organization.
+		///</summary>
 		public IEnumerable<Action> Actions { get { return _actions; } }
+		/// <summary>
+		/// Enumerates the boards owned by the organization.
+		/// </summary>
 		public IEnumerable<Board> Boards { get { return _boards; } }
+		/// <summary>
+		/// Gets or sets the description for the organization.
+		/// </summary>
 		public string Description
 		{
 			get
@@ -70,6 +84,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets or sets the name to be displayed for the organization.
+		/// </summary>
 		public string DisplayName
 		{
 			get
@@ -84,6 +101,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets the organization's logo hash.
+		/// </summary>
 		public string LogoHash
 		{
 			get
@@ -91,9 +111,14 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _logoHash;
 			}
-			set { _logoHash = value; }
 		}
+		/// <summary>
+		/// Enumerates the members who belong to the organization.
+		/// </summary>
 		public IEnumerable<Member> Members { get { return _members; } }
+		/// <summary>
+		/// Gets or sets the name of the organization.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -108,7 +133,10 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
-		public List<string> PowerUps
+		/// <summary>
+		/// Enumerates the powerups obtained by the organization.
+		/// </summary>
+		public IEnumerable<string> PowerUps
 		{
 			get
 			{
@@ -116,7 +144,13 @@ namespace Manatee.Trello
 				return _powerUps;
 			}
 		}
+		///<summary>
+		/// Gets the set of preferences for the organization.
+		///</summary>
 		public OrganizationPreferences Preferences { get { return _preferences; } }
+		/// <summary>
+		/// Gets the URL to the organization's profile.
+		/// </summary>
 		public string Url
 		{
 			get
@@ -125,6 +159,9 @@ namespace Manatee.Trello
 				return _url;
 			}
 		}
+		/// <summary>
+		/// Gets or sets the organization's website.
+		/// </summary>
 		public string Website
 		{
 			get
@@ -140,6 +177,9 @@ namespace Manatee.Trello
 			}
 		}
 
+		/// <summary>
+		/// Creates a new instance of the Organization class.
+		/// </summary>
 		public Organization()
 		{
 			_actions = new ExpiringList<Organization, Action>(this);
@@ -156,12 +196,22 @@ namespace Manatee.Trello
 			_preferences = new OrganizationPreferences(svc, this);
 		}
 
+		/// <summary>
+		/// Creates a board in the organization.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
 		public Board AddBoard(string name)
 		{
 			var board = Svc.PostAndCache(new Request<Board>(new[] {new Board()}));
 			_boards.MarkForUpdate();
 			return board;
 		}
+		///<summary>
+		/// Adds a member to the organization or updates the permissions of an existing member.
+		///</summary>
+		///<param name="member">The member</param>
+		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			var request = new Request<Member>(new ExpiringObject[] {this, member}, this);
@@ -170,18 +220,34 @@ namespace Manatee.Trello
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
+		/// <summary>
+		/// Deletes the organization.  This cannot be undone.
+		/// </summary>
 		public void Delete()
 		{
 			Svc.DeleteFromCache(new Request<Organization>(Id));
 		}
+		/// <summary>
+		/// Extends an invitation to the organization to another member.
+		/// </summary>
+		/// <param name="member">The member to invite.</param>
+		/// <param name="type">The level of membership offered.</param>
 		private void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
 		}
+		///<summary>
+		/// Removes a member from the organization.
+		///</summary>
+		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
 			Svc.DeleteFromCache(new Request<Board>(new ExpiringObject[] {this, member}));
 		}
+		/// <summary>
+		/// Rescinds an existing invitation to the organization.
+		/// </summary>
+		/// <param name="member"></param>
 		private void RescindInvitation(Member member)
 		{
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
@@ -196,7 +262,9 @@ namespace Manatee.Trello
 			_displayName = obj.TryGetString("displayName");
 			_logoHash = obj.TryGetString("logoHash");
 			_name = obj.TryGetString("name");
-			_powerUps = obj.TryGetArray("powerUps").StringsFromJson();
+			var powerUps = obj.TryGetArray("powerUps");
+			if (powerUps != null)
+				_powerUps = powerUps.Select(v => v.Type == JsonValueType.Null ? null : v.String).ToList();
 			_url = obj.TryGetString("url");
 			_website = obj.TryGetString("website");
 		}

@@ -17,7 +17,8 @@
 	File Name:		TrelloService.cs
 	Namespace:		Manatee.Trello
 	Class Name:		TrelloService
-	Purpose:		Represents a member (user) on Trello.com.
+	Purpose:		Provides an interface to retrieving data from Trello.com and
+					maintains a cache of all retrieved items.
 
 ***************************************************************************************/
 using System;
@@ -28,13 +29,21 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Provides an interface to retrieving data from Trello.com.
+	/// </summary>
 	public class TrelloService
 	{
 		internal readonly TrelloRest Api;
 
 		private readonly List<ExpiringObject> _cache;
 
-		public TrelloService(string authKey, string authToken)
+		/// <summary>
+		/// Creates a new instance of the TrelloService class.
+		/// </summary>
+		/// <param name="authKey"></param>
+		/// <param name="authToken"></param>
+		public TrelloService(string authKey, string authToken = null)
 		{
 			Api = new TrelloRest(authKey, authToken);
 			_cache = new List<ExpiringObject>();
@@ -44,6 +53,16 @@ namespace Manatee.Trello
 			_cache.ForEach(i => i.Svc = null);
 		}
 
+		/// <summary>
+		/// Retrieves the specified object from Trello.com and caches it.
+		/// </summary>
+		/// <typeparam name="T">The type of object to retrieve.</typeparam>
+		/// <param name="id">The id of the object to retrieve.</param>
+		/// <returns>The requested object or null if the object could not be found.</returns>
+		/// <remarks>
+		/// Will return null if the supplied ID does not match the type of object.  In the case of
+		/// Members, the member's username may be supplied instead of their ID.
+		/// </remarks>
 		public T Retrieve<T>(string id) where T : ExpiringObject, new()
 		{
 			if (string.IsNullOrWhiteSpace(id)) return null;
@@ -51,6 +70,9 @@ namespace Manatee.Trello
 			if (item != null) return item;
 			return Execute(() => Api.Get(new Request<T>(id)));
 		}
+		/// <summary>
+		/// Clears the cache of all retrieved items.
+		/// </summary>
 		public void Flush()
 		{
 			var remove = _cache.Where(e => e.IsExpired).ToList();

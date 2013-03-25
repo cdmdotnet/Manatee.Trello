@@ -23,10 +23,22 @@
 ***************************************************************************************/
 namespace Manatee.Trello
 {
+	///<summary>
+	/// Enumerates known values for organization permission levels
+	///</summary>
 	public enum OrganizationPermissionLevelType
 	{
+		/// <summary>
+		/// Not recognized.  May have been created since the current version of this API.
+		/// </summary>
 		Unknown = -1,
+		/// <summary>
+		/// Indicates that the organization can only be viewed by its members.
+		/// </summary>
 		Private,
+		/// <summary>
+		/// Indicates that anyone (even non-Trello users) may view the organization.
+		/// </summary>
 		Public
 	}
 }

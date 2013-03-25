@@ -192,7 +192,7 @@
             Creates a null JsonValue.
             </summary>
         </member>
-        <member name="M:Manatee.Json.JsonValue.#ctor(System.Boolean)">
+        <member name="M:Manatee.Json.JsonValue.#ctor(System.Nullable{System.Boolean})">
             <summary>
             Creates a JsonValue from a boolean.
             </summary>
@@ -202,7 +202,7 @@
             Creates a JsonValue from a string.
             </summary>
         </member>
-        <member name="M:Manatee.Json.JsonValue.#ctor(System.Double)">
+        <member name="M:Manatee.Json.JsonValue.#ctor(System.Nullable{System.Double})">
             <summary>
             Creates a JsonValue from a numeric value.
             </summary>
@@ -863,6 +863,71 @@
             <param name="results">An IEnumerable&lt;KeyValuePair&lt;string, JsonValue&gt;&gt;</param>
             <returns>An equivalent JsonObject</returns>
         </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.ToJson(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Converts a collection of strings to a JsonArray.
+            </summary>
+            <param name="list">A collection of strings</param>
+            <returns>A JsonArray containing the strings</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.ToJson(System.Collections.Generic.IEnumerable{System.Boolean})">
+            <summary>
+            Converts a collection of bools to a JsonArray.
+            </summary>
+            <param name="list">A collection of booleans</param>
+            <returns>A JsonArray containing the booleans</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.ToJson(System.Collections.Generic.IEnumerable{System.Nullable{System.Boolean}})">
+            <summary>
+            Converts a collection of Nullable&lt;bool&gt; to a JsonArray.
+            </summary>
+            <param name="list">A collection of Nullable&lt;bool&gt;</param>
+            <returns>A JsonArray containing the Nullable&lt;bool&gt;</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.ToJson(System.Collections.Generic.IEnumerable{Manatee.Json.JsonArray})">
+            <summary>
+            Converts a collection of JsonArrays to a JsonArray.
+            </summary>
+            <param name="list">A collection of JsonArrays</param>
+            <returns>A JsonArray containing the JsonArrays</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.ToJson(System.Collections.Generic.IEnumerable{Manatee.Json.JsonObject})">
+            <summary>
+            Converts a collection of JsonObjects to a JsonArray.
+            </summary>
+            <param name="list">A collection of JsonObjects</param>
+            <returns>A JsonArray containing the JsonObjects</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.ToJson(System.Collections.Generic.IEnumerable{System.Double})">
+            <summary>
+            Converts a collection of doubles to a JsonArray.
+            </summary>
+            <param name="list">A collection of doubles</param>
+            <returns>A JsonArray containing the doubles</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.ToJson(System.Collections.Generic.IEnumerable{Manatee.Json.Serialization.IJsonCompatible})">
+            <summary>
+            Serializes a collection of objects which implement IJsonCompatible to a JsonArray of equivalent JsonValues.
+            </summary>
+            <param name="list">A collection of equivalent JsonValues</param>
+            <returns>A JsonArray containing the equivalent JsonValues</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.FromJson``1(System.Collections.Generic.IEnumerable{Manatee.Json.JsonValue})">
+            <summary>
+            Deserializes a collection of JsonValues to an IEnumerable of the objects.
+            </summary>
+            <typeparam name="T">The type of object contained in the collection</typeparam>
+            <param name="json">The collection of JsonValues</param>
+            <returns>A collection of the deserialized objects</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.LinqExtensions.FromJson``1(Manatee.Json.JsonObject)">
+            <summary>
+            Deserializes a JsonValue to its equivalent object.
+            </summary>
+            <typeparam name="T">The type of object</typeparam>
+            <param name="json">The JsonValue to deserialize</param>
+            <returns>A collection of the deserialized objects</returns>
+        </member>
         <member name="T:Manatee.Json.JsonArray">
             <summary>
             Represents a collection of JSON values.
@@ -924,6 +989,51 @@
             A hash code for the current <see cref="T:System.Object"/>.
             </returns>
             <filterpriority>2</filterpriority>
+        </member>
+        <member name="T:Manatee.Json.Extensions.JsonExtensions">
+            <summary>
+            Provides extension methods for JsonValues.
+            </summary>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetString(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a string or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A string or null if the key is not found or is not a string</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetNumber(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a double or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A double or null if the key is not found or is not a string</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetBoolean(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a bool or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A bool or null if the key is not found or is not a string</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetArray(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a JsonArray or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A JsonArray or null if the key is not found or is not a string</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetObject(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a JsonObject or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A JsonObject or null if the key is not found or is not a string</returns>
         </member>
     </members>
 </doc>

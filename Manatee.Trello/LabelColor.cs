@@ -22,14 +22,38 @@
 ***************************************************************************************/
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Enumerates label colors for a board.
+	/// </summary>
 	public enum LabelColor
 	{
+		/// <summary>
+		/// Not recognized.  May have been created since the current version of this API.
+		/// </summary>
 		Unknown = -1,
+		/// <summary>
+		/// Indicates a green label.
+		/// </summary>
 		Green,
+		/// <summary>
+		/// Indicates a yellow label.
+		/// </summary>
 		Yellow,
+		/// <summary>
+		/// Indicates an orange label.
+		/// </summary>
 		Orange,
+		/// <summary>
+		/// Indicates a red label.
+		/// </summary>
 		Red,
+		/// <summary>
+		/// Indicates a purple label.
+		/// </summary>
 		Purple,
+		/// <summary>
+		/// Indicates a blue label.
+		/// </summary>
 		Blue
 	}
 }

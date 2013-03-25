@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -77,6 +78,9 @@ namespace Manatee.Trello
 	//   "pos":393215,
 	//   "url":"https://trello.com/card/publish-beta-to-sourceforge/5144051cbd0da6681200201e/6"
 	//}
+	/// <summary>
+	/// Represents a card.
+	/// </summary>
 	public class Card : JsonCompatibleExpiringObject, IEquatable<Card>
 	{
 		private readonly ExpiringList<Card, Action> _actions;
@@ -102,7 +106,13 @@ namespace Manatee.Trello
 		private string _url;
 		private readonly ExpiringList<Card, VotingMember> _votingMembers;
 
+		///<summary>
+		/// Enumerates all actions associated with this card.
+		///</summary>
 		public IEnumerable<Action> Actions { get { return _actions; } }
+		/// <summary>
+		/// Gets the ID of the attachment cover image.
+		/// </summary>
 		public string AttachmentCoverId
 		{
 			get
@@ -111,8 +121,17 @@ namespace Manatee.Trello
 				return _attachmentCoverId;
 			}
 		}
+		/// <summary>
+		/// Enumerates the cards attachments.
+		/// </summary>
 		public IEnumerable<Attachment> Attachments { get { return _attachments; } }
+		/// <summary>
+		/// Gets the badges summarizing the card's contents.
+		/// </summary>
 		public Badges Badges { get { return _badges; } }
+		/// <summary>
+		/// Gets the board which contains the card.
+		/// </summary>
 		public Board Board
 		{
 			get
@@ -121,8 +140,17 @@ namespace Manatee.Trello
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
+		/// <summary>
+		/// Enumerates the checklist items and their states.
+		/// </summary>
 		public IEnumerable<CheckItemState> CheckItemStates { get { return _checkItemStates; } }
+		/// <summary>
+		/// Enumerates the card's checklists.
+		/// </summary>
 		public IEnumerable<CheckList> CheckLists { get { return _checkLists; } }
+		/// <summary>
+		/// Gets and sets the card's description.
+		/// </summary>
 		public string Description
 		{
 			get
@@ -137,6 +165,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets and sets the card's due date.
+		/// </summary>
 		public DateTime? DueDate
 		{
 			get
@@ -151,6 +182,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets and sets whether a card has been archived.
+		/// </summary>
 		public bool? IsClosed
 		{
 			get
@@ -165,6 +199,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets and sets whether the current member is subscribed to this card.
+		/// </summary>
 		public bool? IsSubscribed
 		{
 			get
@@ -179,7 +216,13 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Enumerates the labels applied to this card.
+		/// </summary>
 		public IEnumerable<Label> Labels { get { return _labels; } }
+		/// <summary>
+		/// Gets the list which contains this card.
+		/// </summary>
 		public List List
 		{
 			get
@@ -188,6 +231,9 @@ namespace Manatee.Trello
 				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Retrieve<List>(_listId)) : _list;
 			}
 		}
+		/// <summary>
+		/// Gets whether the cover attachment was manually selected ?
+		/// </summary>
 		public bool? ManualCoverAttachment
 		{
 			get
@@ -196,7 +242,13 @@ namespace Manatee.Trello
 				return _manualCoverAttachment;
 			}
 		}
+		/// <summary>
+		/// Enumerates the members assigned to this card.
+		/// </summary>
 		public IEnumerable<Member> Members { get { return _members; } }
+		/// <summary>
+		/// Gets and sets the card's name
+		/// </summary>
 		public string Name
 		{
 			get
@@ -211,6 +263,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets and sets the card's position.
+		/// </summary>
 		public Position Position
 		{
 			get
@@ -225,6 +280,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets the cards short ID.
+		/// </summary>
 		public int? ShortId
 		{
 			get
@@ -233,6 +291,9 @@ namespace Manatee.Trello
 				return _shortId;
 			}
 		}
+		/// <summary>
+		/// Gets the URL for this card.
+		/// </summary>
 		public string Url
 		{
 			get
@@ -241,8 +302,14 @@ namespace Manatee.Trello
 				return _url;
 			}
 		}
-		private IEnumerable<Member> VotingMembers { get { return _votingMembers; } }
+		/// <summary>
+		/// Enumerates the members who have voted for this card.
+		/// </summary>
+		public IEnumerable<Member> VotingMembers { get { return _votingMembers; } }
 
+		/// <summary>
+		/// Creates a new instance of the Card class.
+		/// </summary>
 		public Card()
 		{
 			_actions = new ExpiringList<Card, Action>(this);
@@ -258,23 +325,33 @@ namespace Manatee.Trello
 			: base(svc, id)
 		{
 			_actions = new ExpiringList<Card, Action>(svc, this);
-			_attachments = new ExpiringList<Card, Attachment>(this);
+			_attachments = new ExpiringList<Card, Attachment>(svc, this);
 			_badges = new Badges(svc, this);
 			_checkItemStates = new ExpiringList<Card, CheckItemState>(svc, this);
 			_checkLists = new ExpiringList<Card, CheckList>(svc, this);
 			_labels = new ExpiringList<Card, Label>(svc, this);
 			_members = new ExpiringList<Card, Member>(svc, this);
-			_votingMembers = new ExpiringList<Card, VotingMember>(this);
+			_votingMembers = new ExpiringList<Card, VotingMember>(svc, this);
 		}
 
+		/// <summary>
+		/// Adds an attachment to the card.
+		/// </summary>
+		/// <returns>The attachment object.</returns>
 		public Attachment AddAttachment()
 		{
 			throw new NotImplementedException();
 		}
-		public CheckList AddCheckList(string title, Position position = null)
+		/// <summary>
+		/// Adds a checklist to the card.
+		/// </summary>
+		/// <param name="name">The name of the checklist</param>
+		/// <param name="position">The desired position of the checklist.  Default is Bottom.</param>
+		/// <returns>The checklist.</returns>
+		public CheckList AddCheckList(string name, Position position = null)
 		{
 			var request = new Request<CheckList>(new ExpiringObject[] {new CheckList()}, this);
-			Parameters.Add("name", title);
+			Parameters.Add("name", name);
 			if ((position != null) && position.IsValid)
 				Parameters.Add("position", position);
 			Parameters.Add("idCard", Id);
@@ -282,6 +359,10 @@ namespace Manatee.Trello
 			_checkLists.MarkForUpdate();
 			return checkList;
 		}
+		/// <summary>
+		/// Adds a comment to the card.
+		/// </summary>
+		/// <param name="comment"></param>
 		public void AddComment(string comment)
 		{
 			var request = new Request<Card>(new ExpiringObject[] {this, new Action()}, this, "comments");
@@ -289,12 +370,20 @@ namespace Manatee.Trello
 			Svc.Api.Post(request);
 			_actions.MarkForUpdate();
 		}
+		/// <summary>
+		/// Applies a lable to the card.
+		/// </summary>
+		/// <param name="color">The color of the label.</param>
 		public void ApplyLabel(LabelColor color)
 		{
 			Parameters.Add("value", color.ToLowerString());
 			Svc.PostAndCache(new Request<Label>(new ExpiringObject[] {this, new Label()}, this));
 			_actions.MarkForUpdate();
 		}
+		/// <summary>
+		/// Assigns a member to the card.
+		/// </summary>
+		/// <param name="member">The member to assign.</param>
 		public void AssignMember(Member member)
 		{
 			var request = new Request<Label>(new ExpiringObject[] {this, new Member()}, this);
@@ -302,10 +391,19 @@ namespace Manatee.Trello
 			Svc.PostAndCache(request);
 			_actions.MarkForUpdate();
 		}
+		/// <summary>
+		/// Deletes the card.  This cannot be undone.
+		/// </summary>
 		public void Delete()
 		{
 			Svc.DeleteFromCache(new Request<Card>(Id));
 		}
+		/// <summary>
+		/// Moves the card to another board/list/position.
+		/// </summary>
+		/// <param name="board">The destination board.</param>
+		/// <param name="list">The destination list.</param>
+		/// <param name="position">The destination position.  Default is Bottom.</param>
 		public void Move(Board board, List list, Position position = null)
 		{
 			Parameters.Add("idBoard", board.Id);
@@ -315,10 +413,18 @@ namespace Manatee.Trello
 			Svc.PutAndCache(new Request<Card>(this));
 			_actions.MarkForUpdate();
 		}
+		/// <summary>
+		/// Removes a label from a card.
+		/// </summary>
+		/// <param name="color"></param>
 		public void RemoveLabel(LabelColor color)
 		{
 			Svc.DeleteFromCache(new Request<Card>(new ExpiringObject[] {this, new Label()}, urlExtension: color.ToLowerString()));
 		}
+		/// <summary>
+		/// Removes (unassigns) a member from a card.
+		/// </summary>
+		/// <param name="member"></param>
 		public void RemoveMember(Member member)
 		{
 			Svc.DeleteFromCache(new Request<Card>(new ExpiringObject[] {this, member}));
@@ -409,6 +515,7 @@ namespace Manatee.Trello
 			_checkLists.Svc = Svc;
 			_labels.Svc = Svc;
 			_members.Svc = Svc;
+			_votingMembers.Svc = Svc;
 			if (_board != null) _board.Svc = Svc;
 			if (_list != null) _list.Svc = Svc;
 		}

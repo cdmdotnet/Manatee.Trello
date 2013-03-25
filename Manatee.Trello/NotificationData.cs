@@ -33,12 +33,21 @@ namespace Manatee.Trello
 	//            "id":"50d227239c7b29575f000f99"
 	//         }
 	//      },
+	/// <summary>
+	/// Contains relevant data for an Notification.  Content depends upon the type of Notification.
+	/// </summary>
 	public class NotificationData : JsonCompatibleExpiringObject
 	{
+		/// <summary>
+		/// Contains the JSON data relevant to the Notification.
+		/// </summary>
 		public JsonObject Data { get; set; }
 
+		/// <summary>
+		/// Creates a new instance of the ActionData class.
+		/// </summary>
 		public NotificationData() {}
-		public NotificationData(TrelloService svc, Notification owner)
+		internal NotificationData(TrelloService svc, Notification owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)

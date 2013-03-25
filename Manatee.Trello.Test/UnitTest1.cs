@@ -38,7 +38,7 @@ namespace Manatee.Trello.Test
 	public class UnitTest1
 	{
 		private const string Key = "062109670e7f56b88783721892f8f66f";
-		private const string Token = "b54b979e405695ac0f9b5cb34458754ec69cfd6727bb2aaab67d8f47cce184ed";
+		private const string Token = "82ec059f77a3349ff6b0072bff52af42c75b653694b84216531c977e71fc12b8";
 		private const string UserName = "s_littlecrabsolutions";
 		private const string BoardId = "51478f6469fd3d9341001dae";
 		private const string ListId = "51478f6469fd3d9341001daf";
@@ -52,11 +52,10 @@ namespace Manatee.Trello.Test
 		{
 			var service = new TrelloService(Key, Token);
 
-			var board = service.Retrieve<Board>(BoardId);
-			var member = service.Retrieve<Member>(UserName);
-			var cards = board.Lists.SelectMany(l => l.Cards).Where(c => c.Members.Contains(member));
+			var card = service.Retrieve<Card>(CardId);
+			var votingMembers = card.VotingMembers.ToList();
 
-			Assert.IsNotNull(cards);
+			Assert.IsNotNull(votingMembers);
 		}
 	}
 }

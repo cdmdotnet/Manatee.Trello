@@ -27,7 +27,7 @@ using RestSharp;
 namespace Manatee.Trello.Rest
 {
 	internal class Request<T> : RequestBase
-		where T : ExpiringObject
+		where T : ExpiringObject, new()
 	{
 		public ExpiringObject ParameterSource { get; private set; }
 

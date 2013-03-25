@@ -96,10 +96,10 @@
     <Compile Include="MemberPreferences.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Organization.cs" />
+    <Compile Include="PositionValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Implementation\JsonExtensions.cs" />
     <Compile Include="Rest\CollectionRequest.cs" />
-    <Compile Include="Rest\GeneralExtensions.cs" />
+    <Compile Include="Implementation\GeneralExtensions.cs" />
     <Compile Include="Rest\ParameterCollection.cs" />
     <Compile Include="Rest\Request.cs" />
     <Compile Include="Rest\RequestBase.cs" />

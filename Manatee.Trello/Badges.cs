@@ -24,6 +24,7 @@
 using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -41,6 +42,9 @@ namespace Manatee.Trello
 	//      "checkItems":4,
 	//      "attachments":0
 	//   },
+	///<summary>
+	/// Represents the set of badges shown on the card cover.
+	///</summary>
 	public class Badges : JsonCompatibleExpiringObject
 	{
 		private int? _attachments;
@@ -54,6 +58,9 @@ namespace Manatee.Trello
 		private bool? _viewingMemberVoted;
 		private int? _votes;
 
+		///<summary>
+		/// Indicates the number of attachments.
+		///</summary>
 		public int? Attachments
 		{
 			get
@@ -62,6 +69,9 @@ namespace Manatee.Trello
 				return _attachments;
 			}
 		}
+		/// <summary>
+		/// Indicates the number of check items.
+		/// </summary>
 		public int? CheckItems
 		{
 			get
@@ -70,6 +80,9 @@ namespace Manatee.Trello
 				return _checkItems;
 			}
 		}
+		/// <summary>
+		/// Indicates the number of check items which have been checked.
+		/// </summary>
 		public int? CheckItemsChecked
 		{
 			get
@@ -78,6 +91,9 @@ namespace Manatee.Trello
 				return _checkItemsChecked;
 			}
 		}
+		/// <summary>
+		/// Indicates the number of comments.
+		/// </summary>
 		public int? Comments
 		{
 			get
@@ -86,6 +102,9 @@ namespace Manatee.Trello
 				return _comments;
 			}
 		}
+		/// <summary>
+		/// Indicates the due date, if one exists.
+		/// </summary>
 		public DateTime? DueDate
 		{
 			get
@@ -94,6 +113,9 @@ namespace Manatee.Trello
 				return _dueDate;
 			}
 		}
+		/// <summary>
+		/// Indicates the FogBugz ID.
+		/// </summary>
 		public string FogBugz
 		{
 			get
@@ -102,6 +124,9 @@ namespace Manatee.Trello
 				return _fogBugz;
 			}
 		}
+		/// <summary>
+		/// Indicates whether the card has a description.
+		/// </summary>
 		public bool? HasDescription
 		{
 			get
@@ -110,6 +135,9 @@ namespace Manatee.Trello
 				return _hasDescription;
 			}
 		}
+		/// <summary>
+		/// Indicates whether the member is subscribed to the card.
+		/// </summary>
 		public bool? IsSubscribed
 		{
 			get
@@ -118,6 +146,9 @@ namespace Manatee.Trello
 				return _isSubscribed;
 			}
 		}
+		/// <summary>
+		/// Indicates whether the member has voted for this card.
+		/// </summary>
 		public bool? ViewingMemberVoted
 		{
 			get
@@ -126,6 +157,9 @@ namespace Manatee.Trello
 				return _viewingMemberVoted;
 			}
 		}
+		/// <summary>
+		/// Indicates the number of votes.
+		/// </summary>
 		public int? Votes
 		{
 			get
@@ -135,8 +169,11 @@ namespace Manatee.Trello
 			}
 		}
 
+		///<summary>
+		/// Creates a new instance of the Badges class.
+		///</summary>
 		public Badges() {}
-		public Badges(TrelloService svc, Card owner)
+		internal Badges(TrelloService svc, Card owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)

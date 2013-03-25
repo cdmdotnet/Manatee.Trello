@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 using RestSharp;
@@ -38,6 +39,9 @@ namespace Manatee.Trello
 	//   "idBoard":"5144051cbd0da6681200201e",
 	//   "pos":16384
 	//}
+	/// <summary>
+	/// Represents a list.
+	/// </summary>
 	public class List : JsonCompatibleExpiringObject, IEquatable<List>
 	{
 		private readonly ExpiringList<List, Action> _actions;
@@ -49,7 +53,13 @@ namespace Manatee.Trello
 		private string _name;
 		private int? _position;
 
+		///<summary>
+		/// Enumerates all actions associated with the list.
+		///</summary>
 		public IEnumerable<Action> Actions { get { return _actions; } }
+		/// <summary>
+		/// Gets the board which contains the list.
+		/// </summary>
 		public Board Board
 		{
 			get
@@ -58,7 +68,13 @@ namespace Manatee.Trello
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
+		/// <summary>
+		/// Enumerates all cards in the list.
+		/// </summary>
 		public IEnumerable<Card> Cards { get { return _cards; } }
+		/// <summary>
+		/// Gets or sets whether the list is archived.
+		/// </summary>
 		public bool? IsClosed
 		{
 			get
@@ -73,6 +89,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets or sets whether the current member is subscribed to the list.
+		/// </summary>
 		public bool? IsSubscribed
 		{
 			get
@@ -87,6 +106,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets or sets the name of the list.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -101,6 +123,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets or sets the position of the list.
+		/// </summary>
 		public int? Position
 		{
 			get
@@ -116,6 +141,9 @@ namespace Manatee.Trello
 			}
 		}
 
+		/// <summary>
+		/// Creates a new instance of the List class.
+		/// </summary>
 		public List()
 		{
 			_actions = new ExpiringList<List, Action>(this);
@@ -128,6 +156,13 @@ namespace Manatee.Trello
 			_cards = new ExpiringList<List, Card>(svc, this);
 		}
 
+		/// <summary>
+		/// Adds a new card to the list.
+		/// </summary>
+		/// <param name="name">The name of the card.</param>
+		/// <param name="description">The description of the card.</param>
+		/// <param name="position">The position of the card.  Default is Bottom.</param>
+		/// <returns>The card.</returns>
 		public Card AddCard(string name, string description = null, Position position = null)
 		{
 			var request = new Request<Card>(this);
@@ -141,10 +176,18 @@ namespace Manatee.Trello
 			_cards.MarkForUpdate();
 			return card;
 		}
+		/// <summary>
+		/// Deletes the list.  This cannot be undone.
+		/// </summary>
 		private void Delete()
 		{
 			throw new NotSupportedException("Deleting lists is not yet supported by Trello.");
 		}
+		/// <summary>
+		/// Moves the list to another board.
+		/// </summary>
+		/// <param name="board">The destination board.</param>
+		/// <param name="position">The position in the board.  Default is Bottom (right).</param>
 		public void Move(Board board, int? position = null)
 		{
 			Parameters.Add(new Parameter { Name = "idBoard", Value = board.Id });
