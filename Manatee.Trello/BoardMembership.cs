@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -35,6 +36,9 @@ namespace Manatee.Trello
 	//   "memberType":"admin",
 	//   "deactivated":false
 	//},
+	///<summary>
+	/// Represents a member of a board, including their membership type.
+	///</summary>
 	public class BoardMembership : JsonCompatibleExpiringObject, IEquatable<BoardMembership>
 	{
 		private static readonly OneToOneMap<BoardMembershipType, string> _typeMap;
@@ -45,7 +49,9 @@ namespace Manatee.Trello
 		private Member _member;
 		private BoardMembershipType _membershipType;
 
-		public string Id { get; private set; }
+		///<summary>
+		/// Gets whether the membership is deactivated.
+		///</summary>
 		public bool? IsDeactivated
 		{
 			get
@@ -54,6 +60,9 @@ namespace Manatee.Trello
 				return _isDeactivated;
 			}
 		}
+		///<summary>
+		/// Get the member.
+		///</summary>
 		public Member Member
 		{
 			get
@@ -62,6 +71,9 @@ namespace Manatee.Trello
 				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
 			}
 		}
+		///<summary>
+		/// Gets the membership type.
+		///</summary>
 		public BoardMembershipType MembershipType { get { return _membershipType; } }
 
 		static BoardMembership()
@@ -73,6 +85,9 @@ namespace Manatee.Trello
 			           		{BoardMembershipType.Observer, "observer"},
 			           	};
 		}
+		///<summary>
+		/// Creates a new instance of the BoardMembership class.
+		///</summary>
 		public BoardMembership() {}
 		internal BoardMembership(TrelloService svc, Board owner)
 			: base(svc, owner) {}

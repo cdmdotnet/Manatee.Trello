@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -36,6 +37,9 @@ namespace Manatee.Trello
 	//         "name":"Test development",
 	//         "pos":16703
 	//      },
+	/// <summary>
+	/// Represents an item in a checklist.
+	/// </summary>
 	public class CheckItem : JsonCompatibleExpiringObject, IEquatable<CheckItem>
 	{
 		private static readonly OneToOneMap<CheckItemStateType, string> _stateMap;
@@ -45,6 +49,9 @@ namespace Manatee.Trello
 		private int? _position;
 		private CheckItemStateType _state;
 
+		/// <summary>
+		/// Gets or sets the name of the checklist item.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -59,6 +66,9 @@ namespace Manatee.Trello
 				Put("name");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the position of the checklist item.
+		/// </summary>
 		public int? Position
 		{
 			get
@@ -73,6 +83,9 @@ namespace Manatee.Trello
 				Put("pos");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the check state of the checklist item.
+		/// </summary>
 		public CheckItemStateType State
 		{
 			get { return _state; }
@@ -93,15 +106,20 @@ namespace Manatee.Trello
 							{CheckItemStateType.Complete, "complete"},
 						};
 		}
+		/// <summary>
+		/// Creates a new instance of the CheckItem class.
+		/// </summary>
 		public CheckItem() {}
 		internal CheckItem(TrelloService svc, CheckList owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Deletes this checklist item.  This cannot be undone.
+		/// </summary>
 		public void Delete()
 		{
 			Svc.DeleteFromCache(new Request<CheckItem>(new[] {Owner, this}));
 		}
-
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;

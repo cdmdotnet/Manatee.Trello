@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -39,6 +40,9 @@ namespace Manatee.Trello
 	//   ],
 	//   "externalMembersDisabled":false
 	//}
+	/// <summary>
+	/// Represents available preference settings for an organization.
+	/// </summary>
 	public class OrganizationPreferences : JsonCompatibleExpiringObject
 	{
 		private static readonly OneToOneMap<OrganizationPermissionLevelType, string> _permissionLevelMap;
@@ -50,7 +54,7 @@ namespace Manatee.Trello
 		private OrganizationPermissionLevelType _permissionLevel;
 
 		// TODO: Determine structure of this object
-		public object BoardVisibilityRestrict
+		private object BoardVisibilityRestrict
 		{
 			get
 			{
@@ -59,6 +63,9 @@ namespace Manatee.Trello
 			}
 			set { _boardVisibilityRestrict = value; }
 		}
+		/// <summary>
+		/// ?
+		/// </summary>
 		public bool? ExternalMembersDisabled
 		{
 			get
@@ -69,7 +76,7 @@ namespace Manatee.Trello
 			set { _externalMembersDisabled = value; }
 		}
 		// TODO: Determine contents of this array
-		public List<object> OrgInviteRestrict
+		private List<object> OrgInviteRestrict
 		{
 			get
 			{
@@ -78,6 +85,9 @@ namespace Manatee.Trello
 			}
 			set { _orgInviteRestrict = value; }
 		}
+		/// <summary>
+		/// Gets and sets who may view the organization.
+		/// </summary>
 		public OrganizationPermissionLevelType PermissionLevel
 		{
 			get { return _permissionLevel; }
@@ -96,8 +106,11 @@ namespace Manatee.Trello
 			                      		{OrganizationPermissionLevelType.Public, "public"},
 			                      	};
 		}
+		/// <summary>
+		/// Creates a new instance of the OrganizationPreferences class.
+		/// </summary>
 		public OrganizationPreferences() {}
-		public OrganizationPreferences(TrelloService svc, Organization owner)
+		internal OrganizationPreferences(TrelloService svc, Organization owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)

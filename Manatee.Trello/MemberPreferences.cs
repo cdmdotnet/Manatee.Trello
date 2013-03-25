@@ -23,6 +23,7 @@
 ***************************************************************************************/
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -34,6 +35,9 @@ namespace Manatee.Trello
 	//      "minutesBeforeDeadlineToNotify":1440,
 	//      "colorBlind":false
 	//   },
+	/// <summary>
+	/// Represents available preference settings for a member.
+	/// </summary>
 	public class MemberPreferences : JsonCompatibleExpiringObject
 	{
 		private bool? _colorBlind;
@@ -41,6 +45,9 @@ namespace Manatee.Trello
 		private bool? _sendSummaries;
 		private int? _minutesBeforeDeadlineToNotify;
 
+		/// <summary>
+		/// Enables/disables color-blind mode.
+		/// </summary>
 		public bool? ColorBlind
 		{
 			get
@@ -55,6 +62,9 @@ namespace Manatee.Trello
 				Put("colorBlind");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the number of minutes between summary emails.
+		/// </summary>
 		public int? MinutesBetweenSummaries
 		{
 			get
@@ -69,6 +79,9 @@ namespace Manatee.Trello
 				Put("minutesBetweenSummaries");
 			}
 		}
+		/// <summary>
+		/// Enables/disables summary emails.
+		/// </summary>
 		public bool? SendSummaries
 		{
 			get
@@ -83,6 +96,9 @@ namespace Manatee.Trello
 				Put("sendSummaries");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the number of minutes before a deadline to notify the member.
+		/// </summary>
 		public int? MinutesBeforeDeadlineToNotify
 		{
 			get
@@ -98,8 +114,11 @@ namespace Manatee.Trello
 			}
 		}
 
+		/// <summary>
+		/// Creates a new instance of the MemberPreferences class.
+		/// </summary>
 		public MemberPreferences() {}
-		public MemberPreferences(TrelloService svc, Member owner)
+		internal MemberPreferences(TrelloService svc, Member owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)

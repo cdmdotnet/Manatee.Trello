@@ -24,8 +24,8 @@
 using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -34,29 +34,29 @@ namespace Manatee.Trello
 	//         "idCheckItem":"514463bfd02ebee350000d1c",
 	//         "state":"complete"
 	//      }
+	/// <summary>
+	/// Represents a the state of a check item contained within a card.
+	/// </summary>
 	public class CheckItemState : JsonCompatibleExpiringObject, IEquatable<CheckItemState>
 	{
 		private static readonly OneToOneMap<CheckItemStateType, string> _stateMap;
 
 		private string _apiState;
-		private string _checkItemId;
 		private CheckItemStateType _state;
 
-		public string CheckItemId
+		/// <summary>
+		/// Gets the checked state of the checklist item.
+		/// </summary>
+		/// <remarks>
+		/// To set this, use the State property on the CheckItem object.  This class is intended
+		/// for reporting on the Card object.
+		/// </remarks>
+		public CheckItemStateType State
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _checkItemId;
-			}
-		}
-		public CheckItemStateType State
-		{
-			get { return _state; }
-			set
-			{
-				_state = value;
-				UpdateApiState();
+				return _state;
 			}
 		}
 
@@ -68,6 +68,9 @@ namespace Manatee.Trello
 			           		{CheckItemStateType.Complete, "complete"},
 			           	};
 		}
+		/// <summary>
+		/// Creates a new instance of the CheckItemState object.
+		/// </summary>
 		public CheckItemState() {}
 		internal CheckItemState(TrelloService svc, Card owner)
 			: base(svc, owner) {}
@@ -77,7 +80,7 @@ namespace Manatee.Trello
 			if (json == null) return;
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			_checkItemId = obj.TryGetString("idCheckItem");
+			Id = obj.TryGetString("idCheckItem");
 			_apiState = obj.TryGetString("state");
 			UpdateState();
 		}
@@ -85,14 +88,14 @@ namespace Manatee.Trello
 		{
 			var json = new JsonObject
 			           	{
-			           		{"idCheckItem", _checkItemId},
+			           		{"idCheckItem", Id},
 			           		{"state", _apiState}
 			           	};
 			return json;
 		}
 		public bool Equals(CheckItemState other)
 		{
-			return (Owner == other.Owner) && (_checkItemId == other._checkItemId);
+			return (Owner == other.Owner) && (Id == other.Id);
 		}
 
 		internal override void Refresh(ExpiringObject entity) {}

@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -54,6 +55,9 @@ namespace Manatee.Trello
 	//      "purple":""
 	//   }
 	//}
+	///<summary>
+	/// Represents a board.
+	///</summary>
 	public class Board : JsonCompatibleExpiringObject, IEquatable<Board>
 	{
 		private readonly ExpiringList<Board, Action> _actions;
@@ -71,7 +75,13 @@ namespace Manatee.Trello
 		private readonly BoardPersonalPreferences _personalPreferences;
 		private string _url;
 
+		///<summary>
+		/// Enumerates all actions associated with this board.
+		///</summary>
 		public IEnumerable<Action> Actions { get { return _actions; } }
+		///<summary>
+		/// Gets and sets the board's description.
+		///</summary>
 		public string Description
 		{
 			get
@@ -86,6 +96,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		///<summary>
+		/// Gets and sets whether this board is closed.
+		///</summary>
 		public bool? IsClosed
 		{
 			get
@@ -100,6 +113,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		///<summary>
+		/// Gets and sets whether this board is pinned to the user's Boards menu.
+		///</summary>
 		public bool? IsPinned
 		{
 			get
@@ -114,6 +130,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		///<summary>
+		/// Gets and sets whether the user is subscribed to this board.
+		///</summary>
 		public bool? IsSubscribed
 		{
 			get
@@ -128,9 +147,21 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		///<summary>
+		/// Gets the board's set of label names.
+		///</summary>
 		public LabelNames LabelNames { get { return _labelNames; } }
+		///<summary>
+		/// Gets the board's open lists.
+		///</summary>
 		public IEnumerable<List> Lists { get { return _lists; } }
+		///<summary>
+		/// Gets the board's members.
+		///</summary>
 		public IEnumerable<BoardMembership> Members { get { return _members; } }
+		///<summary>
+		/// Gets and sets the board's name.
+		///</summary>
 		public string Name
 		{
 			get
@@ -145,6 +176,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Gets and sets the organization, if any, to which this board belongs.
+		/// </summary>
 		public Organization Organization
 		{
 			get
@@ -161,8 +195,17 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		///<summary>
+		/// Gets the set of preferences for this board unique to the current member.
+		///</summary>
 		public BoardPersonalPreferences PersonalPreferences { get { return _personalPreferences; } }
+		///<summary>
+		/// Gets the set of preferences for this board.
+		///</summary>
 		public BoardPreferences Preferences { get { return _preferences; } }
+		///<summary>
+		/// Gets the URL for this board.
+		///</summary>
 		public string Url
 		{
 			get
@@ -172,6 +215,9 @@ namespace Manatee.Trello
 			}
 		}
 
+		///<summary>
+		/// Creates a new instance of the Board class.
+		///</summary>
 		public Board()
 		{
 			_actions = new ExpiringList<Board, Action>(this);
@@ -192,10 +238,16 @@ namespace Manatee.Trello
 			_preferences = new BoardPreferences(svc, this);
 		}
 
-		public List AddList(string title, Position position = null)
+		///<summary>
+		/// Adds a new list to the board in the specified location
+		///</summary>
+		///<param name="name">The name of the list.</param>
+		///<param name="position">The desired position of the list.  Default is Bottom.</param>
+		///<returns>The new list.</returns>
+		public List AddList(string name, Position position = null)
 		{
 			var request = new Request<List>(this);
-			Parameters.Add("name", title);
+			Parameters.Add("name", name);
 			Parameters.Add("idBoard", Id);
 			if ((position != null) && position.IsValid)
 				Parameters.Add("pos", position);
@@ -204,6 +256,11 @@ namespace Manatee.Trello
 			_actions.MarkForUpdate();
 			return list;
 		}
+		///<summary>
+		/// Adds a member to the board or updates the permissions of an existing member.
+		///</summary>
+		///<param name="member">The member</param>
+		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			var request = new Request<Member>(new ExpiringObject[]{this, member}, this);
@@ -212,20 +269,36 @@ namespace Manatee.Trello
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
+		///<summary>
+		/// Marks the board as viewed by the current member.
+		///</summary>
 		public void MarkAsViewed()
 		{
 			var request = new Request<Board>(new ExpiringObject[] {this}, urlExtension: "markAsViewed");
 			Svc.PostAndCache(request);
 			_actions.MarkForUpdate();
 		}
+		/// <summary>
+		/// Extends an invitation to the board to another member.
+		/// </summary>
+		/// <param name="member">The member to invite.</param>
+		/// <param name="type">The level of membership offered.</param>
 		private void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");
 		}
+		///<summary>
+		/// Removes a member from the board.
+		///</summary>
+		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
 			Svc.DeleteFromCache(new Request<Board>(new ExpiringObject[] {this, member}));
 		}
+		/// <summary>
+		/// Rescinds an existing invitation to the board.
+		/// </summary>
+		/// <param name="member"></param>
 		private void RescindInvitation(Member member)
 		{
 			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");

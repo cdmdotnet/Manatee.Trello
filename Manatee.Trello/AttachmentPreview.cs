@@ -22,17 +22,32 @@
 ***************************************************************************************/
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Json.Serialization;
-using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
 {
+	///<summary>
+	/// Represents a thumbnail preview of a card attachment.
+	///</summary>
 	public class AttachmentPreview : IJsonCompatible
 	{
-		public string Id { get; set; }
-		public int? Height { get; set; }
-		public string Url { get; set; }
-		public int? Width { get; set; }
+		///<summary>
+		/// Indicates the ID of the attachment preview.
+		///</summary>
+		public string Id { get; private set; }
+		///<summary>
+		/// Indicates the height in pixels of the attachment preview.
+		///</summary>
+		public int? Height { get; private set; }
+		///<summary>
+		/// Indicates the attachment storage location.
+		///</summary>
+		public string Url { get; private set; }
+		///<summary>
+		/// Indicates the width in pixels of the attachment preview.
+		///</summary>
+		public int? Width { get; private set; }
 
 		public void FromJson(JsonValue json)
 		{

@@ -35,12 +35,21 @@ namespace Manatee.Trello
 	//     },
 	//     "idMember":"514464db3fa062da6e00254f"
 	//  },
+	/// <summary>
+	/// Contains relevant data for an Action.  Content depends upon the type of Action.
+	/// </summary>
 	public class ActionData : JsonCompatibleExpiringObject
 	{
+		/// <summary>
+		/// Contains the JSON data relevant to the Action.
+		/// </summary>
 		public JsonObject Data { get; set; }
 
+		/// <summary>
+		/// Creates a new instance of the ActionData class.
+		/// </summary>
 		public ActionData() {}
-		public ActionData(TrelloService svc, Action owner)
+		internal ActionData(TrelloService svc, Action owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)

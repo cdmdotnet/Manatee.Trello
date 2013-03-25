@@ -26,7 +26,7 @@ using Manatee.Trello.Implementation;
 namespace Manatee.Trello.Rest
 {
 	internal class CollectionRequest<T> : Request<T>
-		where T : ExpiringObject
+		where T : ExpiringObject, new()
 	{
 		public CollectionRequest(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null)
 			: base(tokens, entity) {}

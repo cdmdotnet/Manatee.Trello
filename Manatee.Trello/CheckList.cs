@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -63,6 +64,9 @@ namespace Manatee.Trello
 	//      }
 	//   ]
 	//}
+	/// <summary>
+	/// Represents a checklist.
+	/// </summary>
 	public class CheckList : JsonCompatibleExpiringObject, IEquatable<CheckList>
 	{
 		private string _boardId;
@@ -73,6 +77,9 @@ namespace Manatee.Trello
 		private string _name;
 		private int? _position;
 
+		/// <summary>
+		/// Gets the board which contains this checklist.
+		/// </summary>
 		public Board Board
 		{
 			get
@@ -81,6 +88,9 @@ namespace Manatee.Trello
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
+		/// <summary>
+		/// Gets or sets the card which contains this checklist.
+		/// </summary>
 		public Card Card
 		{
 			get
@@ -95,7 +105,13 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
+		/// <summary>
+		/// Enumerates the items this checklist contains.
+		/// </summary>
 		public IEnumerable<CheckItem> CheckItems { get { return _checkItems; } }
+		/// <summary>
+		/// Gets or sets the name of this checklist.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -110,7 +126,10 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
-		public int? Pos
+		/// <summary>
+		/// Gets or sets the position of this checklist.
+		/// </summary>
+		public int? Position
 		{
 			get
 			{
@@ -125,6 +144,9 @@ namespace Manatee.Trello
 			}
 		}
 
+		/// <summary>
+		/// Creates a new instance of the CheckList class.
+		/// </summary>
 		public CheckList()
 		{
 			_checkItems = new ExpiringList<CheckList, CheckItem>(this);
@@ -135,6 +157,13 @@ namespace Manatee.Trello
 			_checkItems = new ExpiringList<CheckList, CheckItem>(svc, this);
 		}
 
+		/// <summary>
+		/// Adds a new item to the checklist.
+		/// </summary>
+		/// <param name="name">The name of the new item.</param>
+		/// <param name="isChecked">The initial state of the new item.</param>
+		/// <param name="position">The position of the new item.  Default is Bottom.</param>
+		/// <returns>The checkitem.</returns>
 		public CheckItem AddCheckItem(string name, bool isChecked = false, Position position = null)
 		{
 			var request = new Request<CheckItem>(new[] {Owner, this}, this);
@@ -146,6 +175,9 @@ namespace Manatee.Trello
 			_checkItems.MarkForUpdate();
 			return checkItem;
 		}
+		/// <summary>
+		/// Deletes this checklist.  This cannot be undone.
+		/// </summary>
 		public void Delete()
 		{
 			Svc.DeleteFromCache(new Request<CheckList>(Id));	

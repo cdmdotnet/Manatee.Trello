@@ -25,6 +25,7 @@ using System;
 using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
+using Manatee.Trello.Implementation;
 using RestSharp;
 using RestSharp.Deserializers;
 using RestSharp.Serializers;
@@ -48,11 +49,16 @@ namespace Manatee.Trello.Rest
 			JsonSerializationTypeRegistry.RegisterListType<CheckItem>();
 			JsonSerializationTypeRegistry.RegisterListType<CheckItemState>();
 			JsonSerializationTypeRegistry.RegisterListType<CheckList>();
+			JsonSerializationTypeRegistry.RegisterListType<InvitedBoard>();
+			JsonSerializationTypeRegistry.RegisterListType<InvitedOrganization>();
 			JsonSerializationTypeRegistry.RegisterListType<Label>();
 			JsonSerializationTypeRegistry.RegisterListType<List>();
 			JsonSerializationTypeRegistry.RegisterListType<Member>();
 			JsonSerializationTypeRegistry.RegisterListType<Notification>();
 			JsonSerializationTypeRegistry.RegisterListType<Organization>();
+			JsonSerializationTypeRegistry.RegisterListType<PinnedBoard>();
+			JsonSerializationTypeRegistry.RegisterListType<PremiumOrganization>();
+			JsonSerializationTypeRegistry.RegisterListType<VotingMember>();
 
 			_method = _serializer.GetType().GetMethod("Serialize");
 		}

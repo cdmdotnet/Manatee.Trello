@@ -22,12 +22,30 @@
 ***************************************************************************************/
 namespace Manatee.Trello
 {
+	///<summary>
+	/// Enumerates known board commenting permission levels.
+	///</summary>
 	public enum BoardCommentType
 	{
+		/// <summary>
+		/// Not recognized.  May have been created since the current version of this API.
+		/// </summary>
 		Unknown = -1,
+		/// <summary>
+		/// Indicates that only members of the board may comment on cards.
+		/// </summary>
 		Members,
+		/// <summary>
+		/// Indicates that only members of the organization to which the board belongs may comment on cards.
+		/// </summary>
 		Org,
+		/// <summary>
+		/// Indicates that any Trello member may comment on cards.
+		/// </summary>
 		Public,
+		/// <summary>
+		/// Indicates that no members may comment on cards.
+		/// </summary>
 		Disabled
 	}
 }

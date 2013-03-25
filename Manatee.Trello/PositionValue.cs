@@ -14,31 +14,32 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		GeneralExtensions.cs
-	Namespace:		Manatee.Trello.Rest
-	Class Name:		GeneralExtensions
-	Purpose:		A set of general extension methods used throughout the
-					project.
+	File Name:		PositionValue.cs
+	Namespace:		Manatee.Trello
+	Class Name:		PositionValue
+	Purpose:		Enumerates explicit positions of a checklist in a card, a card
+					in a list, or list in a board on Trello.com.
 
 ***************************************************************************************/
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Manatee.Trello.Rest
+namespace Manatee.Trello
 {
-	internal static class GeneralExtensions
+	/// <summary>
+	/// Enumerates explicit positions of a checklist in a card, a card in a list,
+	/// or list in a board
+	/// </summary>
+	public enum PositionValue
 	{
-		public static bool In<T>(this T item, IEnumerable<T> items)
-		{
-			return items.Contains(item);
-		}
-		public static bool In<T>(this T item, params T[] items)
-		{
-			return items.Contains(item);
-		}
-		public static string ToLowerString<T>(this T item)
-		{
-			return item.ToString().ToLower();
-		}
+		/// <summary>
+		/// Not recognized.  May have been created since the current version of this API.
+		/// </summary>
+		Unknown = -2,
+		/// <summary>
+		/// Indicates the item is at the beginning of its container.
+		/// </summary>
+		Top = -1,
+		/// <summary>
+		/// Indicates the item is at the end of its container.
+		/// </summary>
+		Bottom = 0
 	}
 }

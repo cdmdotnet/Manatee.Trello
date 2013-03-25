@@ -23,6 +23,7 @@
 using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -36,6 +37,9 @@ namespace Manatee.Trello
 	//      "blue":"",
 	//      "purple":""
 	//   }
+	/// <summary>
+	/// Defines a set of labels for a board.
+	/// </summary>
 	public class LabelNames : JsonCompatibleExpiringObject
 	{
 		private string _red;
@@ -45,6 +49,9 @@ namespace Manatee.Trello
 		private string _blue;
 		private string _purple;
 
+		/// <summary>
+		/// Gets or sets the name of the red label.
+		/// </summary>
 		public string Red
 		{
 			get
@@ -59,6 +66,9 @@ namespace Manatee.Trello
 				Put("red");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the name of the orange label.
+		/// </summary>
 		public string Orange
 		{
 			get
@@ -73,6 +83,9 @@ namespace Manatee.Trello
 				Put("orange");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the name of the yellow label.
+		/// </summary>
 		public string Yellow
 		{
 			get
@@ -87,6 +100,9 @@ namespace Manatee.Trello
 				Put("yellow");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the name of the green label.
+		/// </summary>
 		public string Green
 		{
 			get
@@ -101,6 +117,9 @@ namespace Manatee.Trello
 				Put("green");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the name of the blue label.
+		/// </summary>
 		public string Blue
 		{
 			get
@@ -115,6 +134,9 @@ namespace Manatee.Trello
 				Put("blue");
 			}
 		}
+		/// <summary>
+		/// Gets or sets the name of the purple label.
+		/// </summary>
 		public string Purple
 		{
 			get
@@ -130,8 +152,11 @@ namespace Manatee.Trello
 			}
 		}
 
+		/// <summary>
+		/// Creates a new instance of the LabelNames class.
+		/// </summary>
 		public LabelNames() {}
-		public LabelNames(TrelloService svc, Board owner)
+		internal LabelNames(TrelloService svc, Board owner)
 			: base(svc, owner) {}
 
 		public override void FromJson(JsonValue json)
