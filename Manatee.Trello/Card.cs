@@ -350,7 +350,7 @@ namespace Manatee.Trello
 		/// <returns>The checklist.</returns>
 		public CheckList AddCheckList(string name, Position position = null)
 		{
-			var request = new RestSharpRequest<CheckList>(new ExpiringObject[] {new CheckList()}, this);
+			var request = Svc.RequestProvider.Create<CheckList>(new ExpiringObject[] {new CheckList()}, this);
 			Parameters.Add("name", name);
 			if ((position != null) && position.IsValid)
 				Parameters.Add("position", position);
@@ -365,7 +365,7 @@ namespace Manatee.Trello
 		/// <param name="comment"></param>
 		public void AddComment(string comment)
 		{
-			var request = new RestSharpRequest<Card>(new ExpiringObject[] {this, new Action()}, this, "comments");
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Action()}, this, "comments");
 			Parameters.Add("text", comment);
 			Svc.Api.Post(request);
 			_actions.MarkForUpdate();
@@ -377,7 +377,7 @@ namespace Manatee.Trello
 		public void ApplyLabel(LabelColor color)
 		{
 			Parameters.Add("value", color.ToLowerString());
-			Svc.PostAndCache(new RestSharpRequest<Label>(new ExpiringObject[] {this, new Label()}, this));
+			Svc.PostAndCache(Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Label()}, this));
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -386,7 +386,7 @@ namespace Manatee.Trello
 		/// <param name="member">The member to assign.</param>
 		public void AssignMember(Member member)
 		{
-			var request = new RestSharpRequest<Label>(new ExpiringObject[] {this, new Member()}, this);
+			var request = Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Member()}, this);
 			Parameters.Add("value", member.Id);
 			Svc.PostAndCache(request);
 			_actions.MarkForUpdate();
@@ -396,7 +396,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<Card>(Id));
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(Id));
 		}
 		/// <summary>
 		/// Moves the card to another board/list/position.
@@ -410,7 +410,7 @@ namespace Manatee.Trello
 			Parameters.Add("idList", list.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
-			Svc.PutAndCache(new RestSharpRequest<Card>(this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<Card>(this));
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -419,7 +419,7 @@ namespace Manatee.Trello
 		/// <param name="color"></param>
 		public void RemoveLabel(LabelColor color)
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<Card>(new ExpiringObject[] {this, new Label()}, urlExtension: color.ToLowerString()));
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Label()}, urlExtension: color.ToLowerString()));
 		}
 		/// <summary>
 		/// Removes (unassigns) a member from a card.
@@ -427,7 +427,7 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<Card>(new ExpiringObject[] {this, member}));
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, member}));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -523,7 +523,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<Card>(Id));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Card>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -545,7 +545,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new RestSharpRequest<Card>(this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<Card>(this));
 			_actions.MarkForUpdate();
 		}
 	}

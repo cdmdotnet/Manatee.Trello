@@ -266,7 +266,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<BoardPreferences>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<BoardPreferences>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -276,7 +276,7 @@ namespace Manatee.Trello
 
 		private void Put(string extension)
 		{
-			var request = new RestSharpRequest<BoardPreferences>(new[] {Owner, this}, this, extension);
+			var request = Svc.RequestProvider.Create<BoardPreferences>(new[] {Owner, this}, this, extension);
 			Svc.PutAndCache(request);
 		}
 		private void UpdateComments()

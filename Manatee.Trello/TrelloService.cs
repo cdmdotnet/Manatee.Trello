@@ -47,6 +47,7 @@ namespace Manatee.Trello
 			get { return Api.RestClientProvider; }
 			set { Api.RestClientProvider = value; }
 		}
+		public IRestRequestProvider RequestProvider { get { return RestClientProvider.RequestProvider; } }
 
 		/// <summary>
 		/// Creates a new instance of the TrelloService class.
@@ -81,7 +82,7 @@ namespace Manatee.Trello
 			if (string.IsNullOrWhiteSpace(id)) return null;
 			T item = _cache.OfType<T>().FirstOrDefault(i => i.Match(id));
 			if (item != null) return item;
-			return Execute(() => Api.Get(new RestSharpRequest<T>(id)));
+			return Execute(() => Api.Get(RequestProvider.Create<T>(id)));
 		}
 		/// <summary>
 		/// Clears the cache of all retrieved items.
@@ -103,17 +104,17 @@ namespace Manatee.Trello
 			}
 			return items;
 		}
-		internal T PutAndCache<T>(RestSharpRequest<T> request)
+		internal T PutAndCache<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			return Execute(() => Api.Put(request));
 		}
-		internal T PostAndCache<T>(RestSharpRequest<T> request)
+		internal T PostAndCache<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			return Execute(() => Api.Post(request));
 		}
-		internal T DeleteFromCache<T>(RestSharpRequest<T> request)
+		internal T DeleteFromCache<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			var retVal = Api.Delete(request);

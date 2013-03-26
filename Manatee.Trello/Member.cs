@@ -385,7 +385,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void MarkAllNotificationsAsRead()
 		{
-			Svc.PostAndCache(new RestSharpRequest<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
+			Svc.PostAndCache(Svc.RequestProvider.Create<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
 		}
 		/// <summary>
 		/// Adds a board to the member's boards menu.
@@ -394,7 +394,7 @@ namespace Manatee.Trello
 		public void PinBoard(Board board)
 		{
 			Parameters.Add("value", board.Id);
-			Svc.PostAndCache(new RestSharpRequest<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
+			Svc.PostAndCache(Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
 		}
 		/// <summary>
 		/// Removes the member's vote from a card.
@@ -402,7 +402,7 @@ namespace Manatee.Trello
 		/// <param name="card"></param>
 		public void RescindVoteForCard(Card card)
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<Card>(new ExpiringObject[] {card, new VotingMember {Id = Id}}));
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {card, new VotingMember {Id = Id}}));
 		}
 		/// <summary>
 		/// Removes a board from the member's boards menu.
@@ -410,7 +410,7 @@ namespace Manatee.Trello
 		/// <param name="board"></param>
 		public void UnpinBoard(Board board)
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<Member>(new ExpiringObject[] {this, new PinnedBoard {Id = board.Id}}));
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, new PinnedBoard {Id = board.Id}}));
 		}
 		/// <summary>
 		/// Applies the member's vote to a card.
@@ -419,7 +419,7 @@ namespace Manatee.Trello
 		public void VoteForCard(Card card)
 		{
 			Parameters.Add("value", Id);
-			Svc.PostAndCache(new RestSharpRequest<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
+			Svc.PostAndCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -524,7 +524,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<Member>(Id));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Member>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -544,7 +544,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new RestSharpRequest<Member>(this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<Member>(this));
 		}
 		private void UpdateStatus()
 		{

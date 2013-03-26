@@ -246,7 +246,7 @@ namespace Manatee.Trello
 		///<returns>The new list.</returns>
 		public List AddList(string name, Position position = null)
 		{
-			var request = new RestSharpRequest<List>(this);
+			var request = Svc.RequestProvider.Create<List>(this);
 			Parameters.Add("name", name);
 			Parameters.Add("idBoard", Id);
 			if ((position != null) && position.IsValid)
@@ -263,7 +263,7 @@ namespace Manatee.Trello
 		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			var request = new RestSharpRequest<Member>(new ExpiringObject[]{this, member}, this);
+			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, member }, this);
 			Parameters.Add("type", type.ToLowerString());
 			Svc.PutAndCache(request);
 			_members.MarkForUpdate();
@@ -274,7 +274,7 @@ namespace Manatee.Trello
 		///</summary>
 		public void MarkAsViewed()
 		{
-			var request = new RestSharpRequest<Board>(new ExpiringObject[] {this}, urlExtension: "markAsViewed");
+			var request = Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this }, urlExtension: "markAsViewed");
 			Svc.PostAndCache(request);
 			_actions.MarkForUpdate();
 		}
@@ -293,7 +293,7 @@ namespace Manatee.Trello
 		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<Board>(new ExpiringObject[] {this, member}));
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] {this, member}));
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the board.
@@ -378,7 +378,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<Board>(Id));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Board>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -397,7 +397,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new RestSharpRequest<Board>(this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<Board>(this));
 			_actions.MarkForUpdate();
 		}
 	}

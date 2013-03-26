@@ -5,6 +5,7 @@ using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Rest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StoryQ;
 
 namespace Manatee.Trello.Test.FunctionalTests
 {
@@ -12,17 +13,18 @@ namespace Manatee.Trello.Test.FunctionalTests
 	public class TrelloServiceFunctionalTest
 	{
 		[TestMethod]
-		public void TestMethod1()
+		public void Retrieve()
 		{
-			var sut = new TrelloService(TrelloIds.Key, TrelloIds.Token);
+			var story = new Story("TrelloService.Retrieve");
 
-			var card = sut.Retrieve<Card>(TrelloIds.CardId);
-			var list = card.List;
-			var board = card.Board;
-			var lists = board.Lists;
+			var feature = story.InOrderTo("retrieve data from Trello.com")
+				.AsA("developer")
+				.IWant("TrelloService to provide the requested data.");
 
-			Assert.AreEqual(3, lists.Count());
-			Assert.IsTrue(lists.Contains(list));
+			//feature.WithScenario("Retrieve a Board")
+			//    .Given(AValidBoardId)
+			//    .When(RetrieveIsCalled<Board>)
+			//    .Then()
 		}
 	}
 }

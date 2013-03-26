@@ -154,7 +154,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<BoardMembership>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<BoardMembership>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>

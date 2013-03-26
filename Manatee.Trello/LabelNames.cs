@@ -215,7 +215,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<LabelNames>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<LabelNames>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -225,7 +225,7 @@ namespace Manatee.Trello
 
 		private void Put(string extension)
 		{
-			var request = new RestSharpRequest<LabelNames>(new[] {Owner, this}, this, extension);
+			var request = Svc.RequestProvider.Create<LabelNames>(new[] {Owner, this}, this, extension);
 			Svc.PutAndCache(request);
 		}
 	}
