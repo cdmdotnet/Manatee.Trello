@@ -203,7 +203,7 @@ namespace Manatee.Trello
 		/// <returns></returns>
 		public Board AddBoard(string name)
 		{
-			var board = Svc.PostAndCache(new RestSharpRequest<Board>(new[] {new Board()}));
+			var board = Svc.PostAndCache(Svc.RequestProvider.Create<Board>(new[] {new Board()}));
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -214,7 +214,7 @@ namespace Manatee.Trello
 		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			var request = new RestSharpRequest<Member>(new ExpiringObject[] {this, member}, this);
+			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, member}, this);
 			Parameters.Add("type", type.ToLowerString());
 			Svc.PutAndCache(request);
 			_members.MarkForUpdate();
@@ -225,7 +225,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<Organization>(Id));
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Organization>(Id));
 		}
 		/// <summary>
 		/// Extends an invitation to the organization to another member.
@@ -242,7 +242,7 @@ namespace Manatee.Trello
 		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<Board>(new ExpiringObject[] {this, member}));
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] {this, member}));
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the organization.
@@ -327,7 +327,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<Organization>(Id));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Organization>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -343,7 +343,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new RestSharpRequest<Organization>(this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<Organization>(this));
 			_actions.MarkForUpdate();
 		}
 	}

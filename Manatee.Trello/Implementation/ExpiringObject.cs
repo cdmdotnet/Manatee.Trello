@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Rest;
 
@@ -50,7 +51,7 @@ namespace Manatee.Trello.Implementation
 		/// <remarks>
 		/// Parameters is cleared after each use.
 		/// </remarks>
-		public ParameterCollection Parameters { get; private set; }
+		public Dictionary<string, object> Parameters { get; private set; }
 		/// <summary>
 		/// Gets and sets the service which manages this object.
 		/// </summary>
@@ -76,7 +77,7 @@ namespace Manatee.Trello.Implementation
 
 		internal ExpiringObject()
 		{
-			Parameters = new ParameterCollection();
+			Parameters = new Dictionary<string, object>();
 			MarkForUpdate();
 		}
 		internal ExpiringObject(TrelloService svc)

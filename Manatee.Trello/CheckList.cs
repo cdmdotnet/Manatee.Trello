@@ -166,7 +166,7 @@ namespace Manatee.Trello
 		/// <returns>The checkitem.</returns>
 		public CheckItem AddCheckItem(string name, bool isChecked = false, Position position = null)
 		{
-			var request = new RestSharpRequest<CheckItem>(new[] {Owner, this}, this);
+			var request = Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}, this);
 			Parameters.Add("name", name);
 			Parameters.Add("checked", isChecked);
 			if ((position != null) && position.IsValid)
@@ -180,7 +180,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			Svc.DeleteFromCache(new RestSharpRequest<CheckList>(Id));	
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<CheckList>(Id));	
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -248,7 +248,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<CheckList>(Id));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<CheckList>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -263,7 +263,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new RestSharpRequest<CheckItem>(new[] {Owner, this}, this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}, this));
 		}
 	}
 }

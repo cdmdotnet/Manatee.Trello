@@ -26,16 +26,16 @@ namespace Manatee.Trello.Contracts
 	/// Defines required properties returned by RESTful calls.
 	/// </summary>
 	/// <typeparam name="T">The type expected to be returned by the call.</typeparam>
-	public interface IRestResponse<out T>
+	public interface IRestResponse<T>
 		where T : new()
 	{
 		/// <summary>
 		/// The JSON content returned by the call.
 		/// </summary>
-		string Content { get; }
+		string Content { get; set; }
 		/// <summary>
 		/// The deserialized data.
 		/// </summary>
-		T Data { get; }
+		T Data { get; set; }
 	}
 }

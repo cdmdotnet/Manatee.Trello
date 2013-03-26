@@ -163,7 +163,7 @@ namespace Manatee.Trello
 		/// <returns>The card.</returns>
 		public Card AddCard(string name, string description = null, Position position = null)
 		{
-			var request = new RestSharpRequest<Card>(this);
+			var request = Svc.RequestProvider.Create<Card>(this);
 			Parameters.Add("name", name);
 			Parameters.Add("idList", Id);
 			if (description != null)
@@ -191,7 +191,7 @@ namespace Manatee.Trello
 			Parameters.Add("idBoard", board.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
-			Svc.PutAndCache(new RestSharpRequest<List>(this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<List>(this));
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -261,7 +261,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<List>(Id));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<List>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -276,7 +276,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new RestSharpRequest<List>(this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<List>(this));
 			_actions.MarkForUpdate();
 		}
 	}

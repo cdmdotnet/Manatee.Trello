@@ -49,6 +49,7 @@ namespace Manatee.Trello.Rest
 		public string Content
 		{
 			get { return _response.Content; }
+			set { _response.Content = value; }
 		}
 		/// <summary>
 		/// The deserialized data.
@@ -56,6 +57,7 @@ namespace Manatee.Trello.Rest
 		public T Data
 		{
 			get { return _response.Data; }
+			set { _response.Data = value; }
 		}
 	}
 }

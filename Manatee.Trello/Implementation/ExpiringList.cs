@@ -79,7 +79,7 @@ namespace Manatee.Trello.Implementation
 		protected override sealed void Get()
 		{
 			_list.Clear();
-			var request = new RestSharpCollectionRequest<TContent>(new ExpiringObject[] { _source, new TContent() });
+			var request = Svc.RequestProvider.CreateCollectionRequest<TContent>(new ExpiringObject[] {_source, new TContent()});
 			var entities = Svc.Get(request);
 			if (entities == null) return;
 			foreach (var entity in entities)

@@ -69,8 +69,8 @@
     <Compile Include="Contracts\IRestClient.cs" />
     <Compile Include="Contracts\IRestClientProvider.cs" />
     <Compile Include="Contracts\IRestCollectionRequest.cs" />
-    <Compile Include="Contracts\IRestParameter.cs" />
     <Compile Include="Contracts\IRestRequest.cs" />
+    <Compile Include="Contracts\IRestRequestProvider.cs" />
     <Compile Include="Contracts\IRestResponse.cs" />
     <Compile Include="Contracts\ISerializer.cs" />
     <Compile Include="Contracts\Method.cs" />
@@ -111,8 +111,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rest\RestSharpCollectionRequest.cs" />
     <Compile Include="Implementation\GeneralExtensions.cs" />
-    <Compile Include="Rest\RestSharpParameter.cs" />
-    <Compile Include="Rest\ParameterCollection.cs" />
     <Compile Include="Rest\RestSharpRequest.cs" />
     <Compile Include="Rest\RestSharpRequestBase.cs" />
     <Compile Include="Json\ManateeJsonSerializer.cs" />

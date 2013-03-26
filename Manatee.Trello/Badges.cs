@@ -246,7 +246,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<Badges>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Badges>(new[] { Owner, this }));
 			Refresh(entity);
 		}
 		/// <summary>

@@ -28,6 +28,11 @@ namespace Manatee.Trello.Contracts
 	public interface IRestClientProvider
 	{
 		/// <summary>
+		/// Creates requests for the client.
+		/// </summary>
+		IRestRequestProvider RequestProvider { get; }
+
+		/// <summary>
 		/// Creates an instance of IRestClient.
 		/// </summary>
 		/// <param name="apiBaseUrl">The base URL to be used by the client</param>

@@ -156,9 +156,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the Notification class.
 		/// </summary>
-		public Notification() {}
+		public Notification()
+		{
+			_data = new NotificationData(null, this);
+		}
 		internal Notification(TrelloService svc, string id)
-			: base(svc, id) {}
+			: base(svc, id)
+		{
+			_data = new NotificationData(svc, this);
+		}
 
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -227,7 +233,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Get()
 		{
-			var entity = Svc.Api.Get(new RestSharpRequest<Notification>(Id));
+			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Notification>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -241,7 +247,7 @@ namespace Manatee.Trello
 		
 		private void Put()
 		{
-			Svc.PutAndCache(new RestSharpRequest<Notification>(this));
+			Svc.PutAndCache(Svc.RequestProvider.Create<Notification>(this));
 		}
 
 		private void UpdateType()

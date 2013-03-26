@@ -62,9 +62,40 @@ namespace Manatee.Trello.Rest
 				return new RestSharpResponse<List<T>>(base.Execute<List<T>>(request as RestSharpRequestBase));
 			}
 		}
+		private class RestSharpRequestProvider : IRestRequestProvider
+		{
+			public IRestRequest<T> Create<T>()
+				where T : ExpiringObject, new()
+			{
+				return new RestSharpRequest<T>();
+			}
+			public IRestRequest<T> Create<T>(string id)
+				where T : ExpiringObject, new()
+			{
+				return new RestSharpRequest<T>(id);
+			}
+			public IRestRequest<T> Create<T>(ExpiringObject obj)
+				where T : ExpiringObject, new()
+			{
+				return new RestSharpRequest<T>(obj);
+			}
+			public IRestRequest<T> Create<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
+				where T : ExpiringObject, new()
+			{
+				return new RestSharpRequest<T>(tokens, entity, urlExtension);
+			}
+			public IRestCollectionRequest<T> CreateCollectionRequest<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity) where T : ExpiringObject, new()
+			{
+				return new RestSharpCollectionRequest<T>(tokens, entity);
+			}
+		}
+
+		private readonly RestSharpRequestProvider _requestProvider = new RestSharpRequestProvider();
 
 		private RestSharp.Serializers.ISerializer _serializer;
 		private RestSharp.Deserializers.IDeserializer _deserializer;
+
+		public IRestRequestProvider RequestProvider { get { return _requestProvider; } }
 
 		/// <summary>
 		/// Gets and sets the serializer instance to be used by the client.

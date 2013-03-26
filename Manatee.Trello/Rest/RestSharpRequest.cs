@@ -62,7 +62,7 @@ namespace Manatee.Trello.Rest
 			if (ParameterSource == null) return;
 			foreach (var parameter in ParameterSource.Parameters)
 			{
-				AddParameter(parameter.Name, parameter.Value);
+				AddParameter(parameter.Key, parameter.Value);
 			}
 			ParameterSource.Parameters.Clear();
 		}

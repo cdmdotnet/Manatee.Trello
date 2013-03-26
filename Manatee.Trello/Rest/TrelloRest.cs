@@ -66,17 +66,17 @@ namespace Manatee.Trello.Rest
 		{
 			return Execute(request, Method.Get);
 		}
-		public T Put<T>(RestSharpRequest<T> request)
+		public T Put<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			return Execute(request, Method.Put);
 		}
-		public T Post<T>(RestSharpRequest<T> request)
+		public T Post<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			return Execute(request, Method.Post);
 		}
-		public T Delete<T>(RestSharpRequest<T> request)
+		public T Delete<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			return Execute(request, Method.Delete);
