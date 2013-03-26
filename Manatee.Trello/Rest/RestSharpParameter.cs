@@ -14,21 +14,16 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		CollectionRequest.cs
+	File Name:		Parameter.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		CollectionRequest
-	Purpose:		A request object to be used to obtain a collection of items.
+	Class Name:		Parameter
+	Purpose:		Wraps RestSharp.Parameter in a class which implements
+					IRestParameter.
 
 ***************************************************************************************/
-using System.Collections.Generic;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Rest
 {
-	internal class CollectionRequest<T> : Request<T>
-		where T : ExpiringObject, new()
-	{
-		public CollectionRequest(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null)
-			: base(tokens, entity) {}
-	}
+	internal class RestSharpParameter : RestSharp.Parameter, IRestParameter { }
 }

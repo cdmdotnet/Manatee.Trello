@@ -92,6 +92,10 @@ namespace Manatee.Trello
 		internal BoardMembership(TrelloService svc, Board owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -103,6 +107,12 @@ namespace Manatee.Trello
 			_memberId = obj.TryGetString("idMember");
 			UpdateType();
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -114,11 +124,22 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
 		public bool Equals(BoardMembership other)
 		{
 			return Id == other.Id;
 		}
-
+		
+		internal override bool Match(string id)
+		{
+			return Id == id;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var membership = entity as BoardMembership;
@@ -127,16 +148,18 @@ namespace Manatee.Trello
 			_isDeactivated = membership._isDeactivated;
 			_memberId = membership._memberId;
 		}
-		internal override bool Match(string id)
-		{
-			return Id == id;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<BoardMembership>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(new RestSharpRequest<BoardMembership>(new[] {Owner, this}));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce()
 		{
 			if (_member != null) _member.Svc = Svc;

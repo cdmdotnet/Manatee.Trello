@@ -1,0 +1,1493 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StoryQ</name>
+    </assembly>
+    <members>
+        <member name="T:StoryQ.Formatting.Methods.MethodFormatAttribute">
+            <summary>
+            A MethodFormatAttribute can be used to provide a custom format of a StoryQ test method.
+            Existing MethodFormatAttributes include the default formatters 
+            <see cref="T:StoryQ.Formatting.Methods.ParametersInlineMethodFormatAttribute"/>, and <see cref="T:StoryQ.Formatting.Methods.ParameterSuffixedMethodFormatAttribute"/>
+            </summary>
+        </member>
+        <member name="M:StoryQ.Formatting.Methods.MethodFormatAttribute.Format(System.Reflection.MethodInfo,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Override this method to provide a human friendly description of a method.
+            </summary>
+            <param name="method">The method to describe</param>
+            <param name="parameters">the parameters currently being passed to the method</param>
+            <returns></returns>
+        </member>
+        <member name="M:StoryQ.Formatting.Methods.MethodFormatAttribute.UnCamel(System.String)">
+            <summary>
+            Turns "SomeMethodName" into "Some method name". 
+            </summary>
+            <param name="camelText"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Story">
+            <summary>
+            The [Story] story fragment.
+            This is the root item of any story
+            <h1>Transitions:</h1><ul>
+            <li>In order to [<see cref="T:StoryQ.Benefit"/>]: <see cref="M:StoryQ.Story.InOrderTo(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="T:StoryQ.Infrastructure.FragmentBase">
+            <summary>
+            A StoryQ infrastructure class that is the base for all fluent interface classes 
+            </summary>
+        </member>
+        <member name="T:StoryQ.Infrastructure.IStepContainer">
+            <summary>
+             Something that holds steps
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.IStepContainer.SelfAndAncestors">
+            <summary>
+            Enumerates over this and each of its ancestors. Reverse the collection to go through the story in correct order
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StoryQ.Infrastructure.IStepContainer.Execute(StoryQ.Execution.Rendering.IRenderer[])">
+            <summary>
+            Runs the current sequence of Steps against a renderer
+            </summary>
+            <param name="renderers"></param>
+        </member>
+        <member name="P:StoryQ.Infrastructure.IStepContainer.Step">
+            <summary>
+            Gets or sets the Step.
+            </summary>
+            <value>The Step.</value>
+        </member>
+        <member name="P:StoryQ.Infrastructure.IStepContainer.Parent">
+            <summary>
+            Gets or sets the parent.
+            </summary>
+            <value>The parent.</value>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.#ctor(StoryQ.Infrastructure.Step,StoryQ.Infrastructure.IStepContainer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StoryQ.Infrastructure.FragmentBase"/> class.
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.StoryQ#Infrastructure#IStepContainer#SelfAndAncestors">
+            <summary>
+            Enumerates over this and each of its ancestors. Reverse the collection to go through the story in correct order
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.Execute">
+            <summary>
+            Runs the current sequence of steps, printing the results in plain text to the console. 
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.ExecuteWithReport(System.Reflection.MethodBase)">
+            <summary>
+            Runs the current sequence of Steps, reporting to an xml(+xslt) file augmented with jQuery
+            widget for interactive viewing of the results.  This method requires a reference to
+            the "current" method in order to categorise results, you should pass in "MethodBase.GetCurrentMethod()".
+            Reports are written to the current directory, look for an xml file beginning with "StoryQ".
+            If you prefer to have a non interactive report (for example if you are using a legacy browser), set "StoryQSettings.ReportSupportsLegacyBrowsers = true"
+            </summary>
+            <param name="currentMethod">The current method (use "MethodBase.GetCurrentMethod()")</param>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.ExecuteWithReport">
+            <summary>
+            This overload infers the current method with 'new StackFrame(1).GetMethod()'. If it doesn't work, call the overload that takes a method
+            Runs the current sequence of Steps, reporting to an xml(+xslt) file augmented with jQuery
+            widget for interactive viewing of the results.  This method requires a reference to
+            the "current" method in order to categorise results, you should pass in "MethodBase.GetCurrentMethod()".
+            Reports are written to the current directory, look for an xml file beginning with "StoryQ".
+            If you prefer to have a non interactive report (for example if you are using a legacy browser), set "StoryQSettings.ReportSupportsLegacyBrowsers = true"
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.StoryQ#Infrastructure#IStepContainer#Execute(StoryQ.Execution.Rendering.IRenderer[])">
+            <summary>
+            Runs the current sequence of Steps against a renderer
+            </summary>
+            <param name="renderers"></param>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.MethodToText(System.Delegate,System.Object[])">
+            <summary>
+            Converts a method into text
+            </summary>
+            <param name="method"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.ToString">
+            <summary>
+            This method has been overridden to hide it from the Fluent Interface. Don't call it!
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.Equals(System.Object)">
+            <summary>
+            This method has been overridden to hide it from the Fluent Interface. Don't call it!
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.GetHashCode">
+            <summary>
+            This method has been overridden to hide it from the Fluent Interface. Don't call it!
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.FragmentBase.GetType">
+            <summary>
+            This method has been hidden to hide it from the Fluent Interface. Don't call it!
+            </summary>
+        </member>
+        <member name="P:StoryQ.Infrastructure.FragmentBase.StoryQ#Infrastructure#IStepContainer#Step">
+            <summary>
+            Gets or sets the Step.
+            </summary>
+            <value>The Step.</value>
+        </member>
+        <member name="P:StoryQ.Infrastructure.FragmentBase.StoryQ#Infrastructure#IStepContainer#Parent">
+            <summary>
+            Gets or sets the parent.
+            </summary>
+            <value>The parent.</value>
+        </member>
+        <member name="M:StoryQ.Story.#ctor(System.String)">
+            <summary>
+            Starts a new StoryQ Story. 
+            </summary>
+            <param name="text">The name of the new Story</param>
+        </member>
+        <member name="M:StoryQ.Story.InOrderTo(System.String)">
+            <summary>
+            In order to [Benefit].
+            Describe the real-world value for this story. What is the business process that the user requires software support from?
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Benefit"/></returns>
+        </member>
+        <member name="M:StoryQ.Story.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Benefit">
+            <summary>
+            The [Benefit] story fragment.
+            The real-world objective (business value) of a story
+            <h1>Transitions:</h1><ul>
+            <li>And [<see cref="T:StoryQ.Benefit"/>]: <see cref="M:StoryQ.Benefit.And(System.String)"/></li>
+            <li>As a [<see cref="T:StoryQ.Role"/>]: <see cref="M:StoryQ.Benefit.AsA(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.Benefit.And(System.String)">
+            <summary>
+            And [Benefit].
+            Describe any secondary business functions that this story will support
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Benefit"/></returns>
+        </member>
+        <member name="M:StoryQ.Benefit.AsA(System.String)">
+            <summary>
+            As a [Role].
+            The role of the person who is the intended user of this feature
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Role"/></returns>
+        </member>
+        <member name="M:StoryQ.Benefit.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Role">
+            <summary>
+            The [Role] story fragment.
+            The role (a category of actors/users) or roles that receive this benefit. 
+            <h1>Transitions:</h1><ul>
+            <li>Or as a [<see cref="T:StoryQ.Role"/>]: <see cref="M:StoryQ.Role.OrAsA(System.String)"/></li>
+            <li>I want [<see cref="T:StoryQ.Feature"/>]: <see cref="M:StoryQ.Role.IWant(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.Role.OrAsA(System.String)">
+            <summary>
+            Or as a [Role].
+            Any other roles that may use this story
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Role"/></returns>
+        </member>
+        <member name="M:StoryQ.Role.IWant(System.String)">
+            <summary>
+            I want [Feature].
+            Describe the software process (features) that will support the business requirement
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Feature"/></returns>
+        </member>
+        <member name="M:StoryQ.Role.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Feature">
+            <summary>
+            The [Feature] story fragment.
+            The software process that will implement the specified benefit.
+            <h1>Transitions:</h1><ul>
+            <li>And [<see cref="T:StoryQ.Feature"/>]: <see cref="M:StoryQ.Feature.And(System.String)"/></li>
+            <li>With scenario [<see cref="T:StoryQ.Scenario"/>]: <see cref="M:StoryQ.Feature.WithScenario(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.Feature.And(System.String)">
+            <summary>
+            And [Feature].
+            Any other features that will implement the desired benefit
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Feature"/></returns>
+        </member>
+        <member name="M:StoryQ.Feature.WithScenario(System.String)">
+            <summary>
+            With scenario [Scenario].
+            Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Scenario"/></returns>
+        </member>
+        <member name="M:StoryQ.Feature.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Scenario">
+            <summary>
+            The [Scenario] story fragment.
+            The name of each scenario within a story. You can think of each scenario as a chapter in a book.
+            <h1>Transitions:</h1><ul>
+            <li>Given [<see cref="T:StoryQ.Condition"/>]: <see cref="M:StoryQ.Scenario.Given(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.Scenario.Given(System.Action)">
+            <summary>
+            Given [Condition].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Scenario.Given``1(System.Action{``0},``0)">
+            <summary>
+            Given [Condition].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Scenario.Given``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            Given [Condition].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Scenario.Given``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            Given [Condition].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Scenario.Given``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            Given [Condition].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Scenario.Given(System.String)">
+            <summary>
+            Given [Condition].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Scenario.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Condition">
+            <summary>
+            The [Condition] story fragment.
+            The preconditions that are meant to be present at the beginning of the scenario.
+            <h1>Transitions:</h1><ul>
+            <li>And [<see cref="T:StoryQ.Condition"/>]: <see cref="M:StoryQ.Condition.And(System.Action)"/></li>
+            <li>When [<see cref="T:StoryQ.Operation"/>]: <see cref="M:StoryQ.Condition.When(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.Condition.And(System.Action)">
+            <summary>
+            And [Condition].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.And``1(System.Action{``0},``0)">
+            <summary>
+            And [Condition].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.And``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            And [Condition].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.And``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            And [Condition].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.And``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            And [Condition].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.And(System.String)">
+            <summary>
+            And [Condition].
+            Provide another precondition to describe our scenario's initial state
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.When(System.Action)">
+            <summary>
+            When [Operation].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.When``1(System.Action{``0},``0)">
+            <summary>
+            When [Operation].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.When``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            When [Operation].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.When``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            When [Operation].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.When``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            When [Operation].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.When(System.String)">
+            <summary>
+            When [Operation].
+            Describe the actions that are done to the system under test. '
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Condition.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Operation">
+            <summary>
+            The [Operation] story fragment.
+            The action(s) that are performed upon the system under test
+            <h1>Transitions:</h1><ul>
+            <li>And [<see cref="T:StoryQ.Operation"/>]: <see cref="M:StoryQ.Operation.And(System.Action)"/></li>
+            <li>Then [<see cref="T:StoryQ.Outcome"/>]: <see cref="M:StoryQ.Operation.Then(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.Operation.And(System.Action)">
+            <summary>
+            And [Operation].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.And``1(System.Action{``0},``0)">
+            <summary>
+            And [Operation].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.And``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            And [Operation].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.And``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            And [Operation].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.And``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            And [Operation].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.And(System.String)">
+            <summary>
+            And [Operation].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.Then(System.Action)">
+            <summary>
+            Then [Outcome].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.Then``1(System.Action{``0},``0)">
+            <summary>
+            Then [Outcome].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.Then``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            Then [Outcome].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.Then``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            Then [Outcome].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.Then``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            Then [Outcome].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.Then(System.String)">
+            <summary>
+            Then [Outcome].
+            Describe the system's behaviour that the prior state and actions should elicit
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Operation.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Outcome">
+            <summary>
+            The [Outcome] story fragment.
+            The result that is expected from executing the specified actions on the specified initial state
+            <h1>Transitions:</h1><ul>
+            <li>And [<see cref="T:StoryQ.Outcome"/>]: <see cref="M:StoryQ.Outcome.And(System.Action)"/></li>
+            <li>With scenario [<see cref="T:StoryQ.Scenario"/>]: <see cref="M:StoryQ.Outcome.WithScenario(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.Outcome.And(System.Action)">
+            <summary>
+            And [Outcome].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Outcome.And``1(System.Action{``0},``0)">
+            <summary>
+            And [Outcome].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Outcome.And``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            And [Outcome].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Outcome.And``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            And [Outcome].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Outcome.And``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            And [Outcome].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Outcome.And(System.String)">
+            <summary>
+            And [Outcome].
+            Provide another resultant behaviour to check for
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.Outcome.WithScenario(System.String)">
+            <summary>
+            With scenario [Scenario].
+            Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Scenario"/></returns>
+        </member>
+        <member name="M:StoryQ.Outcome.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.TextualSteps.Extensions">
+            <summary>
+             Extension methods to enable string-based executable steps. These will always Pend
+            </summary>
+        </member>
+        <member name="M:StoryQ.TextualSteps.Extensions.Given(StoryQ.Scenario,System.String)">
+            <summary>
+            Given [Condition].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.TextualSteps.Extensions.And(StoryQ.Condition,System.String)">
+            <summary>
+            And [Condition].
+            Provide another precondition to describe our scenario's initial state
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Condition"/></returns>
+        </member>
+        <member name="M:StoryQ.TextualSteps.Extensions.When(StoryQ.Condition,System.String)">
+            <summary>
+            When [Operation].
+            Describe the actions that are done to the system under test. '
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.TextualSteps.Extensions.And(StoryQ.Operation,System.String)">
+            <summary>
+            And [Operation].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Operation"/></returns>
+        </member>
+        <member name="M:StoryQ.TextualSteps.Extensions.Then(StoryQ.Operation,System.String)">
+            <summary>
+            Then [Outcome].
+            Describe the system's behaviour that the prior state and actions should elicit
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="M:StoryQ.TextualSteps.Extensions.And(StoryQ.Outcome,System.String)">
+            <summary>
+            And [Outcome].
+            Provide another resultant behaviour to check for
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.Outcome"/></returns>
+        </member>
+        <member name="T:StoryQ.Infrastructure.StoryQEntryPoints">
+            <summary>
+            Entry points for the StoryQ converter's parser
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.StoryQEntryPoints.StoryIs(System.String)">
+            <summary>
+            For infrastructure use only
+            </summary>
+        </member>
+        <member name="T:StoryQ.Execution.Rendering.IRenderer">
+            <summary>
+            Something that can render results
+            </summary>
+        </member>
+        <member name="M:StoryQ.Execution.Rendering.IRenderer.Render(System.Collections.Generic.IEnumerable{StoryQ.Execution.Result})">
+            <summary>
+            Renders the results.
+            </summary>
+            <param name="results">The results.</param>
+        </member>
+        <member name="T:StoryQ.Formatting.Parameters.ToStringParameterFormatAttribute">
+            <summary>
+            Formats a parameter by calling "toString" on it (nulls are formatter as {NULL}, for visibility)
+            </summary>
+        </member>
+        <member name="T:StoryQ.Formatting.Parameters.ParameterFormatAttribute">
+            <summary>
+            Allows you to override the formatting of a parameter to a StoryQ method.
+            </summary>
+        </member>
+        <member name="M:StoryQ.Formatting.Parameters.ParameterFormatAttribute.Format(System.Object)">
+            <summary>
+            Override this method to provide a custom format for any given parameter value.
+            </summary>
+            <param name="value">The value of the parameter</param>
+            <returns>A custom description of that parameter's value</returns>
+        </member>
+        <member name="M:StoryQ.Formatting.Parameters.ToStringParameterFormatAttribute.Format(System.Object)">
+            <summary>
+            Formats the parameter using its toString
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Formatting.Methods.OverrideMethodFormatAttribute">
+            <summary>
+             Lets you specify how you want a method formatted with a literal string
+            </summary>
+        </member>
+        <member name="M:StoryQ.Formatting.Methods.OverrideMethodFormatAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StoryQ.Formatting.Methods.OverrideMethodFormatAttribute"/> class.
+            </summary>
+            <param name="text">The text.</param>
+        </member>
+        <member name="M:StoryQ.Formatting.Methods.OverrideMethodFormatAttribute.Format(System.Reflection.MethodInfo,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Override this method to provide a human friendly description of a method.
+            </summary>
+            <param name="method">The method to describe</param>
+            <param name="parameters">the parameters currently being passed to the method</param>
+            <returns>the overidden text</returns>
+        </member>
+        <member name="T:StoryQ.Execution.Rendering.XmlFileManagerBase">
+            <summary>
+            Looks after writing out an XML file, post testrun
+            </summary>
+        </member>
+        <member name="T:StoryQ.Formatting.Parameters.BooleanParameterFormatAttribute">
+            <summary>
+            Lets you provide alternative descriptions of "true" and "false" when formatting a StoryQ test method
+            </summary>
+        </member>
+        <member name="M:StoryQ.Formatting.Parameters.BooleanParameterFormatAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new BooleanParameterFormatAttribute
+            </summary>
+            <param name="trueValue">the string to use when the parameter is true</param>
+            <param name="falseValue">the string to use when the parameter is false</param>
+        </member>
+        <member name="M:StoryQ.Formatting.Parameters.BooleanParameterFormatAttribute.Format(System.Object)">
+            <summary>
+            Returns the true value if the parameter was true, otherwise the false value
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Formatting.Parameters.SilentAttribute">
+            <summary>
+             Use this attribute on a Parameter when you want StoryQ to ignore it.
+            </summary>
+        </member>
+        <member name="M:StoryQ.Formatting.Parameters.SilentAttribute.Format(System.Object)">
+            <summary>
+            Returns an empty string
+            </summary>
+            <param name="value">The value of the parameter</param>
+            <returns>An empty string</returns>
+        </member>
+        <member name="T:StoryQ.StoryQSettings">
+            <summary>
+            This class is used to control global settings within storyQ. Refer to each member's documentation for details.
+            It is recommended that you override these settings during the test suite setup phase of your test framework's execution, as it only needs to be done once.
+            </summary>
+        </member>
+        <member name="P:StoryQ.StoryQSettings.DefaultMethodFormatSelector">
+            <summary>
+             This function can be used to override the default formatting behaviour of StoryQ.
+             If you don't override this, a selector will be provided that uses ParametersInlineMethodFormatAttribute if there are any underscores present, and ParameterSuffixedMethodFormatAttribute otherwise.
+             If you have your own method formatter that you want to use globally, then you should set this property to a function that always returns an instance of your formatter.
+            </summary>
+        </member>
+        <member name="P:StoryQ.StoryQSettings.DefaultParameterFormatter">
+            <summary>
+             This function can be used to override the default formatting behaviour of StoryQ.
+             If you don't override this, a selector will be provided that uses ParametersInlineMethodFormatAttribute if there are any underscores present, and ParameterSuffixedMethodFormatAttribute otherwise.
+             If you have your own method formatter that you want to use globally, then you should set this property to a function that always returns an instance of your formatter.
+            </summary>
+        </member>
+        <member name="P:StoryQ.StoryQSettings.PendingExceptionBuilder">
+            <summary>
+            This Func is responsible for wrapping an exception up in a unit test framework specific "pending" exception
+            If you don't set the func manually, it will try to reflectively build an appropriate Func for itself. If this fails, 
+            you need to set the PendingExceptionBuilder manually
+            <example>
+            StoryQSettings.PendingExceptionBuilder = (message, inner) => new PendingException(message, inner);
+            </example>
+            </summary>
+        </member>
+        <member name="P:StoryQ.StoryQSettings.ReportSupportsLegacyBrowsers">
+            <summary>
+            If you set this to true, then StoryQ's ExecuteWithReport method will generate a non-interactive html page that works 
+            well in older browsers like IE6. If your entire team has access to a better browser than IE6, it's best to leave this "false"
+            </summary>
+        </member>
+        <member name="T:StoryQ.Infrastructure.ExceptionHelper">
+            <summary>
+            Exception-related operations for StoryQ.
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.ExceptionHelper.CreateExceptionBuilder">
+            <summary>
+            Tries to build an "exception builder" by scanning through the list of configured "pending exceptions" and creating a 
+            Func out of the constructor
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StoryQ.Infrastructure.ExceptionHelper.TryForceStackTracePermanence(System.Exception,System.String)">
+            <summary>
+            Uses forbidden .Net information to try and force the exception to keep its stack trace, even when rethrown
+            http://stackoverflow.com/questions/1009762/how-can-i-rethrow-an-inner-exception-while-maintaining-the-stack-trace-generated/1009888#1009888
+            </summary>
+            <param name="ex">The exception to hack</param>
+            <param name="separator">the message to put between the real stack trace and the new one</param>
+        </member>
+        <member name="T:StoryQ.Infrastructure.Utilities">
+            <summary>
+            Utility methods for StoryQ's use
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.Utilities.Camel(System.String)">
+            <summary>
+            Camel-cases the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>Camel case => CamelCase</returns>
+        </member>
+        <member name="M:StoryQ.Infrastructure.Utilities.UnCamel(System.String)">
+            <summary>
+            UnCamel-cases the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>CamelCase => camel case</returns>
+        </member>
+        <member name="M:StoryQ.Infrastructure.Utilities.Join(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Joins the specified strings.
+            </summary>
+            <param name="strings">The strings.</param>
+            <param name="seperator">The seperator.</param>
+            <returns>a single, seperator-delimited string</returns>
+        </member>
+        <member name="M:StoryQ.Infrastructure.Utilities.GetCustomAttribute``1(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+            Finds and returns an attribute on a MemberInfo, Type or Assembly
+            </summary>
+        </member>
+        <member name="T:StoryQ.Infrastructure.Step">
+            <summary>
+             A StoryQ infrastructure class that represents single a line of a story. Some steps can be executed, while others are just descriptive
+            </summary>
+        </member>
+        <member name="F:StoryQ.Infrastructure.Step.DoNothing">
+            <summary>
+            use this Action when a Step is supposed to be not executable
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.Step.#ctor(System.String,System.Int32,System.String,System.Action)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StoryQ.Infrastructure.Step"/> class.
+            </summary>
+            <param name="prefix">The prefix.</param>
+            <param name="indentLevel">The indent level.</param>
+            <param name="text">The text.</param>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:StoryQ.Infrastructure.Step.Execute">
+            <summary>
+            Executes this Step.
+            </summary>
+            <returns>the resulting result</returns>
+        </member>
+        <member name="P:StoryQ.Infrastructure.Step.Prefix">
+            <summary>
+            Gets or sets the prefix.
+            </summary>
+            <value>The prefix.</value>
+        </member>
+        <member name="P:StoryQ.Infrastructure.Step.IndentLevel">
+            <summary>
+            Gets or sets the indent level.
+            </summary>
+            <value>The indent level.</value>
+        </member>
+        <member name="P:StoryQ.Infrastructure.Step.Text">
+            <summary>
+            Gets or sets the text.
+            </summary>
+            <value>The text.</value>
+        </member>
+        <member name="P:StoryQ.Infrastructure.Step.Action">
+            <summary>
+            Gets or sets the action.
+            </summary>
+            <value>The action.</value>
+        </member>
+        <member name="P:StoryQ.Infrastructure.Step.Tags">
+            <summary>
+            Gets the list of tags that have been applied to this step
+            </summary>
+        </member>
+        <member name="P:StoryQ.Infrastructure.Step.IsExecutable">
+            <summary>
+            Gets a value indicating whether this instance is executable.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is executable; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:StoryQ.Formatting.Formatter">
+            <summary>
+            A StoryQ infrastructure class that can format a given StoryQ Test method into a human-friendly (even if the human
+            in question isn't a developer!) string
+            </summary>
+        </member>
+        <member name="M:StoryQ.Formatting.Formatter.FormatMethod(System.Delegate,System.Object[])">
+            <summary>
+            Formats a method.
+            </summary>
+            <param name="method">The method.</param>
+            <param name="arguments">The arguments.</param>
+            <returns>a string representing the method's description</returns>
+        </member>
+        <member name="T:StoryQ.Infrastructure.StringBasedExecutableStepException">
+            <summary>
+            Thrown from a string based executable step
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.StringBasedExecutableStepException.#ctor(System.String)">
+            <summary>
+            Creates a StringBasedExecutableStepException
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.StringBasedExecutableStepException.ToString">
+            <summary>
+            Gives you the correct
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StoryQ.Execution.Rendering.RichHtml.RichHtmlFileManager.Style(System.String)">
+            <summary>
+            wrap some css in a style tag
+            </summary>
+        </member>
+        <member name="M:StoryQ.Execution.Rendering.RichHtml.RichHtmlFileManager.Script(System.String)">
+            <summary>
+            wrap some JS in a script tag
+            </summary>
+        </member>
+        <member name="T:StoryQ.Formatting.Methods.ParameterSuffixedMethodFormatAttribute">
+            <summary>
+            Describes a method by un camel-casing the method, then putting the parameters at the end (like a method call)
+            Used by default when a method's name contains no underscores
+            </summary>
+        </member>
+        <member name="M:StoryQ.Formatting.Methods.ParameterSuffixedMethodFormatAttribute.Format(System.Reflection.MethodInfo,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Formats a method by putting the parameters at the end (like a method call)
+            </summary>
+            <param name="method">The method to describe</param>
+            <param name="parameters">the parameters currently being passed to the method</param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Formatting.Methods.ParametersInlineMethodFormatAttribute">
+            <summary>
+            Describes a method by un camel-casing the method, then replacing each 
+            underscore in the method name with each parameter value, in sequential order.
+            </summary>
+        </member>
+        <member name="M:StoryQ.Formatting.Methods.ParametersInlineMethodFormatAttribute.Format(System.Reflection.MethodInfo,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Formats a method by putting parameters inline
+            </summary>
+            <param name="method">The method to describe</param>
+            <param name="parameters">the parameters currently being passed to the method</param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.Execution.Result">
+            <summary>
+            The result or outcome of a step being executed
+            </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Result.Prefix">
+            <summary>
+            Gets the prefix (the type of the step, such as "Given")
+            </summary>
+            <value>The prefix.</value>
+        </member>
+        <member name="P:StoryQ.Execution.Result.Text">
+            <summary>
+            Gets the text (the content of the step)
+            </summary>
+            <value>The text.</value>
+        </member>
+        <member name="P:StoryQ.Execution.Result.Type">
+            <summary>
+            Gets the result type (what was the outcome?)
+            </summary>
+            <value>The type.</value>
+        </member>
+        <member name="P:StoryQ.Execution.Result.Exception">
+            <summary>
+            Gets the exception, if there was one
+            </summary>
+            <value>The exception.</value>
+        </member>
+        <member name="P:StoryQ.Execution.Result.IndentLevel">
+            <summary>
+            Gets the indent level.
+            </summary>
+            <value>The indent level.</value>
+        </member>
+        <member name="P:StoryQ.Execution.Result.Tags">
+            <summary>
+            Gets the tags associated with this step
+            </summary>
+        </member>
+        <member name="T:StoryQ.Execution.Rendering.RichHtml.Dependencies">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.RichHtml.Dependencies.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.RichHtml.Dependencies.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.RichHtml.Dependencies.jquery_1_4_2_min_js">
+             <summary>
+               Looks up a localized string similar to /*!
+             * jQuery JavaScript Library v1.4.2
+             * http://jquery.com/
+             *
+             * Copyright 2010, John Resig
+             * Dual licensed under the MIT or GPL Version 2 licenses.
+             * http://jquery.org/license
+             *
+             * Includes Sizzle.js
+             * http://sizzlejs.com/
+             * Copyright 2010, The Dojo Foundation
+             * Released under the MIT, BSD, and GPL Licenses.
+             *
+             * Date: Sat Feb 13 22:33:48 2010 -0500
+             */
+            (function(A,w){function ma(){if(!c.isReady){try{s.documentElement.doScroll(&quot;left&quot;)}catch(a){setTimeout(ma,1);return}c.ready()}}function Qa(a,b){b [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.RichHtml.Dependencies.jquery_tagcloud_min_js">
+             <summary>
+               Looks up a localized string similar to /*
+            * jQuery TagCloud 0.5.0
+            * Copyright (c) 2008 Ron Valstar
+            * Dual licensed under the MIT and GPL licenses:
+            *   http://www.opensource.org/licenses/mit-license.php
+            *   http://www.gnu.org/licenses/gpl.html
+            */
+            (function(F){var C;var A={};var G={};var L=2.399963;F.tagcloud={id:&quot;TagCloud&quot;,version:&quot;0.5.0&quot;,defaults:{height:null,type:&quot;cloud&quot;,sizemax:20,sizemin:10,colormax:&quot;00F&quot;,colormin:&quot;B4D2FF&quot;,seed:null,power:0.5}};F.fn.extend({tagcloud:function(M){C=F.extend({},F.tagcloud.defaults,M);if(C.seed===null){C.s [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.RichHtml.Dependencies.jquery_treeview_min_js">
+            <summary>
+              Looks up a localized string similar to /*
+            * Treeview 1.4 - jQuery plugin to hide and show branches of a tree
+            * 
+            * http://bassistance.de/jquery-plugins/jquery-plugin-treeview/
+            * http://docs.jquery.com/Plugins/Treeview
+            *
+            * Copyright (c) 2007 Jörn Zaefferer
+            *
+            * Dual licensed under the MIT and GPL licenses:
+            *   http://www.opensource.org/licenses/mit-license.php
+            *   http://www.gnu.org/licenses/gpl.html
+            *
+            * Revision: $Id: jquery.treeview.js 4684 2008-02-07 19:08:06Z joern.zaefferer $
+            *
+            */;(function($){$.extend($.fn,{swapClass:function(c1 [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.RichHtml.Dependencies.RichHtml_xslt">
+             <summary>
+               Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+            &lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+                &lt;!--Disable Quirks Mode in IE--&gt;
+                &lt;xsl:output method=&quot;html&quot;
+                            indent=&quot;yes&quot;
+                            doctype-public=&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;
+                            doctype-system=&quot;http://www.w3.org/TR/html4/loose.dtd&quot;
+                        /&gt;
+            
+                &lt;xsl:key name=&quot;tag-key&quot; match=&quot;Tag&quot; use=&quot;text()&quot;/&gt;
+            
+            
+                &lt;xsl:template match=&quot;StoryQRun&quot;&gt;
+                    &lt;html&gt;
+                        &lt;hea [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:StoryQ.Execution.Rendering.RichHtml.Dependencies.storyq_css" -->
+        <member name="P:StoryQ.Execution.Rendering.RichHtml.Dependencies.storyq_js">
+             <summary>
+               Looks up a localized string similar to $(document).ready(function() {
+            
+                $(&quot;#tags&quot;).tagcloud({type:&quot;list&quot; ,colormin:&quot;555&quot;,colormax:&quot;000&quot;,seed:0});
+                $(&quot;#tree&quot;).treeview();
+            
+                $(&quot;#tree a&quot;).click(function(event) {
+                    event.preventDefault();
+                    $(&quot;#tree a&quot;).removeClass(&quot;selected&quot;);
+                    $(this).addClass(&quot;selected&quot;);
+                    reFilter();
+                    this.blur();
+            
+                });
+            
+                $(&quot;#tags a&quot;).click(function(event) {
+                    event.preventDefault();
+                    $(this).toggleClass(&quot;tagged&quot;);
+                    reFilter();
+                    this.blu [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="T:StoryQ.Execution.ResultType">
+            <summary>
+            The different outcomes of each Step run
+            </summary>
+        </member>
+        <member name="F:StoryQ.Execution.ResultType.NotExecutable">
+            <summary>
+            The Step was not something that can be executed
+            </summary>
+        </member>
+        <member name="F:StoryQ.Execution.ResultType.Passed">
+            <summary>
+            The Step passed
+            </summary>
+        </member>
+        <member name="F:StoryQ.Execution.ResultType.Pending">
+            <summary>
+            The Step was pending (more development required)
+            </summary>
+        </member>
+        <member name="F:StoryQ.Execution.ResultType.Failed">
+            <summary>
+            There was an unexpected exception or an assertion failure
+            </summary>
+        </member>
+        <member name="T:StoryQ.Execution.Rendering.SimpleHtml.SimpleHtmlDependencies">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.SimpleHtml.SimpleHtmlDependencies.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.SimpleHtml.SimpleHtmlDependencies.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:StoryQ.Execution.Rendering.SimpleHtml.SimpleHtmlDependencies.SimpleHtml">
+             <summary>
+               Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+            &lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+              &lt;xsl:output method=&quot;html&quot; indent=&quot;yes&quot;/&gt;
+              &lt;xsl:template match=&quot;StoryQRun&quot;&gt;
+                &lt;html&gt;
+                  &lt;head&gt;
+                    &lt;title&gt;StoryQ test run&lt;/title&gt;
+                    &lt;style type=&quot;text/css&quot;&gt;
+                      &lt;![CDATA[
+            body                  {font-family:&quot;Segoe UI&quot;, Tahoma, Geneva, Verdana; font-size:85%}
+            table                 {border-collapse:collapse; border:1px solid #777;}
+            td                    {paddin [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="T:StoryQ.Infrastructure.ParserEntryPointAttribute">
+            <summary>
+             Tells the parser which class in this assembly is the right entrypoint class
+            </summary>
+        </member>
+        <member name="M:StoryQ.Infrastructure.ParserEntryPointAttribute.#ctor(System.Type)">
+            <summary>
+            Constructs a ParserEntryPointAttribute
+            </summary>
+        </member>
+        <member name="P:StoryQ.Infrastructure.ParserEntryPointAttribute.Target">
+            <summary>
+            The type to that is the Parser entry point
+            </summary>
+        </member>
+    </members>
+</doc>

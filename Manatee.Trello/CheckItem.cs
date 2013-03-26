@@ -118,8 +118,12 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			Svc.DeleteFromCache(new Request<CheckItem>(new[] {Owner, this}));
+			Svc.DeleteFromCache(new RestSharpRequest<CheckItem>(new[] {Owner, this}));
 		}
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -131,6 +135,12 @@ namespace Manatee.Trello
 			_apiState = obj.TryGetString("state");
 			UpdateState();
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -142,31 +152,44 @@ namespace Manatee.Trello
 						};
 			return json;
 		}
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
 		public bool Equals(CheckItem other)
 		{
 			return Id == other.Id;
 		}
 
+		internal override bool Match(string id)
+		{
+			return Id == id;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var checkItem = entity as CheckItem;
 			if (checkItem == null) return;
 		}
-		internal override bool Match(string id)
-		{
-			return Id == id;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<CheckItem>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(new RestSharpRequest<CheckItem>(new[] {Owner, this}));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce() {}
 
 		private void Put(string extension)
 		{
-			Svc.PutAndCache(new Request<CheckItem>(new[] {((CheckList) Owner).Card, Owner, this}, this, extension));
+			Svc.PutAndCache(new RestSharpRequest<CheckItem>(new[] {((CheckList) Owner).Card, Owner, this}, this, extension));
 		}
 		private void UpdateState()
 		{

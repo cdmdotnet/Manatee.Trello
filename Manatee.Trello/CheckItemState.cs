@@ -75,6 +75,10 @@ namespace Manatee.Trello
 		internal CheckItemState(TrelloService svc, Card owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -84,6 +88,12 @@ namespace Manatee.Trello
 			_apiState = obj.TryGetString("state");
 			UpdateState();
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -93,18 +103,31 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
 		public bool Equals(CheckItemState other)
 		{
 			return (Owner == other.Owner) && (Id == other.Id);
 		}
 
-		internal override void Refresh(ExpiringObject entity) {}
 		internal override bool Match(string id)
 		{
 			return false;
 		}
+		internal override void Refresh(ExpiringObject entity) { }
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get() {}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce() {}
 
 		private void UpdateState()

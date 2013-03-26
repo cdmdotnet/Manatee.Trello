@@ -20,7 +20,6 @@
 	Purpose:		Defines a set of labels for a board on Trello.com.
 
 ***************************************************************************************/
-using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
@@ -159,6 +158,10 @@ namespace Manatee.Trello
 		internal LabelNames(TrelloService svc, Board owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -171,6 +174,12 @@ namespace Manatee.Trello
 			_blue = obj.TryGetString("blue");
 			_purple = obj.TryGetString("purple");
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -185,6 +194,10 @@ namespace Manatee.Trello
 			return json;
 		}
 
+		internal override bool Match(string id)
+		{
+			return false;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var labels = entity as LabelNames;
@@ -196,21 +209,23 @@ namespace Manatee.Trello
 			_blue = labels._blue;
 			_purple = labels._purple;
 		}
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<LabelNames>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(new RestSharpRequest<LabelNames>(new[] {Owner, this}));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce() {}
 
 		private void Put(string extension)
 		{
-			var request = new Request<LabelNames>(new[] {Owner, this}, this, extension);
+			var request = new RestSharpRequest<LabelNames>(new[] {Owner, this}, this, extension);
 			Svc.PutAndCache(request);
 		}
 	}

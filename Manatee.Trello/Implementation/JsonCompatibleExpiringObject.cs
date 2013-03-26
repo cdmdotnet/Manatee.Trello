@@ -26,6 +26,9 @@ using Manatee.Json.Serialization;
 
 namespace Manatee.Trello.Implementation
 {
+	/// <summary>
+	/// Base class which extends an ExpiringObject to implement IJsonCompatible.
+	/// </summary>
 	public abstract class JsonCompatibleExpiringObject : ExpiringObject, IJsonCompatible
 	{
 		internal JsonCompatibleExpiringObject() {}
@@ -36,7 +39,17 @@ namespace Manatee.Trello.Implementation
 		internal JsonCompatibleExpiringObject(TrelloService svc, ExpiringObject owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public abstract void FromJson(JsonValue json);
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public abstract JsonValue ToJson();
 	}
 }

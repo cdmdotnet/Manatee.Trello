@@ -23,6 +23,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Implementation
@@ -66,19 +67,19 @@ namespace Manatee.Trello.Implementation
 			return _list.ToString();
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			Get();
-		}
 		internal override bool Match(string id)
 		{
 			return false;
+		}
+		internal override void Refresh(ExpiringObject entity)
+		{
+			Get();
 		}
 
 		protected override sealed void Get()
 		{
 			_list.Clear();
-			var request = new CollectionRequest<TContent>(new ExpiringObject[] {_source, new TContent()});
+			var request = new RestSharpCollectionRequest<TContent>(new ExpiringObject[] { _source, new TContent() });
 			var entities = Svc.Get(request);
 			if (entities == null) return;
 			foreach (var entity in entities)

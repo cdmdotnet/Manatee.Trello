@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>StoryQ</id>
+    <version>2.0.5</version>
+    <title>StoryQ</title>
+    <authors>RobFE</authors>
+    <owners>RobFE</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://storyq.codeplex.com/</projectUrl>
+    <iconUrl>http://download.codeplex.com/Project/Download/FileDownload.aspx?ProjectName=storyq&amp;DownloadId=103231&amp;Build=17450</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>StoryQ is a portable (single dll), embedded BDD framework for .NET 3.5. It runs within your existing test runner and helps produce human-friendly test output (html or text). StoryQ's fluent interface adds strong typing, intellisense and documentation to your BDD grammar.</description>
+    <summary>StoryQ is a portable (single dll), embedded BDD framework for .NET 3.5. It runs within your existing test runner and helps produce human-friendly test output (html or text). StoryQ's fluent interface adds strong typing, intellisense and documentation to your BDD grammar.</summary>
+    <releaseNotes />
+    <copyright>(C) RobFE and ToddB</copyright>
+    <language />
+    <tags>BDD TDD</tags>
+    <references>
+      <reference file="StoryQ.dll" />
+      <reference file="StoryQ.pt-BR.dll" />
+      <reference file="StoryQ.sr-SP.dll" />
+    </references>
+  </metadata>
+</package>

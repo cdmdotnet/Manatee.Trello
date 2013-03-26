@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
@@ -39,6 +40,15 @@ namespace Manatee.Trello
 		private readonly List<ExpiringObject> _cache;
 
 		/// <summary>
+		/// Gets and sets the IRestClientProvider to be used by the service.
+		/// </summary>
+		public IRestClientProvider RestClientProvider
+		{
+			get { return Api.RestClientProvider; }
+			set { Api.RestClientProvider = value; }
+		}
+
+		/// <summary>
 		/// Creates a new instance of the TrelloService class.
 		/// </summary>
 		/// <param name="authKey"></param>
@@ -48,6 +58,9 @@ namespace Manatee.Trello
 			Api = new TrelloRest(authKey, authToken);
 			_cache = new List<ExpiringObject>();
 		}
+		/// <summary>
+		/// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
+		/// </summary>
 		~TrelloService()
 		{
 			_cache.ForEach(i => i.Svc = null);
@@ -68,7 +81,7 @@ namespace Manatee.Trello
 			if (string.IsNullOrWhiteSpace(id)) return null;
 			T item = _cache.OfType<T>().FirstOrDefault(i => i.Match(id));
 			if (item != null) return item;
-			return Execute(() => Api.Get(new Request<T>(id)));
+			return Execute(() => Api.Get(new RestSharpRequest<T>(id)));
 		}
 		/// <summary>
 		/// Clears the cache of all retrieved items.
@@ -79,25 +92,28 @@ namespace Manatee.Trello
 			remove.ForEach(e => _cache.Remove(e));
 		}
 
-		internal IEnumerable<T> Get<T>(CollectionRequest<T> request)
+		internal IEnumerable<T> Get<T>(IRestCollectionRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			var items = Api.Get(request);
-			var newItems = items.Except(_cache).Where(e => e != null);
-			_cache.AddRange(newItems);
+			foreach (var item in items)
+			{
+				if (!_cache.OfType<T>().Contains(item))
+					_cache.Add(item);
+			}
 			return items;
 		}
-		internal T PutAndCache<T>(Request<T> request)
+		internal T PutAndCache<T>(RestSharpRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			return Execute(() => Api.Put(request));
 		}
-		internal T PostAndCache<T>(Request<T> request)
+		internal T PostAndCache<T>(RestSharpRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			return Execute(() => Api.Post(request));
 		}
-		internal T DeleteFromCache<T>(Request<T> request)
+		internal T DeleteFromCache<T>(RestSharpRequest<T> request)
 			where T : ExpiringObject, new()
 		{
 			var retVal = Api.Delete(request);

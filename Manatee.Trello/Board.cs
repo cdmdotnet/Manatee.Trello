@@ -246,7 +246,7 @@ namespace Manatee.Trello
 		///<returns>The new list.</returns>
 		public List AddList(string name, Position position = null)
 		{
-			var request = new Request<List>(this);
+			var request = new RestSharpRequest<List>(this);
 			Parameters.Add("name", name);
 			Parameters.Add("idBoard", Id);
 			if ((position != null) && position.IsValid)
@@ -263,7 +263,7 @@ namespace Manatee.Trello
 		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			var request = new Request<Member>(new ExpiringObject[]{this, member}, this);
+			var request = new RestSharpRequest<Member>(new ExpiringObject[]{this, member}, this);
 			Parameters.Add("type", type.ToLowerString());
 			Svc.PutAndCache(request);
 			_members.MarkForUpdate();
@@ -274,7 +274,7 @@ namespace Manatee.Trello
 		///</summary>
 		public void MarkAsViewed()
 		{
-			var request = new Request<Board>(new ExpiringObject[] {this}, urlExtension: "markAsViewed");
+			var request = new RestSharpRequest<Board>(new ExpiringObject[] {this}, urlExtension: "markAsViewed");
 			Svc.PostAndCache(request);
 			_actions.MarkForUpdate();
 		}
@@ -293,7 +293,7 @@ namespace Manatee.Trello
 		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			Svc.DeleteFromCache(new Request<Board>(new ExpiringObject[] {this, member}));
+			Svc.DeleteFromCache(new RestSharpRequest<Board>(new ExpiringObject[] {this, member}));
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the board.
@@ -303,6 +303,10 @@ namespace Manatee.Trello
 		{
 			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");
 		}
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -317,6 +321,12 @@ namespace Manatee.Trello
 			_organizationId = obj.TryGetString("idOrganization");
 			_url = obj.TryGetString("url");
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -335,11 +345,22 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
 		public bool Equals(Board other)
 		{
 			return Id == other.Id;
 		}
 
+		internal override bool Match(string id)
+		{
+			return Id == id;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var board = entity as Board;
@@ -351,16 +372,18 @@ namespace Manatee.Trello
 			_organizationId = board._organizationId;
 			_url = board._url;
 		}
-		internal override bool Match(string id)
-		{
-			return Id == id;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Board>(Id));
+			var entity = Svc.Api.Get(new RestSharpRequest<Board>(Id));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce()
 		{
 			_actions.Svc = Svc;
@@ -374,7 +397,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new Request<Board>(this));
+			Svc.PutAndCache(new RestSharpRequest<Board>(this));
 			_actions.MarkForUpdate();
 		}
 	}

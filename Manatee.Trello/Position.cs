@@ -58,6 +58,10 @@ namespace Manatee.Trello
 			_value = (PositionValue) value;
 		}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -85,6 +89,12 @@ namespace Manatee.Trello
 					break;
 			}
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public JsonValue ToJson()
 		{
 			JsonValue json;
@@ -102,6 +112,13 @@ namespace Manatee.Trello
 			}
 			return json;
 		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return _value.ToLowerString();
@@ -176,6 +193,13 @@ namespace Manatee.Trello
 			if (ReferenceEquals(this, other)) return true;
 			return Equals(other._value, _value);
 		}
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
 		public override bool Equals(object obj)
 		{
 			if (ReferenceEquals(null, obj)) return false;
@@ -183,6 +207,13 @@ namespace Manatee.Trello
 			if (obj.GetType() != typeof (Position)) return false;
 			return Equals((Position) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
 			return _value.GetHashCode();
