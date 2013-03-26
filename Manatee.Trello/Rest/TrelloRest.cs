@@ -23,16 +23,30 @@
 using System;
 using System.Collections.Generic;
 using Manatee.Trello.Implementation;
-using RestSharp;
+using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Rest
 {
 	internal class TrelloRest
 	{
 		private const string ApiBaseUrl = "https://api.trello.com/1";
-		private readonly Serializer _serializer;
 		private readonly string _authKey;
 		private readonly string _authToken;
+
+		private IRestClientProvider _restProvider;
+		
+		public IRestClientProvider RestClientProvider
+		{
+			get { return _restProvider ?? (_restProvider = new RestSharpClientProvider()); }
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+				if (_restProvider != null)
+					throw new InvalidOperationException("REST provider already set.");
+				_restProvider = value;
+			}
+		}
 
 		public TrelloRest(string authKey, string authToken)
 		{
@@ -40,72 +54,67 @@ namespace Manatee.Trello.Rest
 				throw new ArgumentException("Authentication key required. Auth keys can be generated from https://trello.com/1/appKey/generate", "authKey");
 			_authKey = authKey;
 			_authToken = authToken;
-			_serializer = new Serializer();
 		}
 
-		public T Get<T>(Request<T> request)
+		public T Get<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new()
 		{
-			return Execute(request, Method.GET);
+			return Execute(request, Method.Get);
 		}
-		public IEnumerable<T> Get<T>(CollectionRequest<T> request)
+		public IEnumerable<T> Get<T>(IRestCollectionRequest<T> request)
 			where T : ExpiringObject, new()
 		{
-			return Execute(request, Method.GET);
+			return Execute(request, Method.Get);
 		}
-		public T Put<T>(Request<T> request)
+		public T Put<T>(RestSharpRequest<T> request)
 			where T : ExpiringObject, new()
 		{
-			return Execute(request, Method.PUT);
+			return Execute(request, Method.Put);
 		}
-		public T Post<T>(Request<T> request)
+		public T Post<T>(RestSharpRequest<T> request)
 			where T : ExpiringObject, new()
 		{
-			return Execute(request, Method.POST);
+			return Execute(request, Method.Post);
 		}
-		public T Delete<T>(Request<T> request)
+		public T Delete<T>(RestSharpRequest<T> request)
 			where T : ExpiringObject, new()
 		{
-			return Execute(request, Method.DELETE);
+			return Execute(request, Method.Delete);
 		}
 
-		private void PrepRequest<T>(Request<T> request, Method method)
+		private void PrepRequest<T>(IRestRequest<T> request, Method method)
 			where T : ExpiringObject, new()
 		{
 			request.Method = method;
-			request.JsonSerializer = _serializer;
+			request.AddParameter("key", _authKey);
 			if (_authToken != null)
 				request.AddParameter("token", _authToken);
-			if (method.In(Method.PUT, Method.POST))
+			if (method.In(Method.Put, Method.Post))
 			{
 				request.AddParameters();
 				if (request.ParameterSource != null)
 					request.AddBody(request.ParameterSource);
 			}
 		}
-		private T Execute<T>(Request<T> request, Method method)
+		private T Execute<T>(IRestRequest<T> request, Method method)
 			where T : ExpiringObject, new()
 		{
 			var client = GenerateRestClient();
 			PrepRequest(request, method);
-			var response = client.Execute<T>(request);
+			var response = client.Execute(request);
 			return response.Data;
 		}
-		private IEnumerable<T> Execute<T>(CollectionRequest<T> request, Method method)
+		private IEnumerable<T> Execute<T>(IRestCollectionRequest<T> request, Method method)
 			where T : ExpiringObject, new()
 		{
 			var client = GenerateRestClient();
 			PrepRequest(request, method);
-			var response = client.Execute<List<T>>(request);
+			var response = client.Execute(request);
 			return response.Data;
 		}
-		private RestClient GenerateRestClient()
+		private IRestClient GenerateRestClient()
 		{
-			var client = new RestClient(ApiBaseUrl);
-			client.AddDefaultParameter("key", _authKey);
-			client.AddHandler("application/json", _serializer);
-			client.AddHandler("text/json", _serializer);
-			return client;
+			return RestClientProvider.CreateRestClient(ApiBaseUrl);
 		}
 	}
 }

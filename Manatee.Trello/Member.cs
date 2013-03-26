@@ -385,7 +385,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void MarkAllNotificationsAsRead()
 		{
-			Svc.PostAndCache(new Request<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
+			Svc.PostAndCache(new RestSharpRequest<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
 		}
 		/// <summary>
 		/// Adds a board to the member's boards menu.
@@ -394,7 +394,7 @@ namespace Manatee.Trello
 		public void PinBoard(Board board)
 		{
 			Parameters.Add("value", board.Id);
-			Svc.PostAndCache(new Request<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
+			Svc.PostAndCache(new RestSharpRequest<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
 		}
 		/// <summary>
 		/// Removes the member's vote from a card.
@@ -402,7 +402,7 @@ namespace Manatee.Trello
 		/// <param name="card"></param>
 		public void RescindVoteForCard(Card card)
 		{
-			Svc.DeleteFromCache(new Request<Card>(new ExpiringObject[] {card, new VotingMember {Id = Id}}));
+			Svc.DeleteFromCache(new RestSharpRequest<Card>(new ExpiringObject[] {card, new VotingMember {Id = Id}}));
 		}
 		/// <summary>
 		/// Removes a board from the member's boards menu.
@@ -410,7 +410,7 @@ namespace Manatee.Trello
 		/// <param name="board"></param>
 		public void UnpinBoard(Board board)
 		{
-			Svc.DeleteFromCache(new Request<Member>(new ExpiringObject[] {this, new PinnedBoard {Id = board.Id}}));
+			Svc.DeleteFromCache(new RestSharpRequest<Member>(new ExpiringObject[] {this, new PinnedBoard {Id = board.Id}}));
 		}
 		/// <summary>
 		/// Applies the member's vote to a card.
@@ -419,8 +419,12 @@ namespace Manatee.Trello
 		public void VoteForCard(Card card)
 		{
 			Parameters.Add("value", Id);
-			Svc.PostAndCache(new Request<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
+			Svc.PostAndCache(new RestSharpRequest<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
 		}
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -448,6 +452,12 @@ namespace Manatee.Trello
 			_username = obj.TryGetString("username");
 			UpdateStatus();
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -471,11 +481,22 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
 		public bool Equals(Member other)
 		{
 			return Id == other.Id;
 		}
 
+		internal override bool Match(string id)
+		{
+			return (Id == id) || (Username == id);
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var member = entity as Member;
@@ -497,16 +518,18 @@ namespace Manatee.Trello
 			_username = member._username;
 			UpdateStatus();
 		}
-		internal override bool Match(string id)
-		{
-			return (Id == id) || (Username == id);
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Member>(Id));
+			var entity = Svc.Api.Get(new RestSharpRequest<Member>(Id));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce()
 		{
 			_premiumOrganizations.Svc = Svc;
@@ -521,7 +544,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new Request<Member>(this));
+			Svc.PutAndCache(new RestSharpRequest<Member>(this));
 		}
 		private void UpdateStatus()
 		{

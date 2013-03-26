@@ -49,6 +49,10 @@ namespace Manatee.Trello
 		///</summary>
 		public int? Width { get; private set; }
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -59,6 +63,12 @@ namespace Manatee.Trello
 			Url = obj.TryGetString("url");
 			Width = (int?) obj.TryGetNumber("width");
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public JsonValue ToJson()
 		{
 			var json = new JsonObject

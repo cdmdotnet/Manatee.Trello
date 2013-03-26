@@ -1,0 +1,825 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StoryQ.pt-BR</name>
+    </assembly>
+    <members>
+        <member name="T:StoryQ.pt_BR.Historia">
+            <summary>
+            The [Historia] story fragment.
+            This is the root item of any story
+            <h1>Transitions:</h1><ul>
+            <li>Para [<see cref="T:StoryQ.pt_BR.Beneficio"/>]: <see cref="M:StoryQ.pt_BR.Historia.Para(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Historia.#ctor(System.String)">
+            <summary>
+            Starts a new StoryQ Historia. 
+            </summary>
+            <param name="text">The name of the new Historia</param>
+        </member>
+        <member name="M:StoryQ.pt_BR.Historia.Para(System.String)">
+            <summary>
+            Para [Beneficio].
+            Describe the real-world value for this story. What is the business process that the user requires software support from?
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Beneficio"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Historia.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.Beneficio">
+            <summary>
+            The [Beneficio] story fragment.
+            The real-world objective (business value) of a story
+            <h1>Transitions:</h1><ul>
+            <li>E [<see cref="T:StoryQ.pt_BR.Beneficio"/>]: <see cref="M:StoryQ.pt_BR.Beneficio.E(System.String)"/></li>
+            <li>Enquanto [<see cref="T:StoryQ.pt_BR.Papel"/>]: <see cref="M:StoryQ.pt_BR.Beneficio.Enquanto(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Beneficio.E(System.String)">
+            <summary>
+            E [Beneficio].
+            Describe any secondary business functions that this story will support
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Beneficio"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Beneficio.Enquanto(System.String)">
+            <summary>
+            Enquanto [Papel].
+            The role of the person who is the intended user of this feature
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Papel"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Beneficio.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.Papel">
+            <summary>
+            The [Papel] story fragment.
+            The role (a category of actors/users) or roles that receive this benefit. 
+            <h1>Transitions:</h1><ul>
+            <li>Ou enquanto [<see cref="T:StoryQ.pt_BR.Papel"/>]: <see cref="M:StoryQ.pt_BR.Papel.OuEnquanto(System.String)"/></li>
+            <li>Eu quero [<see cref="T:StoryQ.pt_BR.Funcionalidade"/>]: <see cref="M:StoryQ.pt_BR.Papel.EuQuero(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Papel.OuEnquanto(System.String)">
+            <summary>
+            Ou enquanto [Papel].
+            Any other roles that may use this story
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Papel"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Papel.EuQuero(System.String)">
+            <summary>
+            Eu quero [Funcionalidade].
+            Describe the software process (features) that will support the business requirement
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Funcionalidade"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Papel.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.Funcionalidade">
+            <summary>
+            The [Funcionalidade] story fragment.
+            The software process that will implement the specified benefit.
+            <h1>Transitions:</h1><ul>
+            <li>E [<see cref="T:StoryQ.pt_BR.Funcionalidade"/>]: <see cref="M:StoryQ.pt_BR.Funcionalidade.E(System.String)"/></li>
+            <li>Com cenario [<see cref="T:StoryQ.pt_BR.Cenario"/>]: <see cref="M:StoryQ.pt_BR.Funcionalidade.ComCenario(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Funcionalidade.E(System.String)">
+            <summary>
+            E [Funcionalidade].
+            Any other features that will implement the desired benefit
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Funcionalidade"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Funcionalidade.ComCenario(System.String)">
+            <summary>
+            Com cenario [Cenario].
+            Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Cenario"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Funcionalidade.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.Cenario">
+            <summary>
+            The [Cenario] story fragment.
+            The name of each scenario within a story. You can think of each scenario as a chapter in a book.
+            <h1>Transitions:</h1><ul>
+            <li>Dado [<see cref="T:StoryQ.pt_BR.Condicao"/>]: <see cref="M:StoryQ.pt_BR.Cenario.Dado(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Cenario.Dado(System.Action)">
+            <summary>
+            Dado [Condicao].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Cenario.Dado``1(System.Action{``0},``0)">
+            <summary>
+            Dado [Condicao].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Cenario.Dado``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            Dado [Condicao].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Cenario.Dado``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            Dado [Condicao].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Cenario.Dado``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            Dado [Condicao].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Cenario.Dado(System.String)">
+            <summary>
+            Dado [Condicao].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Cenario.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.Condicao">
+            <summary>
+            The [Condicao] story fragment.
+            The preconditions that are meant to be present at the beginning of the scenario.
+            <h1>Transitions:</h1><ul>
+            <li>E [<see cref="T:StoryQ.pt_BR.Condicao"/>]: <see cref="M:StoryQ.pt_BR.Condicao.E(System.Action)"/></li>
+            <li>Quando [<see cref="T:StoryQ.pt_BR.Operacao"/>]: <see cref="M:StoryQ.pt_BR.Condicao.Quando(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.E(System.Action)">
+            <summary>
+            E [Condicao].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.E``1(System.Action{``0},``0)">
+            <summary>
+            E [Condicao].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.E``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            E [Condicao].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.E``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            E [Condicao].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.E``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            E [Condicao].
+            Provide another precondition to describe our scenario's initial state.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.E(System.String)">
+            <summary>
+            E [Condicao].
+            Provide another precondition to describe our scenario's initial state
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.Quando(System.Action)">
+            <summary>
+            Quando [Operacao].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.Quando``1(System.Action{``0},``0)">
+            <summary>
+            Quando [Operacao].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.Quando``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            Quando [Operacao].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.Quando``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            Quando [Operacao].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.Quando``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            Quando [Operacao].
+            Describe the actions that are done to the system under test. '.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.Quando(System.String)">
+            <summary>
+            Quando [Operacao].
+            Describe the actions that are done to the system under test. '
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Condicao.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.Operacao">
+            <summary>
+            The [Operacao] story fragment.
+            The action(s) that are performed upon the system under test
+            <h1>Transitions:</h1><ul>
+            <li>E [<see cref="T:StoryQ.pt_BR.Operacao"/>]: <see cref="M:StoryQ.pt_BR.Operacao.E(System.Action)"/></li>
+            <li>Entao [<see cref="T:StoryQ.pt_BR.Saida"/>]: <see cref="M:StoryQ.pt_BR.Operacao.Entao(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.E(System.Action)">
+            <summary>
+            E [Operacao].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.E``1(System.Action{``0},``0)">
+            <summary>
+            E [Operacao].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.E``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            E [Operacao].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.E``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            E [Operacao].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.E``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            E [Operacao].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.E(System.String)">
+            <summary>
+            E [Operacao].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.Entao(System.Action)">
+            <summary>
+            Entao [Saida].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.Entao``1(System.Action{``0},``0)">
+            <summary>
+            Entao [Saida].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.Entao``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            Entao [Saida].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.Entao``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            Entao [Saida].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.Entao``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            Entao [Saida].
+            Describe the system's behaviour that the prior state and actions should elicit.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.Entao(System.String)">
+            <summary>
+            Entao [Saida].
+            Describe the system's behaviour that the prior state and actions should elicit
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Operacao.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.Saida">
+            <summary>
+            The [Saida] story fragment.
+            The result that is expected from executing the specified actions on the specified initial state
+            <h1>Transitions:</h1><ul>
+            <li>E [<see cref="T:StoryQ.pt_BR.Saida"/>]: <see cref="M:StoryQ.pt_BR.Saida.E(System.Action)"/></li>
+            <li>Com cenario [<see cref="T:StoryQ.pt_BR.Cenario"/>]: <see cref="M:StoryQ.pt_BR.Saida.ComCenario(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Saida.E(System.Action)">
+            <summary>
+            E [Saida].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Saida.E``1(System.Action{``0},``0)">
+            <summary>
+            E [Saida].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Saida.E``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            E [Saida].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Saida.E``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            E [Saida].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Saida.E``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            E [Saida].
+            Provide another resultant behaviour to check for.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Saida.E(System.String)">
+            <summary>
+            E [Saida].
+            Provide another resultant behaviour to check for
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Saida.ComCenario(System.String)">
+            <summary>
+            Com cenario [Cenario].
+            Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Cenario"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.Saida.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.TextualSteps.Extensions">
+            <summary>
+             Extension methods to enable string-based executable steps. These will always Pend
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.TextualSteps.Extensions.Dado(StoryQ.pt_BR.Cenario,System.String)">
+            <summary>
+            Dado [Condicao].
+            Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.TextualSteps.Extensions.E(StoryQ.pt_BR.Condicao,System.String)">
+            <summary>
+            E [Condicao].
+            Provide another precondition to describe our scenario's initial state
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Condicao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.TextualSteps.Extensions.Quando(StoryQ.pt_BR.Condicao,System.String)">
+            <summary>
+            Quando [Operacao].
+            Describe the actions that are done to the system under test. '
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.TextualSteps.Extensions.E(StoryQ.pt_BR.Operacao,System.String)">
+            <summary>
+            E [Operacao].
+            Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Operacao"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.TextualSteps.Extensions.Entao(StoryQ.pt_BR.Operacao,System.String)">
+            <summary>
+            Entao [Saida].
+            Describe the system's behaviour that the prior state and actions should elicit
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="M:StoryQ.pt_BR.TextualSteps.Extensions.E(StoryQ.pt_BR.Saida,System.String)">
+            <summary>
+            E [Saida].
+            Provide another resultant behaviour to check for
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.pt_BR.Saida"/></returns>
+        </member>
+        <member name="T:StoryQ.pt_BR.Infrastructure.StoryQEntryPoints">
+            <summary>
+            Entry points for the StoryQ converter's parser
+            </summary>
+        </member>
+        <member name="M:StoryQ.pt_BR.Infrastructure.StoryQEntryPoints.HistoriaE(System.String)">
+            <summary>
+            For infrastructure use only
+            </summary>
+        </member>
+    </members>
+</doc>

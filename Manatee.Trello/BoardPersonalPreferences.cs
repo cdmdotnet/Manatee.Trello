@@ -143,6 +143,10 @@ namespace Manatee.Trello
 		internal BoardPersonalPreferences(TrelloService svc, Board owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -154,6 +158,12 @@ namespace Manatee.Trello
 			_showSidebarBoardActions = obj.TryGetBoolean("showSidebarBoardActions");
 			_showSidebarMembers = obj.TryGetBoolean("showSidebarMembers");
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -167,6 +177,10 @@ namespace Manatee.Trello
 			return json;
 		}
 
+		internal override bool Match(string id)
+		{
+			return false;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var prefs = entity as BoardPersonalPreferences;
@@ -177,21 +191,23 @@ namespace Manatee.Trello
 			_showSidebarBoardActions = prefs._showSidebarBoardActions;
 			_showSidebarMembers = prefs._showSidebarMembers;
 		}
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<BoardPersonalPreferences>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(new RestSharpRequest<BoardPersonalPreferences>(new[] {Owner, this}));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce() {}
 
 		private void Post()
 		{
-			Svc.Api.Post(new Request<BoardPersonalPreferences>(new[] {Owner, this}, this));
+			Svc.Api.Post(new RestSharpRequest<BoardPersonalPreferences>(new[] {Owner, this}, this));
 		}
 	}
 }

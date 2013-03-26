@@ -15,30 +15,33 @@
 	   limitations under the License.
  
 	File Name:		Serializer.cs
-	Namespace:		Manatee.Trello.Rest
+	Namespace:		Manatee.Trello.Json
 	Class Name:		Serializer
 	Purpose:		Wrapper class for the Manatee.Json.Serializer for use with
 					RestSharp.
 
 ***************************************************************************************/
-using System;
 using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using RestSharp;
-using RestSharp.Deserializers;
-using RestSharp.Serializers;
-using JsonSerializer = Manatee.Json.Serialization.JsonSerializer;
 
-namespace Manatee.Trello.Rest
+namespace Manatee.Trello.Json
 {
-	internal class Serializer : ISerializer, IDeserializer
+	/// <summary>
+	/// Wrapper class for the Manatee.Json.Serializer for use with RestSharp.
+	/// </summary>
+	public class ManateeJsonSerializer : ISerializer, IDeserializer, RestSharp.Serializers.ISerializer, RestSharp.Deserializers.IDeserializer
 	{
 		private readonly JsonSerializer _serializer;
 		private readonly MethodInfo _method;
 
-		public Serializer()
+		/// <summary>
+		/// Creates and initializes a new instance of the ManateeJsonSerializer class.
+		/// </summary>
+		public ManateeJsonSerializer()
 		{
 			_serializer = new JsonSerializer();
 
@@ -63,6 +66,11 @@ namespace Manatee.Trello.Rest
 			_method = _serializer.GetType().GetMethod("Serialize");
 		}
 
+		/// <summary>
+		/// Serializes an object to JSON.
+		/// </summary>
+		/// <param name="obj">The object to serialize.</param>
+		/// <returns>An equivalent JSON string.</returns>
 		public string Serialize(object obj)
 		{
 			var method = _method.MakeGenericMethod(new[] {obj.GetType()});
@@ -70,15 +78,43 @@ namespace Manatee.Trello.Rest
 			var text = json.ToString();
 			return text;
 		}
+		/// <summary>
+		/// Attempts to deserialize a RESTful response to the indicated type.
+		/// </summary>
+		/// <typeparam name="T">The type of object expected.</typeparam>
+		/// <param name="response">The response object which contains the JSON to deserialize.</param>
+		/// <returns>The requested object, if JSON is valid; null otherwise.</returns>
+		public T Deserialize<T>(Contracts.IRestResponse<T> response)
+			where T : new()
+		{
+			var json = JsonValue.Parse(response.Content);
+			T obj = _serializer.Deserialize<T>(json);
+			return obj;
+		}
+		/// <summary>
+		/// Implements RestSharp.Deserializers.IDeserialize
+		/// </summary>
 		public T Deserialize<T>(IRestResponse response)
 		{
 			var json = JsonValue.Parse(response.Content);
 			T obj = _serializer.Deserialize<T>(json);
 			return obj;
 		}
+		/// <summary>
+		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
+		/// </summary>
 		public string RootElement { get; set; }
+		/// <summary>
+		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
+		/// </summary>
 		public string Namespace { get; set; }
+		/// <summary>
+		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
+		/// </summary>
 		public string DateFormat { get; set; }
+		/// <summary>
+		/// Implements RestSharp.Serializers.ISerializer
+		/// </summary>
 		public string ContentType { get; set; }
 	}
 }

@@ -22,23 +22,43 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Rest;
-using RestSharp;
 
 namespace Manatee.Trello.Implementation
 {
+	/// <summary>
+	/// A base class for an object which expires after a given time and automatically
+	/// calls a service to refresh its data.
+	/// </summary>
 	public abstract class ExpiringObject
 	{
 		private DateTime _expires;
 		private TrelloService _svc;
 
+		/// <summary>
+		/// Gets a unique identifier  (not necessarily a GUID).
+		/// </summary>
 		public string Id { get; internal set; }
-		public ExpiringObject Owner { get; internal set; }
-
-		internal ParameterCollection Parameters { get; private set; }
-
-		internal TrelloService Svc
+		/// <summary>
+		/// Gets and sets an object which owns this one.
+		/// </summary>
+		public ExpiringObject Owner { get; set; }
+		/// <summary>
+		/// Gets a collection of parameters to be added to a request which uses this object.
+		/// </summary>
+		/// <remarks>
+		/// Parameters is cleared after each use.
+		/// </remarks>
+		public ParameterCollection Parameters { get; private set; }
+		/// <summary>
+		/// Gets and sets the service which manages this object.
+		/// </summary>
+		/// <remarks>
+		/// This instance is used to refresh the object's data.  Setting this property will propigate
+		/// the instance to the objects which it owns.
+		/// </remarks>
+		public TrelloService Svc
 		{
 			get { return _svc; }
 			set
@@ -49,7 +69,10 @@ namespace Manatee.Trello.Implementation
 				MarkForUpdate();
 			}
 		}
-		internal bool IsExpired { get { return DateTime.Now >= _expires; } }
+		/// <summary>
+		/// Gets whether this object has expired is an needs to be updated.
+		/// </summary>
+		public bool IsExpired { get { return DateTime.Now >= _expires; } }
 
 		internal ExpiringObject()
 		{
@@ -77,6 +100,9 @@ namespace Manatee.Trello.Implementation
 			_expires = DateTime.Now - TimeSpan.FromSeconds(1);
 		}
 
+		/// <summary>
+		/// Verifies that the object is not expired and updates if necessary.
+		/// </summary>
 		protected void VerifyNotExpired()
 		{
 			if ((Svc == null) || !Options.AutoRefresh || !IsExpired) return;
@@ -84,9 +110,16 @@ namespace Manatee.Trello.Implementation
 			_expires = DateTime.Now + Options.ItemDuration;
 		}
 
-		internal abstract void Refresh(ExpiringObject entity);
 		internal abstract bool Match(string id);
+		internal abstract void Refresh(ExpiringObject entity);
+
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected abstract void PropigateSerivce();
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected abstract void Get();
 	}
 }

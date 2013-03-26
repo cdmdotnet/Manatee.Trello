@@ -15,7 +15,7 @@ namespace Manatee.Trello.Implementation
 	/// </summary>
 	/// <typeparam name="TFirst">The type of the "key"</typeparam>
 	/// <typeparam name="TSecond">The type of the "value"</typeparam>
-	public class OneToOneMap<TFirst, TSecond> : ICollection<KeyValuePair<TFirst, TSecond>>
+	internal class OneToOneMap<TFirst, TSecond> : ICollection<KeyValuePair<TFirst, TSecond>>
 	{
 		private readonly IDictionary<TFirst, TSecond> _firstToSecond = new Dictionary<TFirst, TSecond>();
 		private readonly IDictionary<TSecond, TFirst> _secondToFirst = new Dictionary<TSecond, TFirst>();

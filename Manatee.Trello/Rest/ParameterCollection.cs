@@ -21,15 +21,23 @@
 
 ***************************************************************************************/
 using System.Collections.Generic;
-using RestSharp;
+using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Rest
 {
-	internal class ParameterCollection : List<Parameter>
+	/// <summary>
+	/// A collection object used to inject parameters into requests.
+	/// </summary>
+	public class ParameterCollection : List<IRestParameter>
 	{
+		/// <summary>
+		/// Adds a parameter to the collection.
+		/// </summary>
+		/// <param name="name">The name of the parameter</param>
+		/// <param name="value">The value of the parameter</param>
 		public void Add(string name, object value)
 		{
-			Add(new Parameter {Name = name, Value = value});
+			Add(new RestSharpParameter {Name = name, Value = value});
 		}
 	}
 }

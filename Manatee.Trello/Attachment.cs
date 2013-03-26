@@ -140,6 +140,10 @@ namespace Manatee.Trello
 		internal Attachment(TrelloService svc, Card owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -156,6 +160,12 @@ namespace Manatee.Trello
 			_previews = obj.TryGetArray("previews").FromJson<AttachmentPreview>().ToList();
 			_url = obj.TryGetString("url");
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -184,13 +194,19 @@ namespace Manatee.Trello
 			return Id == other.Id;
 		}
 
-		internal override void Refresh(ExpiringObject entity) {}
 		internal override bool Match(string id)
 		{
 			return Id == id;
 		}
+		internal override void Refresh(ExpiringObject entity) { }
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get() {}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce()
 		{
 			if (_member != null) _member.Svc = Svc;

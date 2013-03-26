@@ -27,7 +27,7 @@ using RestSharp;
 
 namespace Manatee.Trello.Rest
 {
-	internal abstract class RequestBase : RestRequest
+	internal abstract class RestSharpRequestBase : RestRequest
 	{
 		protected static readonly Dictionary<Type, string> SectionStrings =
 			new Dictionary<Type, string>
@@ -59,7 +59,7 @@ namespace Manatee.Trello.Rest
 					{typeof (VotingMember), "membersVoted"},
 				};
 
-		protected RequestBase(string path) : base(path)
+		protected RestSharpRequestBase(string path) : base(path)
 		{
 			RequestFormat = DataFormat.Json;
 			DateFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";

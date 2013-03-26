@@ -20,7 +20,6 @@
 	Purpose:		Represents relevant data for an action on Trello.com.
 
 ***************************************************************************************/
-using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Trello.Implementation;
@@ -52,6 +51,10 @@ namespace Manatee.Trello
 		internal ActionData(TrelloService svc, Action owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -59,27 +62,39 @@ namespace Manatee.Trello
 			var obj = json.Object;
 			Data = obj;
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			return Data;
 		}
 
+		internal override bool Match(string id)
+		{
+			return false;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var data = entity as ActionData;
 			if (data == null) return;
 			Data = data.Data;
 		}
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<ActionData>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(new RestSharpRequest<ActionData>(new[] {Owner, this}));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce() {}
 	}
 }

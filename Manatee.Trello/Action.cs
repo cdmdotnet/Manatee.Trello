@@ -165,8 +165,12 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			Svc.DeleteFromCache(new Request<Action>(Id));
+			Svc.DeleteFromCache(new RestSharpRequest<Action>(Id));
 		}
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -178,6 +182,12 @@ namespace Manatee.Trello
 			_memberCreatorId = obj.TryGetString("idCreatorMember");
 			UpdateType();
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -201,6 +211,10 @@ namespace Manatee.Trello
 			return Id == other.Id;
 		}
 
+		internal override bool Match(string id)
+		{
+			return Id == id;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var action = entity as Action;
@@ -210,16 +224,18 @@ namespace Manatee.Trello
 			_memberCreatorId = action._memberCreatorId;
 			UpdateType();
 		}
-		internal override bool Match(string id)
-		{
-			return Id == id;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<Action>(Id));
+			var entity = Svc.Api.Get(new RestSharpRequest<Action>(Id));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce()
 		{
 			_data.Svc = Svc;

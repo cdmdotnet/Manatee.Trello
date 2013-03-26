@@ -1,0 +1,825 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StoryQ.sr-SP</name>
+    </assembly>
+    <members>
+        <member name="T:StoryQ.sr_SP.Prica">
+            <summary>
+            The [Prica] story fragment.
+            Ovo je root za bilo koju pricu
+            <h1>Transitions:</h1><ul>
+            <li>Da bi [<see cref="T:StoryQ.sr_SP.Korist"/>]: <see cref="M:StoryQ.sr_SP.Prica.DaBi(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Prica.#ctor(System.String)">
+            <summary>
+            Starts a new StoryQ Prica. 
+            </summary>
+            <param name="text">The name of the new Prica</param>
+        </member>
+        <member name="M:StoryQ.sr_SP.Prica.DaBi(System.String)">
+            <summary>
+            Da bi [Korist].
+            Opisuje pravu vrednost ove price. Koji je poslovni proces koji korisnik zahteva da softver podrzi ?
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Korist"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Prica.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.Korist">
+            <summary>
+            The [Korist] story fragment.
+            Cilj iz realnog sveta (poslovna vrednost) price
+            <h1>Transitions:</h1><ul>
+            <li>I [<see cref="T:StoryQ.sr_SP.Korist"/>]: <see cref="M:StoryQ.sr_SP.Korist.I(System.String)"/></li>
+            <li>Kao [<see cref="T:StoryQ.sr_SP.Uloga"/>]: <see cref="M:StoryQ.sr_SP.Korist.Kao(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Korist.I(System.String)">
+            <summary>
+            I [Korist].
+            Opisuje bilo koji sekundarne poslovne funkcije koje ce ova prica da podrzi
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Korist"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Korist.Kao(System.String)">
+            <summary>
+            Kao [Uloga].
+            Uloga korisnika koji ce koristiti ovu funkcionalnost
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uloga"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Korist.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.Uloga">
+            <summary>
+            The [Uloga] story fragment.
+            Uloga (kategorija ucesnik/korisnik ili uloga koja ima korist. 
+            <h1>Transitions:</h1><ul>
+            <li>Ili kao [<see cref="T:StoryQ.sr_SP.Uloga"/>]: <see cref="M:StoryQ.sr_SP.Uloga.IliKao(System.String)"/></li>
+            <li>Zelim [<see cref="T:StoryQ.sr_SP.Opcija"/>]: <see cref="M:StoryQ.sr_SP.Uloga.Zelim(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uloga.IliKao(System.String)">
+            <summary>
+            Ili kao [Uloga].
+            Bilo koja druga uloga koja moze da koristi ovu pricu
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uloga"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uloga.Zelim(System.String)">
+            <summary>
+            Zelim [Opcija].
+            Opisuje poslovni proces (funkcionalnost) koja ce podrziti poslovni zahtev. 
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Opcija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uloga.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.Opcija">
+            <summary>
+            The [Opcija] story fragment.
+            Softverski proces koji ce implementirati navedenu korist.
+            <h1>Transitions:</h1><ul>
+            <li>I [<see cref="T:StoryQ.sr_SP.Opcija"/>]: <see cref="M:StoryQ.sr_SP.Opcija.I(System.String)"/></li>
+            <li>Sa scenariom [<see cref="T:StoryQ.sr_SP.Scenario"/>]: <see cref="M:StoryQ.sr_SP.Opcija.SaScenariom(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Opcija.I(System.String)">
+            <summary>
+            I [Opcija].
+            Dodatna funkcionalnost koja ce implementirati zahtevanu korist
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Opcija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Opcija.SaScenariom(System.String)">
+            <summary>
+            Sa scenariom [Scenario].
+            Dodaj scenario ('given'/'when'/'then') prici. Scenariji se mogu dodavati (i bice izvrseni) sekvencijalno. Svaki scenario treba da ima kratak naziv.
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Scenario"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Opcija.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.Scenario">
+            <summary>
+            The [Scenario] story fragment.
+            Naziv svakog scenarija u prici. Svaki scenario se moze posmatrati kao poglavlje u knjizi.
+            <h1>Transitions:</h1><ul>
+            <li>Dato [<see cref="T:StoryQ.sr_SP.Uslov"/>]: <see cref="M:StoryQ.sr_SP.Scenario.Dato(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Scenario.Dato(System.Action)">
+            <summary>
+            Dato [Uslov].
+            Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Scenario.Dato``1(System.Action{``0},``0)">
+            <summary>
+            Dato [Uslov].
+            Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Scenario.Dato``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            Dato [Uslov].
+            Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Scenario.Dato``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            Dato [Uslov].
+            Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Scenario.Dato``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            Dato [Uslov].
+            Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Scenario.Dato(System.String)">
+            <summary>
+            Dato [Uslov].
+            Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Scenario.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.Uslov">
+            <summary>
+            The [Uslov] story fragment.
+            Preduslovi koji treba da postoje na pocetku scenarija.
+            <h1>Transitions:</h1><ul>
+            <li>I [<see cref="T:StoryQ.sr_SP.Uslov"/>]: <see cref="M:StoryQ.sr_SP.Uslov.I(System.Action)"/></li>
+            <li>Kada [<see cref="T:StoryQ.sr_SP.Operacija"/>]: <see cref="M:StoryQ.sr_SP.Uslov.Kada(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.I(System.Action)">
+            <summary>
+            I [Uslov].
+            Dodaje jos jedan preduslov za opis pocetnog stanja naseg scenarija.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.I``1(System.Action{``0},``0)">
+            <summary>
+            I [Uslov].
+            Dodaje jos jedan preduslov za opis pocetnog stanja naseg scenarija.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.I``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            I [Uslov].
+            Dodaje jos jedan preduslov za opis pocetnog stanja naseg scenarija.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.I``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            I [Uslov].
+            Dodaje jos jedan preduslov za opis pocetnog stanja naseg scenarija.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.I``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            I [Uslov].
+            Dodaje jos jedan preduslov za opis pocetnog stanja naseg scenarija.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.I(System.String)">
+            <summary>
+            I [Uslov].
+            Dodaje jos jedan preduslov za opis pocetnog stanja naseg scenarija
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.Kada(System.Action)">
+            <summary>
+            Kada [Operacija].
+            Opisuje akcije koje su izvrsene nad sistemom za testiranje.'.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.Kada``1(System.Action{``0},``0)">
+            <summary>
+            Kada [Operacija].
+            Opisuje akcije koje su izvrsene nad sistemom za testiranje.'.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.Kada``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            Kada [Operacija].
+            Opisuje akcije koje su izvrsene nad sistemom za testiranje.'.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.Kada``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            Kada [Operacija].
+            Opisuje akcije koje su izvrsene nad sistemom za testiranje.'.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.Kada``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            Kada [Operacija].
+            Opisuje akcije koje su izvrsene nad sistemom za testiranje.'.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.Kada(System.String)">
+            <summary>
+            Kada [Operacija].
+            Opisuje akcije koje su izvrsene nad sistemom za testiranje.'
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Uslov.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.Operacija">
+            <summary>
+            The [Operacija] story fragment.
+            Akcija(e) koje su izvrsene nad sistemom koji se testira.
+            <h1>Transitions:</h1><ul>
+            <li>I [<see cref="T:StoryQ.sr_SP.Operacija"/>]: <see cref="M:StoryQ.sr_SP.Operacija.I(System.Action)"/></li>
+            <li>Onda [<see cref="T:StoryQ.sr_SP.Ishod"/>]: <see cref="M:StoryQ.sr_SP.Operacija.Onda(System.Action)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.I(System.Action)">
+            <summary>
+            I [Operacija].
+            Opisuje dopunsku akciju koja ce se izvrsiti nad sistemom, pre nase provere ponasanja ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.I``1(System.Action{``0},``0)">
+            <summary>
+            I [Operacija].
+            Opisuje dopunsku akciju koja ce se izvrsiti nad sistemom, pre nase provere ponasanja ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.I``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            I [Operacija].
+            Opisuje dopunsku akciju koja ce se izvrsiti nad sistemom, pre nase provere ponasanja ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.I``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            I [Operacija].
+            Opisuje dopunsku akciju koja ce se izvrsiti nad sistemom, pre nase provere ponasanja ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.I``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            I [Operacija].
+            Opisuje dopunsku akciju koja ce se izvrsiti nad sistemom, pre nase provere ponasanja ('then').
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.I(System.String)">
+            <summary>
+            I [Operacija].
+            Opisuje dopunsku akciju koja ce se izvrsiti nad sistemom, pre nase provere ponasanja ('then')
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.Onda(System.Action)">
+            <summary>
+            Onda [Ishod].
+            Opisuje ponasanje sistema koje pred stanje i akcije treba da izazovu..
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.Onda``1(System.Action{``0},``0)">
+            <summary>
+            Onda [Ishod].
+            Opisuje ponasanje sistema koje pred stanje i akcije treba da izazovu..
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.Onda``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            Onda [Ishod].
+            Opisuje ponasanje sistema koje pred stanje i akcije treba da izazovu..
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.Onda``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            Onda [Ishod].
+            Opisuje ponasanje sistema koje pred stanje i akcije treba da izazovu..
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.Onda``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            Onda [Ishod].
+            Opisuje ponasanje sistema koje pred stanje i akcije treba da izazovu..
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.Onda(System.String)">
+            <summary>
+            Onda [Ishod].
+            Opisuje ponasanje sistema koje pred stanje i akcije treba da izazovu.
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Operacija.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.Ishod">
+            <summary>
+            The [Ishod] story fragment.
+            Rezultat koji se ocekuje kada se izvrse sve navedene akcije nad definisanim pocetnim stanjem.
+            <h1>Transitions:</h1><ul>
+            <li>I [<see cref="T:StoryQ.sr_SP.Ishod"/>]: <see cref="M:StoryQ.sr_SP.Ishod.I(System.Action)"/></li>
+            <li>Sa scenariom [<see cref="T:StoryQ.sr_SP.Scenario"/>]: <see cref="M:StoryQ.sr_SP.Ishod.SaScenariom(System.String)"/></li>
+            </ul>
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Ishod.I(System.Action)">
+            <summary>
+            I [Ishod].
+            Dodaje jos jedno razultirajuce ponasanje koje treba proveriti.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Ishod.I``1(System.Action{``0},``0)">
+            <summary>
+            I [Ishod].
+            Dodaje jos jedno razultirajuce ponasanje koje treba proveriti.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Ishod.I``2(System.Action{``0,``1},``0,``1)">
+            <summary>
+            I [Ishod].
+            Dodaje jos jedno razultirajuce ponasanje koje treba proveriti.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Ishod.I``3(System.Action{``0,``1,``2},``0,``1,``2)">
+            <summary>
+            I [Ishod].
+            Dodaje jos jedno razultirajuce ponasanje koje treba proveriti.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Ishod.I``4(System.Action{``0,``1,``2,``3},``0,``1,``2,``3)">
+            <summary>
+            I [Ishod].
+            Dodaje jos jedno razultirajuce ponasanje koje treba proveriti.
+            </summary>
+            <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+            <param name="descriptiveAction">
+            A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+            Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="M:System.Object.ToString"/> of each respective argument.
+            Do not use a lambda or anonymous method here, as the name will not be human readable
+            </param>
+            <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
+            <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Ishod.I(System.String)">
+            <summary>
+            I [Ishod].
+            Dodaje jos jedno razultirajuce ponasanje koje treba proveriti
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Ishod.SaScenariom(System.String)">
+            <summary>
+            Sa scenariom [Scenario].
+            Dodaje jos jedna scenario ovoj prici. StoryQ izvrsava ove scenarije jedan iza drugog, tako da stanje moze biti deljeno izmedju scenarija jedne price.
+            </summary>
+            <param name="text">
+            A textual description. This story fragment is not executable.
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Scenario"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.Ishod.Tag(System.String)">
+            <summary>
+            Adds a tag to this step. Tags can be used make disparate steps searchable.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.TextualSteps.Extensions">
+            <summary>
+             Extension methods to enable string-based executable steps. These will always Pend
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.TextualSteps.Extensions.Dato(StoryQ.sr_SP.Scenario,System.String)">
+            <summary>
+            Dato [Uslov].
+            Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.TextualSteps.Extensions.I(StoryQ.sr_SP.Uslov,System.String)">
+            <summary>
+            I [Uslov].
+            Dodaje jos jedan preduslov za opis pocetnog stanja naseg scenarija
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Uslov"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.TextualSteps.Extensions.Kada(StoryQ.sr_SP.Uslov,System.String)">
+            <summary>
+            Kada [Operacija].
+            Opisuje akcije koje su izvrsene nad sistemom za testiranje.'
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.TextualSteps.Extensions.I(StoryQ.sr_SP.Operacija,System.String)">
+            <summary>
+            I [Operacija].
+            Opisuje dopunsku akciju koja ce se izvrsiti nad sistemom, pre nase provere ponasanja ('then')
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Operacija"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.TextualSteps.Extensions.Onda(StoryQ.sr_SP.Operacija,System.String)">
+            <summary>
+            Onda [Ishod].
+            Opisuje ponasanje sistema koje pred stanje i akcije treba da izazovu.
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="M:StoryQ.sr_SP.TextualSteps.Extensions.I(StoryQ.sr_SP.Ishod,System.String)">
+            <summary>
+            I [Ishod].
+            Dodaje jos jedno razultirajuce ponasanje koje treba proveriti
+            This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            </summary>
+            <param name="parent">this</param>
+            <param name="text">
+            A textual description of the step. 
+            </param>
+            <returns>The next fragment of your story, a <see cref="T:StoryQ.sr_SP.Ishod"/></returns>
+        </member>
+        <member name="T:StoryQ.sr_SP.Infrastructure.StoryQEntryPoints">
+            <summary>
+            Entry points for the StoryQ converter's parser
+            </summary>
+        </member>
+        <member name="M:StoryQ.sr_SP.Infrastructure.StoryQEntryPoints.PricaJe(System.String)">
+            <summary>
+            For infrastructure use only
+            </summary>
+        </member>
+    </members>
+</doc>

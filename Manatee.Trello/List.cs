@@ -27,8 +27,6 @@ using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
-using RestSharp;
-using JsonObject = Manatee.Json.JsonObject;
 
 namespace Manatee.Trello
 {
@@ -165,7 +163,7 @@ namespace Manatee.Trello
 		/// <returns>The card.</returns>
 		public Card AddCard(string name, string description = null, Position position = null)
 		{
-			var request = new Request<Card>(this);
+			var request = new RestSharpRequest<Card>(this);
 			Parameters.Add("name", name);
 			Parameters.Add("idList", Id);
 			if (description != null)
@@ -190,12 +188,16 @@ namespace Manatee.Trello
 		/// <param name="position">The position in the board.  Default is Bottom (right).</param>
 		public void Move(Board board, int? position = null)
 		{
-			Parameters.Add(new Parameter { Name = "idBoard", Value = board.Id });
+			Parameters.Add("idBoard", board.Id);
 			if (position != null)
-				Parameters.Add(new Parameter { Name = "pos", Value = position });
-			Svc.PutAndCache(new Request<List>(this));
+				Parameters.Add("pos", position);
+			Svc.PutAndCache(new RestSharpRequest<List>(this));
 			_actions.MarkForUpdate();
 		}
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -208,6 +210,12 @@ namespace Manatee.Trello
 			_name = obj.TryGetString("name");
 			_position = (int?) obj.TryGetNumber("pos");
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -221,11 +229,22 @@ namespace Manatee.Trello
 			           	};
 			return json;
 		}
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
 		public bool Equals(List other)
 		{
 			return Id == other.Id;
 		}
 
+		internal override bool Match(string id)
+		{
+			return Id == id;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var list = entity as List;
@@ -236,16 +255,18 @@ namespace Manatee.Trello
 			_name = list._name;
 			_position = list._position;
 		}
-		internal override bool Match(string id)
-		{
-			return Id == id;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<List>(Id));
+			var entity = Svc.Api.Get(new RestSharpRequest<List>(Id));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce()
 		{
 			_actions.Svc = Svc;
@@ -255,7 +276,7 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(new Request<List>(this));
+			Svc.PutAndCache(new RestSharpRequest<List>(this));
 			_actions.MarkForUpdate();
 		}
 	}

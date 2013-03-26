@@ -121,6 +121,10 @@ namespace Manatee.Trello
 		internal MemberPreferences(TrelloService svc, Member owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Builds an object from a JsonValue.
+		/// </summary>
+		/// <param name="json">The JsonValue representation of the object.</param>
 		public override void FromJson(JsonValue json)
 		{
 			if (json == null) return;
@@ -131,6 +135,12 @@ namespace Manatee.Trello
 			_sendSummaries = obj.TryGetBoolean("sendSummaries");
 			_minutesBeforeDeadlineToNotify = (int?) obj.TryGetNumber("minutesBeforeDeadlineToNotify");
 		}
+		/// <summary>
+		/// Converts an object to a JsonValue.
+		/// </summary>
+		/// <returns>
+		/// The JsonValue representation of the object.
+		/// </returns>
 		public override JsonValue ToJson()
 		{
 			var json = new JsonObject
@@ -143,6 +153,10 @@ namespace Manatee.Trello
 			return json;
 		}
 
+		internal override bool Match(string id)
+		{
+			return false;
+		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var prefs = entity as MemberPreferences;
@@ -152,21 +166,23 @@ namespace Manatee.Trello
 			_sendSummaries = prefs._sendSummaries;
 			_minutesBeforeDeadlineToNotify = prefs._minutesBeforeDeadlineToNotify;
 		}
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(new Request<MemberPreferences>(new[] {Owner, this}));
+			var entity = Svc.Api.Get(new RestSharpRequest<MemberPreferences>(new[] {Owner, this}));
 			Refresh(entity);
 		}
+		/// <summary>
+		/// Propigates the service instance to the object's owned objects.
+		/// </summary>
 		protected override void PropigateSerivce() {}
 		
 		private void Put(string extension)
 		{
-			Svc.PutAndCache(new Request<MemberPreferences>(new[] {Owner, this}, this, extension));
+			Svc.PutAndCache(new RestSharpRequest<MemberPreferences>(new[] {Owner, this}, this, extension));
 		}
 	}
 }

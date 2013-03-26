@@ -16,34 +16,42 @@
  
 	File Name:		Request.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		Request
+	Class Name:		Request<T>
 	Purpose:		A request object for use with all REST calls.
 
 ***************************************************************************************/
+using System;
 using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using RestSharp;
+using Method = Manatee.Trello.Contracts.Method;
 
 namespace Manatee.Trello.Rest
 {
-	internal class Request<T> : RequestBase
+	internal class RestSharpRequest<T> : RestSharpRequestBase, IRestRequest<T>
 		where T : ExpiringObject, new()
 	{
 		public ExpiringObject ParameterSource { get; private set; }
+		public new Method Method
+		{
+			get { return GetMethod(); }
+			set { SetMethod(value); }
+		}
 
-		public Request()
+		public RestSharpRequest()
 			: base(GetPath()) {}
-		public Request(ExpiringObject obj)
+		public RestSharpRequest(ExpiringObject obj)
 			: this(obj.Id)
 		{
 			ParameterSource = obj;
 		}
-		public Request(string id)
+		public RestSharpRequest(string id)
 			: base(GetPathWithId())
 		{
 			AddParameter("id", id, ParameterType.UrlSegment);
 		}
-		public Request(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
+		public RestSharpRequest(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
 			: base(GetPath(tokens, urlExtension))
 		{
 			ParameterSource = entity;
@@ -57,6 +65,14 @@ namespace Manatee.Trello.Rest
 				AddParameter(parameter.Name, parameter.Value);
 			}
 			ParameterSource.Parameters.Clear();
+		}
+		void IRestRequest<T>.AddParameter(string name, object value)
+		{
+			AddParameter(name, value);
+		}
+		void IRestRequest<T>.AddBody(object body)
+		{
+			AddBody(body);
 		}
 
 		private static string GetPath()
@@ -81,6 +97,42 @@ namespace Manatee.Trello.Rest
 			if (urlExtension != null)
 				segments.Add(urlExtension);
 			return string.Join("/", segments);
+		}
+		private Method GetMethod()
+		{
+			switch (base.Method)
+			{
+				case RestSharp.Method.GET:
+					return Method.Get;
+				case RestSharp.Method.POST:
+					return Method.Post;
+				case RestSharp.Method.PUT:
+					return Method.Put;
+				case RestSharp.Method.DELETE:
+					return Method.Delete;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+		private void SetMethod(Method value)
+		{
+			switch (value)
+			{
+				case Method.Get:
+					base.Method = RestSharp.Method.GET;
+					break;
+				case Method.Put:
+					base.Method = RestSharp.Method.PUT;
+					break;
+				case Method.Post:
+					base.Method = RestSharp.Method.POST;
+					break;
+				case Method.Delete:
+					base.Method = RestSharp.Method.DELETE;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException("value");
+			}
 		}
 	}
 }
