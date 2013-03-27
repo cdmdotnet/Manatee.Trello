@@ -23,6 +23,7 @@
 ***************************************************************************************/
 using Manatee.Json;
 using Manatee.Json.Serialization;
+using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Implementation
 {

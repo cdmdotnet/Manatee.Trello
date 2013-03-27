@@ -24,7 +24,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Implementation
 {
@@ -34,6 +33,8 @@ namespace Manatee.Trello.Implementation
 	{
 		private readonly List<TContent> _list;
 		private readonly TSource _source;
+
+		public string Filter { get; set; }
 
 		public ExpiringList(TSource source)
 		{
@@ -52,7 +53,6 @@ namespace Manatee.Trello.Implementation
 			_source = source;
 			_list = new List<TContent>(items);
 		}
-
 		public IEnumerator<TContent> GetEnumerator()
 		{
 			VerifyNotExpired();
@@ -79,7 +79,9 @@ namespace Manatee.Trello.Implementation
 		protected override sealed void Get()
 		{
 			_list.Clear();
-			var request = Svc.RequestProvider.CreateCollectionRequest<TContent>(new ExpiringObject[] {_source, new TContent()});
+			var request = Svc.RequestProvider.CreateCollectionRequest<TContent>(new ExpiringObject[] {_source, new TContent()}, this);
+			if (Filter != null)
+				Parameters.Add("filter", Filter);
 			var entities = Svc.Get(request);
 			if (entities == null) return;
 			foreach (var entity in entities)

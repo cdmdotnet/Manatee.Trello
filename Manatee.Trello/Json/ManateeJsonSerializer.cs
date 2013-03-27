@@ -45,6 +45,7 @@ namespace Manatee.Trello.Json
 		{
 			_serializer = new JsonSerializer();
 
+			JsonSerializationTypeRegistry.RegisterListType<Action>();
 			JsonSerializationTypeRegistry.RegisterListType<Attachment>();
 			JsonSerializationTypeRegistry.RegisterListType<Board>();
 			JsonSerializationTypeRegistry.RegisterListType<BoardMembership>();

@@ -31,14 +31,14 @@ namespace Manatee.Trello.Contracts
 	public interface IRestClient
 	{
 		/// <summary>
-		/// Makes a RESTful call and expects a single object.
+		/// Makes a RESTful call and expects a single object to be returned.
 		/// </summary>
 		/// <typeparam name="T">The expected type of object to receive in response.</typeparam>
 		/// <param name="request">The request.</param>
 		/// <returns>The response.</returns>
 		IRestResponse<T> Execute<T>(IRestRequest<T> request) where T : ExpiringObject, new();
 		/// <summary>
-		/// Makes a RESTful call and expects a collection of objects.
+		/// Makes a RESTful call and expects a collection of objects to be returned.
 		/// </summary>
 		/// <typeparam name="T">The expected type of object to receive in response.</typeparam>
 		/// <param name="request">The request.</param>

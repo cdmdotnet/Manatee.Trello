@@ -1,10 +1,34 @@
 As a developer,
-I want to use Action properties
-In order to retrieve related data from Trello.com.
+I want to use Action
+In order to retrieve and manipulated related data on Trello.com.
 
 Given an Action with a TrelloService instance
 When the MemberCreator property is accessed
 Then the Get<Member> method is called on the service
+	And the member is returned
+	And no exception is thrown.
+
+Given an Action with a TrelloService instance
+When the Delete is called
+Then the Delete<Action> method is called on the service
+	And the member is returned
+	And no exception is thrown.
+
+Given an Action with a TrelloService instance
+When the Data property is accessed
+Then the Get<Member> method is not called on the service
+	And the member is returned
+	And no exception is thrown.
+
+Given an Action with a TrelloService instance
+When the Type property is accessed
+Then the Get<Member> method is not called on the service
+	And the member is returned
+	And no exception is thrown.
+
+Given an Action with a TrelloService instance
+When the Date property is accessed
+Then the Get<Member> method is not called on the service
 	And the member is returned
 	And no exception is thrown.
 
@@ -14,21 +38,9 @@ Then the Data property is set
 	And the Type property is set (need one scenario for each ActionType)
 	And the Date property is set.
 
-Given an Action with a TrelloService instance
-When the Delete is called
-Then the Delete<Action> method is called on the service
-	And the member is returned
-	And no exception is thrown.
-
-Given an Action with a TrelloService instance
-When the MemberCreator property is accessed
-Then the Get<Member> method is called on the service
-	And the member is returned
-	And no exception is thrown.
-
-Given an Action with a TrelloService instance
-When the MemberCreator property is accessed
-Then the Get<Member> method is called on the service
-	And the member is returned
-	And no exception is thrown.
-
+Given an Action
+When serializing to JSON
+Then the data property is set
+	And the type property is set (need one scenario for each ActionType)
+	And the date property is set
+	And the idMember property is set.

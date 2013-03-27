@@ -21,11 +21,12 @@
 					on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -62,6 +63,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_showListGuide = value;
 				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
 				Post();
@@ -79,6 +81,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_showListGuide = value;
 				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
 				Post();
@@ -96,6 +99,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_showListGuide = value;
 				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
 				Post();
@@ -113,6 +117,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_showListGuide = value;
 				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
 				Post();
@@ -130,6 +135,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_showListGuide = value;
 				Parameters.Add("showSidebarMembers", _showSidebarMembers.ToLowerString());
 				Post();
@@ -166,6 +172,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"showListGuide", _showListGuide.HasValue ? _showListGuide.Value : JsonValue.Null},
@@ -190,6 +197,7 @@ namespace Manatee.Trello
 			_showSidebarActivity = prefs._showSidebarActivity;
 			_showSidebarBoardActions = prefs._showSidebarBoardActions;
 			_showSidebarMembers = prefs._showSidebarMembers;
+			_isInitialized = true;
 		}
 
 		/// <summary>

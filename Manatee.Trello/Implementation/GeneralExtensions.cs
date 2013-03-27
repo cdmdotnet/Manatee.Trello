@@ -45,5 +45,13 @@ namespace Manatee.Trello.Implementation
 		{
 			return str.Substring(0, Math.Min(str.Length, maxLength));
 		}
+		public static bool Between(this IComparable value, object low, object high)
+		{
+			return (value.CompareTo(low) > 0) && (value.CompareTo(high) < 0);
+		}
+		public static bool BetweenInclusive(this IComparable value, object low, object high)
+		{
+			return (value.CompareTo(low) >= 0) && (value.CompareTo(high) <= 0);
+		}
 	}
 }

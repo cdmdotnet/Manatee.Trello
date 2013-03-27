@@ -23,7 +23,6 @@
 using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
 using RestSharp;
 using Method = Manatee.Trello.Contracts.Method;
 
@@ -39,22 +38,27 @@ namespace Manatee.Trello.Rest
 			set { SetMethod(value); }
 		}
 
-		public RestSharpRequest()
-			: base(GetPath()) {}
-		public RestSharpRequest(ExpiringObject obj)
-			: this(obj.Id)
+		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer)
+			: base(GetPath())
+		{
+			JsonSerializer = serializer;
+		}
+		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, ExpiringObject obj)
+			: this(serializer, obj.Id)
 		{
 			ParameterSource = obj;
 		}
-		public RestSharpRequest(string id)
+		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, string id)
 			: base(GetPathWithId())
 		{
 			AddParameter("id", id, ParameterType.UrlSegment);
+			JsonSerializer = serializer;
 		}
-		public RestSharpRequest(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
+		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
 			: base(GetPath(tokens, urlExtension))
 		{
 			ParameterSource = entity;
+			JsonSerializer = serializer;
 		}
 
 		public void AddParameters()

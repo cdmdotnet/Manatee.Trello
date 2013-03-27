@@ -21,13 +21,14 @@
 					on Trello.com.
 
 ***************************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -72,7 +73,13 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _externalMembersDisabled;
 			}
-			set { _externalMembersDisabled = value; }
+			set
+			{
+				Validate.Nullable(value);
+				_externalMembersDisabled = value;
+				Parameters.Add("value", _externalMembersDisabled);
+				Put("externalMembersDisabled");
+			}
 		}
 		// TODO: Determine contents of this array
 		private List<object> OrgInviteRestrict
@@ -82,18 +89,27 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _orgInviteRestrict;
 			}
-			set { _orgInviteRestrict = value; }
+			set
+			{
+				_orgInviteRestrict = value;
+			}
 		}
 		/// <summary>
 		/// Gets and sets who may view the organization.
 		/// </summary>
 		public OrganizationPermissionLevelType PermissionLevel
 		{
-			get { return _permissionLevel; }
+			get
+			{
+				VerifyNotExpired();
+				return _permissionLevel;
+			}
 			set
 			{
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
+				Parameters.Add("value", _apiPermissionLevel);
+				Put("permissionLevel");
 			}
 		}
 
@@ -135,6 +151,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		//{"boardVisibilityRestrict", _boardVisibilityRestrict},
@@ -158,7 +175,7 @@ namespace Manatee.Trello
 			_orgInviteRestrict = prefs._orgInviteRestrict;
 			_apiPermissionLevel = prefs._apiPermissionLevel;
 			UpdatePermissionLevel();
-
+			_isInitialized = true;
 		}
 
 		/// <summary>
@@ -174,6 +191,10 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void PropigateSerivce() {}
 
+		private void Put(string extension)
+		{
+			Svc.PutAndCache(Svc.RequestProvider.Create<OrganizationPreferences>(new[] {Owner, this}, this, extension));
+		}
 		private void UpdatePermissionLevel()
 		{
 			_permissionLevel = _permissionLevelMap.Any(kvp => kvp.Value == _apiPermissionLevel)

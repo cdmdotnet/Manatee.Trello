@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
@@ -35,7 +34,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class TrelloService
 	{
-		internal readonly TrelloRest Api;
+		internal TrelloRest Api;
 
 		private readonly List<ExpiringObject> _cache;
 

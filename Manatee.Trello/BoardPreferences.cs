@@ -21,12 +21,13 @@
 					on Trello.com.
 
 ***************************************************************************************/
+using System;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -71,6 +72,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_allowsSelfJoin = value;
 				Parameters.Add("value", _allowsSelfJoin.ToLowerString());
 				Put("selfJoin");
@@ -142,6 +144,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_showCardCovers = value;
 				Parameters.Add("value", _apiInvitations.ToLowerString());
 				Put("cardCovers");
@@ -229,6 +232,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 							{"selfJoin", _allowsSelfJoin.HasValue ? _allowsSelfJoin.Value : JsonValue.Null},
@@ -259,6 +263,7 @@ namespace Manatee.Trello
 			UpdateInvitations();
 			UpdatePermissionLevel();
 			UpdateVoting();
+			_isInitialized = true;
 		}
 
 		/// <summary>

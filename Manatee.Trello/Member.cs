@@ -26,8 +26,9 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -137,7 +138,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_avatarSource = value;
+				_avatarSource = value ?? string.Empty;
 				Parameters.Add("avatarSource", _avatarSource);
 				Put();
 			}
@@ -154,7 +155,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_bio = value;
+				_bio = value ?? string.Empty;
 				Parameters.Add("bio", _bio);
 				Put();
 			}
@@ -197,7 +198,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_fullName = value;
+				_fullName = Validate.MinStringLength(value, 4, "FullName");
 				Parameters.Add("fullName", _fullName);
 				Put();
 			}
@@ -225,7 +226,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_initials = value;
+				_initials = Validate.StringLengthRange(value, 1, 3, "Initials");
 				Parameters.Add("initials", _initials);
 				Put();
 			}
@@ -316,14 +317,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the URL to the member's profile.
 		/// </summary>
-		public string Url
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _url;
-			}
-		}
+		public string Url { get { return _url; } }
 		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>
@@ -336,7 +330,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_username = value;
+				_username = Validate.MinStringLength(value, 3, "Username"); ;
 				Parameters.Add("username", _username);
 				Put();
 			}
@@ -393,6 +387,7 @@ namespace Manatee.Trello
 		/// <param name="board">The board to pin.</param>
 		public void PinBoard(Board board)
 		{
+			Validate.Entity(board);
 			Parameters.Add("value", board.Id);
 			Svc.PostAndCache(Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
 		}
@@ -402,7 +397,8 @@ namespace Manatee.Trello
 		/// <param name="card"></param>
 		public void RescindVoteForCard(Card card)
 		{
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {card, new VotingMember {Id = Id}}));
+			Validate.Entity(card);
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { card, new VotingMember { Id = Id } }));
 		}
 		/// <summary>
 		/// Removes a board from the member's boards menu.
@@ -410,7 +406,8 @@ namespace Manatee.Trello
 		/// <param name="board"></param>
 		public void UnpinBoard(Board board)
 		{
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, new PinnedBoard {Id = board.Id}}));
+			Validate.Entity(board);
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, new PinnedBoard { Id = board.Id } }));
 		}
 		/// <summary>
 		/// Applies the member's vote to a card.
@@ -418,6 +415,7 @@ namespace Manatee.Trello
 		/// <param name="card"></param>
 		public void VoteForCard(Card card)
 		{
+			Validate.Entity(card);
 			Parameters.Add("value", Id);
 			Svc.PostAndCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
 		}
@@ -460,6 +458,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
@@ -517,6 +516,7 @@ namespace Manatee.Trello
 			_url = member._url;
 			_username = member._username;
 			UpdateStatus();
+			_isInitialized = true;
 		}
 
 		/// <summary>

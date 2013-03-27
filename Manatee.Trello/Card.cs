@@ -22,11 +22,12 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -160,8 +161,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_description = value;
-				Parameters.Add("desc", value);
+				_description = value ?? string.Empty;
+				Parameters.Add("desc", _description);
 				Put();
 			}
 		}
@@ -177,6 +178,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_dueDate = value;
 				Parameters.Add("due", _dueDate);
 				Put();
@@ -194,6 +196,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_isClosed = value;
 				Parameters.Add("closed", _isClosed.ToLowerString());
 				Put();
@@ -211,6 +214,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_isSubscribed = value;
 				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
 				Put();
@@ -258,6 +262,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.NonEmptyString(value);
 				_name = value;
 				Parameters.Add("name", _name);
 				Put();
@@ -275,6 +280,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Position(value);
 				_position = value;
 				Parameters.Add("pos", _position);
 				Put();
@@ -283,25 +289,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the cards short ID.
 		/// </summary>
-		public int? ShortId
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _shortId;
-			}
-		}
+		public int? ShortId { get { return _shortId; } }
 		/// <summary>
 		/// Gets the URL for this card.
 		/// </summary>
-		public string Url
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _url;
-			}
-		}
+		public string Url { get { return _url; } }
 		/// <summary>
 		/// Enumerates the members who have voted for this card.
 		/// </summary>
@@ -346,10 +338,11 @@ namespace Manatee.Trello
 		/// Adds a checklist to the card.
 		/// </summary>
 		/// <param name="name">The name of the checklist</param>
-		/// <param name="position">The desired position of the checklist.  Default is Bottom.</param>
+		/// <param name="position">The desired position of the checklist.  Default is Bottom.  Invalid positions are ignored.</param>
 		/// <returns>The checklist.</returns>
 		public CheckList AddCheckList(string name, Position position = null)
 		{
+			Validate.NonEmptyString(name);
 			var request = Svc.RequestProvider.Create<CheckList>(new ExpiringObject[] {new CheckList()}, this);
 			Parameters.Add("name", name);
 			if ((position != null) && position.IsValid)
@@ -365,7 +358,8 @@ namespace Manatee.Trello
 		/// <param name="comment"></param>
 		public void AddComment(string comment)
 		{
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Action()}, this, "comments");
+			Validate.NonEmptyString(comment);
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Action() }, this, "comments");
 			Parameters.Add("text", comment);
 			Svc.Api.Post(request);
 			_actions.MarkForUpdate();
@@ -386,6 +380,7 @@ namespace Manatee.Trello
 		/// <param name="member">The member to assign.</param>
 		public void AssignMember(Member member)
 		{
+			Validate.Entity(member);
 			var request = Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Member()}, this);
 			Parameters.Add("value", member.Id);
 			Svc.PostAndCache(request);
@@ -403,9 +398,13 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="board">The destination board.</param>
 		/// <param name="list">The destination list.</param>
-		/// <param name="position">The destination position.  Default is Bottom.</param>
+		/// <param name="position">The destination position.  Default is Bottom.  Invalid positions are ignored.</param>
 		public void Move(Board board, List list, Position position = null)
 		{
+			Validate.Entity(board);
+			Validate.Entity(list);
+			if (!board.Lists.Contains(list))
+				throw new InvalidOperationException("The indicated list does not exist on the indicated board.");
 			Parameters.Add("idBoard", board.Id);
 			Parameters.Add("idList", list.Id);
 			if (position != null)
@@ -427,7 +426,8 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, member}));
+			Validate.Entity(member);
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, member }));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -463,7 +463,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
-			VerifyNotExpired();
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
@@ -516,6 +516,7 @@ namespace Manatee.Trello
 			_position = card._position;
 			_shortId = card._shortId;
 			_url = card._url;
+			_isInitialized = true;
 		}
 
 		/// <summary>
