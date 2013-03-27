@@ -23,10 +23,8 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Implementation
+namespace Manatee.Trello.Contracts
 {
 	/// <summary>
 	/// A base class for an object which expires after a given time and automatically
@@ -36,6 +34,7 @@ namespace Manatee.Trello.Implementation
 	{
 		private DateTime _expires;
 		private TrelloService _svc;
+		protected bool _isInitialized;
 
 		/// <summary>
 		/// Gets a unique identifier  (not necessarily a GUID).
@@ -44,14 +43,14 @@ namespace Manatee.Trello.Implementation
 		/// <summary>
 		/// Gets and sets an object which owns this one.
 		/// </summary>
-		public ExpiringObject Owner { get; set; }
+		public ExpiringObject Owner { get; internal set; }
 		/// <summary>
 		/// Gets a collection of parameters to be added to a request which uses this object.
 		/// </summary>
 		/// <remarks>
 		/// Parameters is cleared after each use.
 		/// </remarks>
-		public Dictionary<string, object> Parameters { get; private set; }
+		public virtual Dictionary<string, object> Parameters { get; private set; }
 		/// <summary>
 		/// Gets and sets the service which manages this object.
 		/// </summary>
@@ -98,7 +97,7 @@ namespace Manatee.Trello.Implementation
 
 		internal void MarkForUpdate()
 		{
-			_expires = DateTime.Now - TimeSpan.FromSeconds(1);
+			_expires = DateTime.Now.AddSeconds(-1);
 		}
 
 		/// <summary>

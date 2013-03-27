@@ -143,6 +143,51 @@
             </summary>
             <returns>The JsonValue representation of the object.</returns>
         </member>
+        <member name="T:Manatee.Json.Extensions.JsonExtensions">
+            <summary>
+            Provides extension methods for JsonValues.
+            </summary>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetString(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a string or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A string or null if the key is not found or is not a string</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetNumber(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a double or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A double or null if the key is not found or is not a string</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetBoolean(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a bool or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A bool or null if the key is not found or is not a string</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetArray(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a JsonArray or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A JsonArray or null if the key is not found or is not a string</returns>
+        </member>
+        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetObject(Manatee.Json.JsonObject,System.String)">
+            <summary>
+            Returns a JsonObject or null if the key is not found or is not a string.
+            </summary>
+            <param name="obj">The object to search</param>
+            <param name="key">The key</param>
+            <returns>A JsonObject or null if the key is not found or is not a string</returns>
+        </member>
         <member name="T:Manatee.Json.Exceptions.TypeRegistrationException">
             <summary>
             Thrown when JsonSerializationTypeRegistry.RegisterType&lt;T&gt;(ToJsonDelegate&lt;T&gt; toJson, FromJsonDelegate&lt;T&gt; fromJson)
@@ -989,51 +1034,6 @@
             A hash code for the current <see cref="T:System.Object"/>.
             </returns>
             <filterpriority>2</filterpriority>
-        </member>
-        <member name="T:Manatee.Json.Extensions.JsonExtensions">
-            <summary>
-            Provides extension methods for JsonValues.
-            </summary>
-        </member>
-        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetString(Manatee.Json.JsonObject,System.String)">
-            <summary>
-            Returns a string or null if the key is not found or is not a string.
-            </summary>
-            <param name="obj">The object to search</param>
-            <param name="key">The key</param>
-            <returns>A string or null if the key is not found or is not a string</returns>
-        </member>
-        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetNumber(Manatee.Json.JsonObject,System.String)">
-            <summary>
-            Returns a double or null if the key is not found or is not a string.
-            </summary>
-            <param name="obj">The object to search</param>
-            <param name="key">The key</param>
-            <returns>A double or null if the key is not found or is not a string</returns>
-        </member>
-        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetBoolean(Manatee.Json.JsonObject,System.String)">
-            <summary>
-            Returns a bool or null if the key is not found or is not a string.
-            </summary>
-            <param name="obj">The object to search</param>
-            <param name="key">The key</param>
-            <returns>A bool or null if the key is not found or is not a string</returns>
-        </member>
-        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetArray(Manatee.Json.JsonObject,System.String)">
-            <summary>
-            Returns a JsonArray or null if the key is not found or is not a string.
-            </summary>
-            <param name="obj">The object to search</param>
-            <param name="key">The key</param>
-            <returns>A JsonArray or null if the key is not found or is not a string</returns>
-        </member>
-        <member name="M:Manatee.Json.Extensions.JsonExtensions.TryGetObject(Manatee.Json.JsonObject,System.String)">
-            <summary>
-            Returns a JsonObject or null if the key is not found or is not a string.
-            </summary>
-            <param name="obj">The object to search</param>
-            <param name="key">The key</param>
-            <returns>A JsonObject or null if the key is not found or is not a string</returns>
         </member>
     </members>
 </doc>

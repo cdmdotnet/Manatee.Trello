@@ -25,6 +25,7 @@ using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
@@ -96,6 +97,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"idCheckItem", Id},
@@ -119,12 +121,18 @@ namespace Manatee.Trello
 		{
 			return false;
 		}
-		internal override void Refresh(ExpiringObject entity) { }
+		internal override void Refresh(ExpiringObject entity)
+		{
+			_isInitialized = true;
+		}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get() {}
+		protected override void Get()
+		{
+			Refresh(null);
+		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>

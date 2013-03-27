@@ -89,12 +89,9 @@ namespace Manatee.Trello.Rest
 			request.AddParameter("key", _authKey);
 			if (_authToken != null)
 				request.AddParameter("token", _authToken);
-			if (method.In(Method.Put, Method.Post))
-			{
-				request.AddParameters();
-				if (request.ParameterSource != null)
-					request.AddBody(request.ParameterSource);
-			}
+			request.AddParameters();
+			if (request.ParameterSource != null)
+				request.AddBody(request.ParameterSource);
 		}
 		private T Execute<T>(IRestRequest<T> request, Method method)
 			where T : ExpiringObject, new()

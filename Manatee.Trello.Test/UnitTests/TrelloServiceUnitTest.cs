@@ -35,12 +35,12 @@ namespace Manatee.Trello.Test.UnitTests
 					.Returns(RestClient.Object);
 			}
 		}
-		private class ServiceGroup
+		private class SystemUnderTest
 		{
 			public DependencyCollection Dependencies { get; private set; }
 			public TrelloService Sut { get; private set; }
 
-			public ServiceGroup()
+			public SystemUnderTest()
 			{
 				Dependencies = new DependencyCollection();
 				Sut = new TrelloService(MockAuthKey, MockAuthToken)
@@ -55,7 +55,7 @@ namespace Manatee.Trello.Test.UnitTests
 		#region Data
 
 		// There should be no reason to modify or append the data.
-		private ServiceGroup _serviceGroup;
+		private SystemUnderTest _serviceGroup;
 		private Exception _exception;
 		private object _actualResult, _request;
 
@@ -146,7 +146,7 @@ namespace Manatee.Trello.Test.UnitTests
 			where T : JsonCompatibleExpiringObject, new()
 		{
 			T entity = new T {Id = MockEntityId};
-			_serviceGroup = new ServiceGroup();
+			_serviceGroup = new SystemUnderTest();
 			_serviceGroup.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<T>>()))
 				.Returns(new RestSharpResponse<T>(new RestResponse<T>()) {Data = entity});
 		}

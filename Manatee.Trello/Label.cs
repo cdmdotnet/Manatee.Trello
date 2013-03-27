@@ -25,8 +25,8 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -109,6 +109,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"color", _apicolor},
@@ -139,6 +140,7 @@ namespace Manatee.Trello
 			_apicolor = label._apicolor;
 			_name = label._name;
 			UpdateColor();
+			_isInitialized = true;
 		}
 
 		/// <summary>

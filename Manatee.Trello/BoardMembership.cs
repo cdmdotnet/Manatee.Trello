@@ -25,8 +25,8 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -115,6 +115,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
@@ -147,6 +148,7 @@ namespace Manatee.Trello
 			_apiMembershipType = membership._apiMembershipType;
 			_isDeactivated = membership._isDeactivated;
 			_memberId = membership._memberId;
+			_isInitialized = true;
 		}
 
 		/// <summary>

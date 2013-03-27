@@ -25,8 +25,8 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -46,7 +46,7 @@ namespace Manatee.Trello
 
 		private string _apiState;
 		private string _name;
-		private int? _position;
+		private Position _position;
 		private CheckItemStateType _state;
 
 		/// <summary>
@@ -61,6 +61,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.NonEmptyString(value);
 				_name = value;
 				Parameters.Add("value", value);
 				Put("name");
@@ -69,7 +70,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the position of the checklist item.
 		/// </summary>
-		public int? Position
+		public Position Position
 		{
 			get
 			{
@@ -78,6 +79,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Position(value);
 				_position = value;
 				Parameters.Add("value", value);
 				Put("pos");
@@ -88,7 +90,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public CheckItemStateType State
 		{
-			get { return _state; }
+			get
+			{
+				VerifyNotExpired();
+				return _state;
+			}
 			set
 			{
 				_state = value;
@@ -131,7 +137,9 @@ namespace Manatee.Trello
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			_name = obj.TryGetString("name");
-			_position = (int?) obj.TryGetNumber("pos");
+			_position = new Position(PositionValue.Unknown);
+			if (obj.ContainsKey("pos"))
+				_position.FromJson(obj["pos"]);
 			_apiState = obj.TryGetString("state");
 			UpdateState();
 		}
@@ -143,11 +151,12 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 						{
 							{"id", Id},
 							{"name", _name},
-							{"pos", _position.HasValue ? _position.Value : JsonValue.Null},
+			           		{"pos", _position.ToJson()},
 							{"state", _apiState}
 						};
 			return json;
@@ -172,6 +181,11 @@ namespace Manatee.Trello
 		{
 			var checkItem = entity as CheckItem;
 			if (checkItem == null) return;
+			_apiState = checkItem._apiState;
+			_name = checkItem._name;
+			_position = checkItem._position;
+			UpdateState();
+			_isInitialized = true;
 		}
 
 		/// <summary>

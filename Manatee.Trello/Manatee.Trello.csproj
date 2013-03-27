@@ -74,10 +74,12 @@
     <Compile Include="Contracts\IRestResponse.cs" />
     <Compile Include="Contracts\ISerializer.cs" />
     <Compile Include="Contracts\Method.cs" />
+    <Compile Include="Exceptions\EntityNotOnTrelloException.cs" />
+    <Compile Include="Implementation\Validate.cs" />
     <Compile Include="Rest\RestSharpResponse.cs" />
     <Compile Include="Rest\RestSharpClientProvider.cs" />
     <Compile Include="Implementation\ExpiringList.cs" />
-    <Compile Include="Implementation\ExpiringObject.cs" />
+    <Compile Include="Contracts\ExpiringObject.cs" />
     <Compile Include="Implementation\InvitedBoard.cs" />
     <Compile Include="Implementation\InvitedOrganization.cs" />
     <Compile Include="Implementation\JsonCompatibleExpiringObject.cs" />

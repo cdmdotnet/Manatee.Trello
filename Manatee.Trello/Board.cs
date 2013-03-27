@@ -25,8 +25,9 @@ using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -61,6 +62,8 @@ namespace Manatee.Trello
 	public class Board : JsonCompatibleExpiringObject, IEquatable<Board>
 	{
 		private readonly ExpiringList<Board, Action> _actions;
+		private readonly ExpiringList<Board, Card> _archivedCards;
+		private readonly ExpiringList<Board, List> _archivedLists;
 		private string _description;
 		private bool? _isClosed;
 		private bool? _isPinned;
@@ -79,6 +82,14 @@ namespace Manatee.Trello
 		/// Enumerates all actions associated with this board.
 		///</summary>
 		public IEnumerable<Action> Actions { get { return _actions; } }
+		/// <summary>
+		/// Enumerates all archived cards on this board.
+		/// </summary>
+		public IEnumerable<Card> ArchivedCards { get { return _archivedCards; } }
+		/// <summary>
+		/// Enumerates all archived lists on this board.
+		/// </summary>
+		public IEnumerable<List> ArchivedLists { get { return _archivedLists; } }
 		///<summary>
 		/// Gets and sets the board's description.
 		///</summary>
@@ -91,7 +102,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_description = value;
+				_description = value ?? string.Empty;
 				Parameters.Add("desc", _description);
 				Put();
 			}
@@ -108,6 +119,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (!value.HasValue)
+					throw new ArgumentNullException("value");
 				_isClosed = value;
 				Parameters.Add("closed", _isClosed.ToLowerString());
 				Put();
@@ -125,6 +138,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (!value.HasValue)
+					throw new ArgumentNullException("value");
 				_isPinned = value;
 				Parameters.Add("pinned", _isPinned.ToLowerString());
 				Put();
@@ -142,7 +157,9 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_isPinned = value;
+				if (!value.HasValue)
+					throw new ArgumentNullException("value");
+				_isSubscribed = value;
 				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
 				Put();
 			}
@@ -171,6 +188,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (!string.IsNullOrWhiteSpace(value))
+					throw new ArgumentNullException("value");
 				_name = value;
 				Parameters.Add("name", _name);
 				Put();
@@ -190,7 +209,14 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_organizationId = value.Id;
+				if (value == null)
+					_organizationId = string.Empty;
+				else
+				{
+					if (value.Id == null)
+						throw new EntityNotOnTrelloException<Organization>(value);
+					_organizationId = value.Id;
+				}
 				Parameters.Add("idOrganization", _organizationId);
 				Put();
 			}
@@ -206,14 +232,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// Gets the URL for this board.
 		///</summary>
-		public string Url
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _url;
-			}
-		}
+		public string Url { get { return _url; } }
 
 		///<summary>
 		/// Creates a new instance of the Board class.
@@ -221,6 +240,8 @@ namespace Manatee.Trello
 		public Board()
 		{
 			_actions = new ExpiringList<Board, Action>(this);
+			_archivedCards = new ExpiringList<Board, Card>(this) {Filter = "closed"};
+			_archivedLists = new ExpiringList<Board, List>(this) {Filter = "closed"};
 			_labelNames = new LabelNames(null, this);
 			_lists = new ExpiringList<Board, List>(this);
 			_members = new ExpiringList<Board, BoardMembership>(this);
@@ -231,6 +252,8 @@ namespace Manatee.Trello
 			: base(svc, id)
 		{
 			_actions = new ExpiringList<Board, Action>(svc, this);
+			_archivedCards = new ExpiringList<Board, Card>(svc, this) {Filter = "closed"};
+			_archivedLists = new ExpiringList<Board, List>(svc, this) {Filter = "closed"};
 			_labelNames = new LabelNames(svc, this);
 			_lists = new ExpiringList<Board, List>(svc, this);
 			_members = new ExpiringList<Board, BoardMembership>(svc, this);
@@ -242,10 +265,12 @@ namespace Manatee.Trello
 		/// Adds a new list to the board in the specified location
 		///</summary>
 		///<param name="name">The name of the list.</param>
-		///<param name="position">The desired position of the list.  Default is Bottom.</param>
+		///<param name="position">The desired position of the list.  Default is Bottom.  Invalid positions are ignored.</param>
 		///<returns>The new list.</returns>
 		public List AddList(string name, Position position = null)
 		{
+			if (string.IsNullOrWhiteSpace(name))
+				throw new ArgumentNullException("name");
 			var request = Svc.RequestProvider.Create<List>(this);
 			Parameters.Add("name", name);
 			Parameters.Add("idBoard", Id);
@@ -263,7 +288,8 @@ namespace Manatee.Trello
 		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, member }, this);
+			Validate.Entity(member);
+			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, member}, this);
 			Parameters.Add("type", type.ToLowerString());
 			Svc.PutAndCache(request);
 			_members.MarkForUpdate();
@@ -274,7 +300,7 @@ namespace Manatee.Trello
 		///</summary>
 		public void MarkAsViewed()
 		{
-			var request = Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this }, urlExtension: "markAsViewed");
+			var request = Svc.RequestProvider.Create<Board>(new ExpiringObject[] {this}, urlExtension: "markAsViewed");
 			Svc.PostAndCache(request);
 			_actions.MarkForUpdate();
 		}
@@ -285,6 +311,7 @@ namespace Manatee.Trello
 		/// <param name="type">The level of membership offered.</param>
 		private void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
+			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");
 		}
 		///<summary>
@@ -293,7 +320,8 @@ namespace Manatee.Trello
 		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] {this, member}));
+			Validate.Entity(member);
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this, member }));
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the board.
@@ -301,6 +329,7 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		private void RescindInvitation(Member member)
 		{
+			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");
 		}
 		/// <summary>
@@ -329,6 +358,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
@@ -371,6 +401,7 @@ namespace Manatee.Trello
 			_name = board._name;
 			_organizationId = board._organizationId;
 			_url = board._url;
+			_isInitialized = true;
 		}
 
 		/// <summary>
@@ -387,6 +418,8 @@ namespace Manatee.Trello
 		protected override void PropigateSerivce()
 		{
 			_actions.Svc = Svc;
+			_archivedCards.Svc = Svc;
+			_archivedLists.Svc = Svc;
 			_labelNames.Svc = Svc;
 			_lists.Svc = Svc;
 			_members.Svc = Svc;

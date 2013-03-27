@@ -22,14 +22,13 @@
 ***************************************************************************************/
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello.Rest
 {
 	internal class RestSharpCollectionRequest<T> : RestSharpRequest<T>, IRestCollectionRequest<T>
 		where T : ExpiringObject, new()
 	{
-		public RestSharpCollectionRequest(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null)
-			: base(tokens, entity) {}
+		public RestSharpCollectionRequest(RestSharp.Serializers.ISerializer serializer, IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null)
+			: base(serializer, tokens, entity) { }
 	}
 }

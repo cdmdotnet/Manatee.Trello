@@ -22,8 +22,8 @@
 ***************************************************************************************/
 using Manatee.Json;
 using Manatee.Json.Enumerations;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -69,6 +69,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			return Data;
 		}
 
@@ -81,6 +82,7 @@ namespace Manatee.Trello
 			var data = entity as ActionData;
 			if (data == null) return;
 			Data = data.Data;
+			_isInitialized = true;
 		}
 
 		/// <summary>

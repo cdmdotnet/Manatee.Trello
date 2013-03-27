@@ -25,8 +25,8 @@ using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -49,7 +49,7 @@ namespace Manatee.Trello
 		private bool? _isClosed;
 		private bool? _isSubscribed;
 		private string _name;
-		private int? _position;
+		private Position _position;
 
 		///<summary>
 		/// Enumerates all actions associated with the list.
@@ -82,6 +82,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_isClosed = value;
 				Parameters.Add("closed", _isClosed.ToLowerString());
 				Put();
@@ -99,6 +100,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_isSubscribed = value;
 				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
 				Put();
@@ -116,6 +118,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.NonEmptyString(value);
 				_name = value;
 				Parameters.Add("name", _name);
 				Put();
@@ -124,7 +127,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the position of the list.
 		/// </summary>
-		public int? Position
+		public Position Position
 		{
 			get
 			{
@@ -133,6 +136,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Position(value);
 				_position = value;
 				Parameters.Add("pos", _position);
 				Put();
@@ -159,10 +163,11 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="name">The name of the card.</param>
 		/// <param name="description">The description of the card.</param>
-		/// <param name="position">The position of the card.  Default is Bottom.</param>
+		/// <param name="position">The position of the card.  Default is Bottom.  Invalid positions are ignored.</param>
 		/// <returns>The card.</returns>
 		public Card AddCard(string name, string description = null, Position position = null)
 		{
+			Validate.NonEmptyString(name);
 			var request = Svc.RequestProvider.Create<Card>(this);
 			Parameters.Add("name", name);
 			Parameters.Add("idList", Id);
@@ -185,9 +190,10 @@ namespace Manatee.Trello
 		/// Moves the list to another board.
 		/// </summary>
 		/// <param name="board">The destination board.</param>
-		/// <param name="position">The position in the board.  Default is Bottom (right).</param>
-		public void Move(Board board, int? position = null)
+		/// <param name="position">The position in the board.  Default is Bottom (right).  Invalid positions are ignored.</param>
+		public void Move(Board board, Position position = null)
 		{
+			Validate.Entity(board);
 			Parameters.Add("idBoard", board.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
@@ -208,7 +214,9 @@ namespace Manatee.Trello
 			_isClosed = obj.TryGetBoolean("closed");
 			_isSubscribed = obj.TryGetBoolean("subscribed");
 			_name = obj.TryGetString("name");
-			_position = (int?) obj.TryGetNumber("pos");
+			_position = new Position(PositionValue.Unknown);
+			if (obj.ContainsKey("pos"))
+				_position.FromJson(obj["pos"]);
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -218,6 +226,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
@@ -225,7 +234,7 @@ namespace Manatee.Trello
 			           		{"closed", _isClosed.HasValue ? _isClosed.Value : JsonValue.Null},
 			           		{"subscribed", _isSubscribed.HasValue ? _isSubscribed.Value : JsonValue.Null},
 			           		{"name", _name},
-			           		{"pos", _position.HasValue ? _position.Value : JsonValue.Null}
+			           		{"pos", _position.ToJson()},
 			           	};
 			return json;
 		}
@@ -254,6 +263,7 @@ namespace Manatee.Trello
 			_isSubscribed = list._isSubscribed;
 			_name = list._name;
 			_position = list._position;
+			_isInitialized = true;
 		}
 
 		/// <summary>

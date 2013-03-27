@@ -32,14 +32,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
-		Unknown = -2,
+		Unknown = -1,
 		/// <summary>
 		/// Indicates the item is at the beginning of its container.
 		/// </summary>
-		Top = -1,
+		Top = 0,
 		/// <summary>
 		/// Indicates the item is at the end of its container.
 		/// </summary>
-		Bottom = 0
+		Bottom = int.MaxValue
 	}
 }

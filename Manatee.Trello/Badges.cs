@@ -25,8 +25,8 @@ using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -205,6 +205,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"attachments", _attachments.HasValue ? _attachments.Value : JsonValue.Null},
@@ -239,6 +240,7 @@ namespace Manatee.Trello
 			_isSubscribed = badges._isSubscribed;
 			_viewingMemberVoted = badges._viewingMemberVoted;
 			_votes = badges._votes;
+			_isInitialized = true;
 		}
 
 		/// <summary>

@@ -23,8 +23,8 @@
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -60,8 +60,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_red = value;
-				Parameters.Add("value", value);
+				_red = value ?? string.Empty;
+				Parameters.Add("value", _red);
 				Put("red");
 			}
 		}
@@ -77,8 +77,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_orange = value;
-				Parameters.Add("value", value);
+				_orange = value ?? string.Empty;
+				Parameters.Add("value", _orange);
 				Put("orange");
 			}
 		}
@@ -94,8 +94,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_yellow = value;
-				Parameters.Add("value", value);
+				_yellow = value ?? string.Empty;
+				Parameters.Add("value", _yellow);
 				Put("yellow");
 			}
 		}
@@ -111,8 +111,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_green = value;
-				Parameters.Add("value", value);
+				_green = value ?? string.Empty;
+				Parameters.Add("value", _green);
 				Put("green");
 			}
 		}
@@ -128,8 +128,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_blue = value;
-				Parameters.Add("value", value);
+				_blue = value ?? string.Empty;
+				Parameters.Add("value", _blue);
 				Put("blue");
 			}
 		}
@@ -145,8 +145,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_purple = value;
-				Parameters.Add("value", value);
+				_purple = value ?? string.Empty;
+				Parameters.Add("value", _purple);
 				Put("purple");
 			}
 		}
@@ -182,6 +182,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"red", _red},
@@ -208,6 +209,7 @@ namespace Manatee.Trello
 			_green = labels._green;
 			_blue = labels._blue;
 			_purple = labels._purple;
+			_isInitialized = true;
 		}
 
 		/// <summary>

@@ -26,8 +26,9 @@ using Manatee.Json;
 using System.Collections.Generic;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -79,7 +80,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_description = value;
+				_description = value ?? string.Empty;
 				Parameters.Add("desc", _description);
 				Put();
 			}
@@ -96,7 +97,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_displayName = value;
+				_displayName = Validate.MinStringLength(value, 4, "DisplayName");
 				Parameters.Add("displayName", _displayName);
 				Put();
 			}
@@ -128,7 +129,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_name = value;
+				_name = Validate.MinStringLength(value, 3, "Name");
 				Parameters.Add("name", _name);
 				Put();
 			}
@@ -151,14 +152,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the URL to the organization's profile.
 		/// </summary>
-		public string Url
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _url;
-			}
-		}
+		public string Url { get { return _url; } }
 		/// <summary>
 		/// Gets or sets the organization's website.
 		/// </summary>
@@ -171,7 +165,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				_website = value;
+				_website = value ?? string.Empty;
 				Parameters.Add("website", _website);
 				Put();
 			}
@@ -203,7 +197,8 @@ namespace Manatee.Trello
 		/// <returns></returns>
 		public Board AddBoard(string name)
 		{
-			var board = Svc.PostAndCache(Svc.RequestProvider.Create<Board>(new[] {new Board()}));
+			Validate.NonEmptyString(name);
+			var board = Svc.PostAndCache(Svc.RequestProvider.Create<Board>(new[] { new Board() }));
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -214,7 +209,8 @@ namespace Manatee.Trello
 		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, member}, this);
+			Validate.Entity(member);
+			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, member }, this);
 			Parameters.Add("type", type.ToLowerString());
 			Svc.PutAndCache(request);
 			_members.MarkForUpdate();
@@ -234,6 +230,7 @@ namespace Manatee.Trello
 		/// <param name="type">The level of membership offered.</param>
 		private void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
+			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
 		}
 		///<summary>
@@ -242,7 +239,8 @@ namespace Manatee.Trello
 		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] {this, member}));
+			Validate.Entity(member);
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this, member }));
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the organization.
@@ -250,6 +248,7 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		private void RescindInvitation(Member member)
 		{
+			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
 		}
 		/// <summary>
@@ -280,6 +279,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
@@ -320,6 +320,7 @@ namespace Manatee.Trello
 			_powerUps = org._powerUps;
 			_url = org._url;
 			_website = org._website;
+			_isInitialized = true;
 		}
 
 		/// <summary>

@@ -21,11 +21,12 @@
 					on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -57,6 +58,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_colorBlind = value;
 				Parameters.Add("value", value.ToLowerString());
 				Put("colorBlind");
@@ -74,6 +76,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_minutesBetweenSummaries = value;
 				Parameters.Add("value", value);
 				Put("minutesBetweenSummaries");
@@ -91,6 +94,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_sendSummaries = value;
 				Parameters.Add("value", value.ToLowerString());
 				Put("sendSummaries");
@@ -108,6 +112,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_minutesBeforeDeadlineToNotify = value;
 				Parameters.Add("value", value);
 				Put("minutesBeforeDeadlineToNotify");
@@ -143,6 +148,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"colorBlind", _colorBlind.HasValue ? _colorBlind.Value : JsonValue.Null},
@@ -165,6 +171,7 @@ namespace Manatee.Trello
 			_minutesBetweenSummaries = prefs._minutesBetweenSummaries;
 			_sendSummaries = prefs._sendSummaries;
 			_minutesBeforeDeadlineToNotify = prefs._minutesBeforeDeadlineToNotify;
+			_isInitialized = true;
 		}
 
 		/// <summary>

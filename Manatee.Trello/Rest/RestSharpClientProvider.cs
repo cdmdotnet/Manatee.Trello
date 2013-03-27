@@ -24,7 +24,6 @@
 using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Rest
@@ -64,38 +63,50 @@ namespace Manatee.Trello.Rest
 		}
 		private class RestSharpRequestProvider : IRestRequestProvider
 		{
+			private readonly RestSharp.Serializers.ISerializer _serializer;
+
+			public RestSharpRequestProvider(RestSharp.Serializers.ISerializer serializer)
+			{
+				if (serializer == null)
+					throw new ArgumentNullException("serializer");
+				_serializer = serializer;
+			}
+
 			public IRestRequest<T> Create<T>()
 				where T : ExpiringObject, new()
 			{
-				return new RestSharpRequest<T>();
+				return new RestSharpRequest<T>(_serializer);
 			}
 			public IRestRequest<T> Create<T>(string id)
 				where T : ExpiringObject, new()
 			{
-				return new RestSharpRequest<T>(id);
+				return new RestSharpRequest<T>(_serializer, id);
 			}
 			public IRestRequest<T> Create<T>(ExpiringObject obj)
 				where T : ExpiringObject, new()
 			{
-				return new RestSharpRequest<T>(obj);
+				return new RestSharpRequest<T>(_serializer, obj);
 			}
 			public IRestRequest<T> Create<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
 				where T : ExpiringObject, new()
 			{
-				return new RestSharpRequest<T>(tokens, entity, urlExtension);
+				return new RestSharpRequest<T>(_serializer, tokens, entity, urlExtension);
 			}
 			public IRestCollectionRequest<T> CreateCollectionRequest<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity) where T : ExpiringObject, new()
 			{
-				return new RestSharpCollectionRequest<T>(tokens, entity);
+				return new RestSharpCollectionRequest<T>(_serializer, tokens, entity);
 			}
 		}
 
-		private readonly RestSharpRequestProvider _requestProvider = new RestSharpRequestProvider();
+		private RestSharpRequestProvider _requestProvider;
 
 		private RestSharp.Serializers.ISerializer _serializer;
 		private RestSharp.Deserializers.IDeserializer _deserializer;
 
-		public IRestRequestProvider RequestProvider { get { return _requestProvider; } }
+		public IRestRequestProvider RequestProvider
+		{
+			get { return _requestProvider ?? (_requestProvider = new RestSharpRequestProvider(Serializer)); }
+		}
 
 		/// <summary>
 		/// Gets and sets the serializer instance to be used by the client.

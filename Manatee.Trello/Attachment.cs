@@ -26,6 +26,7 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
@@ -48,25 +49,11 @@ namespace Manatee.Trello
 		///<summary>
 		/// The size of the attachment.
 		///</summary>
-		public int? Bytes
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _bytes;
-			}
-		}
+		public int? Bytes { get { return _bytes; } }
 		/// <summary>
 		/// The date on which the attachment was created.
 		/// </summary>
-		public DateTime? Date
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _date;
-			}
-		}
+		public DateTime? Date { get { return _date; } }
 		///<summary>
 		/// The member who created the attachment
 		///</summary>
@@ -74,42 +61,22 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				VerifyNotExpired();
-				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
+				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null)
+						? (_member = Svc.Retrieve<Member>(_memberId))
+						: _member;
 			}
 		}
 		///<summary>
 		///</summary>
-		public bool? IsUpload
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _isUpload;
-			}
-		}
+		public bool? IsUpload { get { return _isUpload; } }
 		///<summary>
 		/// Indicates the type of attachment.
 		///</summary>
-		public string MimeType
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _mimeType;
-			}
-		}
+		public string MimeType { get { return _mimeType; } }
 		///<summary>
 		/// The name of the attachment.
 		///</summary>
-		public string Name
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _name;
-			}
-		}
+		public string Name { get { return _name; } }
 		///<summary>
 		/// Enumerates a collection of previews for the attachment.
 		///</summary>
@@ -124,14 +91,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// Indicates the attachment storage location.
 		///</summary>
-		public string Url
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _url;
-			}
-		}
+		public string Url { get { return _url; } }
 
 		/// <summary>
 		/// Creates a new instance of an Attachment.
@@ -168,6 +128,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
@@ -198,12 +159,18 @@ namespace Manatee.Trello
 		{
 			return Id == id;
 		}
-		internal override void Refresh(ExpiringObject entity) { }
+		internal override void Refresh(ExpiringObject entity)
+		{
+			_isInitialized = true;
+		}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get() {}
+		protected override void Get()
+		{
+			Refresh(null);
+		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>

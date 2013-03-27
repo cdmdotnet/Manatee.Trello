@@ -26,8 +26,8 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -75,7 +75,7 @@ namespace Manatee.Trello
 		private Card _card;
 		private readonly ExpiringList<CheckList, CheckItem> _checkItems;
 		private string _name;
-		private int? _position;
+		private Position _position;
 
 		/// <summary>
 		/// Gets the board which contains this checklist.
@@ -100,6 +100,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Entity(value);
 				_cardId = value.Id;
 				Parameters.Add("idCard", _cardId);
 				Put();
@@ -121,15 +122,17 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.NonEmptyString(value);
 				_name = value;
 				Parameters.Add("name", _name);
 				Put();
+				MarkForUpdate();
 			}
 		}
 		/// <summary>
 		/// Gets or sets the position of this checklist.
 		/// </summary>
-		public int? Position
+		public Position Position
 		{
 			get
 			{
@@ -138,6 +141,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Position(value);
 				_position = value;
 				Parameters.Add("pos", _position);
 				Put();
@@ -162,10 +166,11 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="name">The name of the new item.</param>
 		/// <param name="isChecked">The initial state of the new item.</param>
-		/// <param name="position">The position of the new item.  Default is Bottom.</param>
+		/// <param name="position">The position of the new item.  Default is Bottom.  Invalid positions are ignored.</param>
 		/// <returns>The checkitem.</returns>
 		public CheckItem AddCheckItem(string name, bool isChecked = false, Position position = null)
 		{
+			Validate.NonEmptyString(name);
 			var request = Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}, this);
 			Parameters.Add("name", name);
 			Parameters.Add("checked", isChecked);
@@ -195,7 +200,9 @@ namespace Manatee.Trello
 			_boardId = obj.TryGetString("idBoard");
 			_cardId = obj.TryGetString("idCard");
 			_name = obj.TryGetString("name");
-			_position = (int?) obj.TryGetNumber("pos");
+			_position = new Position(PositionValue.Unknown);
+			if (obj.ContainsKey("pos"))
+				_position.FromJson(obj["pos"]);
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -205,7 +212,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
-			VerifyNotExpired();
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"id", Id},
@@ -213,7 +220,7 @@ namespace Manatee.Trello
 			           		{"idCard", _cardId},
 			           		{"checkItems", _checkItems.Select(c => c.Id).ToJson()},
 			           		{"name", _name},
-			           		{"pos", _position.HasValue ? _position.Value : JsonValue.Null}
+			           		{"pos", _position.ToJson()},
 			           	};
 			return json;
 		}
@@ -241,6 +248,7 @@ namespace Manatee.Trello
 			_cardId = checkList._cardId;
 			_name = checkList._name;
 			_position = checkList._position;
+			_isInitialized = true;
 		}
 
 		/// <summary>

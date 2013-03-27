@@ -21,6 +21,7 @@
 					in a list, or list in a board on Trello.com.
 
 ***************************************************************************************/
+using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Serialization;
@@ -40,6 +41,7 @@ namespace Manatee.Trello
 		/// Gets whether the position is valid.
 		/// </summary>
 		public bool IsValid { get { return _value > PositionValue.Unknown; } }
+		internal PositionValue Value { get { return _value; } }
 
 		/// <summary>
 		/// Creates a new instance of the Position class.

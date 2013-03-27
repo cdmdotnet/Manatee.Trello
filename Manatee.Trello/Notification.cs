@@ -25,8 +25,8 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -73,14 +73,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// The date on which the notification was created.
 		///</summary>
-		public DateTime? Date
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _date;
-			}
-		}
+		public DateTime? Date { get { return _date; } }
 		/// <summary>
 		/// Gets or sets whether the notification has been read.
 		/// </summary>
@@ -93,6 +86,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Nullable(value);
 				_isUnread = value;
 				Parameters.Add("unread", _isUnread.ToLowerString());
 				Put();
@@ -105,7 +99,6 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				VerifyNotExpired();
 				return ((_member == null) || (_member.Id != _memberCreatorId)) && (Svc != null)
 				       	? (_member = Svc.Retrieve<Member>(_memberCreatorId))
 				       	: _member;
@@ -114,14 +107,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the notification's type.
 		/// </summary>
-		public NotificationType Type
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _type;
-			}
-		}
+		public NotificationType Type { get { return _type; } }
 
 		static Notification()
 		{
@@ -191,6 +177,7 @@ namespace Manatee.Trello
 		/// </returns>
 		public override JsonValue ToJson()
 		{
+			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
 			           		{"data", _data.ToJson()},
@@ -226,6 +213,7 @@ namespace Manatee.Trello
 			_memberCreatorId = notification._memberCreatorId;
 			_apiType = notification._apiType;
 			UpdateType();
+			_isInitialized = true;
 		}
 
 		/// <summary>

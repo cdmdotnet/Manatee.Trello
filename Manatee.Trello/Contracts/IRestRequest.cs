@@ -20,8 +20,6 @@
 	Purpose:		Defines properties and methods required to make RESTful requests.
 
 ***************************************************************************************/
-using Manatee.Trello.Implementation;
-
 namespace Manatee.Trello.Contracts
 {
 	/// <summary>
