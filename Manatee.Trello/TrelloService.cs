@@ -46,6 +46,12 @@ namespace Manatee.Trello
 			get { return Api.RestClientProvider; }
 			set { Api.RestClientProvider = value; }
 		}
+		/// <summary>
+		/// Gets the IRestRequestProvider implemented by the IRestClientProvider.
+		/// </summary>
+		/// <remarks>
+		/// Provided for easier access.
+		/// </remarks>
 		public IRestRequestProvider RequestProvider { get { return RestClientProvider.RequestProvider; } }
 
 		/// <summary>

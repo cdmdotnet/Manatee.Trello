@@ -34,6 +34,9 @@ namespace Manatee.Trello.Contracts
 	{
 		private DateTime _expires;
 		private TrelloService _svc;
+		/// <summary>
+		/// Indicates that the object has refreshed from the website at least once.
+		/// </summary>
 		protected bool _isInitialized;
 
 		/// <summary>
@@ -95,7 +98,7 @@ namespace Manatee.Trello.Contracts
 			Owner = owner;
 		}
 
-		public void MarkForUpdate()
+		internal void MarkForUpdate()
 		{
 			_expires = DateTime.Now.AddSeconds(-1);
 		}

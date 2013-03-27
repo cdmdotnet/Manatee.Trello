@@ -25,9 +25,18 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Exceptions
 {
+	/// <summary>
+	/// Thrown when a RESTful call is unauthorized with the supplied AuthKey and AuthToken.
+	/// </summary>
+	/// <typeparam name="T">The type of object requested.</typeparam>
 	public class RestUnauthorizedException<T> : RestException<T>
 		where T : new()
 	{
+		/// <summary>
+		/// Creates a new instance of the RestUnauthorizedException&lt;T&gt; class.
+		/// </summary>
+		/// <param name="request">The request object which generated the error.</param>
+		/// <param name="response">The response object associated with the error.</param>
 		public RestUnauthorizedException(IRestRequest<T> request, IRestResponse response)
 			: base("The application is not authorized to make the request.", request, response) {}
 	}

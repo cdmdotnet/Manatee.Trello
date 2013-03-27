@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		RestResponse.cs
+	File Name:		RestSharpClientProvider.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		RestResponse<T>
+	Class Name:		RestSharpClientProvider<T>
 	Purpose:		Implements IRestClientProvider to provide instances of
 					RestSharp.RestClient wrapped in an IRestClient implementation.
 
@@ -103,6 +103,9 @@ namespace Manatee.Trello.Rest
 		private RestSharp.Serializers.ISerializer _serializer;
 		private RestSharp.Deserializers.IDeserializer _deserializer;
 
+		/// <summary>
+		/// Creates requests for the client.
+		/// </summary>
 		public IRestRequestProvider RequestProvider
 		{
 			get { return _requestProvider ?? (_requestProvider = new RestSharpRequestProvider(Serializer)); }
