@@ -24,10 +24,21 @@ using System;
 
 namespace Manatee.Trello.Exceptions
 {
+	/// <summary>
+	/// Thrown when attempting to assign an entity without an ID.
+	/// </summary>
+	/// <typeparam name="T">The type of object which generated the error.</typeparam>
 	public class EntityNotOnTrelloException<T> : Exception
 	{
+		/// <summary>
+		/// The object which generated the error.
+		/// </summary>
 		public T Entity { get; private set; }
 
+		/// <summary>
+		/// Creates an instance of the EntityNotOnTrelloException&lt;T&gt; class.
+		/// </summary>
+		/// <param name="entity">The object which generated the error.</param>
 		public EntityNotOnTrelloException(T entity)
 			: base("Attempted to perform an operation with an entity which does not exist on Trello.")
 		{

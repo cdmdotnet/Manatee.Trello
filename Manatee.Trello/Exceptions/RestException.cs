@@ -25,14 +25,35 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Exceptions
 {
+	/// <summary>
+	/// Thrown when a RESTful call has some manner of failure.
+	/// </summary>
+	/// <typeparam name="T">The type of object which was requested.</typeparam>
 	public class RestException<T> : Exception
 		where T : new()
 	{
+		/// <summary>
+		/// The request object which generated the error.
+		/// </summary>
 		public IRestRequest<T> Request { get; private set; }
+		/// <summary>
+		/// The response object associated with the error.
+		/// </summary>
 		public IRestResponse Response { get; private set; }
 
+		/// <summary>
+		/// Creates a new instance of the RestException&lt;T&gt; class.
+		/// </summary>
+		/// <param name="request">The request object which generated the error.</param>
+		/// <param name="response">The response object associated with the error.</param>
 		public RestException(IRestRequest<T> request, IRestResponse response)
 			: this("An error occurred during the request.", request, response) {}
+		/// <summary>
+		/// Creates a new instance of the RestException&lt;T&gt; class.
+		/// </summary>
+		/// <param name="message">A message for the exception.</param>
+		/// <param name="request">The request object which generated the error.</param>
+		/// <param name="response">The response object associated with the error.</param>
 		public RestException(string message, IRestRequest<T> request, IRestResponse response)
 			: base(message)
 		{
