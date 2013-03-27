@@ -14,32 +14,21 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		PremiumOrganization.cs
-	Namespace:		Manatee.Trello.Implementation
-	Class Name:		PremiumOrganization
-	Purpose:		Represents a single premium organization on Trello.com.
+	File Name:		RestException.cs
+	Namespace:		Manatee.Trello.Exceptions
+	Class Name:		RestException<T>
+	Purpose:		Thrown when a RESTful call is unauthorized with the supplied AuthKey
+					and AuthToken.
 
 ***************************************************************************************/
-using System;
-using Manatee.Json.Enumerations;
+using Manatee.Trello.Contracts;
 
-namespace Manatee.Trello.Implementation
+namespace Manatee.Trello.Exceptions
 {
-	internal class PremiumOrganization : Organization, IEquatable<PremiumOrganization>
+	public class RestUnauthorizedException<T> : RestException<T>
+		where T : new()
 	{
-		public PremiumOrganization() {}
-		internal PremiumOrganization(TrelloService svc, string id)
-			: base(svc, id) {}
-
-		public bool Equals(PremiumOrganization other)
-		{
-			return base.Equals(this);
-		}
-		public override void FromJson(Manatee.Json.JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.String) return;
-			Id = json.String;
-		}
+		public RestUnauthorizedException(IRestRequest<T> request, IRestResponse response)
+			: base("The application is not authorized to make the request.", request, response) {}
 	}
 }

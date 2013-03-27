@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
@@ -52,6 +53,14 @@ namespace Manatee.Trello.Implementation
 			if (str.Length.BetweenInclusive(low, high))
 				throw new ArgumentException(string.Format("{0} must be from {1} to {2} characters and cannot begin or end with whitespace.", parameter, low, high));
 			return str;
+		}
+		public static void Response<T>(IRestRequest<T> request, IRestResponse response)
+			where T : new()
+		{
+			if (!response.StatusCode.In(HttpStatusCode.OK, HttpStatusCode.Unauthorized))
+				throw new RestException<T>(request, response);
+			if (response.StatusCode == HttpStatusCode.Unauthorized)
+				throw new RestUnauthorizedException<T>(request, response);
 		}
 	}
 }

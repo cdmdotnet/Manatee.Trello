@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using Manatee.Json.Enumerations;
 
 namespace Manatee.Trello.Implementation
 {
@@ -33,6 +34,12 @@ namespace Manatee.Trello.Implementation
 		public bool Equals(InvitedBoard other)
 		{
 			return base.Equals(this);
+		}
+		public override void FromJson(Manatee.Json.JsonValue json)
+		{
+			if (json == null) return;
+			if (json.Type != JsonValueType.String) return;
+			Id = json.String;
 		}
 	}
 }

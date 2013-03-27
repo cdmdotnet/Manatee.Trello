@@ -74,7 +74,10 @@
     <Compile Include="Contracts\IRestResponse.cs" />
     <Compile Include="Contracts\ISerializer.cs" />
     <Compile Include="Contracts\Method.cs" />
+    <Compile Include="Exceptions\RestException.cs" />
     <Compile Include="Exceptions\EntityNotOnTrelloException.cs" />
+    <Compile Include="Exceptions\RestUnauthorizedException.cs" />
+    <Compile Include="Implementation\RestrictedMember.cs" />
     <Compile Include="Implementation\Validate.cs" />
     <Compile Include="Rest\RestSharpResponse.cs" />
     <Compile Include="Rest\RestSharpClientProvider.cs" />

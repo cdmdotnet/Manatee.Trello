@@ -16,23 +16,35 @@
  
 	File Name:		IRestResponse.cs
 	Namespace:		Manatee.Trello.Contracts
-	Class Name:		IRestResponse<out T>
+	Class Name:		IRestResponse, IRestResponse<T>
 	Purpose:		Defines required properties returned by RESTful calls.
 
 ***************************************************************************************/
+using System.Net;
+
 namespace Manatee.Trello.Contracts
 {
 	/// <summary>
 	/// Defines required properties returned by RESTful calls.
 	/// </summary>
-	/// <typeparam name="T">The type expected to be returned by the call.</typeparam>
-	public interface IRestResponse<T>
-		where T : new()
+	public interface IRestResponse
 	{
 		/// <summary>
 		/// The JSON content returned by the call.
 		/// </summary>
 		string Content { get; set; }
+		/// <summary>
+		/// Indicates the status of the response.
+		/// </summary>
+		HttpStatusCode StatusCode { get; set; }
+	}
+	/// <summary>
+	/// Defines required properties returned by RESTful calls.
+	/// </summary>
+	/// <typeparam name="T">The type expected to be returned by the call.</typeparam>
+	public interface IRestResponse<T> : IRestResponse
+		where T : new()
+	{
 		/// <summary>
 		/// The deserialized data.
 		/// </summary>

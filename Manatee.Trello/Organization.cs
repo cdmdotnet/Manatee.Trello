@@ -179,7 +179,7 @@ namespace Manatee.Trello
 			_actions = new ExpiringList<Organization, Action>(this);
 			_boards = new ExpiringList<Organization, Board>(this);
 			_members = new ExpiringList<Organization, Member>(this);
-			_preferences = new OrganizationPreferences();
+			_preferences = new OrganizationPreferences(null, this);
 		}
 		internal Organization(TrelloService svc, string id)
 			: base(svc, id)
