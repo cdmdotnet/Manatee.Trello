@@ -95,7 +95,7 @@ namespace Manatee.Trello.Contracts
 			Owner = owner;
 		}
 
-		internal void MarkForUpdate()
+		public void MarkForUpdate()
 		{
 			_expires = DateTime.Now.AddSeconds(-1);
 		}

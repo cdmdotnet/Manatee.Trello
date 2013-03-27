@@ -14,32 +14,30 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		PremiumOrganization.cs
-	Namespace:		Manatee.Trello.Implementation
-	Class Name:		PremiumOrganization
-	Purpose:		Represents a single premium organization on Trello.com.
+	File Name:		RestException.cs
+	Namespace:		Manatee.Trello.Exceptions
+	Class Name:		RestException<T>
+	Purpose:		Thrown when a RESTful call has some manner of failure.
 
 ***************************************************************************************/
 using System;
-using Manatee.Json.Enumerations;
+using Manatee.Trello.Contracts;
 
-namespace Manatee.Trello.Implementation
+namespace Manatee.Trello.Exceptions
 {
-	internal class PremiumOrganization : Organization, IEquatable<PremiumOrganization>
+	public class RestException<T> : Exception
+		where T : new()
 	{
-		public PremiumOrganization() {}
-		internal PremiumOrganization(TrelloService svc, string id)
-			: base(svc, id) {}
+		public IRestRequest<T> Request { get; private set; }
+		public IRestResponse Response { get; private set; }
 
-		public bool Equals(PremiumOrganization other)
+		public RestException(IRestRequest<T> request, IRestResponse response)
+			: this("An error occurred during the request.", request, response) {}
+		public RestException(string message, IRestRequest<T> request, IRestResponse response)
+			: base(message)
 		{
-			return base.Equals(this);
-		}
-		public override void FromJson(Manatee.Json.JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.String) return;
-			Id = json.String;
+			Request = request;
+			Response = response;
 		}
 	}
 }

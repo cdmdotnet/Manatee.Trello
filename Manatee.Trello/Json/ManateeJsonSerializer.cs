@@ -26,7 +26,7 @@ using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
-using RestSharp;
+using IRestResponse = RestSharp.IRestResponse;
 
 namespace Manatee.Trello.Json
 {

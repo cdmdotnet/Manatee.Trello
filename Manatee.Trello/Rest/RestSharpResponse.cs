@@ -21,6 +21,8 @@
 					IRestResponse<T>.
 
 ***************************************************************************************/
+using System;
+using System.Net;
 using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Rest
@@ -58,6 +60,14 @@ namespace Manatee.Trello.Rest
 		{
 			get { return _response.Data; }
 			set { _response.Data = value; }
+		}
+		/// <summary>
+		/// Indicates the status of the response.
+		/// </summary>
+		public HttpStatusCode StatusCode
+		{
+			get { return _response.StatusCode; }
+			set { _response.StatusCode = value; }
 		}
 	}
 }

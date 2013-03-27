@@ -22,6 +22,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Net;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Contracts;
 
@@ -99,6 +100,7 @@ namespace Manatee.Trello.Rest
 			var client = GenerateRestClient();
 			PrepRequest(request, method);
 			var response = client.Execute(request);
+			Validate.Response(request, response);
 			return response.Data;
 		}
 		private IEnumerable<T> Execute<T>(IRestCollectionRequest<T> request, Method method)
@@ -107,6 +109,7 @@ namespace Manatee.Trello.Rest
 			var client = GenerateRestClient();
 			PrepRequest(request, method);
 			var response = client.Execute(request);
+			Validate.Response(request, response);
 			return response.Data;
 		}
 		private IRestClient GenerateRestClient()
