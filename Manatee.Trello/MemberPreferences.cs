@@ -58,6 +58,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_colorBlind == value) return;
 				Validate.Nullable(value);
 				_colorBlind = value;
 				Parameters.Add("value", value.ToLowerString());
@@ -76,6 +77,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_minutesBetweenSummaries == value) return;
 				Validate.Nullable(value);
 				_minutesBetweenSummaries = value;
 				Parameters.Add("value", value);
@@ -94,6 +96,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_sendSummaries == value) return;
 				Validate.Nullable(value);
 				_sendSummaries = value;
 				Parameters.Add("value", value.ToLowerString());
@@ -112,6 +115,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_minutesBeforeDeadlineToNotify == value) return;
 				Validate.Nullable(value);
 				_minutesBeforeDeadlineToNotify = value;
 				Parameters.Add("value", value);
@@ -139,6 +143,7 @@ namespace Manatee.Trello
 			_minutesBetweenSummaries = (int?) obj.TryGetNumber("minutesBetweenSummaries");
 			_sendSummaries = obj.TryGetBoolean("sendSummaries");
 			_minutesBeforeDeadlineToNotify = (int?) obj.TryGetNumber("minutesBeforeDeadlineToNotify");
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -189,7 +194,13 @@ namespace Manatee.Trello
 		
 		private void Put(string extension)
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<MemberPreferences>(new[] {Owner, this}, this, extension));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var reqeust = Svc.RequestProvider.Create<MemberPreferences>(new[] { Owner, this }, this, extension);
+			Svc.PutAndCache(reqeust);
 		}
 	}
 }

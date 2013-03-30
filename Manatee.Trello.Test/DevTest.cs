@@ -16,6 +16,10 @@ namespace Manatee.Trello.Test
 		public void TestMethod1()
 		{
 			var service = new TrelloService(TrelloIds.Key, TrelloIds.Token);
+
+			var member = service.Retrieve<Member>(TrelloIds.UserName);
+
+			Console.WriteLine(member.ToJson().GetIndentedString());
 		}
 	}
 }

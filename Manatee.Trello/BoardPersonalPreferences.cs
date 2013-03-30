@@ -63,6 +63,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_showListGuide == value) return;
 				Validate.Nullable(value);
 				_showListGuide = value;
 				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
@@ -81,9 +82,10 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_showListGuide == value) return;
 				Validate.Nullable(value);
-				_showListGuide = value;
-				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
+				_showSidebar = value;
+				Parameters.Add("showSidebar", _showSidebar.ToLowerString());
 				Post();
 			}
 		}
@@ -99,9 +101,10 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_showSidebarActivity == value) return;
 				Validate.Nullable(value);
-				_showListGuide = value;
-				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
+				_showSidebarActivity = value;
+				Parameters.Add("showSidebarActivity", _showSidebarActivity.ToLowerString());
 				Post();
 			}
 		}
@@ -117,9 +120,10 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_showSidebarBoardActions == value) return;
 				Validate.Nullable(value);
-				_showListGuide = value;
-				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
+				_showSidebarBoardActions = value;
+				Parameters.Add("showSidebarBoardActions", _showSidebarBoardActions.ToLowerString());
 				Post();
 			}
 		}
@@ -135,8 +139,9 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_showSidebarMembers == value) return;
 				Validate.Nullable(value);
-				_showListGuide = value;
+				_showSidebarMembers = value;
 				Parameters.Add("showSidebarMembers", _showSidebarMembers.ToLowerString());
 				Post();
 			}
@@ -163,6 +168,7 @@ namespace Manatee.Trello
 			_showSidebarActivity = obj.TryGetBoolean("showSidebarActivity");
 			_showSidebarBoardActions = obj.TryGetBoolean("showSidebarBoardActions");
 			_showSidebarMembers = obj.TryGetBoolean("showSidebarMembers");
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.

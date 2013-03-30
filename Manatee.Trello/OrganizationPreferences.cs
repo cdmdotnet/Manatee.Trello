@@ -61,7 +61,11 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _boardVisibilityRestrict;
 			}
-			set { _boardVisibilityRestrict = value; }
+			set
+			{
+				if (_boardVisibilityRestrict == value) return;
+				_boardVisibilityRestrict = value;
+			}
 		}
 		/// <summary>
 		/// ?
@@ -75,6 +79,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_externalMembersDisabled == value) return;
 				Validate.Nullable(value);
 				_externalMembersDisabled = value;
 				Parameters.Add("value", _externalMembersDisabled);
@@ -91,6 +96,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_orgInviteRestrict == value) return;
 				_orgInviteRestrict = value;
 			}
 		}
@@ -106,6 +112,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_permissionLevel == value) return;
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
 				Parameters.Add("value", _apiPermissionLevel);
@@ -142,6 +149,7 @@ namespace Manatee.Trello
 			//_orgInviteRestrict = obj.TryGetArray("orgInviteRestrict").FromJson<?>();
 			_apiPermissionLevel = obj.TryGetString("permissionLevel");
 			UpdatePermissionLevel();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -193,7 +201,13 @@ namespace Manatee.Trello
 
 		private void Put(string extension)
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<OrganizationPreferences>(new[] {Owner, this}, this, extension));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<OrganizationPreferences>(new[] { Owner, this }, this, extension);
+			Svc.PutAndCache(request);
 		}
 		private void UpdatePermissionLevel()
 		{

@@ -161,6 +161,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_description == value) return;
 				_description = value ?? string.Empty;
 				Parameters.Add("desc", _description);
 				Put();
@@ -178,6 +179,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_dueDate == value) return;
 				Validate.Nullable(value);
 				_dueDate = value;
 				Parameters.Add("due", _dueDate);
@@ -196,6 +198,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_isClosed == value) return;
 				Validate.Nullable(value);
 				_isClosed = value;
 				Parameters.Add("closed", _isClosed.ToLowerString());
@@ -214,6 +217,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_isSubscribed == value) return;
 				Validate.Nullable(value);
 				_isSubscribed = value;
 				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
@@ -262,6 +266,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_name == value) return;
 				Validate.NonEmptyString(value);
 				_name = value;
 				Parameters.Add("name", _name);
@@ -280,6 +285,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_position == value) return;
 				Validate.Position(value);
 				_position = value;
 				Parameters.Add("pos", _position);
@@ -342,6 +348,7 @@ namespace Manatee.Trello
 		/// <returns>The checklist.</returns>
 		public CheckList AddCheckList(string name, Position position = null)
 		{
+			if (Svc == null) return null;
 			Validate.NonEmptyString(name);
 			var request = Svc.RequestProvider.Create<CheckList>(new ExpiringObject[] {new CheckList()}, this);
 			Parameters.Add("name", name);
@@ -358,6 +365,7 @@ namespace Manatee.Trello
 		/// <param name="comment"></param>
 		public void AddComment(string comment)
 		{
+			if (Svc == null) return;
 			Validate.NonEmptyString(comment);
 			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Action() }, this, "comments");
 			Parameters.Add("text", comment);
@@ -370,6 +378,7 @@ namespace Manatee.Trello
 		/// <param name="color">The color of the label.</param>
 		public void ApplyLabel(LabelColor color)
 		{
+			if (Svc == null) return;
 			Parameters.Add("value", color.ToLowerString());
 			Svc.PostAndCache(Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Label()}, this));
 			_actions.MarkForUpdate();
@@ -380,6 +389,7 @@ namespace Manatee.Trello
 		/// <param name="member">The member to assign.</param>
 		public void AssignMember(Member member)
 		{
+			if (Svc == null) return;
 			Validate.Entity(member);
 			var request = Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Member()}, this);
 			Parameters.Add("value", member.Id);
@@ -401,11 +411,13 @@ namespace Manatee.Trello
 		/// <param name="position">The destination position.  Default is Bottom.  Invalid positions are ignored.</param>
 		public void Move(Board board, List list, Position position = null)
 		{
+			if (Svc == null) return;
 			Validate.Entity(board);
 			Validate.Entity(list);
 			if (!board.Lists.Contains(list))
 				throw new InvalidOperationException("The indicated list does not exist on the indicated board.");
-			Parameters.Add("idBoard", board.Id);
+			if (_boardId != board.Id)
+				Parameters.Add("idBoard", board.Id);
 			Parameters.Add("idList", list.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
@@ -418,7 +430,8 @@ namespace Manatee.Trello
 		/// <param name="color"></param>
 		public void RemoveLabel(LabelColor color)
 		{
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Label()}, urlExtension: color.ToLowerString()));
+			if (Svc == null) return;
+			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Label() }, urlExtension: color.ToLowerString()));
 		}
 		/// <summary>
 		/// Removes (unassigns) a member from a card.
@@ -426,6 +439,7 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		public void RemoveMember(Member member)
 		{
+			if (Svc == null) return;
 			Validate.Entity(member);
 			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, member }));
 		}
@@ -454,6 +468,7 @@ namespace Manatee.Trello
 				_position.FromJson(obj["pos"]);
 			_shortId = (int?) obj.TryGetNumber("idShort");
 			_url = obj.TryGetString("url");
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -546,7 +561,13 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<Card>(this));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<Card>(this);
+			Svc.PutAndCache(request);
 			_actions.MarkForUpdate();
 		}
 	}

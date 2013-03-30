@@ -26,7 +26,6 @@ using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
@@ -102,6 +101,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_description == value) return;
 				_description = value ?? string.Empty;
 				Parameters.Add("desc", _description);
 				Put();
@@ -119,6 +119,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_isClosed == value) return;
 				if (!value.HasValue)
 					throw new ArgumentNullException("value");
 				_isClosed = value;
@@ -138,6 +139,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_isPinned == value) return;
 				if (!value.HasValue)
 					throw new ArgumentNullException("value");
 				_isPinned = value;
@@ -157,6 +159,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_isSubscribed == value) return;
 				if (!value.HasValue)
 					throw new ArgumentNullException("value");
 				_isSubscribed = value;
@@ -188,6 +191,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_name == value) return;
 				if (!string.IsNullOrWhiteSpace(value))
 					throw new ArgumentNullException("value");
 				_name = value;
@@ -209,14 +213,9 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				if (value == null)
-					_organizationId = string.Empty;
-				else
-				{
-					if (value.Id == null)
-						throw new EntityNotOnTrelloException<Organization>(value);
-					_organizationId = value.Id;
-				}
+				Validate.Entity(value);
+				if (_organizationId == value.Id) return;
+				_organizationId = value.Id;
 				Parameters.Add("idOrganization", _organizationId);
 				Put();
 			}
@@ -269,8 +268,8 @@ namespace Manatee.Trello
 		///<returns>The new list.</returns>
 		public List AddList(string name, Position position = null)
 		{
-			if (string.IsNullOrWhiteSpace(name))
-				throw new ArgumentNullException("name");
+			if (Svc == null) return null;
+			Validate.NonEmptyString(name);
 			var request = Svc.RequestProvider.Create<List>(this);
 			Parameters.Add("name", name);
 			Parameters.Add("idBoard", Id);
@@ -288,8 +287,9 @@ namespace Manatee.Trello
 		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
+			if (Svc == null) return;
 			Validate.Entity(member);
-			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, member}, this);
+			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, member }, this);
 			Parameters.Add("type", type.ToLowerString());
 			Svc.PutAndCache(request);
 			_members.MarkForUpdate();
@@ -300,7 +300,8 @@ namespace Manatee.Trello
 		///</summary>
 		public void MarkAsViewed()
 		{
-			var request = Svc.RequestProvider.Create<Board>(new ExpiringObject[] {this}, urlExtension: "markAsViewed");
+			if (Svc == null) return;
+			var request = Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this }, urlExtension: "markAsViewed");
 			Svc.PostAndCache(request);
 			_actions.MarkForUpdate();
 		}
@@ -320,6 +321,7 @@ namespace Manatee.Trello
 		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
+			if (Svc == null) return;
 			Validate.Entity(member);
 			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this, member }));
 		}
@@ -349,6 +351,7 @@ namespace Manatee.Trello
 			_name = obj.TryGetString("name");
 			_organizationId = obj.TryGetString("idOrganization");
 			_url = obj.TryGetString("url");
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -430,7 +433,13 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<Board>(this));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<Board>(this);
+			Svc.PutAndCache(request);
 			_actions.MarkForUpdate();
 		}
 	}

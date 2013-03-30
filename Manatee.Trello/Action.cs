@@ -94,7 +94,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// When the action was performed.
 		/// </summary>
-		private DateTime? Date { get { return _date; } }
+		public DateTime? Date { get { return _date; } }
 
 		static Action()
 		{
@@ -180,6 +180,7 @@ namespace Manatee.Trello
 			_date = string.IsNullOrWhiteSpace(date) ? (DateTime?) null : DateTime.Parse(date);
 			_memberCreatorId = obj.TryGetString("idCreatorMember");
 			UpdateType();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.

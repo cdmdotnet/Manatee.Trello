@@ -61,6 +61,7 @@ namespace Manatee.Trello
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Data = obj;
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.

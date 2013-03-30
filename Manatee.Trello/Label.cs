@@ -56,6 +56,12 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _color;
 			}
+			set 
+			{
+				if (_color == value) return;
+				_color = value;
+				UpdateApiColor();
+			}
 		}
 		/// <summary>
 		/// Gets the name of the label.  Tied to the board which contains the card.
@@ -66,6 +72,11 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				return _name;
+			}
+			set
+			{
+				if (_name == value) return;
+				_name = value ?? string.Empty;
 			}
 		}
 
@@ -100,6 +111,7 @@ namespace Manatee.Trello
 			_apicolor = obj.TryGetString("color");
 			_name = obj.TryGetString("name");
 			UpdateColor();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.

@@ -20,6 +20,9 @@
 	Purpose:		Defines a set of labels for a board on Trello.com.
 
 ***************************************************************************************/
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
@@ -39,7 +42,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Defines a set of labels for a board.
 	/// </summary>
-	public class LabelNames : JsonCompatibleExpiringObject
+	public class LabelNames : JsonCompatibleExpiringObject, IEnumerable<Label>
 	{
 		private string _red;
 		private string _orange;
@@ -60,6 +63,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_red == value) return;
 				_red = value ?? string.Empty;
 				Parameters.Add("value", _red);
 				Put("red");
@@ -77,6 +81,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_orange == value) return;
 				_orange = value ?? string.Empty;
 				Parameters.Add("value", _orange);
 				Put("orange");
@@ -94,6 +99,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_yellow == value) return;
 				_yellow = value ?? string.Empty;
 				Parameters.Add("value", _yellow);
 				Put("yellow");
@@ -111,6 +117,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_green == value) return;
 				_green = value ?? string.Empty;
 				Parameters.Add("value", _green);
 				Put("green");
@@ -128,6 +135,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_blue == value) return;
 				_blue = value ?? string.Empty;
 				Parameters.Add("value", _blue);
 				Put("blue");
@@ -145,6 +153,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_purple == value) return;
 				_purple = value ?? string.Empty;
 				Parameters.Add("value", _purple);
 				Put("purple");
@@ -173,6 +182,7 @@ namespace Manatee.Trello
 			_green = obj.TryGetString("green");
 			_blue = obj.TryGetString("blue");
 			_purple = obj.TryGetString("purple");
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -193,6 +203,22 @@ namespace Manatee.Trello
 			           		{"purple", _purple}
 			           	};
 			return json;
+		}
+		public IEnumerator<Label> GetEnumerator()
+		{
+			return new List<Label>
+			       	{
+			       		new Label {Color = LabelColor.Red, Name = _red},
+			       		new Label {Color = LabelColor.Orange, Name = _orange},
+			       		new Label {Color = LabelColor.Yellow, Name = _yellow},
+			       		new Label {Color = LabelColor.Green, Name = _green},
+			       		new Label {Color = LabelColor.Blue, Name = _blue},
+			       		new Label {Color = LabelColor.Purple, Name = _purple},
+			       	}.GetEnumerator();
+		}
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		internal override bool Match(string id)
@@ -227,7 +253,12 @@ namespace Manatee.Trello
 
 		private void Put(string extension)
 		{
-			var request = Svc.RequestProvider.Create<LabelNames>(new[] {Owner, this}, this, extension);
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<LabelNames>(new[] { Owner, this }, this, extension);
 			Svc.PutAndCache(request);
 		}
 	}

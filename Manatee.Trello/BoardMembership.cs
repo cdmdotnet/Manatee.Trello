@@ -106,6 +106,7 @@ namespace Manatee.Trello
 			_isDeactivated = obj.TryGetBoolean("deactivated");
 			_memberId = obj.TryGetString("idMember");
 			UpdateType();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.

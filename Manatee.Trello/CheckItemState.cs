@@ -88,6 +88,7 @@ namespace Manatee.Trello
 			Id = obj.TryGetString("idCheckItem");
 			_apiState = obj.TryGetString("state");
 			UpdateState();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
