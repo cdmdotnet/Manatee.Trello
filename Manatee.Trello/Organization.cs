@@ -80,6 +80,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_description == value) return;
 				_description = value ?? string.Empty;
 				Parameters.Add("desc", _description);
 				Put();
@@ -97,6 +98,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_displayName == value) return;
 				_displayName = Validate.MinStringLength(value, 4, "DisplayName");
 				Parameters.Add("displayName", _displayName);
 				Put();
@@ -129,6 +131,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_name == value) return;
 				_name = Validate.MinStringLength(value, 3, "Name");
 				Parameters.Add("name", _name);
 				Put();
@@ -165,6 +168,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_website == value) return;
 				_website = value ?? string.Empty;
 				Parameters.Add("website", _website);
 				Put();
@@ -197,6 +201,7 @@ namespace Manatee.Trello
 		/// <returns></returns>
 		public Board AddBoard(string name)
 		{
+			if (Svc == null) return null;
 			Validate.NonEmptyString(name);
 			var board = Svc.PostAndCache(Svc.RequestProvider.Create<Board>(new[] { new Board() }));
 			_boards.MarkForUpdate();
@@ -209,6 +214,7 @@ namespace Manatee.Trello
 		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
+			if (Svc == null) return;
 			Validate.Entity(member);
 			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, member }, this);
 			Parameters.Add("type", type.ToLowerString());
@@ -221,6 +227,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
+			if (Svc == null) return;
 			Svc.DeleteFromCache(Svc.RequestProvider.Create<Organization>(Id));
 		}
 		/// <summary>
@@ -239,6 +246,7 @@ namespace Manatee.Trello
 		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
+			if (Svc == null) return;
 			Validate.Entity(member);
 			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this, member }));
 		}
@@ -270,6 +278,7 @@ namespace Manatee.Trello
 				_powerUps = powerUps.Select(v => v.Type == JsonValueType.Null ? null : v.String).ToList();
 			_url = obj.TryGetString("url");
 			_website = obj.TryGetString("website");
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -344,7 +353,13 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<Organization>(this));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<Organization>(this);
+			Svc.PutAndCache(request);
 			_actions.MarkForUpdate();
 		}
 	}

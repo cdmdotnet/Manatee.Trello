@@ -86,6 +86,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_isUnread == value) return;
 				Validate.Nullable(value);
 				_isUnread = value;
 				Parameters.Add("unread", _isUnread.ToLowerString());
@@ -168,6 +169,7 @@ namespace Manatee.Trello
 			_memberCreatorId = obj.TryGetString("idMemberCreator");
 			_apiType = obj.TryGetString("type");
 			UpdateType();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -235,7 +237,13 @@ namespace Manatee.Trello
 		
 		private void Put()
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<Notification>(this));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<Notification>(this);
+			Svc.PutAndCache(request);
 		}
 
 		private void UpdateType()

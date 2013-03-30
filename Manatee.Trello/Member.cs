@@ -27,7 +27,6 @@ using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
@@ -138,6 +137,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_avatarSource == value) return;
 				_avatarSource = value ?? string.Empty;
 				Parameters.Add("avatarSource", _avatarSource);
 				Put();
@@ -155,6 +155,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_bio == value) return;
 				_bio = value ?? string.Empty;
 				Parameters.Add("bio", _bio);
 				Put();
@@ -198,6 +199,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_fullName == value) return;
 				_fullName = Validate.MinStringLength(value, 4, "FullName");
 				Parameters.Add("fullName", _fullName);
 				Put();
@@ -226,6 +228,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_initials == value) return;
 				_initials = Validate.StringLengthRange(value, 1, 3, "Initials");
 				Parameters.Add("initials", _initials);
 				Put();
@@ -330,6 +333,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_username == value) return;
 				_username = Validate.MinStringLength(value, 3, "Username"); ;
 				Parameters.Add("username", _username);
 				Put();
@@ -449,6 +453,7 @@ namespace Manatee.Trello
 			_url = obj.TryGetString("url");
 			_username = obj.TryGetString("username");
 			UpdateStatus();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -544,7 +549,13 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<Member>(this));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<Member>(this);
+			Svc.PutAndCache(request);
 		}
 		private void UpdateStatus()
 		{

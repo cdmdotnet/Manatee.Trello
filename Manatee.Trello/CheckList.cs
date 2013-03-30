@@ -101,6 +101,7 @@ namespace Manatee.Trello
 			set
 			{
 				Validate.Entity(value);
+				if (_cardId == value.Id) return;
 				_cardId = value.Id;
 				Parameters.Add("idCard", _cardId);
 				Put();
@@ -122,6 +123,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_name == value) return;
 				Validate.NonEmptyString(value);
 				_name = value;
 				Parameters.Add("name", _name);
@@ -141,6 +143,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_position == value) return;
 				Validate.Position(value);
 				_position = value;
 				Parameters.Add("pos", _position);
@@ -185,6 +188,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
+			if (Svc == null) return;
 			Svc.DeleteFromCache(Svc.RequestProvider.Create<CheckList>(Id));	
 		}
 		/// <summary>
@@ -203,6 +207,7 @@ namespace Manatee.Trello
 			_position = new Position(PositionValue.Unknown);
 			if (obj.ContainsKey("pos"))
 				_position.FromJson(obj["pos"]);
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -271,7 +276,13 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}, this));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<CheckItem>(new[] { Owner, this }, this);
+			Svc.PutAndCache(request);
 		}
 	}
 }

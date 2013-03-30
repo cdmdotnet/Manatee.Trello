@@ -119,6 +119,7 @@ namespace Manatee.Trello
 			_name = obj.TryGetString("name");
 			_previews = obj.TryGetArray("previews").FromJson<AttachmentPreview>().ToList();
 			_url = obj.TryGetString("url");
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.

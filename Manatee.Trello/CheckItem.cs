@@ -61,6 +61,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_name == value) return;
 				Validate.NonEmptyString(value);
 				_name = value;
 				Parameters.Add("value", value);
@@ -79,6 +80,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_position == value) return;
 				Validate.Position(value);
 				_position = value;
 				Parameters.Add("value", value);
@@ -97,6 +99,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_state == value) return;
 				_state = value;
 				UpdateApiState();
 				Parameters.Add("value", value);
@@ -124,6 +127,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
+			if (Svc == null) return;
 			Svc.DeleteFromCache(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}));
 		}
 		/// <summary>
@@ -142,6 +146,7 @@ namespace Manatee.Trello
 				_position.FromJson(obj["pos"]);
 			_apiState = obj.TryGetString("state");
 			UpdateState();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -203,7 +208,13 @@ namespace Manatee.Trello
 
 		private void Put(string extension)
 		{
-			Svc.PutAndCache(Svc.RequestProvider.Create<CheckItem>(new[] {((CheckList) Owner).Card, Owner, this}, this, extension));
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<CheckItem>(new[] { ((CheckList)Owner).Card, Owner, this }, this, extension);
+			Svc.PutAndCache(request);
 		}
 		private void UpdateState()
 		{

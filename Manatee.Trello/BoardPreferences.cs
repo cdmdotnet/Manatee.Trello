@@ -72,6 +72,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_allowsSelfJoin == value) return;
 				Validate.Nullable(value);
 				_allowsSelfJoin = value;
 				Parameters.Add("value", _allowsSelfJoin.ToLowerString());
@@ -90,6 +91,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_comments == value) return;
 				_comments = value;
 				UpdateApiComments();
 				Parameters.Add("value", _apiComments);
@@ -108,6 +110,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_invitations == value) return;
 				_invitations = value;
 				UpdateApiInvitations();
 				Parameters.Add("value", _apiInvitations);
@@ -126,6 +129,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_permissionLevel == value) return;
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
 				Parameters.Add("value", _apiPermissionLevel);
@@ -144,6 +148,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_showCardCovers == value) return;
 				Validate.Nullable(value);
 				_showCardCovers = value;
 				Parameters.Add("value", _apiInvitations.ToLowerString());
@@ -162,6 +167,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_voting == value) return;
 				_voting = value;
 				UpdateApiVoting();
 				Parameters.Add("value", _apiVoting);
@@ -223,6 +229,7 @@ namespace Manatee.Trello
 			UpdateInvitations();
 			UpdatePermissionLevel();
 			UpdateVoting();
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
@@ -281,7 +288,12 @@ namespace Manatee.Trello
 
 		private void Put(string extension)
 		{
-			var request = Svc.RequestProvider.Create<BoardPreferences>(new[] {Owner, this}, this, extension);
+			if (Svc == null)
+			{
+				Parameters.Clear();
+				return;
+			}
+			var request = Svc.RequestProvider.Create<BoardPreferences>(new[] { Owner, this }, this, extension);
 			Svc.PutAndCache(request);
 		}
 		private void UpdateComments()

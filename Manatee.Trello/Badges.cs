@@ -196,6 +196,7 @@ namespace Manatee.Trello
 			_isSubscribed = obj.TryGetBoolean("subscribed");
 			_viewingMemberVoted = obj.TryGetBoolean("viewingMemberVoted");
 			_votes = (int?) obj.TryGetNumber("votes");
+			_isInitialized = true;
 		}
 		/// <summary>
 		/// Converts an object to a JsonValue.
