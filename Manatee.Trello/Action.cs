@@ -68,7 +68,7 @@ namespace Manatee.Trello
 		private string _memberCreatorId;
 		private Member _member;
 		private readonly ActionData _data;
-		private ActionType _type;
+		private ActionType _type = ActionType.Unknown;
 		private DateTime? _date;
 
 		/// <summary>

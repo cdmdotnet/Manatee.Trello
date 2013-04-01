@@ -43,7 +43,7 @@ namespace Manatee.Trello
 		private static readonly OneToOneMap<LabelColor, string> _colorMap;
 
 		private string _apicolor;
-		private LabelColor _color;
+		private LabelColor _color = LabelColor.Unknown;
 		private string _name;
 
 		/// <summary>
@@ -95,9 +95,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the Label class.
 		/// </summary>
-		public Label() {}
+		public Label()
+		{
+			_color = LabelColor.Unknown;
+		}
 		internal Label(TrelloService svc, Card owner)
-			: base(svc, owner) {}
+			: base(svc, owner)
+		{
+			_color = LabelColor.Unknown;
+		}
 
 		/// <summary>
 		/// Builds an object from a JsonValue.

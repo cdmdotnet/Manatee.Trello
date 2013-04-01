@@ -51,7 +51,7 @@ namespace Manatee.Trello
 		private object _boardVisibilityRestrict;
 		private bool? _externalMembersDisabled;
 		private List<object> _orgInviteRestrict;
-		private OrganizationPermissionLevelType _permissionLevel;
+		private OrganizationPermissionLevelType _permissionLevel = OrganizationPermissionLevelType.Unknown;
 
 		// TODO: Determine structure of this object
 		private object BoardVisibilityRestrict

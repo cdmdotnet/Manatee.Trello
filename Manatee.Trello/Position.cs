@@ -35,7 +35,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Position : IJsonCompatible
 	{
-		private PositionValue _value;
+		private PositionValue _value = PositionValue.Unknown;
 
 		/// <summary>
 		/// Gets whether the position is valid.

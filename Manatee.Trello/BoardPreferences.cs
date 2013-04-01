@@ -54,11 +54,11 @@ namespace Manatee.Trello
 		private string _apiInvitations;
 		private string _apiPermissionLevel;
 		private string _apiVoting;
-		private BoardCommentType _comments;
-		private BoardInvitationType _invitations;
-		private BoardPermissionLevelType _permissionLevel;
+		private BoardCommentType _comments = BoardCommentType.Unknown;
+		private BoardInvitationType _invitations = BoardInvitationType.Unknown;
+		private BoardPermissionLevelType _permissionLevel = BoardPermissionLevelType.Unknown;
 		private bool? _showCardCovers;
-		private BoardVotingType _voting;
+		private BoardVotingType _voting = BoardVotingType.Unknown;
 
 		/// <summary>
 		/// Gets and sets whether any Trello member may join a board without an invitation.

@@ -86,8 +86,8 @@ namespace Manatee.Trello.Implementation
 			if (entities == null) return;
 			foreach (var entity in entities)
 			{
-				entity.Svc = Svc;
 				entity.Owner = _source;
+				entity.Svc = Svc;
 			}
 			_list.AddRange(entities);
 		}
