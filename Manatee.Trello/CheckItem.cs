@@ -47,7 +47,7 @@ namespace Manatee.Trello
 		private string _apiState;
 		private string _name;
 		private Position _position;
-		private CheckItemStateType _state;
+		private CheckItemStateType _state = CheckItemStateType.Unknown;
 
 		/// <summary>
 		/// Gets or sets the name of the checklist item.
