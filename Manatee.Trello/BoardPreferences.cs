@@ -175,6 +175,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "prefs"; } }
+
 		static BoardPreferences()
 		{
 			_commentMap = new OneToOneMap<BoardCommentType, string>

@@ -26,7 +26,9 @@ namespace Manatee.Trello.Implementation
 {
 	internal class VotingMember : Member, IEquatable<VotingMember>
 	{
-		public VotingMember() {}
+		internal override string Key { get { return "membersVoted"; } }
+
+		public VotingMember() { }
 		internal VotingMember(TrelloService svc, string id)
 			: base(svc, id) {}
 

@@ -169,6 +169,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "badges"; } }
+
 		///<summary>
 		/// Creates a new instance of the Badges class.
 		///</summary>

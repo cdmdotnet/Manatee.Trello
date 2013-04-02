@@ -96,6 +96,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public DateTime? Date { get { return _date; } }
 
+		internal override string Key { get { return "actions"; } }
+
 		static Action()
 		{
 			_typeMap = new OneToOneMap<ActionType, string>

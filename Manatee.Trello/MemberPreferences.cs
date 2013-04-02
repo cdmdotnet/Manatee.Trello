@@ -123,6 +123,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "prefs"; } }
+
 		/// <summary>
 		/// Creates a new instance of the MemberPreferences class.
 		/// </summary>

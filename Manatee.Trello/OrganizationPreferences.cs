@@ -120,6 +120,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "prefs"; } }
+
 		static OrganizationPreferences()
 		{
 			_permissionLevelMap = new OneToOneMap<OrganizationPermissionLevelType, string>

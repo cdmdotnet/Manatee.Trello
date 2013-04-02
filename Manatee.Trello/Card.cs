@@ -309,6 +309,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Member> VotingMembers { get { return _votingMembers; } }
 
+		internal override string Key { get { return "cards"; } }
+
 		/// <summary>
 		/// Creates a new instance of the Card class.
 		/// </summary>

@@ -340,6 +340,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "members"; } }
+
 		static Member()
 		{
 			_statusMap = new OneToOneMap<MemberStatusType, string>

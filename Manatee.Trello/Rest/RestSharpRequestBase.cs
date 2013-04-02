@@ -29,35 +29,6 @@ namespace Manatee.Trello.Rest
 {
 	internal abstract class RestSharpRequestBase : RestRequest
 	{
-		protected static readonly Dictionary<Type, string> SectionStrings =
-			new Dictionary<Type, string>
-				{
-					{typeof (Action), "actions"},
-					{typeof (Attachment), "attachments"},
-					{typeof (Badges), "badges"},
-					{typeof (Board), "boards"},
-					{typeof (BoardMembership), "memberships"},
-					{typeof (BoardPersonalPreferences), "myPrefs"},
-					{typeof (BoardPreferences), "prefs"},
-					{typeof (Card), "cards"},
-					{typeof (CheckItem), "checkItems"},
-					{typeof (CheckItemState), "checkItemStates"},
-					{typeof (CheckList), "checklists"},
-					{typeof (InvitedBoard), "idBoardsInvited"},
-					{typeof (InvitedOrganization), "idOrganizationsInvited"},
-					{typeof (Label), "labels"},
-					{typeof (LabelNames), "labelNames"},
-					{typeof (List), "lists"},
-					{typeof (Member), "members"},
-					{typeof (MemberPreferences), "prefs"},
-					{typeof (Notification), "notifications"},
-					{typeof (Organization), "organizations"},
-					{typeof (OrganizationPreferences), "prefs"},
-					{typeof (PinnedBoard), "idBoardsPinned"},
-					{typeof (PremiumOrganization), "idPremOrgsAdmin"},
-					{typeof (VotingMember), "membersVoted"},
-				};
-
 		protected RestSharpRequestBase(string path) : base(path)
 		{
 			RequestFormat = DataFormat.Json;

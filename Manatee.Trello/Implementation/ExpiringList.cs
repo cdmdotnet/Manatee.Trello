@@ -36,6 +36,8 @@ namespace Manatee.Trello.Implementation
 
 		public string Filter { get; set; }
 
+		internal override string Key { get { return string.Empty; } }
+
 		public ExpiringList(TSource source)
 		{
 			_source = source;

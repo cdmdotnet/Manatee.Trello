@@ -28,7 +28,9 @@ namespace Manatee.Trello.Implementation
 {
 	internal class PinnedBoard : Board, IEquatable<PinnedBoard>
 	{
-		public PinnedBoard() {}
+		internal override string Key { get { return "idBoardsPinned"; } }
+
+		public PinnedBoard() { }
 		internal PinnedBoard(TrelloService svc, string id)
 			: base(svc, id) {}
 
