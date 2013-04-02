@@ -53,7 +53,7 @@ namespace Manatee.Trello.Contracts
 		/// <remarks>
 		/// Parameters is cleared after each use.
 		/// </remarks>
-		public virtual Dictionary<string, object> Parameters { get; private set; }
+		public Dictionary<string, object> Parameters { get; private set; }
 		/// <summary>
 		/// Gets and sets the service which manages this object.
 		/// </summary>
@@ -76,6 +76,8 @@ namespace Manatee.Trello.Contracts
 		/// Gets whether this object has expired is an needs to be updated.
 		/// </summary>
 		public bool IsExpired { get { return DateTime.Now >= _expires; } }
+
+		internal abstract string Key { get; }
 
 		internal ExpiringObject()
 		{

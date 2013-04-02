@@ -147,6 +147,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "lists"; } }
+
 		/// <summary>
 		/// Creates a new instance of the List class.
 		/// </summary>

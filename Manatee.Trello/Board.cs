@@ -233,6 +233,8 @@ namespace Manatee.Trello
 		///</summary>
 		public string Url { get { return _url; } }
 
+		internal override string Key { get { return "boards"; } }
+
 		///<summary>
 		/// Creates a new instance of the Board class.
 		///</summary>

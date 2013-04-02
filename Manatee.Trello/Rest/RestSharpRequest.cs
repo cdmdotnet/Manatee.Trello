@@ -81,12 +81,12 @@ namespace Manatee.Trello.Rest
 
 		private static string GetPath()
 		{
-			var section = SectionStrings[typeof(T)];
+			var section = new T().Key;
 			return string.Format("{0}", section);
 		}
 		private static string GetPathWithId()
 		{
-			var section = SectionStrings[typeof (T)];
+			var section = new T().Key;
 			return string.Format("{0}/{{id}}", section);
 		}
 		private static string GetPath(IEnumerable<ExpiringObject> tokens, string urlExtension)
@@ -94,7 +94,7 @@ namespace Manatee.Trello.Rest
 			var segments = new List<string>();
 			foreach (var token in tokens)
 			{
-				segments.Add(SectionStrings[token.GetType()]);
+				segments.Add(token.Key);
 				if (token.Id != null)
 					segments.Add(token.Id);
 			}

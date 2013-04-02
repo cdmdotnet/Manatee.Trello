@@ -61,6 +61,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "checkItemStates"; } }
+
 		static CheckItemState()
 		{
 			_stateMap = new OneToOneMap<CheckItemStateType, string>

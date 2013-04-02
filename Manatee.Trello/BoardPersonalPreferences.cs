@@ -147,6 +147,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "myPrefs"; } }
+
 		/// <summary>
 		/// Creates a new instance of the BoardPersonalPreferences class.
 		/// </summary>

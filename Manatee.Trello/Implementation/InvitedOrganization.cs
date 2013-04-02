@@ -28,6 +28,8 @@ namespace Manatee.Trello.Implementation
 {
 	internal class InvitedOrganization : Organization, IEquatable<InvitedOrganization>
 	{
+		internal override string Key { get { return "idOrganizationsInvited"; } }
+
 		public InvitedOrganization() {}
 		internal InvitedOrganization(TrelloService svc, string id)
 			: base(svc, id) {}

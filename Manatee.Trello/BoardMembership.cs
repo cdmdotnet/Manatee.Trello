@@ -76,6 +76,8 @@ namespace Manatee.Trello
 		///</summary>
 		public BoardMembershipType MembershipType { get { return _membershipType; } }
 
+		internal override string Key { get { return "memberships"; } }
+
 		static BoardMembership()
 		{
 			_typeMap = new OneToOneMap<BoardMembershipType, string>

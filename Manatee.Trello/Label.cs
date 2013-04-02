@@ -80,6 +80,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "labels"; } }
+
 		static Label()
 		{
 			_colorMap = new OneToOneMap<LabelColor, string>

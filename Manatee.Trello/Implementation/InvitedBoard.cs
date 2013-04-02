@@ -27,7 +27,9 @@ namespace Manatee.Trello.Implementation
 {
 	internal class InvitedBoard : Board, IEquatable<InvitedBoard>
 	{
-		public InvitedBoard() {}
+		internal override string Key { get { return "idBoardsInvited"; } }
+
+		public InvitedBoard() { }
 		internal InvitedBoard(TrelloService svc, string id)
 			: base(svc, id) {}
 

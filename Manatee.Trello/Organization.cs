@@ -175,6 +175,8 @@ namespace Manatee.Trello
 			}
 		}
 
+		internal override string Key { get { return "organizations"; } }
+
 		/// <summary>
 		/// Creates a new instance of the Organization class.
 		/// </summary>

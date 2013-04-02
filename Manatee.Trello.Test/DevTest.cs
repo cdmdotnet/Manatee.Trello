@@ -18,10 +18,11 @@ namespace Manatee.Trello.Test
 		{
 			var service = new TrelloService(TrelloIds.Key, TrelloIds.Token);
 
-			var member = service.Retrieve<Member>(TrelloIds.UserName);
-			var notifications = member.Notifications.ToList();
-
-			Console.WriteLine(notifications.ToJson().GetIndentedString());
+			var board = service.Retrieve<Board>(TrelloIds.BoardId);
+			var cards = board.Lists.SelectMany(l => l.Cards);
+			var card = cards.FirstOrDefault();
+			
+			Console.WriteLine(card.ToJson().GetIndentedString());
 		}
 	}
 }

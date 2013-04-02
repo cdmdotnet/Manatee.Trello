@@ -27,7 +27,9 @@ namespace Manatee.Trello.Implementation
 {
 	internal class PremiumOrganization : Organization, IEquatable<PremiumOrganization>
 	{
-		public PremiumOrganization() {}
+		internal override string Key { get { return "idPremOrgsAdmin"; } }
+
+		public PremiumOrganization() { }
 		internal PremiumOrganization(TrelloService svc, string id)
 			: base(svc, id) {}
 

@@ -110,6 +110,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public NotificationType Type { get { return _type; } }
 
+		internal override string Key { get { return "notifications"; } }
+
 		static Notification()
 		{
 			_typeMap = new OneToOneMap<NotificationType, string>

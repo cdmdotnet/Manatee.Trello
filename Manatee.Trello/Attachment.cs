@@ -93,6 +93,8 @@ namespace Manatee.Trello
 		///</summary>
 		public string Url { get { return _url; } }
 
+		internal override string Key { get { return "attachments"; } }
+
 		/// <summary>
 		/// Creates a new instance of an Attachment.
 		/// </summary>
