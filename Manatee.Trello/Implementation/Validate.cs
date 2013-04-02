@@ -55,13 +55,5 @@ namespace Manatee.Trello.Implementation
 				throw new ArgumentException(string.Format("{0} must be from {1} to {2} characters and cannot begin or end with whitespace.", parameter, low, high));
 			return str;
 		}
-		public static void Response<T>(IRestRequest<T> request, IRestResponse response)
-			where T : new()
-		{
-			if (!response.StatusCode.In(HttpStatusCode.OK, HttpStatusCode.Unauthorized))
-				throw new RestException<T>(request, response);
-			if (response.StatusCode == HttpStatusCode.Unauthorized)
-				throw new RestUnauthorizedException<T>(request, response);
-		}
 	}
 }

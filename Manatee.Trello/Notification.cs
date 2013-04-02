@@ -58,18 +58,18 @@ namespace Manatee.Trello
 	{
 		private static readonly OneToOneMap<NotificationType, string> _typeMap;
 
-		private NotificationData _data;
+		private JsonValue _data;
 		private DateTime? _date;
 		private bool? _isUnread;
 		private string _memberCreatorId;
-		private Member _member;
+		private Member _memberCreator;
 		private string _apiType;
 		private NotificationType _type;
 
 		/// <summary>
 		/// Data associated with the notification.  Contents depend upon the notification's type.
 		/// </summary>
-		public object Data { get { return _data; } }
+		public JsonValue Data { get { return _data; } }
 		///<summary>
 		/// The date on which the notification was created.
 		///</summary>
@@ -100,9 +100,9 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				return ((_member == null) || (_member.Id != _memberCreatorId)) && (Svc != null)
-				       	? (_member = Svc.Retrieve<Member>(_memberCreatorId))
-				       	: _member;
+				return ((_memberCreator == null) || (_memberCreator.Id != _memberCreatorId)) && (Svc != null)
+				       	? (_memberCreator = Svc.Retrieve<Member>(_memberCreatorId))
+				       	: _memberCreator;
 			}
 		}
 		/// <summary>
@@ -143,15 +143,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the Notification class.
 		/// </summary>
-		public Notification()
-		{
-			_data = new NotificationData(null, this);
-		}
+		public Notification() {}
 		internal Notification(TrelloService svc, string id)
-			: base(svc, id)
-		{
-			_data = new NotificationData(svc, this);
-		}
+			: base(svc, id) {}
 
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -162,8 +156,9 @@ namespace Manatee.Trello
 			if (json == null) return;
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			_data = obj.TryGetObject("data").FromJson<NotificationData>();
-			var date = obj.TryGetString("due");
+			Id = obj.TryGetString("id");
+			_data = obj.TryGetObject("data");
+			var date = obj.TryGetString("date");
 			_date = string.IsNullOrWhiteSpace(date) ? (DateTime?) null : DateTime.Parse(date);
 			_isUnread = obj.TryGetBoolean("unread");
 			_memberCreatorId = obj.TryGetString("idMemberCreator");
@@ -182,8 +177,9 @@ namespace Manatee.Trello
 			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
-			           		{"data", _data.ToJson()},
-			           		{"due", _date.HasValue ? _date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
+							{"id", Id},
+			           		{"data", _data ?? JsonValue.Null},
+			           		{"date", _date.HasValue ? _date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
 			           		{"unread", _isUnread.HasValue ? _isUnread.Value : JsonValue.Null},
 			           		{"idMemberCreator", _memberCreatorId},
 			           		{"type", _apiType}
@@ -206,14 +202,15 @@ namespace Manatee.Trello
 		{
 			return Id == id;
 		}
-		internal override void Refresh(ExpiringObject entity)
+		internal override sealed void Refresh(ExpiringObject entity)
 		{
 			var notification = entity as Notification;
 			if (notification == null) return;
+			_apiType = notification._apiType;
+			_data = notification._data;
 			_date = notification._date;
 			_isUnread = notification._isUnread;
 			_memberCreatorId = notification._memberCreatorId;
-			_apiType = notification._apiType;
 			UpdateType();
 			_isInitialized = true;
 		}
@@ -231,8 +228,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void PropigateSerivce()
 		{
-			_data.Svc = Svc;
-			if (_member != null) _member.Svc = Svc;
+			if (_memberCreator != null) _memberCreator.Svc = Svc;
 		}
 		
 		private void Put()

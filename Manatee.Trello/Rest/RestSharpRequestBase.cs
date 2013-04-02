@@ -33,7 +33,6 @@ namespace Manatee.Trello.Rest
 			new Dictionary<Type, string>
 				{
 					{typeof (Action), "actions"},
-					{typeof (ActionData), "data"},
 					{typeof (Attachment), "attachments"},
 					{typeof (Badges), "badges"},
 					{typeof (Board), "boards"},

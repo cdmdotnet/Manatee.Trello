@@ -87,9 +87,8 @@ namespace Manatee.Trello.Implementation
 			foreach (var entity in entities)
 			{
 				entity.Owner = _source;
-				entity.Svc = Svc;
+				_list.Add(entity);
 			}
-			_list.AddRange(entities);
 		}
 		protected override void PropigateSerivce()
 		{

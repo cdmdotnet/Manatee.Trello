@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
@@ -34,7 +35,10 @@ namespace Manatee.Trello
 	/// </summary>
 	public class TrelloService
 	{
-		internal TrelloRest Api;
+		private readonly ActionProvider _actionProvider;
+		private readonly NotificationProvider _notificationProvider;
+
+		internal readonly TrelloRest Api;
 
 		private readonly List<ExpiringObject> _cache;
 
@@ -63,6 +67,8 @@ namespace Manatee.Trello
 		{
 			Api = new TrelloRest(authKey, authToken);
 			_cache = new List<ExpiringObject>();
+			_actionProvider = new ActionProvider();
+			_notificationProvider = new NotificationProvider();
 		}
 		/// <summary>
 		/// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
@@ -87,6 +93,14 @@ namespace Manatee.Trello
 			if (string.IsNullOrWhiteSpace(id)) return null;
 			T item = _cache.OfType<T>().FirstOrDefault(i => i.Match(id));
 			if (item != null) return item;
+			if (typeof(T).IsAssignableFrom(typeof(Action)))
+			{
+				return Execute(() => GetAction<T>(Api.Get(RequestProvider.Create<T>(id))));
+			}
+			if (typeof(T).IsAssignableFrom(typeof(Notification)))
+			{
+				return Execute(() => GetNotifcation<T>(Api.Get(RequestProvider.Create<T>(id))));
+			}
 			return Execute(() => Api.Get(RequestProvider.Create<T>(id)));
 		}
 		/// <summary>
@@ -102,12 +116,29 @@ namespace Manatee.Trello
 			where T : ExpiringObject, new()
 		{
 			var items = Api.Get(request);
-			foreach (var item in items)
-			{
-				if (!_cache.OfType<T>().Contains(item))
-					_cache.Add(item);
+			if (items != null)
+			{ 
+				foreach (var item in items)
+				{
+					item.Svc = this;
+					T newItem;
+					if (typeof(T).IsAssignableFrom(typeof(Action)))
+					{
+						newItem = GetAction<T>(item);
+					}
+					else if (typeof(T).IsAssignableFrom(typeof(Notification)))
+					{
+						newItem = GetNotifcation<T>(item);
+					}
+					else
+					{
+						newItem = item;
+					}
+					if (!_cache.OfType<T>().Contains(newItem))
+						_cache.Add(newItem);
+					yield return newItem;
+				}
 			}
-			return items;
 		}
 		internal T PutAndCache<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new()
@@ -138,6 +169,16 @@ namespace Manatee.Trello
 					_cache.Add(retVal);
 			}
 			return retVal;
+		}
+		private T GetAction<T>(object action)
+		{
+			object obj = _actionProvider.Parse((Action)action);
+			return (T)obj;
+		}
+		private T GetNotifcation<T>(object notification)
+		{
+			object obj = _notificationProvider.Parse((Notification) notification);
+			return (T)obj;
 		}
 	}
 }

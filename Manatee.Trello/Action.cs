@@ -66,8 +66,8 @@ namespace Manatee.Trello
 
 		private string _apiType;
 		private string _memberCreatorId;
-		private Member _member;
-		private readonly ActionData _data;
+		private Member _memberCreator;
+		private JsonValue _data;
 		private ActionType _type = ActionType.Unknown;
 		private DateTime? _date;
 
@@ -78,15 +78,15 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				return ((_member == null) || (_member.Id != _memberCreatorId)) && (Svc != null)
-				       	? (_member = Svc.Retrieve<Member>(_memberCreatorId))
-				       	: _member;
+				return ((_memberCreator == null) || (_memberCreator.Id != _memberCreatorId)) && (Svc != null)
+				       	? (_memberCreator = Svc.Retrieve<Member>(_memberCreatorId))
+				       	: _memberCreator;
 			}
 		}
 		/// <summary>
 		/// Data associated with the action.  Contents depend upon the action's type.
 		/// </summary>
-		public ActionData Data { get { return _data; } }
+		internal JsonValue Data { get { return _data; } }
 		/// <summary>
 		/// The type of action performed.
 		/// </summary>
@@ -149,15 +149,9 @@ namespace Manatee.Trello
 		///<summary>
 		/// Creates a new instance of the Action class.
 		///</summary>
-		public Action()
-		{
-			_data = new ActionData();
-		}
+		public Action() {}
 		internal Action(TrelloService svc, string id)
-			: base(svc, id)
-		{
-			_data = new ActionData(svc, this);
-		}
+			: base(svc, id) {}
 
 		/// <summary>
 		/// Deletes this action.  This cannot be undone.
@@ -175,7 +169,9 @@ namespace Manatee.Trello
 			if (json == null) return;
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
+			Id = obj.TryGetString("id");
 			_apiType = obj.TryGetString("type");
+			_data = obj.TryGetObject("data");
 			var date = obj.TryGetString("date");
 			_date = string.IsNullOrWhiteSpace(date) ? (DateTime?) null : DateTime.Parse(date);
 			_memberCreatorId = obj.TryGetString("idCreatorMember");
@@ -193,8 +189,9 @@ namespace Manatee.Trello
 			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
+							{"id", Id},
 			           		{"type", _apiType},
-			           		{"data", _data == null ? JsonValue.Null : _data.ToJson()},
+			           		{"data", _data ?? JsonValue.Null},
 			           		{"date", _date.HasValue ? _date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
 			           		{"idCreatorMember", _memberCreatorId},
 			           	};
@@ -221,6 +218,7 @@ namespace Manatee.Trello
 			var action = entity as Action;
 			if (action == null) return;
 			_apiType = action._apiType;
+			_data = action._data;
 			_date = action._date;
 			_memberCreatorId = action._memberCreatorId;
 			UpdateType();
@@ -240,8 +238,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void PropigateSerivce()
 		{
-			_data.Svc = Svc;
-			if (_member != null) _member.Svc = Svc;
+			if (_memberCreator != null) _memberCreator.Svc = Svc;
 		}
 
 		private void UpdateType()
