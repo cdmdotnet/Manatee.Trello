@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
@@ -18,8 +19,9 @@ namespace Manatee.Trello.Test
 			var service = new TrelloService(TrelloIds.Key, TrelloIds.Token);
 
 			var member = service.Retrieve<Member>(TrelloIds.UserName);
+			var notifications = member.Notifications.ToList();
 
-			Console.WriteLine(member.ToJson().GetIndentedString());
+			Console.WriteLine(notifications.ToJson().GetIndentedString());
 		}
 	}
 }

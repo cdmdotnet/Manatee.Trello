@@ -53,7 +53,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
-    <Compile Include="ActionData.cs" />
+    <Compile Include="Actions\AddMemberToBoardAction.cs" />
+    <Compile Include="Actions\AddMemberToCardAction.cs" />
+    <Compile Include="Actions\AddToOrganizationBoardAction.cs" />
+    <Compile Include="Actions\CommentCardAction.cs" />
+    <Compile Include="Actions\CreateCardAction.cs" />
+    <Compile Include="Notifications\AddedAttachmentToCardNotification.cs" />
+    <Compile Include="Notifications\AddedMemberToCardNotification.cs" />
+    <Compile Include="Notifications\CreateCardNotification.cs" />
+    <Compile Include="Actions\CreateListAction.cs" />
+    <Compile Include="Actions\MakeAdminOfBoardAction.cs" />
+    <Compile Include="Actions\MakeNormalMemberOfBoardAction.cs" />
+    <Compile Include="Actions\MoveCardFromBoardAction.cs" />
+    <Compile Include="Actions\MoveCardToBoardAction.cs" />
+    <Compile Include="Actions\MoveListFromBoardAction.cs" />
+    <Compile Include="Actions\MoveListToBoardAction.cs" />
+    <Compile Include="Actions\RemoveFromOrganizationBoardAction.cs" />
+    <Compile Include="Actions\RemoveMemberFromCardAction.cs" />
+    <Compile Include="Actions\UpdateBoardAction.cs" />
+    <Compile Include="Actions\UpdateCheckItemStateOnCardAction.cs" />
     <Compile Include="ActionType.cs" />
     <Compile Include="Attachment.cs" />
     <Compile Include="AttachmentPreview.cs" />
@@ -65,6 +83,11 @@
     <Compile Include="BoardPersonalPreferences.cs" />
     <Compile Include="BoardVotingType.cs" />
     <Compile Include="CheckItemStateType.cs" />
+    <Compile Include="Notifications\AddedToBoardNotification.cs" />
+    <Compile Include="Notifications\AddedToCardNotification.cs" />
+    <Compile Include="Notifications\AddedToOrganizationNotification.cs" />
+    <Compile Include="Notifications\ChangeCardNotification.cs" />
+    <Compile Include="Notifications\CommentCardNotification.cs" />
     <Compile Include="Contracts\IDeserializer.cs" />
     <Compile Include="Contracts\IRestClient.cs" />
     <Compile Include="Contracts\IRestClientProvider.cs" />
@@ -74,11 +97,18 @@
     <Compile Include="Contracts\IRestResponse.cs" />
     <Compile Include="Contracts\ISerializer.cs" />
     <Compile Include="Contracts\Method.cs" />
-    <Compile Include="Exceptions\RestException.cs" />
     <Compile Include="Exceptions\EntityNotOnTrelloException.cs" />
-    <Compile Include="Exceptions\RestUnauthorizedException.cs" />
+    <Compile Include="Implementation\ActionProvider.cs" />
+    <Compile Include="Implementation\IEntityProvider.cs" />
+    <Compile Include="Implementation\NotificationProvider.cs" />
     <Compile Include="Implementation\RestrictedMember.cs" />
     <Compile Include="Implementation\Validate.cs" />
+    <Compile Include="Notifications\MakeAdminOfBoardNotification.cs" />
+    <Compile Include="Notifications\MakeAdminOfOrganizationNotification.cs" />
+    <Compile Include="Notifications\MentionedOnCardNotification.cs" />
+    <Compile Include="Notifications\RemovedFromBoardNotification.cs" />
+    <Compile Include="Notifications\RemovedFromCardNotification.cs" />
+    <Compile Include="Notifications\UpdateCheckItemStateOnCardNotification.cs" />
     <Compile Include="Rest\RestSharpResponse.cs" />
     <Compile Include="Rest\RestSharpClientProvider.cs" />
     <Compile Include="Implementation\ExpiringList.cs" />
@@ -92,7 +122,6 @@
     <Compile Include="Implementation\VotingMember.cs" />
     <Compile Include="LabelColor.cs" />
     <Compile Include="MemberStatusType.cs" />
-    <Compile Include="NotificationData.cs" />
     <Compile Include="NotificationType.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="OrganizationPermissionLevelType.cs" />
@@ -121,6 +150,7 @@
     <Compile Include="Json\ManateeJsonSerializer.cs" />
     <Compile Include="Rest\TrelloRest.cs" />
     <Compile Include="TrelloService.cs" />
+    <Compile Include="Actions\UpdateCardAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
