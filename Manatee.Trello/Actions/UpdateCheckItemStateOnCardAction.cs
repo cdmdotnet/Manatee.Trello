@@ -45,7 +45,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
 			}
 		}
 		/// <summary>
@@ -56,7 +56,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_checkList == null) || (_checkList.Id != _checkListId)) && (Svc != null) ? (_checkList = Svc.Retrieve<CheckList>(_checkListId)) : _checkList;
+				return ((_checkList == null) || (_checkList.Id != _checkListId)) && (Svc != null) ? (_checkList = Svc.Get(Svc.RequestProvider.Create<CheckList>(_checkListId))) : _checkList;
 			}
 		}
 		/// <summary>
@@ -67,7 +67,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
 			}
 		}
 		/// <summary>

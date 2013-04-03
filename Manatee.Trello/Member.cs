@@ -366,7 +366,7 @@ namespace Manatee.Trello
 			_pinnedBoards = new ExpiringList<Member, PinnedBoard>(this);
 			_preferences = new MemberPreferences(null, this);
 		}
-		internal Member(TrelloService svc, string id)
+		internal Member(ITrelloRest svc, string id)
 			: base(svc, id)
 		{
 			_actions = new ExpiringList<Member, Action>(svc, this);
@@ -385,7 +385,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void MarkAllNotificationsAsRead()
 		{
-			Svc.PostAndCache(Svc.RequestProvider.Create<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
+			Svc.Post(Svc.RequestProvider.Create<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
 		}
 		/// <summary>
 		/// Adds a board to the member's boards menu.
@@ -395,7 +395,7 @@ namespace Manatee.Trello
 		{
 			Validate.Entity(board);
 			Parameters.Add("value", board.Id);
-			Svc.PostAndCache(Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
+			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
 		}
 		/// <summary>
 		/// Removes the member's vote from a card.
@@ -404,7 +404,7 @@ namespace Manatee.Trello
 		public void RescindVoteForCard(Card card)
 		{
 			Validate.Entity(card);
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { card, new VotingMember { Id = Id } }));
+			Svc.Delete(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { card, new VotingMember { Id = Id } }));
 		}
 		/// <summary>
 		/// Removes a board from the member's boards menu.
@@ -413,7 +413,7 @@ namespace Manatee.Trello
 		public void UnpinBoard(Board board)
 		{
 			Validate.Entity(board);
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, new PinnedBoard { Id = board.Id } }));
+			Svc.Delete(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, new PinnedBoard { Id = board.Id } }));
 		}
 		/// <summary>
 		/// Applies the member's vote to a card.
@@ -423,7 +423,7 @@ namespace Manatee.Trello
 		{
 			Validate.Entity(card);
 			Parameters.Add("value", Id);
-			Svc.PostAndCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
+			Svc.Post(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -498,11 +498,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return (Id == id) || (Username == id);
+			if (!(obj is Member)) return false;
+			return Equals((Member) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var member = entity as Member;
@@ -531,7 +550,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Member>(Id));
+			var entity = Svc.Get(Svc.RequestProvider.Create<Member>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -557,7 +576,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<Member>(this);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 		}
 		private void UpdateStatus()
 		{

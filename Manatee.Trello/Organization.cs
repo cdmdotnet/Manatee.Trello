@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello
@@ -187,7 +186,7 @@ namespace Manatee.Trello
 			_members = new ExpiringList<Organization, Member>(this);
 			_preferences = new OrganizationPreferences(null, this);
 		}
-		internal Organization(TrelloService svc, string id)
+		internal Organization(ITrelloRest svc, string id)
 			: base(svc, id)
 		{
 			_actions = new ExpiringList<Organization, Action>(svc, this);
@@ -205,7 +204,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return null;
 			Validate.NonEmptyString(name);
-			var board = Svc.PostAndCache(Svc.RequestProvider.Create<Board>(new[] { new Board() }));
+			var board = Svc.Post(Svc.RequestProvider.Create<Board>(new[] { new Board() }));
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -220,7 +219,7 @@ namespace Manatee.Trello
 			Validate.Entity(member);
 			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, member }, this);
 			Parameters.Add("type", type.ToLowerString());
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
@@ -230,7 +229,7 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Organization>(Id));
+			Svc.Delete(Svc.RequestProvider.Create<Organization>(Id));
 		}
 		/// <summary>
 		/// Extends an invitation to the organization to another member.
@@ -250,7 +249,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Entity(member);
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this, member }));
+			Svc.Delete(Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this, member }));
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the organization.
@@ -315,11 +314,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return Id == id;
+			if (!(obj is Organization)) return false;
+			return Equals((Organization) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var org = entity as Organization;
@@ -339,7 +357,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Organization>(Id));
+			var entity = Svc.Get(Svc.RequestProvider.Create<Organization>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -361,7 +379,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<Organization>(this);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 			_actions.MarkForUpdate();
 		}
 	}

@@ -175,7 +175,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the Badges class.
 		///</summary>
 		public Badges() {}
-		internal Badges(TrelloService svc, Card owner)
+		internal Badges(ITrelloRest svc, Card owner)
 			: base(svc, owner) {}
 
 		/// <summary>
@@ -225,10 +225,6 @@ namespace Manatee.Trello
 			return json;
 		}
 
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var badges = entity as Badges;
@@ -251,7 +247,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Badges>(new[] { Owner, this }));
+			var entity = Svc.Get(Svc.RequestProvider.Create<Badges>(new[] { Owner, this }));
 			Refresh(entity);
 		}
 		/// <summary>

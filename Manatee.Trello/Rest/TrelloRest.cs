@@ -22,13 +22,12 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Net;
-using Manatee.Trello.Implementation;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello.Rest
 {
-	internal class TrelloRest
+	internal class TrelloRest : ITrelloRest
 	{
 		private const string ApiBaseUrl = "https://api.trello.com/1";
 		private readonly string _authKey;
@@ -48,10 +47,16 @@ namespace Manatee.Trello.Rest
 				_restProvider = value;
 			}
 		}
+		public IRestRequestProvider RequestProvider
+		{
+			get { return RestClientProvider.RequestProvider; }
+		}
 
 		public TrelloRest(string authKey, string authToken)
 		{
-			if (string.IsNullOrEmpty(authKey))
+			if (authKey == null)
+				throw new ArgumentNullException("authKey");
+			if (string.IsNullOrWhiteSpace(authKey))
 				throw new ArgumentException("Authentication key required. Auth keys can be generated from https://trello.com/1/appKey/generate", "authKey");
 			_authKey = authKey;
 			_authToken = authToken;

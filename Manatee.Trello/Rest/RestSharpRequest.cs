@@ -37,28 +37,33 @@ namespace Manatee.Trello.Rest
 			get { return GetMethod(); }
 			set { SetMethod(value); }
 		}
+		public T Template { get; private set; }
 
 		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer)
 			: base(GetPath())
 		{
 			JsonSerializer = serializer;
+			Template = new T();
 		}
 		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, ExpiringObject obj)
 			: this(serializer, obj.Id)
 		{
 			ParameterSource = obj;
+			Template = new T {Id = obj.Id};
 		}
 		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, string id)
 			: base(GetPathWithId())
 		{
 			AddParameter("id", id, ParameterType.UrlSegment);
 			JsonSerializer = serializer;
+			Template = new T {Id = id};
 		}
 		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
 			: base(GetPath(tokens, urlExtension))
 		{
 			ParameterSource = entity;
 			JsonSerializer = serializer;
+			Template = new T();
 		}
 
 		public void AddParameters()

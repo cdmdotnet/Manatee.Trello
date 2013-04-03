@@ -79,18 +79,18 @@ namespace Manatee.Trello
 			get
 			{
 				return ((_memberCreator == null) || (_memberCreator.Id != _memberCreatorId)) && (Svc != null)
-				       	? (_memberCreator = Svc.Retrieve<Member>(_memberCreatorId))
+				       	? (_memberCreator = Svc.Get(Svc.RequestProvider.Create<Member>(_memberCreatorId)))
 				       	: _memberCreator;
 			}
 		}
 		/// <summary>
 		/// Data associated with the action.  Contents depend upon the action's type.
 		/// </summary>
-		internal JsonValue Data { get { return _data; } }
+		internal JsonValue Data { get { return _data; } set { _data = value; } }
 		/// <summary>
 		/// The type of action performed.
 		/// </summary>
-		public ActionType Type { get { return _type; } }
+		public ActionType Type { get { return _type; } internal set { _type = value; } }
 		/// <summary>
 		/// When the action was performed.
 		/// </summary>
@@ -152,7 +152,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the Action class.
 		///</summary>
 		public Action() {}
-		internal Action(TrelloService svc, string id)
+		internal Action(ITrelloRest svc, string id)
 			: base(svc, id) {}
 
 		/// <summary>
@@ -160,7 +160,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Action>(Id));
+			Svc.Delete(Svc.RequestProvider.Create<Action>(Id));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -210,11 +210,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return Id == id;
+			if (!(obj is Action)) return false;
+			return Equals((Action) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var action = entity as Action;
@@ -232,7 +251,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Action>(Id));
+			var entity = Svc.Get(Svc.RequestProvider.Create<Action>(Id));
 			Refresh(entity);
 		}
 		/// <summary>

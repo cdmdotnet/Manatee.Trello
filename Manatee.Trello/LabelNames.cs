@@ -166,7 +166,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the LabelNames class.
 		/// </summary>
 		public LabelNames() {}
-		internal LabelNames(TrelloService svc, Board owner)
+		internal LabelNames(ITrelloRest svc, Board owner)
 			: base(svc, owner) {}
 
 		/// <summary>
@@ -230,10 +230,6 @@ namespace Manatee.Trello
 			return GetEnumerator();
 		}
 
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var labels = entity as LabelNames;
@@ -252,7 +248,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<LabelNames>(new[] {Owner, this}));
+			var entity = Svc.Get(Svc.RequestProvider.Create<LabelNames>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -268,7 +264,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<LabelNames>(new[] { Owner, this }, this, extension);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 		}
 	}
 }

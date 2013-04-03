@@ -21,7 +21,6 @@
 					on Trello.com.
 
 ***************************************************************************************/
-using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
@@ -129,7 +128,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the MemberPreferences class.
 		/// </summary>
 		public MemberPreferences() {}
-		internal MemberPreferences(TrelloService svc, Member owner)
+		internal MemberPreferences(ITrelloRest svc, Member owner)
 			: base(svc, owner) {}
 
 		/// <summary>
@@ -166,10 +165,6 @@ namespace Manatee.Trello
 			return json;
 		}
 
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var prefs = entity as MemberPreferences;
@@ -186,7 +181,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<MemberPreferences>(new[] {Owner, this}));
+			var entity = Svc.Get(Svc.RequestProvider.Create<MemberPreferences>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -202,7 +197,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var reqeust = Svc.RequestProvider.Create<MemberPreferences>(new[] { Owner, this }, this, extension);
-			Svc.PutAndCache(reqeust);
+			Svc.Put(reqeust);
 		}
 	}
 }

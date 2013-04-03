@@ -121,7 +121,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the CheckItem class.
 		/// </summary>
 		public CheckItem() {}
-		internal CheckItem(TrelloService svc, CheckList owner)
+		internal CheckItem(ITrelloRest svc, CheckList owner)
 			: base(svc, owner) {}
 
 		/// <summary>
@@ -130,7 +130,7 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}));
+			Svc.Delete(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -179,11 +179,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return Id == id;
+			if (!(obj is CheckItem)) return false;
+			return Equals((CheckItem) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var checkItem = entity as CheckItem;
@@ -200,7 +219,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}));
+			var entity = Svc.Get(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -216,7 +235,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<CheckItem>(new[] { ((CheckList)Owner).Card, Owner, this }, this, extension);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 		}
 		private void UpdateState()
 		{

@@ -138,7 +138,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
 			}
 		}
 		/// <summary>
@@ -240,7 +240,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Retrieve<List>(_listId)) : _list;
+				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Get(Svc.RequestProvider.Create<List>(_listId))) : _list;
 			}
 		}
 		/// <summary>
@@ -325,7 +325,7 @@ namespace Manatee.Trello
 			_members = new ExpiringList<Card, Member>(this);
 			_votingMembers = new ExpiringList<Card, VotingMember>(this);
 		}
-		internal Card(TrelloService svc, string id)
+		internal Card(ITrelloRest svc, string id)
 			: base(svc, id)
 		{
 			_actions = new ExpiringList<Card, Action>(svc, this);
@@ -361,7 +361,7 @@ namespace Manatee.Trello
 			if ((position != null) && position.IsValid)
 				Parameters.Add("position", position);
 			Parameters.Add("idCard", Id);
-			var checkList = Svc.PostAndCache(request);
+			var checkList = Svc.Post(request);
 			_checkLists.MarkForUpdate();
 			return checkList;
 		}
@@ -375,7 +375,7 @@ namespace Manatee.Trello
 			Validate.NonEmptyString(comment);
 			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Action() }, this, "comments");
 			Parameters.Add("text", comment);
-			Svc.Api.Post(request);
+			Svc.Post(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -386,7 +386,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Parameters.Add("value", color.ToLowerString());
-			Svc.PostAndCache(Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Label()}, this));
+			Svc.Post(Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Label()}, this));
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -399,7 +399,7 @@ namespace Manatee.Trello
 			Validate.Entity(member);
 			var request = Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Member()}, this);
 			Parameters.Add("value", member.Id);
-			Svc.PostAndCache(request);
+			Svc.Post(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -407,7 +407,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(Id));
+			Svc.Delete(Svc.RequestProvider.Create<Card>(Id));
 		}
 		/// <summary>
 		/// Moves the card to another board/list/position.
@@ -427,7 +427,7 @@ namespace Manatee.Trello
 			Parameters.Add("idList", list.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
-			Svc.PutAndCache(Svc.RequestProvider.Create<Card>(this));
+			Svc.Put(Svc.RequestProvider.Create<Card>(this));
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -437,7 +437,7 @@ namespace Manatee.Trello
 		public void RemoveLabel(LabelColor color)
 		{
 			if (Svc == null) return;
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Label() }, urlExtension: color.ToLowerString()));
+			Svc.Delete(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Label() }, urlExtension: color.ToLowerString()));
 		}
 		/// <summary>
 		/// Removes (unassigns) a member from a card.
@@ -447,7 +447,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Entity(member);
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, member }));
+			Svc.Delete(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, member }));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -517,11 +517,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return Id == id;
+			if (!(obj is Card)) return false;
+			return Equals((Card) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var card = entity as Card;
@@ -545,7 +564,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Card>(Id));
+			var entity = Svc.Get(Svc.RequestProvider.Create<Card>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -573,7 +592,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<Card>(this);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 			_actions.MarkForUpdate();
 		}
 	}

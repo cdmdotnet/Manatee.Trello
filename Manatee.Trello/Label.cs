@@ -101,7 +101,7 @@ namespace Manatee.Trello
 		{
 			_color = LabelColor.Unknown;
 		}
-		internal Label(TrelloService svc, Card owner)
+		internal Label(ITrelloRest svc, Card owner)
 			: base(svc, owner)
 		{
 			_color = LabelColor.Unknown;
@@ -148,11 +148,30 @@ namespace Manatee.Trello
 		{
 			return _apicolor == other._apicolor;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return false;
+			if (!(obj is Label)) return false;
+			return Equals((Label) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var label = entity as Label;
@@ -168,7 +187,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Label>(new[] {Owner, this}));
+			var entity = Svc.Get(Svc.RequestProvider.Create<Label>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>

@@ -29,7 +29,7 @@ namespace Manatee.Trello.Implementation
 		internal override string Key { get { return "membersVoted"; } }
 
 		public VotingMember() { }
-		internal VotingMember(TrelloService svc, string id)
+		internal VotingMember(ITrelloRest svc, string id)
 			: base(svc, id) {}
 
 		public bool Equals(VotingMember other)

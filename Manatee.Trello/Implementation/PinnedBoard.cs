@@ -31,7 +31,7 @@ namespace Manatee.Trello.Implementation
 		internal override string Key { get { return "idBoardsPinned"; } }
 
 		public PinnedBoard() { }
-		internal PinnedBoard(TrelloService svc, string id)
+		internal PinnedBoard(ITrelloRest svc, string id)
 			: base(svc, id) {}
 
 		public bool Equals(PinnedBoard other)

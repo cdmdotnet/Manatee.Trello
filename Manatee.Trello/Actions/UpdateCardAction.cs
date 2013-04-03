@@ -47,7 +47,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
 			}
 		}
 		/// <summary>
@@ -59,7 +59,7 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				if (_listBeforeId == null) return null;
-				return ((_listBefore == null) || (_listBefore.Id != _listBeforeId)) && (Svc != null) ? (_listBefore = Svc.Retrieve<List>(_listBeforeId)) : _listBefore;
+				return ((_listBefore == null) || (_listBefore.Id != _listBeforeId)) && (Svc != null) ? (_listBefore = Svc.Get(Svc.RequestProvider.Create<List>(_listBeforeId))) : _listBefore;
 			}
 		}
 		/// <summary>
@@ -71,7 +71,7 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				if (_listAfterId == null) return null;
-				return ((_listAfter == null) || (_listAfter.Id != _listAfterId)) && (Svc != null) ? (_listAfter = Svc.Retrieve<List>(_listAfterId)) : _listAfter;
+				return ((_listAfter == null) || (_listAfter.Id != _listAfterId)) && (Svc != null) ? (_listAfter = Svc.Get(Svc.RequestProvider.Create<List>(_listAfterId))) : _listAfter;
 			}
 		}
 		/// <summary>
@@ -82,7 +82,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
 			}
 		}
 

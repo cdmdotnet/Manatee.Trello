@@ -6,7 +6,7 @@ namespace Manatee.Trello.Implementation
 	internal class RestrictedMember : Member, IEquatable<RestrictedMember>
 	{
 		public RestrictedMember() { }
-		internal RestrictedMember(TrelloService svc, string id)
+		internal RestrictedMember(ITrelloRest svc, string id)
 			: base(svc, id) { }
 
 		public bool Equals(RestrictedMember other)

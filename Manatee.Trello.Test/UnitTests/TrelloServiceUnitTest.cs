@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Json;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
@@ -15,22 +16,54 @@ namespace Manatee.Trello.Test.UnitTests
 	[TestClass]
 	public class TrelloServiceUnitTest
 	{
-		public const string MockAuthKey = "some non-empty string";
-		public const string MockAuthToken = "some non-empty string";
-		public const string MockEntityId = "some non-empty string";
+		public const string MockAuthKey = "mock auth key";
+		public const string MockAuthToken = "mock auth token";
+		public const string MockEntityId = "mock entity ID";
 
-		#region Service Construction
+		#region Dependencies
 
 		private class DependencyCollection
 		{
+			public class MockRequestProvider : IRestRequestProvider
+			{
+				public IRestRequest<T> Create<T>() where T : ExpiringObject, new()
+				{
+					return new Mock<IRestRequest<T>>().Object;
+				}
+				public IRestRequest<T> Create<T>(string id) where T : ExpiringObject, new()
+				{
+					var mock = new Mock<IRestRequest<T>>();
+					mock.SetupGet(r => r.Template).Returns(new T {Id = id});
+					return mock.Object;
+				}
+				public IRestRequest<T> Create<T>(ExpiringObject obj) where T : ExpiringObject, new()
+				{
+					var mock = new Mock<IRestRequest<T>>();
+					mock.SetupGet(r => r.Template).Returns(new T { Id = obj.Id });
+					return mock.Object;
+				}
+				public IRestRequest<T> Create<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity, string urlExtension) where T : ExpiringObject, new()
+				{
+					return new Mock<IRestRequest<T>>().Object;
+				}
+				public IRestCollectionRequest<T> CreateCollectionRequest<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity) where T : ExpiringObject, new()
+				{
+					return new Mock<IRestCollectionRequest<T>>().Object;
+				}
+			}
+
 			public Mock<IRestClient> RestClient { get; private set; }
 			public Mock<IRestClientProvider> RestClientProvider { get; private set; }
+			public MockRequestProvider RequestProvider { get; private set; }
 
 			public DependencyCollection()
 			{
 				RestClient = new Mock<IRestClient>();
 				RestClientProvider = new Mock<IRestClientProvider>();
+				RequestProvider = new MockRequestProvider();
 
+				RestClientProvider.SetupGet(p => p.RequestProvider)
+					.Returns(RequestProvider);
 				RestClientProvider.Setup(p => p.CreateRestClient(It.IsAny<string>()))
 					.Returns(RestClient.Object);
 			}
@@ -44,9 +77,9 @@ namespace Manatee.Trello.Test.UnitTests
 			{
 				Dependencies = new DependencyCollection();
 				Sut = new TrelloService(MockAuthKey, MockAuthToken)
-				      	{
-				      		RestClientProvider = Dependencies.RestClientProvider.Object
-				      	};
+				{
+					RestClientProvider = Dependencies.RestClientProvider.Object
+				};
 			}
 		}
 
@@ -54,10 +87,10 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Data
 
-		// There should be no reason to modify or append the data.
 		private SystemUnderTest _serviceGroup;
 		private Exception _exception;
-		private object _actualResult, _request;
+		private object _actualResult;
+		private string _request;
 
 		#endregion
 
@@ -107,14 +140,14 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Retrieve a Action")
-				.Given(AnEntityExists<Action>)
+				.Given(AnActionExists)
 				.When(RetrieveIsCalled<Action>)
 				.Then(MockExecuteIsCalled<Action>, Times.Once())
 				.And(RetrieveReturns<Action>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Retrieve a Notification")
-				.Given(AnEntityExists<Notification>)
+				.Given(ANotificationExists)
 				.When(RetrieveIsCalled<Notification>)
 				.Then(MockExecuteIsCalled<Notification>, Times.Once())
 				.And(RetrieveReturns<Notification>)
@@ -150,6 +183,30 @@ namespace Manatee.Trello.Test.UnitTests
 			_serviceGroup.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<T>>()))
 				.Returns(new RestSharpResponse<T>(new RestResponse<T>()) {Data = entity});
 		}
+		private void AnActionExists()
+		{
+			var entity = new Action
+			             	{
+			             		Id = MockEntityId,
+			             		Type = ActionType.CommentCard,
+			             		Data = new Manatee.Json.JsonObject()
+			             	};
+			_serviceGroup = new SystemUnderTest();
+			_serviceGroup.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<Action>>()))
+				.Returns(new RestSharpResponse<Action>(new RestResponse<Action>()) {Data = entity});
+		}
+		private void ANotificationExists()
+		{
+			var entity = new Notification
+			             	{
+			             		Id = MockEntityId,
+								Type = NotificationType.CommentCard,
+			             		Data = new Manatee.Json.JsonObject()
+			             	};
+			_serviceGroup = new SystemUnderTest();
+			_serviceGroup.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<Notification>>()))
+				.Returns(new RestSharpResponse<Notification>(new RestResponse<Notification>()) {Data = entity});
+		}
 
 		#endregion
 
@@ -159,7 +216,16 @@ namespace Manatee.Trello.Test.UnitTests
 			where T : ExpiringObject, new()
 		{
 			_request = MockEntityId;
-			CallService<string, T>(_serviceGroup.Sut.Retrieve<T>);
+			_exception = null;
+
+			try
+			{
+				_actualResult = _serviceGroup.Sut.Retrieve<T>(_request);
+			}
+			catch (Exception e)
+			{
+				_exception = e;
+			}
 		}
 
 		#endregion
@@ -179,7 +245,7 @@ namespace Manatee.Trello.Test.UnitTests
 		private void MockExecuteIsCalled<T>(Times times)
 			where T : ExpiringObject, new()
 		{
-			_serviceGroup.Dependencies.RestClient.Verify(c => c.Execute(It.IsAny<IRestRequest<T>>()));
+			_serviceGroup.Dependencies.RestClient.Verify(c => c.Execute(It.IsAny<IRestRequest<T>>()), times);
 		}
 		private void RetrieveReturns<T>()
 			where T : ExpiringObject, new()
@@ -187,29 +253,6 @@ namespace Manatee.Trello.Test.UnitTests
 			var actual = _actualResult as T;
 			Assert.IsNotNull(actual);
 			Assert.AreEqual(MockEntityId, actual.Id);
-		}
-
-		#endregion
-
-		#region Support Methods
-
-		private void CallService<TRequest, TResponse>(Func<TRequest, TResponse> func)
-		{
-			_exception = null;
-			var request = (TRequest) _request;
-
-			try
-			{
-				_actualResult = func(request);
-			}
-			catch (Exception e)
-			{
-				_exception = e;
-			}
-		}
-		private static bool CollectionsMatch<T>(IEnumerable<T> a, IEnumerable<T> b)
-		{
-			return (a.Count() == b.Count()) && a.All(b.Contains);
 		}
 
 		#endregion

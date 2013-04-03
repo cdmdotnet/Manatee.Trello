@@ -22,8 +22,6 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
@@ -33,14 +31,11 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Provides an interface to retrieving data from Trello.com.
 	/// </summary>
-	public class TrelloService
+	public class TrelloService : ITrelloService
 	{
-		private readonly ActionProvider _actionProvider;
-		private readonly NotificationProvider _notificationProvider;
-
-		internal readonly TrelloRest Api;
-
-		private readonly List<ExpiringObject> _cache;
+		private readonly string _authKey;
+		private readonly string _authToken;
+		private ITrelloRest _api;
 
 		/// <summary>
 		/// Gets and sets the IRestClientProvider to be used by the service.
@@ -50,14 +45,20 @@ namespace Manatee.Trello
 			get { return Api.RestClientProvider; }
 			set { Api.RestClientProvider = value; }
 		}
-		/// <summary>
-		/// Gets the IRestRequestProvider implemented by the IRestClientProvider.
-		/// </summary>
-		/// <remarks>
-		/// Provided for easier access.
-		/// </remarks>
-		public IRestRequestProvider RequestProvider { get { return RestClientProvider.RequestProvider; } }
 
+		private ITrelloRest Api
+		{
+			get { return _api ?? (_api = new CachingTrelloRest(new TrelloRest(_authKey, _authToken), new ActionProvider(), new NotificationProvider())); }
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+				if (_api != null)
+					throw new InvalidOperationException("Api already set.");
+				_api = value;
+			}
+		}
+		
 		/// <summary>
 		/// Creates a new instance of the TrelloService class.
 		/// </summary>
@@ -65,17 +66,8 @@ namespace Manatee.Trello
 		/// <param name="authToken"></param>
 		public TrelloService(string authKey, string authToken = null)
 		{
-			Api = new TrelloRest(authKey, authToken);
-			_cache = new List<ExpiringObject>();
-			_actionProvider = new ActionProvider();
-			_notificationProvider = new NotificationProvider();
-		}
-		/// <summary>
-		/// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
-		/// </summary>
-		~TrelloService()
-		{
-			_cache.ForEach(i => i.Svc = null);
+			_authKey = authKey;
+			_authToken = authToken;
 		}
 
 		/// <summary>
@@ -91,94 +83,7 @@ namespace Manatee.Trello
 		public T Retrieve<T>(string id) where T : ExpiringObject, new()
 		{
 			if (string.IsNullOrWhiteSpace(id)) return null;
-			T item = _cache.OfType<T>().FirstOrDefault(i => i.Match(id));
-			if (item != null) return item;
-			if (typeof(T).IsAssignableFrom(typeof(Action)))
-			{
-				return Execute(() => GetAction<T>(Api.Get(RequestProvider.Create<T>(id))));
-			}
-			if (typeof(T).IsAssignableFrom(typeof(Notification)))
-			{
-				return Execute(() => GetNotifcation<T>(Api.Get(RequestProvider.Create<T>(id))));
-			}
-			return Execute(() => Api.Get(RequestProvider.Create<T>(id)));
-		}
-		/// <summary>
-		/// Clears the cache of all retrieved items.
-		/// </summary>
-		public void Flush()
-		{
-			var remove = _cache.Where(e => e.IsExpired).ToList();
-			remove.ForEach(e => _cache.Remove(e));
-		}
-
-		internal IEnumerable<T> Get<T>(IRestCollectionRequest<T> request)
-			where T : ExpiringObject, new()
-		{
-			var items = Api.Get(request);
-			if (items != null)
-			{ 
-				foreach (var item in items)
-				{
-					item.Svc = this;
-					T newItem;
-					if (typeof(T).IsAssignableFrom(typeof(Action)))
-					{
-						newItem = GetAction<T>(item);
-					}
-					else if (typeof(T).IsAssignableFrom(typeof(Notification)))
-					{
-						newItem = GetNotifcation<T>(item);
-					}
-					else
-					{
-						newItem = item;
-					}
-					if (!_cache.OfType<T>().Contains(newItem))
-						_cache.Add(newItem);
-					yield return newItem;
-				}
-			}
-		}
-		internal T PutAndCache<T>(IRestRequest<T> request)
-			where T : ExpiringObject, new()
-		{
-			return Execute(() => Api.Put(request));
-		}
-		internal T PostAndCache<T>(IRestRequest<T> request)
-			where T : ExpiringObject, new()
-		{
-			return Execute(() => Api.Post(request));
-		}
-		internal T DeleteFromCache<T>(IRestRequest<T> request)
-			where T : ExpiringObject, new()
-		{
-			var retVal = Api.Delete(request);
-			_cache.Remove(retVal);
-			return retVal;
-		}
-
-		private T Execute<T>(Func<T> func)
-			where T : ExpiringObject
-		{
-			var retVal = func();
-			if (retVal != null)
-			{
-				retVal.Svc = this;
-				if (!_cache.Contains(retVal))
-					_cache.Add(retVal);
-			}
-			return retVal;
-		}
-		private T GetAction<T>(object action)
-		{
-			object obj = _actionProvider.Parse((Action)action);
-			return (T)obj;
-		}
-		private T GetNotifcation<T>(object notification)
-		{
-			object obj = _notificationProvider.Parse((Notification) notification);
-			return (T)obj;
+			return Api.Get(Api.RequestProvider.Create<T>(id));
 		}
 	}
 }
