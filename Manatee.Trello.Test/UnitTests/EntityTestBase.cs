@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,29 +15,34 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			public class MockRequestProvider : IRestRequestProvider
 			{
-				public IRestRequest<T> Create<T>() where T : ExpiringObject, new()
+				public IRestRequest<TRequest> Create<TRequest>()
+					where TRequest : ExpiringObject, new()
 				{
-					return new Mock<IRestRequest<T>>().Object;
+					return new Mock<IRestRequest<TRequest>>().Object;
 				}
-				public IRestRequest<T> Create<T>(string id) where T : ExpiringObject, new()
+				public IRestRequest<TRequest> Create<TRequest>(string id)
+					where TRequest : ExpiringObject, new()
 				{
-					var mock = new Mock<IRestRequest<T>>();
-					mock.SetupGet(r => r.Template).Returns(new T { Id = id });
+					var mock = new Mock<IRestRequest<TRequest>>();
+					mock.SetupGet(r => r.Template).Returns(new TRequest { Id = id });
 					return mock.Object;
 				}
-				public IRestRequest<T> Create<T>(ExpiringObject obj) where T : ExpiringObject, new()
+				public IRestRequest<TRequest> Create<TRequest>(ExpiringObject obj)
+					where TRequest : ExpiringObject, new()
 				{
-					var mock = new Mock<IRestRequest<T>>();
-					mock.SetupGet(r => r.Template).Returns(new T { Id = obj.Id });
+					var mock = new Mock<IRestRequest<TRequest>>();
+					mock.SetupGet(r => r.Template).Returns(new TRequest { Id = obj.Id });
 					return mock.Object;
 				}
-				public IRestRequest<T> Create<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity, string urlExtension) where T : ExpiringObject, new()
+				public IRestRequest<TRequest> Create<TRequest>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity, string urlExtension)
+					where TRequest : ExpiringObject, new()
 				{
-					return new Mock<IRestRequest<T>>().Object;
+					return new Mock<IRestRequest<TRequest>>().Object;
 				}
-				public IRestCollectionRequest<T> CreateCollectionRequest<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity) where T : ExpiringObject, new()
+				public IRestCollectionRequest<TRequest> CreateCollectionRequest<TRequest>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity)
+					where TRequest : ExpiringObject, new()
 				{
-					return new Mock<IRestCollectionRequest<T>>().Object;
+					return new Mock<IRestCollectionRequest<TRequest>>().Object;
 				}
 			}
 
@@ -78,7 +81,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Data
 
-		internal SystemUnderTest _serviceGroup;
+		internal SystemUnderTest _systemUnderTest;
 		protected Exception _exception;
 		protected object _actualResult;
 
@@ -86,6 +89,40 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Given
 
+		protected void SetupMockGet<TRequest>()
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestRequest<TRequest>>()))
+				.Returns(new TRequest());
+		}
+		protected void SetupMockGetCollection<TRequest>()
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<TRequest>>()))
+				.Returns(new List<TRequest>());
+		}
+		protected void SetupMockPut<TRequest>()
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Put(It.IsAny<IRestRequest<TRequest>>()))
+				.Returns(new TRequest());
+		}
+		protected void SetupMockPost<TRequest>()
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Post(It.IsAny<IRestRequest<TRequest>>()))
+				.Returns(new TRequest());
+		}
+		protected void SetupMockDelete<TRequest>()
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Delete(It.IsAny<IRestRequest<TRequest>>()))
+				.Returns(new TRequest());
+		}
+		protected void EntityIsExpired()
+		{
+			_systemUnderTest.Sut.MarkForUpdate();
+		}
 
 		#endregion
 
@@ -105,6 +142,20 @@ namespace Manatee.Trello.Test.UnitTests
 				_exception = e;
 			}
 		}
+		protected void Execute(System.Action action)
+		{
+			_exception = null;
+			_actualResult = null;
+
+			try
+			{
+				action();
+			}
+			catch (Exception e)
+			{
+				_exception = e;
+			}
+		}
 
 		#endregion
 
@@ -114,11 +165,57 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Assert.IsNull(_exception);
 		}
-		protected void ExceptionIsThrown<T>()
-			where T : Exception
+		protected void ExceptionIsThrown<TRequest>()
+			where TRequest : Exception
 		{
 			Assert.IsNotNull(_exception);
-			Assert.IsTrue(_exception is T);
+			Assert.IsTrue(_exception is TRequest);
+		}
+		[GenericMethodFormat("API.Get<{0}> is called {1} time(s)")]
+		protected void MockApiGetIsCalled<TRequest>(int times)
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Get(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+		}
+		[GenericMethodFormat("API.GetCollection<{0}> is called {1} time(s)")]
+		protected void MockApiGetCollectionIsCalled<TRequest>(int times)
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Get(It.IsAny<IRestCollectionRequest<TRequest>>()), Times.Exactly(times));
+		}
+		[GenericMethodFormat("API.Put<{0}> is called {1} time(s)")]
+		protected void MockApiPutIsCalled<TRequest>(int times)
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Put(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+		}
+		[GenericMethodFormat("API.Post<{0}> is called {1} time(s)")]
+		protected void MockApiPostIsCalled<TRequest>(int times)
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Post(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+		}
+		[GenericMethodFormat("API.Delete<{0}> is called {1} time(s)")]
+		protected void MockApiDeleteIsCalled<TRequest>(int times)
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Delete(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+		}
+		[GenericMethodFormat("{0} is returned")]
+		protected void ValueIsReturned<TResult>(TResult expectedValue)
+		{
+			Assert.IsInstanceOfType(_actualResult, typeof (TResult));
+			Assert.AreEqual(expectedValue, (TResult) _actualResult);
+		}
+		protected void ValueOfTypeIsReturned<TResult>()
+		{
+			Assert.IsNotNull(_actualResult);
+			Assert.IsInstanceOfType(_actualResult, typeof (TResult));
+		}
+		[GenericMethodFormat("{0} is returned")]
+		protected void PropertyIsSet<TParam>(TParam expectedValue, TParam propValue)
+		{
+			Assert.AreEqual(expectedValue, propValue);
 		}
 
 		#endregion

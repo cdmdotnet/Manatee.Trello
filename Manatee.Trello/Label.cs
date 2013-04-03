@@ -56,11 +56,10 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _color;
 			}
-			set 
+			internal set 
 			{
 				if (_color == value) return;
 				_color = value;
-				UpdateApiColor();
 			}
 		}
 		/// <summary>
@@ -73,7 +72,7 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _name;
 			}
-			set
+			internal set
 			{
 				if (_name == value) return;
 				_name = value ?? string.Empty;
