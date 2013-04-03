@@ -31,7 +31,7 @@ namespace Manatee.Trello.Implementation
 		internal override string Key { get { return "idOrganizationsInvited"; } }
 
 		public InvitedOrganization() {}
-		internal InvitedOrganization(TrelloService svc, string id)
+		internal InvitedOrganization(ITrelloRest svc, string id)
 			: base(svc, id) {}
 
 		public bool Equals(InvitedOrganization other)

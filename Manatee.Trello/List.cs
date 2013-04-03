@@ -63,7 +63,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
 			}
 		}
 		/// <summary>
@@ -157,7 +157,7 @@ namespace Manatee.Trello
 			_actions = new ExpiringList<List, Action>(this);
 			_cards = new ExpiringList<List, Card>(this);
 		}
-		internal List(TrelloService svc, string id)
+		internal List(ITrelloRest svc, string id)
 			: base(svc, id)
 		{
 			_actions = new ExpiringList<List, Action>(svc, this);
@@ -182,7 +182,7 @@ namespace Manatee.Trello
 				Parameters.Add("desc", description);
 			if ((position != null) && position.IsValid)
 				Parameters.Add("pos", position);
-			var card = Svc.PostAndCache(request);
+			var card = Svc.Post(request);
 			_cards.MarkForUpdate();
 			return card;
 		}
@@ -205,7 +205,7 @@ namespace Manatee.Trello
 			Parameters.Add("idBoard", board.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
-			Svc.PutAndCache(Svc.RequestProvider.Create<List>(this));
+			Svc.Put(Svc.RequestProvider.Create<List>(this));
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -258,11 +258,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return Id == id;
+			if (!(obj is List)) return false;
+			return Equals((List) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var list = entity as List;
@@ -280,7 +299,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<List>(Id));
+			var entity = Svc.Get(Svc.RequestProvider.Create<List>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -301,7 +320,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<List>(this);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 			_actions.MarkForUpdate();
 		}
 	}

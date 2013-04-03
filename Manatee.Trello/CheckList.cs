@@ -85,7 +85,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
 			}
 		}
 		/// <summary>
@@ -96,7 +96,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
 			}
 			set
 			{
@@ -160,7 +160,7 @@ namespace Manatee.Trello
 		{
 			_checkItems = new ExpiringList<CheckList, CheckItem>(this);
 		}
-		internal CheckList(TrelloService svc, string id)
+		internal CheckList(ITrelloRest svc, string id)
 			: base(svc, id)
 		{
 			_checkItems = new ExpiringList<CheckList, CheckItem>(svc, this);
@@ -181,7 +181,7 @@ namespace Manatee.Trello
 			Parameters.Add("checked", isChecked);
 			if ((position != null) && position.IsValid)
 				Parameters.Add("pos", position);
-			var checkItem = Svc.PostAndCache(request);
+			var checkItem = Svc.Post(request);
 			_checkItems.MarkForUpdate();
 			return checkItem;
 		}
@@ -191,7 +191,7 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
-			Svc.DeleteFromCache(Svc.RequestProvider.Create<CheckList>(Id));	
+			Svc.Delete(Svc.RequestProvider.Create<CheckList>(Id));	
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -242,11 +242,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return Id == id;
+			if (!(obj is CheckList)) return false;
+			return Equals((CheckList) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var checkList = entity as CheckList;
@@ -263,7 +282,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<CheckList>(Id));
+			var entity = Svc.Get(Svc.RequestProvider.Create<CheckList>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -284,7 +303,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<CheckItem>(new[] { Owner, this }, this);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 		}
 	}
 }

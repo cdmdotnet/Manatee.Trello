@@ -75,7 +75,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the CheckItemState object.
 		/// </summary>
 		public CheckItemState() {}
-		internal CheckItemState(TrelloService svc, Card owner)
+		internal CheckItemState(ITrelloRest svc, Card owner)
 			: base(svc, owner) {}
 
 		/// <summary>
@@ -119,11 +119,30 @@ namespace Manatee.Trello
 		{
 			return (Owner == other.Owner) && (Id == other.Id);
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return false;
+			if (!(obj is CheckItemState)) return false;
+			return Equals((CheckItemState) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			_isInitialized = true;

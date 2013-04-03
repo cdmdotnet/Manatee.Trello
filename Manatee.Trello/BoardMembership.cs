@@ -68,7 +68,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
+				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Get(Svc.RequestProvider.Create<Member>(_memberId))) : _member;
 			}
 		}
 		///<summary>
@@ -91,7 +91,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the BoardMembership class.
 		///</summary>
 		public BoardMembership() {}
-		internal BoardMembership(TrelloService svc, Board owner)
+		internal BoardMembership(ITrelloRest svc, Board owner)
 			: base(svc, owner) {}
 
 		/// <summary>
@@ -139,11 +139,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-		
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return Id == id;
+			if (!(obj is BoardMembership)) return false;
+			return Equals((BoardMembership) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var membership = entity as BoardMembership;
@@ -159,7 +178,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<BoardMembership>(new[] {Owner, this}));
+			var entity = Svc.Get(Svc.RequestProvider.Create<BoardMembership>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>

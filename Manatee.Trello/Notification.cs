@@ -69,7 +69,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Data associated with the notification.  Contents depend upon the notification's type.
 		/// </summary>
-		public JsonValue Data { get { return _data; } }
+		public JsonValue Data { get { return _data; } set { _data = value; } }
 		///<summary>
 		/// The date on which the notification was created.
 		///</summary>
@@ -101,14 +101,14 @@ namespace Manatee.Trello
 			get
 			{
 				return ((_memberCreator == null) || (_memberCreator.Id != _memberCreatorId)) && (Svc != null)
-				       	? (_memberCreator = Svc.Retrieve<Member>(_memberCreatorId))
+				       	? (_memberCreator = Svc.Get(Svc.RequestProvider.Create<Member>(_memberCreatorId)))
 				       	: _memberCreator;
 			}
 		}
 		/// <summary>
 		/// Gets the notification's type.
 		/// </summary>
-		public NotificationType Type { get { return _type; } }
+		public NotificationType Type { get { return _type; } internal set { _type = value; } }
 
 		internal override string Key { get { return "notifications"; } }
 
@@ -146,7 +146,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the Notification class.
 		/// </summary>
 		public Notification() {}
-		internal Notification(TrelloService svc, string id)
+		internal Notification(ITrelloRest svc, string id)
 			: base(svc, id) {}
 
 		/// <summary>
@@ -199,11 +199,30 @@ namespace Manatee.Trello
 		{
 			return Id == other.Id;
 		}
-
-		internal override bool Match(string id)
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
 		{
-			return Id == id;
+			if (!(obj is Notification)) return false;
+			return Equals((Notification) obj);
 		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		internal override sealed void Refresh(ExpiringObject entity)
 		{
 			var notification = entity as Notification;
@@ -222,7 +241,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<Notification>(Id));
+			var entity = Svc.Get(Svc.RequestProvider.Create<Notification>(Id));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -241,7 +260,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<Notification>(this);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 		}
 
 		private void UpdateType()

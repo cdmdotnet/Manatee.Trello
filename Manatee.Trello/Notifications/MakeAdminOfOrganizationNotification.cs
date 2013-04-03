@@ -41,7 +41,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_organization == null) || (_organization.Id != _organizationId)) && (Svc != null) ? (_organization = Svc.Retrieve<Organization>(_organizationId)) : _organization;
+				return ((_organization == null) || (_organization.Id != _organizationId)) && (Svc != null) ? (_organization = Svc.Get(Svc.RequestProvider.Create<Organization>(_organizationId))) : _organization;
 			}
 		}
 

@@ -153,7 +153,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the BoardPersonalPreferences class.
 		/// </summary>
 		public BoardPersonalPreferences() {}
-		internal BoardPersonalPreferences(TrelloService svc, Board owner)
+		internal BoardPersonalPreferences(ITrelloRest svc, Board owner)
 			: base(svc, owner) {}
 
 		/// <summary>
@@ -192,10 +192,6 @@ namespace Manatee.Trello
 			return json;
 		}
 
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var prefs = entity as BoardPersonalPreferences;
@@ -213,7 +209,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<BoardPersonalPreferences>(new[] {Owner, this}));
+			var entity = Svc.Get(Svc.RequestProvider.Create<BoardPersonalPreferences>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -223,7 +219,7 @@ namespace Manatee.Trello
 
 		private void Post()
 		{
-			Svc.Api.Post(Svc.RequestProvider.Create<BoardPersonalPreferences>(new[] {Owner, this}, this));
+			Svc.Post(Svc.RequestProvider.Create<BoardPersonalPreferences>(new[] {Owner, this}, this));
 		}
 	}
 }

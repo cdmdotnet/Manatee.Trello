@@ -33,11 +33,11 @@ namespace Manatee.Trello.Implementation
 	public abstract class JsonCompatibleExpiringObject : ExpiringObject, IJsonCompatible
 	{
 		internal JsonCompatibleExpiringObject() {}
-		internal JsonCompatibleExpiringObject(TrelloService svc)
+		internal JsonCompatibleExpiringObject(ITrelloRest svc)
 			: base(svc) {}
-		internal JsonCompatibleExpiringObject(TrelloService svc, string id)
+		internal JsonCompatibleExpiringObject(ITrelloRest svc, string id)
 			: base(svc, id) {}
-		internal JsonCompatibleExpiringObject(TrelloService svc, ExpiringObject owner)
+		internal JsonCompatibleExpiringObject(ITrelloRest svc, ExpiringObject owner)
 			: base(svc, owner) {}
 
 		/// <summary>

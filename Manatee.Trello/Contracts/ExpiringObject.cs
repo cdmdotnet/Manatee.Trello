@@ -23,6 +23,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Implementation;
 
 namespace Manatee.Trello.Contracts
 {
@@ -33,7 +34,7 @@ namespace Manatee.Trello.Contracts
 	public abstract class ExpiringObject
 	{
 		private DateTime _expires;
-		private TrelloService _svc;
+		private ITrelloRest _svc;
 		/// <summary>
 		/// Indicates that the object has refreshed from the website at least once.
 		/// </summary>
@@ -55,13 +56,11 @@ namespace Manatee.Trello.Contracts
 		/// </remarks>
 		public Dictionary<string, object> Parameters { get; private set; }
 		/// <summary>
-		/// Gets and sets the service which manages this object.
+		/// Gets whether this object has expired is an needs to be updated.
 		/// </summary>
-		/// <remarks>
-		/// This instance is used to refresh the object's data.  Setting this property will propigate
-		/// the instance to the objects which it owns.
-		/// </remarks>
-		public TrelloService Svc
+		public bool IsExpired { get { return DateTime.Now >= _expires; } }
+
+		internal ITrelloRest Svc
 		{
 			get { return _svc; }
 			set
@@ -72,11 +71,6 @@ namespace Manatee.Trello.Contracts
 				MarkForUpdate();
 			}
 		}
-		/// <summary>
-		/// Gets whether this object has expired is an needs to be updated.
-		/// </summary>
-		public bool IsExpired { get { return DateTime.Now >= _expires; } }
-
 		internal abstract string Key { get; }
 
 		internal ExpiringObject()
@@ -84,17 +78,17 @@ namespace Manatee.Trello.Contracts
 			Parameters = new Dictionary<string, object>();
 			MarkForUpdate();
 		}
-		internal ExpiringObject(TrelloService svc)
+		internal ExpiringObject(ITrelloRest svc)
 			: this()
 		{
 			Svc = svc;
 		}
-		internal ExpiringObject(TrelloService svc, string id)
+		internal ExpiringObject(ITrelloRest svc, string id)
 			: this(svc)
 		{
 			Id = id;
 		}
-		internal ExpiringObject(TrelloService svc, ExpiringObject owner)
+		internal ExpiringObject(ITrelloRest svc, ExpiringObject owner)
 			: this(svc)
 		{
 			Owner = owner;
@@ -115,7 +109,6 @@ namespace Manatee.Trello.Contracts
 			_expires = DateTime.Now + Options.ItemDuration;
 		}
 
-		internal abstract bool Match(string id);
 		internal abstract void Refresh(ExpiringObject entity);
 
 		/// <summary>

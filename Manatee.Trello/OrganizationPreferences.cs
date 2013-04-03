@@ -134,7 +134,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the OrganizationPreferences class.
 		/// </summary>
 		public OrganizationPreferences() {}
-		internal OrganizationPreferences(TrelloService svc, Organization owner)
+		internal OrganizationPreferences(ITrelloRest svc, Organization owner)
 			: base(svc, owner) {}
 
 		/// <summary>
@@ -172,10 +172,6 @@ namespace Manatee.Trello
 			return json;
 		}
 
-		internal override bool Match(string id)
-		{
-			return false;
-		}
 		internal override void Refresh(ExpiringObject entity)
 		{
 			var prefs = entity as OrganizationPreferences;
@@ -193,7 +189,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Get()
 		{
-			var entity = Svc.Api.Get(Svc.RequestProvider.Create<OrganizationPreferences>(new[] {Owner, this}));
+			var entity = Svc.Get(Svc.RequestProvider.Create<OrganizationPreferences>(new[] {Owner, this}));
 			Refresh(entity);
 		}
 		/// <summary>
@@ -209,7 +205,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var request = Svc.RequestProvider.Create<OrganizationPreferences>(new[] { Owner, this }, this, extension);
-			Svc.PutAndCache(request);
+			Svc.Put(request);
 		}
 		private void UpdatePermissionLevel()
 		{

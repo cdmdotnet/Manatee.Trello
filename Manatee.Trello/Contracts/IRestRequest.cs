@@ -38,6 +38,13 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		Method Method { get; set; }
 		/// <summary>
+		/// Gets a template for the expected value.
+		/// </summary>
+		/// <remarks>
+		/// Provided for caching comparisons.
+		/// </remarks>
+		T Template { get; }
+		/// <summary>
 		/// Adds the parameters from the ParameterSource object.
 		/// </summary>
 		void AddParameters();

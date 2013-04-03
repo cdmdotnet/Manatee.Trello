@@ -58,6 +58,9 @@
     <Compile Include="Actions\AddToOrganizationBoardAction.cs" />
     <Compile Include="Actions\CommentCardAction.cs" />
     <Compile Include="Actions\CreateCardAction.cs" />
+    <Compile Include="Contracts\CachingTrelloRest.cs" />
+    <Compile Include="Contracts\ITrelloService.cs" />
+    <Compile Include="Implementation\ITrelloRest.cs" />
     <Compile Include="Notifications\AddedAttachmentToCardNotification.cs" />
     <Compile Include="Notifications\AddedMemberToCardNotification.cs" />
     <Compile Include="Notifications\CreateCardNotification.cs" />

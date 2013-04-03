@@ -43,13 +43,13 @@ namespace Manatee.Trello.Implementation
 			_source = source;
 			_list = new List<TContent>();
 		}
-		public ExpiringList(TrelloService svc, TSource source)
+		public ExpiringList(ITrelloRest svc, TSource source)
 			: base(svc)
 		{
 			_source = source;
 			_list = new List<TContent>();
 		}
-		public ExpiringList(TrelloService svc, TSource source, IEnumerable<TContent> items)
+		public ExpiringList(ITrelloRest svc, TSource source, IEnumerable<TContent> items)
 			: base(svc)
 		{
 			_source = source;
@@ -69,7 +69,7 @@ namespace Manatee.Trello.Implementation
 			return _list.ToString();
 		}
 
-		internal override bool Match(string id)
+		internal virtual bool Match(string id)
 		{
 			return false;
 		}

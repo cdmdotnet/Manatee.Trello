@@ -30,7 +30,7 @@ namespace Manatee.Trello.Implementation
 		internal override string Key { get { return "idPremOrgsAdmin"; } }
 
 		public PremiumOrganization() { }
-		internal PremiumOrganization(TrelloService svc, string id)
+		internal PremiumOrganization(ITrelloRest svc, string id)
 			: base(svc, id) {}
 
 		public bool Equals(PremiumOrganization other)
