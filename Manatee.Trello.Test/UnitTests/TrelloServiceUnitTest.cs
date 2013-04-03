@@ -87,7 +87,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Data
 
-		private SystemUnderTest _serviceGroup;
+		private SystemUnderTest _systemUnderTest;
 		private Exception _exception;
 		private object _actualResult;
 		private string _request;
@@ -179,8 +179,8 @@ namespace Manatee.Trello.Test.UnitTests
 			where T : JsonCompatibleExpiringObject, new()
 		{
 			T entity = new T {Id = MockEntityId};
-			_serviceGroup = new SystemUnderTest();
-			_serviceGroup.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<T>>()))
+			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<T>>()))
 				.Returns(new RestSharpResponse<T>(new RestResponse<T>()) {Data = entity});
 		}
 		private void AnActionExists()
@@ -191,8 +191,8 @@ namespace Manatee.Trello.Test.UnitTests
 			             		Type = ActionType.CommentCard,
 			             		Data = new Manatee.Json.JsonObject()
 			             	};
-			_serviceGroup = new SystemUnderTest();
-			_serviceGroup.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<Action>>()))
+			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<Action>>()))
 				.Returns(new RestSharpResponse<Action>(new RestResponse<Action>()) {Data = entity});
 		}
 		private void ANotificationExists()
@@ -203,8 +203,8 @@ namespace Manatee.Trello.Test.UnitTests
 								Type = NotificationType.CommentCard,
 			             		Data = new Manatee.Json.JsonObject()
 			             	};
-			_serviceGroup = new SystemUnderTest();
-			_serviceGroup.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<Notification>>()))
+			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<Notification>>()))
 				.Returns(new RestSharpResponse<Notification>(new RestResponse<Notification>()) {Data = entity});
 		}
 
@@ -220,7 +220,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 			try
 			{
-				_actualResult = _serviceGroup.Sut.Retrieve<T>(_request);
+				_actualResult = _systemUnderTest.Sut.Retrieve<T>(_request);
 			}
 			catch (Exception e)
 			{
@@ -245,7 +245,7 @@ namespace Manatee.Trello.Test.UnitTests
 		private void MockExecuteIsCalled<T>(Times times)
 			where T : ExpiringObject, new()
 		{
-			_serviceGroup.Dependencies.RestClient.Verify(c => c.Execute(It.IsAny<IRestRequest<T>>()), times);
+			_systemUnderTest.Dependencies.RestClient.Verify(c => c.Execute(It.IsAny<IRestRequest<T>>()), times);
 		}
 		private void RetrieveReturns<T>()
 			where T : ExpiringObject, new()

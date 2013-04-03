@@ -98,9 +98,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of an Attachment.
 		/// </summary>
-		public Attachment() { }
+		public Attachment() {}
 		internal Attachment(ITrelloRest svc, Card owner)
 			: base(svc, owner) {}
+
+		public void Delete()
+		{
+			if (Svc == null) return;
+			Svc.Delete(Svc.RequestProvider.Create<Attachment>(new ExpiringObject[] {Owner, this}));
+		}
 
 		/// <summary>
 		/// Builds an object from a JsonValue.

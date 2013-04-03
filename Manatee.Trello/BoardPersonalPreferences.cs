@@ -21,7 +21,6 @@
 					on Trello.com.
 
 ***************************************************************************************/
-using System;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
