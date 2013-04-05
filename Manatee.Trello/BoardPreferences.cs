@@ -151,7 +151,7 @@ namespace Manatee.Trello
 				if (_showCardCovers == value) return;
 				Validate.Nullable(value);
 				_showCardCovers = value;
-				Parameters.Add("value", _apiInvitations.ToLowerString());
+				Parameters.Add("value", _showCardCovers.ToLowerString());
 				Put("cardCovers");
 			}
 		}

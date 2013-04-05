@@ -102,6 +102,9 @@ namespace Manatee.Trello
 		internal Attachment(ITrelloRest svc, Card owner)
 			: base(svc, owner) {}
 
+		/// <summary>
+		/// Deletes this attachment.
+		/// </summary>
 		public void Delete()
 		{
 			if (Svc == null) return;

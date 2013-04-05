@@ -120,8 +120,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isClosed == value) return;
-				if (!value.HasValue)
-					throw new ArgumentNullException("value");
+				Validate.Nullable(value);
 				_isClosed = value;
 				Parameters.Add("closed", _isClosed.ToLowerString());
 				Put();
@@ -140,8 +139,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isPinned == value) return;
-				if (!value.HasValue)
-					throw new ArgumentNullException("value");
+				Validate.Nullable(value);
 				_isPinned = value;
 				Parameters.Add("pinned", _isPinned.ToLowerString());
 				Put();
@@ -160,8 +158,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isSubscribed == value) return;
-				if (!value.HasValue)
-					throw new ArgumentNullException("value");
+				Validate.Nullable(value);
 				_isSubscribed = value;
 				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
 				Put();
@@ -192,8 +189,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_name == value) return;
-				if (!string.IsNullOrWhiteSpace(value))
-					throw new ArgumentNullException("value");
+				Validate.NonEmptyString(value);
 				_name = value;
 				Parameters.Add("name", _name);
 				Put();
@@ -312,7 +308,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to invite.</param>
 		/// <param name="type">The level of membership offered.</param>
-		private void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
+		internal void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");
@@ -331,7 +327,7 @@ namespace Manatee.Trello
 		/// Rescinds an existing invitation to the board.
 		/// </summary>
 		/// <param name="member"></param>
-		private void RescindInvitation(Member member)
+		internal void RescindInvitation(Member member)
 		{
 			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to boards is not yet supported by the Trello API.");

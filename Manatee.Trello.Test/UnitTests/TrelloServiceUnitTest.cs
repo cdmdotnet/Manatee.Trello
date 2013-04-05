@@ -236,6 +236,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Assert.IsNull(_exception);
 		}
+		[GenericMethodFormat("{0} is thrown")]
 		private void ExceptionIsThrown<T>()
 			where T : Exception
 		{

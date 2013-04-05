@@ -53,13 +53,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				VerifyNotExpired();
 				return _color;
 			}
 			internal set 
 			{
 				if (_color == value) return;
 				_color = value;
+				UpdateApiColor();
 			}
 		}
 		/// <summary>
@@ -69,7 +69,6 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				VerifyNotExpired();
 				return _name;
 			}
 			internal set
@@ -97,13 +96,22 @@ namespace Manatee.Trello
 		/// Creates a new instance of the Label class.
 		/// </summary>
 		public Label()
+			: this(LabelColor.Unknown) {}
+		/// <summary>
+		/// Creates a new instance of the Label class.
+		/// </summary>
+		public Label(LabelColor color)
 		{
-			_color = LabelColor.Unknown;
+			_color = color;
+			UpdateApiColor();
+			_isInitialized = true;
 		}
 		internal Label(ITrelloRest svc, Card owner)
 			: base(svc, owner)
 		{
 			_color = LabelColor.Unknown;
+			UpdateApiColor();
+			_isInitialized = true;
 		}
 
 		/// <summary>
@@ -184,11 +192,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
-		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<Label>(new[] {Owner, this}));
-			Refresh(entity);
-		}
+		protected override void Get() {}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
