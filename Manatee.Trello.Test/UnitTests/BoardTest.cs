@@ -25,11 +25,11 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Actions property")
 				.Given(ABoard)
-				.When(ActionsIsAccessed)
 				.And(EntityIsExpired)
+				.When(ActionsIsAccessed)
 				.Then(MockApiGetIsCalled<Action>, 0)
 				.And(MockApiGetCollectionIsCalled<Action>, 0)
-				.And(ValueOfTypeIsReturned<IEnumerable<Action>>)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -45,11 +45,11 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ArchivedCards property")
 				.Given(ABoard)
-				.When(ArchivedCardsIsAccessed)
 				.And(EntityIsExpired)
+				.When(ArchivedCardsIsAccessed)
 				.Then(MockApiGetIsCalled<Card>, 0)
 				.And(MockApiGetCollectionIsCalled<Card>, 0)
-				.And(ValueOfTypeIsReturned<IEnumerable<Card>>)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<Card>>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -65,11 +65,11 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ArchivedLists property")
 				.Given(ABoard)
-				.When(ArchivedListsIsAccessed)
 				.And(EntityIsExpired)
+				.When(ArchivedListsIsAccessed)
 				.Then(MockApiGetIsCalled<Card>, 0)
 				.And(MockApiGetCollectionIsCalled<List>, 0)
-				.And(ValueOfTypeIsReturned<IEnumerable<List>>)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<List>>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -85,8 +85,15 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Description property")
 				.Given(ABoard)
+				.And(EntityIsNotExpired)
 				.When(DescriptionIsAccessed)
+				.Then(MockApiGetIsCalled<Board>, 0)
+				.And(ExceptionIsNotThrown)
+				
+				.WithScenario("Access Description property when expired")
+				.Given(ABoard)
 				.And(EntityIsExpired)
+				.When(DescriptionIsAccessed)
 				.Then(MockApiGetIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -130,8 +137,15 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access IsClosed property")
 				.Given(ABoard)
+				.And(EntityIsNotExpired)
 				.When(IsClosedIsAccessed)
+				.Then(MockApiGetIsCalled<Board>, 0)
+				.And(ExceptionIsNotThrown)
+				
+				.WithScenario("Access IsClosed property when expired")
+				.Given(ABoard)
 				.And(EntityIsExpired)
+				.When(IsClosedIsAccessed)
 				.Then(MockApiGetIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -168,8 +182,15 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access IsPinned property")
 				.Given(ABoard)
+				.And(EntityIsNotExpired)
 				.When(IsPinnedIsAccessed)
+				.Then(MockApiGetIsCalled<Board>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access IsPinned property when expired")
+				.Given(ABoard)
 				.And(EntityIsExpired)
+				.When(IsPinnedIsAccessed)
 				.Then(MockApiGetIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -206,8 +227,15 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access IsSubscribed property")
 				.Given(ABoard)
+				.And(EntityIsNotExpired)
 				.When(IsSubscribedIsAccessed)
+				.Then(MockApiGetIsCalled<Board>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access IsSubscribed property when expired")
+				.Given(ABoard)
 				.And(EntityIsExpired)
+				.When(IsSubscribedIsAccessed)
 				.Then(MockApiGetIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -244,10 +272,10 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access LabelNames property")
 				.Given(ABoard)
-				.When(LabelNamesIsAccessed)
 				.And(EntityIsExpired)
+				.When(LabelNamesIsAccessed)
 				.Then(MockApiGetIsCalled<LabelNames>, 0)
-				.And(ValueOfTypeIsReturned<LabelNames>)
+				.And(NonNullValueOfTypeIsReturned<LabelNames>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -263,11 +291,11 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Lists property")
 				.Given(ABoard)
-				.When(ListsIsAccessed)
 				.And(EntityIsExpired)
+				.When(ListsIsAccessed)
 				.Then(MockApiGetIsCalled<List>, 0)
 				.And(MockApiGetCollectionIsCalled<List>, 0)
-				.And(ValueOfTypeIsReturned<IEnumerable<List>>)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<List>>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -283,13 +311,13 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Members property")
 				.Given(ABoard)
-				.When(MembersIsAccessed)
 				.And(EntityIsExpired)
+				.When(MembersIsAccessed)
 				.Then(MockApiGetIsCalled<Member>, 0)
 				.And(MockApiGetCollectionIsCalled<Member>, 0)
 				.And(MockApiGetIsCalled<BoardMembership>, 0)
 				.And(MockApiGetCollectionIsCalled<BoardMembership>, 0)
-				.And(ValueOfTypeIsReturned<IEnumerable<BoardMembership>>)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<BoardMembership>>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -305,8 +333,15 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Name property")
 				.Given(ABoard)
+				.And(EntityIsNotExpired)
 				.When(NameIsAccessed)
+				.Then(MockApiGetIsCalled<Board>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Name property when expired")
+				.Given(ABoard)
 				.And(EntityIsExpired)
+				.When(NameIsAccessed)
 				.Then(MockApiGetIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -350,9 +385,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Organization property")
 				.Given(ABoard)
+				.And(EntityIsNotExpired)
 				.When(OrganizationIsAccessed)
+				.Then(MockApiGetIsCalled<Board>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Organization property when expired")
+				.Given(ABoard)
 				.And(EntityIsExpired)
-				.Then(MockApiGetIsCalled<Organization>, 1)
+				.When(OrganizationIsAccessed)
+				.Then(MockApiGetIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Organization property")
@@ -394,10 +436,10 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access PersonalPreferences property")
 				.Given(ABoard)
-				.When(PersonalPreferencesIsAccessed)
 				.And(EntityIsExpired)
+				.When(PersonalPreferencesIsAccessed)
 				.Then(MockApiGetIsCalled<BoardPersonalPreferences>, 0)
-				.And(ValueOfTypeIsReturned<BoardPersonalPreferences>)
+				.And(NonNullValueOfTypeIsReturned<BoardPersonalPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -413,10 +455,10 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Preferences property")
 				.Given(ABoard)
-				.When(PreferencesIsAccessed)
 				.And(EntityIsExpired)
+				.When(PreferencesIsAccessed)
 				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
-				.And(ValueOfTypeIsReturned<BoardPreferences>)
+				.And(NonNullValueOfTypeIsReturned<BoardPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -432,8 +474,8 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Url property")
 				.Given(ABoard)
-				.When(UrlIsAccessed)
 				.And(EntityIsExpired)
+				.When(UrlIsAccessed)
 				.Then(MockApiGetIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
 
@@ -452,7 +494,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoard)
 				.When(AddListIsCalled, "list")
 				.Then(MockApiPostIsCalled<List>, 1)
-				.And(ValueOfTypeIsReturned<List>)
+				.And(NonNullValueOfTypeIsReturned<List>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("AddList is called with null")
@@ -587,50 +629,31 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest = new SystemUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			SetupMockGet<Action>();
-			SetupMockGet<Board>();
-			SetupMockGet<Card>();
-			SetupMockGet<List>();
-			SetupMockGet<Organization>();
-			SetupMockPut<Board>();
-			SetupMockPut<Member>();
 			SetupMockPost<List>();
 		}
 		private void DescriptionIs(string value)
 		{
-			_systemUnderTest.Sut.Svc = null;
-			_systemUnderTest.Sut.Description = value;
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			SetupProperty(() => _systemUnderTest.Sut.Description = value);
 		}
 		private void IsClosedIs(bool? value)
 		{
-			_systemUnderTest.Sut.Svc = null;
-			_systemUnderTest.Sut.IsClosed = value;
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			SetupProperty(() => _systemUnderTest.Sut.IsClosed = value);
 		}
 		private void IsPinnedIs(bool? value)
 		{
-			_systemUnderTest.Sut.Svc = null;
-			_systemUnderTest.Sut.IsPinned = value;
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			SetupProperty(() => _systemUnderTest.Sut.IsPinned = value);
 		}
 		private void IsSubscribedIs(bool? value)
 		{
-			_systemUnderTest.Sut.Svc = null;
-			_systemUnderTest.Sut.IsSubscribed = value;
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			SetupProperty(() => _systemUnderTest.Sut.IsSubscribed = value);
 		}
 		private void NameIs(string value)
 		{
-			_systemUnderTest.Sut.Svc = null;
-			_systemUnderTest.Sut.Name = value;
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			SetupProperty(() => _systemUnderTest.Sut.Name = value);
 		}
 		private void OrganizationIs(Organization value)
 		{
-			_systemUnderTest.Sut.Svc = null;
-			_systemUnderTest.Sut.Organization = value;
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			SetupProperty(() => _systemUnderTest.Sut.Organization = value);
 		}
 
 		#endregion

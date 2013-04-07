@@ -20,15 +20,7 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("Access Member property")
 				.Given(AnAttachment)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
-				.And(MemberIsReturned)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Access Member property twice")
-				.Given(AnAttachment)
-				.When(MemberIsAccessed)
-				.And(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<Attachment>, 0)
 				.And(MemberIsReturned)
 				.And(ExceptionIsNotThrown)
 

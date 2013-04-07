@@ -67,6 +67,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Comments property to same")
+				.Given(ABoardPreferencesObject)
+				.And(CommentsIs, BoardCommentType.Disabled)
+				.When(CommentsIsSet, BoardCommentType.Disabled)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -91,6 +98,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Invitations property to same")
+				.Given(ABoardPreferencesObject)
+				.And(InvitationsIs, BoardInvitationType.Admins)
+				.When(InvitationsIsSet, BoardInvitationType.Admins)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -113,6 +127,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoardPreferencesObject)
 				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
 				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set PermissionLevel property to same")
+				.Given(ABoardPreferencesObject)
+				.And(PermissionLevelIs, BoardPermissionLevelType.Public)
+				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -177,6 +198,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Voting property to same")
+				.Given(ABoardPreferencesObject)
+				.And(VotingIs, BoardVotingType.Public)
+				.When(VotingIsSet, BoardVotingType.Public)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
 				.Execute();
 		}
 
@@ -191,15 +219,27 @@ namespace Manatee.Trello.Test.UnitTests
 		}
 		private void AllowsSelfJoinIs(bool? value)
 		{
-			_systemUnderTest.Sut.Svc = null;
-			_systemUnderTest.Sut.AllowsSelfJoin = value;
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			SetupProperty(() => _systemUnderTest.Sut.AllowsSelfJoin = value);
+		}
+		private void CommentsIs(BoardCommentType value)
+		{
+			SetupProperty(() => _systemUnderTest.Sut.Comments = value);
+		}
+		private void InvitationsIs(BoardInvitationType value)
+		{
+			SetupProperty(() => _systemUnderTest.Sut.Invitations = value);
+		}
+		private void PermissionLevelIs(BoardPermissionLevelType value)
+		{
+			SetupProperty(() => _systemUnderTest.Sut.PermissionLevel = value);
 		}
 		private void ShowCardCoversIs(bool? value)
 		{
-			_systemUnderTest.Sut.Svc = null;
-			_systemUnderTest.Sut.ShowCardCovers = value;
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			SetupProperty(() => _systemUnderTest.Sut.ShowCardCovers = value);
+		}
+		private void VotingIs(BoardVotingType value)
+		{
+			SetupProperty(() => _systemUnderTest.Sut.Voting = value);
 		}
 
 		#endregion

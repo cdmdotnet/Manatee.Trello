@@ -342,7 +342,7 @@ namespace Manatee.Trello
 		/// Adds an attachment to the card.
 		/// </summary>
 		/// <returns>The attachment object.</returns>
-		private Attachment AddAttachment()
+		internal Attachment AddAttachment()
 		{
 			throw new NotImplementedException();
 		}
@@ -385,8 +385,9 @@ namespace Manatee.Trello
 		public void ApplyLabel(LabelColor color)
 		{
 			if (Svc == null) return;
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Label()}, this);
 			Parameters.Add("value", color.ToLowerString());
-			Svc.Post(Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Label()}, this));
+			Svc.Post(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -397,7 +398,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Entity(member);
-			var request = Svc.RequestProvider.Create<Label>(new ExpiringObject[] {this, new Member()}, this);
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Member()}, this);
 			Parameters.Add("value", member.Id);
 			Svc.Post(request);
 			_actions.MarkForUpdate();
@@ -408,7 +409,8 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
-			Svc.Delete(Svc.RequestProvider.Create<Card>(Id));
+			var request = Svc.RequestProvider.Create<Card>(Id);
+			Svc.Delete(request);
 		}
 		/// <summary>
 		/// Moves the card to another board/list/position.
@@ -425,7 +427,8 @@ namespace Manatee.Trello
 				throw new InvalidOperationException("The indicated list does not exist on the indicated board.");
 			if (_boardId != board.Id)
 				Parameters.Add("idBoard", board.Id);
-			Parameters.Add("idList", list.Id);
+			if (_boardId != list.Id)
+				Parameters.Add("idList", list.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
 			Svc.Put(Svc.RequestProvider.Create<Card>(this));
@@ -438,7 +441,8 @@ namespace Manatee.Trello
 		public void RemoveLabel(LabelColor color)
 		{
 			if (Svc == null) return;
-			Svc.Delete(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Label() }, urlExtension: color.ToLowerString()));
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Label()}, urlExtension: color.ToLowerString());
+			Svc.Delete(request);
 		}
 		/// <summary>
 		/// Removes (unassigns) a member from a card.
@@ -448,7 +452,8 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Entity(member);
-			Svc.Delete(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, member }));
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, member });
+			Svc.Delete(request);
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.

@@ -81,7 +81,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				if (_showListGuide == value) return;
+				if (_showSidebar == value) return;
 				Validate.Nullable(value);
 				_showSidebar = value;
 				Parameters.Add("showSidebar", _showSidebar.ToLowerString());
@@ -218,6 +218,7 @@ namespace Manatee.Trello
 
 		private void Post()
 		{
+			if (Svc == null) return;
 			Svc.Post(Svc.RequestProvider.Create<BoardPersonalPreferences>(new[] {Owner, this}, this));
 		}
 	}
