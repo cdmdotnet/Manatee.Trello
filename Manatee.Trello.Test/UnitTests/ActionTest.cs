@@ -20,15 +20,7 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("Access MemberCreator property")
 				.Given(AnAction)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
-				.And(MemberIsReturned)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Access MemberCreator property twice")
-				.Given(AnAction)
-				.When(MemberIsAccessed)
-				.And(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<Action>, 0)
 				.And(MemberIsReturned)
 				.And(ExceptionIsNotThrown)
 

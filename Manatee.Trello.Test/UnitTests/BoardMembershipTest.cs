@@ -40,7 +40,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoardMembership)
 				.When(MemberIsAccessed)
 				.Then(MockApiGetIsCalled<Member>, 1)
-				.And(ValueOfTypeIsReturned<Member>)
+				.And(NonNullValueOfTypeIsReturned<Member>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Member property twice")
@@ -48,7 +48,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(MemberIsAccessed)
 				.And(MemberIsAccessed)
 				.Then(MockApiGetIsCalled<Member>, 1)
-				.And(ValueOfTypeIsReturned<Member>)
+				.And(NonNullValueOfTypeIsReturned<Member>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();

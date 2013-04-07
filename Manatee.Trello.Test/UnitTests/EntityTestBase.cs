@@ -123,6 +123,16 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest.Sut.MarkForUpdate();
 		}
+		protected void EntityIsNotExpired()
+		{
+			_systemUnderTest.Sut.ForceNotExpired();
+		}
+		protected void SetupProperty(System.Action action)
+		{
+			_systemUnderTest.Sut.Svc = null;
+			action();
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+		}
 
 		#endregion
 
@@ -208,7 +218,7 @@ namespace Manatee.Trello.Test.UnitTests
 			Assert.IsInstanceOfType(_actualResult, typeof (TResult));
 			Assert.AreEqual(expectedValue, (TResult) _actualResult);
 		}
-		protected void ValueOfTypeIsReturned<TResult>()
+		protected void NonNullValueOfTypeIsReturned<TResult>()
 		{
 			Assert.IsNotNull(_actualResult);
 			Assert.IsInstanceOfType(_actualResult, typeof (TResult));

@@ -160,6 +160,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
+			if (Svc == null) return;
 			Svc.Delete(Svc.RequestProvider.Create<Action>(Id));
 		}
 		/// <summary>

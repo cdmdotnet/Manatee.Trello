@@ -98,6 +98,10 @@ namespace Manatee.Trello.Contracts
 		{
 			_expires = DateTime.Now.AddSeconds(-1);
 		}
+		internal void ForceNotExpired()
+		{
+			_expires = DateTime.Now.AddMinutes(1);
+		}
 
 		/// <summary>
 		/// Verifies that the object is not expired and updates if necessary.
