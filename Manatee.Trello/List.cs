@@ -189,7 +189,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Deletes the list.  This cannot be undone.
 		/// </summary>
-		private void Delete()
+		internal void Delete()
 		{
 			throw new NotSupportedException("Deleting lists is not yet supported by Trello.");
 		}

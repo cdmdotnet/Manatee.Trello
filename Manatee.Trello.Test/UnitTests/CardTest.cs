@@ -25,8 +25,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ACard)
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
-				.Then(MockApiGetIsCalled<Action>, 0)
-				.And(MockApiGetCollectionIsCalled<Action>, 0)
+				.Then(MockApiGetCollectionIsCalled<Action>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
 				.And(ExceptionIsNotThrown)
 
@@ -134,8 +133,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ACard)
 				.And(EntityIsExpired)
 				.When(CheckItemStatesIsAccessed)
-				.Then(MockApiGetIsCalled<CheckItemState>, 0)
-				.And(MockApiGetCollectionIsCalled<CheckItemState>, 0)
+				.Then(MockApiGetCollectionIsCalled<CheckItemState>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<CheckItemState>>)
 				.And(ExceptionIsNotThrown)
 
@@ -154,8 +152,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ACard)
 				.And(EntityIsExpired)
 				.When(CheckListsIsAccessed)
-				.Then(MockApiGetIsCalled<CheckList>, 0)
-				.And(MockApiGetCollectionIsCalled<CheckList>, 0)
+				.Then(MockApiGetCollectionIsCalled<CheckList>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<CheckList>>)
 				.And(ExceptionIsNotThrown)
 
@@ -174,8 +171,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ACard)
 				.And(EntityIsExpired)
 				.When(CommentsIsAccessed)
-				.Then(MockApiGetIsCalled<Action>, 0)
-				.And(MockApiGetCollectionIsCalled<Action>, 0)
+				.Then(MockApiGetCollectionIsCalled<Action>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
 				.And(ExceptionIsNotThrown)
 
@@ -753,38 +749,38 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(BoardContainsList)
 				// Need to figure this out...
 				.When(MoveIsCalled, new Board(_systemUnderTest.Dependencies.Api.Object, TrelloIds.Invalid), new List { Id = TrelloIds.Invalid })
-				.Then(MockApiPostIsCalled<Card>, 1)
+				.Then(MockApiPutIsCalled<Card>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Move is called and board does not contain list")
 				.Given(ACard)
 				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid}, new List {Id = TrelloIds.Invalid})
-				.Then(MockApiPostIsCalled<Card>, 1)
+				.Then(MockApiPutIsCalled<Card>, 1)
 				.And(ExceptionIsThrown<InvalidOperationException>)
 
 				.WithScenario("Move is called with null board")
 				.Given(ACard)
 				.When(MoveIsCalled, (Board) null, new List {Id = TrelloIds.Invalid})
-				.Then(MockApiPostIsCalled<Card>, 0)
+				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Move is called with local board")
 				.Given(ACard)
 				.When(MoveIsCalled, new Board(), new List {Id = TrelloIds.Invalid})
-				.Then(MockApiPostIsCalled<Card>, 0)
-				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<EntityNotOnTrelloException<Board>>)
 
 				.WithScenario("Move is called with null list")
 				.Given(ACard)
 				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid}, (List) null)
-				.Then(MockApiPostIsCalled<Card>, 0)
+				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Move is called with local list")
 				.Given(ACard)
 				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid}, new List())
-				.Then(MockApiPostIsCalled<Card>, 0)
-				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<EntityNotOnTrelloException<List>>)
 
 				.Execute();
 		}

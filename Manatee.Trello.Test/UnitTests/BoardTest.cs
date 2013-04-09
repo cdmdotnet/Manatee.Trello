@@ -27,8 +27,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoard)
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
-				.Then(MockApiGetIsCalled<Action>, 0)
-				.And(MockApiGetCollectionIsCalled<Action>, 0)
+				.Then(MockApiGetCollectionIsCalled<Action>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
 				.And(ExceptionIsNotThrown)
 

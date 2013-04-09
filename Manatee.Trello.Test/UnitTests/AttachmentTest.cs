@@ -48,8 +48,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest = new SystemUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestRequest<Member>>()))
-				.Returns(new Member());
+			SetupMockGet<Member>();
 		}
 
 		private void MemberIsAccessed()
