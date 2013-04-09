@@ -179,20 +179,16 @@ namespace Manatee.Trello
 			return base.GetHashCode();
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var label = entity as Label;
-			if (label == null) return;
-			_apicolor = label._apicolor;
-			_name = label._name;
-			UpdateColor();
-			_isInitialized = true;
-		}
+		internal override void Refresh(ExpiringObject entity) {}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get() {}
+		protected override void Get()
+		{
+			UpdateApiColor();
+			_isInitialized = true;
+		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>

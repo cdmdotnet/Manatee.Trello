@@ -83,7 +83,6 @@
     <Compile Include="UnitTests\CheckListTest.cs" />
     <Compile Include="UnitTests\EntityTestBase.cs" />
     <Compile Include="UnitTests\LabelNamesTest.cs" />
-    <Compile Include="UnitTests\LabelTest.cs" />
     <Compile Include="UnitTests\ListTest.cs" />
     <Compile Include="UnitTests\MemberPreferencesTest.cs" />
     <Compile Include="UnitTests\MemberTest.cs" />

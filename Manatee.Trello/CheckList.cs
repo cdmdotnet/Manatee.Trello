@@ -302,7 +302,7 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var request = Svc.RequestProvider.Create<CheckItem>(new[] { Owner, this }, this);
+			var request = Svc.RequestProvider.Create<CheckList>(new[] { Owner, this }, this);
 			Svc.Put(request);
 		}
 	}
