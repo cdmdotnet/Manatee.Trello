@@ -21,7 +21,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnAction)
 				.When(MemberIsAccessed)
 				.Then(MockApiGetIsCalled<Action>, 0)
-				.And(MemberIsReturned)
+				.And(NonNullValueOfTypeIsReturned<Member>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -48,8 +48,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest = new SystemUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestRequest<Member>>()))
-				.Returns(new Member());
+			SetupMockGet<Member>();
 		}
 
 		private void MemberIsAccessed()
@@ -59,12 +58,6 @@ namespace Manatee.Trello.Test.UnitTests
 		private void DeleteIsCalled()
 		{
 			Execute(() => _systemUnderTest.Sut.Delete());
-		}
-
-		private void MemberIsReturned()
-		{
-			Assert.IsNotNull(_actualResult);
-			Assert.IsInstanceOfType(_actualResult, typeof (Member));
 		}
 	}
 }

@@ -60,6 +60,7 @@
     <Compile Include="Actions\CreateCardAction.cs" />
     <Compile Include="Contracts\CachingTrelloRest.cs" />
     <Compile Include="Contracts\ITrelloService.cs" />
+    <Compile Include="Exceptions\UsernameInUseException.cs" />
     <Compile Include="Implementation\ITrelloRest.cs" />
     <Compile Include="Notifications\AddedAttachmentToCardNotification.cs" />
     <Compile Include="Notifications\AddedMemberToCardNotification.cs" />

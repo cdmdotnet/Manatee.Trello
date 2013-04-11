@@ -51,9 +51,16 @@ namespace Manatee.Trello.Implementation
 			if (str == null)
 				throw new ArgumentNullException("str");
 			str = str.Trim();
-			if (str.Length.BetweenInclusive(low, high))
+			if (!str.Length.BetweenInclusive(low, high))
 				throw new ArgumentException(string.Format("{0} must be from {1} to {2} characters and cannot begin or end with whitespace.", parameter, low, high));
 			return str;
+		}
+		public static string UserName(ITrelloRest svc, string value)
+		{
+			var retVal = MinStringLength(value, 3, "Username");
+			if ((svc != null) && (svc.Get(svc.RequestProvider.Create<Member>(retVal)) != null))
+				throw new UsernameInUseException(value);
+			return retVal;
 		}
 	}
 }

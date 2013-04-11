@@ -96,7 +96,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member whose action spawned the notification.
 		/// </summary>
-		private Member MemberCreator
+		public Member MemberCreator
 		{
 			get
 			{

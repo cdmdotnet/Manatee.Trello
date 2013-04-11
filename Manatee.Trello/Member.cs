@@ -237,7 +237,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the boards to which the member has been invited to join.
 		/// </summary>
-		public IEnumerable<Board> InvitedBoardIds { get { return _invitedBoards; } }
+		public IEnumerable<Board> InvitedBoards { get { return _invitedBoards; } }
 		/// <summary>
 		/// Enumerates the organizations to which the member has been invited to join.
 		/// </summary>
@@ -334,7 +334,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_username == value) return;
-				_username = Validate.MinStringLength(value, 3, "Username"); ;
+				_username = Validate.UserName(Svc, value);
 				Parameters.Add("username", _username);
 				Put();
 			}
@@ -383,9 +383,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks all unread notifications for the member as read.
 		/// </summary>
-		public void MarkAllNotificationsAsRead()
+		public void ClearNotifications()
 		{
-			Svc.Post(Svc.RequestProvider.Create<Notification>(new ExpiringObject[] {new Notification()}, urlExtension: "all/read"));
+			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { new Notification() }, urlExtension: "all/read"));
 		}
 		/// <summary>
 		/// Adds a board to the member's boards menu.
@@ -404,7 +404,7 @@ namespace Manatee.Trello
 		public void RescindVoteForCard(Card card)
 		{
 			Validate.Entity(card);
-			Svc.Delete(Svc.RequestProvider.Create<Card>(new ExpiringObject[] { card, new VotingMember { Id = Id } }));
+			Svc.Delete(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { card, new VotingMember { Id = Id } }));
 		}
 		/// <summary>
 		/// Removes a board from the member's boards menu.
@@ -423,7 +423,7 @@ namespace Manatee.Trello
 		{
 			Validate.Entity(card);
 			Parameters.Add("value", Id);
-			Svc.Post(Svc.RequestProvider.Create<Card>(new ExpiringObject[] {card, new VotingMember()}, this));
+			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { card, new VotingMember() }, this));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.
