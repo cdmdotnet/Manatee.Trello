@@ -404,6 +404,15 @@ namespace Manatee.Trello
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
+		/// Marks all notifications associated to this card as read.
+		/// </summary>
+		public void ClearNotifications()
+		{
+			if (Svc == null) return;
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this }, urlExtension: "markAssociatedNotificationsRead");
+			Svc.Post(request);
+		}
+		/// <summary>
 		/// Deletes the card.  This cannot be undone.
 		/// </summary>
 		public void Delete()

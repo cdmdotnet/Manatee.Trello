@@ -176,11 +176,11 @@ namespace Manatee.Trello.Test.UnitTests
 			Assert.IsNull(_exception);
 		}
 		[GenericMethodFormat("{0} is thrown")]
-		protected void ExceptionIsThrown<TRequest>()
-			where TRequest : Exception
+		protected void ExceptionIsThrown<TEx>()
+			where TEx : Exception
 		{
 			Assert.IsNotNull(_exception);
-			Assert.IsTrue(_exception is TRequest);
+			Assert.IsInstanceOfType(_exception, typeof(TEx));
 		}
 		[GenericMethodFormat("API.Get<{0}> is called {1} time(s)")]
 		protected void MockApiGetIsCalled<TRequest>(int times)
@@ -224,7 +224,7 @@ namespace Manatee.Trello.Test.UnitTests
 			Assert.IsInstanceOfType(_actualResult, typeof (TResult));
 		}
 		[GenericMethodFormat("{0} is returned")]
-		protected void PropertyIsSet<TParam>(TParam expectedValue, TParam propValue)
+		protected void PropertyIsSet<TProp>(TProp expectedValue, TProp propValue)
 		{
 			Assert.AreEqual(expectedValue, propValue);
 		}

@@ -562,8 +562,8 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ShortId property")
 				.Given(ACard)
-				.When(ShortIdIsAccessed)
 				.And(EntityIsExpired)
+				.When(ShortIdIsAccessed)
 				.Then(MockApiGetIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
 
@@ -580,8 +580,8 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Url property")
 				.Given(ACard)
-				.When(UrlIsAccessed)
 				.And(EntityIsExpired)
+				.When(UrlIsAccessed)
 				.Then(MockApiGetIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
 
@@ -714,6 +714,23 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(AssignMemberIsCalled, new Member())
 				.Then(MockApiPostIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void ClearNotifications()
+		{
+			var story = new Story("ClearNotifications");
+
+			var feature = story.InOrderTo("clear all notifications for a card")
+				.AsA("developer")
+				.IWant("to call ClearNotifications");
+
+			feature.WithScenario("ClearNotifications is called")
+				.Given(ACard)
+				.When(ClearNotificationsIsCalled)
+				.Then(MockApiPostIsCalled<Card>, 1)
+				.And(ExceptionIsNotThrown)
 
 				.Execute();
 		}
@@ -1000,6 +1017,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AssignMemberIsCalled(Member value)
 		{
 			Execute(() => _systemUnderTest.Sut.AssignMember(value));
+		}
+		private void ClearNotificationsIsCalled()
+		{
+			Execute(() => _systemUnderTest.Sut.ClearNotifications());
 		}
 		private void DeleteIsCalled()
 		{
