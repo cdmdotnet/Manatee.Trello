@@ -1,4 +1,5 @@
 ﻿using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StoryQ;
@@ -40,6 +41,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(DeleteIsCalled)
 				.Then(MockApiDeleteIsCalled<Attachment>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Call Delete without AuthToken")
+				.Given(AnAttachment)
+				.And(TokenNotSupplied)
+				.When(DeleteIsCalled)
+				.Then(MockApiDeleteIsCalled<Action>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

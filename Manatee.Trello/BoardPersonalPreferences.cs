@@ -62,6 +62,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_showListGuide == value) return;
 				Validate.Nullable(value);
 				_showListGuide = value;
@@ -81,6 +82,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_showSidebar == value) return;
 				Validate.Nullable(value);
 				_showSidebar = value;
@@ -100,6 +102,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_showSidebarActivity == value) return;
 				Validate.Nullable(value);
 				_showSidebarActivity = value;
@@ -119,6 +122,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_showSidebarBoardActions == value) return;
 				Validate.Nullable(value);
 				_showSidebarBoardActions = value;
@@ -138,6 +142,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_showSidebarMembers == value) return;
 				Validate.Nullable(value);
 				_showSidebarMembers = value;

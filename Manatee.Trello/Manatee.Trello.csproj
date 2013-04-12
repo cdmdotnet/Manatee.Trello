@@ -61,6 +61,7 @@
     <Compile Include="Contracts\CachingTrelloRest.cs" />
     <Compile Include="Contracts\ITrelloService.cs" />
     <Compile Include="Exceptions\OrgNameInUseException.cs" />
+    <Compile Include="Exceptions\ReadOnlyAccessException.cs" />
     <Compile Include="Exceptions\UsernameInUseException.cs" />
     <Compile Include="Extensions\BoardExtensions.cs" />
     <Compile Include="Extensions\CardExtensions.cs" />

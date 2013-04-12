@@ -19,6 +19,8 @@ namespace Manatee.Trello.Contracts
 			set { _inner.RestClientProvider = value; }
 		}
 		public IRestRequestProvider RequestProvider { get { return RestClientProvider.RequestProvider; } }
+		public string AuthKey { get { return _inner.AuthKey; } }
+		public string AuthToken { get { return _inner.AuthToken; } }
 
 		public CachingTrelloRest(ITrelloRest inner, ActionProvider actionProvider, NotificationProvider notificationProvider)
 		{

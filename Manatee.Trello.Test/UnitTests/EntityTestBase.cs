@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
+using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -62,6 +63,10 @@ namespace Manatee.Trello.Test.UnitTests
 					.Returns(RestClientProvider.Object);
 				Api.SetupGet(a => a.RequestProvider)
 					.Returns(RequestProvider);
+				Api.SetupGet(a => a.AuthKey)
+					.Returns(TrelloIds.Key);
+				Api.SetupGet(a => a.AuthToken)
+					.Returns(TrelloIds.Token);
 			}
 		}
 
@@ -89,6 +94,11 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Given
 
+		protected void TokenNotSupplied()
+		{
+			_systemUnderTest.Dependencies.Api.SetupGet(a => a.AuthToken)
+				.Returns((string) null);
+		}
 		protected void SetupMockGet<TRequest>()
 			where TRequest : ExpiringObject, new()
 		{

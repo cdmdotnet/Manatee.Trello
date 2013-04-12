@@ -100,6 +100,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				Validate.Entity(value);
 				if (_cardId == value.Id) return;
 				_cardId = value.Id;
@@ -123,6 +124,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_name == value) return;
 				Validate.NonEmptyString(value);
 				_name = value;
@@ -143,6 +145,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_position == value) return;
 				Validate.Position(value);
 				_position = value;
@@ -175,6 +178,8 @@ namespace Manatee.Trello
 		/// <returns>The checkitem.</returns>
 		public CheckItem AddCheckItem(string name, bool isChecked = false, Position position = null)
 		{
+			if (Svc == null) return null;
+			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
 			var request = Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}, this);
 			Parameters.Add("name", name);
@@ -191,6 +196,7 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Svc.Delete(Svc.RequestProvider.Create<CheckList>(Id));	
 		}
 		/// <summary>

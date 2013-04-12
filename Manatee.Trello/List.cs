@@ -82,6 +82,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_isClosed == value) return;
 				Validate.Nullable(value);
 				_isClosed = value;
@@ -101,6 +102,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_isSubscribed == value) return;
 				Validate.Nullable(value);
 				_isSubscribed = value;
@@ -120,6 +122,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_name == value) return;
 				Validate.NonEmptyString(value);
 				_name = value;
@@ -139,6 +142,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_position == value) return;
 				Validate.Position(value);
 				_position = value;
@@ -174,6 +178,7 @@ namespace Manatee.Trello
 		public Card AddCard(string name, string description = null, Position position = null)
 		{
 			if (Svc == null) return null;
+			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
 			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[]{new Card()}, this);
 			Parameters.Add("name", name);
@@ -201,6 +206,7 @@ namespace Manatee.Trello
 		public void Move(Board board, Position position = null)
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(board);
 			Parameters.Add("idBoard", board.Id);
 			if (position != null)

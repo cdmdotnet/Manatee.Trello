@@ -11,6 +11,12 @@ namespace Manatee.Trello.Implementation
 {
 	internal static class Validate
 	{
+		public static void Writable(ITrelloRest api)
+		{
+			if (api == null) return;
+			if (api.AuthToken == null)
+				throw new ReadOnlyAccessException();
+		}
 		public static void Entity<T>(T entity, bool allowNulls = false)
 			where T : ExpiringObject
 		{

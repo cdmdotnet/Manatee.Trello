@@ -57,6 +57,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_colorBlind == value) return;
 				Validate.Nullable(value);
 				_colorBlind = value;
@@ -76,6 +77,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_minutesBetweenSummaries == value) return;
 				Validate.Nullable(value);
 				_minutesBetweenSummaries = value;
@@ -95,6 +97,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_sendSummaries == value) return;
 				Validate.Nullable(value);
 				_sendSummaries = value;
@@ -114,6 +117,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_minutesBeforeDeadlineToNotify == value) return;
 				Validate.Nullable(value);
 				_minutesBeforeDeadlineToNotify = value;

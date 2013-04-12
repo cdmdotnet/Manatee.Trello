@@ -1,4 +1,5 @@
 ﻿using System;
+using Manatee.Trello.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -50,6 +51,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set ColorBlind property without AuthToken")
+				.Given(AMemberPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(ColorBlindIsSet, (bool?)true)
+				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -94,6 +102,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(MinutesBetweenSummariesIsSet, (int?) 10)
 				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set MinutesBetweenSummaries property without AuthToken")
+				.Given(AMemberPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(MinutesBetweenSummariesIsSet, (int?)10)
+				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -140,6 +155,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set SendSummaries property without AuthToken")
+				.Given(AMemberPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(SendSummariesIsSet, (bool?)true)
+				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -167,23 +189,30 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property")
 				.Given(AMemberPreferencesObject)
-				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?)10)
+				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
 				.Then(MockApiPutIsCalled<MemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property to null")
 				.Given(AMemberPreferencesObject)
-				.And(MinutesBeforeDeadlineToNotifyIs, (int?)10)
-				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?)null)
+				.And(MinutesBeforeDeadlineToNotifyIs, (int?) 10)
+				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) null)
 				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property to same")
 				.Given(AMemberPreferencesObject)
-				.And(MinutesBeforeDeadlineToNotifyIs, (int?)10)
-				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?)10)
+				.And(MinutesBeforeDeadlineToNotifyIs, (int?) 10)
+				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
 				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set MinutesBeforeDeadlineToNotify property without AuthToken")
+				.Given(AMemberPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
+				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

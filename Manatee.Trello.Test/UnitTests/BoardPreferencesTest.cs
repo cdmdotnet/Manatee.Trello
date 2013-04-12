@@ -1,4 +1,5 @@
 ﻿using System;
+using Manatee.Trello.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -50,6 +51,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set AllowsSelfJoin property without AuthToken")
+				.Given(ABoardPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(AllowsSelfJoinIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -87,6 +95,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(CommentsIsSet, BoardCommentType.Disabled)
 				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Comments property without AuthToken")
+				.Given(ABoardPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(CommentsIsSet, BoardCommentType.Disabled)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -126,6 +141,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Invitations property without AuthToken")
+				.Given(ABoardPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(InvitationsIsSet, BoardInvitationType.Admins)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -163,6 +185,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
 				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set PermissionLevel property without AuthToken")
+				.Given(ABoardPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -209,6 +238,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set ShowCardCovers property without AuthToken")
+				.Given(ABoardPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(ShowCardCoversIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -246,6 +282,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(VotingIsSet, BoardVotingType.Public)
 				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Voting property without AuthToken")
+				.Given(ABoardPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(VotingIsSet, BoardVotingType.Public)
+				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

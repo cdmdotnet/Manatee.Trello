@@ -61,6 +61,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_name == value) return;
 				Validate.NonEmptyString(value);
 				_name = value;
@@ -80,6 +81,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_position == value) return;
 				Validate.Position(value);
 				_position = value;
@@ -99,6 +101,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_state == value) return;
 				_state = value;
 				UpdateApiState();
@@ -130,7 +133,8 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
-			Svc.Delete(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}));
+			Validate.Writable(Svc);
+			Svc.Delete(Svc.RequestProvider.Create<CheckItem>(new[] { Owner, this }));
 		}
 		/// <summary>
 		/// Builds an object from a JsonValue.

@@ -18,7 +18,14 @@ namespace Manatee.Trello.Test.UnitTests
 				.AsA("developer")
 				.IWant("to get the members activation status.");
 
-			feature.WithScenario("Access Member property")
+			feature.WithScenario("Access IsDeactivated property")
+				.Given(ABoardMembership)
+				.And(EntityIsNotExpired)
+				.When(IsDeactivatedIsAccessed)
+				.Then(MockApiGetIsCalled<BoardMembership>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access IsDeactivated property when expired")
 				.Given(ABoardMembership)
 				.And(EntityIsExpired)
 				.When(IsDeactivatedIsAccessed)
@@ -38,15 +45,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Member property")
 				.Given(ABoardMembership)
+				.And(EntityIsNotExpired)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<Member>, 0)
 				.And(NonNullValueOfTypeIsReturned<Member>)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Access Member property twice")
+				.WithScenario("Access Member property when expired")
 				.Given(ABoardMembership)
+				.And(EntityIsExpired)
 				.When(MemberIsAccessed)
-				.And(MemberIsAccessed)
 				.Then(MockApiGetIsCalled<Member>, 1)
 				.And(NonNullValueOfTypeIsReturned<Member>)
 				.And(ExceptionIsNotThrown)
