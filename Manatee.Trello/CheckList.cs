@@ -288,7 +288,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateSerivce()
+		protected override void PropigateService()
 		{
 			_checkItems.Svc = Svc;
 			if (_board != null) _board.Svc = Svc;

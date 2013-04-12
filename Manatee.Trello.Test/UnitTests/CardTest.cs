@@ -121,25 +121,6 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		public void CheckItemStates()
-		{
-			var story = new Story("CheckItemStates");
-
-			var feature = story.InOrderTo("get the states of check items contained within a card")
-				.AsA("developer")
-				.IWant("to get CheckItemStates");
-
-			feature.WithScenario("Access CheckItemStates property")
-				.Given(ACard)
-				.And(EntityIsExpired)
-				.When(CheckItemStatesIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<CheckItemState>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<CheckItemState>>)
-				.And(ExceptionIsNotThrown)
-
-				.Execute();
-		}
-		[TestMethod]
 		public void CheckLists()
 		{
 			var story = new Story("CheckLists");
@@ -909,10 +890,6 @@ namespace Manatee.Trello.Test.UnitTests
 		private void BoardIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.Board);
-		}
-		private void CheckItemStatesIsAccessed()
-		{
-			Execute(() => _systemUnderTest.Sut.CheckItemStates);
 		}
 		private void CheckListsIsAccessed()
 		{

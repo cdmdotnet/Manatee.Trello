@@ -51,7 +51,6 @@ namespace Manatee.Trello.Json
 			JsonSerializationTypeRegistry.RegisterListType<BoardMembership>();
 			JsonSerializationTypeRegistry.RegisterListType<Card>();
 			JsonSerializationTypeRegistry.RegisterListType<CheckItem>();
-			JsonSerializationTypeRegistry.RegisterListType<CheckItemState>();
 			JsonSerializationTypeRegistry.RegisterListType<CheckList>();
 			JsonSerializationTypeRegistry.RegisterListType<InvitedBoard>();
 			JsonSerializationTypeRegistry.RegisterListType<InvitedOrganization>();

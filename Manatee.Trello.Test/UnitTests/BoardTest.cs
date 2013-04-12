@@ -406,8 +406,8 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoard)
 				.And(OrganizationIs, new Organization {Id = TrelloIds.Invalid})
 				.When(OrganizationIsSet, (Organization) null)
-				.Then(MockApiPutIsCalled<Board>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
+				.Then(MockApiPutIsCalled<Board>, 1)
+				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Organization property to local organization")
 				.Given(ABoard)
@@ -713,7 +713,7 @@ namespace Manatee.Trello.Test.UnitTests
 		}
 		private void MembersIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Members);
+			Execute(() => _systemUnderTest.Sut.Memberships);
 		}
 		private void NameIsAccessed()
 		{

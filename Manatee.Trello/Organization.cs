@@ -131,7 +131,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_name == value) return;
-				_name = Validate.MinStringLength(value, 3, "Name");
+				_name = Validate.OrgName(Svc, value);
 				Parameters.Add("name", _name);
 				Put();
 			}
@@ -236,7 +236,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to invite.</param>
 		/// <param name="type">The level of membership offered.</param>
-		private void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
+		internal void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
@@ -249,13 +249,13 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Entity(member);
-			Svc.Delete(Svc.RequestProvider.Create<Board>(new ExpiringObject[] { this, member }));
+			Svc.Delete(Svc.RequestProvider.Create<Organization>(new ExpiringObject[] {this, member}));
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the organization.
 		/// </summary>
 		/// <param name="member"></param>
-		private void RescindInvitation(Member member)
+		internal void RescindInvitation(Member member)
 		{
 			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
@@ -363,7 +363,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateSerivce()
+		protected override void PropigateService()
 		{
 			_actions.Svc = Svc;
 			_boards.Svc = Svc;

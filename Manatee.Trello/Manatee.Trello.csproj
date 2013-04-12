@@ -60,7 +60,13 @@
     <Compile Include="Actions\CreateCardAction.cs" />
     <Compile Include="Contracts\CachingTrelloRest.cs" />
     <Compile Include="Contracts\ITrelloService.cs" />
+    <Compile Include="Exceptions\OrgNameInUseException.cs" />
     <Compile Include="Exceptions\UsernameInUseException.cs" />
+    <Compile Include="Extensions\BoardExtensions.cs" />
+    <Compile Include="Extensions\CardExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\MemberExtensions.cs" />
+    <Compile Include="Extensions\OrganizationExtensions.cs" />
     <Compile Include="Implementation\ITrelloRest.cs" />
     <Compile Include="Notifications\AddedAttachmentToCardNotification.cs" />
     <Compile Include="Notifications\AddedMemberToCardNotification.cs" />
@@ -136,7 +142,6 @@
     <Compile Include="BoardPreferences.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CheckItem.cs" />
-    <Compile Include="CheckItemState.cs" />
     <Compile Include="CheckList.cs" />
     <Compile Include="Label.cs" />
     <Compile Include="LabelNames.cs" />

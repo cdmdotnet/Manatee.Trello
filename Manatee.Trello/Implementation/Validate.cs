@@ -11,11 +11,14 @@ namespace Manatee.Trello.Implementation
 {
 	internal static class Validate
 	{
-		public static void Entity<T>(T entity)
+		public static void Entity<T>(T entity, bool allowNulls = false)
 			where T : ExpiringObject
 		{
 			if (entity == null)
+			{
+				if (allowNulls) return;
 				throw new ArgumentNullException("entity");
+			}
 			if (entity.Id == null)
 				throw new EntityNotOnTrelloException<T>(entity);
 		}
@@ -60,6 +63,13 @@ namespace Manatee.Trello.Implementation
 			var retVal = MinStringLength(value, 3, "Username");
 			if ((svc != null) && (svc.Get(svc.RequestProvider.Create<Member>(retVal)) != null))
 				throw new UsernameInUseException(value);
+			return retVal;
+		}
+		public static string OrgName(ITrelloRest svc, string value)
+		{
+			var retVal = MinStringLength(value, 3, "Name");
+			if ((svc != null) && (svc.Get(svc.RequestProvider.Create<Organization>(retVal)) != null))
+				throw new OrgNameInUseException(value);
 			return retVal;
 		}
 	}

@@ -18,6 +18,13 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access AllowsSelfJoin property")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsNotExpired)
+				.When(AllowsSelfJoinIsAccessed)
+				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access AllowsSelfJoin property when expired")
+				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(AllowsSelfJoinIsAccessed)
 				.Then(MockApiGetIsCalled<BoardPreferences>, 1)
@@ -50,11 +57,18 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var story = new Story("Comments");
 
-			var feature = story.InOrderTo("control whom is allowed to post comments")
+			var feature = story.InOrderTo("control who is allowed to post comments")
 				.AsA("developer")
 				.IWant("to get the Comments property value.");
 
 			feature.WithScenario("Access Comments property")
+				.Given(ABoardPreferencesObject)
+				.And(EntityIsNotExpired)
+				.When(CommentsIsAccessed)
+				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Comments property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(CommentsIsAccessed)
@@ -81,11 +95,18 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var story = new Story("Invitations");
 
-			var feature = story.InOrderTo("control whom is allowed to invite members to the board")
+			var feature = story.InOrderTo("control who is allowed to invite members to the board")
 				.AsA("developer")
 				.IWant("to get the Invitations property value.");
 
 			feature.WithScenario("Access Invitations property")
+				.Given(ABoardPreferencesObject)
+				.And(EntityIsNotExpired)
+				.When(InvitationsIsAccessed)
+				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Invitations property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(InvitationsIsAccessed)
@@ -118,6 +139,13 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access PermissionLevel property")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsNotExpired)
+				.When(PermissionLevelIsAccessed)
+				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access PermissionLevel property when expired")
+				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(PermissionLevelIsAccessed)
 				.Then(MockApiGetIsCalled<BoardPreferences>, 1)
@@ -148,6 +176,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.IWant("to get the ShowCardCovers property value.");
 
 			feature.WithScenario("Access ShowCardCovers property")
+				.Given(ABoardPreferencesObject)
+				.And(EntityIsNotExpired)
+				.When(ShowCardCoversIsAccessed)
+				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access ShowCardCovers property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ShowCardCoversIsAccessed)
@@ -181,11 +216,18 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var story = new Story("Voting");
 
-			var feature = story.InOrderTo("control whom is allowed to cast votes")
+			var feature = story.InOrderTo("control who is allowed to cast votes")
 				.AsA("developer")
 				.IWant("to get the Voting property value.");
 
 			feature.WithScenario("Access Voting property")
+				.Given(ABoardPreferencesObject)
+				.And(EntityIsNotExpired)
+				.When(VotingIsAccessed)
+				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Voting property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(VotingIsAccessed)

@@ -643,7 +643,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var story = new Story("Username");
 
-			var feature = story.InOrderTo("control a member's full name")
+			var feature = story.InOrderTo("control a member's username")
 				.AsA("developer")
 				.IWant("to get and set the Username");
 
@@ -691,7 +691,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(MockApiPutIsCalled<Member>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Username property to less than 3 characters")
+				.WithScenario("Set Username property to existing username")
 				.Given(AMember)
 				.And(UsernameExists)
 				.When(UsernameIsSet, "username")

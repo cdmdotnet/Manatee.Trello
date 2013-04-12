@@ -92,7 +92,7 @@ namespace Manatee.Trello.Implementation
 				_list.Add(entity);
 			}
 		}
-		protected override void PropigateSerivce()
+		protected override void PropigateService()
 		{
 			_list.ForEach(i => i.Svc = Svc);
 		}

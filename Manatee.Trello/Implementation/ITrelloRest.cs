@@ -25,19 +25,58 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Implementation
 {
+	/// <summary>
+	/// Internal use only.  Defines methods required to retrieve entities from Trello.
+	/// </summary>
 	public interface ITrelloRest
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		IRestClientProvider RestClientProvider { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		IRestRequestProvider RequestProvider { get; }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		T Get<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new();
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		IEnumerable<T> Get<T>(IRestCollectionRequest<T> request)
 			where T : ExpiringObject, new();
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		T Put<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new();
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		T Post<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new();
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		T Delete<T>(IRestRequest<T> request)
 			where T : ExpiringObject, new();
 	}
