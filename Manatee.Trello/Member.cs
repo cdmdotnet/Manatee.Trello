@@ -137,6 +137,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_avatarSource == value) return;
 				_avatarSource = value ?? string.Empty;
 				Parameters.Add("avatarSource", _avatarSource);
@@ -155,6 +156,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_bio == value) return;
 				_bio = value ?? string.Empty;
 				Parameters.Add("bio", _bio);
@@ -199,6 +201,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_fullName == value) return;
 				_fullName = Validate.MinStringLength(value, 4, "FullName");
 				Parameters.Add("fullName", _fullName);
@@ -228,6 +231,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_initials == value) return;
 				_initials = Validate.StringLengthRange(value, 1, 3, "Initials");
 				Parameters.Add("initials", _initials);
@@ -333,6 +337,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_username == value) return;
 				_username = Validate.UserName(Svc, value);
 				Parameters.Add("username", _username);
@@ -385,6 +390,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public void ClearNotifications()
 		{
+			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { new Notification() }, urlExtension: "all/read"));
 		}
 		/// <summary>
@@ -393,6 +400,8 @@ namespace Manatee.Trello
 		/// <param name="board">The board to pin.</param>
 		public void PinBoard(Board board)
 		{
+			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(board);
 			Parameters.Add("value", board.Id);
 			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
@@ -403,6 +412,8 @@ namespace Manatee.Trello
 		/// <param name="card"></param>
 		public void RescindVoteForCard(Card card)
 		{
+			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(card);
 			Svc.Delete(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { card, new VotingMember { Id = Id } }));
 		}
@@ -412,6 +423,8 @@ namespace Manatee.Trello
 		/// <param name="board"></param>
 		public void UnpinBoard(Board board)
 		{
+			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(board);
 			Svc.Delete(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, new PinnedBoard { Id = board.Id } }));
 		}
@@ -421,6 +434,8 @@ namespace Manatee.Trello
 		/// <param name="card"></param>
 		public void VoteForCard(Card card)
 		{
+			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(card);
 			Parameters.Add("value", Id);
 			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { card, new VotingMember() }, this));

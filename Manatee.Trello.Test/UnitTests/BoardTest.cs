@@ -88,7 +88,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(DescriptionIsAccessed)
 				.Then(MockApiGetIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
-				
+
 				.WithScenario("Access Description property when expired")
 				.Given(ABoard)
 				.And(EntityIsExpired)
@@ -123,6 +123,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Description property without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(DescriptionIsSet, "description")
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -140,7 +147,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(IsClosedIsAccessed)
 				.Then(MockApiGetIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
-				
+
 				.WithScenario("Access IsClosed property when expired")
 				.Given(ABoard)
 				.And(EntityIsExpired)
@@ -167,6 +174,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(IsClosedIsSet, (bool?) true)
 				.Then(MockApiPutIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set IsClosed property without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(IsClosedIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -201,17 +215,24 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Set IsPinned property to null")
 				.Given(ABoard)
-				.And(IsPinnedIs, (bool?)true)
-				.When(IsPinnedIsSet, (bool?)null)
+				.And(IsPinnedIs, (bool?) true)
+				.When(IsPinnedIsSet, (bool?) null)
 				.Then(MockApiPutIsCalled<Board>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set IsPinned property to same")
 				.Given(ABoard)
-				.And(IsPinnedIs, (bool?)true)
-				.When(IsPinnedIsSet, (bool?)true)
+				.And(IsPinnedIs, (bool?) true)
+				.When(IsPinnedIsSet, (bool?) true)
 				.Then(MockApiPutIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set IsPinned property without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(IsPinnedIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -257,6 +278,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(IsSubscribedIsSet, (bool?) true)
 				.Then(MockApiPutIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set IsSubscribed property without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(IsSubscribedIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -371,6 +399,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Name property without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(NameIsSet, "description")
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -421,6 +456,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Invalid})
 				.Then(MockApiPutIsCalled<Board>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Organization property without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Invalid})
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -508,6 +550,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<List>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
+				.WithScenario("AddList is called without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(AddListIsCalled, string.Empty)
+				.Then(MockApiPutIsCalled<List>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -537,6 +586,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Member>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
+				.WithScenario("AddOrUpdateMember is called without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(AddOrUpdateMemberIsCalled, new Member())
+				.Then(MockApiPutIsCalled<Member>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -553,6 +609,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(MarkAsViewedIsCalled)
 				.Then(MockApiPostIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("MarkAsViewed is called without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(MarkAsViewedIsCalled)
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -571,6 +634,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(InviteMemberIsCalled)
 				.Then(MockApiPutIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("InviteMember is called without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(InviteMemberIsCalled)
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -601,6 +671,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<Member>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
+				.WithScenario("RemoveMember is called without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(RemoveMemberIsCalled, new Member())
+				.Then(MockApiPutIsCalled<Member>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -618,6 +695,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(RescindInvitationIsCalled)
 				.Then(MockApiPutIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("RescindInvitation is called without AuthToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(RescindInvitationIsCalled)
+				.Then(MockApiPutIsCalled<Member>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

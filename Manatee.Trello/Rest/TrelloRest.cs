@@ -51,6 +51,8 @@ namespace Manatee.Trello.Rest
 		{
 			get { return RestClientProvider.RequestProvider; }
 		}
+		public string AuthKey { get { return _authKey; } }
+		public string AuthToken { get { return _authToken; } }
 
 		public TrelloRest(string authKey, string authToken)
 		{

@@ -84,6 +84,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<CheckList>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Card property without AuthToken")
+				.Given(ACheckList)
+				.And(TokenNotSupplied)
+				.When(CardIsSet, new Card {Id = TrelloIds.Invalid})
+				.Then(MockApiPutIsCalled<CheckList>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -156,6 +163,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<CheckList>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Name property without AuthToken")
+				.Given(ACheckList)
+				.And(TokenNotSupplied)
+				.When(NameIsSet, "name")
+				.Then(MockApiPutIsCalled<CheckList>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -201,6 +215,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<CheckList>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Position property without AuthToken")
+				.Given(ACheckList)
+				.And(TokenNotSupplied)
+				.When(PositionIsSet, (Position) PositionValue.Bottom)
+				.Then(MockApiPutIsCalled<CheckList>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -231,6 +252,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<CheckItem>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
+				.WithScenario("AddList is called without AuthToken")
+				.Given(ACheckList)
+				.And(TokenNotSupplied)
+				.When(AddCheckItemIsCalled, "list")
+				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -247,6 +275,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(DeleteIsCalled)
 				.Then(MockApiDeleteIsCalled<CheckList>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Delete is called without AuthToken")
+				.Given(ACheckList)
+				.And(TokenNotSupplied)
+				.When(DeleteIsCalled)
+				.Then(MockApiPutIsCalled<CheckList>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

@@ -108,7 +108,8 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
-			Svc.Delete(Svc.RequestProvider.Create<Attachment>(new ExpiringObject[] {Owner, this}));
+			Validate.Writable(Svc);
+			Svc.Delete(Svc.RequestProvider.Create<Attachment>(new ExpiringObject[] { Owner, this }));
 		}
 
 		/// <summary>

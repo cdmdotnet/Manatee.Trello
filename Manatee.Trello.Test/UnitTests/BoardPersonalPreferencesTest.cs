@@ -1,4 +1,5 @@
 ﻿using System;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -45,6 +46,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set ShowListGuide property without AuthToken")
+				.Given(ABoardPersonalPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(ShowListGuideIsSet, (bool?) true)
+				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -82,6 +90,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(ShowSidebarIsSet, (bool?) true)
 				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set ShowSidebar property without AuthToken")
+				.Given(ABoardPersonalPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(ShowSidebarIsSet, (bool?) true)
+				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -121,6 +136,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set ShowSidebarActivity property without AuthToken")
+				.Given(ABoardPersonalPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(ShowSidebarActivityIsSet, (bool?) true)
+				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -159,6 +181,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set ShowSidebarBoardActions property without AuthToken")
+				.Given(ABoardPersonalPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(ShowSidebarBoardActionsIsSet, (bool?) true)
+				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -196,6 +225,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(ShowSidebarMembersIsSet, (bool?) true)
 				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set ShowSidebarMembers property without AuthToken")
+				.Given(ABoardPersonalPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(ShowSidebarMembersIsSet, (bool?) true)
+				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

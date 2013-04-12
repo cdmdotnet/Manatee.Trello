@@ -86,6 +86,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_isUnread == value) return;
 				Validate.Nullable(value);
 				_isUnread = value;

@@ -79,6 +79,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_description == value) return;
 				_description = value ?? string.Empty;
 				Parameters.Add("desc", _description);
@@ -97,6 +98,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_displayName == value) return;
 				_displayName = Validate.MinStringLength(value, 4, "DisplayName");
 				Parameters.Add("displayName", _displayName);
@@ -130,6 +132,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_name == value) return;
 				_name = Validate.OrgName(Svc, value);
 				Parameters.Add("name", _name);
@@ -167,6 +170,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_website == value) return;
 				_website = value ?? string.Empty;
 				Parameters.Add("website", _website);
@@ -203,6 +207,7 @@ namespace Manatee.Trello
 		public Board AddBoard(string name)
 		{
 			if (Svc == null) return null;
+			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
 			var board = Svc.Post(Svc.RequestProvider.Create<Board>(new[] { new Board() }));
 			_boards.MarkForUpdate();
@@ -216,6 +221,7 @@ namespace Manatee.Trello
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var request = Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, member }, this);
 			Parameters.Add("type", type.ToLowerString());
@@ -229,6 +235,7 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Svc.Delete(Svc.RequestProvider.Create<Organization>(Id));
 		}
 		/// <summary>
@@ -238,6 +245,8 @@ namespace Manatee.Trello
 		/// <param name="type">The level of membership offered.</param>
 		internal void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
+			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
 		}
@@ -248,6 +257,7 @@ namespace Manatee.Trello
 		public void RemoveMember(Member member)
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(member);
 			Svc.Delete(Svc.RequestProvider.Create<Organization>(new ExpiringObject[] {this, member}));
 		}
@@ -257,6 +267,8 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		internal void RescindInvitation(Member member)
 		{
+			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
 		}

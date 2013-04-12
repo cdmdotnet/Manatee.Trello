@@ -1,4 +1,5 @@
 ﻿using System;
+using Manatee.Trello.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -57,6 +58,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<LabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Red property without AuthToken")
+				.Given(ALabelNamesObject)
+				.And(TokenNotSupplied)
+				.When(RedIsSet, "description")
+				.Then(MockApiPutIsCalled<LabelNames>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -108,6 +116,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(OrangeIsSet, "description")
 				.Then(MockApiPutIsCalled<LabelNames>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Orange property without AuthToken")
+				.Given(ALabelNamesObject)
+				.And(TokenNotSupplied)
+				.When(OrangeIsSet, "description")
+				.Then(MockApiPutIsCalled<LabelNames>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -161,6 +176,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<LabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Yellow property without AuthToken")
+				.Given(ALabelNamesObject)
+				.And(TokenNotSupplied)
+				.When(YellowIsSet, "description")
+				.Then(MockApiPutIsCalled<LabelNames>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -212,6 +234,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(GreenIsSet, "description")
 				.Then(MockApiPutIsCalled<LabelNames>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Green property without AuthToken")
+				.Given(ALabelNamesObject)
+				.And(TokenNotSupplied)
+				.When(GreenIsSet, "description")
+				.Then(MockApiPutIsCalled<LabelNames>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -265,6 +294,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<LabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Blue property without AuthToken")
+				.Given(ALabelNamesObject)
+				.And(TokenNotSupplied)
+				.When(BlueIsSet, "description")
+				.Then(MockApiPutIsCalled<LabelNames>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -316,6 +352,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(PurpleIsSet, "description")
 				.Then(MockApiPutIsCalled<LabelNames>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Purple property without AuthToken")
+				.Given(ALabelNamesObject)
+				.And(TokenNotSupplied)
+				.When(PurpleIsSet, "description")
+				.Then(MockApiPutIsCalled<LabelNames>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

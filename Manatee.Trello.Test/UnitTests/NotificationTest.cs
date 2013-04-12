@@ -1,4 +1,5 @@
 ﻿using System;
+using Manatee.Trello.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -17,6 +18,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.IWant("to get the IsUnread property value.");
 
 			feature.WithScenario("Access IsUnread property")
+				.Given(ANotification)
+				.And(EntityIsNotExpired)
+				.When(IsUnreadIsAccessed)
+				.Then(MockApiGetIsCalled<Notification>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access IsUnread property when expired")
 				.Given(ANotification)
 				.And(EntityIsExpired)
 				.When(IsUnreadIsAccessed)
@@ -42,6 +50,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(IsUnreadIsSet, (bool?) true)
 				.Then(MockApiPutIsCalled<Notification>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set IsUnread property without AuthToken")
+				.Given(ANotification)
+				.And(TokenNotSupplied)
+				.When(IsUnreadIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<Notification>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

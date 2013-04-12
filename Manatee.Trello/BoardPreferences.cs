@@ -72,6 +72,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_allowsSelfJoin == value) return;
 				Validate.Nullable(value);
 				_allowsSelfJoin = value;
@@ -91,6 +92,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_comments == value) return;
 				_comments = value;
 				UpdateApiComments();
@@ -110,6 +112,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_invitations == value) return;
 				_invitations = value;
 				UpdateApiInvitations();
@@ -129,6 +132,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
@@ -148,6 +152,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_showCardCovers == value) return;
 				Validate.Nullable(value);
 				_showCardCovers = value;
@@ -167,6 +172,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_voting == value) return;
 				_voting = value;
 				UpdateApiVoting();

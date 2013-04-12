@@ -63,6 +63,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_boardVisibilityRestrict == value) return;
 				_boardVisibilityRestrict = value;
 			}
@@ -79,6 +80,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_externalMembersDisabled == value) return;
 				Validate.Nullable(value);
 				_externalMembersDisabled = value;
@@ -96,6 +98,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_orgInviteRestrict == value) return;
 				_orgInviteRestrict = value;
 			}
@@ -112,6 +115,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();

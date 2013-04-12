@@ -1,4 +1,5 @@
 ﻿using System;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
@@ -58,6 +59,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<CheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Name property without AuthToken")
+				.Given(ACheckItem)
+				.And(TokenNotSupplied)
+				.When(NameIsSet, "name")
+				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -103,6 +111,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<CheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Position property without AuthToken")
+				.Given(ACheckItem)
+				.And(TokenNotSupplied)
+				.When(PositionIsSet, (Position) PositionValue.Bottom)
+				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -141,6 +156,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<CheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set State property without AuthToken")
+				.Given(ACheckItem)
+				.And(TokenNotSupplied)
+				.When(StateIsSet, CheckItemStateType.Complete)
+				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -157,6 +179,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(DeleteIsCalled)
 				.Then(MockApiDeleteIsCalled<CheckItem>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Delete is called without AuthToken")
+				.Given(ACheckItem)
+				.And(TokenNotSupplied)
+				.When(DeleteIsCalled)
+				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Manatee.Trello.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -57,6 +58,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set ExternalMembersDisabled property without AuthToken")
+				.Given(AnOrganizationPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(ExternalMembersDisabledIsSet, (bool?)true)
+				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -100,6 +108,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
 				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set PermissionLevel property without AuthToken")
+				.Given(AnOrganizationPreferencesObject)
+				.And(TokenNotSupplied)
+				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
+				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

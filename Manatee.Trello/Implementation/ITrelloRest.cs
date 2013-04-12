@@ -38,6 +38,14 @@ namespace Manatee.Trello.Implementation
 		/// 
 		/// </summary>
 		IRestRequestProvider RequestProvider { get; }
+		/// <summary>
+		/// 
+		/// </summary>
+		string AuthKey { get; }
+		/// <summary>
+		/// 
+		/// </summary>
+		string AuthToken { get; }
 
 		/// <summary>
 		/// 

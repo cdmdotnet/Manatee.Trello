@@ -208,6 +208,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Description property without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(DescriptionIsSet, "description")
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -252,6 +259,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(DueDateIsSet, (DateTime?) DateTime.Now.AddDays(1))
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set DueDate property without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(DueDateIsSet, (DateTime?) DateTime.Now.AddDays(1))
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -298,6 +312,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set IsClosed property without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(IsClosedIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -342,6 +363,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(IsSubscribedIsSet, (bool?) true)
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set IsSubscribed property without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(IsSubscribedIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -467,7 +495,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.WithScenario("Set Name property to null")
 				.Given(ACard)
 				.And(NameIs, "name")
-				.When(NameIsSet, (string)null)
+				.When(NameIsSet, (string) null)
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
@@ -484,6 +512,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(NameIsSet, "description")
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Name property without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(NameIsSet, "description")
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -529,6 +564,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(PositionIsSet, (Position) PositionValue.Bottom)
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Position property without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(PositionIsSet, (Position) PositionValue.Bottom)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -621,6 +663,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<CheckList>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
+				.WithScenario("AddCheckList is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(AddCheckListIsCalled, string.Empty)
+				.Then(MockApiPutIsCalled<CheckList>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -650,6 +699,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
+				.WithScenario("AddComment is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(AddCommentIsCalled, string.Empty)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -666,6 +722,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(ApplyLabelIsCalled, LabelColor.Red)
 				.Then(MockApiPostIsCalled<Card>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("ApplyLabel is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(ApplyLabelIsCalled, LabelColor.Red)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -696,6 +759,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
+				.WithScenario("AssignMember is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(AssignMemberIsCalled, new Member())
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -712,6 +782,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(ClearNotificationsIsCalled)
 				.Then(MockApiPostIsCalled<Card>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("ClearNotifications is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(ClearNotificationsIsCalled)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -730,6 +807,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<Card>, 1)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Delete is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(DeleteIsCalled)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -746,7 +830,8 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ACard)
 				.And(BoardContainsList)
 				// Need to figure this out...
-				.When(MoveIsCalled, new Board(_systemUnderTest.Dependencies.Api.Object, TrelloIds.Invalid), new List { Id = TrelloIds.Invalid })
+				.When(MoveIsCalled, new Board(_systemUnderTest.Dependencies.Api.Object, TrelloIds.Invalid),
+				      new List {Id = TrelloIds.Invalid})
 				.Then(MockApiPutIsCalled<Card>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -780,6 +865,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<List>>)
 
+				.WithScenario("Move is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid}, new List {Id = TrelloIds.Invalid})
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -796,6 +888,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(RemoveLabelIsCalled, LabelColor.Red)
 				.Then(MockApiDeleteIsCalled<Card>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("RemoveLabel is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(RemoveLabelIsCalled, LabelColor.Red)
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -825,6 +924,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(RemoveMemberIsCalled, new Member())
 				.Then(MockApiDeleteIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
+
+				.WithScenario("RemoveMember is called without AuthToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Invalid})
+				.Then(MockApiPutIsCalled<Card>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

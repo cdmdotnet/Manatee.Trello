@@ -160,6 +160,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_description == value) return;
 				_description = value ?? string.Empty;
 				Parameters.Add("desc", _description);
@@ -178,6 +179,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_dueDate == value) return;
 				Validate.Nullable(value);
 				_dueDate = value;
@@ -197,6 +199,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_isClosed == value) return;
 				Validate.Nullable(value);
 				_isClosed = value;
@@ -216,6 +219,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_isSubscribed == value) return;
 				Validate.Nullable(value);
 				_isSubscribed = value;
@@ -265,6 +269,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_name == value) return;
 				Validate.NonEmptyString(value);
 				_name = value;
@@ -284,6 +289,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_position == value) return;
 				Validate.Position(value);
 				_position = value;
@@ -337,6 +343,8 @@ namespace Manatee.Trello
 		/// <returns>The attachment object.</returns>
 		internal Attachment AddAttachment()
 		{
+			if (Svc == null) return null;
+			Validate.Writable(Svc);
 			throw new NotImplementedException();
 		}
 		/// <summary>
@@ -348,6 +356,7 @@ namespace Manatee.Trello
 		public CheckList AddCheckList(string name, Position position = null)
 		{
 			if (Svc == null) return null;
+			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
 			var request = Svc.RequestProvider.Create<CheckList>(new ExpiringObject[] {new CheckList()}, this);
 			Parameters.Add("name", name);
@@ -365,6 +374,7 @@ namespace Manatee.Trello
 		public void AddComment(string comment)
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.NonEmptyString(comment);
 			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Action() }, this, "comments");
 			Parameters.Add("text", comment);
@@ -378,7 +388,8 @@ namespace Manatee.Trello
 		public void ApplyLabel(LabelColor color)
 		{
 			if (Svc == null) return;
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Label()}, this);
+			Validate.Writable(Svc);
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Label() }, this);
 			Parameters.Add("value", color.ToLowerString());
 			Svc.Post(request);
 			_actions.MarkForUpdate();
@@ -390,6 +401,7 @@ namespace Manatee.Trello
 		public void AssignMember(Member member)
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Member()}, this);
 			Parameters.Add("value", member.Id);
@@ -402,6 +414,7 @@ namespace Manatee.Trello
 		public void ClearNotifications()
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this }, urlExtension: "markAssociatedNotificationsRead");
 			Svc.Post(request);
 		}
@@ -411,6 +424,7 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			var request = Svc.RequestProvider.Create<Card>(Id);
 			Svc.Delete(request);
 		}
@@ -423,6 +437,7 @@ namespace Manatee.Trello
 		public void Move(Board board, List list, Position position = null)
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(board);
 			Validate.Entity(list);
 			if (!board.Lists.Contains(list))
@@ -443,7 +458,8 @@ namespace Manatee.Trello
 		public void RemoveLabel(LabelColor color)
 		{
 			if (Svc == null) return;
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Label()}, urlExtension: color.ToLowerString());
+			Validate.Writable(Svc);
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Label() }, urlExtension: color.ToLowerString());
 			Svc.Delete(request);
 		}
 		/// <summary>
@@ -453,6 +469,7 @@ namespace Manatee.Trello
 		public void RemoveMember(Member member)
 		{
 			if (Svc == null) return;
+			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, member });
 			Svc.Delete(request);

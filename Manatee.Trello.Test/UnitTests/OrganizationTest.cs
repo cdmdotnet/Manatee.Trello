@@ -98,6 +98,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Organization>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Description property wihtout AuthToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(DescriptionIsSet, "description")
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -148,6 +155,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(DisplayNameIsSet, "description")
 				.Then(MockApiPutIsCalled<Organization>, 0)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set DisplayName property wihtout AuthToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(DisplayNameIsSet, "description")
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -257,6 +271,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(MockApiPutIsCalled<Organization>, 0)
 				.And(ExceptionIsThrown<OrgNameInUseException>)
 
+				.WithScenario("Set Name property wihtout AuthToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(NameIsSet, "description")
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -353,6 +374,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Organization>, 0)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Website property wihtout AuthToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(WebsiteIsSet, "Website")
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -388,17 +416,24 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<Board>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("AddCard is called with null name")
+				.WithScenario("AddBoard is called with null name")
 				.Given(AnOrganization)
 				.When(AddBoardIsCalled, (string) null)
 				.Then(MockApiPostIsCalled<Board>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
-				.WithScenario("AddCard is called with empty name")
+				.WithScenario("AddBoard is called with empty name")
 				.Given(AnOrganization)
 				.When(AddBoardIsCalled, string.Empty)
 				.Then(MockApiPostIsCalled<Board>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("AddBoard is called wihtout AuthToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(AddBoardIsCalled, "board")
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -429,6 +464,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<Member>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
+				.WithScenario("AddOrUpdateMember is called wihtout AuthToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(AddOrUpdateMemberIsCalled, new Member { Id = TrelloIds.Invalid })
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -445,6 +487,13 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(DeleteIsCalled)
 				.Then(MockApiDeleteIsCalled<Organization>, 1)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Delete is called wihtout AuthToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(DeleteIsCalled)
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}

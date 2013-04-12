@@ -63,6 +63,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_red == value) return;
 				_red = value ?? string.Empty;
 				Parameters.Add("value", _red);
@@ -81,6 +82,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_orange == value) return;
 				_orange = value ?? string.Empty;
 				Parameters.Add("value", _orange);
@@ -99,6 +101,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_yellow == value) return;
 				_yellow = value ?? string.Empty;
 				Parameters.Add("value", _yellow);
@@ -117,6 +120,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_green == value) return;
 				_green = value ?? string.Empty;
 				Parameters.Add("value", _green);
@@ -135,6 +139,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_blue == value) return;
 				_blue = value ?? string.Empty;
 				Parameters.Add("value", _blue);
@@ -153,6 +158,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				Validate.Writable(Svc);
 				if (_purple == value) return;
 				_purple = value ?? string.Empty;
 				Parameters.Add("value", _purple);
