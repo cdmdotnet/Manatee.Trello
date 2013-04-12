@@ -67,7 +67,7 @@ namespace Manatee.Trello.Contracts
 			{
 				if (_svc == value) return;
 				_svc = value;
-				PropigateSerivce();
+				PropigateService();
 				MarkForUpdate();
 			}
 		}
@@ -118,7 +118,7 @@ namespace Manatee.Trello.Contracts
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
-		protected abstract void PropigateSerivce();
+		protected abstract void PropigateService();
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>

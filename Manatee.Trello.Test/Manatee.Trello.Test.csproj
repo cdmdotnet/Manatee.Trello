@@ -78,7 +78,6 @@
     <Compile Include="UnitTests\BoardPreferencesTest.cs" />
     <Compile Include="UnitTests\BoardTest.cs" />
     <Compile Include="UnitTests\CardTest.cs" />
-    <Compile Include="UnitTests\CheckItemStateTest.cs" />
     <Compile Include="UnitTests\CheckItemTest.cs" />
     <Compile Include="UnitTests\CheckListTest.cs" />
     <Compile Include="UnitTests\EntityTestBase.cs" />

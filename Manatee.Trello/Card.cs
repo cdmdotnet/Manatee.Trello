@@ -90,7 +90,6 @@ namespace Manatee.Trello
 		private readonly Badges _badges;
 		private string _boardId;
 		private Board _board;
-		private readonly ExpiringList<Card, CheckItemState> _checkItemStates;
 		private readonly ExpiringList<Card, CheckList> _checkLists;
 		private string _description;
 		private DateTime? _dueDate;
@@ -141,10 +140,6 @@ namespace Manatee.Trello
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
 			}
 		}
-		/// <summary>
-		/// Enumerates the checklist items and their states.
-		/// </summary>
-		public IEnumerable<CheckItemState> CheckItemStates { get { return _checkItemStates; } }
 		/// <summary>
 		/// Enumerates the card's checklists.
 		/// </summary>
@@ -319,7 +314,6 @@ namespace Manatee.Trello
 			_actions = new ExpiringList<Card, Action>(this);
 			_attachments = new ExpiringList<Card, Attachment>(this);
 			_badges = new Badges(null, this);
-			_checkItemStates = new ExpiringList<Card, CheckItemState>(this);
 			_checkLists = new ExpiringList<Card, CheckList>(this);
 			_labels = new ExpiringList<Card, Label>(this);
 			_members = new ExpiringList<Card, Member>(this);
@@ -331,7 +325,6 @@ namespace Manatee.Trello
 			_actions = new ExpiringList<Card, Action>(svc, this);
 			_attachments = new ExpiringList<Card, Attachment>(svc, this);
 			_badges = new Badges(svc, this);
-			_checkItemStates = new ExpiringList<Card, CheckItemState>(svc, this);
 			_checkLists = new ExpiringList<Card, CheckList>(svc, this);
 			_labels = new ExpiringList<Card, Label>(svc, this);
 			_members = new ExpiringList<Card, Member>(svc, this);
@@ -506,7 +499,6 @@ namespace Manatee.Trello
 			           		{"idAttachmentCover", _attachmentCoverId},
 			           		{"badges", _badges != null ? _badges.ToJson() : JsonValue.Null},
 			           		{"idBoard", _boardId},
-			           		{"checkItemStates", _checkItemStates.ToJson()},
 			           		{"desc", _description},
 			           		{"due", _dueDate.HasValue ? _dueDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
 			           		{"closed", _isClosed.HasValue ? _isClosed.Value : JsonValue.Null},
@@ -585,12 +577,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateSerivce()
+		protected override void PropigateService()
 		{
 			_actions.Svc = Svc;
 			_attachments.Svc = Svc;
 			_badges.Svc = Svc;
-			_checkItemStates.Svc = Svc;
 			_checkLists.Svc = Svc;
 			_labels.Svc = Svc;
 			_members.Svc = Svc;

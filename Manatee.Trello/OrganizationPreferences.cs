@@ -54,7 +54,7 @@ namespace Manatee.Trello
 		private OrganizationPermissionLevelType _permissionLevel = OrganizationPermissionLevelType.Unknown;
 
 		// TODO: Determine structure of this object
-		private object BoardVisibilityRestrict
+		internal object BoardVisibilityRestrict
 		{
 			get
 			{
@@ -87,7 +87,7 @@ namespace Manatee.Trello
 			}
 		}
 		// TODO: Determine contents of this array
-		private List<object> OrgInviteRestrict
+		internal List<object> OrgInviteRestrict
 		{
 			get
 			{
@@ -195,7 +195,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateSerivce() {}
+		protected override void PropigateService() {}
 
 		private void Put(string extension)
 		{

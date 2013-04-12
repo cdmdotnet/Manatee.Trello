@@ -22,6 +22,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
@@ -173,9 +174,9 @@ namespace Manatee.Trello
 		///</summary>
 		public IEnumerable<List> Lists { get { return _lists; } }
 		///<summary>
-		/// Gets the board's members.
+		/// Gets the board's members and their types.
 		///</summary>
-		public IEnumerable<BoardMembership> Members { get { return _members; } }
+		public IEnumerable<BoardMembership> Memberships { get { return _members; } }
 		///<summary>
 		/// Gets and sets the board's name.
 		///</summary>
@@ -203,16 +204,24 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
+				if (_organizationId == null) return _organization = null;
 				return ((_organization == null) || (_organization.Id != _organizationId)) && (Svc != null)
 				       	? (_organization = Svc.Get(Svc.RequestProvider.Create<Organization>(_organizationId)))
 				       	: _organization;
 			}
 			set
 			{
-				Validate.Entity(value);
-				if (_organizationId == value.Id) return;
-				_organizationId = value.Id;
-				Parameters.Add("idOrganization", _organizationId);
+				Validate.Entity(value, true);
+				if (value == null)
+				{
+					_organizationId = null;
+				}
+				else
+				{
+					if (_organizationId == value.Id) return;
+					_organizationId = value.Id;
+				}
+				Parameters.Add("idOrganization", _organizationId ?? string.Empty);
 				Put();
 			}
 		}
@@ -435,7 +444,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateSerivce()
+		protected override void PropigateService()
 		{
 			_actions.Svc = Svc;
 			_archivedCards.Svc = Svc;
