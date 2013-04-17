@@ -31,6 +31,7 @@ namespace Manatee.Trello
 	{
 		private Board _board;
 		private readonly string _boardId;
+		private readonly string _boardName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -51,7 +52,24 @@ namespace Manatee.Trello
 		public UpdateBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
+			_boardName = action.Data.Object.TryGetObject("board").TryGetString("name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} updated board '{1}' on {2}",
+			                     MemberCreator.FullName,
+			                     Board != null ? Board.Name : _boardName,
+			                     Date);
 		}
 	}
 }

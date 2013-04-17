@@ -34,6 +34,7 @@ namespace Manatee.Trello
 		private readonly string _boardId;
 		private Member _member;
 		private readonly string _memberId;
+		private readonly string _boardName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -65,8 +66,26 @@ namespace Manatee.Trello
 		public MakeNormalMemberOfBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
+			_boardName = action.Data.Object.TryGetObject("board").TryGetString("name");
 			_memberId = action.Data.Object.TryGetString("idMember");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} made {1} a normal member of board '{2}' on {3}",
+								 MemberCreator.FullName,
+								 Member.FullName,
+								 Board != null ? Board.Name : _boardName,
+								 Date);
 		}
 	}
 }

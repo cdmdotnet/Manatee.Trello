@@ -35,6 +35,9 @@ namespace Manatee.Trello
 		private readonly string _boardTargetId;
 		private Card _card;
 		private readonly string _cardId;
+		private readonly string _boardName;
+		private readonly string _boardTargetName;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -78,9 +81,30 @@ namespace Manatee.Trello
 		public MoveCardFromBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
+			_boardName = action.Data.Object.TryGetObject("board").TryGetString("id");
 			_boardTargetId = action.Data.Object.TryGetObject("boardTarget").TryGetString("id");
+			_boardTargetName = action.Data.Object.TryGetObject("boardTarget").TryGetString("id");
 			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
+			_cardName = action.Data.Object.TryGetObject("card").TryGetString("id");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} moved list '{1}' from board '{2}' to board '{3}' on {4}",
+								 MemberCreator.FullName,
+								 Card != null ? Card.Name : _cardName,
+								 Board != null ? Board.Name : _boardName,
+								 BoardTarget != null ? BoardTarget.Name : _boardTargetName,
+								 Date);
 		}
 	}
 }

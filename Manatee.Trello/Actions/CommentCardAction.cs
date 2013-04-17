@@ -34,6 +34,7 @@ namespace Manatee.Trello
 		private Card _card;
 		private readonly string _cardId;
 		private readonly string _text;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -69,9 +70,27 @@ namespace Manatee.Trello
 		public CommentCardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
 			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
+			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
 			_text = action.Data.Object.TryGetString("text");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} commented '{1}' on card '{2}' on {3}",
+								 MemberCreator.FullName,
+								 Text,
+								 Card != null ? Card.Name : _cardName,
+								 Date);
 		}
 	}
 }

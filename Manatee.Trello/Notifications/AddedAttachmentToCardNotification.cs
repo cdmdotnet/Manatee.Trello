@@ -36,6 +36,7 @@ namespace Manatee.Trello
 		private readonly string _cardId;
 		private readonly string _name;
 		private readonly string _url;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -77,9 +78,24 @@ namespace Manatee.Trello
 		{
 			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
 			_cardId = notification.Data.Object.TryGetObject("card").TryGetString("id");
+			_cardName = notification.Data.Object.TryGetObject("card").TryGetString("name");
 			_name = notification.Data.Object.TryGetString("name");
 			_url = notification.Data.Object.TryGetString("url");
 			Refresh(notification);
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} added an attachment to card '{1}'.",
+								 MemberCreator.FullName,
+								 Card != null ? Card.Name : _cardName);
 		}
 	}
 }

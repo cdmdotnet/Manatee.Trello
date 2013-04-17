@@ -14,7 +14,7 @@ using IRestClient = Manatee.Trello.Contracts.IRestClient;
 namespace Manatee.Trello.Test.UnitTests
 {
 	[TestClass]
-	public class TrelloServiceUnitTest
+	public class TrelloServiceUnitTest : UnitTestBase<TrelloService>
 	{
 		public const string MockAuthKey = "mock auth key";
 		public const string MockAuthToken = "mock auth token";
@@ -22,45 +22,13 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Dependencies
 
-		private class DependencyCollection
+		private class DependencyCollection : UnitTestBase<TrelloService>.DependencyCollection
 		{
-			public class MockRequestProvider : IRestRequestProvider
-			{
-				public IRestRequest<T> Create<T>() where T : ExpiringObject, new()
-				{
-					return new Mock<IRestRequest<T>>().Object;
-				}
-				public IRestRequest<T> Create<T>(string id) where T : ExpiringObject, new()
-				{
-					var mock = new Mock<IRestRequest<T>>();
-					mock.SetupGet(r => r.Template).Returns(new T {Id = id});
-					return mock.Object;
-				}
-				public IRestRequest<T> Create<T>(ExpiringObject obj) where T : ExpiringObject, new()
-				{
-					var mock = new Mock<IRestRequest<T>>();
-					mock.SetupGet(r => r.Template).Returns(new T { Id = obj.Id });
-					return mock.Object;
-				}
-				public IRestRequest<T> Create<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity, string urlExtension) where T : ExpiringObject, new()
-				{
-					return new Mock<IRestRequest<T>>().Object;
-				}
-				public IRestCollectionRequest<T> CreateCollectionRequest<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity) where T : ExpiringObject, new()
-				{
-					return new Mock<IRestCollectionRequest<T>>().Object;
-				}
-			}
-
 			public Mock<IRestClient> RestClient { get; private set; }
-			public Mock<IRestClientProvider> RestClientProvider { get; private set; }
-			public MockRequestProvider RequestProvider { get; private set; }
 
 			public DependencyCollection()
 			{
 				RestClient = new Mock<IRestClient>();
-				RestClientProvider = new Mock<IRestClientProvider>();
-				RequestProvider = new MockRequestProvider();
 
 				RestClientProvider.SetupGet(p => p.RequestProvider)
 					.Returns(RequestProvider);
@@ -68,14 +36,10 @@ namespace Manatee.Trello.Test.UnitTests
 					.Returns(RestClient.Object);
 			}
 		}
-		private class SystemUnderTest
+		private class ServiceUnderTest : SystemUnderTest<DependencyCollection>
 		{
-			public DependencyCollection Dependencies { get; private set; }
-			public TrelloService Sut { get; private set; }
-
-			public SystemUnderTest()
+			public ServiceUnderTest()
 			{
-				Dependencies = new DependencyCollection();
 				Sut = new TrelloService(MockAuthKey, MockAuthToken)
 				{
 					RestClientProvider = Dependencies.RestClientProvider.Object
@@ -87,9 +51,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Data
 
-		private SystemUnderTest _systemUnderTest;
-		private Exception _exception;
-		private object _actualResult;
+		private ServiceUnderTest _systemUnderTest;
 		private string _request;
 
 		#endregion
@@ -100,6 +62,7 @@ namespace Manatee.Trello.Test.UnitTests
 		public void Retrieve()
 		{
 			var story = new Story("Retrieve");
+
 			var feature = story.InOrderTo("retrieve data from Trello.com")
 				.AsA("TrelloService consumer")
 				.IWant("the requested data returned");
@@ -179,7 +142,7 @@ namespace Manatee.Trello.Test.UnitTests
 			where T : JsonCompatibleExpiringObject, new()
 		{
 			T entity = new T {Id = MockEntityId};
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new ServiceUnderTest();
 			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<T>>()))
 				.Returns(new RestSharpResponse<T>(new RestResponse<T>()) {Data = entity});
 		}
@@ -191,7 +154,7 @@ namespace Manatee.Trello.Test.UnitTests
 			             		Type = ActionType.CommentCard,
 			             		Data = new Manatee.Json.JsonObject()
 			             	};
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new ServiceUnderTest();
 			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<Action>>()))
 				.Returns(new RestSharpResponse<Action>(new RestResponse<Action>()) {Data = entity});
 		}
@@ -203,7 +166,7 @@ namespace Manatee.Trello.Test.UnitTests
 								Type = NotificationType.CommentCard,
 			             		Data = new Manatee.Json.JsonObject()
 			             	};
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new ServiceUnderTest();
 			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<Notification>>()))
 				.Returns(new RestSharpResponse<Notification>(new RestResponse<Notification>()) {Data = entity});
 		}

@@ -32,6 +32,7 @@ namespace Manatee.Trello
 	{
 		private Board _board;
 		private readonly string _boardId;
+		private readonly string _boardName;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -52,8 +53,23 @@ namespace Manatee.Trello
 		public RemovedFromBoardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
 			Refresh(notification);
+			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
+			_boardName = notification.Data.Object.TryGetObject("board").TryGetString("name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} removed you from board '{1}'.",
+			                     MemberCreator.FullName,
+								 Board != null ? Board.Name : _boardName);
 		}
 	}
 }

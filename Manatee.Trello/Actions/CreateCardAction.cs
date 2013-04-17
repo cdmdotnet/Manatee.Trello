@@ -35,6 +35,8 @@ namespace Manatee.Trello
 		private readonly string _listId;
 		private Card _card;
 		private readonly string _cardId;
+		private readonly string _listName;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -77,9 +79,28 @@ namespace Manatee.Trello
 		public CreateCardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
 			_listId = action.Data.Object.TryGetObject("list").TryGetString("id");
+			_listName = action.Data.Object.TryGetObject("list").TryGetString("name");
 			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
+			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} created card '{1}' on list '{2}' on {3}",
+								 MemberCreator.FullName,
+								 Card != null ? Card.Name : _cardName,
+								 List != null ? List.Name : _listName,
+								 Date);
 		}
 	}
 }

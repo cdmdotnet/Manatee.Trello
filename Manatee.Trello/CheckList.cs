@@ -212,7 +212,7 @@ namespace Manatee.Trello
 			_boardId = obj.TryGetString("idBoard");
 			_cardId = obj.TryGetString("idCard");
 			_name = obj.TryGetString("name");
-			_position = new Position(PositionValue.Unknown);
+			_position = Position.Unknown;
 			if (obj.ContainsKey("pos"))
 				_position.FromJson(obj["pos"]);
 			_isInitialized = true;
@@ -270,6 +270,17 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return Name;
 		}
 
 		internal override void Refresh(ExpiringObject entity)

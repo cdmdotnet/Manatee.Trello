@@ -36,7 +36,7 @@ namespace Manatee.Trello.Implementation
 			_typeMap = new Dictionary<ActionType, Type>
 			           	{
 			           		{ActionType.AddAttachmentToCard, null},
-			           		{ActionType.AddChecklistToCard, null},
+			           		{ActionType.AddChecklistToCard, typeof (AddCheckListToCardAction)},
 			           		{ActionType.AddMemberToBoard, typeof (AddMemberToBoardAction)},
 			           		{ActionType.AddMemberToCard, typeof (AddMemberToCardAction)},
 			           		{ActionType.AddMemberToOrganization, null},

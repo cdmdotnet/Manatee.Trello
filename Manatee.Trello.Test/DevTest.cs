@@ -16,6 +16,15 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
+			var service = new TrelloService(TrelloIds.Key, TrelloIds.Token);
+
+			var me = service.Me;
+			Console.WriteLine(me);
+
+			foreach (var notification in me.Notifications)
+			{
+				Console.WriteLine(notification);
+			}
 		}
 	}
 }

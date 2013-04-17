@@ -32,6 +32,7 @@ namespace Manatee.Trello
 	{
 		private Organization _organization;
 		private readonly string _organizationId;
+		private readonly string _organizationName;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -52,8 +53,23 @@ namespace Manatee.Trello
 		public MakeAdminOfOrganizationNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			_organizationId = notification.Data.Object.TryGetObject("organization").TryGetString("id");
 			Refresh(notification);
+			_organizationId = notification.Data.Object.TryGetObject("organization").TryGetString("id");
+			_organizationName = notification.Data.Object.TryGetObject("organization").TryGetString("name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} made you an admin of organization '{1}'.",
+								 MemberCreator.FullName,
+								 Organization != null ? Organization.Name : _organizationName);
 		}
 	}
 }

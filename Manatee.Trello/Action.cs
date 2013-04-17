@@ -178,7 +178,7 @@ namespace Manatee.Trello
 			_data = obj.TryGetObject("data");
 			var date = obj.TryGetString("date");
 			_date = string.IsNullOrWhiteSpace(date) ? (DateTime?) null : DateTime.Parse(date);
-			_memberCreatorId = obj.TryGetString("idCreatorMember");
+			_memberCreatorId = obj.TryGetString("idMemberCreator");
 			UpdateType();
 			_isInitialized = true;
 		}
@@ -197,7 +197,7 @@ namespace Manatee.Trello
 			           		{"type", _apiType},
 			           		{"data", _data ?? JsonValue.Null},
 			           		{"date", _date.HasValue ? _date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			           		{"idCreatorMember", _memberCreatorId},
+			           		{"idMemberCreator", _memberCreatorId},
 			           	};
 			return json;
 		}
@@ -235,8 +235,19 @@ namespace Manatee.Trello
 		{
 			return base.GetHashCode();
 		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} on {1}", Type, Date);
+		}
 
-		internal override void Refresh(ExpiringObject entity)
+		internal sealed override void Refresh(ExpiringObject entity)
 		{
 			var action = entity as Action;
 			if (action == null) return;

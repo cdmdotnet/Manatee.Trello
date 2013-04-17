@@ -710,7 +710,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void ABoard()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 			SetupMockPost<List>();
 		}

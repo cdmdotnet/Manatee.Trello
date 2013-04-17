@@ -223,6 +223,17 @@ namespace Manatee.Trello
 		{
 			return base.GetHashCode();
 		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} did something noteworthy.", MemberCreator.FullName);
+		}
 
 		internal override sealed void Refresh(ExpiringObject entity)
 		{

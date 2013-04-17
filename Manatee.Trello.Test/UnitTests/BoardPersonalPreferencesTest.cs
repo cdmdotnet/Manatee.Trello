@@ -240,7 +240,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void ABoardPersonalPreferencesObject()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 			_systemUnderTest.Sut.Owner = new Board {Id = TrelloIds.Invalid};
 			SetupMockGet<BoardPersonalPreferences>();

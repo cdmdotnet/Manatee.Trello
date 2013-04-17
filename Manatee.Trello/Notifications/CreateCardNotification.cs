@@ -31,10 +31,13 @@ namespace Manatee.Trello
 	{
 		private Board _board;
 		private readonly string _boardId;
+		private readonly string _boardName;
 		private List _list;
 		private readonly string _listId;
+		private readonly string _listName;
 		private Card _card;
 		private readonly string _cardId;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -77,10 +80,28 @@ namespace Manatee.Trello
 		public CreateCardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
-			_listId = notification.Data.Object.TryGetObject("list").TryGetString("id");
-			_cardId = notification.Data.Object.TryGetObject("card").TryGetString("id");
 			Refresh(notification);
+			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
+			_boardName = notification.Data.Object.TryGetObject("board").TryGetString("name");
+			_listId = notification.Data.Object.TryGetObject("list").TryGetString("id");
+			_listName = notification.Data.Object.TryGetObject("list").TryGetString("name");
+			_cardId = notification.Data.Object.TryGetObject("card").TryGetString("id");
+			_cardName = notification.Data.Object.TryGetObject("card").TryGetString("name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} created card '{1}' in list '{2}'.",
+			                     MemberCreator.FullName,
+								 Card != null ? Card.Name : _cardName,
+			                     List != null ? List.Name : _listName);
 		}
 	}
 }

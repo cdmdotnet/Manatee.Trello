@@ -28,15 +28,19 @@ namespace Manatee.Trello.Contracts
 	public interface ITrelloService
 	{
 		/// <summary>
+		/// Gets the Member object associated with the provided AuthKey.
+		/// </summary>
+		Member Me { get; }
+		/// <summary>
+		/// Gets and sets the IRestClientProvider to be used by the service.
+		/// </summary>
+		IRestClientProvider RestClientProvider { get; set; }
+		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>
 		/// <typeparam name="T">The type of entity to retrieve.</typeparam>
 		/// <param name="id">The ID of the entity.</param>
 		/// <returns>The entity which corresponds to the ID, or null if not found.</returns>
 		T Retrieve<T>(string id) where T : ExpiringObject, new();
-		/// <summary>
-		/// Gets and sets the IRestClientProvider to be used by the service.
-		/// </summary>
-		IRestClientProvider RestClientProvider { get; set; }
 	}
 }

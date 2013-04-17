@@ -761,6 +761,30 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
+		public void CreateOrganization()
+		{
+			var story = new Story("CreateOrganization");
+
+			var feature = story.InOrderTo("create a new organization")
+				.AsA("developer")
+				.IWant("to call CreateOrganization");
+
+			feature.WithScenario("CreateOrganization is called")
+				.Given(AMember)
+				.When(CreateOrganizationIsCalled, "org name")
+				.Then(MockApiPostIsCalled<Organization>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("CreateOrganization is called without AuthToken")
+				.Given(AMember)
+				.And(TokenNotSupplied)
+				.When(CreateOrganizationIsCalled, "org name")
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void PinBoard()
 		{
 			var story = new Story("PinBoard");
@@ -909,7 +933,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void AMember()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 		}
 		private void AvatarSourceIs(string value)
@@ -1060,6 +1084,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void ClearNotificationsIsCalled()
 		{
 			Execute(() => _systemUnderTest.Sut.ClearNotifications());
+		}
+		private void CreateOrganizationIsCalled(string value)
+		{
+			Execute(() => _systemUnderTest.Sut.CreateOrganization(value));
 		}
 		private void PinBoardIsCalled(Board value)
 		{

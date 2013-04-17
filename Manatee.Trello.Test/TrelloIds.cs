@@ -1,4 +1,4 @@
-﻿namespace Manatee.Trello.Test.FunctionalTests
+﻿namespace Manatee.Trello.Test
 {
 	internal static class TrelloIds
 	{

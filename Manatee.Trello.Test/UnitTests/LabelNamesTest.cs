@@ -367,7 +367,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void ALabelNamesObject()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 		}
 		private void RedIs(string value)

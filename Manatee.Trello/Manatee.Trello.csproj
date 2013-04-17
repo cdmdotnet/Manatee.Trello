@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="Actions\AddCheckListToCardAction.cs" />
     <Compile Include="Actions\AddMemberToBoardAction.cs" />
     <Compile Include="Actions\AddMemberToCardAction.cs" />
     <Compile Include="Actions\AddToOrganizationBoardAction.cs" />
@@ -151,7 +152,6 @@
     <Compile Include="MemberPreferences.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Organization.cs" />
-    <Compile Include="Enumerations\PositionValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rest\RestSharpCollectionRequest.cs" />
     <Compile Include="Implementation\GeneralExtensions.cs" />
