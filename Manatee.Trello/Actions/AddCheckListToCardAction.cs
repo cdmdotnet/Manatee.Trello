@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		UpdateCheckItemStateOnCardAction.cs
+	File Name:		AddCheckListToCardAction.cs
 	Namespace:		Manatee.Trello
-	Class Name:		UpdateCheckItemStateOnCardAction
-	Purpose:		Indicates a check item was either checked or unchecked.
+	Class Name:		AddCheckListToCardAction
+	Purpose:		Indicates a check list was added to a card.
 
 ***************************************************************************************/
 using Manatee.Json.Extensions;
@@ -25,9 +25,9 @@ using Manatee.Json.Extensions;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Indicates a check item was either checked or unchecked.
+	/// Indicates a check list was added to a card.
 	/// </summary>
-	public class UpdateCheckItemStateOnCardAction : Action
+	public class AddCheckListToCardAction : Action
 	{
 		private Board _board;
 		private readonly string _boardId;
@@ -35,10 +35,8 @@ namespace Manatee.Trello
 		private readonly string _checkListId;
 		private Card _card;
 		private readonly string _cardId;
-		private CheckItem _checkItem;
-		private readonly string _checkItemId;
+		private readonly string _checkListName;
 		private readonly string _cardName;
-		private readonly string _checkItemName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -73,32 +71,19 @@ namespace Manatee.Trello
 				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
 			}
 		}
-		/// <summary>
-		/// Gets the check item associated with the action.
-		/// </summary>
-		public CheckItem CheckItem
-		{
-			get
-			{
-				VerifyNotExpired();
-				return ((_checkItem == null) || (_checkItem.Id != _cardId)) && (Svc != null) ? (_checkItem = Svc.Get(Svc.RequestProvider.Create<CheckItem>(_checkItemId))) : _checkItem;
-			}
-		}
 
 		/// <summary>
-		/// Creates a new instance of the UpdateCheckItemStateOnCardAction class.
+		/// Creates a new instance of the AddCheckListToCardAction class.
 		/// </summary>
-		/// <param name="action">The base action</param>
-		public UpdateCheckItemStateOnCardAction(Action action)
-			: base(action.Svc, action.Id)
+		/// <param name="action"></param>
+		public AddCheckListToCardAction(Action action)
 		{
 			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
 			_checkListId = action.Data.Object.TryGetObject("checklist").TryGetString("id");
+			_checkListName = action.Data.Object.TryGetObject("checklist").TryGetString("name");
 			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = action.Data.Object.TryGetObject("card").TryGetString("id");
-			_checkItemId = action.Data.Object.TryGetObject("checkItem").TryGetString("id");
-			_checkItemName = action.Data.Object.TryGetObject("checkItem").TryGetString("id");
+			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
 		}
 
 		/// <summary>
@@ -110,9 +95,9 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} updated check item '{1}' on card '{2}' on {3}",
+			return string.Format("{0} added check list '{1}' to card '{2}' on {3}",
 								 MemberCreator.FullName,
-								 CheckItem!= null ? CheckItem.Name : _checkItemName,
+								 CheckList != null ? CheckList.Name : _checkListName,
 								 Card != null ? Card.Name : _cardName,
 								 Date);
 		}

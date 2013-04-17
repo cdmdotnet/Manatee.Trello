@@ -197,7 +197,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void ABadgesObject()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 			SetupMockGet<Organization>();
 		}

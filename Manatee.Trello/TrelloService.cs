@@ -38,6 +38,13 @@ namespace Manatee.Trello
 		private ITrelloRest _api;
 
 		/// <summary>
+		/// Gets the Member object associated with the provided AuthKey.
+		/// </summary>
+		public Member Me
+		{
+			get { return Api.Get(Api.RequestProvider.Create<Member>(new ExpiringObject[] {new Member()}, urlExtension: "me")); }
+		}
+		/// <summary>
 		/// Gets and sets the IRestClientProvider to be used by the service.
 		/// </summary>
 		public IRestClientProvider RestClientProvider
@@ -84,6 +91,17 @@ namespace Manatee.Trello
 		{
 			if (string.IsNullOrWhiteSpace(id)) return null;
 			return Api.Get(Api.RequestProvider.Create<T>(id));
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("Key: {0}, Token: {1}", Api.AuthKey, Api.AuthToken);
 		}
 	}
 }

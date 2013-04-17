@@ -261,28 +261,28 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Set Position property")
 				.Given(AList)
-				.When(PositionIsSet, (Position)PositionValue.Bottom)
+				.When(PositionIsSet, Trello.Position.Bottom)
 				.Then(MockApiPutIsCalled<List>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Position property to null")
 				.Given(AList)
-				.And(PositionIs, (Position)PositionValue.Bottom)
+				.And(PositionIs, Trello.Position.Bottom)
 				.When(PositionIsSet, (Position)null)
 				.Then(MockApiPutIsCalled<List>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Position property to same")
 				.Given(AList)
-				.And(PositionIs, (Position)PositionValue.Bottom)
-				.When(PositionIsSet, (Position)PositionValue.Bottom)
+				.And(PositionIs, Trello.Position.Bottom)
+				.When(PositionIsSet, Trello.Position.Bottom)
 				.Then(MockApiPutIsCalled<List>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Position property without AuthToken")
 				.Given(AList)
 				.And(TokenNotSupplied)
-				.When(PositionIsSet, (Position)PositionValue.Bottom)
+				.When(PositionIsSet, Trello.Position.Bottom)
 				.Then(MockApiPutIsCalled<List>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
@@ -371,7 +371,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void AList()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 		}
 		private void IsClosedIs(bool? value)

@@ -123,7 +123,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void AnOrganizationPreferencesObject()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 		}
 		private void BoardVisibilityRestrictIs(object value)

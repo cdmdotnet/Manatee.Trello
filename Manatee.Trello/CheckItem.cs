@@ -147,7 +147,7 @@ namespace Manatee.Trello
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			_name = obj.TryGetString("name");
-			_position = new Position(PositionValue.Unknown);
+			_position = Position.Unknown;
 			if (obj.ContainsKey("pos"))
 				_position.FromJson(obj["pos"]);
 			_apiState = obj.TryGetString("state");
@@ -205,6 +205,17 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} : {1}", Name, State);
 		}
 
 		internal override void Refresh(ExpiringObject entity)

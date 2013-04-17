@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello
 {
@@ -30,7 +31,7 @@ namespace Manatee.Trello
 		{
 			return board.Memberships.Where(m => m.MembershipType == BoardMembershipType.Admin)
 									.Select(m => m.Member);
-		}
+			}
 		/// <summary>
 		/// Retrieves all cards contained within a board, both archived and active.
 		/// </summary>

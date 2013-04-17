@@ -40,6 +40,7 @@ namespace Manatee.Trello
 		private readonly string _cardId;
 		private readonly string _name;
 		private readonly CheckItemStateType _state;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -87,12 +88,28 @@ namespace Manatee.Trello
 		public UpdateCheckItemStateOnCardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
+			Refresh(notification);
 			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
 			_cardId = notification.Data.Object.TryGetObject("card").TryGetString("id");
+			_cardName = notification.Data.Object.TryGetObject("card").TryGetString("name");
 			var apiState = notification.Data.Object.TryGetString("state");
 			_state = _stateMap.Any(kvp => kvp.Value == apiState) ? _stateMap[apiState] : CheckItemStateType.Unknown;
 			_name = notification.Data.Object.TryGetString("name");
-			Refresh(notification);
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} updated check item '{1}' on card '{2}'.",
+								 MemberCreator.FullName,
+								 Name,
+								 Card != null ? Card.Name : _cardName);
 		}
 	}
 }

@@ -33,6 +33,8 @@ namespace Manatee.Trello
 		private readonly string _boardId;
 		private Organization _organization;
 		private readonly string _organizationId;
+		private readonly string _boardName;
+		private readonly string _organizationName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -64,8 +66,27 @@ namespace Manatee.Trello
 		public RemoveFromOrganizationBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
+			_boardName = action.Data.Object.TryGetObject("board").TryGetString("name");
 			_organizationId = action.Data.Object.TryGetObject("organization").TryGetString("id");
+			_organizationName = action.Data.Object.TryGetObject("organization").TryGetString("name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} removed board '{1}' from organization '{2}' on {3}",
+								 MemberCreator.FullName,
+								 Board != null ? Board.Name : _boardName,
+								 Organization != null ? Organization.Name : _organizationName,
+								 Date);
 		}
 	}
 }

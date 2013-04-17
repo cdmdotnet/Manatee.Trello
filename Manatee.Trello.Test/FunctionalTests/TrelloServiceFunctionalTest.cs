@@ -6,14 +6,28 @@ using StoryQ;
 namespace Manatee.Trello.Test.FunctionalTests
 {
 	[TestClass]
-	public class TrelloServiceFunctionalTest
+	public class TrelloServiceFunctionalTest : TrelloTestBase<TrelloService>
 	{
-		private Exception _exception;
-		private object _actualResult;
-		private string _authKey, _authToken, _request;
+		private class DependencyCollection
+		{
+			public string AuthKey { get; set; }
+			public string AuthToken { get; set; }
+		}
+		private class ServiceUnderTest : SystemUnderTest<DependencyCollection>
+		{
+			public ServiceUnderTest(string authKey, string authToken)
+			{
+				Dependencies.AuthKey = authKey;
+				Dependencies.AuthToken = authToken;
+				Sut = new TrelloService(Dependencies.AuthKey, Dependencies.AuthToken);
+			}
+		}
+
+		private string _request;
+		private ServiceUnderTest _serviceUnderTest;
 
 		[TestMethod]
-		public void Retrieve_Success()
+		public void Retrieve()
 		{
 			var story = new Story("TrelloService.Retrieve Succeeds");
 
@@ -22,75 +36,75 @@ namespace Manatee.Trello.Test.FunctionalTests
 				.IWant("TrelloService to provide the requested data.");
 
 			feature.WithScenario("Retrieve a Board")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.BoardId)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<Board>)
 
 				.WithScenario("Retrieve a Card")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.CardId)
 				.When(RetrieveIsCalled<Card>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<Card>)
 
 				.WithScenario("Retrieve an Action")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.ActionId)
 				.When(RetrieveIsCalled<Action>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<Action>)
 
 				.WithScenario("Retrieve a List")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.ListId)
 				.When(RetrieveIsCalled<List>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<List>)
 
 				.WithScenario("Retrieve a Member by Username")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.UserName)
 				.When(RetrieveIsCalled<Member>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedMemberIsReturned)
 
 				.WithScenario("Retrieve a Member by Id")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.MemberId)
 				.When(RetrieveIsCalled<Member>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<Member>)
 
 				.WithScenario("Retrieve a Notification")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, TrelloIds.Token)
+				.Given(ATrelloService, TrelloIds.Key, TrelloIds.Token)
 				.And(AnId, TrelloIds.NotificationId)
 				.When(RetrieveIsCalled<Notification>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<Notification>)
 
 				.WithScenario("Retrieve a Organization")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.OrganizationId)
 				.When(RetrieveIsCalled<Organization>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<Organization>)
 
 				.WithScenario("Retrieve a CheckList")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.CheckListId)
 				.When(RetrieveIsCalled<CheckList>)
 				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<CheckList>)
 
 				.Execute();
@@ -105,92 +119,80 @@ namespace Manatee.Trello.Test.FunctionalTests
 				.IWant("TrelloService to disallow invalid input.");
 
 			feature.WithScenario("Retrieve an entity with invalid ID")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.Invalid)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
 				.WithScenario("Retrieve an entity with ID for different type")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.CardId)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
-				
+
 				.WithScenario("Retrieve an entity with null ID")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
-				.And(AnId, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
+				.And(AnId, (string) null)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
 				.WithScenario("Retrieve an entity with an empty ID")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, string.Empty)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
 				.WithScenario("Retrieve an entity with a whitespace ID")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, "    ")
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
 				.WithScenario("Retrieve an entity, supplying a null key")
-				.Given(AnAuthKey, (string) null)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, (string) null, (string) null)
 				.And(AnId, TrelloIds.BoardId)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Retrieve an entity, supplying an empty key")
-				.Given(AnAuthKey, string.Empty)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, string.Empty, (string) null)
 				.And(AnId, TrelloIds.BoardId)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Retrieve an entity, supplying a whitespace key")
-				.Given(AnAuthKey, "    ")
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, "    ", (string) null)
 				.And(AnId, TrelloIds.BoardId)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Retrieve an entity, supplying an invalid key")
-				.Given(AnAuthKey, TrelloIds.Invalid)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Invalid, (string) null)
 				.And(AnId, TrelloIds.BoardId)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsNotThrown)
 
 				.WithScenario("Retrieve an entity, supplying an invalid token")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, TrelloIds.Invalid)
+				.Given(ATrelloService, TrelloIds.Key, TrelloIds.Invalid)
 				.And(AnId, TrelloIds.BoardId)
 				.When(RetrieveIsCalled<Board>)
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
 				.WithScenario("Retrieve a Notification without supplying token")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string) null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.NotificationId)
 				.When(RetrieveIsCalled<Notification>)
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
 				.WithScenario("Retrieve a sub-type by submitting its owner's ID")
-				.Given(AnAuthKey, TrelloIds.Key)
-				.And(AnAuthToken, (string)null)
+				.Given(ATrelloService, TrelloIds.Key, (string) null)
 				.And(AnId, TrelloIds.BoardId)
 				.When(RetrieveIsCalled<BoardPreferences>)
 				.Then(ExceptionIsNotThrown)
@@ -201,13 +203,9 @@ namespace Manatee.Trello.Test.FunctionalTests
 
 		#region Given
 
-		private void AnAuthKey(string key)
+		private void ATrelloService(string authKey, string authToken)
 		{
-			_authKey = key;
-		}
-		private void AnAuthToken(string token)
-		{
-			_authToken = token;
+			_serviceUnderTest = new ServiceUnderTest(authKey, authToken);
 		}
 		private void AnId(string id)
 		{
@@ -221,38 +219,13 @@ namespace Manatee.Trello.Test.FunctionalTests
 		private void RetrieveIsCalled<T>()
 			where T : ExpiringObject, new()
 		{
-			_exception = null;
-			_actualResult = null;
-
-			try
-			{
-				var service = new TrelloService(_authKey, _authToken);
-				_actualResult = service.Retrieve<T>(_request);
-			}
-			catch (Exception e)
-			{
-				_exception = e;
-			}
+			Execute(() => _serviceUnderTest.Sut.Retrieve<T>(_request));
 		}
 
 		#endregion
 
 		#region Then
 
-		private void ExceptionIsNotThrown()
-		{
-			Assert.IsNull(_exception);
-		}
-		[GenericMethodFormat("{0} is thrown")]
-		private void ExceptionIsThrown<T>() where T : Exception
-		{
-			Assert.IsNotNull(_exception);
-			Assert.IsInstanceOfType(_exception, typeof(T));
-		}
-		private void ResponseIsNull()
-		{
-			Assert.IsNull(_actualResult);
-		}
 		private void RequestedObjectIsReturned<T>()
 			where T : ExpiringObject
 		{

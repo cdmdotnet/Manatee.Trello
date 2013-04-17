@@ -33,6 +33,7 @@ namespace Manatee.Trello
 		private readonly string _boardId;
 		private Card _card;
 		private readonly string _cardId;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -64,9 +65,24 @@ namespace Manatee.Trello
 		public ChangeCardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
+			Refresh(notification);
 			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
 			_cardId = notification.Data.Object.TryGetObject("card").TryGetString("id");
-			Refresh(notification);
+			_cardName = notification.Data.Object.TryGetObject("card").TryGetString("name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} changed card '{1}'.",
+			                     MemberCreator.FullName,
+								 Card != null ? Card.Name : _cardName);
 		}
 	}
 }

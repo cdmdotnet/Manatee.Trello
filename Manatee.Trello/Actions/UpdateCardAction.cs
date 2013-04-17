@@ -34,10 +34,13 @@ namespace Manatee.Trello
 		private readonly string _boardId;
 		private List _listBefore;
 		private readonly string _listBeforeId;
+		private readonly string _listBeforeName;
 		private List _listAfter;
 		private readonly string _listAfterId;
+		private readonly string _listAfterName;
 		private Card _card;
 		private readonly string _cardId;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -93,10 +96,36 @@ namespace Manatee.Trello
 		public UpdateCardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
 			_listBeforeId = action.Data.Object.TryGetObject("listBefore").TryGetString("id");
+			_listBeforeName = action.Data.Object.TryGetObject("listBefore").TryGetString("name");
 			_listAfterId = action.Data.Object.TryGetObject("listAfter").TryGetString("id");
+			_listAfterName = action.Data.Object.TryGetObject("listAfter").TryGetString("name");
 			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
+			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			if (_listBeforeId != null)
+				return string.Format("{0} moved card '{1}' from list '{2}' to list '{3}' on {4}",
+				                     MemberCreator.FullName,
+				                     Card != null ? Card.Name : _cardName,
+				                     ListBefore != null ? ListBefore.Name : _listBeforeName,
+				                     ListAfter != null ? ListAfter.Name : _listAfterName,
+				                     Date);
+			return string.Format("{0} updated card '{1}' on {2}",
+									MemberCreator.FullName,
+									Card != null ? Card.Name : _cardName,
+									Date);
 		}
 	}
 }

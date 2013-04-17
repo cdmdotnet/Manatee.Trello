@@ -60,7 +60,7 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		public bool IsExpired { get { return DateTime.Now >= _expires; } }
 
-		internal virtual ITrelloRest Svc
+		internal ITrelloRest Svc
 		{
 			get { return _svc; }
 			set

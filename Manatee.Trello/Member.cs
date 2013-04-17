@@ -395,6 +395,18 @@ namespace Manatee.Trello
 			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { new Notification() }, urlExtension: "all/read"));
 		}
 		/// <summary>
+		/// Creates an organization administered by the current member.
+		/// </summary>
+		/// <param name="displayName">The display name of the organization.</param>
+		/// <returns>The newly-created Organization object.</returns>
+		public Organization CreateOrganization(string displayName)
+		{
+			if (Svc == null) return null;
+			Validate.Writable(Svc);
+			Parameters.Add("displayName", displayName);
+			return Svc.Post(Svc.RequestProvider.Create<Organization>(new ExpiringObject[] {new Organization()}));
+		}
+		/// <summary>
 		/// Adds a board to the member's boards menu.
 		/// </summary>
 		/// <param name="board">The board to pin.</param>
@@ -536,6 +548,17 @@ namespace Manatee.Trello
 		{
 			return base.GetHashCode();
 		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return FullName;
+		}
 
 		internal override void Refresh(ExpiringObject entity)
 		{
@@ -573,7 +596,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void PropigateService()
 		{
-			_premiumOrganizations.Svc = Svc;
+			_actions.Svc = Svc;
 			_boards.Svc = Svc;
 			_invitedBoards.Svc = Svc;
 			_invitedOrganizations.Svc = Svc;
@@ -581,6 +604,7 @@ namespace Manatee.Trello
 			_organizations.Svc = Svc;
 			_pinnedBoards.Svc = Svc;
 			_preferences.Svc = Svc;
+			_premiumOrganizations.Svc = Svc;
 		}
 
 		private void Put()

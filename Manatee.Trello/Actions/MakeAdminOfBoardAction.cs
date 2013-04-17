@@ -65,8 +65,22 @@ namespace Manatee.Trello
 		public MakeAdminOfBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
 			_memberId = action.Data.Object.TryGetString("idMember");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} made {1} a admin of board '{2}' on {3}",
+								 MemberCreator.FullName, Member.FullName, Board.Name, Date);
 		}
 	}
 }

@@ -35,29 +35,42 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Position : IJsonCompatible
 	{
-		private PositionValue _value = PositionValue.Unknown;
+		private const double TopValue = double.PositiveInfinity;
+		private const double BottomValue = double.NegativeInfinity;
+		private const double UnknownValue = double.NaN;
+
+		private static readonly Position _top = new Position(TopValue);
+		private static readonly Position _bottom = new Position(BottomValue);
+		private static readonly Position _unknown = new Position(UnknownValue);
+
+		/// <summary>
+		/// Represents the top position.
+		/// </summary>
+		public static Position Top { get { return _top; } }
+		/// <summary>
+		/// Represents the bottom position.
+		/// </summary>
+		public static Position Bottom { get { return _bottom; } }
+		/// <summary>
+		/// Represents an invalid position.
+		/// </summary>
+		public static Position Unknown { get { return _unknown; } }
+
+		private double _value = UnknownValue;
 
 		/// <summary>
 		/// Gets whether the position is valid.
 		/// </summary>
-		public bool IsValid { get { return _value > PositionValue.Unknown; } }
-		internal PositionValue Value { get { return _value; } }
+		public bool IsValid { get { return _value != UnknownValue; } }
+		internal double Value { get { return _value; } }
 
 		/// <summary>
 		/// Creates a new instance of the Position class.
 		/// </summary>
-		/// <param name="value">A positive integer, Top, or Bottom.</param>
-		public Position(PositionValue value)
+		/// <param name="value">A positive integer.</param>
+		public Position(double value)
 		{
 			_value = value;
-		}
-		/// <summary>
-		/// Creates a new instance of the Position class.
-		/// </summary>
-		/// <param name="value">A positive integer.</param>
-		public Position(int value)
-		{
-			_value = (PositionValue) value;
 		}
 
 		/// <summary>
@@ -70,24 +83,24 @@ namespace Manatee.Trello
 			switch (json.Type)
 			{
 				case JsonValueType.Number:
-					_value = (PositionValue) json.Number;
+					_value = json.Number;
 					break;
 				case JsonValueType.String:
 					switch (json.String.ToLower())
 					{
 						case "top":
-							_value = PositionValue.Top;
+							_value = TopValue;
 							break;
 						case "bottom":
-							_value = PositionValue.Bottom;
+							_value = BottomValue;
 							break;
 						default:
-							_value = PositionValue.Unknown;
+							_value = UnknownValue;
 							break;
 					}
 					break;
 				default:
-					_value = PositionValue.Unknown;
+					_value = UnknownValue;
 					break;
 			}
 		}
@@ -100,17 +113,17 @@ namespace Manatee.Trello
 		public JsonValue ToJson()
 		{
 			JsonValue json;
-			switch (_value)
+			if (_value == TopValue)
 			{
-				case PositionValue.Top:
-					json = "top";
-					break;
-				case PositionValue.Bottom:
-					json = "bottom";
-					break;
-				default:
-					json = _value > 0 ? (int) _value : JsonValue.Null;
-					break;
+				json = "top";
+			}
+			else if (_value == BottomValue)
+			{
+				json = "bottom";
+			}
+			else
+			{
+				json = _value > 0 ? (int) _value : JsonValue.Null;
 			}
 			return json;
 		}
@@ -130,7 +143,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="value">The PositionValue value.</param>
 		/// <returns>The Position object.</returns>
-		public static implicit operator Position(PositionValue value)
+		public static implicit operator Position(double value)
 		{
 			return new Position(value);
 		}
@@ -148,7 +161,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="position">The Position object.</param>
 		/// <returns>The PositionValue value.</returns>
-		public static explicit operator PositionValue(Position position)
+		public static explicit operator double(Position position)
 		{
 			return position._value;
 		}
@@ -183,6 +196,46 @@ namespace Manatee.Trello
 		public static bool operator !=(Position a, Position b)
 		{
 			return !(a == b);
+		}
+		/// <summary>
+		/// Compares two position values for linear order.
+		/// </summary>
+		/// <param name="a">A Position object.</param>
+		/// <param name="b">A Position object.</param>
+		/// <returns>True if the first operand is less than the second, false otherwise.</returns>
+		public static bool operator <(Position a, Position b)
+		{
+			return a._value < b._value;
+		}
+		/// <summary>
+		/// Compares two position values for linear order.
+		/// </summary>
+		/// <param name="a">A Position object.</param>
+		/// <param name="b">A Position object.</param>
+		/// <returns>True if the first operand is greater than the second, false otherwise.</returns>
+		public static bool operator >(Position a, Position b)
+		{
+			return a._value > b._value;
+		}
+		/// <summary>
+		/// Compares two position values for linear order.
+		/// </summary>
+		/// <param name="a">A Position object.</param>
+		/// <param name="b">A Position object.</param>
+		/// <returns>True if the first operand is less than or equal to the second, false otherwise.</returns>
+		public static bool operator <=(Position a, Position b)
+		{
+			return a._value <= b._value;
+		}
+		/// <summary>
+		/// Compares two position values for linear order.
+		/// </summary>
+		/// <param name="a">A Position object.</param>
+		/// <param name="b">A Position object.</param>
+		/// <returns>True if the first operand is greater than or equal to the second, false otherwise.</returns>
+		public static bool operator >=(Position a, Position b)
+		{
+			return a._value >= b._value;
 		}
 		/// <summary>
 		/// Compares two Position object by examining their content.

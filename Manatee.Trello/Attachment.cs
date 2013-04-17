@@ -190,6 +190,17 @@ namespace Manatee.Trello
 		{
 			return base.GetHashCode();
 		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return Name;
+		}
 
 		internal override void Refresh(ExpiringObject entity)
 		{

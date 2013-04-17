@@ -547,28 +547,28 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Set Position property")
 				.Given(ACard)
-				.When(PositionIsSet, (Position) PositionValue.Bottom)
+				.When(PositionIsSet, Trello.Position.Bottom)
 				.Then(MockApiPutIsCalled<Card>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Position property to null")
 				.Given(ACard)
-				.And(PositionIs, (Position) PositionValue.Bottom)
+				.And(PositionIs, Trello.Position.Bottom)
 				.When(PositionIsSet, (Position) null)
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Position property to same")
 				.Given(ACard)
-				.And(PositionIs, (Position) PositionValue.Bottom)
-				.When(PositionIsSet, (Position) PositionValue.Bottom)
+				.And(PositionIs, Trello.Position.Bottom)
+				.When(PositionIsSet, Trello.Position.Bottom)
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Position property without AuthToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
-				.When(PositionIsSet, (Position) PositionValue.Bottom)
+				.When(PositionIsSet, Trello.Position.Bottom)
 				.Then(MockApiPutIsCalled<Card>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
@@ -939,7 +939,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void ACard()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 			SetupMockPost<CheckList>();
 		}

@@ -35,6 +35,7 @@ namespace Manatee.Trello
 		private readonly string _cardId;
 		private Member _member;
 		private readonly string _memberId;
+		private readonly string _cardName;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -77,9 +78,27 @@ namespace Manatee.Trello
 		public AddMemberToCardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
+			Refresh(action);
 			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
 			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
+			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
 			_memberId = action.Data.Object.TryGetString("idMember");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} assigned {1} to card '{2}' on {3}",
+								 MemberCreator.FullName,
+								 Member.FullName,
+								 Card != null ? Card.Name : _cardName,
+								 Date);
 		}
 	}
 }

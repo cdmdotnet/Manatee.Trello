@@ -22,6 +22,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
@@ -180,7 +181,7 @@ namespace Manatee.Trello
 			if (Svc == null) return null;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[]{new Card()}, this);
+			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { new Card() }, this);
 			Parameters.Add("name", name);
 			Parameters.Add("idList", Id);
 			if (description != null)
@@ -228,7 +229,7 @@ namespace Manatee.Trello
 			_isClosed = obj.TryGetBoolean("closed");
 			_isSubscribed = obj.TryGetBoolean("subscribed");
 			_name = obj.TryGetString("name");
-			_position = new Position(PositionValue.Unknown);
+			_position = Position.Unknown;
 			if (obj.ContainsKey("pos"))
 				_position.FromJson(obj["pos"]);
 			_isInitialized = true;
@@ -286,6 +287,17 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return Name;
 		}
 
 		internal override void Refresh(ExpiringObject entity)

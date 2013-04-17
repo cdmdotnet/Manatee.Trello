@@ -47,7 +47,8 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoardMembership)
 				.And(EntityIsNotExpired)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<BoardMembership>, 0)
+				.And(MockApiGetIsCalled<Member>, 1)
 				.And(NonNullValueOfTypeIsReturned<Member>)
 				.And(ExceptionIsNotThrown)
 
@@ -55,7 +56,8 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoardMembership)
 				.And(EntityIsExpired)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<BoardMembership>, 1)
+				.And(MockApiGetIsCalled<Member>, 1)
 				.And(NonNullValueOfTypeIsReturned<Member>)
 				.And(ExceptionIsNotThrown)
 
@@ -66,7 +68,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private void ABoardMembership()
 		{
-			_systemUnderTest = new SystemUnderTest();
+			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
 			SetupMockGet<Member>();
 			SetupMockGet<BoardMembership>();
