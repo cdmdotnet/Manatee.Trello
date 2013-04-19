@@ -45,7 +45,7 @@ namespace Manatee.Trello.Implementation
 		/// <summary>
 		/// 
 		/// </summary>
-		string AuthToken { get; }
+		string AuthToken { get; set; }
 
 		/// <summary>
 		/// 

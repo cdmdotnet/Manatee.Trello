@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Json;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using Manatee.Trello.Rest;
@@ -138,6 +137,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Given
 
+		[GenericMethodFormat("A(n) {0} exists")]
 		private void AnEntityExists<T>()
 			where T : JsonCompatibleExpiringObject, new()
 		{
@@ -175,37 +175,18 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region When
 
+		[GenericMethodFormat("Retrieve<{0}>() is called")]
 		private void RetrieveIsCalled<T>()
 			where T : ExpiringObject, new()
 		{
-			_request = MockEntityId;
-			_exception = null;
-
-			try
-			{
-				_actualResult = _systemUnderTest.Sut.Retrieve<T>(_request);
-			}
-			catch (Exception e)
-			{
-				_exception = e;
-			}
+			Execute(() => _systemUnderTest.Sut.Retrieve<T>(MockEntityId));
 		}
 
 		#endregion
 
 		#region Then
 
-		private void ExceptionIsNotThrown()
-		{
-			Assert.IsNull(_exception);
-		}
-		[GenericMethodFormat("{0} is thrown")]
-		private void ExceptionIsThrown<T>()
-			where T : Exception
-		{
-			Assert.IsNotNull(_exception);
-			Assert.IsTrue(_exception is T);
-		}
+		[GenericMethodFormat("Execute<{0}>() is called")]
 		private void MockExecuteIsCalled<T>(Times times)
 			where T : ExpiringObject, new()
 		{

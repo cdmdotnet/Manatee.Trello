@@ -24,7 +24,7 @@
 using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Json;
+using Manatee.Trello.Json.Manatee;
 
 namespace Manatee.Trello.Rest
 {
@@ -163,9 +163,9 @@ namespace Manatee.Trello.Rest
 			return client;
 		}
 
-		private ManateeJsonSerializer GetDefaultSerializer()
+		private ManateeSerializer GetDefaultSerializer()
 		{
-			var serializer = new ManateeJsonSerializer();
+			var serializer = new ManateeSerializer();
 			_serializer = serializer;
 			_deserializer = serializer;
 			return serializer;

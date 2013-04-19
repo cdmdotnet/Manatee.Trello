@@ -31,7 +31,7 @@ namespace Manatee.Trello.Rest
 	{
 		private const string ApiBaseUrl = "https://api.trello.com/1";
 		private readonly string _authKey;
-		private readonly string _authToken;
+		private string _authToken;
 
 		private IRestClientProvider _restProvider;
 		
@@ -52,7 +52,7 @@ namespace Manatee.Trello.Rest
 			get { return RestClientProvider.RequestProvider; }
 		}
 		public string AuthKey { get { return _authKey; } }
-		public string AuthToken { get { return _authToken; } }
+		public string AuthToken { get { return _authToken; } set { _authToken = value; } }
 
 		public TrelloRest(string authKey, string authToken)
 		{

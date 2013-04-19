@@ -28,12 +28,12 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Implementation;
 using IRestResponse = RestSharp.IRestResponse;
 
-namespace Manatee.Trello.Json
+namespace Manatee.Trello.Json.Manatee
 {
 	/// <summary>
 	/// Wrapper class for the Manatee.Json.Serializer for use with RestSharp.
 	/// </summary>
-	public class ManateeJsonSerializer : ISerializer, IDeserializer, RestSharp.Serializers.ISerializer, RestSharp.Deserializers.IDeserializer
+	public class ManateeSerializer : ISerializer, IDeserializer, RestSharp.Serializers.ISerializer, RestSharp.Deserializers.IDeserializer
 	{
 		private readonly JsonSerializer _serializer;
 		private readonly MethodInfo _method;
@@ -41,7 +41,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Creates and initializes a new instance of the ManateeJsonSerializer class.
 		/// </summary>
-		public ManateeJsonSerializer()
+		public ManateeSerializer()
 		{
 			_serializer = new JsonSerializer();
 

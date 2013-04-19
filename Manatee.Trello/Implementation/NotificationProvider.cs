@@ -40,30 +40,31 @@ namespace Manatee.Trello.Implementation
 			           		{NotificationType.AddedToCard, typeof (AddedToCardNotification)},
 			           		{NotificationType.AddedToOrganization, typeof (AddedToOrganizationNotification)},
 			           		{NotificationType.AddedMemberToCard, typeof (AddedMemberToCardNotification)},
-			           		{NotificationType.AddAdminToBoard, null},
-			           		{NotificationType.AddAdminToOrganization, null},
+			           		{NotificationType.AddAdminToBoard, typeof (AddAdminToBoardNotification)},
+			           		{NotificationType.AddAdminToOrganization, typeof (AddAdminToOrganizationNotification)},
 			           		{NotificationType.ChangeCard, typeof (ChangeCardNotification)},
-			           		{NotificationType.CloseBoard, null},
+			           		{NotificationType.CloseBoard, typeof (CloseBoardNotification)},
 			           		{NotificationType.CommentCard, typeof (CommentCardNotification)},
 			           		{NotificationType.CreatedCard, typeof (CreateCardNotification)},
-			           		{NotificationType.InvitedToBoard, null},
-			           		{NotificationType.InvitedToOrganization, null},
+			           		{NotificationType.InvitedToBoard, typeof (InvitedToBoardNotification)},
+			           		{NotificationType.InvitedToOrganization, typeof (InvitedToOrganizationNotification)},
 			           		{NotificationType.RemovedFromBoard, typeof (RemovedFromBoardNotification)},
 			           		{NotificationType.RemovedFromCard, typeof (RemovedFromCardNotification)},
-			           		{NotificationType.RemovedMemberFromCard, null},
-			           		{NotificationType.RemovedFromOrganization, null},
+			           		{NotificationType.RemovedMemberFromCard, typeof (RemovedMemberFromCardNotification)},
+			           		{NotificationType.RemovedFromOrganization, typeof (RemovedFromOrganizationNotification)},
 			           		{NotificationType.MentionedOnCard, typeof (MentionedOnCardNotification)},
-			           		{NotificationType.UnconfirmedInvitedToBoard, null},
-			           		{NotificationType.UnconfirmedInvitedToOrganization, null},
+			           		{NotificationType.UnconfirmedInvitedToBoard, typeof (UnconfirmedInvitedToBoardNotification)},
+			           		{NotificationType.UnconfirmedInvitedToOrganization, typeof (UnconfirmedInvitedToOrganizationNotification)},
 			           		{NotificationType.UpdateCheckItemStateOnCard, typeof (UpdateCheckItemStateOnCardNotification)},
 			           		{NotificationType.MakeAdminOfBoard, typeof (MakeAdminOfBoardNotification)},
 			           		{NotificationType.MakeAdminOfOrganization, typeof (MakeAdminOfOrganizationNotification)},
-			           		{NotificationType.CardDueSoon, null},
+			           		{NotificationType.CardDueSoon, typeof (CardDueSoonNotification)},
 			           	};
 		}
 
 		public Notification Parse(Notification obj)
 		{
+			if (obj.Type == NotificationType.Unknown) return obj;
 			var type = _typeMap[obj.Type];
 			var newObj = (Notification) Activator.CreateInstance(type, new[] {obj});
 			return newObj;

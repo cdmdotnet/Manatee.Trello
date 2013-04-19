@@ -53,13 +53,50 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="Actions\AddAttachmentToCardAction.cs" />
     <Compile Include="Actions\AddCheckListToCardAction.cs" />
     <Compile Include="Actions\AddMemberToBoardAction.cs" />
     <Compile Include="Actions\AddMemberToCardAction.cs" />
+    <Compile Include="Actions\AddMemberToOrganizationAction.cs" />
     <Compile Include="Actions\AddToOrganizationBoardAction.cs" />
     <Compile Include="Actions\CommentCardAction.cs" />
+    <Compile Include="Actions\ConvertToCardFromCheckItemAction.cs" />
+    <Compile Include="Actions\CopyBoardAction.cs" />
+    <Compile Include="Actions\CopyCardAction.cs" />
+    <Compile Include="Actions\CopyCommentCardAction.cs" />
+    <Compile Include="Actions\CreateBoardAction.cs" />
     <Compile Include="Actions\CreateCardAction.cs" />
-    <Compile Include="Contracts\CachingTrelloRest.cs" />
+    <Compile Include="Actions\CreateOrganizationAction.cs" />
+    <Compile Include="Actions\DeleteAttachmentFromCardAction.cs" />
+    <Compile Include="Actions\DeleteBoardInvitationAction.cs" />
+    <Compile Include="Actions\DeleteOrganizationInvitationAction.cs" />
+    <Compile Include="Actions\MakeNormalMemberOfOrganizationAction.cs" />
+    <Compile Include="Actions\MakeObserverOfBoardAction.cs" />
+    <Compile Include="Actions\MemberJoinedTrelloAction.cs" />
+    <Compile Include="Actions\RemoveAdminFromBoardAction.cs" />
+    <Compile Include="Actions\RemoveAdminFromOrganizationAction.cs" />
+    <Compile Include="Actions\RemoveChecklistFromCardAction.cs" />
+    <Compile Include="Actions\UnconfirmedBoardInvitationAction.cs" />
+    <Compile Include="Actions\UnconfirmedOrganizationInvitationAction.cs" />
+    <Compile Include="Actions\UpdateCardClosedAction.cs" />
+    <Compile Include="Actions\UpdateCardDescAction.cs" />
+    <Compile Include="Actions\UpdateCardIdListAction.cs" />
+    <Compile Include="Actions\UpdateCardNameAction.cs" />
+    <Compile Include="Actions\UpdateChecklistAction.cs" />
+    <Compile Include="Actions\UpdateMemberAction.cs" />
+    <Compile Include="Actions\UpdateOrganizationAction.cs" />
+    <Compile Include="Implementation\BoardVisibilityRestrict.cs" />
+    <Compile Include="Notifications\AddAdminToBoardNotification.cs" />
+    <Compile Include="Notifications\AddAdminToOrganizationNotification.cs" />
+    <Compile Include="Notifications\CardDueSoonNotification.cs" />
+    <Compile Include="Notifications\CloseBoardNotification.cs" />
+    <Compile Include="Notifications\InvitedToBoardNotification.cs" />
+    <Compile Include="Notifications\InvitedToOrganizationNotification.cs" />
+    <Compile Include="Notifications\RemovedFromOrganizationNotification.cs" />
+    <Compile Include="Notifications\RemovedMemberFromCardNotification.cs" />
+    <Compile Include="Notifications\UnconfirmedInvitedToBoardNotification.cs" />
+    <Compile Include="Notifications\UnconfirmedInvitedToOrganizationNotification.cs" />
+    <Compile Include="Rest\CachingTrelloRest.cs" />
     <Compile Include="Contracts\ITrelloService.cs" />
     <Compile Include="Exceptions\OrgNameInUseException.cs" />
     <Compile Include="Exceptions\ReadOnlyAccessException.cs" />
@@ -121,8 +158,6 @@
     <Compile Include="Notifications\RemovedFromBoardNotification.cs" />
     <Compile Include="Notifications\RemovedFromCardNotification.cs" />
     <Compile Include="Notifications\UpdateCheckItemStateOnCardNotification.cs" />
-    <Compile Include="Rest\RestSharpResponse.cs" />
-    <Compile Include="Rest\RestSharpClientProvider.cs" />
     <Compile Include="Implementation\ExpiringList.cs" />
     <Compile Include="Contracts\ExpiringObject.cs" />
     <Compile Include="Implementation\InvitedBoard.cs" />
@@ -153,11 +188,13 @@
     <Compile Include="Notification.cs" />
     <Compile Include="Organization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rest\RestSharpCollectionRequest.cs" />
     <Compile Include="Implementation\GeneralExtensions.cs" />
+    <Compile Include="Json\Manatee\ManateeSerializer.cs" />
+    <Compile Include="Rest\RestSharpClientProvider.cs" />
+    <Compile Include="Rest\RestSharpCollectionRequest.cs" />
     <Compile Include="Rest\RestSharpRequest.cs" />
     <Compile Include="Rest\RestSharpRequestBase.cs" />
-    <Compile Include="Json\ManateeJsonSerializer.cs" />
+    <Compile Include="Rest\RestSharpResponse.cs" />
     <Compile Include="Rest\TrelloRest.cs" />
     <Compile Include="TrelloService.cs" />
     <Compile Include="Actions\UpdateCardAction.cs" />
@@ -165,7 +202,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Json\Newtonsoft\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
