@@ -34,9 +34,23 @@ namespace Manatee.Trello
 	public class TrelloService : ITrelloService
 	{
 		private readonly string _authKey;
-		private readonly string _authToken;
+		private string _authToken;
 		private ITrelloRest _api;
 
+		/// <summary>
+		/// Allows the TrelloService instance to access data as if it was the member
+		/// who provided the token.
+		/// </summary>
+		public string AuthToken
+		{
+			get { return _authToken; }
+			set
+			{
+				Validate.NonEmptyString(value);
+				_authToken = value;
+				Api.AuthToken = _authToken;
+			}
+		}
 		/// <summary>
 		/// Gets the Member object associated with the provided AuthKey.
 		/// </summary>
@@ -56,14 +70,6 @@ namespace Manatee.Trello
 		private ITrelloRest Api
 		{
 			get { return _api ?? (_api = new CachingTrelloRest(new TrelloRest(_authKey, _authToken), new ActionProvider(), new NotificationProvider())); }
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException("value");
-				if (_api != null)
-					throw new InvalidOperationException("Api already set.");
-				_api = value;
-			}
 		}
 		
 		/// <summary>

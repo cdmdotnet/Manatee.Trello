@@ -395,6 +395,19 @@ namespace Manatee.Trello
 			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { new Notification() }, urlExtension: "all/read"));
 		}
 		/// <summary>
+		/// Creates a personal board for the current member.
+		/// </summary>
+		/// <param name="name">The name of the board.</param>
+		/// <returns>The newly-created Board object.</returns>
+		public Board CreateBoard(string name)
+		{
+			if (Svc == null) return null;
+			Validate.Writable(Svc);
+			Validate.NonEmptyString(name);
+			Parameters.Add("name", name);
+			return Svc.Post(Svc.RequestProvider.Create<Board>(new ExpiringObject[] {new Board()}));
+		}
+		/// <summary>
 		/// Creates an organization administered by the current member.
 		/// </summary>
 		/// <param name="displayName">The display name of the organization.</param>
@@ -403,6 +416,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return null;
 			Validate.Writable(Svc);
+			Validate.NonEmptyString(displayName);
 			Parameters.Add("displayName", displayName);
 			return Svc.Post(Svc.RequestProvider.Create<Organization>(new ExpiringObject[] {new Organization()}));
 		}

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Manatee.Json;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Implementation;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -28,6 +31,12 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiGetCollectionIsCalled<Action>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("All action types are mapped")
+				.Given(AMember)
+				.And(AllKnownActionTypesExist)
+				.When(NotificationsIsAccessed)
+				.Then(ExceptionIsNotThrown)
 
 				.Execute();
 		}
@@ -495,6 +504,12 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Notification>>)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("All notification types are mapped")
+				.Given(AMember)
+				.And(AllKnownNotificationTypesExist)
+				.When(NotificationsIsAccessed)
+				.Then(ExceptionIsNotThrown)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -761,6 +776,48 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
+		public void CreateBoard()
+		{
+			var story = new Story("CreateBoard");
+
+			var feature = story.InOrderTo("create a new personal board")
+				.AsA("developer")
+				.IWant("to call CreateBoard");
+
+			feature.WithScenario("CreateBoard is called")
+				.Given(AMember)
+				.When(CreateBoardIsCalled, "org name")
+				.Then(MockApiPostIsCalled<Board>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("CreateBoard is called without AuthToken")
+				.Given(AMember)
+				.And(TokenNotSupplied)
+				.When(CreateBoardIsCalled, "org name")
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
+				.WithScenario("CreateBoard is called with null name")
+				.Given(AMember)
+				.When(CreateBoardIsCalled, (string) null)
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("CreateBoard is called with empty name")
+				.Given(AMember)
+				.When(CreateBoardIsCalled, string.Empty)
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("CreateBoard is called with whitespace name")
+				.Given(AMember)
+				.When(CreateBoardIsCalled, "     ")
+				.Then(MockApiPutIsCalled<Board>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void CreateOrganization()
 		{
 			var story = new Story("CreateOrganization");
@@ -781,6 +838,24 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(CreateOrganizationIsCalled, "org name")
 				.Then(MockApiPutIsCalled<Organization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
+				.WithScenario("CreateOrganization is called with null name")
+				.Given(AMember)
+				.When(CreateOrganizationIsCalled, (string) null)
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("CreateOrganization is called with empty name")
+				.Given(AMember)
+				.When(CreateOrganizationIsCalled, string.Empty)
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("CreateOrganization is called with whitespace name")
+				.Given(AMember)
+				.When(CreateOrganizationIsCalled, "     ")
+				.Then(MockApiPutIsCalled<Organization>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.Execute();
 		}
@@ -960,6 +1035,24 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			SetupProperty(() => _systemUnderTest.Sut.Username = value);
 		}
+		private void AllKnownActionTypesExist()
+		{
+			var provider = new ActionProvider();
+			var types = Enum.GetValues(typeof(ActionType)).Cast<ActionType>();
+			var actions = types.Select(t => provider.Parse(new Action { Data = new JsonObject(), Type = t })).ToList();
+
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<Action>>()))
+				.Returns(actions);
+		}
+		private void AllKnownNotificationTypesExist()
+		{
+			var provider = new NotificationProvider();
+			var types = Enum.GetValues(typeof (NotificationType)).Cast<NotificationType>();
+			var notifications = types.Select(t => provider.Parse(new Notification {Data = new JsonObject(), Type = t})).ToList();
+
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<Notification>>()))
+				.Returns(notifications);
+		}
 
 		#endregion
 
@@ -1084,6 +1177,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void ClearNotificationsIsCalled()
 		{
 			Execute(() => _systemUnderTest.Sut.ClearNotifications());
+		}
+		private void CreateBoardIsCalled(string value)
+		{
+			Execute(() => _systemUnderTest.Sut.CreateBoard(value));
 		}
 		private void CreateOrganizationIsCalled(string value)
 		{

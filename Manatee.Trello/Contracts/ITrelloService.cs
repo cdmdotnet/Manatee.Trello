@@ -28,7 +28,11 @@ namespace Manatee.Trello.Contracts
 	public interface ITrelloService
 	{
 		/// <summary>
-		/// Gets the Member object associated with the provided AuthKey.
+		/// Gets and sets the AuthToken for the service.
+		/// </summary>
+		string AuthToken { get; set; }
+		/// <summary>
+		/// Gets the Member object associated with the provided AuthToken.
 		/// </summary>
 		Member Me { get; }
 		/// <summary>

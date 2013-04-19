@@ -48,24 +48,29 @@ namespace Manatee.Trello
 		private static readonly OneToOneMap<OrganizationPermissionLevelType, string> _permissionLevelMap;
 
 		private string _apiPermissionLevel;
-		private object _boardVisibilityRestrict;
+		private string _associatedDomain;
+		private BoardVisibilityRestrict _boardVisibilityRestrict;
 		private bool? _externalMembersDisabled;
 		private List<object> _orgInviteRestrict;
 		private OrganizationPermissionLevelType _permissionLevel = OrganizationPermissionLevelType.Unknown;
 
-		// TODO: Determine structure of this object
-		internal object BoardVisibilityRestrict
+		/// <summary>
+		/// Gets and sets the Google Apps domain.
+		/// </summary>
+		public string AssociatedDomain
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _boardVisibilityRestrict;
+				return _associatedDomain;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_boardVisibilityRestrict == value) return;
-				_boardVisibilityRestrict = value;
+				if (_associatedDomain == value) return;
+				_associatedDomain = value ?? string.Empty;
+				Parameters.Add("value", _associatedDomain);
+				Put("associatedDomain");
 			}
 		}
 		/// <summary>
@@ -104,6 +109,25 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
+		/// Gets and sets the visibility of Org-visible boards owned by the organization.
+		/// </summary>
+		public BoardPermissionLevelType OrgVisibleBoardVisibility
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _boardVisibilityRestrict.Org;
+			}
+			set
+			{
+				Validate.Writable(Svc);
+				if (_boardVisibilityRestrict.Org == value) return;
+				_boardVisibilityRestrict.Org = value;
+				Parameters.Add("value", _boardVisibilityRestrict.Org);
+				Put("boardVisibilityRestrict/org");
+			}
+		}
+		/// <summary>
 		/// Gets and sets who may view the organization.
 		/// </summary>
 		public OrganizationPermissionLevelType PermissionLevel
@@ -123,7 +147,44 @@ namespace Manatee.Trello
 				Put("permissionLevel");
 			}
 		}
-
+		/// <summary>
+		/// Gets and sets the visibility of private boards owned by the organization.
+		/// </summary>
+		public BoardPermissionLevelType PrivateBoardVisibility
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _boardVisibilityRestrict.Private;
+			}
+			set
+			{
+				Validate.Writable(Svc);
+				if (_boardVisibilityRestrict.Private == value) return;
+				_boardVisibilityRestrict.Private = value;
+				Parameters.Add("value", _boardVisibilityRestrict.Private);
+				Put("boardVisibilityRestrict/private");
+			}
+		}
+		/// <summary>
+		/// Gets and sets the visibility of publicly-visible boards owned by the organization.
+		/// </summary>
+		public BoardPermissionLevelType PublicBoardVisibility
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _boardVisibilityRestrict.Public;
+			}
+			set
+			{
+				Validate.Writable(Svc);
+				if (_boardVisibilityRestrict.Public == value) return;
+				_boardVisibilityRestrict.Public = value;
+				Parameters.Add("value", _boardVisibilityRestrict.Public);
+				Put("boardVisibilityRestrict/public");
+			}
+		}
 		internal override string Key { get { return "prefs"; } }
 
 		static OrganizationPreferences()
@@ -137,9 +198,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the OrganizationPreferences class.
 		/// </summary>
-		public OrganizationPreferences() {}
+		public OrganizationPreferences()
+		{
+			_boardVisibilityRestrict = new BoardVisibilityRestrict();
+		}
 		internal OrganizationPreferences(ITrelloRest svc, Organization owner)
-			: base(svc, owner) {}
+			: base(svc, owner)
+		{
+			_boardVisibilityRestrict = new BoardVisibilityRestrict();
+		}
 
 		/// <summary>
 		/// Builds an object from a JsonValue.
@@ -150,7 +217,8 @@ namespace Manatee.Trello
 			if (json == null) return;
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			//_boardVisibilityRestrict = obj.TryGetObject("boardVisibilityRestrict").FromJson<?>();
+			_associatedDomain = obj.TryGetString("associatedDomain");
+			_boardVisibilityRestrict.FromJson(obj.TryGetObject("boardVisibilityRestrict"));
 			_externalMembersDisabled = obj.TryGetBoolean("externalMembersDisabled");
 			//_orgInviteRestrict = obj.TryGetArray("orgInviteRestrict").FromJson<?>();
 			_apiPermissionLevel = obj.TryGetString("permissionLevel");
@@ -168,7 +236,8 @@ namespace Manatee.Trello
 			if (!_isInitialized) VerifyNotExpired();
 			var json = new JsonObject
 			           	{
-			           		//{"boardVisibilityRestrict", _boardVisibilityRestrict},
+			           		{"associatedDomain", _associatedDomain},
+			           		{"boardVisibilityRestrict", _boardVisibilityRestrict.ToJson()},
 			           		{"externalMembersDisabled", _externalMembersDisabled.HasValue ? _externalMembersDisabled.Value : JsonValue.Null},
 			           		//{"orgInviteRestrict", _orgInviteRestrict},
 			           		{"permissionLevel", _apiPermissionLevel}
@@ -180,7 +249,7 @@ namespace Manatee.Trello
 		{
 			var prefs = entity as OrganizationPreferences;
 			if (prefs == null) return;
-			_boardVisibilityRestrict = prefs._orgInviteRestrict;
+			_boardVisibilityRestrict = prefs._boardVisibilityRestrict;
 			_externalMembersDisabled = prefs._externalMembersDisabled;
 			_orgInviteRestrict = prefs._orgInviteRestrict;
 			_apiPermissionLevel = prefs._apiPermissionLevel;
