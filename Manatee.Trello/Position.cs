@@ -22,10 +22,7 @@
 
 ***************************************************************************************/
 using System;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Serialization;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
 
 namespace Manatee.Trello
 {
@@ -33,7 +30,7 @@ namespace Manatee.Trello
 	/// Represents the position of a checklist in a card, a card in a list,
 	/// or list in a board
 	/// </summary>
-	public class Position : IJsonCompatible
+	public class Position
 	{
 		private const double TopValue = double.PositiveInfinity;
 		private const double BottomValue = double.NegativeInfinity;
@@ -73,60 +70,6 @@ namespace Manatee.Trello
 			_value = value;
 		}
 
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public void FromJson(JsonValue json)
-		{
-			if (json == null) return;
-			switch (json.Type)
-			{
-				case JsonValueType.Number:
-					_value = json.Number;
-					break;
-				case JsonValueType.String:
-					switch (json.String.ToLower())
-					{
-						case "top":
-							_value = TopValue;
-							break;
-						case "bottom":
-							_value = BottomValue;
-							break;
-						default:
-							_value = UnknownValue;
-							break;
-					}
-					break;
-				default:
-					_value = UnknownValue;
-					break;
-			}
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public JsonValue ToJson()
-		{
-			JsonValue json;
-			if (_value == TopValue)
-			{
-				json = "top";
-			}
-			else if (_value == BottomValue)
-			{
-				json = "bottom";
-			}
-			else
-			{
-				json = _value > 0 ? (int) _value : JsonValue.Null;
-			}
-			return json;
-		}
 		/// <summary>
 		/// Returns a string that represents the current object.
 		/// </summary>

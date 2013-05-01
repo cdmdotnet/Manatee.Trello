@@ -11,7 +11,6 @@ namespace Manatee.Trello.Test
 	public class GenericMethodFormatAttribute : MethodFormatAttribute
 	{
 		private readonly string _textFormat;
-		private readonly Times _times;
 
 		public GenericMethodFormatAttribute()
 			: this(null) {}

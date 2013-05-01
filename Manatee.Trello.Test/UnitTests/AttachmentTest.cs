@@ -1,5 +1,6 @@
 ﻿using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StoryQ;
@@ -20,9 +21,19 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Member property")
 				.Given(AnAttachment)
+				.And(EntityIsRefreshed)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Attachment>, 0)
-				.And(MemberIsReturned)
+				.Then(MockApiGetIsCalled<IJsonAttachment>, 1)
+				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Member property when expired")
+				.Given(AnAttachment)
+				.And(EntityIsRefreshed)
+				.And(EntityIsExpired)
+				.When(MemberIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonAttachment>, 1)
+				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -36,17 +47,17 @@ namespace Manatee.Trello.Test.UnitTests
 				.AsA("developer")
 				.IWant("Delete to call the service.");
 
-			feature.WithScenario("Call Delete")
+			feature.WithScenario("Delete is called")
 				.Given(AnAttachment)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<Attachment>, 1)
+				.Then(MockApiDeleteIsCalled<IJsonAttachment>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Call Delete without AuthToken")
+				.WithScenario("Delete is called without AuthToken")
 				.Given(AnAttachment)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<Action>, 0)
+				.Then(MockApiDeleteIsCalled<IJsonAttachment>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -55,8 +66,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AnAttachment()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			SetupMockGet<Member>();
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			OwnedBy<Card>();
+			SetupMockGet<IJsonAttachment>();
+			SetupMockRetrieve<Member>();
 		}
 
 		private void MemberIsAccessed()
@@ -66,12 +79,6 @@ namespace Manatee.Trello.Test.UnitTests
 		private void DeleteIsCalled()
 		{
 			Execute(() => _systemUnderTest.Sut.Delete());
-		}
-
-		private void MemberIsReturned()
-		{
-			Assert.IsNotNull(_actualResult);
-			Assert.IsInstanceOfType(_actualResult, typeof(Member));
 		}
 	}
 }

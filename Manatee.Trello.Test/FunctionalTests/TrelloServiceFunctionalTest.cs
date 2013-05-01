@@ -191,12 +191,12 @@ namespace Manatee.Trello.Test.FunctionalTests
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
-				.WithScenario("Retrieve a sub-type by submitting its owner's ID")
-				.Given(ATrelloService, TrelloIds.Key, (string) null)
-				.And(AnId, TrelloIds.BoardId)
-				.When(RetrieveIsCalled<BoardPreferences>)
-				.Then(ExceptionIsNotThrown)
-				.And(ResponseIsNull)
+				//.WithScenario("Retrieve a sub-type by submitting its owner's ID")
+				//.Given(ATrelloService, TrelloIds.Key, (string) null)
+				//.And(AnId, TrelloIds.BoardId)
+				//.When(RetrieveIsCalled<BoardPreferences>)
+				//.Then(ExceptionIsNotThrown)
+				//.And(ResponseIsNull)
 
 				.Execute();
 		}

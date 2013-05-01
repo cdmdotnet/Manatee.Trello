@@ -21,9 +21,7 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
 
 namespace Manatee.Trello.Rest
 {
@@ -65,52 +63,35 @@ namespace Manatee.Trello.Rest
 		}
 
 		public T Get<T>(IRestRequest<T> request)
-			where T : ExpiringObject, new()
+			where T : class
 		{
-			return Execute(request, Method.Get);
-		}
-		public IEnumerable<T> Get<T>(IRestCollectionRequest<T> request)
-			where T : ExpiringObject, new()
-		{
-			return Execute(request, Method.Get);
+			return Execute(request, RestMethod.Get);
 		}
 		public T Put<T>(IRestRequest<T> request)
-			where T : ExpiringObject, new()
+			where T : class
 		{
-			return Execute(request, Method.Put);
+			return Execute(request, RestMethod.Put);
 		}
 		public T Post<T>(IRestRequest<T> request)
-			where T : ExpiringObject, new()
+			where T : class
 		{
-			return Execute(request, Method.Post);
+			return Execute(request, RestMethod.Post);
 		}
 		public T Delete<T>(IRestRequest<T> request)
-			where T : ExpiringObject, new()
+			where T : class
 		{
-			return Execute(request, Method.Delete);
+			return Execute(request, RestMethod.Delete);
 		}
 
-		private void PrepRequest<T>(IRestRequest<T> request, Method method)
-			where T : ExpiringObject, new()
+		private void PrepRequest<T>(IRestRequest<T> request, RestMethod method)
 		{
 			request.Method = method;
 			request.AddParameter("key", _authKey);
 			if (_authToken != null)
 				request.AddParameter("token", _authToken);
-			request.AddParameters();
-			if (request.ParameterSource != null)
-				request.AddBody(request.ParameterSource);
 		}
-		private T Execute<T>(IRestRequest<T> request, Method method)
-			where T : ExpiringObject, new()
-		{
-			var client = GenerateRestClient();
-			PrepRequest(request, method);
-			var response = client.Execute(request);
-			return response.Data;
-		}
-		private IEnumerable<T> Execute<T>(IRestCollectionRequest<T> request, Method method)
-			where T : ExpiringObject, new()
+		private T Execute<T>(IRestRequest<T> request, RestMethod method)
+			where T : class
 		{
 			var client = GenerateRestClient();
 			PrepRequest(request, method);

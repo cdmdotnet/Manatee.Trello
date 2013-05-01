@@ -21,11 +21,9 @@
 					on Trello.com.
 
 ***************************************************************************************/
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -39,16 +37,12 @@ namespace Manatee.Trello
 	///<summary>
 	/// Represents a member's viewing preferences for a board
 	///</summary>
-	public class BoardPersonalPreferences : JsonCompatibleExpiringObject
+	public class BoardPersonalPreferences : ExpiringObject
 	{
-		private bool? _showListGuide;
-		private bool? _showSidebar;
-		private bool? _showSidebarActivity;
-		private bool? _showSidebarBoardActions;
-		private bool? _showSidebarMembers;
+		private IJsonBoardPersonalPreferences _jsonBoardPersonalPreferences;
 
 		///<summary>
-		/// Gets and sets whether the list guide (left side of the screen) is expanded.
+		/// Gets or sets whether the list guide (left side of the screen) is expanded.
 		///</summary>
 		/// <remarks>
 		/// The option to show the list guide is only active when horizontal scrolling is enabled.
@@ -58,15 +52,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _showListGuide;
+				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowListGuide;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_showListGuide == value) return;
 				Validate.Nullable(value);
-				_showListGuide = value;
-				Parameters.Add("showListGuide", _showListGuide.ToLowerString());
+				if (_jsonBoardPersonalPreferences == null) return;
+				if (_jsonBoardPersonalPreferences.ShowListGuide == value) return;
+				_jsonBoardPersonalPreferences.ShowListGuide = value;
+				Parameters.Add("showListGuide", _jsonBoardPersonalPreferences.ShowListGuide.ToLowerString());
 				Post();
 			}
 		}
@@ -78,15 +73,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _showSidebar;
+				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowSidebar;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_showSidebar == value) return;
 				Validate.Nullable(value);
-				_showSidebar = value;
-				Parameters.Add("showSidebar", _showSidebar.ToLowerString());
+				if (_jsonBoardPersonalPreferences == null) return;
+				if (_jsonBoardPersonalPreferences.ShowSidebar == value) return;
+				_jsonBoardPersonalPreferences.ShowSidebar = value;
+				Parameters.Add("showSidebar", _jsonBoardPersonalPreferences.ShowSidebar.ToLowerString());
 				Post();
 			}
 		}
@@ -98,15 +94,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _showSidebarActivity;
+				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowSidebarActivity;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_showSidebarActivity == value) return;
 				Validate.Nullable(value);
-				_showSidebarActivity = value;
-				Parameters.Add("showSidebarActivity", _showSidebarActivity.ToLowerString());
+				if (_jsonBoardPersonalPreferences == null) return;
+				if (_jsonBoardPersonalPreferences.ShowSidebarActivity == value) return;
+				_jsonBoardPersonalPreferences.ShowSidebarActivity = value;
+				Parameters.Add("showSidebarActivity", _jsonBoardPersonalPreferences.ShowSidebarActivity.ToLowerString());
 				Post();
 			}
 		}
@@ -118,15 +115,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _showSidebarBoardActions;
+				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowSidebarBoardActions;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_showSidebarBoardActions == value) return;
+				if (_jsonBoardPersonalPreferences.ShowSidebarBoardActions == value) return;
 				Validate.Nullable(value);
-				_showSidebarBoardActions = value;
-				Parameters.Add("showSidebarBoardActions", _showSidebarBoardActions.ToLowerString());
+				_jsonBoardPersonalPreferences.ShowSidebarBoardActions = value;
+				Parameters.Add("showSidebarBoardActions", _jsonBoardPersonalPreferences.ShowSidebarBoardActions.ToLowerString());
 				Post();
 			}
 		}
@@ -138,15 +135,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _showSidebarMembers;
+				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowSidebarMembers;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_showSidebarMembers == value) return;
 				Validate.Nullable(value);
-				_showSidebarMembers = value;
-				Parameters.Add("showSidebarMembers", _showSidebarMembers.ToLowerString());
+				if (_jsonBoardPersonalPreferences == null) return;
+				if (_jsonBoardPersonalPreferences.ShowSidebarMembers == value) return;
+				_jsonBoardPersonalPreferences.ShowSidebarMembers = value;
+				Parameters.Add("showSidebarMembers", _jsonBoardPersonalPreferences.ShowSidebarMembers.ToLowerString());
 				Post();
 			}
 		}
@@ -154,77 +152,39 @@ namespace Manatee.Trello
 		internal override string Key { get { return "myPrefs"; } }
 
 		/// <summary>
-		/// Creates a new instance of the BoardPersonalPreferences class.
+		/// Creates a new instance of the CheckList class.
 		/// </summary>
 		public BoardPersonalPreferences() {}
-		internal BoardPersonalPreferences(ITrelloRest svc, Board owner)
-			: base(svc, owner) {}
-
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
+		internal BoardPersonalPreferences(Board owner)
 		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			_showListGuide = obj.TryGetBoolean("showListGuide");
-			_showSidebar = obj.TryGetBoolean("showSidebar");
-			_showSidebarActivity = obj.TryGetBoolean("showSidebarActivity");
-			_showSidebarBoardActions = obj.TryGetBoolean("showSidebarBoardActions");
-			_showSidebarMembers = obj.TryGetBoolean("showSidebarMembers");
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"showListGuide", _showListGuide.HasValue ? _showListGuide.Value : JsonValue.Null},
-			           		{"showSidebar", _showSidebar.HasValue ? _showSidebar.Value : JsonValue.Null},
-			           		{"showSidebarActivity", _showSidebarActivity.HasValue ? _showSidebarActivity.Value : JsonValue.Null},
-			           		{"showSidebarBoardActions", _showSidebarBoardActions.HasValue ? _showSidebarBoardActions.Value : JsonValue.Null},
-			           		{"showSidebarMembers", _showSidebarMembers.HasValue ? _showSidebarMembers.Value : JsonValue.Null}
-			           	};
-			return json;
-		}
-
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var prefs = entity as BoardPersonalPreferences;
-			if (prefs == null) return;
-			_showListGuide = prefs._showListGuide;
-			_showSidebar = prefs._showSidebar;
-			_showSidebarActivity = prefs._showSidebarActivity;
-			_showSidebarBoardActions = prefs._showSidebarBoardActions;
-			_showSidebarMembers = prefs._showSidebarMembers;
-			_isInitialized = true;
+			Owner = owner;
 		}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<BoardPersonalPreferences>(new[] {Owner, this}));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonBoardPersonalPreferences>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
 		protected override void PropigateService() {}
 
+		internal override void ApplyJson(object obj)
+		{
+			_jsonBoardPersonalPreferences = (IJsonBoardPersonalPreferences) obj;
+		}
+
 		private void Post()
 		{
 			if (Svc == null) return;
-			Svc.Post(Svc.RequestProvider.Create<BoardPersonalPreferences>(new[] {Owner, this}, this));
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonBoardPersonalPreferences>(endpoint.ToString());
+			Api.Post(request);
 		}
 	}
 }

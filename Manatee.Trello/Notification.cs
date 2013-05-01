@@ -22,11 +22,9 @@
 ***************************************************************************************/
 using System;
 using System.Linq;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -54,26 +52,43 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member notification.
 	/// </summary>
-	public class Notification : JsonCompatibleExpiringObject, IEquatable<Notification>
+	public class Notification : ExpiringObject, IEquatable<Notification>
 	{
 		private static readonly OneToOneMap<NotificationType, string> _typeMap;
 
-		private JsonValue _data;
-		private DateTime? _date;
-		private bool? _isUnread;
-		private string _memberCreatorId;
+		private IJsonNotification _jsonNotification;
 		private Member _memberCreator;
-		private string _apiType;
 		private NotificationType _type;
 
 		/// <summary>
 		/// Data associated with the notification.  Contents depend upon the notification's type.
 		/// </summary>
-		public JsonValue Data { get { return _data; } set { _data = value; } }
+		internal object Data
+		{
+			get { return (_jsonNotification == null) ? null : _jsonNotification.Data; }
+			set
+			{
+				if (_jsonNotification == null) return;
+				_jsonNotification.Data = value;
+			}
+		}
 		///<summary>
 		/// The date on which the notification was created.
 		///</summary>
-		public DateTime? Date { get { return _date; } }
+		public DateTime? Date { get { return _jsonNotification.Date; } }
+		/// <summary>
+		/// Gets a unique identifier (not necessarily a GUID).
+		/// </summary>
+		public override string Id
+		{
+			get { return _jsonNotification != null ? _jsonNotification.Id : base.Id; }
+			internal set
+			{
+				if (_jsonNotification != null)
+					_jsonNotification.Id = value;
+				base.Id = value;
+			}
+		}
 		/// <summary>
 		/// Gets or sets whether the notification has been read.
 		/// </summary>
@@ -82,15 +97,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _isUnread;
+				return (_jsonNotification == null) ? null : _jsonNotification.Unread;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_isUnread == value) return;
 				Validate.Nullable(value);
-				_isUnread = value;
-				Parameters.Add("unread", _isUnread.ToLowerString());
+				if (_jsonNotification == null) return;
+				if (_jsonNotification.Unread == value) return;
+				_jsonNotification.Unread = value;
+				Parameters.Add("unread", _jsonNotification.Unread.ToLowerString());
 				Put();
 			}
 		}
@@ -101,17 +117,26 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				return ((_memberCreator == null) || (_memberCreator.Id != _memberCreatorId)) && (Svc != null)
-				       	? (_memberCreator = Svc.Get(Svc.RequestProvider.Create<Member>(_memberCreatorId)))
+				if (_jsonNotification == null) return null;
+				return ((_memberCreator == null) || (_memberCreator.Id != _jsonNotification.IdMemberCreator)) && (Svc != null)
+				       	? (_memberCreator = Svc.Retrieve<Member>(_jsonNotification.IdMemberCreator))
 				       	: _memberCreator;
 			}
 		}
 		/// <summary>
 		/// Gets the notification's type.
 		/// </summary>
-		public NotificationType Type { get { return _type; } internal set { _type = value; } }
+		public NotificationType Type
+		{
+			get { return _type; }
+			internal set { _type = value; }
+		}
 
 		internal override string Key { get { return "notifications"; } }
+		/// <summary>
+		/// Gets whether the entity is a cacheable item.
+		/// </summary>
+		protected override bool Cacheable { get { return true; } }
 
 		static Notification()
 		{
@@ -143,52 +168,7 @@ namespace Manatee.Trello
 			           		{NotificationType.CardDueSoon, "cardDueSoon"},
 			           	};
 		}
-		/// <summary>
-		/// Creates a new instance of the Notification class.
-		/// </summary>
-		public Notification() {}
-		internal Notification(ITrelloRest svc, string id)
-			: base(svc, id) {}
 
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			_data = obj.TryGetObject("data");
-			var date = obj.TryGetString("date");
-			_date = string.IsNullOrWhiteSpace(date) ? (DateTime?) null : DateTime.Parse(date);
-			_isUnread = obj.TryGetBoolean("unread");
-			_memberCreatorId = obj.TryGetString("idMemberCreator");
-			_apiType = obj.TryGetString("type");
-			UpdateType();
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-							{"id", Id},
-			           		{"data", _data ?? JsonValue.Null},
-			           		{"date", _date.HasValue ? _date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			           		{"unread", _isUnread.HasValue ? _isUnread.Value : JsonValue.Null},
-			           		{"idMemberCreator", _memberCreatorId},
-			           		{"type", _apiType}
-			           	};
-			return json;
-		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
 		/// </summary>
@@ -235,26 +215,14 @@ namespace Manatee.Trello
 			return string.Format("{0} did something noteworthy.", MemberCreator.FullName);
 		}
 
-		internal override sealed void Refresh(ExpiringObject entity)
-		{
-			var notification = entity as Notification;
-			if (notification == null) return;
-			_apiType = notification._apiType;
-			_data = notification._data;
-			_date = notification._date;
-			_isUnread = notification._isUnread;
-			_memberCreatorId = notification._memberCreatorId;
-			UpdateType();
-			_isInitialized = true;
-		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override sealed void Get()
+		protected override sealed void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<Notification>(Id));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonNotification>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -263,7 +231,13 @@ namespace Manatee.Trello
 		{
 			if (_memberCreator != null) _memberCreator.Svc = Svc;
 		}
-		
+
+		internal override void ApplyJson(object obj)
+		{
+			_jsonNotification = (IJsonNotification)obj;
+			UpdateType();
+		}
+
 		private void Put()
 		{
 			if (Svc == null)
@@ -271,18 +245,18 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var request = Svc.RequestProvider.Create<Notification>(this);
-			Svc.Put(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonNotification>(endpoint.ToString());
+			foreach (var parameter in Parameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
+			Api.Put(request);
 		}
 
 		private void UpdateType()
 		{
-			_type = _typeMap.Any(kvp => kvp.Value == _apiType) ? _typeMap[_apiType] : NotificationType.Unknown;
-		}
-		private void UpdateApiType()
-		{
-			if (_typeMap.Any(kvp => kvp.Key == _type))
-				_apiType = _typeMap[_type];
+			_type = _typeMap.Any(kvp => kvp.Value == _jsonNotification.Type) ? _typeMap[_jsonNotification.Type] : NotificationType.Unknown;
 		}
 	}
 }

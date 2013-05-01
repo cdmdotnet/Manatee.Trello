@@ -20,65 +20,37 @@
 	Purpose:		Represents a thumbnail preview of a card attachment on Trello.com.
 
 ***************************************************************************************/
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
-using Manatee.Json.Serialization;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
 	///<summary>
 	/// Represents a thumbnail preview of a card attachment.
 	///</summary>
-	public class AttachmentPreview : IJsonCompatible
+	public class AttachmentPreview
 	{
+		private readonly IJsonAttachmentPreview _jsonAttachmentPreview;
+
 		///<summary>
 		/// Indicates the ID of the attachment preview.
 		///</summary>
-		public string Id { get; private set; }
+		public string Id { get { return _jsonAttachmentPreview.Id; } }
 		///<summary>
 		/// Indicates the height in pixels of the attachment preview.
 		///</summary>
-		public int? Height { get; private set; }
+		public int? Height { get { return _jsonAttachmentPreview.Height; } }
 		///<summary>
 		/// Indicates the attachment storage location.
 		///</summary>
-		public string Url { get; private set; }
+		public string Url { get { return _jsonAttachmentPreview.Url; } }
 		///<summary>
 		/// Indicates the width in pixels of the attachment preview.
 		///</summary>
-		public int? Width { get; private set; }
+		public int? Width { get { return _jsonAttachmentPreview.Width; } }
 
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public void FromJson(JsonValue json)
+		internal AttachmentPreview(IJsonAttachmentPreview jsonAttachmentPreview)
 		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			Height = (int?) obj.TryGetNumber("height");
-			Url = obj.TryGetString("url");
-			Width = (int?) obj.TryGetNumber("width");
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public JsonValue ToJson()
-		{
-			var json = new JsonObject
-			           	{
-			           		{"id", Id},
-			           		{"height", Height.HasValue ? Height.Value : JsonValue.Null},
-			           		{"url", Url},
-			           		{"width", Width.HasValue ? Width.Value : JsonValue.Null}
-			           	};
-			return json;
+			_jsonAttachmentPreview = jsonAttachmentPreview;
 		}
 	}
 }

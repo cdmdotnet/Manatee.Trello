@@ -1,5 +1,6 @@
 ﻿using System;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
@@ -20,50 +21,54 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Name property")
 				.Given(ACheckItem)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(NameIsAccessed)
-				.Then(MockApiGetIsCalled<CheckItem>, 0)
+				.Then(MockApiGetIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Name property when expired")
 				.Given(ACheckItem)
 				.And(EntityIsExpired)
 				.When(NameIsAccessed)
-				.Then(MockApiGetIsCalled<CheckItem>, 1)
+				.Then(MockApiGetIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.When(NameIsSet, "name")
-				.Then(MockApiPutIsCalled<CheckItem>, 1)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property to null")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.And(NameIs, "name")
 				.When(NameIsSet, (string) null)
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Name property to empty")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.And(NameIs, "not description")
 				.When(NameIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Name property to same")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.And(NameIs, "description")
 				.When(NameIsSet, "description")
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property without AuthToken")
 				.Given(ACheckItem)
 				.And(TokenNotSupplied)
 				.When(NameIsSet, "name")
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -79,43 +84,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Position property")
 				.Given(ACheckItem)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(PositionIsAccessed)
-				.Then(MockApiGetIsCalled<CheckItem>, 0)
+				.Then(MockApiGetIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Position property when expired")
 				.Given(ACheckItem)
 				.And(EntityIsExpired)
 				.When(PositionIsAccessed)
-				.Then(MockApiGetIsCalled<CheckItem>, 1)
+				.Then(MockApiGetIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Position property")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.When(PositionIsSet, Trello.Position.Bottom)
-				.Then(MockApiPutIsCalled<CheckItem>, 1)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Position property to null")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.And(PositionIs, Trello.Position.Bottom)
 				.When(PositionIsSet, (Position) null)
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Position property to same")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.And(PositionIs, Trello.Position.Bottom)
 				.When(PositionIsSet, Trello.Position.Bottom)
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Position property without AuthToken")
 				.Given(ACheckItem)
 				.And(TokenNotSupplied)
 				.When(PositionIsSet, Trello.Position.Bottom)
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -131,36 +139,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access State property")
 				.Given(ACheckItem)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(StateIsAccessed)
-				.Then(MockApiGetIsCalled<CheckItem>, 0)
+				.Then(MockApiGetIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access State property when expired")
 				.Given(ACheckItem)
 				.And(EntityIsExpired)
 				.When(StateIsAccessed)
-				.Then(MockApiGetIsCalled<CheckItem>, 1)
+				.Then(MockApiGetIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set State property")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.When(StateIsSet, CheckItemStateType.Complete)
-				.Then(MockApiPutIsCalled<CheckItem>, 1)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set State property to same")
 				.Given(ACheckItem)
+				.And(EntityIsRefreshed)
 				.And(StateIs, CheckItemStateType.Complete)
 				.When(StateIsSet, CheckItemStateType.Complete)
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set State property without AuthToken")
 				.Given(ACheckItem)
 				.And(TokenNotSupplied)
 				.When(StateIsSet, CheckItemStateType.Complete)
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -177,14 +187,14 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("Delete is called")
 				.Given(ACheckItem)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<CheckItem>, 1)
+				.Then(MockApiDeleteIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Delete is called without AuthToken")
 				.Given(ACheckItem)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)
-				.Then(MockApiPutIsCalled<CheckItem>, 0)
+				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -195,8 +205,9 @@ namespace Manatee.Trello.Test.UnitTests
 		private void ACheckItem()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			_systemUnderTest.Sut.Owner = new CheckList {Id = TrelloIds.Invalid};
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			OwnedBy<CheckList>();
+			SetupMockGet<IJsonCheckItem>();
 		}
 		private void NameIs(string value)
 		{

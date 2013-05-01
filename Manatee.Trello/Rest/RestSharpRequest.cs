@@ -21,60 +21,23 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
-using Manatee.Trello.Contracts;
-using RestSharp;
-using Method = Manatee.Trello.Contracts.Method;
 
 namespace Manatee.Trello.Rest
 {
 	internal class RestSharpRequest<T> : RestSharpRequestBase, IRestRequest<T>
-		where T : ExpiringObject, new()
 	{
-		public ExpiringObject ParameterSource { get; private set; }
-		public new Method Method
+		public new RestMethod Method
 		{
 			get { return GetMethod(); }
 			set { SetMethod(value); }
 		}
-		public T Template { get; private set; }
 
-		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer)
-			: base(GetPath())
+		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, string endpoint)
+			: base(endpoint)
 		{
 			JsonSerializer = serializer;
-			Template = new T();
-		}
-		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, ExpiringObject obj)
-			: this(serializer, obj.Id)
-		{
-			ParameterSource = obj;
-			Template = new T {Id = obj.Id};
-		}
-		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, string id)
-			: base(GetPathWithId())
-		{
-			AddParameter("id", id, ParameterType.UrlSegment);
-			JsonSerializer = serializer;
-			Template = new T {Id = id};
-		}
-		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
-			: base(GetPath(tokens, urlExtension))
-		{
-			ParameterSource = entity;
-			JsonSerializer = serializer;
-			Template = new T();
 		}
 
-		public void AddParameters()
-		{
-			if (ParameterSource == null) return;
-			foreach (var parameter in ParameterSource.Parameters)
-			{
-				AddParameter(parameter.Key, parameter.Value);
-			}
-			ParameterSource.Parameters.Clear();
-		}
 		void IRestRequest<T>.AddParameter(string name, object value)
 		{
 			AddParameter(name, value);
@@ -84,59 +47,36 @@ namespace Manatee.Trello.Rest
 			AddBody(body);
 		}
 
-		private static string GetPath()
-		{
-			var section = new T().Key;
-			return string.Format("{0}", section);
-		}
-		private static string GetPathWithId()
-		{
-			var section = new T().Key;
-			return string.Format("{0}/{{id}}", section);
-		}
-		private static string GetPath(IEnumerable<ExpiringObject> tokens, string urlExtension)
-		{
-			var segments = new List<string>();
-			foreach (var token in tokens)
-			{
-				segments.Add(token.Key);
-				if (token.Id != null)
-					segments.Add(token.Id);
-			}
-			if (urlExtension != null)
-				segments.Add(urlExtension);
-			return string.Join("/", segments);
-		}
-		private Method GetMethod()
+		private RestMethod GetMethod()
 		{
 			switch (base.Method)
 			{
 				case RestSharp.Method.GET:
-					return Method.Get;
+					return RestMethod.Get;
 				case RestSharp.Method.POST:
-					return Method.Post;
+					return RestMethod.Post;
 				case RestSharp.Method.PUT:
-					return Method.Put;
+					return RestMethod.Put;
 				case RestSharp.Method.DELETE:
-					return Method.Delete;
+					return RestMethod.Delete;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 		}
-		private void SetMethod(Method value)
+		private void SetMethod(RestMethod value)
 		{
 			switch (value)
 			{
-				case Method.Get:
+				case RestMethod.Get:
 					base.Method = RestSharp.Method.GET;
 					break;
-				case Method.Put:
+				case RestMethod.Put:
 					base.Method = RestSharp.Method.PUT;
 					break;
-				case Method.Post:
+				case RestMethod.Post:
 					base.Method = RestSharp.Method.POST;
 					break;
-				case Method.Delete:
+				case RestMethod.Delete:
 					base.Method = RestSharp.Method.DELETE;
 					break;
 				default:

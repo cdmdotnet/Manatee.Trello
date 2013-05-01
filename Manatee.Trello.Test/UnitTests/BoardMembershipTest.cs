@@ -1,5 +1,6 @@
 ﻿using System;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StoryQ;
@@ -20,16 +21,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access IsDeactivated property")
 				.Given(ABoardMembership)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(IsDeactivatedIsAccessed)
-				.Then(MockApiGetIsCalled<BoardMembership>, 0)
+				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access IsDeactivated property when expired")
 				.Given(ABoardMembership)
 				.And(EntityIsExpired)
 				.When(IsDeactivatedIsAccessed)
-				.Then(MockApiGetIsCalled<BoardMembership>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -45,20 +46,18 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Member property")
 				.Given(ABoardMembership)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<BoardMembership>, 0)
-				.And(MockApiGetIsCalled<Member>, 1)
-				.And(NonNullValueOfTypeIsReturned<Member>)
+				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 1)
+				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Member property when expired")
 				.Given(ABoardMembership)
 				.And(EntityIsExpired)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<BoardMembership>, 1)
-				.And(MockApiGetIsCalled<Member>, 1)
-				.And(NonNullValueOfTypeIsReturned<Member>)
+				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 1)
+				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -69,9 +68,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void ABoardMembership()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			SetupMockGet<Member>();
-			SetupMockGet<BoardMembership>();
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			OwnedBy<Board>();
+			SetupMockRetrieve<Member>();
+			SetupMockGet<IJsonBoardMembership>();
 		}
 
 		#endregion

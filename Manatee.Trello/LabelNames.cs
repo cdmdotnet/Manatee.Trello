@@ -23,11 +23,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -42,14 +40,9 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Defines a set of labels for a board.
 	/// </summary>
-	public class LabelNames : JsonCompatibleExpiringObject, IEnumerable<Label>
+	public class LabelNames : ExpiringObject
 	{
-		private string _red;
-		private string _orange;
-		private string _yellow;
-		private string _green;
-		private string _blue;
-		private string _purple;
+		private IJsonLabelNames _jsonLabelNames;
 
 		/// <summary>
 		/// Gets or sets the name of the red label.
@@ -59,14 +52,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _red;
+				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Red;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_red == value) return;
-				_red = value ?? string.Empty;
-				Parameters.Add("value", _red);
+				if (_jsonLabelNames == null) return;
+				if (_jsonLabelNames.Red == value) return;
+				_jsonLabelNames.Red = value ?? string.Empty;
+				Parameters.Add("value", _jsonLabelNames.Red);
 				Put("red");
 			}
 		}
@@ -78,14 +72,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _orange;
+				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Orange;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_orange == value) return;
-				_orange = value ?? string.Empty;
-				Parameters.Add("value", _orange);
+				if (_jsonLabelNames == null) return;
+				if (_jsonLabelNames.Orange == value) return;
+				_jsonLabelNames.Orange = value ?? string.Empty;
+				Parameters.Add("value", _jsonLabelNames.Orange);
 				Put("orange");
 			}
 		}
@@ -97,14 +92,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _yellow;
+				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Yellow;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_yellow == value) return;
-				_yellow = value ?? string.Empty;
-				Parameters.Add("value", _yellow);
+				if (_jsonLabelNames == null) return;
+				if (_jsonLabelNames.Yellow == value) return;
+				_jsonLabelNames.Yellow = value ?? string.Empty;
+				Parameters.Add("value", _jsonLabelNames.Yellow);
 				Put("yellow");
 			}
 		}
@@ -116,14 +112,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _green;
+				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Green;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_green == value) return;
-				_green = value ?? string.Empty;
-				Parameters.Add("value", _green);
+				if (_jsonLabelNames == null) return;
+				if (_jsonLabelNames.Green == value) return;
+				_jsonLabelNames.Green = value ?? string.Empty;
+				Parameters.Add("value", _jsonLabelNames.Green);
 				Put("green");
 			}
 		}
@@ -135,14 +132,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _blue;
+				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Blue;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_blue == value) return;
-				_blue = value ?? string.Empty;
-				Parameters.Add("value", _blue);
+				if (_jsonLabelNames == null) return;
+				if (_jsonLabelNames.Blue == value) return;
+				_jsonLabelNames.Blue = value ?? string.Empty;
+				Parameters.Add("value", _jsonLabelNames.Blue);
 				Put("blue");
 			}
 		}
@@ -154,14 +152,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _purple;
+				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Purple;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_purple == value) return;
-				_purple = value ?? string.Empty;
-				Parameters.Add("value", _purple);
+				if (_jsonLabelNames == null) return;
+				if (_jsonLabelNames.Purple == value) return;
+				_jsonLabelNames.Purple = value ?? string.Empty;
+				Parameters.Add("value", _jsonLabelNames.Purple);
 				Put("purple");
 			}
 		}
@@ -172,95 +171,29 @@ namespace Manatee.Trello
 		/// Creates a new instance of the LabelNames class.
 		/// </summary>
 		public LabelNames() {}
-		internal LabelNames(ITrelloRest svc, Board owner)
-			: base(svc, owner) {}
-
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
+		internal LabelNames(Board owner)
 		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			_red = obj.TryGetString("red");
-			_orange = obj.TryGetString("orange");
-			_yellow = obj.TryGetString("yellow");
-			_green = obj.TryGetString("green");
-			_blue = obj.TryGetString("blue");
-			_purple = obj.TryGetString("purple");
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"red", _red},
-			           		{"orange", _orange},
-			           		{"yellow", _yellow},
-			           		{"green", _green},
-			           		{"blue", _blue},
-			           		{"purple", _purple}
-			           	};
-			return json;
-		}
-		/// <summary>
-		/// Returns an enumerator that iterates through the collection.
-		/// </summary>
-		/// <returns>
-		/// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
-		/// </returns>
-		/// <filterpriority>1</filterpriority>
-		public IEnumerator<Label> GetEnumerator()
-		{
-			return new List<Label>
-			       	{
-			       		new Label {Color = LabelColor.Red, Name = _red},
-			       		new Label {Color = LabelColor.Orange, Name = _orange},
-			       		new Label {Color = LabelColor.Yellow, Name = _yellow},
-			       		new Label {Color = LabelColor.Green, Name = _green},
-			       		new Label {Color = LabelColor.Blue, Name = _blue},
-			       		new Label {Color = LabelColor.Purple, Name = _purple},
-			       	}.GetEnumerator();
-		}
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var labels = entity as LabelNames;
-			if (labels == null) return;
-			_red = labels._red;
-			_orange = labels._orange;
-			_yellow = labels._yellow;
-			_green = labels._green;
-			_blue = labels._blue;
-			_purple = labels._purple;
-			_isInitialized = true;
+			Owner = owner;
 		}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<LabelNames>(new[] {Owner, this}));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonLabelNames>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
 		protected override void PropigateService() {}
+
+		internal override void ApplyJson(object obj)
+		{
+			_jsonLabelNames = (IJsonLabelNames) obj;
+		}
 
 		private void Put(string extension)
 		{
@@ -269,8 +202,14 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var request = Svc.RequestProvider.Create<LabelNames>(new[] { Owner, this }, this, extension);
-			Svc.Put(request);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			endpoint.Append(extension);
+			var request = Api.RequestProvider.Create<IJsonLabelNames>(endpoint.ToString());
+			foreach (var parameter in Parameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
+			Api.Put(request);
 		}
 	}
 }

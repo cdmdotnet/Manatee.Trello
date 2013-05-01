@@ -23,7 +23,7 @@
 ***************************************************************************************/
 using System.Linq;
 using Manatee.Json.Extensions;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
 
 namespace Manatee.Trello
 {

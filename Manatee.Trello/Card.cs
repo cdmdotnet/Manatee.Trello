@@ -23,11 +23,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -82,29 +80,19 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a card.
 	/// </summary>
-	public class Card : JsonCompatibleExpiringObject, IEquatable<Card>
+	public class Card : ExpiringObject, IEquatable<Card>
 	{
-		private readonly ExpiringList<Card, Action> _actions;
-		private string _attachmentCoverId;
-		private readonly ExpiringList<Card, Attachment> _attachments;
+		private IJsonCard _jsonCard;
+		private readonly ExpiringList<Action, IJsonAction> _actions;
+		private readonly ExpiringList<Attachment, IJsonAttachment> _attachments;
 		private readonly Badges _badges;
-		private string _boardId;
 		private Board _board;
-		private readonly ExpiringList<Card, CheckList> _checkLists;
-		private string _description;
-		private DateTime? _dueDate;
-		private bool? _isClosed;
-		private bool? _isSubscribed;
-		private readonly ExpiringList<Card, Label> _labels;
-		private string _listId;
+		private readonly ExpiringList<CheckList, IJsonCheckList> _checkLists;
+		private readonly ExpiringList<Label, IJsonLabel> _labels;
 		private List _list;
-		private bool? _manualCoverAttachment;
-		private readonly ExpiringList<Card, Member> _members;
-		private string _name;
+		private readonly ExpiringList<Member, IJsonMember> _members;
 		private Position _position;
-		private int? _shortId;
-		private string _url;
-		private readonly ExpiringList<Card, VotingMember> _votingMembers;
+		private readonly ExpiringList<VotingMember, IJsonMember> _votingMembers;
 
 		///<summary>
 		/// Enumerates all actions associated with this card.
@@ -118,7 +106,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _attachmentCoverId;
+				return (_jsonCard == null) ? null : _jsonCard.IdAttachmentCover;
 			}
 		}
 		/// <summary>
@@ -137,93 +125,113 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				if (_jsonCard == null) return null;
+				return ((_board == null) || (_board.Id != _jsonCard.IdBoard)) && (Svc != null)
+				       	? (_board = Svc.Retrieve<Board>(_jsonCard.IdBoard))
+				       	: _board;
 			}
 		}
 		/// <summary>
 		/// Enumerates the card's checklists.
 		/// </summary>
 		public IEnumerable<CheckList> CheckLists { get { return _checkLists; } }
+		// <summary>
+		// Enumerates the card's comments.
+		// </summary>
+		//public IEnumerable<CommentCardAction> Comments { get { return _actions.OfType<CommentCardAction>(); } }
 		/// <summary>
-		/// Enumerates the card's comments.
-		/// </summary>
-		public IEnumerable<CommentCardAction> Comments { get { return _actions.OfType<CommentCardAction>(); } }
-		/// <summary>
-		/// Gets and sets the card's description.
+		/// Gets or sets the card's description.
 		/// </summary>
 		public string Description
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _description;
+				return (_jsonCard == null) ? null : _jsonCard.Desc;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_description == value) return;
-				_description = value ?? string.Empty;
-				Parameters.Add("desc", _description);
+				if (_jsonCard == null) return;
+				if (_jsonCard.Desc == value) return;
+				_jsonCard.Desc = value ?? string.Empty;
+				Parameters.Add("desc", _jsonCard.Desc);
 				Put();
 			}
 		}
 		/// <summary>
-		/// Gets and sets the card's due date.
+		/// Gets or sets the card's due date.
 		/// </summary>
 		public DateTime? DueDate
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _dueDate;
+				return (_jsonCard == null) ? null : _jsonCard.Due;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_dueDate == value) return;
 				Validate.Nullable(value);
-				_dueDate = value;
-				Parameters.Add("due", _dueDate);
+				if (_jsonCard == null) return;
+				if (_jsonCard.Due == value) return;
+				_jsonCard.Due = value;
+				Parameters.Add("due", _jsonCard.Due);
 				Put();
 			}
 		}
 		/// <summary>
-		/// Gets and sets whether a card has been archived.
+		/// Gets a unique identifier (not necessarily a GUID).
+		/// </summary>
+		public override string Id
+		{
+			get { return _jsonCard != null ? _jsonCard.Id : base.Id; }
+			internal set
+			{
+				if (_jsonCard != null)
+					_jsonCard.Id = value;
+				base.Id = value;
+			}
+		}
+		/// <summary>
+		/// Gets or sets whether a card has been archived.
 		/// </summary>
 		public bool? IsClosed
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _isClosed;
+				return (_jsonCard == null) ? null : _jsonCard.Closed;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_isClosed == value) return;
 				Validate.Nullable(value);
-				_isClosed = value;
-				Parameters.Add("closed", _isClosed.ToLowerString());
+				if (_jsonCard == null) return;
+				if (_jsonCard.Closed == value) return;
+				_jsonCard.Closed = value;
+				Parameters.Add("closed", _jsonCard.Closed.ToLowerString());
 				Put();
 			}
 		}
 		/// <summary>
-		/// Gets and sets whether the current member is subscribed to this card.
+		/// Gets or sets whether the current member is subscribed to this card.
 		/// </summary>
 		public bool? IsSubscribed
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _isSubscribed;
+				return (_jsonCard == null) ? null : _jsonCard.Subscribed;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_isSubscribed == value) return;
 				Validate.Nullable(value);
-				_isSubscribed = value;
-				Parameters.Add("subscribed", _isSubscribed.ToLowerString());
+				if (_jsonCard == null) return;
+				if (_jsonCard.Subscribed == value) return;
+				_jsonCard.Subscribed = value;
+				Parameters.Add("subscribed", _jsonCard.Subscribed.ToLowerString());
 				Put();
 			}
 		}
@@ -239,7 +247,10 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Get(Svc.RequestProvider.Create<List>(_listId))) : _list;
+				if (_jsonCard == null) return null;
+				return ((_list == null) || (_list.Id != _jsonCard.IdList)) && (Svc != null)
+				       	? (_list = Svc.Retrieve<List>(_jsonCard.IdList))
+				       	: _list;
 			}
 		}
 		/// <summary>
@@ -250,7 +261,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _manualCoverAttachment;
+				return (_jsonCard == null) ? null : _jsonCard.ManualCoverAttachment;
 			}
 		}
 		/// <summary>
@@ -258,27 +269,28 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Member> Members { get { return _members; } }
 		/// <summary>
-		/// Gets and sets the card's name
+		/// Gets or sets the card's name
 		/// </summary>
 		public string Name
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _name;
+				return (_jsonCard == null) ? null : _jsonCard.Name;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_name == value) return;
 				Validate.NonEmptyString(value);
-				_name = value;
-				Parameters.Add("name", _name);
+				if (_jsonCard == null) return;
+				if (_jsonCard.Name == value) return;
+				_jsonCard.Name = value;
+				Parameters.Add("name", _jsonCard.Name);
 				Put();
 			}
 		}
 		/// <summary>
-		/// Gets and sets the card's position.
+		/// Gets or sets the card's position.
 		/// </summary>
 		public Position Position
 		{
@@ -290,51 +302,44 @@ namespace Manatee.Trello
 			set
 			{
 				Validate.Writable(Svc);
-				if (_position == value) return;
 				Validate.Position(value);
+				if (_position == value) return;
 				_position = value;
 				Parameters.Add("pos", _position);
 				Put();
 			}
 		}
 		/// <summary>
-		/// Gets the cards short ID.
+		/// Gets the card's short ID.
 		/// </summary>
-		public int? ShortId { get { return _shortId; } }
+		public int? ShortId { get { return (_jsonCard == null) ? null : _jsonCard.IdShort; } }
 		/// <summary>
 		/// Gets the URL for this card.
 		/// </summary>
-		public string Url { get { return _url; } }
+		public string Url { get { return (_jsonCard == null) ? null : _jsonCard.Url; } }
 		/// <summary>
 		/// Enumerates the members who have voted for this card.
 		/// </summary>
 		public IEnumerable<Member> VotingMembers { get { return _votingMembers; } }
 
 		internal override string Key { get { return "cards"; } }
+		/// <summary>
+		/// Gets whether the entity is a cacheable item.
+		/// </summary>
+		protected override bool Cacheable { get { return true; } }
 
 		/// <summary>
 		/// Creates a new instance of the Card class.
 		/// </summary>
 		public Card()
 		{
-			_actions = new ExpiringList<Card, Action>(this);
-			_attachments = new ExpiringList<Card, Attachment>(this);
-			_badges = new Badges(null, this);
-			_checkLists = new ExpiringList<Card, CheckList>(this);
-			_labels = new ExpiringList<Card, Label>(this);
-			_members = new ExpiringList<Card, Member>(this);
-			_votingMembers = new ExpiringList<Card, VotingMember>(this);
-		}
-		internal Card(ITrelloRest svc, string id)
-			: base(svc, id)
-		{
-			_actions = new ExpiringList<Card, Action>(svc, this);
-			_attachments = new ExpiringList<Card, Attachment>(svc, this);
-			_badges = new Badges(svc, this);
-			_checkLists = new ExpiringList<Card, CheckList>(svc, this);
-			_labels = new ExpiringList<Card, Label>(svc, this);
-			_members = new ExpiringList<Card, Member>(svc, this);
-			_votingMembers = new ExpiringList<Card, VotingMember>(svc, this);
+			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
+			_attachments = new ExpiringList<Attachment, IJsonAttachment>(this, "attachments");
+			_badges = new Badges(this);
+			_checkLists = new ExpiringList<CheckList, IJsonCheckList>(this, "checklists");
+			_labels = new ExpiringList<Label, IJsonLabel>(this, "labels");
+			_members = new ExpiringList<Member, IJsonMember>(this, "members");
+			_votingMembers = new ExpiringList<VotingMember, IJsonMember>(this, "votingMembers");
 		}
 
 		/// <summary>
@@ -358,12 +363,16 @@ namespace Manatee.Trello
 			if (Svc == null) return null;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
-			var request = Svc.RequestProvider.Create<CheckList>(new ExpiringObject[] {new CheckList()}, this);
-			Parameters.Add("name", name);
+			var checkList = new CheckList();
+			var endpoint = EndpointGenerator.Default.Generate(checkList);
+			var request = Api.RequestProvider.Create<IJsonCheckList>(endpoint.ToString());
+			request.AddParameter("name", name);
 			if ((position != null) && position.IsValid)
-				Parameters.Add("position", position);
-			Parameters.Add("idCard", Id);
-			var checkList = Svc.Post(request);
+				request.AddParameter("position", position);
+			request.AddParameter("idCard", Id);
+			checkList.ApplyJson(Api.Post(request));
+			checkList.Svc = Svc;
+			checkList.Api = Api;
 			_checkLists.MarkForUpdate();
 			return checkList;
 		}
@@ -376,9 +385,11 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(comment);
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Action() }, this, "comments");
-			Parameters.Add("text", comment);
-			Svc.Post(request);
+			var endpoint = EndpointGenerator.Default.Generate(this, new Action());
+			endpoint.Append("comments");
+			var request = Api.RequestProvider.Create<IJsonAction>(endpoint.ToString());
+			request.AddParameter("text", comment);
+			Api.Post(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -389,9 +400,10 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Writable(Svc);
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Label() }, this);
-			Parameters.Add("value", color.ToLowerString());
-			Svc.Post(request);
+			var endpoint = EndpointGenerator.Default.Generate(this, new Label());
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			request.AddParameter("value", color.ToLowerString());
+			Api.Post(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -403,9 +415,11 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] {this, new Member()}, this);
-			Parameters.Add("value", member.Id);
-			Svc.Post(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			endpoint.Append(member.Key);
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			request.AddParameter("value", member.Id);
+			Api.Post(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -415,8 +429,10 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Writable(Svc);
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this }, urlExtension: "markAssociatedNotificationsRead");
-			Svc.Post(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			endpoint.Append("markAssociatedNotificationsRead");
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			Api.Post(request);
 		}
 		/// <summary>
 		/// Deletes the card.  This cannot be undone.
@@ -425,8 +441,9 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Writable(Svc);
-			var request = Svc.RequestProvider.Create<Card>(Id);
-			Svc.Delete(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			Api.Delete(request);
 		}
 		/// <summary>
 		/// Moves the card to another board/list/position.
@@ -441,14 +458,16 @@ namespace Manatee.Trello
 			Validate.Entity(board);
 			Validate.Entity(list);
 			if (!board.Lists.Contains(list))
-				throw new InvalidOperationException("The indicated list does not exist on the indicated board.");
-			if (_boardId != board.Id)
-				Parameters.Add("idBoard", board.Id);
-			if (_boardId != list.Id)
-				Parameters.Add("idList", list.Id);
+				throw new InvalidOperationException(string.Format("Board '{0}' does not contain a list named '{1}'.", board.Name, list.Name));
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			if (_jsonCard.IdBoard != board.Id)
+				request.AddParameter("idBoard", board.Id);
+			if (_jsonCard.IdList != list.Id)
+				request.AddParameter("idList", list.Id);
 			if (position != null)
-				Parameters.Add("pos", position);
-			Svc.Put(Svc.RequestProvider.Create<Card>(this));
+				request.AddParameter("pos", position);
+			Api.Put(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -459,8 +478,10 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Writable(Svc);
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, new Label() }, urlExtension: color.ToLowerString());
-			Svc.Delete(request);
+			var endpoint = EndpointGenerator.Default.Generate(this, new Label());
+			endpoint.Append(color.ToLowerString());
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			Api.Delete(request);
 		}
 		/// <summary>
 		/// Removes (unassigns) a member from a card.
@@ -471,64 +492,9 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
-			var request = Svc.RequestProvider.Create<Card>(new ExpiringObject[] { this, member });
-			Svc.Delete(request);
-		}
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			_attachmentCoverId = obj.TryGetString("idAttachmentCover");
-			_boardId = obj.TryGetString("idBoard");
-			_description = obj.TryGetString("desc");
-			var due = obj.TryGetString("due");
-			_dueDate = string.IsNullOrWhiteSpace(due) ? (DateTime?)null : DateTime.Parse(due);
-			_isClosed = obj.TryGetBoolean("closed");
-			_isSubscribed = obj.TryGetBoolean("subscribed");
-			_listId = obj.TryGetString("idList");
-			_manualCoverAttachment = obj.TryGetBoolean("manualCoverAttachment");
-			_name = obj.TryGetString("name");
-			_position = Position.Unknown;
-			if (obj.ContainsKey("pos"))
-				_position.FromJson(obj["pos"]);
-			_shortId = (int?) obj.TryGetNumber("idShort");
-			_url = obj.TryGetString("url");
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"id", Id},
-			           		{"idAttachmentCover", _attachmentCoverId},
-			           		{"badges", _badges != null ? _badges.ToJson() : JsonValue.Null},
-			           		{"idBoard", _boardId},
-			           		{"desc", _description},
-			           		{"due", _dueDate.HasValue ? _dueDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			           		{"closed", _isClosed.HasValue ? _isClosed.Value : JsonValue.Null},
-			           		{"subscribed", _isSubscribed.HasValue ? _isSubscribed.Value : JsonValue.Null},
-			           		{"labels", _labels.ToJson()},
-			           		{"idList", _listId},
-			           		{"manualCoverAttachment", _manualCoverAttachment.HasValue ? _manualCoverAttachment.Value : JsonValue.Null},
-			           		{"name", _name},
-			           		{"pos", _position.ToJson()},
-			           		{"idShort", _shortId.HasValue ? _shortId.Value : JsonValue.Null},
-			           		{"url", _url}
-			           	};
-			return json;
+			var endpoint = EndpointGenerator.Default.Generate(this, member);
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			Api.Delete(request);
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -576,32 +542,16 @@ namespace Manatee.Trello
 			return Name;
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var card = entity as Card;
-			if (card == null) return;
-			_attachmentCoverId = card._attachmentCoverId;
-			_boardId = card._boardId;
-			_description = card._description;
-			_dueDate = card._dueDate;
-			_isClosed = card._isClosed;
-			_isSubscribed = card._isSubscribed;
-			_manualCoverAttachment = card._manualCoverAttachment;
-			_name = card._name;
-			_position = card._position;
-			_shortId = card._shortId;
-			_url = card._url;
-			_isInitialized = true;
-		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<Card>(Id));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
+
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
@@ -618,6 +568,12 @@ namespace Manatee.Trello
 			if (_list != null) _list.Svc = Svc;
 		}
 
+		internal override void ApplyJson(object obj)
+		{
+			_jsonCard = (IJsonCard) obj;
+			_position = _jsonCard.Pos.HasValue ? new Position(_jsonCard.Pos.Value) : Position.Unknown;
+		}
+
 		private void Put()
 		{
 			if (Svc == null)
@@ -625,8 +581,13 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var request = Svc.RequestProvider.Create<Card>(this);
-			Svc.Put(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			foreach (var parameter in Parameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
+			Api.Put(request);
 			_actions.MarkForUpdate();
 		}
 	}

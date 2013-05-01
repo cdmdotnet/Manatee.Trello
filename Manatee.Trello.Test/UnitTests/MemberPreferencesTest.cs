@@ -1,5 +1,6 @@
 ﻿using System;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -19,43 +20,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ColorBlind property")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(ColorBlindIsAccessed)
-				.Then(MockApiGetIsCalled<MemberPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access ColorBlind property when expired")
 				.Given(AMemberPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ColorBlindIsAccessed)
-				.Then(MockApiGetIsCalled<MemberPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ColorBlind property")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(ColorBlindIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ColorBlind property to null")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(ColorBlindIs, (bool?) true)
 				.When(ColorBlindIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ColorBlind property to same")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(ColorBlindIs, (bool?) true)
 				.When(ColorBlindIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ColorBlind property without AuthToken")
 				.Given(AMemberPreferencesObject)
 				.And(TokenNotSupplied)
-				.When(ColorBlindIsSet, (bool?)true)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.When(ColorBlindIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -71,43 +75,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access MinutesBetweenSummaries property")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(MinutesBetweenSummariesIsAccessed)
-				.Then(MockApiGetIsCalled<MemberPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access MinutesBetweenSummaries property when expired")
 				.Given(AMemberPreferencesObject)
 				.And(EntityIsExpired)
 				.When(MinutesBetweenSummariesIsAccessed)
-				.Then(MockApiGetIsCalled<MemberPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBetweenSummaries property")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(MinutesBetweenSummariesIsSet, (int?) 10)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBetweenSummaries property to null")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(MinutesBetweenSummariesIs, (int?) 10)
 				.When(MinutesBetweenSummariesIsSet, (int?) null)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set MinutesBetweenSummaries property to same")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(MinutesBetweenSummariesIs, (int?) 10)
 				.When(MinutesBetweenSummariesIsSet, (int?) 10)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBetweenSummaries property without AuthToken")
 				.Given(AMemberPreferencesObject)
 				.And(TokenNotSupplied)
-				.When(MinutesBetweenSummariesIsSet, (int?)10)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.When(MinutesBetweenSummariesIsSet, (int?) 10)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -123,43 +130,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access SendSummaries property")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(SendSummariesIsAccessed)
-				.Then(MockApiGetIsCalled<MemberPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access SendSummaries property when expired")
 				.Given(AMemberPreferencesObject)
 				.And(EntityIsExpired)
 				.When(SendSummariesIsAccessed)
-				.Then(MockApiGetIsCalled<MemberPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set SendSummaries property")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(SendSummariesIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set SendSummaries property to null")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(SendSummariesIs, (bool?) true)
 				.When(SendSummariesIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set SendSummaries property to same")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(SendSummariesIs, (bool?) true)
 				.When(SendSummariesIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set SendSummaries property without AuthToken")
 				.Given(AMemberPreferencesObject)
 				.And(TokenNotSupplied)
-				.When(SendSummariesIsSet, (bool?)true)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.When(SendSummariesIsSet, (bool?) true)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -175,43 +185,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access MinutesBeforeDeadlineToNotify property")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(MinutesBeforeDeadlineToNotifyIsAccessed)
-				.Then(MockApiGetIsCalled<MemberPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access MinutesBeforeDeadlineToNotify property when expired")
 				.Given(AMemberPreferencesObject)
 				.And(EntityIsExpired)
 				.When(MinutesBeforeDeadlineToNotifyIsAccessed)
-				.Then(MockApiGetIsCalled<MemberPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property to null")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(MinutesBeforeDeadlineToNotifyIs, (int?) 10)
 				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) null)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property to same")
 				.Given(AMemberPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(MinutesBeforeDeadlineToNotifyIs, (int?) 10)
 				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property without AuthToken")
 				.Given(AMemberPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
-				.Then(MockApiPutIsCalled<MemberPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -222,7 +235,9 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AMemberPreferencesObject()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			OwnedBy<Member>();
+			SetupMockGet<IJsonMemberPreferences>();
 		}
 		private void ColorBlindIs(bool? value)
 		{

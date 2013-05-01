@@ -23,7 +23,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
 
 namespace Manatee.Trello.Contracts
 {
@@ -34,64 +34,66 @@ namespace Manatee.Trello.Contracts
 	public abstract class ExpiringObject
 	{
 		private DateTime _expires;
-		private ITrelloRest _svc;
-		/// <summary>
-		/// Indicates that the object has refreshed from the website at least once.
-		/// </summary>
-		protected bool _isInitialized;
+		private ExpiringObject _owner;
+		private ITrelloService _svc;
 
 		/// <summary>
-		/// Gets a unique identifier  (not necessarily a GUID).
+		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
-		public string Id { get; internal set; }
+		public virtual string Id { get; internal set; }
 		/// <summary>
-		/// Gets and sets an object which owns this one.
+		/// Gets whether this object has expired is an needs to be updated.
 		/// </summary>
-		public ExpiringObject Owner { get; internal set; }
+		public bool IsExpired { get { return DateTime.Now >= _expires; } }
+
 		/// <summary>
 		/// Gets a collection of parameters to be added to a request which uses this object.
 		/// </summary>
 		/// <remarks>
 		/// Parameters is cleared after each use.
 		/// </remarks>
-		public Dictionary<string, object> Parameters { get; private set; }
+		protected Dictionary<string, object> Parameters { get; private set; }
 		/// <summary>
-		/// Gets whether this object has expired is an needs to be updated.
+		/// Gets whether the entity is a cacheable item.
 		/// </summary>
-		public bool IsExpired { get { return DateTime.Now >= _expires; } }
+		protected virtual bool Cacheable { get { return true; } }
 
-		internal ITrelloRest Svc
+		internal ExpiringObject Owner
+		{
+			get { return _owner; }
+			set
+			{
+				if (_owner == value) return;
+				_owner = value;
+				Svc = _owner.Svc;
+			}
+		}
+		internal ITrelloService Svc
 		{
 			get { return _svc; }
 			set
 			{
 				if (_svc == value) return;
 				_svc = value;
+				if (_svc == null)
+					Api = null;
+				else
+				{
+					Api = _svc.Api;
+					if (Cacheable && (_svc.Cache != null))
+						_svc.Cache.Add(this);
+				}
 				PropigateService();
 				MarkForUpdate();
 			}
 		}
+		internal ITrelloRest Api { get; set; }
 		internal abstract string Key { get; }
 
 		internal ExpiringObject()
 		{
 			Parameters = new Dictionary<string, object>();
 			MarkForUpdate();
-		}
-		internal ExpiringObject(ITrelloRest svc)
-			: this()
-		{
-			Svc = svc;
-		}
-		internal ExpiringObject(ITrelloRest svc, string id)
-			: this(svc)
-		{
-			Id = id;
-		}
-		internal ExpiringObject(ITrelloRest svc, ExpiringObject owner)
-			: this(svc)
-		{
-			Owner = owner;
 		}
 
 		internal void MarkForUpdate()
@@ -102,26 +104,28 @@ namespace Manatee.Trello.Contracts
 		{
 			_expires = DateTime.Now.AddMinutes(1);
 		}
+		internal virtual bool Matches(string id)
+		{
+			return Id == id;
+		}
+		internal abstract void ApplyJson(object obj);
 
 		/// <summary>
 		/// Verifies that the object is not expired and updates if necessary.
 		/// </summary>
-		protected void VerifyNotExpired()
+		protected internal void VerifyNotExpired()
 		{
 			if ((Svc == null) || !Options.AutoRefresh || !IsExpired) return;
-			Get();
+			Refresh();
 			_expires = DateTime.Now + Options.ItemDuration;
 		}
-
-		internal abstract void Refresh(ExpiringObject entity);
-
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
+		protected abstract void Refresh();
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
 		protected abstract void PropigateService();
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		protected abstract void Get();
 	}
 }

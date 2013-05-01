@@ -27,47 +27,18 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Rest
 {
-	/// <summary>
-	/// Wraps RestSharp.IRestResponse&lt;T&gt; in a class which implements IRestResponse&lt;T&gt;.
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	public class RestSharpResponse<T> : IRestResponse<T>
-		where T : new()
+	internal class RestSharpResponse<T> : IRestResponse<T>
 	{
-		private readonly RestSharp.IRestResponse<T> _response;
+		private readonly RestSharp.IRestResponse _response;
 
-		/// <summary>
-		/// Creates a new instance of the RestResponse&lt;T&gt; class.
-		/// </summary>
-		/// <param name="response"></param>
-		public RestSharpResponse(RestSharp.IRestResponse<T> response)
+		public RestSharpResponse(RestSharp.IRestResponse response, T data)
 		{
 			_response = response;
+			Data = data;
 		}
 
-		/// <summary>
-		/// The JSON content returned by the call.
-		/// </summary>
-		public string Content
-		{
-			get { return _response.Content; }
-			set { _response.Content = value; }
-		}
-		/// <summary>
-		/// The deserialized data.
-		/// </summary>
-		public T Data
-		{
-			get { return _response.Data; }
-			set { _response.Data = value; }
-		}
-		/// <summary>
-		/// Indicates the status of the response.
-		/// </summary>
-		public HttpStatusCode StatusCode
-		{
-			get { return _response.StatusCode; }
-			set { _response.StatusCode = value; }
-		}
+		public string Content { get { return _response.Content; } }
+		public T Data { get; private set; }
+		public HttpStatusCode StatusCode { get { return _response.StatusCode; } }
 	}
 }

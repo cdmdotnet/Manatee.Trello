@@ -1,6 +1,6 @@
 ﻿using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StoryQ;
@@ -21,9 +21,19 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access MemberCreator property")
 				.Given(AnAction)
-				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Action>, 0)
-				.And(NonNullValueOfTypeIsReturned<Member>)
+				.And(EntityIsRefreshed)
+				.When(MemberCreatorIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonAction>, 1)
+				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access MemberCreator property when expired")
+				.Given(AnAction)
+				.And(EntityIsRefreshed)
+				.And(EntityIsExpired)
+				.When(MemberCreatorIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonAction>, 1)
+				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -37,17 +47,17 @@ namespace Manatee.Trello.Test.UnitTests
 				.AsA("developer")
 				.IWant("Delete to call the service.");
 
-			feature.WithScenario("Call Delete")
+			feature.WithScenario("Delete is called")
 				.Given(AnAction)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<Action>, 1)
+				.Then(MockApiDeleteIsCalled<IJsonAction>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Call Delete without AuthToken")
+				.WithScenario("Delete is called without AuthToken")
 				.Given(AnAction)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<Action>, 0)
+				.Then(MockApiDeleteIsCalled<IJsonAction>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -56,11 +66,12 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AnAction()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			SetupMockGet<Member>();
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			SetupMockGet<IJsonAction>();
+			SetupMockRetrieve<Member>();
 		}
 
-		private void MemberIsAccessed()
+		private void MemberCreatorIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.MemberCreator);
 		}

@@ -21,11 +21,9 @@
 					on Trello.com.
 
 ***************************************************************************************/
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -38,12 +36,9 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents available preference settings for a member.
 	/// </summary>
-	public class MemberPreferences : JsonCompatibleExpiringObject
+	public class MemberPreferences : ExpiringObject
 	{
-		private bool? _colorBlind;
-		private int? _minutesBetweenSummaries;
-		private bool? _sendSummaries;
-		private int? _minutesBeforeDeadlineToNotify;
+		private IJsonMemberPreferences _jsonMemberPreferences;
 
 		/// <summary>
 		/// Enables/disables color-blind mode.
@@ -53,15 +48,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _colorBlind;
+				return (_jsonMemberPreferences == null) ? null : _jsonMemberPreferences.ColorBlind;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_colorBlind == value) return;
 				Validate.Nullable(value);
-				_colorBlind = value;
-				Parameters.Add("value", value.ToLowerString());
+				if (_jsonMemberPreferences == null) return;
+				if (_jsonMemberPreferences.ColorBlind == value) return;
+				_jsonMemberPreferences.ColorBlind = value;
+				Parameters.Add("value", _jsonMemberPreferences.ColorBlind.ToLowerString());
 				Put("colorBlind");
 			}
 		}
@@ -73,15 +69,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _minutesBetweenSummaries;
+				return (_jsonMemberPreferences == null) ? null : _jsonMemberPreferences.MinutesBetweenSummaries;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_minutesBetweenSummaries == value) return;
 				Validate.Nullable(value);
-				_minutesBetweenSummaries = value;
-				Parameters.Add("value", value);
+				if (_jsonMemberPreferences == null) return;
+				if (_jsonMemberPreferences.MinutesBetweenSummaries == value) return;
+				_jsonMemberPreferences.MinutesBetweenSummaries = value;
+				Parameters.Add("value", _jsonMemberPreferences.MinutesBetweenSummaries);
 				Put("minutesBetweenSummaries");
 			}
 		}
@@ -93,15 +90,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _sendSummaries;
+				return (_jsonMemberPreferences == null) ? null : _jsonMemberPreferences.SendSummaries;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_sendSummaries == value) return;
 				Validate.Nullable(value);
-				_sendSummaries = value;
-				Parameters.Add("value", value.ToLowerString());
+				if (_jsonMemberPreferences == null) return;
+				if (_jsonMemberPreferences.SendSummaries == value) return;
+				_jsonMemberPreferences.SendSummaries = value;
+				Parameters.Add("value", _jsonMemberPreferences.SendSummaries.ToLowerString());
 				Put("sendSummaries");
 			}
 		}
@@ -113,15 +111,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _minutesBeforeDeadlineToNotify;
+				return (_jsonMemberPreferences == null) ? null : _jsonMemberPreferences.MinutesBeforeDeadlineToNotify;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_minutesBeforeDeadlineToNotify == value) return;
 				Validate.Nullable(value);
-				_minutesBeforeDeadlineToNotify = value;
-				Parameters.Add("value", value);
+				if (_jsonMemberPreferences == null) return;
+				if (_jsonMemberPreferences.MinutesBeforeDeadlineToNotify == value) return;
+				_jsonMemberPreferences.MinutesBeforeDeadlineToNotify = value;
+				Parameters.Add("value", _jsonMemberPreferences.MinutesBeforeDeadlineToNotify);
 				Put("minutesBeforeDeadlineToNotify");
 			}
 		}
@@ -132,67 +131,30 @@ namespace Manatee.Trello
 		/// Creates a new instance of the MemberPreferences class.
 		/// </summary>
 		public MemberPreferences() {}
-		internal MemberPreferences(ITrelloRest svc, Member owner)
-			: base(svc, owner) {}
-
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
+		internal MemberPreferences(Member owner)
 		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			_colorBlind = obj.TryGetBoolean("colorBlind");
-			_minutesBetweenSummaries = (int?) obj.TryGetNumber("minutesBetweenSummaries");
-			_sendSummaries = obj.TryGetBoolean("sendSummaries");
-			_minutesBeforeDeadlineToNotify = (int?) obj.TryGetNumber("minutesBeforeDeadlineToNotify");
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"colorBlind", _colorBlind.HasValue ? _colorBlind.Value : JsonValue.Null},
-			           		{"minutesBetweenSummaries", _minutesBetweenSummaries.HasValue ? _minutesBetweenSummaries.Value : JsonValue.Null},
-			           		{"sendSummaries", _sendSummaries.HasValue ? _sendSummaries.Value : JsonValue.Null},
-			           		{"minutesBeforeDeadlineToNotify", _minutesBeforeDeadlineToNotify.HasValue ? _minutesBeforeDeadlineToNotify.Value : JsonValue.Null},
-			           	};
-			return json;
-		}
-
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var prefs = entity as MemberPreferences;
-			if (prefs == null) return;
-			_colorBlind = prefs._colorBlind;
-			_minutesBetweenSummaries = prefs._minutesBetweenSummaries;
-			_sendSummaries = prefs._sendSummaries;
-			_minutesBeforeDeadlineToNotify = prefs._minutesBeforeDeadlineToNotify;
-			_isInitialized = true;
+			Owner = owner;
 		}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<MemberPreferences>(new[] {Owner, this}));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonMemberPreferences>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
 		protected override void PropigateService() {}
-		
+
+		internal override void ApplyJson(object obj)
+		{
+			_jsonMemberPreferences = (IJsonMemberPreferences) obj;
+		}
+
 		private void Put(string extension)
 		{
 			if (Svc == null)
@@ -200,8 +162,14 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var reqeust = Svc.RequestProvider.Create<MemberPreferences>(new[] { Owner, this }, this, extension);
-			Svc.Put(reqeust);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			endpoint.Append(extension);
+			var request = Api.RequestProvider.Create<IJsonMemberPreferences>(endpoint.ToString());
+			foreach (var parameter in Parameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
+			Api.Put(request);
 		}
 	}
 }
