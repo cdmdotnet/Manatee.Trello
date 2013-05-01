@@ -22,11 +22,9 @@
 ***************************************************************************************/
 using System;
 using System.Linq;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -38,45 +36,21 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a label as applied to a card.
 	/// </summary>
-	public class Label : JsonCompatibleExpiringObject, IEquatable<Label>
+	public class Label : ExpiringObject, IEquatable<Label>
 	{
 		private static readonly OneToOneMap<LabelColor, string> _colorMap;
 
-		private string _apicolor;
+		private IJsonLabel _jsonLabel;
 		private LabelColor _color = LabelColor.Unknown;
-		private string _name;
 
 		/// <summary>
 		/// Gets the color of the label.
 		/// </summary>
-		public LabelColor Color
-		{
-			get
-			{
-				return _color;
-			}
-			internal set 
-			{
-				if (_color == value) return;
-				_color = value;
-				UpdateApiColor();
-			}
-		}
+		public LabelColor Color { get { return _color; } }
 		/// <summary>
 		/// Gets the name of the label.  Tied to the board which contains the card.
 		/// </summary>
-		public string Name
-		{
-			get
-			{
-				return _name;
-			}
-			internal set
-			{
-				if (_name == value) return;
-				_name = value ?? string.Empty;
-			}
-		}
+		public string Name { get { return _jsonLabel.Name; } }
 
 		internal override string Key { get { return "labels"; } }
 
@@ -92,58 +66,7 @@ namespace Manatee.Trello
 			            		{LabelColor.Blue, "blue"},
 			            	};
 		}
-		/// <summary>
-		/// Creates a new instance of the Label class.
-		/// </summary>
-		public Label()
-			: this(LabelColor.Unknown) {}
-		/// <summary>
-		/// Creates a new instance of the Label class.
-		/// </summary>
-		public Label(LabelColor color)
-		{
-			_color = color;
-			UpdateApiColor();
-			_isInitialized = true;
-		}
-		internal Label(ITrelloRest svc, Card owner)
-			: base(svc, owner)
-		{
-			_color = LabelColor.Unknown;
-			UpdateApiColor();
-			_isInitialized = true;
-		}
 
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			_apicolor = obj.TryGetString("color");
-			_name = obj.TryGetString("name");
-			UpdateColor();
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"color", _apicolor},
-			           		{"name", _name}
-			           	};
-			return json;
-		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
 		/// </summary>
@@ -153,7 +76,7 @@ namespace Manatee.Trello
 		/// <param name="other">An object to compare with this object.</param>
 		public bool Equals(Label other)
 		{
-			return _apicolor == other._apicolor;
+			return _color == other._color;
 		}
 		/// <summary>
 		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
@@ -190,29 +113,29 @@ namespace Manatee.Trello
 			return string.Format("{0} : {1}", Color, Name);
 		}
 
-		internal override void Refresh(ExpiringObject entity) {}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
-		{
-			UpdateApiColor();
-			_isInitialized = true;
-		}
+		protected override void Refresh() { }
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
 		protected override void PropigateService() {}
 
+		internal override void ApplyJson(object obj)
+		{
+			_jsonLabel = (IJsonLabel) obj;
+			UpdateColor();
+		}
+
 		private void UpdateColor()
 		{
-			_color = _colorMap.Any(kvp => kvp.Value == _apicolor) ? _colorMap[_apicolor] : LabelColor.Unknown;
+			_color = _colorMap.Any(kvp => kvp.Value == _jsonLabel.Color) ? _colorMap[_jsonLabel.Color] : LabelColor.Unknown;
 		}
 		private void UpdateApiColor()
 		{
 			if (_colorMap.Any(kvp => kvp.Key == _color))
-				_apicolor = _colorMap[_color];
+				_jsonLabel.Color = _colorMap[_color];
 		}
 	}
 }

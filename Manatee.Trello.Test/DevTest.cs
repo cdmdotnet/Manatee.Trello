@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Json.Extensions;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Json.Newtonsoft;
 using Manatee.Trello.Rest;
-using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test
@@ -18,13 +15,22 @@ namespace Manatee.Trello.Test
 		{
 			var service = new TrelloService(TrelloIds.Key, TrelloIds.Token);
 
-			var me = service.Me;
-			Console.WriteLine(me);
+			var restClientProvider = (RestSharpClientProvider)service.RestClientProvider;
+			var serializer = new NewtonsoftSerializer();
+			restClientProvider.Serializer = serializer;
+			restClientProvider.Deserializer = serializer;
 
-			foreach (var notification in me.Notifications)
+			var card = service.Retrieve<Card>(TrelloIds.CardId);
+			var actions = card.Actions.ToList();
+			var board = card.Board;
+			var list = board.Lists.First();
+
+			foreach (var action in actions)
 			{
-				Console.WriteLine(notification);
+				Console.WriteLine(action);
 			}
+			Console.WriteLine(board);
+			Console.WriteLine(list);
 		}
 	}
 }

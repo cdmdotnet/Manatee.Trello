@@ -22,11 +22,9 @@
 ***************************************************************************************/
 using System;
 using System.Linq;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -39,16 +37,27 @@ namespace Manatee.Trello
 	///<summary>
 	/// Represents a member of a board, including their membership type.
 	///</summary>
-	public class BoardMembership : JsonCompatibleExpiringObject, IEquatable<BoardMembership>
+	public class BoardMembership : ExpiringObject, IEquatable<BoardMembership>
 	{
 		private static readonly OneToOneMap<BoardMembershipType, string> _typeMap;
 
-		private string _apiMembershipType;
-		private bool? _isDeactivated;
-		private string _memberId;
+		private IJsonBoardMembership _jsonBoardMembership;
 		private Member _member;
 		private BoardMembershipType _membershipType;
 
+		/// <summary>
+		/// Gets a unique identifier (not necessarily a GUID).
+		/// </summary>
+		public override string Id
+		{
+			get { return _jsonBoardMembership != null ? _jsonBoardMembership.Id : base.Id; }
+			internal set
+			{
+				if (_jsonBoardMembership != null)
+					_jsonBoardMembership.Id = value;
+				base.Id = value;
+			}
+		}
 		///<summary>
 		/// Gets whether the membership is deactivated.
 		///</summary>
@@ -57,18 +66,22 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _isDeactivated;
+				if (_jsonBoardMembership == null) return null;
+				return _jsonBoardMembership.Deactivated;
 			}
 		}
 		///<summary>
-		/// Get the member.
+		/// Gets the member.
 		///</summary>
 		public Member Member
 		{
 			get
 			{
 				VerifyNotExpired();
-				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Get(Svc.RequestProvider.Create<Member>(_memberId))) : _member;
+				if (_jsonBoardMembership == null) return null;
+				return ((_member == null) || (_member.Id != _jsonBoardMembership.IdMember)) && (Svc != null)
+				       	? (_member = Svc.Retrieve<Member>(_jsonBoardMembership.IdMember))
+				       	: _member;
 			}
 		}
 		///<summary>
@@ -87,47 +100,7 @@ namespace Manatee.Trello
 			           		{BoardMembershipType.Observer, "observer"},
 			           	};
 		}
-		///<summary>
-		/// Creates a new instance of the BoardMembership class.
-		///</summary>
-		public BoardMembership() {}
-		internal BoardMembership(ITrelloRest svc, Board owner)
-			: base(svc, owner) {}
 
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			_apiMembershipType = obj.TryGetString("memberType");
-			_isDeactivated = obj.TryGetBoolean("deactivated");
-			_memberId = obj.TryGetString("idMember");
-			UpdateType();
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"id", Id},
-							{"deactivated", _isDeactivated.HasValue ? _isDeactivated.Value : JsonValue.Null},
-			           		{"idMember", _memberId},
-			           		{"memberType", _apiMembershipType}
-			           	};
-			return json;
-		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
 		/// </summary>
@@ -163,23 +136,14 @@ namespace Manatee.Trello
 			return base.GetHashCode();
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var membership = entity as BoardMembership;
-			if (membership == null) return;
-			_apiMembershipType = membership._apiMembershipType;
-			_isDeactivated = membership._isDeactivated;
-			_memberId = membership._memberId;
-			_isInitialized = true;
-		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<BoardMembership>(new[] {Owner, this}));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonBoardMembership>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -189,16 +153,17 @@ namespace Manatee.Trello
 			if (_member != null) _member.Svc = Svc;
 		}
 
+		internal override void ApplyJson(object obj)
+		{
+			_jsonBoardMembership = (IJsonBoardMembership) obj;
+			UpdateType();
+		}
+
 		private void UpdateType()
 		{
-			_membershipType = _typeMap.Any(kvp => kvp.Value == _apiMembershipType)
-			                  	? _typeMap[_apiMembershipType]
+			_membershipType = _typeMap.Any(kvp => kvp.Value == _jsonBoardMembership.MemberType)
+								? _typeMap[_jsonBoardMembership.MemberType]
 			                  	: _membershipType = BoardMembershipType.Normal;
-		}
-		private void UpdateApiType()
-		{
-			if (_typeMap.Any(kvp => kvp.Key == _membershipType))
-				_apiMembershipType = _typeMap[_membershipType];
 		}
 	}
 }

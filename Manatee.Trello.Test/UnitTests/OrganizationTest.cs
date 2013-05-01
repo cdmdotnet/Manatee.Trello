@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
@@ -23,7 +24,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Action>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonAction>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
 				.And(ExceptionIsNotThrown)
 
@@ -42,7 +43,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(BoardsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Board>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonBoard>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Board>>)
 				.And(ExceptionIsNotThrown)
 
@@ -59,50 +60,54 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Description property")
 				.Given(AnOrganization)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(DescriptionIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Description property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(DescriptionIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Description property")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.When(DescriptionIsSet, "description")
-				.Then(MockApiPutIsCalled<Organization>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Description property to null")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(DescriptionIs, "not description")
 				.When(DescriptionIsSet, (string) null)
-				.Then(MockApiPutIsCalled<Organization>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Description property to empty")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(DescriptionIs, "not description")
 				.When(DescriptionIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<Organization>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Description property to same")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(DescriptionIs, "description")
 				.When(DescriptionIsSet, "description")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Description property wihtout AuthToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DescriptionIsSet, "description")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -118,49 +123,53 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access DisplayName property")
 				.Given(AnOrganization)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(DisplayNameIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access DisplayName property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(DisplayNameIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set DisplayName property")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.When(DisplayNameIsSet, "description")
-				.Then(MockApiPutIsCalled<Organization>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set DisplayName property to null")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(DisplayNameIs, "not description")
 				.When(DisplayNameIsSet, (string) null)
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set DisplayName property to less than 4 characters")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.When(DisplayNameIsSet, "bad")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Set DisplayName property to same")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(DisplayNameIs, "description")
 				.When(DisplayNameIsSet, "description")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set DisplayName property wihtout AuthToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DisplayNameIsSet, "description")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -176,16 +185,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access AvatarHash property")
 				.Given(AnOrganization)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(LogoHashIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access AvatarHash property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(LogoHashIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -203,8 +212,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(MembersIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
-				.And(MockApiGetCollectionIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Member>>)
 				.And(ExceptionIsNotThrown)
 
@@ -221,61 +229,66 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Name property")
 				.Given(AnOrganization)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(NameIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Name property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(NameIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.When(NameIsSet, "description")
-				.Then(MockApiGetIsCalled<Organization>, 1)
-				.And(MockApiPutIsCalled<Organization>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.And(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property to null")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(NameIs, "not description")
 				.When(NameIsSet, (string) null)
-				.Then(MockApiGetIsCalled<Organization>, 0)
-				.And(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Name property to less than 3 characters")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.When(NameIsSet, "un")
-				.Then(MockApiGetIsCalled<Organization>, 0)
-				.And(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Set Name property to same")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(NameIs, "description")
 				.When(NameIsSet, "description")
-				.Then(MockApiGetIsCalled<Organization>, 0)
-				.And(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property to existing name")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(NameExists)
 				.When(NameIsSet, "Name")
-				.Then(MockApiGetIsCalled<Organization>, 1)
-				.And(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<OrgNameInUseException>)
 
 				.WithScenario("Set Name property wihtout AuthToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(NameIsSet, "description")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -291,16 +304,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access PowerUps property")
 				.Given(AnOrganization)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(PowerUpsIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PowerUps property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(PowerUpsIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -318,7 +331,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(PreferencesIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(NonNullValueOfTypeIsReturned<OrganizationPreferences>)
 				.And(ExceptionIsNotThrown)
 
@@ -335,50 +348,55 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Website property")
 				.Given(AnOrganization)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(WebsiteIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Website property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(WebsiteIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Website property")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.When(WebsiteIsSet, "Website")
-				.Then(MockApiPutIsCalled<Organization>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Website property to null")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(WebsiteIs, "not Website")
 				.When(WebsiteIsSet, (string) null)
-				.Then(MockApiPutIsCalled<Organization>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Website property to empty")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(WebsiteIs, "not Website")
 				.When(WebsiteIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<Organization>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Website property to same")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(WebsiteIs, "Website")
 				.When(WebsiteIsSet, "Website")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Website property wihtout AuthToken")
 				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
 				.And(TokenNotSupplied)
 				.When(WebsiteIsSet, "Website")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -396,7 +414,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(UrlIsAccessed)
-				.Then(MockApiGetIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -413,26 +431,26 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("AddBoard is called")
 				.Given(AnOrganization)
 				.When(AddBoardIsCalled, "board")
-				.Then(MockApiPostIsCalled<Board>, 1)
+				.Then(MockApiPostIsCalled<IJsonBoard>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("AddBoard is called with null name")
 				.Given(AnOrganization)
 				.When(AddBoardIsCalled, (string) null)
-				.Then(MockApiPostIsCalled<Board>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddBoard is called with empty name")
 				.Given(AnOrganization)
 				.When(AddBoardIsCalled, string.Empty)
-				.Then(MockApiPostIsCalled<Board>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddBoard is called wihtout AuthToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(AddBoardIsCalled, "board")
-				.Then(MockApiPutIsCalled<Board>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -449,26 +467,26 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("AddOrUpdateMember is called")
 				.Given(AnOrganization)
 				.When(AddOrUpdateMemberIsCalled, new Member {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("AddOrUpdateMember is called with null")
 				.Given(AnOrganization)
 				.When(AddOrUpdateMemberIsCalled, (Member) null)
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddOrUpdateMember is called with local member")
 				.Given(AnOrganization)
 				.When(AddOrUpdateMemberIsCalled, new Member())
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
 				.WithScenario("AddOrUpdateMember is called wihtout AuthToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(AddOrUpdateMemberIsCalled, new Member { Id = TrelloIds.Invalid })
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -485,14 +503,14 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("Delete is called")
 				.Given(AnOrganization)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<Organization>, 1)
+				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Delete is called wihtout AuthToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -515,19 +533,19 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("RemoveMember is called")
 				.Given(AnOrganization)
 				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Invalid})
-				.Then(MockApiDeleteIsCalled<Organization>, 1)
+				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("RemoveMember is called with null member")
 				.Given(AnOrganization)
 				.When(RemoveMemberIsCalled, (Member) null)
-				.Then(MockApiDeleteIsCalled<Organization>, 0)
+				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("RemoveMember is called with local member")
 				.Given(AnOrganization)
 				.When(RemoveMemberIsCalled, new Member())
-				.Then(MockApiDeleteIsCalled<Organization>, 0)
+				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
 				.Execute();
@@ -544,7 +562,9 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AnOrganization()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			SetupMockGet<IJsonOrganization>();
+			SetupMockPost<IJsonBoard>();
 		}
 		private void DescriptionIs(string value)
 		{

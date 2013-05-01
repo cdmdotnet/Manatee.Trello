@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
-using Manatee.Trello.Test.FunctionalTests;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Rest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -13,23 +13,23 @@ namespace Manatee.Trello.Test.UnitTests
 	{
 		#region Dependencies
 
-		protected class DependencyCollection : UnitTestBase<T>.DependencyCollection
+		protected new class DependencyCollection : UnitTestBase<T>.DependencyCollection
 		{
-			public Mock<ITrelloRest> Api { get; private set; }
+			public Mock<ITrelloService> Svc { get; private set; }
+			public Mock<ITrelloRest> Rest { get; private set; }
 
 			public DependencyCollection()
 			{
-				Api = new Mock<ITrelloRest>();
+				Svc = new Mock<ITrelloService>();
+				Rest = new Mock<ITrelloRest>();
 
-				RestClientProvider.SetupGet(p => p.RequestProvider)
-					.Returns(RequestProvider);
-				Api.SetupGet(a => a.RestClientProvider)
+				Svc.SetupGet(a => a.Api)
+					.Returns(Rest.Object);
+				Rest.SetupGet(s => s.RestClientProvider)
 					.Returns(RestClientProvider.Object);
-				Api.SetupGet(a => a.RequestProvider)
+				Rest.SetupGet(s => s.RequestProvider)
 					.Returns(RequestProvider);
-				Api.SetupGet(a => a.AuthKey)
-					.Returns(TrelloIds.Key);
-				Api.SetupGet(a => a.AuthToken)
+				Svc.SetupGet(s => s.AuthToken)
 					.Returns(TrelloIds.Token);
 			}
 		}
@@ -54,38 +54,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 		protected void TokenNotSupplied()
 		{
-			_systemUnderTest.Dependencies.Api.SetupGet(a => a.AuthToken)
-				.Returns((string) null);
+			_systemUnderTest.Dependencies.Svc.SetupGet(a => a.AuthToken)
+				.Returns((string)null);
+			_systemUnderTest.Dependencies.Rest.SetupGet(a => a.AuthToken)
+				.Returns((string)null);
 		}
-		protected void SetupMockGet<TRequest>()
-			where TRequest : ExpiringObject, new()
+		protected Mock<TRequest> SetupMockGet<TRequest>()
+			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestRequest<TRequest>>()))
-				.Returns(new TRequest());
+			var obj = new Mock<TRequest>();
+			obj.SetupAllProperties();
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get(It.IsAny<IRestRequest<TRequest>>()))
+				.Returns(obj.Object);
+			return obj;
 		}
-		protected void SetupMockGetCollection<TRequest>()
-			where TRequest : ExpiringObject, new()
+		protected Mock<TRequest> SetupMockPut<TRequest>()
+			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<TRequest>>()))
-				.Returns(new List<TRequest>());
+			var obj = new Mock<TRequest>();
+			obj.SetupAllProperties();
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Put(It.IsAny<IRestRequest<TRequest>>()))
+				.Returns(obj.Object);
+			return obj;
 		}
-		protected void SetupMockPut<TRequest>()
-			where TRequest : ExpiringObject, new()
+		protected Mock<TRequest> SetupMockPost<TRequest>()
+			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Put(It.IsAny<IRestRequest<TRequest>>()))
-				.Returns(new TRequest());
+			var obj = new Mock<TRequest>();
+			obj.SetupAllProperties();
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Post(It.IsAny<IRestRequest<TRequest>>()))
+				.Returns(obj.Object);
+			return obj;
 		}
-		protected void SetupMockPost<TRequest>()
-			where TRequest : ExpiringObject, new()
+		protected Mock<TRequest> SetupMockDelete<TRequest>()
+			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Post(It.IsAny<IRestRequest<TRequest>>()))
-				.Returns(new TRequest());
-		}
-		protected void SetupMockDelete<TRequest>()
-			where TRequest : ExpiringObject, new()
-		{
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Delete(It.IsAny<IRestRequest<TRequest>>()))
-				.Returns(new TRequest());
+			var obj = new Mock<TRequest>();
+			obj.SetupAllProperties();
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Delete(It.IsAny<IRestRequest<TRequest>>()))
+				.Returns(obj.Object);
+			return obj;
 		}
 		protected void EntityIsExpired()
 		{
@@ -99,7 +107,27 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest.Sut.Svc = null;
 			action();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+		}
+		protected void EntityIsRefreshed()
+		{
+			EntityIsExpired();
+			_systemUnderTest.Sut.VerifyNotExpired();
+		}
+		protected void SetupMockRetrieve<TRequest>()
+			where TRequest : ExpiringObject, new()
+		{
+			_systemUnderTest.Dependencies.Svc.Setup(s => s.Retrieve<TRequest>(It.IsAny<string>()))
+				.Returns(new TRequest());
+		}
+		protected Mock<TEntity> OwnedBy<TEntity>()
+			where TEntity : ExpiringObject, new()
+		{
+			var temp = _systemUnderTest.Sut.Svc;
+			var entity = new Mock<TEntity>();
+			_systemUnderTest.Sut.Owner = entity.Object;
+			_systemUnderTest.Sut.Svc = temp;
+			return entity;
 		}
 
 		#endregion
@@ -107,47 +135,47 @@ namespace Manatee.Trello.Test.UnitTests
 		#region Then
 
 		[GenericMethodFormat("API.Get<{0}> is called {1} time(s)")]
-		protected void MockApiGetIsCalled<TRequest>(int times)
+		protected void MockSvcRetrieveIsCalled<TRequest>(int times)
 			where TRequest : ExpiringObject, new()
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Get(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Svc.Verify(a => a.Retrieve<TRequest>(It.IsAny<string>()), Times.Exactly(times));
 		}
-		[GenericMethodFormat("API.GetCollection<{0}> is called {1} time(s)")]
-		protected void MockApiGetCollectionIsCalled<TRequest>(int times)
-			where TRequest : ExpiringObject, new()
+		[GenericMethodFormat("API.Get<{0}> is called {1} time(s)")]
+		protected void MockApiGetIsCalled<TRequest>(int times)
+			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Get(It.IsAny<IRestCollectionRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Rest.Verify(a => a.Get(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Put<{0}> is called {1} time(s)")]
 		protected void MockApiPutIsCalled<TRequest>(int times)
-			where TRequest : ExpiringObject, new()
+			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Put(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Rest.Verify(a => a.Put(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Post<{0}> is called {1} time(s)")]
 		protected void MockApiPostIsCalled<TRequest>(int times)
-			where TRequest : ExpiringObject, new()
+			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Post(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Rest.Verify(a => a.Post(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Delete<{0}> is called {1} time(s)")]
 		protected void MockApiDeleteIsCalled<TRequest>(int times)
-			where TRequest : ExpiringObject, new()
+			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Delete(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Rest.Verify(a => a.Delete(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
 		}
-		[GenericMethodFormat("{0} is returned")]
+		[GenericMethodFormat("'{0}' is returned")]
 		protected void ValueIsReturned<TResult>(TResult expectedValue)
 		{
 			Assert.IsInstanceOfType(_actualResult, typeof (TResult));
 			Assert.AreEqual(expectedValue, (TResult) _actualResult);
 		}
+		[GenericMethodFormat("Non-null value of type '{0}' is returned")]
 		protected void NonNullValueOfTypeIsReturned<TResult>()
 		{
 			Assert.IsNotNull(_actualResult);
 			Assert.IsInstanceOfType(_actualResult, typeof (TResult));
 		}
-		[GenericMethodFormat("{0} is returned")]
 		protected void PropertyIsSet<TProp>(TProp expectedValue, TProp propValue)
 		{
 			Assert.AreEqual(expectedValue, propValue);

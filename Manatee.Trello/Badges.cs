@@ -22,11 +22,9 @@
 
 ***************************************************************************************/
 using System;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -45,18 +43,9 @@ namespace Manatee.Trello
 	///<summary>
 	/// Represents the set of badges shown on the card cover.
 	///</summary>
-	public class Badges : JsonCompatibleExpiringObject
+	public class Badges : ExpiringObject
 	{
-		private int? _attachments;
-		private int? _checkItems;
-		private int? _checkItemsChecked;
-		private int? _comments;
-		private DateTime? _dueDate;
-		private string _fogBugz;
-		private bool? _hasDescription;
-		private bool? _isSubscribed;
-		private bool? _viewingMemberVoted;
-		private int? _votes;
+		private IJsonBadges _jsonBadges;
 
 		///<summary>
 		/// Indicates the number of attachments.
@@ -66,7 +55,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _attachments;
+				return _jsonBadges.Attachments;
 			}
 		}
 		/// <summary>
@@ -77,7 +66,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _checkItems;
+				return _jsonBadges.CheckItems;
 			}
 		}
 		/// <summary>
@@ -88,7 +77,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _checkItemsChecked;
+				return _jsonBadges.CheckItemsChecked;
 			}
 		}
 		/// <summary>
@@ -99,7 +88,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _comments;
+				return _jsonBadges.Comments;
 			}
 		}
 		/// <summary>
@@ -110,7 +99,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _dueDate;
+				return _jsonBadges.Due;
 			}
 		}
 		/// <summary>
@@ -121,7 +110,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _fogBugz;
+				return _jsonBadges.Fogbugz;
 			}
 		}
 		/// <summary>
@@ -132,7 +121,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _hasDescription;
+				return _jsonBadges.Description;
 			}
 		}
 		/// <summary>
@@ -143,7 +132,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _isSubscribed;
+				return _jsonBadges.Subscribed;
 			}
 		}
 		/// <summary>
@@ -154,7 +143,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _viewingMemberVoted;
+				return _jsonBadges.ViewingMemberVoted;
 			}
 		}
 		/// <summary>
@@ -165,94 +154,38 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _votes;
+				return _jsonBadges.Votes;
 			}
 		}
 
 		internal override string Key { get { return "badges"; } }
 
-		///<summary>
+		/// <summary>
 		/// Creates a new instance of the Badges class.
-		///</summary>
+		/// </summary>
 		public Badges() {}
-		internal Badges(ITrelloRest svc, Card owner)
-			: base(svc, owner) {}
-
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
+		internal Badges(Card owner)
 		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			_attachments = (int?) obj.TryGetNumber("attachments");
-			_checkItems = (int?) obj.TryGetNumber("checkItems");
-			_checkItemsChecked = (int?) obj.TryGetNumber("checkItemsChecked");
-			_comments = (int?) obj.TryGetNumber("comments");
-			var due = obj.TryGetString("due");
-			_dueDate = string.IsNullOrWhiteSpace(due) ? (DateTime?) null : DateTime.Parse(due);
-			_fogBugz = obj.TryGetString("fogBugz");
-			_hasDescription = obj.TryGetBoolean("desc");
-			_isSubscribed = obj.TryGetBoolean("subscribed");
-			_viewingMemberVoted = obj.TryGetBoolean("viewingMemberVoted");
-			_votes = (int?) obj.TryGetNumber("votes");
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"attachments", _attachments.HasValue ? _attachments.Value : JsonValue.Null},
-			           		{"checkItems", _checkItems.HasValue ? _checkItems.Value : JsonValue.Null},
-			           		{"checkItemsChecked", _checkItemsChecked.HasValue ? _checkItemsChecked.Value : JsonValue.Null},
-			           		{"comments", _comments.HasValue ? _comments.Value : JsonValue.Null},
-			           		{"due", _dueDate.HasValue ? _dueDate.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			           		{"fogBugz", _fogBugz},
-			           		{"desc", _hasDescription.HasValue ? _hasDescription.Value : JsonValue.Null},
-			           		{"subscribed", _isSubscribed.HasValue ? _isSubscribed.Value : JsonValue.Null},
-			           		{"viewingMemberVoted", _viewingMemberVoted.HasValue ? _viewingMemberVoted.Value : JsonValue.Null},
-			           		{"votes", _votes.HasValue ? _votes.Value : JsonValue.Null},
-			           	};
-			return json;
-		}
-
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var badges = entity as Badges;
-			if (badges == null) return;
-			_attachments = badges._attachments;
-			_checkItems = badges._checkItems;
-			_checkItemsChecked = badges._checkItemsChecked;
-			_comments = badges._comments;
-			_dueDate = badges._dueDate;
-			_fogBugz = badges._fogBugz;
-			_hasDescription = badges._hasDescription;
-			_isSubscribed = badges._isSubscribed;
-			_viewingMemberVoted = badges._viewingMemberVoted;
-			_votes = badges._votes;
-			_isInitialized = true;
+			Owner = owner;
 		}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<Badges>(new[] { Owner, this }));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonBadges>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
 		protected override void PropigateService() {}
+
+		internal override void ApplyJson(object obj)
+		{
+			_jsonBadges = (IJsonBadges) obj;
+		}
 	}
 }

@@ -23,11 +23,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -80,35 +78,21 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member (user).
 	/// </summary>
-	public class Member : JsonCompatibleExpiringObject, IEquatable<Member>
+	public class Member : ExpiringObject, IEquatable<Member>
 	{
 		private static readonly OneToOneMap<MemberStatusType, string> _statusMap;
 
-		private readonly ExpiringList<Member, Action> _actions;
-		private string _apiStatus;
-		private string _avatarHash;
-		private string _avatarSource;
-		private string _bio;
-		private readonly ExpiringList<Member, Board> _boards;
-		private bool? _confirmed;
-		private string _email;
-		private string _fullName;
-		private string _gravatarHash;
-		private string _initials;
-		private readonly ExpiringList<Member, InvitedBoard> _invitedBoards;
-		private readonly ExpiringList<Member, InvitedOrganization> _invitedOrganizations;
-		private List<string> _loginTypes;
-		private string _memberType;
-		private readonly ExpiringList<Member, Notification> _notifications;
-		private readonly ExpiringList<Member, Organization> _organizations;
-		private readonly ExpiringList<Member, PinnedBoard> _pinnedBoards;
+		private IJsonMember _jsonMember;
+		private readonly ExpiringList<Action, IJsonAction> _actions;
+		private readonly ExpiringList<Board, IJsonBoard> _boards;
+		private readonly ExpiringList<InvitedBoard, IJsonBoard> _invitedBoards;
+		private readonly ExpiringList<InvitedOrganization, IJsonOrganization> _invitedOrganizations;
+		private readonly ExpiringList<Notification, IJsonNotification> _notifications;
+		private readonly ExpiringList<Organization, IJsonOrganization> _organizations;
+		private readonly ExpiringList<PinnedBoard, IJsonBoard> _pinnedBoards;
 		private readonly MemberPreferences _preferences;
-		private readonly ExpiringList<Member, PremiumOrganization> _premiumOrganizations;
+		private readonly ExpiringList<PremiumOrganization, IJsonOrganization> _premiumOrganizations;
 		private MemberStatusType _status;
-		private List<string> _trophies;
-		private string _uploadedAvatarHash;
-		private string _url;
-		private string _username;
 
 		///<summary>
 		/// Enumerates all actions associated with this member.
@@ -122,44 +106,46 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _avatarHash;
+				return (_jsonMember == null) ? null : _jsonMember.AvatarHash;
 			}
 		}
 		/// <summary>
-		/// Gets and sets the source URL for the member's avatar.
+		/// Gets or sets the source URL for the member's avatar.
 		/// </summary>
 		public string AvatarSource
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _avatarSource;
+				return (_jsonMember == null) ? null : _jsonMember.AvatarSource;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_avatarSource == value) return;
-				_avatarSource = value ?? string.Empty;
-				Parameters.Add("avatarSource", _avatarSource);
+				if (_jsonMember == null) return;
+				if (_jsonMember.AvatarSource == value) return;
+				_jsonMember.AvatarSource = value ?? string.Empty;
+				Parameters.Add("avatarSource", _jsonMember.AvatarSource);
 				Put();
 			}
 		}
 		/// <summary>
-		/// Gets and sets the bio of the member.
+		/// Gets or sets the bio of the member.
 		/// </summary>
 		public string Bio
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _bio;
+				return (_jsonMember == null) ? null : _jsonMember.Bio;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_bio == value) return;
-				_bio = value ?? string.Empty;
-				Parameters.Add("bio", _bio);
+				if (_jsonMember == null) return;
+				if (_jsonMember.Bio == value) return;
+				_jsonMember.Bio = value ?? string.Empty;
+				Parameters.Add("bio", _jsonMember.Bio);
 				Put();
 			}
 		}
@@ -175,7 +161,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _confirmed;
+				return (_jsonMember == null) ? null : _jsonMember.Confirmed;
 			}
 		}
 		/// <summary>
@@ -186,7 +172,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _email;
+				return (_jsonMember == null) ? null : _jsonMember.Email;
 			}
 		}
 		/// <summary>
@@ -197,14 +183,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _fullName;
+				return (_jsonMember == null) ? null : _jsonMember.FullName;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_fullName == value) return;
-				_fullName = Validate.MinStringLength(value, 4, "FullName");
-				Parameters.Add("fullName", _fullName);
+				if (_jsonMember == null) return;
+				if (_jsonMember.FullName == value) return;
+				_jsonMember.FullName = Validate.MinStringLength(value, 4, "FullName");
+				Parameters.Add("fullName", _jsonMember.FullName);
 				Put();
 			}
 		}
@@ -216,7 +203,20 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _gravatarHash;
+				return (_jsonMember == null) ? null : _jsonMember.GravatarHash;
+			}
+		}
+		/// <summary>
+		/// Gets a unique identifier (not necessarily a GUID).
+		/// </summary>
+		public override string Id
+		{
+			get { return _jsonMember != null ? _jsonMember.Id : base.Id; }
+			internal set
+			{
+				if (_jsonMember != null)
+					_jsonMember.Id = value;
+				base.Id = value;
 			}
 		}
 		/// <summary>
@@ -227,14 +227,15 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _initials;
+				return (_jsonMember == null) ? null : _jsonMember.Initials;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_initials == value) return;
-				_initials = Validate.StringLengthRange(value, 1, 3, "Initials");
-				Parameters.Add("initials", _initials);
+				if (_jsonMember == null) return;
+				if (_jsonMember.Initials == value) return;
+				_jsonMember.Initials = Validate.StringLengthRange(value, 1, 3, "Initials");
+				Parameters.Add("initials", _jsonMember.Initials);
 				Put();
 			}
 		}
@@ -254,7 +255,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _loginTypes;
+				return (_jsonMember == null) ? null : _jsonMember.LoginTypes;
 			}
 		}
 		/// <summary>
@@ -265,7 +266,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _memberType;
+				return (_jsonMember == null) ? null : _jsonMember.MemberType;
 			}
 		}
 		/// <summary>
@@ -307,7 +308,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _trophies;
+				return (_jsonMember == null) ? null : _jsonMember.Trophies;
 			}
 		}
 		/// <summary>
@@ -318,13 +319,13 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _uploadedAvatarHash;
+				return (_jsonMember == null) ? null : _jsonMember.UploadedAvatarHash;
 			}
 		}
 		/// <summary>
 		/// Gets the URL to the member's profile.
 		/// </summary>
-		public string Url { get { return _url; } }
+		public string Url { get { return (_jsonMember == null) ? null : _jsonMember.Url; } }
 		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>
@@ -333,19 +334,24 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _username;
+				return (_jsonMember == null) ? null : _jsonMember.Username;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_username == value) return;
-				_username = Validate.UserName(Svc, value);
-				Parameters.Add("username", _username);
+				if (_jsonMember == null) return;
+				if (_jsonMember.Username == value) return;
+				_jsonMember.Username = Validate.UserName(Api, value);
+				Parameters.Add("username", _jsonMember.Username);
 				Put();
 			}
 		}
 
 		internal override string Key { get { return "members"; } }
+		/// <summary>
+		/// Gets whether the entity is a cacheable item.
+		/// </summary>
+		protected override bool Cacheable { get { return true; } }
 
 		static Member()
 		{
@@ -361,28 +367,15 @@ namespace Manatee.Trello
 		/// </summary>
 		public Member()
 		{
-			_actions = new ExpiringList<Member, Action>(this);
-			_premiumOrganizations = new ExpiringList<Member, PremiumOrganization>(this);
-			_boards = new ExpiringList<Member, Board>(this);
-			_invitedBoards = new ExpiringList<Member, InvitedBoard>(this);
-			_invitedOrganizations = new ExpiringList<Member, InvitedOrganization>(this);
-			_notifications = new ExpiringList<Member, Notification>(this);
-			_organizations = new ExpiringList<Member, Organization>(this);
-			_pinnedBoards = new ExpiringList<Member, PinnedBoard>(this);
-			_preferences = new MemberPreferences(null, this);
-		}
-		internal Member(ITrelloRest svc, string id)
-			: base(svc, id)
-		{
-			_actions = new ExpiringList<Member, Action>(svc, this);
-			_premiumOrganizations = new ExpiringList<Member, PremiumOrganization>(svc, this);
-			_boards = new ExpiringList<Member, Board>(svc, this);
-			_invitedBoards = new ExpiringList<Member, InvitedBoard>(svc, this);
-			_invitedOrganizations = new ExpiringList<Member, InvitedOrganization>(svc, this);
-			_notifications = new ExpiringList<Member, Notification>(svc, this);
-			_organizations = new ExpiringList<Member, Organization>(svc, this);
-			_pinnedBoards = new ExpiringList<Member, PinnedBoard>(svc, this);
-			_preferences = new MemberPreferences(svc, this);
+			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
+			_boards = new ExpiringList<Board, IJsonBoard>(this, "boards");
+			_invitedBoards = new ExpiringList<InvitedBoard, IJsonBoard>(this, "idBoardsInvited");
+			_invitedOrganizations = new ExpiringList<InvitedOrganization, IJsonOrganization>(this, "idOrganizationsInvited");
+			_notifications = new ExpiringList<Notification, IJsonNotification>(this, "notifications");
+			_organizations = new ExpiringList<Organization, IJsonOrganization>(this, "organizations");
+			_pinnedBoards = new ExpiringList<PinnedBoard, IJsonBoard>(this, "idBoardsPinned");
+			_preferences = new MemberPreferences(this);
+			_premiumOrganizations = new ExpiringList<PremiumOrganization, IJsonOrganization>(this, "idPremOrgsAdmin");
 		}
 
 		/// <summary>
@@ -392,7 +385,11 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Writable(Svc);
-			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { new Notification() }, urlExtension: "all/read"));
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			endpoint.Append("all");
+			endpoint.Append("read");
+			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			Api.Post(request);
 		}
 		/// <summary>
 		/// Creates a personal board for the current member.
@@ -404,8 +401,15 @@ namespace Manatee.Trello
 			if (Svc == null) return null;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
-			Parameters.Add("name", name);
-			return Svc.Post(Svc.RequestProvider.Create<Board>(new ExpiringObject[] {new Board()}));
+			var board = new Board();
+			var endpoint = EndpointGenerator.Default.Generate(board);
+			var request = Api.RequestProvider.Create<IJsonBoard>(endpoint.ToString());
+			request.AddParameter("name", name);
+			board.ApplyJson(Api.Post(request));
+			board.Svc = Svc;
+			board.Api = Api;
+			_boards.MarkForUpdate();
+			return board;
 		}
 		/// <summary>
 		/// Creates an organization administered by the current member.
@@ -417,8 +421,15 @@ namespace Manatee.Trello
 			if (Svc == null) return null;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(displayName);
-			Parameters.Add("displayName", displayName);
-			return Svc.Post(Svc.RequestProvider.Create<Organization>(new ExpiringObject[] {new Organization()}));
+			var org = new Organization();
+			var endpoint = EndpointGenerator.Default.Generate(org);
+			var request = Api.RequestProvider.Create<IJsonOrganization>(endpoint.ToString());
+			request.AddParameter("displayName", displayName);
+			org.ApplyJson(Api.Post(request));
+			org.Svc = Svc;
+			org.Api = Api;
+			_organizations.MarkForUpdate();
+			return org;
 		}
 		/// <summary>
 		/// Adds a board to the member's boards menu.
@@ -429,8 +440,10 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			Validate.Entity(board);
-			Parameters.Add("value", board.Id);
-			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] {this, new PinnedBoard()}, this));
+			var endpoint = EndpointGenerator.Default.Generate(this, new PinnedBoard());
+			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			request.AddParameter("value", board.Id);
+			Api.Post(request);
 		}
 		/// <summary>
 		/// Removes the member's vote from a card.
@@ -441,7 +454,9 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			Validate.Entity(card);
-			Svc.Delete(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { card, new VotingMember { Id = Id } }));
+			var endpoint = EndpointGenerator.Default.Generate(card, new VotingMember {Id = Id});
+			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			Api.Delete(request);
 		}
 		/// <summary>
 		/// Removes a board from the member's boards menu.
@@ -452,7 +467,9 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			Validate.Entity(board);
-			Svc.Delete(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { this, new PinnedBoard { Id = board.Id } }));
+			var endpoint = EndpointGenerator.Default.Generate(this, new PinnedBoard {Id = board.Id});
+			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			Api.Delete(request);
 		}
 		/// <summary>
 		/// Applies the member's vote to a card.
@@ -463,70 +480,10 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			Validate.Entity(card);
-			Parameters.Add("value", Id);
-			Svc.Post(Svc.RequestProvider.Create<Member>(new ExpiringObject[] { card, new VotingMember() }, this));
-		}
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			_avatarHash = obj.TryGetString("avatarHash");
-			_avatarSource = obj.TryGetString("avatarSource");
-			_bio = obj.TryGetString("bio");
-			_confirmed = obj.TryGetBoolean("confirmed");
-			_email = obj.TryGetString("email");
-			_fullName = obj.TryGetString("fullName");
-			_gravatarHash = obj.TryGetString("gravatarHash");
-			_initials = obj.TryGetString("initials");
-			var logins = obj.TryGetArray("loginTypes");
-			if (logins != null)
-				_loginTypes = logins.Select(v => v.Type == JsonValueType.Null ? null : v.String).ToList();
-			_memberType = obj.TryGetString("memberType");
-			_apiStatus = obj.TryGetString("status");
-			var trophies = obj.TryGetArray("trophies");
-			if (trophies != null)
-				_trophies = trophies.Select(v => v.Type == JsonValueType.Null ? null : v.String).ToList();
-			_uploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
-			_url = obj.TryGetString("url");
-			_username = obj.TryGetString("username");
-			UpdateStatus();
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"id", Id},
-			           		{"avatarHash", _avatarHash},
-			           		{"avatarSource", _avatarSource},
-			           		{"bio", _bio},
-			           		{"confirmed", _confirmed.HasValue ? _confirmed.Value : JsonValue.Null},
-			           		{"email", _email},
-			           		{"fullName", _fullName},
-			           		{"gravatarHash", _gravatarHash},
-			           		{"initials", _initials},
-			           		{"loginTypes", _loginTypes.ToJson()},
-			           		{"memberType", _memberType},
-			           		{"status", _apiStatus},
-			           		{"trophies", _trophies.ToJson()},
-			           		{"uploadedAvatarHash", _uploadedAvatarHash},
-			           		{"url", _url},
-			           		{"username", _username}
-			           	};
-			return json;
+			var endpoint = EndpointGenerator.Default.Generate(card, new VotingMember());
+			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			request.AddParameter("value", Id);
+			Api.Post(request);
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -574,37 +531,16 @@ namespace Manatee.Trello
 			return FullName;
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var member = entity as Member;
-			if (member == null) return;
-			_avatarHash = member._avatarHash;
-			_avatarSource = member._avatarSource;
-			_bio = member._bio;
-			_confirmed = member._confirmed;
-			_email = member._email;
-			_fullName = member._fullName;
-			_gravatarHash = member._gravatarHash;
-			_initials = member._initials;
-			_loginTypes = member._loginTypes;
-			_memberType = member._memberType;
-			_apiStatus = member._apiStatus;
-			_trophies = member._trophies;
-			_uploadedAvatarHash = member._uploadedAvatarHash;
-			_url = member._url;
-			_username = member._username;
-			UpdateStatus();
-			_isInitialized = true;
-		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<Member>(Id));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
+
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
@@ -621,6 +557,16 @@ namespace Manatee.Trello
 			_premiumOrganizations.Svc = Svc;
 		}
 
+		internal override void ApplyJson(object obj)
+		{
+			_jsonMember = (IJsonMember) obj;
+			UpdateStatus();
+		}
+		internal override bool Matches(string id)
+		{
+			return (Id == id) || (Username == id);
+		}
+
 		private void Put()
 		{
 			if (Svc == null)
@@ -628,17 +574,20 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var request = Svc.RequestProvider.Create<Member>(this);
-			Svc.Put(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			foreach (var parameter in Parameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
+			Api.Put(request);
+			_actions.MarkForUpdate();
 		}
 		private void UpdateStatus()
 		{
-			_status = _statusMap.Any(kvp => kvp.Value == _apiStatus) ? _statusMap[_apiStatus] : MemberStatusType.Unknown;
-		}
-		private void UpdateApiStatus()
-		{
-			if (_statusMap.Any(kvp => kvp.Key == _status))
-				_apiStatus = _statusMap[_status];
+			_status = _statusMap.Any(kvp => kvp.Value == _jsonMember.Status)
+			          	? _statusMap[_jsonMember.Status]
+			          	: MemberStatusType.Unknown;
 		}
 	}
 }

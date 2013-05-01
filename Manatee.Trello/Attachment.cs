@@ -23,60 +23,115 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	//{
+	//   "id":"51478fa171c9f94a5a0039f2",
+	//   "bytes":441087,
+	//   "date":"2013-03-18T22:05:21.390Z",
+	//   "idMember":"50b693ad6f122b4310000a3c",
+	//   "isUpload":true,
+	//   "mimeType":null,
+	//   "name":"Wjy4CDS.jpg",
+	//   "previews":[
+	//      {
+	//         "width":375,
+	//         "height":500,
+	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/fa8f48b74f9cdec8d6bed74cfdf1af45/Wjy4CDS.jpg_preview_375x500.png",
+	//         "_id":"51478fa671c9f94a5a0039f8"
+	//      },
+	//      {
+	//         "width":276,
+	//         "height":160,
+	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/589a0fc84f63926c122821149dfda76d/Wjy4CDS.jpg_preview_276x160.png",
+	//         "_id":"51478fa671c9f94a5a0039f7"
+	//      },
+	//      {
+	//         "width":70,
+	//         "height":50,
+	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/138b04fea3f6261d53834f7501b84ad2/Wjy4CDS.jpg_preview_70x50.png",
+	//         "_id":"51478fa671c9f94a5a0039f6"
+	//      },
+	//      {
+	//         "width":750,
+	//         "height":1000,
+	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/fd4e0d45321311da2a7784e68ee0d1b9/Wjy4CDS.jpg_preview_750x1000.png",
+	//         "_id":"51478fa671c9f94a5a0039f5"
+	//      },
+	//      {
+	//         "width":552,
+	//         "height":320,
+	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/f3681a4571e9c7e08605662af4c80982/Wjy4CDS.jpg_preview_552x320.png",
+	//         "_id":"51478fa671c9f94a5a0039f4"
+	//      },
+	//      {
+	//         "width":140,
+	//         "height":100,
+	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/48d4f5113f38b9d86038553b93edeabb/Wjy4CDS.jpg_preview_140x100.png",
+	//         "_id":"51478fa671c9f94a5a0039f3"
+	//      }
+	//   ],
+	//   "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/088deb599a9a7b8ced99290d5c2cde90/Wjy4CDS.jpg"
+	//}
 	///<summary>
 	/// Represents an attachment to a Card.
 	///</summary>
-	public class Attachment : JsonCompatibleExpiringObject, IEquatable<Attachment>
+	public class Attachment : ExpiringObject, IEquatable<Attachment>
 	{
-		private int? _bytes;
-		private DateTime? _date;
-		private string _memberId;
+		private IJsonAttachment _jsonAttachment;
 		private Member _member;
-		private bool? _isUpload;
-		private string _mimeType;
-		private string _name;
 		private List<AttachmentPreview> _previews;
-		private string _url;
 
 		///<summary>
 		/// The size of the attachment.
 		///</summary>
-		public int? Bytes { get { return _bytes; } }
+		public int? Bytes { get { return (_jsonAttachment == null) ? null : _jsonAttachment.Bytes; } }
 		/// <summary>
 		/// The date on which the attachment was created.
 		/// </summary>
-		public DateTime? Date { get { return _date; } }
+		public DateTime? Date { get { return (_jsonAttachment == null) ? null : _jsonAttachment.Date; } }
+		/// <summary>
+		/// Gets a unique identifier (not necessarily a GUID).
+		/// </summary>
+		public override string Id
+		{
+			get { return _jsonAttachment != null ? _jsonAttachment.Id : base.Id; }
+			internal set
+			{
+				if (_jsonAttachment != null)
+					_jsonAttachment.Id = value;
+				base.Id = value;
+			}
+		}
 		///<summary>
-		/// The member who created the attachment
+		/// ?
+		///</summary>
+		public bool? IsUpload { get { return (_jsonAttachment == null) ? null : _jsonAttachment.IsUpload; } }
+		///<summary>
+		/// The member who created the attachment.
 		///</summary>
 		public Member Member
 		{
 			get
 			{
-				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null)
-						? (_member = Svc.Get(Svc.RequestProvider.Create<Member>(_memberId)))
-						: _member;
+				if (_jsonAttachment == null) return null;
+				return ((_member == null) || (_member.Id != _jsonAttachment.IdMember)) && (Svc != null)
+				       	? (_member = Svc.Retrieve<Member>(_jsonAttachment.IdMember))
+				       	: _member;
 			}
 		}
 		///<summary>
-		///</summary>
-		public bool? IsUpload { get { return _isUpload; } }
-		///<summary>
 		/// Indicates the type of attachment.
 		///</summary>
-		public string MimeType { get { return _mimeType; } }
+		public string MimeType { get { return (_jsonAttachment == null) ? null : _jsonAttachment.MimeType; } }
 		///<summary>
 		/// The name of the attachment.
 		///</summary>
-		public string Name { get { return _name; } }
+		public string Name { get { return (_jsonAttachment == null) ? null : _jsonAttachment.Name; } }
 		///<summary>
 		/// Enumerates a collection of previews for the attachment.
 		///</summary>
@@ -91,16 +146,9 @@ namespace Manatee.Trello
 		///<summary>
 		/// Indicates the attachment storage location.
 		///</summary>
-		public string Url { get { return _url; } }
+		public string Url { get { return (_jsonAttachment == null) ? null : _jsonAttachment.Url; } }
 
 		internal override string Key { get { return "attachments"; } }
-
-		/// <summary>
-		/// Creates a new instance of an Attachment.
-		/// </summary>
-		public Attachment() {}
-		internal Attachment(ITrelloRest svc, Card owner)
-			: base(svc, owner) {}
 
 		/// <summary>
 		/// Deletes this attachment.
@@ -109,52 +157,9 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Writable(Svc);
-			Svc.Delete(Svc.RequestProvider.Create<Attachment>(new ExpiringObject[] { Owner, this }));
-		}
-
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			_bytes = (int?) obj.TryGetNumber("bytes");
-			var date = obj.TryGetString("date");
-			_date = string.IsNullOrWhiteSpace(date) ? (DateTime?) null : DateTime.Parse(date);
-			_memberId = obj.TryGetString("idMember");
-			_isUpload = obj.TryGetBoolean("isUpload");
-			_mimeType = obj.TryGetString("mimeType");
-			_name = obj.TryGetString("name");
-			_previews = obj.TryGetArray("previews").FromJson<AttachmentPreview>().ToList();
-			_url = obj.TryGetString("url");
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-			           		{"id", Id},
-			           		{"bytes", _bytes.HasValue ? _bytes.Value : JsonValue.Null},
-			           		{"date", _date.HasValue ? _date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			           		{"idMember", _memberId},
-			           		{"isUpload", _isUpload.HasValue ? _isUpload.Value : JsonValue.Null},
-			           		{"mimeType", _mimeType},
-			           		{"name", _name},
-			           		{"previews", _previews.ToJson()},
-			           		{"url", _url},
-			           	};
-			return json;
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonAttachment>(endpoint.ToString());
+			Api.Delete(request);
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -202,17 +207,14 @@ namespace Manatee.Trello
 			return Name;
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			_isInitialized = true;
-		}
-
 		/// <summary>
-		/// Get(Svc.RequestProvider.Creates updated data from the service instance and refreshes the object.
+		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			Refresh(null);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var request = Api.RequestProvider.Create<IJsonAttachment>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -220,6 +222,14 @@ namespace Manatee.Trello
 		protected override void PropigateService()
 		{
 			if (_member != null) _member.Svc = Svc;
+		}
+
+		internal override void ApplyJson(object obj)
+		{
+			_jsonAttachment = (IJsonAttachment) obj;
+			_previews = _jsonAttachment.Previews != null
+			            	? _jsonAttachment.Previews.Select(p => new AttachmentPreview(p)).ToList()
+			            	: null;
 		}
 	}
 }

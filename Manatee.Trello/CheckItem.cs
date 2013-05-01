@@ -22,11 +22,9 @@
 ***************************************************************************************/
 using System;
 using System.Linq;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -40,15 +38,27 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an item in a checklist.
 	/// </summary>
-	public class CheckItem : JsonCompatibleExpiringObject, IEquatable<CheckItem>
+	public class CheckItem : ExpiringObject, IEquatable<CheckItem>
 	{
 		private static readonly OneToOneMap<CheckItemStateType, string> _stateMap;
 
-		private string _apiState;
-		private string _name;
+		private IJsonCheckItem _jsonCheckItem;
 		private Position _position;
 		private CheckItemStateType _state = CheckItemStateType.Unknown;
 
+		/// <summary>
+		/// Gets a unique identifier (not necessarily a GUID).
+		/// </summary>
+		public override string Id
+		{
+			get { return _jsonCheckItem != null ? _jsonCheckItem.Id : base.Id; }
+			internal set
+			{
+				if (_jsonCheckItem != null)
+					_jsonCheckItem.Id = value;
+				base.Id = value;
+			}
+		}
 		/// <summary>
 		/// Gets or sets the name of the checklist item.
 		/// </summary>
@@ -57,15 +67,16 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return _name;
+				return (_jsonCheckItem == null) ? null : _jsonCheckItem.Name;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_name == value) return;
 				Validate.NonEmptyString(value);
-				_name = value;
-				Parameters.Add("value", value);
+				if (_jsonCheckItem == null) return;
+				if (_jsonCheckItem.Name == value) return;
+				_jsonCheckItem.Name = value;
+				Parameters.Add("value", _jsonCheckItem.Name);
 				Put("name");
 			}
 		}
@@ -82,10 +93,11 @@ namespace Manatee.Trello
 			set
 			{
 				Validate.Writable(Svc);
-				if (_position == value) return;
 				Validate.Position(value);
+				if (_jsonCheckItem == null) return;
+				if (_position == value) return;
 				_position = value;
-				Parameters.Add("value", value);
+				Parameters.Add("value", _position);
 				Put("pos");
 			}
 		}
@@ -102,10 +114,11 @@ namespace Manatee.Trello
 			set
 			{
 				Validate.Writable(Svc);
+				if (_jsonCheckItem == null) return;
 				if (_state == value) return;
 				_state = value;
 				UpdateApiState();
-				Parameters.Add("value", value);
+				Parameters.Add("value", _jsonCheckItem.State);
 				Put("state");
 			}
 		}
@@ -121,11 +134,16 @@ namespace Manatee.Trello
 						};
 		}
 		/// <summary>
-		/// Creates a new instance of the CheckItem class.
+		/// Creates a new instance of the CheckList class.
 		/// </summary>
 		public CheckItem() {}
-		internal CheckItem(ITrelloRest svc, CheckList owner)
-			: base(svc, owner) {}
+		internal CheckItem(IJsonCheckItem jsonCheckItem, CheckList owner)
+		{
+			_jsonCheckItem = jsonCheckItem;
+			Owner = owner;
+			if (Svc.Cache != null)
+				Svc.Cache.Add(this);
+		}
 
 		/// <summary>
 		/// Deletes this checklist item.  This cannot be undone.
@@ -134,43 +152,9 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Writable(Svc);
-			Svc.Delete(Svc.RequestProvider.Create<CheckItem>(new[] { Owner, this }));
-		}
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
-		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			_name = obj.TryGetString("name");
-			_position = Position.Unknown;
-			if (obj.ContainsKey("pos"))
-				_position.FromJson(obj["pos"]);
-			_apiState = obj.TryGetString("state");
-			UpdateState();
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-						{
-							{"id", Id},
-							{"name", _name},
-			           		{"pos", _position.ToJson()},
-							{"state", _apiState}
-						};
-			return json;
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonCheckItem>(endpoint.ToString());
+			Api.Delete(request);
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -218,29 +202,27 @@ namespace Manatee.Trello
 			return string.Format("{0} : {1}", Name, State);
 		}
 
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var checkItem = entity as CheckItem;
-			if (checkItem == null) return;
-			_apiState = checkItem._apiState;
-			_name = checkItem._name;
-			_position = checkItem._position;
-			UpdateState();
-			_isInitialized = true;
-		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<CheckItem>(new[] {Owner, this}));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonCheckItem>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
+
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
 		protected override void PropigateService() {}
+
+		internal override void ApplyJson(object obj)
+		{
+			_jsonCheckItem = (IJsonCheckItem) obj;
+			_position = _jsonCheckItem.Pos.HasValue ? new Position(_jsonCheckItem.Pos.Value) : Position.Unknown;
+			UpdateState();
+		}
 
 		private void Put(string extension)
 		{
@@ -249,17 +231,19 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var request = Svc.RequestProvider.Create<CheckItem>(new[] { ((CheckList)Owner).Card, Owner, this }, this, extension);
-			Svc.Put(request);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			endpoint.Append(extension);
+			var request = Api.RequestProvider.Create<IJsonCheckItem>(endpoint.ToString());
+			Api.Put(request);
 		}
 		private void UpdateState()
 		{
-			_state = _stateMap.Any(kvp => kvp.Value == _apiState) ? _stateMap[_apiState] : CheckItemStateType.Unknown;
+			_state = _stateMap.Any(kvp => kvp.Value == _jsonCheckItem.State) ? _stateMap[_jsonCheckItem.State] : CheckItemStateType.Unknown;
 		}
 		private void UpdateApiState()
 		{
 			if (_stateMap.Any(kvp => kvp.Key == _state))
-				_apiState = _stateMap[_state];
+				_jsonCheckItem.State = _stateMap[_state];
 		}
 	}
 }

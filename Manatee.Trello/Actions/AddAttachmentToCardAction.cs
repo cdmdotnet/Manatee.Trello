@@ -33,7 +33,8 @@ namespace Manatee.Trello
 		/// <param name="action"></param>
 		public AddAttachmentToCardAction(Action action)
 		{
-			Refresh(action);
+			Id = action.Id;
+			Refresh();
 		}
 	}
 }

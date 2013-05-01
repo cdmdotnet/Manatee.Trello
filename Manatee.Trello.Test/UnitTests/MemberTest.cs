@@ -4,7 +4,7 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Json;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -28,15 +28,15 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Action>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonAction>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("All action types are mapped")
-				.Given(AMember)
-				.And(AllKnownActionTypesExist)
-				.When(NotificationsIsAccessed)
-				.Then(ExceptionIsNotThrown)
+				//.WithScenario("All action types are mapped")
+				//.Given(AMember)
+				//.And(AllKnownActionTypesExist)
+				//.When(NotificationsIsAccessed)
+				//.Then(ExceptionIsNotThrown)
 
 				.Execute();
 		}
@@ -51,16 +51,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access AvatarHash property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(AvatarHashIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access AvatarHash property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(AvatarHashIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -76,50 +76,54 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access AvatarSource property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(AvatarSourceIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access AvatarSource property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(AvatarSourceIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(AvatarSourceIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property to null")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(AvatarSourceIs, "not description")
 				.When(AvatarSourceIsSet, (string)null)
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property to empty")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(AvatarSourceIs, "not description")
 				.When(AvatarSourceIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property to same")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(AvatarSourceIs, "description")
 				.When(AvatarSourceIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(AvatarSourceIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -135,50 +139,54 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Bio property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(BioIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Bio property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(BioIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Bio property")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(BioIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Bio property to null")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(BioIs, "not description")
 				.When(BioIsSet, (string)null)
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Bio property to empty")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(BioIs, "not description")
 				.When(BioIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Bio property to same")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(BioIs, "description")
 				.When(BioIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Bio property without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(BioIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -196,7 +204,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(BoardsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Board>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonBoard>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Board>>)
 				.And(ExceptionIsNotThrown)
 
@@ -213,16 +221,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Confirmed property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(ConfirmedIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Confirmed property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(ConfirmedIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -238,16 +246,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Email property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(EmailIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Email property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(EmailIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -263,49 +271,53 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access FullName property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(FullNameIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access FullName property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(FullNameIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set FullName property")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(FullNameIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set FullName property to null")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(FullNameIs, "not description")
 				.When(FullNameIsSet, (string) null)
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set FullName property to less than 4 characters")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(FullNameIsSet, "bad")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Set FullName property to same")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(FullNameIs, "description")
 				.When(FullNameIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set FullName property without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(FullNameIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -321,16 +333,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access GravatarHash property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(GravatarHashIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access GravatarHash property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(GravatarHashIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -346,55 +358,60 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Initials property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(InitialsIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Initials property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(InitialsIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Initials property")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(InitialsIsSet, "mt")
-				.Then(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Initials property to null")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(InitialsIs, "mt")
 				.When(InitialsIsSet, (string)null)
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Initials property to empty")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(InitialsIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Set Initials property to greater than 3")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(InitialsIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Set Initials property to same")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(InitialsIs, "mt")
 				.When(InitialsIsSet, "mt")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Initials property without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(InitialsIsSet, "mt")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -412,7 +429,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(InvitedBoardsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Board>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonBoard>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Board>>)
 				.And(ExceptionIsNotThrown)
 
@@ -431,7 +448,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(InvitedOrganizationsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonOrganization>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Organization>>)
 				.And(ExceptionIsNotThrown)
 
@@ -448,16 +465,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access LoginTypes property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(LoginTypesIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access LoginTypes property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(LoginTypesIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -473,16 +490,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access MemberType property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(MemberTypeIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access MemberType property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(MemberTypeIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -500,15 +517,15 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(NotificationsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Notification>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonNotification>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Notification>>)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("All notification types are mapped")
-				.Given(AMember)
-				.And(AllKnownNotificationTypesExist)
-				.When(NotificationsIsAccessed)
-				.Then(ExceptionIsNotThrown)
+				//.WithScenario("All notification types are mapped")
+				//.Given(AMember)
+				//.And(AllKnownNotificationTypesExist)
+				//.When(NotificationsIsAccessed)
+				//.Then(ExceptionIsNotThrown)
 
 				.Execute();
 		}
@@ -525,7 +542,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(OrganizationsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonOrganization>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Organization>>)
 				.And(ExceptionIsNotThrown)
 
@@ -544,7 +561,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(PinnedBoardsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Board>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonBoard>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Board>>)
 				.And(ExceptionIsNotThrown)
 
@@ -563,7 +580,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(PreferencesIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 0)
 				.And(NonNullValueOfTypeIsReturned<MemberPreferences>)
 				.And(ExceptionIsNotThrown)
 
@@ -582,7 +599,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(PremiumOrganizationsIsAccessed)
-				.Then(MockApiGetCollectionIsCalled<Organization>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonOrganization>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Organization>>)
 				.And(ExceptionIsNotThrown)
 
@@ -599,16 +616,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Status property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(StatusIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Status property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(StatusIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -624,16 +641,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Trophies property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(TrophiesIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Trophies property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(TrophiesIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -649,16 +666,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access UploadedAvatarHash property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(UploadedAvatarHashIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access UploadedAvatarHash property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(UploadedAvatarHashIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -676,7 +693,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(UrlIsAccessed)
-				.Then(MockApiGetIsCalled<Card>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -692,61 +709,67 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Username property")
 				.Given(AMember)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(UsernameIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Username property when expired")
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(UsernameIsAccessed)
-				.Then(MockApiGetIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Username property")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(UsernameIsSet, "description")
-				.Then(MockApiGetIsCalled<Member>, 1)
-				.And(MockApiPutIsCalled<Member>, 1)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.And(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Username property to null")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(UsernameIs, "not description")
 				.When(UsernameIsSet, (string) null)
-				.Then(MockApiGetIsCalled<Member>, 0)
-				.And(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Username property to less than 3 characters")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.When(UsernameIsSet, "un")
-				.Then(MockApiGetIsCalled<Member>, 0)
-				.And(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Set Username property to same")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(UsernameIs, "description")
 				.When(UsernameIsSet, "description")
-				.Then(MockApiGetIsCalled<Member>, 0)
-				.And(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Username property to existing username")
 				.Given(AMember)
+				.And(EntityIsRefreshed)
 				.And(UsernameExists)
 				.When(UsernameIsSet, "username")
-				.Then(MockApiGetIsCalled<Member>, 1)
-				.And(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<UsernameInUseException>)
 
 				.WithScenario("Set Username property without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(UsernameIsSet, "description")
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiGetIsCalled<IJsonMember>, 0)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -763,14 +786,14 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("ClearNotifications is called")
 				.Given(AMember)
 				.When(ClearNotificationsIsCalled)
-				.Then(MockApiPostIsCalled<Member>, 1)
+				.Then(MockApiPostIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("ClearNotifications is called without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(ClearNotificationsIsCalled)
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -787,32 +810,32 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("CreateBoard is called")
 				.Given(AMember)
 				.When(CreateBoardIsCalled, "org name")
-				.Then(MockApiPostIsCalled<Board>, 1)
+				.Then(MockApiPostIsCalled<IJsonBoard>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("CreateBoard is called without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(CreateBoardIsCalled, "org name")
-				.Then(MockApiPutIsCalled<Board>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.WithScenario("CreateBoard is called with null name")
 				.Given(AMember)
 				.When(CreateBoardIsCalled, (string) null)
-				.Then(MockApiPutIsCalled<Board>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("CreateBoard is called with empty name")
 				.Given(AMember)
 				.When(CreateBoardIsCalled, string.Empty)
-				.Then(MockApiPutIsCalled<Board>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("CreateBoard is called with whitespace name")
 				.Given(AMember)
 				.When(CreateBoardIsCalled, "     ")
-				.Then(MockApiPutIsCalled<Board>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.Execute();
@@ -829,32 +852,32 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("CreateOrganization is called")
 				.Given(AMember)
 				.When(CreateOrganizationIsCalled, "org name")
-				.Then(MockApiPostIsCalled<Organization>, 1)
+				.Then(MockApiPostIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("CreateOrganization is called without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(CreateOrganizationIsCalled, "org name")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.WithScenario("CreateOrganization is called with null name")
 				.Given(AMember)
 				.When(CreateOrganizationIsCalled, (string) null)
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("CreateOrganization is called with empty name")
 				.Given(AMember)
 				.When(CreateOrganizationIsCalled, string.Empty)
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("CreateOrganization is called with whitespace name")
 				.Given(AMember)
 				.When(CreateOrganizationIsCalled, "     ")
-				.Then(MockApiPutIsCalled<Organization>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.Execute();
@@ -871,26 +894,26 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("PinBoard is called")
 				.Given(AMember)
 				.When(PinBoardIsCalled, new Board {Id = TrelloIds.Invalid})
-				.Then(MockApiPostIsCalled<Member>, 1)
+				.Then(MockApiPostIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("PinBoard is called with null board")
 				.Given(AMember)
 				.When(PinBoardIsCalled, (Board) null)
-				.Then(MockApiPostIsCalled<Member>, 0)
+				.Then(MockApiPostIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("PinBoard is called with local board")
 				.Given(AMember)
 				.When(PinBoardIsCalled, new Board())
-				.Then(MockApiPostIsCalled<Member>, 0)
+				.Then(MockApiPostIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Board>>)
 
 				.WithScenario("PinBoard is called without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(PinBoardIsCalled, new Board {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -907,26 +930,26 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("RescindVoteForCard is called")
 				.Given(AMember)
 				.When(RescindVoteForCardIsCalled, new Card {Id = TrelloIds.Invalid})
-				.Then(MockApiDeleteIsCalled<Member>, 1)
+				.Then(MockApiDeleteIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("RescindVoteForCard is called with null card")
 				.Given(AMember)
 				.When(RescindVoteForCardIsCalled, (Card) null)
-				.Then(MockApiDeleteIsCalled<Member>, 0)
+				.Then(MockApiDeleteIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("RescindVoteForCard is called with local card")
 				.Given(AMember)
 				.When(RescindVoteForCardIsCalled, new Card())
-				.Then(MockApiDeleteIsCalled<Member>, 0)
+				.Then(MockApiDeleteIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Card>>)
 
 				.WithScenario("RescindVoteForCard is called without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(RescindVoteForCardIsCalled, new Card {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -943,26 +966,26 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("UnpinBoard is called")
 				.Given(AMember)
 				.When(UnpinBoardIsCalled, new Board {Id = TrelloIds.Invalid})
-				.Then(MockApiDeleteIsCalled<Member>, 1)
+				.Then(MockApiDeleteIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("UnpinBoard is called with null board")
 				.Given(AMember)
 				.When(UnpinBoardIsCalled, (Board) null)
-				.Then(MockApiDeleteIsCalled<Member>, 0)
+				.Then(MockApiDeleteIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("UnpinBoard is called with local board")
 				.Given(AMember)
 				.When(UnpinBoardIsCalled, new Board())
-				.Then(MockApiDeleteIsCalled<Member>, 0)
+				.Then(MockApiDeleteIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Board>>)
 
 				.WithScenario("UnpinBoard is called without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(UnpinBoardIsCalled, new Board {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -978,27 +1001,27 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("VoteForCard is called")
 				.Given(AMember)
-				.When(VoteForCardIsCalled, new Card { Id = TrelloIds.Invalid })
-				.Then(MockApiPostIsCalled<Member>, 1)
+				.When(VoteForCardIsCalled, new Card {Id = TrelloIds.Invalid})
+				.Then(MockApiPostIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("VoteForCard is called with null card")
 				.Given(AMember)
-				.When(VoteForCardIsCalled, (Card)null)
-				.Then(MockApiPostIsCalled<Member>, 0)
+				.When(VoteForCardIsCalled, (Card) null)
+				.Then(MockApiPostIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("VoteForCard is called with local card")
 				.Given(AMember)
 				.When(VoteForCardIsCalled, new Card())
-				.Then(MockApiPostIsCalled<Member>, 0)
+				.Then(MockApiPostIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Card>>)
 
 				.WithScenario("VoteForCard is called without AuthToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
-				.When(VoteForCardIsCalled, new Card { Id = TrelloIds.Invalid })
-				.Then(MockApiPutIsCalled<Member>, 0)
+				.When(VoteForCardIsCalled, new Card {Id = TrelloIds.Invalid})
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -1009,7 +1032,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AMember()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			SetupMockGet<IJsonMember>();
+			SetupMockPost<IJsonBoard>();
+			SetupMockPost<IJsonOrganization>();
 		}
 		private void AvatarSourceIs(string value)
 		{
@@ -1035,24 +1061,24 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			SetupProperty(() => _systemUnderTest.Sut.Username = value);
 		}
-		private void AllKnownActionTypesExist()
-		{
-			var provider = new ActionProvider();
-			var types = Enum.GetValues(typeof(ActionType)).Cast<ActionType>();
-			var actions = types.Select(t => provider.Parse(new Action { Data = new JsonObject(), Type = t })).ToList();
+		//private void AllKnownActionTypesExist()
+		//{
+		//    var provider = new ActionProvider();
+		//    var types = Enum.GetValues(typeof(ActionType)).Cast<ActionType>();
+		//    var actions = types.Select(t => provider.Parse(new Action { Data = new JsonObject(), Type = t })).ToList();
 
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<Action>>()))
-				.Returns(actions);
-		}
-		private void AllKnownNotificationTypesExist()
-		{
-			var provider = new NotificationProvider();
-			var types = Enum.GetValues(typeof (NotificationType)).Cast<NotificationType>();
-			var notifications = types.Select(t => provider.Parse(new Notification {Data = new JsonObject(), Type = t})).ToList();
+		//    _systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<Action>>()))
+		//        .Returns(actions);
+		//}
+		//private void AllKnownNotificationTypesExist()
+		//{
+		//    var provider = new NotificationProvider();
+		//    var types = Enum.GetValues(typeof (NotificationType)).Cast<NotificationType>();
+		//    var notifications = types.Select(t => provider.Parse(new Notification {Data = new JsonObject(), Type = t})).ToList();
 
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<Notification>>()))
-				.Returns(notifications);
-		}
+		//    _systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<Notification>>()))
+		//        .Returns(notifications);
+		//}
 
 		#endregion
 

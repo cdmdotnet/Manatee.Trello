@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using StoryQ;
 
 namespace Manatee.Trello.Test.UnitTests
@@ -20,43 +22,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ExternalMembersDisabled property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(ExternalMembersDisabledIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access ExternalMembersDisabled property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ExternalMembersDisabledIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ExternalMembersDisabled property")
 				.Given(AnOrganizationPreferencesObject)
-				.When(ExternalMembersDisabledIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 1)
+				.And(EntityIsRefreshed)
+				.When(ExternalMembersDisabledIsSet, (bool?)true)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ExternalMembersDisabled property to null")
 				.Given(AnOrganizationPreferencesObject)
-				.And(ExternalMembersDisabledIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ExternalMembersDisabledIs, (bool?)true)
 				.When(ExternalMembersDisabledIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ExternalMembersDisabled property to same")
 				.Given(AnOrganizationPreferencesObject)
-				.And(ExternalMembersDisabledIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ExternalMembersDisabledIs, (bool?)true)
 				.When(ExternalMembersDisabledIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ExternalMembersDisabled property without AuthToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ExternalMembersDisabledIsSet, (bool?)true)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -78,36 +83,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access OrgVisibleBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(OrgVisibleBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access OrgVisibleBoardVisibility property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(OrgVisibleBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set OrgVisibleBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(OrgVisibleBoardVisibilityIsSet, BoardPermissionLevelType.Org)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set OrgVisibleBoardVisibility property to same")
 				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(OrgVisibleBoardVisibilityIs, BoardPermissionLevelType.Org)
 				.When(OrgVisibleBoardVisibilityIsSet, BoardPermissionLevelType.Org)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set OrgVisibleBoardVisibility property without AuthToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(OrgVisibleBoardVisibilityIsSet, BoardPermissionLevelType.Org)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -123,36 +130,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access PermissionLevel property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(PermissionLevelIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PermissionLevel property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(PermissionLevelIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Voting property")
 				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PermissionLevel property to same")
 				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(PermissionLevelIs, OrganizationPermissionLevelType.Public)
 				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PermissionLevel property without AuthToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -168,36 +177,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access PrivateBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(PrivateBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PrivateBoardVisibility property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(PrivateBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PrivateBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(PrivateBoardVisibilityIsSet, BoardPermissionLevelType.Private)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PrivateBoardVisibility property to same")
 				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(PrivateBoardVisibilityIs, BoardPermissionLevelType.Private)
 				.When(PrivateBoardVisibilityIsSet, BoardPermissionLevelType.Private)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PrivateBoardVisibility property without AuthToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(PrivateBoardVisibilityIsSet, BoardPermissionLevelType.Private)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -213,36 +224,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access PublicBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(PublicBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PublicBoardVisibility property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(PublicBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PublicBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(PublicBoardVisibilityIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PublicBoardVisibility property to same")
 				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(PublicBoardVisibilityIs, BoardPermissionLevelType.Public)
 				.When(PublicBoardVisibilityIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PublicBoardVisibility property without AuthToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(PublicBoardVisibilityIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<OrganizationPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -253,7 +266,13 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AnOrganizationPreferencesObject()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			OwnedBy<Organization>();
+			var mock = SetupMockGet<IJsonOrganizationPreferences>();
+			var restrict = new Mock<IJsonBoardVisibilityRestrict>();
+			restrict.SetupAllProperties();
+			mock.SetupGet(p => p.BoardVisibilityRestrict)
+				.Returns(restrict.Object);
 		}
 		private void ExternalMembersDisabledIs(bool? value)
 		{

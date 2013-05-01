@@ -1,5 +1,6 @@
 ﻿using System;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -21,36 +22,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ShowListGuide property")
 				.Given(ABoardPersonalPreferencesObject)
+				.And(EntityIsRefreshed)
+				.When(ShowListGuideIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access ShowListGuide property when expired")
+				.Given(ABoardPersonalPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ShowListGuideIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPersonalPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowListGuide property")
 				.Given(ABoardPersonalPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(ShowListGuideIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 1)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowListGuide property to null")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowListGuideIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowListGuideIs, (bool?)true)
 				.When(ShowListGuideIsSet, (bool?) null)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ShowListGuide property to same")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowListGuideIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowListGuideIs, (bool?)true)
 				.When(ShowListGuideIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowListGuide property without AuthToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowListGuideIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -66,36 +77,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ShowSidebar property")
 				.Given(ABoardPersonalPreferencesObject)
+				.And(EntityIsRefreshed)
+				.When(ShowSidebarIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access ShowSidebar property when expired")
+				.Given(ABoardPersonalPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ShowSidebarIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPersonalPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebar property")
 				.Given(ABoardPersonalPreferencesObject)
-				.When(ShowSidebarIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 1)
+				.And(EntityIsRefreshed)
+				.When(ShowSidebarIsSet, (bool?)true)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebar property to null")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowSidebarIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowSidebarIs, (bool?)true)
 				.When(ShowSidebarIsSet, (bool?) null)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ShowSidebar property to same")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowSidebarIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowSidebarIs, (bool?)true)
 				.When(ShowSidebarIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebar property without AuthToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowSidebarIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -111,36 +132,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ShowSidebarActivity property")
 				.Given(ABoardPersonalPreferencesObject)
+				.And(EntityIsRefreshed)
+				.When(ShowSidebarActivityIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access ShowSidebarActivity property when expired")
+				.Given(ABoardPersonalPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ShowSidebarActivityIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPersonalPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarActivity property")
 				.Given(ABoardPersonalPreferencesObject)
-				.When(ShowSidebarActivityIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 1)
+				.And(EntityIsRefreshed)
+				.When(ShowSidebarActivityIsSet, (bool?)true)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarActivity property to null")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowSidebarActivityIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowSidebarActivityIs, (bool?)true)
 				.When(ShowSidebarActivityIsSet, (bool?) null)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ShowSidebarActivity property to same")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowSidebarActivityIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowSidebarActivityIs, (bool?)true)
 				.When(ShowSidebarActivityIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarActivity property without AuthToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowSidebarActivityIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -156,36 +187,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ShowSidebarBoardActions property")
 				.Given(ABoardPersonalPreferencesObject)
+				.And(EntityIsRefreshed)
+				.When(ShowSidebarBoardActionsIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access ShowSidebarBoardActions property when expired")
+				.Given(ABoardPersonalPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ShowSidebarBoardActionsIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPersonalPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarBoardActions property")
 				.Given(ABoardPersonalPreferencesObject)
-				.When(ShowSidebarBoardActionsIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 1)
+				.And(EntityIsRefreshed)
+				.When(ShowSidebarBoardActionsIsSet, (bool?)true)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarBoardActions property to null")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowSidebarBoardActionsIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowSidebarBoardActionsIs, (bool?)true)
 				.When(ShowSidebarBoardActionsIsSet, (bool?) null)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ShowSidebarBoardActions property to same")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowSidebarBoardActionsIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowSidebarBoardActionsIs, (bool?)true)
 				.When(ShowSidebarBoardActionsIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarBoardActions property without AuthToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowSidebarBoardActionsIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -201,36 +242,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ShowSidebarMembers property")
 				.Given(ABoardPersonalPreferencesObject)
+				.And(EntityIsRefreshed)
+				.When(ShowSidebarMembersIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access ShowSidebarMembers property when expired")
+				.Given(ABoardPersonalPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ShowSidebarMembersIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPersonalPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarMembers property")
 				.Given(ABoardPersonalPreferencesObject)
-				.When(ShowSidebarMembersIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 1)
+				.And(EntityIsRefreshed)
+				.When(ShowSidebarMembersIsSet, (bool?)true)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarMembers property to null")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowSidebarMembersIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowSidebarMembersIs, (bool?)true)
 				.When(ShowSidebarMembersIsSet, (bool?) null)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ShowSidebarMembers property to same")
 				.Given(ABoardPersonalPreferencesObject)
-				.And(ShowSidebarMembersIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowSidebarMembersIs, (bool?)true)
 				.When(ShowSidebarMembersIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowSidebarMembers property without AuthToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowSidebarMembersIsSet, (bool?) true)
-				.Then(MockApiPostIsCalled<BoardPersonalPreferences>, 0)
+				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -241,10 +292,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void ABoardPersonalPreferencesObject()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			_systemUnderTest.Sut.Owner = new Board {Id = TrelloIds.Invalid};
-			SetupMockGet<BoardPersonalPreferences>();
-			SetupMockPost<BoardPersonalPreferences>();
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			OwnedBy<Board>();
+			SetupMockGet<IJsonBoardPersonalPreferences>();
+			SetupMockPost<IJsonBoardPersonalPreferences>();
 		}
 		private void ShowListGuideIs(bool? value)
 		{

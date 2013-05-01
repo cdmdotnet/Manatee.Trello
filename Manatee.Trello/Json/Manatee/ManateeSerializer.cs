@@ -15,7 +15,7 @@
 	   limitations under the License.
  
 	File Name:		Serializer.cs
-	Namespace:		Manatee.Trello.Json
+	Namespace:		Manatee.Trello.Json.Manatee
 	Class Name:		Serializer
 	Purpose:		Wrapper class for the Manatee.Json.Serializer for use with
 					RestSharp.
@@ -24,8 +24,8 @@
 using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Rest;
+using Manatee.Trello.Json.Manatee.Entities;
 using IRestResponse = RestSharp.IRestResponse;
 
 namespace Manatee.Trello.Json.Manatee
@@ -39,30 +39,33 @@ namespace Manatee.Trello.Json.Manatee
 		private readonly MethodInfo _method;
 
 		/// <summary>
+		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
+		/// </summary>
+		public string RootElement { get; set; }
+		/// <summary>
+		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
+		/// </summary>
+		public string Namespace { get; set; }
+		/// <summary>
+		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
+		/// </summary>
+		public string DateFormat { get; set; }
+		/// <summary>
+		/// Implements RestSharp.Serializers.ISerializer
+		/// </summary>
+		public string ContentType { get; set; }
+
+		static ManateeSerializer()
+		{
+			InitializeTypeRegistry();
+			InitializeAbstractionMap();
+		}
+		/// <summary>
 		/// Creates and initializes a new instance of the ManateeJsonSerializer class.
 		/// </summary>
 		public ManateeSerializer()
 		{
 			_serializer = new JsonSerializer();
-
-			JsonSerializationTypeRegistry.RegisterListType<Action>();
-			JsonSerializationTypeRegistry.RegisterListType<Attachment>();
-			JsonSerializationTypeRegistry.RegisterListType<Board>();
-			JsonSerializationTypeRegistry.RegisterListType<BoardMembership>();
-			JsonSerializationTypeRegistry.RegisterListType<Card>();
-			JsonSerializationTypeRegistry.RegisterListType<CheckItem>();
-			JsonSerializationTypeRegistry.RegisterListType<CheckList>();
-			JsonSerializationTypeRegistry.RegisterListType<InvitedBoard>();
-			JsonSerializationTypeRegistry.RegisterListType<InvitedOrganization>();
-			JsonSerializationTypeRegistry.RegisterListType<Label>();
-			JsonSerializationTypeRegistry.RegisterListType<List>();
-			JsonSerializationTypeRegistry.RegisterListType<Member>();
-			JsonSerializationTypeRegistry.RegisterListType<Notification>();
-			JsonSerializationTypeRegistry.RegisterListType<Organization>();
-			JsonSerializationTypeRegistry.RegisterListType<PinnedBoard>();
-			JsonSerializationTypeRegistry.RegisterListType<PremiumOrganization>();
-			JsonSerializationTypeRegistry.RegisterListType<VotingMember>();
-
 			_method = _serializer.GetType().GetMethod("Serialize");
 		}
 
@@ -84,8 +87,7 @@ namespace Manatee.Trello.Json.Manatee
 		/// <typeparam name="T">The type of object expected.</typeparam>
 		/// <param name="response">The response object which contains the JSON to deserialize.</param>
 		/// <returns>The requested object, if JSON is valid; null otherwise.</returns>
-		public T Deserialize<T>(Contracts.IRestResponse<T> response)
-			where T : new()
+		public T Deserialize<T>(IRestResponse<T> response)
 		{
 			var json = JsonValue.Parse(response.Content);
 			T obj = _serializer.Deserialize<T>(json);
@@ -100,21 +102,43 @@ namespace Manatee.Trello.Json.Manatee
 			T obj = _serializer.Deserialize<T>(json);
 			return obj;
 		}
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string RootElement { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string Namespace { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string DateFormat { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer
-		/// </summary>
-		public string ContentType { get; set; }
+
+		private static void InitializeTypeRegistry()
+		{
+			JsonSerializationTypeRegistry.RegisterListType<IJsonAction>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonAttachment>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonBoard>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonBoardMembership>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonCard>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonCheckItem>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonCheckList>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonLabel>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonList>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonMember>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonNotification>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonOrganization>();
+		}
+		private static void InitializeAbstractionMap()
+		{
+			JsonSerializationAbstractionMap.Map<IJsonAction, ManateeAction>();
+			JsonSerializationAbstractionMap.Map<IJsonAttachment, ManateeAttachment>();
+			JsonSerializationAbstractionMap.Map<IJsonAttachmentPreview, ManateeAttachmentPreview>();
+			JsonSerializationAbstractionMap.Map<IJsonBadges, ManateeBadges>();
+			JsonSerializationAbstractionMap.Map<IJsonBoard, ManateeBoard>();
+			JsonSerializationAbstractionMap.Map<IJsonBoardMembership, ManateeBoardMembership>();
+			JsonSerializationAbstractionMap.Map<IJsonBoardPersonalPreferences, ManateeBoardPersonalPreferences>();
+			JsonSerializationAbstractionMap.Map<IJsonBoardPreferences, ManateeBoardPreferences>();
+			JsonSerializationAbstractionMap.Map<IJsonCard, ManateeCard>();
+			JsonSerializationAbstractionMap.Map<IJsonCheckItem, ManateeCheckItem>();
+			JsonSerializationAbstractionMap.Map<IJsonCheckList, ManateeCheckList>();
+			JsonSerializationAbstractionMap.Map<IJsonLabel, ManateeLabel>();
+			JsonSerializationAbstractionMap.Map<IJsonLabelNames, ManateeLabelNames>();
+			JsonSerializationAbstractionMap.Map<IJsonList, ManateeList>();
+			JsonSerializationAbstractionMap.Map<IJsonMember, ManateeMember>();
+			JsonSerializationAbstractionMap.Map<IJsonMemberPreferences, ManateeMemberPreferences>();
+			JsonSerializationAbstractionMap.Map<IJsonNotification, ManateeNotification>();
+			JsonSerializationAbstractionMap.Map<IJsonOrganization, ManateeOrganization>();
+			JsonSerializationAbstractionMap.Map<IJsonOrganizationPreferences, ManateeOrganizationPreferences>();
+		}
 	}
 }

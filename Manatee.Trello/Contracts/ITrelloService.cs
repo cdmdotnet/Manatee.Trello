@@ -20,6 +20,9 @@
 	Purpose:		Defines methods required to retrieve entities from Trello.
 
 ***************************************************************************************/
+using Manatee.Trello.Internal;
+using Manatee.Trello.Rest;
+
 namespace Manatee.Trello.Contracts
 {
 	/// <summary>
@@ -32,6 +35,10 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		string AuthToken { get; set; }
 		/// <summary>
+		/// Provides caching for retrieved entities.
+		/// </summary>
+		ICache Cache { get; set; }
+		/// <summary>
 		/// Gets the Member object associated with the provided AuthToken.
 		/// </summary>
 		Member Me { get; }
@@ -39,6 +46,13 @@ namespace Manatee.Trello.Contracts
 		/// Gets and sets the IRestClientProvider to be used by the service.
 		/// </summary>
 		IRestClientProvider RestClientProvider { get; set; }
+		/// <summary>
+		/// Facilitates calling the Trello API.
+		/// </summary>
+		/// <remarks>
+		/// Provided for testing.  It is not recommended that this is used.
+		/// </remarks>
+		ITrelloRest Api { get; }
 		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>

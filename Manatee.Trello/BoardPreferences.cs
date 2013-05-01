@@ -23,11 +23,9 @@
 ***************************************************************************************/
 using System;
 using System.Linq;
-using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Implementation;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -42,46 +40,42 @@ namespace Manatee.Trello
 	///<summary>
 	/// Represents available preferences setting for a board
 	///</summary>
-	public class BoardPreferences : JsonCompatibleExpiringObject
+	public class BoardPreferences : ExpiringObject
 	{
 		private static readonly OneToOneMap<BoardCommentType, string> _commentMap;
 		private static readonly OneToOneMap<BoardInvitationType, string> _invitationMap;
 		private static readonly OneToOneMap<BoardPermissionLevelType, string> _permissionMap;
 		private static readonly OneToOneMap<BoardVotingType, string> _votingMap;
 
-		private bool? _allowsSelfJoin;
-		private string _apiComments;
-		private string _apiInvitations;
-		private string _apiPermissionLevel;
-		private string _apiVoting;
+		private IJsonBoardPreferences _jsonBoardPreferences;
 		private BoardCommentType _comments = BoardCommentType.Unknown;
 		private BoardInvitationType _invitations = BoardInvitationType.Unknown;
 		private BoardPermissionLevelType _permissionLevel = BoardPermissionLevelType.Unknown;
-		private bool? _showCardCovers;
 		private BoardVotingType _voting = BoardVotingType.Unknown;
 
 		/// <summary>
-		/// Gets and sets whether any Trello member may join a board without an invitation.
+		/// Gets or sets whether any Trello member may join a board without an invitation.
 		/// </summary>
 		public bool? AllowsSelfJoin
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _allowsSelfJoin;
+				return (_jsonBoardPreferences == null) ? null : _jsonBoardPreferences.SelfJoin;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_allowsSelfJoin == value) return;
 				Validate.Nullable(value);
-				_allowsSelfJoin = value;
-				Parameters.Add("value", _allowsSelfJoin.ToLowerString());
+				if (_jsonBoardPreferences == null) return;
+				if (_jsonBoardPreferences.SelfJoin == value) return;
+				_jsonBoardPreferences.SelfJoin = value;
+				Parameters.Add("value", _jsonBoardPreferences.SelfJoin.ToLowerString());
 				Put("selfJoin");
 			}
 		}
 		/// <summary>
-		/// Gets and sets who may comment on cards.
+		/// Gets or sets who may comment on cards.
 		/// </summary>
 		public BoardCommentType Comments
 		{
@@ -93,15 +87,16 @@ namespace Manatee.Trello
 			set
 			{
 				Validate.Writable(Svc);
+				if (_jsonBoardPreferences == null) return;
 				if (_comments == value) return;
 				_comments = value;
 				UpdateApiComments();
-				Parameters.Add("value", _apiComments);
+				Parameters.Add("value", _jsonBoardPreferences.Comments);
 				Put("comments");
 			}
 		}
 		/// <summary>
-		/// Gets and sets who may extend invitations to join the board.
+		/// Gets or sets who may extend invitations to join the board.
 		/// </summary>
 		public BoardInvitationType Invitations
 		{
@@ -113,15 +108,16 @@ namespace Manatee.Trello
 			set
 			{
 				Validate.Writable(Svc);
+				if (_jsonBoardPreferences == null) return;
 				if (_invitations == value) return;
 				_invitations = value;
 				UpdateApiInvitations();
-				Parameters.Add("value", _apiInvitations);
+				Parameters.Add("value", _jsonBoardPreferences.Invitations);
 				Put("invitations");
 			}
 		}
 		/// <summary>
-		/// Gets and sets who may view the board.
+		/// Gets or sets who may view the board.
 		/// </summary>
 		public BoardPermissionLevelType PermissionLevel
 		{
@@ -133,35 +129,37 @@ namespace Manatee.Trello
 			set
 			{
 				Validate.Writable(Svc);
+				if (_jsonBoardPreferences == null) return;
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
-				Parameters.Add("value", _apiPermissionLevel);
+				Parameters.Add("value", _jsonBoardPreferences.PermissionLevel);
 				Put("permissionLevel");
 			}
 		}
 		/// <summary>
-		/// Gets and sets whether card covers are shown on the board.
+		/// Gets or sets whether card covers are shown on the board.
 		/// </summary>
 		public bool? ShowCardCovers
 		{
 			get
 			{
 				VerifyNotExpired();
-				return _showCardCovers;
+				return (_jsonBoardPreferences == null) ? null : _jsonBoardPreferences.CardCovers;
 			}
 			set
 			{
 				Validate.Writable(Svc);
-				if (_showCardCovers == value) return;
 				Validate.Nullable(value);
-				_showCardCovers = value;
-				Parameters.Add("value", _showCardCovers.ToLowerString());
+				if (_jsonBoardPreferences == null) return;
+				if (_jsonBoardPreferences.CardCovers == value) return;
+				_jsonBoardPreferences.CardCovers = value;
+				Parameters.Add("value", _jsonBoardPreferences.CardCovers.ToLowerString());
 				Put("cardCovers");
 			}
 		}
 		/// <summary>
-		/// Gets and sets who may vote on cards.
+		/// Gets or sets who may vote on cards.
 		/// </summary>
 		public BoardVotingType Voting
 		{
@@ -173,10 +171,11 @@ namespace Manatee.Trello
 			set
 			{
 				Validate.Writable(Svc);
+				if (_jsonBoardPreferences == null) return;
 				if (_voting == value) return;
 				_voting = value;
 				UpdateApiVoting();
-				Parameters.Add("value", _apiVoting);
+				Parameters.Add("value", _jsonBoardPreferences.Voting);
 				Put("voting");
 			}
 		}
@@ -215,80 +214,33 @@ namespace Manatee.Trello
 		/// Creates a new instance of the BoardPreferences class.
 		/// </summary>
 		public BoardPreferences() {}
-		internal BoardPreferences(ITrelloRest svc, Board owner)
-			: base(svc, owner) {}
-
-		/// <summary>
-		/// Builds an object from a JsonValue.
-		/// </summary>
-		/// <param name="json">The JsonValue representation of the object.</param>
-		public override void FromJson(JsonValue json)
+		internal BoardPreferences(Board owner)
 		{
-			if (json == null) return;
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			_allowsSelfJoin = obj.TryGetBoolean("selfJoin");
-			_apiComments = obj.TryGetString("comments");
-			_apiInvitations = obj.TryGetString("invitations");
-			_apiPermissionLevel = obj.TryGetString("permissionLevel");
-			_showCardCovers = obj.TryGetBoolean("cardCovers");
-			_apiVoting = obj.TryGetString("voting");
-			UpdateComments();
-			UpdateInvitations();
-			UpdatePermissionLevel();
-			UpdateVoting();
-			_isInitialized = true;
-		}
-		/// <summary>
-		/// Converts an object to a JsonValue.
-		/// </summary>
-		/// <returns>
-		/// The JsonValue representation of the object.
-		/// </returns>
-		public override JsonValue ToJson()
-		{
-			if (!_isInitialized) VerifyNotExpired();
-			var json = new JsonObject
-			           	{
-							{"selfJoin", _allowsSelfJoin.HasValue ? _allowsSelfJoin.Value : JsonValue.Null},
-			           		{"comments", _apiComments},
-			           		{"invitations", _apiInvitations},
-			           		{"permissionLevel", _apiPermissionLevel},
-							{"cardCovers", _showCardCovers.HasValue ? _showCardCovers.Value : JsonValue.Null},
-			           		{"voting", _apiVoting}
-			           	};
-			return json;
-		}
-
-		internal override void Refresh(ExpiringObject entity)
-		{
-			var prefs = entity as BoardPreferences;
-			if (prefs == null) return;
-			_allowsSelfJoin = prefs._allowsSelfJoin;
-			_apiComments = prefs._apiComments;
-			_apiInvitations = prefs._apiInvitations;
-			_apiPermissionLevel = prefs._apiPermissionLevel;
-			_showCardCovers = prefs._showCardCovers;
-			_apiVoting = prefs._apiVoting;
-			UpdateComments();
-			UpdateInvitations();
-			UpdatePermissionLevel();
-			UpdateVoting();
-			_isInitialized = true;
+			Owner = owner;
 		}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Get()
+		protected override void Refresh()
 		{
-			var entity = Svc.Get(Svc.RequestProvider.Create<BoardPreferences>(new[] {Owner, this}));
-			Refresh(entity);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var request = Api.RequestProvider.Create<IJsonBoardPreferences>(endpoint.ToString());
+			ApplyJson(Api.Get(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
 		protected override void PropigateService() {}
+
+		internal override void ApplyJson(object obj)
+		{
+			_jsonBoardPreferences = (IJsonBoardPreferences) obj;
+			UpdateComments();
+			UpdateInvitations();
+			UpdatePermissionLevel();
+			UpdateVoting();
+		}
 
 		private void Put(string extension)
 		{
@@ -297,44 +249,58 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var request = Svc.RequestProvider.Create<BoardPreferences>(new[] { Owner, this }, this, extension);
-			Svc.Put(request);
+			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			endpoint.Append(extension);
+			var request = Api.RequestProvider.Create<IJsonBoardPreferences>(endpoint.ToString());
+			foreach (var parameter in Parameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
+			Api.Put(request);
 		}
 		private void UpdateComments()
 		{
-			_comments = _commentMap.Any(kvp => kvp.Value == _apiComments) ? _commentMap[_apiComments] : BoardCommentType.Unknown;
+			_comments = _commentMap.Any(kvp => kvp.Value == _jsonBoardPreferences.Comments)
+			            	? _commentMap[_jsonBoardPreferences.Comments]
+			            	: BoardCommentType.Unknown;
 		}
 		private void UpdateApiComments()
 		{
 			if (_commentMap.Any(kvp => kvp.Key == _comments))
-				_apiComments = _commentMap[_comments];
+				_jsonBoardPreferences.Comments = _commentMap[_comments];
 		}
 		private void UpdateInvitations()
 		{
-			_invitations = _invitationMap.Any(kvp => kvp.Value == _apiInvitations) ? _invitationMap[_apiInvitations] : BoardInvitationType.Unknown;
+			_invitations = _invitationMap.Any(kvp => kvp.Value == _jsonBoardPreferences.Invitations)
+			               	? _invitationMap[_jsonBoardPreferences.Invitations]
+			               	: BoardInvitationType.Unknown;
 		}
 		private void UpdateApiInvitations()
 		{
 			if (_invitationMap.Any(kvp => kvp.Key == _invitations))
-				_apiInvitations = _invitationMap[_invitations];
+				_jsonBoardPreferences.Invitations = _invitationMap[_invitations];
 		}
 		private void UpdatePermissionLevel()
 		{
-			_permissionLevel = _permissionMap.Any(kvp => kvp.Value == _apiPermissionLevel) ? _permissionMap[_apiPermissionLevel] : BoardPermissionLevelType.Unknown;
+			_permissionLevel = _permissionMap.Any(kvp => kvp.Value == _jsonBoardPreferences.PermissionLevel)
+			                   	? _permissionMap[_jsonBoardPreferences.PermissionLevel]
+			                   	: BoardPermissionLevelType.Unknown;
 		}
 		private void UpdateApiPermissionLevel()
 		{
 			if (_permissionMap.Any(kvp => kvp.Key == _permissionLevel))
-				_apiPermissionLevel = _permissionMap[_permissionLevel];
+				_jsonBoardPreferences.PermissionLevel = _permissionMap[_permissionLevel];
 		}
 		private void UpdateVoting()
 		{
-			_voting = _votingMap.Any(kvp => kvp.Value == _apiVoting) ? _votingMap[_apiVoting] : BoardVotingType.Unknown;
+			_voting = _votingMap.Any(kvp => kvp.Value == _jsonBoardPreferences.Voting)
+			          	? _votingMap[_jsonBoardPreferences.Voting]
+			          	: BoardVotingType.Unknown;
 		}
 		private void UpdateApiVoting()
 		{
 			if (_votingMap.Any(kvp => kvp.Key == _voting))
-				_apiVoting = _votingMap[_voting];
+				_jsonBoardPreferences.Voting = _votingMap[_voting];
 		}
 	}
 }

@@ -68,10 +68,9 @@ namespace Manatee.Trello.Test
 			Assert.IsNotNull(_actualResult);
 		}
 		[GenericMethodFormat("{0} is returned")]
-		protected void ResponseIs<TResult>(TResult expectedValue)
+		protected void ResponseIs<TResult>()
 		{
 			Assert.IsInstanceOfType(_actualResult, typeof(TResult));
-			Assert.AreEqual(expectedValue, (TResult)_actualResult);
 		}
 	}
 }

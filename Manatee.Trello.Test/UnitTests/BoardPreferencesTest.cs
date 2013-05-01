@@ -1,5 +1,6 @@
 ﻿using System;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -19,43 +20,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access AllowsSelfJoin property")
 				.Given(ABoardPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(AllowsSelfJoinIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access AllowsSelfJoin property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(AllowsSelfJoinIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AllowsSelfJoin property")
 				.Given(ABoardPreferencesObject)
-				.When(AllowsSelfJoinIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
+				.And(EntityIsRefreshed)
+				.When(AllowsSelfJoinIsSet, (bool?)true)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AllowsSelfJoin property to null")
 				.Given(ABoardPreferencesObject)
-				.And(AllowsSelfJoinIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(AllowsSelfJoinIs, (bool?)true)
 				.When(AllowsSelfJoinIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set AllowsSelfJoin property to same")
 				.Given(ABoardPreferencesObject)
-				.And(AllowsSelfJoinIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(AllowsSelfJoinIs, (bool?)true)
 				.When(AllowsSelfJoinIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AllowsSelfJoin property without AuthToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(AllowsSelfJoinIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -71,36 +75,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Comments property")
 				.Given(ABoardPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(CommentsIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Comments property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(CommentsIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Comments property")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(CommentsIsSet, BoardCommentType.Org)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Comments property to same")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(CommentsIs, BoardCommentType.Disabled)
 				.When(CommentsIsSet, BoardCommentType.Disabled)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Comments property without AuthToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(CommentsIsSet, BoardCommentType.Disabled)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -116,36 +122,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Invitations property")
 				.Given(ABoardPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(InvitationsIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Invitations property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(InvitationsIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Invitations property")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(InvitationsIsSet, BoardInvitationType.Members)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Invitations property to same")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(InvitationsIs, BoardInvitationType.Admins)
 				.When(InvitationsIsSet, BoardInvitationType.Admins)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Invitations property without AuthToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(InvitationsIsSet, BoardInvitationType.Admins)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -161,36 +169,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access PermissionLevel property")
 				.Given(ABoardPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(PermissionLevelIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PermissionLevel property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(PermissionLevelIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PermissionLevel property")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PermissionLevel property to same")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(PermissionLevelIs, BoardPermissionLevelType.Public)
 				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PermissionLevel property without AuthToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -206,43 +216,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ShowCardCovers property")
 				.Given(ABoardPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(ShowCardCoversIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access ShowCardCovers property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ShowCardCoversIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowCardCovers property")
 				.Given(ABoardPreferencesObject)
-				.When(ShowCardCoversIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
+				.And(EntityIsRefreshed)
+				.When(ShowCardCoversIsSet, (bool?)true)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowCardCovers property to null")
 				.Given(ABoardPreferencesObject)
-				.And(ShowCardCoversIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowCardCoversIs, (bool?)true)
 				.When(ShowCardCoversIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ShowCardCovers property to same")
 				.Given(ABoardPreferencesObject)
-				.And(ShowCardCoversIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(ShowCardCoversIs, (bool?)true)
 				.When(ShowCardCoversIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ShowCardCovers property without AuthToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowCardCoversIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -258,36 +271,38 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Voting property")
 				.Given(ABoardPreferencesObject)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(VotingIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 0)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Voting property when expired")
 				.Given(ABoardPreferencesObject)
 				.And(EntityIsExpired)
 				.When(VotingIsAccessed)
-				.Then(MockApiGetIsCalled<BoardPreferences>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Voting property")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsRefreshed)
 				.When(VotingIsSet, BoardVotingType.Disabled)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 1)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Voting property to same")
 				.Given(ABoardPreferencesObject)
+				.And(EntityIsRefreshed)
 				.And(VotingIs, BoardVotingType.Public)
 				.When(VotingIsSet, BoardVotingType.Public)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Voting property without AuthToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(VotingIsSet, BoardVotingType.Public)
-				.Then(MockApiPutIsCalled<BoardPreferences>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -298,9 +313,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void ABoardPreferencesObject()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			SetupMockGet<BoardPreferences>();
-			SetupMockPut<BoardPreferences>();
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			OwnedBy<Board>();
+			SetupMockGet<IJsonBoardPreferences>();
+			SetupMockPut<IJsonBoardPreferences>();
 		}
 		private void AllowsSelfJoinIs(bool? value)
 		{

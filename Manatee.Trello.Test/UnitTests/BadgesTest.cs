@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StoryQ;
@@ -23,9 +24,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Attachments property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(AttachmentsIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Attachments property when expired")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(AttachmentsIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -41,9 +49,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access CheckItems property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(CheckItemsIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access CheckItems property")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(CheckItemsIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -59,9 +74,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access CheckItemsChecked property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(CheckItemsCheckedIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access CheckItemsChecked property")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(CheckItemsCheckedIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -79,7 +101,14 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(CommentsIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Comments property")
+				.Given(ABadgesObject)
+				.And(EntityIsExpired)
+				.When(CommentsIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -95,9 +124,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access DueDate property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(DueDateIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access DueDate property")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(DueDateIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -113,9 +149,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access FogBugz property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(FogBugzIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access FogBugz property")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(FogBugzIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -131,9 +174,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access HasDescription property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(HasDescriptionIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access HasDescription property")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(HasDescriptionIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -149,9 +199,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access IsSubscribed property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(IsSubscribedIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access IsSubscribed property")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(IsSubscribedIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -167,9 +224,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access ViewingMemberVoted property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(ViewingMemberVotedIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access ViewingMemberVoted property")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(ViewingMemberVotedIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -185,9 +249,16 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access Votes property")
 				.Given(ABadgesObject)
+				.And(EntityIsRefreshed)
+				.When(VotesIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Votes property")
+				.Given(ABadgesObject)
 				.And(EntityIsExpired)
 				.When(VotesIsAccessed)
-				.Then(MockApiGetIsCalled<Badges>, 1)
+				.Then(MockApiGetIsCalled<IJsonBadges>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -198,8 +269,9 @@ namespace Manatee.Trello.Test.UnitTests
 		private void ABadgesObject()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			SetupMockGet<Organization>();
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			OwnedBy<Card>();
+			SetupMockGet<IJsonBadges>();
 		}
 
 		#endregion

@@ -22,7 +22,6 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using Manatee.Trello.Implementation;
 using RestSharp;
 
 namespace Manatee.Trello.Rest

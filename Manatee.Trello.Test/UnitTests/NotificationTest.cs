@@ -1,5 +1,6 @@
 ﻿using System;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -19,43 +20,46 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access IsUnread property")
 				.Given(ANotification)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(IsUnreadIsAccessed)
-				.Then(MockApiGetIsCalled<Notification>, 0)
+				.Then(MockApiGetIsCalled<IJsonNotification>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access IsUnread property when expired")
 				.Given(ANotification)
 				.And(EntityIsExpired)
 				.When(IsUnreadIsAccessed)
-				.Then(MockApiGetIsCalled<Notification>, 1)
+				.Then(MockApiGetIsCalled<IJsonNotification>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set IsUnread property")
 				.Given(ANotification)
-				.When(IsUnreadIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<Notification>, 1)
+				.And(EntityIsRefreshed)
+				.When(IsUnreadIsSet, (bool?)true)
+				.Then(MockApiPutIsCalled<IJsonNotification>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set IsUnread property to null")
 				.Given(ANotification)
-				.And(IsUnreadIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(IsUnreadIs, (bool?)true)
 				.When(IsUnreadIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<Notification>, 0)
+				.Then(MockApiPutIsCalled<IJsonNotification>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set IsUnread property to same")
 				.Given(ANotification)
-				.And(IsUnreadIs, (bool?) true)
+				.And(EntityIsRefreshed)
+				.And(IsUnreadIs, (bool?)true)
 				.When(IsUnreadIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<Notification>, 0)
+				.Then(MockApiPutIsCalled<IJsonNotification>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set IsUnread property without AuthToken")
 				.Given(ANotification)
 				.And(TokenNotSupplied)
 				.When(IsUnreadIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<Notification>, 0)
+				.Then(MockApiPutIsCalled<IJsonNotification>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -71,9 +75,19 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access MemberCreator property")
 				.Given(ANotification)
-				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<Notification>, 0)
-				.And(NonNullValueOfTypeIsReturned<Member>)
+				.And(EntityIsRefreshed)
+				.When(MemberCreatorIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonNotification>, 1)
+				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access MemberCreator property when expired")
+				.Given(ANotification)
+				.And(EntityIsRefreshed)
+				.And(EntityIsExpired)
+				.When(MemberCreatorIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonNotification>, 1)
+				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -84,8 +98,9 @@ namespace Manatee.Trello.Test.UnitTests
 		private void ANotification()
 		{
 			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Api.Object;
-			SetupMockGet<Member>();
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			SetupMockGet<IJsonNotification>();
+			SetupMockRetrieve<Member>();
 		}
 		private void IsUnreadIs(bool? value)
 		{
@@ -104,7 +119,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Execute(() => _systemUnderTest.Sut.IsUnread = value);
 		}
-		private void MemberIsAccessed()
+		private void MemberCreatorIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.MemberCreator);
 		}

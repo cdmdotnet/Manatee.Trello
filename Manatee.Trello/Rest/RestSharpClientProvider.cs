@@ -22,43 +22,31 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Json.Manatee;
 
 namespace Manatee.Trello.Rest
 {
-	/// <summary>
-	/// Implements IRestClientProvider to provide instances of RestSharp.RestClient
-	/// wrapped in an IRestClient implementation.
-	/// </summary>
-	public class RestSharpClientProvider : IRestClientProvider
+	internal class RestSharpClientProvider : IRestClientProvider
 	{
 		private class RestClient : RestSharp.RestClient, IRestClient
 		{
 			private readonly RestSharp.Deserializers.IDeserializer _deserializer;
-			private readonly RestSharp.Serializers.ISerializer _serializer;
 
-			public RestClient(RestSharp.Serializers.ISerializer serializer, RestSharp.Deserializers.IDeserializer deserializer, string apiBaseUrl)
+			public RestClient(RestSharp.Deserializers.IDeserializer deserializer, string apiBaseUrl)
 				: base(apiBaseUrl)
 			{
-				_serializer = serializer;
 				_deserializer = deserializer;
 				AddHandler("application/json", _deserializer);
 				AddHandler("text/json", _deserializer);
 			}
 
 			public IRestResponse<T> Execute<T>(IRestRequest<T> request)
-				where T : ExpiringObject, new()
+				where T : class
 			{
 				var restSharpRequest = (RestSharpRequest<T>) request;
-				restSharpRequest.JsonSerializer = _serializer;
-				return new RestSharpResponse<T>(base.Execute<T>(request as RestSharpRequestBase));
-			}
-			public IRestResponse<List<T>> Execute<T>(IRestCollectionRequest<T> request)
-				where T : ExpiringObject, new()
-			{
-				return new RestSharpResponse<List<T>>(base.Execute<List<T>>(request as RestSharpRequestBase));
+				var restSharpResponse = base.Execute(restSharpRequest);
+				var data = _deserializer.Deserialize<T>(restSharpResponse);
+				return new RestSharpResponse<T>(restSharpResponse, data);
 			}
 		}
 		private class RestSharpRequestProvider : IRestRequestProvider
@@ -72,29 +60,9 @@ namespace Manatee.Trello.Rest
 				_serializer = serializer;
 			}
 
-			public IRestRequest<T> Create<T>()
-				where T : ExpiringObject, new()
+			public IRestRequest<T> Create<T>(string endpoint)
 			{
-				return new RestSharpRequest<T>(_serializer);
-			}
-			public IRestRequest<T> Create<T>(string id)
-				where T : ExpiringObject, new()
-			{
-				return new RestSharpRequest<T>(_serializer, id);
-			}
-			public IRestRequest<T> Create<T>(ExpiringObject obj)
-				where T : ExpiringObject, new()
-			{
-				return new RestSharpRequest<T>(_serializer, obj);
-			}
-			public IRestRequest<T> Create<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity = null, string urlExtension = null)
-				where T : ExpiringObject, new()
-			{
-				return new RestSharpRequest<T>(_serializer, tokens, entity, urlExtension);
-			}
-			public IRestCollectionRequest<T> CreateCollectionRequest<T>(IEnumerable<ExpiringObject> tokens, ExpiringObject entity) where T : ExpiringObject, new()
-			{
-				return new RestSharpCollectionRequest<T>(_serializer, tokens, entity);
+				return new RestSharpRequest<T>(_serializer, endpoint);
 			}
 		}
 
@@ -159,7 +127,7 @@ namespace Manatee.Trello.Rest
 		/// <returns>An instance of IRestClient.</returns>
 		public IRestClient CreateRestClient(string apiBaseUrl)
 		{
-			var client = new RestClient(Serializer, Deserializer, apiBaseUrl);
+			var client = new RestClient(Deserializer, apiBaseUrl);
 			return client;
 		}
 
