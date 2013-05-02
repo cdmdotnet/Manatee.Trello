@@ -21,8 +21,6 @@
 					made an admin of an organization.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -42,7 +40,9 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_organization == null) || (_organization.Id != _organizationId)) && (Svc != null) ? (_organization = Svc.Get(Svc.RequestProvider.Create<Organization>(_organizationId))) : _organization;
+				return ((_organization == null) || (_organization.Id != _organizationId)) && (Svc != null)
+				       	? (_organization = Svc.Retrieve<Organization>(_organizationId))
+				       	: _organization;
 			}
 		}
 
@@ -53,9 +53,9 @@ namespace Manatee.Trello
 		public MakeAdminOfOrganizationNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			Refresh(notification);
-			_organizationId = notification.Data.Object.TryGetObject("organization").TryGetString("id");
-			_organizationName = notification.Data.Object.TryGetObject("organization").TryGetString("name");
+			VerifyNotExpired();
+			_organizationId = notification.Data.TryGetString("organization","id");
+			_organizationName = notification.Data.TryGetString("organization","name");
 		}
 
 		/// <summary>

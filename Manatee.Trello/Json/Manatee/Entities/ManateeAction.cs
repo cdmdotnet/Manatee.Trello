@@ -35,7 +35,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 	{
 		public string Id { get; set; }
 		public string IdMemberCreator { get; set; }
-		public object Data { get; set; }
+		public IJsonActionData Data { get; set; }
 		public string Type { get; set; }
 		public DateTime? Date { get; set; }
 
@@ -45,7 +45,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			IdMemberCreator = obj.TryGetString("idMemberCreator");
-			Data = obj.TryGetObject("data");
+			Data = new ManateeActionData {RawData = obj.TryGetObject("data")};
 			Type = obj.TryGetString("type");
 			var dateString = obj.TryGetString("date");
 			DateTime date;
@@ -58,7 +58,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			       	{
 			       		{"id", Id},
 			       		{"idMemberCreator", IdMemberCreator},
-			       		{"data", Data as JsonObject},
+			       		{"data", Data.RawData as JsonObject},
 			       		{"type", Type},
 			       		{"date", Date.HasValue ? Date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
 			       	};

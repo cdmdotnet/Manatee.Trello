@@ -20,8 +20,6 @@
 	Purpose:		Indicates a member commented on a card.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -44,7 +42,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -55,7 +53,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
 		/// <summary>
@@ -70,11 +68,11 @@ namespace Manatee.Trello
 		public CommentCardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
-			_text = action.Data.Object.TryGetString("text");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board", "id");
+			_cardId = action.Data.TryGetString("card","id");
+			_cardName = action.Data.TryGetString("card","name");
+			_text = action.Data.TryGetString("text");
 		}
 
 		/// <summary>

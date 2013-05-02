@@ -21,8 +21,6 @@
 					permissions.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -44,7 +42,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -55,7 +53,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Get(Svc.RequestProvider.Create<Member>(_memberId))) : _member;
+				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
 			}
 		}
 
@@ -66,10 +64,10 @@ namespace Manatee.Trello
 		public MakeNormalMemberOfBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_boardName = action.Data.Object.TryGetObject("board").TryGetString("name");
-			_memberId = action.Data.Object.TryGetString("idMember");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board","id");
+			_boardName = action.Data.TryGetString("board","name");
+			_memberId = action.Data.TryGetString("idMember");
 		}
 
 		/// <summary>

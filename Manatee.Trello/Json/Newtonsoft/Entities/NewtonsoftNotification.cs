@@ -41,7 +41,7 @@ namespace Manatee.Trello.Json.Newtonsoft.Entities
 		[JsonConverter(typeof(IsoDateTimeConverter))]
 		public DateTime? Date { get; set; }
 		[JsonProperty("data")]
-		public object Data { get; set; }
+		public IJsonNotificationData Data { get; set; }
 		[JsonProperty("idMemberCreator")]
 		public string IdMemberCreator { get; set; }
 	}

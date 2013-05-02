@@ -94,6 +94,7 @@ namespace Manatee.Trello.Json.Manatee
 		private static void InitializeAbstractionMap()
 		{
 			JsonSerializationAbstractionMap.Map<IJsonAction, ManateeAction>();
+			JsonSerializationAbstractionMap.Map<IJsonActionData, ManateeActionData>();
 			JsonSerializationAbstractionMap.Map<IJsonAttachment, ManateeAttachment>();
 			JsonSerializationAbstractionMap.Map<IJsonAttachmentPreview, ManateeAttachmentPreview>();
 			JsonSerializationAbstractionMap.Map<IJsonBadges, ManateeBadges>();
@@ -110,6 +111,7 @@ namespace Manatee.Trello.Json.Manatee
 			JsonSerializationAbstractionMap.Map<IJsonMember, ManateeMember>();
 			JsonSerializationAbstractionMap.Map<IJsonMemberPreferences, ManateeMemberPreferences>();
 			JsonSerializationAbstractionMap.Map<IJsonNotification, ManateeNotification>();
+			JsonSerializationAbstractionMap.Map<IJsonNotificationData, ManateeNotificationData>();
 			JsonSerializationAbstractionMap.Map<IJsonOrganization, ManateeOrganization>();
 			JsonSerializationAbstractionMap.Map<IJsonOrganizationPreferences, ManateeOrganizationPreferences>();
 		}

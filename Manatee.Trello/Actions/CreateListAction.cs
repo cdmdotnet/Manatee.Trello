@@ -20,8 +20,6 @@
 	Purpose:		Indicates a list was added to a board.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -44,7 +42,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -55,7 +53,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Get(Svc.RequestProvider.Create<List>(_listId))) : _list;
+				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Retrieve<List>(_listId)) : _list;
 			}
 		}
 
@@ -66,11 +64,11 @@ namespace Manatee.Trello
 		public CreateListAction(Action action)
 			: base(action.Svc, action.Id)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_boardName = action.Data.Object.TryGetObject("board").TryGetString("name");
-			_listId = action.Data.Object.TryGetObject("list").TryGetString("id");
-			_listName = action.Data.Object.TryGetObject("list").TryGetString("name");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board","id");
+			_boardName = action.Data.TryGetString("board","name");
+			_listId = action.Data.TryGetString("list","id");
+			_listName = action.Data.TryGetString("list","name");
 		}
 
 		/// <summary>

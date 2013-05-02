@@ -33,7 +33,7 @@ namespace Manatee.Trello
 		/// <param name="action"></param>
 		public CopyBoardAction(Action action)
 		{
-			Refresh(action);
+			VerifyNotExpired();
 		}
 	}
 }

@@ -21,8 +21,6 @@
 					fashion.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -50,7 +48,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -62,7 +60,7 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				if (_listBeforeId == null) return null;
-				return ((_listBefore == null) || (_listBefore.Id != _listBeforeId)) && (Svc != null) ? (_listBefore = Svc.Get(Svc.RequestProvider.Create<List>(_listBeforeId))) : _listBefore;
+				return ((_listBefore == null) || (_listBefore.Id != _listBeforeId)) && (Svc != null) ? (_listBefore = Svc.Retrieve<List>(_listBeforeId)) : _listBefore;
 			}
 		}
 		/// <summary>
@@ -74,7 +72,7 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				if (_listAfterId == null) return null;
-				return ((_listAfter == null) || (_listAfter.Id != _listAfterId)) && (Svc != null) ? (_listAfter = Svc.Get(Svc.RequestProvider.Create<List>(_listAfterId))) : _listAfter;
+				return ((_listAfter == null) || (_listAfter.Id != _listAfterId)) && (Svc != null) ? (_listAfter = Svc.Retrieve<List>(_listAfterId)) : _listAfter;
 			}
 		}
 		/// <summary>
@@ -85,7 +83,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
 
@@ -96,14 +94,14 @@ namespace Manatee.Trello
 		public UpdateCardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_listBeforeId = action.Data.Object.TryGetObject("listBefore").TryGetString("id");
-			_listBeforeName = action.Data.Object.TryGetObject("listBefore").TryGetString("name");
-			_listAfterId = action.Data.Object.TryGetObject("listAfter").TryGetString("id");
-			_listAfterName = action.Data.Object.TryGetObject("listAfter").TryGetString("name");
-			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board","id");
+			_listBeforeId = action.Data.TryGetString("id");
+			_listBeforeName = action.Data.TryGetString("listBefore","name");
+			_listAfterId = action.Data.TryGetString("listAfter","id");
+			_listAfterName = action.Data.TryGetString("listAfter","name");
+			_cardId = action.Data.TryGetString("card","id");
+			_cardName = action.Data.TryGetString("card","name");
 		}
 
 		/// <summary>

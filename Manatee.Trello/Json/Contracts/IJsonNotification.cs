@@ -48,7 +48,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the data associated with the notification.  Contents depend upon the notification's type.
 		/// </summary>
-		object Data { get; set; }
+		IJsonNotificationData Data { get; set; }
 		/// <summary>
 		/// Gets or sets the ID of the member whose action spawned the notification.
 		/// </summary>

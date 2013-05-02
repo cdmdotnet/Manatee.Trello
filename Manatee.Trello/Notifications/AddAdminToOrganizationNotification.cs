@@ -35,7 +35,7 @@ namespace Manatee.Trello
 		public AddAdminToOrganizationNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			
+			VerifyNotExpired();
 		}
 	}
 }

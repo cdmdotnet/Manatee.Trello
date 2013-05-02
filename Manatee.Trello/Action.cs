@@ -82,7 +82,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Data associated with the action.  Contents depend upon the action's type.
 		/// </summary>
-		internal object Data
+		internal IJsonActionData Data
 		{
 			get { return (_jsonAction == null) ? null : _jsonAction.Data; }
 			set
@@ -175,6 +175,20 @@ namespace Manatee.Trello
 			           		{ActionType.UpdateCardDesc, "updateCard:desc"},
 			           		{ActionType.UpdateCardName, "updateCard:name"},
 			           	};
+		}
+		/// <summary>
+		/// Creates a new instance of the Action class.
+		/// </summary>
+		public Action() {}
+		/// <summary>
+		/// Creates a new instance of the Action class.
+		/// </summary>
+		/// <param name="svc">An ITrelloService instance</param>
+		/// <param name="id">The action's ID.</param>
+		protected Action(ITrelloService svc, string id)
+		{
+			Id = id;
+			Svc = svc;
 		}
 
 		/// <summary>

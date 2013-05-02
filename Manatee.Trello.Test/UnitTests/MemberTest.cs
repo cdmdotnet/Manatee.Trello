@@ -4,7 +4,10 @@ using System.Linq;
 using Manatee.Json;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
+using Manatee.Trello.Json.Manatee.Entities;
+using Manatee.Trello.Rest;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -32,11 +35,11 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
 				.And(ExceptionIsNotThrown)
 
-				//.WithScenario("All action types are mapped")
-				//.Given(AMember)
-				//.And(AllKnownActionTypesExist)
-				//.When(NotificationsIsAccessed)
-				//.Then(ExceptionIsNotThrown)
+				.WithScenario("All action types are mapped")
+				.Given(AMember)
+				.And(AllKnownActionTypesExist)
+				.When(NotificationsIsAccessed)
+				.Then(ExceptionIsNotThrown)
 
 				.Execute();
 		}
@@ -521,11 +524,11 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<Notification>>)
 				.And(ExceptionIsNotThrown)
 
-				//.WithScenario("All notification types are mapped")
-				//.Given(AMember)
-				//.And(AllKnownNotificationTypesExist)
-				//.When(NotificationsIsAccessed)
-				//.Then(ExceptionIsNotThrown)
+				.WithScenario("All notification types are mapped")
+				.Given(AMember)
+				.And(AllKnownNotificationTypesExist)
+				.When(NotificationsIsAccessed)
+				.Then(ExceptionIsNotThrown)
 
 				.Execute();
 		}
@@ -1061,24 +1064,34 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			SetupProperty(() => _systemUnderTest.Sut.Username = value);
 		}
-		//private void AllKnownActionTypesExist()
-		//{
-		//    var provider = new ActionProvider();
-		//    var types = Enum.GetValues(typeof(ActionType)).Cast<ActionType>();
-		//    var actions = types.Select(t => provider.Parse(new Action { Data = new JsonObject(), Type = t })).ToList();
+		private void AllKnownActionTypesExist()
+		{
+			var types = Enum.GetValues(typeof(ActionType)).Cast<ActionType>();
+			var jsonActions = types.Select(t =>
+			                               	{
+			                               		var mock = new Mock<IJsonAction>();
+			                               		mock.SetupGet(a => a.Type).Returns(t.ToLowerString());
+			                               		return mock.Object;
+			                               	})
+								   .ToList();
 
-		//    _systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<Action>>()))
-		//        .Returns(actions);
-		//}
-		//private void AllKnownNotificationTypesExist()
-		//{
-		//    var provider = new NotificationProvider();
-		//    var types = Enum.GetValues(typeof (NotificationType)).Cast<NotificationType>();
-		//    var notifications = types.Select(t => provider.Parse(new Notification {Data = new JsonObject(), Type = t})).ToList();
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<List<IJsonAction>>(It.IsAny<IRestRequest>()))
+				.Returns(jsonActions);
+		}
+		private void AllKnownNotificationTypesExist()
+		{
+			var types = Enum.GetValues(typeof(NotificationType)).Cast<NotificationType>();
+			var jsonNotifications = types.Select(t =>
+			                               	{
+			                               		var mock = new Mock<IJsonNotification>();
+			                               		mock.SetupGet(a => a.Type).Returns(t.ToLowerString());
+			                               		return mock.Object;
+			                               	})
+										 .ToList();
 
-		//    _systemUnderTest.Dependencies.Api.Setup(a => a.Get(It.IsAny<IRestCollectionRequest<Notification>>()))
-		//        .Returns(notifications);
-		//}
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<List<IJsonNotification>>(It.IsAny<IRestRequest>()))
+				.Returns(jsonNotifications);
+		}
 
 		#endregion
 

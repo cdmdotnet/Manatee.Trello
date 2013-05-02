@@ -143,7 +143,6 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		[Ignore]
 		public void Comments()
 		{
 			var story = new Story("Comments");
@@ -1034,7 +1033,7 @@ namespace Manatee.Trello.Test.UnitTests
 		}
 		private void CommentsIsAccessed()
 		{
-			//Execute(() => _systemUnderTest.Sut.Comments);
+			Execute(() => _systemUnderTest.Sut.Comments);
 		}
 		private void DescriptionIsAccessed()
 		{

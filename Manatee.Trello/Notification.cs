@@ -63,7 +63,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Data associated with the notification.  Contents depend upon the notification's type.
 		/// </summary>
-		internal object Data
+		internal IJsonNotificationData Data
 		{
 			get { return (_jsonNotification == null) ? null : _jsonNotification.Data; }
 			set
@@ -79,7 +79,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
-		public override string Id
+		public sealed override string Id
 		{
 			get { return _jsonNotification != null ? _jsonNotification.Id : base.Id; }
 			internal set
@@ -167,6 +167,20 @@ namespace Manatee.Trello
 			           		{NotificationType.MakeAdminOfOrganization, "makeAdminOfOrganization"},
 			           		{NotificationType.CardDueSoon, "cardDueSoon"},
 			           	};
+		}
+		/// <summary>
+		/// Creates a new instance of the Notification class.
+		/// </summary>
+		public Notification() {}
+		/// <summary>
+		/// Creates a new instance of the Notification class.
+		/// </summary>
+		/// <param name="svc">An ITrelloService instance</param>
+		/// <param name="id">The notification's ID.</param>
+		protected Notification(ITrelloService svc, string id)
+		{
+			Id = id;
+			Svc = svc;
 		}
 
 		/// <summary>

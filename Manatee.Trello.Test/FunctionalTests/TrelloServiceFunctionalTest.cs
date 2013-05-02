@@ -153,24 +153,6 @@ namespace Manatee.Trello.Test.FunctionalTests
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
-				.WithScenario("Retrieve an entity, supplying a null key")
-				.Given(ATrelloService, (string) null, (string) null)
-				.And(AnId, TrelloIds.BoardId)
-				.When(RetrieveIsCalled<Board>)
-				.Then(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("Retrieve an entity, supplying an empty key")
-				.Given(ATrelloService, string.Empty, (string) null)
-				.And(AnId, TrelloIds.BoardId)
-				.When(RetrieveIsCalled<Board>)
-				.Then(ExceptionIsThrown<ArgumentException>)
-
-				.WithScenario("Retrieve an entity, supplying a whitespace key")
-				.Given(ATrelloService, "    ", (string) null)
-				.And(AnId, TrelloIds.BoardId)
-				.When(RetrieveIsCalled<Board>)
-				.Then(ExceptionIsThrown<ArgumentException>)
-
 				.WithScenario("Retrieve an entity, supplying an invalid key")
 				.Given(ATrelloService, TrelloIds.Invalid, (string) null)
 				.And(AnId, TrelloIds.BoardId)
@@ -191,18 +173,38 @@ namespace Manatee.Trello.Test.FunctionalTests
 				.Then(ExceptionIsNotThrown)
 				.And(ResponseIsNull)
 
-				//.WithScenario("Retrieve a sub-type by submitting its owner's ID")
-				//.Given(ATrelloService, TrelloIds.Key, (string) null)
-				//.And(AnId, TrelloIds.BoardId)
-				//.When(RetrieveIsCalled<BoardPreferences>)
-				//.Then(ExceptionIsNotThrown)
-				//.And(ResponseIsNull)
+				.Execute();
+		}
+		[TestMethod]
+		public void Constructor()
+		{
+			var story = new Story("Constructor");
+
+			var feature = story.InOrderTo("prevent invalid operations on Trello")
+				.AsA("developer")
+				.IWant("TrelloService constructor to disallow invalid Auth Keys.");
+
+			feature.WithScenario("Create a service, supplying a null key")
+				.Given(NoPreconditions)
+				.When(ServiceIsCreated, (string)null, (string)null)
+				.Then(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("Create a service, supplying an empty key")
+				.Given(NoPreconditions)
+				.When(ServiceIsCreated, string.Empty, (string)null)
+				.Then(ExceptionIsThrown<ArgumentException>)
+
+				.WithScenario("Create a service, supplying a whitespace key")
+				.Given(NoPreconditions)
+				.When(ServiceIsCreated, "    ", (string)null)
+				.Then(ExceptionIsThrown<ArgumentException>)
 
 				.Execute();
 		}
 
 		#region Given
 
+		private void NoPreconditions() {}
 		private void ATrelloService(string authKey, string authToken)
 		{
 			_serviceUnderTest = new ServiceUnderTest(authKey, authToken);
@@ -220,6 +222,10 @@ namespace Manatee.Trello.Test.FunctionalTests
 			where T : ExpiringObject, new()
 		{
 			Execute(() => _serviceUnderTest.Sut.Retrieve<T>(_request));
+		}
+		private void ServiceIsCreated(string authKey, string authToken)
+		{
+			Execute(() => _serviceUnderTest = new ServiceUnderTest(authKey, authToken));
 		}
 
 		#endregion

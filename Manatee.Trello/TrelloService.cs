@@ -108,6 +108,7 @@ namespace Manatee.Trello
 		/// <param name="authToken"></param>
 		public TrelloService(string authKey, string authToken = null)
 		{
+			Validate.NonEmptyString(authKey);
 			_authKey = authKey;
 			_authToken = authToken;
 		}
@@ -157,6 +158,14 @@ namespace Manatee.Trello
 			{
 				entity = new T {Id = id, Svc = this};
 				entity.VerifyNotExpired();
+				if (typeof(T).IsAssignableFrom(typeof(Action)))
+				{
+					entity = ActionProvider.Default.Parse(entity as Action) as T;
+				}
+				else if (typeof(T).IsAssignableFrom(typeof(Notification)))
+				{
+					entity = NotificationProvider.Default.Parse(entity as Notification) as T;
+				}
 				return entity;
 			}
 			catch

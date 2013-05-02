@@ -17,7 +17,7 @@
 	File Name:		Options.cs
 	Namespace:		Manatee.Trello
 	Class Name:		Options
-	Purpose:		Exposes a set of run-time options for the Manatee.Trello project.
+	Purpose:		Exposes a set of run-time options for Manatee.Trello.
 
 ***************************************************************************************/
 using System;
@@ -58,6 +58,10 @@ namespace Manatee.Trello
 		/// Enables/disables auto-refreshing for all auto-refreshing objects.
 		/// </summary>
 		public static bool AutoRefresh { get; set; }
+		/// <summary>
+		/// Specifies the serializer which is used the first time a request is made from
+		/// a given instance of the TrelloService class.
+		/// </summary>
 		public static ISerializer Serializer
 		{
 			get
@@ -73,6 +77,10 @@ namespace Manatee.Trello
 				_serializer = value;
 			}
 		}
+		/// <summary>
+		/// Specifies the deserializer which is used the first time a request is made from
+		/// a given instance of the TrelloService class.
+		/// </summary>
 		public static IDeserializer Deserializer
 		{
 			get
@@ -88,6 +96,10 @@ namespace Manatee.Trello
 				_deserializer = value;
 			}
 		}
+		/// <summary>
+		/// Specifies the REST client provider which is used the first time a request is made from
+		/// a given instance of the TrelloService class.
+		/// </summary>
 		public static IRestClientProvider RestClientProvider
 		{
 			get
@@ -111,11 +123,17 @@ namespace Manatee.Trello
 			AutoRefresh = true;
 		}
 
+		/// <summary>
+		/// Sets Manatee.Json as the serializer/deserializer (default).
+		/// </summary>
 		public static void UseManateeJson()
 		{
 			_serializer = ManateeSerializer;
 			_deserializer = ManateeDeserializer;
 		}
+		/// <summary>
+		/// Sets Newtonsoft's Json.Net as the serializer/deserializer.
+		/// </summary>
 		public static void UseNewtonsoftJson()
 		{
 			_serializer = NewtonsoftSerializer;

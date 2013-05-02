@@ -16,17 +16,13 @@ namespace Manatee.Trello.Test
 			//Options.UseNewtonsoftJson();
 			var service = new TrelloService(TrelloIds.Key, TrelloIds.Token);
 
-			var card = service.Retrieve<Card>(TrelloIds.CardId);
-			var actions = card.Actions.ToList();
-			var board = card.Board;
-			var list = board.Lists.First();
+			var member = service.Retrieve<Member>(TrelloIds.MemberId);
+			var notifications = member.Notifications;
 
-			foreach (var action in actions)
+			foreach (var notification in notifications)
 			{
-				Console.WriteLine(action);
+				Console.WriteLine(notification);
 			}
-			Console.WriteLine(board);
-			Console.WriteLine(list);
 		}
 	}
 }

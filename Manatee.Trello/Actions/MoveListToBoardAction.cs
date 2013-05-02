@@ -20,8 +20,6 @@
 	Purpose:		Indicates a list was moved to a board.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -47,7 +45,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -58,7 +56,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_boardSource == null) || (_boardSource.Id != _boardSourceId)) && (Svc != null) ? (_boardSource = Svc.Get(Svc.RequestProvider.Create<Board>(_boardSourceId))) : _boardSource;
+				return ((_boardSource == null) || (_boardSource.Id != _boardSourceId)) && (Svc != null) ? (_boardSource = Svc.Retrieve<Board>(_boardSourceId)) : _boardSource;
 			}
 		}
 		/// <summary>
@@ -70,7 +68,7 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				if (_listId == null) return null;
-				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Get(Svc.RequestProvider.Create<List>(_listId))) : _list;
+				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Retrieve<List>(_listId)) : _list;
 			}
 		}
 
@@ -81,13 +79,13 @@ namespace Manatee.Trello
 		public MoveListToBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_boardName = action.Data.Object.TryGetObject("board").TryGetString("name");
-			_boardSourceId = action.Data.Object.TryGetObject("boardSource").TryGetString("id");
-			_boardSourceName = action.Data.Object.TryGetObject("boardSource").TryGetString("name");
-			_listId = action.Data.Object.TryGetObject("list").TryGetString("id");
-			_listName = action.Data.Object.TryGetObject("list").TryGetString("name");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board", "id");
+			_boardName = action.Data.TryGetString("board","name");
+			_boardSourceId = action.Data.TryGetString("boardSource","id");
+			_boardSourceName = action.Data.TryGetString("boardSource","name");
+			_listId = action.Data.TryGetString("list","id");
+			_listName = action.Data.TryGetString("list","name");
 		}
 
 		/// <summary>

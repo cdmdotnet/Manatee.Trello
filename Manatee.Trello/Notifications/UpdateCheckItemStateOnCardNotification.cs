@@ -22,7 +22,6 @@
 
 ***************************************************************************************/
 using System.Linq;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Internal;
 
 namespace Manatee.Trello
@@ -50,7 +49,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -61,7 +60,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
 		/// <summary>
@@ -88,13 +87,13 @@ namespace Manatee.Trello
 		public UpdateCheckItemStateOnCardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			Refresh(notification);
-			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
-			_cardId = notification.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = notification.Data.Object.TryGetObject("card").TryGetString("name");
-			var apiState = notification.Data.Object.TryGetString("state");
+			VerifyNotExpired();
+			_boardId = notification.Data.TryGetString("board","id");
+			_cardId = notification.Data.TryGetString("card","id");
+			_cardName = notification.Data.TryGetString("card","name");
+			var apiState = notification.Data.TryGetString("state");
 			_state = _stateMap.Any(kvp => kvp.Value == apiState) ? _stateMap[apiState] : CheckItemStateType.Unknown;
-			_name = notification.Data.Object.TryGetString("name");
+			_name = notification.Data.TryGetString("name");
 		}
 
 		/// <summary>
