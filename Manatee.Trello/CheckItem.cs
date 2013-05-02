@@ -153,8 +153,8 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create<IJsonCheckItem>(endpoint.ToString());
-			Api.Delete(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Delete<IJsonCheckItem>(request);
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -208,8 +208,8 @@ namespace Manatee.Trello
 		protected override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create<IJsonCheckItem>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonCheckItem>(request));
 		}
 
 		/// <summary>
@@ -233,8 +233,8 @@ namespace Manatee.Trello
 			}
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			endpoint.Append(extension);
-			var request = Api.RequestProvider.Create<IJsonCheckItem>(endpoint.ToString());
-			Api.Put(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Put<IJsonCheckItem>(request);
 		}
 		private void UpdateState()
 		{

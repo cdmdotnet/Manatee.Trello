@@ -175,8 +175,8 @@ namespace Manatee.Trello
 		protected override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create<IJsonBadges>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonBadges>(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.

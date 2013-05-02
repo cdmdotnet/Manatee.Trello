@@ -1000,7 +1000,7 @@ namespace Manatee.Trello.Test.UnitTests
 			var list = new Mock<IJsonList>();
 			list.SetupGet(l => l.Id)
 				.Returns(TrelloIds.Invalid);
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get(It.IsAny<IRestRequest<List<IJsonList>>>()))
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<List<IJsonList>>(It.IsAny<IRestRequest>()))
 				.Returns(new List<IJsonList> {list.Object});
 		}
 

@@ -14,15 +14,15 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			public class MockRequestProvider : IRestRequestProvider
 			{
-				public IRestRequest<TRequest> Create<TRequest>(string endpoint)
+				public IRestRequest Create(string endpoint)
 				{
-					var mock = new Mock<IRestRequest<TRequest>>();
+					var mock = new Mock<IRestRequest>();
 					return mock.Object;
 				}
 			}
 			public class MockRestClient : IRestClient
 			{
-				public IRestResponse<TRequest> Execute<TRequest>(IRestRequest<TRequest> request)
+				public IRestResponse<TRequest> Execute<TRequest>(IRestRequest request)
 					where TRequest : class
 				{
 					var mock = new Mock<IRestResponse<TRequest>>();

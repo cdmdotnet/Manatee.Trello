@@ -35,26 +35,9 @@ namespace Manatee.Trello.Json.Newtonsoft
 	/// <summary>
 	/// Wrapper class for the Newtonsoft.Json.Serializer for use with RestSharp.
 	/// </summary>
-	public class NewtonsoftSerializer : ISerializer, IDeserializer, RestSharp.Serializers.ISerializer, RestSharp.Deserializers.IDeserializer
+	internal class NewtonsoftSerializer : ISerializer, IDeserializer
 	{
 		private readonly JsonSerializer _serializer;
-
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string RootElement { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string Namespace { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string DateFormat { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer
-		/// </summary>
-		public string ContentType { get; set; }
 
 		/// <summary>
 		/// Creates and initializes a new instance of the ManateeJsonSerializer class.
@@ -65,15 +48,6 @@ namespace Manatee.Trello.Json.Newtonsoft
 			SetupTypeConverters();
 		}
 
-		/// <summary>
-		/// Implements RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public T Deserialize<T>(RestSharp.IRestResponse response)
-		{
-			var stringReader = new StringReader(response.Content);
-			var textReader = new JsonTextReader(stringReader);
-			return _serializer.Deserialize<T>(textReader);
-		}
 		/// <summary>
 		/// Attempts to deserialize a RESTful response to the indicated type.
 		/// </summary>

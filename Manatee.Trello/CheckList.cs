@@ -198,12 +198,12 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonCheckItem>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
 			request.AddParameter("checked", isChecked);
 			if ((position != null) && position.IsValid)
 				request.AddParameter("pos", position);
-			var jsonCheckItem = Api.Post(request);
+			var jsonCheckItem = Api.Post<IJsonCheckItem>(request);
 			var checkItem = new CheckItem(jsonCheckItem, this);
 			_checkItems.MarkForUpdate();
 			return checkItem;
@@ -216,8 +216,8 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonCheckList>(endpoint.ToString());
-			Api.Delete(request);	
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Delete<IJsonCheckList>(request);	
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -271,8 +271,8 @@ namespace Manatee.Trello
 		protected override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonCheckList>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonCheckList>(request));
 		}
 
 		/// <summary>
@@ -301,12 +301,12 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonCheckList>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
-			Api.Put(request);
+			Api.Put<IJsonCheckList>(request);
 		}
 	}
 }

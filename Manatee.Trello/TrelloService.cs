@@ -171,8 +171,8 @@ namespace Manatee.Trello
 			var member = new Member();
 			var endpoint = EndpointGenerator.Default.Generate(member);
 			endpoint.Append("me");
-			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
-			var json = Api.Get(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var json = Api.Get<IJsonMember>(request);
 			if (json == null) return null;
 			member.ApplyJson(json);
 			return member;

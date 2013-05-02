@@ -16,127 +16,77 @@
  
 	File Name:		RestSharpClientProvider.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		RestSharpClientProvider<T>
+	Class Name:		RestSharpClientProvider
 	Purpose:		Implements IRestClientProvider to provide instances of
 					RestSharp.RestClient wrapped in an IRestClient implementation.
 
 ***************************************************************************************/
 using System;
-using Manatee.Trello.Json.Manatee;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Rest
 {
 	internal class RestSharpClientProvider : IRestClientProvider
 	{
-		private class RestClient : RestSharp.RestClient, IRestClient
-		{
-			private readonly RestSharp.Deserializers.IDeserializer _deserializer;
-
-			public RestClient(RestSharp.Deserializers.IDeserializer deserializer, string apiBaseUrl)
-				: base(apiBaseUrl)
-			{
-				_deserializer = deserializer;
-				AddHandler("application/json", _deserializer);
-				AddHandler("text/json", _deserializer);
-			}
-
-			public IRestResponse<T> Execute<T>(IRestRequest<T> request)
-				where T : class
-			{
-				var restSharpRequest = (RestSharpRequest<T>) request;
-				var restSharpResponse = base.Execute(restSharpRequest);
-				var data = _deserializer.Deserialize<T>(restSharpResponse);
-				return new RestSharpResponse<T>(restSharpResponse, data);
-			}
-		}
-		private class RestSharpRequestProvider : IRestRequestProvider
-		{
-			private readonly RestSharp.Serializers.ISerializer _serializer;
-
-			public RestSharpRequestProvider(RestSharp.Serializers.ISerializer serializer)
-			{
-				if (serializer == null)
-					throw new ArgumentNullException("serializer");
-				_serializer = serializer;
-			}
-
-			public IRestRequest<T> Create<T>(string endpoint)
-			{
-				return new RestSharpRequest<T>(_serializer, endpoint);
-			}
-		}
-
 		private RestSharpRequestProvider _requestProvider;
 
-		private RestSharp.Serializers.ISerializer _serializer;
-		private RestSharp.Deserializers.IDeserializer _deserializer;
+		private RestSharpSerializer _serializer;
+		private RestSharpDeserializer _deserializer;
 
-		/// <summary>
-		/// Creates requests for the client.
-		/// </summary>
 		public IRestRequestProvider RequestProvider
 		{
-			get { return _requestProvider ?? (_requestProvider = new RestSharpRequestProvider(Serializer)); }
+			get { return _requestProvider ?? (_requestProvider = new RestSharpRequestProvider(VerifySerializer())); }
 		}
 
-		/// <summary>
-		/// Gets and sets the serializer instance to be used by the client.
-		/// </summary>
-		/// <remarks>
-		/// This property can be set a maximum of one time.  If a client is generated
-		/// before both Serializer and Deserializer are set, the defaults will be used.
-		/// The defaults are provided by ManateeJsonSerializer.
-		/// </remarks>
-		public RestSharp.Serializers.ISerializer Serializer
+		public ISerializer Serializer
 		{
-			get { return _serializer ?? GetDefaultSerializer(); }
+			get
+			{
+				return VerifySerializer().Inner;
+			}
 			set
 			{
 				if (value == null)
 					throw new ArgumentNullException("value");
-				if (_serializer != null)
-					throw new InvalidOperationException("Serializer already set.");
-				_serializer = value;
+				_serializer = new RestSharpSerializer(value);
 			}
 		}
-		/// <summary>
-		/// Gets and sets the deserializer instance to be used by the client.
-		/// </summary>
-		/// <remarks>
-		/// This property can be set a maximum of one time.  If a client is generated
-		/// before both Serializer and Deserializer are set, the defaults will be used.
-		/// The defaults are provided by ManateeJsonSerializer.
-		/// </remarks>
-		public RestSharp.Deserializers.IDeserializer Deserializer
+		public IDeserializer Deserializer
 		{
-			get { return _deserializer ?? GetDefaultSerializer(); }
+			get
+			{
+				return VerifyDeserializer().Inner;
+			}
 			set
 			{
 				if (value == null)
 					throw new ArgumentNullException("value");
-				if (_deserializer != null)
-					throw new InvalidOperationException("Deserializer already set.");
-				_deserializer = value;
+				_deserializer = new RestSharpDeserializer(value);
 			}
 		}
 
-		/// <summary>
-		/// Creates an instance of IRestClient.
-		/// </summary>
-		/// <param name="apiBaseUrl">The base URL to be used by the client</param>
-		/// <returns>An instance of IRestClient.</returns>
 		public IRestClient CreateRestClient(string apiBaseUrl)
 		{
-			var client = new RestClient(Deserializer, apiBaseUrl);
+			var client = new RestSharpClient(VerifyDeserializer(), apiBaseUrl);
 			return client;
 		}
 
-		private ManateeSerializer GetDefaultSerializer()
+		private void GetDefaultSerializer()
 		{
-			var serializer = new ManateeSerializer();
-			_serializer = serializer;
-			_deserializer = serializer;
-			return serializer;
+			_serializer = new RestSharpSerializer(Options.Serializer);
+			_deserializer = new RestSharpDeserializer(Options.Deserializer);
+		}
+		private RestSharpSerializer VerifySerializer()
+		{
+			if (_serializer == null)
+				GetDefaultSerializer();
+			return _serializer;
+		}
+		private RestSharpDeserializer VerifyDeserializer()
+		{
+			if (_serializer == null)
+				GetDefaultSerializer();
+			return _deserializer;
 		}
 	}
 }

@@ -14,30 +14,33 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		RestSharpResponse.cs
+	File Name:		RestSharpClient.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		RestSharpResponse<T>
-	Purpose:		Wraps RestSharp.IRestResponse<T> in a class which implements
-					IRestResponse<T>.
+	Class Name:		RestSharpClient<T>
+	Purpose:		A RestSharp client which implemements IRestClient.
 
 ***************************************************************************************/
-using System;
-using System.Net;
-
 namespace Manatee.Trello.Rest
 {
-	internal class RestSharpResponse<T> : IRestResponse<T>
+	internal class RestSharpClient : RestSharp.RestClient, IRestClient
 	{
-		private readonly RestSharp.IRestResponse _response;
+		private readonly RestSharp.Deserializers.IDeserializer _deserializer;
 
-		public string Content { get { return _response.Content; } }
-		public T Data { get; private set; }
-		public HttpStatusCode StatusCode { get { return _response.StatusCode; } }
-
-		public RestSharpResponse(RestSharp.IRestResponse response, T data)
+		public RestSharpClient(RestSharp.Deserializers.IDeserializer deserializer, string apiBaseUrl)
+			: base(apiBaseUrl)
 		{
-			_response = response;
-			Data = data;
+			_deserializer = deserializer;
+			AddHandler("application/json", _deserializer);
+			AddHandler("text/json", _deserializer);
+		}
+
+		public IRestResponse<T> Execute<T>(IRestRequest request)
+			where T : class
+		{
+			var restSharpRequest = (RestSharpRequest)request;
+			var restSharpResponse = base.Execute(restSharpRequest);
+			var data = _deserializer.Deserialize<T>(restSharpResponse);
+			return new RestSharpResponse<T>(restSharpResponse, data);
 		}
 	}
 }

@@ -215,9 +215,9 @@ namespace Manatee.Trello
 			Validate.NonEmptyString(name);
 			var board = new Board();
 			var endpoint = EndpointGenerator.Default.Generate(board);
-			var request = Api.RequestProvider.Create<IJsonBoard>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
-			board.ApplyJson(Api.Post(request));
+			board.ApplyJson(Api.Post<IJsonBoard>(request));
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -232,9 +232,9 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = Api.RequestProvider.Create<IJsonOrganization>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("type", type.ToLowerString());
-			Api.Put(request);
+			Api.Put<IJsonOrganization>(request);
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
@@ -246,8 +246,8 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonOrganization>(endpoint.ToString());
-			Api.Delete(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Delete<IJsonOrganization>(request);
 		}
 		/// <summary>
 		/// Extends an invitation to the organization to another member.
@@ -271,8 +271,8 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = Api.RequestProvider.Create<IJsonOrganization>(endpoint.ToString());
-			Api.Delete(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Delete<IJsonOrganization>(request);
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the organization.
@@ -337,8 +337,8 @@ namespace Manatee.Trello
 		protected override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonOrganization>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonOrganization>(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -368,12 +368,12 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonOrganization>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
-			Api.Put(request);
+			Api.Put<IJsonOrganization>(request);
 			_actions.MarkForUpdate();
 		}
 	}

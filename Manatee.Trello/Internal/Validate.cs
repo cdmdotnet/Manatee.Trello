@@ -84,14 +84,14 @@ namespace Manatee.Trello.Internal
 		public static string UserName(ITrelloRest svc, string value)
 		{
 			var retVal = MinStringLength(value, 3, "Username");
-			if ((svc != null) && (svc.Get(svc.RequestProvider.Create<Member>(retVal)) != null))
+			if ((svc != null) && (svc.Get<Member>(svc.RequestProvider.Create(retVal)) != null))
 				throw new UsernameInUseException(value);
 			return retVal;
 		}
 		public static string OrgName(ITrelloRest svc, string value)
 		{
 			var retVal = MinStringLength(value, 3, "Name");
-			if ((svc != null) && (svc.Get(svc.RequestProvider.Create<Organization>(retVal)) != null))
+			if ((svc != null) && (svc.Get<Organization>(svc.RequestProvider.Create(retVal)) != null))
 				throw new OrgNameInUseException(value);
 			return retVal;
 		}

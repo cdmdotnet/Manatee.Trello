@@ -33,7 +33,7 @@ namespace Manatee.Trello.Rest
 		/// <typeparam name="T">The expected type of object to receive in response.</typeparam>
 		/// <param name="request">The request.</param>
 		/// <returns>The response.</returns>
-		IRestResponse<T> Execute<T>(IRestRequest<T> request)
+		IRestResponse<T> Execute<T>(IRestRequest request)
 			where T : class;
 	}
 }
