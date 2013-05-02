@@ -21,8 +21,6 @@
 					removed from a board.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -42,7 +40,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 
@@ -53,9 +51,9 @@ namespace Manatee.Trello
 		public RemovedFromBoardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			Refresh(notification);
-			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
-			_boardName = notification.Data.Object.TryGetObject("board").TryGetString("name");
+			VerifyNotExpired();
+			_boardId = notification.Data.TryGetString("board","id");
+			_boardName = notification.Data.TryGetString("board","name");
 		}
 
 		/// <summary>

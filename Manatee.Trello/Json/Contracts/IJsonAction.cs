@@ -40,7 +40,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the data associated with the action.  Contents depend upon the action's type.
 		/// </summary>
-		object Data { get; set; }
+		IJsonActionData Data { get; set; }
 		/// <summary>
 		/// Gets or sets the action's type.
 		/// </summary>

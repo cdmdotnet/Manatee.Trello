@@ -36,7 +36,7 @@ namespace Manatee.Trello.Json.Newtonsoft.Entities
 		[JsonProperty("idMemberCreator")]
 		public string IdMemberCreator { get; set; }
 		[JsonProperty("data")]
-		public object Data { get; set; }
+		public IJsonActionData Data { get; set; }
 		[JsonProperty("type")]
 		public string Type { get; set; }
 		[JsonProperty("date")]

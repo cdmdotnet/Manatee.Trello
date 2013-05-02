@@ -20,8 +20,6 @@
 	Purpose:		Indicates a card was added to a board.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -46,7 +44,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -57,7 +55,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Get(Svc.RequestProvider.Create<List>(_listId))) : _list;
+				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Retrieve<List>(_listId)) : _list;
 			}
 		}
 		/// <summary>
@@ -68,7 +66,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
 
@@ -79,12 +77,12 @@ namespace Manatee.Trello
 		public CreateCardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_listId = action.Data.Object.TryGetObject("list").TryGetString("id");
-			_listName = action.Data.Object.TryGetObject("list").TryGetString("name");
-			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board", "id");
+			_listId = action.Data.TryGetString("list","id");
+			_listName = action.Data.TryGetString("list","name");
+			_cardId = action.Data.TryGetString("card","id");
+			_cardName = action.Data.TryGetString("card","name");
 		}
 
 		/// <summary>

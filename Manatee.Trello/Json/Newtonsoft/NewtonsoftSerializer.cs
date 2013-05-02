@@ -73,6 +73,7 @@ namespace Manatee.Trello.Json.Newtonsoft
 		private void SetupTypeConverters()
 		{
 			_serializer.Converters.Add(new ActionConverter());
+			_serializer.Converters.Add(new ActionDataConverter());
 			_serializer.Converters.Add(new AttachmentConverter());
 			_serializer.Converters.Add(new AttachmentPreviewConverter());
 			_serializer.Converters.Add(new BadgesConverter());
@@ -90,6 +91,7 @@ namespace Manatee.Trello.Json.Newtonsoft
 			_serializer.Converters.Add(new MemberConverter());
 			_serializer.Converters.Add(new MemberPreferencesConverter());
 			_serializer.Converters.Add(new NotificationConverter());
+			_serializer.Converters.Add(new NotificationDataConverter());
 			_serializer.Converters.Add(new OrganizationConverter());
 			_serializer.Converters.Add(new OrganizationPreferencesConverter());
 		}

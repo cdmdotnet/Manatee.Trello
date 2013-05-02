@@ -14,34 +14,27 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		RestSharpDeserializer.cs
-	Namespace:		Manatee.Trello.Rest
-	Class Name:		RestSharpDeserializer
-	Purpose:		Wraps an IDeserializer implementation in RestSharp's IDeserializer.
+	File Name:		NotificationDataConverter.cs
+	Namespace:		Manatee.Trello.Json.Newtonsoft.Converters
+	Class Name:		NotificationDataConverter
+	Purpose:		Provides a concrete implementation of IJsonNotificationData for
+					Newtonsoft's Json.Net
 
 ***************************************************************************************/
-using RestSharp.Deserializers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Manatee.Trello.Json.Newtonsoft.Entities;
+using Newtonsoft.Json.Linq;
 
-namespace Manatee.Trello.Rest
+namespace Manatee.Trello.Json.Newtonsoft.Converters
 {
-	internal class RestSharpDeserializer : IDeserializer
+	class NotificationDataConverter : JsonCreationConverter<IJsonNotificationData>
 	{
-		private readonly Json.IDeserializer _inner;
-
-		public Json.IDeserializer Inner { get { return _inner; } }
-		public string RootElement { get; set; }
-		public string Namespace { get; set; }
-		public string DateFormat { get; set; }
-
-		public RestSharpDeserializer(Json.IDeserializer inner)
+		protected override IJsonNotificationData Create(Type objectType, JObject jObject)
 		{
-			_inner = inner;
-		}
-
-		public T Deserialize<T>(RestSharp.IRestResponse response)
-		{
-			var r = new RestSharpResponse<T>(response, default(T));
-			return _inner.Deserialize(r);
+			return new NewtonsoftNotificationData {RawData = jObject};
 		}
 	}
 }

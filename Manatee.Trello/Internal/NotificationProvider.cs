@@ -30,6 +30,9 @@ namespace Manatee.Trello.Internal
 	internal class NotificationProvider : IEntityProvider<Notification>
 	{
 		private static readonly Dictionary<NotificationType, Type> _typeMap;
+		private static readonly NotificationProvider _default;
+
+		public static NotificationProvider Default { get { return _default; } }
 
 		static NotificationProvider()
 		{
@@ -60,6 +63,7 @@ namespace Manatee.Trello.Internal
 			           		{NotificationType.MakeAdminOfOrganization, typeof (MakeAdminOfOrganizationNotification)},
 			           		{NotificationType.CardDueSoon, typeof (CardDueSoonNotification)},
 			           	};
+			_default = new NotificationProvider();
 		}
 
 		public Notification Parse(Notification obj)

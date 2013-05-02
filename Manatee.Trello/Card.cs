@@ -135,10 +135,10 @@ namespace Manatee.Trello
 		/// Enumerates the card's checklists.
 		/// </summary>
 		public IEnumerable<CheckList> CheckLists { get { return _checkLists; } }
-		// <summary>
-		// Enumerates the card's comments.
-		// </summary>
-		//public IEnumerable<CommentCardAction> Comments { get { return _actions.OfType<CommentCardAction>(); } }
+		/// <summary>
+		/// Enumerates the card's comments.
+		/// </summary>
+		public IEnumerable<CommentCardAction> Comments { get { return _actions.OfType<CommentCardAction>(); } }
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>

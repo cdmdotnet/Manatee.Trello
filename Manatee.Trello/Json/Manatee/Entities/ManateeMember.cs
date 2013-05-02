@@ -67,8 +67,12 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			Confirmed = obj.TryGetBoolean("confirmed");
 			Email = obj.TryGetString("email");
 			GravatarHash = obj.TryGetString("gravatarHash");
-			LoginTypes = obj.TryGetArray("loginTypes").Select(j => j.String).ToList();
-			Trophies = obj.TryGetArray("trophies").Select(j => j.String).ToList();
+			var loginTypes = obj.TryGetArray("loginTypes");
+			if (loginTypes != null)
+				LoginTypes = loginTypes.Select(j => j.String).ToList();
+			var trophies = obj.TryGetArray("trophies");
+			if (loginTypes != null)
+				Trophies = trophies.Select(j => j.String).ToList();
 			UploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
 		}
 		public JsonValue ToJson()

@@ -20,8 +20,6 @@
 	Purpose:		Indicates a check list was added to a card.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -46,7 +44,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -57,7 +55,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_checkList == null) || (_checkList.Id != _checkListId)) && (Svc != null) ? (_checkList = Svc.Get(Svc.RequestProvider.Create<CheckList>(_checkListId))) : _checkList;
+				return ((_checkList == null) || (_checkList.Id != _checkListId)) && (Svc != null) ? (_checkList = Svc.Retrieve<CheckList>(_checkListId)) : _checkList;
 			}
 		}
 		/// <summary>
@@ -68,7 +66,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
 
@@ -78,12 +76,12 @@ namespace Manatee.Trello
 		/// <param name="action"></param>
 		public AddCheckListToCardAction(Action action)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_checkListId = action.Data.Object.TryGetObject("checklist").TryGetString("id");
-			_checkListName = action.Data.Object.TryGetObject("checklist").TryGetString("name");
-			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = action.Data.Object.TryGetObject("card").TryGetString("name");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board","id");
+			_checkListId = action.Data.TryGetString("checklist","id");
+			_checkListName = action.Data.TryGetString("checklist","name");
+			_cardId = action.Data.TryGetString("card","id");
+			_cardName = action.Data.TryGetString("card","name");
 		}
 
 		/// <summary>

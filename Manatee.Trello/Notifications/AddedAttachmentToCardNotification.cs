@@ -21,8 +21,6 @@
 					attachment to a card.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -46,7 +44,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -57,7 +55,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
 		/// <summary>
@@ -76,12 +74,12 @@ namespace Manatee.Trello
 		public AddedAttachmentToCardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
-			_cardId = notification.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = notification.Data.Object.TryGetObject("card").TryGetString("name");
-			_name = notification.Data.Object.TryGetString("name");
-			_url = notification.Data.Object.TryGetString("url");
-			Refresh(notification);
+			VerifyNotExpired();
+			_boardId = notification.Data.TryGetString("board","id");
+			_cardId = notification.Data.TryGetString("card","id");
+			_cardName = notification.Data.TryGetString("card","name");
+			_name = notification.Data.TryGetString("name");
+			_url = notification.Data.TryGetString("url");
 		}
 
 		/// <summary>

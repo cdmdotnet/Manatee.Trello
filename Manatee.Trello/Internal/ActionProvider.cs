@@ -29,7 +29,10 @@ namespace Manatee.Trello.Internal
 {
 	internal class ActionProvider : IEntityProvider<Action>
 	{
+		private static readonly ActionProvider _default;
 		private static readonly Dictionary<ActionType, Type> _typeMap;
+
+		public static ActionProvider Default { get { return _default; } }
 
 		static ActionProvider()
 		{
@@ -80,6 +83,7 @@ namespace Manatee.Trello.Internal
 			           		{ActionType.UpdateCardDesc, typeof (UpdateCardDescAction)},
 			           		{ActionType.UpdateCardName, typeof (UpdateCardNameAction)},
 			           	};
+			_default = new ActionProvider();
 		}
 
 		public Action Parse(Action obj)

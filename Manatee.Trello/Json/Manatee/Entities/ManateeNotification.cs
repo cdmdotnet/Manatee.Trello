@@ -37,7 +37,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 		public bool? Unread { get; set; }
 		public string Type { get; set; }
 		public DateTime? Date { get; set; }
-		public object Data { get; set; }
+		public IJsonNotificationData Data { get; set; }
 		public string IdMemberCreator { get; set; }
 
 		public void FromJson(JsonValue json)
@@ -51,7 +51,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			DateTime date;
 			if (DateTime.TryParse(dateString, out date))
 				Date = date;
-			Data = obj.TryGetObject("data");
+			Data = new ManateeNotificationData {RawData = obj.TryGetObject("data")};
 			IdMemberCreator = obj.TryGetString("idMemberCreator");
 		}
 		public JsonValue ToJson()
@@ -62,7 +62,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			       		{"unread", Unread},
 			       		{"type", Type},
 			       		{"date", Date.HasValue ? Date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"data", Data as JsonObject},
+			       		{"data", Data.RawData as JsonObject},
 			       		{"idMemberCreator", IdMemberCreator},
 			       	};
 		}

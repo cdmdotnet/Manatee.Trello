@@ -20,8 +20,6 @@
 	Purpose:		Indicates a board was added to an organization.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -44,7 +42,9 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null)
+				       	? (_board = Svc.Retrieve<Board>(_boardId))
+				       	: _board;
 			}
 		}
 		/// <summary>
@@ -55,7 +55,9 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_organization == null) || (_organization.Id != _organizationId)) && (Svc != null) ? (_organization = Svc.Get(Svc.RequestProvider.Create<Organization>(_organizationId))) : _organization;
+				return ((_organization == null) || (_organization.Id != _organizationId)) && (Svc != null)
+				       	? (_organization = Svc.Retrieve<Organization>(_organizationId))
+				       	: _organization;
 			}
 		}
 
@@ -66,11 +68,11 @@ namespace Manatee.Trello
 		public AddToOrganizationBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_boardName = action.Data.Object.TryGetObject("board").TryGetString("name");
-			_organizationId = action.Data.Object.TryGetObject("organization").TryGetString("id");
-			_organizationName = action.Data.Object.TryGetObject("organization").TryGetString("name");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board", "id");
+			_boardName = action.Data.TryGetString("board","name");
+			_organizationId = action.Data.TryGetString("organization","id");
+			_organizationName = action.Data.TryGetString("organization","name");
 		}
 
 		/// <summary>

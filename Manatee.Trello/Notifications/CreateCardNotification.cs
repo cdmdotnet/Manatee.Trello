@@ -20,8 +20,6 @@
 	Purpose:		Provides notification that another member created a card.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -47,7 +45,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -58,7 +56,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Get(Svc.RequestProvider.Create<List>(_listId))) : _list;
+				return ((_list == null) || (_list.Id != _listId)) && (Svc != null) ? (_list = Svc.Retrieve<List>(_listId)) : _list;
 			}
 		}
 		/// <summary>
@@ -69,7 +67,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
 
@@ -80,13 +78,13 @@ namespace Manatee.Trello
 		public CreateCardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
-			Refresh(notification);
-			_boardId = notification.Data.Object.TryGetObject("board").TryGetString("id");
-			_boardName = notification.Data.Object.TryGetObject("board").TryGetString("name");
-			_listId = notification.Data.Object.TryGetObject("list").TryGetString("id");
-			_listName = notification.Data.Object.TryGetObject("list").TryGetString("name");
-			_cardId = notification.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = notification.Data.Object.TryGetObject("card").TryGetString("name");
+			VerifyNotExpired();
+			_boardId = notification.Data.TryGetString("board","id");
+			_boardName = notification.Data.TryGetString("board","name");
+			_listId = notification.Data.TryGetString("list","id");
+			_listName = notification.Data.TryGetString("list","name");
+			_cardId = notification.Data.TryGetString("card","id");
+			_cardName = notification.Data.TryGetString("card","name");
 		}
 
 		/// <summary>

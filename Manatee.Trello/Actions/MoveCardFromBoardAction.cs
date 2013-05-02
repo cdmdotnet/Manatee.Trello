@@ -20,8 +20,6 @@
 	Purpose:		Indicates a card was removed from a board.
 
 ***************************************************************************************/
-using Manatee.Json.Extensions;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -47,7 +45,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Get(Svc.RequestProvider.Create<Board>(_boardId))) : _board;
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
 		}
 		/// <summary>
@@ -58,7 +56,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return ((_boardTarget == null) || (_boardTarget.Id != _boardTargetId)) && (Svc != null) ? (_boardTarget = Svc.Get(Svc.RequestProvider.Create<Board>(_boardTargetId))) : _boardTarget;
+				return ((_boardTarget == null) || (_boardTarget.Id != _boardTargetId)) && (Svc != null) ? (_boardTarget = Svc.Retrieve<Board>(_boardTargetId)) : _boardTarget;
 			}
 		}
 		/// <summary>
@@ -70,7 +68,7 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				if (_cardId == null) return null;
-				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Get(Svc.RequestProvider.Create<Card>(_cardId))) : _card;
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
 		}
 
@@ -81,13 +79,13 @@ namespace Manatee.Trello
 		public MoveCardFromBoardAction(Action action)
 			: base(action.Svc, action.Id)
 		{
-			Refresh(action);
-			_boardId = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_boardName = action.Data.Object.TryGetObject("board").TryGetString("id");
-			_boardTargetId = action.Data.Object.TryGetObject("boardTarget").TryGetString("id");
-			_boardTargetName = action.Data.Object.TryGetObject("boardTarget").TryGetString("id");
-			_cardId = action.Data.Object.TryGetObject("card").TryGetString("id");
-			_cardName = action.Data.Object.TryGetObject("card").TryGetString("id");
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board","id");
+			_boardName = action.Data.TryGetString("board","name");
+			_boardTargetId = action.Data.TryGetString("boardTarget","id");
+			_boardTargetName = action.Data.TryGetString("boardTarget","name");
+			_cardId = action.Data.TryGetString("card","id");
+			_cardName = action.Data.TryGetString("card","name");
 		}
 
 		/// <summary>
