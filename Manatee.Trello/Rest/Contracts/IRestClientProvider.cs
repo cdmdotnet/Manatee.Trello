@@ -20,6 +20,8 @@
 	Purpose:		Defines methods required to create an instance of IRestClient.
 
 ***************************************************************************************/
+using Manatee.Trello.Json;
+
 namespace Manatee.Trello.Rest
 {
 	/// <summary>
@@ -31,6 +33,14 @@ namespace Manatee.Trello.Rest
 		/// Creates requests for the client.
 		/// </summary>
 		IRestRequestProvider RequestProvider { get; }
+		/// <summary>
+		/// Gets and sets the JSON serializer for the client to use.
+		/// </summary>
+		ISerializer Serializer { get; set; }
+		/// <summary>
+		/// Gets and sets the JSON deserializer for the client to use.
+		/// </summary>
+		IDeserializer Deserializer { get; set; }
 
 		/// <summary>
 		/// Creates an instance of IRestClient.

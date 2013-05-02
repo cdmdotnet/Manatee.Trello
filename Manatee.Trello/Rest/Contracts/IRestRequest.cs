@@ -25,8 +25,7 @@ namespace Manatee.Trello.Rest
 	/// <summary>
 	/// Defines properties and methods required to make RESTful requests.
 	/// </summary>
-	/// <typeparam name="T">The type of object expected in the response.</typeparam>
-	public interface IRestRequest<T>
+	public interface IRestRequest
 	{
 		/// <summary>
 		/// Gets and sets the method to be used in the call.

@@ -15,15 +15,15 @@
 	   limitations under the License.
  
 	File Name:		TrelloRest.cs
-	Namespace:		Manatee.Trello.Rest
+	Namespace:		Manatee.Trello.Internal
 	Class Name:		TrelloRest
 	Purpose:		Provides a Trello-specific wrapper for RestSharp.
 
 ***************************************************************************************/
 using System;
-using Manatee.Trello.Internal;
+using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Rest
+namespace Manatee.Trello.Internal
 {
 	internal class TrelloRest : ITrelloRest
 	{
@@ -35,7 +35,7 @@ namespace Manatee.Trello.Rest
 		
 		public IRestClientProvider RestClientProvider
 		{
-			get { return _restProvider ?? (_restProvider = new RestSharpClientProvider()); }
+			get { return _restProvider ?? (_restProvider = Options.RestClientProvider); }
 			set
 			{
 				if (value == null)
@@ -47,7 +47,10 @@ namespace Manatee.Trello.Rest
 		}
 		public IRestRequestProvider RequestProvider
 		{
-			get { return RestClientProvider.RequestProvider; }
+			get
+			{
+				return RestClientProvider.RequestProvider;
+			}
 		}
 		public string AuthKey { get { return _authKey; } }
 		public string AuthToken { get { return _authToken; } set { _authToken = value; } }
@@ -62,40 +65,40 @@ namespace Manatee.Trello.Rest
 			_authToken = authToken;
 		}
 
-		public T Get<T>(IRestRequest<T> request)
+		public T Get<T>(IRestRequest request)
 			where T : class
 		{
-			return Execute(request, RestMethod.Get);
+			return Execute<T>(request, RestMethod.Get);
 		}
-		public T Put<T>(IRestRequest<T> request)
+		public T Put<T>(IRestRequest request)
 			where T : class
 		{
-			return Execute(request, RestMethod.Put);
+			return Execute<T>(request, RestMethod.Put);
 		}
-		public T Post<T>(IRestRequest<T> request)
+		public T Post<T>(IRestRequest request)
 			where T : class
 		{
-			return Execute(request, RestMethod.Post);
+			return Execute<T>(request, RestMethod.Post);
 		}
-		public T Delete<T>(IRestRequest<T> request)
+		public T Delete<T>(IRestRequest request)
 			where T : class
 		{
-			return Execute(request, RestMethod.Delete);
+			return Execute<T>(request, RestMethod.Delete);
 		}
 
-		private void PrepRequest<T>(IRestRequest<T> request, RestMethod method)
+		private void PrepRequest(IRestRequest request, RestMethod method)
 		{
 			request.Method = method;
 			request.AddParameter("key", _authKey);
 			if (_authToken != null)
 				request.AddParameter("token", _authToken);
 		}
-		private T Execute<T>(IRestRequest<T> request, RestMethod method)
+		private T Execute<T>(IRestRequest request, RestMethod method)
 			where T : class
 		{
 			var client = GenerateRestClient();
 			PrepRequest(request, method);
-			var response = client.Execute(request);
+			var response = client.Execute<T>(request);
 			return response.Data;
 		}
 		private IRestClient GenerateRestClient()

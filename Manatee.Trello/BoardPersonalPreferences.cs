@@ -166,8 +166,8 @@ namespace Manatee.Trello
 		protected override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create<IJsonBoardPersonalPreferences>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonBoardPersonalPreferences>(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -183,8 +183,8 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create<IJsonBoardPersonalPreferences>(endpoint.ToString());
-			Api.Post(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Post<IJsonBoardPersonalPreferences>(request);
 		}
 	}
 }

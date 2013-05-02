@@ -21,6 +21,10 @@
 
 ***************************************************************************************/
 using System;
+using Manatee.Trello.Json;
+using Manatee.Trello.Json.Manatee;
+using Manatee.Trello.Json.Newtonsoft;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -33,6 +37,18 @@ namespace Manatee.Trello
 		/// The default persistence time for object data.  Value is one minute.
 		/// </summary>
 		public static readonly TimeSpan DefaultItemDuration;
+		private static ISerializer _serializer;
+		private static IDeserializer _deserializer;
+		private static ManateeSerializer _manateeSerializer;
+		private static NewtonsoftSerializer _newtonsoftSerializer;
+		private static IRestClientProvider _restClientProvider;
+		private static RestSharpClientProvider _restSharpProvider;
+
+		private static ISerializer ManateeSerializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
+		private static IDeserializer ManateeDeserializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
+		private static ISerializer NewtonsoftSerializer { get { return _newtonsoftSerializer ?? (_newtonsoftSerializer = new NewtonsoftSerializer()); } }
+		private static IDeserializer NewtonsoftDeserializer { get { return _newtonsoftSerializer ?? (_newtonsoftSerializer = new NewtonsoftSerializer()); } }
+		private static IRestClientProvider RestSharpClientProvider { get { return _restSharpProvider ?? (_restSharpProvider = new RestSharpClientProvider()); } }
 
 		/// <summary>
 		/// Gets and sets the global duration setting for all auto-refreshing objects.
@@ -42,12 +58,77 @@ namespace Manatee.Trello
 		/// Enables/disables auto-refreshing for all auto-refreshing objects.
 		/// </summary>
 		public static bool AutoRefresh { get; set; }
+		public static ISerializer Serializer
+		{
+			get
+			{
+				if (_serializer == null)
+					CreateDefaultSerializer();
+				return _serializer;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+				_serializer = value;
+			}
+		}
+		public static IDeserializer Deserializer
+		{
+			get
+			{
+				if (_deserializer == null)
+					CreateDefaultSerializer();
+				return _deserializer;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+				_deserializer = value;
+			}
+		}
+		public static IRestClientProvider RestClientProvider
+		{
+			get
+			{
+				if (_restClientProvider == null)
+					CreateDefaultRestClientProvider();
+				return _restClientProvider;
+			}
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+				_restClientProvider = value;
+			}
+		}
 
 		static Options()
 		{
 			DefaultItemDuration = TimeSpan.FromSeconds(60);
 			ItemDuration = DefaultItemDuration;
 			AutoRefresh = true;
+		}
+
+		public static void UseManateeJson()
+		{
+			_serializer = ManateeSerializer;
+			_deserializer = ManateeDeserializer;
+		}
+		public static void UseNewtonsoftJson()
+		{
+			_serializer = NewtonsoftSerializer;
+			_deserializer = NewtonsoftDeserializer;
+		}
+
+		private static void CreateDefaultSerializer()
+		{
+			UseManateeJson();
+		}
+		private static void CreateDefaultRestClientProvider()
+		{
+			_restClientProvider = new RestSharpClientProvider();
 		}
 	}
 }

@@ -64,7 +64,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get(It.IsAny<IRestRequest<TRequest>>()))
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<TRequest>(It.IsAny<IRestRequest>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -73,7 +73,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Put(It.IsAny<IRestRequest<TRequest>>()))
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Put<TRequest>(It.IsAny<IRestRequest>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -82,7 +82,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Post(It.IsAny<IRestRequest<TRequest>>()))
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Post<TRequest>(It.IsAny<IRestRequest>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -91,7 +91,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Delete(It.IsAny<IRestRequest<TRequest>>()))
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Delete<TRequest>(It.IsAny<IRestRequest>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -144,25 +144,25 @@ namespace Manatee.Trello.Test.UnitTests
 		protected void MockApiGetIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Rest.Verify(a => a.Get(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Rest.Verify(a => a.Get<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Put<{0}> is called {1} time(s)")]
 		protected void MockApiPutIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Rest.Verify(a => a.Put(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Rest.Verify(a => a.Put<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Post<{0}> is called {1} time(s)")]
 		protected void MockApiPostIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Rest.Verify(a => a.Post(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Rest.Verify(a => a.Post<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Delete<{0}> is called {1} time(s)")]
 		protected void MockApiDeleteIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Rest.Verify(a => a.Delete(It.IsAny<IRestRequest<TRequest>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Rest.Verify(a => a.Delete<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("'{0}' is returned")]
 		protected void ValueIsReturned<TResult>(TResult expectedValue)

@@ -52,7 +52,7 @@ namespace Manatee.Trello.Internal
 		/// <typeparam name="T"></typeparam>
 		/// <param name="request"></param>
 		/// <returns></returns>
-		T Get<T>(IRestRequest<T> request)
+		T Get<T>(IRestRequest request)
 			where T : class;
 		/// <summary>
 		/// 
@@ -60,7 +60,7 @@ namespace Manatee.Trello.Internal
 		/// <typeparam name="T"></typeparam>
 		/// <param name="request"></param>
 		/// <returns></returns>
-		T Put<T>(IRestRequest<T> request)
+		T Put<T>(IRestRequest request)
 			where T : class;
 		/// <summary>
 		/// 
@@ -68,7 +68,7 @@ namespace Manatee.Trello.Internal
 		/// <typeparam name="T"></typeparam>
 		/// <param name="request"></param>
 		/// <returns></returns>
-		T Post<T>(IRestRequest<T> request)
+		T Post<T>(IRestRequest request)
 			where T : class;
 		/// <summary>
 		/// 
@@ -76,7 +76,7 @@ namespace Manatee.Trello.Internal
 		/// <typeparam name="T"></typeparam>
 		/// <param name="request"></param>
 		/// <returns></returns>
-		T Delete<T>(IRestRequest<T> request)
+		T Delete<T>(IRestRequest request)
 			where T : class;
 	}
 }

@@ -13,12 +13,8 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
+			//Options.UseNewtonsoftJson();
 			var service = new TrelloService(TrelloIds.Key, TrelloIds.Token);
-
-			var restClientProvider = (RestSharpClientProvider)service.RestClientProvider;
-			var serializer = new NewtonsoftSerializer();
-			restClientProvider.Serializer = serializer;
-			restClientProvider.Deserializer = serializer;
 
 			var card = service.Retrieve<Card>(TrelloIds.CardId);
 			var actions = card.Actions.ToList();

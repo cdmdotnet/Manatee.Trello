@@ -196,14 +196,14 @@ namespace Manatee.Trello
 			Validate.NonEmptyString(name);
 			var card = new Card();
 			var endpoint = EndpointGenerator.Default.Generate(card);
-			var request = Api.RequestProvider.Create<IJsonCard>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
 			request.AddParameter("idList", Id);
 			if (description != null)
 				request.AddParameter("desc", description);
 			if ((position != null) && position.IsValid)
 				request.AddParameter("pos", position);
-			card.ApplyJson(Api.Post(request));
+			card.ApplyJson(Api.Post<IJsonCard>(request));
 			card.Svc = Svc;
 			card.Api = Api;
 			_cards.MarkForUpdate();
@@ -227,11 +227,11 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(board);
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonList>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("idBoard", board.Id);
 			if (position != null)
 				request.AddParameter("pos", position);
-			Api.Put(request);
+			Api.Put<IJsonList>(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -286,8 +286,8 @@ namespace Manatee.Trello
 		protected override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonList>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonList>(request));
 		}
 
 		/// <summary>
@@ -314,12 +314,12 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonList>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
-			Api.Put(request);
+			Api.Put<IJsonList>(request);
 			_actions.MarkForUpdate();
 		}
 	}

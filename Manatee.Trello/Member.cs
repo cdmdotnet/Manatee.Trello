@@ -388,8 +388,8 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			endpoint.Append("all");
 			endpoint.Append("read");
-			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
-			Api.Post(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Post<IJsonMember>(request);
 		}
 		/// <summary>
 		/// Creates a personal board for the current member.
@@ -403,9 +403,9 @@ namespace Manatee.Trello
 			Validate.NonEmptyString(name);
 			var board = new Board();
 			var endpoint = EndpointGenerator.Default.Generate(board);
-			var request = Api.RequestProvider.Create<IJsonBoard>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
-			board.ApplyJson(Api.Post(request));
+			board.ApplyJson(Api.Post<IJsonBoard>(request));
 			board.Svc = Svc;
 			board.Api = Api;
 			_boards.MarkForUpdate();
@@ -423,9 +423,9 @@ namespace Manatee.Trello
 			Validate.NonEmptyString(displayName);
 			var org = new Organization();
 			var endpoint = EndpointGenerator.Default.Generate(org);
-			var request = Api.RequestProvider.Create<IJsonOrganization>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("displayName", displayName);
-			org.ApplyJson(Api.Post(request));
+			org.ApplyJson(Api.Post<IJsonOrganization>(request));
 			org.Svc = Svc;
 			org.Api = Api;
 			_organizations.MarkForUpdate();
@@ -441,9 +441,9 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(board);
 			var endpoint = EndpointGenerator.Default.Generate(this, new PinnedBoard());
-			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("value", board.Id);
-			Api.Post(request);
+			Api.Post<IJsonMember>(request);
 		}
 		/// <summary>
 		/// Removes the member's vote from a card.
@@ -455,8 +455,8 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(card);
 			var endpoint = EndpointGenerator.Default.Generate(card, new VotingMember {Id = Id});
-			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
-			Api.Delete(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Delete<IJsonMember>(request);
 		}
 		/// <summary>
 		/// Removes a board from the member's boards menu.
@@ -468,8 +468,8 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(board);
 			var endpoint = EndpointGenerator.Default.Generate(this, new PinnedBoard {Id = board.Id});
-			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
-			Api.Delete(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Delete<IJsonMember>(request);
 		}
 		/// <summary>
 		/// Applies the member's vote to a card.
@@ -481,9 +481,9 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(card);
 			var endpoint = EndpointGenerator.Default.Generate(card, new VotingMember());
-			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("value", Id);
-			Api.Post(request);
+			Api.Post<IJsonMember>(request);
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -537,8 +537,8 @@ namespace Manatee.Trello
 		protected override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonMember>(request));
 		}
 
 		/// <summary>
@@ -575,12 +575,12 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonMember>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
-			Api.Put(request);
+			Api.Put<IJsonMember>(request);
 			_actions.MarkForUpdate();
 		}
 		private void UpdateStatus()

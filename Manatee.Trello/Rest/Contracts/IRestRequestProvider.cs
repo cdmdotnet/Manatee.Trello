@@ -32,9 +32,8 @@ namespace Manatee.Trello.Rest
 		/// Creates a general request using a collection of objects and an additional parameter to
 		/// generate the resource string and an object to supply additional parameters.
 		/// </summary>
-		/// <typeparam name="T">The type of object requested.</typeparam>
 		/// <param name="endpoint">The method endpoint the request calls.</param>
 		/// <returns>An IRequest&lt;T&gt; instance which can be sent to an IRestClient.</returns>
-		IRestRequest<T> Create<T>(string endpoint);
+		IRestRequest Create(string endpoint);
 	}
 }

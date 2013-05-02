@@ -206,11 +206,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\GeneralExtensions.cs" />
     <Compile Include="Json\Manatee\ManateeSerializer.cs" />
+    <Compile Include="Rest\RestSharpClient.cs" />
     <Compile Include="Rest\RestSharpClientProvider.cs" />
+    <Compile Include="Rest\RestSharpDeserializer.cs" />
     <Compile Include="Rest\RestSharpRequest.cs" />
-    <Compile Include="Rest\RestSharpRequestBase.cs" />
+    <Compile Include="Rest\RestSharpRequestProvider.cs" />
     <Compile Include="Rest\RestSharpResponse.cs" />
-    <Compile Include="Rest\TrelloRest.cs" />
+    <Compile Include="Internal\TrelloRest.cs" />
+    <Compile Include="Rest\RestSharpSerializer.cs" />
     <Compile Include="TrelloService.cs" />
   </ItemGroup>
   <ItemGroup>

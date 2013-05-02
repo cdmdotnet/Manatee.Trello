@@ -60,10 +60,10 @@ namespace Manatee.Trello.Internal
 		protected override sealed void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create<List<TJson>>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			if (Filter != null)
 				request.AddParameter("filter", Filter);
-			ApplyJson(Api.Get(request));
+			ApplyJson(Api.Get<List<TJson>>(request));
 		}
 		protected override void PropigateService()
 		{

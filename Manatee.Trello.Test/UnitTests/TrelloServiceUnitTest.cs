@@ -9,6 +9,7 @@ using Moq;
 using RestSharp;
 using StoryQ;
 using IRestClient = Manatee.Trello.Rest.IRestClient;
+using IRestRequest = Manatee.Trello.Rest.IRestRequest;
 
 namespace Manatee.Trello.Test.UnitTests
 {
@@ -167,7 +168,7 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AnEntityExists<T, TJ>() where T : class where TJ : class
 		{
 			_systemUnderTest = new ServiceUnderTest();
-			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<TJ>>()))
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<TJ>(It.IsAny<IRestRequest>()))
 				.Returns(new RestSharpResponse<TJ>(new RestResponse(), new Mock<TJ>().Object));
 			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Add(It.IsAny<T>()))
 				.Callback(ItemExistsInCache<T>);
@@ -182,7 +183,7 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AnEntityDoesNotExist<T, TJ>() where T : class where TJ : class
 		{
 			_systemUnderTest = new ServiceUnderTest();
-			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute(It.IsAny<IRestRequest<TJ>>()))
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<TJ>(It.IsAny<IRestRequest>()))
 				.Returns(new RestSharpResponse<TJ>(new RestResponse(), null));
 			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Add(It.IsAny<T>()))
 				.Callback(ItemExistsInCache<T>);
@@ -207,7 +208,7 @@ namespace Manatee.Trello.Test.UnitTests
 		private void MockExecuteIsCalled<T>(int times)
 			where T : class
 		{
-			_systemUnderTest.Dependencies.RestClient.Verify(c => c.Execute(It.IsAny<IRestRequest<T>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.RestClient.Verify(c => c.Execute<T>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("Cache.Add<{0}>() is called {1} time(s)")]
 		private void MockCacheAddIsCalled<T>(int times)

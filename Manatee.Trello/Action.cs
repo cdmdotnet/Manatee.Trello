@@ -185,8 +185,8 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonAction>(endpoint.ToString());
-			Api.Delete(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Delete<IJsonAction>(request);
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -240,8 +240,8 @@ namespace Manatee.Trello
 		protected sealed override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonAction>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonAction>(request));
 		}
 
 		/// <summary>

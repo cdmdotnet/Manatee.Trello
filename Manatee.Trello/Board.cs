@@ -290,12 +290,12 @@ namespace Manatee.Trello
 			Validate.NonEmptyString(name);
 			var list = new List();
 			var endpoint = EndpointGenerator.Default.Generate(list);
-			var request = Api.RequestProvider.Create<IJsonList>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
 			request.AddParameter("idBoard", Id);
 			if ((position != null) && position.IsValid)
 				request.AddParameter("pos", position);
-			list.ApplyJson(Api.Post(request));
+			list.ApplyJson(Api.Post<IJsonList>(request));
 			list.Svc = Svc;
 			list.Api = Api;
 			_lists.MarkForUpdate();
@@ -313,9 +313,9 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = Api.RequestProvider.Create<IJsonBoard>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("type", type.ToLowerString());
-			Api.Put(request);
+			Api.Put<IJsonBoard>(request);
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
@@ -328,8 +328,8 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			endpoint.Append("markAsViewed");
-			var request = Api.RequestProvider.Create<IJsonBoard>(endpoint.ToString());
-			Api.Post(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Post<IJsonBoard>(request);
 			_actions.MarkForUpdate();
 		}
 		/// <summary>
@@ -353,8 +353,8 @@ namespace Manatee.Trello
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = Api.RequestProvider.Create<IJsonBoard>(endpoint.ToString());
-			Api.Delete(request);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			Api.Delete<IJsonBoard>(request);
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the board.
@@ -417,8 +417,8 @@ namespace Manatee.Trello
 		protected override void Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonBoard>(endpoint.ToString());
-			ApplyJson(Api.Get(request));
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			ApplyJson(Api.Get<IJsonBoard>(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -451,12 +451,12 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create<IJsonBoard>(endpoint.ToString());
+			var request = Api.RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
-			Api.Put(request);
+			Api.Put<IJsonBoard>(request);
 			_actions.MarkForUpdate();
 		}
 	}

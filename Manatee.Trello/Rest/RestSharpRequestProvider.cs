@@ -14,24 +14,30 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		RequestBase.cs
+	File Name:		RestSharpRequestProvider.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		RequestBase
-	Purpose:		Base class for RESTful requests.
+	Class Name:		RestSharpRequestProvider
+	Purpose:		A request object for use with all REST calls.
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
-using RestSharp;
 
 namespace Manatee.Trello.Rest
 {
-	internal abstract class RestSharpRequestBase : RestRequest
+	internal class RestSharpRequestProvider : IRestRequestProvider
 	{
-		protected RestSharpRequestBase(string path) : base(path)
+		private readonly RestSharp.Serializers.ISerializer _serializer;
+
+		public RestSharpRequestProvider(RestSharp.Serializers.ISerializer serializer)
 		{
-			RequestFormat = DataFormat.Json;
-			DateFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
+			if (serializer == null)
+				throw new ArgumentNullException("serializer");
+			_serializer = serializer;
+		}
+
+		public IRestRequest Create(string endpoint)
+		{
+			return new RestSharpRequest(_serializer, endpoint);
 		}
 	}
 }

@@ -17,8 +17,8 @@
 	File Name:		Serializer.cs
 	Namespace:		Manatee.Trello.Json.Manatee
 	Class Name:		Serializer
-	Purpose:		Wrapper class for the Manatee.Json.Serializer for use with
-					RestSharp.
+	Purpose:		Wrapper class for the Manatee.Json.Serializer which implements
+					ISerializer and IDeserializer.
 
 ***************************************************************************************/
 using System.Reflection;
@@ -26,34 +26,16 @@ using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Json.Manatee.Entities;
-using IRestResponse = RestSharp.IRestResponse;
 
 namespace Manatee.Trello.Json.Manatee
 {
 	/// <summary>
 	/// Wrapper class for the Manatee.Json.Serializer for use with RestSharp.
 	/// </summary>
-	public class ManateeSerializer : ISerializer, IDeserializer, RestSharp.Serializers.ISerializer, RestSharp.Deserializers.IDeserializer
+	internal class ManateeSerializer : ISerializer, IDeserializer
 	{
 		private readonly JsonSerializer _serializer;
 		private readonly MethodInfo _method;
-
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string RootElement { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string Namespace { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer and RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public string DateFormat { get; set; }
-		/// <summary>
-		/// Implements RestSharp.Serializers.ISerializer
-		/// </summary>
-		public string ContentType { get; set; }
 
 		static ManateeSerializer()
 		{
@@ -88,15 +70,6 @@ namespace Manatee.Trello.Json.Manatee
 		/// <param name="response">The response object which contains the JSON to deserialize.</param>
 		/// <returns>The requested object, if JSON is valid; null otherwise.</returns>
 		public T Deserialize<T>(IRestResponse<T> response)
-		{
-			var json = JsonValue.Parse(response.Content);
-			T obj = _serializer.Deserialize<T>(json);
-			return obj;
-		}
-		/// <summary>
-		/// Implements RestSharp.Deserializers.IDeserialize
-		/// </summary>
-		public T Deserialize<T>(IRestResponse response)
 		{
 			var json = JsonValue.Parse(response.Content);
 			T obj = _serializer.Deserialize<T>(json);

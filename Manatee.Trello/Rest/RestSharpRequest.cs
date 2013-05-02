@@ -14,17 +14,18 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		Request.cs
+	File Name:		RestSharpRequest.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		Request<T>
+	Class Name:		RestSharpRequest
 	Purpose:		A request object for use with all REST calls.
 
 ***************************************************************************************/
 using System;
+using RestSharp;
 
 namespace Manatee.Trello.Rest
 {
-	internal class RestSharpRequest<T> : RestSharpRequestBase, IRestRequest<T>
+	internal class RestSharpRequest : RestRequest, IRestRequest
 	{
 		public new RestMethod Method
 		{
@@ -35,16 +36,18 @@ namespace Manatee.Trello.Rest
 		public RestSharpRequest(RestSharp.Serializers.ISerializer serializer, string endpoint)
 			: base(endpoint)
 		{
+			RequestFormat = DataFormat.Json;
+			DateFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
 			JsonSerializer = serializer;
 		}
 
-		void IRestRequest<T>.AddParameter(string name, object value)
+		public new void AddParameter(string name, object value)
 		{
-			AddParameter(name, value);
+			base.AddParameter(name, value);
 		}
-		void IRestRequest<T>.AddBody(object body)
+		public new void AddBody(object body)
 		{
-			AddBody(body);
+			base.AddBody(body);
 		}
 
 		private RestMethod GetMethod()
