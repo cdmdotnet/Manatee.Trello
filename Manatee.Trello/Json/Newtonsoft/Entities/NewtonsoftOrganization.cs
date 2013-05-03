@@ -45,6 +45,6 @@ namespace Manatee.Trello.Json.Newtonsoft.Entities
 		[JsonProperty("logoHash")]
 		public string LogoHash { get; set; }
 		[JsonProperty("powerUps")]
-		public List<string> PowerUps { get; set; }
+		public List<int> PowerUps { get; set; }
 	}
 }

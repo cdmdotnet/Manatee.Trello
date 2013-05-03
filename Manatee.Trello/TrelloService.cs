@@ -22,6 +22,8 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
@@ -126,7 +128,7 @@ namespace Manatee.Trello
 		public T Retrieve<T>(string id)
 			where T : ExpiringObject, new()
 		{
-			if (string.IsNullOrWhiteSpace(id)) return null;
+			Validate.NonEmptyString(id);
 			T entity;
 			if (Cache != null)
 			{
@@ -137,6 +139,49 @@ namespace Manatee.Trello
 			else
 				entity = Verify<T>(id);
 			return entity;
+		}
+		/// <summary>
+		/// Searches actions, boards, cards, members and organizations for a provided
+		/// query string.
+		/// </summary>
+		/// <param name="query">The query string.</param>
+		/// <returns>An object which contains the results of the query.</returns>
+		public SearchResults Search(string query)
+		{
+			Validate.NonEmptyString(query);
+			var endpoint = new Endpoint(new[] {"search"});
+			var request = RestClientProvider.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("query", query);
+			request.AddParameter("action_fields", "id");
+			request.AddParameter("board_fields", "id");
+			request.AddParameter("card_fields", "id");
+			request.AddParameter("member_fields", "id");
+			request.AddParameter("organization_fields", "id");
+			return new SearchResults(this, Api.Get<IJsonSearchResults>(request));
+		}
+		/// <summary>
+		/// Searches for members whose names or usernames match a provided query string.
+		/// </summary>
+		/// <param name="query">The query string.</param>
+		/// <param name="limit">The maximum number of results to return.</param>
+		/// <returns>A collection of members.</returns>
+		public IEnumerable<Member> SearchMembers(string query, int limit = 0)
+		{
+			Validate.NonEmptyString(query);
+			var endpoint = new Endpoint(Enumerable.Empty<string>());
+			endpoint.Append("search");
+			endpoint.Append("members");
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("query", query);
+			if (limit > 0)
+				request.AddParameter("limit", limit);
+			var reply = Api.Get<List<IJsonMember>>(request);
+			foreach (var jsonMember in reply)
+			{
+				var entity = new Member {Svc = this};
+				entity.ApplyJson(jsonMember);
+				yield return entity;
+			}
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

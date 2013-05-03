@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IJsonOrganization.cs
+	File Name:		IJsonSearchResults.cs
 	Namespace:		Manatee.Trello.Json
-	Class Name:		IJsonOrganization
-	Purpose:		Defines the JSON structure for the Organization object.
+	Class Name:		IJsonSearchResults
+	Purpose:		Defines the JSON structure for the SearchResults object.
 
 ***************************************************************************************/
 using System.Collections.Generic;
@@ -25,41 +25,29 @@ using System.Collections.Generic;
 namespace Manatee.Trello.Json
 {
 	/// <summary>
-	/// Defines the JSON structure for the Organization object.
+	/// Defines the JSON structure for the SearchResults object.
 	/// </summary>
-	public interface IJsonOrganization
+	public interface IJsonSearchResults
 	{
 		/// <summary>
-		/// Gets or sets a unique identifier (not necessarily a GUID).
+		/// Lists the IDs of actions which match the query.
 		/// </summary>
-		string Id { get; set; }
+		List<string> ActionIds { get; set; }
 		/// <summary>
-		/// Gets or sets the name of the organization.
+		/// Lists the IDs of boards which match the query.
 		/// </summary>
-		string Name { get; set; }
+		List<string> BoardIds { get; set; }
 		/// <summary>
-		/// Gets or sets the name to be displayed for the organization.
+		/// Lists the IDs of cards which match the query.
 		/// </summary>
-		string DisplayName { get; set; }
+		List<string> CardIds { get; set; }
 		/// <summary>
-		/// Gets or sets the description for the organization.
+		/// Lists the IDs of members which match the query.
 		/// </summary>
-		string Desc { get; set; }
+		List<string> MemberIds { get; set; }
 		/// <summary>
-		/// Gets the URL to the organization's profile.
+		/// Lists the IDs of organizations which match the query.
 		/// </summary>
-		string Url { get; set; }
-		/// <summary>
-		/// Gets or sets the organization's website.
-		/// </summary>
-		string Website { get; set; }
-		/// <summary>
-		/// Gets or sets the organization's logo hash.
-		/// </summary>
-		string LogoHash { get; set; }
-		/// <summary>
-		/// Enumerates the powerups obtained by the organization.
-		/// </summary>
-		List<int> PowerUps { get; set; }
+		List<string> OrganizationIds { get; set; }
 	}
 }

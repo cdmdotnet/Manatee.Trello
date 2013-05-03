@@ -40,7 +40,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 		public string Url { get; set; }
 		public string Website { get; set; }
 		public string LogoHash { get; set; }
-		public List<string> PowerUps { get; set; }
+		public List<int> PowerUps { get; set; }
 
 		public void FromJson(JsonValue json)
 		{
@@ -53,7 +53,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			Url = obj.TryGetString("url");
 			Website = obj.TryGetString("website");
 			LogoHash = obj.TryGetString("logoHash");
-			PowerUps = obj.TryGetArray("powerUps").Select(j => j.String).ToList();
+			PowerUps = obj.TryGetArray("powerUps").Select(j => (int) j.Number).ToList();
 		}
 		public JsonValue ToJson()
 		{
@@ -66,7 +66,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			       		{"url", Url},
 			       		{"website", Website},
 			       		{"logoHash", LogoHash},
-			       		{"powerUps", PowerUps.ToJson()},
+			       		{"powerUps", PowerUps.Cast<double>().ToJson()},
 			       	};
 		}
 	}

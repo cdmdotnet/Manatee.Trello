@@ -22,7 +22,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Dependencies
 
-		private class DependencyCollection : UnitTestBase<TrelloService>.DependencyCollection
+		private new class DependencyCollection : UnitTestBase<TrelloService>.DependencyCollection
 		{
 			public Mock<IRestClient> RestClient { get; private set; }
 			public Mock<ICache> EntityCache { get; private set; }
@@ -71,7 +71,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Retrieve a Board")
 				.Given(AnEntityExists<Board, IJsonBoard>)
-				.When(RetrieveIsCalled<Board>)
+				.When(RetrieveIsCalled<Board>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonBoard>, 1)
 				.And(MockCacheAddIsCalled<Board>, 1)
 				.And(ResponseIsNotNull)
@@ -80,7 +80,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Retrieve a List")
 				.Given(AnEntityExists<List, IJsonList>)
-				.When(RetrieveIsCalled<List>)
+				.When(RetrieveIsCalled<List>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonList>, 1)
 				.And(MockCacheAddIsCalled<List>, 1)
 				.And(ResponseIsNotNull)
@@ -89,7 +89,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Retrieve a Card")
 				.Given(AnEntityExists<Card, IJsonCard>)
-				.When(RetrieveIsCalled<Card>)
+				.When(RetrieveIsCalled<Card>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonCard>, 1)
 				.And(MockCacheAddIsCalled<Card>, 1)
 				.And(ResponseIsNotNull)
@@ -98,7 +98,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Retrieve a CheckList")
 				.Given(AnEntityExists<CheckList, IJsonCheckList>)
-				.When(RetrieveIsCalled<CheckList>)
+				.When(RetrieveIsCalled<CheckList>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonCheckList>, 1)
 				.And(MockCacheAddIsCalled<CheckList>, 1)
 				.And(ResponseIsNotNull)
@@ -107,7 +107,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Retrieve an Organization")
 				.Given(AnEntityExists<Organization, IJsonOrganization>)
-				.When(RetrieveIsCalled<Organization>)
+				.When(RetrieveIsCalled<Organization>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonOrganization>, 1)
 				.And(MockCacheAddIsCalled<Organization>, 1)
 				.And(ResponseIsNotNull)
@@ -116,7 +116,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Retrieve a Action")
 				.Given(AnEntityExists<Action, IJsonAction>)
-				.When(RetrieveIsCalled<Action>)
+				.When(RetrieveIsCalled<Action>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonAction>, 1)
 				.And(MockCacheAddIsCalled<Action>, 1)
 				.And(ResponseIs<Action>)
@@ -124,7 +124,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Retrieve a Notification")
 				.Given(AnEntityExists<Notification, IJsonNotification>)
-				.When(RetrieveIsCalled<Notification>)
+				.When(RetrieveIsCalled<Notification>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonNotification>, 1)
 				.And(MockCacheAddIsCalled<Notification>, 1)
 				.And(ResponseIsNotNull)
@@ -133,7 +133,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Retrieve a Member")
 				.Given(AnEntityExists<Member, IJsonMember>)
-				.When(RetrieveIsCalled<Member>)
+				.When(RetrieveIsCalled<Member>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonMember>, 1)
 				.And(MockCacheAddIsCalled<Member>, 1)
 				.And(ResponseIsNotNull)
@@ -143,7 +143,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.WithScenario("Returns cached entity")
 				.Given(AnEntityExists<Board, IJsonBoard>)
 				.And(ItemExistsInCache<Board>)
-				.When(RetrieveIsCalled<Board>)
+				.When(RetrieveIsCalled<Board>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonBoard>, 0)
 				.And(MockCacheAddIsCalled<Board>, 0)
 				.And(ResponseIsNotNull)
@@ -152,10 +152,108 @@ namespace Manatee.Trello.Test.UnitTests
 
 				.WithScenario("Invalid ID returns null")
 				.Given(AnEntityDoesNotExist<Board, IJsonBoard>)
-				.When(RetrieveIsCalled<Board>)
+				.When(RetrieveIsCalled<Board>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonBoard>, 1)
 				.And(ResponseIsNull)
 				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Null string throws")
+				.Given(AnEntityExists<Board, IJsonBoard>)
+				.When(SearchIsCalled, (string)null)
+				.Then(MockExecuteIsCalled<IJsonBoard>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("Empty string throws")
+				.Given(AnEntityExists<Board, IJsonBoard>)
+				.When(SearchIsCalled, string.Empty)
+				.Then(MockExecuteIsCalled<IJsonBoard>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("Whitespace string throws")
+				.Given(AnEntityExists<Board, IJsonBoard>)
+				.When(SearchIsCalled, "    ")
+				.Then(MockExecuteIsCalled<IJsonBoard>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void Search()
+		{
+			var story = new Story("Search");
+
+			var feature = story.InOrderTo("search entities on Trello.com")
+				.AsA("TrelloService consumer")
+				.IWant("all entities which contain data matching my query");
+
+			feature.WithScenario("Search a string")
+				.Given(SearchableEntitiesExist)
+				.When(SearchIsCalled, "search")
+				.Then(MockExecuteIsCalled<IJsonSearchResults>, 1)
+				.And(MockCacheAddIsCalled<Action>, 1)
+				.And(MockCacheAddIsCalled<Board>, 1)
+				.And(MockCacheAddIsCalled<Card>, 1)
+				.And(MockCacheAddIsCalled<Member>, 1)
+				.And(MockCacheAddIsCalled<Organization>, 1)
+				.And(ResponseIsNotNull)
+				.And(ResponseIs<SearchResults>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Null string throws")
+				.Given(SearchableEntitiesExist)
+				.When(SearchIsCalled, (string)null)
+				.Then(MockExecuteIsCalled<IJsonSearchResults>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("Empty string throws")
+				.Given(SearchableEntitiesExist)
+				.When(SearchIsCalled, string.Empty)
+				.Then(MockExecuteIsCalled<IJsonSearchResults>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("Whitespace string throws")
+				.Given(SearchableEntitiesExist)
+				.When(SearchIsCalled, "    ")
+				.Then(MockExecuteIsCalled<IJsonSearchResults>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void SearchMembers()
+		{
+			var story = new Story("Search");
+
+			var feature = story.InOrderTo("search members on Trello.com")
+				.AsA("TrelloService consumer")
+				.IWant("all members which contain data matching my query");
+
+			feature.WithScenario("Search a string")
+				.Given(SearchableMembersExist)
+				.When(SearchMembersIsCalled, "search")
+				.Then(MockExecuteIsCalled<List<IJsonMember>>, 1)
+				.And(MockCacheAddIsCalled<Member>, 1)
+				.And(ResponseIsNotNull)
+				.And(ResponseIs<IEnumerable<Member>>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Null string throws")
+				.Given(SearchableMembersExist)
+				.When(SearchMembersIsCalled, (string)null)
+				.Then(MockExecuteIsCalled<List<IJsonMember>>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("Empty string throws")
+				.Given(SearchableMembersExist)
+				.When(SearchMembersIsCalled, string.Empty)
+				.Then(MockExecuteIsCalled<List<IJsonMember>>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("Whitespace string throws")
+				.Given(SearchableMembersExist)
+				.When(SearchMembersIsCalled, "    ")
+				.Then(MockExecuteIsCalled<List<IJsonMember>>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.Execute();
 		}
@@ -188,16 +286,43 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Add(It.IsAny<T>()))
 				.Callback(ItemExistsInCache<T>);
 		}
+		private void SearchableEntitiesExist()
+		{
+			var searchResults = new Mock<IJsonSearchResults>();
+			searchResults.SetupGet(s => s.ActionIds).Returns(new List<string> { TrelloIds.ActionId });
+			searchResults.SetupGet(s => s.BoardIds).Returns(new List<string> { TrelloIds.BoardId });
+			searchResults.SetupGet(s => s.CardIds).Returns(new List<string> { TrelloIds.CardId });
+			searchResults.SetupGet(s => s.MemberIds).Returns(new List<string> { TrelloIds.MemberId });
+			searchResults.SetupGet(s => s.OrganizationIds).Returns(new List<string> { TrelloIds.OrganizationId });
+			_systemUnderTest = new ServiceUnderTest();
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonSearchResults>(It.IsAny<IRestRequest>()))
+				.Returns(new RestSharpResponse<IJsonSearchResults>(new RestResponse(), searchResults.Object));
+		}
+		private void SearchableMembersExist()
+		{
+			var member = new Mock<IJsonMember>();
+			_systemUnderTest = new ServiceUnderTest();
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<List<IJsonMember>>(It.IsAny<IRestRequest>()))
+				.Returns(new RestSharpResponse<List<IJsonMember>>(new RestResponse(), new List<IJsonMember> {member.Object}));
+		}
 
 		#endregion
 
 		#region When
 
 		[GenericMethodFormat("Retrieve<{0}>() is called")]
-		private void RetrieveIsCalled<T>()
+		private void RetrieveIsCalled<T>(string value)
 			where T : ExpiringObject, new()
 		{
-			Execute(() => _systemUnderTest.Sut.Retrieve<T>(MockEntityId));
+			Execute(() => _systemUnderTest.Sut.Retrieve<T>(value));
+		}
+		private void SearchIsCalled(string value)
+		{
+			Execute(() => _systemUnderTest.Sut.Search(value));
+		}
+		private void SearchMembersIsCalled(string value)
+		{
+			Execute(() => _systemUnderTest.Sut.SearchMembers(value).ToList());
 		}
 
 		#endregion
