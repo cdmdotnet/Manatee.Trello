@@ -24,7 +24,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonMemberPreferences : IJsonMemberPreferences
+	internal class InnerJsonMemberPreferences : IJsonMemberPreferences
 	{
 		public bool? SendSummaries { get; set; }
 		public int? MinutesBetweenSummaries { get; set; }

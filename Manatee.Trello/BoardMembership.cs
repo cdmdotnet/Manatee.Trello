@@ -53,12 +53,10 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				return null;
 				return _jsonBoardMembership != null ? _jsonBoardMembership.Id : base.Id;
 			}
 			internal set
 			{
-				return;
 				if (_jsonBoardMembership != null)
 					_jsonBoardMembership.Id = value;
 				base.Id = value;

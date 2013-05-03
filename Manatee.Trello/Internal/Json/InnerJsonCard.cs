@@ -25,7 +25,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonCard : IJsonCard
+	internal class InnerJsonCard : IJsonCard
 	{
 		public string Id { get; set; }
 		public bool? Closed { get; set; }

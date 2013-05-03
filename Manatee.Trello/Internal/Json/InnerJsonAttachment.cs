@@ -26,7 +26,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonAttachment : IJsonAttachment
+	internal class InnerJsonAttachment : IJsonAttachment
 	{
 		public string Id { get; set; }
 		public int? Bytes { get; set; }

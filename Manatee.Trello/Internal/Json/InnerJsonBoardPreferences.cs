@@ -24,7 +24,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonBoardPreferences : IJsonBoardPreferences
+	internal class InnerJsonBoardPreferences : IJsonBoardPreferences
 	{
 		public string PermissionLevel { get; set; }
 		public string Voting { get; set; }

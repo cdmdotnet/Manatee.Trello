@@ -24,7 +24,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonBoardPersonalPreferences : IJsonBoardPersonalPreferences
+	internal class InnerJsonBoardPersonalPreferences : IJsonBoardPersonalPreferences
 	{
 		public bool? ShowSidebar { get; set; }
 		public bool? ShowSidebarMembers { get; set; }

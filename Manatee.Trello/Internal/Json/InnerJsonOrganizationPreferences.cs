@@ -25,7 +25,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonOrganizationPreferences : IJsonOrganizationPreferences
+	internal class InnerJsonOrganizationPreferences : IJsonOrganizationPreferences
 	{
 		public string PermissionLevel { get; set; }
 		public List<object> OrgInviteRestrict { get; set; }
