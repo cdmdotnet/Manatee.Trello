@@ -25,6 +25,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -40,7 +41,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Defines a set of labels for a board.
 	/// </summary>
-	public class LabelNames : ExpiringObject
+	public class LabelNames : ExpiringObject, IEnumerable<Label>
 	{
 		private IJsonLabelNames _jsonLabelNames;
 
@@ -170,10 +171,45 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the LabelNames class.
 		/// </summary>
-		public LabelNames() {}
+		public LabelNames()
+		{
+			_jsonLabelNames = new InnerJsonLabelNames();
+		}
 		internal LabelNames(Board owner)
+			: this()
 		{
 			Owner = owner;
+		}
+
+		/// <summary>
+		/// Returns an enumerator that iterates through the collection.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+		/// </returns>
+		/// <filterpriority>1</filterpriority>
+		public IEnumerator<Label> GetEnumerator()
+		{
+			return new List<Label>
+			       	{
+			       		new Label {Color = LabelColor.Red, Name = Red},
+			       		new Label {Color = LabelColor.Orange, Name = Orange},
+			       		new Label {Color = LabelColor.Yellow, Name = Yellow},
+			       		new Label {Color = LabelColor.Green, Name = Green},
+			       		new Label {Color = LabelColor.Blue, Name = Blue},
+			       		new Label {Color = LabelColor.Purple, Name = Purple},
+			       	}.GetEnumerator();
+		}
+		/// <summary>
+		/// Returns an enumerator that iterates through a collection.
+		/// </summary>
+		/// <returns>
+		/// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		/// <summary>

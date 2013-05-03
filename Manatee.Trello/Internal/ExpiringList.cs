@@ -69,8 +69,10 @@ namespace Manatee.Trello.Internal
 		{
 			foreach (var item in _list)
 			{
-				item.Svc = Svc;
-				item.Api = Api;
+				if (Owner != null)
+					item.Owner = Owner;
+				else
+					item.Svc = Svc;
 			}
 		}
 

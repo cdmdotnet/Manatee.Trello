@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -205,8 +206,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the OrganizationPreferences class.
 		/// </summary>
-		public OrganizationPreferences() {}
+		public OrganizationPreferences()
+		{
+			_jsonOrganizationPreferences = new InnerJsonOrganizationPreferences();
+		}
 		internal OrganizationPreferences(Organization owner)
+			: this()
 		{
 			Owner = owner;
 		}

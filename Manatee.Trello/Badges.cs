@@ -24,6 +24,7 @@
 using System;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -163,8 +164,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the Badges class.
 		/// </summary>
-		public Badges() {}
+		public Badges()
+		{
+			_jsonBadges = new InnerJsonBadges();
+		}
 		internal Badges(Card owner)
+			: this()
 		{
 			Owner = owner;
 		}

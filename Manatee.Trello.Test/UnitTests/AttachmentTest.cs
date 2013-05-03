@@ -23,7 +23,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnAttachment)
 				.And(EntityIsRefreshed)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonAttachment>, 1)
+				.Then(MockApiGetIsCalled<IJsonAttachment>, 0)
 				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -32,7 +32,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(EntityIsRefreshed)
 				.And(EntityIsExpired)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonAttachment>, 1)
+				.Then(MockApiGetIsCalled<IJsonAttachment>, 0)
 				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 

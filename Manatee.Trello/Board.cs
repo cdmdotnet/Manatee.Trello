@@ -26,6 +26,7 @@ using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -267,12 +268,13 @@ namespace Manatee.Trello
 		///</summary>
 		public Board()
 		{
+			_jsonBoard = new InnerJsonBoard();
 			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
 			_archivedCards = new ExpiringList<Card, IJsonCard>(this, "cards") { Filter = "closed" };
 			_archivedLists = new ExpiringList<List, IJsonList>(this, "lists") { Filter = "closed" };
 			_labelNames = new LabelNames(this);
 			_lists = new ExpiringList<List, IJsonList>(this, "lists");
-			_members = new ExpiringList<BoardMembership, IJsonBoardMembership>(this, "cards");
+			_members = new ExpiringList<BoardMembership, IJsonBoardMembership>(this, "memberships");
 			_personalPreferences = new BoardPersonalPreferences(this);
 			_preferences = new BoardPreferences(this);
 		}

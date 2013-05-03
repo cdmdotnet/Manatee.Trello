@@ -25,6 +25,7 @@ using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -213,8 +214,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the BoardPreferences class.
 		/// </summary>
-		public BoardPreferences() {}
+		public BoardPreferences()
+		{
+			_jsonBoardPreferences = new InnerJsonBoardPreferences();
+		}
 		internal BoardPreferences(Board owner)
+			: this()
 		{
 			Owner = owner;
 		}

@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -333,6 +334,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public Card()
 		{
+			_jsonCard = new InnerJsonCard();
 			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
 			_attachments = new ExpiringList<Attachment, IJsonAttachment>(this, "attachments");
 			_badges = new Badges(this);

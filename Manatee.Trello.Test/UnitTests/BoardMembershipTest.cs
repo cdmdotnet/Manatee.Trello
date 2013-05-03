@@ -23,14 +23,14 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoardMembership)
 				.And(EntityIsRefreshed)
 				.When(IsDeactivatedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access IsDeactivated property when expired")
 				.Given(ABoardMembership)
 				.And(EntityIsExpired)
 				.When(IsDeactivatedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -48,7 +48,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoardMembership)
 				.And(EntityIsRefreshed)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 0)
 				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -56,7 +56,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ABoardMembership)
 				.And(EntityIsExpired)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 1)
+				.Then(MockApiGetIsCalled<IJsonBoardMembership>, 0)
 				.And(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 

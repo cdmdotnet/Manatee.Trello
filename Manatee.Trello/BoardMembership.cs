@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -50,9 +51,14 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonBoardMembership != null ? _jsonBoardMembership.Id : base.Id; }
+			get
+			{
+				return null;
+				return _jsonBoardMembership != null ? _jsonBoardMembership.Id : base.Id;
+			}
 			internal set
 			{
+				return;
 				if (_jsonBoardMembership != null)
 					_jsonBoardMembership.Id = value;
 				base.Id = value;
@@ -100,6 +106,13 @@ namespace Manatee.Trello
 			           		{BoardMembershipType.Observer, "observer"},
 			           	};
 		}
+		/// <summary>
+		/// Creates a new instance of the BoardMembership class.
+		/// </summary>
+		public BoardMembership()
+		{
+			_jsonBoardMembership = new InnerJsonBoardMembership();
+		}
 
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -141,9 +154,9 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			ApplyJson(Api.Get<IJsonBoardMembership>(request));
+			//var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			//var request = Api.RequestProvider.Create(endpoint.ToString());
+			//ApplyJson(Api.Get<IJsonBoardMembership>(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.

@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -197,6 +198,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public Organization()
 		{
+			_jsonOrganization = new InnerJsonOrganization();
 			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
 			_boards = new ExpiringList<Board, IJsonBoard>(this, "boards");
 			_members = new ExpiringList<Member, IJsonMember>(this, "members");
