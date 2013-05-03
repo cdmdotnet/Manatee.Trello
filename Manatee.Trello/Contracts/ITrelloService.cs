@@ -20,6 +20,7 @@
 	Purpose:		Defines methods required to retrieve entities from Trello.
 
 ***************************************************************************************/
+using System.Collections.Generic;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Rest;
 
@@ -60,5 +61,19 @@ namespace Manatee.Trello.Contracts
 		/// <param name="id">The ID of the entity.</param>
 		/// <returns>The entity which corresponds to the ID, or null if not found.</returns>
 		T Retrieve<T>(string id) where T : ExpiringObject, new();
+		/// <summary>
+		/// Searches actions, boards, cards, members and organizations for a provided
+		/// query string.
+		/// </summary>
+		/// <param name="query">The query string.</param>
+		/// <returns>An object which contains the results of the query.</returns>
+		SearchResults Search(string query);
+		/// <summary>
+		/// Searches for members whose names or usernames match a provided query string.
+		/// </summary>
+		/// <param name="query">The query string.</param>
+		/// <param name="limit">The maximum number of results to return.</param>
+		/// <returns>A collection of members.</returns>
+		IEnumerable<Member> SearchMembers(string query, int limit = 0);
 	}
 }

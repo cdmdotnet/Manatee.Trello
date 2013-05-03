@@ -150,7 +150,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the powerups obtained by the organization.
 		/// </summary>
-		public IEnumerable<string> PowerUps
+		public IEnumerable<int> PowerUps
 		{
 			get
 			{
@@ -330,7 +330,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return Name;
+			return DisplayName;
 		}
 
 		/// <summary>

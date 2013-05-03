@@ -14,26 +14,24 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonOrganization.cs
-	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonOrganization
-	Purpose:		Internal implementation of IJsonOrganization.
+	File Name:		SearchResultsConverter.cs
+	Namespace:		Manatee.Trello.Json.Newtonsoft.Converters
+	Class Name:		SearchResultsConverter
+	Purpose:		Provides a concrete implementation of IJsonSearchResults for
+					Newtonsoft's Json.Net
 
 ***************************************************************************************/
-using System.Collections.Generic;
-using Manatee.Trello.Json;
+using System;
+using Manatee.Trello.Json.Newtonsoft.Entities;
+using Newtonsoft.Json.Linq;
 
-namespace Manatee.Trello.Internal.Json
+namespace Manatee.Trello.Json.Newtonsoft.Converters
 {
-	internal class InnerJsonOrganization : IJsonOrganization
+	internal class SearchResultsConverter : JsonCreationConverter<IJsonSearchResults>
 	{
-		public string Id { get; set; }
-		public string Name { get; set; }
-		public string DisplayName { get; set; }
-		public string Desc { get; set; }
-		public string Url { get; set; }
-		public string Website { get; set; }
-		public string LogoHash { get; set; }
-		public List<int> PowerUps { get; set; }
+		protected override IJsonSearchResults Create(Type objectType, JObject jObject)
+		{
+			return new NewtonsoftSearchResults();
+		}
 	}
 }
