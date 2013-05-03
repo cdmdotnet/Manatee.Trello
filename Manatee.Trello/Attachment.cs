@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -151,6 +152,14 @@ namespace Manatee.Trello
 		internal override string Key { get { return "attachments"; } }
 
 		/// <summary>
+		/// Creates a new instance of the Attachment class.
+		/// </summary>
+		public Attachment()
+		{
+			_jsonAttachment = new InnerJsonAttachment();
+		}
+
+		/// <summary>
 		/// Deletes this attachment.
 		/// </summary>
 		public void Delete()
@@ -212,9 +221,9 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			ApplyJson(Api.Get<IJsonAttachment>(request));
+			//var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			//var request = Api.RequestProvider.Create(endpoint.ToString());
+			//ApplyJson(Api.Get<IJsonAttachment>(request));
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.

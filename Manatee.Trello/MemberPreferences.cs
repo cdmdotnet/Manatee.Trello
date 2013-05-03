@@ -23,6 +23,7 @@
 ***************************************************************************************/
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -130,8 +131,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the MemberPreferences class.
 		/// </summary>
-		public MemberPreferences() {}
+		public MemberPreferences()
+		{
+			_jsonMemberPreferences = new InnerJsonMemberPreferences();
+		}
 		internal MemberPreferences(Member owner)
+			: this()
 		{
 			Owner = owner;
 		}

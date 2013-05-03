@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -136,8 +137,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the CheckList class.
 		/// </summary>
-		public CheckItem() {}
+		public CheckItem()
+		{
+			_jsonCheckItem = new InnerJsonCheckItem();
+		}
 		internal CheckItem(IJsonCheckItem jsonCheckItem, CheckList owner)
+			: this()
 		{
 			_jsonCheckItem = jsonCheckItem;
 			Owner = owner;

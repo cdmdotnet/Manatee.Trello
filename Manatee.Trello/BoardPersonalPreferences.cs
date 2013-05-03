@@ -23,6 +23,7 @@
 ***************************************************************************************/
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -154,8 +155,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the CheckList class.
 		/// </summary>
-		public BoardPersonalPreferences() {}
+		public BoardPersonalPreferences()
+		{
+			_jsonBoardPersonalPreferences = new InnerJsonBoardPersonalPreferences();
+		}
 		internal BoardPersonalPreferences(Board owner)
+			: this()
 		{
 			Owner = owner;
 		}

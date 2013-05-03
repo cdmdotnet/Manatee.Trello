@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -171,13 +172,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the Notification class.
 		/// </summary>
-		public Notification() {}
+		public Notification()
+		{
+			_jsonNotification = new InnerJsonNotification();
+		}
 		/// <summary>
 		/// Creates a new instance of the Notification class.
 		/// </summary>
 		/// <param name="svc">An ITrelloService instance</param>
 		/// <param name="id">The notification's ID.</param>
 		protected Notification(ITrelloService svc, string id)
+			: this()
 		{
 			Id = id;
 			Svc = svc;

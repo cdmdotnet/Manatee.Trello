@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -179,13 +180,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the Action class.
 		/// </summary>
-		public Action() {}
+		public Action()
+		{
+			_jsonAction = new InnerJsonAction();
+		}
 		/// <summary>
 		/// Creates a new instance of the Action class.
 		/// </summary>
 		/// <param name="svc">An ITrelloService instance</param>
 		/// <param name="id">The action's ID.</param>
 		protected Action(ITrelloService svc, string id)
+			: this()
 		{
 			Id = id;
 			Svc = svc;

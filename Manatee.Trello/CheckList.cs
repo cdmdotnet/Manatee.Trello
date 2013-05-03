@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -182,6 +183,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public CheckList()
 		{
+			_jsonCheckList = new InnerJsonCheckList();
 			_checkItems = new ExpiringList<CheckItem, IJsonCheckItem>(this, "checkItems");
 		}
 

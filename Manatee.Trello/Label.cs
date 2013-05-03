@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -42,15 +43,25 @@ namespace Manatee.Trello
 
 		private IJsonLabel _jsonLabel;
 		private LabelColor _color = LabelColor.Unknown;
+		private string _name;
 
 		/// <summary>
 		/// Gets the color of the label.
 		/// </summary>
-		public LabelColor Color { get { return _color; } }
+		public LabelColor Color { get { return _color; } internal set { _color = value; } }
 		/// <summary>
 		/// Gets the name of the label.  Tied to the board which contains the card.
 		/// </summary>
-		public string Name { get { return _jsonLabel.Name; } }
+		public string Name
+		{
+			get { return _jsonLabel != null ? _jsonLabel.Name : _name; }
+			internal set
+			{
+				if (_jsonLabel != null)
+					_jsonLabel.Name = value;
+				_name = value;
+			}
+		}
 
 		internal override string Key { get { return "labels"; } }
 
@@ -65,6 +76,13 @@ namespace Manatee.Trello
 			            		{LabelColor.Purple, "purple"},
 			            		{LabelColor.Blue, "blue"},
 			            	};
+		}
+		/// <summary>
+		/// Creates a new instance of the Label class.
+		/// </summary>
+		public Label()
+		{
+			_jsonLabel = new InnerJsonLabel();
 		}
 
 		/// <summary>
@@ -116,7 +134,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh() { }
+		protected override void Refresh() {}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>
