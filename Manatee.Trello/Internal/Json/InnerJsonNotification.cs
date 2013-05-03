@@ -25,7 +25,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonNotification : IJsonNotification
+	internal class InnerJsonNotification : IJsonNotification
 	{
 		public string Id { get; set; }
 		public bool? Unread { get; set; }

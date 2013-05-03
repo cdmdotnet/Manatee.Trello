@@ -25,7 +25,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonBadges : IJsonBadges
+	internal class InnerJsonBadges : IJsonBadges
 	{
 		public int? Votes { get; set; }
 		public bool? ViewingMemberVoted { get; set; }
