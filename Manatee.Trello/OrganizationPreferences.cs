@@ -193,7 +193,8 @@ namespace Manatee.Trello
 				Put("boardVisibilityRestrict/public");
 			}
 		}
-		internal override string Key { get { return "prefs"; } }
+		internal static string TypeKey { get { return "prefs"; } }
+		internal override string Key { get { return TypeKey; } }
 
 		static OrganizationPreferences()
 		{

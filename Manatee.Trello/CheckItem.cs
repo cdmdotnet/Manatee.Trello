@@ -124,7 +124,8 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal override string Key { get { return "checkItems"; } }
+		internal static string TypeKey { get { return "checkItems"; } }
+		internal override string Key { get { return TypeKey; } }
 
 		static CheckItem()
 		{

@@ -93,7 +93,8 @@ namespace Manatee.Trello
 		///</summary>
 		public BoardMembershipType MembershipType { get { return _membershipType; } }
 
-		internal override string Key { get { return "memberships"; } }
+		internal static string TypeKey { get { return "memberships"; } }
+		internal override string Key { get { return TypeKey; } }
 
 		static BoardMembership()
 		{
@@ -145,6 +146,17 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} as {1}", Member, MembershipType);
 		}
 
 		/// <summary>

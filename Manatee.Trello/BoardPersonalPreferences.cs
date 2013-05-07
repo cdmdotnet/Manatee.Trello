@@ -150,7 +150,8 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal override string Key { get { return "myPrefs"; } }
+		internal static string TypeKey { get { return "myPrefs"; } }
+		internal override string Key { get { return TypeKey; } }
 
 		/// <summary>
 		/// Creates a new instance of the CheckList class.

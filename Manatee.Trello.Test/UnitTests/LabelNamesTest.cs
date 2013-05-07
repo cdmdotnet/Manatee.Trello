@@ -63,7 +63,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonLabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Red property without AuthToken")
+				.WithScenario("Set Red property without UserToken")
 				.Given(ALabelNamesObject)
 				.And(TokenNotSupplied)
 				.When(RedIsSet, "description")
@@ -126,7 +126,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonLabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Orange property without AuthToken")
+				.WithScenario("Set Orange property without UserToken")
 				.Given(ALabelNamesObject)
 				.And(EntityIsRefreshed)
 				.And(TokenNotSupplied)
@@ -190,7 +190,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonLabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Yellow property without AuthToken")
+				.WithScenario("Set Yellow property without UserToken")
 				.Given(ALabelNamesObject)
 				.And(TokenNotSupplied)
 				.When(YellowIsSet, "description")
@@ -253,7 +253,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonLabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Green property without AuthToken")
+				.WithScenario("Set Green property without UserToken")
 				.Given(ALabelNamesObject)
 				.And(TokenNotSupplied)
 				.When(GreenIsSet, "description")
@@ -316,7 +316,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonLabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Blue property without AuthToken")
+				.WithScenario("Set Blue property without UserToken")
 				.Given(ALabelNamesObject)
 				.And(TokenNotSupplied)
 				.When(BlueIsSet, "description")
@@ -379,7 +379,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonLabelNames>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Purple property without AuthToken")
+				.WithScenario("Set Purple property without UserToken")
 				.Given(ALabelNamesObject)
 				.And(TokenNotSupplied)
 				.When(PurpleIsSet, "description")

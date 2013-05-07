@@ -64,7 +64,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Name property without AuthToken")
+				.WithScenario("Set Name property without UserToken")
 				.Given(ACheckItem)
 				.And(TokenNotSupplied)
 				.When(NameIsSet, "name")
@@ -119,7 +119,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Position property without AuthToken")
+				.WithScenario("Set Position property without UserToken")
 				.Given(ACheckItem)
 				.And(TokenNotSupplied)
 				.When(PositionIsSet, Trello.Position.Bottom)
@@ -166,7 +166,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCheckItem>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set State property without AuthToken")
+				.WithScenario("Set State property without UserToken")
 				.Given(ACheckItem)
 				.And(TokenNotSupplied)
 				.When(StateIsSet, CheckItemStateType.Complete)
@@ -190,7 +190,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonCheckItem>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Delete is called without AuthToken")
+				.WithScenario("Delete is called without UserToken")
 				.Given(ACheckItem)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)

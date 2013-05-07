@@ -31,7 +31,7 @@ namespace Manatee.Trello.Internal
 		public static void Writable(ITrelloService service)
 		{
 			if (service == null) return;
-			if (service.AuthToken == null)
+			if (service.UserToken == null)
 				throw new ReadOnlyAccessException();
 		}
 		public static void Entity<T>(T entity, bool allowNulls = false)

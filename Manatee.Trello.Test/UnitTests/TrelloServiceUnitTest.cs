@@ -16,8 +16,8 @@ namespace Manatee.Trello.Test.UnitTests
 	[TestClass]
 	public class TrelloServiceUnitTest : UnitTestBase<TrelloService>
 	{
-		public const string MockAuthKey = "mock auth key";
-		public const string MockAuthToken = "mock auth token";
+		public const string MockAppKey = "mock app key";
+		public const string MockUserToken = "mock user token";
 		public const string MockEntityId = "mock entity ID";
 
 		#region Dependencies
@@ -42,7 +42,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			public ServiceUnderTest()
 			{
-				Sut = new TrelloService(MockAuthKey, MockAuthToken)
+				Sut = new TrelloService(MockAppKey, MockUserToken)
 				{
 					RestClientProvider = Dependencies.RestClientProvider.Object,
 					Cache = Dependencies.EntityCache.Object

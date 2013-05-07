@@ -6,8 +6,8 @@
 		// Other developers working on this should create their own sandbox boards and use their user accounts during the tests
 		// https://trello.com/1/authorize?key=062109670e7f56b88783721892f8f66f&name=Manatee.Trello&expiration=never&response_type=token&scope=read,write,account
 
-		public const string Key = "062109670e7f56b88783721892f8f66f";
-		public const string Token = "bd944b694c84d53c411f25e7866d5b5860eb91fa5097bbb13bac8d5c79d611fe";
+		public const string AppKey = "062109670e7f56b88783721892f8f66f";
+		public const string UserToken = "bd944b694c84d53c411f25e7866d5b5860eb91fa5097bbb13bac8d5c79d611fe";
 		public const string UserName = "s_littlecrabsolutions";
 		public const string MemberId = "514464db3fa062da6e00254f";
 		public const string BoardId = "51478f6469fd3d9341001dae";

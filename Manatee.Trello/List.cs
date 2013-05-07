@@ -168,7 +168,8 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal override string Key { get { return "lists"; } }
+		internal static string TypeKey { get { return "lists"; } }
+		internal override string Key { get { return TypeKey; } }
 		/// <summary>
 		/// Gets whether the entity is a cacheable item.
 		/// </summary>
@@ -180,8 +181,8 @@ namespace Manatee.Trello
 		public List()
 		{
 			_jsonList = new InnerJsonList();
-			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
-			_cards = new ExpiringList<Card, IJsonCard>(this, "cards");
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
+			_cards = new ExpiringList<Card, IJsonCard>(this, Card.TypeKey);
 		}
 
 		/// <summary>

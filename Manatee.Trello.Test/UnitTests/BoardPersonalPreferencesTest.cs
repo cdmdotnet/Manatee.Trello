@@ -57,7 +57,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ShowListGuide property without AuthToken")
+				.WithScenario("Set ShowListGuide property without UserToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowListGuideIsSet, (bool?) true)
@@ -112,7 +112,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ShowSidebar property without AuthToken")
+				.WithScenario("Set ShowSidebar property without UserToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowSidebarIsSet, (bool?) true)
@@ -167,7 +167,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ShowSidebarActivity property without AuthToken")
+				.WithScenario("Set ShowSidebarActivity property without UserToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowSidebarActivityIsSet, (bool?) true)
@@ -222,7 +222,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ShowSidebarBoardActions property without AuthToken")
+				.WithScenario("Set ShowSidebarBoardActions property without UserToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowSidebarBoardActionsIsSet, (bool?) true)
@@ -277,7 +277,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonBoardPersonalPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ShowSidebarMembers property without AuthToken")
+				.WithScenario("Set ShowSidebarMembers property without UserToken")
 				.Given(ABoardPersonalPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowSidebarMembersIsSet, (bool?) true)

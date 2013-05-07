@@ -348,7 +348,8 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal override string Key { get { return "members"; } }
+		internal static string TypeKey { get { return "members"; } }
+		internal override string Key { get { return TypeKey; } }
 		/// <summary>
 		/// Gets whether the entity is a cacheable item.
 		/// </summary>
@@ -369,15 +370,15 @@ namespace Manatee.Trello
 		public Member()
 		{
 			_jsonMember = new InnerJsonMember();
-			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
-			_boards = new ExpiringList<Board, IJsonBoard>(this, "boards");
-			_invitedBoards = new ExpiringList<InvitedBoard, IJsonBoard>(this, "idBoardsInvited");
-			_invitedOrganizations = new ExpiringList<InvitedOrganization, IJsonOrganization>(this, "idOrganizationsInvited");
-			_notifications = new ExpiringList<Notification, IJsonNotification>(this, "notifications");
-			_organizations = new ExpiringList<Organization, IJsonOrganization>(this, "organizations");
-			_pinnedBoards = new ExpiringList<PinnedBoard, IJsonBoard>(this, "idBoardsPinned");
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
+			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey);
+			_invitedBoards = new ExpiringList<InvitedBoard, IJsonBoard>(this, InvitedBoard.TypeKey);
+			_invitedOrganizations = new ExpiringList<InvitedOrganization, IJsonOrganization>(this, InvitedOrganization.TypeKey);
+			_notifications = new ExpiringList<Notification, IJsonNotification>(this, Notification.TypeKey);
+			_organizations = new ExpiringList<Organization, IJsonOrganization>(this, Organization.TypeKey);
+			_pinnedBoards = new ExpiringList<PinnedBoard, IJsonBoard>(this, PinnedBoard.TypeKey);
 			_preferences = new MemberPreferences(this);
-			_premiumOrganizations = new ExpiringList<PremiumOrganization, IJsonOrganization>(this, "idPremOrgsAdmin");
+			_premiumOrganizations = new ExpiringList<PremiumOrganization, IJsonOrganization>(this, PremiumOrganization.TypeKey);
 		}
 
 		/// <summary>

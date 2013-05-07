@@ -128,7 +128,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Description property without AuthToken")
+				.WithScenario("Set Description property without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(DescriptionIsSet, "description")
@@ -183,7 +183,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsClosed property without AuthToken")
+				.WithScenario("Set IsClosed property without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(IsClosedIsSet, (bool?) true)
@@ -238,7 +238,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsPinned property without AuthToken")
+				.WithScenario("Set IsPinned property without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(IsPinnedIsSet, (bool?) true)
@@ -293,7 +293,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsSubscribed property without AuthToken")
+				.WithScenario("Set IsSubscribed property without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(IsSubscribedIsSet, (bool?) true)
@@ -413,7 +413,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Name property without AuthToken")
+				.WithScenario("Set Name property without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(NameIsSet, "description")
@@ -477,7 +477,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Organization property without AuthToken")
+				.WithScenario("Set Organization property without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Invalid})
@@ -567,7 +567,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonList>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
-				.WithScenario("AddList is called without AuthToken")
+				.WithScenario("AddList is called without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(AddListIsCalled, string.Empty)
@@ -603,7 +603,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
-				.WithScenario("AddOrUpdateMember is called without AuthToken")
+				.WithScenario("AddOrUpdateMember is called without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(AddOrUpdateMemberIsCalled, new Member())
@@ -627,7 +627,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonBoard>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("MarkAsViewed is called without AuthToken")
+				.WithScenario("MarkAsViewed is called without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(MarkAsViewedIsCalled)
@@ -652,7 +652,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoard>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("InviteMember is called without AuthToken")
+				.WithScenario("InviteMember is called without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(InviteMemberIsCalled)
@@ -688,7 +688,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
-				.WithScenario("RemoveMember is called without AuthToken")
+				.WithScenario("RemoveMember is called without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(RemoveMemberIsCalled, new Member())
@@ -713,7 +713,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonBoard>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("RescindInvitation is called without AuthToken")
+				.WithScenario("RescindInvitation is called without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(RescindInvitationIsCalled)

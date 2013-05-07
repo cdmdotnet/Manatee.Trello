@@ -80,12 +80,12 @@ namespace Manatee.Trello
 			: base(action.Svc, action.Id)
 		{
 			VerifyNotExpired();
-			_boardId = action.Data.TryGetString("board","id");
-			_boardName = action.Data.TryGetString("board","name");
-			_boardSourceId = action.Data.TryGetString("id");
-			_boardSourceName = action.Data.TryGetString("boardSource","name");
+			_boardId = action.Data.TryGetString("board", "id");
+			_boardName = action.Data.TryGetString("board", "name");
+			_boardSourceId = action.Data.TryGetString("boardSource", "id");
+			_boardSourceName = action.Data.TryGetString("boardSource", "name");
 			_cardId = action.Data.TryGetString("id");
-			_cardName = action.Data.TryGetString("card","name");
+			_cardName = action.Data.TryGetString("card", "name");
 		}
 
 		/// <summary>

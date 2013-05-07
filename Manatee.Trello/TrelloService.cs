@@ -36,8 +36,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class TrelloService : ITrelloService
 	{
-		private readonly string _authKey;
-		private string _authToken;
+		private readonly string _appKey;
+		private string _userToken;
 		private ITrelloRest _api;
 		private ICache _cache;
 		private Member _me;
@@ -46,14 +46,14 @@ namespace Manatee.Trello
 		/// Allows the TrelloService instance to access data as if it was the member
 		/// who provided the token.
 		/// </summary>
-		public string AuthToken
+		public string UserToken
 		{
-			get { return _authToken; }
+			get { return _userToken; }
 			set
 			{
 				Validate.NonEmptyString(value);
-				_authToken = value;
-				Api.AuthToken = _authToken;
+				_userToken = value;
+				Api.UserToken = _userToken;
 				_me = null;
 			}
 		}
@@ -73,13 +73,13 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
-		/// Gets the Member object associated with the provided AuthKey.
+		/// Gets the Member object associated with the provided AppKey.
 		/// </summary>
 		public Member Me
 		{
 			get
 			{
-				if (AuthToken == null)
+				if (UserToken == null)
 					return null;
 				return (_me == null) ? _me : (_me = GetMe());
 			}
@@ -100,19 +100,19 @@ namespace Manatee.Trello
 		/// </remarks>
 		public ITrelloRest Api
 		{
-			get { return _api ?? (_api = new TrelloRest(_authKey, _authToken)); }
+			get { return _api ?? (_api = new TrelloRest(_appKey, _userToken)); }
 		}
 		
 		/// <summary>
 		/// Creates a new instance of the TrelloService class.
 		/// </summary>
-		/// <param name="authKey"></param>
-		/// <param name="authToken"></param>
-		public TrelloService(string authKey, string authToken = null)
+		/// <param name="appKey"></param>
+		/// <param name="userToken"></param>
+		public TrelloService(string appKey, string userToken = null)
 		{
-			Validate.NonEmptyString(authKey);
-			_authKey = authKey;
-			_authToken = authToken;
+			Validate.NonEmptyString(appKey);
+			_appKey = appKey;
+			_userToken = userToken;
 		}
 
 		/// <summary>
@@ -192,7 +192,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("Key: {0}, Token: {1}", Api.AuthKey, Api.AuthToken);
+			return string.Format("Key: {0}, Token: {1}", Api.AppKey, Api.UserToken);
 		}
 
 		private T Verify<T>(string id)
@@ -201,7 +201,11 @@ namespace Manatee.Trello
 			T entity = null;
 			try
 			{
-				entity = new T {Id = id, Svc = this};
+				if (typeof(T).IsAssignableFrom(typeof(Token)))
+				{
+					entity = new Token(id) {Svc = this} as T;
+				}
+				else entity = new T {Id = id, Svc = this};
 				entity.VerifyNotExpired();
 				if (typeof(T).IsAssignableFrom(typeof(Action)))
 				{

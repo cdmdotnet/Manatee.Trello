@@ -29,8 +29,8 @@ namespace Manatee.Trello.Test.UnitTests
 					.Returns(RestClientProvider.Object);
 				Rest.SetupGet(s => s.RequestProvider)
 					.Returns(RequestProvider);
-				Svc.SetupGet(s => s.AuthToken)
-					.Returns(TrelloIds.Token);
+				Svc.SetupGet(s => s.UserToken)
+					.Returns(TrelloIds.UserToken);
 			}
 		}
 
@@ -54,9 +54,9 @@ namespace Manatee.Trello.Test.UnitTests
 
 		protected void TokenNotSupplied()
 		{
-			_systemUnderTest.Dependencies.Svc.SetupGet(a => a.AuthToken)
+			_systemUnderTest.Dependencies.Svc.SetupGet(a => a.UserToken)
 				.Returns((string)null);
-			_systemUnderTest.Dependencies.Rest.SetupGet(a => a.AuthToken)
+			_systemUnderTest.Dependencies.Rest.SetupGet(a => a.UserToken)
 				.Returns((string)null);
 		}
 		protected Mock<TRequest> SetupMockGet<TRequest>()
@@ -134,7 +134,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 		#region Then
 
-		[GenericMethodFormat("API.Get<{0}> is called {1} time(s)")]
+		[GenericMethodFormat("SVC.Retrieve<{0}> is called {1} time(s)")]
 		protected void MockSvcRetrieveIsCalled<TRequest>(int times)
 			where TRequest : ExpiringObject, new()
 		{

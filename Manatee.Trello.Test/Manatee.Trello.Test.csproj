@@ -89,6 +89,7 @@
     <Compile Include="UnitTests\NotificationTest.cs" />
     <Compile Include="UnitTests\OrganizationPreferencesTest.cs" />
     <Compile Include="UnitTests\OrganizationTest.cs" />
+    <Compile Include="UnitTests\TokenTest.cs" />
     <Compile Include="UnitTests\TrelloServiceUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrelloIds.cs" />

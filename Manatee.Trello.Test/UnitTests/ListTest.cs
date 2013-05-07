@@ -122,7 +122,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonList>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsClosed property without AuthToken")
+				.WithScenario("Set IsClosed property without UserToken")
 				.Given(AList)
 				.And(TokenNotSupplied)
 				.When(IsClosedIsSet, (bool?) true)
@@ -177,7 +177,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonList>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsSubscribed property without AuthToken")
+				.WithScenario("Set IsSubscribed property without UserToken")
 				.Given(AList)
 				.And(TokenNotSupplied)
 				.When(IsSubscribedIsSet, (bool?)true)
@@ -240,7 +240,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonList>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Name property without AuthToken")
+				.WithScenario("Set Name property without UserToken")
 				.Given(AList)
 				.And(TokenNotSupplied)
 				.When(NameIsSet, "name")
@@ -295,7 +295,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonList>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Position property without AuthToken")
+				.WithScenario("Set Position property without UserToken")
 				.Given(AList)
 				.And(TokenNotSupplied)
 				.When(PositionIsSet, Trello.Position.Bottom)
@@ -331,7 +331,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
-				.WithScenario("AddCard is called without AuthToken")
+				.WithScenario("AddCard is called without UserToken")
 				.Given(AList)
 				.And(TokenNotSupplied)
 				.When(AddCardIsCalled, "checklist")
@@ -373,7 +373,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonList>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Board>>)
 
-				.WithScenario("Move is called without AuthToken")
+				.WithScenario("Move is called without UserToken")
 				.Given(AList)
 				.And(TokenNotSupplied)
 				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid})

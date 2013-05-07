@@ -55,7 +55,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set AllowsSelfJoin property without AuthToken")
+				.WithScenario("Set AllowsSelfJoin property without UserToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(AllowsSelfJoinIsSet, (bool?) true)
@@ -102,7 +102,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Comments property without AuthToken")
+				.WithScenario("Set Comments property without UserToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(CommentsIsSet, BoardCommentType.Disabled)
@@ -149,7 +149,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Invitations property without AuthToken")
+				.WithScenario("Set Invitations property without UserToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(InvitationsIsSet, BoardInvitationType.Admins)
@@ -196,7 +196,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set PermissionLevel property without AuthToken")
+				.WithScenario("Set PermissionLevel property without UserToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
@@ -251,7 +251,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ShowCardCovers property without AuthToken")
+				.WithScenario("Set ShowCardCovers property without UserToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ShowCardCoversIsSet, (bool?) true)
@@ -298,7 +298,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonBoardPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Voting property without AuthToken")
+				.WithScenario("Set Voting property without UserToken")
 				.Given(ABoardPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(VotingIsSet, BoardVotingType.Public)

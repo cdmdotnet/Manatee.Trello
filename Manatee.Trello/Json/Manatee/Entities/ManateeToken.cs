@@ -1,4 +1,4 @@
-﻿/***************************************************************************************
+/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,16 +14,15 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ManateeAttachment.cs
+	File Name:		ManateeToken.cs
 	Namespace:		Manatee.Trello.Json.Manatee.Entities
-	Class Name:		ManateeAttachment
-	Purpose:		Implements IJsonAttachment for Manatee.Json.
+	Class Name:		ManateeToken
+	Purpose:		Implements IJsonToken for Manatee.Json.
 
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
@@ -31,52 +30,45 @@ using Manatee.Json.Serialization;
 
 namespace Manatee.Trello.Json.Manatee.Entities
 {
-	internal class ManateeAttachment : IJsonAttachment, IJsonCompatible
+	internal class ManateeToken : IJsonToken, IJsonCompatible
 	{
 		public string Id { get; set; }
-		public int? Bytes { get; set; }
-		public DateTime? Date { get; set; }
+		public string Identifier { get; set; }
 		public string IdMember { get; set; }
-		public bool? IsUpload { get; set; }
-		public string MimeType { get; set; }
-		public string Name { get; set; }
-		public List<IJsonAttachmentPreview> Previews { get; set; }
-		public string Url { get; set; }
+		public DateTime? DateCreated { get; set; }
+		public DateTime? DateExpires { get; set; }
+		public List<IJsonTokenPermission> Permissions { get; set; }
 
 		public void FromJson(JsonValue json)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			Bytes = (int?) obj.TryGetNumber("bytes");
-			var dateString = obj.TryGetString("date");
+			Identifier = obj.TryGetString("identifier");
+			IdMember = obj.TryGetString("idMember");
+			var dateString = obj.TryGetString("dateCreated");
 			DateTime date;
 			if (DateTime.TryParse(dateString, out date))
-				Date = date;
-			IdMember = obj.TryGetString("idMember");
-			IsUpload = obj.TryGetBoolean("isUpload");
-			MimeType = obj.TryGetString("mimeType");
-			Name = obj.TryGetString("name");
-			var previews = obj.TryGetArray("previews");
-			if (previews != null)
-				Previews = previews.FromJson<ManateeAttachmentPreview>()
-								   .Cast<IJsonAttachmentPreview>()
+				DateCreated = date;
+			dateString = obj.TryGetString("dateExpires");
+			if (DateTime.TryParse(dateString, out date))
+				DateExpires = date;
+			var perms = obj.TryGetArray("permissions");
+			if (perms != null)
+				Permissions = perms.FromJson<ManateeTokenPermission>()
+								   .Cast<IJsonTokenPermission>()
 								   .ToList();
-			Url = obj.TryGetString("url");
 		}
 		public JsonValue ToJson()
 		{
 			return new JsonObject
 			       	{
 			       		{"id", Id},
-			       		{"bytes", Bytes},
-			       		{"date", Date.HasValue ? Date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
+			       		{"identifier", Identifier},
 			       		{"idMember", IdMember},
-			       		{"isUpload", IsUpload},
-			       		{"mimeType", MimeType},
-			       		{"name", Name},
-			       		{"previews", Previews.Cast<ManateeAttachmentPreview>().ToJson()},
-			       		{"url", Url}
+			       		{"dateCreated", DateCreated.HasValue ? DateCreated.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
+			       		{"dateExpires", DateExpires.HasValue ? DateExpires.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
+			       		{"permissions", Permissions.Cast<ManateeTokenPermission>().ToJson()},
 			       	};
 		}
 	}

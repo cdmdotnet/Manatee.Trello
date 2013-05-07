@@ -257,7 +257,8 @@ namespace Manatee.Trello
 		///</summary>
 		public string Url { get { return (_jsonBoard == null) ? null : _jsonBoard.Url; } }
 
-		internal override string Key { get { return "boards"; } }
+		internal static string TypeKey { get { return "boards"; } }
+		internal override string Key { get { return TypeKey; } }
 		/// <summary>
 		/// Gets whether the entity is a cacheable item.
 		/// </summary>
@@ -269,12 +270,12 @@ namespace Manatee.Trello
 		public Board()
 		{
 			_jsonBoard = new InnerJsonBoard();
-			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
-			_archivedCards = new ExpiringList<Card, IJsonCard>(this, "cards") { Filter = "closed" };
-			_archivedLists = new ExpiringList<List, IJsonList>(this, "lists") { Filter = "closed" };
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
+			_archivedCards = new ExpiringList<Card, IJsonCard>(this, Card.TypeKey) {Filter = "closed"};
+			_archivedLists = new ExpiringList<List, IJsonList>(this, List.TypeKey) {Filter = "closed"};
 			_labelNames = new LabelNames(this);
-			_lists = new ExpiringList<List, IJsonList>(this, "lists");
-			_members = new ExpiringList<BoardMembership, IJsonBoardMembership>(this, "memberships");
+			_lists = new ExpiringList<List, IJsonList>(this, List.TypeKey);
+			_members = new ExpiringList<BoardMembership, IJsonBoardMembership>(this, BoardMembership.TypeKey);
 			_personalPreferences = new BoardPersonalPreferences(this);
 			_preferences = new BoardPreferences(this);
 		}
