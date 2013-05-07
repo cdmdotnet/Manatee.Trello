@@ -13,40 +13,12 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
-			Options.UseNewtonsoftJson();
-			var service = new TrelloService(TrelloIds.Key, TrelloIds.Token);
+			//Options.UseNewtonsoftJson();
+			var service = new TrelloService(TrelloIds.AppKey);
 
-			var results = service.Search("move");
+			var token = service.Retrieve<Token>(TrelloIds.UserToken);
 
-			Console.WriteLine("Actions");
-			foreach (var action in results.Actions)
-			{
-				Console.WriteLine(action);
-			}
-			Console.WriteLine();
-			Console.WriteLine("Boards");
-			foreach (var board in results.Boards)
-			{
-				Console.WriteLine(board);
-			}
-			Console.WriteLine();
-			Console.WriteLine("Cards");
-			foreach (var card in results.Cards)
-			{
-				Console.WriteLine(card);
-			}
-			Console.WriteLine();
-			Console.WriteLine("Members");
-			foreach (var member in results.Members)
-			{
-				Console.WriteLine(member);
-			}
-			Console.WriteLine();
-			Console.WriteLine("Organizations");
-			foreach (var organization in results.Organizations)
-			{
-				Console.WriteLine(organization);
-			}
+			Console.WriteLine(token.Member);
 		}
 	}
 }

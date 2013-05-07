@@ -1,4 +1,4 @@
-﻿/***************************************************************************************
+/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,26 +14,35 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ReadOnlyAccessException.cs
-	Namespace:		Manatee.Trello.Exceptions
-	Class Name:		ReadOnlyAccessException<T>
-	Purpose:		Thrown when attempting to access write operations without a
-					valid UserToken.
+	File Name:		ModelType.cs
+	Namespace:		Manatee.Trello
+	Class Name:		ModelType
+	Purpose:		Enumerates the model types to which a user token may
+					grant access.
 
 ***************************************************************************************/
-using System;
-
-namespace Manatee.Trello.Exceptions
+namespace Manatee.Trello
 {
 	/// <summary>
-	/// Thrown when attempting to access write operations without a valid UserToken.
+	/// Enumerates the model types to which a user token may grant access.
 	/// </summary>
-	public class ReadOnlyAccessException : Exception
+	public enum ModelType
 	{
 		/// <summary>
-		/// Creates a new instance of the ReadOnlyAccessException class.
+		/// Assigned when the model type is not recognized.
 		/// </summary>
-		public ReadOnlyAccessException()
-			: base("A valid user token must be supplied to perform write operations.") {}
+		Unknown = -1,
+		/// <summary>
+		/// Indicates the model is one or more Members.
+		/// </summary>
+		Member,
+		/// <summary>
+		/// Indicates the model is one or more Boards.
+		/// </summary>
+		Board,
+		/// <summary>
+		/// Indicates the model is one or more Organizations.
+		/// </summary>
+		Organization
 	}
 }

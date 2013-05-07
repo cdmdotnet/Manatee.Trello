@@ -89,6 +89,7 @@ namespace Manatee.Trello.Contracts
 		}
 		internal ITrelloRest Api { get; set; }
 		internal abstract string Key { get; }
+		internal virtual string KeyId { get { return Id; } }
 
 		internal ExpiringObject()
 		{

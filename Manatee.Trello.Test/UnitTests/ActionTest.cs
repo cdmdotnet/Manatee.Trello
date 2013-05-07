@@ -53,7 +53,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonAction>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Delete is called without AuthToken")
+				.WithScenario("Delete is called without UserToken")
 				.Given(AnAction)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)

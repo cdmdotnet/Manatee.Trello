@@ -20,6 +20,9 @@
 	Purpose:		Indicates an attachment was added to a card.
 
 ***************************************************************************************/
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
+
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -27,14 +30,78 @@ namespace Manatee.Trello
 	/// </summary>
 	public class AddAttachmentToCardAction : Action
 	{
+		private Board _board;
+		private readonly string _boardId;
+		private Card _card;
+		private readonly string _cardId;
+		private readonly string _cardName;
+		private Attachment _attachment;
+		private readonly string _attachmentId;
+		private readonly string _attachmentName;
+
+		/// <summary>
+		/// Gets the board associated with the action.
+		/// </summary>
+		public Board Board
+		{
+			get
+			{
+				VerifyNotExpired();
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
+			}
+		}
+		/// <summary>
+		/// Gets the card associated with the action.
+		/// </summary>
+		public Card Card
+		{
+			get
+			{
+				VerifyNotExpired();
+				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
+			}
+		}
+		/// <summary>
+		/// Gets the attachment associated with the action.
+		/// </summary>
+		public Attachment Attachment
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _attachment;
+			}
+		}
+
 		/// <summary>
 		/// Creates a new instance of the AddAttachmentToCardAction class.
 		/// </summary>
 		/// <param name="action"></param>
 		public AddAttachmentToCardAction(Action action)
+			: base(action.Svc, action.Id)
 		{
-			Id = action.Id;
-			Refresh();
+			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board", "id");
+			_cardId = action.Data.TryGetString("card", "id");
+			_cardName = action.Data.TryGetString("card", "name");
+			_attachmentId = action.Data.TryGetString("attachment", "id");
+			_attachmentName = action.Data.TryGetString("attachment", "name");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return string.Format("{0} added attachment '{1}' to card '{2}' on {3}",
+								 MemberCreator.FullName,
+								 Attachment != null ? Attachment.Name : _attachmentName,
+								 Card != null ? Card.Name : _cardName,
+								 Date);
 		}
 	}
 }

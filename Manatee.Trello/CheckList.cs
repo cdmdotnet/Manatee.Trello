@@ -172,7 +172,9 @@ namespace Manatee.Trello
 				Put();
 			}
 		}
-		internal override string Key { get { return "checklists"; } }
+
+		internal static string TypeKey { get { return "checklists"; } }
+		internal override string Key { get { return TypeKey; } }
 		/// <summary>
 		/// Gets whether the entity is a cacheable item.
 		/// </summary>
@@ -184,7 +186,7 @@ namespace Manatee.Trello
 		public CheckList()
 		{
 			_jsonCheckList = new InnerJsonCheckList();
-			_checkItems = new ExpiringList<CheckItem, IJsonCheckItem>(this, "checkItems");
+			_checkItems = new ExpiringList<CheckItem, IJsonCheckItem>(this, CheckItem.TypeKey);
 		}
 
 		/// <summary>

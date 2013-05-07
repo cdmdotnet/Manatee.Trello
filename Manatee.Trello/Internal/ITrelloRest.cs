@@ -40,11 +40,11 @@ namespace Manatee.Trello.Internal
 		/// <summary>
 		/// 
 		/// </summary>
-		string AuthKey { get; }
+		string AppKey { get; }
 		/// <summary>
 		/// 
 		/// </summary>
-		string AuthToken { get; set; }
+		string UserToken { get; set; }
 
 		/// <summary>
 		/// 

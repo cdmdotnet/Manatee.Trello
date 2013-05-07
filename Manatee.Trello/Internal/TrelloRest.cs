@@ -28,8 +28,8 @@ namespace Manatee.Trello.Internal
 	internal class TrelloRest : ITrelloRest
 	{
 		private const string ApiBaseUrl = "https://api.trello.com/1";
-		private readonly string _authKey;
-		private string _authToken;
+		private readonly string _appKey;
+		private string _userToken;
 
 		private IRestClientProvider _restProvider;
 		
@@ -52,17 +52,17 @@ namespace Manatee.Trello.Internal
 				return RestClientProvider.RequestProvider;
 			}
 		}
-		public string AuthKey { get { return _authKey; } }
-		public string AuthToken { get { return _authToken; } set { _authToken = value; } }
+		public string AppKey { get { return _appKey; } }
+		public string UserToken { get { return _userToken; } set { _userToken = value; } }
 
-		public TrelloRest(string authKey, string authToken)
+		public TrelloRest(string appKey, string userToken)
 		{
-			if (authKey == null)
-				throw new ArgumentNullException("authKey");
-			if (string.IsNullOrWhiteSpace(authKey))
-				throw new ArgumentException("Authentication key required. Auth keys can be generated from https://trello.com/1/appKey/generate", "authKey");
-			_authKey = authKey;
-			_authToken = authToken;
+			if (appKey == null)
+				throw new ArgumentNullException("appKey");
+			if (string.IsNullOrWhiteSpace(appKey))
+				throw new ArgumentException("Application key required. App keys can be generated from https://trello.com/1/appKey/generate", "appKey");
+			_appKey = appKey;
+			_userToken = userToken;
 		}
 
 		public T Get<T>(IRestRequest request)
@@ -89,9 +89,9 @@ namespace Manatee.Trello.Internal
 		private void PrepRequest(IRestRequest request, RestMethod method)
 		{
 			request.Method = method;
-			request.AddParameter("key", _authKey);
-			if (_authToken != null)
-				request.AddParameter("token", _authToken);
+			request.AddParameter("key", _appKey);
+			if (_userToken != null)
+				request.AddParameter("token", _userToken);
 		}
 		private T Execute<T>(IRestRequest request, RestMethod method)
 			where T : class

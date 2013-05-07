@@ -103,7 +103,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Description property wihtout AuthToken")
+				.WithScenario("Set Description property wihtout UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DescriptionIsSet, "description")
@@ -165,7 +165,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set DisplayName property wihtout AuthToken")
+				.WithScenario("Set DisplayName property wihtout UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DisplayNameIsSet, "description")
@@ -284,7 +284,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<OrgNameInUseException>)
 
-				.WithScenario("Set Name property wihtout AuthToken")
+				.WithScenario("Set Name property wihtout UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(NameIsSet, "description")
@@ -391,7 +391,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Website property wihtout AuthToken")
+				.WithScenario("Set Website property wihtout UserToken")
 				.Given(AnOrganization)
 				.And(EntityIsRefreshed)
 				.And(TokenNotSupplied)
@@ -446,7 +446,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonBoard>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
-				.WithScenario("AddBoard is called wihtout AuthToken")
+				.WithScenario("AddBoard is called wihtout UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(AddBoardIsCalled, "board")
@@ -482,7 +482,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
-				.WithScenario("AddOrUpdateMember is called wihtout AuthToken")
+				.WithScenario("AddOrUpdateMember is called wihtout UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(AddOrUpdateMemberIsCalled, new Member { Id = TrelloIds.Invalid })
@@ -506,7 +506,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Delete is called wihtout AuthToken")
+				.WithScenario("Delete is called wihtout UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)

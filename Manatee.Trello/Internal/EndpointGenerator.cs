@@ -44,8 +44,8 @@ namespace Manatee.Trello.Internal
 			foreach (var token in tokens)
 			{
 				segments.Add(token.Key);
-				if (token.Id != null)
-					segments.Add(token.Id);
+				if (token.KeyId != null)
+					segments.Add(token.KeyId);
 			}
 			return new Endpoint(segments);
 		}

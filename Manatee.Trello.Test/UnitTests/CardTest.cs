@@ -43,9 +43,9 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("Access AttachmentCoverId property")
 				.Given(ACard)
-				.And(EntityIsNotExpired)
+				.And(EntityIsRefreshed)
 				.When(AttachmentCoverIdIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonCard>, 0)
+				.Then(MockApiGetIsCalled<IJsonCard>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access AttachmentCoverId property when expired")
@@ -215,7 +215,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Description property without AuthToken")
+				.WithScenario("Set Description property without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(DescriptionIsSet, "description")
@@ -270,7 +270,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set DueDate property without AuthToken")
+				.WithScenario("Set DueDate property without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(DueDateIsSet, (DateTime?) DateTime.Now.AddDays(1))
@@ -325,7 +325,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsClosed property without AuthToken")
+				.WithScenario("Set IsClosed property without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(IsClosedIsSet, (bool?) true)
@@ -380,7 +380,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsSubscribed property without AuthToken")
+				.WithScenario("Set IsSubscribed property without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(IsSubscribedIsSet, (bool?) true)
@@ -535,7 +535,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Name property without AuthToken")
+				.WithScenario("Set Name property without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(NameIsSet, "description")
@@ -590,7 +590,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Position property without AuthToken")
+				.WithScenario("Set Position property without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(PositionIsSet, Trello.Position.Bottom)
@@ -688,7 +688,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonCheckList>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
-				.WithScenario("AddCheckList is called without AuthToken")
+				.WithScenario("AddCheckList is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(AddCheckListIsCalled, string.Empty)
@@ -724,7 +724,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonAction>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
-				.WithScenario("AddComment is called without AuthToken")
+				.WithScenario("AddComment is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(AddCommentIsCalled, string.Empty)
@@ -748,7 +748,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonCard>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("ApplyLabel is called without AuthToken")
+				.WithScenario("ApplyLabel is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(ApplyLabelIsCalled, LabelColor.Red)
@@ -784,7 +784,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
-				.WithScenario("AssignMember is called without AuthToken")
+				.WithScenario("AssignMember is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(AssignMemberIsCalled, new Member())
@@ -808,7 +808,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPostIsCalled<IJsonCard>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("ClearNotifications is called without AuthToken")
+				.WithScenario("ClearNotifications is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(ClearNotificationsIsCalled)
@@ -832,7 +832,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonCard>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Delete is called without AuthToken")
+				.WithScenario("Delete is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)
@@ -889,7 +889,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<List>>)
 
-				.WithScenario("Move is called without AuthToken")
+				.WithScenario("Move is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid}, new List {Id = TrelloIds.Invalid})
@@ -913,7 +913,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonCard>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("RemoveLabel is called without AuthToken")
+				.WithScenario("RemoveLabel is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(RemoveLabelIsCalled, LabelColor.Red)
@@ -949,7 +949,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonCard>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
-				.WithScenario("RemoveMember is called without AuthToken")
+				.WithScenario("RemoveMember is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Invalid})

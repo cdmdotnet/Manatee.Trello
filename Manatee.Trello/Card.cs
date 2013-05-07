@@ -323,7 +323,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Member> VotingMembers { get { return _votingMembers; } }
 
-		internal override string Key { get { return "cards"; } }
+		internal static string TypeKey { get { return "cards"; } }
+		internal override string Key { get { return TypeKey; } }
 		/// <summary>
 		/// Gets whether the entity is a cacheable item.
 		/// </summary>
@@ -335,13 +336,13 @@ namespace Manatee.Trello
 		public Card()
 		{
 			_jsonCard = new InnerJsonCard();
-			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
-			_attachments = new ExpiringList<Attachment, IJsonAttachment>(this, "attachments");
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
+			_attachments = new ExpiringList<Attachment, IJsonAttachment>(this, Attachment.TypeKey);
 			_badges = new Badges(this);
-			_checkLists = new ExpiringList<CheckList, IJsonCheckList>(this, "checklists");
-			_labels = new ExpiringList<Label, IJsonLabel>(this, "labels");
-			_members = new ExpiringList<Member, IJsonMember>(this, "members");
-			_votingMembers = new ExpiringList<VotingMember, IJsonMember>(this, "votingMembers");
+			_checkLists = new ExpiringList<CheckList, IJsonCheckList>(this, CheckList.TypeKey);
+			_labels = new ExpiringList<Label, IJsonLabel>(this, Label.TypeKey);
+			_members = new ExpiringList<Member, IJsonMember>(this, Member.TypeKey);
+			_votingMembers = new ExpiringList<VotingMember, IJsonMember>(this, VotingMember.TypeKey);
 		}
 
 		/// <summary>

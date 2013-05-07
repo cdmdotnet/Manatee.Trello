@@ -166,7 +166,8 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal override string Key { get { return "labelNames"; } }
+		internal static string TypeKey { get { return "labelNames"; } }
+		internal override string Key { get { return TypeKey; } }
 
 		/// <summary>
 		/// Creates a new instance of the LabelNames class.

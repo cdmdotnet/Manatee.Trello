@@ -101,6 +101,7 @@
     <Compile Include="Actions\UpdateMemberAction.cs" />
     <Compile Include="Actions\UpdateOrganizationAction.cs" />
     <Compile Include="Contracts\ICache.cs" />
+    <Compile Include="Enumerations\ModelType.cs" />
     <Compile Include="Internal\ActionProvider.cs" />
     <Compile Include="Internal\EndpointGenerator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
@@ -123,8 +124,18 @@
     <Compile Include="Internal\Json\InnerJsonNotification.cs" />
     <Compile Include="Internal\Json\InnerJsonOrganization.cs" />
     <Compile Include="Internal\Json\InnerJsonOrganizationPreferences.cs" />
+    <Compile Include="Internal\Json\InnerJsonToken.cs" />
+    <Compile Include="Internal\Json\InnerJsonTokenPermission.cs" />
     <Compile Include="Internal\NotificationProvider.cs" />
     <Compile Include="Internal\SimpleCache.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeToken.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeTokenPermission.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\TokenConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\TokenPermissionConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftToken.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftTokenPermission.cs" />
+    <Compile Include="ModelScope.cs" />
+    <Compile Include="TokenPermission.cs" />
     <Compile Include="Json\Contracts\IJsonAction.cs" />
     <Compile Include="Json\Contracts\IJsonActionData.cs" />
     <Compile Include="Json\Contracts\IJsonAttachment.cs" />
@@ -170,6 +181,8 @@
     <Compile Include="Enumerations\CheckItemStateType.cs" />
     <Compile Include="Json\Contracts\IDeserializer.cs" />
     <Compile Include="Json\Contracts\IJsonSearchResults.cs" />
+    <Compile Include="Json\Contracts\IJsonToken.cs" />
+    <Compile Include="Json\Contracts\IJsonTokenPermission.cs" />
     <Compile Include="Json\Manatee\Entities\ManateeActionData.cs" />
     <Compile Include="Json\Manatee\Entities\ManateeNotificationData.cs" />
     <Compile Include="Json\Manatee\Entities\ManateeSearchResults.cs" />
@@ -316,6 +329,7 @@
     <Compile Include="Internal\TrelloRest.cs" />
     <Compile Include="Rest\RestSharpSerializer.cs" />
     <Compile Include="SearchResults.cs" />
+    <Compile Include="Token.cs" />
     <Compile Include="TrelloService.cs" />
   </ItemGroup>
   <ItemGroup>

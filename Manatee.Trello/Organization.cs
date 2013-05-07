@@ -187,7 +187,8 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal override string Key { get { return "organizations"; } }
+		internal static string TypeKey { get { return "organizations"; } }
+		internal override string Key { get { return TypeKey; } }
 		/// <summary>
 		/// Gets whether the entity is a cacheable item.
 		/// </summary>
@@ -199,9 +200,9 @@ namespace Manatee.Trello
 		public Organization()
 		{
 			_jsonOrganization = new InnerJsonOrganization();
-			_actions = new ExpiringList<Action, IJsonAction>(this, "actions");
-			_boards = new ExpiringList<Board, IJsonBoard>(this, "boards");
-			_members = new ExpiringList<Member, IJsonMember>(this, "members");
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
+			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey);
+			_members = new ExpiringList<Member, IJsonMember>(this, Member.TypeKey);
 			_preferences = new OrganizationPreferences(this);
 		}
 

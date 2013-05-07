@@ -63,7 +63,8 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal override string Key { get { return "labels"; } }
+		internal static string TypeKey { get { return "labels"; } }
+		internal override string Key { get { return TypeKey; } }
 
 		static Label()
 		{

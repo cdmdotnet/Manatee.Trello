@@ -55,7 +55,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ColorBlind property without AuthToken")
+				.WithScenario("Set ColorBlind property without UserToken")
 				.Given(AMemberPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ColorBlindIsSet, (bool?) true)
@@ -110,7 +110,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set MinutesBetweenSummaries property without AuthToken")
+				.WithScenario("Set MinutesBetweenSummaries property without UserToken")
 				.Given(AMemberPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(MinutesBetweenSummariesIsSet, (int?) 10)
@@ -165,7 +165,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set SendSummaries property without AuthToken")
+				.WithScenario("Set SendSummaries property without UserToken")
 				.Given(AMemberPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(SendSummariesIsSet, (bool?) true)
@@ -220,7 +220,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set MinutesBeforeDeadlineToNotify property without AuthToken")
+				.WithScenario("Set MinutesBeforeDeadlineToNotify property without UserToken")
 				.Given(AMemberPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)

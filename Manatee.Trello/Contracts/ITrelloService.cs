@@ -32,15 +32,15 @@ namespace Manatee.Trello.Contracts
 	public interface ITrelloService
 	{
 		/// <summary>
-		/// Gets and sets the AuthToken for the service.
+		/// Gets and sets the UserToken for the service.
 		/// </summary>
-		string AuthToken { get; set; }
+		string UserToken { get; set; }
 		/// <summary>
 		/// Provides caching for retrieved entities.
 		/// </summary>
 		ICache Cache { get; set; }
 		/// <summary>
-		/// Gets the Member object associated with the provided AuthToken.
+		/// Gets the Member object associated with the provided UserToken.
 		/// </summary>
 		Member Me { get; }
 		/// <summary>

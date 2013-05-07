@@ -53,7 +53,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonAttachment>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Delete is called without AuthToken")
+				.WithScenario("Delete is called without UserToken")
 				.Given(AnAttachment)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)

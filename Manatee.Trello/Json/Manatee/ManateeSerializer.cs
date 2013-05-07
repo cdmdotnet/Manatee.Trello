@@ -90,6 +90,7 @@ namespace Manatee.Trello.Json.Manatee
 			JsonSerializationTypeRegistry.RegisterListType<IJsonMember>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonNotification>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonOrganization>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonTokenPermission>();
 		}
 		private static void InitializeAbstractionMap()
 		{
@@ -115,6 +116,8 @@ namespace Manatee.Trello.Json.Manatee
 			JsonSerializationAbstractionMap.Map<IJsonOrganization, ManateeOrganization>();
 			JsonSerializationAbstractionMap.Map<IJsonOrganizationPreferences, ManateeOrganizationPreferences>();
 			JsonSerializationAbstractionMap.Map<IJsonSearchResults, ManateeSearchResults>();
+			JsonSerializationAbstractionMap.Map<IJsonToken, ManateeToken>();
+			JsonSerializationAbstractionMap.Map<IJsonTokenPermission, ManateeTokenPermission>();
 		}
 	}
 }

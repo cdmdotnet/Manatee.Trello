@@ -57,7 +57,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ExternalMembersDisabled property without AuthToken")
+				.WithScenario("Set ExternalMembersDisabled property without UserToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(ExternalMembersDisabledIsSet, (bool?)true)
@@ -110,7 +110,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set OrgVisibleBoardVisibility property without AuthToken")
+				.WithScenario("Set OrgVisibleBoardVisibility property without UserToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(OrgVisibleBoardVisibilityIsSet, BoardPermissionLevelType.Org)
@@ -157,7 +157,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set PermissionLevel property without AuthToken")
+				.WithScenario("Set PermissionLevel property without UserToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
@@ -204,7 +204,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set PrivateBoardVisibility property without AuthToken")
+				.WithScenario("Set PrivateBoardVisibility property without UserToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(PrivateBoardVisibilityIsSet, BoardPermissionLevelType.Private)
@@ -251,7 +251,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set PublicBoardVisibility property without AuthToken")
+				.WithScenario("Set PublicBoardVisibility property without UserToken")
 				.Given(AnOrganizationPreferencesObject)
 				.And(TokenNotSupplied)
 				.When(PublicBoardVisibilityIsSet, BoardPermissionLevelType.Public)

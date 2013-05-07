@@ -121,7 +121,8 @@ namespace Manatee.Trello
 			get { return (_jsonAction == null) ? null : _jsonAction.Date; }
 		}
 
-		internal override string Key { get { return "actions"; } }
+		internal static string TypeKey { get { return "actions"; } }
+		internal override string Key { get { return TypeKey; } }
 		/// <summary>
 		/// Gets whether the entity is a cacheable item.
 		/// </summary>

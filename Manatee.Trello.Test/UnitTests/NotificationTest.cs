@@ -55,7 +55,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonNotification>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsUnread property without AuthToken")
+				.WithScenario("Set IsUnread property without UserToken")
 				.Given(ANotification)
 				.And(TokenNotSupplied)
 				.When(IsUnreadIsSet, (bool?) true)
