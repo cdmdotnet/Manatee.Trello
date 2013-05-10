@@ -26,10 +26,10 @@ using System.Linq;
 
 namespace Manatee.Trello.Internal
 {
-	public class IsCacheableProvider
+	internal class IsCacheableProvider
 	{
-		private static IsCacheableProvider _default;
-		private static Dictionary<Type, bool> _registry;
+		private static readonly IsCacheableProvider _default;
+		private static readonly Dictionary<Type, bool> _registry;
 
 		public static IsCacheableProvider Default { get { return _default; } }
 

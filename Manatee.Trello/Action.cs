@@ -66,6 +66,9 @@ namespace Manatee.Trello
 		private IJsonAction _jsonAction;
 		private Member _memberCreator;
 		private ActionType _type = ActionType.Unknown;
+		/// <summary>
+		/// 
+		/// </summary>
 		protected bool _isDeleted;
 
 		/// <summary>
