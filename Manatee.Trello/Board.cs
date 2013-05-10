@@ -259,10 +259,6 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "boards"; } }
 		internal override string Key { get { return TypeKey; } }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected override bool Cacheable { get { return true; } }
 
 		///<summary>
 		/// Creates a new instance of the Board class.

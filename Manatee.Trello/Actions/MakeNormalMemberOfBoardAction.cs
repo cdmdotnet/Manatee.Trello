@@ -41,6 +41,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
@@ -52,6 +53,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
 			}

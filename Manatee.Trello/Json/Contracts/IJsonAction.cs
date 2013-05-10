@@ -27,12 +27,8 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Action object.
 	/// </summary>
-	public interface IJsonAction
+	public interface IJsonAction : IJsonCacheable
 	{
-		/// <summary>
-		/// Gets or sets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		string Id { get; set; }
 		/// <summary>
 		/// Gets or sets the ID of the member who performed the action.
 		/// </summary>

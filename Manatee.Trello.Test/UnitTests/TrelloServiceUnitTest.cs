@@ -140,6 +140,14 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(ResponseIs<Member>)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Retrieve a Token")
+				.Given(ATokenExists)
+				.When(RetrieveIsCalled<Token>, MockUserToken)
+				.Then(MockExecuteIsCalled<IJsonToken>, 1)
+				.And(ResponseIsNotNull)
+				.And(ResponseIs<Token>)
+				.And(ExceptionIsNotThrown)
+
 				.WithScenario("Returns cached entity")
 				.Given(AnEntityExists<Board, IJsonBoard>)
 				.And(ItemExistsInCache<Board>)
@@ -156,6 +164,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockExecuteIsCalled<IJsonBoard>, 1)
 				.And(ResponseIsNull)
 				.And(ExceptionIsNotThrown)
+				.And(LastCallErrorIsNotNull)
 
 				.WithScenario("Null string throws")
 				.Given(AnEntityExists<Board, IJsonBoard>)
@@ -271,6 +280,17 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Add(It.IsAny<T>()))
 				.Callback(ItemExistsInCache<T>);
 		}
+		private void ATokenExists()
+		{
+			var mock = new Mock<IJsonToken>();
+			mock.SetupAllProperties();
+			mock.Object.Permissions = new List<IJsonTokenPermission>();
+			_systemUnderTest = new ServiceUnderTest();
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonToken>(It.IsAny<IRestRequest>()))
+				.Returns(new RestSharpResponse<IJsonToken>(new RestResponse(), mock.Object));
+			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Add(It.IsAny<Token>()))
+				.Callback(ItemExistsInCache<Token>);
+		}
 		[GenericMethodFormat("The cache contains a(n) {0}")]
 		private void ItemExistsInCache<T>() where T : class
 		{
@@ -339,6 +359,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void MockCacheAddIsCalled<T>(int times)
 		{
 			_systemUnderTest.Dependencies.EntityCache.Verify(c => c.Add(It.IsAny<T>()), Times.Exactly(times));
+		}
+		private void LastCallErrorIsNotNull()
+		{
+			Assert.IsNotNull(_systemUnderTest.Sut.LastCallError);
 		}
 
 		#endregion

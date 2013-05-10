@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
@@ -102,7 +103,14 @@ namespace Manatee.Trello
 		{
 			get { return _api ?? (_api = new TrelloRest(_appKey, _userToken)); }
 		}
-		
+		/// <summary>
+		/// Gets the exception generated from the previous call, if any.
+		/// </summary>
+		/// <remarks>
+		/// When a method returns null, check this method for any errors.
+		/// </remarks>
+		public Exception LastCallError { get; private set; }
+
 		/// <summary>
 		/// Creates a new instance of the TrelloService class.
 		/// </summary>
@@ -199,6 +207,7 @@ namespace Manatee.Trello
 			where T : ExpiringObject, new()
 		{
 			T entity = null;
+			LastCallError = null;
 			try
 			{
 				if (typeof(T).IsAssignableFrom(typeof(Token)))
@@ -217,8 +226,9 @@ namespace Manatee.Trello
 				}
 				return entity;
 			}
-			catch
+			catch (Exception e)
 			{
+				LastCallError = e;
 				Cache.Remove(entity);
 				return null;
 			}
@@ -226,14 +236,32 @@ namespace Manatee.Trello
 
 		private Member GetMe()
 		{
-			var member = new Member();
-			var endpoint = EndpointGenerator.Default.Generate(member);
-			endpoint.Append("me");
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			var json = Api.Get<IJsonMember>(request);
-			if (json == null) return null;
-			member.ApplyJson(json);
-			return member;
+			Member member = null;
+			LastCallError = null;
+			try
+			{
+				var endpoint = EndpointGenerator.Default.Generate(member);
+				endpoint.Append("me");
+				var request = Api.RequestProvider.Create(endpoint.ToString());
+				var json = Api.Get<IJsonMember>(request);
+				if (json == null) return null;
+				var jsonCacheable = json as IJsonCacheable;
+				if (Cache != null)
+				{
+					var cached = Cache.Find<Member>(e => e.Matches(jsonCacheable.Id));
+					if (cached != null) return cached;
+				}
+				member = new Member();
+				member.ApplyJson(json);
+				member.Svc = this;
+				return member;
+			}
+			catch (Exception e)
+			{
+				LastCallError = e;
+				Cache.Remove(member);
+				return null;
+			}
 		}
 	}
 }

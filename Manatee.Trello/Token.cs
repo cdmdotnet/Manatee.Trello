@@ -40,6 +40,7 @@ namespace Manatee.Trello
 		private TokenPermission<Member> _memberPermissions;
 		private TokenPermission<Organization> _organizationPermissions;
 		private readonly string _value;
+		private bool _isDeleted;
 
 		/// <summary>
 		/// Gets the scope of permissions granted to boards.
@@ -48,6 +49,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return _boardPermissions;
 			}
@@ -59,6 +61,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonToken == null) return null;
 				return _jsonToken.DateCreated;
@@ -71,6 +74,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonToken == null) return null;
 				return _jsonToken.DateExpires;
@@ -96,6 +100,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonToken == null) return null;
 				return _jsonToken.Identifier;
@@ -108,6 +113,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonToken == null) return null; 
 				return ((_member == null) || (_member.Id != _jsonToken.IdMember)) && (Svc != null)
@@ -122,6 +128,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return _memberPermissions;
 			}
@@ -133,6 +140,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return _organizationPermissions;
 			}
@@ -145,10 +153,6 @@ namespace Manatee.Trello
 		internal static string TypeKey { get { return "tokens"; } }
 		internal override string Key { get { return TypeKey; } }
 		internal override string KeyId { get { return Value; } }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected override bool Cacheable { get { return true; } }
 
 		/// <summary>
 		/// Creates a new instance of the Token class.
@@ -169,10 +173,12 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonToken>(request);
+			_isDeleted = true;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

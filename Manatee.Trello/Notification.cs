@@ -135,10 +135,6 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "notifications"; } }
 		internal override string Key { get { return TypeKey; } }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected override bool Cacheable { get { return true; } }
 
 		static Notification()
 		{

@@ -17,7 +17,8 @@
 	File Name:		IRestResponse.cs
 	Namespace:		Manatee.Trello.Rest
 	Class Name:		IRestResponse, IRestResponse<T>
-	Purpose:		Defines required properties returned by RESTful calls.
+	Purpose:		Defines properties required for objects returned by RESTful
+					calls.
 
 ***************************************************************************************/
 using System.Net;
@@ -25,7 +26,7 @@ using System.Net;
 namespace Manatee.Trello.Rest
 {
 	/// <summary>
-	/// Defines required properties returned by RESTful calls.
+	/// Defines properties required for objects returned by RESTful calls.
 	/// </summary>
 	public interface IRestResponse
 	{

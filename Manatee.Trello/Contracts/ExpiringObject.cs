@@ -53,10 +53,6 @@ namespace Manatee.Trello.Contracts
 		/// Parameters is cleared after each use.
 		/// </remarks>
 		protected Dictionary<string, object> Parameters { get; private set; }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected virtual bool Cacheable { get { return true; } }
 
 		internal ExpiringObject Owner
 		{
@@ -80,7 +76,7 @@ namespace Manatee.Trello.Contracts
 				else
 				{
 					Api = _svc.Api;
-					if (Cacheable && (_svc.Cache != null))
+					if (IsCacheableProvider.Default.IsCacheable(GetType()) && (_svc.Cache != null))
 						_svc.Cache.Add(this);
 				}
 				PropigateService();

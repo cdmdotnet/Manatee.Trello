@@ -27,12 +27,8 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Card object.
 	/// </summary>
-	public interface IJsonCard
+	public interface IJsonCard : IJsonCacheable
 	{
-		/// <summary>
-		/// Gets or sets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		string Id { get; set; }
 		/// <summary>
 		/// Gets or sets whether a card has been archived.
 		/// </summary>

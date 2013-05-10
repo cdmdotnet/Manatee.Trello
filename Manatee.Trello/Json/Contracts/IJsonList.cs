@@ -25,12 +25,8 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the List object.
 	/// </summary>
-	public interface IJsonList
+	public interface IJsonList : IJsonCacheable
 	{
-		/// <summary>
-		/// Gets or sets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		string Id { get; set; }
 		/// <summary>
 		/// Gets or sets the name of the list.
 		/// </summary>

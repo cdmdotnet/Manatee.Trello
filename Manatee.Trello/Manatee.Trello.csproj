@@ -106,6 +106,7 @@
     <Compile Include="Internal\EndpointGenerator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
     <Compile Include="Internal\Endpoint.cs" />
+    <Compile Include="Internal\IsCacheableProvider.cs" />
     <Compile Include="Internal\Json\InnerJsonAction.cs" />
     <Compile Include="Internal\Json\InnerJsonAttachment.cs" />
     <Compile Include="Internal\Json\InnerJsonBadges.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Internal\Json\InnerJsonTokenPermission.cs" />
     <Compile Include="Internal\NotificationProvider.cs" />
     <Compile Include="Internal\SimpleCache.cs" />
+    <Compile Include="Json\Contracts\IJsonCacheable.cs" />
     <Compile Include="Json\Manatee\Entities\ManateeToken.cs" />
     <Compile Include="Json\Manatee\Entities\ManateeTokenPermission.cs" />
     <Compile Include="Json\Newtonsoft\Converters\TokenConverter.cs" />

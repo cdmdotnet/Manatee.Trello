@@ -43,6 +43,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
@@ -54,6 +55,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
@@ -61,7 +63,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates whether the action was caused by member deactivation.
 		/// </summary>
-		public bool? IsDeactivated { get { return _isDeactivated; } }
+		public bool? IsDeactivated { get { return _isDeleted ? null : _isDeactivated; } }
 		/// <summary>
 		/// Gets the member associated with the action.
 		/// </summary>
@@ -69,6 +71,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
 			}

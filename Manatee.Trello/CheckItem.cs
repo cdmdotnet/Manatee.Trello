@@ -46,6 +46,7 @@ namespace Manatee.Trello
 		private IJsonCheckItem _jsonCheckItem;
 		private Position _position;
 		private CheckItemStateType _state = CheckItemStateType.Unknown;
+		private bool _isDeleted;
 
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
@@ -67,11 +68,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCheckItem == null) ? null : _jsonCheckItem.Name;
 			}
 			set
 			{
+				if (_isDeleted) return;				
 				Validate.Writable(Svc);
 				Validate.NonEmptyString(value);
 				if (_jsonCheckItem == null) return;
@@ -88,11 +91,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return _position;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				Validate.Position(value);
 				if (_jsonCheckItem == null) return;
@@ -109,11 +114,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return CheckItemStateType.Unknown;
 				VerifyNotExpired();
 				return _state;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				if (_jsonCheckItem == null) return;
 				if (_state == value) return;
@@ -156,11 +163,13 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
+			if (_isDeleted) return;
 			if (Svc == null) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCheckItem>(request);
+			_isDeleted = true;
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.

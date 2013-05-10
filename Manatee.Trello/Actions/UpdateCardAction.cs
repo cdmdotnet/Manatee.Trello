@@ -47,6 +47,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
@@ -58,6 +59,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_listBeforeId == null) return null;
 				return ((_listBefore == null) || (_listBefore.Id != _listBeforeId)) && (Svc != null) ? (_listBefore = Svc.Retrieve<List>(_listBeforeId)) : _listBefore;
@@ -70,6 +72,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_listAfterId == null) return null;
 				return ((_listAfter == null) || (_listAfter.Id != _listAfterId)) && (Svc != null) ? (_listAfter = Svc.Retrieve<List>(_listAfterId)) : _listAfter;
@@ -82,6 +85,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}

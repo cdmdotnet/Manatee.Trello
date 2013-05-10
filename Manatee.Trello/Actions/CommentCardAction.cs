@@ -41,6 +41,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
@@ -52,6 +53,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
@@ -59,7 +61,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// The text of the comment.
 		/// </summary>
-		public string Text { get { return _text; } }
+		public string Text { get { return _isDeleted ? null : _text; } }
 
 		/// <summary>
 		/// Creates a new instance of the CommentCardAction class.

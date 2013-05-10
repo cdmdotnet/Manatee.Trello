@@ -20,9 +20,6 @@
 	Purpose:		Indicates an attachment was added to a card.
 
 ***************************************************************************************/
-using Manatee.Trello.Internal;
-using Manatee.Trello.Json;
-
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -46,6 +43,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null) ? (_board = Svc.Retrieve<Board>(_boardId)) : _board;
 			}
@@ -57,6 +55,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return ((_card == null) || (_card.Id != _cardId)) && (Svc != null) ? (_card = Svc.Retrieve<Card>(_cardId)) : _card;
 			}
@@ -68,6 +67,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return _attachment;
 			}

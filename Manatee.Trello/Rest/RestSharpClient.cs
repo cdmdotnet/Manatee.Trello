@@ -20,6 +20,9 @@
 	Purpose:		A RestSharp client which implemements IRestClient.
 
 ***************************************************************************************/
+using System;
+using System.Net;
+
 namespace Manatee.Trello.Rest
 {
 	internal class RestSharpClient : RestSharp.RestClient, IRestClient
@@ -39,8 +42,17 @@ namespace Manatee.Trello.Rest
 		{
 			var restSharpRequest = (RestSharpRequest)request;
 			var restSharpResponse = base.Execute(restSharpRequest);
+			ValidateResponse(restSharpResponse);
 			var data = _deserializer.Deserialize<T>(restSharpResponse);
 			return new RestSharpResponse<T>(restSharpResponse, data);
+		}
+
+		private static void ValidateResponse(RestSharp.IRestResponse response)
+		{
+			if (response == null)
+				throw new WebException("Received null response from Trello.");
+			if (response.StatusCode >= HttpStatusCode.BadRequest)
+				throw new WebException(string.Format("Trello returned with an error.\nError Message: {0}\nContent: {1}", response.ErrorMessage, response.Content), response.ErrorException);
 		}
 	}
 }

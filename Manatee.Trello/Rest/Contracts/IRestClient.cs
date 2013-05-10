@@ -20,6 +20,8 @@
 	Purpose:		Defines methods required to make RESTful calls.
 
 ***************************************************************************************/
+using System.Net;
+
 namespace Manatee.Trello.Rest
 {
 	/// <summary>

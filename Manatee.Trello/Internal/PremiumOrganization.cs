@@ -26,7 +26,8 @@ namespace Manatee.Trello.Internal
 {
 	internal class PremiumOrganization : Organization, IEquatable<PremiumOrganization>
 	{
-		internal override string Key { get { return "idPremOrgsAdmin"; } }
+		internal new static string TypeKey { get { return "idPremOrgsAdmin"; } }
+		internal override string Key { get { return TypeKey; } }
 
 		public bool Equals(PremiumOrganization other)
 		{

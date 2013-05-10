@@ -73,6 +73,7 @@ namespace Manatee.Trello
 		private Card _card;
 		private readonly ExpiringList<CheckItem, IJsonCheckItem> _checkItems;
 		private Position _position;
+		private bool _isDeleted;
 
 		/// <summary>
 		/// Gets the board which contains this checklist.
@@ -81,6 +82,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonCheckList == null) return null;
 				return ((_board == null) || (_board.Id != _jsonCheckList.IdBoard)) && (Svc != null)
@@ -95,6 +97,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonCheckList == null) return null;
 				return ((_card == null) || (_card.Id != _jsonCheckList.IdCard)) && (Svc != null)
@@ -103,6 +106,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				Validate.Entity(value);
 				if (_jsonCheckList == null) return;
@@ -136,6 +140,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCheckList == null) ? null : _jsonCheckList.Name;
 			}
@@ -158,6 +163,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCheckList == null) ? null : _position;
 			}
@@ -175,10 +181,6 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "checklists"; } }
 		internal override string Key { get { return TypeKey; } }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected override bool Cacheable { get { return true; } }
 
 		/// <summary>
 		/// Creates a new instance of the CheckList class.
@@ -199,6 +201,7 @@ namespace Manatee.Trello
 		public CheckItem AddCheckItem(string name, bool isChecked = false, Position position = null)
 		{
 			if (Svc == null) return null;
+			if (_isDeleted) return null;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
 			var endpoint = EndpointGenerator.Default.Generate(this);
@@ -218,10 +221,12 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
-			Api.Delete<IJsonCheckList>(request);	
+			Api.Delete<IJsonCheckList>(request);
+			_isDeleted = true;
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.

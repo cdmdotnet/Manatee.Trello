@@ -23,6 +23,7 @@
 using System;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
+using RestSharp;
 
 namespace Manatee.Trello.Internal
 {
