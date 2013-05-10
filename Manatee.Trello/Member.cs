@@ -350,10 +350,6 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "members"; } }
 		internal override string Key { get { return TypeKey; } }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected override bool Cacheable { get { return true; } }
 
 		static Member()
 		{

@@ -17,14 +17,14 @@
 	File Name:		IRestRequestProvider.cs
 	Namespace:		Manatee.Trello.Rest
 	Class Name:		IRestRequestProvider
-	Purpose:		Defines methods to generate IRequest&lt;T&gt; objects used
-					to make RESTful calls.
+	Purpose:		Defines methods required to generate IRequest objects
+					used to make RESTful calls.
 
 ***************************************************************************************/
 namespace Manatee.Trello.Rest
 {
 	/// <summary>
-	/// Defines methods to generate IRequest&lt;T&gt; objects used to make RESTful calls.
+	/// Defines methods to generate IRequest objects used to make RESTful calls.
 	/// </summary>
 	public interface IRestRequestProvider
 	{

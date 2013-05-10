@@ -22,6 +22,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
@@ -50,15 +51,16 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Board, IJsonBoard> _boards;
 		private readonly ExpiringList<Member, IJsonMember> _members;
 		private readonly OrganizationPreferences _preferences;
+		private bool _isDeleted;
 
 		///<summary>
 		/// Enumerates all actions associated with this organization.
 		///</summary>
-		public IEnumerable<Action> Actions { get { return _actions; } }
+		public IEnumerable<Action> Actions { get { return _isDeleted ? Enumerable.Empty<Action>() : _actions; } }
 		/// <summary>
 		/// Enumerates the boards owned by the organization.
 		/// </summary>
-		public IEnumerable<Board> Boards { get { return _boards; } }
+		public IEnumerable<Board> Boards { get { return _isDeleted ? Enumerable.Empty<Board>() : _boards; } }
 		/// <summary>
 		/// Gets or sets the description for the organization.
 		/// </summary>
@@ -66,11 +68,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonOrganization == null) ? null : _jsonOrganization.Desc;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.Desc == value) return;
@@ -86,11 +90,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonOrganization == null) ? null : _jsonOrganization.DisplayName;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.DisplayName == value) return;
@@ -119,6 +125,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonOrganization == null) ? null : _jsonOrganization.LogoHash;
 			}
@@ -126,7 +133,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the members who belong to the organization.
 		/// </summary>
-		public IEnumerable<Member> Members { get { return _members; } }
+		public IEnumerable<Member> Members { get { return _isDeleted ? Enumerable.Empty<Member>() : _members; } }
 		/// <summary>
 		/// Gets or sets the name of the organization.
 		/// </summary>
@@ -134,11 +141,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonOrganization == null) ? null : _jsonOrganization.Name;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.Name == value) return;
@@ -154,6 +163,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return Enumerable.Empty<int>();
 				VerifyNotExpired();
 				return (_jsonOrganization == null) ? null : _jsonOrganization.PowerUps;
 			}
@@ -161,7 +171,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// Gets the set of preferences for the organization.
 		///</summary>
-		public OrganizationPreferences Preferences { get { return _preferences; } }
+		public OrganizationPreferences Preferences { get { return _isDeleted ? null : _preferences; } }
 		/// <summary>
 		/// Gets the URL to the organization's profile.
 		/// </summary>
@@ -173,11 +183,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonOrganization == null) ? null : _jsonOrganization.Website;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.Website == value) return;
@@ -189,10 +201,6 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "organizations"; } }
 		internal override string Key { get { return TypeKey; } }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected override bool Cacheable { get { return true; } }
 
 		/// <summary>
 		/// Creates a new instance of the Organization class.
@@ -214,6 +222,7 @@ namespace Manatee.Trello
 		public Board AddBoard(string name)
 		{
 			if (Svc == null) return null;
+			if (_isDeleted) return null;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
 			var board = new Board();
@@ -232,6 +241,7 @@ namespace Manatee.Trello
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
@@ -247,10 +257,12 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonOrganization>(request);
+			_isDeleted = true;
 		}
 		/// <summary>
 		/// Extends an invitation to the organization to another member.
@@ -260,6 +272,7 @@ namespace Manatee.Trello
 		internal void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");
@@ -271,6 +284,7 @@ namespace Manatee.Trello
 		public void RemoveMember(Member member)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
@@ -284,6 +298,7 @@ namespace Manatee.Trello
 		internal void RescindInvitation(Member member)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			throw new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API.");

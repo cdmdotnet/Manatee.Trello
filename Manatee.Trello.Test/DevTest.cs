@@ -14,11 +14,17 @@ namespace Manatee.Trello.Test
 		public void TestMethod1()
 		{
 			//Options.UseNewtonsoftJson();
-			var service = new TrelloService(TrelloIds.AppKey);
+			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
 
-			var token = service.Retrieve<Token>(TrelloIds.UserToken);
+			var list = service.Retrieve<List>(TrelloIds.ListId);
+			var card = list.AddCard("card to delete");
+			var duplicate = list.Cards.Last();
+			
+			Assert.AreSame(card, duplicate);
+			card.Delete();
 
-			Console.WriteLine(token.Member);
+			card.MarkForUpdate();
+			Console.WriteLine(card);
 		}
 	}
 }

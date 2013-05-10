@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal
 {
@@ -82,27 +83,37 @@ namespace Manatee.Trello.Internal
 			var jsonList = (List<TJson>) obj;
 			foreach (var json in jsonList)
 			{
-				var entity = new T();
-				entity.ApplyJson(json);
-				if (typeof(T).IsAssignableFrom(typeof(Action)))
+				T entity;
+				if (IsCacheableProvider.Default.IsCacheable<T>())
 				{
-					var typedEntity = ActionProvider.Default.Parse(entity as Action) as T;
-					if (typedEntity != null)
+					var jsonCacheable = json as IJsonCacheable;
+					entity = Svc.Retrieve<T>(jsonCacheable.Id);
+				}
+				else
+				{
+					entity = new T();
+					entity.ApplyJson(json);
+					if (typeof(T).IsAssignableFrom(typeof(Action)))
 					{
-						typedEntity.ApplyJson(json);
-						entity = typedEntity;
+						var typedEntity = ActionProvider.Default.Parse(entity as Action) as T;
+						if (typedEntity != null)
+						{
+							typedEntity.ApplyJson(json);
+							entity = typedEntity;
+						}
+					}
+					else if (typeof(T).IsAssignableFrom(typeof(Notification)))
+					{
+						var typedEntity = NotificationProvider.Default.Parse(entity as Notification) as T;
+						if (typedEntity != null)
+						{
+							typedEntity.ApplyJson(json);
+							entity = typedEntity;
+						}
 					}
 				}
-				else if (typeof(T).IsAssignableFrom(typeof(Notification)))
-				{
-					var typedEntity = NotificationProvider.Default.Parse(entity as Notification) as T;
-					if (typedEntity != null)
-					{
-						typedEntity.ApplyJson(json);
-						entity = typedEntity;
-					}
-				}
-				_list.Add(entity);
+				if (entity != null)
+					_list.Add(entity);
 			}
 			PropigateService();
 		}

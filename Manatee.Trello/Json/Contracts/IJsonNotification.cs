@@ -27,12 +27,8 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Notification object.
 	/// </summary>
-	public interface IJsonNotification
+	public interface IJsonNotification : IJsonCacheable
 	{
-		/// <summary>
-		/// Gets or sets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		string Id { get; set; }
 		/// <summary>
 		/// Gets or sets whether the notification has been read.
 		/// </summary>

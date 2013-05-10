@@ -1,4 +1,4 @@
-﻿/***************************************************************************************
+/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,25 +14,19 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		PinnedBoard.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		PinnedBoard
-	Purpose:		Represents a single board that is pinned to a user's "Boards"
-					menu on Trello.com.
+	File Name:		IJsonCacheable.cs
+	Namespace:		Manatee.Trello.Json
+	Class Name:		IJsonCacheable
+	Purpose:		Defined properties required for TrelloService to cache an item.
 
 ***************************************************************************************/
-using System;
-
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Json
 {
-	internal class PinnedBoard : Board, IEquatable<PinnedBoard>
+	public interface IJsonCacheable
 	{
-		internal new static string TypeKey { get { return "idBoardsPinned"; } }
-		internal override string Key { get { return TypeKey; } }
-
-		public bool Equals(PinnedBoard other)
-		{
-			return base.Equals(this);
-		}
+		/// <summary>
+		/// Gets or sets a unique identifier (not necessarily a GUID).
+		/// </summary>
+		string Id { get; set; }
 	}
 }

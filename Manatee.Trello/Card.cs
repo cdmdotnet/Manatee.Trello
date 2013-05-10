@@ -94,11 +94,12 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Member, IJsonMember> _members;
 		private Position _position;
 		private readonly ExpiringList<VotingMember, IJsonMember> _votingMembers;
+		private bool _isDeleted;
 
 		///<summary>
 		/// Enumerates all actions associated with this card.
 		///</summary>
-		public IEnumerable<Action> Actions { get { return _actions; } }
+		public IEnumerable<Action> Actions { get { return _isDeleted ? null : _actions; } }
 		/// <summary>
 		/// Gets the ID of the attachment cover image.
 		/// </summary>
@@ -106,6 +107,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCard == null) ? null : _jsonCard.IdAttachmentCover;
 			}
@@ -113,11 +115,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the cards attachments.
 		/// </summary>
-		public IEnumerable<Attachment> Attachments { get { return _attachments; } }
+		public IEnumerable<Attachment> Attachments { get { return _isDeleted ? Enumerable.Empty<Attachment>() : _attachments; } }
 		/// <summary>
 		/// Gets the badges summarizing the card's contents.
 		/// </summary>
-		public Badges Badges { get { return _badges; } }
+		public Badges Badges { get { return _isDeleted ? null : _badges; } }
 		/// <summary>
 		/// Gets the board which contains the card.
 		/// </summary>
@@ -125,6 +127,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonCard == null) return null;
 				return ((_board == null) || (_board.Id != _jsonCard.IdBoard)) && (Svc != null)
@@ -135,11 +138,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the card's checklists.
 		/// </summary>
-		public IEnumerable<CheckList> CheckLists { get { return _checkLists; } }
+		public IEnumerable<CheckList> CheckLists { get { return _isDeleted ? Enumerable.Empty<CheckList>() : _checkLists; } }
 		/// <summary>
 		/// Enumerates the card's comments.
 		/// </summary>
-		public IEnumerable<CommentCardAction> Comments { get { return _actions.OfType<CommentCardAction>(); } }
+		public IEnumerable<CommentCardAction> Comments { get { return _isDeleted ? Enumerable.Empty<CommentCardAction>() : _actions.OfType<CommentCardAction>(); } }
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
@@ -147,11 +150,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCard == null) ? null : _jsonCard.Desc;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				if (_jsonCard == null) return;
 				if (_jsonCard.Desc == value) return;
@@ -167,11 +172,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCard == null) ? null : _jsonCard.Due;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				Validate.Nullable(value);
 				if (_jsonCard == null) return;
@@ -201,11 +208,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCard == null) ? null : _jsonCard.Closed;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				Validate.Nullable(value);
 				if (_jsonCard == null) return;
@@ -222,11 +231,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCard == null) ? null : _jsonCard.Subscribed;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				Validate.Nullable(value);
 				if (_jsonCard == null) return;
@@ -239,7 +250,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the labels applied to this card.
 		/// </summary>
-		public IEnumerable<Label> Labels { get { return _labels; } }
+		public IEnumerable<Label> Labels { get { return _isDeleted ? Enumerable.Empty<Label>() : _labels; } }
 		/// <summary>
 		/// Gets the list which contains this card.
 		/// </summary>
@@ -247,6 +258,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonCard == null) return null;
 				return ((_list == null) || (_list.Id != _jsonCard.IdList)) && (Svc != null)
@@ -261,6 +273,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCard == null) ? null : _jsonCard.ManualCoverAttachment;
 			}
@@ -268,7 +281,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the members assigned to this card.
 		/// </summary>
-		public IEnumerable<Member> Members { get { return _members; } }
+		public IEnumerable<Member> Members { get { return _isDeleted ? Enumerable.Empty<Member>() : _members; } }
 		/// <summary>
 		/// Gets or sets the card's name
 		/// </summary>
@@ -276,11 +289,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return (_jsonCard == null) ? null : _jsonCard.Name;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				Validate.NonEmptyString(value);
 				if (_jsonCard == null) return;
@@ -297,11 +312,13 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				VerifyNotExpired();
 				return _position;
 			}
 			set
 			{
+				if (_isDeleted) return;
 				Validate.Writable(Svc);
 				Validate.Position(value);
 				if (_position == value) return;
@@ -321,14 +338,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the members who have voted for this card.
 		/// </summary>
-		public IEnumerable<Member> VotingMembers { get { return _votingMembers; } }
+		public IEnumerable<Member> VotingMembers { get { return _isDeleted ? Enumerable.Empty<Member>() : _votingMembers; } }
 
 		internal static string TypeKey { get { return "cards"; } }
 		internal override string Key { get { return TypeKey; } }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected override bool Cacheable { get { return true; } }
 
 		/// <summary>
 		/// Creates a new instance of the Card class.
@@ -364,6 +377,7 @@ namespace Manatee.Trello
 		public CheckList AddCheckList(string name, Position position = null)
 		{
 			if (Svc == null) return null;
+			if (_isDeleted) return null;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(name);
 			var checkList = new CheckList();
@@ -386,6 +400,7 @@ namespace Manatee.Trello
 		public void AddComment(string comment)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.NonEmptyString(comment);
 			var endpoint = EndpointGenerator.Default.Generate(this, new Action());
@@ -402,6 +417,7 @@ namespace Manatee.Trello
 		public void ApplyLabel(LabelColor color)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this, new Label());
 			var request = Api.RequestProvider.Create(endpoint.ToString());
@@ -416,6 +432,7 @@ namespace Manatee.Trello
 		public void AssignMember(Member member)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this);
@@ -431,6 +448,7 @@ namespace Manatee.Trello
 		public void ClearNotifications()
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			endpoint.Append("markAssociatedNotificationsRead");
@@ -443,10 +461,14 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCard>(request);
+			if (Svc.Cache != null)
+				Svc.Cache.Remove(this);
+			_isDeleted = true;
 		}
 		/// <summary>
 		/// Moves the card to another board/list/position.
@@ -457,6 +479,7 @@ namespace Manatee.Trello
 		public void Move(Board board, List list, Position position = null)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.Entity(board);
 			Validate.Entity(list);
@@ -480,6 +503,7 @@ namespace Manatee.Trello
 		public void RemoveLabel(LabelColor color)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this, new Label());
 			endpoint.Append(color.ToLowerString());
@@ -493,6 +517,7 @@ namespace Manatee.Trello
 		public void RemoveMember(Member member)
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
@@ -550,6 +575,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Refresh()
 		{
+			if (_isDeleted) return;
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			ApplyJson(Api.Get<IJsonCard>(request));

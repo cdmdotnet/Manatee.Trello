@@ -27,7 +27,8 @@ namespace Manatee.Trello.Internal
 {
 	internal class InvitedOrganization : Organization, IEquatable<InvitedOrganization>
 	{
-		internal override string Key { get { return "idOrganizationsInvited"; } }
+		internal new static string TypeKey { get { return "idOrganizationsInvited"; } }
+		internal override string Key { get { return TypeKey; } }
 
 		public bool Equals(InvitedOrganization other)
 		{

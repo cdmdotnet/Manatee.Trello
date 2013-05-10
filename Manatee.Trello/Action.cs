@@ -66,6 +66,7 @@ namespace Manatee.Trello
 		private IJsonAction _jsonAction;
 		private Member _memberCreator;
 		private ActionType _type = ActionType.Unknown;
+		protected bool _isDeleted;
 
 		/// <summary>
 		/// The member who performed the action.
@@ -74,6 +75,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				if (_jsonAction == null) return null;
 				return ((_memberCreator == null) || (_memberCreator.Id != _jsonAction.IdMemberCreator)) && (Svc != null)
 						? (_memberCreator = Svc.Retrieve<Member>(_jsonAction.IdMemberCreator))
@@ -85,7 +87,7 @@ namespace Manatee.Trello
 		/// </summary>
 		internal IJsonActionData Data
 		{
-			get { return (_jsonAction == null) ? null : _jsonAction.Data; }
+			get { return (_isDeleted || (_jsonAction == null)) ? null : _jsonAction.Data; }
 			set
 			{
 				if (_jsonAction == null) return;
@@ -110,7 +112,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public ActionType Type
 		{
-			get { return _type; }
+			get { return _isDeleted ? ActionType.Unknown : _type; }
 			internal set { _type = value; }
 		}
 		/// <summary>
@@ -123,10 +125,6 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "actions"; } }
 		internal override string Key { get { return TypeKey; } }
-		/// <summary>
-		/// Gets whether the entity is a cacheable item.
-		/// </summary>
-		protected override bool Cacheable { get { return true; } }
 
 		static Action()
 		{
@@ -203,10 +201,12 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonAction>(request);
+			_isDeleted = true;
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -259,6 +259,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected sealed override void Refresh()
 		{
+			if (_isDeleted) return;
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			ApplyJson(Api.Get<IJsonAction>(request));

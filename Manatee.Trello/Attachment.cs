@@ -86,15 +86,16 @@ namespace Manatee.Trello
 		private IJsonAttachment _jsonAttachment;
 		private Member _member;
 		private List<AttachmentPreview> _previews;
+		private bool _isDeleted;
 
 		///<summary>
 		/// The size of the attachment.
 		///</summary>
-		public int? Bytes { get { return (_jsonAttachment == null) ? null : _jsonAttachment.Bytes; } }
+		public int? Bytes { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Bytes; } }
 		/// <summary>
 		/// The date on which the attachment was created.
 		/// </summary>
-		public DateTime? Date { get { return (_jsonAttachment == null) ? null : _jsonAttachment.Date; } }
+		public DateTime? Date { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Date; } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
@@ -111,7 +112,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// ?
 		///</summary>
-		public bool? IsUpload { get { return (_jsonAttachment == null) ? null : _jsonAttachment.IsUpload; } }
+		public bool? IsUpload { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.IsUpload; } }
 		///<summary>
 		/// The member who created the attachment.
 		///</summary>
@@ -119,6 +120,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return null;
 				if (_jsonAttachment == null) return null;
 				return ((_member == null) || (_member.Id != _jsonAttachment.IdMember)) && (Svc != null)
 				       	? (_member = Svc.Retrieve<Member>(_jsonAttachment.IdMember))
@@ -128,11 +130,11 @@ namespace Manatee.Trello
 		///<summary>
 		/// Indicates the type of attachment.
 		///</summary>
-		public string MimeType { get { return (_jsonAttachment == null) ? null : _jsonAttachment.MimeType; } }
+		public string MimeType { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.MimeType; } }
 		///<summary>
 		/// The name of the attachment.
 		///</summary>
-		public string Name { get { return (_jsonAttachment == null) ? null : _jsonAttachment.Name; } }
+		public string Name { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Name; } }
 		///<summary>
 		/// Enumerates a collection of previews for the attachment.
 		///</summary>
@@ -140,6 +142,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
+				if (_isDeleted) return Enumerable.Empty<AttachmentPreview>();
 				VerifyNotExpired();
 				return _previews;
 			}
@@ -147,7 +150,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// Indicates the attachment storage location.
 		///</summary>
-		public string Url { get { return (_jsonAttachment == null) ? null : _jsonAttachment.Url; } }
+		public string Url { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Url; } }
 
 		internal static string TypeKey { get { return "attachments"; } }
 		internal override string Key { get { return TypeKey; } }
@@ -166,10 +169,12 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (Svc == null) return;
+			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonAttachment>(request);
+			_isDeleted = true;
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
