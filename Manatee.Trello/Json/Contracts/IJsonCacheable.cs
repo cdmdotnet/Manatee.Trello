@@ -17,11 +17,14 @@
 	File Name:		IJsonCacheable.cs
 	Namespace:		Manatee.Trello.Json
 	Class Name:		IJsonCacheable
-	Purpose:		Defined properties required for TrelloService to cache an item.
+	Purpose:		Defines properties required for TrelloService to cache an item.
 
 ***************************************************************************************/
 namespace Manatee.Trello.Json
 {
+	/// <summary>
+	/// Defines properties required for TrelloService to cache an item.
+	/// </summary>
 	public interface IJsonCacheable
 	{
 		/// <summary>
