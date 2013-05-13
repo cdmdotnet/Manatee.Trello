@@ -35,6 +35,7 @@ namespace Manatee.Trello
 		private readonly string _cardId;
 		private readonly string _checkListName;
 		private readonly string _cardName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -96,11 +97,11 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} added check list '{1}' to card '{2}' on {3}",
-								 MemberCreator.FullName,
-								 CheckList != null ? CheckList.Name : _checkListName,
-								 Card != null ? Card.Name : _cardName,
-								 Date);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} added check list '{1}' to card '{2}' on {3}",
+			                                                       MemberCreator.FullName,
+			                                                       CheckList != null ? CheckList.Name : _checkListName,
+			                                                       Card != null ? Card.Name : _cardName,
+			                                                       Date));
 		}
 	}
 }

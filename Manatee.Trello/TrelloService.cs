@@ -24,7 +24,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
@@ -233,7 +232,6 @@ namespace Manatee.Trello
 				return null;
 			}
 		}
-
 		private Member GetMe()
 		{
 			Member member = null;
@@ -259,7 +257,8 @@ namespace Manatee.Trello
 			catch (Exception e)
 			{
 				LastCallError = e;
-				Cache.Remove(member);
+				if (Cache != null)
+					Cache.Remove(member);
 				return null;
 			}
 		}

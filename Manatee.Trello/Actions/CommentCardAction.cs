@@ -33,6 +33,7 @@ namespace Manatee.Trello
 		private readonly string _cardId;
 		private readonly string _text;
 		private readonly string _cardName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -86,11 +87,11 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} commented '{1}' on card '{2}' on {3}",
-								 MemberCreator.FullName,
-								 Text,
-								 Card != null ? Card.Name : _cardName,
-								 Date);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} commented '{1}' on card '{2}' on {3}",
+			                                                       MemberCreator.FullName,
+			                                                       Text,
+			                                                       Card != null ? Card.Name : _cardName,
+			                                                       Date));
 		}
 	}
 }

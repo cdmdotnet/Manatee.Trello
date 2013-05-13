@@ -31,6 +31,7 @@ namespace Manatee.Trello
 		private Board _board;
 		private readonly string _boardId;
 		private readonly string _boardName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -65,9 +66,9 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} removed you from board '{1}'.",
-			                     MemberCreator.FullName,
-								 Board != null ? Board.Name : _boardName);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} removed you from board '{1}'.",
+			                                                       MemberCreator.FullName,
+			                                                       Board != null ? Board.Name : _boardName));
 		}
 	}
 }

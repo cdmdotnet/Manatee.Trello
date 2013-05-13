@@ -30,6 +30,7 @@ namespace Manatee.Trello
 		private Board _board;
 		private readonly string _boardId;
 		private readonly string _boardName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -65,10 +66,10 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} updated board '{1}' on {2}",
-			                     MemberCreator.FullName,
-			                     Board != null ? Board.Name : _boardName,
-			                     Date);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} updated board '{1}' on {2}",
+			                                                       MemberCreator.FullName,
+			                                                       Board != null ? Board.Name : _boardName,
+			                                                       Date));
 		}
 	}
 }

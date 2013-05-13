@@ -35,6 +35,7 @@ namespace Manatee.Trello
 		private Attachment _attachment;
 		private readonly string _attachmentId;
 		private readonly string _attachmentName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -97,11 +98,11 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} added attachment '{1}' to card '{2}' on {3}",
-								 MemberCreator.FullName,
-								 Attachment != null ? Attachment.Name : _attachmentName,
-								 Card != null ? Card.Name : _cardName,
-								 Date);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} added attachment '{1}' to card '{2}' on {3}",
+			                                                       MemberCreator.FullName,
+			                                                       Attachment != null ? Attachment.Name : _attachmentName,
+			                                                       Card != null ? Card.Name : _cardName,
+			                                                       Date));
 		}
 	}
 }

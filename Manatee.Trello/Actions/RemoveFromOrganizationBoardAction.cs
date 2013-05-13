@@ -33,6 +33,7 @@ namespace Manatee.Trello
 		private readonly string _organizationId;
 		private readonly string _boardName;
 		private readonly string _organizationName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -82,11 +83,11 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} removed board '{1}' from organization '{2}' on {3}",
-								 MemberCreator.FullName,
-								 Board != null ? Board.Name : _boardName,
-								 Organization != null ? Organization.Name : _organizationName,
-								 Date);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} removed board '{1}' from organization '{2}' on {3}",
+			                                                       MemberCreator.FullName,
+			                                                       Board != null ? Board.Name : _boardName,
+			                                                       Organization != null ? Organization.Name : _organizationName,
+			                                                       Date));
 		}
 	}
 }
