@@ -32,6 +32,7 @@ namespace Manatee.Trello
 		private readonly string _boardId;
 		private Member _member;
 		private readonly string _memberId;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -79,8 +80,8 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} made {1} a admin of board '{2}' on {3}",
-								 MemberCreator.FullName, Member.FullName, Board.Name, Date);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} made {1} a admin of board '{2}' on {3}",
+			                                                       MemberCreator.FullName, Member.FullName, Board.Name, Date));
 		}
 	}
 }

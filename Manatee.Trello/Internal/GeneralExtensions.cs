@@ -23,6 +23,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Manatee.Trello.Internal
@@ -52,6 +53,18 @@ namespace Manatee.Trello.Internal
 		public static bool BetweenInclusive(this IComparable value, object low, object high)
 		{
 			return (value.CompareTo(low) >= 0) && (value.CompareTo(high) <= 0);
+		}
+		public static string FlagsToString(this Enum value)
+		{
+			return value.ToString().ToLower().Replace(" ", string.Empty);
+		}
+		public static string ToDescription(this Enum value)
+		{
+			var str = value.ToString();
+			var type = value.GetType();
+			var memberInfo = type.GetMember(str);
+			var attributes = memberInfo[0].GetCustomAttributes(typeof (DescriptionAttribute), false).Cast<DescriptionAttribute>();
+			return attributes.Count() > 0 ? attributes.First().Description : str;
 		}
 	}
 }

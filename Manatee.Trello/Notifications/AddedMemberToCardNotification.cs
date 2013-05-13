@@ -35,6 +35,7 @@ namespace Manatee.Trello
 		private Member _member;
 		private readonly string _memberId;
 		private readonly string _cardName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -93,10 +94,10 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} added {1} to card '{2}'.",
-								 MemberCreator.FullName,
-								 Member.FullName,
-								 Card != null ? Card.Name : _cardName);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} added {1} to card '{2}'.",
+			                                                       MemberCreator.FullName,
+			                                                       Member.FullName,
+			                                                       Card != null ? Card.Name : _cardName));
 		}
 	}
 }

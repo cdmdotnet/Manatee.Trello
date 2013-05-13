@@ -35,6 +35,7 @@ namespace Manatee.Trello
 		private readonly string _name;
 		private readonly string _url;
 		private readonly string _cardName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -91,9 +92,9 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} added an attachment to card '{1}'.",
-								 MemberCreator.FullName,
-								 Card != null ? Card.Name : _cardName);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} added an attachment to card '{1}'.",
+			                                                       MemberCreator.FullName,
+			                                                       Card != null ? Card.Name : _cardName));
 		}
 	}
 }

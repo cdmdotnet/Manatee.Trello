@@ -31,6 +31,7 @@ namespace Manatee.Trello
 		private Organization _organization;
 		private readonly string _organizationId;
 		private readonly string _organizationName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the notification.
@@ -67,9 +68,9 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} added you to organization '{1}'.",
-								 MemberCreator.FullName,
-								 Organization != null ? Organization.Name : _organizationName);
+			return _stringFormat ?? (_stringFormat = string.Format("{0} added you to organization '{1}'.",
+			                                                       MemberCreator.FullName,
+			                                                       Organization != null ? Organization.Name : _organizationName));
 		}
 	}
 }

@@ -39,6 +39,7 @@ namespace Manatee.Trello
 		private Card _card;
 		private readonly string _cardId;
 		private readonly string _cardName;
+		private string _stringFormat;
 
 		/// <summary>
 		/// Gets the board associated with the action.
@@ -118,16 +119,16 @@ namespace Manatee.Trello
 		public override string ToString()
 		{
 			if (_listBeforeId != null)
-				return string.Format("{0} moved card '{1}' from list '{2}' to list '{3}' on {4}",
-				                     MemberCreator.FullName,
-				                     Card != null ? Card.Name : _cardName,
-				                     ListBefore != null ? ListBefore.Name : _listBeforeName,
-				                     ListAfter != null ? ListAfter.Name : _listAfterName,
-				                     Date);
-			return string.Format("{0} updated card '{1}' on {2}",
-									MemberCreator.FullName,
-									Card != null ? Card.Name : _cardName,
-									Date);
+				return _stringFormat ?? (_stringFormat = string.Format("{0} moved card '{1}' from list '{2}' to list '{3}' on {4}",
+				                                                       MemberCreator.FullName,
+				                                                       Card != null ? Card.Name : _cardName,
+				                                                       ListBefore != null ? ListBefore.Name : _listBeforeName,
+				                                                       ListAfter != null ? ListAfter.Name : _listAfterName,
+				                                                       Date));
+			return _stringFormat ?? (_stringFormat = string.Format("{0} updated card '{1}' on {2}",
+			                                                       MemberCreator.FullName,
+			                                                       Card != null ? Card.Name : _cardName,
+			                                                       Date));
 		}
 	}
 }
