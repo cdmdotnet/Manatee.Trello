@@ -14,23 +14,22 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InvitedOrganization.cs
+	File Name:		BoardInvitation.cs
 	Namespace:		Manatee.Trello.Internal
-	Class Name:		InvitedOrganization
-	Purpose:		Represents a single organization to which a user has been
-					invited on Trello.com.
+	Class Name:		BoardInvitation
+	Purpose:		Represents a single board to which a user is invited on Trello.com.
 
 ***************************************************************************************/
 using System;
 
 namespace Manatee.Trello.Internal
 {
-	internal class InvitedOrganization : Organization, IEquatable<InvitedOrganization>
+	internal class BoardInvitation : Board, IEquatable<BoardInvitation>
 	{
-		internal new static string TypeKey { get { return "idOrganizationsInvited"; } }
+		internal new static string TypeKey { get { return "boardsInvited"; } }
 		internal override string Key { get { return TypeKey; } }
 
-		public bool Equals(InvitedOrganization other)
+		public bool Equals(BoardInvitation other)
 		{
 			return base.Equals(this);
 		}

@@ -65,6 +65,7 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Action, IJsonAction> _actions;
 		private readonly ExpiringList<Card, IJsonCard> _archivedCards;
 		private readonly ExpiringList<List, IJsonList> _archivedLists;
+		private readonly ExpiringList<InvitedMember, IJsonMember> _invitedMembers;
 		private readonly LabelNames _labelNames;
 		private readonly ExpiringList<List, IJsonList> _lists;
 		private readonly ExpiringList<BoardMembership, IJsonBoardMembership> _members;
@@ -117,6 +118,10 @@ namespace Manatee.Trello
 				base.Id = value;
 			}
 		}
+		/// <summary>
+		/// Enumerates all members who have received invitations to this board.
+		/// </summary>
+		public IEnumerable<Member> InvitedMembers { get { return _invitedMembers; } }
 		///<summary>
 		/// Gets or sets whether this board is closed.
 		///</summary>
@@ -269,6 +274,7 @@ namespace Manatee.Trello
 			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
 			_archivedCards = new ExpiringList<Card, IJsonCard>(this, Card.TypeKey) {Filter = "closed"};
 			_archivedLists = new ExpiringList<List, IJsonList>(this, List.TypeKey) {Filter = "closed"};
+			_invitedMembers = new ExpiringList<InvitedMember, IJsonMember>(this, InvitedMember.TypeKey);
 			_labelNames = new LabelNames(this);
 			_lists = new ExpiringList<List, IJsonList>(this, List.TypeKey);
 			_members = new ExpiringList<BoardMembership, IJsonBoardMembership>(this, BoardMembership.TypeKey);
@@ -296,7 +302,6 @@ namespace Manatee.Trello
 				request.AddParameter("pos", position);
 			list.ApplyJson(Api.Post<IJsonList>(request));
 			list.Svc = Svc;
-			list.Api = Api;
 			_lists.MarkForUpdate();
 			_actions.MarkForUpdate();
 			return list;

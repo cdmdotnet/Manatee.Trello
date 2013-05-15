@@ -1,4 +1,4 @@
-﻿/***************************************************************************************
+/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,24 +14,19 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InvitedBoard.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		InvitedBoard
-	Purpose:		Represents a single board to which a user is invited on Trello.com.
+	File Name:		AvatarSourceType.cs
+	Namespace:		Manatee.Trello
+	Class Name:		AvatarSourceType
+	Purpose:		Enumerates the avatar sources used by Trello.
 
 ***************************************************************************************/
-using System;
-
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello
 {
-	internal class InvitedBoard : Board, IEquatable<InvitedBoard>
+	public enum AvatarSourceType
 	{
-		internal new static string TypeKey { get { return "idBoardsInvited"; } }
-		internal override string Key { get { return TypeKey; } }
-
-		public bool Equals(InvitedBoard other)
-		{
-			return base.Equals(this);
-		}
+		Unknown = -1,
+		None,
+		Upload,
+		Gravatar
 	}
 }

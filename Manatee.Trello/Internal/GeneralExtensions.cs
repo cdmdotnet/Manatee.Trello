@@ -54,10 +54,6 @@ namespace Manatee.Trello.Internal
 		{
 			return (value.CompareTo(low) >= 0) && (value.CompareTo(high) <= 0);
 		}
-		public static string FlagsToString(this Enum value)
-		{
-			return value.ToString().ToLower().Replace(" ", string.Empty);
-		}
 		public static string ToDescription(this Enum value)
 		{
 			var str = value.ToString();
