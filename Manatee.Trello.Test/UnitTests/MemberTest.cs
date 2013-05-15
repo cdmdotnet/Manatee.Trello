@@ -94,38 +94,38 @@ namespace Manatee.Trello.Test.UnitTests
 				.WithScenario("Set AvatarSource property")
 				.Given(AMember)
 				.And(EntityIsRefreshed)
-				.When(AvatarSourceIsSet, "description")
+				.When(AvatarSourceIsSet, AvatarSourceType.Gravatar)
 				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property to null")
 				.Given(AMember)
 				.And(EntityIsRefreshed)
-				.And(AvatarSourceIs, "not description")
-				.When(AvatarSourceIsSet, (string)null)
+				.And(AvatarSourceIs, AvatarSourceType.None)
+				.When(AvatarSourceIsSet, AvatarSourceType.Gravatar)
 				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property to empty")
 				.Given(AMember)
 				.And(EntityIsRefreshed)
-				.And(AvatarSourceIs, "not description")
-				.When(AvatarSourceIsSet, string.Empty)
+				.And(AvatarSourceIs, AvatarSourceType.None)
+				.When(AvatarSourceIsSet, AvatarSourceType.Gravatar)
 				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property to same")
 				.Given(AMember)
 				.And(EntityIsRefreshed)
-				.And(AvatarSourceIs, "description")
-				.When(AvatarSourceIsSet, "description")
+				.And(AvatarSourceIs, AvatarSourceType.Gravatar)
+				.When(AvatarSourceIsSet, AvatarSourceType.Gravatar)
 				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set AvatarSource property without UserToken")
 				.Given(AMember)
 				.And(TokenNotSupplied)
-				.When(AvatarSourceIsSet, "description")
+				.When(AvatarSourceIsSet, AvatarSourceType.Gravatar)
 				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
@@ -1040,7 +1040,7 @@ namespace Manatee.Trello.Test.UnitTests
 			SetupMockPost<IJsonBoard>();
 			SetupMockPost<IJsonOrganization>();
 		}
-		private void AvatarSourceIs(string value)
+		private void AvatarSourceIs(AvatarSourceType value)
 		{
 			SetupProperty(() => _systemUnderTest.Sut.AvatarSource = value);
 		}
@@ -1109,7 +1109,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Execute(() => _systemUnderTest.Sut.AvatarSource);
 		}
-		private void AvatarSourceIsSet(string value)
+		private void AvatarSourceIsSet(AvatarSourceType value)
 		{
 			Execute(() => _systemUnderTest.Sut.AvatarSource = value);
 		}

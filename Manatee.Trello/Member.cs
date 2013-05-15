@@ -82,12 +82,14 @@ namespace Manatee.Trello
 	public class Member : ExpiringObject, IEquatable<Member>
 	{
 		private static readonly OneToOneMap<MemberStatusType, string> _statusMap;
+		private static readonly OneToOneMap<AvatarSourceType, string> _avatarSourceMap;
 
 		private IJsonMember _jsonMember;
 		private readonly ExpiringList<Action, IJsonAction> _actions;
+		private AvatarSourceType _avatarSource;
 		private readonly ExpiringList<Board, IJsonBoard> _boards;
-		private readonly ExpiringList<InvitedBoard, IJsonBoard> _invitedBoards;
-		private readonly ExpiringList<InvitedOrganization, IJsonOrganization> _invitedOrganizations;
+		private readonly ExpiringList<BoardInvitation, IJsonBoard> _invitedBoards;
+		private readonly ExpiringList<OrganizationInvitation, IJsonOrganization> _invitedOrganizations;
 		private readonly ExpiringList<Notification, IJsonNotification> _notifications;
 		private readonly ExpiringList<Organization, IJsonOrganization> _organizations;
 		private readonly ExpiringList<PinnedBoard, IJsonBoard> _pinnedBoards;
@@ -113,19 +115,20 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the source URL for the member's avatar.
 		/// </summary>
-		public string AvatarSource
+		public AvatarSourceType AvatarSource
 		{
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.AvatarSource;
+				return _avatarSource;
 			}
 			set
 			{
 				Validate.Writable(Svc);
 				if (_jsonMember == null) return;
-				if (_jsonMember.AvatarSource == value) return;
-				_jsonMember.AvatarSource = value ?? string.Empty;
+				if (_avatarSource == value) return;
+				_avatarSource = value;
+				UpdateApiAvatarSource();
 				Parameters.Add("avatarSource", _jsonMember.AvatarSource);
 				Put();
 			}
@@ -359,6 +362,12 @@ namespace Manatee.Trello
 			           		{MemberStatusType.Idle, "idle"},
 			           		{MemberStatusType.Active, "active"},
 			           	};
+			_avatarSourceMap = new OneToOneMap<AvatarSourceType, string>
+			                   	{
+			                   		{AvatarSourceType.None, "none"},
+			                   		{AvatarSourceType.Upload, "upload"},
+			                   		{AvatarSourceType.Gravatar, "gravatar"},
+			                   	};
 		}
 		/// <summary>
 		/// Creates a new instance of the Member class.
@@ -367,9 +376,10 @@ namespace Manatee.Trello
 		{
 			_jsonMember = new InnerJsonMember();
 			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
+			_avatarSource = AvatarSourceType.Unknown;
 			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey);
-			_invitedBoards = new ExpiringList<InvitedBoard, IJsonBoard>(this, InvitedBoard.TypeKey);
-			_invitedOrganizations = new ExpiringList<InvitedOrganization, IJsonOrganization>(this, InvitedOrganization.TypeKey);
+			_invitedBoards = new ExpiringList<BoardInvitation, IJsonBoard>(this, BoardInvitation.TypeKey);
+			_invitedOrganizations = new ExpiringList<OrganizationInvitation, IJsonOrganization>(this, OrganizationInvitation.TypeKey);
 			_notifications = new ExpiringList<Notification, IJsonNotification>(this, Notification.TypeKey);
 			_organizations = new ExpiringList<Organization, IJsonOrganization>(this, Organization.TypeKey);
 			_pinnedBoards = new ExpiringList<PinnedBoard, IJsonBoard>(this, PinnedBoard.TypeKey);
@@ -406,7 +416,6 @@ namespace Manatee.Trello
 			request.AddParameter("name", name);
 			board.ApplyJson(Api.Post<IJsonBoard>(request));
 			board.Svc = Svc;
-			board.Api = Api;
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -426,7 +435,6 @@ namespace Manatee.Trello
 			request.AddParameter("displayName", displayName);
 			org.ApplyJson(Api.Post<IJsonOrganization>(request));
 			org.Svc = Svc;
-			org.Api = Api;
 			_organizations.MarkForUpdate();
 			return org;
 		}
@@ -560,6 +568,7 @@ namespace Manatee.Trello
 		{
 			_jsonMember = (IJsonMember) obj;
 			UpdateStatus();
+			UpdateAvatarSource();
 		}
 		internal override bool Matches(string id)
 		{
@@ -587,6 +596,17 @@ namespace Manatee.Trello
 			_status = _statusMap.Any(kvp => kvp.Value == _jsonMember.Status)
 			          	? _statusMap[_jsonMember.Status]
 			          	: MemberStatusType.Unknown;
+		}
+		private void UpdateAvatarSource()
+		{
+			_avatarSource = _avatarSourceMap.Any(kvp => kvp.Value == _jsonMember.AvatarSource)
+			                	? _avatarSourceMap[_jsonMember.AvatarSource]
+			                	: AvatarSourceType.Unknown;
+		}
+		private void UpdateApiAvatarSource()
+		{
+			if (_avatarSourceMap.Any(kvp => kvp.Key == _avatarSource))
+				_jsonMember.AvatarSource = _avatarSourceMap[_avatarSource];
 		}
 	}
 }

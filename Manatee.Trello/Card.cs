@@ -339,6 +339,19 @@ namespace Manatee.Trello
 		/// Enumerates the members who have voted for this card.
 		/// </summary>
 		public IEnumerable<Member> VotingMembers { get { return _isDeleted ? Enumerable.Empty<Member>() : _votingMembers; } }
+		/// <summary>
+		/// Sets whether the card should generate a notification email when the due date is near.
+		/// </summary>
+		public bool WarnWhenUpcoming
+		{
+			set
+			{
+				if (_isDeleted) return;
+				Validate.Writable(Svc);
+				Parameters.Add("warnWhenUpcoming", value);
+				Put();
+			}
+		}
 
 		internal static string TypeKey { get { return "cards"; } }
 		internal override string Key { get { return TypeKey; } }
@@ -362,11 +375,28 @@ namespace Manatee.Trello
 		/// Adds an attachment to the card.
 		/// </summary>
 		/// <returns>The attachment object.</returns>
-		internal Attachment AddAttachment()
+		public Attachment AddAttachment(string name, string url)
 		{
 			if (Svc == null) return null;
 			Validate.Writable(Svc);
-			throw new NotImplementedException();
+			Validate.NonEmptyString(url);
+			if ((url.Substring(0, 7) != "http://") && (url.Substring(0, 8) != "https://"))
+				throw new ArgumentException("URL is not valid.  Must begin with 'http://' or 'https://'");
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				name = url.Split('/').LastOrDefault();
+				if (string.IsNullOrWhiteSpace(name))
+					name = url;
+			}
+			var attachment = new Attachment();
+			var endpoint = EndpointGenerator.Default.Generate(this, attachment);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("name", name);
+			request.AddParameter("url", url);
+			attachment.ApplyJson(Api.Post<IJsonAttachment>(request));
+			attachment.Owner = this;
+			_attachments.MarkForUpdate();
+			return attachment;
 		}
 		/// <summary>
 		/// Adds a checklist to the card.
@@ -389,7 +419,6 @@ namespace Manatee.Trello
 			request.AddParameter("idCard", Id);
 			checkList.ApplyJson(Api.Post<IJsonCheckList>(request));
 			checkList.Svc = Svc;
-			checkList.Api = Api;
 			_checkLists.MarkForUpdate();
 			return checkList;
 		}

@@ -138,6 +138,25 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
+		public void InvitedMembers()
+		{
+			var story = new Story("InvitedMembers");
+
+			var feature = story.InOrderTo("get all members invited a board")
+				.AsA("developer")
+				.IWant("to get InvitedMembers");
+
+			feature.WithScenario("Access InvitedMembers property")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(InvitedMembersIsAccessed)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<Member>>)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void IsClosed()
 		{
 			var story = new Story("IsClosed");
@@ -341,18 +360,18 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		public void Members()
+		public void Memberships()
 		{
-			var story = new Story("Members");
+			var story = new Story("Memberships");
 
 			var feature = story.InOrderTo("get all members of a board")
 				.AsA("developer")
-				.IWant("to get Members");
+				.IWant("to get Memberships");
 
-			feature.WithScenario("Access Members property")
+			feature.WithScenario("Access Memberships property")
 				.Given(ABoard)
 				.And(EntityIsExpired)
-				.When(MembersIsAccessed)
+				.When(MembershipsIsAccessed)
 				.Then(MockApiGetIsCalled<List<IJsonBoardMembership>>, 0)
 				.And(NonNullValueOfTypeIsReturned<IEnumerable<BoardMembership>>)
 				.And(ExceptionIsNotThrown)
@@ -782,6 +801,10 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Execute(() => _systemUnderTest.Sut.Description = value);
 		}
+		private void InvitedMembersIsAccessed()
+		{
+			Execute(() => _systemUnderTest.Sut.InvitedMembers);
+		}
 		private void IsClosedIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.IsClosed);
@@ -814,7 +837,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Execute(() => _systemUnderTest.Sut.Lists);
 		}
-		private void MembersIsAccessed()
+		private void MembershipsIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.Memberships);
 		}

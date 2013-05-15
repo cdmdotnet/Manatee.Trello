@@ -7,7 +7,7 @@
 		// https://trello.com/1/authorize?key=062109670e7f56b88783721892f8f66f&name=Manatee.Trello&expiration=never&response_type=token&scope=read,write,account
 
 		public const string AppKey = "062109670e7f56b88783721892f8f66f";
-		public const string UserToken = "bd944b694c84d53c411f25e7866d5b5860eb91fa5097bbb13bac8d5c79d611fe";
+		public const string UserToken = "bf7461aaf15f80a2cfb08f282af57a3c4ea413df1bd74bce3af7cff7f4a9881a";
 		public const string UserName = "s_littlecrabsolutions";
 		public const string MemberId = "514464db3fa062da6e00254f";
 		public const string BoardId = "51478f6469fd3d9341001dae";
@@ -18,5 +18,6 @@
 		public const string ActionId = "51446f605061aeb832002655";
 		public const string NotificationId = "514465dd6d16d0481a000baa";
 		public const string Invalid = "12345w123456wvb123456789";
+		public const string AttachmentUrl = "http://i.imgur.com/H7ybFd0.png";
 	}
 }

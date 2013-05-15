@@ -204,7 +204,6 @@ namespace Manatee.Trello
 				request.AddParameter("pos", position);
 			card.ApplyJson(Api.Post<IJsonCard>(request));
 			card.Svc = Svc;
-			card.Api = Api;
 			_cards.MarkForUpdate();
 			return card;
 		}

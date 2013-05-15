@@ -83,7 +83,7 @@ namespace Manatee.Trello.Contracts
 				MarkForUpdate();
 			}
 		}
-		internal ITrelloRest Api { get; set; }
+		internal ITrelloRest Api { get; private set; }
 		internal abstract string Key { get; }
 		internal virtual string KeyId { get { return Id; } }
 

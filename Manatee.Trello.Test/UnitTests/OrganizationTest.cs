@@ -175,6 +175,25 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
+		public void InvitedMembers()
+		{
+			var story = new Story("InvitedMembers");
+
+			var feature = story.InOrderTo("get all members invited an organization")
+				.AsA("developer")
+				.IWant("to get InvitedMembers");
+
+			feature.WithScenario("Access InvitedMembers property")
+				.Given(AnOrganization)
+				.And(EntityIsExpired)
+				.When(InvitedMembersIsAccessed)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<Member>>)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void LogoHash()
 		{
 			var story = new Story("AvatarHash");
@@ -614,6 +633,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void DisplayNameIsSet(string value)
 		{
 			Execute(() => _systemUnderTest.Sut.DisplayName = value);
+		}
+		private void InvitedMembersIsAccessed()
+		{
+			Execute(() => _systemUnderTest.Sut.InvitedMembers);
 		}
 		private void LogoHashIsAccessed()
 		{

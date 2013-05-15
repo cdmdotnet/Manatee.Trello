@@ -656,10 +656,58 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		[Ignore]
 		public void AddAttachment()
 		{
-			throw new NotImplementedException();
+			var story = new Story("AddAttachment");
+
+			var feature = story.InOrderTo("add an attachment to a card")
+				.AsA("developer")
+				.IWant("to call AddAttachment");
+
+			feature.WithScenario("AddAttachment is called")
+				.Given(ACard)
+				.When(AddAttachmentIsCalled, "logo", TrelloIds.AttachmentUrl)
+				.Then(MockApiPostIsCalled<IJsonAttachment>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("AddAttachment is called with null name")
+				.Given(ACard)
+				.When(AddAttachmentIsCalled, (string) null, TrelloIds.AttachmentUrl)
+				.Then(MockApiPostIsCalled<IJsonAttachment>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("AddAttachment is called with empty name")
+				.Given(ACard)
+				.When(AddAttachmentIsCalled, string.Empty, TrelloIds.AttachmentUrl)
+				.Then(MockApiPostIsCalled<IJsonAttachment>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("AddAttachment is called with null url")
+				.Given(ACard)
+				.When(AddAttachmentIsCalled, "logo", (string) null)
+				.Then(MockApiPostIsCalled<IJsonAttachment>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("AddAttachment is called with empty url")
+				.Given(ACard)
+				.When(AddAttachmentIsCalled, "logo", string.Empty)
+				.Then(MockApiPostIsCalled<IJsonAttachment>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("AddAttachment is called with invalied url")
+				.Given(ACard)
+				.When(AddAttachmentIsCalled, "logo", TrelloIds.Invalid)
+				.Then(MockApiPostIsCalled<IJsonAttachment>, 0)
+				.And(ExceptionIsThrown<ArgumentException>)
+
+				.WithScenario("AddAttachment is called without UserToken")
+				.Given(ACard)
+				.And(TokenNotSupplied)
+				.When(AddAttachmentIsCalled, "logo", TrelloIds.AttachmentUrl)
+				.Then(MockApiPutIsCalled<IJsonAttachment>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
+				.Execute();
 		}
 		[TestMethod]
 		public void AddCheckList()
@@ -967,6 +1015,7 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
 			SetupMockGet<IJsonCard>();
 			SetupMockPost<IJsonCheckList>();
+			SetupMockPost<IJsonAttachment>();
 			SetupMockRetrieve<Board>();
 			SetupMockRetrieve<List>();
 		}
@@ -1111,9 +1160,9 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Execute(() => _systemUnderTest.Sut.VotingMembers);
 		}
-		private void AddAttachmentIsCalled()
+		private void AddAttachmentIsCalled(string name, string url)
 		{
-			Execute(() => _systemUnderTest.Sut.AddAttachment());
+			Execute(() => _systemUnderTest.Sut.AddAttachment(name, url));
 		}
 		private void AddCheckListIsCalled(string value)
 		{

@@ -49,6 +49,7 @@ namespace Manatee.Trello
 		private IJsonOrganization _jsonOrganization;
 		private readonly ExpiringList<Action, IJsonAction> _actions;
 		private readonly ExpiringList<Board, IJsonBoard> _boards;
+		private readonly ExpiringList<InvitedMember, IJsonMember> _invitedMembers;
 		private readonly ExpiringList<Member, IJsonMember> _members;
 		private readonly OrganizationPreferences _preferences;
 		private bool _isDeleted;
@@ -118,6 +119,10 @@ namespace Manatee.Trello
 				base.Id = value;
 			}
 		}
+		/// <summary>
+		/// Enumerates all members who have received invitations to this organization.
+		/// </summary>
+		public IEnumerable<Member> InvitedMembers { get { return _invitedMembers; } }
 		/// <summary>
 		/// Gets the organization's logo hash.
 		/// </summary>
@@ -210,6 +215,7 @@ namespace Manatee.Trello
 			_jsonOrganization = new InnerJsonOrganization();
 			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
 			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey);
+			_invitedMembers = new ExpiringList<InvitedMember, IJsonMember>(this, InvitedMember.TypeKey);
 			_members = new ExpiringList<Member, IJsonMember>(this, Member.TypeKey);
 			_preferences = new OrganizationPreferences(this);
 		}
