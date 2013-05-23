@@ -21,6 +21,8 @@
 					to a board.
 
 ***************************************************************************************/
+using System.Diagnostics;
+
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -35,6 +37,9 @@ namespace Manatee.Trello
 		public UnconfirmedInvitedToBoardNotification(Notification notification)
 			: base(notification.Svc, notification.Id)
 		{
+			Debug.Assert(false, string.Format(
+				"{0} is not yet configured.  Please post the JSON returned by http://api.trello.com/notifications/{1} to https://trello.com/c/NX8xPcP6",
+				GetType().Name, notification.Id));
 			VerifyNotExpired();
 		}
 	}

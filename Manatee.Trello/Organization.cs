@@ -213,10 +213,10 @@ namespace Manatee.Trello
 		public Organization()
 		{
 			_jsonOrganization = new InnerJsonOrganization();
-			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
-			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey);
-			_invitedMembers = new ExpiringList<InvitedMember, IJsonMember>(this, InvitedMember.TypeKey);
-			_members = new ExpiringList<Member, IJsonMember>(this, Member.TypeKey);
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey) {Fields = "id"};
+			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey) {Fields = "id"};
+			_invitedMembers = new ExpiringList<InvitedMember, IJsonMember>(this, InvitedMember.TypeKey) {Fields = "id"};
+			_members = new ExpiringList<Member, IJsonMember>(this, Member.TypeKey) {Fields = "id"};
 			_preferences = new OrganizationPreferences(this);
 		}
 
@@ -362,6 +362,13 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures");
+			request.AddParameter("actions", "none");
+			request.AddParameter("members", "none");
+			request.AddParameter("membersInvited", "none");
+			request.AddParameter("boards", "none");
+			request.AddParameter("paid_account", "true");
+			request.AddParameter("memberships", "none");
 			ApplyJson(Api.Get<IJsonOrganization>(request));
 		}
 		/// <summary>
@@ -398,6 +405,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonOrganization>(request);
+			Parameters.Clear();
 			_actions.MarkForUpdate();
 		}
 	}

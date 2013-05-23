@@ -35,6 +35,7 @@ namespace Manatee.Trello.Internal
 		private readonly string _key;
 
 		public string Filter { get; set; }
+		public string Fields { get; set; }
 
 		internal override string Key { get { return _key; } }
 
@@ -64,6 +65,8 @@ namespace Manatee.Trello.Internal
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			if (Filter != null)
 				request.AddParameter("filter", Filter);
+			if (Fields != null)
+				request.AddParameter("fields", Fields);
 			ApplyJson(Api.Get<List<TJson>>(request));
 		}
 		protected override void PropigateService()

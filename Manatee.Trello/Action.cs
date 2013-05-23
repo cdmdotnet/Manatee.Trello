@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -62,6 +63,7 @@ namespace Manatee.Trello
 	public class Action : ExpiringObject, IEquatable<Action>
 	{
 		private static readonly OneToOneMap<ActionType, string> _typeMap;
+		private static readonly List<string> _fields;
 
 		private IJsonAction _jsonAction;
 		private Member _memberCreator;
@@ -131,6 +133,13 @@ namespace Manatee.Trello
 
 		static Action()
 		{
+			_fields = new List<string>
+			          	{
+			          		"idMemberCreator",
+							"data",
+							"type",
+							"date"
+			          	};
 			_typeMap = new OneToOneMap<ActionType, string>
 			           	{
 			           		{ActionType.AddAttachmentToCard, "addAttachmentToCard"},
@@ -265,6 +274,10 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("fields", "idMemberCreator,data,type,date");
+			request.AddParameter("entities", "false");
+			request.AddParameter("memberCreator", "false");
+			request.AddParameter("member", "false");
 			ApplyJson(Api.Get<IJsonAction>(request));
 		}
 

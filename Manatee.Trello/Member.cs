@@ -375,16 +375,16 @@ namespace Manatee.Trello
 		public Member()
 		{
 			_jsonMember = new InnerJsonMember();
-			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey) {Fields = "id"};
 			_avatarSource = AvatarSourceType.Unknown;
-			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey);
-			_invitedBoards = new ExpiringList<BoardInvitation, IJsonBoard>(this, BoardInvitation.TypeKey);
-			_invitedOrganizations = new ExpiringList<OrganizationInvitation, IJsonOrganization>(this, OrganizationInvitation.TypeKey);
-			_notifications = new ExpiringList<Notification, IJsonNotification>(this, Notification.TypeKey);
-			_organizations = new ExpiringList<Organization, IJsonOrganization>(this, Organization.TypeKey);
-			_pinnedBoards = new ExpiringList<PinnedBoard, IJsonBoard>(this, PinnedBoard.TypeKey);
+			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey) {Fields = "id"};
+			_invitedBoards = new ExpiringList<BoardInvitation, IJsonBoard>(this, BoardInvitation.TypeKey) {Fields = "id"};
+			_invitedOrganizations = new ExpiringList<OrganizationInvitation, IJsonOrganization>(this, OrganizationInvitation.TypeKey) {Fields = "id"};
+			_notifications = new ExpiringList<Notification, IJsonNotification>(this, Notification.TypeKey) {Fields = "id"};
+			_organizations = new ExpiringList<Organization, IJsonOrganization>(this, Organization.TypeKey) {Fields = "id"};
+			_pinnedBoards = new ExpiringList<PinnedBoard, IJsonBoard>(this, PinnedBoard.TypeKey) {Fields = "id"};
 			_preferences = new MemberPreferences(this);
-			_premiumOrganizations = new ExpiringList<PremiumOrganization, IJsonOrganization>(this, PremiumOrganization.TypeKey);
+			_premiumOrganizations = new ExpiringList<PremiumOrganization, IJsonOrganization>(this, PremiumOrganization.TypeKey) {Fields = "id"};
 		}
 
 		/// <summary>
@@ -394,9 +394,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			Validate.Writable(Svc);
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			endpoint.Append("all");
-			endpoint.Append("read");
+			var endpoint = new Endpoint(new[] {Notification.TypeKey, "all", "read"});
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Post<IJsonMember>(request);
 		}
@@ -545,6 +543,15 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("fields", "avatarHash,bio,fullName,initials,memberType,status,url,username,avatarSource,confirmed,email,gravatarHash,loginTypes,newEmail,oneTimeMessagesDismissed,status,trophies,uploadedAvatarHash");
+			request.AddParameter("actions", "none");
+			request.AddParameter("cards", "none");
+			request.AddParameter("boards", "none");
+			request.AddParameter("boardsInvited", "none");
+			request.AddParameter("organizations", "none");
+			request.AddParameter("organizationsInvited", "none");
+			request.AddParameter("notifications", "none");
+			request.AddParameter("tokens", "none");
 			ApplyJson(Api.Get<IJsonMember>(request));
 		}
 
@@ -589,6 +596,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonMember>(request);
+			Parameters.Clear();
 			_actions.MarkForUpdate();
 		}
 		private void UpdateStatus()

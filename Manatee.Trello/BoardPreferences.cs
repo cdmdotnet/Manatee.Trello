@@ -263,6 +263,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonBoardPreferences>(request);
+			Parameters.Clear();
 		}
 		private void UpdateComments()
 		{

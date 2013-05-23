@@ -250,6 +250,7 @@ namespace Manatee.Trello
 			endpoint.Append(extension);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Put<IJsonCheckItem>(request);
+			Parameters.Clear();
 		}
 		private void UpdateState()
 		{

@@ -188,7 +188,7 @@ namespace Manatee.Trello
 		public CheckList()
 		{
 			_jsonCheckList = new InnerJsonCheckList();
-			_checkItems = new ExpiringList<CheckItem, IJsonCheckItem>(this, CheckItem.TypeKey);
+			_checkItems = new ExpiringList<CheckItem, IJsonCheckItem>(this, CheckItem.TypeKey) {Fields = "id"};
 		}
 
 		/// <summary>
@@ -281,6 +281,9 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("fields", "name,idBoard,idCard,pos");
+			request.AddParameter("cards", "none");
+			request.AddParameter("checkItems", "none");
 			ApplyJson(Api.Get<IJsonCheckList>(request));
 		}
 
@@ -316,6 +319,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonCheckList>(request);
+			Parameters.Clear();
 		}
 	}
 }
