@@ -20,6 +20,8 @@
 	Purpose:		Indicates an organization was created.
 
 ***************************************************************************************/
+using System.Diagnostics;
+
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -33,6 +35,9 @@ namespace Manatee.Trello
 		/// <param name="action"></param>
 		public CreateOrganizationAction(Action action)
 		{
+			Debug.Assert(false, string.Format(
+				"{0} is not yet configured.  Please post the JSON returned by http://api.trello.com/actions/{1} to https://trello.com/c/k5q97GRf",
+				GetType().Name, action.Id));
 			VerifyNotExpired();
 		}
 	}

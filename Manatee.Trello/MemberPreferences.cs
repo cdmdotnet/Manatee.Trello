@@ -176,6 +176,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonMemberPreferences>(request);
+			Parameters.Clear();
 		}
 	}
 }

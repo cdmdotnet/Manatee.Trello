@@ -238,6 +238,14 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("fields", "unread,type,date,data,idMemberCreator");
+			request.AddParameter("entities", "false");
+			request.AddParameter("memberCreator", "false");
+			request.AddParameter("board", "false");
+			request.AddParameter("list", "false");
+			request.AddParameter("card", "false");
+			request.AddParameter("organization", "false");
+			request.AddParameter("member", "false");
 			ApplyJson(Api.Get<IJsonNotification>(request));
 		}
 		/// <summary>
@@ -268,6 +276,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonNotification>(request);
+			Parameters.Clear();
 		}
 
 		private void UpdateType()

@@ -191,6 +191,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Post<IJsonBoardPersonalPreferences>(request);
+			Parameters.Clear();
 		}
 	}
 }

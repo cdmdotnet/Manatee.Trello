@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DevTest.cs" />
+    <Compile Include="FunctionalTests\CardTest.cs" />
     <Compile Include="GenericMethodFormatAttribute.cs" />
     <Compile Include="TrelloTestBase.cs" />
     <Compile Include="UnitTests\ActionTest.cs" />

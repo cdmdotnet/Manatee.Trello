@@ -14,19 +14,11 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
-			//Options.UseNewtonsoftJson();
+			Options.UseNewtonsoftJson();
 			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
-
-			var list = service.Retrieve<List>(TrelloIds.ListId);
-			var card = list.Cards.Last();
-
-			var attachment = card.AddAttachment("Iron Manatee", "http://i.imgur.com/H7ybFd0.png");
-
+			var item = service.Retrieve<Card>("bPRrY7Rf");
+			var attachment = item.Attachments.First();
 			Console.WriteLine(attachment);
-
-			attachment.Delete();
-
-			Console.WriteLine(card.Attachments.Count());
 		}
 	}
 }

@@ -253,6 +253,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonOrganizationPreferences>(request);
+			Parameters.Clear();
 		}
 		private void UpdatePermissionLevel()
 		{

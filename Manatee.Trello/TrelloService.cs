@@ -81,7 +81,7 @@ namespace Manatee.Trello
 			{
 				if (UserToken == null)
 					return null;
-				return (_me == null) ? _me : (_me = GetMe());
+				return _me ?? (_me = GetMe());
 			}
 		}
 		/// <summary>
@@ -238,6 +238,7 @@ namespace Manatee.Trello
 			LastCallError = null;
 			try
 			{
+				member = new Member();
 				var endpoint = EndpointGenerator.Default.Generate(member);
 				endpoint.Append("me");
 				var request = Api.RequestProvider.Create(endpoint.ToString());
@@ -249,7 +250,6 @@ namespace Manatee.Trello
 					var cached = Cache.Find<Member>(e => e.Matches(jsonCacheable.Id));
 					if (cached != null) return cached;
 				}
-				member = new Member();
 				member.ApplyJson(json);
 				member.Svc = this;
 				return member;

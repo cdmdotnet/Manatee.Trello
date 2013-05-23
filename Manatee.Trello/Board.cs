@@ -271,12 +271,12 @@ namespace Manatee.Trello
 		public Board()
 		{
 			_jsonBoard = new InnerJsonBoard();
-			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
-			_archivedCards = new ExpiringList<Card, IJsonCard>(this, Card.TypeKey) {Filter = "closed"};
-			_archivedLists = new ExpiringList<List, IJsonList>(this, List.TypeKey) {Filter = "closed"};
-			_invitedMembers = new ExpiringList<InvitedMember, IJsonMember>(this, InvitedMember.TypeKey);
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey) {Fields = "id"};
+			_archivedCards = new ExpiringList<Card, IJsonCard>(this, Card.TypeKey) {Filter = "closed", Fields = "id"};
+			_archivedLists = new ExpiringList<List, IJsonList>(this, List.TypeKey) {Filter = "closed", Fields = "id"};
+			_invitedMembers = new ExpiringList<InvitedMember, IJsonMember>(this, InvitedMember.TypeKey) {Fields = "id"};
 			_labelNames = new LabelNames(this);
-			_lists = new ExpiringList<List, IJsonList>(this, List.TypeKey);
+			_lists = new ExpiringList<List, IJsonList>(this, List.TypeKey) {Fields = "id"};
 			_members = new ExpiringList<BoardMembership, IJsonBoardMembership>(this, BoardMembership.TypeKey);
 			_personalPreferences = new BoardPersonalPreferences(this);
 			_preferences = new BoardPreferences(this);
@@ -422,6 +422,14 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("fields", "name,desc,closed,idOrganization,pinned,url,subscribed");
+			request.AddParameter("actions", "none");
+			request.AddParameter("cards", "none");
+			request.AddParameter("lists", "none");
+			request.AddParameter("members", "none");
+			request.AddParameter("checklists", "none");
+			request.AddParameter("organization", "false");
+			request.AddParameter("myPrefs", "false");
 			ApplyJson(Api.Get<IJsonBoard>(request));
 		}
 		/// <summary>
@@ -461,6 +469,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonBoard>(request);
+			Parameters.Clear();
 			_actions.MarkForUpdate();
 		}
 	}

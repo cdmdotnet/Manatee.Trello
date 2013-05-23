@@ -79,6 +79,9 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
+			if (Equals(_unknown)) return "unknown";
+			if (Equals(_top)) return "top";
+			if (Equals(_bottom)) return "bottom";
 			return _value.ToLowerString();
 		}
 		/// <summary>

@@ -70,6 +70,7 @@ namespace Manatee.Trello
 		/// Enumerates all cards in the list.
 		/// </summary>
 		public IEnumerable<Card> Cards { get { return _cards; } }
+		internal ExpiringList<Card, IJsonCard> CardsList { get { return _cards; } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
@@ -177,8 +178,8 @@ namespace Manatee.Trello
 		public List()
 		{
 			_jsonList = new InnerJsonList();
-			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey);
-			_cards = new ExpiringList<Card, IJsonCard>(this, Card.TypeKey);
+			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey) {Fields = "id"};
+			_cards = new ExpiringList<Card, IJsonCard>(this, Card.TypeKey) {Fields = "id"};
 		}
 
 		/// <summary>
@@ -285,6 +286,8 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("fields", "name,closed,idBoard,pos,subscribed");
+			request.AddParameter("cards", "none");
 			ApplyJson(Api.Get<IJsonList>(request));
 		}
 
@@ -318,6 +321,7 @@ namespace Manatee.Trello
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 			Api.Put<IJsonList>(request);
+			Parameters.Clear();
 			_actions.MarkForUpdate();
 		}
 	}
