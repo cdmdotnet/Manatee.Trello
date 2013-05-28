@@ -62,7 +62,8 @@ namespace Manatee.Trello
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowListGuide == value) return;
 				_jsonBoardPersonalPreferences.ShowListGuide = value;
-				Parameters.Add("showListGuide", _jsonBoardPersonalPreferences.ShowListGuide.ToLowerString());
+				Parameters.Add("name", "showListGuide");
+				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowListGuide.ToLowerString());
 				Post();
 			}
 		}
@@ -83,7 +84,8 @@ namespace Manatee.Trello
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebar == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebar = value;
-				Parameters.Add("showSidebar", _jsonBoardPersonalPreferences.ShowSidebar.ToLowerString());
+				Parameters.Add("name", "showSidebar");
+				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebar.ToLowerString());
 				Post();
 			}
 		}
@@ -104,7 +106,8 @@ namespace Manatee.Trello
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebarActivity == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebarActivity = value;
-				Parameters.Add("showSidebarActivity", _jsonBoardPersonalPreferences.ShowSidebarActivity.ToLowerString());
+				Parameters.Add("name", "showSidebarActivity");
+				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarActivity.ToLowerString());
 				Post();
 			}
 		}
@@ -124,7 +127,8 @@ namespace Manatee.Trello
 				if (_jsonBoardPersonalPreferences.ShowSidebarBoardActions == value) return;
 				Validate.Nullable(value);
 				_jsonBoardPersonalPreferences.ShowSidebarBoardActions = value;
-				Parameters.Add("showSidebarBoardActions", _jsonBoardPersonalPreferences.ShowSidebarBoardActions.ToLowerString());
+				Parameters.Add("name", "showSidebarBoardActions");
+				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarBoardActions.ToLowerString());
 				Post();
 			}
 		}
@@ -145,13 +149,16 @@ namespace Manatee.Trello
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebarMembers == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebarMembers = value;
-				Parameters.Add("showSidebarMembers", _jsonBoardPersonalPreferences.ShowSidebarMembers.ToLowerString());
+				Parameters.Add("name", "showSidebarMembers");
+				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarMembers.ToLowerString());
 				Post();
 			}
 		}
 
 		internal static string TypeKey { get { return "myPrefs"; } }
+		internal static string TypeKey2 { get { return "myPrefs"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the CheckList class.
@@ -190,6 +197,10 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			foreach (var parameter in Parameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
 			Api.Post<IJsonBoardPersonalPreferences>(request);
 			Parameters.Clear();
 		}

@@ -59,6 +59,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -69,7 +70,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DevTest.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="FunctionalTests\ActionTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\BoardTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\CardTest.cs" />
+    <Compile Include="FunctionalTests\CheckListTest.cs" />
+    <Compile Include="FunctionalTests\ListTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\MemberTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\NotificationTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\OrganizationTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GenericMethodFormatAttribute.cs" />
     <Compile Include="TrelloTestBase.cs" />
     <Compile Include="UnitTests\ActionTest.cs" />

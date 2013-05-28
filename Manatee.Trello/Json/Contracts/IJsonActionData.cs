@@ -69,5 +69,17 @@ namespace Manatee.Trello.Json
 		/// or null if the path does not exist.
 		/// </returns>
 		bool? TryGetBoolean(params string[] path);
+		/// <summary>
+		/// Attempts to retrieve the JSON data to represent an attachment from an object.
+		/// </summary>
+		/// <param name="path">
+		/// The set of successive keys to use while drilling down
+		/// through successive JSON object structures.
+		/// </param>
+		/// <returns>
+		/// The IJsonAttachment value of the item at the specified path,
+		/// or null if the path does not exist.
+		/// </returns>
+		IJsonAttachment TryGetAttachment(params string[] path);
 	}
 }

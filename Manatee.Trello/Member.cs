@@ -157,6 +157,7 @@ namespace Manatee.Trello
 		/// Enumerates the boards owned by the member.
 		/// </summary>
 		public IEnumerable<Board> Boards { get { return _boards; } }
+		internal ExpiringList<Board, IJsonBoard> BoardsList { get { return _boards; } }
 		/// <summary>
 		/// Gets whether the member is confirmed.
 		/// </summary>
@@ -281,6 +282,7 @@ namespace Manatee.Trello
 		/// Enumerates the organizations to which the member belongs.
 		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return _organizations; } }
+		internal ExpiringList<Organization, IJsonOrganization> OrganizationsList { get { return _organizations; } }
 		/// <summary>
 		/// Enumerates the boards the member has pinnned to their boards menu.
 		/// </summary>
@@ -352,7 +354,9 @@ namespace Manatee.Trello
 		}
 
 		internal static string TypeKey { get { return "members"; } }
+		internal static string TypeKey2 { get { return "members"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		static Member()
 		{

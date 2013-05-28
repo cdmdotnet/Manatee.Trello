@@ -85,6 +85,7 @@ namespace Manatee.Trello.Contracts
 		}
 		internal ITrelloRest Api { get; private set; }
 		internal abstract string Key { get; }
+		internal abstract string Key2 { get; }
 		internal virtual string KeyId { get { return Id; } }
 
 		internal ExpiringObject()
@@ -93,10 +94,14 @@ namespace Manatee.Trello.Contracts
 			MarkForUpdate();
 		}
 
-		internal void MarkForUpdate()
+		/// <summary>
+		/// Explicitly marks the entity as expired, forcing it to update.
+		/// </summary>
+		public void MarkForUpdate()
 		{
 			_expires = DateTime.Now.AddSeconds(-1);
 		}
+
 		internal void ForceNotExpired()
 		{
 			_expires = DateTime.Now.AddMinutes(1);

@@ -38,6 +38,7 @@ namespace Manatee.Trello.Internal
 		public string Fields { get; set; }
 
 		internal override string Key { get { return _key; } }
+		internal override string Key2 { get { return _key; } }
 
 		public ExpiringList(ExpiringObject owner, string contentKey)
 		{

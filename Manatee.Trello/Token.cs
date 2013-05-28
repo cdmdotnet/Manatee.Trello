@@ -151,7 +151,9 @@ namespace Manatee.Trello
 		public string Value { get { return _value; } }
 
 		internal static string TypeKey { get { return "tokens"; } }
+		internal static string TypeKey2 { get { return "tokens"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 		internal override string KeyId { get { return Value; } }
 
 		/// <summary>

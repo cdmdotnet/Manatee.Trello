@@ -12,13 +12,14 @@ namespace Manatee.Trello.Test
 	public class DevTest
 	{
 		[TestMethod]
+		[Ignore]
 		public void TestMethod1()
 		{
 			Options.UseNewtonsoftJson();
 			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
-			var item = service.Retrieve<Card>("bPRrY7Rf");
-			var attachment = item.Attachments.First();
-			Console.WriteLine(attachment);
+			var item = service.Retrieve<Board>(TrelloIds.BoardId);
+			item.Preferences.AllowsSelfJoin = true;
+			Console.WriteLine(item);
 		}
 	}
 }

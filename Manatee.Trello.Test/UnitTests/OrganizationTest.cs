@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using StoryQ;
 
 namespace Manatee.Trello.Test.UnitTests
@@ -264,16 +266,16 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsRefreshed)
 				.When(NameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(MockApiGetIsCalled<IJsonSearchResults>, 1)
 				.And(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property to null")
 				.Given(AnOrganization)
 				.And(EntityIsRefreshed)
-				.And(NameIs, "not description")
+				.And(NameIs, "not_description")
 				.When(NameIsSet, (string) null)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
 				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
@@ -281,7 +283,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsRefreshed)
 				.When(NameIsSet, "un")
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
 				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ArgumentException>)
 
@@ -290,7 +292,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(EntityIsRefreshed)
 				.And(NameIs, "description")
 				.When(NameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
 				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
@@ -298,16 +300,17 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsRefreshed)
 				.And(NameExists)
-				.When(NameIsSet, "Name")
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.When(NameIsSet, "name")
+				.Then(MockApiGetIsCalled<IJsonSearchResults>, 1)
 				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<OrgNameInUseException>)
 
-				.WithScenario("Set Name property wihtout UserToken")
+				.WithScenario("Set Name property without UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(NameIsSet, "description")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
+				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
+				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -582,6 +585,9 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
+			var obj = SetupMockGet<IJsonSearchResults>();
+			obj.SetupGet(s => s.OrganizationIds).Returns(new List<string>());
+			SetupMockGet<List<IJsonMember>>();
 			SetupMockGet<IJsonOrganization>();
 			SetupMockPost<IJsonBoard>();
 		}
@@ -595,7 +601,10 @@ namespace Manatee.Trello.Test.UnitTests
 		}
 		private void NameExists()
 		{
-			SetupMockGet<Organization>();
+			var obj = new Mock<IJsonSearchResults>();
+			obj.SetupGet(s => s.OrganizationIds).Returns(new List<string> {TrelloIds.Invalid});
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<IJsonSearchResults>(It.IsAny<IRestRequest>()))
+				.Returns(obj.Object);
 		}
 		private void NameIs(string value)
 		{

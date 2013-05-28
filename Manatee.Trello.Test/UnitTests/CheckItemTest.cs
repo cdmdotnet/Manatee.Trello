@@ -3,6 +3,7 @@ using Manatee.Trello.Exceptions;
 using Manatee.Trello.Json;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using StoryQ;
 
 namespace Manatee.Trello.Test.UnitTests
@@ -206,7 +207,10 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
-			OwnedBy<CheckList>();
+			var card = new Mock<Card>();
+			card.SetupGet(c => c.Id).Returns(TrelloIds.Invalid);
+			_systemUnderTest.Sut.Owner = new CheckList {Id = TrelloIds.Invalid, Card = card.Object};
+			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
 			SetupMockGet<IJsonCheckItem>();
 		}
 		private void NameIs(string value)

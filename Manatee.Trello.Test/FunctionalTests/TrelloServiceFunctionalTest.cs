@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
@@ -107,6 +108,14 @@ namespace Manatee.Trello.Test.FunctionalTests
 				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<CheckList>)
 
+				.WithScenario("Retrieve a Token")
+				.Given(ATrelloService, TrelloIds.AppKey, TrelloIds.UserToken)
+				.And(AnId, TrelloIds.UserToken)
+				.When(RetrieveIsCalled<Token>)
+				.Then(ExceptionIsNotThrown)
+				.And(ResponseIsNotNull)
+				.And(RequestedTokenIsReturned)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -135,6 +144,50 @@ namespace Manatee.Trello.Test.FunctionalTests
 
 				.Execute();
 		}
+		[TestMethod]
+		public void Search()
+		{
+			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+
+			var results = service.Search("manatee");
+
+			Assert.IsNotNull(results);
+			Assert.IsNotNull(results.Boards);
+			Assert.AreNotEqual(0, results.Boards.Count());
+
+			foreach (var board in results.Boards)
+			{
+				Console.WriteLine(board);
+			}
+		}
+		[TestMethod]
+		public void SearchMembers()
+		{
+			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+
+			var results = service.SearchMembers(TrelloIds.UserName);
+
+			Assert.IsNotNull(results);
+			Assert.AreNotEqual(0, results.Count());
+
+			foreach (var member in results)
+			{
+				Console.WriteLine(member);
+			}
+		}
+		[TestMethod]
+		public void Me()
+		{
+			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+
+			var me = service.Me;
+
+			Assert.IsNotNull(me);
+			Assert.AreEqual(TrelloIds.UserName, me.Username);
+
+			Console.WriteLine(me.FullName);
+		}
+
 
 		#region Given
 
@@ -172,6 +225,12 @@ namespace Manatee.Trello.Test.FunctionalTests
 			Assert.IsNotNull(_actualResult);
 			Assert.IsInstanceOfType(_actualResult, typeof(T));
 			Assert.AreEqual(_request, ((T)_actualResult).Id);
+		}
+		private void RequestedTokenIsReturned()
+		{
+			Assert.IsNotNull(_actualResult);
+			Assert.IsInstanceOfType(_actualResult, typeof(Token));
+			Assert.AreEqual(_request, ((Token)_actualResult).Value);
 		}
 		private void RequestedMemberIsReturned()
 		{

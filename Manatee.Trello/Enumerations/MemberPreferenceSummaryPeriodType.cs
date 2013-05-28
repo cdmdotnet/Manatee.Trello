@@ -14,34 +14,34 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		AvatarSourceType.cs
+	File Name:		MemberPreferenceSummaryPeriodType.cs
 	Namespace:		Manatee.Trello
-	Class Name:		AvatarSourceType
-	Purpose:		Enumerates the avatar sources used by Trello.
+	Class Name:		MemberPreferenceSummaryPeriodType
+	Purpose:		Enumerates the accepted values for the MinutesBetweenSummaries
+					property on the MemberPreferences object.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Enumerates the avatar sources used by Trello.
+	/// Enumerates the accepted values for the MinutesBetweenSummaries property on the
+	/// MemberPreferences object.
 	/// </summary>
-	public enum AvatarSourceType
+	public enum MemberPreferenceSummaryPeriodType
 	{
 		/// <summary>
-		/// Indicates the avatar source is not recognized.
+		/// Indicates that summary emails are disabled.
 		/// </summary>
-		Unknown = -1,
+		Disabled = -1,
 		/// <summary>
-		/// Indicates there is no avatar.
+		/// Indicates that summary emails should be sent every minute, when notifications
+		/// are present.
 		/// </summary>
-		None,
+		OneMinute = 1,
 		/// <summary>
-		/// Indicates the avatar has been uploaded by the user.
+		/// Indicates that summary emails should be sent every hour, when notifications
+		/// are present.
 		/// </summary>
-		Upload,
-		/// <summary>
-		/// Indicates the avatar is supplied by Gravatar.
-		/// </summary>
-		Gravatar
+		OneHour = 60
 	}
 }

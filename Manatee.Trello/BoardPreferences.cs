@@ -182,7 +182,9 @@ namespace Manatee.Trello
 		}
 
 		internal static string TypeKey { get { return "prefs"; } }
+		internal static string TypeKey2 { get { return "prefs"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		static BoardPreferences()
 		{

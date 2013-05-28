@@ -205,7 +205,9 @@ namespace Manatee.Trello
 		}
 
 		internal static string TypeKey { get { return "organizations"; } }
+		internal static string TypeKey2 { get { return "organizations"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the Organization class.
@@ -265,6 +267,13 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validate.Writable(Svc);
+			if (_members != null)
+			{
+				foreach (var member in _members)
+				{
+					member.OrganizationsList.MarkForUpdate();
+				}
+			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonOrganization>(request);
@@ -296,6 +305,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonOrganization>(request);
+			_members.MarkForUpdate();
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the organization.

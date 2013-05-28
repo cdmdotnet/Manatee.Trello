@@ -65,20 +65,21 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the number of minutes between summary emails.
 		/// </summary>
-		public int? MinutesBetweenSummaries
+		public MemberPreferenceSummaryPeriodType? MinutesBetweenSummaries
 		{
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMemberPreferences == null) ? null : _jsonMemberPreferences.MinutesBetweenSummaries;
+				return (_jsonMemberPreferences == null) ? null : (MemberPreferenceSummaryPeriodType?) _jsonMemberPreferences.MinutesBetweenSummaries;
 			}
 			set
 			{
 				Validate.Writable(Svc);
 				Validate.Nullable(value);
+				Validate.Enumeration(value.Value);
 				if (_jsonMemberPreferences == null) return;
-				if (_jsonMemberPreferences.MinutesBetweenSummaries == value) return;
-				_jsonMemberPreferences.MinutesBetweenSummaries = value;
+				if (_jsonMemberPreferences.MinutesBetweenSummaries == (int?) value) return;
+				_jsonMemberPreferences.MinutesBetweenSummaries = (int?) value;
 				Parameters.Add("value", _jsonMemberPreferences.MinutesBetweenSummaries);
 				Put("minutesBetweenSummaries");
 			}
@@ -86,7 +87,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enables/disables summary emails.
 		/// </summary>
-		public bool? SendSummaries
+		internal bool? SendSummaries
 		{
 			get
 			{
@@ -107,7 +108,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the number of minutes before a deadline to notify the member.
 		/// </summary>
-		public int? MinutesBeforeDeadlineToNotify
+		internal int? MinutesBeforeDeadlineToNotify
 		{
 			get
 			{
@@ -127,7 +128,9 @@ namespace Manatee.Trello
 		}
 
 		internal static string TypeKey { get { return "prefs"; } }
+		internal static string TypeKey2 { get { return "prefs"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the MemberPreferences class.

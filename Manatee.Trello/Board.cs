@@ -68,7 +68,7 @@ namespace Manatee.Trello
 		private readonly ExpiringList<InvitedMember, IJsonMember> _invitedMembers;
 		private readonly LabelNames _labelNames;
 		private readonly ExpiringList<List, IJsonList> _lists;
-		private readonly ExpiringList<BoardMembership, IJsonBoardMembership> _members;
+		private readonly ExpiringList<BoardMembership, IJsonBoardMembership> _memberships;
 		private Organization _organization;
 		private readonly BoardPreferences _preferences;
 		private readonly BoardPersonalPreferences _personalPreferences;
@@ -153,7 +153,7 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return (_jsonBoard == null) ? null : _jsonBoard.Pinned;
 			}
-			set
+			private set
 			{
 				Validate.Writable(Svc);
 				Validate.Nullable(value);
@@ -193,10 +193,11 @@ namespace Manatee.Trello
 		/// Gets the board's open lists.
 		///</summary>
 		public IEnumerable<List> Lists { get { return _lists; } }
+		internal ExpiringList<List, IJsonList> ListsList { get { return _lists; } }
 		///<summary>
 		/// Gets the board's members and their types.
 		///</summary>
-		public IEnumerable<BoardMembership> Memberships { get { return _members; } }
+		public IEnumerable<BoardMembership> Memberships { get { return _memberships; } }
 		///<summary>
 		/// Gets or sets the board's name.
 		///</summary>
@@ -228,7 +229,9 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				if (_jsonBoard == null) return null;
 				return ((_organization == null) || (_organization.Id != _jsonBoard.IdOrganization)) && (Svc != null)
-				       	? (_organization = Svc.Retrieve<Organization>(_jsonBoard.IdOrganization))
+				       	? (_organization = string.IsNullOrWhiteSpace(_jsonBoard.IdOrganization)
+				       	                   	? null
+				       	                   	: Svc.Retrieve<Organization>(_jsonBoard.IdOrganization))
 				       	: _organization;
 			}
 			set
@@ -263,7 +266,9 @@ namespace Manatee.Trello
 		public string Url { get { return (_jsonBoard == null) ? null : _jsonBoard.Url; } }
 
 		internal static string TypeKey { get { return "boards"; } }
+		internal static string TypeKey2 { get { return "idBoard"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		///<summary>
 		/// Creates a new instance of the Board class.
@@ -277,7 +282,7 @@ namespace Manatee.Trello
 			_invitedMembers = new ExpiringList<InvitedMember, IJsonMember>(this, InvitedMember.TypeKey) {Fields = "id"};
 			_labelNames = new LabelNames(this);
 			_lists = new ExpiringList<List, IJsonList>(this, List.TypeKey) {Fields = "id"};
-			_members = new ExpiringList<BoardMembership, IJsonBoardMembership>(this, BoardMembership.TypeKey);
+			_memberships = new ExpiringList<BoardMembership, IJsonBoardMembership>(this, BoardMembership.TypeKey);
 			_personalPreferences = new BoardPersonalPreferences(this);
 			_preferences = new BoardPreferences(this);
 		}
@@ -320,7 +325,7 @@ namespace Manatee.Trello
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("type", type.ToLowerString());
 			Api.Put<IJsonBoard>(request);
-			_members.MarkForUpdate();
+			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
 		///<summary>
@@ -359,6 +364,8 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonBoard>(request);
+			_memberships.MarkForUpdate();
+			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the board.
@@ -442,7 +449,7 @@ namespace Manatee.Trello
 			_archivedLists.Svc = Svc;
 			_labelNames.Svc = Svc;
 			_lists.Svc = Svc;
-			_members.Svc = Svc;
+			_memberships.Svc = Svc;
 			_personalPreferences.Svc = Svc;
 			_preferences.Svc = Svc;
 			if (_organization != null) _organization.Svc = Svc;

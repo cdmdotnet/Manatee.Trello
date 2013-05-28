@@ -105,6 +105,8 @@ namespace Manatee.Trello
 				_position = value;
 				Parameters.Add("value", _position);
 				Put("pos");
+				MarkForUpdate();
+				((CheckList) Owner).CheckItemsList.MarkForUpdate();
 			}
 		}
 		/// <summary>
@@ -131,8 +133,10 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal static string TypeKey { get { return "checkItems"; } }
-		internal override string Key { get { return TypeKey; } }
+		internal static string TypeGetKey { get { return "checkItems"; } }
+		internal static string TypeKey2 { get { return "checkItem"; } }
+		internal override string Key { get { return TypeGetKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		static CheckItem()
 		{
@@ -169,6 +173,9 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCheckItem>(request);
+			((CheckList)Owner).CheckItemsList.MarkForUpdate();
+			if (Svc.Cache != null)
+				Svc.Cache.Remove(this);
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -246,9 +253,13 @@ namespace Manatee.Trello
 				Parameters.Clear();
 				return;
 			}
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var endpoint = EndpointGenerator.Default.Generate2(((CheckList) Owner).Card, Owner, this);
 			endpoint.Append(extension);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
+			foreach (var parameter in Parameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
 			Api.Put<IJsonCheckItem>(request);
 			Parameters.Clear();
 		}

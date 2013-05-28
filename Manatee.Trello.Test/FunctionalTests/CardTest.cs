@@ -25,7 +25,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 				const string checkListName = "checkList";
 				const string comment = "comment";
 				const LabelColor label = LabelColor.Orange;
-				var dueDate = DateTime.Today;
+				var dueDate = DateTime.Now.TruncateToMilliSeconds();
 				var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
 				list = service.Retrieve<List>(TrelloIds.ListId);
 				if (list == null)
@@ -38,7 +38,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 				Assert.AreEqual(cardName, card.Name);
 				Assert.AreEqual(TrelloIds.BoardId, card.Board.Id);
 				Assert.AreEqual(TrelloIds.ListId, card.List.Id);
-				Assert.AreEqual(list.Cards.First(), card);
+				Assert.AreEqual(list.Cards.OrderBy(c => c.Position).First(), card);
 				Assert.AreEqual(cardDescription, card.Description);
 				Assert.AreEqual(0, card.Actions.Count());
 				Assert.AreEqual(0, card.Attachments.Count());
@@ -71,7 +71,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 				card.Position = Position.Bottom;
 
 				Assert.AreEqual(newCardName, card.Name);
-				Assert.AreEqual(list.Cards.Last(), card);
+				Assert.AreEqual(list.Cards.OrderBy(c => c.Position).Last(), card);
 				Assert.AreEqual(newCardDescription, card.Description);
 				Assert.AreNotEqual(0, card.Actions.Count());
 				Assert.AreNotEqual(0, card.Attachments.Count());

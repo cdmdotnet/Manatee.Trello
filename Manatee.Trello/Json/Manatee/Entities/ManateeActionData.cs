@@ -57,6 +57,13 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			if (obj == null) return null;
 			return obj.TryGetBoolean(path.Last());
 		}
+		public IJsonAttachment TryGetAttachment(params string[] path)
+		{
+			var obj = DrillDown(path);
+			if (obj == null) return null;
+			var data = obj.TryGetObject(path.Last());
+			return data != null ? data.FromJson<ManateeAttachment>() : null;
+		}
 
 		private JsonObject DrillDown(IEnumerable<string> path)
 		{
