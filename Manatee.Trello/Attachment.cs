@@ -153,7 +153,9 @@ namespace Manatee.Trello
 		public string Url { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Url; } }
 
 		internal static string TypeKey { get { return "attachments"; } }
+		internal static string TypeKey2 { get { return "attachments"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the Attachment class.

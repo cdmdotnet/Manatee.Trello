@@ -53,21 +53,23 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			Url = obj.TryGetString("url");
 			Website = obj.TryGetString("website");
 			LogoHash = obj.TryGetString("logoHash");
-			PowerUps = obj.TryGetArray("powerUps").Select(j => (int) j.Number).ToList();
+			var array = obj.TryGetArray("powerUps");
+			if (array != null)
+				PowerUps = array.Select(j => (int) j.Number).ToList();
 		}
 		public JsonValue ToJson()
 		{
 			return new JsonObject
-			       	{
-			       		{"id", Id},
-			       		{"name", Name},
-			       		{"displayName", DisplayName},
-			       		{"desc", Desc},
-			       		{"url", Url},
-			       		{"website", Website},
-			       		{"logoHash", LogoHash},
-			       		{"powerUps", PowerUps.Cast<double>().ToJson()},
-			       	};
+					{
+						{"id", Id},
+						{"name", Name},
+						{"displayName", DisplayName},
+						{"desc", Desc},
+						{"url", Url},
+						{"website", Website},
+						{"logoHash", LogoHash},
+						{"powerUps", PowerUps.Cast<double>().ToJson()},
+					};
 		}
 	}
 }

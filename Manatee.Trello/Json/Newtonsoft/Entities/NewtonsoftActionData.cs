@@ -58,6 +58,13 @@ namespace Manatee.Trello.Json.Newtonsoft.Entities
 			var last = obj[path.Last()];
 			return (last == null) ? null : last.Value<bool?>();
 		}
+		public IJsonAttachment TryGetAttachment(params string[] path)
+		{
+			var obj = DrillDown(path);
+			if (obj == null) return null;
+			var last = obj[path.Last()];
+			return (last == null) ? null : last.Value<NewtonsoftAttachment>();
+		}
 
 		private JObject DrillDown(IEnumerable<string> path)
 		{

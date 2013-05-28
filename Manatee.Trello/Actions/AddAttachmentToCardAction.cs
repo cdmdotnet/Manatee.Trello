@@ -87,6 +87,8 @@ namespace Manatee.Trello
 			_cardName = action.Data.TryGetString("card", "name");
 			_attachmentId = action.Data.TryGetString("attachment", "id");
 			_attachmentName = action.Data.TryGetString("attachment", "name");
+			_attachment = new Attachment();
+			_attachment.ApplyJson(action.Data.TryGetAttachment("attachment"));
 		}
 
 		/// <summary>

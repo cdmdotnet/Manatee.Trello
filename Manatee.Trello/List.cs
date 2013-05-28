@@ -166,11 +166,16 @@ namespace Manatee.Trello
 				_position = value;
 				Parameters.Add("pos", _position);
 				Put();
+				MarkForUpdate();
+				if (_board != null)
+					_board.ListsList.MarkForUpdate();
 			}
 		}
 
 		internal static string TypeKey { get { return "lists"; } }
+		internal static string TypeKey2 { get { return "lists"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the List class.
@@ -231,6 +236,9 @@ namespace Manatee.Trello
 			if (position != null)
 				request.AddParameter("pos", position);
 			Api.Put<IJsonList>(request);
+			MarkForUpdate();
+			if (_board != null)
+				_board.ListsList.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
 		/// <summary>

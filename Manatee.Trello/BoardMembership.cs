@@ -94,7 +94,9 @@ namespace Manatee.Trello
 		public BoardMembershipType MembershipType { get { return _membershipType; } }
 
 		internal static string TypeKey { get { return "memberships"; } }
+		internal static string TypeKey2 { get { return "memberships"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		static BoardMembership()
 		{

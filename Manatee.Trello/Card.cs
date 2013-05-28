@@ -139,6 +139,7 @@ namespace Manatee.Trello
 		/// Enumerates the card's checklists.
 		/// </summary>
 		public IEnumerable<CheckList> CheckLists { get { return _isDeleted ? Enumerable.Empty<CheckList>() : _checkLists; } }
+		internal ExpiringList<CheckList, IJsonCheckList> CheckListsList { get { return _checkLists; } }
 		/// <summary>
 		/// Enumerates the card's comments.
 		/// </summary>
@@ -184,7 +185,7 @@ namespace Manatee.Trello
 				if (_jsonCard == null) return;
 				if (_jsonCard.Due == value) return;
 				_jsonCard.Due = value;
-				Parameters.Add("due", _jsonCard.Due);
+				Parameters.Add("due", _jsonCard.Due.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
 				Put();
 			}
 		}
@@ -325,7 +326,9 @@ namespace Manatee.Trello
 				_position = value;
 				Parameters.Add("pos", _position);
 				Put();
-				_list.CardsList.MarkForUpdate();
+				MarkForUpdate();
+				if (_list != null)
+					_list.CardsList.MarkForUpdate();
 			}
 		}
 		/// <summary>
@@ -355,7 +358,9 @@ namespace Manatee.Trello
 		}
 
 		internal static string TypeKey { get { return "cards"; } }
+		internal static string TypeKey2 { get { return "cards"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the Card class.
@@ -417,7 +422,7 @@ namespace Manatee.Trello
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
 			if ((position != null) && position.IsValid)
-				request.AddParameter("position", position);
+				request.AddParameter("pos", position);
 			request.AddParameter("idCard", Id);
 			checkList.ApplyJson(Api.Post<IJsonCheckList>(request));
 			checkList.Svc = Svc;
@@ -500,6 +505,8 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCard>(request);
+			if (_list != null)
+				_list.CardsList.MarkForUpdate();
 			if (Svc.Cache != null)
 				Svc.Cache.Remove(this);
 			_isDeleted = true;
@@ -557,9 +564,7 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validate.Writable(Svc);
 			Validate.Entity(member);
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			endpoint.Append("idMembers");
-			endpoint.Append(member.Id);
+			var endpoint = EndpointGenerator.Default.Generate2(this, member);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCard>(request);
 			_members.MarkForUpdate();

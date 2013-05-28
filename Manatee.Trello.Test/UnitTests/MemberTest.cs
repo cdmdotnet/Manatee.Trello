@@ -728,7 +728,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsRefreshed)
 				.When(UsernameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 1)
 				.And(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -737,7 +737,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(EntityIsRefreshed)
 				.And(UsernameIs, "not description")
 				.When(UsernameIsSet, (string) null)
-				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
 				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
@@ -745,7 +745,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsRefreshed)
 				.When(UsernameIsSet, "un")
-				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
 				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentException>)
 
@@ -754,7 +754,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(EntityIsRefreshed)
 				.And(UsernameIs, "description")
 				.When(UsernameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
 				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsNotThrown)
 
@@ -763,7 +763,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(EntityIsRefreshed)
 				.And(UsernameExists)
 				.When(UsernameIsSet, "username")
-				.Then(MockApiGetIsCalled<IJsonMember>, 1)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 1)
 				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<UsernameInUseException>)
 
@@ -771,7 +771,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(TokenNotSupplied)
 				.When(UsernameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonMember>, 0)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
 				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
@@ -1037,6 +1037,7 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
 			SetupMockGet<IJsonMember>();
+			SetupMockGet<List<IJsonMember>>();
 			SetupMockPost<IJsonBoard>();
 			SetupMockPost<IJsonOrganization>();
 		}
@@ -1058,7 +1059,10 @@ namespace Manatee.Trello.Test.UnitTests
 		}
 		private void UsernameExists()
 		{
-			SetupMockGet<Member>();
+			var obj = new Mock<IJsonMember>();
+			obj.SetupAllProperties();
+			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<List<IJsonMember>>(It.IsAny<IRestRequest>()))
+				.Returns(new List<IJsonMember> {obj.Object});
 		}
 		private void UsernameIs(string value)
 		{

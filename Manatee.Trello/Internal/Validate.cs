@@ -21,9 +21,11 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
-using RestSharp;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal
 {
@@ -85,16 +87,41 @@ namespace Manatee.Trello.Internal
 		public static string UserName(ITrelloRest svc, string value)
 		{
 			var retVal = MinStringLength(value, 3, "Username");
-			if ((svc != null) && (svc.Get<Member>(svc.RequestProvider.Create(retVal)) != null))
-				throw new UsernameInUseException(value);
+			if (retVal != retVal.ToLower())
+				throw new ArgumentException("Username may only contain lowercase characters, underscores, and numbers");
+			if (svc != null)
+			{
+				var endpoint = new Endpoint(new[] {"search", "members"});
+				var request = svc.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("query", retVal);
+				request.AddParameter("fields", "id");
+				if (svc.Get<List<IJsonMember>>(request).Count != 0)
+					throw new UsernameInUseException(value);
+			}
 			return retVal;
 		}
 		public static string OrgName(ITrelloRest svc, string value)
 		{
 			var retVal = MinStringLength(value, 3, "Name");
-			if ((svc != null) && (svc.Get<Organization>(svc.RequestProvider.Create(retVal)) != null))
-				throw new OrgNameInUseException(value);
+			if (retVal != retVal.ToLower())
+				throw new ArgumentException("Name may only contain lowercase characters, underscores, and numbers");
+			if (svc != null)
+			{
+				var endpoint = new Endpoint(new[] {"search", retVal});
+				var request = svc.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("fields", "id");
+				request.AddParameter("modelTypes", "organizations");
+				var response = svc.Get<IJsonSearchResults>(request);
+				if (response.OrganizationIds.Count != 0)
+					throw new OrgNameInUseException(value);
+			}
 			return retVal;
+		}
+		public static void Enumeration<T>(T value)
+		{
+			var validValues = Enum.GetValues(typeof (T)).Cast<T>();
+			if (!validValues.Contains(value))
+				throw new ArgumentException(string.Format("Value '{0}' is not valid for type '{1}'", value, typeof (T)));
 		}
 	}
 }

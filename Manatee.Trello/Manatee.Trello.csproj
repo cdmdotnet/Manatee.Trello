@@ -101,6 +101,7 @@
     <Compile Include="Actions\UpdateOrganizationAction.cs" />
     <Compile Include="Contracts\ICache.cs" />
     <Compile Include="Enumerations\AvatarSourceType.cs" />
+    <Compile Include="Enumerations\MemberPreferenceSummaryPeriodType.cs" />
     <Compile Include="Enumerations\ModelType.cs" />
     <Compile Include="Internal\ActionProvider.cs" />
     <Compile Include="Internal\BoardInvitation.cs" />

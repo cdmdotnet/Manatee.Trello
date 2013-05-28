@@ -129,7 +129,9 @@ namespace Manatee.Trello
 		}
 
 		internal static string TypeKey { get { return "actions"; } }
+		internal static string TypeKey2 { get { return "actions"; } }
 		internal override string Key { get { return TypeKey; } }
+		internal override string Key2 { get { return TypeKey; } }
 
 		static Action()
 		{
