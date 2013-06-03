@@ -103,6 +103,7 @@
     <Compile Include="UnitTests\CardTest.cs" />
     <Compile Include="UnitTests\CheckItemTest.cs" />
     <Compile Include="UnitTests\CheckListTest.cs" />
+    <Compile Include="UnitTests\OrganizationMembershipTest.cs" />
     <Compile Include="UnitTests\EntityTestBase.cs" />
     <Compile Include="UnitTests\LabelNamesTest.cs" />
     <Compile Include="UnitTests\ListTest.cs" />

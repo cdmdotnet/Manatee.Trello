@@ -51,14 +51,14 @@ namespace Manatee.Trello.Internal
 		}
 		public Endpoint Generate2(ExpiringObject first, params ExpiringObject[] tokens)
 		{
-			var segments = new List<string> { first.Key };
+			var segments = new List<string> {first.Key};
 			if (first.KeyId != null)
 				segments.Add(first.KeyId);
 			foreach (var token in tokens)
 			{
 				segments.Add(token.Key2);
-				if (token.KeyId != null)
-					segments.Add(token.KeyId);
+				if (token.Id != null)
+					segments.Add(token.Id);
 			}
 			return new Endpoint(segments);
 		}

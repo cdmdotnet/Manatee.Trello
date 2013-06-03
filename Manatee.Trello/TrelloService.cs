@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
@@ -53,8 +54,8 @@ namespace Manatee.Trello
 			{
 				Validate.NonEmptyString(value);
 				_userToken = value;
-				Api.UserToken = _userToken;
 				_me = null;
+				Api.UserToken = _userToken;
 			}
 		}
 		/// <summary>
@@ -79,8 +80,6 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				if (UserToken == null)
-					return null;
 				return _me ?? (_me = GetMe());
 			}
 		}
@@ -102,13 +101,13 @@ namespace Manatee.Trello
 		{
 			get { return _api ?? (_api = new TrelloRest(_appKey, _userToken)); }
 		}
-		/// <summary>
-		/// Gets the exception generated from the previous call, if any.
-		/// </summary>
-		/// <remarks>
-		/// When a method returns null, check this method for any errors.
-		/// </remarks>
-		public Exception LastCallError { get; private set; }
+		///// <summary>
+		///// Gets the exception generated from the previous call, if any.
+		///// </summary>
+		///// <remarks>
+		///// When a method returns null, check this method for any errors.
+		///// </remarks>
+		//public Exception LastCallError { get; private set; }
 
 		/// <summary>
 		/// Creates a new instance of the TrelloService class.
@@ -152,8 +151,10 @@ namespace Manatee.Trello
 		/// query string.
 		/// </summary>
 		/// <param name="query">The query string.</param>
+		/// <param name="context">The items in which to perform the search.</param>
+		/// <param name="modelTypes">The model types to return.  Can be combined using the '|' operator.</param>
 		/// <returns>An object which contains the results of the query.</returns>
-		public SearchResults Search(string query)
+		public SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All)
 		{
 			Validate.NonEmptyString(query);
 			var endpoint = new Endpoint(new[] {"search"});
@@ -164,6 +165,19 @@ namespace Manatee.Trello
 			request.AddParameter("card_fields", "id");
 			request.AddParameter("member_fields", "id");
 			request.AddParameter("organization_fields", "id");
+			if (context != null)
+			{
+				var results = ConstructContextParameter<Board>(context);
+				if (!string.IsNullOrEmpty(results))
+					request.AddParameter("idBoards", results);
+				results = ConstructContextParameter<Card>(context);
+				if (!string.IsNullOrEmpty(results))
+					request.AddParameter("idCards", results);
+				results = ConstructContextParameter<Organization>(context);
+				if (!string.IsNullOrEmpty(results))
+					request.AddParameter("idOrganizations", results);
+			}
+			request.AddParameter("modelTypes", ConstructSearchModelTypeParameter(modelTypes));
 			return new SearchResults(this, Api.Get<IJsonSearchResults>(request));
 		}
 		/// <summary>
@@ -175,9 +189,7 @@ namespace Manatee.Trello
 		public IEnumerable<Member> SearchMembers(string query, int limit = 0)
 		{
 			Validate.NonEmptyString(query);
-			var endpoint = new Endpoint(Enumerable.Empty<string>());
-			endpoint.Append("search");
-			endpoint.Append("members");
+			var endpoint = new Endpoint(new[] {"search", "members"});
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("query", query);
 			if (limit > 0)
@@ -206,7 +218,6 @@ namespace Manatee.Trello
 			where T : ExpiringObject, new()
 		{
 			T entity = null;
-			LastCallError = null;
 			try
 			{
 				if (typeof(T).IsAssignableFrom(typeof(Token)))
@@ -225,42 +236,31 @@ namespace Manatee.Trello
 				}
 				return entity;
 			}
-			catch (Exception e)
+			catch
 			{
-				LastCallError = e;
 				Cache.Remove(entity);
-				return null;
+				throw;
 			}
 		}
 		private Member GetMe()
 		{
-			Member member = null;
-			LastCallError = null;
-			try
-			{
-				member = new Member();
-				var endpoint = EndpointGenerator.Default.Generate(member);
-				endpoint.Append("me");
-				var request = Api.RequestProvider.Create(endpoint.ToString());
-				var json = Api.Get<IJsonMember>(request);
-				if (json == null) return null;
-				var jsonCacheable = json as IJsonCacheable;
-				if (Cache != null)
-				{
-					var cached = Cache.Find<Member>(e => e.Matches(jsonCacheable.Id));
-					if (cached != null) return cached;
-				}
-				member.ApplyJson(json);
-				member.Svc = this;
-				return member;
-			}
-			catch (Exception e)
-			{
-				LastCallError = e;
-				if (Cache != null)
-					Cache.Remove(member);
-				return null;
-			}
+			if (UserToken == null)
+				throw new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object.");
+			var endpoint = new Endpoint(new[] { Member.TypeKey, "me" });
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("fields","id");
+			var json = Api.Get<IJsonMember>(request);
+			if (json == null) return null;
+			return Verify<Member>(json.Id);
+		}
+		private static string ConstructSearchModelTypeParameter(SearchModelType types)
+		{
+			return types.ToLowerString().Replace(" ", string.Empty);
+		}
+		private static string ConstructContextParameter<T>(List<ExpiringObject> models)
+			where T : ExpiringObject
+		{
+			return string.Join(",", models.OfType<T>().Take(24).Select(m => m.Id));
 		}
 	}
 }

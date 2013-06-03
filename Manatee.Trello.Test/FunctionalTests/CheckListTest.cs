@@ -60,7 +60,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 			const string checkItemName = "Manatee.Trello.FunctionalTests.VerifyCheckItem";
 			const string newCheckItemName = checkItemName + " updated";
 			checklist.AddCheckItem(checkItemName + " temp");
-			var checkItem = checklist.AddCheckItem(checkItemName, false, Position.Top);
+			var checkItem = checklist.AddCheckItem(checkItemName, CheckItemStateType.Incomplete, Position.Top);
 			checklist.AddCheckItem(checkItemName + " temp 2");
 
 			Assert.IsNotNull(checkItem);

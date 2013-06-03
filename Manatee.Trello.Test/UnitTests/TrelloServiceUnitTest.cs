@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -163,8 +164,8 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(RetrieveIsCalled<Board>, MockEntityId)
 				.Then(MockExecuteIsCalled<IJsonBoard>, 1)
 				.And(ResponseIsNull)
-				.And(ExceptionIsNotThrown)
-				.And(LastCallErrorIsNotNull)
+				.And(ExceptionIsThrown<EntityNotOnTrelloException<Board>>)
+//				.And(LastCallErrorIsNotNull)
 
 				.WithScenario("Null string throws")
 				.Given(AnEntityExists<Board, IJsonBoard>)
@@ -309,14 +310,24 @@ namespace Manatee.Trello.Test.UnitTests
 		private void SearchableEntitiesExist()
 		{
 			var searchResults = new Mock<IJsonSearchResults>();
-			searchResults.SetupGet(s => s.ActionIds).Returns(new List<string> { TrelloIds.ActionId });
-			searchResults.SetupGet(s => s.BoardIds).Returns(new List<string> { TrelloIds.BoardId });
-			searchResults.SetupGet(s => s.CardIds).Returns(new List<string> { TrelloIds.CardId });
-			searchResults.SetupGet(s => s.MemberIds).Returns(new List<string> { TrelloIds.MemberId });
-			searchResults.SetupGet(s => s.OrganizationIds).Returns(new List<string> { TrelloIds.OrganizationId });
+			searchResults.SetupGet(s => s.ActionIds).Returns(new List<string> {TrelloIds.ActionId});
+			searchResults.SetupGet(s => s.BoardIds).Returns(new List<string> {TrelloIds.BoardId});
+			searchResults.SetupGet(s => s.CardIds).Returns(new List<string> {TrelloIds.CardId});
+			searchResults.SetupGet(s => s.MemberIds).Returns(new List<string> {TrelloIds.MemberId});
+			searchResults.SetupGet(s => s.OrganizationIds).Returns(new List<string> {TrelloIds.OrganizationId});
 			_systemUnderTest = new ServiceUnderTest();
 			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonSearchResults>(It.IsAny<IRestRequest>()))
 				.Returns(new RestSharpResponse<IJsonSearchResults>(new RestResponse(), searchResults.Object));
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonAction>(It.IsAny<IRestRequest>()))
+				.Returns(new RestSharpResponse<IJsonAction>(new RestResponse(), new Mock<IJsonAction>().Object));
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonBoard>(It.IsAny<IRestRequest>()))
+				.Returns(new RestSharpResponse<IJsonBoard>(new RestResponse(), new Mock<IJsonBoard>().Object));
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonCard>(It.IsAny<IRestRequest>()))
+				.Returns(new RestSharpResponse<IJsonCard>(new RestResponse(), new Mock<IJsonCard>().Object));
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonMember>(It.IsAny<IRestRequest>()))
+				.Returns(new RestSharpResponse<IJsonMember>(new RestResponse(), new Mock<IJsonMember>().Object));
+			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonOrganization>(It.IsAny<IRestRequest>()))
+				.Returns(new RestSharpResponse<IJsonOrganization>(new RestResponse(), new Mock<IJsonOrganization>().Object));
 		}
 		private void SearchableMembersExist()
 		{
@@ -360,10 +371,10 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest.Dependencies.EntityCache.Verify(c => c.Add(It.IsAny<T>()), Times.Exactly(times));
 		}
-		private void LastCallErrorIsNotNull()
-		{
-			Assert.IsNotNull(_systemUnderTest.Sut.LastCallError);
-		}
+		//private void LastCallErrorIsNotNull()
+		//{
+		//    Assert.IsNotNull(_systemUnderTest.Sut.LastCallError);
+		//}
 
 		#endregion
 	}

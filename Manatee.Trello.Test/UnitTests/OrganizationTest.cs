@@ -196,6 +196,24 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
+		public void IsPaidAccount()
+		{
+			var story = new Story("IsPaidAccount");
+
+			var feature = story.InOrderTo("get whether an organization has paid features")
+				.AsA("developer")
+				.IWant("to get IsPaidAccount");
+
+			feature.WithScenario("Access IsPaidAccount property")
+				.Given(AnOrganization)
+				.And(EntityIsExpired)
+				.When(IsPaidAccountIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 0)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void LogoHash()
 		{
 			var story = new Story("AvatarHash");
@@ -221,20 +239,20 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		public void Members()
+		public void Memberships()
 		{
-			var story = new Story("Members");
+			var story = new Story("MembershipsIsAccessed");
 
-			var feature = story.InOrderTo("get all members of a organization")
+			var feature = story.InOrderTo("get all memberships of a organization")
 				.AsA("developer")
-				.IWant("to get Members");
+				.IWant("to get MembershipsIsAccessed");
 
-			feature.WithScenario("Access Members property")
+			feature.WithScenario("Access Memberships property")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
-				.When(MembersIsAccessed)
-				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<Member>>)
+				.When(MembershipsIsAccessed)
+				.Then(MockApiGetIsCalled<List<IJsonOrganizationMembership>>, 0)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<OrganizationMembership>>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -442,42 +460,6 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		public void AddBoard()
-		{
-			var story = new Story("AddBoard");
-
-			var feature = story.InOrderTo("add a board to an organization")
-				.AsA("developer")
-				.IWant("to call AddBoard");
-
-			feature.WithScenario("AddBoard is called")
-				.Given(AnOrganization)
-				.When(AddBoardIsCalled, "board")
-				.Then(MockApiPostIsCalled<IJsonBoard>, 1)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("AddBoard is called with null name")
-				.Given(AnOrganization)
-				.When(AddBoardIsCalled, (string) null)
-				.Then(MockApiPostIsCalled<IJsonBoard>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("AddBoard is called with empty name")
-				.Given(AnOrganization)
-				.When(AddBoardIsCalled, string.Empty)
-				.Then(MockApiPostIsCalled<IJsonBoard>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("AddBoard is called wihtout UserToken")
-				.Given(AnOrganization)
-				.And(TokenNotSupplied)
-				.When(AddBoardIsCalled, "board")
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
-
-				.Execute();
-		}
-		[TestMethod]
 		public void AddOrUpdateMember()
 		{
 			var story = new Story("AddOrUpdateMember");
@@ -510,6 +492,48 @@ namespace Manatee.Trello.Test.UnitTests
 				.When(AddOrUpdateMemberIsCalled, new Member { Id = TrelloIds.Invalid })
 				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void CreateBoard()
+		{
+			var story = new Story("CreateBoard");
+
+			var feature = story.InOrderTo("create a new organization board")
+				.AsA("developer")
+				.IWant("to call CreateBoard");
+
+			feature.WithScenario("CreateBoard is called")
+				.Given(AnOrganization)
+				.When(CreateBoardIsCalled, "org name")
+				.Then(MockApiPostIsCalled<IJsonBoard>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("CreateBoard is called without UserToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(CreateBoardIsCalled, "org name")
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
+				.WithScenario("CreateBoard is called with null name")
+				.Given(AnOrganization)
+				.When(CreateBoardIsCalled, (string)null)
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("CreateBoard is called with empty name")
+				.Given(AnOrganization)
+				.When(CreateBoardIsCalled, string.Empty)
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("CreateBoard is called with whitespace name")
+				.Given(AnOrganization)
+				.When(CreateBoardIsCalled, "     ")
+				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.Execute();
 		}
@@ -647,13 +671,17 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Execute(() => _systemUnderTest.Sut.InvitedMembers);
 		}
+		private void IsPaidAccountIsAccessed()
+		{
+			Execute(() => _systemUnderTest.Sut.IsPaidAccount);
+		}
 		private void LogoHashIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.LogoHash);
 		}
-		private void MembersIsAccessed()
+		private void MembershipsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Members);
+			Execute(() => _systemUnderTest.Sut.Memberships);
 		}
 		private void NameIsAccessed()
 		{
@@ -683,13 +711,13 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			Execute(() => _systemUnderTest.Sut.Website = value);
 		}
-		private void AddBoardIsCalled(string name)
-		{
-			Execute(() => _systemUnderTest.Sut.AddBoard(name));
-		}
 		private void AddOrUpdateMemberIsCalled(Member member)
 		{
 			Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(member));
+		}
+		private void CreateBoardIsCalled(string name)
+		{
+			Execute(() => _systemUnderTest.Sut.CreateBoard(name));
 		}
 		private void DeleteIsCalled()
 		{

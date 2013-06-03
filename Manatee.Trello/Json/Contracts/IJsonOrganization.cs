@@ -42,7 +42,7 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		string Desc { get; set; }
 		/// <summary>
-		/// Gets the URL to the organization's profile.
+		/// Gets or sets the URL to the organization's profile.
 		/// </summary>
 		string Url { get; set; }
 		/// <summary>
@@ -57,5 +57,9 @@ namespace Manatee.Trello.Json
 		/// Enumerates the powerups obtained by the organization.
 		/// </summary>
 		List<int> PowerUps { get; set; }
+		/// <summary>
+		/// Gets or sets whether the organization is a paid account.
+		/// </summary>
+		bool? PaidAccount { get; set; }
 	}
 }

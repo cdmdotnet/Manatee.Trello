@@ -35,5 +35,11 @@ namespace Manatee.Trello.Exceptions
 		/// </summary>
 		public ReadOnlyAccessException()
 			: base("A valid user token must be supplied to perform write operations.") {}
+		/// <summary>
+		/// Creates a new instance of the ReadOnlyAccessException class with a custom message.
+		/// </summary>
+		/// <param name="message">A message.</param>
+		public ReadOnlyAccessException(string message)
+			: base(message) { }
 	}
 }

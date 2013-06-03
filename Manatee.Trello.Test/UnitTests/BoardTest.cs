@@ -494,7 +494,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(EntityIsRefreshed)
 				.And(OrganizationIs, new Organization {Id = TrelloIds.Invalid})
 				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.Then(MockApiPutIsCalled<IJsonBoard>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Organization property without UserToken")
@@ -749,7 +749,8 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
-			SetupMockGet<IJsonBoard>();
+			var board = SetupMockGet<IJsonBoard>();
+			board.SetupGet(b => b.IdOrganization).Returns("some initial value");
 			SetupMockPost<IJsonList>();
 			SetupMockRetrieve<Organization>();
 		}

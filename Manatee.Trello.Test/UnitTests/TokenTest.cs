@@ -229,6 +229,7 @@ namespace Manatee.Trello.Test.UnitTests
 			orgPerm.SetupGet(p => p.ModelType)
 				.Returns("Organization");
 			_systemUnderTest = new EntityUnderTest();
+			_systemUnderTest.Sut.Value = TrelloIds.Invalid;
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
 			var mock = SetupMockGet<IJsonToken>();
 			mock.Object.Permissions = new List<IJsonTokenPermission> {boardPerm.Object, memberPerm.Object, orgPerm.Object};

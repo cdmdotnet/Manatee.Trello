@@ -200,10 +200,10 @@ namespace Manatee.Trello
 		/// Adds a new item to the checklist.
 		/// </summary>
 		/// <param name="name">The name of the new item.</param>
-		/// <param name="isChecked">The initial state of the new item.</param>
+		/// <param name="state">The initial state of the new item.</param>
 		/// <param name="position">The position of the new item.  Default is Bottom.  Invalid positions are ignored.</param>
 		/// <returns>The checkitem.</returns>
-		public CheckItem AddCheckItem(string name, bool isChecked = false, Position position = null)
+		public CheckItem AddCheckItem(string name, CheckItemStateType state = CheckItemStateType.Incomplete, Position position = null)
 		{
 			if (Svc == null) return null;
 			if (_isDeleted) return null;
@@ -213,7 +213,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(this, checkItem);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
-			request.AddParameter("checked", isChecked.ToLowerString());
+			request.AddParameter("checked", (state == CheckItemStateType.Complete).ToLowerString());
 			if ((position != null) && position.IsValid)
 				request.AddParameter("pos", position);
 			var jsonCheckItem = Api.Post<IJsonCheckItem>(request);

@@ -73,10 +73,20 @@ namespace Manatee.Trello
 		/// <param name="search">The string.</param>
 		/// <returns>A collection of cards.</returns>
 		/// <remarks>Description searching does not account for Markdown syntax.</remarks>
+		[Obsolete("Use TrelloService.Search(... context: [organization])")]
 		public static IEnumerable<Card> CardsContaining(this Organization organization, string search)
 		{
 			return organization.Boards.SelectMany(b => b.Cards())
 									  .Where(c => c.Description.Contains(search) || c.Name.Contains(search));
+		}
+		/// <summary>
+		/// Retrieves all members of an organization without specifying their permission level.
+		/// </summary>
+		/// <param name="organization">The organization.</param>
+		/// <returns>A collection of members.</returns>
+		public static IEnumerable<Member> Members(this Organization organization)
+		{
+			return organization.Memberships.Select(m => m.Member);
 		}
 	}
 }
