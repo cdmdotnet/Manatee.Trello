@@ -214,6 +214,25 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
+		public void ClosedBoards()
+		{
+			var story = new Story("ClosedBoards");
+
+			var feature = story.InOrderTo("get the closed boards owned by a member")
+				.AsA("developer")
+				.IWant("to get ClosedBoards");
+
+			feature.WithScenario("Access ClosedBoards property")
+				.Given(AMember)
+				.And(EntityIsExpired)
+				.When(ClosedBoardsIsAccessed)
+				.Then(MockApiGetIsCalled<List<IJsonBoard>>, 0)
+				.And(NonNullValueOfTypeIsReturned<IEnumerable<Board>>)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void Confirmed()
 		{
 			var story = new Story("Confirmed");
@@ -1128,6 +1147,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void BoardsIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.Boards);
+		}
+		private void ClosedBoardsIsAccessed()
+		{
+			Execute(() => _systemUnderTest.Sut.ClosedBoards);
 		}
 		private void ConfirmedIsAccessed()
 		{

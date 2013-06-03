@@ -14,35 +14,45 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ModelType.cs
+	File Name:		SearchModelType.cs
 	Namespace:		Manatee.Trello
-	Class Name:		ModelType
-	Purpose:		Enumerates the model types to which a user token may
-					grant access.
+	Class Name:		SearchModelType
+	Purpose:		Enumerates the model types for which one can search.
 
 ***************************************************************************************/
+using System;
+
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Enumerates the model types to which a user token may grant access.
+	/// Enumerates the model types for which one can search.
 	/// </summary>
-	public enum ModelType
+	[Flags]
+	public enum SearchModelType
 	{
 		/// <summary>
-		/// Assigned when the model type is not recognized.
+		/// Indicates the search should return actions.
 		/// </summary>
-		Unknown = -1,
+		Actions = 1,
 		/// <summary>
-		/// Indicates the model is one or more Members.
+		/// Indicates the search should return boards.
 		/// </summary>
-		Member,
+		Boards = 2,
 		/// <summary>
-		/// Indicates the model is one or more Boards.
+		/// Indicates the search should return cards.
 		/// </summary>
-		Board,
+		Cards = 4,
 		/// <summary>
-		/// Indicates the model is one or more Organizations.
+		/// Indicates the search should return members.
 		/// </summary>
-		Organization
+		Members = 8,
+		/// <summary>
+		/// Indicates the search should return organizations.
+		/// </summary>
+		Organizations = 16,
+		/// <summary>
+		/// Indicates the search should return all model types.
+		/// </summary>
+		All = 31
 	}
 }

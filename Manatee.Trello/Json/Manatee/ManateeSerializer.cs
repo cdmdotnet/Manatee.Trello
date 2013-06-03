@@ -88,8 +88,11 @@ namespace Manatee.Trello.Json.Manatee
 			JsonSerializationTypeRegistry.RegisterListType<IJsonLabel>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonList>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonMember>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonMemberSession>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonNotification>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonOrganization>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonOrganizationMembership>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonToken>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonTokenPermission>();
 		}
 		private static void InitializeAbstractionMap()
@@ -110,10 +113,12 @@ namespace Manatee.Trello.Json.Manatee
 			JsonSerializationAbstractionMap.Map<IJsonLabelNames, ManateeLabelNames>();
 			JsonSerializationAbstractionMap.Map<IJsonList, ManateeList>();
 			JsonSerializationAbstractionMap.Map<IJsonMember, ManateeMember>();
+			JsonSerializationAbstractionMap.Map<IJsonMemberSession, ManateeMemberSession>();
 			JsonSerializationAbstractionMap.Map<IJsonMemberPreferences, ManateeMemberPreferences>();
 			JsonSerializationAbstractionMap.Map<IJsonNotification, ManateeNotification>();
 			JsonSerializationAbstractionMap.Map<IJsonNotificationData, ManateeNotificationData>();
 			JsonSerializationAbstractionMap.Map<IJsonOrganization, ManateeOrganization>();
+			JsonSerializationAbstractionMap.Map<IJsonOrganizationMembership, ManateeOrganizationMembership>();
 			JsonSerializationAbstractionMap.Map<IJsonOrganizationPreferences, ManateeOrganizationPreferences>();
 			JsonSerializationAbstractionMap.Map<IJsonSearchResults, ManateeSearchResults>();
 			JsonSerializationAbstractionMap.Map<IJsonToken, ManateeToken>();

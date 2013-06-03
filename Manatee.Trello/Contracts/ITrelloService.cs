@@ -55,13 +55,13 @@ namespace Manatee.Trello.Contracts
 		/// Provided for testing.  It is not recommended that this is used.
 		/// </remarks>
 		ITrelloRest Api { get; }
-		/// <summary>
-		/// Gets the exception generated from the previous call, if any.
-		/// </summary>
-		/// <remarks>
-		/// When a method returns null, check this method for any errors.
-		/// </remarks>
-		Exception LastCallError { get; }
+		///// <summary>
+		///// Gets the exception generated from the previous call, if any.
+		///// </summary>
+		///// <remarks>
+		///// When a method returns null, check this method for any errors.
+		///// </remarks>
+		//Exception LastCallError { get; }
 		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>
@@ -74,8 +74,10 @@ namespace Manatee.Trello.Contracts
 		/// query string.
 		/// </summary>
 		/// <param name="query">The query string.</param>
+		/// <param name="context">The items in which to perform the search.</param>
+		/// <param name="modelTypes">The model types to return.  Can be combined using the '|' operator.</param>
 		/// <returns>An object which contains the results of the query.</returns>
-		SearchResults Search(string query);
+		SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All);
 		/// <summary>
 		/// Searches for members whose names or usernames match a provided query string.
 		/// </summary>

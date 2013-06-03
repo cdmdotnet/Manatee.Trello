@@ -14,28 +14,35 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonOrganization.cs
-	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonOrganization
-	Purpose:		Internal implementation of IJsonOrganization.
+	File Name:		TokenModelType.cs
+	Namespace:		Manatee.Trello
+	Class Name:		TokenModelType
+	Purpose:		Enumerates the model types to which a user token may
+					grant access.
 
 ***************************************************************************************/
-using System;
-using System.Collections.Generic;
-using Manatee.Trello.Json;
-
-namespace Manatee.Trello.Internal.Json
+namespace Manatee.Trello
 {
-	internal class InnerJsonOrganization : IJsonOrganization
+	/// <summary>
+	/// Enumerates the model types to which a user token may grant access.
+	/// </summary>
+	public enum TokenModelType
 	{
-		public string Id { get; set; }
-		public string Name { get; set; }
-		public string DisplayName { get; set; }
-		public string Desc { get; set; }
-		public string Url { get; set; }
-		public string Website { get; set; }
-		public string LogoHash { get; set; }
-		public List<int> PowerUps { get; set; }
-		public bool? PaidAccount { get; set; }
+		/// <summary>
+		/// Assigned when the model type is not recognized.
+		/// </summary>
+		Unknown = -1,
+		/// <summary>
+		/// Indicates the model is one or more Members.
+		/// </summary>
+		Member,
+		/// <summary>
+		/// Indicates the model is one or more Boards.
+		/// </summary>
+		Board,
+		/// <summary>
+		/// Indicates the model is one or more Organizations.
+		/// </summary>
+		Organization
 	}
 }

@@ -90,9 +90,11 @@ namespace Manatee.Trello.Json.Newtonsoft
 			_serializer.Converters.Add(new ListConverter());
 			_serializer.Converters.Add(new MemberConverter());
 			_serializer.Converters.Add(new MemberPreferencesConverter());
+			_serializer.Converters.Add(new MemberSessionConverter());
 			_serializer.Converters.Add(new NotificationConverter());
 			_serializer.Converters.Add(new NotificationDataConverter());
 			_serializer.Converters.Add(new OrganizationConverter());
+			_serializer.Converters.Add(new OrganizationMembershipConverter());
 			_serializer.Converters.Add(new OrganizationPreferencesConverter());
 			_serializer.Converters.Add(new SearchResultsConverter());
 			_serializer.Converters.Add(new TokenConverter());

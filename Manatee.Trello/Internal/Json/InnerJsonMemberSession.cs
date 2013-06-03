@@ -14,28 +14,27 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonOrganization.cs
+	File Name:		InnerJsonMemberSession.cs
 	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonOrganization
-	Purpose:		Internal implementation of IJsonOrganization.
+	Class Name:		InnerJsonMemberSession
+	Purpose:		Internal implementation for IJsonMemberSession.
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	internal class InnerJsonOrganization : IJsonOrganization
+	internal class InnerJsonMemberSession : IJsonMemberSession
 	{
+		public bool? IsCurrent { get; set; }
+		public bool? IsRecent { get; set; }
 		public string Id { get; set; }
-		public string Name { get; set; }
-		public string DisplayName { get; set; }
-		public string Desc { get; set; }
-		public string Url { get; set; }
-		public string Website { get; set; }
-		public string LogoHash { get; set; }
-		public List<int> PowerUps { get; set; }
-		public bool? PaidAccount { get; set; }
+		public DateTime? DateCreated { get; set; }
+		public DateTime? DateExpires { get; set; }
+		public DateTime? DateLastUsed { get; set; }
+		public string IpAddress { get; set; }
+		public string Type { get; set; }
+		public string UserAgent { get; set; }
 	}
 }

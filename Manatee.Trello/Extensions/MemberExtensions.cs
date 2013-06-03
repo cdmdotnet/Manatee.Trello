@@ -25,6 +25,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -40,8 +42,26 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> AllCards(this Member member)
 		{
-			return member.Boards.SelectMany(b => b.AllCards())
-								.Where(c => c.Members.Contains(member));
+			if (member.Svc != null)
+			{
+				var endpoint = EndpointGenerator.Default.Generate(member);
+				endpoint.Append(Card.TypeKey);
+				var request = member.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("fields", "id");
+				request.AddParameter("filter", "all");
+				request.AddParameter("actions", "none");
+				request.AddParameter("attachments", "false");
+				request.AddParameter("badges", "false");
+				request.AddParameter("members", "false");
+				request.AddParameter("membersVoted", "false");
+				request.AddParameter("checkItemStates", "false");
+				request.AddParameter("checkLists", "false");
+				request.AddParameter("board", "false");
+				request.AddParameter("list", "false");
+				var response = member.Svc.Api.Get<List<IJsonCard>>(request);
+				return response.Select(j => member.Svc.Retrieve<Card>(j.Id));
+			}
+			return Enumerable.Empty<Card>();
 		}
 		/// <summary>
 		/// Retrieves all active cards assigned to a member.
@@ -50,7 +70,26 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> ActiveCards(this Member member)
 		{
-			return member.Boards.SelectMany(b => b.CardsAssignedToMember(member));
+			if (member.Svc != null)
+			{
+				var endpoint = EndpointGenerator.Default.Generate(member);
+				endpoint.Append(Card.TypeKey);
+				var request = member.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("fields", "id");
+				request.AddParameter("filter", "visible");
+				request.AddParameter("actions", "none");
+				request.AddParameter("attachments", "false");
+				request.AddParameter("badges", "false");
+				request.AddParameter("members", "false");
+				request.AddParameter("membersVoted", "false");
+				request.AddParameter("checkItemStates", "false");
+				request.AddParameter("checkLists", "false");
+				request.AddParameter("board", "false");
+				request.AddParameter("list", "false");
+				var response = member.Svc.Api.Get<List<IJsonCard>>(request);
+				return response.Select(j => member.Svc.Retrieve<Card>(j.Id));
+			}
+			return Enumerable.Empty<Card>();
 		}
 		/// <summary>
 		/// Returns only the boards which are owned by a member.
@@ -89,6 +128,7 @@ namespace Manatee.Trello
 		/// <param name="search">The string.</param>
 		/// <returns>A collection of cards.</returns>
 		/// <remarks>Description searching does not account for Markdown syntax.</remarks>
+		[Obsolete("Use TrelloService.Search(... context: [member])")]
 		public static IEnumerable<Card> CardsContaining(this Member member, string search)
 		{
 			return member.ActiveCards().Where(c => c.Description.Contains(search) || c.Name.Contains(search));

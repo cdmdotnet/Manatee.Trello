@@ -14,15 +14,13 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ManateeSearchResults.cs
+	File Name:		ManateeOrganizationMembership.cs
 	Namespace:		Manatee.Trello.Json.Manatee.Entities
-	Class Name:		ManateeSearchResults
-	Purpose:		Implements IJsonLabelNames for Manatee.Json.
+	Class Name:		ManateeOrganizationMembership
+	Purpose:		Implements IJsonOrganizationMembership for Manatee.Json.
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Enumerations;
 using Manatee.Json.Extensions;
@@ -30,32 +28,31 @@ using Manatee.Json.Serialization;
 
 namespace Manatee.Trello.Json.Manatee.Entities
 {
-	internal class ManateeSearchResults : IJsonSearchResults, IJsonCompatible
+	internal class ManateeOrganizationMembership : IJsonOrganizationMembership, IJsonCompatible
 	{
-		public List<string> ActionIds { get; set; }
-		public List<string> BoardIds { get; set; }
-		public List<string> CardIds { get; set; }
-		public List<string> MemberIds { get; set; }
-		public List<string> OrganizationIds { get; set; }
+		public string Id { get; set; }
+		public string IdMember { get; set; }
+		public string MemberType { get; set; }
+		public bool? Unconfirmed { get; set; }
 
 		public void FromJson(JsonValue json)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			ActionIds = GetIds(obj, "actions");
-			BoardIds = GetIds(obj, "boards");
-			CardIds = GetIds(obj, "cards");
-			MemberIds = GetIds(obj, "members");
-			OrganizationIds = GetIds(obj, "organizations");
+			Id = obj.TryGetString("id");
+			IdMember = obj.TryGetString("idMember");
+			MemberType = obj.TryGetString("memberType");
+			Unconfirmed = obj.TryGetBoolean("unconfirmed");
 		}
 		public JsonValue ToJson()
 		{
-			throw new NotImplementedException();
-		}
-		private static List<string> GetIds(JsonObject obj, string key)
-		{
-			var array = obj.TryGetArray(key);
-			return array == null ? new List<string>() : array.Select(a => a.Object.TryGetString("id")).ToList();
+			return new JsonObject
+			       	{
+			       		{"id", Id},
+			       		{"idMember", IdMember},
+			       		{"memberType", MemberType},
+			       		{"unconfirmed", Unconfirmed},
+			       	};
 		}
 	}
 }

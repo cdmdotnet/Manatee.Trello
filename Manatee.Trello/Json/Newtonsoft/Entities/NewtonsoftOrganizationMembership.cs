@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		NewtonsoftOrganization.cs
+	File Name:		NewtonsoftOrganizationMembership.cs
 	Namespace:		Manatee.Trello.Json.Newtonsoft.Entities
-	Class Name:		NewtonsoftOrganization
-	Purpose:		Implements IJsonOrganization for Newtonsoft's Json.Net.
+	Class Name:		NewtonsoftOrganizationMembership
+	Purpose:		Implements IJsonOrganizationMembership for Newtonsoft's Json.Net.
 
 ***************************************************************************************/
 using System;
@@ -28,25 +28,15 @@ using Newtonsoft.Json;
 
 namespace Manatee.Trello.Json.Newtonsoft.Entities
 {
-	internal class NewtonsoftOrganization : IJsonOrganization
+	internal class NewtonsoftOrganizationMembership : IJsonOrganizationMembership
 	{
 		[JsonProperty("id")]
 		public string Id { get; set; }
-		[JsonProperty("name")]
-		public string Name { get; set; }
-		[JsonProperty("displayName")]
-		public string DisplayName { get; set; }
-		[JsonProperty("desc")]
-		public string Desc { get; set; }
-		[JsonProperty("url")]
-		public string Url { get; set; }
-		[JsonProperty("website")]
-		public string Website { get; set; }
-		[JsonProperty("logoHash")]
-		public string LogoHash { get; set; }
-		[JsonProperty("powerUps")]
-		public List<int> PowerUps { get; set; }
-		[JsonProperty("paid_account")]
-		public bool? PaidAccount { get; set; }
+		[JsonProperty("idMember")]
+		public string IdMember { get; set; }
+		[JsonProperty("memberType")]
+		public string MemberType { get; set; }
+		[JsonProperty("unconfirmed")]
+		public bool? Unconfirmed { get; set; }
 	}
 }

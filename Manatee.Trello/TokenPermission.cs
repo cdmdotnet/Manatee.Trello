@@ -32,12 +32,12 @@ namespace Manatee.Trello
 	/// Represents permissions granted to a particular entity type by a user token.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class TokenPermission<T> where T : ExpiringObject
+	public class TokenPermission<T> where T : ExpiringObject, new()
 	{
-		private static OneToOneMap<ModelType, string> _typeMap;
+		private static readonly OneToOneMap<TokenModelType, string> _typeMap;
 
 		private readonly IJsonTokenPermission _jsonTokenPermission;
-		private readonly ModelType _modelType = ModelType.Unknown;
+		private readonly TokenModelType _modelType = TokenModelType.Unknown;
 		private readonly ModelScope<T> _scope;
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the type of the model.
 		/// </summary>
-		public ModelType ModelType { get { return _modelType; } }
+		public TokenModelType ModelType { get { return _modelType; } }
 		/// <summary>
 		/// Gets the model, if well-defined, to which a token grants permissions.
 		/// </summary>
@@ -59,11 +59,11 @@ namespace Manatee.Trello
 
 		static TokenPermission()
 		{
-			_typeMap = new OneToOneMap<ModelType, string>
+			_typeMap = new OneToOneMap<TokenModelType, string>
 			           	{
-			           		{ModelType.Board, "Board"},
-			           		{ModelType.Member, "Member"},
-			           		{ModelType.Organization, "Organization"},
+			           		{TokenModelType.Board, "Board"},
+			           		{TokenModelType.Member, "Member"},
+			           		{TokenModelType.Organization, "Organization"},
 			           	};
 		}
 		internal TokenPermission(IJsonTokenPermission jsonTokenPermission, T model)
@@ -72,7 +72,7 @@ namespace Manatee.Trello
 			_scope = (model != null) ? new ModelScope<T>(model) : ModelScope<T>.All;
 			_modelType = _typeMap.Any(kvp => kvp.Value == _jsonTokenPermission.ModelType)
 			             	? _typeMap[_jsonTokenPermission.ModelType]
-							: ModelType.Unknown;
+							: TokenModelType.Unknown;
 		}
 	}
 }

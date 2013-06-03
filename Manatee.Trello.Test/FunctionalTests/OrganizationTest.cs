@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.FunctionalTests
@@ -32,8 +33,9 @@ namespace Manatee.Trello.Test.FunctionalTests
 				Assert.AreNotEqual(0, organization.Actions.Count());
 				Assert.AreEqual(0, organization.Boards.Count());
 				Assert.AreEqual(0, organization.InvitedMembers.Count());
-				Assert.AreEqual(1, organization.Members.Count());
-				Assert.AreEqual(me, organization.Members.First());
+				Assert.AreEqual(1, organization.Memberships.Count());
+				Assert.AreEqual(me, organization.Memberships.Select(m => m.Member).First());
+				Assert.IsTrue(organization.IsPaidAccount.In(false, (bool?) null));
 
 				organization.DisplayName = newOrganizationName;
 				organization.Description = organizationDescription;
@@ -46,11 +48,11 @@ namespace Manatee.Trello.Test.FunctionalTests
 				Assert.AreEqual(newOrganizationName, organization.DisplayName);
 				Assert.AreEqual(organizationDescription, organization.Description);
 				Assert.AreEqual(organizationWebsite, organization.Website);
-				Assert.IsTrue(organization.Members.Any(m => m == member));
+				Assert.IsTrue(organization.Memberships.Any(m => m.Member == member));
 
 				organization.RemoveMember(member);
 
-				Assert.IsFalse(organization.Members.Any(m => m == member));
+				Assert.IsFalse(organization.Memberships.Any(m => m.Member == member));
 			}
 			finally
 			{

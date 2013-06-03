@@ -32,14 +32,17 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Exposes details for a user token on Trello.com.
 	/// </summary>
-	public class Token : ExpiringObject
+	public class Token : ExpiringObject, IEquatable<Token>
 	{
 		private IJsonToken _jsonToken;
+		private IJsonTokenPermission _jsonBoardPermissions;
+		private IJsonTokenPermission _jsonMemberPermissions;
+		private IJsonTokenPermission _jsonOrganizationPermissions;
 		private TokenPermission<Board> _boardPermissions;
 		private Member _member;
 		private TokenPermission<Member> _memberPermissions;
 		private TokenPermission<Organization> _organizationPermissions;
-		private readonly string _value;
+		private string _value;
 		private bool _isDeleted;
 
 		/// <summary>
@@ -51,7 +54,9 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return _boardPermissions;
+				return ((_boardPermissions == null) || (_boardPermissions.Scope.Model.Id != _jsonToken.IdMember)) && (Svc != null)
+						? (_boardPermissions = new TokenPermission<Board>(_jsonBoardPermissions, Svc.Retrieve<Board>(_jsonBoardPermissions.IdModel)))
+						: _boardPermissions;
 			}
 		}
 		/// <summary>
@@ -130,7 +135,9 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return _memberPermissions;
+				return ((_memberPermissions == null) || (_memberPermissions.Scope.Model.Id != _jsonToken.IdMember)) && (Svc != null)
+						? (_memberPermissions = new TokenPermission<Member>(_jsonMemberPermissions, Svc.Retrieve<Member>(_jsonMemberPermissions.IdModel)))
+						: _memberPermissions;
 			}
 		}
 		/// <summary>
@@ -142,13 +149,15 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return _organizationPermissions;
+				return ((_organizationPermissions == null) || (_organizationPermissions.Scope.Model.Id != _jsonToken.IdMember)) && (Svc != null)
+				       	? (_organizationPermissions = new TokenPermission<Organization>(_jsonOrganizationPermissions, Svc.Retrieve<Organization>(_jsonOrganizationPermissions.IdModel)))
+				       	: _organizationPermissions;
 			}
 		}
 		/// <summary>
 		/// Gets the token value.
 		/// </summary>
-		public string Value { get { return _value; } }
+		public string Value { get { return _value; } internal set { _value = value; } }
 
 		internal static string TypeKey { get { return "tokens"; } }
 		internal static string TypeKey2 { get { return "tokens"; } }
@@ -172,12 +181,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Delete the token.  This cannot be undone.
 		/// </summary>
-		public void Delete()
+		internal void Delete()
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validate.Writable(Svc);
-			var endpoint = EndpointGenerator.Default.Generate(this);
+			var endpoint = EndpointGenerator.Default.Generate2(Member, this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonToken>(request);
 			_isDeleted = true;
@@ -193,12 +202,47 @@ namespace Manatee.Trello
 		{
 			return string.Format("Token issued by {0} for use by {1}. {2}", Member.FullName, Identifier, GetExpirationDateString());
 		}
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
+		{
+			if (!(obj is Token)) return false;
+			return Equals((Token) obj);
+		}
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public bool Equals(Token other)
+		{
+			return (Id == other.Id) || (Value != other.Value);
+		}
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
 
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
 		protected override void Refresh()
 		{
+			if (_value == null) return;
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			ApplyJson(Api.Get<IJsonToken>(request));
@@ -218,25 +262,9 @@ namespace Manatee.Trello
 		{
 			if (obj == null) return;
 			_jsonToken = (IJsonToken) obj;
-			var boardPerms = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Board");
-			if ((boardPerms != null) && (boardPerms.IdModel != ModelScope<Board>.All.ToString()))
-			{
-				var board = Svc.Retrieve<Board>(boardPerms.IdModel);
-				_boardPermissions = new TokenPermission<Board>(boardPerms, board);
-			}
-			var memberPerms = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Member");
-			if ((memberPerms != null) && (memberPerms.IdModel != ModelScope<Board>.All.ToString()))
-			{
-				if (_member == null)
-					_member = Svc.Retrieve<Member>(memberPerms.IdModel);
-				_memberPermissions = new TokenPermission<Member>(memberPerms, _member);
-			}
-			var orgPerms = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Organization");
-			if ((orgPerms != null) && (orgPerms.IdModel != ModelScope<Board>.All.ToString()))
-			{
-				var organization = Svc.Retrieve<Organization>(orgPerms.IdModel);
-				_organizationPermissions = new TokenPermission<Organization>(orgPerms, organization);
-			}
+			_jsonBoardPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Board");
+			_jsonMemberPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Member");
+			_jsonOrganizationPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Organization");
 		}
 
 		private string GetExpirationDateString()

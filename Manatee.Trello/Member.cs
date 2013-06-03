@@ -88,6 +88,7 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Action, IJsonAction> _actions;
 		private AvatarSourceType _avatarSource;
 		private readonly ExpiringList<Board, IJsonBoard> _boards;
+		private readonly ExpiringList<Board, IJsonBoard> _closedBoards;
 		private readonly ExpiringList<BoardInvitation, IJsonBoard> _invitedBoards;
 		private readonly ExpiringList<OrganizationInvitation, IJsonOrganization> _invitedOrganizations;
 		private readonly ExpiringList<Notification, IJsonNotification> _notifications;
@@ -95,7 +96,9 @@ namespace Manatee.Trello
 		private readonly ExpiringList<PinnedBoard, IJsonBoard> _pinnedBoards;
 		private readonly MemberPreferences _preferences;
 		private readonly ExpiringList<PremiumOrganization, IJsonOrganization> _premiumOrganizations;
+		private readonly ExpiringList<MemberSession, IJsonMemberSession> _sessions;
 		private MemberStatusType _status;
+		private readonly ExpiringList<Token, IJsonToken> _tokens;
 
 		///<summary>
 		/// Enumerates all actions associated with this member.
@@ -158,6 +161,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Board> Boards { get { return _boards; } }
 		internal ExpiringList<Board, IJsonBoard> BoardsList { get { return _boards; } }
+		/// <summary>
+		/// Enumerates the closed boards owned by the member.
+		/// </summary>
+		public IEnumerable<Board> ClosedBoards { get { return _closedBoards; } }
 		/// <summary>
 		/// Gets whether the member is confirmed.
 		/// </summary>
@@ -295,6 +302,7 @@ namespace Manatee.Trello
 		/// Enumerates the premium organizations to which the member belongs.
 		/// </summary>
 		public IEnumerable<Organization> PremiumOrganizations { get { return _premiumOrganizations; } }
+		internal IEnumerable<MemberSession> Sessions { get { return _sessions; } }
 		/// <summary>
 		/// Gets the member's activity status.
 		/// </summary>
@@ -306,6 +314,10 @@ namespace Manatee.Trello
 				return _status;
 			}
 		}
+		/// <summary>
+		/// Enumerates the tokens provided by the member.
+		/// </summary>
+		public IEnumerable<Token> Tokens { get { return _tokens; } }
 		/// <summary>
 		/// Enumerates the trophies obtained by the member.
 		/// </summary>
@@ -381,7 +393,8 @@ namespace Manatee.Trello
 			_jsonMember = new InnerJsonMember();
 			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey) {Fields = "id"};
 			_avatarSource = AvatarSourceType.Unknown;
-			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey) {Fields = "id"};
+			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey) {Fields = "id", Filter = "open"};
+			_closedBoards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey) {Fields = "id", Filter = "closed"};
 			_invitedBoards = new ExpiringList<BoardInvitation, IJsonBoard>(this, BoardInvitation.TypeKey) {Fields = "id"};
 			_invitedOrganizations = new ExpiringList<OrganizationInvitation, IJsonOrganization>(this, OrganizationInvitation.TypeKey) {Fields = "id"};
 			_notifications = new ExpiringList<Notification, IJsonNotification>(this, Notification.TypeKey) {Fields = "id"};
@@ -389,6 +402,8 @@ namespace Manatee.Trello
 			_pinnedBoards = new ExpiringList<PinnedBoard, IJsonBoard>(this, PinnedBoard.TypeKey) {Fields = "id"};
 			_preferences = new MemberPreferences(this);
 			_premiumOrganizations = new ExpiringList<PremiumOrganization, IJsonOrganization>(this, PremiumOrganization.TypeKey) {Fields = "id"};
+			_sessions = new ExpiringList<MemberSession, IJsonMemberSession>(this, MemberSession.TypeKey);
+			_tokens = new ExpiringList<Token, IJsonToken>(this, Token.TypeKey) {Fields = "id"};
 		}
 
 		/// <summary>
@@ -566,6 +581,7 @@ namespace Manatee.Trello
 		{
 			_actions.Svc = Svc;
 			_boards.Svc = Svc;
+			_closedBoards.Svc = Svc;
 			_invitedBoards.Svc = Svc;
 			_invitedOrganizations.Svc = Svc;
 			_notifications.Svc = Svc;
@@ -573,6 +589,8 @@ namespace Manatee.Trello
 			_pinnedBoards.Svc = Svc;
 			_preferences.Svc = Svc;
 			_premiumOrganizations.Svc = Svc;
+			_sessions.Svc = Svc;
+			_tokens.Svc = Svc;
 		}
 
 		internal override void ApplyJson(object obj)

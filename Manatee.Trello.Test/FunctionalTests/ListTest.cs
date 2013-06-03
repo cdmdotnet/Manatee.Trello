@@ -30,24 +30,37 @@ namespace Manatee.Trello.Test.FunctionalTests
 				list.Name = name;
 				list.Position = Position.Bottom;
 				list.IsSubscribed = true;
-				list.IsClosed = true;
+
+				list.MarkForUpdate();
 
 				Assert.AreEqual(name, list.Name);
 				Assert.AreEqual(list, board.Lists.OrderBy(l => l.Position).Last());
 				Assert.AreEqual(true, list.IsSubscribed);
+
+				list.IsClosed = true;
+
+				list.MarkForUpdate();
+	
 				Assert.AreEqual(true, list.IsClosed);
 			}
 			finally
 			{
+				list.IsClosed = false;
+
+				list.MarkForUpdate();
+
+				Assert.AreEqual(false, list.IsClosed);
+
 				list.Name = oldName;
 				list.Position = oldPos;
 				list.IsSubscribed = false;
-				list.IsClosed = false;
+
+				list.MarkForUpdate();
 
 				Assert.AreEqual(oldName, list.Name);
-				Assert.AreEqual(oldPos, list.Position);
+				// It's not necessarily the case that the same value is populated in this field.
+				//Assert.AreEqual(oldPos, list.Position);
 				Assert.AreEqual(false, list.IsSubscribed);
-				Assert.AreEqual(false, list.IsClosed);
 			}
 		}
 	}

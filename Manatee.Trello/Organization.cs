@@ -51,6 +51,7 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Board, IJsonBoard> _boards;
 		private readonly ExpiringList<InvitedMember, IJsonMember> _invitedMembers;
 		private readonly ExpiringList<Member, IJsonMember> _members;
+		private readonly ExpiringList<OrganizationMembership, IJsonOrganizationMembership> _memberships;
 		private readonly OrganizationPreferences _preferences;
 		private bool _isDeleted;
 
@@ -124,6 +125,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Member> InvitedMembers { get { return _invitedMembers; } }
 		/// <summary>
+		/// Gets whether this organization has paid features.
+		/// </summary>
+		internal bool? IsPaidAccount { get { return (_jsonOrganization == null) ? null : _jsonOrganization.PaidAccount; } }
+		/// <summary>
 		/// Gets the organization's logo hash.
 		/// </summary>
 		public string LogoHash
@@ -138,7 +143,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the members who belong to the organization.
 		/// </summary>
-		public IEnumerable<Member> Members { get { return _isDeleted ? Enumerable.Empty<Member>() : _members; } }
+		public IEnumerable<OrganizationMembership> Memberships { get { return _isDeleted ? Enumerable.Empty<OrganizationMembership>() : _memberships; } }
 		/// <summary>
 		/// Gets or sets the name of the organization.
 		/// </summary>
@@ -219,28 +224,10 @@ namespace Manatee.Trello
 			_boards = new ExpiringList<Board, IJsonBoard>(this, Board.TypeKey) {Fields = "id"};
 			_invitedMembers = new ExpiringList<InvitedMember, IJsonMember>(this, InvitedMember.TypeKey) {Fields = "id"};
 			_members = new ExpiringList<Member, IJsonMember>(this, Member.TypeKey) {Fields = "id"};
+			_memberships = new ExpiringList<OrganizationMembership, IJsonOrganizationMembership>(this, OrganizationMembership.TypeKey);
 			_preferences = new OrganizationPreferences(this);
 		}
 
-		/// <summary>
-		/// Creates a board in the organization.
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		public Board AddBoard(string name)
-		{
-			if (Svc == null) return null;
-			if (_isDeleted) return null;
-			Validate.Writable(Svc);
-			Validate.NonEmptyString(name);
-			var board = new Board();
-			var endpoint = EndpointGenerator.Default.Generate(board);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("name", name);
-			board.ApplyJson(Api.Post<IJsonBoard>(request));
-			_boards.MarkForUpdate();
-			return board;
-		}
 		///<summary>
 		/// Adds a member to the organization or updates the permissions of an existing member.
 		///</summary>
@@ -257,7 +244,28 @@ namespace Manatee.Trello
 			request.AddParameter("type", type.ToLowerString());
 			Api.Put<IJsonOrganization>(request);
 			_members.MarkForUpdate();
+			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
+		}
+		/// <summary>
+		/// Creates a board for the organization, owned by the current member.
+		/// </summary>
+		/// <param name="name">The name of the board.</param>
+		/// <returns>The newly-created Board object.</returns>
+		public Board CreateBoard(string name)
+		{
+			if (Svc == null) return null;
+			Validate.Writable(Svc);
+			Validate.NonEmptyString(name);
+			var board = new Board();
+			var endpoint = EndpointGenerator.Default.Generate(board);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("name", name);
+			request.AddParameter("idOrganization", Id);
+			board.ApplyJson(Api.Post<IJsonBoard>(request));
+			board.Svc = Svc;
+			_boards.MarkForUpdate();
+			return board;
 		}
 		/// <summary>
 		/// Deletes the organization.  This cannot be undone.
@@ -306,6 +314,8 @@ namespace Manatee.Trello
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonOrganization>(request);
 			_members.MarkForUpdate();
+			_memberships.MarkForUpdate();
+			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the organization.
@@ -373,11 +383,11 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures");
+			request.AddParameter("paid_account", "true");
 			request.AddParameter("actions", "none");
 			request.AddParameter("members", "none");
 			request.AddParameter("membersInvited", "none");
 			request.AddParameter("boards", "none");
-			request.AddParameter("paid_account", "true");
 			request.AddParameter("memberships", "none");
 			ApplyJson(Api.Get<IJsonOrganization>(request));
 		}
@@ -389,6 +399,7 @@ namespace Manatee.Trello
 			_actions.Svc = Svc;
 			_boards.Svc = Svc;
 			_members.Svc = Svc;
+			_memberships.Svc = Svc;
 			_preferences.Svc = Svc;
 		}
 

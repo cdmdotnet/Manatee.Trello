@@ -25,6 +25,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -41,6 +43,22 @@ namespace Manatee.Trello
 		/// <returns>A collection of actions.</returns>
 		public static IEnumerable<Action> ActionsByMember(this Board board, Member member)
 		{
+			// It doesn't appear that the API supports this call.  This makes me sad.   <:-(
+			//var response = Enumerable.Empty<IJsonAction>();
+			//if (board.Svc != null)
+			//{
+			//    var endpoint = EndpointGenerator.Default.Generate(board);
+			//    endpoint.Append(Action.TypeKey);
+			//    var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+			//    request.AddParameter("member", member.Id);
+			//    response = board.Svc.Api.Get<List<IJsonAction>>(request);
+			//}
+			//foreach (var jsonAction in response)
+			//{
+			//    var action = new Action();
+			//    action.ApplyJson(jsonAction);
+			//    yield return ActionProvider.Default.Parse(action);
+			//}
 			return board.Actions.Where(a => a.MemberCreator.Equals(member));
 		}
 		/// <summary>
@@ -50,9 +68,20 @@ namespace Manatee.Trello
 		/// <returns>A collection of members.</returns>
 		public static IEnumerable<Member> Admins(this Board board)
 		{
-			return board.Memberships.Where(m => m.MembershipType == BoardMembershipType.Admin)
-									.Select(m => m.Member);
+			if (board.Svc != null)
+			{
+				var endpoint = EndpointGenerator.Default.Generate(board);
+				endpoint.Append(Member.TypeKey);
+				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("fields", "id");
+				request.AddParameter("filter", "admins");
+				var response = board.Svc.Api.Get<List<IJsonMember>>(request);
+				return response.Select(j => board.Svc.Retrieve<Member>(j.Id));
 			}
+			return Enumerable.Empty<Member>();
+			//return board.Memberships.Where(m => m.MembershipType == BoardMembershipType.Admin)
+			//                        .Select(m => m.Member);
+		}
 		/// <summary>
 		/// Retrieves all cards contained within a board, both archived and active.
 		/// </summary>
@@ -60,8 +89,26 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> AllCards(this Board board)
 		{
-			return board.Lists.SelectMany(l => l.Cards)
-							  .Union(board.ArchivedCards);
+			if (board.Svc != null)
+			{
+				var endpoint = EndpointGenerator.Default.Generate(board);
+				endpoint.Append(Card.TypeKey);
+				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("fields", "id");
+				request.AddParameter("filter", "all");
+				request.AddParameter("actions", "none");
+				request.AddParameter("attachments", "false");
+				request.AddParameter("badges", "false");
+				request.AddParameter("members", "false");
+				request.AddParameter("membersVoted", "false");
+				request.AddParameter("checkItemStates", "false");
+				request.AddParameter("checkLists", "false");
+				request.AddParameter("board", "false");
+				request.AddParameter("list", "false");
+				var response = board.Svc.Api.Get<List<IJsonCard>>(request);
+				return response.Select(j => board.Svc.Retrieve<Card>(j.Id));
+			}
+			return Enumerable.Empty<Card>();
 		}
 		/// <summary>
 		/// Retrieves all lists contained within a board, both archived and active.
@@ -70,7 +117,18 @@ namespace Manatee.Trello
 		/// <returns>A collection of lists.</returns>
 		public static IEnumerable<List> AllLists(this Board board)
 		{
-			return board.Lists.Union(board.ArchivedLists);
+			if (board.Svc != null)
+			{
+				var endpoint = EndpointGenerator.Default.Generate(board);
+				endpoint.Append(List.TypeKey);
+				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("fields", "id");
+				request.AddParameter("filter", "all");
+				request.AddParameter("cards", "none");
+				var response = board.Svc.Api.Get<List<IJsonList>>(request);
+				return response.Select(j => board.Svc.Retrieve<List>(j.Id));
+			}
+			return Enumerable.Empty<List>();
 		}
 		/// <summary>
 		/// Retrieves all active cards contained within a board.
@@ -79,7 +137,26 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> Cards(this Board board)
 		{
-			return board.Lists.SelectMany(l => l.Cards);
+			if (board.Svc != null)
+			{
+				var endpoint = EndpointGenerator.Default.Generate(board);
+				endpoint.Append(Card.TypeKey);
+				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("fields", "id");
+				request.AddParameter("filter", "visible");
+				request.AddParameter("actions", "none");
+				request.AddParameter("attachments", "false");
+				request.AddParameter("badges", "false");
+				request.AddParameter("members", "false");
+				request.AddParameter("membersVoted", "false");
+				request.AddParameter("checkItemStates", "false");
+				request.AddParameter("checkLists", "false");
+				request.AddParameter("board", "false");
+				request.AddParameter("list", "false");
+				var response = board.Svc.Api.Get<List<IJsonCard>>(request);
+				return response.Select(j => board.Svc.Retrieve<Card>(j.Id));
+			}
+			return Enumerable.Empty<Card>();
 		}
 		/// <summary>
 		/// Retrieves all active cards contained within a board which are assigned to a specified member.
@@ -99,7 +176,26 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> CardsDueSoon(this Board board, TimeSpan timeSpan)
 		{
-			return board.Cards().Where(c => DateTime.Now > c.DueDate - timeSpan);
+			if (board.Svc != null)
+			{
+				var endpoint = EndpointGenerator.Default.Generate(board);
+				endpoint.Append(Card.TypeKey);
+				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				request.AddParameter("fields", "id");
+				request.AddParameter("filter", "visible");
+				request.AddParameter("actions", "none");
+				request.AddParameter("attachments", "false");
+				request.AddParameter("badges", "false");
+				request.AddParameter("members", "false");
+				request.AddParameter("membersVoted", "false");
+				request.AddParameter("checkItemStates", "false");
+				request.AddParameter("checkLists", "false");
+				request.AddParameter("board", "false");
+				request.AddParameter("list", "false");
+				var response = board.Svc.Api.Get<List<IJsonCard>>(request);
+				return response.Select(j => board.Svc.Retrieve<Card>(j.Id));
+			}
+			return Enumerable.Empty<Card>();
 		}
 		/// <summary>
 		/// Retrieves all active cards within a board with names or descriptions which match a specified Regex.
@@ -119,6 +215,7 @@ namespace Manatee.Trello
 		/// <param name="search">The string.</param>
 		/// <returns>A collection of cards.</returns>
 		/// <remarks>Description searching does not account for Markdown syntax.</remarks>
+		[Obsolete("Use TrelloService.Search(... context: [board])")]
 		public static IEnumerable<Card> CardsContaining(this Board board, string search)
 		{
 			return board.Cards().Where(c => c.Description.Contains(search) || c.Name.Contains(search));
