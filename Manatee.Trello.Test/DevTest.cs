@@ -13,31 +13,42 @@ namespace Manatee.Trello.Test
 	public class DevTest
 	{
 		[TestMethod]
-		[Ignore]
+		//[Ignore]
 		public void TestMethod1()
 		{
 			//Options.UseNewtonsoftJson();
-			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
-			var context = new List<ExpiringObject>
-			              	{
-			              		service.Retrieve<Board>(TrelloIds.BoardId),
-			              		service.Retrieve<Organization>(TrelloIds.OrganizationId),
-			              		service.Retrieve<Member>(TrelloIds.MemberId),
-			              		service.Retrieve<Board>("5144051cbd0da6681200201e")
-			              	};
-			var item = service.Search("card", context);
-			foreach (var child in item.Cards)
-			{
-				Console.WriteLine(child);
-			}
+			var service = new TrelloService(TrelloIds.AppKey);
+			var board = service.Retrieve<Board>("4d5ea62fd76aa1136000000c");
+			var start = DateTime.Now;
+			Console.WriteLine(board);
 			Console.WriteLine();
-			item = service.Search("card");
-			foreach (var child in item.Cards)
+			foreach (var list in board.Lists)
 			{
-				Console.WriteLine(child);
+				Console.WriteLine("    {0}", list);
+				foreach (var card in list.Cards)
+				{
+					Console.WriteLine("        {0}", card);
+				}
+				Console.WriteLine();
 			}
+			var end = DateTime.Now;
+			Console.WriteLine("Total Time: {0}", end - start);
 			Console.WriteLine();
-			Console.WriteLine(item);
+
+			start = DateTime.Now;
+			Console.WriteLine(board);
+			Console.WriteLine();
+			foreach (var list in board.Lists)
+			{
+				Console.WriteLine("    {0}", list);
+				foreach (var card in list.Cards)
+				{
+					Console.WriteLine("        {0}", card);
+				}
+				Console.WriteLine();
+			}
+			end = DateTime.Now;
+			Console.WriteLine("Total Time: {0}", end - start);
 		}
 	}
 }
