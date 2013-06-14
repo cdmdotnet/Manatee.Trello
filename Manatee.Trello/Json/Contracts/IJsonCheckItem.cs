@@ -28,10 +28,6 @@ namespace Manatee.Trello.Json
 	public interface IJsonCheckItem  :IJsonCacheable
 	{
 		/// <summary>
-		/// Gets or sets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		string Id { get; set; }
-		/// <summary>
 		/// Gets or sets the check state of the checklist item.
 		/// </summary>
 		string State { get; set; }
