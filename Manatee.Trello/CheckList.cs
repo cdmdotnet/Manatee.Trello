@@ -66,7 +66,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a checklist.
 	/// </summary>
-	public class CheckList : ExpiringObject, IEquatable<CheckList>
+	public class CheckList : ExpiringObject, IEquatable<CheckList>, IComparable<CheckList>
 	{
 		private IJsonCheckList _jsonCheckList;
 		private Board _board;
@@ -272,6 +272,18 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		/// <summary>
+		/// Compares the current object with another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public int CompareTo(CheckList other)
+		{
+			var order = Position.Value - other.Position.Value;
+			return (int)order;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

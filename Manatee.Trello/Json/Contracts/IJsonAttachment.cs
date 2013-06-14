@@ -28,7 +28,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Attachment object.
 	/// </summary>
-	public interface IJsonAttachment
+	public interface IJsonAttachment : IJsonCacheable
 	{
 		/// <summary>
 		/// Gets or sets a unique identifier (not necessarily a GUID).

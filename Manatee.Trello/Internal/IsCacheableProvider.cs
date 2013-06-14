@@ -39,9 +39,11 @@ namespace Manatee.Trello.Internal
 			_registry = new Dictionary<Type, bool>
 			            	{
 								{typeof(Action), true},
+								{typeof(Attachment), true},
 								{typeof(Board), true},
 								{typeof(Card), true},
 								{typeof(CheckList), true},
+								{typeof(CheckItem), true},
 								{typeof(List), true},
 								{typeof(Member), true},
 								{typeof(Notification), true},

@@ -59,7 +59,7 @@ namespace Manatee.Trello
 	///<summary>
 	/// Represents a board.
 	///</summary>
-	public class Board : ExpiringObject, IEquatable<Board>
+	public class Board : ExpiringObject, IEquatable<Board>, IComparable<Board>
 	{
 		private IJsonBoard _jsonBoard;
 		private readonly ExpiringList<Action, IJsonAction> _actions;
@@ -307,6 +307,8 @@ namespace Manatee.Trello
 				request.AddParameter("pos", position);
 			list.ApplyJson(Api.Post<IJsonList>(request));
 			list.Svc = Svc;
+			if (Svc.Cache != null)
+				Svc.Cache.Add(list);
 			_lists.MarkForUpdate();
 			_actions.MarkForUpdate();
 			return list;
@@ -409,6 +411,18 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		/// <summary>
+		/// Compares the current object with another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public int CompareTo(Board other)
+		{
+			var order = string.Compare(Name, other.Name);
+			return order;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

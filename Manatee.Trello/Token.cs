@@ -32,7 +32,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Exposes details for a user token on Trello.com.
 	/// </summary>
-	public class Token : ExpiringObject, IEquatable<Token>
+	public class Token : ExpiringObject, IEquatable<Token>, IComparable<Token>
 	{
 		private IJsonToken _jsonToken;
 		private IJsonTokenPermission _jsonBoardPermissions;
@@ -190,6 +190,18 @@ namespace Manatee.Trello
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonToken>(request);
 			_isDeleted = true;
+		}
+		/// <summary>
+		/// Compares the current object with another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public int CompareTo(Token other)
+		{
+			var diff = DateCreated - other.DateCreated;
+			return diff.HasValue ? (int)diff.Value.TotalMilliseconds : 0;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

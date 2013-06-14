@@ -13,12 +13,12 @@ namespace Manatee.Trello.Test
 	public class DevTest
 	{
 		[TestMethod]
-		//[Ignore]
+		[Ignore]
 		public void TestMethod1()
 		{
 			//Options.UseNewtonsoftJson();
 			var service = new TrelloService(TrelloIds.AppKey);
-			var board = service.Retrieve<Board>("4d5ea62fd76aa1136000000c");
+			var board = service.Retrieve<Board>("5144051cbd0da6681200201e");
 			var start = DateTime.Now;
 			Console.WriteLine(board);
 			Console.WriteLine();

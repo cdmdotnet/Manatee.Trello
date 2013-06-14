@@ -48,5 +48,7 @@ namespace Manatee.Trello.Json.Newtonsoft.Entities
 		public List<int> PowerUps { get; set; }
 		[JsonProperty("paid_account")]
 		public bool? PaidAccount { get; set; }
+		[JsonProperty("premiumFeatures")]
+		public List<string> PremiumFeatures { get; set; }
 	}
 }

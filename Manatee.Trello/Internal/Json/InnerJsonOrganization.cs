@@ -37,5 +37,6 @@ namespace Manatee.Trello.Internal.Json
 		public string LogoHash { get; set; }
 		public List<int> PowerUps { get; set; }
 		public bool? PaidAccount { get; set; }
+		public List<string> PremiumFeatures { get; set; }
 	}
 }

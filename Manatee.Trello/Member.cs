@@ -79,7 +79,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member (user).
 	/// </summary>
-	public class Member : ExpiringObject, IEquatable<Member>
+	public class Member : ExpiringObject, IEquatable<Member>, IComparable<Member>
 	{
 		private static readonly OneToOneMap<MemberStatusType, string> _statusMap;
 		private static readonly OneToOneMap<AvatarSourceType, string> _avatarSourceMap;
@@ -542,6 +542,11 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		public int CompareTo(Member other)
+		{
+			var order = string.Compare(FullName, other.FullName);
+			return order;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

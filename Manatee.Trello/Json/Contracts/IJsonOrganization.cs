@@ -61,5 +61,9 @@ namespace Manatee.Trello.Json
 		/// Gets or sets whether the organization is a paid account.
 		/// </summary>
 		bool? PaidAccount { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of premium features available to the organization.
+		/// </summary>
+		List<string> PremiumFeatures { get; set; }
 	}
 }
