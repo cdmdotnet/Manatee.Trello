@@ -44,7 +44,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an organization.
 	/// </summary>
-	public class Organization : ExpiringObject, IEquatable<Organization>
+	public class Organization : ExpiringObject, IEquatable<Organization>, IComparable<Organization>
 	{
 		private IJsonOrganization _jsonOrganization;
 		private readonly ExpiringList<Action, IJsonAction> _actions;
@@ -182,6 +182,18 @@ namespace Manatee.Trello
 		/// Gets the set of preferences for the organization.
 		///</summary>
 		public OrganizationPreferences Preferences { get { return _isDeleted ? null : _preferences; } }
+		/// <summary>
+		/// Gets a collection of premium features available to the organization.
+		/// </summary>
+		public IEnumerable<string> PremiumFeatures
+		{
+			get
+			{
+				if (_isDeleted) return Enumerable.Empty<string>();
+				VerifyNotExpired();
+				return (_jsonOrganization == null) ? null : _jsonOrganization.PremiumFeatures;
+			}
+		}
 		/// <summary>
 		/// Gets the URL to the organization's profile.
 		/// </summary>
@@ -362,6 +374,18 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		/// <summary>
+		/// Compares the current object with another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public int CompareTo(Organization other)
+		{
+			var order = string.Compare(DisplayName, other.DisplayName);
+			return order;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

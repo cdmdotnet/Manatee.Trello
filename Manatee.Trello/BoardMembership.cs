@@ -38,7 +38,7 @@ namespace Manatee.Trello
 	///<summary>
 	/// Represents a member of a board, including their membership type.
 	///</summary>
-	public class BoardMembership : ExpiringObject, IEquatable<BoardMembership>
+	public class BoardMembership : ExpiringObject, IEquatable<BoardMembership>, IComparable<BoardMembership>
 	{
 		private static readonly OneToOneMap<BoardMembershipType, string> _typeMap;
 
@@ -148,6 +148,17 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		/// <summary>
+		/// Compares the current object with another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public int CompareTo(BoardMembership other)
+		{
+			return MembershipType.CompareTo(other.MembershipType);
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

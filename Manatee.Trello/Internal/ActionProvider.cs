@@ -90,7 +90,7 @@ namespace Manatee.Trello.Internal
 		{
 			if (obj.Type == ActionType.Unknown) return obj;
 			var type = _typeMap[obj.Type];
-			var newObj = (Action) Activator.CreateInstance(type, new[] {obj});
+			var newObj = (Action) Activator.CreateInstance(type, new object[] {obj});
 			return newObj;
 		}
 	}

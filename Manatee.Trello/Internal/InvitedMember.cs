@@ -25,7 +25,7 @@ using System;
 
 namespace Manatee.Trello.Internal
 {
-	internal class InvitedMember : Member, IEquatable<InvitedMember>
+	internal class InvitedMember : Member, IEquatable<InvitedMember>, IComparable<InvitedMember>
 	{
 		internal new static string TypeKey { get { return "membersInvited"; } }
 		internal override string Key { get { return TypeKey; } }
@@ -33,6 +33,10 @@ namespace Manatee.Trello.Internal
 		public bool Equals(InvitedMember other)
 		{
 			return base.Equals(this);
+		}
+		public int CompareTo(InvitedMember other)
+		{
+			return base.CompareTo(other);
 		}
 	}
 }

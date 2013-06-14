@@ -53,7 +53,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member notification.
 	/// </summary>
-	public class Notification : ExpiringObject, IEquatable<Notification>
+	public class Notification : ExpiringObject, IEquatable<Notification>, IComparable<Notification>
 	{
 		private static readonly OneToOneMap<NotificationType, string> _typeMap;
 
@@ -220,6 +220,11 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		public int CompareTo(Notification other)
+		{
+			var diff = Date - other.Date;
+			return diff.HasValue ? (int) diff.Value.TotalMilliseconds : 0;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

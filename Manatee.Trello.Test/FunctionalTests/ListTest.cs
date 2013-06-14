@@ -16,6 +16,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 			var list = service.Retrieve<List>(TrelloIds.ListId);
 			var oldName = list.Name;
 			var oldPos = list.Position;
+			var oldSubscribed = list.IsSubscribed;
 			try
 			{
 				const string name = "Manatee.Trello.ListTest.RetrieveAndModify";
@@ -25,17 +26,16 @@ namespace Manatee.Trello.Test.FunctionalTests
 				Assert.AreEqual(TrelloIds.BoardId, board.Id);
 				Assert.AreNotEqual(0, list.Cards);
 				Assert.AreEqual(false, list.IsClosed);
-				Assert.AreEqual(false, list.IsSubscribed);
 
 				list.Name = name;
 				list.Position = Position.Bottom;
-				list.IsSubscribed = true;
+				list.IsSubscribed = !list.IsSubscribed;
 
 				list.MarkForUpdate();
 
 				Assert.AreEqual(name, list.Name);
 				Assert.AreEqual(list, board.Lists.OrderBy(l => l.Position).Last());
-				Assert.AreEqual(true, list.IsSubscribed);
+				Assert.AreNotEqual(oldSubscribed, list.IsSubscribed);
 
 				list.IsClosed = true;
 
@@ -53,7 +53,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 
 				list.Name = oldName;
 				list.Position = oldPos;
-				list.IsSubscribed = false;
+				list.IsSubscribed = oldSubscribed;
 
 				list.MarkForUpdate();
 

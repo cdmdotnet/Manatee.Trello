@@ -42,6 +42,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 		public string LogoHash { get; set; }
 		public List<int> PowerUps { get; set; }
 		public bool? PaidAccount { get; set; }
+		public List<string> PremiumFeatures { get; set; }
 
 		public void FromJson(JsonValue json)
 		{
@@ -58,6 +59,9 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			if (array != null)
 				PowerUps = array.Select(j => (int) j.Number).ToList();
 			PaidAccount = obj.TryGetBoolean("paid_account");
+			array = obj.TryGetArray("premiumFeatures");
+			if (array != null)
+				PremiumFeatures = array.Select(o => o.String).ToList();
 		}
 		public JsonValue ToJson()
 		{
@@ -72,6 +76,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 						{"logoHash", LogoHash},
 						{"powerUps", PowerUps.Cast<double>().ToJson()},
 						{"paid_account", PaidAccount},
+						{"premiumFeatures", PremiumFeatures.ToJson()}
 					};
 		}
 	}

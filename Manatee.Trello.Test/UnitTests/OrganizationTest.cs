@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
-using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StoryQ;
@@ -378,6 +377,31 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
+		public void PremiumFeatures()
+		{
+			var story = new Story("PremiumFeatures");
+
+			var feature = story.InOrderTo("get an organization's Premium Features")
+				.AsA("developer")
+				.IWant("to get the PremiumFeatures");
+
+			feature.WithScenario("Access PremiumFeatures property")
+				.Given(AnOrganization)
+				.And(EntityIsRefreshed)
+				.When(PremiumFeaturesIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access PremiumFeatures property when expired")
+				.Given(AnOrganization)
+				.And(EntityIsExpired)
+				.When(PremiumFeaturesIsAccessed)
+				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void Website()
 		{
 			var story = new Story("Website");
@@ -698,6 +722,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void PreferencesIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.Preferences);
+		}
+		private void PremiumFeaturesIsAccessed()
+		{
+			Execute(() => _systemUnderTest.Sut.PremiumFeatures);
 		}
 		private void UrlIsAccessed()
 		{

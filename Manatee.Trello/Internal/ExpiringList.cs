@@ -23,16 +23,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal
 {
 	internal class ExpiringList<T, TJson> : ExpiringObject, IEnumerable<T>
-		where T : ExpiringObject, IEquatable<T>, new()
+		where T : ExpiringObject, IEquatable<T>, IComparable<T>,  new()
 	{
 		private readonly List<T> _list;
 		private readonly string _key;
+		private readonly object _lockObject = new object();
 
 		public string Filter { get; set; }
 		public string Fields { get; set; }
@@ -85,41 +88,52 @@ namespace Manatee.Trello.Internal
 		{
 			_list.Clear();
 			var jsonList = (List<TJson>) obj;
-			foreach (var json in jsonList)
+			var entities = new List<T>();
+			var threads = jsonList.Select(j => new Thread(() => AsyncRetrieve(entities, j)) { IsBackground = true }).ToList();
+			foreach (var thread in threads)
 			{
-				T entity;
-				if (IsCacheableProvider.Default.IsCacheable<T>())
-				{
-					var jsonCacheable = json as IJsonCacheable;
-					entity = Svc.Retrieve<T>(jsonCacheable.Id);
-				}
-				else
-				{
-					entity = new T();
-					entity.ApplyJson(json);
-					if (typeof(T).IsAssignableFrom(typeof(Action)))
-					{
-						var typedEntity = ActionProvider.Default.Parse(entity as Action) as T;
-						if (typedEntity != null)
-						{
-							typedEntity.ApplyJson(json);
-							entity = typedEntity;
-						}
-					}
-					else if (typeof(T).IsAssignableFrom(typeof(Notification)))
-					{
-						var typedEntity = NotificationProvider.Default.Parse(entity as Notification) as T;
-						if (typedEntity != null)
-						{
-							typedEntity.ApplyJson(json);
-							entity = typedEntity;
-						}
-					}
-				}
-				if (entity != null)
-					_list.Add(entity);
+				thread.Start();
 			}
+			while (threads.Any(t => t.IsAlive)) {}
+			_list.AddRange(entities.OrderBy(e => e).ToList());
 			PropigateService();
+		}
+
+		private void AsyncRetrieve(ICollection<T> entities, TJson json)
+		{
+			T entity;
+			if (IsCacheableProvider.Default.IsCacheable<T>())
+			{
+				var jsonCacheable = json as IJsonCacheable;
+				entity = Svc.Retrieve<T>(jsonCacheable.Id);
+			}
+			else
+			{
+				entity = new T();
+				entity.ApplyJson(json);
+				if (typeof(T).IsAssignableFrom(typeof(Action)))
+				{
+					var typedEntity = ActionProvider.Default.Parse(entity as Action) as T;
+					if (typedEntity != null)
+					{
+						typedEntity.ApplyJson(json);
+						entity = typedEntity;
+					}
+				}
+				else if (typeof(T).IsAssignableFrom(typeof(Notification)))
+				{
+					var typedEntity = NotificationProvider.Default.Parse(entity as Notification) as T;
+					if (typedEntity != null)
+					{
+						typedEntity.ApplyJson(json);
+						entity = typedEntity;
+					}
+				}
+			}
+			lock (_lockObject)
+			{
+				entities.Add(entity);
+			}
 		}
 	}
 }

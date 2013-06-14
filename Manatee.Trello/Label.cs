@@ -37,7 +37,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a label as applied to a card.
 	/// </summary>
-	public class Label : ExpiringObject, IEquatable<Label>
+	public class Label : ExpiringObject, IEquatable<Label>, IComparable<Label>
 	{
 		private static readonly OneToOneMap<LabelColor, string> _colorMap;
 
@@ -121,6 +121,11 @@ namespace Manatee.Trello
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
+		}
+		public int CompareTo(Label other)
+		{
+			var order = Color - other.Color;
+			return order;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

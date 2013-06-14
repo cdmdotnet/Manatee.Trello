@@ -43,7 +43,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a web session currently active by a member.
 	/// </summary>
-	public class MemberSession : ExpiringObject, IEquatable<MemberSession>
+	public class MemberSession : ExpiringObject, IEquatable<MemberSession>, IComparable<MemberSession>
 	{
 		private IJsonMemberSession _jsonMemberSession;
 		private IPAddress _ipAddress;
@@ -127,6 +127,18 @@ namespace Manatee.Trello
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
 			return Equals(other.Id, Id);
+		}
+		/// <summary>
+		/// Compares the current object with another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public int CompareTo(MemberSession other)
+		{
+			var diff = DateCreated - other.DateCreated;
+			return diff.HasValue ? (int)diff.Value.TotalMilliseconds : 0;
 		}
 		/// <summary>
 		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
