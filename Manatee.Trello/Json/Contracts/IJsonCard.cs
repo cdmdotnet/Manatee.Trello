@@ -34,6 +34,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		bool? Closed { get; set; }
 		/// <summary>
+		/// Gets or sets the date of last activity for a card.
+		/// </summary>
+		DateTime? DateLastActivity { get; set; }
+		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
 		string Desc { get; set; }

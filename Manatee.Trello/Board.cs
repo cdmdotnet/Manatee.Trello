@@ -314,7 +314,7 @@ namespace Manatee.Trello
 			return list;
 		}
 		///<summary>
-		/// Adds a member to the board or updates the permissions of an existing member.
+		/// Adds a member to the board or updates the permissions of a member already on the board.
 		///</summary>
 		///<param name="member">The member</param>
 		///<param name="type">The permission level for the member</param>
@@ -329,6 +329,41 @@ namespace Manatee.Trello
 			Api.Put<IJsonBoard>(request);
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
+		}
+		/// <summary>
+		///  Adds a new or existing member to the board or updates the permissions of a member already on the board.
+		/// </summary>
+		/// <param name="fullName"></param>
+		/// <param name="type">The permission level for the member</param>
+		/// <param name="emailAddress"></param>
+		public Member AddOrUpdateMember(string emailAddress, string fullName, BoardMembershipType type = BoardMembershipType.Normal)
+		{
+			if (Svc == null) return null;
+			Validate.Writable(Svc);
+			Validate.NonEmptyString(emailAddress);
+			Validate.NonEmptyString(fullName);
+			Member member;
+			if (Svc.Cache != null)
+			{
+				member = Svc.Cache.Find<Member>(m => m.Email == emailAddress);
+				if (member != null)
+				{
+					AddOrUpdateMember(member, type);
+					return member;
+				}
+			}
+			member = new Member();
+			var endpoint = EndpointGenerator.Default.Generate(this, member);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("email", emailAddress);
+			request.AddParameter("fullName", fullName);
+			request.AddParameter("type", type.ToLowerString());
+			member.ApplyJson(Api.Put<IJsonMember>(request));
+			member.Svc = Svc;
+			_memberships.MarkForUpdate();
+			_memberships.MarkForUpdate();
+			_actions.MarkForUpdate();
+			return member;
 		}
 		///<summary>
 		/// Marks the board as viewed by the current member.

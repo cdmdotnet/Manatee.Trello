@@ -138,6 +138,7 @@
     <Compile Include="Internal\Json\InnerJsonTokenPermission.cs" />
     <Compile Include="Internal\NotificationProvider.cs" />
     <Compile Include="Internal\SimpleCache.cs" />
+    <Compile Include="Internal\ThreadSafeCache.cs" />
     <Compile Include="Json\Contracts\IJsonCacheable.cs" />
     <Compile Include="Json\Contracts\IJsonMemberSession.cs" />
     <Compile Include="Json\Contracts\IJsonOrganizationMembership.cs" />

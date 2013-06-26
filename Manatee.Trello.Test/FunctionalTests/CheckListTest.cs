@@ -20,10 +20,10 @@ namespace Manatee.Trello.Test.FunctionalTests
 				var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
 				var card = service.Retrieve<Card>(TrelloIds.CardId);
 				if (card == null)
-					Assert.Inconclusive(string.Format("Could not find card with ID = {{{0}}}", TrelloIds.CardId));
+					Assert.Inconclusive("Could not find card with ID = {{{0}}}", TrelloIds.CardId);
 				var list = service.Retrieve<List>(TrelloIds.ListId);
 				if (list == null)
-					Assert.Inconclusive(string.Format("Could not find card with ID = {{{0}}}", TrelloIds.CardId));
+					Assert.Inconclusive("Could not find list with ID = {{{0}}}", TrelloIds.CardId);
 				var newCard = list.Cards.First(c => c != card);
 
 				checklist = card.AddCheckList(checklistName, Position.Top);

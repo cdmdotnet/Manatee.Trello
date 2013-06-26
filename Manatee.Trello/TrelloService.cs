@@ -40,7 +40,6 @@ namespace Manatee.Trello
 		private readonly string _appKey;
 		private string _userToken;
 		private ITrelloRest _api;
-		private ICache _cache;
 		private Member _me;
 
 		/// <summary>
@@ -52,7 +51,8 @@ namespace Manatee.Trello
 			get { return _userToken; }
 			set
 			{
-				Validate.NonEmptyString(value);
+				if (value != null)
+					Validate.NonEmptyString(value);
 				_userToken = value;
 				_me = null;
 				Api.UserToken = _userToken;
@@ -61,18 +61,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Provides caching for retrieved entities.
 		/// </summary>
-		public ICache Cache
-		{
-			get { return _cache ?? (_cache = new SimpleCache()); }
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException("value");
-				if (_cache != null)
-					throw new InvalidOperationException("Cache already set.");
-				_cache = value;
-			}
-		}
+		public ICache Cache { get; set; }
 		/// <summary>
 		/// Gets the Member object associated with the provided AppKey.
 		/// </summary>
@@ -119,6 +108,7 @@ namespace Manatee.Trello
 			Validate.NonEmptyString(appKey);
 			_appKey = appKey;
 			_userToken = userToken;
+			Cache = Options.GlobalCache;
 		}
 
 		/// <summary>

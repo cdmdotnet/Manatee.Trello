@@ -253,6 +253,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Label> Labels { get { return _isDeleted ? Enumerable.Empty<Label>() : _labels; } }
 		/// <summary>
+		/// Gets the date of last activity for this card.
+		/// </summary>
+		public DateTime? LastActivityDate { get { return _jsonCard.DateLastActivity; } }
+		/// <summary>
 		/// Gets the list which contains this card.
 		/// </summary>
 		public List List
@@ -636,7 +640,7 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("fields", "closed,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,subscribed");
+			request.AddParameter("fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,subscribed");
 			request.AddParameter("actions", "none");
 			request.AddParameter("attachments", "false");
 			request.AddParameter("badges", "false");

@@ -104,7 +104,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Description property wihtout UserToken")
+				.WithScenario("Set Description property without UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DescriptionIsSet, "description")
@@ -166,7 +166,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set DisplayName property wihtout UserToken")
+				.WithScenario("Set DisplayName property without UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DisplayNameIsSet, "description")
@@ -455,7 +455,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Website property wihtout UserToken")
+				.WithScenario("Set Website property without UserToken")
 				.Given(AnOrganization)
 				.And(EntityIsRefreshed)
 				.And(TokenNotSupplied)
@@ -484,9 +484,9 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		public void AddOrUpdateMember()
+		public void AddOrUpdateMemberByMember()
 		{
-			var story = new Story("AddOrUpdateMember");
+			var story = new Story("AddOrUpdateMember by member");
 
 			var feature = story.InOrderTo("add a member to or update permissions for a member on an organization")
 				.AsA("developer")
@@ -494,27 +494,63 @@ namespace Manatee.Trello.Test.UnitTests
 
 			feature.WithScenario("AddOrUpdateMember is called")
 				.Given(AnOrganization)
-				.When(AddOrUpdateMemberIsCalled, new Member {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
+				.When(AddOrUpdateMemberIsCalled, new Member { Id = TrelloIds.Invalid })
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("AddOrUpdateMember is called with null")
 				.Given(AnOrganization)
-				.When(AddOrUpdateMemberIsCalled, (Member) null)
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
+				.When(AddOrUpdateMemberIsCalled, (Member)null)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddOrUpdateMember is called with local member")
 				.Given(AnOrganization)
 				.When(AddOrUpdateMemberIsCalled, new Member())
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
-				.WithScenario("AddOrUpdateMember is called wihtout UserToken")
+				.WithScenario("AddOrUpdateMember is called without UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(AddOrUpdateMemberIsCalled, new Member { Id = TrelloIds.Invalid })
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void AddOrUpdateMemberByEmailAndName()
+		{
+			var story = new Story("AddOrUpdateMember by email and name");
+
+			var feature = story.InOrderTo("add a member to or update permissions for a member on an organization")
+				.AsA("developer")
+				.IWant("to add or update a member");
+
+			feature.WithScenario("AddOrUpdateMember is called")
+				.Given(AnOrganization)
+				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("AddOrUpdateMember is called with null email")
+				.Given(AnOrganization)
+				.When(AddOrUpdateMemberIsCalled, (string) null, "Some Email")
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("AddOrUpdateMember is called with null name")
+				.Given(AnOrganization)
+				.When(AddOrUpdateMemberIsCalled, "some@email.com", (string) null)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("AddOrUpdateMember is called without UserToken")
+				.Given(AnOrganization)
+				.And(TokenNotSupplied)
+				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -576,7 +612,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Delete is called wihtout UserToken")
+				.WithScenario("Delete is called without UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(DeleteIsCalled)
@@ -636,6 +672,7 @@ namespace Manatee.Trello.Test.UnitTests
 			var obj = SetupMockGet<IJsonSearchResults>();
 			obj.SetupGet(s => s.OrganizationIds).Returns(new List<string>());
 			SetupMockGet<List<IJsonMember>>();
+			SetupMockPut<IJsonMember>();
 			SetupMockGet<IJsonOrganization>();
 			SetupMockPost<IJsonBoard>();
 		}
@@ -742,6 +779,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AddOrUpdateMemberIsCalled(Member member)
 		{
 			Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(member));
+		}
+		private void AddOrUpdateMemberIsCalled(string email, string name)
+		{
+			Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(email, name));
 		}
 		private void CreateBoardIsCalled(string name)
 		{
