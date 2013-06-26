@@ -21,6 +21,8 @@
 
 ***************************************************************************************/
 using System;
+using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 using Manatee.Trello.Json.Manatee;
 using Manatee.Trello.Json.Newtonsoft;
@@ -43,6 +45,7 @@ namespace Manatee.Trello
 		private static NewtonsoftSerializer _newtonsoftSerializer;
 		private static IRestClientProvider _restClientProvider;
 		private static RestSharpClientProvider _restSharpProvider;
+		private static readonly ICache _globalCache;
 
 		private static ISerializer ManateeSerializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
 		private static IDeserializer ManateeDeserializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
@@ -115,12 +118,14 @@ namespace Manatee.Trello
 				_restClientProvider = value;
 			}
 		}
+		public static ICache GlobalCache { get { return _globalCache; } }
 
 		static Options()
 		{
 			DefaultItemDuration = TimeSpan.FromSeconds(60);
 			ItemDuration = DefaultItemDuration;
 			AutoRefresh = true;
+			_globalCache = new ThreadSafeCache(new SimpleCache());
 		}
 
 		/// <summary>

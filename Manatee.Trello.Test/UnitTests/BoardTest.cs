@@ -597,9 +597,9 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		public void AddOrUpdateMember()
+		public void AddOrUpdateMemberByMember()
 		{
-			var story = new Story("AddOrUpdateMember");
+			var story = new Story("AddOrUpdateMember by member");
 
 			var feature = story.InOrderTo("add a member to or update permissions for a member on a board")
 				.AsA("developer")
@@ -628,6 +628,42 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(TokenNotSupplied)
 				.When(AddOrUpdateMemberIsCalled, new Member())
 				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void AddOrUpdateMemberByEmailAndName()
+		{
+			var story = new Story("AddOrUpdateMember by email and name");
+
+			var feature = story.InOrderTo("add a member to or update permissions for a member on a board")
+				.AsA("developer")
+				.IWant("to add or update a member");
+
+			feature.WithScenario("AddOrUpdateMember is called")
+				.Given(ABoard)
+				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("AddOrUpdateMember is called with null email")
+				.Given(ABoard)
+				.When(AddOrUpdateMemberIsCalled, (string)null, "Some Email")
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("AddOrUpdateMember is called with null name")
+				.Given(ABoard)
+				.When(AddOrUpdateMemberIsCalled, "some@email.com", (string)null)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.And(ExceptionIsThrown<ArgumentNullException>)
+
+				.WithScenario("AddOrUpdateMember is called without UserToken")
+				.Given(ABoard)
+				.And(TokenNotSupplied)
+				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -751,6 +787,7 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
 			var board = SetupMockGet<IJsonBoard>();
 			board.SetupGet(b => b.IdOrganization).Returns("some initial value");
+			SetupMockPut<IJsonMember>();
 			SetupMockPost<IJsonList>();
 			SetupMockRetrieve<Organization>();
 		}
@@ -878,6 +915,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AddOrUpdateMemberIsCalled(Member value)
 		{
 			Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(value));
+		}
+		private void AddOrUpdateMemberIsCalled(string email, string name)
+		{
+			Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(email, name));
 		}
 		private void MarkAsViewedIsCalled()
 		{

@@ -15,7 +15,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
 			var board = service.Retrieve<Board>(TrelloIds.BoardId);
 			var me = service.Me;
-			var member = service.Retrieve<Member>("gregsdennis");
+			Member member = null;
 			var oldName = board.Name;
 			var oldOrg = board.Organization;
 			var oldDesc = board.Description;
@@ -55,7 +55,6 @@ namespace Manatee.Trello.Test.FunctionalTests
 				Assert.AreEqual(false, board.IsClosed);
 				Assert.AreEqual(true, board.IsPinned);
 				Assert.AreEqual(true, board.IsSubscribed);
-				Assert.IsTrue(board.Memberships.Select(m => m.Member).Contains(member));
 
 				board.Name = name;
 				board.Description = desc;
@@ -67,7 +66,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 				board.LabelNames.Green = green;
 				board.LabelNames.Blue = blue;
 				board.LabelNames.Purple = purple;
-				board.RemoveMember(member);
+				member = board.AddOrUpdateMember("littlecrab@notarealdomain.com", "Little Crab 2");
 				board.Preferences.AllowsSelfJoin = true;
 				board.Preferences.Comments = BoardCommentType.Disabled;
 				board.Preferences.Invitations = BoardInvitationType.Members;
@@ -94,7 +93,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 				Assert.AreEqual(green, board.LabelNames.Green);
 				Assert.AreEqual(blue, board.LabelNames.Blue);
 				Assert.AreEqual(purple, board.LabelNames.Purple);
-				Assert.IsFalse(board.Memberships.Select(m => m.Member).Contains(member));
+				//Assert.IsFalse(board.Memberships.Select(m => m.Member).Contains(member));
 				Assert.AreEqual(true, board.Preferences.AllowsSelfJoin);
 				Assert.AreEqual(BoardCommentType.Disabled, board.Preferences.Comments);
 				Assert.AreEqual(BoardInvitationType.Members, board.Preferences.Invitations);
@@ -146,7 +145,8 @@ namespace Manatee.Trello.Test.FunctionalTests
 				board.LabelNames.Green = oldGreenLabel;
 				board.LabelNames.Blue = oldBlueLabel;
 				board.LabelNames.Purple = oldPurpleLabel;
-				board.AddOrUpdateMember(member, BoardMembershipType.Admin);
+				if (member != null)
+					board.RemoveMember(member);
 				board.Preferences.PermissionLevel = oldPrefPermission;
 				board.Preferences.AllowsSelfJoin = oldPrefSelfJoin;
 				board.Preferences.Comments = oldPrefComments;

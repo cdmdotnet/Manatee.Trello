@@ -17,7 +17,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
 			var me = service.Me;
 			if (me == null)
-				Assert.Inconclusive(string.Format("Could not find list with ID = {{{0}}}", TrelloIds.ListId));
+				Assert.Inconclusive("Could not find member through 'Me' call.");
 			try
 			{
 				const string organizationName = "Manatee.Trello CreateOrganization";
@@ -25,7 +25,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 				const string organizationDescription =
 					"This is a test organization created by the Manatee.Trello functional test suite.";
 				const string organizationWebsite = "http://www.manateeopensource.org";
-				const string secondMember = "gregsdennis";
+				const string secondMember = "littlecrab@notarealdomain.com";
 				organization = me.CreateOrganization(organizationName);
 
 				Assert.IsNotNull(organization);
@@ -40,10 +40,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 				organization.DisplayName = newOrganizationName;
 				organization.Description = organizationDescription;
 				organization.Website = organizationWebsite;
-				var member = service.Retrieve<Member>(secondMember);
-				if (member == null)
-					Assert.Inconclusive(string.Format("Could not find list with ID = {{{0}}}", secondMember));
-				organization.AddOrUpdateMember(member);
+				var member = organization.AddOrUpdateMember(secondMember, "Little Crab 2");
 
 				Assert.AreEqual(newOrganizationName, organization.DisplayName);
 				Assert.AreEqual(organizationDescription, organization.Description);

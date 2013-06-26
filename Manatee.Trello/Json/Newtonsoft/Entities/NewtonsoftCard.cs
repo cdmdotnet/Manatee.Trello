@@ -35,6 +35,9 @@ namespace Manatee.Trello.Json.Newtonsoft.Entities
 		public string Id { get; set; }
 		[JsonProperty("closed")]
 		public bool? Closed { get; set; }
+		[JsonProperty("dateLastActivity")]
+		[JsonConverter(typeof(IsoDateTimeConverter))]
+		public DateTime? DateLastActivity { get; set; }
 		[JsonProperty("desc")]
 		public string Desc { get; set; }
 		[JsonProperty("due")]

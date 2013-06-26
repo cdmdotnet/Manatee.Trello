@@ -29,7 +29,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 				var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
 				list = service.Retrieve<List>(TrelloIds.ListId);
 				if (list == null)
-					Assert.Inconclusive(string.Format("Could not find list with ID = {{{0}}}", TrelloIds.ListId));
+					Assert.Inconclusive("Could not find list with ID = {{{0}}}", TrelloIds.ListId);
 				var member = service.Me;
 
 				card = list.AddCard(cardName, cardDescription, Position.Top);
@@ -93,6 +93,9 @@ namespace Manatee.Trello.Test.FunctionalTests
 
 				card.RemoveLabel(label);
 				card.RemoveMember(member);
+
+				card.MarkForUpdate();
+				Assert.IsNotNull(card.LastActivityDate);
 
 				Assert.AreEqual(0, card.Labels.Count());
 				Assert.AreEqual(0, card.Members.Count());

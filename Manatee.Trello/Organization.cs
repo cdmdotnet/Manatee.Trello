@@ -241,11 +241,11 @@ namespace Manatee.Trello
 		}
 
 		///<summary>
-		/// Adds a member to the organization or updates the permissions of an existing member.
+		/// Adds an existing member to the organization or updates the permissions of a member already in the organization.
 		///</summary>
 		///<param name="member">The member</param>
 		///<param name="type">The permission level for the member</param>
-		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
+		public void AddOrUpdateMember(Member member, OrganizationMembershipType type = OrganizationMembershipType.Normal)
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
@@ -254,10 +254,46 @@ namespace Manatee.Trello
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("type", type.ToLowerString());
-			Api.Put<IJsonOrganization>(request);
+			Api.Put<IJsonMember>(request);
 			_members.MarkForUpdate();
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
+		}
+		/// <summary>
+		///  Adds a new or existing member to the organization or updates the permissions of a member already in the organization.
+		/// </summary>
+		/// <param name="fullName"></param>
+		/// <param name="type">The permission level for the member</param>
+		/// <param name="emailAddress"></param>
+		public Member AddOrUpdateMember(string emailAddress, string fullName, OrganizationMembershipType type = OrganizationMembershipType.Normal)
+		{
+			if (Svc == null) return null;
+			if (_isDeleted) return null;
+			Validate.Writable(Svc);
+			Validate.NonEmptyString(emailAddress);
+			Validate.NonEmptyString(fullName);
+			Member member;
+			if (Svc.Cache != null)
+			{
+				member = Svc.Cache.Find<Member>(m => m.Email == emailAddress);
+				if (member != null)
+				{
+					AddOrUpdateMember(member, type);
+					return member;
+				}
+			}
+			member = new Member();
+			var endpoint = EndpointGenerator.Default.Generate(this, member);
+			var request = Api.RequestProvider.Create(endpoint.ToString());
+			request.AddParameter("email", emailAddress);
+			request.AddParameter("fullName", fullName);
+			request.AddParameter("type", type.ToLowerString());
+			member.ApplyJson(Api.Put<IJsonMember>(request));
+			member.Svc = Svc;
+			_members.MarkForUpdate();
+			_memberships.MarkForUpdate();
+			_actions.MarkForUpdate();
+			return member;
 		}
 		/// <summary>
 		/// Creates a board for the organization, owned by the current member.

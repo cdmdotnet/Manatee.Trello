@@ -29,6 +29,7 @@ namespace Manatee.Trello.Internal.Json
 	{
 		public string Id { get; set; }
 		public bool? Closed { get; set; }
+		public DateTime? DateLastActivity { get; set; }
 		public string Desc { get; set; }
 		public DateTime? Due { get; set; }
 		public string IdBoard { get; set; }

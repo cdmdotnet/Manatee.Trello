@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2012 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,42 +14,49 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		SimpleCache.cs
+	File Name:		ThreadSafeCache.cs
 	Namespace:		Manatee.Trello.Internal
-	Class Name:		SimpleCache
-	Purpose:		Simple implementation of the ICache interface.
+	Class Name:		ThreadSafeCache
+	Purpose:		Adds thread safe operation to an ICache implementation.
 
 ***************************************************************************************/
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
 {
-	internal class SimpleCache : ICache
+	internal class ThreadSafeCache : ICache
 	{
-		private readonly List<object> _list;
+		private readonly ICache _innerCache;
+		private readonly object _lock;
 
-		public SimpleCache()
+		public ThreadSafeCache(ICache innerCache)
 		{
-			_list = new List<object>();
+			_innerCache = innerCache;
+			_lock = new object();
 		}
 
 		public void Add(object obj)
 		{
-			if (!_list.Contains(obj))
-				_list.Add(obj);
+			lock (_lock)
+			{
+				_innerCache.Add(obj);
+			}
 		}
 		public T Find<T>(Func<T, bool> match)
 		{
-			return _list.OfType<T>().FirstOrDefault(match);
+			lock (_lock)
+			{
+				return _innerCache.Find(match);
+			}
 		}
 		public void Remove(object obj)
 		{
-			_list.Remove(obj);
+			lock (_lock)
+			{
+				_innerCache.Remove(obj);
+			}
 		}
 	}
 }

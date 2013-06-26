@@ -35,6 +35,7 @@ namespace Manatee.Trello.Json.Manatee.Entities
 	{
 		public string Id { get; set; }
 		public bool? Closed { get; set; }
+		public DateTime? DateLastActivity { get; set; }
 		public string Desc { get; set; }
 		public DateTime? Due { get; set; }
 		public string IdBoard { get; set; }
@@ -58,6 +59,9 @@ namespace Manatee.Trello.Json.Manatee.Entities
 			DateTime date;
 			if (DateTime.TryParse(dateString, out date))
 				Due = date;
+			dateString = obj.TryGetString("dateLastActivity");
+			if (DateTime.TryParse(dateString, out date))
+				DateLastActivity = date;
 			IdBoard = obj.TryGetString("idBoard");
 			IdList = obj.TryGetString("idList");
 			IdShort = (int?) obj.TryGetNumber("idShort");
@@ -71,21 +75,22 @@ namespace Manatee.Trello.Json.Manatee.Entities
 		public JsonValue ToJson()
 		{
 			return new JsonObject
-			       	{
-			       		{"id", Id},
-			       		{"closed", Closed},
-			       		{"desc", Desc},
-			       		{"due", Due.HasValue ? Due.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"idBoard", IdBoard},
-			       		{"idList", IdList},
-			       		{"idShort", IdShort},
-			       		{"idAttachmentCover", IdAttachmentCover},
-			       		{"manualAttachmentCover", ManualCoverAttachment},
-			       		{"name", Name},
-			       		{"pos", Pos},
-			       		{"url", Url},
-			       		{"subscribed", Subscribed},
-			       	};
+				{
+					{"id", Id},
+					{"closed", Closed},
+					{"dateLastActivity", DateLastActivity.HasValue ? DateLastActivity.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
+					{"desc", Desc},
+					{"due", Due.HasValue ? Due.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
+					{"idBoard", IdBoard},
+					{"idList", IdList},
+					{"idShort", IdShort},
+					{"idAttachmentCover", IdAttachmentCover},
+					{"manualAttachmentCover", ManualCoverAttachment},
+					{"name", Name},
+					{"pos", Pos},
+					{"url", Url},
+					{"subscribed", Subscribed},
+				};
 		}
 	}
 }
