@@ -79,8 +79,6 @@ namespace Manatee.Trello
 				return response.Select(j => board.Svc.Retrieve<Member>(j.Id));
 			}
 			return Enumerable.Empty<Member>();
-			//return board.Memberships.Where(m => m.MembershipType == BoardMembershipType.Admin)
-			//                        .Select(m => m.Member);
 		}
 		/// <summary>
 		/// Retrieves all cards contained within a board, both archived and active.

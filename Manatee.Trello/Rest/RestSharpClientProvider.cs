@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Rest
@@ -46,8 +47,7 @@ namespace Manatee.Trello.Rest
 			}
 			set
 			{
-				if (value == null)
-					throw new ArgumentNullException("value");
+				Validate.ArgumentNotNull(value);
 				_serializer = new RestSharpSerializer(value);
 			}
 		}
@@ -59,8 +59,7 @@ namespace Manatee.Trello.Rest
 			}
 			set
 			{
-				if (value == null)
-					throw new ArgumentNullException("value");
+				Validate.ArgumentNotNull(value);
 				_deserializer = new RestSharpDeserializer(value);
 			}
 		}
@@ -73,8 +72,8 @@ namespace Manatee.Trello.Rest
 
 		private void GetDefaultSerializer()
 		{
-			_serializer = new RestSharpSerializer(Options.Serializer);
-			_deserializer = new RestSharpDeserializer(Options.Deserializer);
+			_serializer = new RestSharpSerializer(TrelloConfiguration.Serializer);
+			_deserializer = new RestSharpDeserializer(TrelloConfiguration.Deserializer);
 		}
 		private RestSharpSerializer VerifySerializer()
 		{

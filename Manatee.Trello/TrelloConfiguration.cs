@@ -33,19 +33,20 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Exposes a set of run-time options for all automatically-refreshing objects.
 	/// </summary>
-	public static class Options
+	public static class TrelloConfiguration
 	{
 		/// <summary>
 		/// The default persistence time for object data.  Value is one minute.
 		/// </summary>
-		public static readonly TimeSpan DefaultItemDuration;
+		public static readonly TimeSpan _defaultItemDuration;
+		private static readonly ICache _globalCache;
 		private static ISerializer _serializer;
 		private static IDeserializer _deserializer;
 		private static ManateeSerializer _manateeSerializer;
 		private static NewtonsoftSerializer _newtonsoftSerializer;
 		private static IRestClientProvider _restClientProvider;
 		private static RestSharpClientProvider _restSharpProvider;
-		private static readonly ICache _globalCache;
+		private static ILog _globalLog;
 
 		private static ISerializer ManateeSerializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
 		private static IDeserializer ManateeDeserializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
@@ -76,7 +77,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (value == null)
-					throw new ArgumentNullException("value");
+					Log.Error(new ArgumentNullException("value"));
 				_serializer = value;
 			}
 		}
@@ -95,7 +96,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (value == null)
-					throw new ArgumentNullException("value");
+					Log.Error(new ArgumentNullException("value"));
 				_deserializer = value;
 			}
 		}
@@ -114,16 +115,23 @@ namespace Manatee.Trello
 			set
 			{
 				if (value == null)
-					throw new ArgumentNullException("value");
+					Log.Error(new ArgumentNullException("value"));
 				_restClientProvider = value;
 			}
 		}
+		/// <summary>
+		/// Provides a single cache for all TrelloService instances.  This can be overridden per instance.
+		/// </summary>
 		public static ICache GlobalCache { get { return _globalCache; } }
+		/// <summary>
+		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
+		/// </summary>
+		public static ILog Log { get { return _globalLog ?? (_globalLog = new DebugLog()); } set { _globalLog = value; } }
 
-		static Options()
+		static TrelloConfiguration()
 		{
-			DefaultItemDuration = TimeSpan.FromSeconds(60);
-			ItemDuration = DefaultItemDuration;
+			_defaultItemDuration = TimeSpan.FromSeconds(60);
+			ItemDuration = _defaultItemDuration;
 			AutoRefresh = true;
 			_globalCache = new ThreadSafeCache(new SimpleCache());
 		}

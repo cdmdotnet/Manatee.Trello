@@ -70,6 +70,12 @@ namespace Manatee.Trello.Contracts
 			set
 			{
 				if (_svc == value) return;
+				if (Id != null)
+					Log.Debug("Updating service reference for {0} with ID {{{1}}}.", GetType().CSharpName(), Id);
+				else if (Owner != null)
+					Log.Debug("Updating service reference for {0} owned by {1} with ID {{{2}}}.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id);
+				else
+					Log.Debug("Updating service reference for a {0}.", GetType().CSharpName());
 				_svc = value;
 				if (_svc == null)
 					Api = null;
@@ -77,7 +83,10 @@ namespace Manatee.Trello.Contracts
 				{
 					Api = _svc.Api;
 					if (IsCacheableProvider.Default.IsCacheable(GetType()) && (_svc.Cache != null))
+					{
+						Log.Info("Adding {0} with ID {{{1}}} to cache.", GetType().CSharpName(), Id);
 						_svc.Cache.Add(this);
+					}
 				}
 				PropigateService();
 				MarkForUpdate();
@@ -87,6 +96,7 @@ namespace Manatee.Trello.Contracts
 		internal abstract string Key { get; }
 		internal abstract string Key2 { get; }
 		internal virtual string KeyId { get { return Id; } }
+		internal ILog Log { get { return TrelloConfiguration.Log; } }
 
 		internal ExpiringObject()
 		{
@@ -100,11 +110,23 @@ namespace Manatee.Trello.Contracts
 		public void MarkForUpdate()
 		{
 			_expires = DateTime.Now.AddSeconds(-1);
+			if (Id != null)
+				Log.Debug("{0} with ID {{{1}}} marked to update.", GetType().CSharpName(), Id);
+			else if (Owner != null)
+				Log.Debug("{0} owned by {1} with ID {{{2}}} marked to update.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id);
+			else
+				Log.Debug("A {0} marked to update.", GetType().CSharpName());
 		}
 
 		internal void ForceNotExpired()
 		{
 			_expires = DateTime.Now.AddMinutes(1);
+			if (Id != null)
+				Log.Debug("{0} with ID {{{1}}} has been forced to not expire.", GetType().CSharpName(), Id);
+			else if (Owner != null)
+				Log.Debug("{0} owned by {1} with ID {{{2}}} has been forced to not expire.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id);
+			else
+				Log.Debug("A {0} has been forced to not expire.", GetType().CSharpName());
 		}
 		internal virtual bool Matches(string id)
 		{
@@ -117,9 +139,15 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		protected internal void VerifyNotExpired()
 		{
-			if ((Svc == null) || !Options.AutoRefresh || !IsExpired) return;
+			if ((Svc == null) || !TrelloConfiguration.AutoRefresh || !IsExpired) return;
 			Refresh();
-			_expires = DateTime.Now + Options.ItemDuration;
+			_expires = DateTime.Now + TrelloConfiguration.ItemDuration;
+			if (Id != null)
+				Log.Info("{0} with ID {{{1}}} will expire at {2}.", GetType().CSharpName(), Id, _expires);
+			else if (Owner != null)
+				Log.Info("{0} owned by {1} with ID {{{2}}} will expire at {3}.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id, _expires);
+			else
+				Log.Info("A {0} will expire at {2}.", GetType().CSharpName(), _expires);
 		}
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.

@@ -88,15 +88,8 @@ namespace Manatee.Trello
 		/// </remarks>
 		public ITrelloRest Api
 		{
-			get { return _api ?? (_api = new TrelloRest(_appKey, _userToken)); }
+			get { return _api ?? (_api = new TrelloRest(TrelloConfiguration.Log, _appKey, _userToken)); }
 		}
-		///// <summary>
-		///// Gets the exception generated from the previous call, if any.
-		///// </summary>
-		///// <remarks>
-		///// When a method returns null, check this method for any errors.
-		///// </remarks>
-		//public Exception LastCallError { get; private set; }
 
 		/// <summary>
 		/// Creates a new instance of the TrelloService class.
@@ -108,7 +101,7 @@ namespace Manatee.Trello
 			Validate.NonEmptyString(appKey);
 			_appKey = appKey;
 			_userToken = userToken;
-			Cache = Options.GlobalCache;
+			Cache = TrelloConfiguration.GlobalCache;
 		}
 
 		/// <summary>
@@ -235,7 +228,7 @@ namespace Manatee.Trello
 		private Member GetMe()
 		{
 			if (UserToken == null)
-				throw new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object.");
+				TrelloConfiguration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
 			var endpoint = new Endpoint(new[] { Member.TypeKey, "me" });
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("fields","id");
@@ -247,7 +240,7 @@ namespace Manatee.Trello
 		{
 			return types.ToLowerString().Replace(" ", string.Empty);
 		}
-		private static string ConstructContextParameter<T>(List<ExpiringObject> models)
+		private static string ConstructContextParameter<T>(IEnumerable<ExpiringObject> models)
 			where T : ExpiringObject
 		{
 			return string.Join(",", models.OfType<T>().Take(24).Select(m => m.Id));

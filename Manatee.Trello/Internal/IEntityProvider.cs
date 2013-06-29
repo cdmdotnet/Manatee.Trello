@@ -17,7 +17,7 @@
 	File Name:		IEntityProvider.cs
 	Namespace:		Manatee.Trello.Internal
 	Class Name:		IEntityProvider
-	Purpose:		Defines methods which provide transation services between
+	Purpose:		Defines methods which provide translation services between
 					a more generic class and its more specific derived classes.
 
 ***************************************************************************************/

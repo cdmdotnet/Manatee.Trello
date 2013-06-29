@@ -16,39 +16,10 @@ namespace Manatee.Trello.Test
 		[Ignore]
 		public void TestMethod1()
 		{
-			//Options.UseNewtonsoftJson();
-			var service = new TrelloService(TrelloIds.AppKey);
-			var board = service.Retrieve<Board>("5144051cbd0da6681200201e");
-			var start = DateTime.Now;
-			Console.WriteLine(board);
-			Console.WriteLine();
-			foreach (var list in board.Lists)
-			{
-				Console.WriteLine("    {0}", list);
-				foreach (var card in list.Cards)
-				{
-					Console.WriteLine("        {0}", card);
-				}
-				Console.WriteLine();
-			}
-			var end = DateTime.Now;
-			Console.WriteLine("Total Time: {0}", end - start);
-			Console.WriteLine();
+			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+			var member = service.Me;
 
-			start = DateTime.Now;
-			Console.WriteLine(board);
-			Console.WriteLine();
-			foreach (var list in board.Lists)
-			{
-				Console.WriteLine("    {0}", list);
-				foreach (var card in list.Cards)
-				{
-					Console.WriteLine("        {0}", card);
-				}
-				Console.WriteLine();
-			}
-			end = DateTime.Now;
-			Console.WriteLine("Total Time: {0}", end - start);
+			Console.WriteLine(member.FullName);
 		}
 	}
 }

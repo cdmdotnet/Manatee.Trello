@@ -26,6 +26,7 @@ using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
 {
@@ -35,7 +36,7 @@ namespace Manatee.Trello.Internal
 		{
 			if (service == null) return;
 			if (service.UserToken == null)
-				throw new ReadOnlyAccessException();
+				TrelloConfiguration.Log.Error(new ReadOnlyAccessException());
 		}
 		public static void Entity<T>(T entity, bool allowNulls = false)
 			where T : ExpiringObject
@@ -43,52 +44,58 @@ namespace Manatee.Trello.Internal
 			if (entity == null)
 			{
 				if (allowNulls) return;
-				throw new ArgumentNullException("entity");
+				TrelloConfiguration.Log.Error(new ArgumentNullException("entity"));
 			}
 			if (entity.Id == null)
-				throw new EntityNotOnTrelloException<T>(entity);
+				TrelloConfiguration.Log.Error(new EntityNotOnTrelloException<T>(entity));
 		}
 		public static void Nullable<T>(T? value)
 			where T : struct
 		{
 			if (!value.HasValue)
-				throw new ArgumentNullException("value");
+				TrelloConfiguration.Log.Error(new ArgumentNullException("value"));
 		}
 		public static void NonEmptyString(string str)
 		{
 			if (string.IsNullOrWhiteSpace(str))
-				throw new ArgumentNullException("str");
+				TrelloConfiguration.Log.Error(new ArgumentNullException("str"));
 		}
 		public static void Position(Position pos)
 		{
 			if (pos == null)
-				throw new ArgumentNullException("pos");
+				TrelloConfiguration.Log.Error(new ArgumentNullException("pos"));
 			if (!pos.IsValid)
-				throw new ArgumentException("Cannot set an invalid position.");
+				TrelloConfiguration.Log.Error(new ArgumentException("Cannot set an invalid position."));
 		}
 		public static string MinStringLength(string str, int minLength, string parameter)
 		{
 			if (str == null)
-				throw new ArgumentNullException("str");
+				TrelloConfiguration.Log.Error(new ArgumentNullException("str"));
 			str = str.Trim();
 			if (str.Length < minLength)
-				throw new ArgumentException(string.Format("{0} must be at least {1} characters and cannot begin or end with whitespace.", parameter, minLength));
+				TrelloConfiguration.Log.Error(new ArgumentException(string.Format("{0} must be at least {1} characters and cannot begin or end with whitespace.",
+																				  parameter,
+																				  minLength)));
 			return str;
 		}
 		public static string StringLengthRange(string str, int low, int high, string parameter)
 		{
 			if (str == null)
-				throw new ArgumentNullException("str");
+				TrelloConfiguration.Log.Error(new ArgumentNullException("str"));
 			str = str.Trim();
 			if (!str.Length.BetweenInclusive(low, high))
-				throw new ArgumentException(string.Format("{0} must be from {1} to {2} characters and cannot begin or end with whitespace.", parameter, low, high));
+				TrelloConfiguration.Log.Error(new ArgumentException(string.Format("{0} must be from {1} to {2} characters and cannot begin or end with whitespace.",
+																	parameter,
+																	low,
+																	high)));
 			return str;
 		}
 		public static string UserName(ITrelloRest svc, string value)
 		{
 			var retVal = MinStringLength(value, 3, "Username");
 			if (retVal != retVal.ToLower())
-				throw new ArgumentException("Username may only contain lowercase characters, underscores, and numbers");
+				TrelloConfiguration.Log.Error(
+					new ArgumentException("Username may only contain lowercase characters, underscores, and numbers"));
 			if (svc != null)
 			{
 				var endpoint = new Endpoint(new[] {"search", "members"});
@@ -96,7 +103,7 @@ namespace Manatee.Trello.Internal
 				request.AddParameter("query", retVal);
 				request.AddParameter("fields", "id");
 				if (svc.Get<List<IJsonMember>>(request).Count != 0)
-					throw new UsernameInUseException(value);
+					TrelloConfiguration.Log.Error(new UsernameInUseException(value));
 			}
 			return retVal;
 		}
@@ -104,7 +111,7 @@ namespace Manatee.Trello.Internal
 		{
 			var retVal = MinStringLength(value, 3, "Name");
 			if (retVal != retVal.ToLower())
-				throw new ArgumentException("Name may only contain lowercase characters, underscores, and numbers");
+				TrelloConfiguration.Log.Error(new ArgumentException("Name may only contain lowercase characters, underscores, and numbers"));
 			if (svc != null)
 			{
 				var endpoint = new Endpoint(new[] {"search", retVal});
@@ -113,7 +120,7 @@ namespace Manatee.Trello.Internal
 				request.AddParameter("modelTypes", "organizations");
 				var response = svc.Get<IJsonSearchResults>(request);
 				if (response.OrganizationIds.Count != 0)
-					throw new OrgNameInUseException(value);
+					TrelloConfiguration.Log.Error(new OrgNameInUseException(value));
 			}
 			return retVal;
 		}
@@ -121,7 +128,19 @@ namespace Manatee.Trello.Internal
 		{
 			var validValues = Enum.GetValues(typeof (T)).Cast<T>();
 			if (!validValues.Contains(value))
-				throw new ArgumentException(string.Format("Value '{0}' is not valid for type '{1}'", value, typeof (T)));
+				TrelloConfiguration.Log.Error(
+					new ArgumentException(string.Format("Value '{0}' is not valid for type '{1}'", value, typeof (T))));
+		}
+		public static void Url(string url)
+		{
+			NonEmptyString(url);
+			if ((url.Substring(0, 7) != "http://") && (url.Substring(0, 8) != "https://"))
+				TrelloConfiguration.Log.Error(new ArgumentException("URL is not valid.  Must begin with 'http://' or 'https://'"));
+		}
+		public static void ArgumentNotNull(object value, string name = "value")
+		{
+			if (value == null)
+				TrelloConfiguration.Log.Error(new ArgumentNullException(name));
 		}
 	}
 }

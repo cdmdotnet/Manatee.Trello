@@ -102,6 +102,7 @@
     <Compile Include="Actions\UpdateMemberAction.cs" />
     <Compile Include="Actions\UpdateOrganizationAction.cs" />
     <Compile Include="Contracts\ICache.cs" />
+    <Compile Include="Contracts\ILog.cs" />
     <Compile Include="Enumerations\AvatarSourceType.cs" />
     <Compile Include="Enumerations\MemberPreferenceSummaryPeriodType.cs" />
     <Compile Include="Enumerations\SearchModelType.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Internal\Json\InnerJsonToken.cs" />
     <Compile Include="Internal\Json\InnerJsonTokenPermission.cs" />
     <Compile Include="Internal\NotificationProvider.cs" />
+    <Compile Include="Internal\DebugLog.cs" />
     <Compile Include="Internal\SimpleCache.cs" />
     <Compile Include="Internal\ThreadSafeCache.cs" />
     <Compile Include="Json\Contracts\IJsonCacheable.cs" />
@@ -321,7 +323,7 @@
     <Compile Include="Json\Newtonsoft\Entities\NewtonsoftNotification.cs" />
     <Compile Include="Json\Newtonsoft\Entities\NewtonsoftOrganization.cs" />
     <Compile Include="Json\Newtonsoft\Entities\NewtonsoftOrganizationPreferences.cs" />
-    <Compile Include="Options.cs" />
+    <Compile Include="TrelloConfiguration.cs" />
     <Compile Include="Enumerations\OrganizationPermissionLevelType.cs" />
     <Compile Include="OrganizationPreferences.cs" />
     <Compile Include="Position.cs" />

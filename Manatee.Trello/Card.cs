@@ -389,9 +389,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return null;
 			Validate.Writable(Svc);
-			Validate.NonEmptyString(url);
-			if ((url.Substring(0, 7) != "http://") && (url.Substring(0, 8) != "https://"))
-				throw new ArgumentException("URL is not valid.  Must begin with 'http://' or 'https://'");
+			Validate.Url(url);
 			if (string.IsNullOrWhiteSpace(name))
 			{
 				name = url.Split('/').LastOrDefault();
@@ -529,7 +527,7 @@ namespace Manatee.Trello
 			Validate.Entity(board);
 			Validate.Entity(list);
 			if (!board.Lists.Contains(list))
-				throw new InvalidOperationException(string.Format("Board '{0}' does not contain a list named '{1}'.", board.Name, list.Name));
+				Log.Error(new InvalidOperationException(string.Format("Board '{0}' does not contain list with ID '{1}'.", board.Name, list.Id)));
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			if (_jsonCard.IdBoard != board.Id)

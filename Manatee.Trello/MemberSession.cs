@@ -176,7 +176,7 @@ namespace Manatee.Trello
 		internal override void ApplyJson(object obj)
 		{
 			if (obj == null)
-				throw new EntityNotOnTrelloException<MemberSession>(this);
+				Log.Error(new EntityNotOnTrelloException<MemberSession>(this));
 			_jsonMemberSession = (IJsonMemberSession) obj;
 		}
 	}

@@ -21,6 +21,9 @@
 
 ***************************************************************************************/
 using System;
+using System.Linq;
+using System.Text;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
@@ -28,6 +31,7 @@ namespace Manatee.Trello.Internal
 	internal class TrelloRest : ITrelloRest
 	{
 		private const string ApiBaseUrl = "https://api.trello.com/1";
+		private readonly ILog _log;
 		private readonly string _appKey;
 		private string _userToken;
 
@@ -35,13 +39,12 @@ namespace Manatee.Trello.Internal
 		
 		public IRestClientProvider RestClientProvider
 		{
-			get { return _restProvider ?? (_restProvider = Options.RestClientProvider); }
+			get { return _restProvider ?? (_restProvider = TrelloConfiguration.RestClientProvider); }
 			set
 			{
-				if (value == null)
-					throw new ArgumentNullException("value");
+				Validate.ArgumentNotNull(value);
 				if (_restProvider != null)
-					throw new InvalidOperationException("REST provider already set.");
+					_log.Error(new InvalidOperationException("REST provider already set."));
 				_restProvider = value;
 			}
 		}
@@ -55,12 +58,11 @@ namespace Manatee.Trello.Internal
 		public string AppKey { get { return _appKey; } }
 		public string UserToken { get { return _userToken; } set { _userToken = value; } }
 
-		public TrelloRest(string appKey, string userToken)
+		public TrelloRest(ILog log, string appKey, string userToken)
 		{
-			if (appKey == null)
-				throw new ArgumentNullException("appKey");
+			_log = log;
 			if (string.IsNullOrWhiteSpace(appKey))
-				throw new ArgumentException("Application key required. App keys can be generated from https://trello.com/1/appKey/generate", "appKey");
+				_log.Error(new ArgumentException("Application key required. App keys can be generated from https://trello.com/1/appKey/generate", "appKey"));
 			_appKey = appKey;
 			_userToken = userToken;
 		}
@@ -98,12 +100,28 @@ namespace Manatee.Trello.Internal
 		{
 			var client = GenerateRestClient();
 			PrepRequest(request, method);
+			LogRequest(request);
 			var response = client.Execute<T>(request);
 			return response.Data;
 		}
 		private IRestClient GenerateRestClient()
 		{
 			return RestClientProvider.CreateRestClient(ApiBaseUrl);
+		}
+		private void LogRequest(IRestRequest request)
+		{
+			var sb = new StringBuilder();
+			sb.AppendLine("{0} {1}", request.Method, request.Resource);
+			if ((request.Parameters != null) && request.Parameters.Any())
+			{
+				sb.AppendLine("    Parameters:");
+				foreach (var parameter in request.Parameters)
+				{
+					sb.AppendLine("       {0}: {1}", parameter.Key, parameter.Value);
+				}
+			}
+			sb.AppendLine();
+			_log.Info(sb.ToString());
 		}
 	}
 }
