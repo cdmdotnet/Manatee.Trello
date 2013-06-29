@@ -10,8 +10,12 @@ namespace Manatee.Trello.Test.UnitTests
 {
 	public abstract class UnitTestBase<T> : TrelloTestBase<T>
 	{
+		private static Mock<ILog> _logMock;
+
 		protected class DependencyCollection
 		{
+			public Mock<ILog> Log { get { return _logMock; } }
+
 			public class MockRequestProvider : IRestRequestProvider
 			{
 				public IRestRequest Create(string endpoint)
@@ -48,5 +52,14 @@ namespace Manatee.Trello.Test.UnitTests
 					.Returns(Client);
 			}
 		}
+
+		static UnitTestBase()
+		{
+			_logMock = new Mock<ILog>();
+			_logMock.Setup(l => l.Error(It.IsAny<Exception>(), It.Is<bool>(b => b)))
+			        .Callback((Exception e, bool b) => { throw e; });
+			TrelloConfiguration.Log = _logMock.Object;
+		}
+
 	}
 }

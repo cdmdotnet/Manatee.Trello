@@ -20,6 +20,9 @@
 	Purpose:		Defines properties and methods required to make RESTful requests.
 
 ***************************************************************************************/
+
+using System.Collections.Generic;
+
 namespace Manatee.Trello.Rest
 {
 	/// <summary>
@@ -31,6 +34,14 @@ namespace Manatee.Trello.Rest
 		/// Gets and sets the method to be used in the call.
 		/// </summary>
 		RestMethod Method { get; set; }
+		/// <summary>
+		/// Gets the URI enpoint for the request.
+		/// </summary>
+		string Resource { get; }
+		/// <summary>
+		/// Gets the collection of parameters for the request.
+		/// </summary>
+		IDictionary<string, object> Parameters { get; }
 		/// <summary>
 		/// Explicitly adds a parameter to the request.
 		/// </summary>

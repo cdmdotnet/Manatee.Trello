@@ -55,13 +55,6 @@ namespace Manatee.Trello.Contracts
 		/// Provided for testing.  It is not recommended that this is used.
 		/// </remarks>
 		ITrelloRest Api { get; }
-		///// <summary>
-		///// Gets the exception generated from the previous call, if any.
-		///// </summary>
-		///// <remarks>
-		///// When a method returns null, check this method for any errors.
-		///// </remarks>
-		//Exception LastCallError { get; }
 		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>

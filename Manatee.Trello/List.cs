@@ -218,7 +218,7 @@ namespace Manatee.Trello
 		/// </summary>
 		internal void Delete()
 		{
-			throw new NotSupportedException("Deleting lists is not yet supported by Trello.");
+			Log.Error(new NotSupportedException("Deleting lists is not yet supported by Trello."));
 		}
 		/// <summary>
 		/// Moves the list to another board.

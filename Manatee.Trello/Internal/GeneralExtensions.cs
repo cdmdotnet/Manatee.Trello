@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 
 namespace Manatee.Trello.Internal
 {
@@ -59,8 +60,25 @@ namespace Manatee.Trello.Internal
 			var str = value.ToString();
 			var type = value.GetType();
 			var memberInfo = type.GetMember(str);
-			var attributes = memberInfo[0].GetCustomAttributes(typeof (DescriptionAttribute), false).Cast<DescriptionAttribute>();
-			return attributes.Count() > 0 ? attributes.First().Description : str;
+			var attributes = memberInfo[0].GetCustomAttributes(typeof (DescriptionAttribute), false)
+			                              .Cast<DescriptionAttribute>()
+			                              .ToList();
+			return attributes.Any() ? attributes.First().Description : str;
+		}
+		public static void AppendLine(this StringBuilder sb, string format, params object[] parameters)
+		{
+			sb.AppendLine(string.Format(format, parameters));
+		}
+		public static string CSharpName(this Type type)
+		{
+			var sb = new StringBuilder();
+			var name = type.Name;
+			if (!type.IsGenericType) return name;
+			sb.Append(name.Substring(0, name.IndexOf('`')));
+			sb.Append("<");
+			sb.Append(string.Join(", ", type.GetGenericArguments().Select(t => t.CSharpName())));
+			sb.Append(">");
+			return sb.ToString();
 		}
 	}
 }

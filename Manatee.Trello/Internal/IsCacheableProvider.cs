@@ -29,25 +29,25 @@ namespace Manatee.Trello.Internal
 	internal class IsCacheableProvider
 	{
 		private static readonly IsCacheableProvider _default;
-		private static readonly Dictionary<Type, bool> _registry;
+		private static readonly List<Type> _registry;
 
 		public static IsCacheableProvider Default { get { return _default; } }
 
 		static IsCacheableProvider()
 		{
 			_default = new IsCacheableProvider();
-			_registry = new Dictionary<Type, bool>
+			_registry = new List<Type>
 			            	{
-								{typeof(Action), true},
-								{typeof(Attachment), true},
-								{typeof(Board), true},
-								{typeof(Card), true},
-								{typeof(CheckList), true},
-								{typeof(CheckItem), true},
-								{typeof(List), true},
-								{typeof(Member), true},
-								{typeof(Notification), true},
-								{typeof(Organization), true},
+								typeof(Action),
+								typeof(Attachment),
+								typeof(Board),
+								typeof(Card),
+								typeof(CheckList),
+								typeof(CheckItem),
+								typeof(List),
+								typeof(Member),
+								typeof(Notification),
+								typeof(Organization),
 			            	};
 		}
 		private IsCacheableProvider() {}
@@ -59,8 +59,8 @@ namespace Manatee.Trello.Internal
 		public bool IsCacheable(Type type)
 		{
 			var baseTypes = GetBaseTypes(type);
-			var registeredType = baseTypes.FirstOrDefault(_registry.ContainsKey);
-			return (registeredType != null) && _registry[registeredType];
+			var registeredType = baseTypes.FirstOrDefault(_registry.Contains);
+			return (registeredType != null);
 		}
 
 		private static IEnumerable<Type> GetBaseTypes(Type type)

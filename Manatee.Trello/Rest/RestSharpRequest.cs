@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Net;
@@ -45,6 +46,8 @@ namespace Manatee.Trello.Rest
 			JsonSerializer = serializer;
 		}
 
+		public new string Resource { get { return base.Resource; } }
+		public new IDictionary<string, object> Parameters { get { return base.Parameters.ToDictionary(p => p.Name, p => p.Value); } }
 		public new void AddParameter(string name, object value)
 		{
 			base.AddParameter(name, value);
@@ -67,8 +70,10 @@ namespace Manatee.Trello.Rest
 				case RestSharp.Method.DELETE:
 					return RestMethod.Delete;
 				default:
-					throw new ArgumentOutOfRangeException();
+					TrelloConfiguration.Log.Error(new ArgumentOutOfRangeException());
+					break;
 			}
+			return (RestMethod) (-1);
 		}
 		private void SetMethod(RestMethod value)
 		{
@@ -87,7 +92,8 @@ namespace Manatee.Trello.Rest
 					base.Method = RestSharp.Method.DELETE;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException("value");
+					TrelloConfiguration.Log.Error(new ArgumentOutOfRangeException("value"));
+					break;
 			}
 		}
 	}

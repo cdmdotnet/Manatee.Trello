@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using Manatee.Trello.Internal;
 
 namespace Manatee.Trello.Rest
 {
@@ -30,8 +31,7 @@ namespace Manatee.Trello.Rest
 
 		public RestSharpRequestProvider(RestSharp.Serializers.ISerializer serializer)
 		{
-			if (serializer == null)
-				throw new ArgumentNullException("serializer");
+			Validate.ArgumentNotNull(serializer, "serializer");
 			_serializer = serializer;
 		}
 

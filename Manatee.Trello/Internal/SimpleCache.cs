@@ -40,8 +40,8 @@ namespace Manatee.Trello.Internal
 
 		public void Add(object obj)
 		{
-			if (!_list.Contains(obj))
-				_list.Add(obj);
+			if (_list.Contains(obj)) return;
+			_list.Add(obj);
 		}
 		public T Find<T>(Func<T, bool> match)
 		{
