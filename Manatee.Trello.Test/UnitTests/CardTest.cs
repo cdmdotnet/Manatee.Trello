@@ -817,26 +817,26 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("AssignMember is called")
 				.Given(ACard)
 				.When(AssignMemberIsCalled, new Member {Id = TrelloIds.Invalid})
-				.Then(MockApiPostIsCalled<IJsonCard>, 1)
+				.Then(MockApiPostIsCalled<List<IJsonMember>>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("AssignMember is called with null member")
 				.Given(ACard)
 				.When(AssignMemberIsCalled, (Member) null)
-				.Then(MockApiPostIsCalled<IJsonCard>, 0)
+				.Then(MockApiPostIsCalled<List<IJsonMember>>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AssignMember is called with local member")
 				.Given(ACard)
 				.When(AssignMemberIsCalled, new Member())
-				.Then(MockApiPostIsCalled<IJsonCard>, 0)
+				.Then(MockApiPostIsCalled<List<IJsonMember>>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
 				.WithScenario("AssignMember is called without UserToken")
 				.Given(ACard)
 				.And(TokenNotSupplied)
 				.When(AssignMemberIsCalled, new Member())
-				.Then(MockApiPutIsCalled<IJsonCard>, 0)
+				.Then(MockApiPostIsCalled<List<IJsonMember>>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -1016,6 +1016,7 @@ namespace Manatee.Trello.Test.UnitTests
 			SetupMockGet<IJsonCard>();
 			SetupMockPost<IJsonCheckList>();
 			SetupMockPost<IJsonAttachment>();
+			SetupMockPost<List<IJsonMember>>();
 			SetupMockRetrieve<Board>();
 			SetupMockRetrieve<List>();
 		}

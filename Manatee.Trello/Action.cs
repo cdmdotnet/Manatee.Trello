@@ -161,6 +161,7 @@ namespace Manatee.Trello
 			           		{ActionType.CreateOrganization, "createOrganization"},
 			           		{ActionType.DeleteAttachmentFromCard, "deleteAttachmentFromCard"},
 			           		{ActionType.DeleteBoardInvitation, "deleteBoardInvitation"},
+							{ActionType.DeleteCard, "deleteCard"},
 			           		{ActionType.DeleteOrganizationInvitation, "deleteOrganizationInvitation"},
 			           		{ActionType.MakeAdminOfBoard, "makeAdminOfBoard"},
 			           		{ActionType.MakeNormalMemberOfBoard, "makeNormalMemberOfBoard"},

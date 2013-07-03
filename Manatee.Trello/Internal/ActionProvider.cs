@@ -55,6 +55,7 @@ namespace Manatee.Trello.Internal
 			           		{ActionType.CreateOrganization, typeof (CreateOrganizationAction)},
 			           		{ActionType.DeleteAttachmentFromCard, typeof (DeleteAttachmentFromCardAction)},
 			           		{ActionType.DeleteBoardInvitation, typeof (DeleteBoardInvitationAction)},
+							{ActionType.DeleteCard, typeof (DeleteCardAction)},
 			           		{ActionType.DeleteOrganizationInvitation, typeof (DeleteOrganizationInvitationAction)},
 			           		{ActionType.MakeAdminOfBoard, typeof (MakeAdminOfBoardAction)},
 			           		{ActionType.MakeNormalMemberOfBoard, typeof (MakeNormalMemberOfBoardAction)},
