@@ -23,6 +23,9 @@
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Indicates a card was deleted.
+	/// </summary>
 	public class DeleteCardAction : Action
 	{
 		private Board _board;
@@ -69,6 +72,9 @@ namespace Manatee.Trello
 				return _cardId;
 			}
 		}
+		/// <summary>
+		/// Gets the card number (ShortID) of the card associated with the action.
+		/// </summary>
 		public int? CardNumber
 		{
 			get
