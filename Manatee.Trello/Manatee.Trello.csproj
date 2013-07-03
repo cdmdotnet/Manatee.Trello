@@ -74,6 +74,7 @@
     <Compile Include="Actions\CreateOrganizationAction.cs" />
     <Compile Include="Actions\DeleteAttachmentFromCardAction.cs" />
     <Compile Include="Actions\DeleteBoardInvitationAction.cs" />
+    <Compile Include="Actions\DeleteCardAction.cs" />
     <Compile Include="Actions\DeleteOrganizationInvitationAction.cs" />
     <Compile Include="Actions\MakeAdminOfBoardAction.cs" />
     <Compile Include="Actions\MakeNormalMemberOfBoardAction.cs" />

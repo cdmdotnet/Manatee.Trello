@@ -102,6 +102,7 @@ namespace Manatee.Trello.Internal
 			PrepRequest(request, method);
 			LogRequest(request);
 			var response = client.Execute<T>(request);
+			LogResponse(response);
 			return response.Data;
 		}
 		private IRestClient GenerateRestClient()
@@ -122,6 +123,13 @@ namespace Manatee.Trello.Internal
 			}
 			sb.AppendLine();
 			_log.Info(sb.ToString());
+		}
+		private void LogResponse(IRestResponse response)
+		{
+			var sb = new StringBuilder();
+			sb.AppendLine("    Status Code: {0}", response.StatusCode);
+			sb.AppendLine("    Content: {0}", response.Content);
+			_log.Info("Response:\n{0}", sb);
 		}
 	}
 }

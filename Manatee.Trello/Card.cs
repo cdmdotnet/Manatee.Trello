@@ -479,7 +479,7 @@ namespace Manatee.Trello
 			endpoint.Append("idMembers");
 			var request = Api.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("value", member.Id);
-			Api.Post<IJsonCard>(request);
+			Api.Post<List<IJsonMember>>(request);
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}

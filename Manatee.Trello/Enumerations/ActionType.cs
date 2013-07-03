@@ -100,6 +100,10 @@ namespace Manatee.Trello
 		/// </summary>
 		DeleteBoardInvitation,
 		/// <summary>
+		/// Indicates a card was deleted.
+		/// </summary>
+		DeleteCard,
+		/// <summary>
 		/// Indicates an invitation to an organization was rescinded.
 		/// </summary>
 		DeleteOrganizationInvitation,
