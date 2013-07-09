@@ -1,0 +1,17 @@
+syntax: glob
+_ReSharper.Manatee.Trello/
+Manatee.Trello/bin/
+Manatee.Trello/obj/
+Manatee.Trello.Test/bin/
+Manatee.Trello.Test/obj/
+Manatee.Trello.5.1.ReSharper.user
+Manatee.Trello.sln.docstates.suo
+Manatee.Trello.suo
+Manatee.Trello.0.1.0.nupkg
+Nuget/
+Manatee.Trello.ncrunchsolution
+Manatee.Trello.ncrunchsolution.user
+Manatee.Trello.v11.suo
+packages/
+Manatee.Trello.sln.DotSettings.user
+Debugging/

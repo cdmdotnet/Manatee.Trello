@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E11BD6AE-0373-40CF-A4F3-6B156096DDB0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Manatee.Trello</RootNamespace>
+    <AssemblyName>Manatee.Trello</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Manatee.Trello.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Manatee.Json.1.1.3\lib\net40\Manatee.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Manatee.StateMachine.1.0.1\lib\net40\Manatee.StateMachine.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action.cs" />
+    <Compile Include="Actions\AddAttachmentToCardAction.cs" />
+    <Compile Include="Actions\AddCheckListToCardAction.cs" />
+    <Compile Include="Actions\AddMemberToBoardAction.cs" />
+    <Compile Include="Actions\AddMemberToCardAction.cs" />
+    <Compile Include="Actions\AddMemberToOrganizationAction.cs" />
+    <Compile Include="Actions\AddToOrganizationBoardAction.cs" />
+    <Compile Include="Actions\CommentCardAction.cs" />
+    <Compile Include="Actions\ConvertToCardFromCheckItemAction.cs" />
+    <Compile Include="Actions\CopyBoardAction.cs" />
+    <Compile Include="Actions\CopyCardAction.cs" />
+    <Compile Include="Actions\CopyCommentCardAction.cs" />
+    <Compile Include="Actions\CreateBoardAction.cs" />
+    <Compile Include="Actions\CreateCardAction.cs" />
+    <Compile Include="Actions\CreateListAction.cs" />
+    <Compile Include="Actions\CreateOrganizationAction.cs" />
+    <Compile Include="Actions\DeleteAttachmentFromCardAction.cs" />
+    <Compile Include="Actions\DeleteBoardInvitationAction.cs" />
+    <Compile Include="Actions\DeleteCardAction.cs" />
+    <Compile Include="Actions\DeleteOrganizationInvitationAction.cs" />
+    <Compile Include="Actions\MakeAdminOfBoardAction.cs" />
+    <Compile Include="Actions\MakeNormalMemberOfBoardAction.cs" />
+    <Compile Include="Actions\MakeNormalMemberOfOrganizationAction.cs" />
+    <Compile Include="Actions\MakeObserverOfBoardAction.cs" />
+    <Compile Include="Actions\MemberJoinedTrelloAction.cs" />
+    <Compile Include="Actions\MoveCardFromBoardAction.cs" />
+    <Compile Include="Actions\MoveCardToBoardAction.cs" />
+    <Compile Include="Actions\MoveListFromBoardAction.cs" />
+    <Compile Include="Actions\MoveListToBoardAction.cs" />
+    <Compile Include="Actions\RemoveAdminFromBoardAction.cs" />
+    <Compile Include="Actions\RemoveAdminFromOrganizationAction.cs" />
+    <Compile Include="Actions\RemoveChecklistFromCardAction.cs" />
+    <Compile Include="Actions\RemoveFromOrganizationBoardAction.cs" />
+    <Compile Include="Actions\RemoveMemberFromCardAction.cs" />
+    <Compile Include="Actions\UnconfirmedBoardInvitationAction.cs" />
+    <Compile Include="Actions\UnconfirmedOrganizationInvitationAction.cs" />
+    <Compile Include="Actions\UpdateBoardAction.cs" />
+    <Compile Include="Actions\UpdateCardAction.cs" />
+    <Compile Include="Actions\UpdateCardClosedAction.cs" />
+    <Compile Include="Actions\UpdateCardDescAction.cs" />
+    <Compile Include="Actions\UpdateCardIdListAction.cs" />
+    <Compile Include="Actions\UpdateCardNameAction.cs" />
+    <Compile Include="Actions\UpdateCheckItemStateOnCardAction.cs" />
+    <Compile Include="Actions\UpdateChecklistAction.cs" />
+    <Compile Include="Actions\UpdateMemberAction.cs" />
+    <Compile Include="Actions\UpdateOrganizationAction.cs" />
+    <Compile Include="Contracts\ICache.cs" />
+    <Compile Include="Contracts\ILog.cs" />
+    <Compile Include="Enumerations\AvatarSourceType.cs" />
+    <Compile Include="Enumerations\MemberPreferenceSummaryPeriodType.cs" />
+    <Compile Include="Enumerations\SearchModelType.cs" />
+    <Compile Include="Enumerations\TokenModelType.cs" />
+    <Compile Include="Enumerations\OrganizationMembershipType.cs" />
+    <Compile Include="Internal\ActionProvider.cs" />
+    <Compile Include="Internal\BoardInvitation.cs" />
+    <Compile Include="Internal\IQueuedRestRequest.cs" />
+    <Compile Include="Internal\IRequestQueue.cs" />
+    <Compile Include="Internal\IRequestQueueHandler.cs" />
+    <Compile Include="Internal\IRestExecuteHandler.cs" />
+    <Compile Include="Internal\IValidator.cs" />
+    <Compile Include="Internal\NetworkHandler.cs" />
+    <Compile Include="Internal\EndpointGenerator.cs" />
+    <Compile Include="Internal\BoardVisibilityRestrict.cs" />
+    <Compile Include="Internal\Endpoint.cs" />
+    <Compile Include="Internal\InvitedMember.cs" />
+    <Compile Include="Internal\IsCacheableProvider.cs" />
+    <Compile Include="Internal\Json\InnerJsonMemberSession.cs" />
+    <Compile Include="Internal\Json\InnerJsonOrganizationMembership.cs" />
+    <Compile Include="Internal\Json\InnerJsonAction.cs" />
+    <Compile Include="Internal\Json\InnerJsonAttachment.cs" />
+    <Compile Include="Internal\Json\InnerJsonBadges.cs" />
+    <Compile Include="Internal\Json\InnerJsonBoard.cs" />
+    <Compile Include="Internal\Json\InnerJsonBoardMembership.cs" />
+    <Compile Include="Internal\Json\InnerJsonBoardPersonalPreferences.cs" />
+    <Compile Include="Internal\Json\InnerJsonBoardPreferences.cs" />
+    <Compile Include="Internal\Json\InnerJsonCard.cs" />
+    <Compile Include="Internal\Json\InnerJsonCheckItem.cs" />
+    <Compile Include="Internal\Json\InnerJsonCheckList.cs" />
+    <Compile Include="Internal\Json\InnerJsonLabel.cs" />
+    <Compile Include="Internal\Json\InnerJsonLabelNames.cs" />
+    <Compile Include="Internal\Json\InnerJsonList.cs" />
+    <Compile Include="Internal\Json\InnerJsonMember.cs" />
+    <Compile Include="Internal\Json\InnerJsonMemberPreferences.cs" />
+    <Compile Include="Internal\Json\InnerJsonNotification.cs" />
+    <Compile Include="Internal\Json\InnerJsonOrganization.cs" />
+    <Compile Include="Internal\Json\InnerJsonOrganizationPreferences.cs" />
+    <Compile Include="Internal\Json\InnerJsonToken.cs" />
+    <Compile Include="Internal\Json\InnerJsonTokenPermission.cs" />
+    <Compile Include="Internal\NotificationProvider.cs" />
+    <Compile Include="Internal\DebugLog.cs" />
+    <Compile Include="Internal\QueuedRestRequest.cs" />
+    <Compile Include="Internal\RequestHandler.cs" />
+    <Compile Include="Internal\RequestQueue.cs" />
+    <Compile Include="Internal\RestExecuteHandler.cs" />
+    <Compile Include="Internal\SimpleCache.cs" />
+    <Compile Include="Internal\ThreadSafeCache.cs" />
+    <Compile Include="ITrelloServiceConfiguration.cs" />
+    <Compile Include="Json\Contracts\IJsonCacheable.cs" />
+    <Compile Include="Json\Contracts\IJsonMemberSession.cs" />
+    <Compile Include="Json\Contracts\IJsonOrganizationMembership.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeMemberSession.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeOrganizationMembership.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeToken.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeTokenPermission.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\MemberSessionConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\OrganizationMembershipConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\TokenConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\TokenPermissionConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftMemberSession.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftOrganizationMembership.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftToken.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftTokenPermission.cs" />
+    <Compile Include="MemberSession.cs" />
+    <Compile Include="ModelScope.cs" />
+    <Compile Include="OrganizationMembership.cs" />
+    <Compile Include="TokenPermission.cs" />
+    <Compile Include="Json\Contracts\IJsonAction.cs" />
+    <Compile Include="Json\Contracts\IJsonActionData.cs" />
+    <Compile Include="Json\Contracts\IJsonAttachment.cs" />
+    <Compile Include="Json\Contracts\IJsonAttachmentPreview.cs" />
+    <Compile Include="Json\Contracts\IJsonBadges.cs" />
+    <Compile Include="Json\Contracts\IJsonBoard.cs" />
+    <Compile Include="Json\Contracts\IJsonBoardMembership.cs" />
+    <Compile Include="Json\Contracts\IJsonBoardPersonalPreferences.cs" />
+    <Compile Include="Json\Contracts\IJsonBoardPreferences.cs" />
+    <Compile Include="Json\Contracts\IJsonBoardVisibilityRestrict.cs" />
+    <Compile Include="Json\Contracts\IJsonCard.cs" />
+    <Compile Include="Json\Contracts\IJsonCheckItem.cs" />
+    <Compile Include="Json\Contracts\IJsonCheckList.cs" />
+    <Compile Include="Json\Contracts\IJsonLabel.cs" />
+    <Compile Include="Json\Contracts\IJsonLabelNames.cs" />
+    <Compile Include="Json\Contracts\IJsonList.cs" />
+    <Compile Include="Json\Contracts\IJsonMember.cs" />
+    <Compile Include="Json\Contracts\IJsonMemberPreferences.cs" />
+    <Compile Include="Json\Contracts\IJsonNotification.cs" />
+    <Compile Include="Json\Contracts\IJsonNotificationData.cs" />
+    <Compile Include="Json\Contracts\IJsonOrganization.cs" />
+    <Compile Include="Json\Contracts\IJsonOrganizationPreferences.cs" />
+    <Compile Include="Contracts\ITrelloService.cs" />
+    <Compile Include="Exceptions\OrgNameInUseException.cs" />
+    <Compile Include="Exceptions\ReadOnlyAccessException.cs" />
+    <Compile Include="Exceptions\UsernameInUseException.cs" />
+    <Compile Include="Extensions\BoardExtensions.cs" />
+    <Compile Include="Extensions\CardExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\MemberExtensions.cs" />
+    <Compile Include="Extensions\OrganizationExtensions.cs" />
+    <Compile Include="Internal\ITrelloRest.cs" />
+    <Compile Include="Enumerations\ActionType.cs" />
+    <Compile Include="Attachment.cs" />
+    <Compile Include="AttachmentPreview.cs" />
+    <Compile Include="Enumerations\BoardCommentType.cs" />
+    <Compile Include="Enumerations\BoardInvitationType.cs" />
+    <Compile Include="BoardMembership.cs" />
+    <Compile Include="Enumerations\BoardMembershipType.cs" />
+    <Compile Include="Enumerations\BoardPermissionLevelType.cs" />
+    <Compile Include="BoardPersonalPreferences.cs" />
+    <Compile Include="Enumerations\BoardVotingType.cs" />
+    <Compile Include="Enumerations\CheckItemStateType.cs" />
+    <Compile Include="Json\Contracts\IDeserializer.cs" />
+    <Compile Include="Json\Contracts\IJsonSearchResults.cs" />
+    <Compile Include="Json\Contracts\IJsonToken.cs" />
+    <Compile Include="Json\Contracts\IJsonTokenPermission.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeActionData.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeNotificationData.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeSearchResults.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\ActionConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\ActionDataConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\AttachmentConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\AttachmentPreviewConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\BadgesConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\BoardConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\BoardMembershipConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\BoardPersonalPreferencesConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\BoardPreferencesConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\BoardVisibilityRestrictConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\CardConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\CheckItemConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\CheckListConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\IdListConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\NotificationDataConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\JsonCreationConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\LabelConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\LabelNamesConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\ListConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\MemberConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\MemberPreferencesConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\NotificationConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\OrganizationConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\OrganizationPreferencesConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Converters\SearchResultsConverter.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftActionData.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftNotificationData.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftSearchResults.cs" />
+    <Compile Include="Json\Newtonsoft\NewtonsoftSerializer.cs" />
+    <Compile Include="Notifications\AddAdminToBoardNotification.cs" />
+    <Compile Include="Notifications\AddAdminToOrganizationNotification.cs" />
+    <Compile Include="Notifications\AddedAttachmentToCardNotification.cs" />
+    <Compile Include="Notifications\AddedMemberToCardNotification.cs" />
+    <Compile Include="Notifications\AddedToBoardNotification.cs" />
+    <Compile Include="Notifications\AddedToCardNotification.cs" />
+    <Compile Include="Notifications\AddedToOrganizationNotification.cs" />
+    <Compile Include="Notifications\CardDueSoonNotification.cs" />
+    <Compile Include="Notifications\ChangeCardNotification.cs" />
+    <Compile Include="Notifications\CloseBoardNotification.cs" />
+    <Compile Include="Notifications\CommentCardNotification.cs" />
+    <Compile Include="Notifications\CreateCardNotification.cs" />
+    <Compile Include="Notifications\InvitedToBoardNotification.cs" />
+    <Compile Include="Notifications\InvitedToOrganizationNotification.cs" />
+    <Compile Include="Notifications\MakeAdminOfBoardNotification.cs" />
+    <Compile Include="Notifications\MakeAdminOfOrganizationNotification.cs" />
+    <Compile Include="Notifications\MentionedOnCardNotification.cs" />
+    <Compile Include="Notifications\RemovedFromBoardNotification.cs" />
+    <Compile Include="Notifications\RemovedFromCardNotification.cs" />
+    <Compile Include="Notifications\RemovedFromOrganizationNotification.cs" />
+    <Compile Include="Notifications\RemovedMemberFromCardNotification.cs" />
+    <Compile Include="Notifications\UnconfirmedInvitedToBoardNotification.cs" />
+    <Compile Include="Notifications\UnconfirmedInvitedToOrganizationNotification.cs" />
+    <Compile Include="Notifications\UpdateCheckItemStateOnCardNotification.cs" />
+    <Compile Include="Rest\Contracts\IRestClient.cs" />
+    <Compile Include="Rest\Contracts\IRestClientProvider.cs" />
+    <Compile Include="Rest\Contracts\IRestRequest.cs" />
+    <Compile Include="Rest\Contracts\IRestRequestProvider.cs" />
+    <Compile Include="Rest\Contracts\IRestResponse.cs" />
+    <Compile Include="Json\Contracts\ISerializer.cs" />
+    <Compile Include="Rest\Contracts\RestMethod.cs" />
+    <Compile Include="Exceptions\EntityNotOnTrelloException.cs" />
+    <Compile Include="Internal\IEntityProvider.cs" />
+    <Compile Include="Internal\Validator.cs" />
+    <Compile Include="Internal\ExpiringList.cs" />
+    <Compile Include="Contracts\ExpiringObject.cs" />
+    <Compile Include="Internal\OrganizationInvitation.cs" />
+    <Compile Include="Internal\OneToOneMap.cs" />
+    <Compile Include="Internal\PinnedBoard.cs" />
+    <Compile Include="Internal\PremiumOrganization.cs" />
+    <Compile Include="Internal\VotingMember.cs" />
+    <Compile Include="Enumerations\LabelColor.cs" />
+    <Compile Include="Enumerations\MemberStatusType.cs" />
+    <Compile Include="Enumerations\NotificationType.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeAction.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeAttachment.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeBadges.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeAttachmentPreview.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeBoard.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeBoardMembership.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeBoardPersonalPreferences.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeBoardPreferences.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeBoardVisibilityRestrict.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeCard.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeCheckItem.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeCheckList.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeLabel.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeLabelNames.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeList.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeMember.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeMemberPreferences.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeNotification.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeOrganization.cs" />
+    <Compile Include="Json\Manatee\Entities\ManateeOrganizationPreferences.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftAction.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftAttachment.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftAttachmentPreview.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftBadges.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftBoard.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftBoardMembership.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftBoardPersonalPreferences.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftBoardPreferences.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftBoardVisibilityRestrict.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftCard.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftCheckItem.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftCheckList.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftLabel.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftLabelNames.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftList.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftMember.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftMemberPreferences.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftNotification.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftOrganization.cs" />
+    <Compile Include="Json\Newtonsoft\Entities\NewtonsoftOrganizationPreferences.cs" />
+    <Compile Include="TrelloServiceConfiguration.cs" />
+    <Compile Include="Enumerations\OrganizationPermissionLevelType.cs" />
+    <Compile Include="OrganizationPreferences.cs" />
+    <Compile Include="Position.cs" />
+    <Compile Include="Badges.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="BoardPreferences.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="CheckItem.cs" />
+    <Compile Include="CheckList.cs" />
+    <Compile Include="Label.cs" />
+    <Compile Include="LabelNames.cs" />
+    <Compile Include="List.cs" />
+    <Compile Include="Member.cs" />
+    <Compile Include="MemberPreferences.cs" />
+    <Compile Include="Notification.cs" />
+    <Compile Include="Organization.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Internal\GeneralExtensions.cs" />
+    <Compile Include="Json\Manatee\ManateeSerializer.cs" />
+    <Compile Include="Rest\RestSharpClient.cs" />
+    <Compile Include="Rest\RestSharpClientProvider.cs" />
+    <Compile Include="Rest\RestSharpDeserializer.cs" />
+    <Compile Include="Rest\RestSharpRequest.cs" />
+    <Compile Include="Rest\RestSharpRequestProvider.cs" />
+    <Compile Include="Rest\RestSharpResponse.cs" />
+    <Compile Include="Internal\TrelloRest.cs" />
+    <Compile Include="Rest\RestSharpSerializer.cs" />
+    <Compile Include="SearchResults.cs" />
+    <Compile Include="Token.cs" />
+    <Compile Include="TrelloService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
