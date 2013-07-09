@@ -57,7 +57,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Red == value) return;
 				_jsonLabelNames.Red = value ?? string.Empty;
@@ -77,7 +77,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Orange == value) return;
 				_jsonLabelNames.Orange = value ?? string.Empty;
@@ -97,7 +97,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Yellow == value) return;
 				_jsonLabelNames.Yellow = value ?? string.Empty;
@@ -117,7 +117,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Green == value) return;
 				_jsonLabelNames.Green = value ?? string.Empty;
@@ -137,7 +137,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Blue == value) return;
 				_jsonLabelNames.Blue = value ?? string.Empty;
@@ -157,7 +157,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Purple == value) return;
 				_jsonLabelNames.Purple = value ?? string.Empty;
@@ -218,11 +218,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			ApplyJson(Api.Get<IJsonLabelNames>(request));
+			var request = RequestProvider.Create(endpoint.ToString());
+			var obj = Api.Get<IJsonLabelNames>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -243,7 +246,7 @@ namespace Manatee.Trello
 			}
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			endpoint.Append(extension);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

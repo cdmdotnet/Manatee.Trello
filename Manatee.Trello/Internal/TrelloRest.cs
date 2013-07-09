@@ -23,6 +23,7 @@
 using System;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Rest;
 
@@ -30,39 +31,20 @@ namespace Manatee.Trello.Internal
 {
 	internal class TrelloRest : ITrelloRest
 	{
-		private const string ApiBaseUrl = "https://api.trello.com/1";
 		private readonly ILog _log;
+		private readonly IRequestQueue _requestQueue;
 		private readonly string _appKey;
 		private string _userToken;
 
-		private IRestClientProvider _restProvider;
-		
-		public IRestClientProvider RestClientProvider
-		{
-			get { return _restProvider ?? (_restProvider = TrelloConfiguration.RestClientProvider); }
-			set
-			{
-				Validate.ArgumentNotNull(value);
-				if (_restProvider != null)
-					_log.Error(new InvalidOperationException("REST provider already set."));
-				_restProvider = value;
-			}
-		}
-		public IRestRequestProvider RequestProvider
-		{
-			get
-			{
-				return RestClientProvider.RequestProvider;
-			}
-		}
 		public string AppKey { get { return _appKey; } }
 		public string UserToken { get { return _userToken; } set { _userToken = value; } }
 
-		public TrelloRest(ILog log, string appKey, string userToken)
+		public TrelloRest(ILog log, IRequestQueue requestQueue, string appKey, string userToken)
 		{
-			_log = log;
 			if (string.IsNullOrWhiteSpace(appKey))
 				_log.Error(new ArgumentException("Application key required. App keys can be generated from https://trello.com/1/appKey/generate", "appKey"));
+			_log = log;
+			_requestQueue = requestQueue;
 			_appKey = appKey;
 			_userToken = userToken;
 		}
@@ -98,21 +80,18 @@ namespace Manatee.Trello.Internal
 		private T Execute<T>(IRestRequest request, RestMethod method)
 			where T : class
 		{
-			var client = GenerateRestClient();
 			PrepRequest(request, method);
 			LogRequest(request);
-			var response = client.Execute<T>(request);
-			LogResponse(response);
-			return response.Data;
-		}
-		private IRestClient GenerateRestClient()
-		{
-			return RestClientProvider.CreateRestClient(ApiBaseUrl);
+			var queuedRequest = new QueuedRestRequest {Request = request, RequestedType = typeof (T)};
+			_requestQueue.Enqueue(queuedRequest);
+			SpinWait.SpinUntil(() => queuedRequest.CanContinue);
+			var response = (IRestResponse<T>) queuedRequest.Response;
+			return response == null ? null : response.Data;
 		}
 		private void LogRequest(IRestRequest request)
 		{
 			var sb = new StringBuilder();
-			sb.AppendLine("{0} {1}", request.Method, request.Resource);
+			sb.AppendLine("Queuing: {0} {1}", request.Method, request.Resource);
 			if ((request.Parameters != null) && request.Parameters.Any())
 			{
 				sb.AppendLine("    Parameters:");
@@ -123,13 +102,6 @@ namespace Manatee.Trello.Internal
 			}
 			sb.AppendLine();
 			_log.Info(sb.ToString());
-		}
-		private void LogResponse(IRestResponse response)
-		{
-			var sb = new StringBuilder();
-			sb.AppendLine("    Status Code: {0}", response.StatusCode);
-			sb.AppendLine("    Content: {0}", response.Content);
-			_log.Info("Response:\n{0}", sb);
 		}
 	}
 }

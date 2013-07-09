@@ -22,16 +22,19 @@
 ***************************************************************************************/
 using System;
 using System.Net;
+using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Rest
 {
 	internal class RestSharpClient : RestSharp.RestClient, IRestClient
 	{
+		private readonly ILog _log;
 		private readonly RestSharp.Deserializers.IDeserializer _deserializer;
 
-		public RestSharpClient(RestSharp.Deserializers.IDeserializer deserializer, string apiBaseUrl)
+		public RestSharpClient(ILog log, RestSharp.Deserializers.IDeserializer deserializer, string apiBaseUrl)
 			: base(apiBaseUrl)
 		{
+			_log = log;
 			_deserializer = deserializer;
 			AddHandler("application/json", _deserializer);
 			AddHandler("text/json", _deserializer);
@@ -47,15 +50,15 @@ namespace Manatee.Trello.Rest
 			return new RestSharpResponse<T>(restSharpResponse, data);
 		}
 
-		private static void ValidateResponse(RestSharp.IRestResponse response)
+		private void ValidateResponse(RestSharp.IRestResponse response)
 		{
 			if (response == null)
-				TrelloConfiguration.Log.Error(new WebException("Received null response from Trello."));
+				_log.Error(new WebException("Received null response from Trello."));
 			if (response.StatusCode != HttpStatusCode.OK)
-				TrelloConfiguration.Log.Error(new WebException(string.Format("Trello returned with an error.\nError Message: {0}\nContent: {1}",
-															   response.ErrorMessage,
-															   response.Content),
-											  response.ErrorException));
+				_log.Error(new WebException(string.Format("Trello returned with an error.\nError Message: {0}\nContent: {1}",
+				                                          response.ErrorMessage,
+				                                          response.Content),
+				                            response.ErrorException));
 		}
 	}
 }

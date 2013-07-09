@@ -66,8 +66,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_jsonBoardPreferences.SelfJoin == value) return;
 				_jsonBoardPreferences.SelfJoin = value;
@@ -87,7 +87,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonBoardPreferences == null) return;
 				if (_comments == value) return;
 				_comments = value;
@@ -108,7 +108,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonBoardPreferences == null) return;
 				if (_invitations == value) return;
 				_invitations = value;
@@ -129,7 +129,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonBoardPreferences == null) return;
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
@@ -150,8 +150,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_jsonBoardPreferences.CardCovers == value) return;
 				_jsonBoardPreferences.CardCovers = value;
@@ -171,7 +171,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonBoardPreferences == null) return;
 				if (_voting == value) return;
 				_voting = value;
@@ -230,11 +230,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			ApplyJson(Api.Get<IJsonBoardPreferences>(request));
+			var request = RequestProvider.Create(endpoint.ToString());
+			var obj = Api.Get<IJsonBoardPreferences>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -259,7 +262,7 @@ namespace Manatee.Trello
 			}
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			endpoint.Append(extension);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

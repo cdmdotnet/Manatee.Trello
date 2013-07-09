@@ -217,9 +217,9 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
+			Validator.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonAction>(request);
 			_isDeleted = true;
 		}
@@ -284,16 +284,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected sealed override void Refresh()
+		protected sealed override bool Refresh()
 		{
-			if (_isDeleted) return;
+			if (_isDeleted) return false;
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("fields", "idMemberCreator,data,type,date");
 			request.AddParameter("entities", "false");
 			request.AddParameter("memberCreator", "false");
 			request.AddParameter("member", "false");
-			ApplyJson(Api.Get<IJsonAction>(request));
+			var obj = Api.Get<IJsonAction>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 
 		/// <summary>

@@ -102,8 +102,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonNotification == null) return;
 				if (_jsonNotification.Unread == value) return;
 				_jsonNotification.Unread = value;
@@ -248,10 +248,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override sealed void Refresh()
+		protected override sealed bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("fields", "unread,type,date,data,idMemberCreator");
 			request.AddParameter("entities", "false");
 			request.AddParameter("memberCreator", "false");
@@ -260,7 +260,10 @@ namespace Manatee.Trello
 			request.AddParameter("card", "false");
 			request.AddParameter("organization", "false");
 			request.AddParameter("member", "false");
-			ApplyJson(Api.Get<IJsonNotification>(request));
+			var obj = Api.Get<IJsonNotification>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -284,7 +287,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

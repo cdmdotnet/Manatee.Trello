@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 using System;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 
@@ -29,6 +30,7 @@ namespace Manatee.Trello.Rest
 {
 	internal class RestSharpClientProvider : IRestClientProvider
 	{
+		private readonly TrelloServiceConfiguration _configuration;
 		private RestSharpRequestProvider _requestProvider;
 
 		private RestSharpSerializer _serializer;
@@ -47,8 +49,7 @@ namespace Manatee.Trello.Rest
 			}
 			set
 			{
-				Validate.ArgumentNotNull(value);
-				_serializer = new RestSharpSerializer(value);
+				_serializer = new RestSharpSerializer(value ?? _configuration.Serializer);
 			}
 		}
 		public IDeserializer Deserializer
@@ -59,21 +60,25 @@ namespace Manatee.Trello.Rest
 			}
 			set
 			{
-				Validate.ArgumentNotNull(value);
-				_deserializer = new RestSharpDeserializer(value);
+				_deserializer = new RestSharpDeserializer(value ?? _configuration.Deserializer);
 			}
+		}
+
+		public RestSharpClientProvider(TrelloServiceConfiguration configuration)
+		{
+			_configuration = configuration;
 		}
 
 		public IRestClient CreateRestClient(string apiBaseUrl)
 		{
-			var client = new RestSharpClient(VerifyDeserializer(), apiBaseUrl);
+			var client = new RestSharpClient(_configuration.Log, VerifyDeserializer(), apiBaseUrl);
 			return client;
 		}
 
 		private void GetDefaultSerializer()
 		{
-			_serializer = new RestSharpSerializer(TrelloConfiguration.Serializer);
-			_deserializer = new RestSharpDeserializer(TrelloConfiguration.Deserializer);
+			_serializer = new RestSharpSerializer(_configuration.Serializer);
+			_deserializer = new RestSharpDeserializer(_configuration.Deserializer);
 		}
 		private RestSharpSerializer VerifySerializer()
 		{

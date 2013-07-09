@@ -26,12 +26,10 @@ namespace Manatee.Trello.Test.UnitTests
 		private new class DependencyCollection : UnitTestBase<TrelloService>.DependencyCollection
 		{
 			public Mock<IRestClient> RestClient { get; private set; }
-			public Mock<ICache> EntityCache { get; private set; }
 
 			public DependencyCollection()
 			{
 				RestClient = new Mock<IRestClient>();
-				EntityCache = new Mock<ICache>();
 
 				RestClientProvider.SetupGet(p => p.RequestProvider)
 					.Returns(RequestProvider);
@@ -43,11 +41,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			public ServiceUnderTest()
 			{
-				Sut = new TrelloService(MockAppKey, MockUserToken)
-				{
-					RestClientProvider = Dependencies.RestClientProvider.Object,
-					Cache = Dependencies.EntityCache.Object
-				};
+				Sut = new TrelloService(MockAppKey, MockUserToken);
 			}
 		}
 
@@ -278,7 +272,7 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest = new ServiceUnderTest();
 			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<TJ>(It.IsAny<IRestRequest>()))
 				.Returns(new RestSharpResponse<TJ>(new RestResponse(), new Mock<TJ>().Object));
-			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Add(It.IsAny<T>()))
+			_systemUnderTest.Dependencies.Cache.Setup(c => c.Add(It.IsAny<T>()))
 				.Callback(ItemExistsInCache<T>);
 		}
 		private void ATokenExists()
@@ -289,13 +283,13 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest = new ServiceUnderTest();
 			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<IJsonToken>(It.IsAny<IRestRequest>()))
 				.Returns(new RestSharpResponse<IJsonToken>(new RestResponse(), mock.Object));
-			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Add(It.IsAny<Token>()))
+			_systemUnderTest.Dependencies.Cache.Setup(c => c.Add(It.IsAny<Token>()))
 				.Callback(ItemExistsInCache<Token>);
 		}
 		[GenericMethodFormat("The cache contains a(n) {0}")]
 		private void ItemExistsInCache<T>() where T : class
 		{
-			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Find(It.IsAny<Func<T, bool>>()))
+			_systemUnderTest.Dependencies.Cache.Setup(c => c.Find(It.IsAny<Func<T, bool>>()))
 				.Returns(new Mock<T>().Object);
 		}
 		[GenericMethodFormat("A(n) {0} does not exist")]
@@ -304,7 +298,7 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest = new ServiceUnderTest();
 			_systemUnderTest.Dependencies.RestClient.Setup(c => c.Execute<TJ>(It.IsAny<IRestRequest>()))
 				.Returns(new RestSharpResponse<TJ>(new RestResponse(), null));
-			_systemUnderTest.Dependencies.EntityCache.Setup(c => c.Add(It.IsAny<T>()))
+			_systemUnderTest.Dependencies.Cache.Setup(c => c.Add(It.IsAny<T>()))
 				.Callback(ItemExistsInCache<T>);
 		}
 		private void SearchableEntitiesExist()
@@ -369,7 +363,7 @@ namespace Manatee.Trello.Test.UnitTests
 		[GenericMethodFormat("Cache.Add<{0}>() is called {1} time(s)")]
 		private void MockCacheAddIsCalled<T>(int times)
 		{
-			_systemUnderTest.Dependencies.EntityCache.Verify(c => c.Add(It.IsAny<T>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Cache.Verify(c => c.Add(It.IsAny<T>()), Times.Exactly(times));
 		}
 		//private void LastCallErrorIsNotNull()
 		//{

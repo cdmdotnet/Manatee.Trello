@@ -97,7 +97,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Desc == value) return;
 				_jsonBoard.Desc = value ?? string.Empty;
@@ -134,8 +134,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Closed == value) return;
 				_jsonBoard.Closed = value;
@@ -155,8 +155,8 @@ namespace Manatee.Trello
 			}
 			private set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Pinned == value) return;
 				_jsonBoard.Pinned = value;
@@ -176,8 +176,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Subscribed == value) return;
 				_jsonBoard.Subscribed = value;
@@ -210,8 +210,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.NonEmptyString(value);
+				Validator.Writable(Svc);
+				Validator.NonEmptyString(value);
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Name == value) return;
 				_jsonBoard.Name = value;
@@ -236,8 +236,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Entity(value, true);
+				Validator.Writable(Svc);
+				Validator.Entity(value, true);
 				if (_jsonBoard == null) return;
 				if (value == null)
 				{
@@ -296,19 +296,19 @@ namespace Manatee.Trello
 		public List AddList(string name, Position position = null)
 		{
 			if (Svc == null) return null;
-			Validate.Writable(Svc);
-			Validate.NonEmptyString(name);
+			Validator.Writable(Svc);
+			Validator.NonEmptyString(name);
 			var list = new List();
 			var endpoint = EndpointGenerator.Default.Generate(list);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
 			request.AddParameter("idBoard", Id);
 			if ((position != null) && position.IsValid)
 				request.AddParameter("pos", position);
 			list.ApplyJson(Api.Post<IJsonList>(request));
 			list.Svc = Svc;
-			if (Svc.Cache != null)
-				Svc.Cache.Add(list);
+			if (Svc.Configuration.Cache != null)
+				Svc.Configuration.Cache.Add(list);
 			_lists.MarkForUpdate();
 			_actions.MarkForUpdate();
 			return list;
@@ -321,10 +321,10 @@ namespace Manatee.Trello
 		public void AddOrUpdateMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			if (Svc == null) return;
-			Validate.Writable(Svc);
-			Validate.Entity(member);
+			Validator.Writable(Svc);
+			Validator.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("type", type.ToLowerString());
 			Api.Put<IJsonBoard>(request);
 			_memberships.MarkForUpdate();
@@ -339,13 +339,13 @@ namespace Manatee.Trello
 		public Member AddOrUpdateMember(string emailAddress, string fullName, BoardMembershipType type = BoardMembershipType.Normal)
 		{
 			if (Svc == null) return null;
-			Validate.Writable(Svc);
-			Validate.NonEmptyString(emailAddress);
-			Validate.NonEmptyString(fullName);
+			Validator.Writable(Svc);
+			Validator.NonEmptyString(emailAddress);
+			Validator.NonEmptyString(fullName);
 			Member member;
-			if (Svc.Cache != null)
+			if (Svc.Configuration.Cache != null)
 			{
-				member = Svc.Cache.Find<Member>(m => m.Email == emailAddress);
+				member = Svc.Configuration.Cache.Find<Member>(m => m.Email == emailAddress);
 				if (member != null)
 				{
 					AddOrUpdateMember(member, type);
@@ -354,7 +354,7 @@ namespace Manatee.Trello
 			}
 			member = new Member();
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("email", emailAddress);
 			request.AddParameter("fullName", fullName);
 			request.AddParameter("type", type.ToLowerString());
@@ -371,10 +371,10 @@ namespace Manatee.Trello
 		public void MarkAsViewed()
 		{
 			if (Svc == null) return;
-			Validate.Writable(Svc);
+			Validator.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			endpoint.Append("markAsViewed");
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Post<IJsonBoard>(request);
 			_actions.MarkForUpdate();
 		}
@@ -385,8 +385,8 @@ namespace Manatee.Trello
 		/// <param name="type">The level of membership offered.</param>
 		internal void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			Validate.Writable(Svc);
-			Validate.Entity(member);
+			Validator.Writable(Svc);
+			Validator.Entity(member);
 			Log.Error(new NotSupportedException("Inviting members to boards is not yet supported by the Trello API."));
 		}
 		///<summary>
@@ -396,10 +396,10 @@ namespace Manatee.Trello
 		public void RemoveMember(Member member)
 		{
 			if (Svc == null) return;
-			Validate.Writable(Svc);
-			Validate.Entity(member);
+			Validator.Writable(Svc);
+			Validator.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonBoard>(request);
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
@@ -410,7 +410,7 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		internal void RescindInvitation(Member member)
 		{
-			Validate.Entity(member);
+			Validator.Entity(member);
 			Log.Error(new NotSupportedException("Inviting members to boards is not yet supported by the Trello API."));
 		}
 		/// <summary>
@@ -474,10 +474,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("fields", "name,desc,closed,idOrganization,pinned,url,subscribed");
 			request.AddParameter("actions", "none");
 			request.AddParameter("cards", "none");
@@ -486,7 +486,11 @@ namespace Manatee.Trello
 			request.AddParameter("checklists", "none");
 			request.AddParameter("organization", "false");
 			request.AddParameter("myPrefs", "false");
-			ApplyJson(Api.Get<IJsonBoard>(request));
+			var obj = Api.Get<IJsonBoard>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
+
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -506,8 +510,6 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj == null)
-				Log.Error(new EntityNotOnTrelloException<Board>(this));
 			_jsonBoard = (IJsonBoard)obj;
 		}
 
@@ -519,7 +521,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

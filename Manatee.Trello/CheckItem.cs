@@ -75,8 +75,8 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;				
-				Validate.Writable(Svc);
-				Validate.NonEmptyString(value);
+				Validator.Writable(Svc);
+				Validator.NonEmptyString(value);
 				if (_jsonCheckItem == null) return;
 				if (_jsonCheckItem.Name == value) return;
 				_jsonCheckItem.Name = value;
@@ -98,8 +98,8 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
-				Validate.Position(value);
+				Validator.Writable(Svc);
+				Validator.Position(value);
 				if (_jsonCheckItem == null) return;
 				if (_position == value) return;
 				_position = value;
@@ -123,7 +123,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonCheckItem == null) return;
 				if (_state == value) return;
 				_state = value;
@@ -158,8 +158,8 @@ namespace Manatee.Trello
 		{
 			_jsonCheckItem = jsonCheckItem;
 			Owner = owner;
-			if (Svc.Cache != null)
-				Svc.Cache.Add(this);
+			if (Cache != null)
+				Cache.Add(this);
 		}
 
 		/// <summary>
@@ -169,13 +169,13 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			if (Svc == null) return;
-			Validate.Writable(Svc);
+			Validator.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCheckItem>(request);
 			((CheckList)Owner).CheckItemsList.MarkForUpdate();
-			if (Svc.Cache != null)
-				Svc.Cache.Remove(this);
+			if (Cache != null)
+				Cache.Remove(this);
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -239,11 +239,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			ApplyJson(Api.Get<IJsonCheckItem>(request));
+			var request = RequestProvider.Create(endpoint.ToString());
+			var obj = Api.Get<IJsonCheckItem>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 
 		/// <summary>
@@ -267,7 +270,7 @@ namespace Manatee.Trello
 			}
 			var endpoint = EndpointGenerator.Default.Generate2(((CheckList) Owner).Card, Owner, this);
 			endpoint.Append(extension);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

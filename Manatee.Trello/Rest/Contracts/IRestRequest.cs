@@ -16,7 +16,7 @@
  
 	File Name:		IRestRequest.cs
 	Namespace:		Manatee.Trello.Rest
-	Class Name:		IRestRequest<T>
+	Class Name:		IRestRequest
 	Purpose:		Defines properties and methods required to make RESTful requests.
 
 ***************************************************************************************/

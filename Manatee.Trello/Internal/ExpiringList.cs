@@ -63,15 +63,18 @@ namespace Manatee.Trello.Internal
 			return _list.ToString();
 		}
 
-		protected override sealed void Refresh()
+		protected override sealed bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			if (Filter != null)
 				request.AddParameter("filter", Filter);
 			if (Fields != null)
 				request.AddParameter("fields", Fields);
-			ApplyJson(Api.Get<List<TJson>>(request));
+			var obj = Api.Get<List<TJson>>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 		protected override void PropigateService()
 		{

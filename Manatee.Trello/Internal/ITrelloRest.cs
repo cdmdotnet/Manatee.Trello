@@ -32,14 +32,6 @@ namespace Manatee.Trello.Internal
 		/// <summary>
 		/// 
 		/// </summary>
-		IRestClientProvider RestClientProvider { get; set; }
-		/// <summary>
-		/// 
-		/// </summary>
-		IRestRequestProvider RequestProvider { get; }
-		/// <summary>
-		/// 
-		/// </summary>
 		string AppKey { get; }
 		/// <summary>
 		/// 

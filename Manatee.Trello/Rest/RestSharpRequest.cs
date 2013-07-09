@@ -23,9 +23,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using System.Net;
-using System.Text;
 using RestSharp;
 
 namespace Manatee.Trello.Rest
@@ -70,10 +67,8 @@ namespace Manatee.Trello.Rest
 				case RestSharp.Method.DELETE:
 					return RestMethod.Delete;
 				default:
-					TrelloConfiguration.Log.Error(new ArgumentOutOfRangeException());
-					break;
+					throw new ArgumentOutOfRangeException();
 			}
-			return (RestMethod) (-1);
 		}
 		private void SetMethod(RestMethod value)
 		{
@@ -92,8 +87,7 @@ namespace Manatee.Trello.Rest
 					base.Method = RestSharp.Method.DELETE;
 					break;
 				default:
-					TrelloConfiguration.Log.Error(new ArgumentOutOfRangeException("value"));
-					break;
+					throw new ArgumentOutOfRangeException("value");
 			}
 		}
 	}

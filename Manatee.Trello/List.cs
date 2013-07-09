@@ -96,8 +96,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonList == null) return;
 				if (_jsonList.Closed == value) return;
 				_jsonList.Closed = value;
@@ -117,8 +117,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonList == null) return;
 				if (_jsonList.Subscribed == value) return;
 				_jsonList.Subscribed = value;
@@ -138,8 +138,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.NonEmptyString(value);
+				Validator.Writable(Svc);
+				Validator.NonEmptyString(value);
 				if (_jsonList == null) return;
 				if (_jsonList.Name == value) return;
 				_jsonList.Name = value;
@@ -159,8 +159,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Position(value);
+				Validator.Writable(Svc);
+				Validator.Position(value);
 				if (_jsonList == null) return;
 				if (_position == value) return;
 				_position = value;
@@ -197,11 +197,11 @@ namespace Manatee.Trello
 		public Card AddCard(string name, string description = null, Position position = null)
 		{
 			if (Svc == null) return null;
-			Validate.Writable(Svc);
-			Validate.NonEmptyString(name);
+			Validator.Writable(Svc);
+			Validator.NonEmptyString(name);
 			var card = new Card();
 			var endpoint = EndpointGenerator.Default.Generate(card);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
 			request.AddParameter("idList", Id);
 			if (description != null)
@@ -228,10 +228,10 @@ namespace Manatee.Trello
 		public void Move(Board board, Position position = null)
 		{
 			if (Svc == null) return;
-			Validate.Writable(Svc);
-			Validate.Entity(board);
+			Validator.Writable(Svc);
+			Validator.Entity(board);
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("idBoard", board.Id);
 			if (position != null)
 				request.AddParameter("pos", position);
@@ -302,13 +302,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("fields", "name,closed,idBoard,pos,subscribed");
 			request.AddParameter("cards", "none");
-			ApplyJson(Api.Get<IJsonList>(request));
+			var obj = Api.Get<IJsonList>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 
 		/// <summary>
@@ -335,7 +338,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

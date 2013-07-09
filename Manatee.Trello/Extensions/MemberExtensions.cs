@@ -46,7 +46,7 @@ namespace Manatee.Trello
 			{
 				var endpoint = EndpointGenerator.Default.Generate(member);
 				endpoint.Append(Card.TypeKey);
-				var request = member.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = member.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("fields", "id");
 				request.AddParameter("filter", "all");
 				request.AddParameter("actions", "none");
@@ -74,7 +74,7 @@ namespace Manatee.Trello
 			{
 				var endpoint = EndpointGenerator.Default.Generate(member);
 				endpoint.Append(Card.TypeKey);
-				var request = member.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = member.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("fields", "id");
 				request.AddParameter("filter", "visible");
 				request.AddParameter("actions", "none");

@@ -37,17 +37,10 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		string UserToken { get; set; }
 		/// <summary>
-		/// Provides caching for retrieved entities.
-		/// </summary>
-		ICache Cache { get; set; }
-		/// <summary>
 		/// Gets the Member object associated with the provided UserToken.
 		/// </summary>
 		Member Me { get; }
-		/// <summary>
-		/// Gets and sets the IRestClientProvider to be used by the service.
-		/// </summary>
-		IRestClientProvider RestClientProvider { get; set; }
+		ITrelloServiceConfiguration Configuration { get; }
 		/// <summary>
 		/// Facilitates calling the Trello API.
 		/// </summary>
@@ -55,6 +48,7 @@ namespace Manatee.Trello.Contracts
 		/// Provided for testing.  It is not recommended that this is used.
 		/// </remarks>
 		ITrelloRest Api { get; }
+		IValidator Validator { get; }
 		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>
@@ -78,5 +72,9 @@ namespace Manatee.Trello.Contracts
 		/// <param name="limit">The maximum number of results to return.</param>
 		/// <returns>A collection of members.</returns>
 		IEnumerable<Member> SearchMembers(string query, int limit = 0);
+		IEnumerable<IQueuedRestRequest> GetUnsentRequests();
+		void HoldRequests();
+		void ResumeRequests();
+		void RestoreRequests(IEnumerable<IQueuedRestRequest> requests);
 	}
 }

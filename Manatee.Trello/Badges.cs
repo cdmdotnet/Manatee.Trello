@@ -180,11 +180,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			ApplyJson(Api.Get<IJsonBadges>(request));
+			var request = RequestProvider.Create(endpoint.ToString());
+			var obj = Api.Get<IJsonBadges>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.

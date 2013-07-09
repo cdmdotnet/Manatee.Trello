@@ -28,13 +28,6 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "showSidebar":true,
-	//   "showSidebarMembers":true,
-	//   "showSidebarBoardActions":true,
-	//   "showSidebarActivity":true,
-	//   "showListGuide":false
-	//}
 	///<summary>
 	/// Represents a member's viewing preferences for a board
 	///</summary>
@@ -57,8 +50,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowListGuide == value) return;
 				_jsonBoardPersonalPreferences.ShowListGuide = value;
@@ -79,8 +72,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebar == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebar = value;
@@ -101,8 +94,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebarActivity == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebarActivity = value;
@@ -123,9 +116,9 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonBoardPersonalPreferences.ShowSidebarBoardActions == value) return;
-				Validate.Nullable(value);
+				Validator.Nullable(value);
 				_jsonBoardPersonalPreferences.ShowSidebarBoardActions = value;
 				Parameters.Add("name", "showSidebarBoardActions");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarBoardActions.ToLowerString());
@@ -144,8 +137,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebarMembers == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebarMembers = value;
@@ -176,11 +169,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			ApplyJson(Api.Get<IJsonBoardPersonalPreferences>(request));
+			var request = RequestProvider.Create(endpoint.ToString());
+			var obj = Api.Get<IJsonBoardPersonalPreferences>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -196,7 +192,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

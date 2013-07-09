@@ -30,54 +30,6 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "id":"51478fa171c9f94a5a0039f2",
-	//   "bytes":441087,
-	//   "date":"2013-03-18T22:05:21.390Z",
-	//   "idMember":"50b693ad6f122b4310000a3c",
-	//   "isUpload":true,
-	//   "mimeType":null,
-	//   "name":"Wjy4CDS.jpg",
-	//   "previews":[
-	//      {
-	//         "width":375,
-	//         "height":500,
-	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/fa8f48b74f9cdec8d6bed74cfdf1af45/Wjy4CDS.jpg_preview_375x500.png",
-	//         "_id":"51478fa671c9f94a5a0039f8"
-	//      },
-	//      {
-	//         "width":276,
-	//         "height":160,
-	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/589a0fc84f63926c122821149dfda76d/Wjy4CDS.jpg_preview_276x160.png",
-	//         "_id":"51478fa671c9f94a5a0039f7"
-	//      },
-	//      {
-	//         "width":70,
-	//         "height":50,
-	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/138b04fea3f6261d53834f7501b84ad2/Wjy4CDS.jpg_preview_70x50.png",
-	//         "_id":"51478fa671c9f94a5a0039f6"
-	//      },
-	//      {
-	//         "width":750,
-	//         "height":1000,
-	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/fd4e0d45321311da2a7784e68ee0d1b9/Wjy4CDS.jpg_preview_750x1000.png",
-	//         "_id":"51478fa671c9f94a5a0039f5"
-	//      },
-	//      {
-	//         "width":552,
-	//         "height":320,
-	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/f3681a4571e9c7e08605662af4c80982/Wjy4CDS.jpg_preview_552x320.png",
-	//         "_id":"51478fa671c9f94a5a0039f4"
-	//      },
-	//      {
-	//         "width":140,
-	//         "height":100,
-	//         "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/48d4f5113f38b9d86038553b93edeabb/Wjy4CDS.jpg_preview_140x100.png",
-	//         "_id":"51478fa671c9f94a5a0039f3"
-	//      }
-	//   ],
-	//   "url":"https://trello-attachments.s3.amazonaws.com/51478f6469fd3d9341001dae/51478f6ce7d2d11751005681/088deb599a9a7b8ced99290d5c2cde90/Wjy4CDS.jpg"
-	//}
 	///<summary>
 	/// Represents an attachment to a Card.
 	///</summary>
@@ -172,9 +124,9 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
+			Validator.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonAttachment>(request);
 			_isDeleted = true;
 		}
@@ -239,11 +191,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			//var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			//var request = Api.RequestProvider.Create(endpoint.ToString());
 			//ApplyJson(Api.Get<IJsonAttachment>(request));
+			return false;
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.

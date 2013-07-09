@@ -28,7 +28,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -37,9 +36,13 @@ namespace Manatee.Trello
 	/// </summary>
 	public class TrelloService : ITrelloService
 	{
+		private readonly ITrelloServiceConfiguration _configuration;
+		private readonly IRequestQueue _requestQueue;
+		private readonly IRequestQueueHandler _requestQueueHandler;
+		private readonly ITrelloRest _api;
+		private readonly IValidator _validator;
 		private readonly string _appKey;
 		private string _userToken;
-		private ITrelloRest _api;
 		private Member _me;
 
 		/// <summary>
@@ -52,16 +55,12 @@ namespace Manatee.Trello
 			set
 			{
 				if (value != null)
-					Validate.NonEmptyString(value);
+					_validator.NonEmptyString(value);
 				_userToken = value;
 				_me = null;
 				Api.UserToken = _userToken;
 			}
 		}
-		/// <summary>
-		/// Provides caching for retrieved entities.
-		/// </summary>
-		public ICache Cache { get; set; }
 		/// <summary>
 		/// Gets the Member object associated with the provided AppKey.
 		/// </summary>
@@ -72,24 +71,15 @@ namespace Manatee.Trello
 				return _me ?? (_me = GetMe());
 			}
 		}
-		/// <summary>
-		/// Gets and sets the IRestClientProvider to be used by the service.
-		/// </summary>
-		public IRestClientProvider RestClientProvider
-		{
-			get { return Api.RestClientProvider; }
-			set { Api.RestClientProvider = value; }
-		}
+		public ITrelloServiceConfiguration Configuration { get { return _configuration; } }
 		/// <summary>
 		/// Facilitates calling the Trello API.
 		/// </summary>
 		/// <remarks>
 		/// Provided for testing.  It is not recommended that this is used.
 		/// </remarks>
-		public ITrelloRest Api
-		{
-			get { return _api ?? (_api = new TrelloRest(TrelloConfiguration.Log, _appKey, _userToken)); }
-		}
+		public ITrelloRest Api { get { return _api; } }
+		public IValidator Validator { get { return _validator; } }
 
 		/// <summary>
 		/// Creates a new instance of the TrelloService class.
@@ -97,11 +87,17 @@ namespace Manatee.Trello
 		/// <param name="appKey"></param>
 		/// <param name="userToken"></param>
 		public TrelloService(string appKey, string userToken = null)
+			: this(TrelloServiceConfiguration.Default, appKey, userToken) {}
+		public TrelloService(TrelloServiceConfiguration configuration, string appKey, string userToken = null)
 		{
-			Validate.NonEmptyString(appKey);
+			_validator = new Validator(this);
+			_validator.NonEmptyString(appKey);
+			_configuration = configuration ?? TrelloServiceConfiguration.Default;
 			_appKey = appKey;
 			_userToken = userToken;
-			Cache = TrelloConfiguration.GlobalCache;
+			_requestQueue = new RequestQueue();
+			_requestQueueHandler = new RequestQueueHandler(_configuration.Log, _requestQueue, _configuration.RestClientProvider, RestExecuteHandler.Default);
+			_api = new TrelloRest(_configuration.Log, _requestQueue, _appKey, _userToken);
 		}
 
 		/// <summary>
@@ -117,11 +113,11 @@ namespace Manatee.Trello
 		public T Retrieve<T>(string id)
 			where T : ExpiringObject, new()
 		{
-			Validate.NonEmptyString(id);
+			_validator.NonEmptyString(id);
 			T entity;
-			if (Cache != null)
+			if (_configuration.Cache != null)
 			{
-				entity = Cache.Find<T>(e => e.Matches(id));
+				entity = _configuration.Cache.Find<T>(e => e.Matches(id));
 				if (entity != null) return entity;
 				entity = Verify<T>(id);
 			}
@@ -139,9 +135,9 @@ namespace Manatee.Trello
 		/// <returns>An object which contains the results of the query.</returns>
 		public SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All)
 		{
-			Validate.NonEmptyString(query);
+			_validator.NonEmptyString(query);
 			var endpoint = new Endpoint(new[] {"search"});
-			var request = RestClientProvider.RequestProvider.Create(endpoint.ToString());
+			var request = _configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("query", query);
 			request.AddParameter("action_fields", "id");
 			request.AddParameter("board_fields", "id");
@@ -171,9 +167,9 @@ namespace Manatee.Trello
 		/// <returns>A collection of members.</returns>
 		public IEnumerable<Member> SearchMembers(string query, int limit = 0)
 		{
-			Validate.NonEmptyString(query);
+			_validator.NonEmptyString(query);
 			var endpoint = new Endpoint(new[] {"search", "members"});
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = _configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("query", query);
 			if (limit > 0)
 				request.AddParameter("limit", limit);
@@ -183,6 +179,25 @@ namespace Manatee.Trello
 				var entity = new Member {Svc = this};
 				entity.ApplyJson(jsonMember);
 				yield return entity;
+			}
+		}
+		public IEnumerable<IQueuedRestRequest> GetUnsentRequests()
+		{
+			return _requestQueue;
+		}
+		public void HoldRequests()
+		{
+			_requestQueueHandler.IsActive = false;
+		}
+		public void ResumeRequests()
+		{
+			_requestQueueHandler.IsActive = true;
+		}
+		public void RestoreRequests(IEnumerable<IQueuedRestRequest> requests)
+		{
+			foreach (var request in requests)
+			{
+				_requestQueue.Enqueue(request);
 			}
 		}
 		/// <summary>
@@ -221,16 +236,16 @@ namespace Manatee.Trello
 			}
 			catch
 			{
-				Cache.Remove(entity);
+				_configuration.Cache.Remove(entity);
 				throw;
 			}
 		}
 		private Member GetMe()
 		{
 			if (UserToken == null)
-				TrelloConfiguration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
+				_configuration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
 			var endpoint = new Endpoint(new[] { Member.TypeKey, "me" });
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = _configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("fields","id");
 			var json = Api.Get<IJsonMember>(request);
 			if (json == null) return null;

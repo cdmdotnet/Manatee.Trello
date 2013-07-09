@@ -72,7 +72,7 @@ namespace Manatee.Trello
 			{
 				var endpoint = EndpointGenerator.Default.Generate(board);
 				endpoint.Append(Member.TypeKey);
-				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = board.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("fields", "id");
 				request.AddParameter("filter", "admins");
 				var response = board.Svc.Api.Get<List<IJsonMember>>(request);
@@ -91,7 +91,7 @@ namespace Manatee.Trello
 			{
 				var endpoint = EndpointGenerator.Default.Generate(board);
 				endpoint.Append(Card.TypeKey);
-				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = board.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("fields", "id");
 				request.AddParameter("filter", "all");
 				request.AddParameter("actions", "none");
@@ -119,7 +119,7 @@ namespace Manatee.Trello
 			{
 				var endpoint = EndpointGenerator.Default.Generate(board);
 				endpoint.Append(List.TypeKey);
-				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = board.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("fields", "id");
 				request.AddParameter("filter", "all");
 				request.AddParameter("cards", "none");
@@ -139,7 +139,7 @@ namespace Manatee.Trello
 			{
 				var endpoint = EndpointGenerator.Default.Generate(board);
 				endpoint.Append(Card.TypeKey);
-				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = board.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("fields", "id");
 				request.AddParameter("filter", "visible");
 				request.AddParameter("actions", "none");
@@ -178,7 +178,7 @@ namespace Manatee.Trello
 			{
 				var endpoint = EndpointGenerator.Default.Generate(board);
 				endpoint.Append(Card.TypeKey);
-				var request = board.Svc.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = board.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("fields", "id");
 				request.AddParameter("filter", "visible");
 				request.AddParameter("actions", "none");

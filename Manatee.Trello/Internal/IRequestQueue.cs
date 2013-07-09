@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2012 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,29 +14,23 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		RestSharpRequestProvider.cs
-	Namespace:		Manatee.Trello.Rest
-	Class Name:		RestSharpRequestProvider
-	Purpose:		A request object for use with all REST calls.
+	File Name:		IRequestQueue.cs
+	Namespace:		Manatee.Trello.Internal
+	Class Name:		IRequestQueue
+	Purpose:		Defines methods required to queue REST requests.
 
 ***************************************************************************************/
 using System;
-using Manatee.Trello.Internal;
+using System.Collections.Generic;
+using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Rest
+namespace Manatee.Trello.Internal
 {
-	internal class RestSharpRequestProvider : IRestRequestProvider
+	internal interface IRequestQueue : IEnumerable<IQueuedRestRequest>
 	{
-		private readonly RestSharp.Serializers.ISerializer _serializer;
+		event EventHandler ItemQueued;
 
-		public RestSharpRequestProvider(RestSharp.Serializers.ISerializer serializer)
-		{
-			_serializer = serializer;
-		}
-
-		public IRestRequest Create(string endpoint)
-		{
-			return new RestSharpRequest(_serializer, endpoint);
-		}
+		IQueuedRestRequest Dequeue();
+		void Enqueue(IQueuedRestRequest request);
 	}
 }

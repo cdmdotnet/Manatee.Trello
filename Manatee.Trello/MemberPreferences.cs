@@ -53,8 +53,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.ColorBlind == value) return;
 				_jsonMemberPreferences.ColorBlind = value;
@@ -74,9 +74,9 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
-				Validate.Enumeration(value.Value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
+				Validator.Enumeration(value.Value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.MinutesBetweenSummaries == (int?) value) return;
 				_jsonMemberPreferences.MinutesBetweenSummaries = (int?) value;
@@ -96,8 +96,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.SendSummaries == value) return;
 				_jsonMemberPreferences.SendSummaries = value;
@@ -117,8 +117,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.MinutesBeforeDeadlineToNotify == value) return;
 				_jsonMemberPreferences.MinutesBeforeDeadlineToNotify = value;
@@ -148,11 +148,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
-			ApplyJson(Api.Get<IJsonMemberPreferences>(request));
+			var request = RequestProvider.Create(endpoint.ToString());
+			var obj = Api.Get<IJsonMemberPreferences>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
@@ -173,7 +176,7 @@ namespace Manatee.Trello
 			}
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			endpoint.Append(extension);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

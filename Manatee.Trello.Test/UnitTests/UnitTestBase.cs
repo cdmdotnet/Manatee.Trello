@@ -14,8 +14,6 @@ namespace Manatee.Trello.Test.UnitTests
 
 		protected class DependencyCollection
 		{
-			public Mock<ILog> Log { get { return _logMock; } }
-
 			public class MockRequestProvider : IRestRequestProvider
 			{
 				public IRestRequest Create(string endpoint)
@@ -39,17 +37,26 @@ namespace Manatee.Trello.Test.UnitTests
 			public Mock<IRestClientProvider> RestClientProvider { get; private set; }
 			public MockRequestProvider RequestProvider { get; private set; }
 			public MockRestClient Client { get; private set; }
+			public Mock<ITrelloServiceConfiguration> Config { get; private set; }
+			public Mock<ILog> Log { get { return _logMock; } }
+			public Mock<ICache> Cache { get; private set; }
 
 			public DependencyCollection()
 			{
 				RestClientProvider = new Mock<IRestClientProvider>();
 				RequestProvider = new MockRequestProvider();
 				Client = new MockRestClient();
+				Config = new Mock<ITrelloServiceConfiguration>();
+				Cache = new	Mock<ICache>();
 
+				Config.SetupGet(c => c.RestClientProvider)
+					  .Returns(RestClientProvider.Object);
+				Config.SetupGet(c => c.Log)
+					  .Returns(Log.Object);
 				RestClientProvider.SetupGet(p => p.RequestProvider)
-					.Returns(RequestProvider);
+				                  .Returns(RequestProvider);
 				RestClientProvider.Setup(p => p.CreateRestClient(It.IsAny<string>()))
-					.Returns(Client);
+				                  .Returns(Client);
 			}
 		}
 
@@ -58,7 +65,6 @@ namespace Manatee.Trello.Test.UnitTests
 			_logMock = new Mock<ILog>();
 			_logMock.Setup(l => l.Error(It.IsAny<Exception>(), It.Is<bool>(b => b)))
 			        .Callback((Exception e, bool b) => { throw e; });
-			TrelloConfiguration.Log = _logMock.Object;
 		}
 
 	}

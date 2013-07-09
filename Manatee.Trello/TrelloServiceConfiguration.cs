@@ -33,40 +33,35 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Exposes a set of run-time options for all automatically-refreshing objects.
 	/// </summary>
-	public static class TrelloConfiguration
+	public class TrelloServiceConfiguration : ITrelloServiceConfiguration
 	{
-		/// <summary>
-		/// The default persistence time for object data.  Value is one minute.
-		/// </summary>
-		public static readonly TimeSpan _defaultItemDuration;
 		private static readonly ICache _globalCache;
-		private static ISerializer _serializer;
-		private static IDeserializer _deserializer;
 		private static ManateeSerializer _manateeSerializer;
 		private static NewtonsoftSerializer _newtonsoftSerializer;
-		private static IRestClientProvider _restClientProvider;
-		private static RestSharpClientProvider _restSharpProvider;
-		private static ILog _globalLog;
+		private ILog _log;
+		private ISerializer _serializer;
+		private IDeserializer _deserializer;
+		private IRestClientProvider _restClientProvider;
 
 		private static ISerializer ManateeSerializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
 		private static IDeserializer ManateeDeserializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
 		private static ISerializer NewtonsoftSerializer { get { return _newtonsoftSerializer ?? (_newtonsoftSerializer = new NewtonsoftSerializer()); } }
 		private static IDeserializer NewtonsoftDeserializer { get { return _newtonsoftSerializer ?? (_newtonsoftSerializer = new NewtonsoftSerializer()); } }
-		private static IRestClientProvider RestSharpClientProvider { get { return _restSharpProvider ?? (_restSharpProvider = new RestSharpClientProvider()); } }
 
+		public static TrelloServiceConfiguration Default { get; private set; }
 		/// <summary>
 		/// Gets and sets the global duration setting for all auto-refreshing objects.
 		/// </summary>
-		public static TimeSpan ItemDuration { get; set; }
+		public TimeSpan ItemDuration { get; set; }
 		/// <summary>
 		/// Enables/disables auto-refreshing for all auto-refreshing objects.
 		/// </summary>
-		public static bool AutoRefresh { get; set; }
+		public bool AutoRefresh { get; set; }
 		/// <summary>
 		/// Specifies the serializer which is used the first time a request is made from
 		/// a given instance of the TrelloService class.
 		/// </summary>
-		public static ISerializer Serializer
+		public ISerializer Serializer
 		{
 			get
 			{
@@ -85,7 +80,7 @@ namespace Manatee.Trello
 		/// Specifies the deserializer which is used the first time a request is made from
 		/// a given instance of the TrelloService class.
 		/// </summary>
-		public static IDeserializer Deserializer
+		public IDeserializer Deserializer
 		{
 			get
 			{
@@ -104,14 +99,9 @@ namespace Manatee.Trello
 		/// Specifies the REST client provider which is used the first time a request is made from
 		/// a given instance of the TrelloService class.
 		/// </summary>
-		public static IRestClientProvider RestClientProvider
+		public IRestClientProvider RestClientProvider
 		{
-			get
-			{
-				if (_restClientProvider == null)
-					CreateDefaultRestClientProvider();
-				return _restClientProvider;
-			}
+			get { return _restClientProvider ?? (_restClientProvider = new RestSharpClientProvider(this)); }
 			set
 			{
 				if (value == null)
@@ -122,24 +112,29 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Provides a single cache for all TrelloService instances.  This can be overridden per instance.
 		/// </summary>
-		public static ICache GlobalCache { get { return _globalCache; } }
+		public ICache Cache { get; set; }
 		/// <summary>
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
-		public static ILog Log { get { return _globalLog ?? (_globalLog = new DebugLog()); } set { _globalLog = value; } }
+		public ILog Log { get { return _log ?? (_log = new DebugLog()); } set { _log = value; } }
 
-		static TrelloConfiguration()
+		static TrelloServiceConfiguration()
 		{
-			_defaultItemDuration = TimeSpan.FromSeconds(60);
-			ItemDuration = _defaultItemDuration;
-			AutoRefresh = true;
 			_globalCache = new ThreadSafeCache(new SimpleCache());
+			Default = new TrelloServiceConfiguration();
+		}
+		public TrelloServiceConfiguration()
+		{
+			UseManateeJson();
+			ItemDuration = TimeSpan.FromSeconds(60);
+			AutoRefresh = true;
+			Cache = _globalCache;
 		}
 
 		/// <summary>
 		/// Sets Manatee.Json as the serializer/deserializer (default).
 		/// </summary>
-		public static void UseManateeJson()
+		public void UseManateeJson()
 		{
 			_serializer = ManateeSerializer;
 			_deserializer = ManateeDeserializer;
@@ -147,19 +142,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Sets Newtonsoft's Json.Net as the serializer/deserializer.
 		/// </summary>
-		public static void UseNewtonsoftJson()
+		public void UseNewtonsoftJson()
 		{
 			_serializer = NewtonsoftSerializer;
 			_deserializer = NewtonsoftDeserializer;
 		}
 
-		private static void CreateDefaultSerializer()
+		private void CreateDefaultSerializer()
 		{
 			UseManateeJson();
 		}
-		private static void CreateDefaultRestClientProvider()
+		private void CreateDefaultRestClientProvider()
 		{
-			_restClientProvider = new RestSharpClientProvider();
+			_restClientProvider = new RestSharpClientProvider(this);
 		}
 	}
 }

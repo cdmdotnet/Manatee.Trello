@@ -30,54 +30,6 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "id":"5144071650af56251f001927",
-	//   "badges":{
-	//      "votes":0,
-	//      "viewingMemberVoted":false,
-	//      "subscribed":false,
-	//      "fogbugz":"",
-	//      "due":null,
-	//      "description":true,
-	//      "comments":0,
-	//      "checkItemsChecked":1,
-	//      "checkItems":4,
-	//      "attachments":0
-	//   },
-	//   "checkItemStates":[
-	//      {
-	//         "idCheckItem":"514463bfd02ebee350000d1c",
-	//         "state":"complete"
-	//      }
-	//   ],
-	//   "closed":false,
-	//   "desc":"Allow others to contribute to project once the basics are up and running.",
-	//   "due":null,
-	//   "idBoard":"5144051cbd0da6681200201e",
-	//   "idChecklists":[
-	//      "514463bce0807abe320028a2"
-	//   ],
-	//   "idList":"5144051cbd0da6681200201f",
-	//   "idMembers":[
-
-	//   ],
-	//   "idShort":6,
-	//   "idAttachmentCover":null,
-	//   "manualCoverAttachment":false,
-	//   "labels":[
-	//      {
-	//         "color":"green",
-	//         "name":""
-	//      },
-	//      {
-	//         "color":"yellow",
-	//         "name":""
-	//      }
-	//   ],
-	//   "name":"Publish Beta to SourceForge",
-	//   "pos":393215,
-	//   "url":"https://trello.com/card/publish-beta-to-sourceforge/5144051cbd0da6681200201e/6"
-	//}
 	/// <summary>
 	/// Represents a card.
 	/// </summary>
@@ -158,7 +110,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				if (_jsonCard == null) return;
 				if (_jsonCard.Desc == value) return;
 				_jsonCard.Desc = value ?? string.Empty;
@@ -180,8 +132,8 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonCard == null) return;
 				if (_jsonCard.Due == value) return;
 				_jsonCard.Due = value;
@@ -216,8 +168,8 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonCard == null) return;
 				if (_jsonCard.Closed == value) return;
 				_jsonCard.Closed = value;
@@ -239,8 +191,8 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
-				Validate.Nullable(value);
+				Validator.Writable(Svc);
+				Validator.Nullable(value);
 				if (_jsonCard == null) return;
 				if (_jsonCard.Subscribed == value) return;
 				_jsonCard.Subscribed = value;
@@ -301,8 +253,8 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
-				Validate.NonEmptyString(value);
+				Validator.Writable(Svc);
+				Validator.NonEmptyString(value);
 				if (_jsonCard == null) return;
 				if (_jsonCard.Name == value) return;
 				_jsonCard.Name = value;
@@ -324,8 +276,8 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
-				Validate.Position(value);
+				Validator.Writable(Svc);
+				Validator.Position(value);
 				if (_position == value) return;
 				_position = value;
 				Parameters.Add("pos", _position);
@@ -355,7 +307,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validate.Writable(Svc);
+				Validator.Writable(Svc);
 				Parameters.Add("warnWhenUpcoming", value);
 				Put();
 			}
@@ -388,8 +340,8 @@ namespace Manatee.Trello
 		public Attachment AddAttachment(string name, string url)
 		{
 			if (Svc == null) return null;
-			Validate.Writable(Svc);
-			Validate.Url(url);
+			Validator.Writable(Svc);
+			Validator.Url(url);
 			if (string.IsNullOrWhiteSpace(name))
 			{
 				name = url.Split('/').LastOrDefault();
@@ -398,7 +350,7 @@ namespace Manatee.Trello
 			}
 			var attachment = new Attachment();
 			var endpoint = EndpointGenerator.Default.Generate(this, attachment);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
 			request.AddParameter("url", url);
 			attachment.ApplyJson(Api.Post<IJsonAttachment>(request));
@@ -417,11 +369,11 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return null;
 			if (_isDeleted) return null;
-			Validate.Writable(Svc);
-			Validate.NonEmptyString(name);
+			Validator.Writable(Svc);
+			Validator.NonEmptyString(name);
 			var checkList = new CheckList();
 			var endpoint = EndpointGenerator.Default.Generate(checkList);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("name", name);
 			if ((position != null) && position.IsValid)
 				request.AddParameter("pos", position);
@@ -440,11 +392,11 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
-			Validate.NonEmptyString(comment);
+			Validator.Writable(Svc);
+			Validator.NonEmptyString(comment);
 			var endpoint = EndpointGenerator.Default.Generate(this, new Action());
 			endpoint.Append("comments");
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("text", comment);
 			Api.Post<IJsonAction>(request);
 			_actions.MarkForUpdate();
@@ -457,9 +409,9 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
+			Validator.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this, new Label());
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("value", color.ToLowerString());
 			Api.Post<IJsonCard>(request);
 			_labels.MarkForUpdate();
@@ -473,11 +425,11 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
-			Validate.Entity(member);
+			Validator.Writable(Svc);
+			Validator.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			endpoint.Append("idMembers");
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("value", member.Id);
 			Api.Post<List<IJsonMember>>(request);
 			_members.MarkForUpdate();
@@ -490,10 +442,10 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
+			Validator.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			endpoint.Append("markAssociatedNotificationsRead");
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Post<IJsonCard>(request);
 		}
 		/// <summary>
@@ -503,14 +455,14 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
+			Validator.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCard>(request);
 			if (_list != null)
 				_list.CardsList.MarkForUpdate();
-			if (Svc.Cache != null)
-				Svc.Cache.Remove(this);
+			if (Svc.Configuration.Cache != null)
+				Svc.Configuration.Cache.Remove(this);
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -523,13 +475,13 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
-			Validate.Entity(board);
-			Validate.Entity(list);
+			Validator.Writable(Svc);
+			Validator.Entity(board);
+			Validator.Entity(list);
 			if (!board.Lists.Contains(list))
 				Log.Error(new InvalidOperationException(string.Format("Board '{0}' does not contain list with ID '{1}'.", board.Name, list.Id)));
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			if (_jsonCard.IdBoard != board.Id)
 				request.AddParameter("idBoard", board.Id);
 			if (_jsonCard.IdList != list.Id)
@@ -548,10 +500,10 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
+			Validator.Writable(Svc);
 			var endpoint = EndpointGenerator.Default.Generate(this, new Label());
 			endpoint.Append(color.ToLowerString());
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCard>(request);
 			_labels.MarkForUpdate();
 			_actions.MarkForUpdate();
@@ -564,10 +516,10 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validate.Writable(Svc);
-			Validate.Entity(member);
+			Validator.Writable(Svc);
+			Validator.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate2(this, member);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCard>(request);
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
@@ -633,11 +585,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override void Refresh()
+		protected override bool Refresh()
 		{
-			if (_isDeleted) return;
+			if (_isDeleted) return false;
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,subscribed");
 			request.AddParameter("actions", "none");
 			request.AddParameter("attachments", "false");
@@ -648,7 +600,10 @@ namespace Manatee.Trello
 			request.AddParameter("checkLists", "false");
 			request.AddParameter("board", "false");
 			request.AddParameter("list", "false");
-			ApplyJson(Api.Get<IJsonCard>(request));
+			var obj = Api.Get<IJsonCard>(request);
+			if (obj == null) return false;
+			ApplyJson(obj);
+			return true;
 		}
 
 		/// <summary>
@@ -681,7 +636,7 @@ namespace Manatee.Trello
 				return;
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = Api.RequestProvider.Create(endpoint.ToString());
+			var request = RequestProvider.Create(endpoint.ToString());
 			foreach (var parameter in Parameters)
 			{
 				request.AddParameter(parameter.Key, parameter.Value);

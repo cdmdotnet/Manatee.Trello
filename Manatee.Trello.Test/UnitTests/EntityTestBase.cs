@@ -23,14 +23,10 @@ namespace Manatee.Trello.Test.UnitTests
 				Svc = new Mock<ITrelloService>();
 				Rest = new Mock<ITrelloRest>();
 
-				Svc.SetupGet(a => a.Api)
-					.Returns(Rest.Object);
-				Rest.SetupGet(s => s.RestClientProvider)
-					.Returns(RestClientProvider.Object);
-				Rest.SetupGet(s => s.RequestProvider)
-					.Returns(RequestProvider);
 				Svc.SetupGet(s => s.UserToken)
-					.Returns(TrelloIds.UserToken);
+				   .Returns(TrelloIds.UserToken);
+				Svc.SetupGet(a => a.Api)
+				   .Returns(Rest.Object);
 			}
 		}
 
