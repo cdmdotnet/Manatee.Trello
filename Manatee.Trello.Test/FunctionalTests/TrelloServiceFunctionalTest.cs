@@ -84,13 +84,14 @@ namespace Manatee.Trello.Test.FunctionalTests
 				.And(ResponseIsNotNull)
 				.And(RequestedObjectIsReturned<Member>)
 
-				.WithScenario("Retrieve a Notification")
-				.Given(ATrelloService, TrelloIds.AppKey, TrelloIds.UserToken)
-				.And(AnId, TrelloIds.NotificationId)
-				.When(RetrieveIsCalled<Notification>)
-				.Then(ExceptionIsNotThrown)
-				.And(ResponseIsNotNull)
-				.And(RequestedObjectIsReturned<Notification>)
+				// This test is not valid since Notifications eventually expire and are removed from Trello.
+				//.WithScenario("Retrieve a Notification")
+				//.Given(ATrelloService, TrelloIds.AppKey, TrelloIds.UserToken)
+				//.And(AnId, TrelloIds.NotificationId)
+				//.When(RetrieveIsCalled<Notification>)
+				//.Then(ExceptionIsNotThrown)
+				//.And(ResponseIsNotNull)
+				//.And(RequestedObjectIsReturned<Notification>)
 
 				.WithScenario("Retrieve a Organization")
 				.Given(ATrelloService, TrelloIds.AppKey, (string) null)

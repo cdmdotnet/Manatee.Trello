@@ -20,10 +20,8 @@
 	Purpose:		Defines methods required to retrieve entities from Trello.
 
 ***************************************************************************************/
-using System;
 using System.Collections.Generic;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Contracts
 {
@@ -40,14 +38,24 @@ namespace Manatee.Trello.Contracts
 		/// Gets the Member object associated with the provided UserToken.
 		/// </summary>
 		Member Me { get; }
+		/// <summary>
+		/// Provides a set of options for use by a single ITrelloService instance.
+		/// </summary>
 		ITrelloServiceConfiguration Configuration { get; }
+		/// <summary>
+		/// Gets whether the ITrelloService instance can connect to Trello.
+		/// </summary>
+		bool IsConnected { get; }
 		/// <summary>
 		/// Facilitates calling the Trello API.
 		/// </summary>
 		/// <remarks>
-		/// Provided for testing.  It is not recommended that this is used.
+		/// Provided for unit testing.  It is not recommended that this is used.  To prevent accidental use, this property should be implemented explicitly.
 		/// </remarks>
 		ITrelloRest Api { get; }
+		/// <summary>
+		/// Provides validation functionality for the service and all entities which use it.
+		/// </summary>
 		IValidator Validator { get; }
 		/// <summary>
 		/// Retrieves an entity from Trello.
@@ -72,9 +80,23 @@ namespace Manatee.Trello.Contracts
 		/// <param name="limit">The maximum number of results to return.</param>
 		/// <returns>A collection of members.</returns>
 		IEnumerable<Member> SearchMembers(string query, int limit = 0);
-		IEnumerable<IQueuedRestRequest> GetUnsentRequests();
+		/// <summary>
+		/// Instructs the service to stop sending requests.
+		/// </summary>
 		void HoldRequests();
+		/// <summary>
+		/// Instructs the service to continue sending requests.
+		/// </summary>
 		void ResumeRequests();
+		/// <summary>
+		/// Retrieves any stored requests so that they can be stored and later restored.
+		/// </summary>
+		/// <returns>A collection of IQueuedRestRequests.</returns>
+		IEnumerable<IQueuedRestRequest> GetUnsentRequests();
+		/// <summary>
+		/// Restores previously persisted requests so that they may be sent.
+		/// </summary>
+		/// <param name="requests">A collection of IQueuedRestRequests.</param>
 		void RestoreRequests(IEnumerable<IQueuedRestRequest> requests);
 	}
 }

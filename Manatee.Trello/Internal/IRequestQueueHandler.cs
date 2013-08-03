@@ -29,6 +29,7 @@ namespace Manatee.Trello.Internal
 	internal interface IRequestQueueHandler
 	{
 		bool IsActive { get; set; }
+		bool IsConnected { get; }
 		T Handle<T>(IRestRequest request) where T : class;
 	}
 }

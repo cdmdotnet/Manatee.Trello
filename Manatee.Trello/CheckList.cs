@@ -27,42 +27,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "id":"514463bce0807abe320028a2",
-	//   "name":"Contribution Areas:",
-	//   "idBoard":"5144051cbd0da6681200201e",
-	//   "idCard":"5144071650af56251f001927",
-	//   "pos":16384,
-	//   "checkItems":[
-	//      {
-	//         "state":"incomplete",
-	//         "id":"514463bfd02ebee350000d1c",
-	//         "name":"Test development",
-	//         "pos":16703
-	//      },
-	//      {
-	//         "state":"incomplete",
-	//         "id":"514463c25d9ff5651200248a",
-	//         "name":"Debugging",
-	//         "pos":33564
-	//      },
-	//      {
-	//         "state":"incomplete",
-	//         "id":"514463cf9aead40c4b002126",
-	//         "name":"Admiration for a job well done",
-	//         "pos":50378
-	//      },
-	//      {
-	//         "state":"incomplete",
-	//         "id":"514463f46fb8113b4b0026ba",
-	//         "name":"Documentation",
-	//         "pos":41971
-	//      }
-	//   ]
-	//}
 	/// <summary>
 	/// Represents a checklist.
 	/// </summary>
@@ -107,7 +75,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Entity(value);
 				if (_jsonCheckList == null) return;
 				if (_jsonCheckList.IdCard == value.Id) return;
@@ -148,7 +116,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.NonEmptyString(value);
 				if (_jsonCheckList == null) return;
 				if (_jsonCheckList.Name == value) return;
@@ -171,7 +139,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Position(value);
 				if (_jsonCheckList == null) return;
 				if (_position == value) return;
@@ -207,7 +175,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return null;
 			if (_isDeleted) return null;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.NonEmptyString(name);
 			var checkItem = new CheckItem();
 			var endpoint = EndpointGenerator.Default.Generate(this, checkItem);
@@ -229,7 +197,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCheckList>(request);
@@ -325,7 +293,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonCheckList = (IJsonCheckList)obj;
+			if (obj is IRestResponse)
+				_jsonCheckList = ((IRestResponse<IJsonCheckList>)obj).Data;
+			else
+				_jsonCheckList = (IJsonCheckList)obj;
 			_position = ((_jsonCheckList != null) && _jsonCheckList.Pos.HasValue)
 			            	? new Position(_jsonCheckList.Pos.Value)
 			            	: Position.Unknown;

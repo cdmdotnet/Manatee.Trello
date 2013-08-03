@@ -25,15 +25,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//   "prefs":{
-	//      "sendSummaries":true,
-	//      "minutesBetweenSummaries":60,
-	//      "minutesBeforeDeadlineToNotify":1440,
-	//      "colorBlind":false
-	//   },
 	/// <summary>
 	/// Represents available preference settings for a member.
 	/// </summary>
@@ -53,7 +48,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.ColorBlind == value) return;
@@ -74,7 +69,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				Validator.Enumeration(value.Value);
 				if (_jsonMemberPreferences == null) return;
@@ -96,7 +91,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.SendSummaries == value) return;
@@ -117,7 +112,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.MinutesBeforeDeadlineToNotify == value) return;
@@ -164,7 +159,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonMemberPreferences = (IJsonMemberPreferences) obj;
+			if (obj is IRestResponse)
+				_jsonMemberPreferences = ((IRestResponse<IJsonMemberPreferences>)obj).Data;
+			else
+				_jsonMemberPreferences = (IJsonMemberPreferences)obj;
 		}
 
 		private void Put(string extension)

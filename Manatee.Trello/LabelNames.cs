@@ -20,24 +20,16 @@
 	Purpose:		Defines a set of labels for a board on Trello.com.
 
 ***************************************************************************************/
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//   "labelNames":{
-	//      "red":"",
-	//      "orange":"",
-	//      "yellow":"",
-	//      "green":"",
-	//      "blue":"",
-	//      "purple":""
-	//   }
 	/// <summary>
 	/// Defines a set of labels for a board.
 	/// </summary>
@@ -57,7 +49,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Red == value) return;
 				_jsonLabelNames.Red = value ?? string.Empty;
@@ -77,7 +69,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Orange == value) return;
 				_jsonLabelNames.Orange = value ?? string.Empty;
@@ -97,7 +89,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Yellow == value) return;
 				_jsonLabelNames.Yellow = value ?? string.Empty;
@@ -117,7 +109,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Green == value) return;
 				_jsonLabelNames.Green = value ?? string.Empty;
@@ -137,7 +129,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Blue == value) return;
 				_jsonLabelNames.Blue = value ?? string.Empty;
@@ -157,7 +149,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Purple == value) return;
 				_jsonLabelNames.Purple = value ?? string.Empty;
@@ -234,7 +226,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonLabelNames = (IJsonLabelNames) obj;
+			if (obj is IRestResponse)
+				_jsonLabelNames = ((IRestResponse<IJsonLabelNames>)obj).Data;
+			else
+				_jsonLabelNames = (IJsonLabelNames)obj;
 		}
 
 		private void Put(string extension)

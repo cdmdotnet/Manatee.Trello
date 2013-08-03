@@ -1,6 +1,7 @@
 ﻿//	Source: http://blog.dotnetclr.com/archive/2007/09/24/Check-for-internet-connection---Method-2.aspx
 //	Modified as follows:
 //		- Elimiated redundant class nesting.
+//		- Change access modifier to internal.
 
 using System.Runtime.InteropServices;
 using System.Security;
@@ -11,7 +12,7 @@ namespace Manatee.Trello.Internal
 	/// Performs actions on the network
 	/// </summary>
 	[SuppressUnmanagedCodeSecurity]
-	public static class NetworkHandler
+	internal static class NetworkHandler
 	{
 		// Extern Library
 		// UnManaged code - be careful.

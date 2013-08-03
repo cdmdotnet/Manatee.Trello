@@ -27,6 +27,7 @@ using System.Linq;
 using System.Threading;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
 {
@@ -90,7 +91,11 @@ namespace Manatee.Trello.Internal
 		internal override void ApplyJson(object obj)
 		{
 			_list.Clear();
-			var jsonList = (List<TJson>) obj;
+			List<TJson> jsonList;
+			if (obj is IRestResponse)
+				jsonList = ((IRestResponse<List<TJson>>)obj).Data;
+			else
+				jsonList = (List<TJson>) obj;
 			var entities = new List<T>();
 			var threads = jsonList.Select(j => new Thread(() => AsyncRetrieve(entities, j)) { IsBackground = true }).ToList();
 			foreach (var thread in threads)

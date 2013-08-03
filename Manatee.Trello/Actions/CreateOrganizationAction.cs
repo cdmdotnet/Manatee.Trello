@@ -33,7 +33,7 @@ namespace Manatee.Trello
 		private string _stringFormat;
 
 		/// <summary>
-		/// Gets the board associated with the action.
+		/// Gets the organization associated with the action.
 		/// </summary>
 		public Organization Organization
 		{

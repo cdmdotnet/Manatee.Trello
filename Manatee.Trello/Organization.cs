@@ -27,20 +27,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "id":"50d4eb07a1b0902152003329",
-	//   "name":"littlecrabsolutions",
-	//   "displayName":"Little Crab Solutions",
-	//   "desc":"",
-	//   "url":"https://trello.com/littlecrabsolutions",
-	//   "website":null,
-	//   "logoHash":null,
-	//   "powerUps":[
-	//   ]
-	//}
 	/// <summary>
 	/// Represents an organization.
 	/// </summary>
@@ -77,7 +67,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.Desc == value) return;
 				_jsonOrganization.Desc = value ?? string.Empty;
@@ -99,7 +89,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.DisplayName == value) return;
 				_jsonOrganization.DisplayName = Validator.MinStringLength(value, 4, "DisplayName");
@@ -158,10 +148,10 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.Name == value) return;
-				_jsonOrganization.Name = Validator.OrgName(Svc, value);
+				_jsonOrganization.Name = Validator.OrgName(value);
 				Parameters.Add("name", _jsonOrganization.Name);
 				Put();
 			}
@@ -212,7 +202,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.Website == value) return;
 				_jsonOrganization.Website = value ?? string.Empty;
@@ -249,7 +239,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -269,30 +259,17 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return null;
 			if (_isDeleted) return null;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.NonEmptyString(emailAddress);
 			Validator.NonEmptyString(fullName);
-			Member member;
-			if (Cache != null)
+			var member = Svc.SearchMembers(emailAddress, 1).FirstOrDefault();
+			if (member != null)
 			{
-				member = Cache.Find<Member>(m => m.Email == emailAddress);
-				if (member != null)
-				{
-					AddOrUpdateMember(member, type);
-					return member;
-				}
+				AddOrUpdateMember(member, type);
+				_members.MarkForUpdate();
+				_memberships.MarkForUpdate();
+				_actions.MarkForUpdate();
 			}
-			member = new Member();
-			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("email", emailAddress);
-			request.AddParameter("fullName", fullName);
-			request.AddParameter("type", type.ToLowerString());
-			member.ApplyJson(Api.Put<IJsonMember>(request));
-			member.Svc = Svc;
-			_members.MarkForUpdate();
-			_memberships.MarkForUpdate();
-			_actions.MarkForUpdate();
 			return member;
 		}
 		/// <summary>
@@ -303,7 +280,7 @@ namespace Manatee.Trello
 		public Board CreateBoard(string name)
 		{
 			if (Svc == null) return null;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.NonEmptyString(name);
 			var board = new Board();
 			var endpoint = EndpointGenerator.Default.Generate(board);
@@ -322,7 +299,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			if (_members != null)
 			{
 				foreach (var member in _members)
@@ -344,7 +321,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(member);
 			Log.Error(new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API."));
 		}
@@ -356,7 +333,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -373,7 +350,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(member);
 			Log.Error(new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API."));
 		}
@@ -468,7 +445,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonOrganization = (IJsonOrganization) obj;
+			if (obj is IRestResponse)
+				_jsonOrganization = ((IRestResponse<IJsonOrganization>)obj).Data;
+			else
+				_jsonOrganization = (IJsonOrganization)obj;
 		}
 		internal override bool Matches(string id)
 		{

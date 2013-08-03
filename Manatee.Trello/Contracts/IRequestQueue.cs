@@ -20,17 +20,37 @@
 	Purpose:		Defines methods required to queue REST requests.
 
 ***************************************************************************************/
+
 using System;
 using System.Collections.Generic;
-using Manatee.Trello.Rest;
+using Manatee.Trello.Internal;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Contracts
 {
-	internal interface IRequestQueue : IEnumerable<IQueuedRestRequest>
+	/// <summary>
+	/// Defines methods required to queue REST requests.
+	/// </summary>
+	public interface IRequestQueue : IEnumerable<IQueuedRestRequest>
 	{
+		/// <summary>
+		/// Raised when an item is added to the queue.
+		/// </summary>
 		event EventHandler ItemQueued;
 
+		/// <summary>
+		/// Removes the first item from the queue.
+		/// </summary>
+		/// <returns>The first item in the queue, or null if the queue is empty.</returns>
 		IQueuedRestRequest Dequeue();
+		/// <summary>
+		/// Adds an item to the queue, then raises ItemQueued.
+		/// </summary>
+		/// <param name="request">A request.</param>
 		void Enqueue(IQueuedRestRequest request);
+		/// <summary>
+		/// Adds a collection of requests to the queue at once, then raises ItemQueued once.
+		/// </summary>
+		/// <param name="requests">A collection of requests.</param>
+		void BulkEnqueue(IEnumerable<IQueuedRestRequest> requests);
 	}
 }

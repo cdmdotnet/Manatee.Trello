@@ -26,16 +26,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//   "checkItems":[
-	//      {
-	//         "state":"incomplete",
-	//         "id":"514463bfd02ebee350000d1c",
-	//         "name":"Test development",
-	//         "pos":16703
-	//      },
 	/// <summary>
 	/// Represents an item in a checklist.
 	/// </summary>
@@ -75,7 +69,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;				
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.NonEmptyString(value);
 				if (_jsonCheckItem == null) return;
 				if (_jsonCheckItem.Name == value) return;
@@ -98,7 +92,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Position(value);
 				if (_jsonCheckItem == null) return;
 				if (_position == value) return;
@@ -123,7 +117,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (_isDeleted) return;
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonCheckItem == null) return;
 				if (_state == value) return;
 				_state = value;
@@ -169,7 +163,7 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			if (Svc == null) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonCheckItem>(request);
@@ -256,7 +250,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonCheckItem = (IJsonCheckItem) obj;
+			if (obj is IRestResponse)
+				_jsonCheckItem = ((IRestResponse<IJsonCheckItem>)obj).Data;
+			else
+				_jsonCheckItem = (IJsonCheckItem)obj;
 			_position = _jsonCheckItem.Pos.HasValue ? new Position(_jsonCheckItem.Pos.Value) : Position.Unknown;
 			UpdateState();
 		}

@@ -26,7 +26,7 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
 {
-	public interface IRestExecuteHandler
+	internal interface IRestExecuteHandler
 	{
 		IRestResponse Execute(IRestClient client, Type type, IRestRequest request);
 	}

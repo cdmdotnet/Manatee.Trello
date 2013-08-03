@@ -27,17 +27,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//   "prefs":{
-	//      "permissionLevel":"public",
-	//      "voting":"members",
-	//      "comments":"members",
-	//      "invitations":"members",
-	//      "selfJoin":false,
-	//      "cardCovers":true
-	//   },
 	///<summary>
 	/// Represents available preferences setting for a board
 	///</summary>
@@ -66,7 +59,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_jsonBoardPreferences.SelfJoin == value) return;
@@ -87,7 +80,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_comments == value) return;
 				_comments = value;
@@ -108,7 +101,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_invitations == value) return;
 				_invitations = value;
@@ -129,7 +122,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
@@ -150,7 +143,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_jsonBoardPreferences.CardCovers == value) return;
@@ -171,7 +164,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_voting == value) return;
 				_voting = value;
@@ -246,7 +239,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonBoardPreferences = (IJsonBoardPreferences) obj;
+			if (obj is IRestResponse)
+				_jsonBoardPreferences = ((IRestResponse<IJsonBoardPreferences>)obj).Data;
+			else
+				_jsonBoardPreferences = (IJsonBoardPreferences)obj;
 			UpdateComments();
 			UpdateInvitations();
 			UpdatePermissionLevel();

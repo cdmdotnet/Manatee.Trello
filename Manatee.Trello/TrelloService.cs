@@ -21,13 +21,16 @@
 					maintains a cache of all retrieved items.
 
 ***************************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -41,6 +44,7 @@ namespace Manatee.Trello
 		private readonly IRequestQueueHandler _requestQueueHandler;
 		private readonly ITrelloRest _api;
 		private readonly IValidator _validator;
+		private readonly IEntityFactory _entityFactory;
 		private readonly string _appKey;
 		private string _userToken;
 		private Member _me;
@@ -71,33 +75,60 @@ namespace Manatee.Trello
 				return _me ?? (_me = GetMe());
 			}
 		}
+		/// <summary>
+		/// Provides a set of options for use by a single ITrelloService instance.
+		/// </summary>
 		public ITrelloServiceConfiguration Configuration { get { return _configuration; } }
 		/// <summary>
-		/// Facilitates calling the Trello API.
+		/// Gets whether the ITrelloService instance can connect to Trello.
 		/// </summary>
-		/// <remarks>
-		/// Provided for testing.  It is not recommended that this is used.
-		/// </remarks>
-		public ITrelloRest Api { get { return _api; } }
-		public IValidator Validator { get { return _validator; } }
+		public bool IsConnected { get { return _requestQueueHandler.IsConnected; } }
+		ITrelloRest ITrelloService.Api { get { return _api; } }
+		IValidator ITrelloService.Validator { get { return _validator; } }
+		private ITrelloRest Api { get { return _api; } }
 
 		/// <summary>
-		/// Creates a new instance of the TrelloService class.
+		/// Creates a new instance of the TrelloService class using the default configuration.
 		/// </summary>
-		/// <param name="appKey"></param>
-		/// <param name="userToken"></param>
+		/// <param name="appKey">The application key.</param>
+		/// <param name="userToken">The user token.</param>
 		public TrelloService(string appKey, string userToken = null)
 			: this(TrelloServiceConfiguration.Default, appKey, userToken) {}
-		public TrelloService(TrelloServiceConfiguration configuration, string appKey, string userToken = null)
+		/// <summary>
+		/// Creates a new instance of the TrelloService class using a given configuration.
+		/// </summary>
+		/// <param name="configuration">A configuration object.</param>
+		/// <param name="appKey">The application key.</param>
+		/// <param name="userToken">The user token.</param>
+		public TrelloService(ITrelloServiceConfiguration configuration, string appKey, string userToken = null)
 		{
 			_validator = new Validator(this);
-			_validator.NonEmptyString(appKey);
 			_configuration = configuration ?? TrelloServiceConfiguration.Default;
+			_validator.NonEmptyString(appKey);
 			_appKey = appKey;
 			_userToken = userToken;
-			_requestQueue = new RequestQueue();
+			_requestQueue = configuration.RequestQueue;
 			_requestQueueHandler = new RequestQueueHandler(_configuration.Log, _requestQueue, _configuration.RestClientProvider, RestExecuteHandler.Default);
 			_api = new TrelloRest(_configuration.Log, _requestQueue, _appKey, _userToken);
+			_entityFactory = new EntityFactory();
+		}
+		internal TrelloService(ITrelloServiceConfiguration configuration,
+		                       string appKey,
+		                       string userToken,
+		                       IValidator validator,
+		                       IRequestQueue requestQueue,
+		                       IRequestQueueHandler requestQueueHandler,
+		                       ITrelloRest api,
+		                       IEntityFactory entityFactory)
+		{
+			_configuration = configuration;
+			_appKey = appKey;
+			_userToken = userToken;
+			_validator = validator;
+			_requestQueue = requestQueue;
+			_requestQueueHandler = requestQueueHandler;
+			_api = api;
+			_entityFactory = entityFactory;
 		}
 
 		/// <summary>
@@ -116,11 +147,7 @@ namespace Manatee.Trello
 			_validator.NonEmptyString(id);
 			T entity;
 			if (_configuration.Cache != null)
-			{
-				entity = _configuration.Cache.Find<T>(e => e.Matches(id));
-				if (entity != null) return entity;
-				entity = Verify<T>(id);
-			}
+				entity = _configuration.Cache.Find(e => e.Matches(id), () => Verify<T>(id));
 			else
 				entity = Verify<T>(id);
 			return entity;
@@ -136,7 +163,7 @@ namespace Manatee.Trello
 		public SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All)
 		{
 			_validator.NonEmptyString(query);
-			var endpoint = new Endpoint(new[] {"search"});
+			var endpoint = new Endpoint(new[] { "search" });
 			var request = _configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
 			request.AddParameter("query", query);
 			request.AddParameter("action_fields", "id");
@@ -181,24 +208,44 @@ namespace Manatee.Trello
 				yield return entity;
 			}
 		}
-		public IEnumerable<IQueuedRestRequest> GetUnsentRequests()
-		{
-			return _requestQueue;
-		}
+		/// <summary>
+		/// Instructs the service to stop sending requests.
+		/// </summary>
 		public void HoldRequests()
 		{
 			_requestQueueHandler.IsActive = false;
 		}
+		/// <summary>
+		/// Instructs the service to continue sending requests.
+		/// </summary>
 		public void ResumeRequests()
 		{
+			foreach (var request in _requestQueue)
+			{
+				request.CanContinue = false;
+				var req = request;
+				new Thread(() => SpinRequest(req)).Start();
+			}
 			_requestQueueHandler.IsActive = true;
 		}
+		/// <summary>
+		/// Retrieves any stored requests so that they can be stored and later restored.
+		/// </summary>
+		/// <returns>A collection of IQueuedRestRequests.</returns>
+		public IEnumerable<IQueuedRestRequest> GetUnsentRequests()
+		{
+			return _requestQueue;
+		}
+		/// <summary>
+		/// Restores previously persisted requests so that they may be sent.
+		/// </summary>
+		/// <param name="requests">A collection of IQueuedRestRequests.</param>
 		public void RestoreRequests(IEnumerable<IQueuedRestRequest> requests)
 		{
-			foreach (var request in requests)
-			{
-				_requestQueue.Enqueue(request);
-			}
+			var active = _requestQueueHandler.IsActive;
+			_requestQueueHandler.IsActive = false;
+			_requestQueue.BulkEnqueue(requests.Select(CreateInternalRequest));
+			_requestQueueHandler.IsActive = active;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.
@@ -259,6 +306,53 @@ namespace Manatee.Trello
 			where T : ExpiringObject
 		{
 			return string.Join(",", models.OfType<T>().Take(24).Select(m => m.Id));
+		}
+		private QueuedRestRequest CreateInternalRequest(IQueuedRestRequest r)
+		{
+			var queuedRequest = new QueuedRestRequest
+			{
+				Request = _configuration.RestClientProvider.RequestProvider.Create(r.Request),
+				CanContinue = false,
+				RequestedType = r.RequestedType,
+			};
+			new Thread(() => SpinRequest(queuedRequest, r)).Start();
+			return queuedRequest;
+		}
+		private void SpinRequest(IQueuedRestRequest request, IQueuedRestRequest original = null)
+		{
+			ExpiringObject entity = null;
+			try
+			{
+				SpinWait.SpinUntil(() => request.CanContinue);
+				if (original != null)
+					original.Response = request.Response;
+				if (request.RequestedType.IsGenericType && (request.RequestedType.GetGenericTypeDefinition() == typeof (List<>)))
+				{
+					var type = request.RequestedType.GetGenericArguments().First();
+					var list = ((IRestResponse<IEnumerable<object>>) request.Response).Data;
+					foreach (var obj in list)
+					{
+						entity = _entityFactory.CreateEntity(type);
+						if (request.Response == null) return;
+						entity.ApplyJson(obj);
+						entity.Svc = this;
+						//entity.ForceNotExpired();
+					}
+				}
+				else
+				{
+					entity = _entityFactory.CreateEntity(request.RequestedType);
+					if (request.Response == null) return;
+					entity.ApplyJson(request.Response);
+					entity.Svc = this;
+					entity.ForceNotExpired();
+				}
+			}
+			catch
+			{
+				_configuration.Cache.Remove(entity);
+				throw;
+			}
 		}
 	}
 }

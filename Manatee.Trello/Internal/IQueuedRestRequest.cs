@@ -26,11 +26,27 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
 {
+	/// <summary>
+	/// Defines properties required for a REST request to be queued.
+	/// </summary>
 	public interface IQueuedRestRequest
 	{
+		/// <summary>
+		/// The request to send.
+		/// </summary>
 		IRestRequest Request { get; set; }
+		/// <summary>
+		/// The type of data expected to receive.
+		/// </summary>
 		Type RequestedType { get; set; }
+		/// <summary>
+		/// The response from sending the request.
+		/// </summary>
 		IRestResponse Response { get; set; }
+		/// <summary>
+		/// A flag used by the service to indicate that execution may continue.
+		/// Does not necessarily indicate that the request was sent.
+		/// </summary>
 		bool CanContinue { get; set; }
 	}
 }

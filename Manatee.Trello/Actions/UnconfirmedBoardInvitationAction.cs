@@ -29,16 +29,70 @@ namespace Manatee.Trello
 	/// </summary>
 	public class UnconfirmedBoardInvitationAction : Action
 	{
+		private Board _board;
+		private readonly string _boardId;
+		private readonly string _boardName;
+		private Member _member;
+		private readonly string _memberId;
+		private readonly string _memberName;
+		private string _stringFormat;
+
+		/// <summary>
+		/// Gets the organization associated with the action.
+		/// </summary>
+		public Board Board
+		{
+			get
+			{
+				if (_isDeleted) return null;
+				VerifyNotExpired();
+				return ((_board == null) || (_board.Id != _boardId)) && (Svc != null)
+						? (_board = Svc.Retrieve<Board>(_boardId))
+						: _board;
+			}
+		}
+
+		/// <summary>
+		/// Gets the member associated with the action.
+		/// </summary>
+		public Member InvitedMember
+		{
+			get
+			{
+				if (_isDeleted) return null;
+				VerifyNotExpired();
+				return ((_member == null) || (_member.Id != _memberId)) && (Svc != null) ? (_member = Svc.Retrieve<Member>(_memberId)) : _member;
+			}
+		}
+
 		/// <summary>
 		/// Creates a new instance of the UnconfirmedBoardInvitationAction class.
 		/// </summary>
 		/// <param name="action"></param>
 		public UnconfirmedBoardInvitationAction(Action action)
+			: base(action.Svc, action.Id)
 		{
-			Debug.Assert(false, string.Format(
-				"{0} is not yet configured.  Please post the JSON returned by http://api.trello.com/actions/{1} to https://trello.com/c/k5q97GRf",
-				GetType().Name, action.Id));
 			VerifyNotExpired();
+			_boardId = action.Data.TryGetString("board", "id");
+			_boardName = action.Data.TryGetString("board", "name");
+			_memberId = action.Data.TryGetString("memberInvited", "id");
+			_memberName = action.Data.TryGetString("memberInvited", "id");
+		}
+
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return _stringFormat ?? (_stringFormat = string.Format("{0} added unconfirmed user {1} to board {2} on {3}",
+			                                                       MemberCreator.FullName,
+			                                                       InvitedMember != null ? InvitedMember.FullName : _memberName,
+																   Board != null ? Board.Name : _boardName,
+																   Date));
 		}
 	}
 }

@@ -26,14 +26,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//   "labels":[
-	//      {
-	//         "color":"green",
-	//         "name":""
-	//      },
 	/// <summary>
 	/// Represents a label as applied to a card.
 	/// </summary>
@@ -160,7 +156,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonLabel = (IJsonLabel) obj;
+			if (obj is IRestResponse)
+				_jsonLabel = ((IRestResponse<IJsonLabel>)obj).Data;
+			else
+				_jsonLabel = (IJsonLabel)obj;
 			UpdateColor();
 		}
 

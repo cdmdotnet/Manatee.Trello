@@ -33,15 +33,22 @@ namespace Manatee.Trello.Internal
 	{
 		private readonly ITrelloService _svc;
 
+		public static IValidator Default { get; private set; }
+
+		static Validator()
+		{
+			Default = new Validator();
+		}
+		private Validator() {}
 		public Validator(ITrelloService svc)
 		{
 			_svc = svc;
 		}
 
-		public void Writable(ITrelloService service)
+		public void Writable()
 		{
-			if (service == null) return;
-			if (service.UserToken == null)
+			if (_svc == null) return;
+			if (string.IsNullOrWhiteSpace(_svc.UserToken))
 				_svc.Configuration.Log.Error(new ReadOnlyAccessException());
 		}
 		public void Entity<T>(T entity, bool allowNulls = false)
@@ -52,7 +59,7 @@ namespace Manatee.Trello.Internal
 				if (allowNulls) return;
 				_svc.Configuration.Log.Error(new ArgumentNullException("entity"));
 			}
-			if (entity.Id == null)
+			if (string.IsNullOrWhiteSpace(entity.Id))
 				_svc.Configuration.Log.Error(new EntityNotOnTrelloException<T>(entity));
 		}
 		public void Nullable<T>(T? value)
@@ -96,34 +103,34 @@ namespace Manatee.Trello.Internal
 																	high)));
 			return str;
 		}
-		public string UserName(ITrelloService svc, string value)
+		public string UserName(string value)
 		{
 			var retVal = MinStringLength(value, 3, "Username");
 			if (retVal != retVal.ToLower())
 				_svc.Configuration.Log.Error(new ArgumentException("Username may only contain lowercase characters, underscores, and numbers"));
-			if (svc != null)
+			if (_svc != null)
 			{
 				var endpoint = new Endpoint(new[] {"search", "members"});
-				var request = svc.Configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = _svc.Configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("query", retVal);
 				request.AddParameter("fields", "id");
-				if (svc.Api.Get<List<IJsonMember>>(request).Count != 0)
+				if (_svc.Api.Get<List<IJsonMember>>(request).Count != 0)
 					_svc.Configuration.Log.Error(new UsernameInUseException(value));
 			}
 			return retVal;
 		}
-		public string OrgName(ITrelloService svc, string value)
+		public string OrgName(string value)
 		{
 			var retVal = MinStringLength(value, 3, "Name");
 			if (retVal != retVal.ToLower())
 				_svc.Configuration.Log.Error(new ArgumentException("Name may only contain lowercase characters, underscores, and numbers"));
-			if (svc != null)
+			if (_svc != null)
 			{
 				var endpoint = new Endpoint(new[] {"search", retVal});
-				var request = svc.Configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
+				var request = _svc.Configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
 				request.AddParameter("fields", "id");
 				request.AddParameter("modelTypes", "organizations");
-				var response = svc.Api.Get<IJsonSearchResults>(request);
+				var response = _svc.Api.Get<IJsonSearchResults>(request);
 				if (response.OrganizationIds.Count != 0)
 					_svc.Configuration.Log.Error(new OrgNameInUseException(value));
 			}

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test
@@ -50,6 +51,7 @@ namespace Manatee.Trello.Test
 		}
 		protected void ExceptionIsNotThrown()
 		{
+			Debug.WriteLine(_exception);
 			Assert.IsNull(_exception);
 		}
 		[GenericMethodFormat("{0} is thrown")]
@@ -57,19 +59,25 @@ namespace Manatee.Trello.Test
 			where TEx : Exception
 		{
 			Assert.IsNotNull(_exception);
+			if (!(_exception is TEx))
+				Debug.WriteLine(_exception);
 			Assert.IsInstanceOfType(_exception, typeof(TEx));
 		}
 		protected void ResponseIsNull()
 		{
+			Debug.WriteLine(_actualResult);
 			Assert.IsNull(_actualResult);
 		}
 		protected void ResponseIsNotNull()
 		{
+			if (_actualResult != null)
+				Debug.WriteLine(_actualResult);
 			Assert.IsNotNull(_actualResult);
 		}
 		[GenericMethodFormat("{0} is returned")]
 		protected void ResponseIs<TResult>()
 		{
+			ResponseIsNotNull();
 			Assert.IsInstanceOfType(_actualResult, typeof(TResult));
 		}
 	}

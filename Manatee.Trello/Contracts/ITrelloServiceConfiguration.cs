@@ -22,12 +22,14 @@
 ***************************************************************************************/
 
 using System;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 
-namespace Manatee.Trello
+namespace Manatee.Trello.Contracts
 {
+	/// <summary>
+	/// Defines a set of run-time options for Manatee.Trello.
+	/// </summary>
 	public interface ITrelloServiceConfiguration
 	{
 		/// <summary>
@@ -61,6 +63,10 @@ namespace Manatee.Trello
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
 		ILog Log { get; set; }
+		/// <summary>
+		/// Gets and sets the request queue.  Can be used to persist requests at shutdown.
+		/// </summary>
+		IRequestQueue RequestQueue { get; set; }
 		/// <summary>
 		/// Sets Manatee.Json as the serializer/deserializer (default).
 		/// </summary>

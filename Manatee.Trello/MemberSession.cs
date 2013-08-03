@@ -23,23 +23,12 @@
 using System;
 using System.Net;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "isCurrent":true,
-	//   "isRecent":true,
-	//   "id":"51927eb8cbd45eea2300004d",
-	//   "dateCreated":"2013-05-14T18:13:12.405Z",
-	//   "dateExpires":"2013-06-25T20:57:15.664Z",
-	//   "dateLastUsed":"2013-05-29T03:04:23.389Z",
-	//   "ipAddress":"71.96.206.6",
-	//   "type":"legacy",
-	//   "userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36"
-	//},
 	/// <summary>
 	/// Represents a web session currently active by a member.
 	/// </summary>
@@ -178,9 +167,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj == null)
-				Log.Error(new EntityNotOnTrelloException<MemberSession>(this));
-			_jsonMemberSession = (IJsonMemberSession) obj;
+			if (obj is IRestResponse)
+				_jsonMemberSession = ((IRestResponse<IJsonMemberSession>)obj).Data;
+			else
+				_jsonMemberSession = (IJsonMemberSession)obj;
 		}
 	}
 }
