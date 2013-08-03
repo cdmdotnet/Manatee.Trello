@@ -124,7 +124,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonAttachment>(request);

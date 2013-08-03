@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2012 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,51 +14,21 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		SimpleCache.cs
+	File Name:		IEntityFactory.cs
 	Namespace:		Manatee.Trello.Internal
-	Class Name:		SimpleCache
-	Purpose:		Simple implementation of the ICache interface.
+	Class Name:		IEntityFactory
+	Purpose:		Defines methods required to create entities from a given
+					JSON entity type.
 
 ***************************************************************************************/
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
 {
-	internal class SimpleCache : ICache
+	internal interface IEntityFactory
 	{
-		private readonly List<object> _list;
-
-		public SimpleCache()
-		{
-			_list = new List<object>();
-		}
-
-		public void Add(object obj)
-		{
-			if (_list.Contains(obj)) return;
-			_list.Add(obj);
-		}
-		public T Find<T>(Func<T, bool> match, Func<T> fetch)
-		{
-			T result = _list.OfType<T>().FirstOrDefault(match);
-			if (Equals(null, result))
-			{
-				result = fetch();
-				Add(result);
-			}
-			return result;
-		}
-		public void Remove(object obj)
-		{
-			_list.Remove(obj);
-		}
-		public IEnumerator GetEnumerator()
-		{
-			return _list.GetEnumerator();
-		}
+		ExpiringObject CreateEntity(Type jsonType);
 	}
 }

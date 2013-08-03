@@ -77,8 +77,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(ANotification)
 				.And(EntityIsRefreshed)
 				.When(MemberCreatorIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonNotification>, 1)
-				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access MemberCreator property when expired")
@@ -86,8 +85,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(EntityIsRefreshed)
 				.And(EntityIsExpired)
 				.When(MemberCreatorIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonNotification>, 1)
-				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -99,7 +97,8 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
-			SetupMockGet<IJsonNotification>();
+			var notification = SetupMockGet<IJsonNotification>();
+			notification.SetupGet(n => n.IdMemberCreator).Returns(TrelloIds.MemberId);
 			SetupMockRetrieve<Member>();
 		}
 		private void IsUnreadIs(bool? value)

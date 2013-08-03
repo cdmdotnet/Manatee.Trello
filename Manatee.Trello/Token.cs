@@ -26,6 +26,7 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -54,6 +55,9 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
+				if (_jsonToken == null) return null;
+				if (_jsonBoardPermissions == null) return null;
+				if (_jsonBoardPermissions.IdModel == null) return null;
 				return ((_boardPermissions == null) || (_boardPermissions.Scope.Model.Id != _jsonToken.IdMember)) && (Svc != null)
 						? (_boardPermissions = new TokenPermission<Board>(_jsonBoardPermissions, Svc.Retrieve<Board>(_jsonBoardPermissions.IdModel)))
 						: _boardPermissions;
@@ -120,7 +124,8 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonToken == null) return null; 
+				if (_jsonToken == null) return null;
+				if (_jsonToken.IdMember == null) return null; 
 				return ((_member == null) || (_member.Id != _jsonToken.IdMember)) && (Svc != null)
 				       	? (_member = Svc.Retrieve<Member>(_jsonToken.IdMember))
 				       	: _member;
@@ -135,6 +140,9 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
+				if (_jsonToken == null) return null;
+				if (_jsonMemberPermissions == null) return null;
+				if (_jsonMemberPermissions.IdModel == null) return null;
 				return ((_memberPermissions == null) || (_memberPermissions.Scope.Model.Id != _jsonToken.IdMember)) && (Svc != null)
 						? (_memberPermissions = new TokenPermission<Member>(_jsonMemberPermissions, Svc.Retrieve<Member>(_jsonMemberPermissions.IdModel)))
 						: _memberPermissions;
@@ -149,6 +157,9 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
+				if (_jsonToken == null) return null;
+				if (_jsonOrganizationPermissions == null) return null;
+				if (_jsonOrganizationPermissions.IdModel == null) return null;
 				return ((_organizationPermissions == null) || (_organizationPermissions.Scope.Model.Id != _jsonToken.IdMember)) && (Svc != null)
 				       	? (_organizationPermissions = new TokenPermission<Organization>(_jsonOrganizationPermissions, Svc.Retrieve<Organization>(_jsonOrganizationPermissions.IdModel)))
 				       	: _organizationPermissions;
@@ -185,7 +196,7 @@ namespace Manatee.Trello
 		{
 			if (Svc == null) return;
 			if (_isDeleted) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			var endpoint = EndpointGenerator.Default.Generate2(Member, this);
 			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Delete<IJsonToken>(request);
@@ -212,7 +223,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("Token issued by {0} for use by {1}. {2}", Member.FullName, Identifier, GetExpirationDateString());
+			return string.Format("Token issued by {0} for use by {1}. {2}", Member == null ? "someone" : Member.FullName, Identifier, GetExpirationDateString());
 		}
 		/// <summary>
 		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
@@ -275,8 +286,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj == null) return;
-			_jsonToken = (IJsonToken) obj;
+			if (obj is IRestResponse)
+				_jsonToken = ((IRestResponse<IJsonToken>)obj).Data;
+			else
+				_jsonToken = (IJsonToken) obj;
 			_jsonBoardPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Board");
 			_jsonMemberPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Member");
 			_jsonOrganizationPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Organization");

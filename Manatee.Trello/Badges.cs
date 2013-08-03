@@ -26,21 +26,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//   "badges":{
-	//      "votes":0,
-	//      "viewingMemberVoted":false,
-	//      "subscribed":false,
-	//      "fogbugz":"",
-	//      "due":null,
-	//      "description":true,
-	//      "comments":0,
-	//      "checkItemsChecked":0,
-	//      "checkItems":4,
-	//      "attachments":0
-	//   },
 	///<summary>
 	/// Represents the set of badges shown on the card cover.
 	///</summary>
@@ -196,7 +185,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonBadges = (IJsonBadges) obj;
+			if (obj is IRestResponse)
+				_jsonBadges = ((IRestResponse<IJsonBadges>)obj).Data;
+			else
+				_jsonBadges = (IJsonBadges)obj;
 		}
 	}
 }

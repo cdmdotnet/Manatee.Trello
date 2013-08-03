@@ -69,6 +69,10 @@ namespace Manatee.Trello.Internal
 		{
 			sb.AppendLine(string.Format(format, parameters));
 		}
+		public static void Append(this StringBuilder sb, string format, params object[] parameters)
+		{
+			sb.Append(string.Format(format, parameters));
+		}
 		public static string CSharpName(this Type type)
 		{
 			var sb = new StringBuilder();

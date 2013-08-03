@@ -283,7 +283,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnOrganization)
 				.And(EntityIsRefreshed)
 				.When(NameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonSearchResults>, 1)
+				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
 				.And(MockApiPutIsCalled<IJsonOrganization>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -316,9 +316,9 @@ namespace Manatee.Trello.Test.UnitTests
 				.WithScenario("Set Name property to existing name")
 				.Given(AnOrganization)
 				.And(EntityIsRefreshed)
-				.And(NameExists)
+				.And(NameExists, "name")
 				.When(NameIsSet, "name")
-				.Then(MockApiGetIsCalled<IJsonSearchResults>, 1)
+				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
 				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
 				.And(ExceptionIsThrown<OrgNameInUseException>)
 
@@ -531,26 +531,30 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("AddOrUpdateMember is called")
 				.Given(AnOrganization)
 				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
-				.Then(MockApiPutIsCalled<IJsonMember>, 1)
+				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 1)
+				.And(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("AddOrUpdateMember is called with null email")
 				.Given(AnOrganization)
 				.When(AddOrUpdateMemberIsCalled, (string) null, "Some Email")
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddOrUpdateMember is called with null name")
 				.Given(AnOrganization)
 				.When(AddOrUpdateMemberIsCalled, "some@email.com", (string) null)
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddOrUpdateMember is called without UserToken")
 				.Given(AnOrganization)
 				.And(TokenNotSupplied)
 				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -675,6 +679,10 @@ namespace Manatee.Trello.Test.UnitTests
 			SetupMockPut<IJsonMember>();
 			SetupMockGet<IJsonOrganization>();
 			SetupMockPost<IJsonBoard>();
+			var mockMember = new Mock<Member>();
+			mockMember.SetupGet(m => m.Id).Returns(TrelloIds.MemberId);
+			_systemUnderTest.Dependencies.Svc.Setup(s => s.SearchMembers(It.IsAny<string>(), It.IsAny<int>()))
+							.Returns(new List<Member> { mockMember.Object });
 		}
 		private void DescriptionIs(string value)
 		{
@@ -684,12 +692,12 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			SetupProperty(() => _systemUnderTest.Sut.DisplayName = value);
 		}
-		private void NameExists()
+		private void NameExists(string name)
 		{
 			var obj = new Mock<IJsonSearchResults>();
 			obj.SetupGet(s => s.OrganizationIds).Returns(new List<string> {TrelloIds.Invalid});
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<IJsonSearchResults>(It.IsAny<IRestRequest>()))
-				.Returns(obj.Object);
+			_systemUnderTest.Dependencies.Validator.Setup(v => v.OrgName(It.Is<string>(s => s == name)))
+			                .Throws(new OrgNameInUseException(name));
 		}
 		private void NameIs(string value)
 		{
@@ -803,6 +811,15 @@ namespace Manatee.Trello.Test.UnitTests
 		private void RescindInvitationIsCalled(Member member)
 		{
 			Execute(() => _systemUnderTest.Sut.RescindInvitation(member));
+		}
+
+		#endregion
+
+		#region Then
+
+		private void MockSvcSearchMembersIsCalled(string emailAddress, int count)
+		{
+			_systemUnderTest.Dependencies.Svc.Verify(t => t.SearchMembers(It.Is<string>(s => s == emailAddress), It.IsAny<int>()), Times.Exactly(count));
 		}
 
 		#endregion

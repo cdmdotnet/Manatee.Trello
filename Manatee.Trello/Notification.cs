@@ -26,30 +26,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//[
-	//   {
-	//      "id":"5144719b047913c06e00294e",
-	//      "unread":true,
-	//      "type":"addedToBoard",
-	//      "date":"2013-03-16T13:20:27.311Z",
-	//      "data":{
-	//         "board":{
-	//            "name":"Manatee.Json",
-	//            "id":"50d227239c7b29575f000f99"
-	//         }
-	//      },
-	//      "idMemberCreator":"50b693ad6f122b4310000a3c",
-	//      "memberCreator":{
-	//         "id":"50b693ad6f122b4310000a3c",
-	//         "avatarHash":"e97c40e0d0b85ab66661dbff5082d627",
-	//         "fullName":"Greg Dennis",
-	//         "initials":"GD",
-	//         "username":"gregsdennis"
-	//      }
-	//   },
 	/// <summary>
 	/// Represents a member notification.
 	/// </summary>
@@ -102,7 +82,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonNotification == null) return;
 				if (_jsonNotification.Unread == value) return;
@@ -119,6 +99,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (_jsonNotification == null) return null;
+				if (_jsonNotification.IdMemberCreator == null) return null;
 				return ((_memberCreator == null) || (_memberCreator.Id != _jsonNotification.IdMemberCreator)) && (Svc != null)
 				       	? (_memberCreator = Svc.Retrieve<Member>(_jsonNotification.IdMemberCreator))
 				       	: _memberCreator;
@@ -242,7 +223,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} did something noteworthy.", MemberCreator.FullName);
+			return string.Format("{0} did something noteworthy.", MemberCreator == null ? "An unknown member" : MemberCreator.FullName);
 		}
 
 		/// <summary>
@@ -275,7 +256,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonNotification = (IJsonNotification)obj;
+			if (obj is IRestResponse)
+				_jsonNotification = ((IRestResponse<IJsonNotification>)obj).Data;
+			else
+				_jsonNotification = (IJsonNotification)obj;
 			UpdateType();
 		}
 

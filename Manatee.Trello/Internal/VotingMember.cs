@@ -21,8 +21,6 @@
 
 ***************************************************************************************/
 using System;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal
 {

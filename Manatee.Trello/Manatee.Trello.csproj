@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Manatee.Json.1.1.3\lib\net40\Manatee.Json.dll</HintPath>
+      <HintPath>..\packages\Manatee.Json.1.1.4\lib\net40\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -111,8 +111,10 @@
     <Compile Include="Enumerations\OrganizationMembershipType.cs" />
     <Compile Include="Internal\ActionProvider.cs" />
     <Compile Include="Internal\BoardInvitation.cs" />
+    <Compile Include="Internal\EntityFactory.cs" />
+    <Compile Include="Internal\IEntityFactory.cs" />
     <Compile Include="Internal\IQueuedRestRequest.cs" />
-    <Compile Include="Internal\IRequestQueue.cs" />
+    <Compile Include="Contracts\IRequestQueue.cs" />
     <Compile Include="Internal\IRequestQueueHandler.cs" />
     <Compile Include="Internal\IRestExecuteHandler.cs" />
     <Compile Include="Internal\IValidator.cs" />
@@ -147,12 +149,12 @@
     <Compile Include="Internal\NotificationProvider.cs" />
     <Compile Include="Internal\DebugLog.cs" />
     <Compile Include="Internal\QueuedRestRequest.cs" />
-    <Compile Include="Internal\RequestHandler.cs" />
+    <Compile Include="Internal\RequestQueueHandler.cs" />
     <Compile Include="Internal\RequestQueue.cs" />
     <Compile Include="Internal\RestExecuteHandler.cs" />
     <Compile Include="Internal\SimpleCache.cs" />
     <Compile Include="Internal\ThreadSafeCache.cs" />
-    <Compile Include="ITrelloServiceConfiguration.cs" />
+    <Compile Include="Contracts\ITrelloServiceConfiguration.cs" />
     <Compile Include="Json\Contracts\IJsonCacheable.cs" />
     <Compile Include="Json\Contracts\IJsonMemberSession.cs" />
     <Compile Include="Json\Contracts\IJsonOrganizationMembership.cs" />

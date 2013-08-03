@@ -38,5 +38,14 @@ namespace Manatee.Trello.Rest
 		{
 			return new RestSharpRequest(_serializer, endpoint);
 		}
+		public IRestRequest Create(IRestRequest request)
+		{
+			var retVal = new RestSharpRequest(_serializer, request.Resource) {Method = request.Method};
+			foreach (var parameter in request.Parameters)
+			{
+				retVal.AddParameter(parameter.Key, parameter.Value);
+			}
+			return retVal;
+		}
 	}
 }

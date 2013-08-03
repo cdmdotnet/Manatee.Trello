@@ -22,21 +22,14 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "id":"5144051cbd0da6681200201f",
-	//   "name":"Current Version Backlog",
-	//   "closed":false,
-	//   "idBoard":"5144051cbd0da6681200201e",
-	//   "pos":16384
-	//}
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
@@ -96,7 +89,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonList == null) return;
 				if (_jsonList.Closed == value) return;
@@ -117,7 +110,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonList == null) return;
 				if (_jsonList.Subscribed == value) return;
@@ -138,7 +131,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.NonEmptyString(value);
 				if (_jsonList == null) return;
 				if (_jsonList.Name == value) return;
@@ -159,7 +152,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Position(value);
 				if (_jsonList == null) return;
 				if (_position == value) return;
@@ -197,7 +190,7 @@ namespace Manatee.Trello
 		public Card AddCard(string name, string description = null, Position position = null)
 		{
 			if (Svc == null) return null;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.NonEmptyString(name);
 			var card = new Card();
 			var endpoint = EndpointGenerator.Default.Generate(card);
@@ -228,7 +221,7 @@ namespace Manatee.Trello
 		public void Move(Board board, Position position = null)
 		{
 			if (Svc == null) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(board);
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -326,7 +319,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonList = (IJsonList) obj;
+			if (obj is IRestResponse)
+				_jsonList = ((IRestResponse<IJsonList>)obj).Data;
+			else
+				_jsonList = (IJsonList)obj;
 			_position = ((_jsonList != null) && _jsonList.Pos.HasValue) ? new Position(_jsonList.Pos.Value) : Position.Unknown;
 		}
 

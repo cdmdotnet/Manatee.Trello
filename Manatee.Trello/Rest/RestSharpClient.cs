@@ -43,7 +43,7 @@ namespace Manatee.Trello.Rest
 		public IRestResponse<T> Execute<T>(IRestRequest request)
 			where T : class
 		{
-			var restSharpRequest = (RestSharpRequest)request;
+			var restSharpRequest = (RestSharpRequest) request;
 			var restSharpResponse = base.Execute(restSharpRequest);
 			ValidateResponse(restSharpResponse);
 			var data = _deserializer.Deserialize<T>(restSharpResponse);

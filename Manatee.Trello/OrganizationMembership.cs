@@ -26,10 +26,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//{"id":"50d4eb07a1b090215200332a","idMember":"50b693ad6f122b4310000a3c","memberType":"admin","unconfirmed":false}
 	/// <summary>
 	/// Represents a membership of an Organization.
 	/// </summary>
@@ -187,7 +187,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonOrganizationMembership = (IJsonOrganizationMembership)obj;
+			if (obj is IRestResponse)
+				_jsonOrganizationMembership = ((IRestResponse<IJsonOrganizationMembership>)obj).Data;
+			else
+				_jsonOrganizationMembership = (IJsonOrganizationMembership)obj;
 			UpdateType();
 		}
 

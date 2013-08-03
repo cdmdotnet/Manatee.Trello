@@ -22,13 +22,14 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections;
 
 namespace Manatee.Trello.Contracts
 {
 	/// <summary>
 	/// Defines operations for a cache.  Used by the TrelloService class.
 	/// </summary>
-	public interface ICache
+	public interface ICache : IEnumerable
 	{
 		/// <summary>
 		/// Adds an object to the cache, if it does not already exist.
@@ -40,8 +41,13 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		/// <typeparam name="T">The type of object to find.</typeparam>
 		/// <param name="match">A function which evaluates the matching criteria.</param>
-		/// <returns>The first matching object, or the default for the type if none is found.</returns>
-		T Find<T>(Func<T, bool> match);
+		/// <param name="fetch">A function which can use alternate means to retrieve the item.</param>
+		/// <returns>The first matching object, or the fetched object if applicable.</returns>
+		/// <remarks>
+		/// When the function in the fetch parameter is called, the returned object should be
+		/// added to the queue.
+		/// </remarks>
+		T Find<T>(Func<T, bool> match, Func<T> fetch);
 		/// <summary>
 		/// Removes an object from the cache, if it exists.
 		/// </summary>

@@ -747,7 +747,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AMember)
 				.And(EntityIsRefreshed)
 				.When(UsernameIsSet, "description")
-				.Then(MockApiGetIsCalled<List<IJsonMember>>, 1)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
 				.And(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
@@ -780,9 +780,9 @@ namespace Manatee.Trello.Test.UnitTests
 				.WithScenario("Set Username property to existing username")
 				.Given(AMember)
 				.And(EntityIsRefreshed)
-				.And(UsernameExists)
+				.And(UsernameExists, "username")
 				.When(UsernameIsSet, "username")
-				.Then(MockApiGetIsCalled<List<IJsonMember>>, 1)
+				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
 				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<UsernameInUseException>)
 
@@ -1076,12 +1076,12 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			SetupProperty(() => _systemUnderTest.Sut.Initials = value);
 		}
-		private void UsernameExists()
+		private void UsernameExists(string username)
 		{
 			var obj = new Mock<IJsonMember>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<List<IJsonMember>>(It.IsAny<IRestRequest>()))
-				.Returns(new List<IJsonMember> {obj.Object});
+			_systemUnderTest.Dependencies.Validator.Setup(v => v.UserName(It.Is<string>(s => s == username)))
+			                .Throws(new UsernameInUseException(username));
 		}
 		private void UsernameIs(string value)
 		{
@@ -1098,7 +1098,7 @@ namespace Manatee.Trello.Test.UnitTests
 			                               	})
 								   .ToList();
 
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<List<IJsonAction>>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<List<IJsonAction>>(It.IsAny<IRestRequest>()))
 				.Returns(jsonActions);
 		}
 		private void AllKnownNotificationTypesExist()
@@ -1112,7 +1112,7 @@ namespace Manatee.Trello.Test.UnitTests
 			                               	})
 										 .ToList();
 
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<List<IJsonNotification>>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<List<IJsonNotification>>(It.IsAny<IRestRequest>()))
 				.Returns(jsonNotifications);
 		}
 

@@ -22,6 +22,7 @@
 ***************************************************************************************/
 
 using System;
+using System.Collections;
 using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
@@ -44,11 +45,11 @@ namespace Manatee.Trello.Internal
 				_innerCache.Add(obj);
 			}
 		}
-		public T Find<T>(Func<T, bool> match)
+		public T Find<T>(Func<T, bool> match, Func<T> fetch)
 		{
 			lock (_lock)
 			{
-				return _innerCache.Find(match);
+				return _innerCache.Find(match, fetch);
 			}
 		}
 		public void Remove(object obj)
@@ -57,6 +58,10 @@ namespace Manatee.Trello.Internal
 			{
 				_innerCache.Remove(obj);
 			}
+		}
+		public IEnumerator GetEnumerator()
+		{
+			return _innerCache.GetEnumerator();
 		}
 	}
 }

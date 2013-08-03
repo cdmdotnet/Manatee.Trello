@@ -608,26 +608,26 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("AddOrUpdateMember is called")
 				.Given(ABoard)
 				.When(AddOrUpdateMemberIsCalled, new Member {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<IJsonBoard>, 1)
+				.Then(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("AddOrUpdateMember is called with null")
 				.Given(ABoard)
 				.When(AddOrUpdateMemberIsCalled, (Member) null)
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddOrUpdateMember is called with local member")
 				.Given(ABoard)
 				.When(AddOrUpdateMemberIsCalled, new Member())
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
 
 				.WithScenario("AddOrUpdateMember is called without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(AddOrUpdateMemberIsCalled, new Member())
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
+				.Then(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -644,26 +644,30 @@ namespace Manatee.Trello.Test.UnitTests
 			feature.WithScenario("AddOrUpdateMember is called")
 				.Given(ABoard)
 				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
-				.Then(MockApiPutIsCalled<IJsonMember>, 1)
+				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 1)
+				.And(MockApiPutIsCalled<IJsonMember>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("AddOrUpdateMember is called with null email")
 				.Given(ABoard)
 				.When(AddOrUpdateMemberIsCalled, (string)null, "Some Email")
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddOrUpdateMember is called with null name")
 				.Given(ABoard)
 				.When(AddOrUpdateMemberIsCalled, "some@email.com", (string)null)
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("AddOrUpdateMember is called without UserToken")
 				.Given(ABoard)
 				.And(TokenNotSupplied)
 				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
+				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
+				.And(MockApiPutIsCalled<IJsonMember>, 0)
 				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
@@ -785,11 +789,15 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest = new EntityUnderTest();
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
-			var board = SetupMockGet<IJsonBoard>();
-			board.SetupGet(b => b.IdOrganization).Returns("some initial value");
+			var jsonBoardMock = SetupMockGet<IJsonBoard>();
+			jsonBoardMock.SetupGet(b => b.IdOrganization).Returns(TrelloIds.OrganizationId);
 			SetupMockPut<IJsonMember>();
 			SetupMockPost<IJsonList>();
 			SetupMockRetrieve<Organization>();
+			var mockMember = new Mock<Member>();
+			mockMember.SetupGet(m => m.Id).Returns(TrelloIds.MemberId);
+			_systemUnderTest.Dependencies.Svc.Setup(s => s.SearchMembers(It.IsAny<string>(), It.IsAny<int>()))
+			                .Returns(new List<Member> {mockMember.Object});
 		}
 		private void DescriptionIs(string value)
 		{
@@ -935,6 +943,15 @@ namespace Manatee.Trello.Test.UnitTests
 		private void RescindInvitationIsCalled()
 		{
 			Execute(() => _systemUnderTest.Sut.RescindInvitation(new Member { Id = TrelloIds.Invalid }));
+		}
+
+		#endregion
+
+		#region Then
+
+		private void MockSvcSearchMembersIsCalled(string emailAddress, int count)
+		{
+			_systemUnderTest.Dependencies.Svc.Verify(t => t.SearchMembers(It.Is<string>(s => s == emailAddress), It.IsAny<int>()), Times.Exactly(count));
 		}
 
 		#endregion

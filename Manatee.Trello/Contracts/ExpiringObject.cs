@@ -90,9 +90,9 @@ namespace Manatee.Trello.Contracts
 		}
 		internal ITrelloRest Api { get { return Svc == null ? null : Svc.Api; } }
 		internal IRestRequestProvider RequestProvider { get { return Svc == null ? null : Svc.Configuration.RestClientProvider.RequestProvider; } }
-		internal ICache Cache { get { return Svc == null ? null : Svc.Configuration.Cache; } }
-		internal ILog Log { get { return Svc == null ? null : Svc.Configuration.Log; } }
-		internal IValidator Validator { get { return Svc.Validator; } }
+		internal ICache Cache { get { return Svc == null ? TrelloServiceConfiguration.GlobalCache : Svc.Configuration.Cache; } }
+		internal ILog Log { get { return Svc == null ? TrelloServiceConfiguration.GlobalLog : Svc.Configuration.Log; } }
+		internal IValidator Validator { get { return Svc == null ? Internal.Validator.Default : Svc.Validator; } }
 		internal abstract string Key { get; }
 		internal abstract string Key2 { get; }
 		internal virtual string KeyId { get { return Id; } }
@@ -115,7 +115,7 @@ namespace Manatee.Trello.Contracts
 			else if (Owner != null)
 				Log.Debug("{0} owned by {1} with ID {{{2}}} marked to update.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id);
 			else
-				Log.Debug("A {0} marked to update.", GetType().CSharpName());
+				Log.Debug("A {0} has been marked to update.", GetType().CSharpName());
 		}
 
 		internal void ForceNotExpired()
@@ -123,11 +123,11 @@ namespace Manatee.Trello.Contracts
 			_expires = DateTime.Now.AddMinutes(1);
 			if (Svc == null) return;
 			if (Id != null)
-				Log.Debug("{0} with ID {{{1}}} has been forced to not expire.", GetType().CSharpName(), Id);
+				Log.Debug("{0} with ID {{{1}}} has been marked as not expired.", GetType().CSharpName(), Id);
 			else if (Owner != null)
-				Log.Debug("{0} owned by {1} with ID {{{2}}} has been forced to not expire.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id);
+				Log.Debug("{0} owned by {1} with ID {{{2}}} has been marked as not expired.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id);
 			else
-				Log.Debug("A {0} has been forced to not expire.", GetType().CSharpName());
+				Log.Debug("A {0} has been marked as not expired.", GetType().CSharpName());
 		}
 		internal virtual bool Matches(string id)
 		{

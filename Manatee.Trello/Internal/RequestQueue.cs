@@ -25,11 +25,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Manatee.Trello.Rest;
+using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
 {
-	public class RequestQueue : IRequestQueue
+	internal class RequestQueue : IRequestQueue
 	{
 		private readonly Queue<IQueuedRestRequest> _queue;
 
@@ -51,6 +51,13 @@ namespace Manatee.Trello.Internal
 			_queue.Enqueue(request);
 			if (ItemQueued != null)
 				ItemQueued(this, new EventArgs());
+		}
+		public void BulkEnqueue(IEnumerable<IQueuedRestRequest> requests)
+		{
+			foreach (var request in requests)
+			{
+				_queue.Enqueue(request);
+			}
 		}
 		public IEnumerator<IQueuedRestRequest> GetEnumerator()
 		{

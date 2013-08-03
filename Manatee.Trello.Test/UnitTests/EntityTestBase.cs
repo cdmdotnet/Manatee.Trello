@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Rest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,17 +17,23 @@ namespace Manatee.Trello.Test.UnitTests
 		protected new class DependencyCollection : UnitTestBase<T>.DependencyCollection
 		{
 			public Mock<ITrelloService> Svc { get; private set; }
-			public Mock<ITrelloRest> Rest { get; private set; }
 
 			public DependencyCollection()
 			{
 				Svc = new Mock<ITrelloService>();
-				Rest = new Mock<ITrelloRest>();
 
 				Svc.SetupGet(s => s.UserToken)
 				   .Returns(TrelloIds.UserToken);
-				Svc.SetupGet(a => a.Api)
-				   .Returns(Rest.Object);
+				Svc.SetupGet(s => s.Api)
+				   .Returns(Api.Object);
+				Svc.SetupGet(s => s.Configuration)
+				   .Returns(Config.Object);
+				Svc.SetupGet(s => s.Validator)
+				   .Returns(Validator.Object);
+				Validator.Setup(v => v.Writable())
+				         .Callback(() => { if (string.IsNullOrWhiteSpace(Svc.Object.UserToken)) throw new ReadOnlyAccessException(); });
+				Cache.Setup(c => c.Find(It.IsAny<Func<T, bool>>(), It.IsAny<Func<T>>()))
+				     .Returns((Func<T, bool> match, Func<T> fetch) => fetch());
 			}
 		}
 
@@ -52,7 +59,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest.Dependencies.Svc.SetupGet(a => a.UserToken)
 				.Returns((string)null);
-			_systemUnderTest.Dependencies.Rest.SetupGet(a => a.UserToken)
+			_systemUnderTest.Dependencies.Api.SetupGet(a => a.UserToken)
 				.Returns((string)null);
 		}
 		protected Mock<TRequest> SetupMockGet<TRequest>()
@@ -60,7 +67,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Get<TRequest>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<TRequest>(It.IsAny<IRestRequest>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -69,7 +76,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Put<TRequest>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Put<TRequest>(It.IsAny<IRestRequest>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -78,7 +85,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Post<TRequest>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Post<TRequest>(It.IsAny<IRestRequest>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -87,7 +94,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Rest.Setup(a => a.Delete<TRequest>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Delete<TRequest>(It.IsAny<IRestRequest>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -140,25 +147,25 @@ namespace Manatee.Trello.Test.UnitTests
 		protected void MockApiGetIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Rest.Verify(a => a.Get<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Get<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Put<{0}> is called {1} time(s)")]
 		protected void MockApiPutIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Rest.Verify(a => a.Put<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Put<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Post<{0}> is called {1} time(s)")]
 		protected void MockApiPostIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Rest.Verify(a => a.Post<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Post<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Delete<{0}> is called {1} time(s)")]
 		protected void MockApiDeleteIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Rest.Verify(a => a.Delete<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Delete<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("'{0}' is returned")]
 		protected void ValueIsReturned<TResult>(TResult expectedValue)

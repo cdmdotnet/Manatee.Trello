@@ -27,55 +27,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "id":"514464db3fa062da6e00254f",
-	//   "avatarHash":null,
-	//   "bio":"This is a service account for the Little Crab Solutions organization.",
-	//   "fullName":"Little Crab Solutions",
-	//   "initials":"LS",
-	//   "memberType":"normal",
-	//   "status":"active",
-	//   "url":"https://trello.com/s_littlecrabsolutions",
-	//   "username":"s_littlecrabsolutions",
-	//   "avatarSource":"none",
-	//   "confirmed":true,
-	//   "email":null,
-	//   "gravatarHash":"946866d028bf7a004a51ca57f7cc1cf2",
-	//   "idBoards":[
-	//      "514464db3fa062da6e002550",
-	//      "5144051cbd0da6681200201e"
-	//   ],
-	//   "idBoardsInvited":[
-
-	//   ],
-	//   "idBoardsPinned":[
-	//      "514464db3fa062da6e002550",
-	//      "5144051cbd0da6681200201e"
-	//   ],
-	//   "idOrganizations":[
-	//      "50d4eb07a1b0902152003329"
-	//   ],
-	//   "idOrganizationsInvited":[
-
-	//   ],
-	//   "idPremOrgsAdmin":[
-
-	//   ],
-	//   "loginTypes":null,
-	//   "prefs":{
-	//      "sendSummaries":true,
-	//      "minutesBetweenSummaries":60,
-	//      "minutesBeforeDeadlineToNotify":1440,
-	//      "colorBlind":false
-	//   },
-	//   "trophies":[
-
-	//   ],
-	//   "uploadedAvatarHash":null
-	//}
 	/// <summary>
 	/// Represents a member (user).
 	/// </summary>
@@ -127,7 +82,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_avatarSource == value) return;
 				_avatarSource = value;
@@ -148,7 +103,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_jsonMember.Bio == value) return;
 				_jsonMember.Bio = value ?? string.Empty;
@@ -199,7 +154,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_jsonMember.FullName == value) return;
 				_jsonMember.FullName = Validator.MinStringLength(value, 4, "FullName");
@@ -243,7 +198,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_jsonMember.Initials == value) return;
 				_jsonMember.Initials = Validator.StringLengthRange(value, 1, 3, "Initials");
@@ -356,10 +311,10 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_jsonMember.Username == value) return;
-				_jsonMember.Username = Validator.UserName(Svc, value);
+				_jsonMember.Username = Validator.UserName(value);
 				Parameters.Add("username", _jsonMember.Username);
 				Put();
 			}
@@ -412,7 +367,7 @@ namespace Manatee.Trello
 		public void ClearNotifications()
 		{
 			if (Svc == null) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			var endpoint = new Endpoint(new[] {Notification.TypeKey, "all", "read"});
 			var request = RequestProvider.Create(endpoint.ToString());
 			Api.Post<IJsonMember>(request);
@@ -425,7 +380,7 @@ namespace Manatee.Trello
 		public Board CreateBoard(string name)
 		{
 			if (Svc == null) return null;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.NonEmptyString(name);
 			var board = new Board();
 			var endpoint = EndpointGenerator.Default.Generate(board);
@@ -444,7 +399,7 @@ namespace Manatee.Trello
 		public Organization CreateOrganization(string displayName)
 		{
 			if (Svc == null) return null;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.NonEmptyString(displayName);
 			var org = new Organization();
 			var endpoint = EndpointGenerator.Default.Generate(org);
@@ -462,7 +417,7 @@ namespace Manatee.Trello
 		public void PinBoard(Board board)
 		{
 			if (Svc == null) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(board);
 			var endpoint = EndpointGenerator.Default.Generate(this, new PinnedBoard());
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -476,7 +431,7 @@ namespace Manatee.Trello
 		public void RescindVoteForCard(Card card)
 		{
 			if (Svc == null) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(card);
 			var endpoint = EndpointGenerator.Default.Generate(card, new VotingMember {Id = Id});
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -489,7 +444,7 @@ namespace Manatee.Trello
 		public void UnpinBoard(Board board)
 		{
 			if (Svc == null) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(board);
 			var endpoint = EndpointGenerator.Default.Generate(this, new PinnedBoard {Id = board.Id});
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -502,7 +457,7 @@ namespace Manatee.Trello
 		public void VoteForCard(Card card)
 		{
 			if (Svc == null) return;
-			Validator.Writable(Svc);
+			Validator.Writable();
 			Validator.Entity(card);
 			var endpoint = EndpointGenerator.Default.Generate(card, new VotingMember());
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -610,7 +565,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonMember = (IJsonMember) obj;
+			if (obj is IRestResponse)
+				_jsonMember = ((IRestResponse<IJsonMember>)obj).Data;
+			else
+				_jsonMember = (IJsonMember)obj;
 			UpdateStatus();
 			UpdateAvatarSource();
 		}

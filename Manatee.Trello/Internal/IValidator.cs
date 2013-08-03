@@ -17,7 +17,8 @@
 	File Name:		IValidator.cs
 	Namespace:		Manatee.Trello.Internal
 	Class Name:		IValidator
-	Purpose:		Defines validation methods.
+	Purpose:		Defines validation methods that throw exceptions when
+					validation fails.
 
 ***************************************************************************************/
 
@@ -25,21 +26,85 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
 {
+	/// <summary>
+	/// Internal use only.  Defines validation methods that throw exceptions when validation fails.
+	/// </summary>
 	public interface IValidator
 	{
-		void Writable(ITrelloService service);
+		/// <summary>
+		/// 
+		/// </summary>
+		void Writable();
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="entity"></param>
+		/// <param name="allowNulls"></param>
 		void Entity<T>(T entity, bool allowNulls = false)
 			where T : ExpiringObject;
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="value"></param>
 		void Nullable<T>(T? value)
 			where T : struct;
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="str"></param>
 		void NonEmptyString(string str);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="pos"></param>
 		void Position(Position pos);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="str"></param>
+		/// <param name="minLength"></param>
+		/// <param name="parameter"></param>
+		/// <returns></returns>
 		string MinStringLength(string str, int minLength, string parameter);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="str"></param>
+		/// <param name="low"></param>
+		/// <param name="high"></param>
+		/// <param name="parameter"></param>
+		/// <returns></returns>
 		string StringLengthRange(string str, int low, int high, string parameter);
-		string UserName(ITrelloService svc, string value);
-		string OrgName(ITrelloService svc, string value);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		string UserName(string value);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		string OrgName(string value);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="value"></param>
 		void Enumeration<T>(T value);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="url"></param>
 		void Url(string url);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="name"></param>
 		void ArgumentNotNull(object value, string name = "value");
 	}
 }

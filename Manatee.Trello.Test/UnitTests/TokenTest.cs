@@ -233,6 +233,7 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest.Sut.Svc = _systemUnderTest.Dependencies.Svc.Object;
 			var mock = SetupMockGet<IJsonToken>();
 			mock.Object.Permissions = new List<IJsonTokenPermission> {boardPerm.Object, memberPerm.Object, orgPerm.Object};
+			mock.Object.IdMember = TrelloIds.MemberId;
 			SetupMockRetrieve<Member>();
 		}
 

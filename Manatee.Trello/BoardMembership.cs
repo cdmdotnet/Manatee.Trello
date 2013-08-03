@@ -26,15 +26,10 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
-	//{
-	//   "id":"5144051cbd0da66812002022",
-	//   "idMember":"50b693ad6f122b4310000a3c",
-	//   "memberType":"admin",
-	//   "deactivated":false
-	//},
 	///<summary>
 	/// Represents a member of a board, including their membership type.
 	///</summary>
@@ -192,7 +187,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonBoardMembership = (IJsonBoardMembership) obj;
+			if (obj is IRestResponse)
+				_jsonBoardMembership = ((IRestResponse<IJsonBoardMembership>)obj).Data;
+			else
+				_jsonBoardMembership = (IJsonBoardMembership)obj;
 			UpdateType();
 		}
 

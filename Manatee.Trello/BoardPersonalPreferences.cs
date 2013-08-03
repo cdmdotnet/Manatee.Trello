@@ -25,6 +25,7 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -50,7 +51,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowListGuide == value) return;
@@ -72,7 +73,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebar == value) return;
@@ -94,7 +95,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebarActivity == value) return;
@@ -116,7 +117,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				if (_jsonBoardPersonalPreferences.ShowSidebarBoardActions == value) return;
 				Validator.Nullable(value);
 				_jsonBoardPersonalPreferences.ShowSidebarBoardActions = value;
@@ -137,7 +138,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-				Validator.Writable(Svc);
+				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebarMembers == value) return;
@@ -185,7 +186,10 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonBoardPersonalPreferences = (IJsonBoardPersonalPreferences) obj;
+			if (obj is IRestResponse)
+				_jsonBoardPersonalPreferences = ((IRestResponse<IJsonBoardPersonalPreferences>)obj).Data;
+			else
+				_jsonBoardPersonalPreferences = (IJsonBoardPersonalPreferences)obj;
 		}
 
 		private void Post()
