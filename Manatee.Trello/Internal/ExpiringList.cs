@@ -63,8 +63,7 @@ namespace Manatee.Trello.Internal
 		{
 			return _list.ToString();
 		}
-
-		protected override sealed bool Refresh()
+		public override sealed bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -77,6 +76,7 @@ namespace Manatee.Trello.Internal
 			ApplyJson(obj);
 			return true;
 		}
+		
 		protected override void PropigateService()
 		{
 			foreach (var item in _list)

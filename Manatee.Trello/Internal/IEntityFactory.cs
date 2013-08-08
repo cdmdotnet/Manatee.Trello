@@ -27,7 +27,7 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
 {
-	internal interface IEntityFactory
+	public interface IEntityFactory
 	{
 		ExpiringObject CreateEntity(Type jsonType);
 	}

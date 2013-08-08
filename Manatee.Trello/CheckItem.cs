@@ -229,11 +229,10 @@ namespace Manatee.Trello
 		{
 			return string.Format("{0} : {1}", Name, State);
 		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override bool Refresh()
+		public override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			var request = RequestProvider.Create(endpoint.ToString());
