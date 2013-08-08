@@ -245,11 +245,10 @@ namespace Manatee.Trello
 		{
 			return string.Format("{0} on {1}", Type, Date);
 		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected sealed override bool Refresh()
+		public sealed override bool Refresh()
 		{
 			if (_isDeleted) return false;
 			var endpoint = EndpointGenerator.Default.Generate(this);

@@ -225,11 +225,10 @@ namespace Manatee.Trello
 		{
 			return string.Format("{0} did something noteworthy.", MemberCreator == null ? "An unknown member" : MemberCreator.FullName);
 		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override sealed bool Refresh()
+		public override sealed bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = RequestProvider.Create(endpoint.ToString());
@@ -246,6 +245,7 @@ namespace Manatee.Trello
 			ApplyJson(obj);
 			return true;
 		}
+
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>

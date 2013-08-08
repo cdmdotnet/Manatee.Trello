@@ -141,14 +141,14 @@ namespace Manatee.Trello
 		{
 			return string.Format("{0} : {1}", Color, Name);
 		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override bool Refresh()
+		public override bool Refresh()
 		{
 			return false;
 		}
+
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>

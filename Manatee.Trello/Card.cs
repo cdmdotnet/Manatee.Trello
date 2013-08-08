@@ -38,6 +38,7 @@ namespace Manatee.Trello
 	{
 		private IJsonCard _jsonCard;
 		private readonly ExpiringList<Action, IJsonAction> _actions;
+		private readonly ExpiringList<CommentCardAction, IJsonAction> _comments;
 		private readonly ExpiringList<Attachment, IJsonAttachment> _attachments;
 		private readonly Badges _badges;
 		private Board _board;
@@ -96,7 +97,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the card's comments.
 		/// </summary>
-		public IEnumerable<CommentCardAction> Comments { get { return _isDeleted ? Enumerable.Empty<CommentCardAction>() : _actions.OfType<CommentCardAction>(); } }
+		public IEnumerable<CommentCardAction> Comments { get { return _isDeleted ? Enumerable.Empty<CommentCardAction>() : _comments.Cast<CommentCardAction>(); } }
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
@@ -326,6 +327,7 @@ namespace Manatee.Trello
 		{
 			_jsonCard = new InnerJsonCard();
 			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey) {Fields = "id"};
+			_comments = new ExpiringList<CommentCardAction, IJsonAction>(this, Action.TypeKey) {Fields = "id", Filter = "commentCard"};
 			_attachments = new ExpiringList<Attachment, IJsonAttachment>(this, Attachment.TypeKey) {Fields = "all"};
 			_badges = new Badges(this);
 			_checkLists = new ExpiringList<CheckList, IJsonCheckList>(this, CheckList.TypeKey) {Fields = "id"};
@@ -401,6 +403,7 @@ namespace Manatee.Trello
 			request.AddParameter("text", comment);
 			Api.Post<IJsonAction>(request);
 			_actions.MarkForUpdate();
+			_comments.MarkForUpdate();
 		}
 		/// <summary>
 		/// Applies a lable to the card.
@@ -582,11 +585,10 @@ namespace Manatee.Trello
 		{
 			return Name;
 		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override bool Refresh()
+		public override bool Refresh()
 		{
 			if (_isDeleted) return false;
 			var endpoint = EndpointGenerator.Default.Generate(this);
@@ -616,6 +618,7 @@ namespace Manatee.Trello
 			_attachments.Svc = Svc;
 			_badges.Svc = Svc;
 			_checkLists.Svc = Svc;
+			_comments.Svc = Svc;
 			_labels.Svc = Svc;
 			_members.Svc = Svc;
 			_votingMembers.Svc = Svc;

@@ -18,7 +18,8 @@ namespace Manatee.Trello.Test.FunctionalTests
 			try
 			{
 				const string cardName = "Manatee.Trello.FunctionalTests.CardTest";
-				const string cardDescription = "This is a card created by the functional test method CardTest.CreateModifyAndDestroy() in Manatee.Trello.";
+				const string cardDescription =
+					"This is a card created by the functional test method CardTest.CreateModifyAndDestroy() in Manatee.Trello.";
 				const string newCardName = cardName + " renamed";
 				const string newCardDescription = cardDescription + " updated";
 				const string attachmentName = "attachment";
@@ -99,6 +100,11 @@ namespace Manatee.Trello.Test.FunctionalTests
 
 				Assert.AreEqual(0, card.Labels.Count());
 				Assert.AreEqual(0, card.Members.Count());
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
 			}
 			finally
 			{

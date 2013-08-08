@@ -32,7 +32,7 @@ namespace Manatee.Trello.Test.UnitTests
 
 			internal override void ApplyJson(object obj) {}
 
-			protected override bool Refresh()
+			public override bool Refresh()
 			{
 				RefreshCallCount++;
 				return true;

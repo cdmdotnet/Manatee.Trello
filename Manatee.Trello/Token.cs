@@ -259,11 +259,10 @@ namespace Manatee.Trello
 		{
 			return base.GetHashCode();
 		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override bool Refresh()
+		public override bool Refresh()
 		{
 			if (_value == null) return false;
 			var endpoint = EndpointGenerator.Default.Generate(this);
@@ -273,6 +272,7 @@ namespace Manatee.Trello
 			ApplyJson(obj);
 			return true;
 		}
+
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>

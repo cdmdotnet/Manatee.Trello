@@ -117,6 +117,10 @@ namespace Manatee.Trello.Contracts
 			else
 				Log.Debug("A {0} has been marked to update.", GetType().CSharpName());
 		}
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
+		public abstract bool Refresh();
 
 		internal void ForceNotExpired()
 		{
@@ -150,10 +154,6 @@ namespace Manatee.Trello.Contracts
 			else
 				Log.Info("A {0} will expire at {2}.", GetType().CSharpName(), _expires);
 		}
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		protected abstract bool Refresh();
 		/// <summary>
 		/// Propigates the service instance to the object's owned objects.
 		/// </summary>

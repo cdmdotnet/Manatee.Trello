@@ -20,19 +20,23 @@
 	Purpose:		Indicates a member commented on a card.
 
 ***************************************************************************************/
+
+using System;
+using Manatee.Trello.Json;
+
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// Indicates a member commented on a card.
 	/// </summary>
-	public class CommentCardAction : Action
+	public class CommentCardAction : Action, IEquatable<CommentCardAction>
 	{
 		private Board _board;
-		private readonly string _boardId;
+		private string _boardId;
 		private Card _card;
-		private readonly string _cardId;
-		private readonly string _text;
-		private readonly string _cardName;
+		private string _cardId;
+		private string _text;
+		private string _cardName;
 		private string _stringFormat;
 
 		/// <summary>
@@ -64,6 +68,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Text { get { return _isDeleted ? null : _text; } }
 
+		public CommentCardAction() {}
 		/// <summary>
 		/// Creates a new instance of the CommentCardAction class.
 		/// </summary>
@@ -78,6 +83,10 @@ namespace Manatee.Trello
 			_text = action.Data.TryGetString("text");
 		}
 
+		public bool Equals(CommentCardAction other)
+		{
+			return base.Equals(other);
+		}
 		/// <summary>
 		/// Returns a string that represents the current object.
 		/// </summary>
@@ -92,6 +101,17 @@ namespace Manatee.Trello
 			                                                       Text,
 			                                                       Card != null ? Card.Name : _cardName,
 			                                                       Date));
+		}
+
+		internal override void ApplyJson(object obj)
+		{
+			var json = obj as IJsonAction;
+			if (json == null) return;
+			base.ApplyJson(obj);
+			_boardId = json.Data.TryGetString("board", "id");
+			_cardId = json.Data.TryGetString("card", "id");
+			_cardName = json.Data.TryGetString("card", "name");
+			_text = json.Data.TryGetString("text");
 		}
 	}
 }

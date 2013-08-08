@@ -26,7 +26,7 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
 {
-	internal interface IRequestQueueHandler
+	public interface IRequestQueueHandler
 	{
 		bool IsActive { get; set; }
 		bool IsConnected { get; }

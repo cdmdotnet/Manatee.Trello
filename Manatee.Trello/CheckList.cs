@@ -264,11 +264,10 @@ namespace Manatee.Trello
 		{
 			return Name;
 		}
-
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
-		protected override bool Refresh()
+		public override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
 			var request = RequestProvider.Create(endpoint.ToString());
