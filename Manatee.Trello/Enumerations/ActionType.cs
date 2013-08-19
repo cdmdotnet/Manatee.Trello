@@ -160,6 +160,10 @@ namespace Manatee.Trello
 		/// </summary>
 		RemoveFromOrganizationBoard,
 		/// <summary>
+		/// Indicates a member was removed from a board.
+		/// </summary>
+		RemoveMemberFromBoard,
+		/// <summary>
 		/// Indicates a member was removed from a card.
 		/// </summary>
 		RemoveMemberFromCard,

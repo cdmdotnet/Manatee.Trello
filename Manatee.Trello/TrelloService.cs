@@ -22,7 +22,6 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -107,7 +106,7 @@ namespace Manatee.Trello
 			_validator.NonEmptyString(appKey);
 			_appKey = appKey;
 			_userToken = userToken;
-			_requestQueue = configuration.RequestQueue;
+			_requestQueue = _configuration.RequestQueue;
 			_requestQueueHandler = new RequestQueueHandler(_configuration.Log, _requestQueue, _configuration.RestClientProvider, RestExecuteHandler.Default);
 			_api = new TrelloRest(_configuration.Log, _requestQueue, _appKey, _userToken);
 			_entityFactory = new EntityFactory();
