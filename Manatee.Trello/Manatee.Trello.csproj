@@ -65,6 +65,7 @@
     <Compile Include="Actions\AddToOrganizationBoardAction.cs" />
     <Compile Include="Actions\CommentCardAction.cs" />
     <Compile Include="Actions\ConvertToCardFromCheckItemAction.cs" />
+    <Compile Include="Actions\RemoveMemberFromBoardAction.cs" />
     <Compile Include="Actions\CopyBoardAction.cs" />
     <Compile Include="Actions\CopyCardAction.cs" />
     <Compile Include="Actions\CopyCommentCardAction.cs" />
