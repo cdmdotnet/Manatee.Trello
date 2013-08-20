@@ -3,6 +3,8 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Internal;
+using Manatee.Trello.ManateeJson;
+using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.FunctionalTests
@@ -14,7 +16,12 @@ namespace Manatee.Trello.Test.FunctionalTests
 		public void CreateModifyAndDestroy()
 		{
 			Organization organization = null;
-			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+			var options = new TrelloServiceConfiguration();
+			var serializer = new ManateeSerializer();
+			options.Serializer = serializer;
+			options.Deserializer = serializer;
+			options.RestClientProvider = new RestSharpClientProvider(options);
+			var service = new TrelloService(options, TrelloIds.AppKey, TrelloIds.UserToken);
 			var me = service.Me;
 			if (me == null)
 				Assert.Inconclusive("Could not find member through 'Me' call.");

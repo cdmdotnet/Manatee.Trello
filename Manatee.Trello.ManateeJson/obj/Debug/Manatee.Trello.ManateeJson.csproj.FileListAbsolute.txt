@@ -1,0 +1,13 @@
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.Trello.ManateeJson.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.Trello.ManateeJson.pdb
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.Json.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.StateMachine.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.Trello.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.Trello.pdb
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.Json.pdb
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.Json.xml
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.StateMachine.pdb
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\bin\Debug\Manatee.StateMachine.xml
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\obj\Debug\Manatee.Trello.ManateeJson.csprojResolveAssemblyReference.cache
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\obj\Debug\Manatee.Trello.ManateeJson.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.ManateeJson\obj\Debug\Manatee.Trello.ManateeJson.pdb

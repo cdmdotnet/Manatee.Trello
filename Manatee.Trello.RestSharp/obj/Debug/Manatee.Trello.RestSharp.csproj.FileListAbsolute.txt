@@ -1,0 +1,9 @@
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\bin\Debug\Manatee.Trello.RestSharp.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\bin\Debug\Manatee.Trello.RestSharp.pdb
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\bin\Debug\Manatee.Trello.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\bin\Debug\RestSharp.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\bin\Debug\Manatee.Trello.pdb
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\bin\Debug\RestSharp.xml
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\obj\Debug\Manatee.Trello.RestSharp.csprojResolveAssemblyReference.cache
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\obj\Debug\Manatee.Trello.RestSharp.dll
+E:\Projects\Manatee.Trello\Manatee.Trello.RestSharp\obj\Debug\Manatee.Trello.RestSharp.pdb

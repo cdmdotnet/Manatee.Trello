@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.ManateeJson;
+using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.FunctionalTests
@@ -27,7 +29,12 @@ namespace Manatee.Trello.Test.FunctionalTests
 				const string comment = "comment";
 				const LabelColor label = LabelColor.Orange;
 				var dueDate = DateTime.Now.TruncateToMilliSeconds();
-				var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+				var options = new TrelloServiceConfiguration();
+				var serializer = new ManateeSerializer();
+				options.Serializer = serializer;
+				options.Deserializer = serializer;
+				options.RestClientProvider = new RestSharpClientProvider(options);
+				var service = new TrelloService(options, TrelloIds.AppKey, TrelloIds.UserToken);
 				list = service.Retrieve<List>(TrelloIds.ListId);
 				if (list == null)
 					Assert.Inconclusive("Could not find list with ID = {{{0}}}", TrelloIds.ListId);

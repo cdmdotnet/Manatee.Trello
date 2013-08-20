@@ -63,17 +63,5 @@ namespace Manatee.Trello.Contracts
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
 		ILog Log { get; set; }
-		/// <summary>
-		/// Gets and sets the request queue.  Can be used to persist requests at shutdown.
-		/// </summary>
-		IRequestQueue RequestQueue { get; set; }
-		/// <summary>
-		/// Sets Manatee.Json as the serializer/deserializer (default).
-		/// </summary>
-		void UseManateeJson();
-		/// <summary>
-		/// Sets Newtonsoft's Json.Net as the serializer/deserializer.
-		/// </summary>
-		void UseNewtonsoftJson();
 	}
 }

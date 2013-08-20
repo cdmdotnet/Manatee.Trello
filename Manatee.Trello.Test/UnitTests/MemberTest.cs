@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Json;
+using Manatee.Trello;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
-using Manatee.Trello.Json.Manatee.Entities;
+using Manatee.Trello.ManateeJson.Entities;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Test.FunctionalTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

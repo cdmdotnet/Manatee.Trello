@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.ManateeJson;
+using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryQ;
 
@@ -11,8 +13,18 @@ namespace Manatee.Trello.Test.FunctionalTests
 	{
 		private class DependencyCollection
 		{
+			public ITrelloServiceConfiguration Config { get; private set; }
 			public string AppKey { get; set; }
 			public string UserToken { get; set; }
+
+			public DependencyCollection()
+			{
+				Config = new TrelloServiceConfiguration();
+				var serializer = new ManateeSerializer();
+				Config.Serializer = serializer;
+				Config.Deserializer = serializer;
+				Config.RestClientProvider = new RestSharpClientProvider(Config);
+			}
 		}
 		private class ServiceUnderTest : SystemUnderTest<DependencyCollection>
 		{
@@ -20,7 +32,7 @@ namespace Manatee.Trello.Test.FunctionalTests
 			{
 				Dependencies.AppKey = appKey;
 				Dependencies.UserToken = userToken;
-				Sut = new TrelloService(Dependencies.AppKey, Dependencies.UserToken);
+				Sut = new TrelloService(Dependencies.Config, Dependencies.AppKey, Dependencies.UserToken);
 			}
 		}
 
@@ -148,7 +160,12 @@ namespace Manatee.Trello.Test.FunctionalTests
 		[TestMethod]
 		public void Search()
 		{
-			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+			var options = new TrelloServiceConfiguration();
+			var serializer = new ManateeSerializer();
+			options.Serializer = serializer;
+			options.Deserializer = serializer;
+			options.RestClientProvider = new RestSharpClientProvider(options);
+			var service = new TrelloService(options, TrelloIds.AppKey, TrelloIds.UserToken);
 
 			var results = service.Search("manatee");
 
@@ -164,7 +181,12 @@ namespace Manatee.Trello.Test.FunctionalTests
 		[TestMethod]
 		public void SearchMembers()
 		{
-			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+			var options = new TrelloServiceConfiguration();
+			var serializer = new ManateeSerializer();
+			options.Serializer = serializer;
+			options.Deserializer = serializer;
+			options.RestClientProvider = new RestSharpClientProvider(options);
+			var service = new TrelloService(options, TrelloIds.AppKey, TrelloIds.UserToken);
 
 			var results = service.SearchMembers(TrelloIds.UserName);
 
@@ -179,7 +201,12 @@ namespace Manatee.Trello.Test.FunctionalTests
 		[TestMethod]
 		public void Me()
 		{
-			var service = new TrelloService(TrelloIds.AppKey, TrelloIds.UserToken);
+			var options = new TrelloServiceConfiguration();
+			var serializer = new ManateeSerializer();
+			options.Serializer = serializer;
+			options.Deserializer = serializer;
+			options.RestClientProvider = new RestSharpClientProvider(options);
+			var service = new TrelloService(options, TrelloIds.AppKey, TrelloIds.UserToken);
 
 			var me = service.Me;
 

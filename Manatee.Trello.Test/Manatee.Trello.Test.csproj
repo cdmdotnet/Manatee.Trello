@@ -71,7 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DevTest.cs" />
-    <Compile Include="Entities\RestRequest.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FunctionalTests\ActionTest.cs">
       <SubType>Code</SubType>
@@ -122,6 +121,18 @@
     <Compile Include="UnitTests\UnitTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj">
+      <Project>{fb07603f-bd9b-4cbb-8142-47666c5d88cf}</Project>
+      <Name>Manatee.Trello.ManateeJson</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Manatee.Trello.NewtonsoftJson\Manatee.Trello.NewtonsoftJson.csproj">
+      <Project>{0f10f723-f5c5-487d-a956-631494ed957d}</Project>
+      <Name>Manatee.Trello.NewtonsoftJson</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj">
+      <Project>{bad3068d-bffb-4b0d-9826-1df8295827c9}</Project>
+      <Name>Manatee.Trello.RestSharp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
       <Project>{E11BD6AE-0373-40CF-A4F3-6B156096DDB0}</Project>
       <Name>Manatee.Trello</Name>
@@ -129,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

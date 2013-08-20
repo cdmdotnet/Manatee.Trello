@@ -70,6 +70,7 @@ namespace Manatee.Trello.Internal
 			           		{ActionType.RemoveAdminFromOrganization, typeof (RemoveAdminFromOrganizationAction)},
 			           		{ActionType.RemoveChecklistFromCard, typeof (RemoveChecklistFromCardAction)},
 			           		{ActionType.RemoveFromOrganizationBoard, typeof (RemoveFromOrganizationBoardAction)},
+			           		{ActionType.RemoveMemberFromBoard, typeof (RemoveMemberFromBoardAction)},
 			           		{ActionType.RemoveMemberFromCard, typeof (RemoveMemberFromCardAction)},
 			           		{ActionType.UnconfirmedBoardInvitation, typeof (UnconfirmedBoardInvitationAction)},
 			           		{ActionType.UnconfirmedOrganizationInvitation, typeof (UnconfirmedOrganizationInvitationAction)},
