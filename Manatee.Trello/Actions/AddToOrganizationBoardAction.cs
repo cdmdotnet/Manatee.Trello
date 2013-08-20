@@ -90,7 +90,7 @@ namespace Manatee.Trello
 			return _stringFormat ?? (_stringFormat = string.Format("{0} added board '{1}' to organization '{2}' on {3}",
 			                                                       MemberCreator.FullName,
 			                                                       Board != null ? Board.Name : _boardName,
-			                                                       Organization != null ? Organization.Name : _organizationName,
+			                                                       Organization != null ? Organization.DisplayName : _organizationName,
 			                                                       Date));
 		}
 	}

@@ -24,8 +24,6 @@ using System;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
-using Manatee.Trello.Json.Manatee;
-using Manatee.Trello.Json.Newtonsoft;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
@@ -35,24 +33,11 @@ namespace Manatee.Trello
 	/// </summary>
 	public class TrelloServiceConfiguration : ITrelloServiceConfiguration
 	{
-		private static ManateeSerializer _manateeSerializer;
-		private static NewtonsoftSerializer _newtonsoftSerializer;
 		private ILog _log;
 		private ISerializer _serializer;
 		private IDeserializer _deserializer;
 		private IRestClientProvider _restClientProvider;
-		private IRequestQueue _requestQueue;
 
-		private static ISerializer ManateeSerializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
-		private static IDeserializer ManateeDeserializer { get { return _manateeSerializer ?? (_manateeSerializer = new ManateeSerializer()); } }
-		private static ISerializer NewtonsoftSerializer { get { return _newtonsoftSerializer ?? (_newtonsoftSerializer = new NewtonsoftSerializer()); } }
-		private static IDeserializer NewtonsoftDeserializer { get { return _newtonsoftSerializer ?? (_newtonsoftSerializer = new NewtonsoftSerializer()); } }
-
-		/// <summary>
-		/// Provides a default configuration.  Modifying the default configuration will
-		/// change the operation of any ITrelloService instance which relies upon it.
-		/// </summary>
-		public static ITrelloServiceConfiguration Default { get; private set; }
 		/// <summary>
 		/// Provides a default logging solution.  New ITrelloService instances will use
 		/// this unless overridden in an ITrelloServiceConfiguration instance.
@@ -77,12 +62,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public ISerializer Serializer
 		{
-			get
-			{
-				if (_serializer == null)
-					CreateDefaultSerializer();
-				return _serializer;
-			}
+			get { return _serializer; }
 			set
 			{
 				if (value == null)
@@ -96,12 +76,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public IDeserializer Deserializer
 		{
-			get
-			{
-				if (_deserializer == null)
-					CreateDefaultSerializer();
-				return _deserializer;
-			}
+			get { return _deserializer; }
 			set
 			{
 				if (value == null)
@@ -115,7 +90,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public IRestClientProvider RestClientProvider
 		{
-			get { return _restClientProvider ?? (_restClientProvider = new RestSharpClientProvider(this)); }
+			get { return _restClientProvider; }
 			set
 			{
 				if (value == null)
@@ -131,16 +106,11 @@ namespace Manatee.Trello
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
 		public ILog Log { get { return _log ?? (_log = new DebugLog()); } set { _log = value; } }
-		/// <summary>
-		/// Gets and sets the request queue used by the service.  Can be used to persist requests at shutdown.  Defaults to an internal, in-memory implementation.
-		/// </summary>
-		public IRequestQueue RequestQueue { get { return _requestQueue ?? (_requestQueue = new RequestQueue()); } set { _requestQueue = value; } }
 
 		static TrelloServiceConfiguration()
 		{
 			GlobalCache = new ThreadSafeCache(new SimpleCache());
 			GlobalLog = new DebugLog();
-			Default = new TrelloServiceConfiguration();
 		}
 		/// <summary>
 		/// Creates a new instance of the TrelloServiceConfiguration class.
@@ -150,32 +120,6 @@ namespace Manatee.Trello
 			ItemDuration = TimeSpan.FromSeconds(60);
 			AutoRefresh = true;
 			Cache = GlobalCache;
-		}
-
-		/// <summary>
-		/// Sets Manatee.Json as the serializer/deserializer (default).
-		/// </summary>
-		public void UseManateeJson()
-		{
-			_serializer = ManateeSerializer;
-			_deserializer = ManateeDeserializer;
-		}
-		/// <summary>
-		/// Sets Newtonsoft's Json.Net as the serializer/deserializer.
-		/// </summary>
-		public void UseNewtonsoftJson()
-		{
-			_serializer = NewtonsoftSerializer;
-			_deserializer = NewtonsoftDeserializer;
-		}
-
-		private void CreateDefaultSerializer()
-		{
-			UseManateeJson();
-		}
-		private void CreateDefaultRestClientProvider()
-		{
-			_restClientProvider = new RestSharpClientProvider(this);
 		}
 	}
 }

@@ -24,12 +24,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -39,13 +38,10 @@ namespace Manatee.Trello
 	public class TrelloService : ITrelloService
 	{
 		private readonly ITrelloServiceConfiguration _configuration;
-		private readonly IRequestQueue _requestQueue;
-		private readonly IRequestQueueHandler _requestQueueHandler;
+		private readonly IRestRequestProcessor _requestProcessor;
 		private readonly ITrelloRest _api;
 		private readonly IValidator _validator;
 		private readonly IEntityFactory _entityFactory;
-		private readonly string _appKey;
-		private string _userToken;
 		private Member _me;
 
 		/// <summary>
@@ -54,15 +50,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public string UserToken
 		{
-			get { return _userToken; }
-			set
-			{
-				if (value != null)
-					_validator.NonEmptyString(value);
-				_userToken = value;
-				_me = null;
-				Api.UserToken = _userToken;
-			}
+			get { return Api.UserToken; }
+			set { Api.UserToken = value; }
 		}
 		/// <summary>
 		/// Gets the Member object associated with the provided AppKey.
@@ -78,21 +67,10 @@ namespace Manatee.Trello
 		/// Provides a set of options for use by a single ITrelloService instance.
 		/// </summary>
 		public ITrelloServiceConfiguration Configuration { get { return _configuration; } }
-		/// <summary>
-		/// Gets whether the ITrelloService instance can connect to Trello.
-		/// </summary>
-		public bool IsConnected { get { return _requestQueueHandler.IsConnected; } }
 		ITrelloRest ITrelloService.Api { get { return _api; } }
 		IValidator ITrelloService.Validator { get { return _validator; } }
 		private ITrelloRest Api { get { return _api; } }
 
-		/// <summary>
-		/// Creates a new instance of the TrelloService class using the default configuration.
-		/// </summary>
-		/// <param name="appKey">The application key.</param>
-		/// <param name="userToken">The user token.</param>
-		public TrelloService(string appKey, string userToken = null)
-			: this(TrelloServiceConfiguration.Default, appKey, userToken) {}
 		/// <summary>
 		/// Creates a new instance of the TrelloService class using a given configuration.
 		/// </summary>
@@ -102,30 +80,22 @@ namespace Manatee.Trello
 		public TrelloService(ITrelloServiceConfiguration configuration, string appKey, string userToken = null)
 		{
 			_validator = new Validator(this);
-			_configuration = configuration ?? TrelloServiceConfiguration.Default;
+			_validator.ArgumentNotNull(configuration, "configuration");
 			_validator.NonEmptyString(appKey);
-			_appKey = appKey;
-			_userToken = userToken;
-			_requestQueue = _configuration.RequestQueue;
-			_requestQueueHandler = new RequestQueueHandler(_configuration.Log, _requestQueue, _configuration.RestClientProvider, RestExecuteHandler.Default);
-			_api = new TrelloRest(_configuration.Log, _requestQueue, _appKey, _userToken);
+			_configuration = configuration;
+			_requestProcessor = new RestRequestProcessor(_configuration.Log, new Queue<QueuableRestRequest>(), _configuration.RestClientProvider, appKey, userToken);
+			_api = new TrelloRest(_configuration.Log, _requestProcessor, appKey, userToken);
 			_entityFactory = new EntityFactory();
 		}
 		internal TrelloService(ITrelloServiceConfiguration configuration,
-		                       string appKey,
-		                       string userToken,
 		                       IValidator validator,
-		                       IRequestQueue requestQueue,
-		                       IRequestQueueHandler requestQueueHandler,
+		                       IRestRequestProcessor requestProcessor,
 		                       ITrelloRest api,
 		                       IEntityFactory entityFactory)
 		{
 			_configuration = configuration;
-			_appKey = appKey;
-			_userToken = userToken;
 			_validator = validator;
-			_requestQueue = requestQueue;
-			_requestQueueHandler = requestQueueHandler;
+			_requestProcessor = requestProcessor;
 			_api = api;
 			_entityFactory = entityFactory;
 		}
@@ -212,39 +182,14 @@ namespace Manatee.Trello
 		/// </summary>
 		public void HoldRequests()
 		{
-			_requestQueueHandler.IsActive = false;
+			_requestProcessor.IsActive = false;
 		}
 		/// <summary>
 		/// Instructs the service to continue sending requests.
 		/// </summary>
 		public void ResumeRequests()
 		{
-			foreach (var request in _requestQueue)
-			{
-				request.CanContinue = false;
-				var req = request;
-				new Thread(() => SpinRequest(req)).Start();
-			}
-			_requestQueueHandler.IsActive = true;
-		}
-		/// <summary>
-		/// Retrieves any stored requests so that they can be stored and later restored.
-		/// </summary>
-		/// <returns>A collection of IQueuedRestRequests.</returns>
-		public IEnumerable<IQueuedRestRequest> GetUnsentRequests()
-		{
-			return _requestQueue;
-		}
-		/// <summary>
-		/// Restores previously persisted requests so that they may be sent.
-		/// </summary>
-		/// <param name="requests">A collection of IQueuedRestRequests.</param>
-		public void RestoreRequests(IEnumerable<IQueuedRestRequest> requests)
-		{
-			var active = _requestQueueHandler.IsActive;
-			_requestQueueHandler.IsActive = false;
-			_requestQueue.BulkEnqueue(requests.Select(CreateInternalRequest));
-			_requestQueueHandler.IsActive = active;
+			_requestProcessor.IsActive = true;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.
@@ -305,53 +250,6 @@ namespace Manatee.Trello
 			where T : ExpiringObject
 		{
 			return string.Join(",", models.OfType<T>().Take(24).Select(m => m.Id));
-		}
-		private QueuedRestRequest CreateInternalRequest(IQueuedRestRequest r)
-		{
-			var queuedRequest = new QueuedRestRequest
-			{
-				Request = _configuration.RestClientProvider.RequestProvider.Create(r.Request),
-				CanContinue = false,
-				RequestedType = r.RequestedType,
-			};
-			new Thread(() => SpinRequest(queuedRequest, r)).Start();
-			return queuedRequest;
-		}
-		private void SpinRequest(IQueuedRestRequest request, IQueuedRestRequest original = null)
-		{
-			ExpiringObject entity = null;
-			try
-			{
-				SpinWait.SpinUntil(() => request.CanContinue);
-				if (original != null)
-					original.Response = request.Response;
-				if (request.RequestedType.IsGenericType && (request.RequestedType.GetGenericTypeDefinition() == typeof (List<>)))
-				{
-					var type = request.RequestedType.GetGenericArguments().First();
-					var list = ((IRestResponse<IEnumerable<object>>) request.Response).Data;
-					foreach (var obj in list)
-					{
-						entity = _entityFactory.CreateEntity(type);
-						if (request.Response == null) return;
-						entity.ApplyJson(obj);
-						entity.Svc = this;
-						//entity.ForceNotExpired();
-					}
-				}
-				else
-				{
-					entity = _entityFactory.CreateEntity(request.RequestedType);
-					if (request.Response == null) return;
-					entity.ApplyJson(request.Response);
-					entity.Svc = this;
-					entity.ForceNotExpired();
-				}
-			}
-			catch
-			{
-				_configuration.Cache.Remove(entity);
-				throw;
-			}
 		}
 	}
 }

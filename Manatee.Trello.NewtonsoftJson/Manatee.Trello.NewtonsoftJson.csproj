@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F10F723-F5C5-487D-A956-631494ED957D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Manatee.Trello.NewtonsoftJson</RootNamespace>
+    <AssemblyName>Manatee.Trello.NewtonsoftJson</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\ActionConverter.cs" />
+    <Compile Include="Converters\ActionDataConverter.cs" />
+    <Compile Include="Converters\AttachmentConverter.cs" />
+    <Compile Include="Converters\AttachmentPreviewConverter.cs" />
+    <Compile Include="Converters\BadgesConverter.cs" />
+    <Compile Include="Converters\BoardConverter.cs" />
+    <Compile Include="Converters\BoardMembershipConverter.cs" />
+    <Compile Include="Converters\BoardPersonalPreferencesConverter.cs" />
+    <Compile Include="Converters\BoardPreferencesConverter.cs" />
+    <Compile Include="Converters\BoardVisibilityRestrictConverter.cs" />
+    <Compile Include="Converters\CardConverter.cs" />
+    <Compile Include="Converters\CheckItemConverter.cs" />
+    <Compile Include="Converters\CheckListConverter.cs" />
+    <Compile Include="Converters\IdListConverter.cs" />
+    <Compile Include="Converters\JsonCreationConverter.cs" />
+    <Compile Include="Converters\LabelConverter.cs" />
+    <Compile Include="Converters\LabelNamesConverter.cs" />
+    <Compile Include="Converters\ListConverter.cs" />
+    <Compile Include="Converters\MemberConverter.cs" />
+    <Compile Include="Converters\MemberPreferencesConverter.cs" />
+    <Compile Include="Converters\MemberSessionConverter.cs" />
+    <Compile Include="Converters\NotificationConverter.cs" />
+    <Compile Include="Converters\NotificationDataConverter.cs" />
+    <Compile Include="Converters\OrganizationConverter.cs" />
+    <Compile Include="Converters\OrganizationMembershipConverter.cs" />
+    <Compile Include="Converters\OrganizationPreferencesConverter.cs" />
+    <Compile Include="Converters\SearchResultsConverter.cs" />
+    <Compile Include="Converters\TokenConverter.cs" />
+    <Compile Include="Converters\TokenPermissionConverter.cs" />
+    <Compile Include="Entities\NewtonsoftAction.cs" />
+    <Compile Include="Entities\NewtonsoftActionData.cs" />
+    <Compile Include="Entities\NewtonsoftAttachment.cs" />
+    <Compile Include="Entities\NewtonsoftAttachmentPreview.cs" />
+    <Compile Include="Entities\NewtonsoftBadges.cs" />
+    <Compile Include="Entities\NewtonsoftBoard.cs" />
+    <Compile Include="Entities\NewtonsoftBoardMembership.cs" />
+    <Compile Include="Entities\NewtonsoftBoardPersonalPreferences.cs" />
+    <Compile Include="Entities\NewtonsoftBoardPreferences.cs" />
+    <Compile Include="Entities\NewtonsoftBoardVisibilityRestrict.cs" />
+    <Compile Include="Entities\NewtonsoftCard.cs" />
+    <Compile Include="Entities\NewtonsoftCheckItem.cs" />
+    <Compile Include="Entities\NewtonsoftCheckList.cs" />
+    <Compile Include="Entities\NewtonsoftLabel.cs" />
+    <Compile Include="Entities\NewtonsoftLabelNames.cs" />
+    <Compile Include="Entities\NewtonsoftList.cs" />
+    <Compile Include="Entities\NewtonsoftMember.cs" />
+    <Compile Include="Entities\NewtonsoftMemberPreferences.cs" />
+    <Compile Include="Entities\NewtonsoftMemberSession.cs" />
+    <Compile Include="Entities\NewtonsoftNotification.cs" />
+    <Compile Include="Entities\NewtonsoftNotificationData.cs" />
+    <Compile Include="Entities\NewtonsoftOrganization.cs" />
+    <Compile Include="Entities\NewtonsoftOrganizationMembership.cs" />
+    <Compile Include="Entities\NewtonsoftOrganizationPreferences.cs" />
+    <Compile Include="Entities\NewtonsoftSearchResults.cs" />
+    <Compile Include="Entities\NewtonsoftToken.cs" />
+    <Compile Include="Entities\NewtonsoftTokenPermission.cs" />
+    <Compile Include="NewtonsoftSerializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
+      <Project>{e11bd6ae-0373-40cf-a4f3-6b156096ddb0}</Project>
+      <Name>Manatee.Trello</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

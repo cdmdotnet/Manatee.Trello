@@ -4,6 +4,7 @@ using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -39,19 +40,27 @@ namespace Manatee.Trello.Test.UnitTests
 			}
 			protected override void PropigateService() {}
 		}
+		private class MockRequestProcessor : IRestRequestProcessor
+		{
+			public bool IsActive { get; set; }
+			public void AddRequest<T>(IRestRequest request, RestMethod method) where T : class
+			{
+				if (IsActive)
+					request.Response = new RestSharp.RestSharpResponse<T>(null, new Mock<T>().Object);
+			}
+			public void ShutDown() {}
+		}
 
 		private new class DependencyCollection : UnitTestBase<TrelloService>.DependencyCollection 
 		{
-			public Mock<IRequestQueue> RequestQueue { get; private set; }
-			public Mock<IRequestQueueHandler> RequestQueueHandler { get; private set; }
+			public MockRequestProcessor RequestProcessor { get; set; }
 			public Mock<IEntityFactory> EntityFactory { get; private set; }
 			public new Mock<IRestClient> RestClient { get; private set; }
 			public MockEntity Entity { get; private set; }
 
 			public DependencyCollection()
 			{
-				RequestQueue = new Mock<IRequestQueue>();
-				RequestQueueHandler = new Mock<IRequestQueueHandler>();
+				RequestProcessor = new MockRequestProcessor();
 				EntityFactory = new Mock<IEntityFactory>();
 				RestClient = new Mock<IRestClient>();
 				Entity = new MockEntity();
@@ -62,8 +71,6 @@ namespace Manatee.Trello.Test.UnitTests
 				             .Returns(Entity);
 				RestClientProvider.Setup(p => p.CreateRestClient(It.IsAny<string>()))
 								  .Returns(RestClient.Object);
-				RequestQueue.Setup(q => q.Enqueue(It.IsAny<IQueuedRestRequest>()))
-							.Callback((IQueuedRestRequest r) => r.CanContinue = true);
 			}
 		}
 
@@ -72,11 +79,8 @@ namespace Manatee.Trello.Test.UnitTests
 			public ServiceUnderTest()
 			{
 				Sut = new TrelloService(Dependencies.Config.Object,
-				                        MockAppKey,
-				                        MockUserToken,
 				                        Dependencies.Validator.Object,
-				                        Dependencies.RequestQueue.Object,
-				                        Dependencies.RequestQueueHandler.Object,
+				                        Dependencies.RequestProcessor,
 				                        Dependencies.Api.Object,
 				                        Dependencies.EntityFactory.Object);
 			}

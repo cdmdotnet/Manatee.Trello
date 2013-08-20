@@ -22,6 +22,7 @@
 ***************************************************************************************/
 using System.Collections.Generic;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Contracts
 {
@@ -42,10 +43,6 @@ namespace Manatee.Trello.Contracts
 		/// Provides a set of options for use by a single ITrelloService instance.
 		/// </summary>
 		ITrelloServiceConfiguration Configuration { get; }
-		/// <summary>
-		/// Gets whether the ITrelloService instance can connect to Trello.
-		/// </summary>
-		bool IsConnected { get; }
 		/// <summary>
 		/// Facilitates calling the Trello API.
 		/// </summary>
@@ -88,15 +85,5 @@ namespace Manatee.Trello.Contracts
 		/// Instructs the service to continue sending requests.
 		/// </summary>
 		void ResumeRequests();
-		/// <summary>
-		/// Retrieves any stored requests so that they can be stored and later restored.
-		/// </summary>
-		/// <returns>A collection of IQueuedRestRequests.</returns>
-		IEnumerable<IQueuedRestRequest> GetUnsentRequests();
-		/// <summary>
-		/// Restores previously persisted requests so that they may be sent.
-		/// </summary>
-		/// <param name="requests">A collection of IQueuedRestRequests.</param>
-		void RestoreRequests(IEnumerable<IQueuedRestRequest> requests);
 	}
 }

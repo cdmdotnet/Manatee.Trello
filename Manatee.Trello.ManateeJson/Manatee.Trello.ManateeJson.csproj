@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FB07603F-BD9B-4CBB-8142-47666C5D88CF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Manatee.Trello.ManateeJson</RootNamespace>
+    <AssemblyName>Manatee.Trello.ManateeJson</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Manatee.Json">
+      <HintPath>..\packages\Manatee.Json.1.1.4\lib\net40\Manatee.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Manatee.StateMachine">
+      <HintPath>..\packages\Manatee.StateMachine.1.0.1\lib\net40\Manatee.StateMachine.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\ManateeAction.cs" />
+    <Compile Include="Entities\ManateeActionData.cs" />
+    <Compile Include="Entities\ManateeAttachment.cs" />
+    <Compile Include="Entities\ManateeAttachmentPreview.cs" />
+    <Compile Include="Entities\ManateeBadges.cs" />
+    <Compile Include="Entities\ManateeBoard.cs" />
+    <Compile Include="Entities\ManateeBoardMembership.cs" />
+    <Compile Include="Entities\ManateeBoardPersonalPreferences.cs" />
+    <Compile Include="Entities\ManateeBoardPreferences.cs" />
+    <Compile Include="Entities\ManateeBoardVisibilityRestrict.cs" />
+    <Compile Include="Entities\ManateeCard.cs" />
+    <Compile Include="Entities\ManateeCheckItem.cs" />
+    <Compile Include="Entities\ManateeCheckList.cs" />
+    <Compile Include="Entities\ManateeLabel.cs" />
+    <Compile Include="Entities\ManateeLabelNames.cs" />
+    <Compile Include="Entities\ManateeList.cs" />
+    <Compile Include="Entities\ManateeMember.cs" />
+    <Compile Include="Entities\ManateeMemberPreferences.cs" />
+    <Compile Include="Entities\ManateeMemberSession.cs" />
+    <Compile Include="Entities\ManateeNotification.cs" />
+    <Compile Include="Entities\ManateeNotificationData.cs" />
+    <Compile Include="Entities\ManateeOrganization.cs" />
+    <Compile Include="Entities\ManateeOrganizationMembership.cs" />
+    <Compile Include="Entities\ManateeOrganizationPreferences.cs" />
+    <Compile Include="Entities\ManateeSearchResults.cs" />
+    <Compile Include="Entities\ManateeToken.cs" />
+    <Compile Include="Entities\ManateeTokenPermission.cs" />
+    <Compile Include="ManateeSerializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
+      <Project>{e11bd6ae-0373-40cf-a4f3-6b156096ddb0}</Project>
+      <Name>Manatee.Trello</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
