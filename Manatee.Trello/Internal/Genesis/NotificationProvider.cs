@@ -22,10 +22,11 @@
 					based on the Type property.
 
 ***************************************************************************************/
+
 using System;
 using System.Collections.Generic;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.Genesis
 {
 	internal class NotificationProvider : IEntityProvider<Notification>
 	{

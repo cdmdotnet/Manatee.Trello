@@ -25,10 +25,11 @@
 using System;
 using Manatee.Trello.Contracts;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.Genesis
 {
 	public interface IEntityFactory
 	{
 		ExpiringObject CreateEntity(Type jsonType);
+		T CreateEntity<T>(string id) where T : ExpiringObject;
 	}
 }

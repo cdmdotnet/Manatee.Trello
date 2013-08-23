@@ -22,7 +22,7 @@
 ***************************************************************************************/
 using System.Collections.Generic;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Rest;
+using Manatee.Trello.Internal.DataAccess;
 
 namespace Manatee.Trello.Contracts
 {
@@ -43,17 +43,6 @@ namespace Manatee.Trello.Contracts
 		/// Provides a set of options for use by a single ITrelloService instance.
 		/// </summary>
 		ITrelloServiceConfiguration Configuration { get; }
-		/// <summary>
-		/// Facilitates calling the Trello API.
-		/// </summary>
-		/// <remarks>
-		/// Provided for unit testing.  It is not recommended that this is used.  To prevent accidental use, this property should be implemented explicitly.
-		/// </remarks>
-		ITrelloRest Api { get; }
-		/// <summary>
-		/// Provides validation functionality for the service and all entities which use it.
-		/// </summary>
-		IValidator Validator { get; }
 		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>

@@ -116,8 +116,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "notifications"; } }
 		internal static string TypeKey2 { get { return "notifications"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		static Notification()
 		{
@@ -231,27 +231,27 @@ namespace Manatee.Trello
 		public override sealed bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("fields", "unread,type,date,data,idMemberCreator");
-			request.AddParameter("entities", "false");
-			request.AddParameter("memberCreator", "false");
-			request.AddParameter("board", "false");
-			request.AddParameter("list", "false");
-			request.AddParameter("card", "false");
-			request.AddParameter("organization", "false");
-			request.AddParameter("member", "false");
-			var obj = Api.Get<IJsonNotification>(request);
+			Parameters.Add("fields", "unread,type,date,data,idMemberCreator");
+			Parameters.Add("entities", "false");
+			Parameters.Add("memberCreator", "false");
+			Parameters.Add("board", "false");
+			Parameters.Add("list", "false");
+			Parameters.Add("card", "false");
+			Parameters.Add("organization", "false");
+			Parameters.Add("member", "false");
+			var obj = JsonRepository.Get<IJsonNotification>(endpoint.ToString(), Parameters);
+			Parameters.Clear();
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService()
+		protected override void PropagateService()
 		{
-			if (_memberCreator != null) _memberCreator.Svc = Svc;
+			UpdateService(_memberCreator);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -265,18 +265,8 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			if (Svc == null)
-			{
-				Parameters.Clear();
-				return;
-			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			foreach (var parameter in Parameters)
-			{
-				request.AddParameter(parameter.Key, parameter.Value);
-			}
-			Api.Put<IJsonNotification>(request);
+			JsonRepository.Put<IJsonNotification>(endpoint.ToString(), Parameters);
 			Parameters.Clear();
 		}
 

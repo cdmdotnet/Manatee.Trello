@@ -27,7 +27,7 @@ namespace Manatee.Trello.Internal
 	internal class VotingMember : Member, IEquatable<VotingMember>
 	{
 		internal new static string TypeKey { get { return "membersVoted"; } }
-		internal override string Key { get { return TypeKey; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
 
 		public bool Equals(VotingMember other)
 		{

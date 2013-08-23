@@ -24,12 +24,8 @@ namespace Manatee.Trello.Test.UnitTests
 
 				Svc.SetupGet(s => s.UserToken)
 				   .Returns(TrelloIds.UserToken);
-				Svc.SetupGet(s => s.Api)
-				   .Returns(Api.Object);
 				Svc.SetupGet(s => s.Configuration)
 				   .Returns(Config.Object);
-				Svc.SetupGet(s => s.Validator)
-				   .Returns(Validator.Object);
 				Validator.Setup(v => v.Writable())
 				         .Callback(() => { if (string.IsNullOrWhiteSpace(Svc.Object.UserToken)) throw new ReadOnlyAccessException(); });
 				Cache.Setup(c => c.Find(It.IsAny<Func<T, bool>>(), It.IsAny<Func<T>>()))
@@ -59,15 +55,13 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			_systemUnderTest.Dependencies.Svc.SetupGet(a => a.UserToken)
 				.Returns((string)null);
-			_systemUnderTest.Dependencies.Api.SetupGet(a => a.UserToken)
-				.Returns((string)null);
 		}
 		protected Mock<TRequest> SetupMockGet<TRequest>()
 			where TRequest : class
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<TRequest>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -76,7 +70,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Put<TRequest>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Put<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -85,7 +79,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Post<TRequest>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Post<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -94,7 +88,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Delete<TRequest>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Delete<TRequest>(It.IsAny<string>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -147,25 +141,25 @@ namespace Manatee.Trello.Test.UnitTests
 		protected void MockApiGetIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Get<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Get<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Put<{0}> is called {1} time(s)")]
 		protected void MockApiPutIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Put<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Put<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Post<{0}> is called {1} time(s)")]
 		protected void MockApiPostIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Post<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Post<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Delete<{0}> is called {1} time(s)")]
 		protected void MockApiDeleteIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Delete<TRequest>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(a => a.Delete<TRequest>(It.IsAny<string>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("'{0}' is returned")]
 		protected void ValueIsReturned<TResult>(TResult expectedValue)

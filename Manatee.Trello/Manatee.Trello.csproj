@@ -65,6 +65,7 @@
     <Compile Include="Actions\AddToOrganizationBoardAction.cs" />
     <Compile Include="Actions\CommentCardAction.cs" />
     <Compile Include="Actions\ConvertToCardFromCheckItemAction.cs" />
+    <Compile Include="Actions\UpdateListAction.cs" />
     <Compile Include="Actions\RemoveMemberFromBoardAction.cs" />
     <Compile Include="Actions\CopyBoardAction.cs" />
     <Compile Include="Actions\CopyCardAction.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Actions\UpdateCardIdListAction.cs" />
     <Compile Include="Actions\UpdateCardNameAction.cs" />
     <Compile Include="Actions\UpdateCheckItemStateOnCardAction.cs" />
-    <Compile Include="Actions\UpdateChecklistAction.cs" />
+    <Compile Include="Actions\UpdateCheckListAction.cs" />
     <Compile Include="Actions\UpdateMemberAction.cs" />
     <Compile Include="Actions\UpdateOrganizationAction.cs" />
     <Compile Include="Contracts\ICache.cs" />
@@ -110,12 +111,12 @@
     <Compile Include="Enumerations\SearchModelType.cs" />
     <Compile Include="Enumerations\TokenModelType.cs" />
     <Compile Include="Enumerations\OrganizationMembershipType.cs" />
-    <Compile Include="Internal\ActionProvider.cs" />
+    <Compile Include="Internal\Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="Internal\Genesis\ActionProvider.cs" />
     <Compile Include="Internal\BoardInvitation.cs" />
-    <Compile Include="Internal\EntityFactory.cs" />
-    <Compile Include="Internal\IEntityFactory.cs" />
+    <Compile Include="Internal\Genesis\EntityFactory.cs" />
+    <Compile Include="Internal\Genesis\IEntityFactory.cs" />
     <Compile Include="Internal\IValidator.cs" />
-    <Compile Include="Internal\NetworkHandler.cs" />
     <Compile Include="Internal\EndpointGenerator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
     <Compile Include="Internal\Endpoint.cs" />
@@ -143,8 +144,9 @@
     <Compile Include="Internal\Json\InnerJsonOrganizationPreferences.cs" />
     <Compile Include="Internal\Json\InnerJsonToken.cs" />
     <Compile Include="Internal\Json\InnerJsonTokenPermission.cs" />
-    <Compile Include="Internal\NotificationProvider.cs" />
+    <Compile Include="Internal\Genesis\NotificationProvider.cs" />
     <Compile Include="Internal\DebugLog.cs" />
+    <Compile Include="Internal\RequestProcessing\NetworkMonitor.cs" />
     <Compile Include="Internal\RequestProcessing\IRestRequestProcessor.cs" />
     <Compile Include="Internal\RequestProcessing\QueuableRestRequest.cs" />
     <Compile Include="Internal\RequestProcessing\RestRequestProcessor.cs" />
@@ -189,7 +191,7 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\MemberExtensions.cs" />
     <Compile Include="Extensions\OrganizationExtensions.cs" />
-    <Compile Include="Internal\ITrelloRest.cs" />
+    <Compile Include="Internal\DataAccess\IJsonRepository.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Attachment.cs" />
     <Compile Include="AttachmentPreview.cs" />
@@ -237,7 +239,7 @@
     <Compile Include="Json\ISerializer.cs" />
     <Compile Include="Rest\RestMethod.cs" />
     <Compile Include="Exceptions\EntityNotOnTrelloException.cs" />
-    <Compile Include="Internal\IEntityProvider.cs" />
+    <Compile Include="Internal\Genesis\IEntityProvider.cs" />
     <Compile Include="Internal\Validator.cs" />
     <Compile Include="Internal\ExpiringList.cs" />
     <Compile Include="Contracts\ExpiringObject.cs" />
@@ -268,7 +270,7 @@
     <Compile Include="Organization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\GeneralExtensions.cs" />
-    <Compile Include="Internal\TrelloRest.cs" />
+    <Compile Include="Internal\DataAccess\JsonRepository.cs" />
     <Compile Include="SearchResults.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TrelloService.cs" />

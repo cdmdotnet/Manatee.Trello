@@ -25,24 +25,20 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal
 {
 	internal class Validator : IValidator
 	{
+		private readonly IJsonRepository _entityRepository;
 		private readonly ITrelloService _svc;
 
-		public static IValidator Default { get; private set; }
-
-		static Validator()
-		{
-			Default = new Validator();
-		}
-		private Validator() {}
-		public Validator(ITrelloService svc)
+		public Validator(ITrelloService svc, IJsonRepository entityRepository)
 		{
 			_svc = svc;
+			_entityRepository = entityRepository;
 		}
 
 		public void Writable()
@@ -111,10 +107,12 @@ namespace Manatee.Trello.Internal
 			if (_svc != null)
 			{
 				var endpoint = new Endpoint(new[] {"search", "members"});
-				var request = _svc.Configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("query", retVal);
-				request.AddParameter("fields", "id");
-				if (_svc.Api.Get<List<IJsonMember>>(request).Count != 0)
+				var parameters = new Dictionary<string, object>
+					{
+						{"query", retVal},
+						{"fields", "id"},
+					};
+				if (_entityRepository.Get<List<IJsonMember>>(endpoint.ToString(), parameters).Count != 0)
 					_svc.Configuration.Log.Error(new UsernameInUseException(value));
 			}
 			return retVal;
@@ -127,10 +125,12 @@ namespace Manatee.Trello.Internal
 			if (_svc != null)
 			{
 				var endpoint = new Endpoint(new[] {"search", retVal});
-				var request = _svc.Configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("fields", "id");
-				request.AddParameter("modelTypes", "organizations");
-				var response = _svc.Api.Get<IJsonSearchResults>(request);
+				var parameters = new Dictionary<string, object>
+					{
+						{"modelTypes", "organizations"},
+						{"fields", "id"},
+					};
+				var response = _entityRepository.Get<IJsonSearchResults>(endpoint.ToString(), parameters);
 				if (response.OrganizationIds.Count != 0)
 					_svc.Configuration.Log.Error(new OrgNameInUseException(value));
 			}

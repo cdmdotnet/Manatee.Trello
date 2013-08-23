@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System.Collections.Generic;
 using Manatee.Trello.Rest;
 using RestSharp.Serializers;
 
@@ -35,9 +36,15 @@ namespace Manatee.Trello.RestSharp
 			_serializer = serializer;
 		}
 
-		public IRestRequest Create(string endpoint)
+		public IRestRequest Create(string endpoint, IDictionary<string, object> parameters = null)
 		{
-			return new RestSharpRequest(_serializer, endpoint);
+			var request = new RestSharpRequest(_serializer, endpoint);
+			if (parameters != null)
+				foreach (var parameter in parameters)
+				{
+					request.AddParameter(parameter.Key, parameter.Value);
+				}
+			return request;
 		}
 		public IRestRequest Create(IRestRequest request)
 		{

@@ -34,6 +34,10 @@ namespace Manatee.Trello.Internal
 		{
 			_segments = segments.ToList();
 		}
+		public Endpoint(params string[] segments)
+		{
+			_segments = segments.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+		}
 
 		public void Append(string segment)
 		{

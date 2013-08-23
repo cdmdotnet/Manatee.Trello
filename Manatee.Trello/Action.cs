@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -102,8 +103,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "actions"; } }
 		internal static string TypeKey2 { get { return "actions"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey; } }
 
 		static Action()
 		{
@@ -184,8 +185,7 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			Api.Delete<IJsonAction>(request);
+			JsonRepository.Delete<IJsonAction>(endpoint.ToString());
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -252,23 +252,23 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return false;
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("fields", "idMemberCreator,data,type,date");
-			request.AddParameter("entities", "false");
-			request.AddParameter("memberCreator", "false");
-			request.AddParameter("member", "false");
-			var obj = Api.Get<IJsonAction>(request);
+			Parameters.Add("fields", "idMemberCreator,data,type,date");
+			Parameters.Add("entities", "false");
+			Parameters.Add("memberCreator", "false");
+			Parameters.Add("member", "false");
+			var obj = JsonRepository.Get<IJsonAction>(endpoint.ToString(), Parameters);
+			Parameters.Clear();
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService()
+		protected override void PropagateService()
 		{
-			if (_memberCreator != null) _memberCreator.Svc = Svc;
+			UpdateService(_memberCreator);
 		}
 
 		internal override void ApplyJson(object obj)

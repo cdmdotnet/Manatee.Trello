@@ -93,8 +93,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "sessions"; } }
 		internal static string TypeKey2 { get { return "sessions"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the MemberSession class.
@@ -161,9 +161,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService() {}
+		protected override void PropagateService() {}
 
 		internal override void ApplyJson(object obj)
 		{

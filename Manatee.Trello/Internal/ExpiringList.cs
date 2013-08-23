@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 
@@ -41,8 +42,8 @@ namespace Manatee.Trello.Internal
 		public string Filter { get; set; }
 		public string Fields { get; set; }
 
-		internal override string Key { get { return _key; } }
-		internal override string Key2 { get { return _key; } }
+		internal override string PrimaryKey { get { return _key; } }
+		internal override string SecondaryKey { get { return _key; } }
 
 		public ExpiringList(ExpiringObject owner, string contentKey)
 		{
@@ -65,19 +66,18 @@ namespace Manatee.Trello.Internal
 		}
 		public override sealed bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = RequestProvider.Create(endpoint.ToString());
+			var endpoint = EndpointGenerator.Default.GenerateForList<T>(Owner);
 			if (Filter != null)
-				request.AddParameter("filter", Filter);
+				Parameters.Add("filter", Filter);
 			if (Fields != null)
-				request.AddParameter("fields", Fields);
-			var obj = Api.Get<List<TJson>>(request);
+				Parameters.Add("fields", Fields);
+			var obj = JsonRepository.Get<List<TJson>>(endpoint.ToString(), Parameters);
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 		
-		protected override void PropigateService()
+		protected override void PropagateService()
 		{
 			foreach (var item in _list)
 			{
@@ -104,7 +104,7 @@ namespace Manatee.Trello.Internal
 			}
 			while (threads.Any(t => t.IsAlive)) {}
 			_list.AddRange(entities.OrderBy(e => e).ToList());
-			PropigateService();
+			PropagateService();
 		}
 
 		private void AsyncRetrieve(ICollection<T> entities, TJson json)

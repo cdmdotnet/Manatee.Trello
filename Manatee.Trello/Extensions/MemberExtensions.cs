@@ -23,7 +23,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
@@ -44,21 +43,22 @@ namespace Manatee.Trello
 		{
 			if (member.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.Generate(member);
-				endpoint.Append(Card.TypeKey);
-				var request = member.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("fields", "id");
-				request.AddParameter("filter", "all");
-				request.AddParameter("actions", "none");
-				request.AddParameter("attachments", "false");
-				request.AddParameter("badges", "false");
-				request.AddParameter("members", "false");
-				request.AddParameter("membersVoted", "false");
-				request.AddParameter("checkItemStates", "false");
-				request.AddParameter("checkLists", "false");
-				request.AddParameter("board", "false");
-				request.AddParameter("list", "false");
-				var response = member.Svc.Api.Get<List<IJsonCard>>(request);
+				var endpoint = EndpointGenerator.Default.GenerateForList<Card>(member);
+				var parameters = new Dictionary<string, object>
+					{
+						{"fields", "id"},
+						{"filter", "all"},
+						{"actions", "none"},
+						{"attachments", "false"},
+						{"badges", "false"},
+						{"members", "false"},
+						{"membersVoted", "false"},
+						{"checkItemStates", "false"},
+						{"checkLists", "false"},
+						{"board", "false"},
+						{"list", "false"},
+					};
+				var response = member.JsonRepository.Get<List<IJsonCard>>(endpoint.ToString(), parameters);
 				return response.Select(j => member.Svc.Retrieve<Card>(j.Id));
 			}
 			return Enumerable.Empty<Card>();
@@ -72,21 +72,22 @@ namespace Manatee.Trello
 		{
 			if (member.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.Generate(member);
-				endpoint.Append(Card.TypeKey);
-				var request = member.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("fields", "id");
-				request.AddParameter("filter", "visible");
-				request.AddParameter("actions", "none");
-				request.AddParameter("attachments", "false");
-				request.AddParameter("badges", "false");
-				request.AddParameter("members", "false");
-				request.AddParameter("membersVoted", "false");
-				request.AddParameter("checkItemStates", "false");
-				request.AddParameter("checkLists", "false");
-				request.AddParameter("board", "false");
-				request.AddParameter("list", "false");
-				var response = member.Svc.Api.Get<List<IJsonCard>>(request);
+				var endpoint = EndpointGenerator.Default.GenerateForList<Card>(member);
+				var parameters = new Dictionary<string, object>
+					{
+						{"fields", "id"},
+						{"filter", "visible"},
+						{"actions", "none"},
+						{"attachments", "false"},
+						{"badges", "false"},
+						{"members", "false"},
+						{"membersVoted", "false"},
+						{"checkItemStates", "false"},
+						{"checkLists", "false"},
+						{"board", "false"},
+						{"list", "false"},
+					};
+				var response = member.JsonRepository.Get<List<IJsonCard>>(endpoint.ToString(), parameters);
 				return response.Select(j => member.Svc.Retrieve<Card>(j.Id));
 			}
 			return Enumerable.Empty<Card>();
@@ -120,18 +121,6 @@ namespace Manatee.Trello
 		public static IEnumerable<Card> CardsMatching(this Member member, Regex regex)
 		{
 			return member.ActiveCards().Where(c => regex.IsMatch(c.Description) || regex.IsMatch(c.Name));
-		}
-		/// <summary>
-		/// Retrieves all active cards assigned to a member with names or descriptions which contain a specified string.
-		/// </summary>
-		/// <param name="member">The member.</param>
-		/// <param name="search">The string.</param>
-		/// <returns>A collection of cards.</returns>
-		/// <remarks>Description searching does not account for Markdown syntax.</remarks>
-		[Obsolete("Use TrelloService.Search(... context: [member])")]
-		public static IEnumerable<Card> CardsContaining(this Member member, string search)
-		{
-			return member.ActiveCards().Where(c => c.Description.Contains(search) || c.Name.Contains(search));
 		}
 	}
 }

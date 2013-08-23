@@ -105,7 +105,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
-		public ILog Log { get { return _log ?? (_log = new DebugLog()); } set { _log = value; } }
+		public ILog Log { get { return _log ?? (_log = new DebugLog()); } set { _log = value ?? new DebugLog(); } }
 
 		static TrelloServiceConfiguration()
 		{

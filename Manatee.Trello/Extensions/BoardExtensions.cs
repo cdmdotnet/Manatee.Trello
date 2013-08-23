@@ -70,12 +70,13 @@ namespace Manatee.Trello
 		{
 			if (board.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.Generate(board);
-				endpoint.Append(Member.TypeKey);
-				var request = board.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("fields", "id");
-				request.AddParameter("filter", "admins");
-				var response = board.Svc.Api.Get<List<IJsonMember>>(request);
+				var endpoint = EndpointGenerator.Default.GenerateForList<Member>(board);
+				var parameters = new Dictionary<string, object>
+					{
+						{"fields", "id"},
+						{"filter", "admins"},
+					};
+				var response = board.JsonRepository.Get<List<IJsonMember>>(endpoint.ToString(), parameters);
 				return response.Select(j => board.Svc.Retrieve<Member>(j.Id));
 			}
 			return Enumerable.Empty<Member>();
@@ -89,21 +90,22 @@ namespace Manatee.Trello
 		{
 			if (board.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.Generate(board);
-				endpoint.Append(Card.TypeKey);
-				var request = board.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("fields", "id");
-				request.AddParameter("filter", "all");
-				request.AddParameter("actions", "none");
-				request.AddParameter("attachments", "false");
-				request.AddParameter("badges", "false");
-				request.AddParameter("members", "false");
-				request.AddParameter("membersVoted", "false");
-				request.AddParameter("checkItemStates", "false");
-				request.AddParameter("checkLists", "false");
-				request.AddParameter("board", "false");
-				request.AddParameter("list", "false");
-				var response = board.Svc.Api.Get<List<IJsonCard>>(request);
+				var endpoint = EndpointGenerator.Default.GenerateForList<Card>(board);
+				var parameters = new Dictionary<string, object>
+					{
+						{"fields", "id"},
+						{"filter", "all"},
+						{"actions", "none"},
+						{"attachments", "false"},
+						{"badges", "false"},
+						{"members", "false"},
+						{"membersVoted", "false"},
+						{"checkItemStates", "false"},
+						{"checkLists", "false"},
+						{"board", "false"},
+						{"list", "false"},
+					};
+				var response = board.JsonRepository.Get<List<IJsonCard>>(endpoint.ToString(), parameters);
 				return response.Select(j => board.Svc.Retrieve<Card>(j.Id));
 			}
 			return Enumerable.Empty<Card>();
@@ -117,13 +119,14 @@ namespace Manatee.Trello
 		{
 			if (board.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.Generate(board);
-				endpoint.Append(List.TypeKey);
-				var request = board.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("fields", "id");
-				request.AddParameter("filter", "all");
-				request.AddParameter("cards", "none");
-				var response = board.Svc.Api.Get<List<IJsonList>>(request);
+				var endpoint = EndpointGenerator.Default.GenerateForList<List>(board);
+				var parameters = new Dictionary<string, object>
+					{
+						{"fields", "id"},
+						{"filter", "all"},
+						{"cards", "none"},
+					};
+				var response = board.JsonRepository.Get<List<IJsonList>>(endpoint.ToString(), parameters);
 				return response.Select(j => board.Svc.Retrieve<List>(j.Id));
 			}
 			return Enumerable.Empty<List>();
@@ -137,21 +140,22 @@ namespace Manatee.Trello
 		{
 			if (board.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.Generate(board);
-				endpoint.Append(Card.TypeKey);
-				var request = board.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("fields", "id");
-				request.AddParameter("filter", "visible");
-				request.AddParameter("actions", "none");
-				request.AddParameter("attachments", "false");
-				request.AddParameter("badges", "false");
-				request.AddParameter("members", "false");
-				request.AddParameter("membersVoted", "false");
-				request.AddParameter("checkItemStates", "false");
-				request.AddParameter("checkLists", "false");
-				request.AddParameter("board", "false");
-				request.AddParameter("list", "false");
-				var response = board.Svc.Api.Get<List<IJsonCard>>(request);
+				var endpoint = EndpointGenerator.Default.GenerateForList<Card>(board);
+				var parameters = new Dictionary<string, object>
+					{
+						{"fields", "id"},
+						{"filter", "visible"},
+						{"actions", "none"},
+						{"attachments", "false"},
+						{"badges", "false"},
+						{"members", "false"},
+						{"membersVoted", "false"},
+						{"checkItemStates", "false"},
+						{"checkLists", "false"},
+						{"board", "false"},
+						{"list", "false"},
+					};
+				var response = board.JsonRepository.Get<List<IJsonCard>>(endpoint.ToString(), parameters);
 				return response.Select(j => board.Svc.Retrieve<Card>(j.Id));
 			}
 			return Enumerable.Empty<Card>();
@@ -174,26 +178,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> CardsDueSoon(this Board board, TimeSpan timeSpan)
 		{
-			if (board.Svc != null)
-			{
-				var endpoint = EndpointGenerator.Default.Generate(board);
-				endpoint.Append(Card.TypeKey);
-				var request = board.RequestProvider.Create(endpoint.ToString());
-				request.AddParameter("fields", "id");
-				request.AddParameter("filter", "visible");
-				request.AddParameter("actions", "none");
-				request.AddParameter("attachments", "false");
-				request.AddParameter("badges", "false");
-				request.AddParameter("members", "false");
-				request.AddParameter("membersVoted", "false");
-				request.AddParameter("checkItemStates", "false");
-				request.AddParameter("checkLists", "false");
-				request.AddParameter("board", "false");
-				request.AddParameter("list", "false");
-				var response = board.Svc.Api.Get<List<IJsonCard>>(request);
-				return response.Select(j => board.Svc.Retrieve<Card>(j.Id));
-			}
-			return Enumerable.Empty<Card>();
+			return board.Cards().Where(c => c.DueDate - timeSpan <= DateTime.Now);
 		}
 		/// <summary>
 		/// Retrieves all active cards within a board with names or descriptions which match a specified Regex.
@@ -205,18 +190,6 @@ namespace Manatee.Trello
 		public static IEnumerable<Card> CardsMatching(this Board board, Regex regex)
 		{
 			return board.Cards().Where(c => regex.IsMatch(c.Description) || regex.IsMatch(c.Name));
-		}
-		/// <summary>
-		/// Retrieves all active cards within a board with names or descriptions which contain a specified string.
-		/// </summary>
-		/// <param name="board">The board.</param>
-		/// <param name="search">The string.</param>
-		/// <returns>A collection of cards.</returns>
-		/// <remarks>Description searching does not account for Markdown syntax.</remarks>
-		[Obsolete("Use TrelloService.Search(... context: [board])")]
-		public static IEnumerable<Card> CardsContaining(this Board board, string search)
-		{
-			return board.Cards().Where(c => c.Description.Contains(search) || c.Name.Contains(search));
 		}
 		/// <summary>
 		/// Retrieves all active cards within a board with names or descriptions which have a specified label color applied.
