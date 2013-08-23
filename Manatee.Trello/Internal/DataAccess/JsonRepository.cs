@@ -14,66 +14,61 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		TrelloRest.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		TrelloRest
-	Purpose:		Provides a Trello-specific wrapper for RestSharp.
+	File Name:		EntityRepository.cs
+	Namespace:		Manatee.Trello.Internal.DataAccess
+	Class Name:		EntityRepository
+	Purpose:		Implements IEntityRepository.
 
 ***************************************************************************************/
+
 using System;
-using System.Linq;
-using System.Text;
+using System.Collections.Generic;
 using System.Threading;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.DataAccess
 {
-	internal class TrelloRest : ITrelloRest
+	internal class JsonRepository : IJsonRepository
 	{
-		private readonly ILog _log;
 		private readonly IRestRequestProcessor _requestProcessor;
-		private readonly string _appKey;
+		private readonly IRestRequestProvider _requestProvider;
 
-		public string AppKey { get { return _appKey; } }
-		public string UserToken { get; set; }
-
-		public TrelloRest(ILog log, IRestRequestProcessor requestProcessor, string appKey, string userToken)
+		public JsonRepository(IRestRequestProcessor requestProcessor, IRestRequestProvider requestProvider)
 		{
-			if (string.IsNullOrWhiteSpace(appKey))
-				_log.Error(new ArgumentException("Application key required. App keys can be generated from https://trello.com/1/appKey/generate", "appKey"));
-			_log = log;
 			_requestProcessor = requestProcessor;
-			_appKey = appKey;
-			UserToken = userToken;
+			_requestProvider = requestProvider;
 		}
 
-		public T Get<T>(IRestRequest request)
+		public T Get<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class
 		{
+			var request = _requestProvider.Create(endpoint, parameters);
 			return Execute<T>(request, RestMethod.Get);
 		}
-		public T Put<T>(IRestRequest request)
+		public T Put<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class
 		{
+			var request = _requestProvider.Create(endpoint, parameters);
 			return Execute<T>(request, RestMethod.Put);
 		}
-		public T Post<T>(IRestRequest request)
+		public T Post<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class
 		{
+			var request = _requestProvider.Create(endpoint, parameters);
 			return Execute<T>(request, RestMethod.Post);
 		}
-		public T Delete<T>(IRestRequest request)
+		public T Delete<T>(string endpoint)
 			where T : class
 		{
+			var request = _requestProvider.Create(endpoint);
 			return Execute<T>(request, RestMethod.Delete);
 		}
 
 		private T Execute<T>(IRestRequest request, RestMethod method)
 			where T : class
 		{
-			_requestProcessor.AddRequest<T>(request, method);
+			_requestProcessor.AddRequest<T>(request);
 			SpinWait.SpinUntil(() => request.Response != null);
 			var response = (IRestResponse<T>) request.Response;
 			return response.Data;

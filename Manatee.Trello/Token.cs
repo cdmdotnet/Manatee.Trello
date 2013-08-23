@@ -172,8 +172,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "tokens"; } }
 		internal static string TypeKey2 { get { return "tokens"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 		internal override string KeyId { get { return Value; } }
 
 		/// <summary>
@@ -198,8 +198,7 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			var endpoint = EndpointGenerator.Default.Generate2(Member, this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			Api.Delete<IJsonToken>(request);
+			JsonRepository.Delete<IJsonToken>(endpoint.ToString());
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -266,22 +265,21 @@ namespace Manatee.Trello
 		{
 			if (_value == null) return false;
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			var obj = Api.Get<IJsonToken>(request);
+			var obj = JsonRepository.Get<IJsonToken>(endpoint.ToString());
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService()
+		protected override void PropagateService()
 		{
-			if (_member != null) _member.Svc = Svc;
-			if (_boardPermissions != null) _boardPermissions.Scope.Model.Svc = Svc;
-			if (_memberPermissions != null) _memberPermissions.Scope.Model.Svc = Svc;
-			if (_organizationPermissions != null) _organizationPermissions.Scope.Model.Svc = Svc;
+			UpdateService(_member);
+			UpdateService(_boardPermissions.Scope.Model);
+			UpdateService(_memberPermissions.Scope.Model);
+			UpdateService(_organizationPermissions.Scope.Model);
 		}
 
 		internal override void ApplyJson(object obj)

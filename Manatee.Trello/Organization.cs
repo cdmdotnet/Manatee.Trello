@@ -213,8 +213,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "organizations"; } }
 		internal static string TypeKey2 { get { return "organizations"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the Organization class.
@@ -242,9 +242,9 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Validator.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("type", type.ToLowerString());
-			Api.Put<IJsonMember>(request);
+			Parameters.Add("type", type.ToLowerString());
+			JsonRepository.Put<IJsonMember>(endpoint.ToString(), Parameters);
+			Parameters.Clear();
 			_members.MarkForUpdate();
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
@@ -284,11 +284,11 @@ namespace Manatee.Trello
 			Validator.NonEmptyString(name);
 			var board = new Board();
 			var endpoint = EndpointGenerator.Default.Generate(board);
-			var request = RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("name", name);
-			request.AddParameter("idOrganization", Id);
-			board.ApplyJson(Api.Post<IJsonBoard>(request));
-			board.Svc = Svc;
+			Parameters.Add("name", name);
+			Parameters.Add("idOrganization", Id);
+			board.ApplyJson(JsonRepository.Post<IJsonBoard>(endpoint.ToString(), Parameters));
+			Parameters.Clear();
+			UpdateService(board);
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -308,8 +308,7 @@ namespace Manatee.Trello
 				}
 			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			Api.Delete<IJsonOrganization>(request);
+			JsonRepository.Delete<IJsonOrganization>(endpoint.ToString());
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -336,8 +335,7 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Validator.Entity(member);
 			var endpoint = EndpointGenerator.Default.Generate(this, member);
-			var request = RequestProvider.Create(endpoint.ToString());
-			Api.Delete<IJsonOrganization>(request);
+			JsonRepository.Delete<IJsonOrganization>(endpoint.ToString());
 			_members.MarkForUpdate();
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
@@ -417,30 +415,30 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures");
-			request.AddParameter("paid_account", "true");
-			request.AddParameter("actions", "none");
-			request.AddParameter("members", "none");
-			request.AddParameter("membersInvited", "none");
-			request.AddParameter("boards", "none");
-			request.AddParameter("memberships", "none");
-			var obj = Api.Get<IJsonOrganization>(request);
+			Parameters.Add("fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures");
+			Parameters.Add("paid_account", "true");
+			Parameters.Add("actions", "none");
+			Parameters.Add("members", "none");
+			Parameters.Add("membersInvited", "none");
+			Parameters.Add("boards", "none");
+			Parameters.Add("memberships", "none");
+			var obj = JsonRepository.Get<IJsonOrganization>(endpoint.ToString(), Parameters);
+			Parameters.Clear();
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService()
+		protected override void PropagateService()
 		{
-			_actions.Svc = Svc;
-			_boards.Svc = Svc;
-			_members.Svc = Svc;
-			_memberships.Svc = Svc;
-			_preferences.Svc = Svc;
+			UpdateService(_actions);
+			UpdateService(_boards);
+			UpdateService(_members);
+			UpdateService(_memberships);
+			UpdateService(_preferences);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -457,18 +455,8 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			if (Svc == null)
-			{
-				Parameters.Clear();
-				return;
-			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			foreach (var parameter in Parameters)
-			{
-				request.AddParameter(parameter.Key, parameter.Value);
-			}
-			Api.Put<IJsonOrganization>(request);
+			JsonRepository.Put<IJsonOrganization>(endpoint.ToString(), Parameters);
 			Parameters.Clear();
 			_actions.MarkForUpdate();
 		}

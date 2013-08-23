@@ -1098,7 +1098,7 @@ namespace Manatee.Trello.Test.UnitTests
 			                               	})
 								   .ToList();
 
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<List<IJsonAction>>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<List<IJsonAction>>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(jsonActions);
 		}
 		private void AllKnownNotificationTypesExist()
@@ -1112,7 +1112,7 @@ namespace Manatee.Trello.Test.UnitTests
 			                               	})
 										 .ToList();
 
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<List<IJsonNotification>>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<List<IJsonNotification>>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(jsonNotifications);
 		}
 

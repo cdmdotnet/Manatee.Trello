@@ -152,8 +152,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "checklists"; } }
 		internal static string TypeKey2 { get { return "checklist"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the CheckList class.
@@ -178,14 +178,15 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Validator.NonEmptyString(name);
 			var checkItem = new CheckItem();
-			var endpoint = EndpointGenerator.Default.Generate(this, checkItem);
-			var request = RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("name", name);
-			request.AddParameter("checked", (state == CheckItemStateType.Complete).ToLowerString());
+			var endpoint = EndpointGenerator.Default.GenerateForList<CheckItem>(this);
+			Parameters.Add("name", name);
+			Parameters.Add("checked", (state == CheckItemStateType.Complete).ToLowerString());
 			if ((position != null) && position.IsValid)
-				request.AddParameter("pos", position);
-			var jsonCheckItem = Api.Post<IJsonCheckItem>(request);
+				Parameters.Add("pos", position);
+			var jsonCheckItem = JsonRepository.Post<IJsonCheckItem>(endpoint.ToString(), Parameters);
+			Parameters.Clear();
 			checkItem.Owner = this;
+			UpdateService(checkItem);
 			checkItem.ApplyJson(jsonCheckItem);
 			_checkItems.MarkForUpdate();
 			return checkItem;
@@ -199,12 +200,11 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			Api.Delete<IJsonCheckList>(request);
+			JsonRepository.Delete<IJsonCheckList>(endpoint.ToString());
 			if (_card != null)
 				_card.CheckListsList.MarkForUpdate();
-			if (Cache != null)
-				Cache.Remove(this);
+			if (Svc.Configuration.Cache != null)
+				Svc.Configuration.Cache.Remove(this);
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -270,24 +270,24 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("fields", "name,idBoard,idCard,pos");
-			request.AddParameter("cards", "none");
-			request.AddParameter("checkItems", "none");
-			var obj = Api.Get<IJsonCheckList>(request);
+			Parameters.Add("fields", "name,idBoard,idCard,pos");
+			Parameters.Add("cards", "none");
+			Parameters.Add("checkItems", "none");
+			var obj = JsonRepository.Get<IJsonCheckList>(endpoint.ToString(), Parameters);
+			Parameters.Clear();
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService()
+		protected override void PropagateService()
 		{
-			_checkItems.Svc = Svc;
-			if (_board != null) _board.Svc = Svc;
-			if (_card != null) _card.Svc = Svc;
+			UpdateService(_checkItems);
+			UpdateService(_board);
+			UpdateService(_card);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -303,18 +303,8 @@ namespace Manatee.Trello
 
 		private void Put()
 		{
-			if (Svc == null)
-			{
-				Parameters.Clear();
-				return;
-			}
 			var endpoint = EndpointGenerator.Default.Generate(this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			foreach (var parameter in Parameters)
-			{
-				request.AddParameter(parameter.Key, parameter.Value);
-			}
-			Api.Put<IJsonCheckList>(request);
+			JsonRepository.Put<IJsonCheckList>(endpoint.ToString(), Parameters);
 			Parameters.Clear();
 		}
 	}

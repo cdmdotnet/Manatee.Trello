@@ -150,8 +150,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "badges"; } }
 		internal static string TypeKey2 { get { return "badges"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the Badges class.
@@ -171,18 +171,17 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			var obj = Api.Get<IJsonBadges>(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var obj = JsonRepository.Get<IJsonBadges>(endpoint.ToString());
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService() {}
+		protected override void PropagateService() {}
 
 		internal override void ApplyJson(object obj)
 		{

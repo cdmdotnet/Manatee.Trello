@@ -160,8 +160,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "labelNames"; } }
 		internal static string TypeKey2 { get { return "labelNames"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the LabelNames class.
@@ -211,18 +211,17 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			var obj = Api.Get<IJsonLabelNames>(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var obj = JsonRepository.Get<IJsonLabelNames>(endpoint.ToString());
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService() {}
+		protected override void PropagateService() {}
 
 		internal override void ApplyJson(object obj)
 		{
@@ -234,19 +233,9 @@ namespace Manatee.Trello
 
 		private void Put(string extension)
 		{
-			if (Svc == null)
-			{
-				Parameters.Clear();
-				return;
-			}
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
+			var endpoint = EndpointGenerator.Default.Generate(this);
 			endpoint.Append(extension);
-			var request = RequestProvider.Create(endpoint.ToString());
-			foreach (var parameter in Parameters)
-			{
-				request.AddParameter(parameter.Key, parameter.Value);
-			}
-			Api.Put<IJsonLabelNames>(request);
+			JsonRepository.Put<IJsonLabelNames>(endpoint.ToString(), Parameters);
 			Parameters.Clear();
 		}
 	}

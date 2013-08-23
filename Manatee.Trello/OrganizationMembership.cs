@@ -90,8 +90,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "memberships"; } }
 		internal static string TypeKey2 { get { return "memberships"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		static OrganizationMembership()
 		{
@@ -178,11 +178,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService()
+		protected override void PropagateService()
 		{
-			if (_member != null) _member.Svc = Svc;
+			UpdateService(_member);
 		}
 
 		internal override void ApplyJson(object obj)

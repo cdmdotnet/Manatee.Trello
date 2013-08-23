@@ -4,6 +4,7 @@ using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
@@ -28,8 +29,8 @@ namespace Manatee.Trello.Test.UnitTests
 		private class MockEntity : ExpiringObject
 		{
 			public int RefreshCallCount { get; private set; }
-			internal override string Key { get { return "MockEntity"; } }
-			internal override string Key2 { get { return "MockEntity2"; } }
+			internal override string PrimaryKey { get { return "MockEntity"; } }
+			internal override string SecondaryKey { get { return "MockEntity2"; } }
 
 			internal override void ApplyJson(object obj) {}
 
@@ -38,12 +39,14 @@ namespace Manatee.Trello.Test.UnitTests
 				RefreshCallCount++;
 				return true;
 			}
-			protected override void PropigateService() {}
+			protected override void PropagateService() {}
 		}
 		private class MockRequestProcessor : IRestRequestProcessor
 		{
 			public bool IsActive { get; set; }
-			public void AddRequest<T>(IRestRequest request, RestMethod method) where T : class
+			public string AppKey { get; private set; }
+			public string UserToken { get; set; }
+			public void AddRequest<T>(IRestRequest request) where T : class
 			{
 				if (IsActive)
 					request.Response = new RestSharp.RestSharpResponse<T>(null, new Mock<T>().Object);
@@ -53,22 +56,20 @@ namespace Manatee.Trello.Test.UnitTests
 
 		private new class DependencyCollection : UnitTestBase<TrelloService>.DependencyCollection 
 		{
-			public MockRequestProcessor RequestProcessor { get; set; }
 			public Mock<IEntityFactory> EntityFactory { get; private set; }
+			public MockRequestProcessor RequestProcessor { get; set; }
 			public new Mock<IRestClient> RestClient { get; private set; }
 			public MockEntity Entity { get; private set; }
 
 			public DependencyCollection()
 			{
-				RequestProcessor = new MockRequestProcessor();
 				EntityFactory = new Mock<IEntityFactory>();
+				RequestProcessor = new MockRequestProcessor();
 				RestClient = new Mock<IRestClient>();
 				Entity = new MockEntity();
 
 				//Config.SetupGet(c => c.ItemDuration)
 				//	  .Returns(TimeSpan.MaxValue);
-				EntityFactory.Setup(e => e.CreateEntity(It.IsAny<Type>()))
-				             .Returns(Entity);
 				RestClientProvider.Setup(p => p.CreateRestClient(It.IsAny<string>()))
 								  .Returns(RestClient.Object);
 			}
@@ -80,9 +81,9 @@ namespace Manatee.Trello.Test.UnitTests
 			{
 				Sut = new TrelloService(Dependencies.Config.Object,
 				                        Dependencies.Validator.Object,
+										Dependencies.EntityFactory.Object,
 				                        Dependencies.RequestProcessor,
-				                        Dependencies.Api.Object,
-				                        Dependencies.EntityFactory.Object);
+				                        Dependencies.Api.Object);
 			}
 		}
 
@@ -304,7 +305,7 @@ namespace Manatee.Trello.Test.UnitTests
 			_systemUnderTest = new ServiceUnderTest();
 			var mockJsonObject = new Mock<TJ>();
 			mockJsonObject.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<TJ>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<TJ>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 			                .Returns(mockJsonObject.Object);
 			_systemUnderTest.Dependencies.Cache.Setup(c => c.Add(It.IsAny<T>()))
 			                .Callback(ItemExistsInCache<T>);
@@ -317,7 +318,7 @@ namespace Manatee.Trello.Test.UnitTests
 			mock.SetupAllProperties();
 			mock.Object.Permissions = new List<IJsonTokenPermission>();
 			_systemUnderTest = new ServiceUnderTest();
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonToken>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonToken>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 			                .Returns(mock.Object);
 			_systemUnderTest.Dependencies.Cache.Setup(c => c.Add(It.IsAny<Token>()))
 			                .Callback(ItemExistsInCache<Token>);
@@ -334,7 +335,7 @@ namespace Manatee.Trello.Test.UnitTests
 		private void AnEntityDoesNotExist<T, TJ>() where T : class where TJ : class
 		{
 			_systemUnderTest = new ServiceUnderTest();
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<TJ>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<TJ>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 							.Returns((TJ)null);
 			_systemUnderTest.Dependencies.Cache.Setup(c => c.Add(It.IsAny<T>()))
 							.Callback(ItemExistsInCache<T>);
@@ -360,24 +361,24 @@ namespace Manatee.Trello.Test.UnitTests
 			var mockOrganization = new Mock<IJsonOrganization>();
 			mockOrganization.SetupGet(a => a.Id).Returns(TrelloIds.OrganizationId);
 			_systemUnderTest = new ServiceUnderTest();
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonSearchResults>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonSearchResults>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 				.Returns(searchResults.Object);
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonAction>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonAction>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 				.Returns(mockAction.Object);
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonBoard>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonBoard>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 				.Returns(mockBoard.Object);
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonCard>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonCard>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 				.Returns(mockCard.Object);
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonMember>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonMember>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 				.Returns(mockMember.Object);
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonOrganization>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<IJsonOrganization>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 				.Returns(mockOrganization.Object);
 		}
 		private void SearchableMembersExist()
 		{
 			var member = new Mock<IJsonMember>();
 			_systemUnderTest = new ServiceUnderTest();
-			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<List<IJsonMember>>(It.IsAny<IRestRequest>()))
+			_systemUnderTest.Dependencies.Api.Setup(c => c.Get<List<IJsonMember>>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 			                .Returns(new List<IJsonMember> {member.Object});
 		}
 
@@ -412,7 +413,7 @@ namespace Manatee.Trello.Test.UnitTests
 		private void MockGetIsCalled<T>(int times)
 			where T : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(c => c.Get<T>(It.IsAny<IRestRequest>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.Api.Verify(c => c.Get<T>(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("RestClient.Execute<{0}>() is called {1} time(s)")]
 		private void MockExecuteIsCalled<T>(int times)

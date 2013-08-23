@@ -22,10 +22,11 @@
 					based on the Type property.
 
 ***************************************************************************************/
+
 using System;
 using System.Collections.Generic;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.Genesis
 {
 	internal class ActionProvider : IEntityProvider<Action>
 	{
@@ -77,7 +78,7 @@ namespace Manatee.Trello.Internal
 			           		{ActionType.UpdateBoard, typeof (UpdateBoardAction)},
 			           		{ActionType.UpdateCard, typeof (UpdateCardAction)},
 			           		{ActionType.UpdateCheckItemStateOnCard, typeof (UpdateCheckItemStateOnCardAction)},
-			           		{ActionType.UpdateChecklist, typeof (UpdateChecklistAction)},
+			           		{ActionType.UpdateChecklist, typeof (UpdateCheckListAction)},
 			           		{ActionType.UpdateMember, typeof (UpdateMemberAction)},
 			           		{ActionType.UpdateOrganization, typeof (UpdateOrganizationAction)},
 			           		{ActionType.UpdateCardIdList, typeof (UpdateCardIdListAction)},
@@ -93,6 +94,13 @@ namespace Manatee.Trello.Internal
 			if (obj.Type == ActionType.Unknown) return obj;
 			var type = _typeMap[obj.Type];
 			var newObj = (Action) Activator.CreateInstance(type, new object[] {obj});
+			return newObj;
+		}
+		public Action Create(ActionType actionType)
+		{
+			if (actionType == ActionType.Unknown) return new Action();
+			var type = _typeMap[actionType];
+			var newObj = (Action)Activator.CreateInstance(type);
 			return newObj;
 		}
 	}

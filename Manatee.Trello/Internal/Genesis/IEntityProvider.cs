@@ -21,9 +21,10 @@
 					a more generic class and its more specific derived classes.
 
 ***************************************************************************************/
+
 using Manatee.Trello.Contracts;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.Genesis
 {
 	internal interface IEntityProvider<T> where T : ExpiringObject
 	{

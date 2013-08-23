@@ -27,13 +27,13 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Indicates a check list was updated.
 	/// </summary>
-	public class UpdateChecklistAction : Action
+	public class UpdateCheckListAction : Action
 	{
 		/// <summary>
 		/// Creates a new instance of the UpdateChecklistAction class.
 		/// </summary>
 		/// <param name="action"></param>
-		public UpdateChecklistAction(Action action)
+		public UpdateCheckListAction(Action action)
 		{
 			Debug.Assert(false, string.Format(
 				"{0} is not yet configured.  Please post the JSON returned by http://api.trello.com/actions/{1} to https://trello.com/c/k5q97GRf",

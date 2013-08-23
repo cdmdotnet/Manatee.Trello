@@ -183,8 +183,8 @@ namespace Manatee.Trello
 
 		internal static string TypeKey { get { return "prefs"; } }
 		internal static string TypeKey2 { get { return "prefs"; } }
-		internal override string Key { get { return TypeKey; } }
-		internal override string Key2 { get { return TypeKey2; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
+		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		static OrganizationPreferences()
 		{
@@ -212,18 +212,17 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			var request = RequestProvider.Create(endpoint.ToString());
-			var obj = Api.Get<IJsonOrganizationPreferences>(request);
+			var endpoint = EndpointGenerator.Default.Generate(this);
+			var obj = JsonRepository.Get<IJsonOrganizationPreferences>(endpoint.ToString());
 			if (obj == null) return false;
 			ApplyJson(obj);
 			return true;
 		}
 
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected override void PropigateService() {}
+		protected override void PropagateService() {}
 
 		internal override void ApplyJson(object obj)
 		{
@@ -237,19 +236,9 @@ namespace Manatee.Trello
 
 		private void Put(string extension)
 		{
-			if (Svc == null)
-			{
-				Parameters.Clear();
-				return;
-			}
 			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
 			endpoint.Append(extension);
-			var request = RequestProvider.Create(endpoint.ToString());
-			foreach (var parameter in Parameters)
-			{
-				request.AddParameter(parameter.Key, parameter.Value);
-			}
-			Api.Put<IJsonOrganizationPreferences>(request);
+			JsonRepository.Put<IJsonOrganizationPreferences>(endpoint.ToString(), Parameters);
 			Parameters.Clear();
 		}
 		private void UpdatePermissionLevel()

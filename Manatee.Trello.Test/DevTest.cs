@@ -26,10 +26,10 @@ namespace Manatee.Trello.Test
 			options.RestClientProvider = new RestSharpClientProvider(options);
 
 			var service = new TrelloService(options, TrelloIds.AppKey, TrelloIds.UserToken);
-			var me = service.Me;
+			var member = service.Retrieve<Member>("gregsdennis");
 
-			Console.WriteLine(me);
-			foreach (var board in me.Boards)
+			Console.WriteLine(member);
+			foreach (var board in member.Boards)
 			{
 				Console.WriteLine("  {0}", board);
 				foreach (var list in board.Lists)
@@ -41,11 +41,11 @@ namespace Manatee.Trello.Test
 					}
 				}
 			}
-			Console.WriteLine();
-			foreach (var action in me.Actions)
-			{
-				Console.WriteLine(action);
-			}
+			//Console.WriteLine();
+			//foreach (var action in member.Actions)
+			//{
+			//	Console.WriteLine(action);
+			//}
 		}
 	}
 }

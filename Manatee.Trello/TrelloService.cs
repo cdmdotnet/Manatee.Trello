@@ -22,11 +22,15 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Bootstrapping;
+using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 
@@ -39,9 +43,9 @@ namespace Manatee.Trello
 	{
 		private readonly ITrelloServiceConfiguration _configuration;
 		private readonly IRestRequestProcessor _requestProcessor;
-		private readonly ITrelloRest _api;
-		private readonly IValidator _validator;
 		private readonly IEntityFactory _entityFactory;
+		private readonly IJsonRepository _jsonRepository;
+		private readonly IValidator _validator;
 		private Member _me;
 
 		/// <summary>
@@ -50,8 +54,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public string UserToken
 		{
-			get { return Api.UserToken; }
-			set { Api.UserToken = value; }
+			get { return _requestProcessor.UserToken; }
+			set { _requestProcessor.UserToken = value; }
 		}
 		/// <summary>
 		/// Gets the Member object associated with the provided AppKey.
@@ -67,9 +71,6 @@ namespace Manatee.Trello
 		/// Provides a set of options for use by a single ITrelloService instance.
 		/// </summary>
 		public ITrelloServiceConfiguration Configuration { get { return _configuration; } }
-		ITrelloRest ITrelloService.Api { get { return _api; } }
-		IValidator ITrelloService.Validator { get { return _validator; } }
-		private ITrelloRest Api { get { return _api; } }
 
 		/// <summary>
 		/// Creates a new instance of the TrelloService class using a given configuration.
@@ -79,25 +80,26 @@ namespace Manatee.Trello
 		/// <param name="userToken">The user token.</param>
 		public TrelloService(ITrelloServiceConfiguration configuration, string appKey, string userToken = null)
 		{
-			_validator = new Validator(this);
-			_validator.ArgumentNotNull(configuration, "configuration");
-			_validator.NonEmptyString(appKey);
+			if (configuration == null) throw new ArgumentNullException("configuration");
 			_configuration = configuration;
-			_requestProcessor = new RestRequestProcessor(_configuration.Log, new Queue<QueuableRestRequest>(), _configuration.RestClientProvider, appKey, userToken);
-			_api = new TrelloRest(_configuration.Log, _requestProcessor, appKey, userToken);
-			_entityFactory = new EntityFactory();
+			var bootstrapper = new Bootstrapper();
+			bootstrapper.Initialize(this, configuration, appKey, userToken);
+			_requestProcessor = bootstrapper.RequestProcessor;
+			_jsonRepository = bootstrapper.JsonRepository;
+			_validator = bootstrapper.Validator;
+			_entityFactory = bootstrapper.EntityFactory;
 		}
 		internal TrelloService(ITrelloServiceConfiguration configuration,
-		                       IValidator validator,
-		                       IRestRequestProcessor requestProcessor,
-		                       ITrelloRest api,
-		                       IEntityFactory entityFactory)
+							   IValidator validator,
+							   IEntityFactory entityFactory,
+							   IRestRequestProcessor requestProcessor,
+							   IJsonRepository jsonRepository)
 		{
 			_configuration = configuration;
 			_validator = validator;
-			_requestProcessor = requestProcessor;
-			_api = api;
 			_entityFactory = entityFactory;
+			_requestProcessor = requestProcessor;
+			_jsonRepository = jsonRepository;
 		}
 
 		/// <summary>
@@ -132,28 +134,30 @@ namespace Manatee.Trello
 		public SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All)
 		{
 			_validator.NonEmptyString(query);
-			var endpoint = new Endpoint(new[] { "search" });
-			var request = _configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("query", query);
-			request.AddParameter("action_fields", "id");
-			request.AddParameter("board_fields", "id");
-			request.AddParameter("card_fields", "id");
-			request.AddParameter("member_fields", "id");
-			request.AddParameter("organization_fields", "id");
+			var endpoint = new Endpoint(new[] {"search"});
+			var parameters = new Dictionary<string, object>
+				{
+					{"query", query},
+					{"action_fields", "id"},
+					{"board_fields", "id"},
+					{"card_fields", "id"},
+					{"member_fields", "id"},
+					{"organization_fields", "id"},
+				};
 			if (context != null)
 			{
 				var results = ConstructContextParameter<Board>(context);
 				if (!string.IsNullOrEmpty(results))
-					request.AddParameter("idBoards", results);
+					parameters.Add("idBoards", results);
 				results = ConstructContextParameter<Card>(context);
 				if (!string.IsNullOrEmpty(results))
-					request.AddParameter("idCards", results);
+					parameters.Add("idCards", results);
 				results = ConstructContextParameter<Organization>(context);
 				if (!string.IsNullOrEmpty(results))
-					request.AddParameter("idOrganizations", results);
+					parameters.Add("idOrganizations", results);
 			}
-			request.AddParameter("modelTypes", ConstructSearchModelTypeParameter(modelTypes));
-			return new SearchResults(this, Api.Get<IJsonSearchResults>(request));
+			parameters.Add("modelTypes", ConstructSearchModelTypeParameter(modelTypes));
+			return new SearchResults(this, _jsonRepository.Get<IJsonSearchResults>(endpoint.ToString(), parameters));
 		}
 		/// <summary>
 		/// Searches for members whose names or usernames match a provided query string.
@@ -165,11 +169,13 @@ namespace Manatee.Trello
 		{
 			_validator.NonEmptyString(query);
 			var endpoint = new Endpoint(new[] {"search", "members"});
-			var request = _configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("query", query);
+			var parameters = new Dictionary<string, object>
+				{
+					{"query", query},
+				};
 			if (limit > 0)
-				request.AddParameter("limit", limit);
-			var reply = Api.Get<List<IJsonMember>>(request);
+				parameters.Add("limit", limit);
+			var reply = _jsonRepository.Get<List<IJsonMember>>(endpoint.ToString(), parameters);
 			foreach (var jsonMember in reply)
 			{
 				var entity = new Member {Svc = this};
@@ -200,34 +206,22 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("Key: {0}, Token: {1}", Api.AppKey, Api.UserToken);
+			return string.Format("Key: {0}, Token: {1}", _requestProcessor.AppKey, _requestProcessor.UserToken);
 		}
 
 		private T Verify<T>(string id)
-			where T : ExpiringObject, new()
+			where T : ExpiringObject
 		{
 			T entity = null;
 			try
 			{
-				if (typeof(T).IsAssignableFrom(typeof(Token)))
-				{
-					entity = new Token(id) {Svc = this} as T;
-				}
-				else entity = new T {Id = id, Svc = this};
-				entity.VerifyNotExpired();
-				if (typeof(T).IsAssignableFrom(typeof(Action)))
-				{
-					entity = ActionProvider.Default.Parse(entity as Action) as T;
-				}
-				else if (typeof(T).IsAssignableFrom(typeof(Notification)))
-				{
-					entity = NotificationProvider.Default.Parse(entity as Notification) as T;
-				}
+				entity = _entityFactory.CreateEntity<T>(id);
 				return entity;
 			}
 			catch
 			{
-				_configuration.Cache.Remove(entity);
+				if (_configuration.Cache != null)
+					_configuration.Cache.Remove(entity);
 				throw;
 			}
 		}
@@ -235,10 +229,12 @@ namespace Manatee.Trello
 		{
 			if (UserToken == null)
 				_configuration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
-			var endpoint = new Endpoint(new[] { Member.TypeKey, "me" });
-			var request = _configuration.RestClientProvider.RequestProvider.Create(endpoint.ToString());
-			request.AddParameter("fields","id");
-			var json = Api.Get<IJsonMember>(request);
+			var endpoint = new Endpoint(new[] {"members", "me"});
+			var parameters = new Dictionary<string, object>
+				{
+					{"fields", "id"},
+				};
+			var json = _jsonRepository.Get<IJsonMember>(endpoint.ToString(), parameters);
 			if (json == null) return null;
 			return Verify<Member>(json.Id);
 		}

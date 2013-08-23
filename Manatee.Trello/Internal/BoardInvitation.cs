@@ -27,7 +27,7 @@ namespace Manatee.Trello.Internal
 	internal class BoardInvitation : Board, IEquatable<BoardInvitation>
 	{
 		internal new static string TypeKey { get { return "boardsInvited"; } }
-		internal override string Key { get { return TypeKey; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
 
 		public bool Equals(BoardInvitation other)
 		{

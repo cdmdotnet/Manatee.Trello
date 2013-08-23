@@ -28,8 +28,10 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	internal interface IRestRequestProcessor
 	{
 		bool IsActive { get; set; }
+		string AppKey { get; }
+		string UserToken { get; set; }
 
-		void AddRequest<T>(IRestRequest request, RestMethod method)
+		void AddRequest<T>(IRestRequest request)
 			where T : class;
 		void ShutDown();
 	}

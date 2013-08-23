@@ -5,6 +5,7 @@ using System.Text;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Rest;
 using Moq;
 
@@ -32,7 +33,7 @@ namespace Manatee.Trello.Test.UnitTests
 			public Mock<ITrelloServiceConfiguration> Config { get; private set; }
 			public Mock<ILog> Log { get; private set; }
 			public Mock<ICache> Cache { get; private set; }
-			public Mock<ITrelloRest> Api { get; private set; }
+			public Mock<IJsonRepository> Api { get; private set; }
 			public Mock<IValidator> Validator { get; set; }
 
 			public DependencyCollection()
@@ -43,7 +44,7 @@ namespace Manatee.Trello.Test.UnitTests
 				RestClientProvider = new Mock<IRestClientProvider>();
 				RequestProvider = new Mock<IRestRequestProvider>();
 				RestClient = new MockRestClient();
-				Api = new Mock<ITrelloRest>();
+				Api = new Mock<IJsonRepository>();
 				Validator = new Mock<IValidator>();
 
 				Config.SetupGet(c => c.RestClientProvider)
@@ -62,7 +63,7 @@ namespace Manatee.Trello.Test.UnitTests
 				                  .Returns(RequestProvider.Object);
 				RestClientProvider.Setup(p => p.CreateRestClient(It.IsAny<string>()))
 				                  .Returns(RestClient);
-				RequestProvider.Setup(p => p.Create(It.IsAny<string>()))
+				RequestProvider.Setup(p => p.Create(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
 				               .Returns(new Mock<IRestRequest>().Object);
 				RequestProvider.Setup(p => p.Create(It.IsAny<IRestRequest>()))
 							   .Returns((IRestRequest r) => r);

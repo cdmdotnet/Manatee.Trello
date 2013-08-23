@@ -28,7 +28,7 @@ namespace Manatee.Trello.Internal
 	internal class PinnedBoard : Board, IEquatable<PinnedBoard>
 	{
 		internal new static string TypeKey { get { return "idBoardsPinned"; } }
-		internal override string Key { get { return TypeKey; } }
+		internal override string PrimaryKey { get { return TypeKey; } }
 
 		public bool Equals(PinnedBoard other)
 		{

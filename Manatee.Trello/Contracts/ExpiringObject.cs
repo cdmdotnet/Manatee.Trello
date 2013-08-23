@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Contracts
@@ -35,7 +36,6 @@ namespace Manatee.Trello.Contracts
 	public abstract class ExpiringObject
 	{
 		private DateTime _expires;
-		private ExpiringObject _owner;
 		private ITrelloService _svc;
 
 		/// <summary>
@@ -55,16 +55,7 @@ namespace Manatee.Trello.Contracts
 		/// </remarks>
 		protected Dictionary<string, object> Parameters { get; private set; }
 
-		internal ExpiringObject Owner
-		{
-			get { return _owner; }
-			set
-			{
-				if (_owner == value) return;
-				_owner = value;
-				Svc = _owner.Svc;
-			}
-		}
+		internal ExpiringObject Owner { get; set; }
 		internal ITrelloService Svc
 		{
 			get { return _svc; }
@@ -72,7 +63,7 @@ namespace Manatee.Trello.Contracts
 			{
 				if (_svc == value) return;
 				_svc = value;
-				PropigateService();
+				PropagateService();
 				MarkForUpdate();
 				if (_svc == null) return;
 				if (Id != null)
@@ -88,13 +79,12 @@ namespace Manatee.Trello.Contracts
 				}
 			}
 		}
-		internal ITrelloRest Api { get { return Svc == null ? null : Svc.Api; } }
-		internal IRestRequestProvider RequestProvider { get { return Svc == null ? null : Svc.Configuration.RestClientProvider.RequestProvider; } }
-		internal ICache Cache { get { return Svc == null ? TrelloServiceConfiguration.GlobalCache : Svc.Configuration.Cache; } }
-		internal ILog Log { get { return Svc == null ? TrelloServiceConfiguration.GlobalLog : Svc.Configuration.Log; } }
-		internal IValidator Validator { get { return Svc == null ? Internal.Validator.Default : Svc.Validator; } }
-		internal abstract string Key { get; }
-		internal abstract string Key2 { get; }
+		internal IJsonRepository JsonRepository { get; set; }
+		internal IRestRequestProvider RequestProvider {get{return Svc.Configuration.RestClientProvider.RequestProvider;}}
+		internal ILog Log { get { return Svc == null ? null : Svc.Configuration.Log; } }
+		internal IValidator Validator { get; set; }
+		internal abstract string PrimaryKey { get; }
+		internal abstract string SecondaryKey { get; }
 		internal virtual string KeyId { get { return Id; } }
 
 		internal ExpiringObject()
@@ -154,9 +144,16 @@ namespace Manatee.Trello.Contracts
 			else
 				Log.Info("A {0} will expire at {2}.", GetType().CSharpName(), _expires);
 		}
+		protected void UpdateService(ExpiringObject entity)
+		{
+			if (entity == null) return;
+			entity.Validator = Validator;
+			entity.JsonRepository = JsonRepository;
+			entity.Svc = _svc;
+		}
 		/// <summary>
-		/// Propigates the service instance to the object's owned objects.
+		/// Propagates the service instance to the object's owned objects.
 		/// </summary>
-		protected abstract void PropigateService();
+		protected abstract void PropagateService();
 	}
 }

@@ -14,61 +14,56 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ITrelloRest.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		ITrelloRest
+	File Name:		IEntityRepository.cs
+	Namespace:		Manatee.Trello.Internal.DataAccess
+	Class Name:		IEntityRepository
 	Purpose:		Defines methods required to retrieve entities from Trello.
 
 ***************************************************************************************/
-using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Internal
+using System.Collections.Generic;
+
+namespace Manatee.Trello.Internal.DataAccess
 {
 	/// <summary>
 	/// Internal use only.  Defines methods required to retrieve entities from Trello.
 	/// </summary>
-	public interface ITrelloRest
+	public interface IJsonRepository
 	{
 		/// <summary>
 		/// 
 		/// </summary>
-		string AppKey { get; }
-		/// <summary>
-		/// 
-		/// </summary>
-		string UserToken { get; set; }
-
-		/// <summary>
-		/// 
-		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		/// <param name="request"></param>
+		/// <param name="endpoint"></param>
+		/// <param name="parameters"></param>
 		/// <returns></returns>
-		T Get<T>(IRestRequest request)
+		T Get<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class;
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		/// <param name="request"></param>
+		/// <param name="endpoint"></param>
+		/// <param name="parameters"></param>
 		/// <returns></returns>
-		T Put<T>(IRestRequest request)
+		T Put<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class;
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		/// <param name="request"></param>
+		/// <param name="endpoint"></param>
+		/// <param name="parameters"></param>
 		/// <returns></returns>
-		T Post<T>(IRestRequest request)
+		T Post<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class;
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		/// <param name="request"></param>
+		/// <param name="endpoint"></param>
 		/// <returns></returns>
-		T Delete<T>(IRestRequest request)
+		T Delete<T>(string endpoint)
 			where T : class;
 	}
 }
