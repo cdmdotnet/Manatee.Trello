@@ -37,15 +37,19 @@ namespace Manatee.Trello.Internal.Bootstrapping
 		public IJsonRepository JsonRepository { get; private set; }
 		public IValidator Validator { get; private set; }
 		public IEntityFactory EntityFactory { get; private set; }
+		public IEntityRepository EntityRepository { get; private set; }
+		public IEndpointFactory EndpointFactory { get; private set; }
 
 		public void Initialize(ITrelloService service, ITrelloServiceConfiguration config, string appKey, string userToken)
 		{
+			EntityFactory = new EntityFactory();
+			EndpointFactory = new EndpointFactory();
 			RequestQueue = new Queue<QueuableRestRequest>();
 			NetworkMonitor = RequestProcessing.NetworkMonitor.Default;
 			RequestProcessor = new RestRequestProcessor(config.Log, RequestQueue, config.RestClientProvider, NetworkMonitor, appKey, userToken);
 			JsonRepository = new JsonRepository(RequestProcessor, config.RestClientProvider.RequestProvider);
 			Validator = new Validator(service, JsonRepository);
-			EntityFactory = new EntityFactory(service, Validator, JsonRepository);
+			EntityRepository = new EntityRepository(JsonRepository, EndpointFactory, EntityFactory);
 		}
 	}
 }

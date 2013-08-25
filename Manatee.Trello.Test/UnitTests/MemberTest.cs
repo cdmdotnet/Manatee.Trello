@@ -609,25 +609,6 @@ namespace Manatee.Trello.Test.UnitTests
 				.Execute();
 		}
 		[TestMethod]
-		public void PremiumOrganizations()
-		{
-			var story = new Story("PremiumOrganizations");
-
-			var feature = story.InOrderTo("get the premium organizations to which a member belongs")
-				.AsA("developer")
-				.IWant("to get PremiumOrganizations");
-
-			feature.WithScenario("Access PremiumOrganizations property")
-				.Given(AMember)
-				.And(EntityIsExpired)
-				.When(PremiumOrganizationsIsAccessed)
-				.Then(MockApiGetIsCalled<List<IJsonOrganization>>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<Organization>>)
-				.And(ExceptionIsNotThrown)
-
-				.Execute();
-		}
-		[TestMethod]
 		public void Status()
 		{
 			var story = new Story("Status");
@@ -1098,7 +1079,7 @@ namespace Manatee.Trello.Test.UnitTests
 			                               	})
 								   .ToList();
 
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<List<IJsonAction>>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+			_systemUnderTest.Dependencies.JsonRepository.Setup(a => a.Get<List<IJsonAction>>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(jsonActions);
 		}
 		private void AllKnownNotificationTypesExist()
@@ -1112,7 +1093,7 @@ namespace Manatee.Trello.Test.UnitTests
 			                               	})
 										 .ToList();
 
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<List<IJsonNotification>>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+			_systemUnderTest.Dependencies.JsonRepository.Setup(a => a.Get<List<IJsonNotification>>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(jsonNotifications);
 		}
 
@@ -1211,10 +1192,6 @@ namespace Manatee.Trello.Test.UnitTests
 		private void PreferencesIsAccessed()
 		{
 			Execute(() => _systemUnderTest.Sut.Preferences);
-		}
-		private void PremiumOrganizationsIsAccessed()
-		{
-			Execute(() => _systemUnderTest.Sut.PremiumOrganizations);
 		}
 		private void StatusIsAccessed()
 		{

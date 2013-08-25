@@ -59,11 +59,6 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal static string TypeKey { get { return "labels"; } }
-		internal static string TypeKey2 { get { return "labels"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
-
 		static Label()
 		{
 			_colorMap = new OneToOneMap<LabelColor, string>

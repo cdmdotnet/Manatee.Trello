@@ -53,7 +53,7 @@ namespace Manatee.Trello.Contracts
 		/// <remarks>
 		/// Parameters is cleared after each use.
 		/// </remarks>
-		protected Dictionary<string, object> Parameters { get; private set; }
+		internal Dictionary<string, object> Parameters { get; private set; }
 
 		internal ExpiringObject Owner { get; set; }
 		internal ITrelloService Svc
@@ -79,13 +79,10 @@ namespace Manatee.Trello.Contracts
 				}
 			}
 		}
-		internal IJsonRepository JsonRepository { get; set; }
 		internal IRestRequestProvider RequestProvider {get{return Svc.Configuration.RestClientProvider.RequestProvider;}}
 		internal ILog Log { get { return Svc == null ? null : Svc.Configuration.Log; } }
 		internal IValidator Validator { get; set; }
-		internal abstract string PrimaryKey { get; }
-		internal abstract string SecondaryKey { get; }
-		internal virtual string KeyId { get { return Id; } }
+		internal IEntityRepository EntityRepository { get; set; }
 
 		internal ExpiringObject()
 		{
@@ -148,7 +145,7 @@ namespace Manatee.Trello.Contracts
 		{
 			if (entity == null) return;
 			entity.Validator = Validator;
-			entity.JsonRepository = JsonRepository;
+			entity.EntityRepository = EntityRepository;
 			entity.Svc = _svc;
 		}
 		/// <summary>

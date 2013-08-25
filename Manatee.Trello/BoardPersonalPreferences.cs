@@ -58,7 +58,7 @@ namespace Manatee.Trello
 				_jsonBoardPersonalPreferences.ShowListGuide = value;
 				Parameters.Add("name", "showListGuide");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowListGuide.ToLowerString());
-				Post();
+				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowListGuide);
 			}
 		}
 		///<summary>
@@ -80,7 +80,7 @@ namespace Manatee.Trello
 				_jsonBoardPersonalPreferences.ShowSidebar = value;
 				Parameters.Add("name", "showSidebar");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebar.ToLowerString());
-				Post();
+				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebar);
 			}
 		}
 		/// <summary>
@@ -102,7 +102,7 @@ namespace Manatee.Trello
 				_jsonBoardPersonalPreferences.ShowSidebarActivity = value;
 				Parameters.Add("name", "showSidebarActivity");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarActivity.ToLowerString());
-				Post();
+				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarActivity);
 			}
 		}
 		/// <summary>
@@ -123,7 +123,7 @@ namespace Manatee.Trello
 				_jsonBoardPersonalPreferences.ShowSidebarBoardActions = value;
 				Parameters.Add("name", "showSidebarBoardActions");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarBoardActions.ToLowerString());
-				Post();
+				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarBoardActions);
 			}
 		}
 		///<summary>
@@ -145,14 +145,9 @@ namespace Manatee.Trello
 				_jsonBoardPersonalPreferences.ShowSidebarMembers = value;
 				Parameters.Add("name", "showSidebarMembers");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarMembers.ToLowerString());
-				Post();
+				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarMembers);
 			}
 		}
-
-		internal static string TypeKey { get { return "myPrefs"; } }
-		internal static string TypeKey2 { get { return "myPrefs"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the CheckList class.
@@ -172,10 +167,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			var obj = JsonRepository.Get<IJsonBoardPersonalPreferences>(endpoint.ToString());
-			if (obj == null) return false;
-			ApplyJson(obj);
+			Parameters.Add("_boardId", Owner.Id);
+			EntityRepository.Refresh(this, EntityRequestType.BoardPersonalPreferences_Read_Refresh);
 			return true;
 		}
 
@@ -192,11 +185,10 @@ namespace Manatee.Trello
 				_jsonBoardPersonalPreferences = (IJsonBoardPersonalPreferences)obj;
 		}
 
-		private void Post()
+		private void Post(EntityRequestType requestType)
 		{
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			JsonRepository.Post<IJsonBoardPersonalPreferences>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
+			Parameters.Add("_boardId", Owner.Id);
+			EntityRepository.Upload(requestType, Parameters);
 		}
 	}
 }

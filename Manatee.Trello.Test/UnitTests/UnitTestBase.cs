@@ -33,8 +33,9 @@ namespace Manatee.Trello.Test.UnitTests
 			public Mock<ITrelloServiceConfiguration> Config { get; private set; }
 			public Mock<ILog> Log { get; private set; }
 			public Mock<ICache> Cache { get; private set; }
-			public Mock<IJsonRepository> Api { get; private set; }
-			public Mock<IValidator> Validator { get; set; }
+			public Mock<IJsonRepository> JsonRepository { get; private set; }
+			public Mock<IValidator> Validator { get; private set; }
+			public Mock<IEntityRepository> EntityRepository { get; private set; }
 
 			public DependencyCollection()
 			{
@@ -44,7 +45,7 @@ namespace Manatee.Trello.Test.UnitTests
 				RestClientProvider = new Mock<IRestClientProvider>();
 				RequestProvider = new Mock<IRestRequestProvider>();
 				RestClient = new MockRestClient();
-				Api = new Mock<IJsonRepository>();
+				JsonRepository = new Mock<IJsonRepository>();
 				Validator = new Mock<IValidator>();
 
 				Config.SetupGet(c => c.RestClientProvider)

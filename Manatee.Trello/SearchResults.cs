@@ -34,13 +34,13 @@ namespace Manatee.Trello
 	/// Contains the results of a text-based search within the current member's boards
 	/// and organizations as well as the parameters which yielded the results.
 	/// </summary>
-	public class SearchResults
+	public class SearchResults : ExpiringObject
 	{
-		private readonly IEnumerable<Action> _actions;
-		private readonly IEnumerable<Board> _boards;
-		private readonly IEnumerable<Card> _cards;
-		private readonly IEnumerable<Member> _members;
-		private readonly IEnumerable<Organization> _organizations;
+		private IEnumerable<Action> _actions;
+		private IEnumerable<Board> _boards;
+		private IEnumerable<Card> _cards;
+		private IEnumerable<Member> _members;
+		private IEnumerable<Organization> _organizations;
 
 		/// <summary>
 		/// Enumerates the Actions which match the provided query.
@@ -63,13 +63,25 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return _organizations; } }
 
-		internal SearchResults(ITrelloService svc, IJsonSearchResults results)
+		internal SearchResults()
 		{
-			_actions = results.ActionIds.Select(svc.Retrieve<Action>).ToList();
-			_boards = results.BoardIds.Select(svc.Retrieve<Board>).ToList();
-			_cards = results.CardIds.Select(svc.Retrieve<Card>).ToList();
-			_members = results.MemberIds.Select(svc.Retrieve<Member>).ToList();
-			_organizations = results.OrganizationIds.Select(svc.Retrieve<Organization>).ToList();
 		}
+		public override bool Refresh()
+		{
+			return true;
+		}
+
+		internal override void ApplyJson(object obj)
+		{
+			var results = obj as IJsonSearchResults;
+			if (results == null) return;
+			_actions = results.ActionIds.Select(Svc.Retrieve<Action>).ToList();
+			_boards = results.BoardIds.Select(Svc.Retrieve<Board>).ToList();
+			_cards = results.CardIds.Select(Svc.Retrieve<Card>).ToList();
+			_members = results.MemberIds.Select(Svc.Retrieve<Member>).ToList();
+			_organizations = results.OrganizationIds.Select(Svc.Retrieve<Organization>).ToList();
+		}
+
+		protected override void PropagateService() {}
 	}
 }

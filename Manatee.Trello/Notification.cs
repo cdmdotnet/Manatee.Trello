@@ -88,7 +88,7 @@ namespace Manatee.Trello
 				if (_jsonNotification.Unread == value) return;
 				_jsonNotification.Unread = value;
 				Parameters.Add("unread", _jsonNotification.Unread.ToLowerString());
-				Put();
+				Put(EntityRequestType.Notification_Write_IsUnread);
 			}
 		}
 		/// <summary>
@@ -113,11 +113,6 @@ namespace Manatee.Trello
 			get { return _type; }
 			internal set { _type = value; }
 		}
-
-		internal static string TypeKey { get { return "notifications"; } }
-		internal static string TypeKey2 { get { return "notifications"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		static Notification()
 		{
@@ -230,7 +225,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public override sealed bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
+			Parameters.Add("_id", Id);
 			Parameters.Add("fields", "unread,type,date,data,idMemberCreator");
 			Parameters.Add("entities", "false");
 			Parameters.Add("memberCreator", "false");
@@ -239,10 +234,7 @@ namespace Manatee.Trello
 			Parameters.Add("card", "false");
 			Parameters.Add("organization", "false");
 			Parameters.Add("member", "false");
-			var obj = JsonRepository.Get<IJsonNotification>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
-			if (obj == null) return false;
-			ApplyJson(obj);
+			EntityRepository.Refresh(this, EntityRequestType.Notification_Read_Refresh);
 			return true;
 		}
 
@@ -263,11 +255,10 @@ namespace Manatee.Trello
 			UpdateType();
 		}
 
-		private void Put()
+		private void Put(EntityRequestType requestType)
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			JsonRepository.Put<IJsonNotification>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
+			Parameters.Add("_id", Id);
+			EntityRepository.Upload(requestType, Parameters);
 		}
 
 		private void UpdateType()

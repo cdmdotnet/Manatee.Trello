@@ -104,11 +104,6 @@ namespace Manatee.Trello
 		///</summary>
 		public string Url { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Url; } }
 
-		internal static string TypeKey { get { return "attachments"; } }
-		internal static string TypeKey2 { get { return "attachments"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
-
 		/// <summary>
 		/// Creates a new instance of the Attachment class.
 		/// </summary>
@@ -125,8 +120,9 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			JsonRepository.Delete<IJsonAttachment>(endpoint.ToString());
+			Parameters.Add("_id", Id);
+			Parameters.Add("_cardId", Owner.Id);
+			EntityRepository.Upload(EntityRequestType.Attachment_Write_Delete, Parameters);
 			_isDeleted = true;
 		}
 		/// <summary>

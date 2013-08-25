@@ -23,33 +23,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal.Genesis;
-using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
 {
-	internal class ExpiringList<T, TJson> : ExpiringObject, IEnumerable<T>
-		where T : ExpiringObject, IEquatable<T>, IComparable<T>,  new()
+	internal class ExpiringList<T> : ExpiringObject, IEnumerable<T>
+		where T : ExpiringObject, IEquatable<T>, IComparable<T>
 	{
+		private readonly EntityRequestType _requestType;
 		private readonly List<T> _list;
-		private readonly string _key;
-		private readonly object _lockObject = new object();
 
 		public string Filter { get; set; }
 		public string Fields { get; set; }
 
-		internal override string PrimaryKey { get { return _key; } }
-		internal override string SecondaryKey { get { return _key; } }
-
-		public ExpiringList(ExpiringObject owner, string contentKey)
+		public ExpiringList(ExpiringObject owner, EntityRequestType requestType)
 		{
+			_requestType = requestType;
 			Owner = owner;
 			_list = new List<T>();
-			_key = contentKey;
 		}
 		public IEnumerator<T> GetEnumerator()
 		{
@@ -66,14 +57,14 @@ namespace Manatee.Trello.Internal
 		}
 		public override sealed bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.GenerateForList<T>(Owner);
+			if (Owner != null)
+				Parameters.Add("_id", Owner.Id);
 			if (Filter != null)
 				Parameters.Add("filter", Filter);
 			if (Fields != null)
 				Parameters.Add("fields", Fields);
-			var obj = JsonRepository.Get<List<TJson>>(endpoint.ToString(), Parameters);
-			if (obj == null) return false;
-			ApplyJson(obj);
+			EntityRepository.RefreshCollecion<T>(this, _requestType, Parameters);
+			PropagateService();
 			return true;
 		}
 		
@@ -81,67 +72,16 @@ namespace Manatee.Trello.Internal
 		{
 			foreach (var item in _list)
 			{
-				if (Owner != null)
-					item.Owner = Owner;
-				else
-					item.Svc = Svc;
+				item.Owner = Owner;
+				UpdateService(item);
 			}
 		}
 
-		internal override void ApplyJson(object obj)
+		internal void Update(IEnumerable<T> items)
 		{
 			_list.Clear();
-			List<TJson> jsonList;
-			if (obj is IRestResponse)
-				jsonList = ((IRestResponse<List<TJson>>)obj).Data;
-			else
-				jsonList = (List<TJson>) obj;
-			var entities = new List<T>();
-			var threads = jsonList.Select(j => new Thread(() => AsyncRetrieve(entities, j)) { IsBackground = true }).ToList();
-			foreach (var thread in threads)
-			{
-				thread.Start();
-			}
-			while (threads.Any(t => t.IsAlive)) {}
-			_list.AddRange(entities.OrderBy(e => e).ToList());
-			PropagateService();
+			_list.AddRange(items);
 		}
-
-		private void AsyncRetrieve(ICollection<T> entities, TJson json)
-		{
-			T entity;
-			if (IsCacheableProvider.Default.IsCacheable<T>())
-			{
-				var jsonCacheable = json as IJsonCacheable;
-				entity = Svc.Retrieve<T>(jsonCacheable.Id);
-			}
-			else
-			{
-				entity = new T();
-				entity.ApplyJson(json);
-				if (typeof(T).IsAssignableFrom(typeof(Action)))
-				{
-					var typedEntity = ActionProvider.Default.Parse(entity as Action) as T;
-					if (typedEntity != null)
-					{
-						typedEntity.ApplyJson(json);
-						entity = typedEntity;
-					}
-				}
-				else if (typeof(T).IsAssignableFrom(typeof(Notification)))
-				{
-					var typedEntity = NotificationProvider.Default.Parse(entity as Notification) as T;
-					if (typedEntity != null)
-					{
-						typedEntity.ApplyJson(json);
-						entity = typedEntity;
-					}
-				}
-			}
-			lock (_lockObject)
-			{
-				entities.Add(entity);
-			}
-		}
+		internal override void ApplyJson(object obj) {}
 	}
 }

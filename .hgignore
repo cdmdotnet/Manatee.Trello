@@ -15,3 +15,10 @@ Manatee.Trello.v11.suo
 packages/
 Manatee.Trello.sln.DotSettings.user
 Debugging/
+~$Endpoint definitions.xlsx
+Manatee.Trello.ManateeJson/bin
+Manatee.Trello.ManateeJson/obj
+Manatee.Trello.NewtonsoftJson/bin
+Manatee.Trello.NewtonsoftJson/obj
+Manatee.Trello.RestSharp/bin
+Manatee.Trello.RestSharp/obj

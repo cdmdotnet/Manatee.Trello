@@ -54,7 +54,7 @@ namespace Manatee.Trello
 				if (_jsonMemberPreferences.ColorBlind == value) return;
 				_jsonMemberPreferences.ColorBlind = value;
 				Parameters.Add("value", _jsonMemberPreferences.ColorBlind.ToLowerString());
-				Put("colorBlind");
+				Put(EntityRequestType.MemberPreferences_Write_ColorBlind);
 			}
 		}
 		/// <summary>
@@ -76,7 +76,7 @@ namespace Manatee.Trello
 				if (_jsonMemberPreferences.MinutesBetweenSummaries == (int?) value) return;
 				_jsonMemberPreferences.MinutesBetweenSummaries = (int?) value;
 				Parameters.Add("value", _jsonMemberPreferences.MinutesBetweenSummaries);
-				Put("minutesBetweenSummaries");
+				Put(EntityRequestType.MemberPreferences_Write_MinutesBetweenSummaries);
 			}
 		}
 		/// <summary>
@@ -97,7 +97,7 @@ namespace Manatee.Trello
 				if (_jsonMemberPreferences.SendSummaries == value) return;
 				_jsonMemberPreferences.SendSummaries = value;
 				Parameters.Add("value", _jsonMemberPreferences.SendSummaries.ToLowerString());
-				Put("sendSummaries");
+				Put(EntityRequestType.MemberPreferences_Write_SendSummaries);
 			}
 		}
 		/// <summary>
@@ -118,14 +118,9 @@ namespace Manatee.Trello
 				if (_jsonMemberPreferences.MinutesBeforeDeadlineToNotify == value) return;
 				_jsonMemberPreferences.MinutesBeforeDeadlineToNotify = value;
 				Parameters.Add("value", _jsonMemberPreferences.MinutesBeforeDeadlineToNotify);
-				Put("minutesBeforeDeadlineToNotify");
+				Put(EntityRequestType.MemberPreferences_Write_MinutesBeforeDeadlineToNotify);
 			}
 		}
-
-		internal static string TypeKey { get { return "prefs"; } }
-		internal static string TypeKey2 { get { return "prefs"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the MemberPreferences class.
@@ -145,10 +140,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			var obj = JsonRepository.Get<IJsonMemberPreferences>(endpoint.ToString());
-			if (obj == null) return false;
-			ApplyJson(obj);
+			Parameters.Add("_memberId", Owner.Id);
+			EntityRepository.Refresh(this, EntityRequestType.MemberPreferences_Read_Refresh);
 			return true;
 		}
 
@@ -165,12 +158,10 @@ namespace Manatee.Trello
 				_jsonMemberPreferences = (IJsonMemberPreferences)obj;
 		}
 
-		private void Put(string extension)
+		private void Put(EntityRequestType requestType)
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			endpoint.Append(extension);
-			JsonRepository.Put<IJsonMemberPreferences>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
+			Parameters.Add("_memberId", Owner.Id);
+			EntityRepository.Upload(requestType, Parameters);
 		}
 	}
 }

@@ -36,9 +36,9 @@ namespace Manatee.Trello
 	public class List : ExpiringObject, IEquatable<List>, IComparable<List>
 	{
 		private IJsonList _jsonList;
-		private readonly ExpiringList<Action, IJsonAction> _actions;
+		private readonly ExpiringList<Action> _actions;
 		private Board _board;
-		private readonly ExpiringList<Card, IJsonCard> _cards;
+		private readonly ExpiringList<Card> _cards;
 		private Position _position;
 
 		///<summary>
@@ -63,7 +63,7 @@ namespace Manatee.Trello
 		/// Enumerates all cards in the list.
 		/// </summary>
 		public IEnumerable<Card> Cards { get { return _cards; } }
-		internal ExpiringList<Card, IJsonCard> CardsList { get { return _cards; } }
+		internal ExpiringList<Card> CardsList { get { return _cards; } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
@@ -95,7 +95,7 @@ namespace Manatee.Trello
 				if (_jsonList.Closed == value) return;
 				_jsonList.Closed = value;
 				Parameters.Add("closed", _jsonList.Closed.ToLowerString());
-				Put();
+				Put(EntityRequestType.List_Write_IsClosed);
 			}
 		}
 		/// <summary>
@@ -116,7 +116,7 @@ namespace Manatee.Trello
 				if (_jsonList.Subscribed == value) return;
 				_jsonList.Subscribed = value;
 				Parameters.Add("subscribed", _jsonList.Subscribed.ToLowerString());
-				Put();
+				Put(EntityRequestType.List_Write_IsSubscribed);
 			}
 		}
 		/// <summary>
@@ -137,7 +137,7 @@ namespace Manatee.Trello
 				if (_jsonList.Name == value) return;
 				_jsonList.Name = value;
 				Parameters.Add("name", _jsonList.Name);
-				Put();
+				Put(EntityRequestType.List_Write_Name);
 			}
 		}
 		/// <summary>
@@ -158,17 +158,12 @@ namespace Manatee.Trello
 				if (_position == value) return;
 				_position = value;
 				Parameters.Add("pos", _position);
-				Put();
+				Put(EntityRequestType.List_Write_Position);
 				MarkForUpdate();
 				if (_board != null)
 					_board.ListsList.MarkForUpdate();
 			}
 		}
-
-		internal static string TypeKey { get { return "lists"; } }
-		internal static string TypeKey2 { get { return "lists"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the List class.
@@ -176,8 +171,8 @@ namespace Manatee.Trello
 		public List()
 		{
 			_jsonList = new InnerJsonList();
-			_actions = new ExpiringList<Action, IJsonAction>(this, Action.TypeKey) {Fields = "id"};
-			_cards = new ExpiringList<Card, IJsonCard>(this, Card.TypeKey) {Fields = "id"};
+			_actions = new ExpiringList<Action>(this, EntityRequestType.List_Read_Actions) {Fields = "id"};
+			_cards = new ExpiringList<Card>(this, EntityRequestType.List_Read_Cards) {Fields = "id"};
 		}
 
 		/// <summary>
@@ -192,16 +187,13 @@ namespace Manatee.Trello
 			if (Svc == null) return null;
 			Validator.Writable();
 			Validator.NonEmptyString(name);
-			var card = new Card();
-			var endpoint = EndpointGenerator.Default.Generate(card);
 			Parameters.Add("name", name);
 			Parameters.Add("idList", Id);
 			if (description != null)
 				Parameters.Add("desc", description);
 			if ((position != null) && position.IsValid)
 				Parameters.Add("pos", position);
-			card.ApplyJson(JsonRepository.Post<IJsonCard>(endpoint.ToString(), Parameters));
-			Parameters.Clear();
+			var card = EntityRepository.Download<Card>(EntityRequestType.List_Write_AddCard, Parameters);
 			UpdateService(card);
 			_cards.MarkForUpdate();
 			return card;
@@ -223,12 +215,11 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			Validator.Writable();
 			Validator.Entity(board);
-			var endpoint = EndpointGenerator.Default.Generate(this);
+			Parameters.Add("_id", Id);
 			Parameters.Add("idBoard", board.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
-			JsonRepository.Put<IJsonList>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
+			EntityRepository.Upload(EntityRequestType.List_Write_Move, Parameters);
 			MarkForUpdate();
 			if (_board != null)
 				_board.ListsList.MarkForUpdate();
@@ -296,13 +287,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
+			Parameters.Add("_id", Id);
 			Parameters.Add("fields", "name,closed,idBoard,pos,subscribed");
 			Parameters.Add("cards", "none");
-			var obj = JsonRepository.Get<IJsonList>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
-			if (obj == null) return false;
-			ApplyJson(obj);
+			EntityRepository.Refresh(this, EntityRequestType.List_Read_Refresh);
 			return true;
 		}
 
@@ -325,11 +313,10 @@ namespace Manatee.Trello
 			_position = ((_jsonList != null) && _jsonList.Pos.HasValue) ? new Position(_jsonList.Pos.Value) : Position.Unknown;
 		}
 
-		private void Put()
+		private void Put(EntityRequestType requestType)
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			JsonRepository.Put<IJsonList>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
+			Parameters.Add("_id", Id);
+			EntityRepository.Upload(requestType, Parameters);
 			_actions.MarkForUpdate();
 		}
 	}

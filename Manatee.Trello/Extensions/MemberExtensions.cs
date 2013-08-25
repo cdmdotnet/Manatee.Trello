@@ -41,25 +41,20 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> AllCards(this Member member)
 		{
-			if (member.Svc != null)
+			if (member.EntityRepository != null)
 			{
-				var endpoint = EndpointGenerator.Default.GenerateForList<Card>(member);
-				var parameters = new Dictionary<string, object>
-					{
-						{"fields", "id"},
-						{"filter", "all"},
-						{"actions", "none"},
-						{"attachments", "false"},
-						{"badges", "false"},
-						{"members", "false"},
-						{"membersVoted", "false"},
-						{"checkItemStates", "false"},
-						{"checkLists", "false"},
-						{"board", "false"},
-						{"list", "false"},
-					};
-				var response = member.JsonRepository.Get<List<IJsonCard>>(endpoint.ToString(), parameters);
-				return response.Select(j => member.Svc.Retrieve<Card>(j.Id));
+				var list = new ExpiringList<Card>(member, EntityRequestType.Member_Read_Cards) { Filter = "all", Fields = "id" };
+				list.Parameters.Add("actions", "none");
+				list.Parameters.Add("attachments", "false");
+				list.Parameters.Add("badges", "false");
+				list.Parameters.Add("members", "false");
+				list.Parameters.Add("membersVoted", "false");
+				list.Parameters.Add("checkItemStates", "false");
+				list.Parameters.Add("checkLists", "false");
+				list.Parameters.Add("board", "false");
+				list.Parameters.Add("list", "false");
+				list.Refresh();
+				return list;
 			}
 			return Enumerable.Empty<Card>();
 		}
@@ -72,23 +67,18 @@ namespace Manatee.Trello
 		{
 			if (member.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.GenerateForList<Card>(member);
-				var parameters = new Dictionary<string, object>
-					{
-						{"fields", "id"},
-						{"filter", "visible"},
-						{"actions", "none"},
-						{"attachments", "false"},
-						{"badges", "false"},
-						{"members", "false"},
-						{"membersVoted", "false"},
-						{"checkItemStates", "false"},
-						{"checkLists", "false"},
-						{"board", "false"},
-						{"list", "false"},
-					};
-				var response = member.JsonRepository.Get<List<IJsonCard>>(endpoint.ToString(), parameters);
-				return response.Select(j => member.Svc.Retrieve<Card>(j.Id));
+				var list = new ExpiringList<Card>(member, EntityRequestType.Member_Read_Cards) { Filter = "visible", Fields = "id" };
+				list.Parameters.Add("actions", "none");
+				list.Parameters.Add("attachments", "false");
+				list.Parameters.Add("badges", "false");
+				list.Parameters.Add("members", "false");
+				list.Parameters.Add("membersVoted", "false");
+				list.Parameters.Add("checkItemStates", "false");
+				list.Parameters.Add("checkLists", "false");
+				list.Parameters.Add("board", "false");
+				list.Parameters.Add("list", "false");
+				list.Refresh();
+				return list;
 			}
 			return Enumerable.Empty<Card>();
 		}

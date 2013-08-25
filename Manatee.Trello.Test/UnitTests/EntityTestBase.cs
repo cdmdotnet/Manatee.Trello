@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
-using Manatee.Trello.Internal;
-using Manatee.Trello.Rest;
+using Manatee.Trello.Internal.DataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -37,7 +36,10 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			public EntityUnderTest()
 			{
-				Sut = new T();
+				Sut = new T
+					{
+						Validator = Dependencies.Validator.Object
+					};
 			}
 		}
 
@@ -61,7 +63,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Get<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+			_systemUnderTest.Dependencies.JsonRepository.Setup(a => a.Get<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -70,7 +72,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Put<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+			_systemUnderTest.Dependencies.JsonRepository.Setup(a => a.Put<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -79,7 +81,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Post<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+			_systemUnderTest.Dependencies.JsonRepository.Setup(a => a.Post<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -88,7 +90,7 @@ namespace Manatee.Trello.Test.UnitTests
 		{
 			var obj = new Mock<TRequest>();
 			obj.SetupAllProperties();
-			_systemUnderTest.Dependencies.Api.Setup(a => a.Delete<TRequest>(It.IsAny<string>()))
+			_systemUnderTest.Dependencies.JsonRepository.Setup(a => a.Delete<TRequest>(It.IsAny<string>()))
 				.Returns(obj.Object);
 			return obj;
 		}
@@ -141,25 +143,25 @@ namespace Manatee.Trello.Test.UnitTests
 		protected void MockApiGetIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Get<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.JsonRepository.Verify(a => a.Get<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Put<{0}> is called {1} time(s)")]
 		protected void MockApiPutIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Put<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.JsonRepository.Verify(a => a.Put<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Post<{0}> is called {1} time(s)")]
 		protected void MockApiPostIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Post<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.JsonRepository.Verify(a => a.Post<TRequest>(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("API.Delete<{0}> is called {1} time(s)")]
 		protected void MockApiDeleteIsCalled<TRequest>(int times)
 			where TRequest : class
 		{
-			_systemUnderTest.Dependencies.Api.Verify(a => a.Delete<TRequest>(It.IsAny<string>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.JsonRepository.Verify(a => a.Delete<TRequest>(It.IsAny<string>()), Times.Exactly(times));
 		}
 		[GenericMethodFormat("'{0}' is returned")]
 		protected void ValueIsReturned<TResult>(TResult expectedValue)

@@ -91,11 +91,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public string UserAgent { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.UserAgent; } }
 
-		internal static string TypeKey { get { return "sessions"; } }
-		internal static string TypeKey2 { get { return "sessions"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
-
 		/// <summary>
 		/// Creates a new instance of the MemberSession class.
 		/// </summary>

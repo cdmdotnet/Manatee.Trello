@@ -30,7 +30,6 @@ using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Bootstrapping;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 
@@ -43,9 +42,10 @@ namespace Manatee.Trello
 	{
 		private readonly ITrelloServiceConfiguration _configuration;
 		private readonly IRestRequestProcessor _requestProcessor;
-		private readonly IEntityFactory _entityFactory;
-		private readonly IJsonRepository _jsonRepository;
+		private readonly IEntityRepository _entityRepository;
 		private readonly IValidator _validator;
+		private readonly IEndpointFactory _endpointFactory;
+		private readonly ExpiringList<Member> _memberSearchList; 
 		private Member _me;
 
 		/// <summary>
@@ -85,21 +85,22 @@ namespace Manatee.Trello
 			var bootstrapper = new Bootstrapper();
 			bootstrapper.Initialize(this, configuration, appKey, userToken);
 			_requestProcessor = bootstrapper.RequestProcessor;
-			_jsonRepository = bootstrapper.JsonRepository;
 			_validator = bootstrapper.Validator;
-			_entityFactory = bootstrapper.EntityFactory;
+			_entityRepository = bootstrapper.EntityRepository;
+			_endpointFactory = bootstrapper.EndpointFactory;
+			_memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers);
 		}
 		internal TrelloService(ITrelloServiceConfiguration configuration,
 							   IValidator validator,
-							   IEntityFactory entityFactory,
+							   IEntityRepository entityRepository,
 							   IRestRequestProcessor requestProcessor,
-							   IJsonRepository jsonRepository)
+							   IEndpointFactory endpointFactory)
 		{
 			_configuration = configuration;
 			_validator = validator;
-			_entityFactory = entityFactory;
+			_entityRepository = entityRepository;
 			_requestProcessor = requestProcessor;
-			_jsonRepository = jsonRepository;
+			_endpointFactory = endpointFactory;
 		}
 
 		/// <summary>
@@ -134,7 +135,6 @@ namespace Manatee.Trello
 		public SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All)
 		{
 			_validator.NonEmptyString(query);
-			var endpoint = new Endpoint(new[] {"search"});
 			var parameters = new Dictionary<string, object>
 				{
 					{"query", query},
@@ -157,7 +157,7 @@ namespace Manatee.Trello
 					parameters.Add("idOrganizations", results);
 			}
 			parameters.Add("modelTypes", ConstructSearchModelTypeParameter(modelTypes));
-			return new SearchResults(this, _jsonRepository.Get<IJsonSearchResults>(endpoint.ToString(), parameters));
+			return _entityRepository.Download<SearchResults>(EntityRequestType.Service_Read_Search, parameters);
 		}
 		/// <summary>
 		/// Searches for members whose names or usernames match a provided query string.
@@ -168,20 +168,9 @@ namespace Manatee.Trello
 		public IEnumerable<Member> SearchMembers(string query, int limit = 0)
 		{
 			_validator.NonEmptyString(query);
-			var endpoint = new Endpoint(new[] {"search", "members"});
-			var parameters = new Dictionary<string, object>
-				{
-					{"query", query},
-				};
-			if (limit > 0)
-				parameters.Add("limit", limit);
-			var reply = _jsonRepository.Get<List<IJsonMember>>(endpoint.ToString(), parameters);
-			foreach (var jsonMember in reply)
-			{
-				var entity = new Member {Svc = this};
-				entity.ApplyJson(jsonMember);
-				yield return entity;
-			}
+			_memberSearchList.Parameters.Add("query", query);
+			_memberSearchList.Refresh();
+			return _memberSearchList;
 		}
 		/// <summary>
 		/// Instructs the service to stop sending requests.
@@ -215,7 +204,10 @@ namespace Manatee.Trello
 			T entity = null;
 			try
 			{
-				entity = _entityFactory.CreateEntity<T>(id);
+				var requestType = _endpointFactory.GetRequestType<T>();
+				if (requestType == EntityRequestType.Unsupported) return null;
+				var parameters = new Dictionary<string, object> {{"_id", id}};
+				entity = _entityRepository.Download<T>(requestType, parameters);
 				return entity;
 			}
 			catch
@@ -229,14 +221,8 @@ namespace Manatee.Trello
 		{
 			if (UserToken == null)
 				_configuration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
-			var endpoint = new Endpoint(new[] {"members", "me"});
-			var parameters = new Dictionary<string, object>
-				{
-					{"fields", "id"},
-				};
-			var json = _jsonRepository.Get<IJsonMember>(endpoint.ToString(), parameters);
-			if (json == null) return null;
-			return Verify<Member>(json.Id);
+			var parameters = new Dictionary<string, object> {{"fields", "id"}};
+			return _entityRepository.Download<Member>(EntityRequestType.Service_Read_Me, parameters);
 		}
 		private static string ConstructSearchModelTypeParameter(SearchModelType types)
 		{

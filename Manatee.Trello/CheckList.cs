@@ -39,7 +39,7 @@ namespace Manatee.Trello
 		private IJsonCheckList _jsonCheckList;
 		private Board _board;
 		private Card _card;
-		private readonly ExpiringList<CheckItem, IJsonCheckItem> _checkItems;
+		private readonly ExpiringList<CheckItem> _checkItems;
 		private Position _position;
 		private bool _isDeleted;
 
@@ -82,14 +82,14 @@ namespace Manatee.Trello
 				_jsonCheckList.IdCard = value.Id;
 				_card = value;
 				Parameters.Add("idCard", _jsonCheckList.IdCard);
-				Put();
+				Put(EntityRequestType.CheckList_Write_Card);
 			}
 		}
 		/// <summary>
 		/// Enumerates the items this checklist contains.
 		/// </summary>
 		public IEnumerable<CheckItem> CheckItems { get { return _checkItems; } }
-		internal ExpiringList<CheckItem, IJsonCheckItem> CheckItemsList { get { return _checkItems; } }
+		internal ExpiringList<CheckItem> CheckItemsList { get { return _checkItems; } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
@@ -122,7 +122,7 @@ namespace Manatee.Trello
 				if (_jsonCheckList.Name == value) return;
 				_jsonCheckList.Name = value;
 				Parameters.Add("name", _jsonCheckList.Name);
-				Put();
+				Put(EntityRequestType.CheckList_Write_Name);
 				MarkForUpdate();
 			}
 		}
@@ -145,15 +145,10 @@ namespace Manatee.Trello
 				if (_position == value) return;
 				_position = value;
 				Parameters.Add("pos", _position);
-				Put();
+				Put(EntityRequestType.CheckList_Write_Position);
 				MarkForUpdate();
 			}
 		}
-
-		internal static string TypeKey { get { return "checklists"; } }
-		internal static string TypeKey2 { get { return "checklist"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the CheckList class.
@@ -161,7 +156,7 @@ namespace Manatee.Trello
 		public CheckList()
 		{
 			_jsonCheckList = new InnerJsonCheckList();
-			_checkItems = new ExpiringList<CheckItem, IJsonCheckItem>(this, CheckItem.TypeGetKey) {Fields = "id"};
+			_checkItems = new ExpiringList<CheckItem>(this, EntityRequestType.CheckList_Read_CheckItems) {Fields = "id"};
 		}
 
 		/// <summary>
@@ -177,17 +172,14 @@ namespace Manatee.Trello
 			if (_isDeleted) return null;
 			Validator.Writable();
 			Validator.NonEmptyString(name);
-			var checkItem = new CheckItem();
-			var endpoint = EndpointGenerator.Default.GenerateForList<CheckItem>(this);
+			Parameters.Add("_id", Id);
 			Parameters.Add("name", name);
 			Parameters.Add("checked", (state == CheckItemStateType.Complete).ToLowerString());
 			if ((position != null) && position.IsValid)
 				Parameters.Add("pos", position);
-			var jsonCheckItem = JsonRepository.Post<IJsonCheckItem>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
+			var checkItem = EntityRepository.Download<CheckItem>(EntityRequestType.CheckList_Write_AddCheckItem, Parameters);
 			checkItem.Owner = this;
 			UpdateService(checkItem);
-			checkItem.ApplyJson(jsonCheckItem);
 			_checkItems.MarkForUpdate();
 			return checkItem;
 		}
@@ -199,8 +191,8 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			JsonRepository.Delete<IJsonCheckList>(endpoint.ToString());
+			Parameters.Add("_id", Id);
+			EntityRepository.Upload(EntityRequestType.CheckList_Write_Delete, Parameters);
 			if (_card != null)
 				_card.CheckListsList.MarkForUpdate();
 			if (Svc.Configuration.Cache != null)
@@ -269,14 +261,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
+			Parameters.Add("_id", Id);
 			Parameters.Add("fields", "name,idBoard,idCard,pos");
 			Parameters.Add("cards", "none");
 			Parameters.Add("checkItems", "none");
-			var obj = JsonRepository.Get<IJsonCheckList>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
-			if (obj == null) return false;
-			ApplyJson(obj);
+			EntityRepository.Refresh(this, EntityRequestType.CheckList_Read_Refresh);
 			return true;
 		}
 
@@ -301,11 +290,10 @@ namespace Manatee.Trello
 			            	: Position.Unknown;
 		}
 
-		private void Put()
+		private void Put(EntityRequestType requestType)
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			JsonRepository.Put<IJsonCheckList>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
+			Parameters.Add("_id", Id);
+			EntityRepository.Upload(requestType, Parameters);
 		}
 	}
 }

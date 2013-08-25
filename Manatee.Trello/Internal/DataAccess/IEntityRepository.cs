@@ -14,21 +14,27 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IEntityFactory.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		IEntityFactory
-	Purpose:		Defines methods required to create entities from a given
-					JSON entity type.
+	File Name:		IEntityRepository.cs
+	Namespace:		Manatee.Trello.Internal.DataAccess
+	Class Name:		IEntityRepository
+	Purpose:		Manages creation and retrieval of Trello entities.
 
 ***************************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 
-namespace Manatee.Trello.Internal.Genesis
+namespace Manatee.Trello.Internal.DataAccess
 {
-	public interface IEntityFactory
+	public interface IEntityRepository
 	{
-		T CreateEntity<T>() where T : ExpiringObject;
+		void Refresh<T>(T entity, EntityRequestType request)
+			where T : ExpiringObject;
+		void RefreshCollecion<T>(ExpiringObject list, EntityRequestType request, IDictionary<string, object> parameters)
+			where T : ExpiringObject, IEquatable<T>, IComparable<T>;
+		T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
+			where T : ExpiringObject;
+		void Upload(EntityRequestType request, IDictionary<string, object> parameters);
 	}
 }
