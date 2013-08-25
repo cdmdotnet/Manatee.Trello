@@ -232,10 +232,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonBoardPreferences = ((IRestResponse<IJsonBoardPreferences>)obj).Data;
-			else
-				_jsonBoardPreferences = (IJsonBoardPreferences)obj;
+			_jsonBoardPreferences = (IJsonBoardPreferences)obj;
 			UpdateComments();
 			UpdateInvitations();
 			UpdatePermissionLevel();

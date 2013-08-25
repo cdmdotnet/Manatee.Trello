@@ -27,7 +27,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -339,13 +338,13 @@ namespace Manatee.Trello
 		public Member()
 		{
 			_jsonMember = new InnerJsonMember();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.Member_Read_Actions) {Fields = "id"};
+			_actions = new ExpiringList<Action>(this, EntityRequestType.Member_Read_Actions);
 			_avatarSource = AvatarSourceType.Unknown;
 			_boards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_Boards) {Fields = "id", Filter = "open"};
 			_closedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_Boards) {Fields = "id", Filter = "closed"};
 			_invitedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_InvitedBoards) {Fields = "id"};
 			_invitedOrganizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_InvitedOrganizations) {Fields = "id"};
-			_notifications = new ExpiringList<Notification>(this, EntityRequestType.Member_Read_Notifications) {Fields = "id"};
+			_notifications = new ExpiringList<Notification>(this, EntityRequestType.Member_Read_Notifications);
 			_organizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_Organization) {Fields = "id"};
 			//_pinnedBoards = new ExpiringList<Board>(this, ) {Fields = "id"};
 			_preferences = new MemberPreferences(this);
@@ -542,10 +541,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonMember = ((IRestResponse<IJsonMember>)obj).Data;
-			else
-				_jsonMember = (IJsonMember)obj;
+			_jsonMember = (IJsonMember)obj;
 			UpdateStatus();
 			UpdateAvatarSource();
 		}

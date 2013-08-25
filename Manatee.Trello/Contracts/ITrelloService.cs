@@ -21,8 +21,6 @@
 
 ***************************************************************************************/
 using System.Collections.Generic;
-using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.DataAccess;
 
 namespace Manatee.Trello.Contracts
 {

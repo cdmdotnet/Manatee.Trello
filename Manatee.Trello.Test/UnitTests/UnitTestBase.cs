@@ -56,8 +56,6 @@ namespace Manatee.Trello.Test.UnitTests
 				      .Returns(Cache.Object);
 				Config.SetupGet(c => c.ItemDuration)
 				      .Returns(TimeSpan.FromSeconds(60));
-				Config.SetupGet(c => c.AutoRefresh)
-				      .Returns(true);
 				Log.Setup(l => l.Error(It.IsAny<Exception>(), It.Is<bool>(b => b)))
 						.Callback((Exception e, bool b) => { throw e; });
 				RestClientProvider.SetupGet(p => p.RequestProvider)

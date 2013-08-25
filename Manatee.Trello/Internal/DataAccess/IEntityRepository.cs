@@ -27,14 +27,24 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.DataAccess
 {
+	/// <summary>
+	/// Manages creation and retrieval of Trello entities.
+	/// </summary>
+	/// <remarks>
+	/// Exposed solely for unit testing purposes.
+	/// </remarks>
 	public interface IEntityRepository
 	{
+		/// <summary />
 		void Refresh<T>(T entity, EntityRequestType request)
 			where T : ExpiringObject;
+		/// <summary />
 		void RefreshCollecion<T>(ExpiringObject list, EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>;
+		/// <summary />
 		T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject;
+		/// <summary />
 		void Upload(EntityRequestType request, IDictionary<string, object> parameters);
 	}
 }

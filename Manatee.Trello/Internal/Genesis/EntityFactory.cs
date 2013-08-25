@@ -63,17 +63,7 @@ namespace Manatee.Trello.Internal.Genesis
 		public T CreateEntity<T>()
 			where T : ExpiringObject
 		{
-			T entity = _map[typeof (T)]() as T;
-			if (typeof(T).IsAssignableFrom(typeof(Action)))
-			{
-				entity.VerifyNotExpired();
-				entity = ActionProvider.Default.Parse(entity as Action) as T;
-			}
-			else if (typeof(T).IsAssignableFrom(typeof(Notification)))
-			{
-				entity.VerifyNotExpired();
-				entity = NotificationProvider.Default.Parse(entity as Notification) as T;
-			}
+			T entity = _map[typeof(T)]() as T;
 			return entity;
 		}
 	}

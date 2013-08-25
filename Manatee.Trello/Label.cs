@@ -151,10 +151,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonLabel = ((IRestResponse<IJsonLabel>)obj).Data;
-			else
-				_jsonLabel = (IJsonLabel)obj;
+			_jsonLabel = (IJsonLabel)obj;
 			UpdateColor();
 		}
 

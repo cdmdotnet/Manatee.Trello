@@ -15,25 +15,18 @@
 	   limitations under the License.
  
 	File Name:		NetworkMonitor.cs
-	Namespace:		Manatee.Trello.Internal
+	Namespace:		Manatee.Trello.Internal.RequestProcessing
 	Class Name:		NetworkMonitor
 	Purpose:		Monitors the network to determine whether an active connection
 					exists.
 
 ***************************************************************************************/
-
 using System;
 using System.Net.NetworkInformation;
 using System.Threading;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
-	public interface INetworkMonitor
-	{
-		bool IsConnected { get; }
-		event EventHandler ConnectionStatusChanged;
-	}
-
 	internal class NetworkMonitor : INetworkMonitor
 	{
 		private const string _trelloUrl = "trello.com";

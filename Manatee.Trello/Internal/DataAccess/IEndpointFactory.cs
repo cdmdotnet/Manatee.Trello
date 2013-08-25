@@ -26,10 +26,18 @@ using System.Collections.Generic;
 
 namespace Manatee.Trello.Internal.DataAccess
 {
+	/// <summary>
+	/// Defines methods required to build the required endpoint which will be used
+	/// during a REST call.
+	/// </summary>
+	/// <remarks>
+	/// Exposed solely for unit testing purposes.
+	/// </remarks>
 	public interface IEndpointFactory
 	{
-		
+		/// <summary />
 		Endpoint Build(EntityRequestType requestType, IDictionary<string, object> parameters);
+		/// <summary />
 		EntityRequestType GetRequestType<T>();
 	}
 }

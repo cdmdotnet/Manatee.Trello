@@ -21,13 +21,11 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -265,10 +263,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonAction = ((IRestResponse<IJsonAction>)obj).Data;
-			else
-				_jsonAction = (IJsonAction)obj;
+			_jsonAction = (IJsonAction) obj;
 			UpdateType();
 		}
 

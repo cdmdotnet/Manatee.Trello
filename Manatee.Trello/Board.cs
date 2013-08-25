@@ -246,7 +246,7 @@ namespace Manatee.Trello
 		public Board()
 		{
 			_jsonBoard = new InnerJsonBoard();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.Board_Read_Actions) {Fields = "id"};
+			_actions = new ExpiringList<Action>(this, EntityRequestType.Board_Read_Actions);
 			_archivedCards = new ExpiringList<Card>(this, EntityRequestType.Board_Read_Cards) {Filter = "closed", Fields = "id"};
 			_archivedLists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists) {Filter = "closed", Fields = "id"};
 			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Board_Read_Members) {Fields = "id"};
@@ -459,10 +459,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonBoard = ((IRestResponse<IJsonBoard>) obj).Data;
-			else
-				_jsonBoard = (IJsonBoard) obj;
+			_jsonBoard = (IJsonBoard) obj;
 		}
 
 		private void Put(EntityRequestType requestType)

@@ -38,7 +38,7 @@ namespace Manatee.Trello
 	{
 		private IJsonCard _jsonCard;
 		private readonly ExpiringList<Action> _actions;
-		private readonly ExpiringList<CommentCardAction> _comments;
+		private readonly ExpiringList<Action> _comments;
 		private readonly ExpiringList<Attachment> _attachments;
 		private readonly Badges _badges;
 		private Board _board;
@@ -97,7 +97,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the card's comments.
 		/// </summary>
-		public IEnumerable<CommentCardAction> Comments { get { return _isDeleted ? Enumerable.Empty<CommentCardAction>() : _comments.Cast<CommentCardAction>(); } }
+		public IEnumerable<Action> Comments { get { return _isDeleted ? Enumerable.Empty<Action>() : _comments; } }
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
@@ -321,8 +321,8 @@ namespace Manatee.Trello
 		public Card()
 		{
 			_jsonCard = new InnerJsonCard();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.Card_Read_Actions) {Fields = "id"};
-			_comments = new ExpiringList<CommentCardAction>(this, EntityRequestType.Card_Read_Actions) {Fields = "id", Filter = "commentCard"};
+			_actions = new ExpiringList<Action>(this, EntityRequestType.Card_Read_Actions);
+			_comments = new ExpiringList<Action>(this, EntityRequestType.Card_Read_Actions) {Filter = "commentCard"};
 			_attachments = new ExpiringList<Attachment>(this, EntityRequestType.Card_Read_Attachments) {Fields = "all"};
 			_badges = new Badges(this);
 			_checkLists = new ExpiringList<CheckList>(this, EntityRequestType.Card_Read_Checklists) {Fields = "id"};
@@ -586,7 +586,6 @@ namespace Manatee.Trello
 			Parameters.Add("checkLists", "false");
 			Parameters.Add("board", "false");
 			Parameters.Add("list", "false");
-			Parameters.Add("_id", Id);
 			EntityRepository.Refresh(this, EntityRequestType.Card_Read_Refresh);
 			return true;
 		}
@@ -610,10 +609,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonCard = ((IRestResponse<IJsonCard>)obj).Data;
-			else
-				_jsonCard = (IJsonCard)obj;
+			_jsonCard = (IJsonCard) obj;
 			_position = _jsonCard.Pos.HasValue ? new Position(_jsonCard.Pos.Value) : Position.Unknown;
 		}
 

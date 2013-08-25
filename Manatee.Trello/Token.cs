@@ -276,10 +276,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonToken = ((IRestResponse<IJsonToken>)obj).Data;
-			else
-				_jsonToken = (IJsonToken) obj;
+			_jsonToken = (IJsonToken) obj;
 			_jsonBoardPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Board");
 			_jsonMemberPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Member");
 			_jsonOrganizationPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Organization");
