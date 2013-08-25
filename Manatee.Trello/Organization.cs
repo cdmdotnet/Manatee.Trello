@@ -217,7 +217,7 @@ namespace Manatee.Trello
 		public Organization()
 		{
 			_jsonOrganization = new InnerJsonOrganization();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.Organization_Read_Actions) {Fields = "id"};
+			_actions = new ExpiringList<Action>(this, EntityRequestType.Organization_Read_Actions);
 			_boards = new ExpiringList<Board>(this, EntityRequestType.Organization_Read_Boards) {Fields = "id"};
 			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Organization_Read_InvitedMembers) {Fields = "id"};
 			_members = new ExpiringList<Member>(this, EntityRequestType.Organization_Read_Members) {Fields = "id"};
@@ -433,10 +433,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonOrganization = ((IRestResponse<IJsonOrganization>)obj).Data;
-			else
-				_jsonOrganization = (IJsonOrganization)obj;
+			_jsonOrganization = (IJsonOrganization)obj;
 		}
 		internal override bool Matches(string id)
 		{

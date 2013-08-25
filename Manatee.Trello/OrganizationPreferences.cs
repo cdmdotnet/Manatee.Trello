@@ -220,10 +220,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonOrganizationPreferences = ((IRestResponse<IJsonOrganizationPreferences>)obj).Data;
-			else
-				_jsonOrganizationPreferences = (IJsonOrganizationPreferences)obj;
+			_jsonOrganizationPreferences = (IJsonOrganizationPreferences)obj;
 			_boardVisibilityRestrict = new BoardVisibilityRestrict(_jsonOrganizationPreferences.BoardVisibilityRestrict);
 			UpdatePermissionLevel();
 		}

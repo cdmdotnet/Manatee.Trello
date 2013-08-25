@@ -131,8 +131,7 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		protected internal void VerifyNotExpired()
 		{
-			if ((Svc == null) || !Svc.Configuration.AutoRefresh || !IsExpired) return;
-			if (!Refresh()) return;
+			if (!IsExpired || !Refresh()) return;
 			_expires = DateTime.Now + Svc.Configuration.ItemDuration;
 			if (Id != null)
 				Log.Info("{0} with ID {{{1}}} will expire at {2}.", GetType().CSharpName(), Id, _expires);
@@ -141,6 +140,10 @@ namespace Manatee.Trello.Contracts
 			else
 				Log.Info("A {0} will expire at {2}.", GetType().CSharpName(), _expires);
 		}
+		/// <summary>
+		/// Updates the dependencies of an entity to that of this object.
+		/// </summary>
+		/// <param name="entity"></param>
 		protected void UpdateService(ExpiringObject entity)
 		{
 			if (entity == null) return;

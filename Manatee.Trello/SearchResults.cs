@@ -66,6 +66,9 @@ namespace Manatee.Trello
 		internal SearchResults()
 		{
 		}
+		/// <summary>
+		/// Retrieves updated data from the service instance and refreshes the object.
+		/// </summary>
 		public override bool Refresh()
 		{
 			return true;
@@ -82,6 +85,9 @@ namespace Manatee.Trello
 			_organizations = results.OrganizationIds.Select(Svc.Retrieve<Organization>).ToList();
 		}
 
+		/// <summary>
+		/// Propagates the dependencies of an entity to its child entities.
+		/// </summary>
 		protected override void PropagateService() {}
 	}
 }

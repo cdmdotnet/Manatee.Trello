@@ -162,10 +162,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonMemberSession = ((IRestResponse<IJsonMemberSession>)obj).Data;
-			else
-				_jsonMemberSession = (IJsonMemberSession)obj;
+			_jsonMemberSession = (IJsonMemberSession)obj;
 		}
 	}
 }

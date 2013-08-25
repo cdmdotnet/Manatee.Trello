@@ -89,6 +89,9 @@ namespace Manatee.Trello
 			_entityRepository = bootstrapper.EntityRepository;
 			_endpointFactory = bootstrapper.EndpointFactory;
 			_memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers);
+			_memberSearchList.EntityRepository = _entityRepository;
+			_memberSearchList.Validator = _validator;
+			_memberSearchList.Svc = this;
 		}
 		internal TrelloService(ITrelloServiceConfiguration configuration,
 							   IValidator validator,
@@ -208,6 +211,8 @@ namespace Manatee.Trello
 				if (requestType == EntityRequestType.Unsupported) return null;
 				var parameters = new Dictionary<string, object> {{"_id", id}};
 				entity = _entityRepository.Download<T>(requestType, parameters);
+				entity.Validator = _validator;
+				entity.Svc = this;
 				return entity;
 			}
 			catch

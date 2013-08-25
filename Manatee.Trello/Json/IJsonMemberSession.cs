@@ -24,16 +24,46 @@ using System;
 
 namespace Manatee.Trello.Json
 {
+	/// <summary>
+	/// Defines the JSON structure for the MemberSession object.
+	/// </summary>
 	public interface IJsonMemberSession
 	{
+		/// <summary>
+		/// Gets or sets whether this session is active.
+		/// </summary>
 		bool? IsCurrent { get; set; }
+		/// <summary>
+		/// Gets or sets whether this session has been accessed recently.
+		/// </summary>
 		bool? IsRecent { get; set; }
+		/// <summary>
+		/// Gets or sets the ID for this session.
+		/// </summary>
 		string Id { get; set; }
+		/// <summary>
+		/// Gets or sets the date this session was created.
+		/// </summary>
 		DateTime? DateCreated { get; set; }
+		/// <summary>
+		/// Gets or sets the date this session expires.
+		/// </summary>
 		DateTime? DateExpires { get; set; }
+		/// <summary>
+		/// Gets or sets the date this session was last used.
+		/// </summary>
 		DateTime? DateLastUsed { get; set; }
+		/// <summary>
+		/// Gets or sets the IP address associated with this session.
+		/// </summary>
 		string IpAddress { get; set; }
+		/// <summary>
+		/// Gets or sets the type of session.
+		/// </summary>
 		string Type { get; set; }
+		/// <summary>
+		/// Gets or sets the user agent associated with this session.
+		/// </summary>
 		string UserAgent { get; set; }
 	}
 }

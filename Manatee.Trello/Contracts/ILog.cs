@@ -21,7 +21,6 @@
 					generated throughout Manatee.Trello.
 
 ***************************************************************************************/
-
 using System;
 
 namespace Manatee.Trello.Contracts

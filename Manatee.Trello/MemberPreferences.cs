@@ -152,10 +152,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonMemberPreferences = ((IRestResponse<IJsonMemberPreferences>)obj).Data;
-			else
-				_jsonMemberPreferences = (IJsonMemberPreferences)obj;
+			_jsonMemberPreferences = (IJsonMemberPreferences)obj;
 		}
 
 		private void Put(EntityRequestType requestType)

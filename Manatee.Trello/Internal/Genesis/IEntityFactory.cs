@@ -21,14 +21,20 @@
 					JSON entity type.
 
 ***************************************************************************************/
-
-using System;
 using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.Genesis
 {
+	/// <summary>
+	/// Defines methods required to create entities from a given JSON entity type.
+	/// </summary>
 	public interface IEntityFactory
 	{
+		/// <summary>
+		/// Creates new instances of ExpiringObject derivatives.
+		/// </summary>
+		/// <typeparam name="T">The type of object to create.</typeparam>
+		/// <returns>A new instance of the requested type.</returns>
 		T CreateEntity<T>() where T : ExpiringObject;
 	}
 }

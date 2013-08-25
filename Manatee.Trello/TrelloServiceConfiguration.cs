@@ -53,10 +53,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public TimeSpan ItemDuration { get; set; }
 		/// <summary>
-		/// Enables/disables auto-refreshing for all auto-refreshing objects.
-		/// </summary>
-		public bool AutoRefresh { get; set; }
-		/// <summary>
 		/// Specifies the serializer which is used the first time a request is made from
 		/// a given instance of the TrelloService class.
 		/// </summary>
@@ -118,7 +114,6 @@ namespace Manatee.Trello
 		public TrelloServiceConfiguration()
 		{
 			ItemDuration = TimeSpan.FromSeconds(60);
-			AutoRefresh = true;
 			Cache = GlobalCache;
 		}
 	}

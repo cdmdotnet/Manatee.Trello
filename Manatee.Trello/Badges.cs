@@ -178,10 +178,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonBadges = ((IRestResponse<IJsonBadges>)obj).Data;
-			else
-				_jsonBadges = (IJsonBadges)obj;
+			_jsonBadges = (IJsonBadges)obj;
 		}
 	}
 }

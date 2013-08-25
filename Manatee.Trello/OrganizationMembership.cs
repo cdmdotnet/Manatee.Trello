@@ -182,10 +182,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonOrganizationMembership = ((IRestResponse<IJsonOrganizationMembership>)obj).Data;
-			else
-				_jsonOrganizationMembership = (IJsonOrganizationMembership)obj;
+			_jsonOrganizationMembership = (IJsonOrganizationMembership)obj;
 			UpdateType();
 		}
 

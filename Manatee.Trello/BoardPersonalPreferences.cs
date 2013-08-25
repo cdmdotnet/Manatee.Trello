@@ -179,10 +179,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonBoardPersonalPreferences = ((IRestResponse<IJsonBoardPersonalPreferences>)obj).Data;
-			else
-				_jsonBoardPersonalPreferences = (IJsonBoardPersonalPreferences)obj;
+			_jsonBoardPersonalPreferences = (IJsonBoardPersonalPreferences)obj;
 		}
 
 		private void Post(EntityRequestType requestType)

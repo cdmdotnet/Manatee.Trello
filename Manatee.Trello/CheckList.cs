@@ -281,10 +281,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonCheckList = ((IRestResponse<IJsonCheckList>)obj).Data;
-			else
-				_jsonCheckList = (IJsonCheckList)obj;
+			_jsonCheckList = (IJsonCheckList)obj;
 			_position = ((_jsonCheckList != null) && _jsonCheckList.Pos.HasValue)
 			            	? new Position(_jsonCheckList.Pos.Value)
 			            	: Position.Unknown;

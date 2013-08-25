@@ -248,10 +248,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			if (obj is IRestResponse)
-				_jsonNotification = ((IRestResponse<IJsonNotification>)obj).Data;
-			else
-				_jsonNotification = (IJsonNotification)obj;
+			_jsonNotification = (IJsonNotification)obj;
 			UpdateType();
 		}
 
