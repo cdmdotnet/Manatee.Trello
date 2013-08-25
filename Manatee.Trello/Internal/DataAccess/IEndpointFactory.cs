@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2012 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,29 +14,22 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		OrganizationInvitation.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		OrganizationInvitation
-	Purpose:		Represents a single organization to which a user has been
-					invited on Trello.com.
+	File Name:		IEndpointFactory.cs
+	Namespace:		Manatee.Trello.Internal.DataAccess
+	Class Name:		IEndpointFactory
+	Purpose:		Defines methods required to build the required endpoint
+					which will be used during a REST call.
 
 ***************************************************************************************/
-using System;
 
-namespace Manatee.Trello.Internal
+using System.Collections.Generic;
+
+namespace Manatee.Trello.Internal.DataAccess
 {
-	internal class OrganizationInvitation : Organization, IEquatable<OrganizationInvitation>, IComparable<OrganizationInvitation>
+	public interface IEndpointFactory
 	{
-		internal new static string TypeKey { get { return "organizationsInvited"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-
-		public bool Equals(OrganizationInvitation other)
-		{
-			return base.Equals(this);
-		}
-		public int CompareTo(OrganizationInvitation other)
-		{
-			return base.CompareTo(other);
-		}
+		
+		Endpoint Build(EntityRequestType requestType, IDictionary<string, object> parameters);
+		EntityRequestType GetRequestType<T>();
 	}
 }

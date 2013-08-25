@@ -84,5 +84,11 @@ namespace Manatee.Trello.Internal
 			sb.Append(">");
 			return sb.ToString();
 		}
+		public static void Replace<T>(this List<T> list, T replace, T with)
+		{
+			var i = list.IndexOf(replace);
+			if (i == -1) return;
+			list[i] = with;
+		}
 	}
 }

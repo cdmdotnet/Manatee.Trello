@@ -170,12 +170,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Value { get { return _value; } internal set { _value = value; } }
 
-		internal static string TypeKey { get { return "tokens"; } }
-		internal static string TypeKey2 { get { return "tokens"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
-		internal override string KeyId { get { return Value; } }
-
 		/// <summary>
 		/// Creates a new instance of the Token class.
 		/// </summary>
@@ -197,8 +191,8 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
-			var endpoint = EndpointGenerator.Default.Generate2(Member, this);
-			JsonRepository.Delete<IJsonToken>(endpoint.ToString());
+			Parameters.Add("_token", Value);
+			EntityRepository.Upload(EntityRequestType.Token_Write_Delete, Parameters);
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -264,10 +258,8 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			if (_value == null) return false;
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			var obj = JsonRepository.Get<IJsonToken>(endpoint.ToString());
-			if (obj == null) return false;
-			ApplyJson(obj);
+			Parameters.Add("_token", Value);
+			EntityRepository.Refresh(this, EntityRequestType.Token_Read_Refresh);
 			return true;
 		}
 

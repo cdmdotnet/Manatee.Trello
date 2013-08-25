@@ -65,7 +65,7 @@ namespace Manatee.Trello
 				if (_jsonBoardPreferences.SelfJoin == value) return;
 				_jsonBoardPreferences.SelfJoin = value;
 				Parameters.Add("value", _jsonBoardPreferences.SelfJoin.ToLowerString());
-				Put("selfJoin");
+				Put(EntityRequestType.BoardPreferences_Write_AllowsSelfJoin);
 			}
 		}
 		/// <summary>
@@ -86,7 +86,7 @@ namespace Manatee.Trello
 				_comments = value;
 				UpdateApiComments();
 				Parameters.Add("value", _jsonBoardPreferences.Comments);
-				Put("comments");
+				Put(EntityRequestType.BoardPreferences_Write_Comments);
 			}
 		}
 		/// <summary>
@@ -107,7 +107,7 @@ namespace Manatee.Trello
 				_invitations = value;
 				UpdateApiInvitations();
 				Parameters.Add("value", _jsonBoardPreferences.Invitations);
-				Put("invitations");
+				Put(EntityRequestType.BoardPreferences_Write_Invitations);
 			}
 		}
 		/// <summary>
@@ -128,7 +128,7 @@ namespace Manatee.Trello
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
 				Parameters.Add("value", _jsonBoardPreferences.PermissionLevel);
-				Put("permissionLevel");
+				Put(EntityRequestType.BoardPreferences_Write_PermissionLevel);
 			}
 		}
 		/// <summary>
@@ -149,7 +149,7 @@ namespace Manatee.Trello
 				if (_jsonBoardPreferences.CardCovers == value) return;
 				_jsonBoardPreferences.CardCovers = value;
 				Parameters.Add("value", _jsonBoardPreferences.CardCovers.ToLowerString());
-				Put("cardCovers");
+				Put(EntityRequestType.BoardPreferences_Write_ShowCardCovers);
 			}
 		}
 		/// <summary>
@@ -170,14 +170,9 @@ namespace Manatee.Trello
 				_voting = value;
 				UpdateApiVoting();
 				Parameters.Add("value", _jsonBoardPreferences.Voting);
-				Put("voting");
+				Put(EntityRequestType.BoardPreferences_Write_Voting);
 			}
 		}
-
-		internal static string TypeKey { get { return "prefs"; } }
-		internal static string TypeKey2 { get { return "prefs"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		static BoardPreferences()
 		{
@@ -225,10 +220,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			var obj = JsonRepository.Get<IJsonBoardPreferences>(endpoint.ToString());
-			if (obj == null) return false;
-			ApplyJson(obj);
+			Parameters.Add("_id", Id);
+			EntityRepository.Refresh(this, EntityRequestType.BoardPreferences_Read_Refresh);
 			return true;
 		}
 
@@ -249,11 +242,10 @@ namespace Manatee.Trello
 			UpdateVoting();
 		}
 
-		private void Put(string extension)
+		private void Put(EntityRequestType requestType)
 		{
-			var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			endpoint.Append(extension);
-			JsonRepository.Put<IJsonBoardPreferences>(endpoint.ToString(), Parameters);
+			Parameters.Add("_boardId", Owner.Id);
+			EntityRepository.Upload(requestType, Parameters);
 			Parameters.Clear();
 		}
 		private void UpdateComments()

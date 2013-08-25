@@ -23,7 +23,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
@@ -54,7 +53,7 @@ namespace Manatee.Trello
 				if (_jsonLabelNames.Red == value) return;
 				_jsonLabelNames.Red = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Red);
-				Put("red");
+				Put(EntityRequestType.LabelNames_Write_Red);
 			}
 		}
 		/// <summary>
@@ -74,7 +73,7 @@ namespace Manatee.Trello
 				if (_jsonLabelNames.Orange == value) return;
 				_jsonLabelNames.Orange = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Orange);
-				Put("orange");
+				Put(EntityRequestType.LabelNames_Write_Orange);
 			}
 		}
 		/// <summary>
@@ -94,7 +93,7 @@ namespace Manatee.Trello
 				if (_jsonLabelNames.Yellow == value) return;
 				_jsonLabelNames.Yellow = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Yellow);
-				Put("yellow");
+				Put(EntityRequestType.LabelNames_Write_Yellow);
 			}
 		}
 		/// <summary>
@@ -114,7 +113,7 @@ namespace Manatee.Trello
 				if (_jsonLabelNames.Green == value) return;
 				_jsonLabelNames.Green = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Green);
-				Put("green");
+				Put(EntityRequestType.LabelNames_Write_Green);
 			}
 		}
 		/// <summary>
@@ -134,7 +133,7 @@ namespace Manatee.Trello
 				if (_jsonLabelNames.Blue == value) return;
 				_jsonLabelNames.Blue = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Blue);
-				Put("blue");
+				Put(EntityRequestType.LabelNames_Write_Blue);
 			}
 		}
 		/// <summary>
@@ -154,14 +153,9 @@ namespace Manatee.Trello
 				if (_jsonLabelNames.Purple == value) return;
 				_jsonLabelNames.Purple = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Purple);
-				Put("purple");
+				Put(EntityRequestType.LabelNames_Write_Purple);
 			}
 		}
-
-		internal static string TypeKey { get { return "labelNames"; } }
-		internal static string TypeKey2 { get { return "labelNames"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
 
 		/// <summary>
 		/// Creates a new instance of the LabelNames class.
@@ -211,10 +205,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			var obj = JsonRepository.Get<IJsonLabelNames>(endpoint.ToString());
-			if (obj == null) return false;
-			ApplyJson(obj);
+			Parameters.Add("_boardId", Owner.Id);
+			EntityRepository.Refresh(this, EntityRequestType.LabelNames_Read_Refresh);
 			return true;
 		}
 
@@ -231,12 +223,10 @@ namespace Manatee.Trello
 				_jsonLabelNames = (IJsonLabelNames)obj;
 		}
 
-		private void Put(string extension)
+		private void Put(EntityRequestType color)
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			endpoint.Append(extension);
-			JsonRepository.Put<IJsonLabelNames>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
+			Parameters.Add("_boardId", Owner.Id);
+			EntityRepository.Refresh(this, color);
 		}
 	}
 }

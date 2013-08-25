@@ -101,11 +101,6 @@ namespace Manatee.Trello
 			get { return (_jsonAction == null) ? null : _jsonAction.Date; }
 		}
 
-		internal static string TypeKey { get { return "actions"; } }
-		internal static string TypeKey2 { get { return "actions"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey; } }
-
 		static Action()
 		{
 			_typeMap = new OneToOneMap<ActionType, string>
@@ -184,8 +179,8 @@ namespace Manatee.Trello
 			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			JsonRepository.Delete<IJsonAction>(endpoint.ToString());
+			Parameters.Add("_id", Id);
+			EntityRepository.Upload(EntityRequestType.Action_Write_Delete, Parameters);
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -251,15 +246,12 @@ namespace Manatee.Trello
 		public sealed override bool Refresh()
 		{
 			if (_isDeleted) return false;
-			var endpoint = EndpointGenerator.Default.Generate(this);
+			Parameters.Add("_id", Id);
 			Parameters.Add("fields", "idMemberCreator,data,type,date");
 			Parameters.Add("entities", "false");
 			Parameters.Add("memberCreator", "false");
 			Parameters.Add("member", "false");
-			var obj = JsonRepository.Get<IJsonAction>(endpoint.ToString(), Parameters);
-			Parameters.Clear();
-			if (obj == null) return false;
-			ApplyJson(obj);
+			EntityRepository.Refresh(this, EntityRequestType.Action_Read_Refresh);
 			return true;
 		}
 

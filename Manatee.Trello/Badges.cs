@@ -148,11 +148,6 @@ namespace Manatee.Trello
 			}
 		}
 
-		internal static string TypeKey { get { return "badges"; } }
-		internal static string TypeKey2 { get { return "badges"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
-
 		/// <summary>
 		/// Creates a new instance of the Badges class.
 		/// </summary>
@@ -171,10 +166,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			var endpoint = EndpointGenerator.Default.Generate(this);
-			var obj = JsonRepository.Get<IJsonBadges>(endpoint.ToString());
-			if (obj == null) return false;
-			ApplyJson(obj);
+			Parameters.Add("_id", Id);
+			EntityRepository.Upload(EntityRequestType.Badges_Read_Refresh, Parameters);
 			return true;
 		}
 

@@ -21,21 +21,28 @@
 					a REST method in Trello's API.
 
 ***************************************************************************************/
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
 {
-	internal class Endpoint
+	public class Endpoint : IEnumerable<string>
 	{
 		private readonly List<string> _segments;
 
-		public Endpoint(IEnumerable<string> segments)
+		public RestMethod Method { get; private set; }
+
+		public Endpoint(RestMethod method, IEnumerable<string> segments)
 		{
+			Method = method;
 			_segments = segments.ToList();
 		}
-		public Endpoint(params string[] segments)
+		public Endpoint(RestMethod method, params string[] segments)
 		{
+			Method = method;
 			_segments = segments.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
 		}
 
@@ -44,9 +51,22 @@ namespace Manatee.Trello.Internal
 			_segments.Add(segment);
 		}
 
+		public void Resolve(string key, string variable)
+		{
+			_segments.Replace(key, variable);
+		}
+
+		public IEnumerator<string> GetEnumerator()
+		{
+			return _segments.GetEnumerator();
+		}
 		public override string ToString()
 		{
 			return string.Join("/", _segments);
+		}
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 	}
 }

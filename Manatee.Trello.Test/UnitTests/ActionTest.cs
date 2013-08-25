@@ -23,8 +23,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.Given(AnAction)
 				.And(EntityIsRefreshed)
 				.When(MemberCreatorIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonAction>, 1)
-				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access MemberCreator property when expired")
@@ -32,8 +31,7 @@ namespace Manatee.Trello.Test.UnitTests
 				.And(EntityIsRefreshed)
 				.And(EntityIsExpired)
 				.When(MemberCreatorIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonAction>, 1)
-				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(MockSvcRetrieveIsCalled<Member>, 1)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();

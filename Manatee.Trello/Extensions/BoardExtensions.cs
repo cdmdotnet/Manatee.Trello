@@ -43,7 +43,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of actions.</returns>
 		public static IEnumerable<Action> ActionsByMember(this Board board, Member member)
 		{
-			// It doesn't appear that the API supports this call.  This makes me sad.   <:-(
+			// NOTE: It doesn't appear that the API supports this call.  This makes me sad.   <:-(
 			//var response = Enumerable.Empty<IJsonAction>();
 			//if (board.Svc != null)
 			//{
@@ -70,14 +70,9 @@ namespace Manatee.Trello
 		{
 			if (board.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.GenerateForList<Member>(board);
-				var parameters = new Dictionary<string, object>
-					{
-						{"fields", "id"},
-						{"filter", "admins"},
-					};
-				var response = board.JsonRepository.Get<List<IJsonMember>>(endpoint.ToString(), parameters);
-				return response.Select(j => board.Svc.Retrieve<Member>(j.Id));
+				var list = new ExpiringList<Member>(board, EntityRequestType.Board_Read_Members) {Filter = "admins"};
+				list.Refresh();
+				return list;
 			}
 			return Enumerable.Empty<Member>();
 		}
@@ -90,23 +85,18 @@ namespace Manatee.Trello
 		{
 			if (board.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.GenerateForList<Card>(board);
-				var parameters = new Dictionary<string, object>
-					{
-						{"fields", "id"},
-						{"filter", "all"},
-						{"actions", "none"},
-						{"attachments", "false"},
-						{"badges", "false"},
-						{"members", "false"},
-						{"membersVoted", "false"},
-						{"checkItemStates", "false"},
-						{"checkLists", "false"},
-						{"board", "false"},
-						{"list", "false"},
-					};
-				var response = board.JsonRepository.Get<List<IJsonCard>>(endpoint.ToString(), parameters);
-				return response.Select(j => board.Svc.Retrieve<Card>(j.Id));
+				var list = new ExpiringList<Card>(board, EntityRequestType.Board_Read_Cards) { Filter = "all", Fields = "id"};
+				list.Parameters.Add("actions", "none");
+				list.Parameters.Add("attachments", "false");
+				list.Parameters.Add("badges", "false");
+				list.Parameters.Add("members", "false");
+				list.Parameters.Add("membersVoted", "false");
+				list.Parameters.Add("checkItemStates", "false");
+				list.Parameters.Add("checkLists", "false");
+				list.Parameters.Add("board", "false");
+				list.Parameters.Add("list", "false");
+				list.Refresh();
+				return list;
 			}
 			return Enumerable.Empty<Card>();
 		}
@@ -119,15 +109,10 @@ namespace Manatee.Trello
 		{
 			if (board.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.GenerateForList<List>(board);
-				var parameters = new Dictionary<string, object>
-					{
-						{"fields", "id"},
-						{"filter", "all"},
-						{"cards", "none"},
-					};
-				var response = board.JsonRepository.Get<List<IJsonList>>(endpoint.ToString(), parameters);
-				return response.Select(j => board.Svc.Retrieve<List>(j.Id));
+				var list = new ExpiringList<List>(board, EntityRequestType.Board_Read_Lists) { Filter = "all", Fields = "id" };
+				list.Parameters.Add("cards", "none");
+				list.Refresh();
+				return list;
 			}
 			return Enumerable.Empty<List>();
 		}
@@ -140,23 +125,18 @@ namespace Manatee.Trello
 		{
 			if (board.Svc != null)
 			{
-				var endpoint = EndpointGenerator.Default.GenerateForList<Card>(board);
-				var parameters = new Dictionary<string, object>
-					{
-						{"fields", "id"},
-						{"filter", "visible"},
-						{"actions", "none"},
-						{"attachments", "false"},
-						{"badges", "false"},
-						{"members", "false"},
-						{"membersVoted", "false"},
-						{"checkItemStates", "false"},
-						{"checkLists", "false"},
-						{"board", "false"},
-						{"list", "false"},
-					};
-				var response = board.JsonRepository.Get<List<IJsonCard>>(endpoint.ToString(), parameters);
-				return response.Select(j => board.Svc.Retrieve<Card>(j.Id));
+				var list = new ExpiringList<Card>(board, EntityRequestType.Board_Read_Cards) { Filter = "visible", Fields = "id" };
+				list.Parameters.Add("actions", "none");
+				list.Parameters.Add("attachments", "false");
+				list.Parameters.Add("badges", "false");
+				list.Parameters.Add("members", "false");
+				list.Parameters.Add("membersVoted", "false");
+				list.Parameters.Add("checkItemStates", "false");
+				list.Parameters.Add("checkLists", "false");
+				list.Parameters.Add("board", "false");
+				list.Parameters.Add("list", "false");
+				list.Refresh();
+				return list;
 			}
 			return Enumerable.Empty<Card>();
 		}

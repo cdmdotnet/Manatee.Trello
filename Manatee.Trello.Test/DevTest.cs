@@ -29,18 +29,18 @@ namespace Manatee.Trello.Test
 			var member = service.Retrieve<Member>("gregsdennis");
 
 			Console.WriteLine(member);
-			foreach (var board in member.Boards)
-			{
-				Console.WriteLine("  {0}", board);
-				foreach (var list in board.Lists)
-				{
-					Console.WriteLine("    {0}", list);
-					foreach (var card in list.Cards)
-					{
-						Console.WriteLine("      {0}", card);
-					}
-				}
-			}
+			//foreach (var board in member.Boards)
+			//{
+			//	Console.WriteLine("  {0}", board);
+			//	foreach (var list in board.Lists)
+			//	{
+			//		Console.WriteLine("    {0}", list);
+			//		foreach (var card in list.Cards)
+			//		{
+			//			Console.WriteLine("      {0}", card);
+			//		}
+			//	}
+			//}
 			//Console.WriteLine();
 			//foreach (var action in member.Actions)
 			//{

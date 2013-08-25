@@ -88,11 +88,6 @@ namespace Manatee.Trello
 		///</summary>
 		public BoardMembershipType MembershipType { get { return _membershipType; } }
 
-		internal static string TypeKey { get { return "memberships"; } }
-		internal static string TypeKey2 { get { return "memberships"; } }
-		internal override string PrimaryKey { get { return TypeKey; } }
-		internal override string SecondaryKey { get { return TypeKey2; } }
-
 		static BoardMembership()
 		{
 			_typeMap = new OneToOneMap<BoardMembershipType, string>
