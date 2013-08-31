@@ -72,53 +72,10 @@
   <ItemGroup>
     <Compile Include="DevTest.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="FunctionalTests\ActionTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\BoardTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\CardTest.cs" />
-    <Compile Include="FunctionalTests\CheckListTest.cs" />
-    <Compile Include="FunctionalTests\ListTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\MemberTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\NotificationTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\OrganizationTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GenericMethodFormatAttribute.cs" />
     <Compile Include="TrelloTestBase.cs" />
-    <Compile Include="UnitTests\ActionTest.cs" />
-    <Compile Include="UnitTests\AttachmentTest.cs" />
-    <Compile Include="UnitTests\BadgesTest.cs" />
-    <Compile Include="UnitTests\BoardMembershipTest.cs" />
-    <Compile Include="UnitTests\BoardPersonalPreferencesTest.cs" />
-    <Compile Include="UnitTests\BoardPreferencesTest.cs" />
-    <Compile Include="UnitTests\BoardTest.cs" />
-    <Compile Include="UnitTests\CardTest.cs" />
-    <Compile Include="UnitTests\CheckItemTest.cs" />
-    <Compile Include="UnitTests\CheckListTest.cs" />
-    <Compile Include="UnitTests\OrganizationMembershipTest.cs" />
-    <Compile Include="UnitTests\EntityTestBase.cs" />
-    <Compile Include="UnitTests\LabelNamesTest.cs" />
-    <Compile Include="UnitTests\ListTest.cs" />
-    <Compile Include="UnitTests\MemberPreferencesTest.cs" />
-    <Compile Include="UnitTests\MemberTest.cs" />
-    <Compile Include="UnitTests\NotificationTest.cs" />
-    <Compile Include="UnitTests\OrganizationPreferencesTest.cs" />
-    <Compile Include="UnitTests\OrganizationTest.cs" />
-    <Compile Include="UnitTests\TokenTest.cs" />
-    <Compile Include="UnitTests\TrelloServiceUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrelloIds.cs" />
-    <Compile Include="FunctionalTests\TrelloServiceFunctionalTest.cs" />
-    <Compile Include="UnitTests\UnitTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj">
@@ -141,9 +98,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

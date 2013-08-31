@@ -56,6 +56,10 @@ namespace Manatee.Trello.Internal
 		{
 			_list.Remove(obj);
 		}
+		public void Clear()
+		{
+			_list.Clear();
+		}
 		public IEnumerator GetEnumerator()
 		{
 			return _list.GetEnumerator();

@@ -27,7 +27,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -218,9 +217,9 @@ namespace Manatee.Trello
 		{
 			_jsonOrganization = new InnerJsonOrganization();
 			_actions = new ExpiringList<Action>(this, EntityRequestType.Organization_Read_Actions);
-			_boards = new ExpiringList<Board>(this, EntityRequestType.Organization_Read_Boards) {Fields = "id"};
-			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Organization_Read_InvitedMembers) {Fields = "id"};
-			_members = new ExpiringList<Member>(this, EntityRequestType.Organization_Read_Members) {Fields = "id"};
+			_boards = new ExpiringList<Board>(this, EntityRequestType.Organization_Read_Boards);
+			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Organization_Read_InvitedMembers);
+			_members = new ExpiringList<Member>(this, EntityRequestType.Organization_Read_Members);
 			_memberships = new ExpiringList<OrganizationMembership>(this, EntityRequestType.Organization_Read_Memberships);
 			_preferences = new OrganizationPreferences(this);
 		}
@@ -232,7 +231,6 @@ namespace Manatee.Trello
 		///<param name="type">The permission level for the member</param>
 		public void AddOrUpdateMember(Member member, OrganizationMembershipType type = OrganizationMembershipType.Normal)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
@@ -252,12 +250,12 @@ namespace Manatee.Trello
 		/// <param name="emailAddress"></param>
 		public Member AddOrUpdateMember(string emailAddress, string fullName, OrganizationMembershipType type = OrganizationMembershipType.Normal)
 		{
-			if (Svc == null) return null;
+			throw new NotImplementedException("The functionality to add a non-Trello member to to organizations has been temporarily disabled.");
 			if (_isDeleted) return null;
 			Validator.Writable();
 			Validator.NonEmptyString(emailAddress);
 			Validator.NonEmptyString(fullName);
-			var member = Svc.SearchMembers(emailAddress, 1).FirstOrDefault();
+			Member member = null;
 			if (member != null)
 			{
 				AddOrUpdateMember(member, type);
@@ -274,13 +272,12 @@ namespace Manatee.Trello
 		/// <returns>The newly-created Board object.</returns>
 		public Board CreateBoard(string name)
 		{
-			if (Svc == null) return null;
 			Validator.Writable();
 			Validator.NonEmptyString(name);
 			Parameters.Add("name", name);
 			Parameters.Add("idOrganization", Id);
 			var board = EntityRepository.Download<Board>(EntityRequestType.Organization_Write_CreateBoard, Parameters);
-			UpdateService(board);
+			UpdateDependencies(board);
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -289,7 +286,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			if (_members != null)
@@ -310,7 +306,6 @@ namespace Manatee.Trello
 		/// <param name="type">The level of membership offered.</param>
 		internal void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
@@ -322,7 +317,6 @@ namespace Manatee.Trello
 		///<param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
@@ -339,7 +333,6 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		internal void RescindInvitation(Member member)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
@@ -408,27 +401,9 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			Parameters.Add("_id", Id);
-			Parameters.Add("fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures");
-			Parameters.Add("paid_account", "true");
-			Parameters.Add("actions", "none");
-			Parameters.Add("members", "none");
-			Parameters.Add("membersInvited", "none");
-			Parameters.Add("boards", "none");
-			Parameters.Add("memberships", "none");
+			AddDefaultParameters();
 			EntityRepository.Refresh(this, EntityRequestType.Organization_Read_Refresh);
 			return true;
-		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService()
-		{
-			UpdateService(_actions);
-			UpdateService(_boards);
-			UpdateService(_members);
-			UpdateService(_memberships);
-			UpdateService(_preferences);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -438,6 +413,15 @@ namespace Manatee.Trello
 		internal override bool Matches(string id)
 		{
 			return (Id == id) || (Name == id);
+		}
+		internal override void PropagateDependencies()
+		{
+			UpdateDependencies(_actions);
+			UpdateDependencies(_boards);
+			UpdateDependencies(_invitedMembers);
+			UpdateDependencies(_members);
+			UpdateDependencies(_memberships);
+			UpdateDependencies(_preferences);
 		}
 
 		private void Put(EntityRequestType requestType)

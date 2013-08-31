@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
@@ -53,9 +54,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				if (_jsonAction == null) return null;
-				return ((_memberCreator == null) || (_memberCreator.Id != _jsonAction.IdMemberCreator)) && (Svc != null)
-						? (_memberCreator = Svc.Retrieve<Member>(_jsonAction.IdMemberCreator))
-				       	: _memberCreator;
+				return UpdateById(ref _memberCreator, EntityRequestType.Member_Read_Refresh, _jsonAction.IdMemberCreator);
 			}
 		}
 		/// <summary>
@@ -157,24 +156,12 @@ namespace Manatee.Trello
 		{
 			_jsonAction = new InnerJsonAction();
 		}
-		/// <summary>
-		/// Creates a new instance of the Action class.
-		/// </summary>
-		/// <param name="svc">An ITrelloService instance</param>
-		/// <param name="id">The action's ID.</param>
-		protected Action(ITrelloService svc, string id)
-			: this()
-		{
-			Id = id;
-			Svc = svc;
-		}
 
 		/// <summary>
 		/// Deletes this action.  This cannot be undone.
 		/// </summary>
 		public void Delete()
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Parameters.Add("_id", Id);
@@ -245,20 +232,9 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return false;
 			Parameters.Add("_id", Id);
-			Parameters.Add("fields", "idMemberCreator,data,type,date");
-			Parameters.Add("entities", "false");
-			Parameters.Add("memberCreator", "false");
-			Parameters.Add("member", "false");
+			AddDefaultParameters();
 			EntityRepository.Refresh(this, EntityRequestType.Action_Read_Refresh);
 			return true;
-		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService()
-		{
-			UpdateService(_memberCreator);
 		}
 
 		internal override void ApplyJson(object obj)

@@ -26,7 +26,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -78,9 +77,7 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				if (_jsonOrganizationMembership == null) return null;
-				return ((_member == null) || (_member.Id != _jsonOrganizationMembership.IdMember)) && (Svc != null)
-				       	? (_member = Svc.Retrieve<Member>(_jsonOrganizationMembership.IdMember))
-				       	: _member;
+				return UpdateById(ref _member, EntityRequestType.Member_Read_Refresh, _jsonOrganizationMembership.IdMember);
 			}
 		}
 		///<summary>
@@ -170,14 +167,6 @@ namespace Manatee.Trello
 			//var request = Api.RequestProvider.Create(endpoint.ToString());
 			//ApplyJson(Api.Get<IJsonBoardMembership>(request));
 			return false;
-		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService()
-		{
-			UpdateService(_member);
 		}
 
 		internal override void ApplyJson(object obj)

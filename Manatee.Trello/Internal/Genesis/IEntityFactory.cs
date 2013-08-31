@@ -15,7 +15,7 @@
 	   limitations under the License.
  
 	File Name:		IEntityFactory.cs
-	Namespace:		Manatee.Trello.Internal
+	Namespace:		Manatee.Trello.Internal.Genesis
 	Class Name:		IEntityFactory
 	Purpose:		Defines methods required to create entities from a given
 					JSON entity type.

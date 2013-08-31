@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
@@ -74,9 +73,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				if (_jsonAttachment == null) return null;
-				return ((_member == null) || (_member.Id != _jsonAttachment.IdMember)) && (Svc != null)
-				       	? (_member = Svc.Retrieve<Member>(_jsonAttachment.IdMember))
-				       	: _member;
+				return UpdateById(ref _member, EntityRequestType.Member_Read_Refresh, _jsonAttachment.IdMember);
 			}
 		}
 		///<summary>
@@ -117,7 +114,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Parameters.Add("_id", Id);
@@ -191,14 +187,6 @@ namespace Manatee.Trello
 			//var request = Api.RequestProvider.Create(endpoint.ToString());
 			//ApplyJson(Api.Get<IJsonAttachment>(request));
 			return false;
-		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService()
-		{
-			UpdateService(_member);
 		}
 
 		internal override void ApplyJson(object obj)

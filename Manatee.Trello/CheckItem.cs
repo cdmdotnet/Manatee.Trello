@@ -21,13 +21,11 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -150,14 +148,11 @@ namespace Manatee.Trello
 		public void Delete()
 		{
 			if (_isDeleted) return;
-			if (Svc == null) return;
 			Validator.Writable();
 			Parameters.Add("_id", Id);
 			Parameters.Add("_checkListId", Owner.Id);
 			EntityRepository.Upload(EntityRequestType.CheckItem_Write_Delete, Parameters);
 			((CheckList) Owner).CheckItemsList.MarkForUpdate();
-			if (Svc.Configuration.Cache != null)
-				Svc.Configuration.Cache.Remove(this);
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -228,11 +223,6 @@ namespace Manatee.Trello
 			return true;
 		}
 
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService() {}
-
 		internal override void ApplyJson(object obj)
 		{
 			_jsonCheckItem = (IJsonCheckItem)obj;
@@ -245,6 +235,7 @@ namespace Manatee.Trello
 			Parameters.Add("_id", Id);
 			Parameters.Add("_checkListId", Owner.Id);
 			Parameters.Add("_cardId", Owner.Owner.Id);
+			AddDefaultParameters();
 			EntityRepository.Upload(requestedType, Parameters);
 		}
 		private void UpdateState()

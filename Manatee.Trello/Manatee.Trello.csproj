@@ -66,16 +66,17 @@
     <Compile Include="Enumerations\TokenModelType.cs" />
     <Compile Include="Enumerations\OrganizationMembershipType.cs" />
     <Compile Include="Internal\Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="Internal\DataAccess\CachingEntityRepository.cs" />
     <Compile Include="Internal\DataAccess\EndpointFactory.cs" />
     <Compile Include="Internal\DataAccess\EntityRepository.cs" />
     <Compile Include="Internal\DataAccess\IEntityRepository.cs" />
     <Compile Include="Internal\DataAccess\IEndpointFactory.cs" />
+    <Compile Include="Internal\DataAccess\RestParameterRepository.cs" />
     <Compile Include="Internal\Genesis\EntityFactory.cs" />
     <Compile Include="Internal\Genesis\IEntityFactory.cs" />
     <Compile Include="Internal\IValidator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
     <Compile Include="Internal\Endpoint.cs" />
-    <Compile Include="Internal\IsCacheableProvider.cs" />
     <Compile Include="Internal\Json\InnerJsonMemberSession.cs" />
     <Compile Include="Internal\Json\InnerJsonOrganizationMembership.cs" />
     <Compile Include="Internal\Json\InnerJsonAction.cs" />
@@ -98,7 +99,7 @@
     <Compile Include="Internal\Json\InnerJsonOrganizationPreferences.cs" />
     <Compile Include="Internal\Json\InnerJsonToken.cs" />
     <Compile Include="Internal\Json\InnerJsonTokenPermission.cs" />
-    <Compile Include="Internal\DebugLog.cs" />
+    <Compile Include="Internal\ExceptionHandling\DebugLog.cs" />
     <Compile Include="Internal\RequestProcessing\INetworkMonitor.cs" />
     <Compile Include="Internal\RequestProcessing\NetworkMonitor.cs" />
     <Compile Include="Internal\RequestProcessing\IRestRequestProcessor.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Enumerations\LabelColor.cs" />
     <Compile Include="Enumerations\MemberStatusType.cs" />
     <Compile Include="Enumerations\NotificationType.cs" />
+    <Compile Include="TrelloAuthorization.cs" />
     <Compile Include="TrelloServiceConfiguration.cs" />
     <Compile Include="Enumerations\OrganizationPermissionLevelType.cs" />
     <Compile Include="OrganizationPreferences.cs" />

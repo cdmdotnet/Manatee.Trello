@@ -59,6 +59,13 @@ namespace Manatee.Trello.Internal
 				_innerCache.Remove(obj);
 			}
 		}
+		public void Clear()
+		{
+			lock (_lock)
+			{
+				_innerCache.Clear();
+			}
+		}
 		public IEnumerator GetEnumerator()
 		{
 			return _innerCache.GetEnumerator();

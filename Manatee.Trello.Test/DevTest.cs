@@ -25,7 +25,8 @@ namespace Manatee.Trello.Test
 			options.Deserializer = serializer;
 			options.RestClientProvider = new RestSharpClientProvider(options);
 
-			var service = new TrelloService(options, TrelloIds.AppKey, TrelloIds.UserToken);
+			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
+			var service = new TrelloService(options, auth);
 			var member = service.Retrieve<Member>("gregsdennis");
 
 			Console.WriteLine(member);

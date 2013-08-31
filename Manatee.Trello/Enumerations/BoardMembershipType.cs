@@ -42,6 +42,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the member is may only view the board.
 		/// </summary>
-		Observer
+		Observer,
+		/// <summary>
+		/// Indicates the member has been invited, but has not yet joined Trello.
+		/// </summary>
+		Ghost
 	}
 }

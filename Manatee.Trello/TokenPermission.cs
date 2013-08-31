@@ -32,7 +32,7 @@ namespace Manatee.Trello
 	/// Represents permissions granted to a particular entity type by a user token.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class TokenPermission<T> where T : ExpiringObject, new()
+	public class TokenPermission<T> where T : ExpiringObject
 	{
 		private static readonly OneToOneMap<TokenModelType, string> _typeMap;
 

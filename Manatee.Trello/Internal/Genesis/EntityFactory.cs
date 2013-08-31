@@ -15,7 +15,7 @@
 	   limitations under the License.
  
 	File Name:		EntityFactory.cs
-	Namespace:		Manatee.Trello.Internal
+	Namespace:		Manatee.Trello.Internal.Genesis
 	Class Name:		EntityFactory
 	Purpose:		Creates entities given a JSON entity type.
 
@@ -29,9 +29,11 @@ namespace Manatee.Trello.Internal.Genesis
 {
 	internal class EntityFactory : IEntityFactory
 	{
-		private readonly Dictionary<Type, Func<ExpiringObject>> _map;
+		private readonly ILog _log;
+		private readonly IValidator _validator;
+		private static readonly Dictionary<Type, Func<ExpiringObject>> _map;
 
-		public EntityFactory()
+		static EntityFactory()
 		{
 			_map = new Dictionary<Type, Func<ExpiringObject>>
 				{
@@ -59,11 +61,18 @@ namespace Manatee.Trello.Internal.Genesis
 					{typeof (Token), () => new Token()},
 				};
 		}
+		public EntityFactory(ILog log, IValidator validator)
+		{
+			_log = log;
+			_validator = validator;
+		}
 
 		public T CreateEntity<T>()
 			where T : ExpiringObject
 		{
 			T entity = _map[typeof(T)]() as T;
+			entity.Log = _log;
+			entity.Validator = _validator;
 			return entity;
 		}
 	}

@@ -35,6 +35,7 @@ namespace Manatee.Trello.Internal.DataAccess
 	/// </remarks>
 	public interface IEntityRepository
 	{
+		TimeSpan EntityDuration { get; }
 		/// <summary />
 		void Refresh<T>(T entity, EntityRequestType request)
 			where T : ExpiringObject;

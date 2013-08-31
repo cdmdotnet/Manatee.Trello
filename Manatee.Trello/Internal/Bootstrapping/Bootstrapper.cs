@@ -40,16 +40,20 @@ namespace Manatee.Trello.Internal.Bootstrapping
 		public IEntityRepository EntityRepository { get; private set; }
 		public IEndpointFactory EndpointFactory { get; private set; }
 
-		public void Initialize(ITrelloService service, ITrelloServiceConfiguration config, string appKey, string userToken)
+		public void Initialize(ITrelloService service, ITrelloServiceConfiguration config, TrelloAuthorization auth)
 		{
-			EntityFactory = new EntityFactory();
 			EndpointFactory = new EndpointFactory();
 			RequestQueue = new Queue<QueuableRestRequest>();
 			NetworkMonitor = RequestProcessing.NetworkMonitor.Default;
-			RequestProcessor = new RestRequestProcessor(config.Log, RequestQueue, config.RestClientProvider, NetworkMonitor, appKey, userToken);
+			RequestProcessor = new RestRequestProcessor(config.Log, RequestQueue, config.RestClientProvider, NetworkMonitor, auth.AppKey, auth.UserToken);
 			JsonRepository = new JsonRepository(RequestProcessor, config.RestClientProvider.RequestProvider);
-			Validator = new Validator(service, JsonRepository);
-			EntityRepository = new EntityRepository(JsonRepository, EndpointFactory, EntityFactory);
+			Validator = new Validator(config.Log, service, RequestProcessor);
+			EntityFactory = new EntityFactory(config.Log, Validator);
+			EntityRepository = new EntityRepository(JsonRepository, EndpointFactory, EntityFactory, config.ItemDuration);
+			if (config.Cache != null)
+			{
+				EntityRepository = new CachingEntityRepository(EntityRepository, config.Cache);
+			}
 		}
 	}
 }

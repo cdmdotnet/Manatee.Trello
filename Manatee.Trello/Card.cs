@@ -27,7 +27,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -84,9 +83,7 @@ namespace Manatee.Trello
 				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonCard == null) return null;
-				return ((_board == null) || (_board.Id != _jsonCard.IdBoard)) && (Svc != null)
-				       	? (_board = Svc.Retrieve<Board>(_jsonCard.IdBoard))
-				       	: _board;
+				return UpdateById(ref _board, EntityRequestType.Board_Read_Refresh, _jsonCard.IdBoard);
 			}
 		}
 		/// <summary>
@@ -220,9 +217,7 @@ namespace Manatee.Trello
 				if (_isDeleted) return null;
 				VerifyNotExpired();
 				if (_jsonCard == null) return null;
-				return ((_list == null) || (_list.Id != _jsonCard.IdList)) && (Svc != null)
-				       	? (_list = Svc.Retrieve<List>(_jsonCard.IdList))
-				       	: _list;
+				return UpdateById(ref _list, EntityRequestType.List_Read_Refresh, _jsonCard.IdList);
 			}
 		}
 		/// <summary>
@@ -325,10 +320,10 @@ namespace Manatee.Trello
 			_comments = new ExpiringList<Action>(this, EntityRequestType.Card_Read_Actions) {Filter = "commentCard"};
 			_attachments = new ExpiringList<Attachment>(this, EntityRequestType.Card_Read_Attachments) {Fields = "all"};
 			_badges = new Badges(this);
-			_checkLists = new ExpiringList<CheckList>(this, EntityRequestType.Card_Read_Checklists) {Fields = "id"};
+			_checkLists = new ExpiringList<CheckList>(this, EntityRequestType.Card_Read_Checklists);
 			_labels = new ExpiringList<Label>(this, EntityRequestType.Card_Read_Labels);
-			_members = new ExpiringList<Member>(this, EntityRequestType.Card_Read_Members) {Fields = "id"};
-			_votingMembers = new ExpiringList<Member>(this, EntityRequestType.Card_Read_VotingMembers) {Fields = "id"};
+			_members = new ExpiringList<Member>(this, EntityRequestType.Card_Read_Members);
+			_votingMembers = new ExpiringList<Member>(this, EntityRequestType.Card_Read_VotingMembers);
 		}
 
 		/// <summary>
@@ -337,7 +332,6 @@ namespace Manatee.Trello
 		/// <returns>The attachment object.</returns>
 		public Attachment AddAttachment(string name, string url)
 		{
-			if (Svc == null) return null;
 			Validator.Writable();
 			Validator.Url(url);
 			if (string.IsNullOrWhiteSpace(name))
@@ -351,7 +345,7 @@ namespace Manatee.Trello
 			Parameters.Add("_id", Id);
 			var attachment = EntityRepository.Download<Attachment>(EntityRequestType.Card_Write_AddAttachment, Parameters);
 			attachment.Owner = this;
-			UpdateService(attachment);
+			UpdateDependencies(attachment);
 			_attachments.MarkForUpdate();
 			_actions.MarkForUpdate();
 			return attachment;
@@ -364,7 +358,6 @@ namespace Manatee.Trello
 		/// <returns>The checklist.</returns>
 		public CheckList AddCheckList(string name, Position position = null)
 		{
-			if (Svc == null) return null;
 			if (_isDeleted) return null;
 			Validator.Writable();
 			Validator.NonEmptyString(name);
@@ -374,7 +367,7 @@ namespace Manatee.Trello
 			Parameters.Add("idCard", Id);
 			var checkList = EntityRepository.Download<CheckList>(EntityRequestType.Card_Write_AddChecklist, Parameters);
 			checkList.Owner = this;
-			UpdateService(checkList);
+			UpdateDependencies(checkList);
 			_checkLists.MarkForUpdate();
 			_actions.MarkForUpdate();
 			return checkList;
@@ -385,7 +378,6 @@ namespace Manatee.Trello
 		/// <param name="comment"></param>
 		public void AddComment(string comment)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.NonEmptyString(comment);
@@ -401,7 +393,6 @@ namespace Manatee.Trello
 		/// <param name="color">The color of the label.</param>
 		public void ApplyLabel(LabelColor color)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Parameters.Add("_id", Id);
@@ -417,7 +408,6 @@ namespace Manatee.Trello
 		/// <param name="member">The member to assign.</param>
 		public void AssignMember(Member member)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
@@ -433,7 +423,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public void ClearNotifications()
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Parameters.Add("_id", Id);
@@ -444,15 +433,12 @@ namespace Manatee.Trello
 		/// </summary>
 		public void Delete()
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Parameters.Add("_id", Id);
 			EntityRepository.Upload(EntityRequestType.Card_Write_Delete, Parameters);
 			if (_list != null)
 				_list.CardsList.MarkForUpdate();
-			if (Svc.Configuration.Cache != null)
-				Svc.Configuration.Cache.Remove(this);
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -463,7 +449,6 @@ namespace Manatee.Trello
 		/// <param name="position">The destination position.  Default is Bottom.  Invalid positions are ignored.</param>
 		public void Move(Board board, List list, Position position = null)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(board);
@@ -487,7 +472,6 @@ namespace Manatee.Trello
 		/// <param name="color"></param>
 		public void RemoveLabel(LabelColor color)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Parameters.Add("_id", Id);
@@ -502,7 +486,6 @@ namespace Manatee.Trello
 		/// <param name="member"></param>
 		public void RemoveMember(Member member)
 		{
-			if (Svc == null) return;
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
@@ -576,41 +559,27 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return false;
 			Parameters.Add("_id", Id);
-			Parameters.Add("fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,subscribed");
-			Parameters.Add("actions", "none");
-			Parameters.Add("attachments", "false");
-			Parameters.Add("badges", "false");
-			Parameters.Add("members", "false");
-			Parameters.Add("membersVoted", "false");
-			Parameters.Add("checkItemStates", "false");
-			Parameters.Add("checkLists", "false");
-			Parameters.Add("board", "false");
-			Parameters.Add("list", "false");
+			AddDefaultParameters();
 			EntityRepository.Refresh(this, EntityRequestType.Card_Read_Refresh);
 			return true;
-		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService()
-		{
-			UpdateService(_actions);
-			UpdateService(_attachments);
-			UpdateService(_badges);
-			UpdateService(_checkLists);
-			UpdateService(_comments);
-			UpdateService(_labels);
-			UpdateService(_members);
-			UpdateService(_votingMembers);
-			UpdateService(_board);
-			UpdateService(_list);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonCard = (IJsonCard) obj;
 			_position = _jsonCard.Pos.HasValue ? new Position(_jsonCard.Pos.Value) : Position.Unknown;
+		}
+
+		internal override void PropagateDependencies()
+		{
+			UpdateDependencies(_actions);
+			UpdateDependencies(_comments);
+			UpdateDependencies(_attachments);
+			UpdateDependencies(_badges);
+			UpdateDependencies(_checkLists);
+			UpdateDependencies(_labels);
+			UpdateDependencies(_members);
+			UpdateDependencies(_votingMembers);
 		}
 
 		private void Put(EntityRequestType requestType)

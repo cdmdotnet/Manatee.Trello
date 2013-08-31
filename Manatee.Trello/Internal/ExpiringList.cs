@@ -64,16 +64,14 @@ namespace Manatee.Trello.Internal
 			if (Fields != null)
 				Parameters.Add("fields", Fields);
 			EntityRepository.RefreshCollecion<T>(this, _requestType, Parameters);
-			PropagateService();
 			return true;
 		}
-		
-		protected override void PropagateService()
+
+		internal override void PropagateDependencies()
 		{
 			foreach (var item in _list)
 			{
 				item.Owner = Owner;
-				UpdateService(item);
 			}
 		}
 

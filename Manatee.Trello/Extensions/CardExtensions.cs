@@ -20,10 +20,9 @@
 	Purpose:		Exposes extension methods for the Card entity.
 
 ***************************************************************************************/
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Manatee.Trello
 {
