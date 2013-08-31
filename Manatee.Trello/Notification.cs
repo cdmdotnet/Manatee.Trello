@@ -26,7 +26,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -100,9 +99,7 @@ namespace Manatee.Trello
 			{
 				if (_jsonNotification == null) return null;
 				if (_jsonNotification.IdMemberCreator == null) return null;
-				return ((_memberCreator == null) || (_memberCreator.Id != _jsonNotification.IdMemberCreator)) && (Svc != null)
-				       	? (_memberCreator = Svc.Retrieve<Member>(_jsonNotification.IdMemberCreator))
-				       	: _memberCreator;
+				return UpdateById(ref _memberCreator, EntityRequestType.Member_Read_Refresh, _jsonNotification.IdMemberCreator);
 			}
 		}
 		/// <summary>
@@ -150,17 +147,6 @@ namespace Manatee.Trello
 		public Notification()
 		{
 			_jsonNotification = new InnerJsonNotification();
-		}
-		/// <summary>
-		/// Creates a new instance of the Notification class.
-		/// </summary>
-		/// <param name="svc">An ITrelloService instance</param>
-		/// <param name="id">The notification's ID.</param>
-		protected Notification(ITrelloService svc, string id)
-			: this()
-		{
-			Id = id;
-			Svc = svc;
 		}
 
 		/// <summary>
@@ -226,24 +212,9 @@ namespace Manatee.Trello
 		public override sealed bool Refresh()
 		{
 			Parameters.Add("_id", Id);
-			Parameters.Add("fields", "unread,type,date,data,idMemberCreator");
-			Parameters.Add("entities", "false");
-			Parameters.Add("memberCreator", "false");
-			Parameters.Add("board", "false");
-			Parameters.Add("list", "false");
-			Parameters.Add("card", "false");
-			Parameters.Add("organization", "false");
-			Parameters.Add("member", "false");
+			AddDefaultParameters();
 			EntityRepository.Refresh(this, EntityRequestType.Notification_Read_Refresh);
 			return true;
-		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService()
-		{
-			UpdateService(_memberCreator);
 		}
 
 		internal override void ApplyJson(object obj)

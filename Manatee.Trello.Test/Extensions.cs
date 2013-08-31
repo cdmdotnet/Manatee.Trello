@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Manatee.Trello.Test
 {
-	static class Extensions
+	public static class Extensions
 	{
-		public static DateTime TruncateToMilliSeconds(this DateTime date)
+		public static DateTime TruncateToMilliseconds(this DateTime date)
 		{
 			return new SqlDateTime(date).Value;
 		}

@@ -340,16 +340,16 @@ namespace Manatee.Trello
 			_jsonMember = new InnerJsonMember();
 			_actions = new ExpiringList<Action>(this, EntityRequestType.Member_Read_Actions);
 			_avatarSource = AvatarSourceType.Unknown;
-			_boards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_Boards) {Fields = "id", Filter = "open"};
-			_closedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_Boards) {Fields = "id", Filter = "closed"};
-			_invitedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_InvitedBoards) {Fields = "id"};
-			_invitedOrganizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_InvitedOrganizations) {Fields = "id"};
+			_boards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_Boards) {Filter = "open"};
+			_closedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_Boards) {Filter = "closed"};
+			_invitedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_InvitedBoards);
+			_invitedOrganizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_InvitedOrganizations);
 			_notifications = new ExpiringList<Notification>(this, EntityRequestType.Member_Read_Notifications);
-			_organizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_Organization) {Fields = "id"};
+			_organizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_Organization);
 			//_pinnedBoards = new ExpiringList<Board>(this, ) {Fields = "id"};
 			_preferences = new MemberPreferences(this);
 			_sessions = new ExpiringList<MemberSession>(this, EntityRequestType.Member_Read_Sessions);
-			_tokens = new ExpiringList<Token>(this, EntityRequestType.Member_Read_Tokens) {Fields = "id"};
+			_tokens = new ExpiringList<Token>(this, EntityRequestType.Member_Read_Tokens);
 		}
 
 		/// <summary>
@@ -357,7 +357,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public void ClearNotifications()
 		{
-			if (Svc == null) return;
 			Validator.Writable();
 			EntityRepository.Upload(EntityRequestType.Member_Write_ClearNotifications, Parameters);
 		}
@@ -368,12 +367,11 @@ namespace Manatee.Trello
 		/// <returns>The newly-created Board object.</returns>
 		public Board CreateBoard(string name)
 		{
-			if (Svc == null) return null;
 			Validator.Writable();
 			Validator.NonEmptyString(name);
 			Parameters.Add("name", name);
 			var board = EntityRepository.Download<Board>(EntityRequestType.Member_Write_CreateBoard, Parameters);
-			UpdateService(board);
+			UpdateDependencies(board);
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -384,12 +382,11 @@ namespace Manatee.Trello
 		/// <returns>The newly-created Organization object.</returns>
 		public Organization CreateOrganization(string displayName)
 		{
-			if (Svc == null) return null;
 			Validator.Writable();
 			Validator.NonEmptyString(displayName);
 			Parameters.Add("displayName", displayName);
 			var org = EntityRepository.Download<Organization>(EntityRequestType.Member_Write_CreateOrganizations, Parameters);
-			UpdateService(org);
+			UpdateDependencies(org);
 			_organizations.MarkForUpdate();
 			return org;
 		}
@@ -399,7 +396,6 @@ namespace Manatee.Trello
 		/// <param name="board">The board to pin.</param>
 		public void PinBoard(Board board)
 		{
-			if (Svc == null) return;
 			Validator.Writable();
 			Validator.Entity(board);
 			Parameters.Add("_id", Id);
@@ -412,7 +408,6 @@ namespace Manatee.Trello
 		/// <param name="card"></param>
 		public void RescindVoteForCard(Card card)
 		{
-			if (Svc == null) return;
 			Validator.Writable();
 			Validator.Entity(card);
 			Parameters.Add("_cardId", card.Id);
@@ -425,7 +420,6 @@ namespace Manatee.Trello
 		/// <param name="board"></param>
 		public void UnpinBoard(Board board)
 		{
-			if (Svc == null) return;
 			Validator.Writable();
 			Validator.Entity(board);
 			Parameters.Add("_id", Id);
@@ -438,7 +432,6 @@ namespace Manatee.Trello
 		/// <param name="card"></param>
 		public void VoteForCard(Card card)
 		{
-			if (Svc == null) return;
 			Validator.Writable();
 			Validator.Entity(card);
 			Parameters.Add("_cardId", card.Id);
@@ -508,35 +501,9 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			Parameters.Add("_id", Id);
-			Parameters.Add("fields", "avatarHash,bio,fullName,initials,memberType,status,url,username,avatarSource,confirmed,email,gravatarHash,loginTypes,newEmail,oneTimeMessagesDismissed,status,trophies,uploadedAvatarHash");
-			Parameters.Add("actions", "none");
-			Parameters.Add("cards", "none");
-			Parameters.Add("boards", "none");
-			Parameters.Add("boardsInvited", "none");
-			Parameters.Add("organizations", "none");
-			Parameters.Add("organizationsInvited", "none");
-			Parameters.Add("notifications", "none");
-			Parameters.Add("tokens", "none");
+			AddDefaultParameters();
 			EntityRepository.Refresh(this, EntityRequestType.Member_Read_Refresh);
 			return true;
-		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService()
-		{
-			UpdateService(_actions);
-			UpdateService(_boards);
-			UpdateService(_closedBoards);
-			UpdateService(_invitedBoards);
-			UpdateService(_invitedOrganizations);
-			UpdateService(_notifications);
-			UpdateService(_organizations);
-			UpdateService(_pinnedBoards);
-			UpdateService(_preferences);
-			UpdateService(_sessions);
-			UpdateService(_tokens);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -548,6 +515,19 @@ namespace Manatee.Trello
 		internal override bool Matches(string id)
 		{
 			return (Id == id) || (Username == id);
+		}
+		internal override void PropagateDependencies()
+		{
+			UpdateDependencies(_actions);
+			UpdateDependencies(_boards);
+			UpdateDependencies(_closedBoards);
+			UpdateDependencies(_invitedBoards);
+			UpdateDependencies(_invitedOrganizations);
+			UpdateDependencies(_notifications);
+			UpdateDependencies(_organizations);
+			UpdateDependencies(_preferences);
+			UpdateDependencies(_sessions);
+			UpdateDependencies(_tokens);
 		}
 
 		private void Put(EntityRequestType requestType)

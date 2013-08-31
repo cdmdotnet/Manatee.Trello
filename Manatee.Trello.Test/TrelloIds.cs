@@ -1,6 +1,6 @@
 ﻿namespace Manatee.Trello.Test
 {
-	internal static class TrelloIds
+	public static class TrelloIds
 	{
 		// To re-authorize and receive new token (must have login access for the user to approve the token)
 		// Other developers working on this should create their own sandbox boards and use their user accounts during the tests

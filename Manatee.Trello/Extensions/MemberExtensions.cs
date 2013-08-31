@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -41,22 +40,18 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> AllCards(this Member member)
 		{
-			if (member.EntityRepository != null)
-			{
-				var list = new ExpiringList<Card>(member, EntityRequestType.Member_Read_Cards) { Filter = "all", Fields = "id" };
-				list.Parameters.Add("actions", "none");
-				list.Parameters.Add("attachments", "false");
-				list.Parameters.Add("badges", "false");
-				list.Parameters.Add("members", "false");
-				list.Parameters.Add("membersVoted", "false");
-				list.Parameters.Add("checkItemStates", "false");
-				list.Parameters.Add("checkLists", "false");
-				list.Parameters.Add("board", "false");
-				list.Parameters.Add("list", "false");
-				list.Refresh();
-				return list;
-			}
-			return Enumerable.Empty<Card>();
+			var list = new ExpiringList<Card>(member, EntityRequestType.Member_Read_Cards) { Filter = "all", Fields = "id" };
+			list.Parameters.Add("actions", "none");
+			list.Parameters.Add("attachments", "false");
+			list.Parameters.Add("badges", "false");
+			list.Parameters.Add("members", "false");
+			list.Parameters.Add("membersVoted", "false");
+			list.Parameters.Add("checkItemStates", "false");
+			list.Parameters.Add("checkLists", "false");
+			list.Parameters.Add("board", "false");
+			list.Parameters.Add("list", "false");
+			list.Refresh();
+			return list;
 		}
 		/// <summary>
 		/// Retrieves all active cards assigned to a member.
@@ -65,22 +60,18 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> ActiveCards(this Member member)
 		{
-			if (member.Svc != null)
-			{
-				var list = new ExpiringList<Card>(member, EntityRequestType.Member_Read_Cards) { Filter = "visible", Fields = "id" };
-				list.Parameters.Add("actions", "none");
-				list.Parameters.Add("attachments", "false");
-				list.Parameters.Add("badges", "false");
-				list.Parameters.Add("members", "false");
-				list.Parameters.Add("membersVoted", "false");
-				list.Parameters.Add("checkItemStates", "false");
-				list.Parameters.Add("checkLists", "false");
-				list.Parameters.Add("board", "false");
-				list.Parameters.Add("list", "false");
-				list.Refresh();
-				return list;
-			}
-			return Enumerable.Empty<Card>();
+			var list = new ExpiringList<Card>(member, EntityRequestType.Member_Read_Cards) { Filter = "visible", Fields = "id" };
+			list.Parameters.Add("actions", "none");
+			list.Parameters.Add("attachments", "false");
+			list.Parameters.Add("badges", "false");
+			list.Parameters.Add("members", "false");
+			list.Parameters.Add("membersVoted", "false");
+			list.Parameters.Add("checkItemStates", "false");
+			list.Parameters.Add("checkLists", "false");
+			list.Parameters.Add("board", "false");
+			list.Parameters.Add("list", "false");
+			list.Refresh();
+			return list;
 		}
 		/// <summary>
 		/// Returns only the boards which are owned by a member.

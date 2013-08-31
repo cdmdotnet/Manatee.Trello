@@ -23,7 +23,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
@@ -39,6 +38,9 @@ namespace Manatee.Trello.Internal.DataAccess
 		private readonly IJsonRepository _jsonRepository;
 		private readonly IEndpointFactory _endpointFactory;
 		private readonly IEntityFactory _entityFactory;
+		private readonly TimeSpan _entityDuration;
+
+		public TimeSpan EntityDuration { get { return _entityDuration; } }
 
 		static EntityRepository()
 		{
@@ -94,11 +96,12 @@ namespace Manatee.Trello.Internal.DataAccess
 					{typeof (Token), ApplyJson<Token, IJsonToken>},
 				};
 		}
-		public EntityRepository(IJsonRepository jsonRepository, IEndpointFactory endpointFactory, IEntityFactory entityFactory)
+		public EntityRepository(IJsonRepository jsonRepository, IEndpointFactory endpointFactory, IEntityFactory entityFactory, TimeSpan entityDuration)
 		{
 			_jsonRepository = jsonRepository;
 			_endpointFactory = endpointFactory;
 			_entityFactory = entityFactory;
+			_entityDuration = entityDuration;
 		}
 
 		public void Refresh<T>(T entity, EntityRequestType request)
@@ -113,6 +116,10 @@ namespace Manatee.Trello.Internal.DataAccess
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
 			var list = obj as ExpiringList<T>;
+			foreach (var parameter in RestParameterRepository.GetParameters<T>())
+			{
+				list.Parameters.Add(parameter.Key, parameter.Value);
+			}
 			var endpoint = _endpointFactory.Build(request, parameters);
 			var json = _repositoryMethods[typeof(IEnumerable<T>)](_jsonRepository, endpoint, parameters);
 			parameters.Clear();
@@ -125,7 +132,9 @@ namespace Manatee.Trello.Internal.DataAccess
 			var json = _repositoryMethods[typeof(T)](_jsonRepository, endpoint, parameters);
 			var entity = _entityFactory.CreateEntity<T>();
 			entity.EntityRepository = this;
+			entity.PropagateDependencies();
 			entity.ApplyJson(json);
+			entity.ForceNotExpired();
 			parameters.Clear();
 			return entity;
 		}
@@ -164,7 +173,11 @@ namespace Manatee.Trello.Internal.DataAccess
 			foreach (var jsonEntity in jsonList)
 			{
 				var entity = entityFactory.CreateEntity<T>();
+				entity.Owner = list.Owner;
+				entity.EntityRepository = list.EntityRepository;
+				entity.PropagateDependencies();
 				entity.ApplyJson(jsonEntity);
+				//entity.ForceNotExpired();
 				entities.Add(entity);
 			}
 			list.Update(entities);

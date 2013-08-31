@@ -25,14 +25,25 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
-	internal interface IRestRequestProcessor
+	/// <summary>
+	/// Processes REST requests as they appear on the queue.
+	/// </summary>
+	/// <remarks>
+	/// Exposed solely for unit testing purposes.
+	/// </remarks>
+	public interface IRestRequestProcessor
 	{
+		/// <summary />
 		bool IsActive { get; set; }
+		/// <summary />
 		string AppKey { get; }
+		/// <summary />
 		string UserToken { get; set; }
 
+		/// <summary />
 		void AddRequest<T>(IRestRequest request)
 			where T : class;
+		/// <summary />
 		void ShutDown();
 	}
 }

@@ -26,7 +26,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -54,9 +53,7 @@ namespace Manatee.Trello
 			{
 				VerifyNotExpired();
 				if (_jsonList == null) return null;
-				return ((_board == null) || (_board.Id != _jsonList.IdBoard)) && (Svc != null)
-						? (_board = Svc.Retrieve<Board>(_jsonList.IdBoard))
-						: _board;
+				return UpdateById(ref _board, EntityRequestType.Board_Read_Refresh, _jsonList.IdBoard);
 			}
 		}
 		/// <summary>
@@ -171,8 +168,8 @@ namespace Manatee.Trello
 		public List()
 		{
 			_jsonList = new InnerJsonList();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.List_Read_Actions) {Fields = "id"};
-			_cards = new ExpiringList<Card>(this, EntityRequestType.List_Read_Cards) {Fields = "id"};
+			_actions = new ExpiringList<Action>(this, EntityRequestType.List_Read_Actions);
+			_cards = new ExpiringList<Card>(this, EntityRequestType.List_Read_Cards);
 		}
 
 		/// <summary>
@@ -184,7 +181,6 @@ namespace Manatee.Trello
 		/// <returns>The card.</returns>
 		public Card AddCard(string name, string description = null, Position position = null)
 		{
-			if (Svc == null) return null;
 			Validator.Writable();
 			Validator.NonEmptyString(name);
 			Parameters.Add("name", name);
@@ -194,7 +190,7 @@ namespace Manatee.Trello
 			if ((position != null) && position.IsValid)
 				Parameters.Add("pos", position);
 			var card = EntityRepository.Download<Card>(EntityRequestType.List_Write_AddCard, Parameters);
-			UpdateService(card);
+			UpdateDependencies(card);
 			_cards.MarkForUpdate();
 			return card;
 		}
@@ -212,7 +208,6 @@ namespace Manatee.Trello
 		/// <param name="position">The position in the board.  Default is Bottom (right).  Invalid positions are ignored.</param>
 		public void Move(Board board, Position position = null)
 		{
-			if (Svc == null) return;
 			Validator.Writable();
 			Validator.Entity(board);
 			Parameters.Add("_id", Id);
@@ -288,26 +283,20 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			Parameters.Add("_id", Id);
-			Parameters.Add("fields", "name,closed,idBoard,pos,subscribed");
-			Parameters.Add("cards", "none");
+			AddDefaultParameters();
 			EntityRepository.Refresh(this, EntityRequestType.List_Read_Refresh);
 			return true;
-		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService()
-		{
-			UpdateService(_actions);
-			UpdateService(_cards);
-			UpdateService(_board);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonList = (IJsonList)obj;
 			_position = ((_jsonList != null) && _jsonList.Pos.HasValue) ? new Position(_jsonList.Pos.Value) : Position.Unknown;
+		}
+		internal override void PropagateDependencies()
+		{
+			UpdateDependencies(_actions);
+			UpdateDependencies(_cards);
 		}
 
 		private void Put(EntityRequestType requestType)

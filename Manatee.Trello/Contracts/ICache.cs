@@ -53,5 +53,9 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		/// <param name="obj">The object to remove.</param>
 		void Remove(object obj);
+		/// <summary>
+		/// Removes all objects from the cache.
+		/// </summary>
+		void Clear();
 	}
 }

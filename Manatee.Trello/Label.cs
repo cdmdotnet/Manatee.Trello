@@ -26,7 +26,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -143,11 +142,6 @@ namespace Manatee.Trello
 		{
 			return false;
 		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService() {}
 
 		internal override void ApplyJson(object obj)
 		{

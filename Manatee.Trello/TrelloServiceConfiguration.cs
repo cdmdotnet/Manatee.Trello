@@ -23,6 +23,7 @@
 using System;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.ExceptionHandling;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 

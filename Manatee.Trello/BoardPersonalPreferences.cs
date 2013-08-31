@@ -25,7 +25,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -168,14 +167,10 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			Parameters.Add("_boardId", Owner.Id);
+			AddDefaultParameters();
 			EntityRepository.Refresh(this, EntityRequestType.BoardPersonalPreferences_Read_Refresh);
 			return true;
 		}
-
-		/// <summary>
-		/// Propagates the service instance to the object's owned objects.
-		/// </summary>
-		protected override void PropagateService() {}
 
 		internal override void ApplyJson(object obj)
 		{

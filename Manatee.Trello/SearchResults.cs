@@ -22,7 +22,7 @@
 					which yielded the results.
 
 ***************************************************************************************/
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
@@ -71,23 +71,25 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			return true;
+			return false;
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			var results = obj as IJsonSearchResults;
 			if (results == null) return;
-			_actions = results.ActionIds.Select(Svc.Retrieve<Action>).ToList();
-			_boards = results.BoardIds.Select(Svc.Retrieve<Board>).ToList();
-			_cards = results.CardIds.Select(Svc.Retrieve<Card>).ToList();
-			_members = results.MemberIds.Select(Svc.Retrieve<Member>).ToList();
-			_organizations = results.OrganizationIds.Select(Svc.Retrieve<Organization>).ToList();
+			_actions = results.ActionIds.Select(Download<Action>).ToList();
+			_boards = results.BoardIds.Select(Download<Board>).ToList();
+			_cards = results.CardIds.Select(Download<Card>).ToList();
+			_members = results.MemberIds.Select(Download<Member>).ToList();
+			_organizations = results.OrganizationIds.Select(Download<Organization>).ToList();
 		}
 
-		/// <summary>
-		/// Propagates the dependencies of an entity to its child entities.
-		/// </summary>
-		protected override void PropagateService() {}
+		private T Download<T>(string id)
+			where T : ExpiringObject
+		{
+			return EntityRepository.Download<T>(EntityRequestType.Action_Read_Refresh,
+												new Dictionary<string, object> {{"_id", id}});
+		}
 	}
 }

@@ -31,7 +31,6 @@ using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Bootstrapping;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.RequestProcessing;
-using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -67,31 +66,28 @@ namespace Manatee.Trello
 				return _me ?? (_me = GetMe());
 			}
 		}
-		/// <summary>
-		/// Provides a set of options for use by a single ITrelloService instance.
-		/// </summary>
-		public ITrelloServiceConfiguration Configuration { get { return _configuration; } }
 
 		/// <summary>
 		/// Creates a new instance of the TrelloService class using a given configuration.
 		/// </summary>
 		/// <param name="configuration">A configuration object.</param>
-		/// <param name="appKey">The application key.</param>
-		/// <param name="userToken">The user token.</param>
-		public TrelloService(ITrelloServiceConfiguration configuration, string appKey, string userToken = null)
+		/// <param name="auth">The authorization object for this service.</param>
+		public TrelloService(ITrelloServiceConfiguration configuration, TrelloAuthorization auth)
 		{
 			if (configuration == null) throw new ArgumentNullException("configuration");
 			_configuration = configuration;
 			var bootstrapper = new Bootstrapper();
-			bootstrapper.Initialize(this, configuration, appKey, userToken);
+			bootstrapper.Initialize(this, configuration, auth);
 			_requestProcessor = bootstrapper.RequestProcessor;
 			_validator = bootstrapper.Validator;
 			_entityRepository = bootstrapper.EntityRepository;
 			_endpointFactory = bootstrapper.EndpointFactory;
-			_memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers);
-			_memberSearchList.EntityRepository = _entityRepository;
-			_memberSearchList.Validator = _validator;
-			_memberSearchList.Svc = this;
+			_memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers)
+				{
+					Log = configuration.Log,
+					EntityRepository = _entityRepository,
+					Validator = _validator
+				};
 		}
 		internal TrelloService(ITrelloServiceConfiguration configuration,
 							   IValidator validator,
@@ -104,6 +100,12 @@ namespace Manatee.Trello
 			_entityRepository = entityRepository;
 			_requestProcessor = requestProcessor;
 			_endpointFactory = endpointFactory;
+			_memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers)
+				{
+					Log = configuration.Log,
+					EntityRepository = _entityRepository,
+					Validator = _validator
+				};
 		}
 
 		/// <summary>
@@ -120,11 +122,7 @@ namespace Manatee.Trello
 			where T : ExpiringObject, new()
 		{
 			_validator.NonEmptyString(id);
-			T entity;
-			if (_configuration.Cache != null)
-				entity = _configuration.Cache.Find(e => e.Matches(id), () => Verify<T>(id));
-			else
-				entity = Verify<T>(id);
+			T entity = Verify<T>(id);
 			return entity;
 		}
 		/// <summary>
@@ -138,15 +136,11 @@ namespace Manatee.Trello
 		public SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All)
 		{
 			_validator.NonEmptyString(query);
-			var parameters = new Dictionary<string, object>
-				{
-					{"query", query},
-					{"action_fields", "id"},
-					{"board_fields", "id"},
-					{"card_fields", "id"},
-					{"member_fields", "id"},
-					{"organization_fields", "id"},
-				};
+			var parameters = new Dictionary<string, object> {{"query", query}};
+			foreach (var parameter in RestParameterRepository.GetParameters<SearchResults>())
+			{
+				parameters.Add(parameter.Key, parameter.Value);
+			}
 			if (context != null)
 			{
 				var results = ConstructContextParameter<Board>(context);
@@ -205,22 +199,11 @@ namespace Manatee.Trello
 			where T : ExpiringObject
 		{
 			T entity = null;
-			try
-			{
-				var requestType = _endpointFactory.GetRequestType<T>();
-				if (requestType == EntityRequestType.Unsupported) return null;
-				var parameters = new Dictionary<string, object> {{"_id", id}};
-				entity = _entityRepository.Download<T>(requestType, parameters);
-				entity.Validator = _validator;
-				entity.Svc = this;
-				return entity;
-			}
-			catch
-			{
-				if (_configuration.Cache != null)
-					_configuration.Cache.Remove(entity);
-				throw;
-			}
+			var requestType = _endpointFactory.GetRequestType<T>();
+			if (requestType == EntityRequestType.Unsupported) return null;
+			var parameters = new Dictionary<string, object> {{"_id", id}};
+			entity = _entityRepository.Download<T>(requestType, parameters);
+			return entity;
 		}
 		private Member GetMe()
 		{

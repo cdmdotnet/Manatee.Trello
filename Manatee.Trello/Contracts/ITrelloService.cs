@@ -38,10 +38,6 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		Member Me { get; }
 		/// <summary>
-		/// Provides a set of options for use by a single ITrelloService instance.
-		/// </summary>
-		ITrelloServiceConfiguration Configuration { get; }
-		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>
 		/// <typeparam name="T">The type of entity to retrieve.</typeparam>
