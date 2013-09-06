@@ -23,11 +23,25 @@
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Contains authorization tokens needed to connect to trello.com.
+	/// </summary>
 	public class TrelloAuthorization
 	{
+		/// <summary>
+		/// The token which identifies the application attempting to connect.
+		/// </summary>
 		public string AppKey { get; private set; }
+		/// <summary>
+		/// The token which identifies special permissions as granted by a specific user.
+		/// </summary>
 		public string UserToken { get; set; }
 
+		/// <summary>
+		/// Creates a new instance of the TrelloAuthorization class.
+		/// </summary>
+		/// <param name="appKey">The application key.</param>
+		/// <param name="userToken">The user token.</param>
 		public TrelloAuthorization(string appKey, string userToken = null)
 		{
 			AppKey = appKey;

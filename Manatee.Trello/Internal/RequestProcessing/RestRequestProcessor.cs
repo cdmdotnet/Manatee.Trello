@@ -22,11 +22,7 @@
 ***************************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
@@ -35,10 +31,8 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	{
 		private const string BaseUrl = "https://api.trello.com/1";
 
-		private readonly ILog _log;
-		private readonly Queue<QueuableRestRequest> _queue;
+		private readonly IRequestQueue _queue;
 		private readonly IRestClientProvider _clientProvider;
-		private readonly INetworkMonitor _networkMonitor;
 		private readonly string _appKey;
 		private readonly object _lock;
 		private readonly Thread _workerThread;
@@ -57,35 +51,24 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		public string AppKey { get { return _appKey; } }
 		public string UserToken { get; set; }
 
-		public RestRequestProcessor(ILog log, Queue<QueuableRestRequest> queue, IRestClientProvider clientProvider, INetworkMonitor networkMonitor, string appKey, string userToken)
+		public RestRequestProcessor(IRequestQueue queue, IRestClientProvider clientProvider, TrelloAuthorization auth)
 		{
-			if (string.IsNullOrWhiteSpace(appKey))
-				_log.Error(new ArgumentException("Application key required. App keys can be generated from https://trello.com/1/appKey/generate", "appKey"));
-			_log = log;
 			_queue = queue;
 			_clientProvider = clientProvider;
-			_networkMonitor = networkMonitor;
-			_appKey = appKey;
-			UserToken = userToken;
+			_appKey = auth.AppKey;
+			UserToken = auth.UserToken;
 			_lock = new object();
 			_shutdown = false;
 			_isActive = true;
 			_workerThread = new Thread(Process);
 			_workerThread.Start();
-			_networkMonitor.ConnectionStatusChanged += NetworkStatusChanged;
 		}
 
 		public void AddRequest<T>(IRestRequest request)
 			where T : class
 		{
 			PrepRequest(request);
-			LogRequest(request, "Queuing");
-			var queueRequest = new QueuableRestRequest
-				{
-					Request = request,
-					ExecuteMethod = c => { request.Response = c.Execute<T>(request); }
-				};
-			_queue.Enqueue(queueRequest);
+			_queue.Enqueue<T>(request);
 			Pulse();
 		}
 		public void ShutDown()
@@ -93,6 +76,10 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			_shutdown = true;
 			Pulse();
 			_workerThread.Join();
+		}
+		public void NetworkStatusChanged(object sender, EventArgs e)
+		{
+			Pulse();
 		}
 
 		private void Process()
@@ -103,11 +90,9 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				{
 					Monitor.Wait(_lock);
 					var client = _clientProvider.CreateRestClient(BaseUrl);
-					while (!_shutdown && IsActive && _networkMonitor.IsConnected && (_queue.Count != 0))
+					while (!_shutdown && IsActive && (_queue.Count != 0))
 					{
-						var request = _queue.Dequeue();
-						LogRequest(request.Request, "Sending");
-						request.ExecuteMethod(client);
+						_queue.DequeueAndExecute(client);
 					}
 					if (_shutdown) return;
 				}
@@ -123,25 +108,6 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			request.AddParameter("key", _appKey);
 			if (UserToken != null)
 				request.AddParameter("token", UserToken);
-		}
-		private void LogRequest(IRestRequest request, string action)
-		{
-			var sb = new StringBuilder();
-			sb.AppendLine("{2}: {0} {1}", request.Method, request.Resource, action);
-			if ((request.Parameters != null) && request.Parameters.Any())
-			{
-				sb.AppendLine("    Parameters:");
-				foreach (var parameter in request.Parameters)
-				{
-					sb.AppendLine("       {0}: {1}", parameter.Key, parameter.Value);
-				}
-			}
-			sb.AppendLine();
-			_log.Info(sb.ToString());
-		}
-		private void NetworkStatusChanged(object sender, EventArgs e)
-		{
-			Pulse();
 		}
 	}
 }

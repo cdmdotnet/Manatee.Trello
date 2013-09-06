@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -58,6 +59,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPreferences == null) return;
@@ -79,6 +81,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_comments == value) return;
@@ -100,6 +103,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_invitations == value) return;
@@ -121,6 +125,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_permissionLevel == value) return;
@@ -142,6 +147,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPreferences == null) return;
@@ -163,6 +169,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_voting == value) return;
@@ -172,6 +179,10 @@ namespace Manatee.Trello
 				Put(EntityRequestType.BoardPreferences_Write_Voting);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonBoardPreferences is InnerJsonBoardPreferences; } }
 
 		static BoardPreferences()
 		{
@@ -219,10 +230,9 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			Parameters.Add("_id", Id);
+			Parameters.Add("_boardId", Owner.Id);
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.BoardPreferences_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.BoardPreferences_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -232,6 +242,7 @@ namespace Manatee.Trello
 			UpdateInvitations();
 			UpdatePermissionLevel();
 			UpdateVoting();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void Put(EntityRequestType requestType)

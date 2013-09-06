@@ -26,9 +26,32 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
-	internal class QueuableRestRequest
+	internal abstract class QueuableRestRequest
 	{
-		public IRestRequest Request { get; set; }
-		public System.Action<IRestClient> ExecuteMethod { get; set; }
+		public IRestRequest Request { get; private set; }
+
+		public QueuableRestRequest(IRestRequest request)
+		{
+			Request = request;
+		}
+
+		public abstract void Execute(IRestClient client);
+		public abstract void CreateNullResponse();
+	}
+
+	internal class QueuableRestRequest<T> : QueuableRestRequest
+		where T : class
+	{
+		public QueuableRestRequest(IRestRequest request)
+			: base(request) {}
+
+		public override void Execute(IRestClient client)
+		{
+			Request.Response = client.Execute<T>(Request);
+		}
+		public override void CreateNullResponse()
+		{
+			Request.Response = new NullRestResponse<T>();
+		}
 	}
 }

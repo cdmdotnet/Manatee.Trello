@@ -47,7 +47,7 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Organization> _invitedOrganizations;
 		private readonly ExpiringList<Notification> _notifications;
 		private readonly ExpiringList<Organization> _organizations;
-		private readonly ExpiringList<Board> _pinnedBoards;
+		//private readonly ExpiringList<Board> _pinnedBoards;
 		private readonly MemberPreferences _preferences;
 		private readonly ExpiringList<MemberSession> _sessions;
 		private MemberStatusType _status;
@@ -80,6 +80,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_avatarSource == value) return;
@@ -101,6 +102,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_jsonMember.Bio == value) return;
@@ -152,6 +154,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_jsonMember.FullName == value) return;
@@ -196,6 +199,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_jsonMember.Initials == value) return;
@@ -243,10 +247,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return _organizations; } }
 		internal ExpiringList<Organization> OrganizationsList { get { return _organizations; } }
-		/// <summary>
-		/// Enumerates the boards the member has pinnned to their boards menu.
-		/// </summary>
-		internal IEnumerable<Board> PinnedBoards { get { return _pinnedBoards; } }
+		// / <summary>
+		// / Enumerates the boards the member has pinnned to their boards menu.
+		// / </summary>
+		//internal IEnumerable<Board> PinnedBoards { get { return _pinnedBoards; } }
 		///<summary>
 		/// Gets the set of preferences for the member.
 		///</summary>
@@ -308,6 +312,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonMember == null) return;
 				if (_jsonMember.Username == value) return;
@@ -316,6 +321,10 @@ namespace Manatee.Trello
 				Put(EntityRequestType.Member_Write_Username);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonMember is InnerJsonMember; } }
 
 		static Member()
 		{
@@ -346,7 +355,7 @@ namespace Manatee.Trello
 			_invitedOrganizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_InvitedOrganizations);
 			_notifications = new ExpiringList<Notification>(this, EntityRequestType.Member_Read_Notifications);
 			_organizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_Organization);
-			//_pinnedBoards = new ExpiringList<Board>(this, ) {Fields = "id"};
+			//_pinnedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_PinnedBoards);
 			_preferences = new MemberPreferences(this);
 			_sessions = new ExpiringList<MemberSession>(this, EntityRequestType.Member_Read_Sessions);
 			_tokens = new ExpiringList<Token>(this, EntityRequestType.Member_Read_Tokens);
@@ -372,6 +381,7 @@ namespace Manatee.Trello
 			Parameters.Add("name", name);
 			var board = EntityRepository.Download<Board>(EntityRequestType.Member_Write_CreateBoard, Parameters);
 			UpdateDependencies(board);
+			_boards.Add(board);
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -387,6 +397,7 @@ namespace Manatee.Trello
 			Parameters.Add("displayName", displayName);
 			var org = EntityRepository.Download<Organization>(EntityRequestType.Member_Write_CreateOrganizations, Parameters);
 			UpdateDependencies(org);
+			_organizations.Add(org);
 			_organizations.MarkForUpdate();
 			return org;
 		}
@@ -398,7 +409,7 @@ namespace Manatee.Trello
 		{
 			Validator.Writable();
 			Validator.Entity(board);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("value", board.Id);
 			EntityRepository.Upload(EntityRequestType.Member_Write_PinBoard, Parameters);
 		}
@@ -411,7 +422,7 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Validator.Entity(card);
 			Parameters.Add("_cardId", card.Id);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Member_Write_RescindVoteForCard, Parameters);
 		}
 		/// <summary>
@@ -422,7 +433,7 @@ namespace Manatee.Trello
 		{
 			Validator.Writable();
 			Validator.Entity(board);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_boardId", board.Id);
 			EntityRepository.Upload(EntityRequestType.Member_Write_UnpinBoard, Parameters);
 		}
@@ -435,7 +446,7 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Validator.Entity(card);
 			Parameters.Add("_cardId", card.Id);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Member_Write_VoteForCard, Parameters);
 		}
 		/// <summary>
@@ -500,10 +511,9 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.Member_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.Member_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -511,6 +521,7 @@ namespace Manatee.Trello
 			_jsonMember = (IJsonMember)obj;
 			UpdateStatus();
 			UpdateAvatarSource();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 		internal override bool Matches(string id)
 		{
@@ -532,7 +543,7 @@ namespace Manatee.Trello
 
 		private void Put(EntityRequestType requestType)
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
 			_actions.MarkForUpdate();
 		}

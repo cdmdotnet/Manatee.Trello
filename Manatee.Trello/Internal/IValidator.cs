@@ -27,8 +27,11 @@ using Manatee.Trello.Contracts;
 namespace Manatee.Trello.Internal
 {
 	/// <summary>
-	/// Internal use only.  Defines validation methods that throw exceptions when validation fails.
+	/// Defines validation methods that throw exceptions when validation fails.
 	/// </summary>
+	/// <remarks>
+	/// This interface is only exposed for unit testing purposes.
+	/// </remarks>
 	public interface IValidator
 	{
 		/// <summary>

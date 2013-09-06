@@ -14,39 +14,30 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IRestRequestProcessor.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		IRestRequestProcessor
-	Purpose:		Processes REST requests as they appear on the queue.
+	File Name:		IEndpointFactory.cs
+	Namespace:		Manatee.Trello.Internal.Genesis
+	Class Name:		IEndpointFactory
+	Purpose:		Defines methods required to build the required endpoint
+					which will be used during a REST call.
 
 ***************************************************************************************/
 
-using System;
-using Manatee.Trello.Rest;
+using System.Collections.Generic;
 
-namespace Manatee.Trello.Internal.RequestProcessing
+namespace Manatee.Trello.Internal.Genesis
 {
 	/// <summary>
-	/// Processes REST requests as they appear on the queue.
+	/// Defines methods required to build the required endpoint which will be used
+	/// during a REST call.
 	/// </summary>
 	/// <remarks>
 	/// This interface is only exposed for unit testing purposes.
 	/// </remarks>
-	public interface IRestRequestProcessor
+	public interface IEndpointFactory
 	{
 		/// <summary />
-		bool IsActive { get; set; }
+		Endpoint Build(EntityRequestType requestType, IDictionary<string, object> parameters);
 		/// <summary />
-		string AppKey { get; }
-		/// <summary />
-		string UserToken { get; set; }
-
-		/// <summary />
-		void AddRequest<T>(IRestRequest request)
-			where T : class;
-		/// <summary />
-		void ShutDown();
-		/// <summary />
-		void NetworkStatusChanged(object sender, EventArgs e);
+		EntityRequestType GetRequestType<T>();
 	}
 }

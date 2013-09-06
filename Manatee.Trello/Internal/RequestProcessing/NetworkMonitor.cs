@@ -23,45 +23,29 @@
 ***************************************************************************************/
 using System;
 using System.Net.NetworkInformation;
-using System.Threading;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
 	internal class NetworkMonitor : INetworkMonitor
 	{
-		private const string _trelloUrl = "trello.com";
-		private static readonly Timer _timer;
-		private static readonly NetworkMonitor _default;
-		private static bool _isConnected;
+		private bool _isConnected;
 
-		public static NetworkMonitor Default { get { return _default; } }
 		public bool IsConnected { get { return _isConnected; } }
 
 		public event EventHandler ConnectionStatusChanged;
 
-		static NetworkMonitor()
+		public NetworkMonitor()
 		{
-			_default = new NetworkMonitor();
-			_timer = new Timer(ExecutePing, null, TimeSpan.FromMilliseconds(0), TimeSpan.FromSeconds(30));
-		}
-		private NetworkMonitor()
-		{
-			ExecutePing(null);
-		}
-		~NetworkMonitor()
-		{
-			_timer.Dispose();
+			_isConnected = NetworkInterface.GetIsNetworkAvailable();
+			NetworkChange.NetworkAvailabilityChanged += HandleNetworkAvailabilityChange;
 		}
 
-		private static void ExecutePing(object obj)
+		private void HandleNetworkAvailabilityChange(object sender, NetworkAvailabilityEventArgs e)
 		{
-			var ping = new Ping();
-			var reply = ping.Send(_trelloUrl);
-			var status = reply.Status == IPStatus.Success;
-			if (!_isConnected != status) return;
-			_isConnected = status;
-			if ((_default != null) && (_default.ConnectionStatusChanged != null))
-				_default.ConnectionStatusChanged(null, new EventArgs());
+			if (_isConnected == e.IsAvailable) return;
+			_isConnected = e.IsAvailable;
+			if (ConnectionStatusChanged != null)
+				ConnectionStatusChanged(this, new EventArgs());
 		}
 	}
 }

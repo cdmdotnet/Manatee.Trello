@@ -21,7 +21,6 @@
 
 ***************************************************************************************/
 
-using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Genesis;
@@ -31,7 +30,7 @@ namespace Manatee.Trello.Internal.Bootstrapping
 {
 	internal class Bootstrapper
 	{
-		public Queue<QueuableRestRequest> RequestQueue { get; private set; }
+		public IRequestQueue RequestQueue { get; private set; }
 		public INetworkMonitor NetworkMonitor { get; private set; }
 		public IRestRequestProcessor RequestProcessor { get; private set; }
 		public IJsonRepository JsonRepository { get; private set; }
@@ -39,17 +38,21 @@ namespace Manatee.Trello.Internal.Bootstrapping
 		public IEntityFactory EntityFactory { get; private set; }
 		public IEntityRepository EntityRepository { get; private set; }
 		public IEndpointFactory EndpointFactory { get; private set; }
+		public IOfflineChangeQueue OfflineChangeQueue { get; private set; }
 
 		public void Initialize(ITrelloService service, ITrelloServiceConfiguration config, TrelloAuthorization auth)
 		{
 			EndpointFactory = new EndpointFactory();
-			RequestQueue = new Queue<QueuableRestRequest>();
-			NetworkMonitor = RequestProcessing.NetworkMonitor.Default;
-			RequestProcessor = new RestRequestProcessor(config.Log, RequestQueue, config.RestClientProvider, NetworkMonitor, auth.AppKey, auth.UserToken);
+			OfflineChangeQueue = new OfflineChangeQueue();
+			NetworkMonitor = new NetworkMonitor();
+			RequestQueue = new RequestQueue(config.Log, NetworkMonitor);
+			RequestProcessor = new RestRequestProcessor(RequestQueue, config.RestClientProvider, auth);
 			JsonRepository = new JsonRepository(RequestProcessor, config.RestClientProvider.RequestProvider);
 			Validator = new Validator(config.Log, service, RequestProcessor);
 			EntityFactory = new EntityFactory(config.Log, Validator);
-			EntityRepository = new EntityRepository(JsonRepository, EndpointFactory, EntityFactory, config.ItemDuration);
+			EntityRepository = new EntityRepository(JsonRepository, EndpointFactory, EntityFactory, OfflineChangeQueue, config.ItemDuration);
+			NetworkMonitor.ConnectionStatusChanged += EntityRepository.NetworkStatusChanged;
+			NetworkMonitor.ConnectionStatusChanged += RequestProcessor.NetworkStatusChanged;
 			if (config.Cache != null)
 			{
 				EntityRepository = new CachingEntityRepository(EntityRepository, config.Cache);

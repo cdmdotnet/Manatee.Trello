@@ -24,9 +24,8 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	internal class InnerJsonOrganizationMembership : IJsonOrganizationMembership
+	internal class InnerJsonOrganizationMembership : IdentifiableJson, IJsonOrganizationMembership
 	{
-		public string Id { get; set; }
 		public string IdMember { get; set; }
 		public string MemberType { get; set; }
 		public bool? Unconfirmed { get; set; }

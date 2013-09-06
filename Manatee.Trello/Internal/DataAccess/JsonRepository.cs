@@ -21,7 +21,6 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Manatee.Trello.Internal.RequestProcessing;
@@ -68,6 +67,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		private T Execute<T>(IRestRequest request, RestMethod method)
 			where T : class
 		{
+			request.Method = method;
 			_requestProcessor.AddRequest<T>(request);
 			SpinWait.SpinUntil(() => request.Response != null);
 			var response = (IRestResponse<T>) request.Response;

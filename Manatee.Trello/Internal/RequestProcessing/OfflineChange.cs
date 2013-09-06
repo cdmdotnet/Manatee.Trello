@@ -14,39 +14,39 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IRestRequestProcessor.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		IRestRequestProcessor
-	Purpose:		Processes REST requests as they appear on the queue.
+	File Name:		OfflineChange.cs
+	Namespace:		Manatee.Trello.Internal.RequestProcessing
+	Class Name:		OfflineChange
+	Purpose:		Defines a single offline change.
 
 ***************************************************************************************/
 
-using System;
-using Manatee.Trello.Rest;
+using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
 	/// <summary>
-	/// Processes REST requests as they appear on the queue.
+	/// Defines a single offline change.
 	/// </summary>
 	/// <remarks>
-	/// This interface is only exposed for unit testing purposes.
+	/// This class is only exposed for unit testing purposes.
 	/// </remarks>
-	public interface IRestRequestProcessor
+	public class OfflineChange
 	{
 		/// <summary />
-		bool IsActive { get; set; }
+		public IDictionary<string, object> Parameters { get; private set; }
 		/// <summary />
-		string AppKey { get; }
+		public ExpiringObject Entity { get; private set; }
 		/// <summary />
-		string UserToken { get; set; }
+		public Endpoint Endpoint { get; private set; }
 
 		/// <summary />
-		void AddRequest<T>(IRestRequest request)
-			where T : class;
-		/// <summary />
-		void ShutDown();
-		/// <summary />
-		void NetworkStatusChanged(object sender, EventArgs e);
+		public OfflineChange(ExpiringObject entity, Endpoint endpoint, IDictionary<string, object> parameters)
+		{
+			Entity = entity;
+			Endpoint = endpoint;
+			Parameters = parameters;
+		}
 	}
 }

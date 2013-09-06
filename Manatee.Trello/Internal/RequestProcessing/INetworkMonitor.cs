@@ -29,17 +29,13 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	/// Defines properties and methods used to monitor network connectivity.
 	/// </summary>
 	/// <remarks>
-	/// Exposed solely for unit testing purposes.
+	/// This interface is only exposed for unit testing purposes.
 	/// </remarks>
 	public interface INetworkMonitor
 	{
-		/// <summary>
-		/// Gets whether the system is currently connected to a network.
-		/// </summary>
+		/// <summary />
 		bool IsConnected { get; }
-		/// <summary>
-		/// Raised when the connection status changes.
-		/// </summary>
+		/// <summary />
 		event EventHandler ConnectionStatusChanged;
 	}
 }

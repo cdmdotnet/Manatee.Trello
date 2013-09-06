@@ -79,14 +79,5 @@ namespace Manatee.Trello
 			return organization.Boards.SelectMany(b => b.Cards())
 									  .Where(c => c.Description.Contains(search) || c.Name.Contains(search));
 		}
-		/// <summary>
-		/// Retrieves all members of an organization without specifying their permission level.
-		/// </summary>
-		/// <param name="organization">The organization.</param>
-		/// <returns>A collection of members.</returns>
-		public static IEnumerable<Member> Members(this Organization organization)
-		{
-			return organization.Memberships.Select(m => m.Member);
-		}
 	}
 }

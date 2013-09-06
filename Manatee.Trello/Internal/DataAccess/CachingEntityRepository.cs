@@ -28,7 +28,7 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.DataAccess
 {
-	public class CachingEntityRepository : IEntityRepository
+	internal class CachingEntityRepository : IEntityRepository
 	{
 		private readonly IEntityRepository _innerRepository;
 		private readonly ICache _cache;
@@ -41,15 +41,15 @@ namespace Manatee.Trello.Internal.DataAccess
 			_cache = cache;
 		}
 
-		public void Refresh<T>(T entity, EntityRequestType request)
+		public bool Refresh<T>(T entity, EntityRequestType request)
 			where T : ExpiringObject
 		{
-			_innerRepository.Refresh(entity, request);
+			return _innerRepository.Refresh(entity, request);
 		}
-		public void RefreshCollecion<T>(ExpiringObject list, EntityRequestType request, IDictionary<string, object> parameters)
+		public bool RefreshCollecion<T>(ExpiringObject list, EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			_innerRepository.RefreshCollecion<T>(list, request, parameters);
+			return _innerRepository.RefreshCollecion<T>(list, request, parameters);
 		}
 		public T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject
@@ -57,10 +57,9 @@ namespace Manatee.Trello.Internal.DataAccess
 			T value = null;
 			try
 			{
-				var id = parameters.SingleOrDefault(kvp => kvp.Key.In("_id")).Value.ToString();
+				var id = parameters.SingleOrDefault(kvp => kvp.Key.In("_id")).Value;
 				Func<T> query = () => _innerRepository.Download<T>(request, parameters);
-				value = _cache.Find(e => e.Matches(id), query);
-				return value;
+				return id == null ? query() : _cache.Find(e => e.Matches(id.ToString()), query);
 			}
 			catch (Exception)
 			{
@@ -72,5 +71,6 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			_innerRepository.Upload(request, parameters);
 		}
+		public void NetworkStatusChanged(object sender, EventArgs e) {}
 	}
 }

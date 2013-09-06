@@ -31,21 +31,24 @@ namespace Manatee.Trello.Internal.DataAccess
 	/// Manages creation and retrieval of Trello entities.
 	/// </summary>
 	/// <remarks>
-	/// Exposed solely for unit testing purposes.
+	/// This interface is only exposed for unit testing purposes.
 	/// </remarks>
 	public interface IEntityRepository
 	{
+		/// <summary />
 		TimeSpan EntityDuration { get; }
 		/// <summary />
-		void Refresh<T>(T entity, EntityRequestType request)
+		bool Refresh<T>(T entity, EntityRequestType request)
 			where T : ExpiringObject;
 		/// <summary />
-		void RefreshCollecion<T>(ExpiringObject list, EntityRequestType request, IDictionary<string, object> parameters)
+		bool RefreshCollecion<T>(ExpiringObject list, EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>;
 		/// <summary />
 		T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject;
 		/// <summary />
 		void Upload(EntityRequestType request, IDictionary<string, object> parameters);
+		/// <summary />
+		void NetworkStatusChanged(object sender, EventArgs e);
 	}
 }

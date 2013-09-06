@@ -86,6 +86,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonList == null) return;
@@ -107,6 +108,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonList == null) return;
@@ -128,6 +130,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.NonEmptyString(value);
 				if (_jsonList == null) return;
@@ -149,6 +152,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Position(value);
 				if (_jsonList == null) return;
@@ -161,6 +165,10 @@ namespace Manatee.Trello
 					_board.ListsList.MarkForUpdate();
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonList is InnerJsonList; } }
 
 		/// <summary>
 		/// Creates a new instance of the List class.
@@ -191,6 +199,7 @@ namespace Manatee.Trello
 				Parameters.Add("pos", position);
 			var card = EntityRepository.Download<Card>(EntityRequestType.List_Write_AddCard, Parameters);
 			UpdateDependencies(card);
+			_cards.Add(card);
 			_cards.MarkForUpdate();
 			return card;
 		}
@@ -210,15 +219,17 @@ namespace Manatee.Trello
 		{
 			Validator.Writable();
 			Validator.Entity(board);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("idBoard", board.Id);
 			if (position != null)
 				Parameters.Add("pos", position);
 			EntityRepository.Upload(EntityRequestType.List_Write_Move, Parameters);
 			MarkForUpdate();
-			if (_board != null)
-				_board.ListsList.MarkForUpdate();
 			_actions.MarkForUpdate();
+			board.ListsList.Add(this);
+			if (_board == null) return;
+			_board.ListsList.Remove(this);
+			_board.ListsList.MarkForUpdate();
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -282,16 +293,16 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.List_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.List_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonList = (IJsonList)obj;
 			_position = ((_jsonList != null) && _jsonList.Pos.HasValue) ? new Position(_jsonList.Pos.Value) : Position.Unknown;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 		internal override void PropagateDependencies()
 		{
@@ -301,7 +312,7 @@ namespace Manatee.Trello
 
 		private void Put(EntityRequestType requestType)
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
 			_actions.MarkForUpdate();
 		}

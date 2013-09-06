@@ -1,4 +1,4 @@
-/***************************************************************************************
+﻿/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,23 +14,23 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonNotification.cs
+	File Name:		IdentifiableJson.cs
 	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonNotification
-	Purpose:		Internal implementation of IJsonNotification.
+	Class Name:		IdentifiableJson
+	Purpose:		Provides a base class for those JSON objects which have an ID.
 
 ***************************************************************************************/
 using System;
-using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	internal class InnerJsonNotification : IdentifiableJson, IJsonNotification
+	internal abstract class IdentifiableJson
 	{
-		public bool? Unread { get; set; }
-		public string Type { get; set; }
-		public DateTime? Date { get; set; }
-		public IJsonNotificationData Data { get; set; }
-		public string IdMemberCreator { get; set; }
+		public string Id { get; set; }
+
+		public IdentifiableJson()
+		{
+			Id = Guid.NewGuid().ToString();
+		}
 	}
 }

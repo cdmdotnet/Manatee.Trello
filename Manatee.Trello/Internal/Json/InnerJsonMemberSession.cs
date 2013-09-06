@@ -25,11 +25,10 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	internal class InnerJsonMemberSession : IJsonMemberSession
+	internal class InnerJsonMemberSession : IdentifiableJson, IJsonMemberSession
 	{
 		public bool? IsCurrent { get; set; }
 		public bool? IsRecent { get; set; }
-		public string Id { get; set; }
 		public DateTime? DateCreated { get; set; }
 		public DateTime? DateExpires { get; set; }
 		public DateTime? DateLastUsed { get; set; }

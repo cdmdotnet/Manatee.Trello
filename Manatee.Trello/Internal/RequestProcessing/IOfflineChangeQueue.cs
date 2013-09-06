@@ -14,30 +14,33 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IEndpointFactory.cs
-	Namespace:		Manatee.Trello.Internal.DataAccess
-	Class Name:		IEndpointFactory
-	Purpose:		Defines methods required to build the required endpoint
-					which will be used during a REST call.
+	File Name:		IOfflineChangeQueue.cs
+	Namespace:		Manatee.Trello.Internal.RequestProcessing
+	Class Name:		IOfflineChangeQueue
+	Purpose:		Defines methods required to track and process offline changes.
 
 ***************************************************************************************/
 
 using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 
-namespace Manatee.Trello.Internal.DataAccess
+namespace Manatee.Trello.Internal.RequestProcessing
 {
 	/// <summary>
-	/// Defines methods required to build the required endpoint which will be used
-	/// during a REST call.
+	/// Defines methods required to track and process offline changes.
 	/// </summary>
 	/// <remarks>
-	/// Exposed solely for unit testing purposes.
+	/// This interface is only exposed for unit testing purposes.
 	/// </remarks>
-	public interface IEndpointFactory
+	public interface IOfflineChangeQueue
 	{
 		/// <summary />
-		Endpoint Build(EntityRequestType requestType, IDictionary<string, object> parameters);
+		void Enqueue(ExpiringObject entity, Endpoint endpoint, IDictionary<string, object> parameters);
 		/// <summary />
-		EntityRequestType GetRequestType<T>();
+		void Requeue(IEnumerable<OfflineChange> changes);
+		/// <summary />
+		OfflineChange Dequeue();
+		/// <summary />
+		void ResolveId(string replace, string replaceWith);
 	}
 }

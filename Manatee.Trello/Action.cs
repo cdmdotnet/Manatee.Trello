@@ -24,7 +24,6 @@ using System;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
@@ -40,10 +39,7 @@ namespace Manatee.Trello
 		private IJsonAction _jsonAction;
 		private Member _memberCreator;
 		private ActionType _type = ActionType.Unknown;
-		/// <summary>
-		/// 
-		/// </summary>
-		protected bool _isDeleted;
+		private bool _isDeleted;
 
 		/// <summary>
 		/// The member who performed the action.
@@ -65,6 +61,7 @@ namespace Manatee.Trello
 			get { return (_isDeleted || (_jsonAction == null)) ? null : _jsonAction.Data; }
 			set
 			{
+
 				if (_jsonAction == null) return;
 				_jsonAction.Data = value;
 			}
@@ -77,6 +74,7 @@ namespace Manatee.Trello
 			get { return _jsonAction != null ? _jsonAction.Id : base.Id; }
 			internal set
 			{
+
 				if (_jsonAction != null)
 					_jsonAction.Id = value;
 				base.Id = value;
@@ -97,6 +95,10 @@ namespace Manatee.Trello
 		{
 			get { return (_jsonAction == null) ? null : _jsonAction.Date; }
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonAction is InnerJsonAction; } }
 
 		static Action()
 		{
@@ -164,7 +166,7 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Action_Write_Delete, Parameters);
 			_isDeleted = true;
 		}
@@ -231,16 +233,16 @@ namespace Manatee.Trello
 		public sealed override bool Refresh()
 		{
 			if (_isDeleted) return false;
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.Action_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.Action_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonAction = (IJsonAction) obj;
+			_jsonAction = (IJsonAction)obj;
 			UpdateType();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void UpdateType()

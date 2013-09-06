@@ -34,20 +34,6 @@
     <DocumentationFile>bin\Release\Manatee.Trello.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Manatee.Json.1.1.4\lib\net40\Manatee.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Manatee.StateMachine.1.0.1\lib\net40\Manatee.StateMachine.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -67,16 +53,17 @@
     <Compile Include="Enumerations\OrganizationMembershipType.cs" />
     <Compile Include="Internal\Bootstrapping\Bootstrapper.cs" />
     <Compile Include="Internal\DataAccess\CachingEntityRepository.cs" />
-    <Compile Include="Internal\DataAccess\EndpointFactory.cs" />
+    <Compile Include="Internal\Genesis\EndpointFactory.cs" />
     <Compile Include="Internal\DataAccess\EntityRepository.cs" />
     <Compile Include="Internal\DataAccess\IEntityRepository.cs" />
-    <Compile Include="Internal\DataAccess\IEndpointFactory.cs" />
+    <Compile Include="Internal\Genesis\IEndpointFactory.cs" />
     <Compile Include="Internal\DataAccess\RestParameterRepository.cs" />
     <Compile Include="Internal\Genesis\EntityFactory.cs" />
     <Compile Include="Internal\Genesis\IEntityFactory.cs" />
     <Compile Include="Internal\IValidator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
     <Compile Include="Internal\Endpoint.cs" />
+    <Compile Include="Internal\Json\IdentifiableJson.cs" />
     <Compile Include="Internal\Json\InnerJsonMemberSession.cs" />
     <Compile Include="Internal\Json\InnerJsonOrganizationMembership.cs" />
     <Compile Include="Internal\Json\InnerJsonAction.cs" />
@@ -98,12 +85,17 @@
     <Compile Include="Internal\Json\InnerJsonOrganization.cs" />
     <Compile Include="Internal\Json\InnerJsonOrganizationPreferences.cs" />
     <Compile Include="Internal\Json\InnerJsonToken.cs" />
-    <Compile Include="Internal\Json\InnerJsonTokenPermission.cs" />
     <Compile Include="Internal\ExceptionHandling\DebugLog.cs" />
+    <Compile Include="Internal\RequestProcessing\IOfflineChangeQueue.cs" />
+    <Compile Include="Internal\RequestProcessing\IRequestQueue.cs" />
+    <Compile Include="Internal\RequestProcessing\NullRestResponse.cs" />
     <Compile Include="Internal\RequestProcessing\INetworkMonitor.cs" />
     <Compile Include="Internal\RequestProcessing\NetworkMonitor.cs" />
     <Compile Include="Internal\RequestProcessing\IRestRequestProcessor.cs" />
+    <Compile Include="Internal\RequestProcessing\OfflineChange.cs" />
+    <Compile Include="Internal\RequestProcessing\OfflineChangeQueue.cs" />
     <Compile Include="Internal\RequestProcessing\QueuableRestRequest.cs" />
+    <Compile Include="Internal\RequestProcessing\RequestQueue.cs" />
     <Compile Include="Internal\RequestProcessing\RestRequestProcessor.cs" />
     <Compile Include="Internal\SimpleCache.cs" />
     <Compile Include="Internal\ThreadSafeCache.cs" />

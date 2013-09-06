@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
-using Manatee.Trello.ManateeJson.Entities;
-using Manatee.Trello.Rest;
 using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,26 +23,68 @@ namespace Manatee.Trello.Test
 
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
 			var service = new TrelloService(options, auth);
-			var member = service.Retrieve<Member>("gregsdennis");
 
-			Console.WriteLine(member);
+			var start = DateTime.Now;
+			var member = service.Retrieve<Member>(TrelloIds.MemberId);
+			var sb = new StringBuilder();
+
+			sb.AppendLine(member.ToString());
 			foreach (var board in member.Boards)
 			{
-				Console.WriteLine("  {0}", board);
+				sb.AppendLine(string.Format("  {0}", board));
 				foreach (var list in board.Lists)
 				{
-					Console.WriteLine("    {0}", list);
+					sb.AppendLine(string.Format("    {0}", list));
 					foreach (var card in list.Cards)
 					{
-						Console.WriteLine("      {0}", card);
+						sb.AppendLine(string.Format("      {0}", card));
 					}
 				}
+				foreach (var membership in board.Memberships)
+				{
+					sb.AppendLine(string.Format("    {0}", membership));
+				}
 			}
-			Console.WriteLine();
+			sb.AppendLine();
 			foreach (var action in member.Actions)
 			{
-				Console.WriteLine(action);
+				sb.AppendLine(action.ToString());
 			}
+
+			SpinWait.SpinUntil(() => !member.IsStubbed);
+
+			var end = DateTime.Now;
+			Console.WriteLine(sb);
+			Console.WriteLine(end - start);
+		}
+
+		[TestMethod]
+		//[Ignore]
+		public void TestMethod2()
+		{
+			var options = new TrelloServiceConfiguration();
+			var serializer = new ManateeSerializer();
+			options.Serializer = serializer;
+			options.Deserializer = serializer;
+			options.RestClientProvider = new RestSharpClientProvider(options);
+
+			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
+			var service = new TrelloService(options, auth);
+
+			var start = DateTime.Now;
+			var list = service.Retrieve<List>(TrelloIds.ListId);
+			var card = list.AddCard("this is a new card for TestMethod2");
+
+			Console.WriteLine("Cards in list: {0}", list.Cards.Count());
+
+			SpinWait.SpinUntil(() => !card.IsStubbed);
+
+			Console.WriteLine(list);
+			Console.WriteLine(card);
+			var end = DateTime.Now;
+			Console.WriteLine(end - start);
+
+			card.Delete();
 		}
 	}
 }

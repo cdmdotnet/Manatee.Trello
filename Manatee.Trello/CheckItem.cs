@@ -67,6 +67,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;				
 				Validator.Writable();
 				Validator.NonEmptyString(value);
@@ -90,6 +91,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Position(value);
@@ -115,6 +117,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonCheckItem == null) return;
@@ -125,6 +128,10 @@ namespace Manatee.Trello
 				Put(EntityRequestType.CheckItem_Write_State);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonCheckItem is InnerJsonCheckItem; } }
 
 		static CheckItem()
 		{
@@ -149,7 +156,7 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_checkListId", Owner.Id);
 			EntityRepository.Upload(EntityRequestType.CheckItem_Write_Delete, Parameters);
 			((CheckList) Owner).CheckItemsList.MarkForUpdate();
@@ -218,9 +225,8 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			Parameters.Add("_checkListId", Owner.Id);
-			Parameters.Add("_id", Id);
-			EntityRepository.Refresh(this, EntityRequestType.CheckList_Read_Refresh);
-			return true;
+			Parameters["_id"] = Id;
+			return EntityRepository.Refresh(this, EntityRequestType.CheckList_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -228,11 +234,12 @@ namespace Manatee.Trello
 			_jsonCheckItem = (IJsonCheckItem)obj;
 			_position = _jsonCheckItem.Pos.HasValue ? new Position(_jsonCheckItem.Pos.Value) : Position.Unknown;
 			UpdateState();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void Put(EntityRequestType requestedType)
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_checkListId", Owner.Id);
 			Parameters.Add("_cardId", Owner.Owner.Id);
 			AddDefaultParameters();

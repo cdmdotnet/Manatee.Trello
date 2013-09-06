@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.Test.Unit.Mocks;
@@ -27,7 +28,7 @@ namespace Manatee.Trello.Test.Unit
 		private class MockEntity : ExpiringObject
 		{
 			public int RefreshCallCount { get; private set; }
-
+			public override bool IsStubbed { get { return false; } }
 			public override bool Refresh()
 			{
 				RefreshCallCount++;
@@ -45,10 +46,16 @@ namespace Manatee.Trello.Test.Unit
 				if (IsActive)
 					request.Response = new RestSharp.RestSharpResponse<T>(null, new Mock<T>().Object);
 			}
+			public void AddRequest<T>(IRestRequest request, ExpiringObject entity) where T : class
+			{
+				if (IsActive)
+					request.Response = new RestSharp.RestSharpResponse<T>(null, new Mock<T>().Object);
+			}
 			public void ShutDown() {}
+			public void NetworkStatusChanged(object sender, EventArgs e) {}
 		}
 
-		private new class DependencyCollection
+		private class DependencyCollection
 		{
 			public Mock<IEndpointFactory> EndpointFactory { get; private set; }
 			public MockRequestProcessor RequestProcessor { get; set; }

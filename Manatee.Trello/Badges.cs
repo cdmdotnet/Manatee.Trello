@@ -145,6 +145,10 @@ namespace Manatee.Trello
 				return _jsonBadges.Votes;
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonBadges is InnerJsonBadges; } }
 
 		/// <summary>
 		/// Creates a new instance of the Badges class.
@@ -164,15 +168,15 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_cardId"] = Owner.Id;
 			AddDefaultParameters();
-			EntityRepository.Upload(EntityRequestType.Badges_Read_Refresh, Parameters);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.Badges_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonBadges = (IJsonBadges)obj;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 	}
 }

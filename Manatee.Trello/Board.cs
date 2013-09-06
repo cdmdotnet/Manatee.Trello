@@ -41,6 +41,7 @@ namespace Manatee.Trello
 		private readonly ExpiringList<Member> _invitedMembers;
 		private readonly LabelNames _labelNames;
 		private readonly ExpiringList<List> _lists;
+		private readonly ExpiringList<Member> _members;
 		private readonly ExpiringList<BoardMembership> _memberships;
 		private Organization _organization;
 		private readonly BoardPreferences _preferences;
@@ -70,6 +71,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Desc == value) return;
@@ -107,6 +109,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoard == null) return;
@@ -128,6 +131,7 @@ namespace Manatee.Trello
 			}
 			private set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoard == null) return;
@@ -149,6 +153,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoard == null) return;
@@ -170,6 +175,10 @@ namespace Manatee.Trello
 		///<summary>
 		/// Gets the board's members and their types.
 		///</summary>
+		public IEnumerable<Member> Members { get { return _members; } }
+		///<summary>
+		/// Gets the board's members and their types.
+		///</summary>
 		public IEnumerable<BoardMembership> Memberships { get { return _memberships; } }
 		///<summary>
 		/// Gets or sets the board's name.
@@ -183,6 +192,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.NonEmptyString(value);
 				if (_jsonBoard == null) return;
@@ -205,6 +215,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Entity(value, true);
 				if (_jsonBoard == null) return;
@@ -233,6 +244,10 @@ namespace Manatee.Trello
 		/// Gets the URL for this board.
 		///</summary>
 		public string Url { get { return (_jsonBoard == null) ? null : _jsonBoard.Url; } }
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonBoard is InnerJsonBoard; } }
 
 		///<summary>
 		/// Creates a new instance of the Board class.
@@ -246,6 +261,7 @@ namespace Manatee.Trello
 			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Board_Read_Members);
 			_labelNames = new LabelNames(this);
 			_lists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists);
+			_members = new ExpiringList<Member>(this, EntityRequestType.Board_Read_Members);
 			_memberships = new ExpiringList<BoardMembership>(this, EntityRequestType.Board_Read_Memberships);
 			_personalPreferences = new BoardPersonalPreferences(this);
 			_preferences = new BoardPreferences(this);
@@ -267,6 +283,7 @@ namespace Manatee.Trello
 				Parameters.Add("pos", position);
 			var list = EntityRepository.Download<List>(EntityRequestType.Board_Write_AddList, Parameters);
 			UpdateDependencies(list);
+			_lists.Add(list);
 			_lists.MarkForUpdate();
 			_actions.MarkForUpdate();
 			return list;
@@ -280,42 +297,44 @@ namespace Manatee.Trello
 		{
 			Validator.Writable();
 			Validator.Entity(member);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_memberId", member.Id);
 			Parameters.Add("type", type.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Board_Write_AddOrUpdateMember, Parameters);
+			_members.Add(member);
+			_members.MarkForUpdate();
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
-		/// <summary>
-		/// Adds a new or existing member to the board or updates the permissions of a member already on the board.
-		/// </summary>
-		/// <param name="fullName"></param>
-		/// <param name="type">The permission level for the member</param>
-		/// <param name="emailAddress"></param>
-		public Member AddOrUpdateMember(string emailAddress, string fullName, BoardMembershipType type = BoardMembershipType.Normal)
-		{
-			throw new NotImplementedException("The functionality to add a non-Trello member to to boards has been temporarily disabled.");
-			Validator.Writable();
-			Validator.NonEmptyString(emailAddress);
-			Validator.NonEmptyString(fullName);
-			Member member = null;
-			if (member != null)
-			{
-				AddOrUpdateMember(member, type);
-				_memberships.MarkForUpdate();
-				_memberships.MarkForUpdate();
-				_actions.MarkForUpdate();
-			}
-			return member;
-		}
+		// / <summary>
+		// / Adds a new or existing member to the board or updates the permissions of a member already on the board.
+		// / </summary>
+		// / <param name="fullName"></param>
+		// / <param name="type">The permission level for the member</param>
+		// / <param name="emailAddress"></param>
+		//public Member AddOrUpdateMember(string emailAddress, string fullName, BoardMembershipType type = BoardMembershipType.Normal)
+		//{
+		//	throw new NotImplementedException("The functionality to add a non-Trello member to to boards has been temporarily disabled.");
+		//	Validator.Writable();
+		//	Validator.NonEmptyString(emailAddress);
+		//	Validator.NonEmptyString(fullName);
+		//	Member member = null;
+		//	if (member != null)
+		//	{
+		//		AddOrUpdateMember(member, type);
+		//		_memberships.MarkForUpdate();
+		//		_memberships.MarkForUpdate();
+		//		_actions.MarkForUpdate();
+		//	}
+		//	return member;
+		//}
 		///<summary>
 		/// Marks the board as viewed by the current member.
 		///</summary>
 		public void MarkAsViewed()
 		{
 			Validator.Writable();
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Board_Write_MarkAsViewed, Parameters);
 			_actions.MarkForUpdate();
 		}
@@ -338,9 +357,11 @@ namespace Manatee.Trello
 		{
 			Validator.Writable();
 			Validator.Entity(member);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_memberId", member.Id);
 			EntityRepository.Upload(EntityRequestType.Board_Write_RemoveMember, Parameters);
+			_members.Remove(member);
+			_members.MarkForUpdate();
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
@@ -415,16 +436,15 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.Board_Read_Refresh);
-			return true;
-
+			return EntityRepository.Refresh(this, EntityRequestType.Board_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonBoard = (IJsonBoard) obj;
+			_jsonBoard = (IJsonBoard)obj;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 		internal override void PropagateDependencies()
 		{
@@ -441,7 +461,7 @@ namespace Manatee.Trello
 
 		private void Put(EntityRequestType requestType)
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
 			_actions.MarkForUpdate();
 		}

@@ -27,7 +27,7 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
 {
-	internal class ExpiringList<T> : ExpiringObject, IEnumerable<T>
+	internal class ExpiringList<T> : ExpiringObject, ICollection<T>
 		where T : ExpiringObject, IEquatable<T>, IComparable<T>
 	{
 		private readonly EntityRequestType _requestType;
@@ -35,6 +35,7 @@ namespace Manatee.Trello.Internal
 
 		public string Filter { get; set; }
 		public string Fields { get; set; }
+		public override bool IsStubbed { get { return Owner.IsStubbed; } }
 
 		public ExpiringList(ExpiringObject owner, EntityRequestType requestType)
 		{
@@ -66,6 +67,36 @@ namespace Manatee.Trello.Internal
 			EntityRepository.RefreshCollecion<T>(this, _requestType, Parameters);
 			return true;
 		}
+		public void Add(T item)
+		{
+			if (!_list.Contains(item))
+				_list.Add(item);
+		}
+		public void Clear()
+		{
+			_list.Clear();
+		}
+		public bool Contains(T item)
+		{
+			return _list.Contains(item);
+		}
+		public void CopyTo(T[] array, int arrayIndex)
+		{
+			_list.CopyTo(array, arrayIndex);
+		}
+		public bool Remove(T item)
+		{
+			return _list.Remove(item);
+		}
+		public int Count
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _list.Count;
+			}
+		}
+		public bool IsReadOnly { get { return false; } }
 
 		internal override void PropagateDependencies()
 		{
@@ -79,6 +110,7 @@ namespace Manatee.Trello.Internal
 		{
 			_list.Clear();
 			_list.AddRange(items);
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 		internal override void ApplyJson(object obj) {}
 	}

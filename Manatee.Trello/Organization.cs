@@ -65,6 +65,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonOrganization == null) return;
@@ -87,6 +88,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonOrganization == null) return;
@@ -132,6 +134,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the members who belong to the organization.
 		/// </summary>
+		public IEnumerable<Member> Members { get { return _isDeleted ? Enumerable.Empty<Member>() : _members; } }
+		/// <summary>
+		/// Enumerates the members who belong to the organization.
+		/// </summary>
 		public IEnumerable<OrganizationMembership> Memberships { get { return _isDeleted ? Enumerable.Empty<OrganizationMembership>() : _memberships; } }
 		/// <summary>
 		/// Gets or sets the name of the organization.
@@ -146,6 +152,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonOrganization == null) return;
@@ -200,6 +207,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonOrganization == null) return;
@@ -209,6 +217,10 @@ namespace Manatee.Trello
 				Put(EntityRequestType.Organization_Write_Website);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonOrganization is InnerJsonOrganization; } }
 
 		/// <summary>
 		/// Creates a new instance of the Organization class.
@@ -234,37 +246,38 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_memberId", member.Id);
 			Parameters.Add("type", type.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Organization_Write_AddOrUpdateMember, Parameters);
+			_members.Add(member);
 			_members.MarkForUpdate();
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
-		/// <summary>
-		///  Adds a new or existing member to the organization or updates the permissions of a member already in the organization.
-		/// </summary>
-		/// <param name="fullName"></param>
-		/// <param name="type">The permission level for the member</param>
-		/// <param name="emailAddress"></param>
-		public Member AddOrUpdateMember(string emailAddress, string fullName, OrganizationMembershipType type = OrganizationMembershipType.Normal)
-		{
-			throw new NotImplementedException("The functionality to add a non-Trello member to to organizations has been temporarily disabled.");
-			if (_isDeleted) return null;
-			Validator.Writable();
-			Validator.NonEmptyString(emailAddress);
-			Validator.NonEmptyString(fullName);
-			Member member = null;
-			if (member != null)
-			{
-				AddOrUpdateMember(member, type);
-				_members.MarkForUpdate();
-				_memberships.MarkForUpdate();
-				_actions.MarkForUpdate();
-			}
-			return member;
-		}
+		// / <summary>
+		// /  Adds a new or existing member to the organization or updates the permissions of a member already in the organization.
+		// / </summary>
+		// / <param name="fullName"></param>
+		// / <param name="type">The permission level for the member</param>
+		// / <param name="emailAddress"></param>
+		//public Member AddOrUpdateMember(string emailAddress, string fullName, OrganizationMembershipType type = OrganizationMembershipType.Normal)
+		//{
+		//	throw new NotImplementedException("The functionality to add a non-Trello member to to organizations has been temporarily disabled.");
+		//	if (_isDeleted) return null;
+		//	Validator.Writable();
+		//	Validator.NonEmptyString(emailAddress);
+		//	Validator.NonEmptyString(fullName);
+		//	Member member = null;
+		//	if (member != null)
+		//	{
+		//		AddOrUpdateMember(member, type);
+		//		_members.MarkForUpdate();
+		//		_memberships.MarkForUpdate();
+		//		_actions.MarkForUpdate();
+		//	}
+		//	return member;
+		//}
 		/// <summary>
 		/// Creates a board for the organization, owned by the current member.
 		/// </summary>
@@ -278,6 +291,7 @@ namespace Manatee.Trello
 			Parameters.Add("idOrganization", Id);
 			var board = EntityRepository.Download<Board>(EntityRequestType.Organization_Write_CreateBoard, Parameters);
 			UpdateDependencies(board);
+			_boards.Add(board);
 			_boards.MarkForUpdate();
 			return board;
 		}
@@ -295,7 +309,7 @@ namespace Manatee.Trello
 					member.OrganizationsList.MarkForUpdate();
 				}
 			}
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Organization_Write_Delete, Parameters);
 			_isDeleted = true;
 		}
@@ -320,9 +334,10 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_memberId", member);
 			EntityRepository.Upload(EntityRequestType.Organization_Write_RemoveMember, Parameters);
+			_members.Remove(member);
 			_members.MarkForUpdate();
 			_memberships.MarkForUpdate();
 			_actions.MarkForUpdate();
@@ -400,15 +415,15 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.Organization_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.Organization_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonOrganization = (IJsonOrganization)obj;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 		internal override bool Matches(string id)
 		{
@@ -426,7 +441,7 @@ namespace Manatee.Trello
 
 		private void Put(EntityRequestType requestType)
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
 			_actions.MarkForUpdate();
 		}

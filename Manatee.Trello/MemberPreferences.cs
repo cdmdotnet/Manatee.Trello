@@ -21,6 +21,8 @@
 					on Trello.com.
 
 ***************************************************************************************/
+
+using System;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
@@ -47,6 +49,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
@@ -68,6 +71,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				Validator.Enumeration(value.Value);
@@ -90,6 +94,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
@@ -111,6 +116,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
@@ -120,6 +126,10 @@ namespace Manatee.Trello
 				Put(EntityRequestType.MemberPreferences_Write_MinutesBeforeDeadlineToNotify);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonMemberPreferences is InnerJsonMemberPreferences; } }
 
 		/// <summary>
 		/// Creates a new instance of the MemberPreferences class.
@@ -139,15 +149,16 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
+			if (_jsonMemberPreferences is InnerJsonMemberPreferences) return false;
 			Parameters.Add("_memberId", Owner.Id);
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.MemberPreferences_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.MemberPreferences_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonMemberPreferences = (IJsonMemberPreferences)obj;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void Put(EntityRequestType requestType)
