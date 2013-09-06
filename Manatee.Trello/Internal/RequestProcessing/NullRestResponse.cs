@@ -1,6 +1,6 @@
-/***************************************************************************************
+﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2012 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,21 +14,23 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		TokenPermission.cs
-	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		TokenPermission
-	Purpose:		Internal implementation of IJsonTokenPermission.
+	File Name:		NullRestResponse.cs
+	Namespace:		Manatee.Trello.Internal.RequestProcessing
+	Class Name:		NullRestResponse
+	Purpose:		Implements IRestResponse as a placeholder for when the network
+					is unavailable.
 
 ***************************************************************************************/
-using Manatee.Trello.Json;
 
-namespace Manatee.Trello.Internal.Json
+using System.Net;
+using Manatee.Trello.Rest;
+
+namespace Manatee.Trello.Internal.RequestProcessing
 {
-	internal class InnerJsonTokenPermission : IJsonTokenPermission
+	internal class NullRestResponse<T> : IRestResponse<T>
 	{
-		public string IdModel { get; set; }
-		public string ModelType { get; set; }
-		public bool? Read { get; set; }
-		public bool? Write { get; set; }
+		public string Content { get; set; }
+		public HttpStatusCode StatusCode { get; set; }
+		public T Data { get; set; }
 	}
 }

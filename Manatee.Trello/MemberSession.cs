@@ -89,6 +89,10 @@ namespace Manatee.Trello
 		/// Gets the interface used to create the session.  This is typically browser information.
 		/// </summary>
 		public string UserAgent { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.UserAgent; } }
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return false; } }
 
 		/// <summary>
 		/// Creates a new instance of the MemberSession class.
@@ -157,6 +161,7 @@ namespace Manatee.Trello
 		internal override void ApplyJson(object obj)
 		{
 			_jsonMemberSession = (IJsonMemberSession)obj;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 	}
 }

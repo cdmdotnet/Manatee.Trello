@@ -57,6 +57,10 @@ namespace Manatee.Trello
 				_name = value;
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return false; } }
 
 		static Label()
 		{
@@ -147,6 +151,7 @@ namespace Manatee.Trello
 		{
 			_jsonLabel = (IJsonLabel)obj;
 			UpdateColor();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void UpdateColor()

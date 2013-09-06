@@ -14,39 +14,31 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IRestRequestProcessor.cs
-	Namespace:		Manatee.Trello.Internal
-	Class Name:		IRestRequestProcessor
-	Purpose:		Processes REST requests as they appear on the queue.
+	File Name:		IRequestQueue.cs
+	Namespace:		Manatee.Trello.Internal.RequestProcessing
+	Class Name:		IRequestQueue
+	Purpose:		Defines methods required to manage REST requests in a queue.
 
 ***************************************************************************************/
 
-using System;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
 	/// <summary>
-	/// Processes REST requests as they appear on the queue.
+	/// Defines methods required to manage REST requests in a queue.
 	/// </summary>
 	/// <remarks>
 	/// This interface is only exposed for unit testing purposes.
 	/// </remarks>
-	public interface IRestRequestProcessor
+	public interface IRequestQueue
 	{
 		/// <summary />
-		bool IsActive { get; set; }
-		/// <summary />
-		string AppKey { get; }
-		/// <summary />
-		string UserToken { get; set; }
+		int Count { get; }
 
 		/// <summary />
-		void AddRequest<T>(IRestRequest request)
-			where T : class;
+		void Enqueue<T>(IRestRequest request) where T : class;
 		/// <summary />
-		void ShutDown();
-		/// <summary />
-		void NetworkStatusChanged(object sender, EventArgs e);
+		void DequeueAndExecute(IRestClient client);
 	}
 }

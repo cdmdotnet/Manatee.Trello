@@ -167,14 +167,5 @@ namespace Manatee.Trello
 		{
 			return board.Cards().Where(c => c.Labels.Any(l => l.Color == color));
 		}
-		/// <summary>
-		/// Retrieves all members of a board without specifying their permission level.
-		/// </summary>
-		/// <param name="board">The board.</param>
-		/// <returns>A collection of members.</returns>
-		public static IEnumerable<Member> Members(this Board board)
-		{
-			return board.Memberships.Select(m => m.Member);
-		}
 	}
 }

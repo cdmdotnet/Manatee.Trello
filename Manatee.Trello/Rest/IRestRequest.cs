@@ -39,6 +39,10 @@ namespace Manatee.Trello.Rest
 		/// </summary>
 		string Resource { get; }
 		/// <summary>
+		/// Stores the response returned by the server.
+		/// </summary>
+		IRestResponse Response { get; set; }
+		/// <summary>
 		/// Gets the collection of parameters for the request.
 		/// </summary>
 		IDictionary<string, object> Parameters { get; }
@@ -53,9 +57,5 @@ namespace Manatee.Trello.Rest
 		/// </summary>
 		/// <param name="body">The body.</param>
 		void AddBody(object body);
-		/// <summary>
-		/// Stores the response returned by the server.
-		/// </summary>
-		IRestResponse Response { get; set; }
 	}
 }

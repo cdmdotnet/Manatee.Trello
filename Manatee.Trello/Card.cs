@@ -108,6 +108,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonCard == null) return;
@@ -130,6 +131,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Nullable(value);
@@ -166,6 +168,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Nullable(value);
@@ -189,6 +192,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Nullable(value);
@@ -249,6 +253,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.NonEmptyString(value);
@@ -272,6 +277,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Position(value);
@@ -309,6 +315,10 @@ namespace Manatee.Trello
 				Put(EntityRequestType.Card_Write_WarnWhenUpcoming);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonCard is InnerJsonCard; } }
 
 		/// <summary>
 		/// Creates a new instance of the Card class.
@@ -342,10 +352,11 @@ namespace Manatee.Trello
 			}
 			Parameters.Add("name", name);
 			Parameters.Add("url", url);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			var attachment = EntityRepository.Download<Attachment>(EntityRequestType.Card_Write_AddAttachment, Parameters);
 			attachment.Owner = this;
 			UpdateDependencies(attachment);
+			_attachments.Add(attachment);
 			_attachments.MarkForUpdate();
 			_actions.MarkForUpdate();
 			return attachment;
@@ -368,6 +379,7 @@ namespace Manatee.Trello
 			var checkList = EntityRepository.Download<CheckList>(EntityRequestType.Card_Write_AddChecklist, Parameters);
 			checkList.Owner = this;
 			UpdateDependencies(checkList);
+			_checkLists.Add(checkList);
 			_checkLists.MarkForUpdate();
 			_actions.MarkForUpdate();
 			return checkList;
@@ -381,7 +393,7 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.NonEmptyString(comment);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("text", comment);
 			EntityRepository.Upload(EntityRequestType.Card_Write_AddComment, Parameters);
 			_actions.MarkForUpdate();
@@ -395,10 +407,9 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("value", color.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Card_Write_ApplyLabel, Parameters);
-			Parameters.Clear();
 			_labels.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
@@ -411,10 +422,10 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("value", member.Id);
 			EntityRepository.Upload(EntityRequestType.Card_Write_AssignMember, Parameters);
-			Parameters.Clear();
+			_members.Add(member);
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
@@ -425,7 +436,7 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Card_Write_ClearNotifications, Parameters);
 		}
 		/// <summary>
@@ -435,7 +446,7 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Card_Write_Delete, Parameters);
 			if (_list != null)
 				_list.CardsList.MarkForUpdate();
@@ -453,7 +464,7 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Validator.Entity(board);
 			Validator.Entity(list);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			if (!board.Lists.Contains(list))
 				Log.Error(new InvalidOperationException(string.Format("Board '{0}' does not contain list with ID '{1}'.", board.Name, list.Id)));
 			if (_jsonCard.IdBoard != board.Id)
@@ -463,8 +474,11 @@ namespace Manatee.Trello
 			if (position != null)
 				Parameters.Add("pos", position);
 			EntityRepository.Upload(EntityRequestType.Card_Write_Move, Parameters);
-			_list.CardsList.MarkForUpdate();
 			_actions.MarkForUpdate();
+			list.CardsList.Add(this);
+			if (_list == null) return;
+			_list.CardsList.Remove(this);
+			_list.CardsList.MarkForUpdate();
 		}
 		/// <summary>
 		/// Removes a label from a card.
@@ -474,7 +488,7 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_color", color.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Card_Write_RemoveLabel, Parameters);
 			_labels.MarkForUpdate();
@@ -489,9 +503,10 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			Parameters.Add("_memberId", member.Id);
 			EntityRepository.Upload(EntityRequestType.Card_Write_RemoveMember, Parameters);
+			_members.Remove(member);
 			_members.MarkForUpdate();
 			_actions.MarkForUpdate();
 		}
@@ -558,16 +573,16 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			if (_isDeleted) return false;
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.Card_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.Card_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonCard = (IJsonCard) obj;
+			_jsonCard = (IJsonCard)obj;
 			_position = _jsonCard.Pos.HasValue ? new Position(_jsonCard.Pos.Value) : Position.Unknown;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		internal override void PropagateDependencies()
@@ -584,7 +599,7 @@ namespace Manatee.Trello
 
 		private void Put(EntityRequestType requestType)
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
 			_actions.MarkForUpdate();
 		}

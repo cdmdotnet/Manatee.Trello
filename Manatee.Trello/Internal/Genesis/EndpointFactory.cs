@@ -15,7 +15,7 @@
 	   limitations under the License.
  
 	File Name:		EndpointFactory.cs
-	Namespace:		Manatee.Trello.Internal.DataAccess
+	Namespace:		Manatee.Trello.Internal.Genesis
 	Class Name:		EndpointFactory
 	Purpose:		Implements IEndpointFactory.
 
@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Internal.DataAccess
+namespace Manatee.Trello.Internal.Genesis
 {
 	internal class EndpointFactory : IEndpointFactory
 	{
@@ -223,7 +223,8 @@ namespace Manatee.Trello.Internal.DataAccess
 			{
 				if (!parameters.ContainsKey(parameter))
 					throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
-				endpoint.Resolve(parameter, parameters[parameter].ToString());
+				var value = parameters[parameter] ?? string.Empty;
+				endpoint.Resolve(parameter, value.ToString());
 				parameters.Remove(parameter);
 			}
 			return endpoint;

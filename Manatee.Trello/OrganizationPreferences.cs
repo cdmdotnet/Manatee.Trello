@@ -21,6 +21,8 @@
 					on Trello.com.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
@@ -53,6 +55,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonOrganizationPreferences == null) return;
 				if (_jsonOrganizationPreferences.AssociatedDomain == value) return;
@@ -73,6 +76,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonOrganizationPreferences == null) return;
@@ -92,6 +96,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonOrganizationPreferences == null) return;
 				if (_jsonOrganizationPreferences.OrgInviteRestrict == value) return;
@@ -111,6 +116,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Org == value) return;
@@ -131,6 +137,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonOrganizationPreferences == null) return;
 				if (_permissionLevel == value) return;
@@ -152,6 +159,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Private == value) return;
@@ -172,6 +180,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Public == value) return;
@@ -180,6 +189,10 @@ namespace Manatee.Trello
 				Put(EntityRequestType.OrganizationPreferences_Write_PublicBoardVisibility);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonOrganizationPreferences is InnerJsonOrganizationPreferences; } }
 
 		static OrganizationPreferences()
 		{
@@ -207,10 +220,9 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.OrganizationPreferences_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.OrganizationPreferences_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -218,11 +230,12 @@ namespace Manatee.Trello
 			_jsonOrganizationPreferences = (IJsonOrganizationPreferences)obj;
 			_boardVisibilityRestrict = new BoardVisibilityRestrict(_jsonOrganizationPreferences.BoardVisibilityRestrict);
 			UpdatePermissionLevel();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void Put(EntityRequestType requestType)
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
 		}
 		private void UpdatePermissionLevel()

@@ -34,8 +34,6 @@ namespace Manatee.Trello.Contracts
 	/// </summary>
 	public abstract class ExpiringObject
 	{
-		private DateTime _expires;
-
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
@@ -43,7 +41,11 @@ namespace Manatee.Trello.Contracts
 		/// <summary>
 		/// Gets whether this object has expired is an needs to be updated.
 		/// </summary>
-		public bool IsExpired { get { return DateTime.Now >= _expires; } }
+		public bool IsExpired { get { return DateTime.Now >= Expires; } }
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public abstract bool IsStubbed { get; }
 
 		/// <summary>
 		/// Gets a collection of parameters to be added to a request which uses this object.
@@ -58,12 +60,15 @@ namespace Manatee.Trello.Contracts
 		internal IValidator Validator { get; set; }
 		internal IEntityRepository EntityRepository { get; set; }
 
+		/// <summary>
+		/// Gets or sets when this entity expires.
+		/// </summary>
+		protected DateTime Expires { get; set; }
+
 		internal ExpiringObject()
 		{
 			Parameters = new Dictionary<string, object>();
-			// BUG: For some reason, the compiler instructs the Parameters list to initialize with data.
-			// BUG: Should probably figure this out.
-			_expires = DateTime.Now.AddSeconds(-1);
+			Expires = DateTime.Now.AddSeconds(-1);
 		}
 
 		/// <summary>
@@ -71,13 +76,7 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		public void MarkForUpdate()
 		{
-			_expires = DateTime.Now.AddSeconds(-1);
-			if (Id != null)
-				Log.Debug("{0} with ID {{{1}}} marked to update.", GetType().CSharpName(), Id);
-			else if (Owner != null)
-				Log.Debug("{0} owned by {1} with ID {{{2}}} marked to update.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id);
-			else
-				Log.Debug("A {0} has been marked to update.", GetType().CSharpName());
+			Expires = DateTime.Now.AddSeconds(-1);
 		}
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
@@ -86,13 +85,7 @@ namespace Manatee.Trello.Contracts
 
 		internal void ForceNotExpired()
 		{
-			_expires = DateTime.Now.AddMinutes(1);
-			if (Id != null)
-				Log.Debug("{0} with ID {{{1}}} has been marked as not expired.", GetType().CSharpName(), Id);
-			else if (Owner != null)
-				Log.Debug("{0} owned by {1} with ID {{{2}}} has been marked as not expired.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id);
-			else
-				Log.Debug("A {0} has been marked as not expired.", GetType().CSharpName());
+			Expires = DateTime.Now.AddMinutes(1);
 		}
 		internal virtual bool Matches(string id)
 		{
@@ -117,14 +110,13 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		protected internal void VerifyNotExpired()
 		{
-			if (!IsExpired || !Refresh()) return;
-			_expires = DateTime.Now + EntityRepository.EntityDuration;
+			if (!IsExpired || IsStubbed || !Refresh()) return;
 			if (Id != null)
-				Log.Info("{0} with ID {{{1}}} will expire at {2}.", GetType().CSharpName(), Id, _expires);
+				Log.Info("{0} with ID {{{1}}} will expire at {2}.", GetType().CSharpName(), Id, Expires);
 			else if (Owner != null)
-				Log.Info("{0} owned by {1} with ID {{{2}}} will expire at {3}.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id, _expires);
+				Log.Info("{0} owned by {1} with ID {{{2}}} will expire at {3}.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id, Expires);
 			else
-				Log.Info("A {0} will expire at {2}.", GetType().CSharpName(), _expires);
+				Log.Info("A {0} will expire at {1}.", GetType().CSharpName(), Expires);
 		}
 		/// <summary>
 		/// Updates a reference to another object if null by downloading it from trello.com.
@@ -144,11 +136,14 @@ namespace Manatee.Trello.Contracts
 			}
 			return entity;
 		}
+		/// <summary>
+		/// Adds the default parameters for the type.
+		/// </summary>
 		protected void AddDefaultParameters()
 		{
 			foreach (var parameter in RestParameterRepository.GetParameters(GetType()))
 			{
-				Parameters.Add(parameter.Key, parameter.Value);
+				Parameters[parameter.Key] = parameter.Value;
 			}
 		}
 	}

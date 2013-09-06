@@ -30,6 +30,7 @@ using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Bootstrapping;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
 
 namespace Manatee.Trello
@@ -44,7 +45,7 @@ namespace Manatee.Trello
 		private readonly IEntityRepository _entityRepository;
 		private readonly IValidator _validator;
 		private readonly IEndpointFactory _endpointFactory;
-		private readonly ExpiringList<Member> _memberSearchList; 
+		private readonly ExpiringList<Member> _memberSearchList;
 		private Member _me;
 
 		/// <summary>
@@ -61,10 +62,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public Member Me
 		{
-			get
-			{
-				return _me ?? (_me = GetMe());
-			}
+			get { return _me ?? (_me = GetMe()); }
 		}
 
 		/// <summary>
@@ -107,6 +105,13 @@ namespace Manatee.Trello
 					Validator = _validator
 				};
 		}
+		/// <summary>
+		/// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
+		/// </summary>
+		~TrelloService()
+		{
+			_requestProcessor.ShutDown();
+		}
 
 		/// <summary>
 		/// Retrieves the specified object from Trello.com and caches it.
@@ -139,7 +144,7 @@ namespace Manatee.Trello
 			var parameters = new Dictionary<string, object> {{"query", query}};
 			foreach (var parameter in RestParameterRepository.GetParameters<SearchResults>())
 			{
-				parameters.Add(parameter.Key, parameter.Value);
+				parameters[parameter.Key] = parameter.Value;
 			}
 			if (context != null)
 			{
@@ -198,11 +203,14 @@ namespace Manatee.Trello
 		private T Verify<T>(string id)
 			where T : ExpiringObject
 		{
-			T entity = null;
 			var requestType = _endpointFactory.GetRequestType<T>();
 			if (requestType == EntityRequestType.Unsupported) return null;
 			var parameters = new Dictionary<string, object> {{"_id", id}};
-			entity = _entityRepository.Download<T>(requestType, parameters);
+			foreach (var parameter in RestParameterRepository.GetParameters<T>())
+			{
+				parameters[parameter.Key] = parameter.Value;
+			}
+			T entity = _entityRepository.Download<T>(requestType, parameters);
 			return entity;
 		}
 		private Member GetMe()

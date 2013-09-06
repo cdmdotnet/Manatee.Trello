@@ -33,7 +33,7 @@ namespace Manatee.Trello.Internal
 	/// method in Trello's API.
 	/// </summary>
 	/// <remarks>
-	/// This class is only exposes for unit testing purposes.
+	/// This class is only exposed for unit testing purposes.
 	/// </remarks>
 	public class Endpoint : IEnumerable<string>
 	{

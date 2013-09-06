@@ -20,6 +20,8 @@
 	Purpose:		Defines a set of labels for a board on Trello.com.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
@@ -155,6 +157,10 @@ namespace Manatee.Trello
 				Put(EntityRequestType.LabelNames_Write_Purple);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonLabelNames is InnerJsonLabelNames; } }
 
 		/// <summary>
 		/// Creates a new instance of the LabelNames class.
@@ -204,15 +210,15 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			Parameters.Add("_boardId", Owner.Id);
+			Parameters["_boardId"] = Owner.Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.LabelNames_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.LabelNames_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonLabelNames = (IJsonLabelNames)obj;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void Put(EntityRequestType color)

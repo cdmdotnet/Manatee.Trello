@@ -23,9 +23,11 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -62,6 +64,10 @@ namespace Manatee.Trello
 		/// Enumerates the Organizations which match the provided query.
 		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return _organizations; } }
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return false; } }
 
 		internal SearchResults()
 		{
@@ -76,13 +82,13 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			var results = obj as IJsonSearchResults;
-			if (results == null) return;
+			var results = (IJsonSearchResults) obj;
 			_actions = results.ActionIds.Select(Download<Action>).ToList();
 			_boards = results.BoardIds.Select(Download<Board>).ToList();
 			_cards = results.CardIds.Select(Download<Card>).ToList();
 			_members = results.MemberIds.Select(Download<Member>).ToList();
 			_organizations = results.OrganizationIds.Select(Download<Organization>).ToList();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private T Download<T>(string id)

@@ -26,43 +26,23 @@ using System.Collections.Generic;
 namespace Manatee.Trello.Internal.DataAccess
 {
 	/// <summary>
-	/// Internal use only.  Defines methods required to retrieve entities from Trello.
+	/// Defines methods required to retrieve entities from Trello.
 	/// </summary>
+	/// <remarks>
+	/// This interface is only exposed for unit testing purposes.
+	/// </remarks>
 	public interface IJsonRepository
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="endpoint"></param>
-		/// <param name="parameters"></param>
-		/// <returns></returns>
+		/// <summary />
 		T Get<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class;
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="endpoint"></param>
-		/// <param name="parameters"></param>
-		/// <returns></returns>
+		/// <summary />
 		T Put<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class;
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="endpoint"></param>
-		/// <param name="parameters"></param>
-		/// <returns></returns>
+		/// <summary />
 		T Post<T>(string endpoint, IDictionary<string, object> parameters = null)
 			where T : class;
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="endpoint"></param>
-		/// <returns></returns>
+		/// <summary />
 		T Delete<T>(string endpoint)
 			where T : class;
 	}

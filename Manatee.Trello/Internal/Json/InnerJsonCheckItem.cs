@@ -24,9 +24,8 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	internal class InnerJsonCheckItem : IJsonCheckItem
+	internal class InnerJsonCheckItem : IdentifiableJson, IJsonCheckItem
 	{
-		public string Id { get; set; }
 		public string State { get; set; }
 		public string Name { get; set; }
 		public double? Pos { get; set; }

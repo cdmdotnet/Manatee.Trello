@@ -81,6 +81,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonNotification == null) return;
@@ -110,6 +111,10 @@ namespace Manatee.Trello
 			get { return _type; }
 			internal set { _type = value; }
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonNotification is InnerJsonNotification; } }
 
 		static Notification()
 		{
@@ -211,21 +216,22 @@ namespace Manatee.Trello
 		/// </summary>
 		public override sealed bool Refresh()
 		{
-			Parameters.Add("_id", Id);
+			if (_jsonNotification is InnerJsonNotification) return false;
+			Parameters["_id"] = Id;
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.Notification_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.Notification_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonNotification = (IJsonNotification)obj;
 			UpdateType();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void Put(EntityRequestType requestType)
 		{
-			Parameters.Add("_id", Id);
+			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
 		}
 

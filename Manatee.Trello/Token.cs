@@ -166,6 +166,10 @@ namespace Manatee.Trello
 		/// Gets the token value.
 		/// </summary>
 		public string Value { get { return _value; } internal set { _value = value; } }
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonToken is InnerJsonToken; } }
 
 		/// <summary>
 		/// Creates a new instance of the Token class.
@@ -256,16 +260,16 @@ namespace Manatee.Trello
 			if (_value == null) return false;
 			Parameters.Add("_token", Value);
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.Token_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.Token_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonToken = (IJsonToken) obj;
+			_jsonToken = (IJsonToken)obj;
 			_jsonBoardPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Board");
 			_jsonMemberPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Member");
 			_jsonOrganizationPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Organization");
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private string GetExpirationDateString()

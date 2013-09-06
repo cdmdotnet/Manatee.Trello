@@ -21,6 +21,8 @@
 					on Trello.com.
 
 ***************************************************************************************/
+
+using System;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
@@ -50,6 +52,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
@@ -72,6 +75,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
@@ -94,6 +98,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
@@ -116,6 +121,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				if (_jsonBoardPersonalPreferences.ShowSidebarBoardActions == value) return;
 				Validator.Nullable(value);
@@ -137,6 +143,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
+
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPersonalPreferences == null) return;
@@ -147,6 +154,10 @@ namespace Manatee.Trello
 				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarMembers);
 			}
 		}
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return _jsonBoardPersonalPreferences is InnerJsonBoardPersonalPreferences; } }
 
 		/// <summary>
 		/// Creates a new instance of the CheckList class.
@@ -168,13 +179,13 @@ namespace Manatee.Trello
 		{
 			Parameters.Add("_boardId", Owner.Id);
 			AddDefaultParameters();
-			EntityRepository.Refresh(this, EntityRequestType.BoardPersonalPreferences_Read_Refresh);
-			return true;
+			return EntityRepository.Refresh(this, EntityRequestType.BoardPersonalPreferences_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
 		{
 			_jsonBoardPersonalPreferences = (IJsonBoardPersonalPreferences)obj;
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void Post(EntityRequestType requestType)

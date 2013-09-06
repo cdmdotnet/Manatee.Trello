@@ -84,6 +84,10 @@ namespace Manatee.Trello
 		/// Gets the membership type.
 		///</summary>
 		public OrganizationMembershipType MembershipType { get { return _membershipType; } }
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return false; } }
 
 		static OrganizationMembership()
 		{
@@ -173,6 +177,7 @@ namespace Manatee.Trello
 		{
 			_jsonOrganizationMembership = (IJsonOrganizationMembership)obj;
 			UpdateType();
+			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
 		private void UpdateType()

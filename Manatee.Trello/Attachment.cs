@@ -100,6 +100,10 @@ namespace Manatee.Trello
 		/// Indicates the attachment storage location.
 		///</summary>
 		public string Url { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Url; } }
+		/// <summary>
+		/// Gets whether this entity represents an actual entity on Trello.
+		/// </summary>
+		public override bool IsStubbed { get { return false; } }
 
 		/// <summary>
 		/// Creates a new instance of the Attachment class.
@@ -116,8 +120,8 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			Parameters.Add("_id", Id);
-			Parameters.Add("_cardId", Owner.Id);
+			Parameters["_id"] = Id;
+			Parameters["_cardId"] = Owner.Id;
 			EntityRepository.Upload(EntityRequestType.Attachment_Write_Delete, Parameters);
 			_isDeleted = true;
 		}
@@ -191,7 +195,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonAttachment = (IJsonAttachment) obj;
+			_jsonAttachment = (IJsonAttachment)obj;
 			_previews = _jsonAttachment.Previews != null
 			            	? _jsonAttachment.Previews.Select(p => new AttachmentPreview(p)).ToList()
 			            	: null;

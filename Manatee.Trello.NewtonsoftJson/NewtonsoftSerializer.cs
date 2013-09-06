@@ -32,7 +32,7 @@ namespace Manatee.Trello.NewtonsoftJson
 	/// <summary>
 	/// Wrapper class for the Newtonsoft.Json.Serializer for use with RestSharp.
 	/// </summary>
-	internal class NewtonsoftSerializer : ISerializer, IDeserializer
+	public class NewtonsoftSerializer : ISerializer, IDeserializer
 	{
 		private readonly JsonSerializer _serializer;
 
