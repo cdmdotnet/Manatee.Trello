@@ -60,7 +60,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			_lock = new object();
 			_shutdown = false;
 			_isActive = true;
-			_workerThread = new Thread(Process);
+			_workerThread = new Thread(Process) {IsBackground = true};
 			_workerThread.Start();
 		}
 
