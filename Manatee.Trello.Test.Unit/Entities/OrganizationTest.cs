@@ -789,7 +789,7 @@ namespace Manatee.Trello.Test.Unit
 		}
 		private void AddOrUpdateMemberIsCalled(string email, string name)
 		{
-			Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(email, name));
+			//Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(email, name));
 		}
 		private void CreateBoardIsCalled(string name)
 		{

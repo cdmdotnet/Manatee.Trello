@@ -38,9 +38,6 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.1.1308.2321\lib\net40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="StoryQ">
       <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.dll</HintPath>
     </Reference>
@@ -68,28 +65,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ActionTest.cs" />
-    <Compile Include="AttachmentTest.cs" />
-    <Compile Include="BadgesTest.cs" />
-    <Compile Include="BoardMembershipTest.cs" />
-    <Compile Include="BoardPersonalPreferencesTest.cs" />
-    <Compile Include="BoardPreferencesTest.cs" />
-    <Compile Include="BoardTest.cs" />
-    <Compile Include="CardTest.cs" />
-    <Compile Include="CheckItemTest.cs" />
-    <Compile Include="CheckListTest.cs" />
-    <Compile Include="EntityTestBase.cs" />
-    <Compile Include="LabelNamesTest.cs" />
-    <Compile Include="ListTest.cs" />
-    <Compile Include="MemberPreferencesTest.cs" />
-    <Compile Include="MemberTest.cs" />
-    <Compile Include="Mocks\MockValidator.cs" />
-    <Compile Include="NotificationTest.cs" />
-    <Compile Include="OrganizationMembershipTest.cs" />
-    <Compile Include="OrganizationPreferencesTest.cs" />
-    <Compile Include="OrganizationTest.cs" />
-    <Compile Include="TokenTest.cs" />
-    <Compile Include="TrelloServiceUnitTest.cs" />
+    <Compile Include="Entities\AttachmentTest.cs" />
+    <Compile Include="Entities\BadgesTest.cs" />
+    <Compile Include="Entities\BoardMembershipTest.cs" />
+    <Compile Include="Entities\BoardPersonalPreferencesTest.cs" />
+    <Compile Include="Entities\BoardPreferencesTest.cs" />
+    <Compile Include="Entities\BoardTest.cs" />
+    <Compile Include="Entities\CardTest.cs" />
+    <Compile Include="Entities\CheckItemTest.cs" />
+    <Compile Include="Entities\CheckListTest.cs" />
+    <Compile Include="Entities\EntityTestBase.cs" />
+    <Compile Include="Entities\LabelNamesTest.cs" />
+    <Compile Include="Mocks\MockEntity.cs" />
+    <Compile Include="Mocks\MockRequestProcessor.cs" />
+    <Compile Include="Mocks\MockRestClient.cs" />
+    <Compile Include="TrelloServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestBase.cs" />
   </ItemGroup>

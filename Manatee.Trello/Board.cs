@@ -71,13 +71,12 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Desc == value) return;
 				_jsonBoard.Desc = value ?? string.Empty;
 				Parameters.Add("desc", _jsonBoard.Desc);
-				Put(EntityRequestType.Board_Write_Description);
+				Upload(EntityRequestType.Board_Write_Description);
 			}
 		}
 		/// <summary>
@@ -109,14 +108,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Closed == value) return;
 				_jsonBoard.Closed = value;
 				Parameters.Add("closed", _jsonBoard.Closed.ToLowerString());
-				Put(EntityRequestType.Board_Write_IsClosed);
+				Upload(EntityRequestType.Board_Write_IsClosed);
 			}
 		}
 		///<summary>
@@ -129,17 +127,16 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return (_jsonBoard == null) ? null : _jsonBoard.Pinned;
 			}
-			private set
-			{
-
-				Validator.Writable();
-				Validator.Nullable(value);
-				if (_jsonBoard == null) return;
-				if (_jsonBoard.Pinned == value) return;
-				_jsonBoard.Pinned = value;
-				Parameters.Add("pinned", _jsonBoard.Pinned.ToLowerString());
-				Put(EntityRequestType.Board_Write_IsPinned);
-			}
+			//private set
+			//{
+			//	Validator.Writable();
+			//	Validator.Nullable(value);
+			//	if (_jsonBoard == null) return;
+			//	if (_jsonBoard.Pinned == value) return;
+			//	_jsonBoard.Pinned = value;
+			//	Parameters.Add("pinned", _jsonBoard.Pinned.ToLowerString());
+			//	Upload(EntityRequestType.Board_Write_IsPinned);
+			//}
 		}
 		///<summary>
 		/// Gets or sets whether the user is subscribed to this board.
@@ -153,14 +150,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Subscribed == value) return;
 				_jsonBoard.Subscribed = value;
 				Parameters.Add("subscribed", _jsonBoard.Subscribed.ToLowerString());
-				Put(EntityRequestType.Board_Write_IsSubscribed);
+				Upload(EntityRequestType.Board_Write_IsSubscribed);
 			}
 		}
 		///<summary>
@@ -192,14 +188,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.NonEmptyString(value);
 				if (_jsonBoard == null) return;
 				if (_jsonBoard.Name == value) return;
 				_jsonBoard.Name = value;
 				Parameters.Add("name", _jsonBoard.Name);
-				Put(EntityRequestType.Board_Write_Name);
+				Upload(EntityRequestType.Board_Write_Name);
 			}
 		}
 		/// <summary>
@@ -215,7 +210,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Entity(value, true);
 				if (_jsonBoard == null) return;
@@ -229,7 +223,7 @@ namespace Manatee.Trello
 					_jsonBoard.IdOrganization = value.Id;
 				}
 				Parameters.Add("idOrganization", _jsonBoard.IdOrganization ?? string.Empty);
-				Put(EntityRequestType.Board_Write_Organization);
+				Upload(EntityRequestType.Board_Write_Organization);
 			}
 		}
 		///<summary>
@@ -256,8 +250,8 @@ namespace Manatee.Trello
 		{
 			_jsonBoard = new InnerJsonBoard();
 			_actions = new ExpiringList<Action>(this, EntityRequestType.Board_Read_Actions);
-			_archivedCards = new ExpiringList<Card>(this, EntityRequestType.Board_Read_Cards) {Filter = "closed"};
-			_archivedLists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists) {Filter = "closed"};
+			_archivedCards = new ExpiringList<Card>(this, EntityRequestType.Board_Read_Cards) { Filter = "closed" };
+			_archivedLists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists) { Filter = "closed" };
 			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Board_Read_Members);
 			_labelNames = new LabelNames(this);
 			_lists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists);
@@ -395,7 +389,7 @@ namespace Manatee.Trello
 		public override bool Equals(object obj)
 		{
 			if (!(obj is Board)) return false;
-			return Equals((Board) obj);
+			return Equals((Board)obj);
 		}
 		/// <summary>
 		/// Serves as a hash function for a particular type. 
@@ -406,7 +400,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -417,7 +411,7 @@ namespace Manatee.Trello
 		/// <param name="other">An object to compare with this object.</param>
 		public int CompareTo(Board other)
 		{
-			var order = string.Compare(Name, other.Name);
+			var order = string.Compare(Name, other.Name, StringComparison.InvariantCulture);
 			return order;
 		}
 		/// <summary>
@@ -459,7 +453,7 @@ namespace Manatee.Trello
 			UpdateDependencies(_personalPreferences);
 		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);

@@ -92,8 +92,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (_isDeleted) return Enumerable.Empty<AttachmentPreview>();
-				VerifyNotExpired();
-				return _previews;
+				return _previews ?? Enumerable.Empty<AttachmentPreview>();
 			}
 		}
 		///<summary>
@@ -157,7 +156,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -187,10 +186,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			//var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			//var request = Api.RequestProvider.Create(endpoint.ToString());
-			//ApplyJson(Api.Get<IJsonAttachment>(request));
-			return false;
+			if (_isDeleted) return false;
+			Parameters["_id"] = Id;
+			Parameters["_cardId"] = Owner.Id;
+			AddDefaultParameters();
+			return EntityRepository.Refresh(this, EntityRequestType.Attachment_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -199,6 +199,10 @@ namespace Manatee.Trello
 			_previews = _jsonAttachment.Previews != null
 			            	? _jsonAttachment.Previews.Select(p => new AttachmentPreview(p)).ToList()
 			            	: null;
+		}
+		internal void ForceDeleted(bool deleted)
+		{
+			_isDeleted = deleted;
 		}
 	}
 }

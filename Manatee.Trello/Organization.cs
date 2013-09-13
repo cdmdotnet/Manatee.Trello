@@ -72,7 +72,7 @@ namespace Manatee.Trello
 				if (_jsonOrganization.Desc == value) return;
 				_jsonOrganization.Desc = value ?? string.Empty;
 				Parameters.Add("desc", _jsonOrganization.Desc);
-				Put(EntityRequestType.Organization_Write_Description);
+				Upload(EntityRequestType.Organization_Write_Description);
 			}
 		}
 		/// <summary>
@@ -95,7 +95,7 @@ namespace Manatee.Trello
 				if (_jsonOrganization.DisplayName == value) return;
 				_jsonOrganization.DisplayName = Validator.MinStringLength(value, 4, "DisplayName");
 				Parameters.Add("displayName", _jsonOrganization.DisplayName);
-				Put(EntityRequestType.Organization_Write_DisplayName);
+				Upload(EntityRequestType.Organization_Write_DisplayName);
 			}
 		}
 		/// <summary>
@@ -159,7 +159,7 @@ namespace Manatee.Trello
 				if (_jsonOrganization.Name == value) return;
 				_jsonOrganization.Name = Validator.OrgName(value);
 				Parameters.Add("name", _jsonOrganization.Name);
-				Put(EntityRequestType.Organization_Write_Name);
+				Upload(EntityRequestType.Organization_Write_Name);
 			}
 		}
 		/// <summary>
@@ -214,7 +214,7 @@ namespace Manatee.Trello
 				if (_jsonOrganization.Website == value) return;
 				_jsonOrganization.Website = value ?? string.Empty;
 				Parameters.Add("website", _jsonOrganization.Website);
-				Put(EntityRequestType.Organization_Write_Website);
+				Upload(EntityRequestType.Organization_Write_Website);
 			}
 		}
 		/// <summary>
@@ -385,7 +385,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -396,7 +396,7 @@ namespace Manatee.Trello
 		/// <param name="other">An object to compare with this object.</param>
 		public int CompareTo(Organization other)
 		{
-			var order = string.Compare(DisplayName, other.DisplayName);
+			var order = string.Compare(DisplayName, other.DisplayName, StringComparison.InvariantCulture);
 			return order;
 		}
 		/// <summary>
@@ -415,6 +415,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
+			if (_isDeleted) return false;
 			Parameters["_id"] = Id;
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Organization_Read_Refresh);
@@ -438,8 +439,12 @@ namespace Manatee.Trello
 			UpdateDependencies(_memberships);
 			UpdateDependencies(_preferences);
 		}
+		internal void ForceDeleted(bool deleted)
+		{
+			_isDeleted = deleted;
+		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);

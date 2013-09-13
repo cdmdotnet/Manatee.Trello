@@ -202,7 +202,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -243,6 +243,10 @@ namespace Manatee.Trello
 			_jsonAction = (IJsonAction)obj;
 			UpdateType();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
+		}
+		internal void ForceDeleted(bool deleted)
+		{
+			_isDeleted = deleted;
 		}
 
 		private void UpdateType()

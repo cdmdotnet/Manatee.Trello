@@ -93,7 +93,7 @@ namespace Manatee.Trello
 				if (_jsonList.Closed == value) return;
 				_jsonList.Closed = value;
 				Parameters.Add("closed", _jsonList.Closed.ToLowerString());
-				Put(EntityRequestType.List_Write_IsClosed);
+				Upload(EntityRequestType.List_Write_IsClosed);
 			}
 		}
 		/// <summary>
@@ -115,7 +115,7 @@ namespace Manatee.Trello
 				if (_jsonList.Subscribed == value) return;
 				_jsonList.Subscribed = value;
 				Parameters.Add("subscribed", _jsonList.Subscribed.ToLowerString());
-				Put(EntityRequestType.List_Write_IsSubscribed);
+				Upload(EntityRequestType.List_Write_IsSubscribed);
 			}
 		}
 		/// <summary>
@@ -137,7 +137,7 @@ namespace Manatee.Trello
 				if (_jsonList.Name == value) return;
 				_jsonList.Name = value;
 				Parameters.Add("name", _jsonList.Name);
-				Put(EntityRequestType.List_Write_Name);
+				Upload(EntityRequestType.List_Write_Name);
 			}
 		}
 		/// <summary>
@@ -159,7 +159,7 @@ namespace Manatee.Trello
 				if (_position == value) return;
 				_position = value;
 				Parameters.Add("pos", _position);
-				Put(EntityRequestType.List_Write_Position);
+				Upload(EntityRequestType.List_Write_Position);
 				MarkForUpdate();
 				if (_board != null)
 					_board.ListsList.MarkForUpdate();
@@ -263,7 +263,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -310,7 +310,7 @@ namespace Manatee.Trello
 			UpdateDependencies(_cards);
 		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);

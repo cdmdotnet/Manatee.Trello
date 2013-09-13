@@ -74,7 +74,7 @@ namespace Manatee.Trello.Test.Functional
 				board.LabelNames.Green = green;
 				board.LabelNames.Blue = blue;
 				board.LabelNames.Purple = purple;
-				member = board.AddOrUpdateMember("littlecrab@notarealdomain.com", "Little Crab 2");
+				//member = board.AddOrUpdateMember("littlecrab@notarealdomain.com", "Little Crab 2");
 				board.Preferences.AllowsSelfJoin = true;
 				board.Preferences.Comments = BoardCommentType.Disabled;
 				board.Preferences.Invitations = BoardInvitationType.Members;

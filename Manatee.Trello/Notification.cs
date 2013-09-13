@@ -88,7 +88,7 @@ namespace Manatee.Trello
 				if (_jsonNotification.Unread == value) return;
 				_jsonNotification.Unread = value;
 				Parameters.Add("unread", _jsonNotification.Unread.ToLowerString());
-				Put(EntityRequestType.Notification_Write_IsUnread);
+				Upload(EntityRequestType.Notification_Write_IsUnread);
 			}
 		}
 		/// <summary>
@@ -186,7 +186,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -229,7 +229,7 @@ namespace Manatee.Trello
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);

@@ -1181,7 +1181,7 @@ namespace Manatee.Trello.Test.Unit
 		}
 		private void PinnedBoardsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.PinnedBoards);
+			//Execute(() => _systemUnderTest.Sut.PinnedBoards);
 		}
 		private void PreferencesIsAccessed()
 		{

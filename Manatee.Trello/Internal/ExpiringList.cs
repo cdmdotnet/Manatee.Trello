@@ -35,7 +35,7 @@ namespace Manatee.Trello.Internal
 
 		public string Filter { get; set; }
 		public string Fields { get; set; }
-		public override bool IsStubbed { get { return Owner.IsStubbed; } }
+		public override bool IsStubbed { get { return Owner == null || Owner.IsStubbed; } }
 
 		public ExpiringList(ExpiringObject owner, EntityRequestType requestType)
 		{

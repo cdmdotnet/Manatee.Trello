@@ -50,11 +50,10 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
-				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Red == value) return;
 				_jsonLabelNames.Red = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Red);
-				Put(EntityRequestType.LabelNames_Write_Red);
+				Upload(EntityRequestType.LabelNames_Write_Red);
 			}
 		}
 		/// <summary>
@@ -70,11 +69,10 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
-				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Orange == value) return;
 				_jsonLabelNames.Orange = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Orange);
-				Put(EntityRequestType.LabelNames_Write_Orange);
+				Upload(EntityRequestType.LabelNames_Write_Orange);
 			}
 		}
 		/// <summary>
@@ -90,11 +88,10 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
-				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Yellow == value) return;
 				_jsonLabelNames.Yellow = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Yellow);
-				Put(EntityRequestType.LabelNames_Write_Yellow);
+				Upload(EntityRequestType.LabelNames_Write_Yellow);
 			}
 		}
 		/// <summary>
@@ -110,11 +107,10 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
-				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Green == value) return;
 				_jsonLabelNames.Green = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Green);
-				Put(EntityRequestType.LabelNames_Write_Green);
+				Upload(EntityRequestType.LabelNames_Write_Green);
 			}
 		}
 		/// <summary>
@@ -130,11 +126,10 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
-				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Blue == value) return;
 				_jsonLabelNames.Blue = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Blue);
-				Put(EntityRequestType.LabelNames_Write_Blue);
+				Upload(EntityRequestType.LabelNames_Write_Blue);
 			}
 		}
 		/// <summary>
@@ -150,11 +145,10 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
-				if (_jsonLabelNames == null) return;
 				if (_jsonLabelNames.Purple == value) return;
 				_jsonLabelNames.Purple = value ?? string.Empty;
 				Parameters.Add("value", _jsonLabelNames.Purple);
-				Put(EntityRequestType.LabelNames_Write_Purple);
+				Upload(EntityRequestType.LabelNames_Write_Purple);
 			}
 		}
 		/// <summary>
@@ -221,10 +215,10 @@ namespace Manatee.Trello
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
-		private void Put(EntityRequestType color)
+		private void Upload(EntityRequestType color)
 		{
 			Parameters.Add("_boardId", Owner.Id);
-			EntityRepository.Refresh(this, color);
+			EntityRepository.Upload(color, Parameters);
 		}
 	}
 }

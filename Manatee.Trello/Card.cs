@@ -52,7 +52,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// Enumerates all actions associated with this card.
 		///</summary>
-		public IEnumerable<Action> Actions { get { return _isDeleted ? null : _actions; } }
+		public IEnumerable<Action> Actions { get { return _isDeleted ? Enumerable.Empty<Action>() : _actions; } }
 		/// <summary>
 		/// Gets the ID of the attachment cover image.
 		/// </summary>
@@ -111,11 +111,10 @@ namespace Manatee.Trello
 
 				if (_isDeleted) return;
 				Validator.Writable();
-				if (_jsonCard == null) return;
 				if (_jsonCard.Desc == value) return;
 				_jsonCard.Desc = value ?? string.Empty;
 				Parameters.Add("desc", _jsonCard.Desc);
-				Put(EntityRequestType.Card_Write_Description);
+				Upload(EntityRequestType.Card_Write_Description);
 			}
 		}
 		/// <summary>
@@ -135,11 +134,10 @@ namespace Manatee.Trello
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonCard == null) return;
 				if (_jsonCard.Due == value) return;
 				_jsonCard.Due = value;
 				Parameters.Add("due", _jsonCard.Due.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
-				Put(EntityRequestType.Card_Write_DueDate);
+				Upload(EntityRequestType.Card_Write_DueDate);
 			}
 		}
 		/// <summary>
@@ -172,11 +170,10 @@ namespace Manatee.Trello
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonCard == null) return;
 				if (_jsonCard.Closed == value) return;
 				_jsonCard.Closed = value;
 				Parameters.Add("closed", _jsonCard.Closed.ToLowerString());
-				Put(EntityRequestType.Card_Write_IsClosed);
+				Upload(EntityRequestType.Card_Write_IsClosed);
 			}
 		}
 		/// <summary>
@@ -196,11 +193,10 @@ namespace Manatee.Trello
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonCard == null) return;
 				if (_jsonCard.Subscribed == value) return;
 				_jsonCard.Subscribed = value;
 				Parameters.Add("subscribed", _jsonCard.Subscribed.ToLowerString());
-				Put(EntityRequestType.Card_Write_IsSubscribed);
+				Upload(EntityRequestType.Card_Write_IsSubscribed);
 			}
 		}
 		/// <summary>
@@ -257,11 +253,10 @@ namespace Manatee.Trello
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.NonEmptyString(value);
-				if (_jsonCard == null) return;
 				if (_jsonCard.Name == value) return;
 				_jsonCard.Name = value;
 				Parameters.Add("name", _jsonCard.Name);
-				Put(EntityRequestType.Card_Write_Name);
+				Upload(EntityRequestType.Card_Write_Name);
 			}
 		}
 		/// <summary>
@@ -284,7 +279,7 @@ namespace Manatee.Trello
 				if (_position == value) return;
 				_position = value;
 				Parameters.Add("pos", _position);
-				Put(EntityRequestType.Card_Write_Position);
+				Upload(EntityRequestType.Card_Write_Position);
 				MarkForUpdate();
 				if (_list != null)
 					_list.CardsList.MarkForUpdate();
@@ -312,7 +307,7 @@ namespace Manatee.Trello
 				if (_isDeleted) return;
 				Validator.Writable();
 				Parameters.Add("warnWhenUpcoming", value.ToLowerString());
-				Put(EntityRequestType.Card_Write_WarnWhenUpcoming);
+				Upload(EntityRequestType.Card_Write_WarnWhenUpcoming);
 			}
 		}
 		/// <summary>
@@ -542,7 +537,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -584,7 +579,6 @@ namespace Manatee.Trello
 			_position = _jsonCard.Pos.HasValue ? new Position(_jsonCard.Pos.Value) : Position.Unknown;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
-
 		internal override void PropagateDependencies()
 		{
 			UpdateDependencies(_actions);
@@ -596,8 +590,12 @@ namespace Manatee.Trello
 			UpdateDependencies(_members);
 			UpdateDependencies(_votingMembers);
 		}
+		internal void ForceDeleted(bool deleted)
+		{
+			_isDeleted = deleted;
+		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);

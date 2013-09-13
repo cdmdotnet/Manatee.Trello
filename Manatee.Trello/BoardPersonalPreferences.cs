@@ -52,15 +52,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowListGuide == value) return;
 				_jsonBoardPersonalPreferences.ShowListGuide = value;
 				Parameters.Add("name", "showListGuide");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowListGuide.ToLowerString());
-				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowListGuide);
+				Upload(EntityRequestType.BoardPersonalPreferences_Write_ShowListGuide);
 			}
 		}
 		///<summary>
@@ -75,15 +73,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebar == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebar = value;
 				Parameters.Add("name", "showSidebar");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebar.ToLowerString());
-				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebar);
+				Upload(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebar);
 			}
 		}
 		/// <summary>
@@ -98,15 +94,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebarActivity == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebarActivity = value;
 				Parameters.Add("name", "showSidebarActivity");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarActivity.ToLowerString());
-				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarActivity);
+				Upload(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarActivity);
 			}
 		}
 		/// <summary>
@@ -121,14 +115,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
-				if (_jsonBoardPersonalPreferences.ShowSidebarBoardActions == value) return;
 				Validator.Nullable(value);
+				if (_jsonBoardPersonalPreferences.ShowSidebarBoardActions == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebarBoardActions = value;
 				Parameters.Add("name", "showSidebarBoardActions");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarBoardActions.ToLowerString());
-				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarBoardActions);
+				Upload(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarBoardActions);
 			}
 		}
 		///<summary>
@@ -143,15 +136,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonBoardPersonalPreferences == null) return;
 				if (_jsonBoardPersonalPreferences.ShowSidebarMembers == value) return;
 				_jsonBoardPersonalPreferences.ShowSidebarMembers = value;
 				Parameters.Add("name", "showSidebarMembers");
 				Parameters.Add("value", _jsonBoardPersonalPreferences.ShowSidebarMembers.ToLowerString());
-				Post(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarMembers);
+				Upload(EntityRequestType.BoardPersonalPreferences_Write_ShowSidebarMembers);
 			}
 		}
 		/// <summary>
@@ -188,7 +179,7 @@ namespace Manatee.Trello
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
-		private void Post(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters.Add("_boardId", Owner.Id);
 			EntityRepository.Upload(requestType, Parameters);
