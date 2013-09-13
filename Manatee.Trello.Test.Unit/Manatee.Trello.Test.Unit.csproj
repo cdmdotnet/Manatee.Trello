@@ -76,6 +76,14 @@
     <Compile Include="Entities\CheckListTest.cs" />
     <Compile Include="Entities\EntityTestBase.cs" />
     <Compile Include="Entities\LabelNamesTest.cs" />
+    <Compile Include="Entities\ListTest.cs" />
+    <Compile Include="Entities\MemberPreferencesTest.cs" />
+    <Compile Include="Entities\MemberTest.cs" />
+    <Compile Include="Entities\NotificationTest.cs" />
+    <Compile Include="Entities\OrganizationMembershipTest.cs" />
+    <Compile Include="Entities\OrganizationPreferencesTest.cs" />
+    <Compile Include="Entities\OrganizationTest.cs" />
+    <Compile Include="Entities\TokenTest.cs" />
     <Compile Include="Mocks\MockEntity.cs" />
     <Compile Include="Mocks\MockRequestProcessor.cs" />
     <Compile Include="Mocks\MockRestClient.cs" />

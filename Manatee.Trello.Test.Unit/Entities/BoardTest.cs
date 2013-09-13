@@ -601,6 +601,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void AddListIsCalled(string value)
 		{
+			SetupRepositoryDownload<List>();
 			Execute(() => _test.Sut.AddList(value));
 		}
 		private void AddOrUpdateMemberIsCalled(Member value)

@@ -55,6 +55,16 @@ namespace Manatee.Trello
 				if (_jsonList == null) return null;
 				return UpdateById(ref _board, EntityRequestType.Board_Read_Refresh, _jsonList.IdBoard);
 			}
+			set
+			{
+				Validator.Writable();
+				Validator.Entity(value);
+				if (_jsonList.IdBoard == value.Id) return;
+				_jsonList.IdBoard = value.Id;
+				_board = value;
+				Parameters.Add("idBoard", _jsonList.IdBoard);
+				Upload(EntityRequestType.List_Write_Board);
+			}
 		}
 		/// <summary>
 		/// Enumerates all cards in the list.
@@ -209,27 +219,6 @@ namespace Manatee.Trello
 		internal void Delete()
 		{
 			Log.Error(new NotSupportedException("Deleting lists is not yet supported by Trello."));
-		}
-		/// <summary>
-		/// Moves the list to another board.
-		/// </summary>
-		/// <param name="board">The destination board.</param>
-		/// <param name="position">The position in the board.  Default is Bottom (right).  Invalid positions are ignored.</param>
-		public void Move(Board board, Position position = null)
-		{
-			Validator.Writable();
-			Validator.Entity(board);
-			Parameters["_id"] = Id;
-			Parameters.Add("idBoard", board.Id);
-			if (position != null)
-				Parameters.Add("pos", position);
-			EntityRepository.Upload(EntityRequestType.List_Write_Move, Parameters);
-			MarkForUpdate();
-			_actions.MarkForUpdate();
-			board.ListsList.Add(this);
-			if (_board == null) return;
-			_board.ListsList.Remove(this);
-			_board.ListsList.MarkForUpdate();
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.

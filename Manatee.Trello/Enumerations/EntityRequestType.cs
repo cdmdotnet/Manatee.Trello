@@ -208,6 +208,8 @@ namespace Manatee.Trello
 		/// <summary />
 		List_Write_AddCard,
 		/// <summary />
+		List_Write_Board,
+		/// <summary />
 		List_Read_Cards,
 		/// <summary />
 		List_Write_Delete,
@@ -238,7 +240,7 @@ namespace Manatee.Trello
 		/// <summary />
 		Member_Write_CreateBoard,
 		/// <summary />
-		Member_Write_CreateOrganizations,
+		Member_Write_CreateOrganization,
 		/// <summary />
 		Member_Write_FullName,
 		/// <summary />

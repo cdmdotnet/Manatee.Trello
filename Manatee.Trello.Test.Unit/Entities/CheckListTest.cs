@@ -257,9 +257,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void AddCheckItemIsCalled(string name)
 		{
-			_test.Dependencies.EntityRepository.Setup(r => r.Download<CheckItem>(It.IsAny<EntityRequestType>(),
-																				 It.IsAny<IDictionary<string, object>>()))
-				 .Returns(new CheckItem());
+			SetupRepositoryDownload<CheckItem>();
 			Execute(() => _test.Sut.AddCheckItem(name));
 		}
 		private void DeleteIsCalled()

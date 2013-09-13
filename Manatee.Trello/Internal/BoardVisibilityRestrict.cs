@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 using System.Linq;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal
@@ -74,7 +75,7 @@ namespace Manatee.Trello.Internal
 		}
 		internal BoardVisibilityRestrict(IJsonBoardVisibilityRestrict jsonBoardVisibilityRestrict)
 		{
-			_jsonBoardVisbilityRestrict = jsonBoardVisibilityRestrict;
+			_jsonBoardVisbilityRestrict = jsonBoardVisibilityRestrict ?? new InnerJsonBoardVisibilityRestrict();
 			UpdatePrivate();
 			UpdateOrg();
 			UpdatePublic();

@@ -1,30 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using Manatee.Trello.Exceptions;
-using Manatee.Trello.Json;
+﻿using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StoryQ;
 
-namespace Manatee.Trello.Test.Unit
+namespace Manatee.Trello.Test.Unit.Entities
 {
 	[TestClass]
-	public class ListTest : EntityTestBase<List>
+	public class ListTest : EntityTestBase<List, IJsonList>
 	{
 		[TestMethod]
 		public void Actions()
 		{
-			var story = new Story("Actions");
-
-			var feature = story.InOrderTo("get all actions for a list")
-				.AsA("developer")
-				.IWant("to get Actions");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Actions property")
 				.Given(AList)
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
-				.Then(MockApiGetIsCalled<List<IJsonAction>>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
+				.Then(RepositoryRefreshIsNotCalled<List>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -32,26 +23,36 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Board()
 		{
-			var story = new Story("Board");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get the board which contains a list")
-				.AsA("developer")
-				.IWant("to get the Board");
-
-			feature.WithScenario("Access Board property")
+			feature.WithScenario("Access Board property when not expired")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(BoardIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
-				.And(MockSvcRetrieveIsCalled<Board>, 1)
+				.Then(RepositoryRefreshIsNotCalled<List>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Board property when expired")
 				.Given(AList)
 				.And(EntityIsExpired)
 				.When(BoardIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
-				.And(MockSvcRetrieveIsCalled<Board>, 1)
+				.Then(RepositoryRefreshIsCalled<List>, EntityRequestType.List_Read_Refresh)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Board property")
+				.Given(AList)
+				.When(BoardIsSet, new Board { Id = TrelloIds.Invalid })
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEntityIsCalled<Board>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.List_Write_Board)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Board property to same")
+				.Given(AList)
+				.And(BoardIs, new Board { Id = TrelloIds.Invalid })
+				.When(BoardIsSet, new Board { Id = TrelloIds.Invalid })
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEntityIsCalled<Board>)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -59,18 +60,13 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Cards()
 		{
-			var story = new Story("Cards");
-
-			var feature = story.InOrderTo("get the cards contained within a list")
-				.AsA("developer")
-				.IWant("to get Cards");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Cards property")
 				.Given(AList)
 				.And(EntityIsExpired)
 				.When(CardsIsAccessed)
-				.Then(MockApiGetIsCalled<List<IJsonCard>>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<Card>>)
+				.Then(RepositoryRefreshIsNotCalled<List>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -78,333 +74,204 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void IsClosed()
 		{
-			var story = new Story("IsClosed");
-
-			var feature = story.InOrderTo("control a list is closed")
-				.AsA("developer")
-				.IWant("to get and set IsClosed");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access IsClosed property")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(IsClosedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
+				.Then(RepositoryRefreshIsNotCalled<List>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access IsClosed property when expired")
 				.Given(AList)
 				.And(EntityIsExpired)
 				.When(IsClosedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
+				.Then(RepositoryRefreshIsCalled<List>, EntityRequestType.List_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set IsClosed property")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(IsClosedIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonList>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<bool>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.List_Write_IsClosed)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set IsClosed property to null")
-				.Given(AList)
-				.And(EntityIsRefreshed)
-				.And(IsClosedIs, (bool?) true)
-				.When(IsClosedIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set IsClosed property to same")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.And(IsClosedIs, (bool?) true)
 				.When(IsClosedIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<bool>)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set IsClosed property without UserToken")
-				.Given(AList)
-				.And(TokenNotSupplied)
-				.When(IsClosedIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void IsSubscribed()
 		{
-			var story = new Story("IsSubscribed");
-
-			var feature = story.InOrderTo("control whether the current member is subscribed to a list")
-				.AsA("developer")
-				.IWant("to get and set IsSubscribed");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access IsSubscribed property")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(IsSubscribedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
+				.Then(RepositoryRefreshIsNotCalled<List>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access IsSubscribed property when expired")
 				.Given(AList)
 				.And(EntityIsExpired)
 				.When(IsSubscribedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
+				.Then(RepositoryRefreshIsCalled<List>, EntityRequestType.List_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set IsSubscribed property")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(IsSubscribedIsSet, (bool?)true)
-				.Then(MockApiPutIsCalled<IJsonList>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<bool>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.List_Write_IsSubscribed)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set IsSubscribed property to null")
-				.Given(AList)
-				.And(EntityIsRefreshed)
-				.And(IsSubscribedIs, (bool?)true)
-				.When(IsSubscribedIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set IsSubscribed property to same")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.And(IsSubscribedIs, (bool?)true)
 				.When(IsSubscribedIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<bool>)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set IsSubscribed property without UserToken")
-				.Given(AList)
-				.And(TokenNotSupplied)
-				.When(IsSubscribedIsSet, (bool?)true)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void Name()
 		{
-			var story = new Story("Name");
-
-			var feature = story.InOrderTo("control a list's name")
-				.AsA("developer")
-				.IWant("to get and set the Name");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Name property")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(NameIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
+				.Then(RepositoryRefreshIsNotCalled<List>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Name property when expired")
 				.Given(AList)
 				.And(EntityIsExpired)
 				.When(NameIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
+				.Then(RepositoryRefreshIsCalled<List>, EntityRequestType.List_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(NameIsSet, "name")
-				.Then(MockApiPutIsCalled<IJsonList>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNonEmptyStringIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.List_Write_Name)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Name property to null")
-				.Given(AList)
-				.And(EntityIsRefreshed)
-				.And(NameIs, "name")
-				.When(NameIsSet, (string)null)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("Set Name property to empty")
-				.Given(AList)
-				.And(EntityIsRefreshed)
-				.And(NameIs, "not description")
-				.When(NameIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Name property to same")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.And(NameIs, "description")
 				.When(NameIsSet, "description")
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNonEmptyStringIsCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Name property without UserToken")
-				.Given(AList)
-				.And(TokenNotSupplied)
-				.When(NameIsSet, "name")
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void Position()
 		{
-			var story = new Story("Position");
-
-			var feature = story.InOrderTo("control the postition of a list within its board")
-				.AsA("developer")
-				.IWant("to get and set Position");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Position property")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(PositionIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
+				.Then(RepositoryRefreshIsNotCalled<List>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Position property when expired")
 				.Given(AList)
 				.And(EntityIsExpired)
 				.When(PositionIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonList>, 1)
+				.Then(RepositoryRefreshIsCalled<List>, EntityRequestType.List_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Position property")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.When(PositionIsSet, Trello.Position.Bottom)
-				.Then(MockApiPutIsCalled<IJsonList>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorPositionIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.List_Write_Position)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Position property to null")
-				.Given(AList)
-				.And(EntityIsRefreshed)
-				.And(PositionIs, Trello.Position.Bottom)
-				.When(PositionIsSet, (Position) null)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set Position property to same")
 				.Given(AList)
-				.And(EntityIsRefreshed)
 				.And(PositionIs, Trello.Position.Bottom)
 				.When(PositionIsSet, Trello.Position.Bottom)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorPositionIsCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Position property without UserToken")
-				.Given(AList)
-				.And(TokenNotSupplied)
-				.When(PositionIsSet, Trello.Position.Bottom)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void AddCard()
 		{
-			var story = new Story("AddCard");
-
-			var feature = story.InOrderTo("add a card to a list")
-				.AsA("developer")
-				.IWant("to call AddCard");
+			var feature = CreateFeature();
 
 			feature.WithScenario("AddCard is called")
 				.Given(AList)
 				.When(AddCardIsCalled, "checklist")
-				.Then(MockApiPostIsCalled<IJsonCard>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNonEmptyStringIsCalled)
+				.And(RepositoryDownloadIsCalled<Card>, EntityRequestType.List_Write_AddCard)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("AddCard is called with null name")
-				.Given(AList)
-				.When(AddCardIsCalled, (string) null)
-				.Then(MockApiPostIsCalled<IJsonCard>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("AddCard is called with empty name")
-				.Given(AList)
-				.When(AddCardIsCalled, string.Empty)
-				.Then(MockApiPostIsCalled<IJsonCard>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("AddCard is called without UserToken")
-				.Given(AList)
-				.And(TokenNotSupplied)
-				.When(AddCardIsCalled, "checklist")
-				.Then(MockApiPutIsCalled<IJsonCard>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
-		[TestMethod]
-		[Ignore]
-		public void Delete()
-		{
-			throw new NotImplementedException();
-		}
-		[TestMethod]
-		public void Move()
-		{
-			var story = new Story("Move");
-
-			var feature = story.InOrderTo("move a card to a different board or list")
-				.AsA("developer")
-				.IWant("to call Move");
-
-			feature.WithScenario("Move is called")
-				.Given(AList)
-				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<IJsonList>, 1)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Move is called with null board")
-				.Given(AList)
-				.When(MoveIsCalled, (Board) null)
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("Move is called with local board")
-				.Given(AList)
-				.When(MoveIsCalled, new Board())
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<EntityNotOnTrelloException<Board>>)
-
-				.WithScenario("Move is called without UserToken")
-				.Given(AList)
-				.And(TokenNotSupplied)
-				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid})
-				.Then(MockApiPutIsCalled<IJsonList>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
-
-				.Execute();
-		}
+		//[TestMethod]
+		//[Ignore]
+		//public void Delete()
+		//{
+		//	throw new NotImplementedException();
+		//}
 
 		#region Given
 
 		private void AList()
 		{
-			_systemUnderTest = new EntityUnderTest();
-			SetupMockGet<IJsonList>();
-			SetupMockPost<IJsonCard>();
+			_test = new EntityUnderTest();
+		}
+		private void BoardIs(Board value)
+		{
+			_test.Json.SetupGet(j => j.IdBoard)
+				 .Returns(value.Id);
 		}
 		private void IsClosedIs(bool? value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.IsClosed = value);
+			_test.Json.SetupGet(j => j.Closed)
+				 .Returns(value);
 		}
 		private void IsSubscribedIs(bool? value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.IsSubscribed = value);
+			_test.Json.SetupGet(j => j.Subscribed)
+				 .Returns(value);
 		}
 		private void NameIs(string value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.Name = value);
+			_test.Json.SetupGet(j => j.Name)
+				 .Returns(value);
 		}
 		private void PositionIs(Position value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.Position = value);
+			_test.Json.SetupGet(j => j.Pos)
+				 .Returns(value.Value);
+			ReapplyJson();
 		}
 
 		#endregion
@@ -413,60 +280,61 @@ namespace Manatee.Trello.Test.Unit
 
 		private void ActionsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Actions);
+			Execute(() => _test.Sut.Actions);
 		}
 		private void BoardIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Board);
+			Execute(() => _test.Sut.Board);
+		}
+		private void BoardIsSet(Board value)
+		{
+			Execute(() => _test.Sut.Board = value);
 		}
 		private void CardsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Cards);
+			Execute(() => _test.Sut.Cards);
 		}
 		private void IsClosedIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.IsClosed);
+			Execute(() => _test.Sut.IsClosed);
 		}
 		private void IsClosedIsSet(bool? value)
 		{
-			Execute(() => _systemUnderTest.Sut.IsClosed = value);
+			Execute(() => _test.Sut.IsClosed = value);
 		}
 		private void IsSubscribedIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.IsSubscribed);
+			Execute(() => _test.Sut.IsSubscribed);
 		}
 		private void IsSubscribedIsSet(bool? value)
 		{
-			Execute(() => _systemUnderTest.Sut.IsSubscribed = value);
+			Execute(() => _test.Sut.IsSubscribed = value);
 		}
 		private void NameIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Name);
+			Execute(() => _test.Sut.Name);
 		}
 		private void NameIsSet(string value)
 		{
-			Execute(() => _systemUnderTest.Sut.Name = value);
+			Execute(() => _test.Sut.Name = value);
 		}
 		private void PositionIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Position);
+			Execute(() => _test.Sut.Position);
 		}
 		private void PositionIsSet(Position value)
 		{
-			Execute(() => _systemUnderTest.Sut.Position = value);
+			Execute(() => _test.Sut.Position = value);
 		}
 		private void AddCardIsCalled(string name)
 		{
-			Execute(() => _systemUnderTest.Sut.AddCard(name));
+			SetupRepositoryDownload<Card>();
+			Execute(() => _test.Sut.AddCard(name));
 		}
-		private void DeleteIsCalled()
-		{
-			Execute(() => _systemUnderTest.Sut.Delete());
-		}
-		private void MoveIsCalled(Board board)
-		{
-			Execute(() => _systemUnderTest.Sut.Move(board));
-		}
+		//private void DeleteIsCalled()
+		//{
+		//	Execute(() => _test.Sut.Delete());
+		//}
 
 		#endregion
 	}

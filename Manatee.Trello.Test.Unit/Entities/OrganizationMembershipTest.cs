@@ -1,36 +1,27 @@
-﻿using System;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Json;
+﻿using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using StoryQ;
 
-namespace Manatee.Trello.Test.Unit
+namespace Manatee.Trello.Test.Unit.Entities
 {
 	[TestClass]
-	public class OrganizationMembershipTest : EntityTestBase<OrganizationMembership>
+	public class OrganizationMembershipTest : EntityTestBase<OrganizationMembership, IJsonOrganizationMembership>
 	{
 		[TestMethod]
 		public void IsUnconfirmed()
 		{
-			var story = new Story("IsUnconfirmed");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("determine if the member is confirmed")
-				.AsA("developer")
-				.IWant("to get the members confirmation status.");
-
-			feature.WithScenario("Access IsUnconfirmed property")
+			feature.WithScenario("Access IsUnconfirmed property when not expired")
 				.Given(AOrganizationMembership)
-				.And(EntityIsRefreshed)
 				.When(IsUnconfirmedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationMembership>, 0)
+				.Then(RepositoryRefreshIsNotCalled<OrganizationMembership>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access IsUnconfirmed property when expired")
 				.Given(AOrganizationMembership)
 				.And(EntityIsExpired)
 				.When(IsUnconfirmedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationMembership>, 0)
+				.Then(RepositoryRefreshIsCalled<OrganizationMembership>, EntityRequestType.OrganizationMembership_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -38,26 +29,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Member()
 		{
-			var story = new Story("Member");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("access the details of the member who added an attachment")
-				.AsA("developer")
-				.IWant("to get the member object.");
-
-			feature.WithScenario("Access Member property")
+			feature.WithScenario("Access Member property when not expired")
 				.Given(AOrganizationMembership)
-				.And(EntityIsRefreshed)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationMembership>, 0)
-				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(RepositoryRefreshIsNotCalled<OrganizationMembership>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Member property when expired")
 				.Given(AOrganizationMembership)
 				.And(EntityIsExpired)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationMembership>, 0)
-				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(RepositoryRefreshIsCalled<OrganizationMembership>, EntityRequestType.OrganizationMembership_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -67,10 +51,8 @@ namespace Manatee.Trello.Test.Unit
 
 		private void AOrganizationMembership()
 		{
-			_systemUnderTest = new EntityUnderTest();
+			_test = new EntityUnderTest();
 			OwnedBy<Board>();
-			SetupMockRetrieve<Member>();
-			SetupMockGet<IJsonOrganizationMembership>();
 		}
 
 		#endregion
@@ -79,11 +61,11 @@ namespace Manatee.Trello.Test.Unit
 
 		private void IsUnconfirmedIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.IsUnconfirmed);
+			Execute(() => _test.Sut.IsUnconfirmed);
 		}
 		private void MemberIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Member);
+			Execute(() => _test.Sut.Member);
 		}
 
 		#endregion
