@@ -58,7 +58,8 @@ namespace Manatee.Trello
 				if (_jsonBoardPermissions == null) return null;
 				if (_jsonBoardPermissions.IdModel == null) return null;
 				return (_boardPermissions == null) || (_boardPermissions.Scope.Model.Id != _jsonToken.IdMember)
-						   ? (_boardPermissions = new TokenPermission<Board>(_jsonBoardPermissions, Download<Board>(_jsonBoardPermissions.IdModel)))
+						   ? (_boardPermissions = new TokenPermission<Board>(_jsonBoardPermissions,
+							   Download<Board>(_jsonBoardPermissions.IdModel, EntityRequestType.Board_Read_Refresh)))
 						   : _boardPermissions;
 			}
 		}
@@ -141,7 +142,8 @@ namespace Manatee.Trello
 				if (_jsonMemberPermissions == null) return null;
 				if (_jsonMemberPermissions.IdModel == null) return null;
 				return (_memberPermissions == null) || (_memberPermissions.Scope.Model.Id != _jsonToken.IdMember)
-					   ? (_memberPermissions = new TokenPermission<Member>(_jsonMemberPermissions, Download<Member>(_jsonMemberPermissions.IdModel)))
+					   ? (_memberPermissions = new TokenPermission<Member>(_jsonMemberPermissions,
+						   Download<Member>(_jsonMemberPermissions.IdModel, EntityRequestType.Member_Read_Refresh)))
 					   : _memberPermissions;
 			}
 		}
@@ -158,7 +160,8 @@ namespace Manatee.Trello
 				if (_jsonOrganizationPermissions == null) return null;
 				if (_jsonOrganizationPermissions.IdModel == null) return null;
 				return (_organizationPermissions == null) || (_organizationPermissions.Scope.Model.Id != _jsonToken.IdMember)
-				       	? (_organizationPermissions = new TokenPermission<Organization>(_jsonOrganizationPermissions, Download<Organization>(_jsonOrganizationPermissions.IdModel)))
+				       	? (_organizationPermissions = new TokenPermission<Organization>(_jsonOrganizationPermissions,
+							Download<Organization>(_jsonOrganizationPermissions.IdModel, EntityRequestType.Organization_Read_Refresh)))
 				       	: _organizationPermissions;
 			}
 		}
@@ -257,7 +260,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			if (_value == null) return false;
+			if (_isDeleted) return false;
 			Parameters.Add("_token", Value);
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Token_Read_Refresh);
@@ -265,22 +268,29 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
-			_jsonToken = (IJsonToken)obj;
-			_jsonBoardPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Board");
-			_jsonMemberPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Member");
-			_jsonOrganizationPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Organization");
+			if (obj == null) return;
+			_jsonToken = (IJsonToken) obj;
+			if (_jsonToken.Permissions != null)
+			{
+				_jsonBoardPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Board");
+				_jsonMemberPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Member");
+				_jsonOrganizationPermissions = _jsonToken.Permissions.SingleOrDefault(p => p.ModelType == "Organization");
+			}
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
+		}
+		internal void ForceDeleted(bool deleted)
+		{
+			_isDeleted = deleted;
 		}
 
 		private string GetExpirationDateString()
 		{
 			return DateExpires.HasValue ? string.Format("Expires {0}.", DateExpires.Value) : "Never expires.";
 		}
-		private T Download<T>(string id)
+		private T Download<T>(string id, EntityRequestType requestType)
 			where T : ExpiringObject
 		{
-			return EntityRepository.Download<T>(EntityRequestType.Action_Read_Refresh,
-												new Dictionary<string, object> { { "_id", id } });
+			return EntityRepository.Download<T>(requestType, new Dictionary<string, object> {{"_id", id}});
 		}
 	}
 }

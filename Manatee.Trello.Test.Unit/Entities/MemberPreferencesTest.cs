@@ -1,233 +1,157 @@
-﻿using System;
-using Manatee.Trello.Exceptions;
-using Manatee.Trello.Json;
+﻿using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StoryQ;
 
-namespace Manatee.Trello.Test.Unit
+namespace Manatee.Trello.Test.Unit.Entities
 {
 	[TestClass]
-	public class MemberPreferencesTest : EntityTestBase<MemberPreferences>
+	public class MemberPreferencesTest : EntityTestBase<MemberPreferences, IJsonMemberPreferences>
 	{
 		[TestMethod]
 		public void ColorBlind()
 		{
-			var story = new Story("ColorBlind");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control whether a member prefers color blind mode")
-				.AsA("developer")
-				.IWant("to get and set ColorBlind");
-
-			feature.WithScenario("Access ColorBlind property")
+			feature.WithScenario("Access ColorBlind property when not expired")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(ColorBlindIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<MemberPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access ColorBlind property when expired")
 				.Given(AMemberPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ColorBlindIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<MemberPreferences>, EntityRequestType.MemberPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ColorBlind property")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(ColorBlindIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<bool>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.MemberPreferences_Write_ColorBlind)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Set ColorBlind property to null")
-				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
-				.And(ColorBlindIs, (bool?) true)
-				.When(ColorBlindIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ColorBlind property to same")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(ColorBlindIs, (bool?) true)
 				.When(ColorBlindIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<bool>)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set ColorBlind property without UserToken")
-				.Given(AMemberPreferencesObject)
-				.And(TokenNotSupplied)
-				.When(ColorBlindIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void MinutesBetweenSummaries()
 		{
-			var story = new Story("MinutesBetweenSummaries");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control how often a member receives notification")
-				.AsA("developer")
-				.IWant("to get and set MinutesBetweenSummaries");
-
-			feature.WithScenario("Access MinutesBetweenSummaries property")
+			feature.WithScenario("Access MinutesBetweenSummaries property when not expired")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(MinutesBetweenSummariesIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<MemberPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access MinutesBetweenSummaries property when expired")
 				.Given(AMemberPreferencesObject)
 				.And(EntityIsExpired)
 				.When(MinutesBetweenSummariesIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<MemberPreferences>, EntityRequestType.MemberPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBetweenSummaries property")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(MinutesBetweenSummariesIsSet, (MemberPreferenceSummaryPeriodType?) MemberPreferenceSummaryPeriodType.OneMinute)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<MemberPreferenceSummaryPeriodType>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.MemberPreferences_Write_MinutesBetweenSummaries)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set MinutesBetweenSummaries property to null")
-				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
-				.And(MinutesBetweenSummariesIs, (MemberPreferenceSummaryPeriodType?) MemberPreferenceSummaryPeriodType.OneHour)
-				.When(MinutesBetweenSummariesIsSet, (MemberPreferenceSummaryPeriodType?) null)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set MinutesBetweenSummaries property to same")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(MinutesBetweenSummariesIs, (MemberPreferenceSummaryPeriodType?) MemberPreferenceSummaryPeriodType.OneHour)
 				.When(MinutesBetweenSummariesIsSet, (MemberPreferenceSummaryPeriodType?)MemberPreferenceSummaryPeriodType.OneHour)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<MemberPreferenceSummaryPeriodType>)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set MinutesBetweenSummaries property without UserToken")
-				.Given(AMemberPreferencesObject)
-				.And(TokenNotSupplied)
-				.When(MinutesBetweenSummariesIsSet, (MemberPreferenceSummaryPeriodType?) MemberPreferenceSummaryPeriodType.OneMinute)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
-		[Ignore]
 		public void SendSummaries()
 		{
-			var story = new Story("SendSummaries");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control whether a member receives notification summary emails")
-				.AsA("developer")
-				.IWant("to get and set SendSummaries");
-
-			feature.WithScenario("Access SendSummaries property")
+			feature.WithScenario("Access SendSummaries property when not expired")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(SendSummariesIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<MemberPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access SendSummaries property when expired")
 				.Given(AMemberPreferencesObject)
 				.And(EntityIsExpired)
 				.When(SendSummariesIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<MemberPreferences>, EntityRequestType.MemberPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set SendSummaries property")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(SendSummariesIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<bool>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.MemberPreferences_Write_SendSummaries)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set SendSummaries property to null")
-				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
-				.And(SendSummariesIs, (bool?) true)
-				.When(SendSummariesIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set SendSummaries property to same")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(SendSummariesIs, (bool?) true)
 				.When(SendSummariesIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<bool>)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set SendSummaries property without UserToken")
-				.Given(AMemberPreferencesObject)
-				.And(TokenNotSupplied)
-				.When(SendSummariesIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
-		[Ignore]
 		public void MinutesBeforeDeadlineToNotify()
 		{
-			var story = new Story("MinutesBeforeDeadlineToNotify");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control how soon before a notification a member receives email notification")
-				.AsA("developer")
-				.IWant("to get and set MinutesBeforeDeadlineToNotify");
-
-			feature.WithScenario("Access MinutesBeforeDeadlineToNotify property")
+			feature.WithScenario("Access MinutesBeforeDeadlineToNotify property when not expired")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(MinutesBeforeDeadlineToNotifyIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<MemberPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access MinutesBeforeDeadlineToNotify property when expired")
 				.Given(AMemberPreferencesObject)
 				.And(EntityIsExpired)
 				.When(MinutesBeforeDeadlineToNotifyIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonMemberPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<MemberPreferences>, EntityRequestType.MemberPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<int>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.MemberPreferences_Write_MinutesBeforeDeadlineToNotify)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set MinutesBeforeDeadlineToNotify property to null")
-				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
-				.And(MinutesBeforeDeadlineToNotifyIs, (int?) 10)
-				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) null)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set MinutesBeforeDeadlineToNotify property to same")
 				.Given(AMemberPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(MinutesBeforeDeadlineToNotifyIs, (int?) 10)
 				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNullableIsCalled<int>)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set MinutesBeforeDeadlineToNotify property without UserToken")
-				.Given(AMemberPreferencesObject)
-				.And(TokenNotSupplied)
-				.When(MinutesBeforeDeadlineToNotifyIsSet, (int?) 10)
-				.Then(MockApiPutIsCalled<IJsonMemberPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -236,25 +160,29 @@ namespace Manatee.Trello.Test.Unit
 
 		private void AMemberPreferencesObject()
 		{
-			_systemUnderTest = new EntityUnderTest();
+			_test = new EntityUnderTest();
 			OwnedBy<Member>();
-			SetupMockGet<IJsonMemberPreferences>();
 		}
 		private void ColorBlindIs(bool? value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.ColorBlind = value);
+			_test.Json.SetupGet(j => j.ColorBlind)
+				 .Returns(value);
 		}
 		private void MinutesBetweenSummariesIs(MemberPreferenceSummaryPeriodType? value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.MinutesBetweenSummaries = value);
+			_test.Json.SetupGet(j => j.MinutesBetweenSummaries)
+				 .Returns((int?) value);
+			ReapplyJson();
 		}
 		private void SendSummariesIs(bool? value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.SendSummaries = value);
+			_test.Json.SetupGet(j => j.SendSummaries)
+				 .Returns(value);
 		}
 		private void MinutesBeforeDeadlineToNotifyIs(int? value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.MinutesBeforeDeadlineToNotify = value);
+			_test.Json.SetupGet(j => j.MinutesBeforeDeadlineToNotify)
+				 .Returns(value);
 		}
 
 		#endregion
@@ -263,35 +191,35 @@ namespace Manatee.Trello.Test.Unit
 
 		private void ColorBlindIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.ColorBlind);
+			Execute(() => _test.Sut.ColorBlind);
 		}
 		private void ColorBlindIsSet(bool? value)
 		{
-			Execute(() => _systemUnderTest.Sut.ColorBlind = value);
+			Execute(() => _test.Sut.ColorBlind = value);
 		}
 		private void MinutesBetweenSummariesIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.MinutesBetweenSummaries);
+			Execute(() => _test.Sut.MinutesBetweenSummaries);
 		}
 		private void MinutesBetweenSummariesIsSet(MemberPreferenceSummaryPeriodType? value)
 		{
-			Execute(() => _systemUnderTest.Sut.MinutesBetweenSummaries = value);
+			Execute(() => _test.Sut.MinutesBetweenSummaries = value);
 		}
 		private void SendSummariesIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.SendSummaries);
+			Execute(() => _test.Sut.SendSummaries);
 		}
 		private void SendSummariesIsSet(bool? value)
 		{
-			Execute(() => _systemUnderTest.Sut.SendSummaries = value);
+			Execute(() => _test.Sut.SendSummaries = value);
 		}
 		private void MinutesBeforeDeadlineToNotifyIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.MinutesBeforeDeadlineToNotify);
+			Execute(() => _test.Sut.MinutesBeforeDeadlineToNotify);
 		}
 		private void MinutesBeforeDeadlineToNotifyIsSet(int? value)
 		{
-			Execute(() => _systemUnderTest.Sut.MinutesBeforeDeadlineToNotify = value);
+			Execute(() => _test.Sut.MinutesBeforeDeadlineToNotify = value);
 		}
 
 		#endregion

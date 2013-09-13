@@ -64,7 +64,6 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				if (_jsonOrganizationMembership == null) return null;
 				return _jsonOrganizationMembership.Unconfirmed;
 			}
 		}
@@ -76,7 +75,6 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				if (_jsonOrganizationMembership == null) return null;
 				return UpdateById(ref _member, EntityRequestType.Member_Read_Refresh, _jsonOrganizationMembership.IdMember);
 			}
 		}
@@ -95,7 +93,8 @@ namespace Manatee.Trello
 			           	{
 			           		{OrganizationMembershipType.Admin, "admin"},
 			           		{OrganizationMembershipType.Normal, "normal"},
-			           		//{OrganizationMembershipType.Observer, "observer"},
+			           		{OrganizationMembershipType.Observer, "observer"},
+			           		{OrganizationMembershipType.Ghost, "ghost"},
 			           	};
 		}
 		/// <summary>
@@ -167,10 +166,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			//var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			//var request = Api.RequestProvider.Create(endpoint.ToString());
-			//ApplyJson(Api.Get<IJsonBoardMembership>(request));
-			return false;
+			Parameters["_id"] = Id;
+			Parameters["_organizationId"] = Owner.Id;
+			AddDefaultParameters();
+			return EntityRepository.Refresh(this, EntityRequestType.OrganizationMembership_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)

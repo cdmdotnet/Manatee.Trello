@@ -1,39 +1,30 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using StoryQ;
 
-namespace Manatee.Trello.Test.Unit
+namespace Manatee.Trello.Test.Unit.Entities
 {
 	[TestClass]
-	public class TokenTest : EntityTestBase<Token>
+	public class TokenTest : EntityTestBase<Token, IJsonToken>
 	{
 		[TestMethod]
 		public void BoardPermissions()
 		{
-			var story = new Story("BoardPermissions");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get the permissions over boards allowed by a token")
-				.AsA("developer")
-				.IWant("to get the BoardPermissions");
-
-			feature.WithScenario("Access BoardPermissions property")
+			feature.WithScenario("Access BoardPermissions property when not expired")
 				.Given(AToken)
-				.And(EntityIsRefreshed)
 				.When(BoardPermissionsIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Token>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access BoardPermissions property when expired")
 				.Given(AToken)
 				.And(EntityIsExpired)
 				.When(BoardPermissionsIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsCalled<Token>, EntityRequestType.Token_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -41,24 +32,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void DateCreated()
 		{
-			var story = new Story("DateCreated");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get the date when a token was created")
-				.AsA("developer")
-				.IWant("to get the DateCreated");
-
-			feature.WithScenario("Access DateCreated property")
+			feature.WithScenario("Access DateCreated property when not expired")
 				.Given(AToken)
-				.And(EntityIsRefreshed)
 				.When(DateCreatedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Token>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access DateCreated property when expired")
 				.Given(AToken)
 				.And(EntityIsExpired)
 				.When(DateCreatedIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsCalled<Token>, EntityRequestType.Token_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -66,24 +52,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void DateExpires()
 		{
-			var story = new Story("DateExpires");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get the date when a token expires")
-				.AsA("developer")
-				.IWant("to get the DateExpires");
-
-			feature.WithScenario("Access DateExpires property")
+			feature.WithScenario("Access DateExpires property when not expired")
 				.Given(AToken)
-				.And(EntityIsRefreshed)
 				.When(DateExpiresIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Token>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access DateExpires property when expired")
 				.Given(AToken)
 				.And(EntityIsExpired)
 				.When(DateExpiresIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsCalled<Token>, EntityRequestType.Token_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -91,24 +72,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Identifier()
 		{
-			var story = new Story("Identifier");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get the application which requested a token")
-				.AsA("developer")
-				.IWant("to get the Identifier");
-
-			feature.WithScenario("Access Identifier property")
+			feature.WithScenario("Access Identifier property when not expired")
 				.Given(AToken)
-				.And(EntityIsRefreshed)
 				.When(IdentifierIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Token>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Identifier property when expired")
 				.Given(AToken)
 				.And(EntityIsExpired)
 				.When(IdentifierIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsCalled<Token>, EntityRequestType.Token_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -116,26 +92,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Member()
 		{
-			var story = new Story("Member");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get the member who issued a token")
-				.AsA("developer")
-				.IWant("to get the Member");
-
-			feature.WithScenario("Access Member property")
+			feature.WithScenario("Access Member property when not expired")
 				.Given(AToken)
-				.And(EntityIsRefreshed)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
-				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Token>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Member property when expired")
 				.Given(AToken)
 				.And(EntityIsExpired)
 				.When(MemberIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
-				.And(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(RepositoryRefreshIsCalled<Token>, EntityRequestType.Token_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -143,24 +112,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void MemberPermissions()
 		{
-			var story = new Story("MemberPermissions");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get the permissions over boards allowed by a token")
-				.AsA("developer")
-				.IWant("to get the MemberPermissions");
-
-			feature.WithScenario("Access MemberPermissions property")
+			feature.WithScenario("Access MemberPermissions property when not expired")
 				.Given(AToken)
-				.And(EntityIsRefreshed)
 				.When(MemberPermissionsIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Token>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access MemberPermissions property when expired")
 				.Given(AToken)
 				.And(EntityIsExpired)
 				.When(MemberPermissionsIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsCalled<Token>, EntityRequestType.Token_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -168,24 +132,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void OrganizationPermissions()
 		{
-			var story = new Story("OrganizationPermissions");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get the permissions over boards allowed by a token")
-				.AsA("developer")
-				.IWant("to get the OrganizationPermissions");
-
-			feature.WithScenario("Access OrganizationPermissions property")
+			feature.WithScenario("Access OrganizationPermissions property when not expired")
 				.Given(AToken)
-				.And(EntityIsRefreshed)
 				.When(OrganizationPermissionsIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Token>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access OrganizationPermissions property when expired")
 				.Given(AToken)
 				.And(EntityIsExpired)
 				.When(OrganizationPermissionsIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonToken>, 1)
+				.Then(RepositoryRefreshIsCalled<Token>, EntityRequestType.Token_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -193,24 +152,22 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Delete()
 		{
-			var story = new Story("Delete");
-
-			var feature = story.InOrderTo("delete a token")
-				.AsA("developer")
-				.IWant("to call Delete");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Delete is called")
 				.Given(AToken)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<IJsonToken>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Token_Write_Delete)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Delete is called without UserToken")
+				.WithScenario("Delete is called when already deleted")
 				.Given(AToken)
-				.And(TokenNotSupplied)
+				.And(AlreadyDeleted)
 				.When(DeleteIsCalled)
-				.Then(MockApiPutIsCalled<IJsonToken>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+				.Then(ValidatorWritableIsNotCalled)
+				.And(RepositoryUploadIsNotCalled)
+				.And(ExceptionIsNotThrown)
 
 				.Execute();
 		}
@@ -228,12 +185,18 @@ namespace Manatee.Trello.Test.Unit
 			var orgPerm = new Mock<IJsonTokenPermission>();
 			orgPerm.SetupGet(p => p.ModelType)
 				.Returns("Organization");
-			_systemUnderTest = new EntityUnderTest();
-			_systemUnderTest.Sut.Value = TrelloIds.Invalid;
-			var mock = SetupMockGet<IJsonToken>();
-			mock.Object.Permissions = new List<IJsonTokenPermission> {boardPerm.Object, memberPerm.Object, orgPerm.Object};
-			mock.Object.IdMember = TrelloIds.MemberId;
-			SetupMockRetrieve<Member>();
+			_test = new EntityUnderTest();
+			_test.Json.SetupGet(j => j.Permissions)
+				 .Returns(new List<IJsonTokenPermission> {boardPerm.Object, memberPerm.Object, orgPerm.Object});
+			_test.Json.SetupGet(j => j.IdMember)
+				 .Returns(TrelloIds.MemberId);
+			_test.Json.SetupGet(j => j.Identifier)
+				 .Returns(TrelloIds.Invalid);
+			ReapplyJson();
+		}
+		private void AlreadyDeleted()
+		{
+			_test.Sut.ForceDeleted(true);
 		}
 
 		#endregion
@@ -242,35 +205,35 @@ namespace Manatee.Trello.Test.Unit
 
 		private void BoardPermissionsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.BoardPermissions);
+			Execute(() => _test.Sut.BoardPermissions);
 		}
 		private void DateCreatedIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.DateCreated);
+			Execute(() => _test.Sut.DateCreated);
 		}
 		private void DateExpiresIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.DateExpires);
+			Execute(() => _test.Sut.DateExpires);
 		}
 		private void IdentifierIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Identifier);
+			Execute(() => _test.Sut.Identifier);
 		}
 		private void MemberIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Member);
+			Execute(() => _test.Sut.Member);
 		}
 		private void MemberPermissionsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.MemberPermissions);
+			Execute(() => _test.Sut.MemberPermissions);
 		}
 		private void OrganizationPermissionsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.OrganizationPermissions);
+			Execute(() => _test.Sut.OrganizationPermissions);
 		}
 		private void DeleteIsCalled()
 		{
-			Execute(() => _systemUnderTest.Sut.Delete());
+			Execute(() => _test.Sut.Delete());
 		}
 
 		#endregion

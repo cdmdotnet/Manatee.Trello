@@ -1,68 +1,81 @@
 ﻿using System;
-using System.Collections.Generic;
-using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using StoryQ;
 
-namespace Manatee.Trello.Test.Unit
+namespace Manatee.Trello.Test.Unit.Entities
 {
 	[TestClass]
-	public class OrganizationPreferencesTest : EntityTestBase<OrganizationPreferences>
+	public class OrganizationPreferencesTest : EntityTestBase<OrganizationPreferences, IJsonOrganizationPreferences>
 	{
+		[TestMethod]
+		public void AssociatedDomain()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("Access AssociatedDomain property when not expired")
+				.Given(AnOrganizationPreferencesObject)
+				.When(AssociatedDomainIsAccessed)
+				.Then(RepositoryRefreshIsNotCalled<OrganizationPreferences>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access AssociatedDomain property when expired")
+				.Given(AnOrganizationPreferencesObject)
+				.And(EntityIsExpired)
+				.When(AssociatedDomainIsAccessed)
+				.Then(RepositoryRefreshIsCalled<OrganizationPreferences>, EntityRequestType.OrganizationPreferences_Read_Refresh)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set AssociatedDomain property")
+				.Given(AnOrganizationPreferencesObject)
+				.When(AssociatedDomainIsSet, "domain")
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_AssociatedDomain)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set AssociatedDomain property to same")
+				.Given(AnOrganizationPreferencesObject)
+				.And(AssociatedDomainIs, "domain")
+				.When(AssociatedDomainIsSet, "domain")
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsNotCalled)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
 		[TestMethod]
 		public void ExternalMembersDisabled()
 		{
-			var story = new Story("ExternalMembersDisabled");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("???")
-				.AsA("developer")
-				.IWant("to get and set the ExternalMembersDisabled property value.");
-
-			feature.WithScenario("Access ExternalMembersDisabled property")
+			feature.WithScenario("Access ExternalMembersDisabled property when not expired")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(ExternalMembersDisabledIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<OrganizationPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access ExternalMembersDisabled property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(ExternalMembersDisabledIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<OrganizationPreferences>, EntityRequestType.OrganizationPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set ExternalMembersDisabled property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(ExternalMembersDisabledIsSet, (bool?)true)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_ExternalMembersDisabled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set ExternalMembersDisabled property to null")
-				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
-				.And(ExternalMembersDisabledIs, (bool?)true)
-				.When(ExternalMembersDisabledIsSet, (bool?) null)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("Set ExternalMembersDisabled property to same")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(ExternalMembersDisabledIs, (bool?)true)
-				.When(ExternalMembersDisabledIsSet, (bool?) true)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set ExternalMembersDisabled property without UserToken")
-				.Given(AnOrganizationPreferencesObject)
-				.And(TokenNotSupplied)
 				.When(ExternalMembersDisabledIsSet, (bool?)true)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsNotCalled)
+				.And(ExceptionIsNotThrown)
 
 				.Execute();
 		}
@@ -75,188 +88,140 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void OrgVisibleBoardVisibility()
 		{
-			var story = new Story("OrgVisibleBoardVisibility");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control the exposure of owned boards")
-				.AsA("developer")
-				.IWant("to get the OrgVisibleBoardVisibility property value.");
-
-			feature.WithScenario("Access OrgVisibleBoardVisibility property")
+			feature.WithScenario("Access OrgVisibleBoardVisibility property when not expired")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(OrgVisibleBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<OrganizationPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access OrgVisibleBoardVisibility property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(OrgVisibleBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<OrganizationPreferences>, EntityRequestType.OrganizationPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set OrgVisibleBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(OrgVisibleBoardVisibilityIsSet, BoardPermissionLevelType.Org)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_OrgVisibleBoardVisibility)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set OrgVisibleBoardVisibility property to same")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(OrgVisibleBoardVisibilityIs, BoardPermissionLevelType.Org)
 				.When(OrgVisibleBoardVisibilityIsSet, BoardPermissionLevelType.Org)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set OrgVisibleBoardVisibility property without UserToken")
-				.Given(AnOrganizationPreferencesObject)
-				.And(TokenNotSupplied)
-				.When(OrgVisibleBoardVisibilityIsSet, BoardPermissionLevelType.Org)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void PermissionLevel()
 		{
-			var story = new Story("PermissionLevel");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control who is allowed to view the organization and its boards")
-				.AsA("developer")
-				.IWant("to get the PermissionLevel property value.");
-
-			feature.WithScenario("Access PermissionLevel property")
+			feature.WithScenario("Access PermissionLevel property when not expired")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(PermissionLevelIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<OrganizationPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PermissionLevel property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(PermissionLevelIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<OrganizationPreferences>, EntityRequestType.OrganizationPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Voting property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_PermissionLevel)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PermissionLevel property to same")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(PermissionLevelIs, OrganizationPermissionLevelType.Public)
 				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set PermissionLevel property without UserToken")
-				.Given(AnOrganizationPreferencesObject)
-				.And(TokenNotSupplied)
-				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void PrivateBoardVisibility()
 		{
-			var story = new Story("PrivateBoardVisibility");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control the exposure of owned boards")
-				.AsA("developer")
-				.IWant("to get the PrivateBoardVisibility property value.");
-
-			feature.WithScenario("Access PrivateBoardVisibility property")
+			feature.WithScenario("Access PrivateBoardVisibility property when not expired")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(PrivateBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<OrganizationPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PrivateBoardVisibility property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(PrivateBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<OrganizationPreferences>, EntityRequestType.OrganizationPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PrivateBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(PrivateBoardVisibilityIsSet, BoardPermissionLevelType.Private)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_PrivateBoardVisibility)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PrivateBoardVisibility property to same")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(PrivateBoardVisibilityIs, BoardPermissionLevelType.Private)
 				.When(PrivateBoardVisibilityIsSet, BoardPermissionLevelType.Private)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set PrivateBoardVisibility property without UserToken")
-				.Given(AnOrganizationPreferencesObject)
-				.And(TokenNotSupplied)
-				.When(PrivateBoardVisibilityIsSet, BoardPermissionLevelType.Private)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void PublicBoardVisibility()
 		{
-			var story = new Story("PublicBoardVisibility");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control the exposure of owned boards")
-				.AsA("developer")
-				.IWant("to get the PublicBoardVisibility property value.");
-
-			feature.WithScenario("Access PublicBoardVisibility property")
+			feature.WithScenario("Access PublicBoardVisibility property when not expired")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(PublicBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsNotCalled<OrganizationPreferences>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PublicBoardVisibility property when expired")
 				.Given(AnOrganizationPreferencesObject)
 				.And(EntityIsExpired)
 				.When(PublicBoardVisibilityIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(RepositoryRefreshIsCalled<OrganizationPreferences>, EntityRequestType.OrganizationPreferences_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PublicBoardVisibility property")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.When(PublicBoardVisibilityIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_PublicBoardVisibility)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set PublicBoardVisibility property to same")
 				.Given(AnOrganizationPreferencesObject)
-				.And(EntityIsRefreshed)
 				.And(PublicBoardVisibilityIs, BoardPermissionLevelType.Public)
 				.When(PublicBoardVisibilityIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set PublicBoardVisibility property without UserToken")
-				.Given(AnOrganizationPreferencesObject)
-				.And(TokenNotSupplied)
-				.When(PublicBoardVisibilityIsSet, BoardPermissionLevelType.Public)
-				.Then(MockApiPutIsCalled<IJsonOrganizationPreferences>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
@@ -265,90 +230,117 @@ namespace Manatee.Trello.Test.Unit
 
 		private void AnOrganizationPreferencesObject()
 		{
-			_systemUnderTest = new EntityUnderTest();
+			_test = new EntityUnderTest();
 			OwnedBy<Organization>();
-			var mock = SetupMockGet<IJsonOrganizationPreferences>();
-			var restrict = new Mock<IJsonBoardVisibilityRestrict>();
-			restrict.SetupAllProperties();
-			mock.SetupGet(p => p.BoardVisibilityRestrict)
-				.Returns(restrict.Object);
+		}
+		private void AssociatedDomainIs(string value)
+		{
+			_test.Json.SetupGet(j => j.AssociatedDomain)
+				.Returns(value);
 		}
 		private void ExternalMembersDisabledIs(bool? value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.ExternalMembersDisabled = value);
+			_test.Json.SetupGet(j => j.ExternalMembersDisabled)
+				.Returns(value);
 		}
-		private void OrgInviteRestrictIs(List<object> value)
-		{
-			SetupProperty(() => _systemUnderTest.Sut.OrgInviteRestrict = value);
-		}
+		//private void OrgInviteRestrictIs(List<object> value)
+		//{
+		//	_test.Json.SetupGet(j => j.OrgInviteRestrict)
+		//		.Returns(value);
+		//}
 		private void OrgVisibleBoardVisibilityIs(BoardPermissionLevelType value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.OrgVisibleBoardVisibility = value);
+			var restrict = new Mock<IJsonBoardVisibilityRestrict>();
+			restrict.SetupGet(r => r.Org)
+					.Returns(value.ToLowerString());
+			_test.Json.SetupGet(j => j.BoardVisibilityRestrict)
+				 .Returns(restrict.Object);
+			ReapplyJson();
 		}
 		private void PermissionLevelIs(OrganizationPermissionLevelType value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.PermissionLevel = value);
+			_test.Json.SetupGet(j => j.PermissionLevel)
+				.Returns(value.ToLowerString());
+			ReapplyJson();
 		}
 		private void PrivateBoardVisibilityIs(BoardPermissionLevelType value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.PrivateBoardVisibility = value);
+			var restrict = new Mock<IJsonBoardVisibilityRestrict>();
+			restrict.SetupGet(r => r.Private)
+					.Returns(value.ToLowerString());
+			_test.Json.SetupGet(j => j.BoardVisibilityRestrict)
+				 .Returns(restrict.Object);
+			ReapplyJson();
 		}
 		private void PublicBoardVisibilityIs(BoardPermissionLevelType value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.PublicBoardVisibility = value);
+			var restrict = new Mock<IJsonBoardVisibilityRestrict>();
+			restrict.SetupGet(r => r.Public)
+					.Returns(value.ToLowerString());
+			_test.Json.SetupGet(j => j.BoardVisibilityRestrict)
+				 .Returns(restrict.Object);
+			ReapplyJson();
 		}
 
 		#endregion
 
 		#region When
 
+		private void AssociatedDomainIsAccessed()
+		{
+			Execute(() => _test.Sut.AssociatedDomain);
+		}
+		private void AssociatedDomainIsSet(string value)
+		{
+			Execute(() => _test.Sut.AssociatedDomain = value);
+		}
 		private void ExternalMembersDisabledIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.ExternalMembersDisabled);
+			Execute(() => _test.Sut.ExternalMembersDisabled);
 		}
 		private void ExternalMembersDisabledIsSet(bool? value)
 		{
-			Execute(() => _systemUnderTest.Sut.ExternalMembersDisabled = value);
+			Execute(() => _test.Sut.ExternalMembersDisabled = value);
 		}
-		private void OrgInviteRestrictIsAccessed()
-		{
-			Execute(() => _systemUnderTest.Sut.OrgInviteRestrict);
-		}
-		private void OrgInviteRestrictIsSet(List<object> value)
-		{
-			Execute(() => _systemUnderTest.Sut.OrgInviteRestrict = value);
-		}
+		//private void OrgInviteRestrictIsAccessed()
+		//{
+		//	Execute(() => _test.Sut.OrgInviteRestrict);
+		//}
+		//private void OrgInviteRestrictIsSet(List<object> value)
+		//{
+		//	Execute(() => _test.Sut.OrgInviteRestrict = value);
+		//}
 		private void OrgVisibleBoardVisibilityIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.OrgVisibleBoardVisibility);
+			Execute(() => _test.Sut.OrgVisibleBoardVisibility);
 		}
 		private void OrgVisibleBoardVisibilityIsSet(BoardPermissionLevelType value)
 		{
-			Execute(() => _systemUnderTest.Sut.OrgVisibleBoardVisibility = value);
+			Execute(() => _test.Sut.OrgVisibleBoardVisibility = value);
 		}
 		private void PermissionLevelIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.PermissionLevel);
+			Execute(() => _test.Sut.PermissionLevel);
 		}
 		private void PermissionLevelIsSet(OrganizationPermissionLevelType value)
 		{
-			Execute(() => _systemUnderTest.Sut.PermissionLevel = value);
+			Execute(() => _test.Sut.PermissionLevel = value);
 		}
 		private void PrivateBoardVisibilityIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.PrivateBoardVisibility);
+			Execute(() => _test.Sut.PrivateBoardVisibility);
 		}
 		private void PrivateBoardVisibilityIsSet(BoardPermissionLevelType value)
 		{
-			Execute(() => _systemUnderTest.Sut.PrivateBoardVisibility = value);
+			Execute(() => _test.Sut.PrivateBoardVisibility = value);
 		}
 		private void PublicBoardVisibilityIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.PublicBoardVisibility);
+			Execute(() => _test.Sut.PublicBoardVisibility);
 		}
 		private void PublicBoardVisibilityIsSet(BoardPermissionLevelType value)
 		{
-			Execute(() => _systemUnderTest.Sut.PublicBoardVisibility = value);
+			Execute(() => _test.Sut.PublicBoardVisibility = value);
 		}
 
 		#endregion

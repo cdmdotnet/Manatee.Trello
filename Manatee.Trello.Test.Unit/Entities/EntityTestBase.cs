@@ -28,6 +28,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 						Log = Dependencies.Log.Object,
 						Validator = Dependencies.Validator.Object
 					};
+				Sut.PropagateDependencies();
 				Sut.ApplyJson(Json.Object);
 
 				Dependencies.EntityRepository.Setup(r => r.Refresh(It.Is<T>(e => e.Id == Sut.Id), It.IsAny<EntityRequestType>()))
@@ -155,6 +156,50 @@ namespace Manatee.Trello.Test.Unit.Entities
 		protected void ValidatorWritableIsNotCalled()
 		{
 			_test.Dependencies.Validator.Verify(v => v.Writable(), Times.Never());
+		}
+		[ParameterizedMethodFormat("Validator.MinStringLength({0}) is called")]
+		protected void ValidatorMinStringLengthIsCalled(int length)
+		{
+			_test.Dependencies.Validator.Verify(v => v.MinStringLength(It.IsAny<string>(), It.Is<int>(i => i == length),
+																	   It.IsAny<string>()));
+		}
+		[ParameterizedMethodFormat("Validator.MinStringLength() is not called")]
+		protected void ValidatorMinStringLengthIsNotCalled()
+		{
+			_test.Dependencies.Validator.Verify(v => v.MinStringLength(It.IsAny<string>(), It.IsAny<int>(),
+																	   It.IsAny<string>()), Times.Never());
+		}
+		[ParameterizedMethodFormat("Validator.StringLengthRange({0}, {1}) is called")]
+		protected void ValidatorStringLengthRangeIsCalled(int min, int max)
+		{
+			_test.Dependencies.Validator.Verify(v => v.StringLengthRange(It.IsAny<string>(), It.Is<int>(i => i == min),
+																		 It.Is<int>(i => i == max), It.IsAny<string>()));
+		}
+		[ParameterizedMethodFormat("Validator.StringLengthRange() is not called")]
+		protected void ValidatorStringLengthRangeIsNotCalled()
+		{
+			_test.Dependencies.Validator.Verify(v => v.StringLengthRange(It.IsAny<string>(), It.IsAny<int>(),
+																		 It.IsAny<int>(), It.IsAny<string>()), Times.Never());
+		}
+		[ParameterizedMethodFormat("Validator.UserName() is called")]
+		protected void ValidatorUserNameIsCalled()
+		{
+			_test.Dependencies.Validator.Verify(v => v.UserName(It.IsAny<string>()));
+		}
+		[ParameterizedMethodFormat("Validator.UserName() is not called")]
+		protected void ValidatorUserNameIsNotCalled()
+		{
+			_test.Dependencies.Validator.Verify(v => v.UserName(It.IsAny<string>()), Times.Never());
+		}
+		[ParameterizedMethodFormat("Validator.OrgName() is called")]
+		protected void ValidatorOrgNameIsCalled()
+		{
+			_test.Dependencies.Validator.Verify(v => v.OrgName(It.IsAny<string>()));
+		}
+		[ParameterizedMethodFormat("Validator.OrgName() is not called")]
+		protected void ValidatorOrgNameIsNotCalled()
+		{
+			_test.Dependencies.Validator.Verify(v => v.OrgName(It.IsAny<string>()), Times.Never());
 		}
 		[ParameterizedMethodFormat("Validator.Entity() is called")]
 		protected void ValidatorEntityIsCalled<TEntity>()

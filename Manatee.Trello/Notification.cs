@@ -84,7 +84,6 @@ namespace Manatee.Trello
 
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonNotification == null) return;
 				if (_jsonNotification.Unread == value) return;
 				_jsonNotification.Unread = value;
 				Parameters.Add("unread", _jsonNotification.Unread.ToLowerString());
@@ -98,8 +97,6 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				if (_jsonNotification == null) return null;
-				if (_jsonNotification.IdMemberCreator == null) return null;
 				return UpdateById(ref _memberCreator, EntityRequestType.Member_Read_Refresh, _jsonNotification.IdMemberCreator);
 			}
 		}

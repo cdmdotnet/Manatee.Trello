@@ -68,7 +68,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Entity(value);
@@ -111,7 +110,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.NonEmptyString(value);
 				if (_jsonCheckList == null) return;
@@ -135,7 +133,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Position(value);
 				if (_jsonCheckList == null) return;

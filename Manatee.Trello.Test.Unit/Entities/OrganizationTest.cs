@@ -1,32 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using Manatee.Trello.Exceptions;
-using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
+﻿using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using StoryQ;
 
-namespace Manatee.Trello.Test.Unit
+namespace Manatee.Trello.Test.Unit.Entities
 {
 	[TestClass]
-	public class OrganizationTest : EntityTestBase<Organization>
+	public class OrganizationTest : EntityTestBase<Organization, IJsonOrganization>
 	{
 		[TestMethod]
 		public void Actions()
 		{
-			var story = new Story("Actions");
-
-			var feature = story.InOrderTo("get all actions for an organization")
-				.AsA("developer")
-				.IWant("to get Actions");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Actions property")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
-				.Then(MockApiGetIsCalled<List<IJsonAction>>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<Action>>)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -34,18 +23,13 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Boards()
 		{
-			var story = new Story("Boards");
-
-			var feature = story.InOrderTo("get the boards owned by an organization")
-				.AsA("developer")
-				.IWant("to get Boards");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Boards property")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(BoardsIsAccessed)
-				.Then(MockApiGetIsCalled<List<IJsonBoard>>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<Board>>)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -53,143 +37,85 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Description()
 		{
-			var story = new Story("Description");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control an organization's description")
-				.AsA("developer")
-				.IWant("to get and set the Description");
-
-			feature.WithScenario("Access Description property")
+			feature.WithScenario("Access Description property when not expired")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(DescriptionIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Description property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(DescriptionIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsCalled<Organization>, EntityRequestType.Organization_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Description property")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(DescriptionIsSet, "description")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Description property to null")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.And(DescriptionIs, "not description")
-				.When(DescriptionIsSet, (string) null)
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Description property to empty")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.And(DescriptionIs, "not description")
-				.When(DescriptionIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Organization_Write_Description)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Description property to same")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.And(DescriptionIs, "description")
 				.When(DescriptionIsSet, "description")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Description property without UserToken")
-				.Given(AnOrganization)
-				.And(TokenNotSupplied)
-				.When(DescriptionIsSet, "description")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void DisplayName()
 		{
-			var story = new Story("DisplayName");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control an organization's display name")
-				.AsA("developer")
-				.IWant("to get and set the DisplayName");
-
-			feature.WithScenario("Access DisplayName property")
+			feature.WithScenario("Access DisplayName property when not expired")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(DisplayNameIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access DisplayName property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(DisplayNameIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsCalled<Organization>, EntityRequestType.Organization_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set DisplayName property")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(DisplayNameIsSet, "description")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorMinStringLengthIsCalled, 4)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Organization_Write_DisplayName)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set DisplayName property to null")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.And(DisplayNameIs, "not description")
-				.When(DisplayNameIsSet, (string) null)
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("Set DisplayName property to less than 4 characters")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.When(DisplayNameIsSet, "bad")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Set DisplayName property to same")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.And(DisplayNameIs, "description")
 				.When(DisplayNameIsSet, "description")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorMinStringLengthIsNotCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set DisplayName property without UserToken")
-				.Given(AnOrganization)
-				.And(TokenNotSupplied)
-				.When(DisplayNameIsSet, "description")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void InvitedMembers()
 		{
-			var story = new Story("InvitedMembers");
-
-			var feature = story.InOrderTo("get all members invited an organization")
-				.AsA("developer")
-				.IWant("to get InvitedMembers");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access InvitedMembers property")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(InvitedMembersIsAccessed)
-				.Then(MockApiGetIsCalled<List<IJsonMember>>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<Member>>)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -197,17 +123,13 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void IsPaidAccount()
 		{
-			var story = new Story("IsPaidAccount");
-
-			var feature = story.InOrderTo("get whether an organization has paid features")
-				.AsA("developer")
-				.IWant("to get IsPaidAccount");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access IsPaidAccount property")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(IsPaidAccountIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 0)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -215,24 +137,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void LogoHash()
 		{
-			var story = new Story("AvatarHash");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get a organization's logo hash")
-				.AsA("developer")
-				.IWant("to get the AvatarHash");
-
-			feature.WithScenario("Access AvatarHash property")
+			feature.WithScenario("Access AvatarHash property when not expired")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(LogoHashIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access AvatarHash property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(LogoHashIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsCalled<Organization>, EntityRequestType.Organization_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -240,18 +157,13 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Memberships()
 		{
-			var story = new Story("MembershipsIsAccessed");
-
-			var feature = story.InOrderTo("get all memberships of a organization")
-				.AsA("developer")
-				.IWant("to get MembershipsIsAccessed");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Memberships property")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(MembershipsIsAccessed)
-				.Then(MockApiGetIsCalled<List<IJsonOrganizationMembership>>, 0)
-				.And(NonNullValueOfTypeIsReturned<IEnumerable<OrganizationMembership>>)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -259,100 +171,56 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Name()
 		{
-			var story = new Story("Name");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control an organiaations's name")
-				.AsA("developer")
-				.IWant("to get and set the Name");
-
-			feature.WithScenario("Access Name property")
+			feature.WithScenario("Access Name property when not expired")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(NameIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Name property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(NameIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsCalled<Organization>, EntityRequestType.Organization_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Name property")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(NameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
-				.And(MockApiPutIsCalled<IJsonOrganization>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorOrgNameIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Organization_Write_Name)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Name property to null")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.And(NameIs, "not_description")
-				.When(NameIsSet, (string) null)
-				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
-				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("Set Name property to less than 3 characters")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.When(NameIsSet, "un")
-				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
-				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("Set Name property to same")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.And(NameIs, "description")
 				.When(NameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
-				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorOrgNameIsNotCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Name property to existing name")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.And(NameExists, "name")
-				.When(NameIsSet, "name")
-				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
-				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<OrgNameInUseException>)
-
-				.WithScenario("Set Name property without UserToken")
-				.Given(AnOrganization)
-				.And(TokenNotSupplied)
-				.When(NameIsSet, "description")
-				.Then(MockApiGetIsCalled<IJsonSearchResults>, 0)
-				.And(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void PowerUps()
 		{
-			var story = new Story("PowerUps");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get an organization's PowerUps")
-				.AsA("developer")
-				.IWant("to get the PowerUps");
-
-			feature.WithScenario("Access PowerUps property")
+			feature.WithScenario("Access PowerUps property when not expired")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(PowerUpsIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PowerUps property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(PowerUpsIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsCalled<Organization>, EntityRequestType.Organization_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -360,18 +228,13 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Preferences()
 		{
-			var story = new Story("Preferences");
-
-			var feature = story.InOrderTo("get the preferences for a organization")
-				.AsA("developer")
-				.IWant("to get Preferences");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Preferences property")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(PreferencesIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganizationPreferences>, 0)
-				.And(NonNullValueOfTypeIsReturned<OrganizationPreferences>)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -379,24 +242,19 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void PremiumFeatures()
 		{
-			var story = new Story("PremiumFeatures");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("get an organization's Premium Features")
-				.AsA("developer")
-				.IWant("to get the PremiumFeatures");
-
-			feature.WithScenario("Access PremiumFeatures property")
+			feature.WithScenario("Access PremiumFeatures property when not expired")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(PremiumFeaturesIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access PremiumFeatures property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(PremiumFeaturesIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsCalled<Organization>, EntityRequestType.Organization_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -404,81 +262,50 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Website()
 		{
-			var story = new Story("Website");
+			var feature = CreateFeature();
 
-			var feature = story.InOrderTo("control an organization's website link")
-				.AsA("developer")
-				.IWant("to get and set the Website");
-
-			feature.WithScenario("Access Website property")
+			feature.WithScenario("Access Website property when not expired")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(WebsiteIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Access Website property when expired")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(WebsiteIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 1)
+				.Then(RepositoryRefreshIsCalled<Organization>, EntityRequestType.Organization_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Website property")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.When(WebsiteIsSet, "Website")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Website property to null")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.And(WebsiteIs, "not Website")
-				.When(WebsiteIsSet, (string) null)
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Website property to empty")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.And(WebsiteIs, "not Website")
-				.When(WebsiteIsSet, string.Empty)
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorUrlIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Organization_Write_Website)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Set Website property to same")
 				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
 				.And(WebsiteIs, "Website")
 				.When(WebsiteIsSet, "Website")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorUrlIsCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Set Website property without UserToken")
-				.Given(AnOrganization)
-				.And(EntityIsRefreshed)
-				.And(TokenNotSupplied)
-				.When(WebsiteIsSet, "Website")
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void Url()
 		{
-			var story = new Story("Url");
-
-			var feature = story.InOrderTo("get an organization's URL")
-				.AsA("developer")
-				.IWant("to get the Url");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access Url property")
 				.Given(AnOrganization)
 				.And(EntityIsExpired)
 				.When(UrlIsAccessed)
-				.Then(MockApiGetIsCalled<IJsonOrganization>, 0)
+				.Then(RepositoryRefreshIsNotCalled<Organization>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -486,225 +313,115 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void AddOrUpdateMemberByMember()
 		{
-			var story = new Story("AddOrUpdateMember by member");
-
-			var feature = story.InOrderTo("add a member to or update permissions for a member on an organization")
-				.AsA("developer")
-				.IWant("to add or update a member");
+			var feature = CreateFeature();
 
 			feature.WithScenario("AddOrUpdateMember is called")
 				.Given(AnOrganization)
 				.When(AddOrUpdateMemberIsCalled, new Member { Id = TrelloIds.Invalid })
-				.Then(MockApiPutIsCalled<IJsonMember>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEntityIsCalled<Member>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Organization_Write_AddOrUpdateMember)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("AddOrUpdateMember is called with null")
-				.Given(AnOrganization)
-				.When(AddOrUpdateMemberIsCalled, (Member)null)
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("AddOrUpdateMember is called with local member")
-				.Given(AnOrganization)
-				.When(AddOrUpdateMemberIsCalled, new Member())
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
-				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
-
-				.WithScenario("AddOrUpdateMember is called without UserToken")
-				.Given(AnOrganization)
-				.And(TokenNotSupplied)
-				.When(AddOrUpdateMemberIsCalled, new Member { Id = TrelloIds.Invalid })
-				.Then(MockApiPutIsCalled<IJsonMember>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
 
 				.Execute();
 		}
-		[TestMethod]
-		public void AddOrUpdateMemberByEmailAndName()
-		{
-			var story = new Story("AddOrUpdateMember by email and name");
+		//[TestMethod]
+		//public void AddOrUpdateMemberByEmailAndName()
+		//{
+		//	var feature = CreateFeature();
 
-			var feature = story.InOrderTo("add a member to or update permissions for a member on an organization")
-				.AsA("developer")
-				.IWant("to add or update a member");
+		//	feature.WithScenario("AddOrUpdateMember is called")
+		//		.Given(AnOrganization)
+		//		.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
+		//		.Then(ValidatorWritableIsCalled)
+		//		.And(ValidatorNonEmptyStringIsCalled)
+		//		.And(RepositoryUploadIsCalled, EntityRequestType.Organization_Write_AddOrUpdateMember)
+		//		.And(ExceptionIsNotThrown)
 
-			feature.WithScenario("AddOrUpdateMember is called")
-				.Given(AnOrganization)
-				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
-				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 1)
-				.And(MockApiPutIsCalled<IJsonMember>, 1)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("AddOrUpdateMember is called with null email")
-				.Given(AnOrganization)
-				.When(AddOrUpdateMemberIsCalled, (string) null, "Some Email")
-				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
-				.And(MockApiPutIsCalled<IJsonMember>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("AddOrUpdateMember is called with null name")
-				.Given(AnOrganization)
-				.When(AddOrUpdateMemberIsCalled, "some@email.com", (string) null)
-				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
-				.And(MockApiPutIsCalled<IJsonMember>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("AddOrUpdateMember is called without UserToken")
-				.Given(AnOrganization)
-				.And(TokenNotSupplied)
-				.When(AddOrUpdateMemberIsCalled, "some@email.com", "Some Email")
-				.Then(MockSvcSearchMembersIsCalled, "some@email.com", 0)
-				.And(MockApiPutIsCalled<IJsonMember>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
-
-				.Execute();
-		}
+		//		.Execute();
+		//}
 		[TestMethod]
 		public void CreateBoard()
 		{
-			var story = new Story("CreateBoard");
-
-			var feature = story.InOrderTo("create a new organization board")
-				.AsA("developer")
-				.IWant("to call CreateBoard");
+			var feature = CreateFeature();
 
 			feature.WithScenario("CreateBoard is called")
 				.Given(AnOrganization)
 				.When(CreateBoardIsCalled, "org name")
-				.Then(MockApiPostIsCalled<IJsonBoard>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNonEmptyStringIsCalled)
+				.And(RepositoryDownloadIsCalled<Board>, EntityRequestType.Organization_Write_CreateBoard)
 				.And(ExceptionIsNotThrown)
-
-				.WithScenario("CreateBoard is called without UserToken")
-				.Given(AnOrganization)
-				.And(TokenNotSupplied)
-				.When(CreateBoardIsCalled, "org name")
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
-
-				.WithScenario("CreateBoard is called with null name")
-				.Given(AnOrganization)
-				.When(CreateBoardIsCalled, (string)null)
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("CreateBoard is called with empty name")
-				.Given(AnOrganization)
-				.When(CreateBoardIsCalled, string.Empty)
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("CreateBoard is called with whitespace name")
-				.Given(AnOrganization)
-				.When(CreateBoardIsCalled, "     ")
-				.Then(MockApiPutIsCalled<IJsonBoard>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
 
 				.Execute();
 		}
 		[TestMethod]
 		public void Delete()
 		{
-			var story = new Story("Delete");
-
-			var feature = story.InOrderTo("delete an organization")
-				.AsA("developer")
-				.IWant("to call Delete");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Delete is called")
 				.Given(AnOrganization)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Organization_Write_Delete)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("Delete is called without UserToken")
+				.WithScenario("Delete is called when already deleted")
 				.Given(AnOrganization)
-				.And(TokenNotSupplied)
+				.And(AlreadyDeleted)
 				.When(DeleteIsCalled)
-				.Then(MockApiPutIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+				.Then(ValidatorWritableIsNotCalled)
+				.And(RepositoryUploadIsNotCalled)
+				.And(ExceptionIsNotThrown)
 
 				.Execute();
-		}
-		[TestMethod]
-		[Ignore]
-		public void InviteMember()
-		{
-			throw new NotImplementedException();
 		}
 		[TestMethod]
 		public void RemoveMember()
 		{
-			var story = new Story("RemoveMember");
-
-			var feature = story.InOrderTo("remove a member from an organization")
-				.AsA("developer")
-				.IWant("to call RemoveMember");
+			var feature = CreateFeature();
 
 			feature.WithScenario("RemoveMember is called")
 				.Given(AnOrganization)
 				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Invalid})
-				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 1)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEntityIsCalled<Member>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Organization_Write_RemoveMember)
 				.And(ExceptionIsNotThrown)
 
-				.WithScenario("RemoveMember is called with null member")
-				.Given(AnOrganization)
-				.When(RemoveMemberIsCalled, (Member) null)
-				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<ArgumentNullException>)
-
-				.WithScenario("RemoveMember is called with local member")
-				.Given(AnOrganization)
-				.When(RemoveMemberIsCalled, new Member())
-				.Then(MockApiDeleteIsCalled<IJsonOrganization>, 0)
-				.And(ExceptionIsThrown<EntityNotOnTrelloException<Member>>)
-
 				.Execute();
-		}
-		[TestMethod]
-		[Ignore]
-		public void RescindInvitation()
-		{
-			throw new NotImplementedException();
 		}
 
 		#region Given
 
 		private void AnOrganization()
 		{
-			_systemUnderTest = new EntityUnderTest();
-			var obj = SetupMockGet<IJsonSearchResults>();
-			obj.SetupGet(s => s.OrganizationIds).Returns(new List<string>());
-			SetupMockGet<List<IJsonMember>>();
-			SetupMockPut<IJsonMember>();
-			SetupMockGet<IJsonOrganization>();
-			SetupMockPost<IJsonBoard>();
-			var mockMember = new Mock<Member>();
-			mockMember.SetupGet(m => m.Id).Returns(TrelloIds.MemberId);
-			_systemUnderTest.Dependencies.Svc.Setup(s => s.SearchMembers(It.IsAny<string>(), It.IsAny<int>()))
-							.Returns(new List<Member> { mockMember.Object });
+			_test = new EntityUnderTest();
 		}
 		private void DescriptionIs(string value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.Description = value);
+			_test.Json.SetupGet(j => j.Desc)
+				 .Returns(value);
 		}
 		private void DisplayNameIs(string value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.DisplayName = value);
-		}
-		private void NameExists(string name)
-		{
-			var obj = new Mock<IJsonSearchResults>();
-			obj.SetupGet(s => s.OrganizationIds).Returns(new List<string> {TrelloIds.Invalid});
-			_systemUnderTest.Dependencies.Validator.Setup(v => v.OrgName(It.Is<string>(s => s == name)))
-			                .Throws(new OrgNameInUseException(name));
+			_test.Json.SetupGet(j => j.DisplayName)
+				 .Returns(value);
 		}
 		private void NameIs(string value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.Name = value);
+			_test.Json.SetupGet(j => j.Name)
+				 .Returns(value);
 		}
 		private void WebsiteIs(string value)
 		{
-			SetupProperty(() => _systemUnderTest.Sut.Website = value);
+			_test.Json.SetupGet(j => j.Website)
+				 .Returns(value);
+		}
+		private void AlreadyDeleted()
+		{
+			_test.Sut.ForceDeleted(true);
 		}
 
 		#endregion
@@ -713,112 +430,95 @@ namespace Manatee.Trello.Test.Unit
 
 		private void ActionsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Actions);
+			Execute(() => _test.Sut.Actions);
 		}
 		private void BoardsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Boards);
+			Execute(() => _test.Sut.Boards);
 		}
 		private void DescriptionIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Description);
+			Execute(() => _test.Sut.Description);
 		}
 		private void DescriptionIsSet(string value)
 		{
-			Execute(() => _systemUnderTest.Sut.Description = value);
+			Execute(() => _test.Sut.Description = value);
 		}
 		private void DisplayNameIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.DisplayName);
+			Execute(() => _test.Sut.DisplayName);
 		}
 		private void DisplayNameIsSet(string value)
 		{
-			Execute(() => _systemUnderTest.Sut.DisplayName = value);
+			Execute(() => _test.Sut.DisplayName = value);
 		}
 		private void InvitedMembersIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.InvitedMembers);
+			Execute(() => _test.Sut.InvitedMembers);
 		}
 		private void IsPaidAccountIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.IsPaidAccount);
+			Execute(() => _test.Sut.IsPaidAccount);
 		}
 		private void LogoHashIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.LogoHash);
+			Execute(() => _test.Sut.LogoHash);
 		}
 		private void MembershipsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Memberships);
+			Execute(() => _test.Sut.Memberships);
 		}
 		private void NameIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Name);
+			Execute(() => _test.Sut.Name);
 		}
 		private void NameIsSet(string value)
 		{
-			Execute(() => _systemUnderTest.Sut.Name = value);
+			Execute(() => _test.Sut.Name = value);
 		}
 		private void PowerUpsIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.PowerUps);
+			Execute(() => _test.Sut.PowerUps);
 		}
 		private void PreferencesIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Preferences);
+			Execute(() => _test.Sut.Preferences);
 		}
 		private void PremiumFeaturesIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.PremiumFeatures);
+			Execute(() => _test.Sut.PremiumFeatures);
 		}
 		private void UrlIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Url);
+			Execute(() => _test.Sut.Url);
 		}
 		private void WebsiteIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.Website);
+			Execute(() => _test.Sut.Website);
 		}
 		private void WebsiteIsSet(string value)
 		{
-			Execute(() => _systemUnderTest.Sut.Website = value);
+			Execute(() => _test.Sut.Website = value);
 		}
 		private void AddOrUpdateMemberIsCalled(Member member)
 		{
-			Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(member));
+			Execute(() => _test.Sut.AddOrUpdateMember(member));
 		}
-		private void AddOrUpdateMemberIsCalled(string email, string name)
-		{
-			//Execute(() => _systemUnderTest.Sut.AddOrUpdateMember(email, name));
-		}
+		//private void AddOrUpdateMemberIsCalled(string email, string name)
+		//{
+		//	Execute(() => _test.Sut.AddOrUpdateMember(email, name));
+		//}
 		private void CreateBoardIsCalled(string name)
 		{
-			Execute(() => _systemUnderTest.Sut.CreateBoard(name));
+			Execute(() => _test.Sut.CreateBoard(name));
 		}
 		private void DeleteIsCalled()
 		{
-			Execute(() => _systemUnderTest.Sut.Delete());
-		}
-		private void InviteMemberIsCalled(Member member)
-		{
-			Execute(() => _systemUnderTest.Sut.InviteMember(member));
+			Execute(() => _test.Sut.Delete());
 		}
 		private void RemoveMemberIsCalled(Member member)
 		{
-			Execute(() => _systemUnderTest.Sut.RemoveMember(member));
-		}
-		private void RescindInvitationIsCalled(Member member)
-		{
-			Execute(() => _systemUnderTest.Sut.RescindInvitation(member));
-		}
-
-		#endregion
-
-		#region Then
-
-		private void MockSvcSearchMembersIsCalled(string emailAddress, int count)
-		{
-			_systemUnderTest.Dependencies.Svc.Verify(t => t.SearchMembers(It.Is<string>(s => s == emailAddress), It.IsAny<int>()), Times.Exactly(count));
+			Execute(() => _test.Sut.RemoveMember(member));
 		}
 
 		#endregion

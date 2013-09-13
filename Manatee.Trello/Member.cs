@@ -80,9 +80,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
-				if (_jsonMember == null) return;
 				if (_avatarSource == value) return;
 				_avatarSource = value;
 				UpdateApiAvatarSource();
@@ -102,9 +100,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
-				if (_jsonMember == null) return;
 				if (_jsonMember.Bio == value) return;
 				_jsonMember.Bio = value ?? string.Empty;
 				Parameters.Add("bio", _jsonMember.Bio);
@@ -154,9 +150,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
-				if (_jsonMember == null) return;
 				if (_jsonMember.FullName == value) return;
 				_jsonMember.FullName = Validator.MinStringLength(value, 4, "FullName");
 				Parameters.Add("fullName", _jsonMember.FullName);
@@ -199,9 +193,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
-				if (_jsonMember == null) return;
 				if (_jsonMember.Initials == value) return;
 				_jsonMember.Initials = Validator.StringLengthRange(value, 1, 3, "Initials");
 				Parameters.Add("initials", _jsonMember.Initials);
@@ -312,9 +304,7 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
-				if (_jsonMember == null) return;
 				if (_jsonMember.Username == value) return;
 				_jsonMember.Username = Validator.UserName(value);
 				Parameters.Add("username", _jsonMember.Username);
@@ -395,7 +385,7 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Validator.NonEmptyString(displayName);
 			Parameters.Add("displayName", displayName);
-			var org = EntityRepository.Download<Organization>(EntityRequestType.Member_Write_CreateOrganizations, Parameters);
+			var org = EntityRepository.Download<Organization>(EntityRequestType.Member_Write_CreateOrganization, Parameters);
 			UpdateDependencies(org);
 			_organizations.Add(org);
 			_organizations.MarkForUpdate();

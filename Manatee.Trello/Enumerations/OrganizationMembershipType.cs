@@ -39,10 +39,10 @@ namespace Manatee.Trello
 		/// Indicates the member is a normal member of the organization.
 		/// </summary>
 		Normal,
-		// / <summary>
-		// / Indicates the member is may only view the organization.
-		// / </summary>
-		//Observer,
+		/// <summary>
+		/// Indicates the member is may only view the organization.
+		/// </summary>
+		Observer,
 		/// <summary>
 		/// Indicates the member has been invited, but has not yet joined Trello.
 		/// </summary>

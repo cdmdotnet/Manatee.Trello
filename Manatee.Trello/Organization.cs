@@ -65,10 +65,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				if (_isDeleted) return;
 				Validator.Writable();
-				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.Desc == value) return;
 				_jsonOrganization.Desc = value ?? string.Empty;
 				Parameters.Add("desc", _jsonOrganization.Desc);
@@ -88,10 +86,8 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				if (_isDeleted) return;
 				Validator.Writable();
-				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.DisplayName == value) return;
 				_jsonOrganization.DisplayName = Validator.MinStringLength(value, 4, "DisplayName");
 				Parameters.Add("displayName", _jsonOrganization.DisplayName);
@@ -152,7 +148,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonOrganization == null) return;
@@ -207,10 +202,9 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				if (_isDeleted) return;
 				Validator.Writable();
-				if (_jsonOrganization == null) return;
+				Validator.Url(value);
 				if (_jsonOrganization.Website == value) return;
 				_jsonOrganization.Website = value ?? string.Empty;
 				Parameters.Add("website", _jsonOrganization.Website);
@@ -302,15 +296,12 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			if (_members != null)
-			{
-				foreach (var member in _members)
-				{
-					member.OrganizationsList.MarkForUpdate();
-				}
-			}
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Organization_Write_Delete, Parameters);
+			foreach (var member in _members)
+			{
+				member.OrganizationsList.MarkForUpdate();
+			}
 			_isDeleted = true;
 		}
 		/// <summary>
