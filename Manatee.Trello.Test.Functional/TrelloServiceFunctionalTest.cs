@@ -253,21 +253,21 @@ namespace Manatee.Trello.Test.Functional
 		private void RequestedObjectIsReturned<T>()
 			where T : ExpiringObject
 		{
-			Assert.IsNotNull(_actualResult);
-			Assert.IsInstanceOfType(_actualResult, typeof(T));
-			Assert.AreEqual(_request, ((T)_actualResult).Id);
+			Assert.IsNotNull(ActualResult);
+			Assert.IsInstanceOfType(ActualResult, typeof(T));
+			Assert.AreEqual(_request, ((T)ActualResult).Id);
 		}
 		private void RequestedTokenIsReturned()
 		{
-			Assert.IsNotNull(_actualResult);
-			Assert.IsInstanceOfType(_actualResult, typeof(Token));
-			Assert.AreEqual(_request, ((Token)_actualResult).Value);
+			Assert.IsNotNull(ActualResult);
+			Assert.IsInstanceOfType(ActualResult, typeof(Token));
+			Assert.AreEqual(_request, ((Token)ActualResult).Value);
 		}
 		private void RequestedMemberIsReturned()
 		{
-			Assert.IsNotNull(_actualResult);
-			Assert.IsInstanceOfType(_actualResult, typeof(Member));
-			Assert.AreEqual(_request, ((Member)_actualResult).Username);
+			Assert.IsNotNull(ActualResult);
+			Assert.IsInstanceOfType(ActualResult, typeof(Member));
+			Assert.AreEqual(_request, ((Member)ActualResult).Username);
 		}
 
 		#endregion

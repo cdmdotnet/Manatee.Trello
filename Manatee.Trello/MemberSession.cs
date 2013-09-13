@@ -148,7 +148,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.

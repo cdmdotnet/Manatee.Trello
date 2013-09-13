@@ -67,15 +67,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				if (_isDeleted) return;				
 				Validator.Writable();
 				Validator.NonEmptyString(value);
-				if (_jsonCheckItem == null) return;
 				if (_jsonCheckItem.Name == value) return;
 				_jsonCheckItem.Name = value;
 				Parameters.Add("value", _jsonCheckItem.Name);
-				Put(EntityRequestType.CheckItem_Write_Name);
+				Upload(EntityRequestType.CheckItem_Write_Name);
 			}
 		}
 		/// <summary>
@@ -91,15 +89,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Position(value);
-				if (_jsonCheckItem == null) return;
 				if (_position == value) return;
 				_position = value;
 				Parameters.Add("value", _position);
-				Put(EntityRequestType.CheckItem_Write_Position);
+				Upload(EntityRequestType.CheckItem_Write_Position);
 				MarkForUpdate();
 				((CheckList) Owner).CheckItemsList.MarkForUpdate();
 			}
@@ -117,15 +113,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				if (_isDeleted) return;
 				Validator.Writable();
-				if (_jsonCheckItem == null) return;
 				if (_state == value) return;
 				_state = value;
 				UpdateApiState();
 				Parameters.Add("value", _jsonCheckItem.State);
-				Put(EntityRequestType.CheckItem_Write_State);
+				Upload(EntityRequestType.CheckItem_Write_State);
 			}
 		}
 		/// <summary>
@@ -194,7 +188,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -224,9 +218,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
+			if (_isDeleted) return false;
 			Parameters.Add("_checkListId", Owner.Id);
 			Parameters["_id"] = Id;
-			return EntityRepository.Refresh(this, EntityRequestType.CheckList_Read_Refresh);
+			return EntityRepository.Refresh(this, EntityRequestType.CheckItem_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)
@@ -236,8 +231,12 @@ namespace Manatee.Trello
 			UpdateState();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal void ForceDeleted(bool deleted)
+		{
+			_isDeleted = deleted;
+		}
 
-		private void Put(EntityRequestType requestedType)
+		private void Upload(EntityRequestType requestedType)
 		{
 			Parameters["_id"] = Id;
 			Parameters.Add("_checkListId", Owner.Id);

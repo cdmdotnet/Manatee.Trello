@@ -7,3 +7,12 @@ E:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\bin\Debug\Newtonsoft.Js
 E:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\obj\Debug\Manatee.Trello.NewtonsoftJson.csprojResolveAssemblyReference.cache
 E:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\obj\Debug\Manatee.Trello.NewtonsoftJson.dll
 E:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\obj\Debug\Manatee.Trello.NewtonsoftJson.pdb
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\bin\Debug\Manatee.Trello.NewtonsoftJson.dll
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\bin\Debug\Manatee.Trello.NewtonsoftJson.pdb
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\bin\Debug\Manatee.Trello.dll
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\bin\Debug\Newtonsoft.Json.dll
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\bin\Debug\Manatee.Trello.pdb
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\bin\Debug\Newtonsoft.Json.xml
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\obj\Debug\Manatee.Trello.NewtonsoftJson.csprojResolveAssemblyReference.cache
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\obj\Debug\Manatee.Trello.NewtonsoftJson.dll
+F:\Projects\Manatee.Trello\Manatee.Trello.NewtonsoftJson\obj\Debug\Manatee.Trello.NewtonsoftJson.pdb

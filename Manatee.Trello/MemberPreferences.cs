@@ -49,14 +49,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.ColorBlind == value) return;
 				_jsonMemberPreferences.ColorBlind = value;
 				Parameters.Add("value", _jsonMemberPreferences.ColorBlind.ToLowerString());
-				Put(EntityRequestType.MemberPreferences_Write_ColorBlind);
+				Upload(EntityRequestType.MemberPreferences_Write_ColorBlind);
 			}
 		}
 		/// <summary>
@@ -71,7 +70,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				Validator.Enumeration(value.Value);
@@ -79,7 +77,7 @@ namespace Manatee.Trello
 				if (_jsonMemberPreferences.MinutesBetweenSummaries == (int?) value) return;
 				_jsonMemberPreferences.MinutesBetweenSummaries = (int?) value;
 				Parameters.Add("value", _jsonMemberPreferences.MinutesBetweenSummaries);
-				Put(EntityRequestType.MemberPreferences_Write_MinutesBetweenSummaries);
+				Upload(EntityRequestType.MemberPreferences_Write_MinutesBetweenSummaries);
 			}
 		}
 		/// <summary>
@@ -94,14 +92,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.SendSummaries == value) return;
 				_jsonMemberPreferences.SendSummaries = value;
 				Parameters.Add("value", _jsonMemberPreferences.SendSummaries.ToLowerString());
-				Put(EntityRequestType.MemberPreferences_Write_SendSummaries);
+				Upload(EntityRequestType.MemberPreferences_Write_SendSummaries);
 			}
 		}
 		/// <summary>
@@ -116,14 +113,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.MinutesBeforeDeadlineToNotify == value) return;
 				_jsonMemberPreferences.MinutesBeforeDeadlineToNotify = value;
 				Parameters.Add("value", _jsonMemberPreferences.MinutesBeforeDeadlineToNotify);
-				Put(EntityRequestType.MemberPreferences_Write_MinutesBeforeDeadlineToNotify);
+				Upload(EntityRequestType.MemberPreferences_Write_MinutesBeforeDeadlineToNotify);
 			}
 		}
 		/// <summary>
@@ -161,7 +157,7 @@ namespace Manatee.Trello
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters.Add("_memberId", Owner.Id);
 			EntityRepository.Upload(requestType, Parameters);

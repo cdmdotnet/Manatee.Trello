@@ -6,7 +6,7 @@ namespace Manatee.Trello.Test
 {
 	public abstract class TrelloTestBase<T>
 	{
-		protected abstract class SystemUnderTest<TDepCol>
+		protected class SystemUnderTest<TDepCol>
 			where TDepCol : new()
 		{
 			public TDepCol Dependencies { get; private set; }
@@ -18,27 +18,27 @@ namespace Manatee.Trello.Test
 			}
 		}
 
-		protected Exception _exception;
-		protected object _actualResult;
+		protected Exception Exception { get; private set; }
+		protected object ActualResult { get; private set; }
 
 		protected void Execute<TRequest>(Func<TRequest> func)
 		{
-			_exception = null;
-			_actualResult = null;
+			Exception = null;
+			ActualResult = null;
 
 			try
 			{
-				_actualResult = func();
+				ActualResult = func();
 			}
 			catch (Exception e)
 			{
-				_exception = e;
+				Exception = e;
 			}
 		}
 		protected void Execute(System.Action action)
 		{
-			_exception = null;
-			_actualResult = null;
+			Exception = null;
+			ActualResult = null;
 
 			try
 			{
@@ -46,39 +46,39 @@ namespace Manatee.Trello.Test
 			}
 			catch (Exception e)
 			{
-				_exception = e;
+				Exception = e;
 			}
 		}
 		protected void ExceptionIsNotThrown()
 		{
-			Debug.WriteLine(_exception);
-			Assert.IsNull(_exception);
+			Debug.WriteLine(Exception);
+			Assert.IsNull(Exception);
 		}
 		[GenericMethodFormat("{0} is thrown")]
 		protected void ExceptionIsThrown<TEx>()
 			where TEx : Exception
 		{
-			Assert.IsNotNull(_exception);
-			if (!(_exception is TEx))
-				Debug.WriteLine(_exception);
-			Assert.IsInstanceOfType(_exception, typeof(TEx));
+			Assert.IsNotNull(Exception);
+			if (!(Exception is TEx))
+				Debug.WriteLine(Exception);
+			Assert.IsInstanceOfType(Exception, typeof(TEx));
 		}
 		protected void ResponseIsNull()
 		{
-			Debug.WriteLine(_actualResult);
-			Assert.IsNull(_actualResult);
+			Debug.WriteLine(ActualResult);
+			Assert.IsNull(ActualResult);
 		}
 		protected void ResponseIsNotNull()
 		{
-			if (_actualResult != null)
-				Debug.WriteLine(_actualResult);
-			Assert.IsNotNull(_actualResult);
+			if (ActualResult != null)
+				Debug.WriteLine(ActualResult);
+			Assert.IsNotNull(ActualResult);
 		}
 		[GenericMethodFormat("{0} is returned")]
 		protected void ResponseIs<TResult>()
 		{
 			ResponseIsNotNull();
-			Assert.IsInstanceOfType(_actualResult, typeof(TResult));
+			Assert.IsInstanceOfType(ActualResult, typeof(TResult));
 		}
 	}
 }

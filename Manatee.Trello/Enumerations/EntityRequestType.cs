@@ -42,6 +42,8 @@ namespace Manatee.Trello
 		/// <summary />
 		Attachment_Write_Delete,
 		/// <summary />
+		Attachment_Read_Refresh,
+		/// <summary />
 		Badges_Read_Refresh,
 		/// <summary />
 		Board_Read_Actions,
@@ -83,6 +85,8 @@ namespace Manatee.Trello
 		Board_Write_RemoveMember,
 		/// <summary />
 		Board_Write_RescindInvitation,
+		/// <summary />
+		BoardMembership_Read_Refresh,
 		/// <summary />
 		BoardPersonalPreferences_Read_Refresh,
 		/// <summary />

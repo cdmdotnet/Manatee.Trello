@@ -59,14 +59,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_jsonBoardPreferences.SelfJoin == value) return;
 				_jsonBoardPreferences.SelfJoin = value;
 				Parameters.Add("value", _jsonBoardPreferences.SelfJoin.ToLowerString());
-				Put(EntityRequestType.BoardPreferences_Write_AllowsSelfJoin);
+				Upload(EntityRequestType.BoardPreferences_Write_AllowsSelfJoin);
 			}
 		}
 		/// <summary>
@@ -81,14 +80,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_comments == value) return;
 				_comments = value;
 				UpdateApiComments();
 				Parameters.Add("value", _jsonBoardPreferences.Comments);
-				Put(EntityRequestType.BoardPreferences_Write_Comments);
+				Upload(EntityRequestType.BoardPreferences_Write_Comments);
 			}
 		}
 		/// <summary>
@@ -103,14 +101,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_invitations == value) return;
 				_invitations = value;
 				UpdateApiInvitations();
 				Parameters.Add("value", _jsonBoardPreferences.Invitations);
-				Put(EntityRequestType.BoardPreferences_Write_Invitations);
+				Upload(EntityRequestType.BoardPreferences_Write_Invitations);
 			}
 		}
 		/// <summary>
@@ -125,14 +122,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
 				Parameters.Add("value", _jsonBoardPreferences.PermissionLevel);
-				Put(EntityRequestType.BoardPreferences_Write_PermissionLevel);
+				Upload(EntityRequestType.BoardPreferences_Write_PermissionLevel);
 			}
 		}
 		/// <summary>
@@ -147,14 +143,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_jsonBoardPreferences.CardCovers == value) return;
 				_jsonBoardPreferences.CardCovers = value;
 				Parameters.Add("value", _jsonBoardPreferences.CardCovers.ToLowerString());
-				Put(EntityRequestType.BoardPreferences_Write_ShowCardCovers);
+				Upload(EntityRequestType.BoardPreferences_Write_ShowCardCovers);
 			}
 		}
 		/// <summary>
@@ -169,14 +164,13 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				if (_jsonBoardPreferences == null) return;
 				if (_voting == value) return;
 				_voting = value;
 				UpdateApiVoting();
 				Parameters.Add("value", _jsonBoardPreferences.Voting);
-				Put(EntityRequestType.BoardPreferences_Write_Voting);
+				Upload(EntityRequestType.BoardPreferences_Write_Voting);
 			}
 		}
 		/// <summary>
@@ -245,7 +239,7 @@ namespace Manatee.Trello
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters.Add("_boardId", Owner.Id);
 			EntityRepository.Upload(requestType, Parameters);

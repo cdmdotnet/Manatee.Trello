@@ -27,7 +27,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello

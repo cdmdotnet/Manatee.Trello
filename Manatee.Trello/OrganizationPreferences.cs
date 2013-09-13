@@ -61,7 +61,7 @@ namespace Manatee.Trello
 				if (_jsonOrganizationPreferences.AssociatedDomain == value) return;
 				_jsonOrganizationPreferences.AssociatedDomain = value ?? string.Empty;
 				Parameters.Add("value", _jsonOrganizationPreferences.AssociatedDomain);
-				Put(EntityRequestType.OrganizationPreferences_Write_AssociatedDomain);
+				Upload(EntityRequestType.OrganizationPreferences_Write_AssociatedDomain);
 			}
 		}
 		/// <summary>
@@ -83,7 +83,7 @@ namespace Manatee.Trello
 				if (_jsonOrganizationPreferences.ExternalMembersDisabled == value) return;
 				_jsonOrganizationPreferences.ExternalMembersDisabled = value;
 				Parameters.Add("value", _jsonOrganizationPreferences.ExternalMembersDisabled);
-				Put(EntityRequestType.OrganizationPreferences_Write_ExternalMembersDisabled);
+				Upload(EntityRequestType.OrganizationPreferences_Write_ExternalMembersDisabled);
 			}
 		}
 		// TODO: Determine contents of this array
@@ -101,7 +101,7 @@ namespace Manatee.Trello
 				if (_jsonOrganizationPreferences == null) return;
 				if (_jsonOrganizationPreferences.OrgInviteRestrict == value) return;
 				_jsonOrganizationPreferences.OrgInviteRestrict = value;
-				Put(EntityRequestType.OrganizationPreferences_Write_OrgInviteRestrict);
+				Upload(EntityRequestType.OrganizationPreferences_Write_OrgInviteRestrict);
 			}
 		}
 		/// <summary>
@@ -122,7 +122,7 @@ namespace Manatee.Trello
 				if (_boardVisibilityRestrict.Org == value) return;
 				_boardVisibilityRestrict.Org = value;
 				Parameters.Add("value", _boardVisibilityRestrict.Org.ToLowerString());
-				Put(EntityRequestType.OrganizationPreferences_Write_OrgVisibleBoardVisibility);
+				Upload(EntityRequestType.OrganizationPreferences_Write_OrgVisibleBoardVisibility);
 			}
 		}
 		/// <summary>
@@ -144,7 +144,7 @@ namespace Manatee.Trello
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
 				Parameters.Add("value", _jsonOrganizationPreferences.PermissionLevel);
-				Put(EntityRequestType.OrganizationPreferences_Write_PermissionLevel);
+				Upload(EntityRequestType.OrganizationPreferences_Write_PermissionLevel);
 			}
 		}
 		/// <summary>
@@ -165,7 +165,7 @@ namespace Manatee.Trello
 				if (_boardVisibilityRestrict.Private == value) return;
 				_boardVisibilityRestrict.Private = value;
 				Parameters.Add("value", _boardVisibilityRestrict.Private.ToLowerString());
-				Put(EntityRequestType.OrganizationPreferences_Write_PrivateBoardVisibility);
+				Upload(EntityRequestType.OrganizationPreferences_Write_PrivateBoardVisibility);
 			}
 		}
 		/// <summary>
@@ -186,7 +186,7 @@ namespace Manatee.Trello
 				if (_boardVisibilityRestrict.Public == value) return;
 				_boardVisibilityRestrict.Public = value;
 				Parameters.Add("value", _boardVisibilityRestrict.Public.ToLowerString());
-				Put(EntityRequestType.OrganizationPreferences_Write_PublicBoardVisibility);
+				Upload(EntityRequestType.OrganizationPreferences_Write_PublicBoardVisibility);
 			}
 		}
 		/// <summary>
@@ -233,7 +233,7 @@ namespace Manatee.Trello
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);

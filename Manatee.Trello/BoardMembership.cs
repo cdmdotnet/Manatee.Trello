@@ -138,7 +138,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -167,10 +167,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			//var endpoint = EndpointGenerator.Default.Generate(Owner, this);
-			//var request = Api.RequestProvider.Create(endpoint.ToString());
-			//ApplyJson(Api.Get<IJsonBoardMembership>(request));
-			return false;
+			Parameters["_id"] = Id;
+			Parameters["_boardId"] = Owner.Id;
+			AddDefaultParameters();
+			return EntityRepository.Refresh(this, EntityRequestType.BoardMembership_Read_Refresh);
 		}
 
 		internal override void ApplyJson(object obj)

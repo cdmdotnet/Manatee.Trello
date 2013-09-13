@@ -53,12 +53,12 @@ namespace Manatee.Trello
 		/// </summary>
 		public static Position Unknown { get { return _unknown; } }
 
-		private double _value = UnknownValue;
+		private readonly double _value = UnknownValue;
 
 		/// <summary>
 		/// Gets whether the position is valid.
 		/// </summary>
-		public bool IsValid { get { return _value != UnknownValue; } }
+		public bool IsValid { get { return !Equals(_value, UnknownValue); } }
 		internal double Value { get { return _value; } }
 
 		/// <summary>
@@ -151,9 +151,8 @@ namespace Manatee.Trello
 		public static bool operator ==(Position a, Position b)
 		{
 			if (ReferenceEquals(a, b)) return true;
-			if (Equals(a, null) && Equals(b, null)) return true;
 			if (Equals(a, null) || Equals(b, null)) return false;
-			return a._value == b._value;
+			return Equals(a._value, b._value);
 		}
 		/// <summary>
 		/// Compares two Position object by examining their content.

@@ -87,7 +87,7 @@ namespace Manatee.Trello
 				_avatarSource = value;
 				UpdateApiAvatarSource();
 				Parameters.Add("avatarSource", _jsonMember.AvatarSource);
-				Put(EntityRequestType.Member_Write_AvatarSource);
+				Upload(EntityRequestType.Member_Write_AvatarSource);
 			}
 		}
 		/// <summary>
@@ -108,7 +108,7 @@ namespace Manatee.Trello
 				if (_jsonMember.Bio == value) return;
 				_jsonMember.Bio = value ?? string.Empty;
 				Parameters.Add("bio", _jsonMember.Bio);
-				Put(EntityRequestType.Member_Write_Bio);
+				Upload(EntityRequestType.Member_Write_Bio);
 			}
 		}
 		/// <summary>
@@ -160,7 +160,7 @@ namespace Manatee.Trello
 				if (_jsonMember.FullName == value) return;
 				_jsonMember.FullName = Validator.MinStringLength(value, 4, "FullName");
 				Parameters.Add("fullName", _jsonMember.FullName);
-				Put(EntityRequestType.Member_Write_FullName);
+				Upload(EntityRequestType.Member_Write_FullName);
 			}
 		}
 		/// <summary>
@@ -205,7 +205,7 @@ namespace Manatee.Trello
 				if (_jsonMember.Initials == value) return;
 				_jsonMember.Initials = Validator.StringLengthRange(value, 1, 3, "Initials");
 				Parameters.Add("initials", _jsonMember.Initials);
-				Put(EntityRequestType.Member_Write_Initials);
+				Upload(EntityRequestType.Member_Write_Initials);
 			}
 		}
 		/// <summary>
@@ -318,7 +318,7 @@ namespace Manatee.Trello
 				if (_jsonMember.Username == value) return;
 				_jsonMember.Username = Validator.UserName(value);
 				Parameters.Add("username", _jsonMember.Username);
-				Put(EntityRequestType.Member_Write_Username);
+				Upload(EntityRequestType.Member_Write_Username);
 			}
 		}
 		/// <summary>
@@ -481,7 +481,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -492,7 +492,7 @@ namespace Manatee.Trello
 		/// <param name="other">An object to compare with this object.</param>
 		public int CompareTo(Member other)
 		{
-			var order = string.Compare(FullName, other.FullName);
+			var order = string.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
 			return order;
 		}
 		/// <summary>
@@ -541,7 +541,7 @@ namespace Manatee.Trello
 			UpdateDependencies(_tokens);
 		}
 
-		private void Put(EntityRequestType requestType)
+		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
