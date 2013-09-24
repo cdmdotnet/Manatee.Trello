@@ -41,7 +41,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		bool Refresh<T>(T entity, EntityRequestType request)
 			where T : ExpiringObject;
 		/// <summary />
-		bool RefreshCollecion<T>(ExpiringObject list, EntityRequestType request, IDictionary<string, object> parameters)
+		bool RefreshCollection<T>(ExpiringObject list, EntityRequestType request)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>;
 		/// <summary />
 		T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)

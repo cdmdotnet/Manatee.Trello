@@ -38,7 +38,6 @@ namespace Manatee.Trello
 
 		private IJsonLabel _jsonLabel;
 		private LabelColor _color = LabelColor.Unknown;
-		private string _name;
 
 		/// <summary>
 		/// Gets the color of the label.
@@ -47,16 +46,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the name of the label.  Tied to the board which contains the card.
 		/// </summary>
-		public string Name
-		{
-			get { return _jsonLabel != null ? _jsonLabel.Name : _name; }
-			internal set
-			{
-				if (_jsonLabel != null)
-					_jsonLabel.Name = value;
-				_name = value;
-			}
-		}
+		public string Name { get { return _jsonLabel.Name; } internal set { _jsonLabel.Name = value; } }
 		/// <summary>
 		/// Gets whether this entity represents an actual entity on Trello.
 		/// </summary>
@@ -149,6 +139,7 @@ namespace Manatee.Trello
 
 		internal override void ApplyJson(object obj)
 		{
+			if (obj == null) return;
 			_jsonLabel = (IJsonLabel)obj;
 			UpdateColor();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;

@@ -17,6 +17,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Card>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Action>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Actions collection enumerates")
+				.Given(ACard)
+				.And(EntityIsExpired)
+				.When(ActionsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Action>, EntityRequestType.Card_Read_Actions)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -51,6 +59,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(AttachmentsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Card>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Attachment>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Attachments collection enumerates")
+				.Given(ACard)
+				.And(EntityIsExpired)
+				.When(AttachmentsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Attachment>, EntityRequestType.Card_Read_Attachments)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -99,6 +115,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(CheckListsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Card>)
+				.And(RepositoryRefreshCollectionIsNotCalled<CheckList>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("CheckLists collection enumerates")
+				.Given(ACard)
+				.And(EntityIsExpired)
+				.When(CheckListsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<CheckList>, EntityRequestType.Card_Read_CheckLists)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -113,6 +137,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(CommentsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Card>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Comments collection enumerates")
+				.Given(ACard)
+				.And(EntityIsExpired)
+				.When(CommentsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Action>, EntityRequestType.Card_Read_Actions)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -173,8 +204,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.WithScenario("Set DueDate property")
 				.Given(ACard)
 				.When(DueDateIsSet, (DateTime?)DateTime.Now.AddDays(1))
-				.Then(ValidatorNullableIsCalled<DateTime>)
-				.And(ValidatorWritableIsCalled)
+				.Then(ValidatorWritableIsCalled)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Card_Write_DueDate)
 				.And(ExceptionIsNotThrown)
 
@@ -182,8 +212,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(ACard)
 				.And(DueDateIs, (DateTime?)DateTime.Today.AddDays(1))
 				.When(DueDateIsSet, (DateTime?)DateTime.Today.AddDays(1))
-				.Then(ValidatorNullableIsCalled<DateTime>)
-				.And(ValidatorWritableIsCalled)
+				.Then(ValidatorWritableIsCalled)
 				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
 
@@ -273,6 +302,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(LabelsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Card>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Label>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Labels collection enumerates")
+				.Given(ACard)
+				.And(EntityIsExpired)
+				.When(LabelsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Label>, EntityRequestType.Card_Read_Labels)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -327,6 +364,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(MembersIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Card>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Members collection enumerates")
+				.Given(ACard)
+				.And(EntityIsExpired)
+				.When(MembersIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Member>, EntityRequestType.Card_Read_Members)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -445,6 +489,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Then(RepositoryRefreshIsNotCalled<Card>)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("VotingMembers collection enumerates")
+				.Given(ACard)
+				.And(EntityIsExpired)
+				.When(VotingMembersIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Member>, EntityRequestType.Card_Read_VotingMembers)
+				.And(ExceptionIsNotThrown)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -529,7 +580,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 			feature.WithScenario("AssignMember is called")
 				.Given(ACard)
-				.When(AssignMemberIsCalled, new Member {Id = TrelloIds.Invalid})
+				.When(AssignMemberIsCalled, new Member {Id = TrelloIds.Test})
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Member>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Card_Write_AssignMember)
@@ -582,7 +633,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 			feature.WithScenario("Move is called and board contains list")
 				.Given(ACard)
 				.And(BoardContainsList)
-				.When(MoveIsCalled, new Board(), new List {Id = TrelloIds.Invalid})
+				.When(MoveIsCalled, new Board(), new List {Id = TrelloIds.Test})
 				.Then(ValidatorEntityIsCalled<Board>)
 				.And(ValidatorEntityIsCalled<List>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Card_Write_Move)
@@ -590,7 +641,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Move is called and board does not contain list")
 				.Given(ACard)
-				.When(MoveIsCalled, new Board {Id = TrelloIds.Invalid}, new List {Id = TrelloIds.Invalid})
+				.When(MoveIsCalled, new Board {Id = TrelloIds.Test}, new List {Id = TrelloIds.Test})
 				.Then(ValidatorEntityIsCalled<Board>)
 				.And(ValidatorEntityIsCalled<List>)
 				.And(RepositoryUploadIsNotCalled)
@@ -619,7 +670,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 			feature.WithScenario("RemoveMember is called")
 				.Given(ACard)
-				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Invalid})
+				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Test})
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Member>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Card_Write_RemoveMember)
@@ -682,6 +733,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Actions);
 		}
+		private void ActionsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Actions.GetEnumerator());
+		}
 		private void AttachmentCoverIdIsAccessed()
 		{
 			Execute(() => _test.Sut.AttachmentCoverId);
@@ -689,6 +744,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void AttachmentsIsAccessed()
 		{
 			Execute(() => _test.Sut.Attachments);
+		}
+		private void AttachmentsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Attachments.GetEnumerator());
 		}
 		private void BadgesIsAccessed()
 		{
@@ -702,9 +761,17 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.CheckLists);
 		}
+		private void CheckListsIsEnumerated()
+		{
+			Execute(() => _test.Sut.CheckLists.GetEnumerator());
+		}
 		private void CommentsIsAccessed()
 		{
 			Execute(() => _test.Sut.Comments);
+		}
+		private void CommentsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Comments.GetEnumerator());
 		}
 		private void DescriptionIsAccessed()
 		{
@@ -742,6 +809,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Labels);
 		}
+		private void LabelsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Labels.GetEnumerator());
+		}
 		private void ListIsAccessed()
 		{
 			Execute(() => _test.Sut.List);
@@ -753,6 +824,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void MembersIsAccessed()
 		{
 			Execute(() => _test.Sut.Members);
+		}
+		private void MembersIsEnumerated()
+		{
+			Execute(() => _test.Sut.Members.GetEnumerator());
 		}
 		private void NameIsAccessed()
 		{
@@ -781,6 +856,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void VotingMembersIsAccessed()
 		{
 			Execute(() => _test.Sut.VotingMembers);
+		}
+		private void VotingMembersIsEnumerated()
+		{
+			Execute(() => _test.Sut.VotingMembers.GetEnumerator());
 		}
 		private void AddAttachmentIsCalled(string name, string url)
 		{

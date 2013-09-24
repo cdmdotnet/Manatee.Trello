@@ -93,17 +93,15 @@ namespace Manatee.Trello.Test.Unit.Entities
 		protected void RepositoryRefreshCollectionIsCalled<TEntity>(EntityRequestType requestType)
 			where TEntity : ExpiringObject, IEquatable<TEntity>, IComparable<TEntity>
 		{
-			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollecion<TEntity>(It.IsAny<ExpiringList<TEntity>>(),
-																						It.Is<EntityRequestType>(rt => rt == requestType),
-																						It.IsAny<Dictionary<string, object>>()), Times.Once());
+			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringList<TEntity>>(),
+																						It.Is<EntityRequestType>(rt => rt == requestType)));
 		}
 		[GenericMethodFormat("Repository.RefreshCollection<{0}>() is not called")]
 		protected void RepositoryRefreshCollectionIsNotCalled<TEntity>()
 			where TEntity : ExpiringObject, IEquatable<TEntity>, IComparable<TEntity>
 		{
-			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollecion<TEntity>(It.IsAny<ExpiringList<TEntity>>(),
-																						It.IsAny<EntityRequestType>(),
-																						It.IsAny<Dictionary<string, object>>()), Times.Never());
+			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringList<TEntity>>(),
+																						It.IsAny<EntityRequestType>()), Times.Never());
 		}
 		[ParameterizedMethodFormat("Repository.Upload({0}) is called")]
 		protected void RepositoryUploadIsCalled(EntityRequestType requestType)
@@ -156,6 +154,16 @@ namespace Manatee.Trello.Test.Unit.Entities
 		protected void ValidatorWritableIsNotCalled()
 		{
 			_test.Dependencies.Validator.Verify(v => v.Writable(), Times.Never());
+		}
+		[GenericMethodFormat("Validator.Enumeration<{0}>() is called")]
+		protected void ValidatorEnumerationIsCalled<TEnum>()
+		{
+			_test.Dependencies.Validator.Verify(v => v.Enumeration(It.IsAny<TEnum>()));
+		}
+		[ParameterizedMethodFormat("Validator.Writable() is not called")]
+		protected void ValidatorEnumerationIsNotCalled<TEnum>()
+		{
+			_test.Dependencies.Validator.Verify(v => v.Enumeration(It.IsAny<TEnum>()), Times.Never());
 		}
 		[ParameterizedMethodFormat("Validator.MinStringLength({0}) is called")]
 		protected void ValidatorMinStringLengthIsCalled(int length)

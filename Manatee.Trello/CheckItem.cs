@@ -115,6 +115,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return;
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_state == value) return;
 				_state = value;
 				UpdateApiState();

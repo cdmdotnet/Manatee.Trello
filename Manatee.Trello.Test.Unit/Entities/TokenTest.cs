@@ -191,7 +191,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 			_test.Json.SetupGet(j => j.IdMember)
 				 .Returns(TrelloIds.MemberId);
 			_test.Json.SetupGet(j => j.Identifier)
-				 .Returns(TrelloIds.Invalid);
+				 .Returns(TrelloIds.Test);
 			ReapplyJson();
 		}
 		private void AlreadyDeleted()

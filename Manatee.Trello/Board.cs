@@ -252,7 +252,7 @@ namespace Manatee.Trello
 			_actions = new ExpiringList<Action>(this, EntityRequestType.Board_Read_Actions);
 			_archivedCards = new ExpiringList<Card>(this, EntityRequestType.Board_Read_Cards) { Filter = "closed" };
 			_archivedLists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists) { Filter = "closed" };
-			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Board_Read_Members);
+			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Board_Read_InvitedMembers);
 			_labelNames = new LabelNames(this);
 			_lists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists);
 			_members = new ExpiringList<Member>(this, EntityRequestType.Board_Read_Members);
@@ -448,6 +448,7 @@ namespace Manatee.Trello
 			UpdateDependencies(_invitedMembers);
 			UpdateDependencies(_labelNames);
 			UpdateDependencies(_lists);
+			UpdateDependencies(_members);
 			UpdateDependencies(_memberships);
 			UpdateDependencies(_preferences);
 			UpdateDependencies(_personalPreferences);

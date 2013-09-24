@@ -39,38 +39,14 @@ namespace Manatee.Trello.Internal.DataAccess
 			_requestProvider = requestProvider;
 		}
 
-		public T Get<T>(string endpoint, IDictionary<string, object> parameters = null)
+		public T Execute<T>(Endpoint endpoint, IDictionary<string, object> parameters = null)
 			where T : class
 		{
-			var request = _requestProvider.Create(endpoint, parameters);
-			return Execute<T>(request, RestMethod.Get);
-		}
-		public T Put<T>(string endpoint, IDictionary<string, object> parameters = null)
-			where T : class
-		{
-			var request = _requestProvider.Create(endpoint, parameters);
-			return Execute<T>(request, RestMethod.Put);
-		}
-		public T Post<T>(string endpoint, IDictionary<string, object> parameters = null)
-			where T : class
-		{
-			var request = _requestProvider.Create(endpoint, parameters);
-			return Execute<T>(request, RestMethod.Post);
-		}
-		public T Delete<T>(string endpoint)
-			where T : class
-		{
-			var request = _requestProvider.Create(endpoint);
-			return Execute<T>(request, RestMethod.Delete);
-		}
-
-		private T Execute<T>(IRestRequest request, RestMethod method)
-			where T : class
-		{
-			request.Method = method;
+			var request = _requestProvider.Create(endpoint.ToString(), parameters);
+			request.Method = endpoint.Method;
 			_requestProcessor.AddRequest<T>(request);
 			SpinWait.SpinUntil(() => request.Response != null);
-			var response = (IRestResponse<T>) request.Response;
+			var response = (IRestResponse<T>)request.Response;
 			return response.Data;
 		}
 	}

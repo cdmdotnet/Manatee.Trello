@@ -118,6 +118,7 @@ namespace Manatee.Trello
 			{
 
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Org == value) return;
 				_boardVisibilityRestrict.Org = value;
@@ -139,6 +140,7 @@ namespace Manatee.Trello
 			{
 
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_jsonOrganizationPreferences == null) return;
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
@@ -161,6 +163,7 @@ namespace Manatee.Trello
 			{
 
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Private == value) return;
 				_boardVisibilityRestrict.Private = value;
@@ -182,6 +185,7 @@ namespace Manatee.Trello
 			{
 
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Public == value) return;
 				_boardVisibilityRestrict.Public = value;

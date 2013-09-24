@@ -1,37 +1,21 @@
-﻿using Manatee.Trello.Contracts;
-using Manatee.Trello.Exceptions;
-using Manatee.Trello.Json;
+﻿using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using StoryQ;
 
-namespace Manatee.Trello.Test.Unit
+namespace Manatee.Trello.Test.Unit.Entities
 {
 	[TestClass]
-	public class ActionTest : EntityTestBase<Action>
+	public class ActionTest : EntityTestBase<Action, IJsonAction>
 	{
 		[TestMethod]
 		public void MemberCreator()
 		{
-			var story = new Story("MemberCreator");
-
-			var feature = story.InOrderTo("access the details of the member who created an action")
-				.AsA("developer")
-				.IWant("to get the member object.");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Access MemberCreator property")
 				.Given(AnAction)
-				.And(EntityIsRefreshed)
-				.When(MemberCreatorIsAccessed)
-				.Then(MockSvcRetrieveIsCalled<Member>, 1)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("Access MemberCreator property when expired")
-				.Given(AnAction)
-				.And(EntityIsRefreshed)
 				.And(EntityIsExpired)
 				.When(MemberCreatorIsAccessed)
-				.Then(MockSvcRetrieveIsCalled<Member>, 1)
+				.Then(RepositoryRefreshIsNotCalled<Action>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -39,42 +23,41 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Delete()
 		{
-			var story = new Story("Delete");
-
-			var feature = story.InOrderTo("delete an action")
-				.AsA("developer")
-				.IWant("Delete to call the service.");
+			var feature = CreateFeature();
 
 			feature.WithScenario("Delete is called")
 				.Given(AnAction)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<IJsonAction>, 1)
+				.Then(RepositoryUploadIsCalled, EntityRequestType.Action_Write_Delete)
 				.And(ExceptionIsNotThrown)
 
 				.WithScenario("Delete is called without UserToken")
 				.Given(AnAction)
-				.And(TokenNotSupplied)
+				.And(AlreadyDeleted)
 				.When(DeleteIsCalled)
-				.Then(MockApiDeleteIsCalled<IJsonAction>, 0)
-				.And(ExceptionIsThrown<ReadOnlyAccessException>)
+				.Then(ValidatorWritableIsNotCalled)
+				.And(RepositoryUploadIsNotCalled)
+				.And(ExceptionIsNotThrown)
 
 				.Execute();
 		}
 
 		private void AnAction()
 		{
-			_systemUnderTest = new EntityUnderTest();
-			SetupMockGet<IJsonAction>();
-			SetupMockRetrieve<Member>();
+			_test = new EntityUnderTest();
+		}
+		private void AlreadyDeleted()
+		{
+			_test.Sut.ForceDeleted(true);
 		}
 
 		private void MemberCreatorIsAccessed()
 		{
-			Execute(() => _systemUnderTest.Sut.MemberCreator);
+			Execute(() => _test.Sut.MemberCreator);
 		}
 		private void DeleteIsCalled()
 		{
-			Execute(() => _systemUnderTest.Sut.Delete());
+			Execute(() => _test.Sut.Delete());
 		}
 	}
 }

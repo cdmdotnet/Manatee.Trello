@@ -29,13 +29,32 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Represents permissions granted to a particular entity type by a user token.
+	/// Non-generic base class to hold static members.  Performs no other function.
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	public class TokenPermission<T> where T : ExpiringObject
+	public abstract class TokenPermission
 	{
 		private static readonly OneToOneMap<TokenModelType, string> _typeMap;
 
+		internal static OneToOneMap<TokenModelType, string> TypeMap { get { return _typeMap; } }
+
+		static TokenPermission()
+		{
+			_typeMap = new OneToOneMap<TokenModelType, string>
+			           	{
+			           		{TokenModelType.Board, "Board"},
+			           		{TokenModelType.Member, "Member"},
+			           		{TokenModelType.Organization, "Organization"},
+			           	};
+		}
+	}
+
+	/// <summary>
+	/// Represents permissions granted to a particular entity type by a user token.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	public class TokenPermission<T> : TokenPermission
+		where T : ExpiringObject
+	{
 		private readonly IJsonTokenPermission _jsonTokenPermission;
 		private readonly TokenModelType _modelType = TokenModelType.Unknown;
 		private readonly ModelScope<T> _scope;
@@ -57,21 +76,12 @@ namespace Manatee.Trello
 		/// </summary>
 		public ModelScope<T> Scope { get { return _scope; } }
 
-		static TokenPermission()
-		{
-			_typeMap = new OneToOneMap<TokenModelType, string>
-			           	{
-			           		{TokenModelType.Board, "Board"},
-			           		{TokenModelType.Member, "Member"},
-			           		{TokenModelType.Organization, "Organization"},
-			           	};
-		}
 		internal TokenPermission(IJsonTokenPermission jsonTokenPermission, T model)
 		{
 			_jsonTokenPermission = jsonTokenPermission;
 			_scope = (model != null) ? new ModelScope<T>(model) : ModelScope<T>.All;
-			_modelType = _typeMap.Any(kvp => kvp.Value == _jsonTokenPermission.ModelType)
-			             	? _typeMap[_jsonTokenPermission.ModelType]
+			_modelType = TypeMap.Any(kvp => kvp.Value == _jsonTokenPermission.ModelType)
+							? TypeMap[_jsonTokenPermission.ModelType]
 							: TokenModelType.Unknown;
 		}
 	}

@@ -34,16 +34,7 @@ namespace Manatee.Trello.Internal.DataAccess
 	public interface IJsonRepository
 	{
 		/// <summary />
-		T Get<T>(string endpoint, IDictionary<string, object> parameters = null)
-			where T : class;
-		/// <summary />
-		T Put<T>(string endpoint, IDictionary<string, object> parameters = null)
-			where T : class;
-		/// <summary />
-		T Post<T>(string endpoint, IDictionary<string, object> parameters = null)
-			where T : class;
-		/// <summary />
-		T Delete<T>(string endpoint)
+		T Execute<T>(Endpoint endpoint, IDictionary<string, object> parameters = null)
 			where T : class;
 	}
 }

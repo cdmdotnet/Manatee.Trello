@@ -81,7 +81,7 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
-				if (_jsonBoardPreferences == null) return;
+				Validator.Enumeration(value);
 				if (_comments == value) return;
 				_comments = value;
 				UpdateApiComments();
@@ -102,6 +102,7 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_invitations == value) return;
 				_invitations = value;
@@ -123,6 +124,7 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
@@ -165,6 +167,7 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_jsonBoardPreferences == null) return;
 				if (_voting == value) return;
 				_voting = value;

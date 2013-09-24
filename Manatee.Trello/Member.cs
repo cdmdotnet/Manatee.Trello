@@ -81,6 +81,7 @@ namespace Manatee.Trello
 			set
 			{
 				Validator.Writable();
+				Validator.Enumeration(value);
 				if (_avatarSource == value) return;
 				_avatarSource = value;
 				UpdateApiAvatarSource();

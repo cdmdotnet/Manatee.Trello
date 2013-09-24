@@ -48,15 +48,14 @@ namespace Manatee.Trello.Internal.Bootstrapping
 			RequestQueue = new RequestQueue(config.Log, NetworkMonitor);
 			RequestProcessor = new RestRequestProcessor(RequestQueue, config.RestClientProvider, auth);
 			JsonRepository = new JsonRepository(RequestProcessor, config.RestClientProvider.RequestProvider);
-			Validator = new Validator(config.Log, service, RequestProcessor);
+			Validator = new Validator(config.Log, service);
 			EntityFactory = new EntityFactory(config.Log, Validator);
-			EntityRepository = new EntityRepository(JsonRepository, EndpointFactory, EntityFactory, OfflineChangeQueue, config.ItemDuration);
+			EntityRepository = new CachingEntityRepository(new EntityRepository(JsonRepository, EndpointFactory,
+																				EntityFactory, OfflineChangeQueue,
+																				config.ItemDuration),
+														   config.Cache ?? new ThreadSafeCache(new SimpleCache()));
 			NetworkMonitor.ConnectionStatusChanged += EntityRepository.NetworkStatusChanged;
 			NetworkMonitor.ConnectionStatusChanged += RequestProcessor.NetworkStatusChanged;
-			if (config.Cache != null)
-			{
-				EntityRepository = new CachingEntityRepository(EntityRepository, config.Cache);
-			}
 		}
 	}
 }

@@ -39,28 +39,19 @@ namespace Manatee.Trello
 		///<summary>
 		/// Gets the date this session was created.
 		///</summary>
-		public DateTime? DateCreated { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.DateCreated; } }
+		public DateTime? DateCreated { get { return _jsonMemberSession.DateCreated; } }
 		///<summary>
 		/// Gets the date this session was created.
 		///</summary>
-		public DateTime? DateExpires { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.DateExpires; } }
+		public DateTime? DateExpires { get { return _jsonMemberSession.DateExpires; } }
 		///<summary>
 		/// Gets the date this session was created.
 		///</summary>
-		public DateTime? DateLastUsed { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.DateLastUsed; } }
+		public DateTime? DateLastUsed { get { return _jsonMemberSession.DateLastUsed; } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
-		public override string Id
-		{
-			get { return _jsonMemberSession != null ? _jsonMemberSession.Id : base.Id; }
-			internal set
-			{
-				if (_jsonMemberSession != null)
-					_jsonMemberSession.Id = value;
-				base.Id = value;
-			}
-		}
+		public override string Id { get { return _jsonMemberSession.Id; } internal set { _jsonMemberSession.Id = value; } }
 		/// <summary>
 		/// Gets the IP Address associated with the session.
 		/// </summary>
@@ -76,19 +67,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the session is the currently active session.
 		/// </summary>
-		public bool? IsCurrent { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.IsCurrent; } }
+		public bool? IsCurrent { get { return _jsonMemberSession.IsCurrent; } }
 		/// <summary>
 		/// Gets whether the session has been used recently.
 		/// </summary>
-		public bool? IsRecent { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.IsRecent; } }
+		public bool? IsRecent { get { return _jsonMemberSession.IsRecent; } }
 		/// <summary>
 		/// Gets the type of login used to create the session.
 		/// </summary>
-		public string Type { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.Type; } }
+		public string Type { get { return _jsonMemberSession.Type; } }
 		/// <summary>
 		/// Gets the interface used to create the session.  This is typically browser information.
 		/// </summary>
-		public string UserAgent { get { return (_jsonMemberSession == null) ? null : _jsonMemberSession.UserAgent; } }
+		public string UserAgent { get { return _jsonMemberSession.UserAgent; } }
 		/// <summary>
 		/// Gets whether this entity represents an actual entity on Trello.
 		/// </summary>

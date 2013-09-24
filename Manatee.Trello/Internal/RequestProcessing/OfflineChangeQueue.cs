@@ -38,7 +38,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 		public void Enqueue(ExpiringObject entity, Endpoint endpoint, IDictionary<string, object> parameters)
 		{
-			var change = new OfflineChange(entity, endpoint, new Dictionary<string, object>(parameters));
+			var change = new OfflineChange(entity, endpoint, parameters.ToDictionary(p => p.Key, p => p.Value));
 			_queue.Enqueue(change);
 		}
 		public void Requeue(IEnumerable<OfflineChange> changes)

@@ -103,6 +103,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(ACheckItem)
 				.When(StateIsSet, CheckItemStateType.Complete)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<CheckItemStateType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.CheckItem_Write_State)
 				.And(ExceptionIsNotThrown)
 
@@ -144,8 +145,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void ACheckItem()
 		{
 			_test = new EntityUnderTest();
-			var card = new Card {Id = TrelloIds.Invalid};
-			var checklist = new CheckList {Id = TrelloIds.Invalid, Owner = card};
+			var card = new Card {Id = TrelloIds.Test};
+			var checklist = new CheckList {Id = TrelloIds.Test, Owner = card};
 			_test.Sut.Owner = checklist;
 		}
 		private void NameIs(string value)

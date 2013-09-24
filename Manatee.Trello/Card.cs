@@ -133,10 +133,12 @@ namespace Manatee.Trello
 
 				if (_isDeleted) return;
 				Validator.Writable();
-				Validator.Nullable(value);
 				if (_jsonCard.Due == value) return;
 				_jsonCard.Due = value;
-				Parameters.Add("due", _jsonCard.Due.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
+				var strValue = _jsonCard.Due == null
+								   ? string.Empty
+								   : _jsonCard.Due.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+				Parameters.Add("due", strValue);
 				Upload(EntityRequestType.Card_Write_DueDate);
 			}
 		}
@@ -325,7 +327,7 @@ namespace Manatee.Trello
 			_comments = new ExpiringList<Action>(this, EntityRequestType.Card_Read_Actions) {Filter = "commentCard"};
 			_attachments = new ExpiringList<Attachment>(this, EntityRequestType.Card_Read_Attachments) {Fields = "all"};
 			_badges = new Badges(this);
-			_checkLists = new ExpiringList<CheckList>(this, EntityRequestType.Card_Read_Checklists);
+			_checkLists = new ExpiringList<CheckList>(this, EntityRequestType.Card_Read_CheckLists);
 			_labels = new ExpiringList<Label>(this, EntityRequestType.Card_Read_Labels);
 			_members = new ExpiringList<Member>(this, EntityRequestType.Card_Read_Members);
 			_votingMembers = new ExpiringList<Member>(this, EntityRequestType.Card_Read_VotingMembers);

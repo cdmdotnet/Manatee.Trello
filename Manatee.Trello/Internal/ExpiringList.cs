@@ -64,7 +64,7 @@ namespace Manatee.Trello.Internal
 				Parameters.Add("filter", Filter);
 			if (Fields != null)
 				Parameters.Add("fields", Fields);
-			EntityRepository.RefreshCollecion<T>(this, _requestType, Parameters);
+			EntityRepository.RefreshCollection<T>(this, _requestType);
 			return true;
 		}
 		public void Add(T item)
