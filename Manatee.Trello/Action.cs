@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -35,33 +36,52 @@ namespace Manatee.Trello
 	public class Action : ExpiringObject, IEquatable<Action>, IComparable<Action>
 	{
 		private static readonly OneToOneMap<ActionType, string> _typeMap;
+		private static readonly Dictionary<ActionType, Func<Action, string>> _stringDefinitions; 
 
+		private readonly Dictionary<string, ExpiringObject> _entities;
 		private IJsonAction _jsonAction;
 		private Member _memberCreator;
 		private ActionType _type = ActionType.Unknown;
 		private bool _isDeleted;
 
-		/// <summary>
-		/// The member who performed the action.
-		/// </summary>
-		public Member MemberCreator
+		public Attachment Attachment
 		{
-			get
-			{
-				if (_isDeleted) return null;
-				return UpdateById(ref _memberCreator, EntityRequestType.Member_Read_Refresh, _jsonAction.IdMemberCreator);
-			}
+			get { return _isDeleted ? null : TryGetEntity<Attachment>("attachment", "attachment.id", EntityRequestType.Attachment_Read_Refresh); }
+		}
+		public Board Board
+		{
+			get { return _isDeleted ? null : TryGetEntity<Board>("board", "board.id", EntityRequestType.Board_Read_Refresh); }
+		}
+		public Card Card
+		{
+			get { return _isDeleted ? null : TryGetEntity<Card>("card", "card.id", EntityRequestType.Card_Read_Refresh); }
+		}
+		public int? CardShortId
+		{
+			get { return _isDeleted ? null : (int?) Data.TryGetNumber("card", "idShort"); }
+		}
+		public CheckList CheckList
+		{
+			get { return _isDeleted ? null : TryGetEntity<CheckList>("checklist", "checklist.id", EntityRequestType.CheckList_Read_Refresh); }
+		}
+
+		public CheckItem CheckItem
+		{
+			get { return _isDeleted ? null : TryGetEntity<CheckItem>("checkItem", "checkItem.id", EntityRequestType.CheckItem_Read_Refresh); }
 		}
 		/// <summary>
 		/// Data associated with the action.  Contents depend upon the action's type.
 		/// </summary>
-		internal IJsonActionData Data
+		private IJsonActionData Data
 		{
-			get { return (_isDeleted || (_jsonAction == null)) ? null : _jsonAction.Data; }
-			set
-			{
-				_jsonAction.Data = value;
-			}
+			get { return _isDeleted ? null : _jsonAction.Data; }
+		}
+		/// <summary>
+		/// When the action was performed.
+		/// </summary>
+		public DateTime? Date
+		{
+			get { return (_jsonAction == null) ? null : _jsonAction.Date; }
 		}
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
@@ -74,6 +94,45 @@ namespace Manatee.Trello
 				_jsonAction.Id = value;
 			}
 		}
+		public List List
+		{
+			get { return _isDeleted ? null : TryGetEntity<List>("list", "list.id", EntityRequestType.List_Read_Refresh); }
+		}
+		public List ListAfter
+		{
+			get { return _isDeleted ? null : TryGetEntity<List>("listAfter", "listAfter.id", EntityRequestType.List_Read_Refresh); }
+		}
+		public List ListBefore
+		{
+			get { return _isDeleted ? null : TryGetEntity<List>("listBefore", "listBefore.id", EntityRequestType.List_Read_Refresh); }
+		}
+		public Member Member
+		{
+			get { return _isDeleted ? null : TryGetEntity<Member>("member", "idMember", EntityRequestType.Member_Read_Refresh); }
+		}
+		/// <summary>
+		/// The member who performed the action.
+		/// </summary>
+		public Member MemberCreator
+		{
+			get { return _isDeleted ? null : UpdateById(ref _memberCreator, EntityRequestType.Member_Read_Refresh, _jsonAction.IdMemberCreator); }
+		}
+		public Organization Organization
+		{
+			get { return _isDeleted ? null : TryGetEntity<Organization>("organization", "organization", EntityRequestType.Organization_Read_Refresh); }
+		}
+		public Board SourceBoard
+		{
+			get { return _isDeleted ? null : TryGetEntity<Board>("boardSource", "boardSource.id", EntityRequestType.Board_Read_Refresh); }
+		}
+		public Card SourceCard
+		{
+			get { return _isDeleted ? null : TryGetEntity<Card>("cardSource", "cardSource.id", EntityRequestType.Card_Read_Refresh); }
+		}
+		public string Text
+		{
+			get { return _isDeleted ? null : Data.TryGetString("text"); }
+		}
 		/// <summary>
 		/// The type of action performed.
 		/// </summary>
@@ -81,13 +140,6 @@ namespace Manatee.Trello
 		{
 			get { return _isDeleted ? ActionType.Unknown : _type; }
 			internal set { _type = value; }
-		}
-		/// <summary>
-		/// When the action was performed.
-		/// </summary>
-		public DateTime? Date
-		{
-			get { return (_jsonAction == null) ? null : _jsonAction.Date; }
 		}
 		/// <summary>
 		/// Gets whether this entity represents an actual entity on Trello.
@@ -144,6 +196,46 @@ namespace Manatee.Trello
 			           		{ActionType.UpdateCardDesc, "updateCard:desc"},
 			           		{ActionType.UpdateCardName, "updateCard:name"},
 			           	};
+			_stringDefinitions = new Dictionary<ActionType, Func<Action, string>>
+				{
+					{ActionType.AddAttachmentToCard, a => string.Format("{0} attached {1} to card {2}.", a.MemberCreator, a.Attachment, a.Card)},
+					{ActionType.AddChecklistToCard, a => string.Format("{0} added checklist {1} to card {2}.", a.MemberCreator, a.CheckList, a.Card)},
+					{ActionType.AddMemberToBoard, a => string.Format("{0} added member {1} to board {2}.", a.MemberCreator, a.Member, a.Board)},
+					{ActionType.AddMemberToCard, a => string.Format("{0} assigned member {1} to card {2}.", a.MemberCreator, a.Member, a.Card)},
+					{ActionType.AddMemberToOrganization, a => string.Format("{0} added member {1} to organization {2}.", a.MemberCreator, a.Member, a.Organization)},
+					{ActionType.AddToOrganizationBoard, a => string.Format("{0} moved board {1} into organization {2}.", a.MemberCreator, a.Board, a.Organization)},
+					{ActionType.CommentCard, a => string.Format("{0} commented on card {1}: '{2}'.", a.MemberCreator, a.Card, a.Text)},
+					{ActionType.ConvertToCardFromCheckItem, a => string.Format("{0} converted checkitem {1} to a card.", a.MemberCreator, a.CheckItem)},
+					{ActionType.CopyBoard, a => string.Format("{0} copied board {1} from board {2}.", a.MemberCreator, a.Board, a.SourceBoard)},
+					{ActionType.CopyCard, a => string.Format("{0} copied card {1} from card {2}.", a.MemberCreator, a.Card, a.SourceCard)},
+					{ActionType.CreateBoard, a => string.Format("{0} created board {1}.", a.MemberCreator, a.Board)},
+					{ActionType.CreateCard, a => string.Format("{0} created card {1}.", a.MemberCreator, a.Card)},
+					{ActionType.CreateList, a => string.Format("{0} created list {1}.", a.MemberCreator, a.List)},
+					{ActionType.CreateOrganization, a => string.Format("{0} created organization {1}.", a.MemberCreator, a.Organization)},
+					{ActionType.DeleteAttachmentFromCard, a => string.Format("{0} removed attachment {1} from card {2}.", a.MemberCreator, a.Attachment, a.Card)},
+					{ActionType.DeleteCard, a => string.Format("{0} deleted card {1} from {2}.", a.MemberCreator, a.CardShortId, a.Board)},
+					{ActionType.MakeAdminOfBoard, a => string.Format("{0} made member {1} an admin of board {2}.", a.MemberCreator, a.Member, a.Board)},
+					{ActionType.MakeNormalMemberOfBoard, a => string.Format("{0} made member {1} a normal user of board {2}.", a.MemberCreator, a.Member, a.Board)},
+					{ActionType.MakeNormalMemberOfOrganization, a => string.Format("{0} made member {1} a normal user of organization {2}.", a.MemberCreator, a.Member, a.Organization)},
+					{ActionType.MakeObserverOfBoard, a => string.Format("{0} made member {1} an observer of board {2}.", a.MemberCreator, a.Member, a.Board)},
+					{ActionType.MemberJoinedTrello, a => string.Format("Three cheers for {0}: the newest member of Trello!", a.MemberCreator)},
+					{ActionType.MoveCardFromBoard, a => string.Format("{0} moved card {1} from board {2} to board {3}.", a.MemberCreator, a.Card)},
+					{ActionType.RemoveAdminFromBoard, a => string.Format("{0} removed member {1} as an admin of board {2}.", a.MemberCreator, a.Member, a.Board)},
+					{ActionType.RemoveAdminFromOrganization, a => string.Format("{0} removed member {1} as an admin of organization {2}.", a.MemberCreator, a.Member, a.Organization)},
+					{ActionType.RemoveChecklistFromCard, a => string.Format("{0} deleted checklist {1} from card {2}.", a.MemberCreator, a.Data.TryGetString("checklist", "name"), a.Card)},
+					{ActionType.RemoveFromOrganizationBoard, a => string.Format("{0} removed board {1} from organization {2}.", a.MemberCreator, a.Board, a.Organization)},
+					{ActionType.RemoveMemberFromBoard, a => string.Format("{0} removed member {1} from board {2}.", a.MemberCreator, a.Member, a.Board)},
+					{ActionType.RemoveMemberFromCard, a => string.Format("{0} removed member {1} from card {2}.", a.MemberCreator, a.Member, a.Card)},
+					{ActionType.UpdateBoard, a => string.Format("{0} updated board {1}.", a.MemberCreator, a.Board)},
+					{ActionType.UpdateCard, a => string.Format("{0} updated card {1}.", a.MemberCreator, a.Card)},
+					{ActionType.UpdateCheckItemStateOnCard, a => string.Format("{0} updated checkitem {1}.", a.MemberCreator, a.CheckItem)},
+					{ActionType.UpdateChecklist, a => string.Format("{0} updated checklist {1}.", a.MemberCreator, a.CheckList)},
+					{ActionType.UpdateMember, a => string.Format("{0} updated their profile.", a.MemberCreator)},
+					{ActionType.UpdateOrganization, a => string.Format("{0} updated organization {1}.", a.MemberCreator, a.Organization)},
+					{ActionType.UpdateCardIdList, a => string.Format("{0} moved card {1} from list {2} to list {3}.", a.MemberCreator, a.Card, a.ListBefore, a.ListAfter)},
+					{ActionType.UpdateCardClosed, a => string.Format("{0} archived card {1}.", a.MemberCreator, a.Card)},
+					{ActionType.UpdateCardDesc, a => string.Format("{0} changed the description of card {1}.", a.MemberCreator, a.Card)},
+				};
 		}
 		/// <summary>
 		/// Creates a new instance of the Action class.
@@ -151,6 +243,7 @@ namespace Manatee.Trello
 		public Action()
 		{
 			_jsonAction = new InnerJsonAction();
+			_entities = new Dictionary<string, ExpiringObject>();
 		}
 
 		/// <summary>
@@ -219,6 +312,10 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
+			if (_stringDefinitions.ContainsKey(Type))
+				return _stringDefinitions[Type](this);
+			Log.Info("I don't have action type '' configured yet.  If you can, please use Fiddler to capture the JSON data" +
+					 " and email it to littlecrabsolutions@yahoo.com.  I'll try to add it in the next release.");
 			return string.Format("{0} did something, but it's classified.", MemberCreator.FullName);
 		}
 		/// <summary>
@@ -244,6 +341,17 @@ namespace Manatee.Trello
 		private void UpdateType()
 		{
 			_type = _typeMap.Any(kvp => kvp.Value == _jsonAction.Type) ? _typeMap[_jsonAction.Type] : ActionType.Unknown;
+		}
+		private T TryGetEntity<T>(string index, string path, EntityRequestType request)
+			where T : ExpiringObject
+		{
+			if (_entities.ContainsKey(index))
+				return (T)_entities[index];
+			var id = _jsonAction.Data.TryGetString(path.Split('.'));
+			if (id == null) return null;
+			T entity = null;
+			_entities[index] = UpdateById(ref entity, request, id);
+			return entity;
 		}
 	}
 }

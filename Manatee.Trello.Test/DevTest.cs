@@ -25,7 +25,7 @@ namespace Manatee.Trello.Test
 			var service = new TrelloService(options, auth);
 
 			var start = DateTime.Now;
-			var member = service.Retrieve<Member>("shanegibbons");
+			var member = service.Retrieve<Member>("gregsdennis");
 
 			//Console.WriteLine(member);
 			//foreach (var board in member.Boards)

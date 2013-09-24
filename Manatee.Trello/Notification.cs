@@ -206,7 +206,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} did something, but it's classified.");
+			return string.Format("{0} did something, but it's classified.", MemberCreator.FullName);
 		}
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
