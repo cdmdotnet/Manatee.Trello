@@ -22,9 +22,9 @@
 ***************************************************************************************/
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
-using Manatee.Trello.Internal.RequestProcessing;
 
 namespace Manatee.Trello.Internal
 {
@@ -32,18 +32,16 @@ namespace Manatee.Trello.Internal
 	{
 		private readonly ILog _log;
 		private readonly ITrelloService _trelloService;
-		private readonly IRestRequestProcessor _requestProcessor;
 
-		public Validator(ILog log, ITrelloService trelloService, IRestRequestProcessor requestProcessor)
+		public Validator(ILog log, ITrelloService trelloService)
 		{
 			_log = log;
 			_trelloService = trelloService;
-			_requestProcessor = requestProcessor;
 		}
 
 		public void Writable()
 		{
-			if (string.IsNullOrWhiteSpace(_requestProcessor.UserToken))
+			if (string.IsNullOrWhiteSpace(_trelloService.UserToken))
 				_log.Error(new ReadOnlyAccessException());
 		}
 		public void Entity<T>(T entity, bool allowNulls = false)
@@ -77,8 +75,7 @@ namespace Manatee.Trello.Internal
 		}
 		public string MinStringLength(string str, int minLength, string parameter)
 		{
-			if (str == null)
-				_log.Error(new ArgumentNullException("str"));
+			NonEmptyString(str);
 			str = str.Trim();
 			if (str.Length < minLength)
 				_log.Error(new ArgumentException(string.Format("{0} must be at least {1} characters and cannot begin or end with whitespace.",
@@ -88,8 +85,7 @@ namespace Manatee.Trello.Internal
 		}
 		public string StringLengthRange(string str, int low, int high, string parameter)
 		{
-			if (str == null)
-				_log.Error(new ArgumentNullException("str"));
+			NonEmptyString(str);
 			str = str.Trim();
 			if (!str.Length.BetweenInclusive(low, high))
 				_log.Error(new ArgumentException(string.Format("{0} must be from {1} to {2} characters and cannot begin or end with whitespace.",
@@ -101,8 +97,9 @@ namespace Manatee.Trello.Internal
 		public string UserName(string value)
 		{
 			var retVal = MinStringLength(value, 3, "Username");
-			if (retVal != retVal.ToLower())
-			_log.Error(new ArgumentException("Username may only contain lowercase characters, underscores, and numbers"));
+			var regex = new Regex("^[a-z0-9_]+$");
+			if (!regex.IsMatch(retVal))
+				_log.Error(new ArgumentException("Username may only contain lowercase characters, underscores, and numbers"));
 			var response = _trelloService.SearchMembers(value);
 			if (response.Any())
 				_log.Error(new ArgumentException(string.Format("Username '{0}' already exists.", value)));
@@ -111,18 +108,19 @@ namespace Manatee.Trello.Internal
 		public string OrgName(string value)
 		{
 			var retVal = MinStringLength(value, 3, "Name");
-			if (retVal != retVal.ToLower())
+			var regex = new Regex("^[a-z0-9_]+$");
+			if (!regex.IsMatch(retVal))
 				_log.Error(new ArgumentException("Name may only contain lowercase characters, underscores, and numbers"));
 			var response = _trelloService.Search(value, modelTypes: SearchModelType.Organizations);
-			if (response.Organizations.Any())
+			if ((response.Organizations != null) && response.Organizations.Any())
 				_log.Error(new ArgumentException(string.Format("Organization '{0}' already exists.", value)));
 			return retVal;
 		}
 		public void Enumeration<T>(T value)
 		{
-			var validValues = Enum.GetValues(typeof (T)).Cast<T>();
+			var validValues = Enum.GetValues(typeof(T)).Cast<T>();
 			if (!validValues.Contains(value))
-				_log.Error(new ArgumentException(string.Format("Value '{0}' is not valid for type '{1}'", value, typeof (T))));
+				_log.Error(new ArgumentException(string.Format("Value '{0}' is not valid for type '{1}'", value, typeof(T))));
 		}
 		public void Url(string url)
 		{

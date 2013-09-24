@@ -49,7 +49,6 @@ namespace Manatee.Trello
 			get
 			{
 				if (_isDeleted) return null;
-				if (_jsonAction == null) return null;
 				return UpdateById(ref _memberCreator, EntityRequestType.Member_Read_Refresh, _jsonAction.IdMemberCreator);
 			}
 		}
@@ -61,8 +60,6 @@ namespace Manatee.Trello
 			get { return (_isDeleted || (_jsonAction == null)) ? null : _jsonAction.Data; }
 			set
 			{
-
-				if (_jsonAction == null) return;
 				_jsonAction.Data = value;
 			}
 		}
@@ -74,10 +71,7 @@ namespace Manatee.Trello
 			get { return _jsonAction != null ? _jsonAction.Id : base.Id; }
 			internal set
 			{
-
-				if (_jsonAction != null)
-					_jsonAction.Id = value;
-				base.Id = value;
+				_jsonAction.Id = value;
 			}
 		}
 		/// <summary>
@@ -225,21 +219,19 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} on {1}", Type, Date);
+			return StringConverter.GetString(this);
 		}
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.
 		/// </summary>
 		public sealed override bool Refresh()
 		{
-			if (_isDeleted) return false;
-			Parameters["_id"] = Id;
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.Action_Read_Refresh);
+			return false;
 		}
 
 		internal override void ApplyJson(object obj)
 		{
+			if (obj == null) return;
 			_jsonAction = (IJsonAction)obj;
 			UpdateType();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;

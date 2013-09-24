@@ -107,6 +107,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(AnOrganizationPreferencesObject)
 				.When(OrgVisibleBoardVisibilityIsSet, BoardPermissionLevelType.Org)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<BoardPermissionLevelType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_OrgVisibleBoardVisibility)
 				.And(ExceptionIsNotThrown)
 
@@ -142,6 +143,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(AnOrganizationPreferencesObject)
 				.When(PermissionLevelIsSet, OrganizationPermissionLevelType.Public)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<OrganizationPermissionLevelType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_PermissionLevel)
 				.And(ExceptionIsNotThrown)
 
@@ -177,6 +179,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(AnOrganizationPreferencesObject)
 				.When(PrivateBoardVisibilityIsSet, BoardPermissionLevelType.Private)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<BoardPermissionLevelType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_PrivateBoardVisibility)
 				.And(ExceptionIsNotThrown)
 
@@ -212,6 +215,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(AnOrganizationPreferencesObject)
 				.When(PublicBoardVisibilityIsSet, BoardPermissionLevelType.Public)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<BoardPermissionLevelType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.OrganizationPreferences_Write_PublicBoardVisibility)
 				.And(ExceptionIsNotThrown)
 

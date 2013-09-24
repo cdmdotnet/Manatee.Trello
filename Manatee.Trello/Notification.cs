@@ -206,7 +206,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("{0} did something noteworthy.", MemberCreator == null ? "An unknown member" : MemberCreator.FullName);
+			return StringConverter.GetString(this);
 		}
 		/// <summary>
 		/// Retrieves updated data from the service instance and refreshes the object.

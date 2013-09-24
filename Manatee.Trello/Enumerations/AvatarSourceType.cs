@@ -30,7 +30,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the avatar source is not recognized.
 		/// </summary>
-		Unknown = -1,
+		Unknown,
 		/// <summary>
 		/// Indicates there is no avatar.
 		/// </summary>

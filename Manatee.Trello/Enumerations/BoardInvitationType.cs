@@ -30,7 +30,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
-		Unknown = -1,
+		Unknown,
 		/// <summary>
 		/// Indicates that any member of the board may extend an invitation to join the board.
 		/// </summary>

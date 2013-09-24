@@ -82,11 +82,21 @@ namespace Manatee.Trello
 		internal override void ApplyJson(object obj)
 		{
 			var results = (IJsonSearchResults) obj;
-			_actions = results.ActionIds.Select(Download<Action>).ToList();
-			_boards = results.BoardIds.Select(Download<Board>).ToList();
-			_cards = results.CardIds.Select(Download<Card>).ToList();
-			_members = results.MemberIds.Select(Download<Member>).ToList();
-			_organizations = results.OrganizationIds.Select(Download<Organization>).ToList();
+			_actions = (results.ActionIds != null)
+						   ? results.ActionIds.Select(Download<Action>).ToList()
+						   : Enumerable.Empty<Action>();
+			_boards = (results.BoardIds != null)
+						  ? results.BoardIds.Select(Download<Board>).ToList()
+						  : Enumerable.Empty<Board>();
+			_cards = (results.CardIds != null)
+						 ? results.CardIds.Select(Download<Card>).ToList()
+						 : Enumerable.Empty<Card>();
+			_members = (results.MemberIds != null)
+						   ? results.MemberIds.Select(Download<Member>).ToList()
+						   : Enumerable.Empty<Member>();
+			_organizations = (results.OrganizationIds != null)
+								 ? results.OrganizationIds.Select(Download<Organization>).ToList()
+								 : Enumerable.Empty<Organization>();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 

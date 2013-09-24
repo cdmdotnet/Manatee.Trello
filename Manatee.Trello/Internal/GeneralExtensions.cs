@@ -23,7 +23,6 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -31,10 +30,6 @@ namespace Manatee.Trello.Internal
 {
 	internal static class GeneralExtensions
 	{
-		public static bool In<T>(this T item, IEnumerable<T> items)
-		{
-			return items.Contains(item);
-		}
 		public static bool In<T>(this T item, params T[] items)
 		{
 			return items.Contains(item);
@@ -43,35 +38,9 @@ namespace Manatee.Trello.Internal
 		{
 			return item.ToString().ToLower();
 		}
-		public static string LimitLength(this string str, int maxLength)
-		{
-			return str.Substring(0, Math.Min(str.Length, maxLength));
-		}
-		public static bool Between(this IComparable value, object low, object high)
-		{
-			return (value.CompareTo(low) > 0) && (value.CompareTo(high) < 0);
-		}
 		public static bool BetweenInclusive(this IComparable value, object low, object high)
 		{
 			return (value.CompareTo(low) >= 0) && (value.CompareTo(high) <= 0);
-		}
-		public static string ToDescription(this Enum value)
-		{
-			var str = value.ToString();
-			var type = value.GetType();
-			var memberInfo = type.GetMember(str);
-			var attributes = memberInfo[0].GetCustomAttributes(typeof (DescriptionAttribute), false)
-			                              .Cast<DescriptionAttribute>()
-			                              .ToList();
-			return attributes.Any() ? attributes.First().Description : str;
-		}
-		public static void AppendLine(this StringBuilder sb, string format, params object[] parameters)
-		{
-			sb.AppendLine(string.Format(format, parameters));
-		}
-		public static void Append(this StringBuilder sb, string format, params object[] parameters)
-		{
-			sb.Append(string.Format(format, parameters));
 		}
 		public static string CSharpName(this Type type)
 		{

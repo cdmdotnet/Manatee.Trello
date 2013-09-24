@@ -27,7 +27,6 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.DataAccess
 {
@@ -48,40 +47,40 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			_repositoryMethods = new Dictionary<Type, Func<IJsonRepository, Endpoint, IDictionary<string, object>, object>>
 				{
-					{typeof (Action), Call<IJsonAction>},
-					{typeof (Attachment), Call<IJsonAttachment>},
-					{typeof (Badges), Call<IJsonBadges>},
-					{typeof (Board), Call<IJsonBoard>},
-					{typeof (BoardPersonalPreferences), Call<IJsonBoardPersonalPreferences>},
-					{typeof (BoardPreferences), Call<IJsonBoardPreferences>},
-					{typeof (Card), Call<IJsonCard>},
-					{typeof (CheckItem), Call<IJsonCheckItem>},
-					{typeof (CheckList), Call<IJsonCheckList>},
-					{typeof (Label), Call<IJsonLabel>},
-					{typeof (LabelNames), Call<IJsonLabelNames>},
-					{typeof (List), Call<IJsonList>},
-					{typeof (Member), Call<IJsonMember>},
-					{typeof (MemberPreferences), Call<IJsonMemberPreferences>},
-					{typeof (MemberSession), Call<IJsonMemberSession>},
-					{typeof (Notification), Call<IJsonNotification>},
-					{typeof (Organization), Call<IJsonOrganization>},
-					{typeof (SearchResults), Call<IJsonSearchResults>},
-					{typeof (Token), Call<IJsonToken>},
-					{typeof (IEnumerable<Action>), Call<List<IJsonAction>>},
-					{typeof (IEnumerable<Attachment>), Call<List<IJsonAttachment>>},
-					{typeof (IEnumerable<Board>), Call<List<IJsonBoard>>},
-					{typeof (IEnumerable<BoardMembership>), Call<List<IJsonBoardMembership>>},
-					{typeof (IEnumerable<Card>), Call<List<IJsonCard>>},
-					{typeof (IEnumerable<CheckItem>), Call<List<IJsonCheckItem>>},
-					{typeof (IEnumerable<CheckList>), Call<List<IJsonCheckList>>},
-					{typeof (IEnumerable<Label>), Call<List<IJsonLabel>>},
-					{typeof (IEnumerable<List>), Call<List<IJsonList>>},
-					{typeof (IEnumerable<Member>), Call<List<IJsonMember>>},
-					{typeof (IEnumerable<MemberSession>), Call<List<IJsonMemberSession>>},
-					{typeof (IEnumerable<Notification>), Call<List<IJsonNotification>>},
-					{typeof (IEnumerable<Organization>), Call<List<IJsonOrganization>>},
-					{typeof (IEnumerable<OrganizationMembership>), Call<List<IJsonOrganizationMembership>>},
-					{typeof (IEnumerable<Token>), Call<List<IJsonToken>>},
+					{typeof (Action), (r, e, d) => r.Execute<Action>(e, d)},
+					{typeof (Attachment), (r, e, d) => r.Execute<IJsonAttachment>(e, d)},
+					{typeof (Badges), (r, e, d) => r.Execute<IJsonBadges>(e, d)},
+					{typeof (Board), (r, e, d) => r.Execute<IJsonBoard>(e, d)},
+					{typeof (BoardPersonalPreferences), (r, e, d) => r.Execute<IJsonBoardPersonalPreferences>(e, d)},
+					{typeof (BoardPreferences), (r, e, d) => r.Execute<IJsonBoardPreferences>(e, d)},
+					{typeof (Card), (r, e, d) => r.Execute<IJsonCard>(e, d)},
+					{typeof (CheckItem), (r, e, d) => r.Execute<IJsonCheckItem>(e, d)},
+					{typeof (CheckList), (r, e, d) => r.Execute<IJsonCheckList>(e, d)},
+					{typeof (Label), (r, e, d) => r.Execute<IJsonLabel>(e, d)},
+					{typeof (LabelNames), (r, e, d) => r.Execute<IJsonLabelNames>(e, d)},
+					{typeof (List), (r, e, d) => r.Execute<IJsonList>(e, d)},
+					{typeof (Member), (r, e, d) => r.Execute<IJsonMember>(e, d)},
+					{typeof (MemberPreferences), (r, e, d) => r.Execute<IJsonMemberPreferences>(e, d)},
+					{typeof (MemberSession), (r, e, d) => r.Execute<IJsonMemberSession>(e, d)},
+					{typeof (Notification), (r, e, d) => r.Execute<IJsonNotification>(e, d)},
+					{typeof (Organization), (r, e, d) => r.Execute<IJsonOrganization>(e, d)},
+					{typeof (SearchResults), (r, e, d) => r.Execute<IJsonSearchResults>(e, d)},
+					{typeof (Token), (r, e, d) => r.Execute<IJsonToken>(e, d)},
+					{typeof (IEnumerable<Action>), (r, e, d) => r.Execute<List<IJsonAction>>(e, d)},
+					{typeof (IEnumerable<Attachment>), (r, e, d) => r.Execute<List<IJsonAttachment>>(e, d)},
+					{typeof (IEnumerable<Board>), (r, e, d) => r.Execute<List<IJsonBoard>>(e, d)},
+					{typeof (IEnumerable<BoardMembership>), (r, e, d) => r.Execute<List<IJsonBoardMembership>>(e, d)},
+					{typeof (IEnumerable<Card>), (r, e, d) => r.Execute<List<IJsonCard>>(e, d)},
+					{typeof (IEnumerable<CheckItem>), (r, e, d) => r.Execute<List<IJsonCheckItem>>(e, d)},
+					{typeof (IEnumerable<CheckList>), (r, e, d) => r.Execute<List<IJsonCheckList>>(e, d)},
+					{typeof (IEnumerable<Label>), (r, e, d) => r.Execute<List<IJsonLabel>>(e, d)},
+					{typeof (IEnumerable<List>), (r, e, d) => r.Execute<List<IJsonList>>(e, d)},
+					{typeof (IEnumerable<Member>), (r, e, d) => r.Execute<List<IJsonMember>>(e, d)},
+					{typeof (IEnumerable<MemberSession>), (r, e, d) => r.Execute<List<IJsonMemberSession>>(e, d)},
+					{typeof (IEnumerable<Notification>), (r, e, d) => r.Execute<List<IJsonNotification>>(e, d)},
+					{typeof (IEnumerable<Organization>), (r, e, d) => r.Execute<List<IJsonOrganization>>(e, d)},
+					{typeof (IEnumerable<OrganizationMembership>), (r, e, d) => r.Execute<List<IJsonOrganizationMembership>>(e, d)},
+					{typeof (IEnumerable<Token>), (r, e, d) => r.Execute<List<IJsonToken>>(e, d)},
 				};
 			_applyJsonMethods = new Dictionary<Type, Action<IEntityFactory, ExpiringObject, object>>
 				{
@@ -117,20 +116,23 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			var endpoint = _endpointFactory.Build(request, entity.Parameters);
 			var json = _repositoryMethods[typeof (T)](_jsonRepository, endpoint, entity.Parameters);
+			entity.Parameters.Clear();
 			if (json == null) return false;
 			entity.ApplyJson(json);
 			return true;
 		}
-		public bool RefreshCollecion<T>(ExpiringObject obj, EntityRequestType request, IDictionary<string, object> parameters)
+		public bool RefreshCollection<T>(ExpiringObject obj, EntityRequestType request)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
 			var list = obj as ExpiringList<T>;
+			if (list == null) return false;
 			foreach (var parameter in RestParameterRepository.GetParameters<T>())
 			{
 				list.Parameters[parameter.Key] = parameter.Value;
 			}
-			var endpoint = _endpointFactory.Build(request, parameters);
-			var json = _repositoryMethods[typeof(IEnumerable<T>)](_jsonRepository, endpoint, parameters);
+			var endpoint = _endpointFactory.Build(request, list.Parameters);
+			var json = _repositoryMethods[typeof(IEnumerable<T>)](_jsonRepository, endpoint, list.Parameters);
+			list.Parameters.Clear();
 			if (json == null) return false;
 			_applyJsonMethods[typeof(T)](_entityFactory, list, json);
 			return true;
@@ -151,12 +153,14 @@ namespace Manatee.Trello.Internal.DataAccess
 			{
 				entity.ApplyJson(json);
 			}
+			parameters.Clear();
 			return entity;
 		}
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)
 		{
 			var endpoint = _endpointFactory.Build(request, parameters);
-			Call<object>(_jsonRepository, endpoint, parameters);
+			_jsonRepository.Execute<object>(endpoint, parameters);
+			parameters.Clear();
 		}
 		public void NetworkStatusChanged(object sender, EventArgs e)
 		{
@@ -181,23 +185,6 @@ namespace Manatee.Trello.Internal.DataAccess
 			_offlineChangeQueue.Requeue(failedChanges);
 		}
 
-		private static T Call<T>(IJsonRepository repository, Endpoint endpoint, IDictionary<string, object> parameters)
-			where T : class
-		{
-			switch (endpoint.Method)
-			{
-				case RestMethod.Get:
-					return repository.Get<T>(endpoint.ToString(), parameters);
-				case RestMethod.Put:
-					return repository.Put<T>(endpoint.ToString(), parameters);
-				case RestMethod.Post:
-					return repository.Post<T>(endpoint.ToString(), parameters);
-				case RestMethod.Delete:
-					return repository.Delete<T>(endpoint.ToString());
-				default:
-					throw new ArgumentOutOfRangeException("endpoint.Method");
-			}
-		}
 		private static void ApplyJson<T, TJson>(IEntityFactory entityFactory, ExpiringObject obj, object json)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{

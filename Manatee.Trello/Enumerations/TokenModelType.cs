@@ -31,7 +31,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Assigned when the model type is not recognized.
 		/// </summary>
-		Unknown = -1,
+		Unknown,
 		/// <summary>
 		/// Indicates the model is one or more Members.
 		/// </summary>

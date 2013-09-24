@@ -36,5 +36,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: InternalsVisibleTo("Manatee.Trello.Test")]
-[assembly: InternalsVisibleTo("Manatee.Trello.Test.Functional")]
 [assembly: InternalsVisibleTo("Manatee.Trello.Test.Unit")]

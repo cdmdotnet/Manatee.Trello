@@ -16,6 +16,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Board>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Action>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Actions collection enumerates")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(ActionsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Action>, EntityRequestType.Board_Read_Actions)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -30,6 +38,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(ArchivedCardsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Board>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Card>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("ArchivedCards collection enumerates")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(ArchivedCardsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Card>, EntityRequestType.Board_Read_Cards)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -44,6 +60,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(ArchivedListsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Board>)
+				.And(RepositoryRefreshCollectionIsNotCalled<List>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("ArchivedLists collection enumerates")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(ArchivedListsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<List>, EntityRequestType.Board_Read_Lists)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -93,6 +117,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(InvitedMembersIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Board>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Member>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("InvitedMembers collection enumerates")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(InvitedMembersIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Member>, EntityRequestType.Board_Read_InvitedMembers)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -232,6 +264,36 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(ListsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Board>)
+				.And(RepositoryRefreshCollectionIsNotCalled<List>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Lists collection enumerates")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(ListsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<List>, EntityRequestType.Board_Read_Lists)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void Members()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("Access Members property when expired")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(MembersIsAccessed)
+				.Then(RepositoryRefreshIsNotCalled<Board>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Member>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Members collection enumerates")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(MembersIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Member>, EntityRequestType.Board_Read_Members)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -246,6 +308,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(MembershipsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<Board>)
+				.And(RepositoryRefreshCollectionIsNotCalled<BoardMembership>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Memberships collection enumerates")
+				.Given(ABoard)
+				.And(EntityIsExpired)
+				.When(MembershipsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<BoardMembership>, EntityRequestType.Board_Read_Memberships)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -305,7 +375,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Organization property")
 				.Given(ABoard)
-				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Invalid})
+				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Test})
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Organization>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_Organization)
@@ -313,8 +383,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Organization property to same")
 				.Given(ABoard)
-				.And(OrganizationIs, TrelloIds.Invalid)
-				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Invalid})
+				.And(OrganizationIs, TrelloIds.Test)
+				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Test})
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Organization>)
 				.And(RepositoryUploadIsNotCalled)
@@ -386,7 +456,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 			feature.WithScenario("AddOrUpdateMember is called")
 				.Given(ABoard)
-				.When(AddOrUpdateMemberIsCalled, new Member {Id = TrelloIds.Invalid})
+				.When(AddOrUpdateMemberIsCalled, new Member {Id = TrelloIds.Test})
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Member>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_AddOrUpdateMember)
@@ -447,7 +517,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 			feature.WithScenario("RemoveMember is called")
 				.Given(ABoard)
-				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Invalid})
+				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Test})
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Member>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_RemoveMember)
@@ -515,13 +585,25 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Actions);
 		}
+		private void ActionsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Actions.GetEnumerator());
+		}
 		private void ArchivedCardsIsAccessed()
 		{
 			Execute(() => _test.Sut.ArchivedCards);
 		}
+		private void ArchivedCardsIsEnumerated()
+		{
+			Execute(() => _test.Sut.ArchivedCards.GetEnumerator());
+		}
 		private void ArchivedListsIsAccessed()
 		{
 			Execute(() => _test.Sut.ArchivedLists);
+		}
+		private void ArchivedListsIsEnumerated()
+		{
+			Execute(() => _test.Sut.ArchivedLists.GetEnumerator());
 		}
 		private void DescriptionIsAccessed()
 		{
@@ -534,6 +616,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void InvitedMembersIsAccessed()
 		{
 			Execute(() => _test.Sut.InvitedMembers);
+		}
+		private void InvitedMembersIsEnumerated()
+		{
+			Execute(() => _test.Sut.InvitedMembers.GetEnumerator());
 		}
 		private void IsClosedIsAccessed()
 		{
@@ -567,9 +653,25 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Lists);
 		}
+		private void ListsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Lists.GetEnumerator());
+		}
+		private void MembersIsAccessed()
+		{
+			Execute(() => _test.Sut.Members);
+		}
+		private void MembersIsEnumerated()
+		{
+			Execute(() => _test.Sut.Members.GetEnumerator());
+		}
 		private void MembershipsIsAccessed()
 		{
 			Execute(() => _test.Sut.Memberships);
+		}
+		private void MembershipsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Memberships.GetEnumerator());
 		}
 		private void NameIsAccessed()
 		{

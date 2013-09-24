@@ -66,6 +66,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(ABoardPreferencesObject)
 				.When(CommentsIsSet, BoardCommentType.Org)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<BoardCommentType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.BoardPreferences_Write_Comments)
 				.And(ExceptionIsNotThrown)
 
@@ -101,6 +102,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(ABoardPreferencesObject)
 				.When(InvitationsIsSet, BoardInvitationType.Members)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<BoardInvitationType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.BoardPreferences_Write_Invitations)
 				.And(ExceptionIsNotThrown)
 
@@ -136,6 +138,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(ABoardPreferencesObject)
 				.When(PermissionLevelIsSet, BoardPermissionLevelType.Public)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<BoardPermissionLevelType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.BoardPreferences_Write_PermissionLevel)
 				.And(ExceptionIsNotThrown)
 
@@ -208,6 +211,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(ABoardPreferencesObject)
 				.When(VotingIsSet, BoardVotingType.Disabled)
 				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEnumerationIsCalled<BoardVotingType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.BoardPreferences_Write_Voting)
 				.And(ExceptionIsNotThrown)
 

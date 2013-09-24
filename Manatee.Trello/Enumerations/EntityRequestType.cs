@@ -130,7 +130,7 @@ namespace Manatee.Trello
 		/// <summary />
 		Card_Read_CheckItems,
 		/// <summary />
-		Card_Read_Checklists,
+		Card_Read_CheckLists,
 		/// <summary />
 		Card_Write_ClearNotifications,
 		/// <summary />

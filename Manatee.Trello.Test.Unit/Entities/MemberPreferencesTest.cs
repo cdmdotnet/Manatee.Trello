@@ -67,6 +67,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.When(MinutesBetweenSummariesIsSet, (MemberPreferenceSummaryPeriodType?) MemberPreferenceSummaryPeriodType.OneMinute)
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorNullableIsCalled<MemberPreferenceSummaryPeriodType>)
+				.And(ValidatorEnumerationIsCalled<MemberPreferenceSummaryPeriodType>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.MemberPreferences_Write_MinutesBetweenSummaries)
 				.And(ExceptionIsNotThrown)
 

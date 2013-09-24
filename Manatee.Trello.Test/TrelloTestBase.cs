@@ -1,18 +1,19 @@
 using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StoryQ;
 
 namespace Manatee.Trello.Test
 {
 	public abstract class TrelloTestBase<T>
 	{
-		protected class SystemUnderTest<TDepCol>
+		protected abstract class SystemUnderTest<TDepCol>
 			where TDepCol : new()
 		{
 			public TDepCol Dependencies { get; private set; }
 			public T Sut { get; set; }
 
-			public SystemUnderTest()
+			protected SystemUnderTest()
 			{
 				Dependencies = new TDepCol();
 			}
@@ -20,6 +21,18 @@ namespace Manatee.Trello.Test
 
 		protected Exception Exception { get; private set; }
 		protected object ActualResult { get; private set; }
+
+		protected Feature CreateFeature()
+		{
+			var frame = new StackFrame(1);
+			var method = frame.GetMethod();
+			var type = GetType();
+
+			var story = new Story(string.Format("{0}.{1}", type.Name, method.Name));
+			return story.InOrderTo(string.Empty)
+						.AsA(string.Empty)
+						.IWant(string.Empty);
+		}
 
 		protected void Execute<TRequest>(Func<TRequest> func)
 		{

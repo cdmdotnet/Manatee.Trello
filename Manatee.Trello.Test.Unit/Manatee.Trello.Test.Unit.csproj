@@ -65,6 +65,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Entities\ActionTest.cs" />
     <Compile Include="Entities\AttachmentTest.cs" />
     <Compile Include="Entities\BadgesTest.cs" />
     <Compile Include="Entities\BoardMembershipTest.cs" />
@@ -84,6 +85,10 @@
     <Compile Include="Entities\OrganizationPreferencesTest.cs" />
     <Compile Include="Entities\OrganizationTest.cs" />
     <Compile Include="Entities\TokenTest.cs" />
+    <Compile Include="Internal\CachingEntityRepositoryTest.cs" />
+    <Compile Include="Internal\EntityRepositoryTest.cs" />
+    <Compile Include="Internal\ExpiringListTest.cs" />
+    <Compile Include="Internal\ValidatorTest.cs" />
     <Compile Include="Mocks\MockEntity.cs" />
     <Compile Include="Mocks\MockRequestProcessor.cs" />
     <Compile Include="Mocks\MockRestClient.cs" />

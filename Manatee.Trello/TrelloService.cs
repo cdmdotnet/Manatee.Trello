@@ -217,7 +217,8 @@ namespace Manatee.Trello
 		{
 			if (UserToken == null)
 				_configuration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
-			var parameters = new Dictionary<string, object> {{"fields", "id"}};
+			var parameters = RestParameterRepository.GetParameters<Member>()
+				.ToDictionary<KeyValuePair<string, string>, string, object>(k => k.Key, v => v.Value);
 			return _entityRepository.Download<Member>(EntityRequestType.Service_Read_Me, parameters);
 		}
 		private static string ConstructSearchModelTypeParameter(SearchModelType types)

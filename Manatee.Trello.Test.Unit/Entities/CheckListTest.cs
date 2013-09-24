@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Manatee.Trello.Json;
+﻿using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Manatee.Trello.Test.Unit.Entities
 {
@@ -48,7 +46,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Card property")
 				.Given(ACheckList)
-				.When(CardIsSet, new Card { Id = TrelloIds.Invalid })
+				.When(CardIsSet, new Card { Id = TrelloIds.Test })
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Card>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.CheckList_Write_Card)
@@ -56,8 +54,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Card property to same")
 				.Given(ACheckList)
-				.And(CardIs, new Card { Id = TrelloIds.Invalid })
-				.When(CardIsSet, new Card {Id = TrelloIds.Invalid})
+				.And(CardIs, new Card { Id = TrelloIds.Test })
+				.When(CardIsSet, new Card {Id = TrelloIds.Test})
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Card>)
 				.And(RepositoryUploadIsNotCalled)
@@ -75,6 +73,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(CheckItemsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<CheckList>)
+				.And(RepositoryRefreshCollectionIsNotCalled<CheckItem>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Actions collection enumerates")
+				.Given(ACheckList)
+				.And(EntityIsExpired)
+				.When(CheckItemsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<CheckItem>, EntityRequestType.CheckList_Read_CheckItems)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -238,6 +244,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void CheckItemsIsAccessed()
 		{
 			Execute(() => _test.Sut.CheckItems);
+		}
+		private void CheckItemsIsEnumerated()
+		{
+			Execute(() => _test.Sut.CheckItems.GetEnumerator());
 		}
 		private void NameIsAccessed()
 		{

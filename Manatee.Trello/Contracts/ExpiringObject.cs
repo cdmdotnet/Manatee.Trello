@@ -83,10 +83,6 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		public abstract bool Refresh();
 
-		internal void ForceNotExpired()
-		{
-			Expires = DateTime.Now.AddMinutes(1);
-		}
 		internal virtual bool Matches(string id)
 		{
 			return Id == id;
@@ -108,7 +104,7 @@ namespace Manatee.Trello.Contracts
 		/// <summary>
 		/// Verifies that the object is not expired and updates if necessary.
 		/// </summary>
-		protected internal void VerifyNotExpired()
+		protected void VerifyNotExpired()
 		{
 			if (!IsExpired || IsStubbed || !Refresh()) return;
 			if (Id != null)

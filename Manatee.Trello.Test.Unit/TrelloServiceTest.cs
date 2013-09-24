@@ -34,6 +34,8 @@ namespace Manatee.Trello.Test.Unit
 			}
 		}
 
+		private class ServiceUnderTest : SystemUnderTest<DependencyCollection> {}
+
 		#endregion
 
 		#region Data
@@ -113,7 +115,7 @@ namespace Manatee.Trello.Test.Unit
 
 		private void AService()
 		{
-			_systemUnderTest = new SystemUnderTest<DependencyCollection>();
+			_systemUnderTest = new ServiceUnderTest();
 			_systemUnderTest.Sut = new TrelloService(_systemUnderTest.Dependencies.Config.Object,
 													 _systemUnderTest.Dependencies.Validator.Object,
 													 _systemUnderTest.Dependencies.EntityRepository.Object,
@@ -172,19 +174,19 @@ namespace Manatee.Trello.Test.Unit
 		{
 			_systemUnderTest.Dependencies.Validator.Verify(v => v.NonEmptyString(It.IsAny<string>()));
 		}
-		[GenericMethodFormat("Api.Get<{0}>() is called {1} time(s)")]
+		[GenericMethodFormat("Repository.Download<{0}>() is called {1} time(s)")]
 		private void RepositoryDownloadIsCalled<T>(int times)
 			where T : ExpiringObject
 		{
-			_systemUnderTest.Dependencies.EntityRepository.Verify(r => r.Download<T>(It.IsAny<EntityRequestType>(), It.IsAny<Dictionary<string, object>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.EntityRepository.Verify(r => r.Download<T>(It.IsAny<EntityRequestType>(),
+																					 It.IsAny<Dictionary<string, object>>()), Times.Exactly(times));
 		}
-		[GenericMethodFormat("Api.Get<{0}>() is called {1} time(s)")]
+		[GenericMethodFormat("Repository.RefreshCollection<{0}>() is called {1} time(s)")]
 		private void RepositoryRefreshCollectionIsCalled<T>(int times)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			_systemUnderTest.Dependencies.EntityRepository.Verify(r => r.RefreshCollecion<T>(It.IsAny<ExpiringList<T>>(),
-																							 It.IsAny<EntityRequestType>(),
-																							 It.IsAny<Dictionary<string, object>>()), Times.Exactly(times));
+			_systemUnderTest.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<T>(It.IsAny<ExpiringList<T>>(),
+																							 It.IsAny<EntityRequestType>()), Times.Exactly(times));
 		}
 
 		#endregion

@@ -60,6 +60,7 @@
     <Compile Include="Internal\DataAccess\RestParameterRepository.cs" />
     <Compile Include="Internal\Genesis\EntityFactory.cs" />
     <Compile Include="Internal\Genesis\IEntityFactory.cs" />
+    <Compile Include="Internal\StringConverter.cs" />
     <Compile Include="Internal\IValidator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
     <Compile Include="Internal\Endpoint.cs" />

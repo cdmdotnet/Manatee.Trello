@@ -16,6 +16,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(ActionsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<List>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Action>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Actions collection enumerates")
+				.Given(AList)
+				.And(EntityIsExpired)
+				.When(ActionsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Action>, EntityRequestType.List_Read_Actions)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -40,7 +48,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Board property")
 				.Given(AList)
-				.When(BoardIsSet, new Board { Id = TrelloIds.Invalid })
+				.When(BoardIsSet, new Board { Id = TrelloIds.Test })
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Board>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.List_Write_Board)
@@ -48,8 +56,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Board property to same")
 				.Given(AList)
-				.And(BoardIs, new Board { Id = TrelloIds.Invalid })
-				.When(BoardIsSet, new Board { Id = TrelloIds.Invalid })
+				.And(BoardIs, new Board { Id = TrelloIds.Test })
+				.When(BoardIsSet, new Board { Id = TrelloIds.Test })
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Board>)
 				.And(RepositoryUploadIsNotCalled)
@@ -67,6 +75,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(CardsIsAccessed)
 				.Then(RepositoryRefreshIsNotCalled<List>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Card>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Cards collection enumerates")
+				.Given(AList)
+				.And(EntityIsExpired)
+				.When(CardsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Card>, EntityRequestType.List_Read_Cards)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -282,6 +298,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Actions);
 		}
+		private void ActionsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Actions.GetEnumerator());
+		}
 		private void BoardIsAccessed()
 		{
 			Execute(() => _test.Sut.Board);
@@ -293,6 +313,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void CardsIsAccessed()
 		{
 			Execute(() => _test.Sut.Cards);
+		}
+		private void CardsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Cards.GetEnumerator());
 		}
 		private void IsClosedIsAccessed()
 		{
