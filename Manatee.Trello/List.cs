@@ -52,7 +52,6 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				if (_jsonList == null) return null;
 				return UpdateById(ref _board, EntityRequestType.Board_Read_Refresh, _jsonList.IdBoard);
 			}
 			set
@@ -76,13 +75,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonList != null ? _jsonList.Id : base.Id; }
-			internal set
-			{
-				if (_jsonList != null)
-					_jsonList.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonList.Id; }
+			internal set { _jsonList.Id = value; }
 		}
 		/// <summary>
 		/// Gets or sets whether the list is archived.
@@ -92,14 +86,13 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonList == null) ? null : _jsonList.Closed;
+				return _jsonList.Closed;
 			}
 			set
 			{
 
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonList == null) return;
 				if (_jsonList.Closed == value) return;
 				_jsonList.Closed = value;
 				Parameters.Add("closed", _jsonList.Closed.ToLowerString());
@@ -114,14 +107,13 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonList == null) ? null : _jsonList.Subscribed;
+				return _jsonList.Subscribed;
 			}
 			set
 			{
 
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonList == null) return;
 				if (_jsonList.Subscribed == value) return;
 				_jsonList.Subscribed = value;
 				Parameters.Add("subscribed", _jsonList.Subscribed.ToLowerString());
@@ -136,14 +128,13 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonList == null) ? null : _jsonList.Name;
+				return _jsonList.Name;
 			}
 			set
 			{
 
 				Validator.Writable();
 				Validator.NonEmptyString(value);
-				if (_jsonList == null) return;
 				if (_jsonList.Name == value) return;
 				_jsonList.Name = value;
 				Parameters.Add("name", _jsonList.Name);
@@ -165,7 +156,6 @@ namespace Manatee.Trello
 
 				Validator.Writable();
 				Validator.Position(value);
-				if (_jsonList == null) return;
 				if (_position == value) return;
 				_position = value;
 				Parameters.Add("pos", _position);

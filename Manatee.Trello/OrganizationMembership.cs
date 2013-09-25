@@ -45,16 +45,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get
-			{
-				return _jsonOrganizationMembership != null ? _jsonOrganizationMembership.Id : base.Id;
-			}
-			internal set
-			{
-				if (_jsonOrganizationMembership != null)
-					_jsonOrganizationMembership.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonOrganizationMembership.Id; }
+			internal set { _jsonOrganizationMembership.Id = value; }
 		}
 		///<summary>
 		/// Gets whether the membership is unconfirmed.

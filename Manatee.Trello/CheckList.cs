@@ -50,7 +50,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonCheckList == null) return null;
 				return UpdateById(ref _board, EntityRequestType.Board_Read_Refresh, _jsonCheckList.IdBoard);
 			}
 		}
@@ -63,7 +62,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonCheckList == null) return null;
 				return UpdateById(ref _card, EntityRequestType.Card_Read_Refresh, _jsonCheckList.IdCard);
 			}
 			set
@@ -71,7 +69,6 @@ namespace Manatee.Trello
 				if (_isDeleted) return;
 				Validator.Writable();
 				Validator.Entity(value);
-				if (_jsonCheckList == null) return;
 				if (_jsonCheckList.IdCard == value.Id) return;
 				_jsonCheckList.IdCard = value.Id;
 				_card = value;
@@ -89,13 +86,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonCheckList != null ? _jsonCheckList.Id : base.Id; }
-			internal set
-			{
-				if (_jsonCheckList != null)
-					_jsonCheckList.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonCheckList.Id; }
+			internal set { _jsonCheckList.Id = value; }
 		}
 		/// <summary>
 		/// Gets or sets the name of this checklist.
@@ -106,13 +98,12 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCheckList == null) ? null : _jsonCheckList.Name;
+				return _jsonCheckList.Name;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.NonEmptyString(value);
-				if (_jsonCheckList == null) return;
 				if (_jsonCheckList.Name == value) return;
 				_jsonCheckList.Name = value;
 				Parameters.Add("name", _jsonCheckList.Name);
@@ -129,13 +120,12 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCheckList == null) ? null : _position;
+				return _position;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Position(value);
-				if (_jsonCheckList == null) return;
 				if (_position == value) return;
 				_position = value;
 				Parameters.Add("pos", _position);
@@ -269,9 +259,7 @@ namespace Manatee.Trello
 		internal override void ApplyJson(object obj)
 		{
 			_jsonCheckList = (IJsonCheckList)obj;
-			_position = ((_jsonCheckList != null) && _jsonCheckList.Pos.HasValue)
-			            	? new Position(_jsonCheckList.Pos.Value)
-			            	: Position.Unknown;
+			_position = _jsonCheckList.Pos.HasValue ? new Position(_jsonCheckList.Pos.Value) : Position.Unknown;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 		internal override void PropagateDependencies()

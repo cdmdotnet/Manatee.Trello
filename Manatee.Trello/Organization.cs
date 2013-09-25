@@ -61,7 +61,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonOrganization == null) ? null : _jsonOrganization.Desc;
+				return _jsonOrganization.Desc;
 			}
 			set
 			{
@@ -82,7 +82,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonOrganization == null) ? null : _jsonOrganization.DisplayName;
+				return _jsonOrganization.DisplayName;
 			}
 			set
 			{
@@ -99,13 +99,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonOrganization != null ? _jsonOrganization.Id : base.Id; }
-			internal set
-			{
-				if (_jsonOrganization != null)
-					_jsonOrganization.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonOrganization.Id; }
+			internal set { _jsonOrganization.Id = value; }
 		}
 		/// <summary>
 		/// Enumerates all members who have received invitations to this organization.
@@ -114,7 +109,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether this organization has paid features.
 		/// </summary>
-		internal bool? IsPaidAccount { get { return (_jsonOrganization == null) ? null : _jsonOrganization.PaidAccount; } }
+		internal bool? IsPaidAccount { get { return _jsonOrganization.PaidAccount; } }
 		/// <summary>
 		/// Gets the organization's logo hash.
 		/// </summary>
@@ -124,7 +119,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonOrganization == null) ? null : _jsonOrganization.LogoHash;
+				return _jsonOrganization.LogoHash;
 			}
 		}
 		/// <summary>
@@ -144,13 +139,12 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonOrganization == null) ? null : _jsonOrganization.Name;
+				return _jsonOrganization.Name;
 			}
 			set
 			{
 				if (_isDeleted) return;
 				Validator.Writable();
-				if (_jsonOrganization == null) return;
 				if (_jsonOrganization.Name == value) return;
 				_jsonOrganization.Name = Validator.OrgName(value);
 				Parameters.Add("name", _jsonOrganization.Name);
@@ -166,7 +160,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return Enumerable.Empty<int>();
 				VerifyNotExpired();
-				return (_jsonOrganization == null) ? null : _jsonOrganization.PowerUps;
+				return _jsonOrganization.PowerUps;
 			}
 		}
 		///<summary>
@@ -182,7 +176,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return Enumerable.Empty<string>();
 				VerifyNotExpired();
-				return (_jsonOrganization == null) ? null : _jsonOrganization.PremiumFeatures;
+				return _jsonOrganization.PremiumFeatures;
 			}
 		}
 		/// <summary>
@@ -198,7 +192,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonOrganization == null) ? null : _jsonOrganization.Website;
+				return _jsonOrganization.Website;
 			}
 			set
 			{

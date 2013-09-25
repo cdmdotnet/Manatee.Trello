@@ -48,7 +48,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowListGuide;
+				return _jsonBoardPersonalPreferences.ShowListGuide;
 			}
 			set
 			{
@@ -69,7 +69,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowSidebar;
+				return _jsonBoardPersonalPreferences.ShowSidebar;
 			}
 			set
 			{
@@ -90,7 +90,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowSidebarActivity;
+				return _jsonBoardPersonalPreferences.ShowSidebarActivity;
 			}
 			set
 			{
@@ -111,7 +111,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowSidebarBoardActions;
+				return _jsonBoardPersonalPreferences.ShowSidebarBoardActions;
 			}
 			set
 			{
@@ -132,7 +132,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoardPersonalPreferences == null) ? null : _jsonBoardPersonalPreferences.ShowSidebarMembers;
+				return _jsonBoardPersonalPreferences.ShowSidebarMembers;
 			}
 			set
 			{

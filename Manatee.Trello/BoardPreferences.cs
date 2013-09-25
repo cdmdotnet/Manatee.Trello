@@ -55,13 +55,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoardPreferences == null) ? null : _jsonBoardPreferences.SelfJoin;
+				return _jsonBoardPreferences.SelfJoin;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonBoardPreferences == null) return;
 				if (_jsonBoardPreferences.SelfJoin == value) return;
 				_jsonBoardPreferences.SelfJoin = value;
 				Parameters.Add("value", _jsonBoardPreferences.SelfJoin.ToLowerString());
@@ -103,7 +102,6 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				Validator.Enumeration(value);
-				if (_jsonBoardPreferences == null) return;
 				if (_invitations == value) return;
 				_invitations = value;
 				UpdateApiInvitations();
@@ -125,7 +123,6 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				Validator.Enumeration(value);
-				if (_jsonBoardPreferences == null) return;
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
@@ -141,13 +138,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoardPreferences == null) ? null : _jsonBoardPreferences.CardCovers;
+				return _jsonBoardPreferences.CardCovers;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonBoardPreferences == null) return;
 				if (_jsonBoardPreferences.CardCovers == value) return;
 				_jsonBoardPreferences.CardCovers = value;
 				Parameters.Add("value", _jsonBoardPreferences.CardCovers.ToLowerString());
@@ -168,7 +164,6 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				Validator.Enumeration(value);
-				if (_jsonBoardPreferences == null) return;
 				if (_voting == value) return;
 				_voting = value;
 				UpdateApiVoting();

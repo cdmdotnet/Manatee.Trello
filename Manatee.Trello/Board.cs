@@ -67,12 +67,11 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoard == null) ? null : _jsonBoard.Desc;
+				return _jsonBoard.Desc;
 			}
 			set
 			{
 				Validator.Writable();
-				if (_jsonBoard == null) return;
 				if (_jsonBoard.Desc == value) return;
 				_jsonBoard.Desc = value ?? string.Empty;
 				Parameters.Add("desc", _jsonBoard.Desc);
@@ -84,13 +83,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonBoard != null ? _jsonBoard.Id : base.Id; }
-			internal set
-			{
-				if (_jsonBoard != null)
-					_jsonBoard.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonBoard.Id; }
+			internal set { _jsonBoard.Id = value; }
 		}
 		/// <summary>
 		/// Enumerates all members who have received invitations to this board.
@@ -110,7 +104,6 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonBoard == null) return;
 				if (_jsonBoard.Closed == value) return;
 				_jsonBoard.Closed = value;
 				Parameters.Add("closed", _jsonBoard.Closed.ToLowerString());
@@ -125,18 +118,8 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoard == null) ? null : _jsonBoard.Pinned;
+				return _jsonBoard.Pinned;
 			}
-			//private set
-			//{
-			//	Validator.Writable();
-			//	Validator.Nullable(value);
-			//	if (_jsonBoard == null) return;
-			//	if (_jsonBoard.Pinned == value) return;
-			//	_jsonBoard.Pinned = value;
-			//	Parameters.Add("pinned", _jsonBoard.Pinned.ToLowerString());
-			//	Upload(EntityRequestType.Board_Write_IsPinned);
-			//}
 		}
 		///<summary>
 		/// Gets or sets whether the user is subscribed to this board.
@@ -146,13 +129,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoard == null) ? null : _jsonBoard.Subscribed;
+				return _jsonBoard.Subscribed;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonBoard == null) return;
 				if (_jsonBoard.Subscribed == value) return;
 				_jsonBoard.Subscribed = value;
 				Parameters.Add("subscribed", _jsonBoard.Subscribed.ToLowerString());
@@ -184,13 +166,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonBoard == null) ? null : _jsonBoard.Name;
+				return _jsonBoard.Name;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.NonEmptyString(value);
-				if (_jsonBoard == null) return;
 				if (_jsonBoard.Name == value) return;
 				_jsonBoard.Name = value;
 				Parameters.Add("name", _jsonBoard.Name);
@@ -205,14 +186,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				if (_jsonBoard == null) return null;
 				return UpdateById(ref _organization, EntityRequestType.Organization_Read_Refresh, _jsonBoard.IdOrganization);
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Entity(value, true);
-				if (_jsonBoard == null) return;
 				if (value == null)
 				{
 					_jsonBoard.IdOrganization = null;
@@ -237,7 +216,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// Gets the URL for this board.
 		///</summary>
-		public string Url { get { return (_jsonBoard == null) ? null : _jsonBoard.Url; } }
+		public string Url { get { return _jsonBoard.Url; } }
 		/// <summary>
 		/// Gets whether this entity represents an actual entity on Trello.
 		/// </summary>

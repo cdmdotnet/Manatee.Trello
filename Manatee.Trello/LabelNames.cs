@@ -45,7 +45,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Red;
+				return _jsonLabelNames.Red;
 			}
 			set
 			{
@@ -64,7 +64,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Orange;
+				return _jsonLabelNames.Orange;
 			}
 			set
 			{
@@ -83,7 +83,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Yellow;
+				return _jsonLabelNames.Yellow;
 			}
 			set
 			{
@@ -102,7 +102,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Green;
+				return _jsonLabelNames.Green;
 			}
 			set
 			{
@@ -121,7 +121,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Blue;
+				return _jsonLabelNames.Blue;
 			}
 			set
 			{
@@ -140,7 +140,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonLabelNames == null) ? null : _jsonLabelNames.Purple;
+				return _jsonLabelNames.Purple;
 			}
 			set
 			{

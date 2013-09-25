@@ -51,13 +51,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonOrganizationPreferences == null) ? null : _jsonOrganizationPreferences.AssociatedDomain;
+				return _jsonOrganizationPreferences.AssociatedDomain;
 			}
 			set
 			{
 
 				Validator.Writable();
-				if (_jsonOrganizationPreferences == null) return;
 				if (_jsonOrganizationPreferences.AssociatedDomain == value) return;
 				_jsonOrganizationPreferences.AssociatedDomain = value ?? string.Empty;
 				Parameters.Add("value", _jsonOrganizationPreferences.AssociatedDomain);
@@ -72,14 +71,13 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonOrganizationPreferences == null) ? null : _jsonOrganizationPreferences.ExternalMembersDisabled;
+				return _jsonOrganizationPreferences.ExternalMembersDisabled;
 			}
 			set
 			{
 
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonOrganizationPreferences == null) return;
 				if (_jsonOrganizationPreferences.ExternalMembersDisabled == value) return;
 				_jsonOrganizationPreferences.ExternalMembersDisabled = value;
 				Parameters.Add("value", _jsonOrganizationPreferences.ExternalMembersDisabled);
@@ -92,13 +90,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonOrganizationPreferences == null) ? null : _jsonOrganizationPreferences.OrgInviteRestrict;
+				return _jsonOrganizationPreferences.OrgInviteRestrict;
 			}
 			set
 			{
 
 				Validator.Writable();
-				if (_jsonOrganizationPreferences == null) return;
 				if (_jsonOrganizationPreferences.OrgInviteRestrict == value) return;
 				_jsonOrganizationPreferences.OrgInviteRestrict = value;
 				Upload(EntityRequestType.OrganizationPreferences_Write_OrgInviteRestrict);
@@ -119,7 +116,6 @@ namespace Manatee.Trello
 
 				Validator.Writable();
 				Validator.Enumeration(value);
-				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Org == value) return;
 				_boardVisibilityRestrict.Org = value;
 				Parameters.Add("value", _boardVisibilityRestrict.Org.ToLowerString());
@@ -141,7 +137,6 @@ namespace Manatee.Trello
 
 				Validator.Writable();
 				Validator.Enumeration(value);
-				if (_jsonOrganizationPreferences == null) return;
 				if (_permissionLevel == value) return;
 				_permissionLevel = value;
 				UpdateApiPermissionLevel();
@@ -164,7 +159,6 @@ namespace Manatee.Trello
 
 				Validator.Writable();
 				Validator.Enumeration(value);
-				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Private == value) return;
 				_boardVisibilityRestrict.Private = value;
 				Parameters.Add("value", _boardVisibilityRestrict.Private.ToLowerString());
@@ -186,7 +180,6 @@ namespace Manatee.Trello
 
 				Validator.Writable();
 				Validator.Enumeration(value);
-				if (_jsonOrganizationPreferences == null) return;
 				if (_boardVisibilityRestrict.Public == value) return;
 				_boardVisibilityRestrict.Public = value;
 				Parameters.Add("value", _boardVisibilityRestrict.Public.ToLowerString());
