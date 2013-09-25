@@ -20,6 +20,8 @@
 	Purpose:		Implements IRequestQueue.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Rest;
@@ -59,8 +61,16 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			if (_networkMonitor.IsConnected)
 			{
 				LogRequest(queuableRequest.Request, "Sending");
-				queuableRequest.Execute(client);
-				LogResponse(queuableRequest.Request.Response);
+				try
+				{
+					queuableRequest.Execute(client);
+					LogResponse(queuableRequest.Request.Response);
+				}
+				catch (Exception e)
+				{
+					_log.Error(e, false);
+					queuableRequest.CreateNullResponse();
+				}
 			}
 			else
 			{

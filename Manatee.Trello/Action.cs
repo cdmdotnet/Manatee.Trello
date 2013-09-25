@@ -64,7 +64,6 @@ namespace Manatee.Trello
 		{
 			get { return _isDeleted ? null : TryGetEntity<CheckList>("checklist", "checklist.id", EntityRequestType.CheckList_Read_Refresh); }
 		}
-
 		public CheckItem CheckItem
 		{
 			get { return _isDeleted ? null : TryGetEntity<CheckItem>("checkItem", "checkItem.id", EntityRequestType.CheckItem_Read_Refresh); }
@@ -81,7 +80,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public DateTime? Date
 		{
-			get { return (_jsonAction == null) ? null : _jsonAction.Date; }
+			get { return _jsonAction.Date; }
 		}
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
@@ -139,7 +138,6 @@ namespace Manatee.Trello
 		public ActionType Type
 		{
 			get { return _isDeleted ? ActionType.Unknown : _type; }
-			internal set { _type = value; }
 		}
 		/// <summary>
 		/// Gets whether this entity represents an actual entity on Trello.
@@ -198,43 +196,42 @@ namespace Manatee.Trello
 			           	};
 			_stringDefinitions = new Dictionary<ActionType, Func<Action, string>>
 				{
-					{ActionType.AddAttachmentToCard, a => string.Format("{0} attached {1} to card {2}.", a.MemberCreator, a.Attachment, a.Card)},
-					{ActionType.AddChecklistToCard, a => string.Format("{0} added checklist {1} to card {2}.", a.MemberCreator, a.CheckList, a.Card)},
-					{ActionType.AddMemberToBoard, a => string.Format("{0} added member {1} to board {2}.", a.MemberCreator, a.Member, a.Board)},
-					{ActionType.AddMemberToCard, a => string.Format("{0} assigned member {1} to card {2}.", a.MemberCreator, a.Member, a.Card)},
-					{ActionType.AddMemberToOrganization, a => string.Format("{0} added member {1} to organization {2}.", a.MemberCreator, a.Member, a.Organization)},
-					{ActionType.AddToOrganizationBoard, a => string.Format("{0} moved board {1} into organization {2}.", a.MemberCreator, a.Board, a.Organization)},
-					{ActionType.CommentCard, a => string.Format("{0} commented on card {1}: '{2}'.", a.MemberCreator, a.Card, a.Text)},
-					{ActionType.ConvertToCardFromCheckItem, a => string.Format("{0} converted checkitem {1} to a card.", a.MemberCreator, a.CheckItem)},
-					{ActionType.CopyBoard, a => string.Format("{0} copied board {1} from board {2}.", a.MemberCreator, a.Board, a.SourceBoard)},
-					{ActionType.CopyCard, a => string.Format("{0} copied card {1} from card {2}.", a.MemberCreator, a.Card, a.SourceCard)},
-					{ActionType.CreateBoard, a => string.Format("{0} created board {1}.", a.MemberCreator, a.Board)},
-					{ActionType.CreateCard, a => string.Format("{0} created card {1}.", a.MemberCreator, a.Card)},
-					{ActionType.CreateList, a => string.Format("{0} created list {1}.", a.MemberCreator, a.List)},
-					{ActionType.CreateOrganization, a => string.Format("{0} created organization {1}.", a.MemberCreator, a.Organization)},
-					{ActionType.DeleteAttachmentFromCard, a => string.Format("{0} removed attachment {1} from card {2}.", a.MemberCreator, a.Attachment, a.Card)},
-					{ActionType.DeleteCard, a => string.Format("{0} deleted card {1} from {2}.", a.MemberCreator, a.CardShortId, a.Board)},
-					{ActionType.MakeAdminOfBoard, a => string.Format("{0} made member {1} an admin of board {2}.", a.MemberCreator, a.Member, a.Board)},
-					{ActionType.MakeNormalMemberOfBoard, a => string.Format("{0} made member {1} a normal user of board {2}.", a.MemberCreator, a.Member, a.Board)},
-					{ActionType.MakeNormalMemberOfOrganization, a => string.Format("{0} made member {1} a normal user of organization {2}.", a.MemberCreator, a.Member, a.Organization)},
-					{ActionType.MakeObserverOfBoard, a => string.Format("{0} made member {1} an observer of board {2}.", a.MemberCreator, a.Member, a.Board)},
-					{ActionType.MemberJoinedTrello, a => string.Format("Three cheers for {0}: the newest member of Trello!", a.MemberCreator)},
-					{ActionType.MoveCardFromBoard, a => string.Format("{0} moved card {1} from board {2} to board {3}.", a.MemberCreator, a.Card)},
-					{ActionType.RemoveAdminFromBoard, a => string.Format("{0} removed member {1} as an admin of board {2}.", a.MemberCreator, a.Member, a.Board)},
-					{ActionType.RemoveAdminFromOrganization, a => string.Format("{0} removed member {1} as an admin of organization {2}.", a.MemberCreator, a.Member, a.Organization)},
-					{ActionType.RemoveChecklistFromCard, a => string.Format("{0} deleted checklist {1} from card {2}.", a.MemberCreator, a.Data.TryGetString("checklist", "name"), a.Card)},
-					{ActionType.RemoveFromOrganizationBoard, a => string.Format("{0} removed board {1} from organization {2}.", a.MemberCreator, a.Board, a.Organization)},
-					{ActionType.RemoveMemberFromBoard, a => string.Format("{0} removed member {1} from board {2}.", a.MemberCreator, a.Member, a.Board)},
-					{ActionType.RemoveMemberFromCard, a => string.Format("{0} removed member {1} from card {2}.", a.MemberCreator, a.Member, a.Card)},
-					{ActionType.UpdateBoard, a => string.Format("{0} updated board {1}.", a.MemberCreator, a.Board)},
-					{ActionType.UpdateCard, a => string.Format("{0} updated card {1}.", a.MemberCreator, a.Card)},
-					{ActionType.UpdateCheckItemStateOnCard, a => string.Format("{0} updated checkitem {1}.", a.MemberCreator, a.CheckItem)},
-					{ActionType.UpdateChecklist, a => string.Format("{0} updated checklist {1}.", a.MemberCreator, a.CheckList)},
-					{ActionType.UpdateMember, a => string.Format("{0} updated their profile.", a.MemberCreator)},
-					{ActionType.UpdateOrganization, a => string.Format("{0} updated organization {1}.", a.MemberCreator, a.Organization)},
-					{ActionType.UpdateCardIdList, a => string.Format("{0} moved card {1} from list {2} to list {3}.", a.MemberCreator, a.Card, a.ListBefore, a.ListAfter)},
-					{ActionType.UpdateCardClosed, a => string.Format("{0} archived card {1}.", a.MemberCreator, a.Card)},
-					{ActionType.UpdateCardDesc, a => string.Format("{0} changed the description of card {1}.", a.MemberCreator, a.Card)},
+					{ActionType.AddAttachmentToCard, a => a.ToString("{0} attached {1} to card {2}.", a.GetString("attachment.name"), a.GetString("card.name"))},
+					{ActionType.AddChecklistToCard, a => a.ToString("{0} added checklist {1} to card {2}.", a.GetString("checklist.name"), a.GetString("card.name"))},
+					{ActionType.AddMemberToBoard, a => a.ToString("{0} added member {1} to board {2}.", a.Member.FullName, a.GetString("board.name"))},
+					{ActionType.AddMemberToCard, a => a.ToString("{0} assigned member {1} to card {2}.", a.Member.FullName, a.GetString("card.name"))},
+					{ActionType.AddMemberToOrganization, a => a.ToString("{0} added member {1} to organization {2}.", a.Member.FullName, a.GetString("organization.name"))},
+					{ActionType.AddToOrganizationBoard, a => a.ToString("{0} moved board {1} into organization {2}.", a.GetString("board.id"), a.GetString("organization.name"))},
+					{ActionType.CommentCard, a => a.ToString("{0} commented on card #{1}: '{2}'.", a.GetString("card.name"), a.GetString("text"))},
+					{ActionType.ConvertToCardFromCheckItem, a => a.ToString("{0} converted checkitem {1} to a card.", a.GetString("checkItem.name"))},
+					{ActionType.CopyBoard, a => a.ToString("{0} copied board {1} from board {2}.", a.GetString("board.name"), a.GetString("boardSource.name"))},
+					{ActionType.CopyCard, a => a.ToString("{0} copied card {1} from card {2}.", a.GetString("card.name"), a.GetString("cardSource.name"))},
+					{ActionType.CreateBoard, a => a.ToString("{0} created board {1}.", a.GetString("board.name"))},
+					{ActionType.CreateCard, a => a.ToString("{0} created card {1}.", a.GetString("card.name"))},
+					{ActionType.CreateList, a => a.ToString("{0} created list {1}.", a.GetString("list.name"))},
+					{ActionType.CreateOrganization, a => a.ToString("{0} created organization {1}.", a.GetString("organization.name"))},
+					{ActionType.DeleteAttachmentFromCard, a => a.ToString("{0} removed attachment {1} from card {2}.", a.GetString("attachment.name"), a.GetString("card.name"))},
+					{ActionType.DeleteCard, a => a.ToString("{0} deleted card {1} from {2}.", a.GetString("card.idShort"), a.GetString("board.name"))},
+					{ActionType.MakeAdminOfBoard, a => a.ToString("{0} made member {1} an admin of board {2}.", a.Member.FullName, a.GetString("board.name"))},
+					{ActionType.MakeNormalMemberOfBoard, a => a.ToString("{0} made member {1} a normal user of board {2}.", a.Member.FullName, a.GetString("board.name"))},
+					{ActionType.MakeNormalMemberOfOrganization, a => a.ToString("{0} made member {1} a normal user of organization {2}.", a.Member.FullName, a.GetString("organization.name"))},
+					{ActionType.MakeObserverOfBoard, a => a.ToString("{0} made member {1} an observer of board {2}.", a.Member.FullName, a.GetString("board.name"))},
+					{ActionType.MoveCardFromBoard, a => a.ToString("{0} moved card {1} from board {2} to board {3}.", a.GetString("card.name"))},
+					{ActionType.RemoveAdminFromBoard, a => a.ToString("{0} removed member {1} as an admin of board {2}.", a.Member.FullName, a.GetString("board.name"))},
+					{ActionType.RemoveAdminFromOrganization, a => a.ToString("{0} removed member {1} as an admin of organization {2}.", a.Member.FullName, a.GetString("organization.name"))},
+					{ActionType.RemoveChecklistFromCard, a => a.ToString("{0} deleted checklist {1} from card {2}.", a.GetString("checklist.name"), a.GetString("card.name"))},
+					{ActionType.RemoveFromOrganizationBoard, a => a.ToString("{0} removed board {1} from organization {2}.", a.GetString("board.name"), a.GetString("organization.name"))},
+					{ActionType.RemoveMemberFromBoard, a => a.ToString("{0} removed member {1} from board {2}.", a.Member.FullName, a.GetString("board.name"))},
+					{ActionType.RemoveMemberFromCard, a => a.ToString("{0} removed member {1} from card {2}.", a.Member.FullName, a.GetString("card.name"))},
+					{ActionType.UpdateBoard, a => a.ToString("{0} updated board {1}.", a.GetString("board.name"))},
+					{ActionType.UpdateCard, a => a.ToString("{0} updated card {1}.", a.GetString("card.name"))},
+					{ActionType.UpdateCheckItemStateOnCard, a => a.ToString("{0} updated checkitem {1}.", a.GetString("checkItem.name"))},
+					{ActionType.UpdateChecklist, a => a.ToString("{0} updated checklist {1}.", a.GetString("checklist.name"))},
+					{ActionType.UpdateMember, a => a.ToString("{0} updated their profile.")},
+					{ActionType.UpdateOrganization, a => a.ToString("{0} updated organization {1}.", a.GetString("organization.name"))},
+					{ActionType.UpdateCardIdList, a => a.ToString("{0} moved card {1} from list {2} to list {3}.", a.GetString("card.name"), a.GetString("listBefore.name"), a.GetString("listAfter.name"))},
+					{ActionType.UpdateCardClosed, a => a.ToString("{0} archived card {1}.", a.GetString("card.name"))},
+					{ActionType.UpdateCardDesc, a => a.ToString("{0} changed the description of card {1}.", a.GetString("card.name"))},
 				};
 		}
 		/// <summary>
@@ -314,8 +311,9 @@ namespace Manatee.Trello
 		{
 			if (_stringDefinitions.ContainsKey(Type))
 				return _stringDefinitions[Type](this);
-			Log.Info("I don't have action type '' configured yet.  If you can, please use Fiddler to capture the JSON data" +
-					 " and email it to littlecrabsolutions@yahoo.com.  I'll try to add it in the next release.");
+			Log.Info("I don't have action type '{0}' configured yet.  If you can, please find the log entry where " +
+					 "the JSON data is being received and email it to littlecrabsolutions@yahoo.com.  I'll try to add " +
+					 "it in the next release.", _jsonAction.Type);
 			return string.Format("{0} did something, but it's classified.", MemberCreator.FullName);
 		}
 		/// <summary>
@@ -350,8 +348,29 @@ namespace Manatee.Trello
 			var id = _jsonAction.Data.TryGetString(path.Split('.'));
 			if (id == null) return null;
 			T entity = null;
-			_entities[index] = UpdateById(ref entity, request, id);
+			try
+			{
+				_entities[index] = UpdateById(ref entity, request, id);
+			}
+			catch {}
 			return entity;
+		}
+		private string ToString(string format, params string[] parameters)
+		{
+			var allParameters = new List<object> { MemberCreator };
+			allParameters.AddRange(parameters);
+			return string.Format(format, allParameters.ToArray());
+		}
+		private string GetString(string path)
+		{
+			var split = path.Split('.');
+			object value = _jsonAction.Data.TryGetString(split);
+			if (value != null) return value.ToString();
+			value = _jsonAction.Data.TryGetNumber(split);
+			if (value != null) return value.ToString();
+			value = _jsonAction.Data.TryGetNumber(split);
+			if (value != null) return value.ToString();
+			return string.Empty;
 		}
 	}
 }
