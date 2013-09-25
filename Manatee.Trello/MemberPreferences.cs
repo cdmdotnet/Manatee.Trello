@@ -45,13 +45,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMemberPreferences == null) ? null : _jsonMemberPreferences.ColorBlind;
+				return _jsonMemberPreferences.ColorBlind;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.ColorBlind == value) return;
 				_jsonMemberPreferences.ColorBlind = value;
 				Parameters.Add("value", _jsonMemberPreferences.ColorBlind.ToLowerString());
@@ -66,14 +65,13 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMemberPreferences == null) ? null : (MemberPreferenceSummaryPeriodType?) _jsonMemberPreferences.MinutesBetweenSummaries;
+				return (MemberPreferenceSummaryPeriodType?) _jsonMemberPreferences.MinutesBetweenSummaries;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Nullable(value);
 				Validator.Enumeration(value.Value);
-				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.MinutesBetweenSummaries == (int?) value) return;
 				_jsonMemberPreferences.MinutesBetweenSummaries = (int?) value;
 				Parameters.Add("value", _jsonMemberPreferences.MinutesBetweenSummaries);
@@ -88,13 +86,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMemberPreferences == null) ? null : _jsonMemberPreferences.SendSummaries;
+				return _jsonMemberPreferences.SendSummaries;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.SendSummaries == value) return;
 				_jsonMemberPreferences.SendSummaries = value;
 				Parameters.Add("value", _jsonMemberPreferences.SendSummaries.ToLowerString());
@@ -109,13 +106,12 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMemberPreferences == null) ? null : _jsonMemberPreferences.MinutesBeforeDeadlineToNotify;
+				return _jsonMemberPreferences.MinutesBeforeDeadlineToNotify;
 			}
 			set
 			{
 				Validator.Writable();
 				Validator.Nullable(value);
-				if (_jsonMemberPreferences == null) return;
 				if (_jsonMemberPreferences.MinutesBeforeDeadlineToNotify == value) return;
 				_jsonMemberPreferences.MinutesBeforeDeadlineToNotify = value;
 				Parameters.Add("value", _jsonMemberPreferences.MinutesBeforeDeadlineToNotify);
@@ -145,7 +141,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public override bool Refresh()
 		{
-			if (_jsonMemberPreferences is InnerJsonMemberPreferences) return false;
 			Parameters.Add("_memberId", Owner.Id);
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.MemberPreferences_Read_Refresh);

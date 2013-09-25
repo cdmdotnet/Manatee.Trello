@@ -88,7 +88,7 @@ namespace Manatee.Trello.Test.Unit.Internal
 
 			feature.WithScenario("Cache does not contain entity, with ID")
 				   .Given(ACachingRepository)
-				   .And(CacheDoesNotContainEntity<MockEntity>)
+				   .And(CacheDoesNotContainEntity, new MockEntity())
 				   .When(DownloadIsCalled<MockEntity>, request, parameters)
 				   .Then(CacheFindIsCalled<MockEntity>)
 				   .And(InnerRepositoryDownloadIsCalled<MockEntity>, request)
@@ -96,7 +96,7 @@ namespace Manatee.Trello.Test.Unit.Internal
 
 				   .WithScenario("Cache does not contain entity, without ID")
 				   .Given(ACachingRepository)
-				   .And(CacheDoesNotContainEntity<MockEntity>)
+				   .And(CacheDoesNotContainEntity, new MockEntity())
 				   .When(DownloadIsCalled<MockEntity>, request, (Dictionary<string, object>) null)
 				   .Then(CacheFindIsNotCalled<MockEntity>)
 				   .And(InnerRepositoryDownloadIsCalled<MockEntity>, request)
@@ -137,10 +137,14 @@ namespace Manatee.Trello.Test.Unit.Internal
 		{
 			_test = new RepositoryUnderTest();
 		}
-		private void CacheDoesNotContainEntity<T>()
+		private void CacheDoesNotContainEntity<T>(T entity)
+			where T : ExpiringObject
 		{
 			_test.Dependencies.Cache.Setup(c => c.Find(It.IsAny<Func<T, bool>>(), It.IsAny<Func<T>>()))
-				 .Returns((Func<T, bool> match, Func<T> search) => search());
+				 .Returns((Func<T, bool> match, Func<T> download) => download());
+			_test.Dependencies.EntityRepository.Setup(c => c.Download<T>(It.IsAny<EntityRequestType>(),
+																		 It.IsAny<IDictionary<string, object>>()))
+				 .Returns(entity);
 		}
 		private void CacheContainsEntity<T>(T entity)
 		{

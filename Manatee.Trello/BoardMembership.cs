@@ -45,16 +45,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get
-			{
-				return _jsonBoardMembership != null ? _jsonBoardMembership.Id : base.Id;
-			}
-			internal set
-			{
-				if (_jsonBoardMembership != null)
-					_jsonBoardMembership.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonBoardMembership.Id; }
+			internal set { _jsonBoardMembership.Id = value; }
 		}
 		///<summary>
 		/// Gets whether the membership is deactivated.
@@ -64,7 +56,6 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				if (_jsonBoardMembership == null) return null;
 				return _jsonBoardMembership.Deactivated;
 			}
 		}
@@ -76,7 +67,6 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				if (_jsonBoardMembership == null) return null;
 				return UpdateById(ref _member, EntityRequestType.Member_Read_Refresh, _jsonBoardMembership.IdMember);
 			}
 		}

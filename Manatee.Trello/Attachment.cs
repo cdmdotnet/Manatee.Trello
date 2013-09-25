@@ -42,28 +42,23 @@ namespace Manatee.Trello
 		///<summary>
 		/// The size of the attachment.
 		///</summary>
-		public int? Bytes { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Bytes; } }
+		public int? Bytes { get { return _isDeleted ? null : _jsonAttachment.Bytes; } }
 		/// <summary>
 		/// The date on which the attachment was created.
 		/// </summary>
-		public DateTime? Date { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Date; } }
+		public DateTime? Date { get { return _isDeleted ? null : _jsonAttachment.Date; } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonAttachment != null ? _jsonAttachment.Id : base.Id; }
-			internal set
-			{
-				if (_jsonAttachment != null)
-					_jsonAttachment.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonAttachment.Id; }
+			internal set { _jsonAttachment.Id = value; }
 		}
 		///<summary>
 		/// ?
 		///</summary>
-		public bool? IsUpload { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.IsUpload; } }
+		public bool? IsUpload { get { return _isDeleted ? null : _jsonAttachment.IsUpload; } }
 		///<summary>
 		/// The member who created the attachment.
 		///</summary>
@@ -72,18 +67,17 @@ namespace Manatee.Trello
 			get
 			{
 				if (_isDeleted) return null;
-				if (_jsonAttachment == null) return null;
 				return UpdateById(ref _member, EntityRequestType.Member_Read_Refresh, _jsonAttachment.IdMember);
 			}
 		}
 		///<summary>
 		/// Indicates the type of attachment.
 		///</summary>
-		public string MimeType { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.MimeType; } }
+		public string MimeType { get { return _isDeleted ? null : _jsonAttachment.MimeType; } }
 		///<summary>
 		/// The name of the attachment.
 		///</summary>
-		public string Name { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Name; } }
+		public string Name { get { return _isDeleted ? null : _jsonAttachment.Name; } }
 		///<summary>
 		/// Enumerates a collection of previews for the attachment.
 		///</summary>
@@ -122,6 +116,9 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters["_cardId"] = Owner.Id;
 			EntityRepository.Upload(EntityRequestType.Attachment_Write_Delete, Parameters);
+			var attachmentsList = ((Card) Owner).AttachmentsList;
+			attachmentsList.Remove(this);
+			attachmentsList.MarkForUpdate();
 			_isDeleted = true;
 		}
 		/// <summary>

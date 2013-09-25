@@ -62,13 +62,14 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCard == null) ? null : _jsonCard.IdAttachmentCover;
+				return _jsonCard.IdAttachmentCover;
 			}
 		}
 		/// <summary>
 		/// Enumerates the cards attachments.
 		/// </summary>
 		public IEnumerable<Attachment> Attachments { get { return _isDeleted ? Enumerable.Empty<Attachment>() : _attachments; } }
+		internal ExpiringList<Attachment> AttachmentsList { get { return _attachments; } }
 		/// <summary>
 		/// Gets the badges summarizing the card's contents.
 		/// </summary>
@@ -82,7 +83,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonCard == null) return null;
 				return UpdateById(ref _board, EntityRequestType.Board_Read_Refresh, _jsonCard.IdBoard);
 			}
 		}
@@ -126,7 +126,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCard == null) ? null : _jsonCard.Due;
+				return _jsonCard.Due;
 			}
 			set
 			{
@@ -147,13 +147,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonCard != null ? _jsonCard.Id : base.Id; }
-			internal set
-			{
-				if (_jsonCard != null)
-					_jsonCard.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonCard.Id; }
+			internal set { _jsonCard.Id = value; }
 		}
 		/// <summary>
 		/// Gets or sets whether a card has been archived.
@@ -164,7 +159,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCard == null) ? null : _jsonCard.Closed;
+				return _jsonCard.Closed;
 			}
 			set
 			{
@@ -187,7 +182,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCard == null) ? null : _jsonCard.Subscribed;
+				return _jsonCard.Subscribed;
 			}
 			set
 			{
@@ -218,7 +213,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonCard == null) return null;
 				return UpdateById(ref _list, EntityRequestType.List_Read_Refresh, _jsonCard.IdList);
 			}
 		}
@@ -231,7 +225,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCard == null) ? null : _jsonCard.ManualCoverAttachment;
+				return _jsonCard.ManualCoverAttachment;
 			}
 		}
 		/// <summary>
@@ -247,7 +241,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCard == null) ? null : _jsonCard.Name;
+				return _jsonCard.Name;
 			}
 			set
 			{
@@ -290,11 +284,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the card's short ID.
 		/// </summary>
-		public int? ShortId { get { return (_jsonCard == null) ? null : _jsonCard.IdShort; } }
+		public int? ShortId { get { return _jsonCard.IdShort; } }
 		/// <summary>
 		/// Gets the URL for this card.
 		/// </summary>
-		public string Url { get { return (_jsonCard == null) ? null : _jsonCard.Url; } }
+		public string Url { get { return _jsonCard.Url; } }
 		/// <summary>
 		/// Enumerates the members who have voted for this card.
 		/// </summary>

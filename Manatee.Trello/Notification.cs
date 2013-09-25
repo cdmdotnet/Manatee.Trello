@@ -72,12 +72,7 @@ namespace Manatee.Trello
 		/// </summary>
 		private IJsonNotificationData Data
 		{
-			get { return (_jsonNotification == null) ? null : _jsonNotification.Data; }
-			set
-			{
-				if (_jsonNotification == null) return;
-				_jsonNotification.Data = value;
-			}
+			get { return _jsonNotification.Data; }
 		}
 		///<summary>
 		/// The date on which the notification was created.
@@ -88,13 +83,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public sealed override string Id
 		{
-			get { return _jsonNotification != null ? _jsonNotification.Id : base.Id; }
-			internal set
-			{
-				if (_jsonNotification != null)
-					_jsonNotification.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonNotification.Id; }
+			internal set { _jsonNotification.Id = value; }
 		}
 		/// <summary>
 		/// Gets or sets whether the notification has been read.
@@ -104,7 +94,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonNotification == null) ? null : _jsonNotification.Unread;
+				return _jsonNotification.Unread;
 			}
 			set
 			{
@@ -297,7 +287,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public override sealed bool Refresh()
 		{
-			if (_jsonNotification is InnerJsonNotification) return false;
 			Parameters["_id"] = Id;
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Notification_Read_Refresh);

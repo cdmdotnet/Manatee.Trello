@@ -65,7 +65,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.AvatarHash;
+				return _jsonMember.AvatarHash;
 			}
 		}
 		/// <summary>
@@ -97,7 +97,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.Bio;
+				return _jsonMember.Bio;
 			}
 			set
 			{
@@ -125,7 +125,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.Confirmed;
+				return _jsonMember.Confirmed;
 			}
 		}
 		/// <summary>
@@ -136,7 +136,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.Email;
+				return _jsonMember.Email;
 			}
 		}
 		/// <summary>
@@ -147,7 +147,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.FullName;
+				return _jsonMember.FullName;
 			}
 			set
 			{
@@ -166,7 +166,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.GravatarHash;
+				return _jsonMember.GravatarHash;
 			}
 		}
 		/// <summary>
@@ -174,13 +174,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonMember != null ? _jsonMember.Id : base.Id; }
-			internal set
-			{
-				if (_jsonMember != null)
-					_jsonMember.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonMember.Id; }
+			internal set { _jsonMember.Id = value; }
 		}
 		/// <summary>
 		/// Gets or sets the member's initials.
@@ -190,7 +185,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.Initials;
+				return _jsonMember.Initials;
 			}
 			set
 			{
@@ -217,7 +212,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.LoginTypes;
+				return _jsonMember.LoginTypes;
 			}
 		}
 		/// <summary>
@@ -228,7 +223,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.MemberType;
+				return _jsonMember.MemberType;
 			}
 		}
 		/// <summary>
@@ -275,7 +270,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.Trophies;
+				return _jsonMember.Trophies;
 			}
 		}
 		/// <summary>
@@ -286,13 +281,13 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.UploadedAvatarHash;
+				return _jsonMember.UploadedAvatarHash;
 			}
 		}
 		/// <summary>
 		/// Gets the URL to the member's profile.
 		/// </summary>
-		public string Url { get { return (_jsonMember == null) ? null : _jsonMember.Url; } }
+		public string Url { get { return _jsonMember.Url; } }
 		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>
@@ -301,7 +296,7 @@ namespace Manatee.Trello
 			get
 			{
 				VerifyNotExpired();
-				return (_jsonMember == null) ? null : _jsonMember.Username;
+				return _jsonMember.Username;
 			}
 			set
 			{

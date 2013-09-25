@@ -59,9 +59,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				return (_jsonMemberSession == null)
-						? null
-						: _ipAddress ?? (_ipAddress = IPAddress.Parse(_jsonMemberSession.IpAddress));
+				return _ipAddress ?? (_ipAddress = IPAddress.Parse(_jsonMemberSession.IpAddress));
 			}
 		}
 		/// <summary>

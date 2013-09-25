@@ -46,13 +46,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonCheckItem != null ? _jsonCheckItem.Id : base.Id; }
-			internal set
-			{
-				if (_jsonCheckItem != null)
-					_jsonCheckItem.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonCheckItem.Id; }
+			internal set { _jsonCheckItem.Id = value; }
 		}
 		/// <summary>
 		/// Gets or sets the name of the checklist item.
@@ -63,7 +58,7 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				return (_jsonCheckItem == null) ? null : _jsonCheckItem.Name;
+				return _jsonCheckItem.Name;
 			}
 			set
 			{

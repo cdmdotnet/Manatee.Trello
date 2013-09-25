@@ -54,7 +54,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonToken == null) return null;
 				if (_jsonBoardPermissions == null) return null;
 				if (_jsonBoardPermissions.IdModel == null) return null;
 				return (_boardPermissions == null) || (_boardPermissions.Scope.Model.Id != _jsonToken.IdMember)
@@ -72,7 +71,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonToken == null) return null;
 				return _jsonToken.DateCreated;
 			}
 		}
@@ -85,7 +83,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonToken == null) return null;
 				return _jsonToken.DateExpires;
 			}
 		}
@@ -94,13 +91,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public override string Id
 		{
-			get { return _jsonToken != null ? _jsonToken.Id : base.Id; }
-			internal set
-			{
-				if (_jsonToken != null)
-					_jsonToken.Id = value;
-				base.Id = value;
-			}
+			get { return _jsonToken.Id; }
+			internal set { _jsonToken.Id = value; }
 		}
 		/// <summary>
 		/// Gets the application which requested a token.
@@ -111,7 +103,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonToken == null) return null;
 				return _jsonToken.Identifier;
 			}
 		}
@@ -124,7 +115,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonToken == null) return null;
 				if (_jsonToken.IdMember == null) return null; 
 				return UpdateById(ref _member, EntityRequestType.Member_Read_Refresh, _jsonToken.IdMember);
 			}
@@ -138,7 +128,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonToken == null) return null;
 				if (_jsonMemberPermissions == null) return null;
 				if (_jsonMemberPermissions.IdModel == null) return null;
 				return (_memberPermissions == null) || (_memberPermissions.Scope.Model.Id != _jsonToken.IdMember)
@@ -156,7 +145,6 @@ namespace Manatee.Trello
 			{
 				if (_isDeleted) return null;
 				VerifyNotExpired();
-				if (_jsonToken == null) return null;
 				if (_jsonOrganizationPermissions == null) return null;
 				if (_jsonOrganizationPermissions.IdModel == null) return null;
 				return (_organizationPermissions == null) || (_organizationPermissions.Scope.Model.Id != _jsonToken.IdMember)

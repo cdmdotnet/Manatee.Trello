@@ -44,26 +44,44 @@ namespace Manatee.Trello
 		private ActionType _type = ActionType.Unknown;
 		private bool _isDeleted;
 
+		/// <summary>
+		/// Gets the attachment, if one exists, associated with the action.
+		/// </summary>
 		public Attachment Attachment
 		{
 			get { return _isDeleted ? null : TryGetEntity<Attachment>("attachment", "attachment.id", EntityRequestType.Attachment_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the board, if one exists, associated with the action.
+		/// </summary>
 		public Board Board
 		{
 			get { return _isDeleted ? null : TryGetEntity<Board>("board", "board.id", EntityRequestType.Board_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the card, if one exists, associated with the action.
+		/// </summary>
 		public Card Card
 		{
 			get { return _isDeleted ? null : TryGetEntity<Card>("card", "card.id", EntityRequestType.Card_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the short ID of the card, if one exists, associated with the action.
+		/// </summary>
 		public int? CardShortId
 		{
 			get { return _isDeleted ? null : (int?) Data.TryGetNumber("card", "idShort"); }
 		}
+		/// <summary>
+		/// Gets the check list, if one exists, associated with the action.
+		/// </summary>
 		public CheckList CheckList
 		{
 			get { return _isDeleted ? null : TryGetEntity<CheckList>("checklist", "checklist.id", EntityRequestType.CheckList_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the check item, if one exists, associated with the action.
+		/// </summary>
 		public CheckItem CheckItem
 		{
 			get { return _isDeleted ? null : TryGetEntity<CheckItem>("checkItem", "checkItem.id", EntityRequestType.CheckItem_Read_Refresh); }
@@ -87,24 +105,33 @@ namespace Manatee.Trello
 		/// </summary>
 		public sealed override string Id
 		{
-			get { return _jsonAction != null ? _jsonAction.Id : base.Id; }
-			internal set
-			{
-				_jsonAction.Id = value;
-			}
+			get { return _jsonAction.Id; }
+			internal set { _jsonAction.Id = value; }
 		}
+		/// <summary>
+		/// Gets the list, if one exists, associated with the action.
+		/// </summary>
 		public List List
 		{
 			get { return _isDeleted ? null : TryGetEntity<List>("list", "list.id", EntityRequestType.List_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the list to which a card was moved, if one exists, associated with the action.
+		/// </summary>
 		public List ListAfter
 		{
 			get { return _isDeleted ? null : TryGetEntity<List>("listAfter", "listAfter.id", EntityRequestType.List_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the list from which a card was moved, if one exists, associated with the action.
+		/// </summary>
 		public List ListBefore
 		{
 			get { return _isDeleted ? null : TryGetEntity<List>("listBefore", "listBefore.id", EntityRequestType.List_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the member, if one exists, associated with the action.
+		/// </summary>
 		public Member Member
 		{
 			get { return _isDeleted ? null : TryGetEntity<Member>("member", "idMember", EntityRequestType.Member_Read_Refresh); }
@@ -116,18 +143,30 @@ namespace Manatee.Trello
 		{
 			get { return _isDeleted ? null : UpdateById(ref _memberCreator, EntityRequestType.Member_Read_Refresh, _jsonAction.IdMemberCreator); }
 		}
+		/// <summary>
+		/// Gets the organization, if one exists, associated with the action.
+		/// </summary>
 		public Organization Organization
 		{
 			get { return _isDeleted ? null : TryGetEntity<Organization>("organization", "organization", EntityRequestType.Organization_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the board which was copied, if one exists, associated with the action.
+		/// </summary>
 		public Board SourceBoard
 		{
 			get { return _isDeleted ? null : TryGetEntity<Board>("boardSource", "boardSource.id", EntityRequestType.Board_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the card which was copied, if one exists, associated with the action.
+		/// </summary>
 		public Card SourceCard
 		{
 			get { return _isDeleted ? null : TryGetEntity<Card>("cardSource", "cardSource.id", EntityRequestType.Card_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the text, if one exists, associated with the action.
+		/// </summary>
 		public string Text
 		{
 			get { return _isDeleted ? null : Data.TryGetString("text"); }
