@@ -27,32 +27,35 @@ namespace Manatee.Trello.Test
 			var start = DateTime.Now;
 			var member = service.Retrieve<Member>("gregsdennis");
 
-			//Console.WriteLine(member);
-			//foreach (var board in member.Boards)
-			//{
-			//	Console.WriteLine("  {0}", board);
-			//	foreach (var list in board.Lists)
-			//	{
-			//		Console.WriteLine("    {0}", list);
-			//		foreach (var card in list.Cards)
-			//		{
-			//			Console.WriteLine("      {0}", card);
-			//			foreach (var checkList in card.CheckLists)
-			//			{
-			//				Console.WriteLine("        {0}", checkList);
-			//				foreach (var checkItem in checkList.CheckItems)
-			//				{
-			//					Console.WriteLine("          {0}", checkItem);
-			//				}
-			//			}
-			//		}
-			//	}
-			//}
+			Console.WriteLine(member);
+			foreach (var board in member.Boards)
+			{
+				Console.WriteLine("  {0}", board);
+				foreach (var list in board.Lists)
+				{
+					Console.WriteLine("    {0}", list);
+					foreach (var card in list.Cards)
+					{
+						Console.WriteLine("      {0}", card);
+						foreach (var checkList in card.CheckLists)
+						{
+							Console.WriteLine("        {0}", checkList);
+							foreach (var checkItem in checkList.CheckItems)
+							{
+								Console.WriteLine("          {0}", checkItem);
+							}
+						}
+					}
+				}
+			}
 			foreach (var action in member.Actions)
 			{
 				Console.WriteLine(action);
 			}
-
+			foreach (var notification in member.Notifications)
+			{
+				Console.WriteLine(notification);
+			}
 
 			var end = DateTime.Now;
 			Console.WriteLine(end - start);
