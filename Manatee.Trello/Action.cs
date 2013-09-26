@@ -96,10 +96,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// When the action was performed.
 		/// </summary>
-		public DateTime? Date
-		{
-			get { return _jsonAction.Date; }
-		}
+		public DateTime? Date { get { return _jsonAction.Date; } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>

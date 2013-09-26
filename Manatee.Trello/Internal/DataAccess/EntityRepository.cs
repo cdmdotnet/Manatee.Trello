@@ -47,7 +47,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			_repositoryMethods = new Dictionary<Type, Func<IJsonRepository, Endpoint, IDictionary<string, object>, object>>
 				{
-					{typeof (Action), (r, e, d) => r.Execute<Action>(e, d)},
+					{typeof (Action), (r, e, d) => r.Execute<IJsonAction>(e, d)},
 					{typeof (Attachment), (r, e, d) => r.Execute<IJsonAttachment>(e, d)},
 					{typeof (Badges), (r, e, d) => r.Execute<IJsonBadges>(e, d)},
 					{typeof (Board), (r, e, d) => r.Execute<IJsonBoard>(e, d)},

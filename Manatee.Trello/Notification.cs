@@ -43,26 +43,44 @@ namespace Manatee.Trello
 		private Member _memberCreator;
 		private NotificationType _type;
 
+		/// <summary>
+		/// Gets the attachment, if one exists, associated with the action.
+		/// </summary>
 		public Attachment Attachment
 		{
 			get { return TryGetEntity<Attachment>("attachment", "attachment.id", EntityRequestType.Attachment_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the board, if one exists, associated with the action.
+		/// </summary>
 		public Board Board
 		{
 			get { return TryGetEntity<Board>("board", "board.id", EntityRequestType.Board_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the card, if one exists, associated with the action.
+		/// </summary>
 		public Card Card
 		{
 			get { return TryGetEntity<Card>("card", "card.id", EntityRequestType.Card_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the short ID of the card, if one exists, associated with the action.
+		/// </summary>
 		public int? CardShortId
 		{
 			get { return (int?)Data.TryGetNumber("card", "idShort"); }
 		}
+		/// <summary>
+		/// Gets the check list, if one exists, associated with the action.
+		/// </summary>
 		public CheckList CheckList
 		{
 			get { return TryGetEntity<CheckList>("checklist", "checklist.id", EntityRequestType.CheckList_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the check item, if one exists, associated with the action.
+		/// </summary>
 		public CheckItem CheckItem
 		{
 			get { return TryGetEntity<CheckItem>("checkItem", "checkItem.id", EntityRequestType.CheckItem_Read_Refresh); }
@@ -107,18 +125,30 @@ namespace Manatee.Trello
 				Upload(EntityRequestType.Notification_Write_IsUnread);
 			}
 		}
+		/// <summary>
+		/// Gets the list, if one exists, associated with the action.
+		/// </summary>
 		public List List
 		{
 			get { return TryGetEntity<List>("list", "list.id", EntityRequestType.List_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the list to which a card was moved, if one exists, associated with the action.
+		/// </summary>
 		public List ListAfter
 		{
 			get { return TryGetEntity<List>("listAfter", "listAfter.id", EntityRequestType.List_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the list from which a card was moved, if one exists, associated with the action.
+		/// </summary>
 		public List ListBefore
 		{
 			get { return TryGetEntity<List>("listBefore", "listBefore.id", EntityRequestType.List_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the member, if one exists, associated with the action.
+		/// </summary>
 		public Member Member
 		{
 			get { return TryGetEntity<Member>("member", "member.id", EntityRequestType.Member_Read_Refresh); }
@@ -130,18 +160,30 @@ namespace Manatee.Trello
 		{
 			get { return UpdateById(ref _memberCreator, EntityRequestType.Member_Read_Refresh, _jsonNotification.IdMemberCreator); }
 		}
+		/// <summary>
+		/// Gets the organization, if one exists, associated with the action.
+		/// </summary>
 		public Organization Organization
 		{
 			get { return TryGetEntity<Organization>("organization", "organization", EntityRequestType.Organization_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the board which was copied, if one exists, associated with the action.
+		/// </summary>
 		public Board SourceBoard
 		{
 			get { return TryGetEntity<Board>("boardSource", "boardSource.id", EntityRequestType.Board_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the card which was copied, if one exists, associated with the action.
+		/// </summary>
 		public Card SourceCard
 		{
 			get { return TryGetEntity<Card>("cardSource", "cardSource.id", EntityRequestType.Card_Read_Refresh); }
 		}
+		/// <summary>
+		/// Gets the text, if one exists, associated with the action.
+		/// </summary>
 		public string Text
 		{
 			get { return Data.TryGetString("text"); }

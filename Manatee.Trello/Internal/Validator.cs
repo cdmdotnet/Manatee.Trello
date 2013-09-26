@@ -124,7 +124,7 @@ namespace Manatee.Trello.Internal
 		}
 		public void Url(string url)
 		{
-			NonEmptyString(url);
+			if (string.IsNullOrWhiteSpace(url)) return;
 			if ((url.Substring(0, 7) != "http://") && (url.Substring(0, 8) != "https://"))
 				_log.Error(new ArgumentException("URL is not valid.  Must begin with 'http://' or 'https://'"));
 		}

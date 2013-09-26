@@ -42,7 +42,6 @@ namespace Manatee.Trello
 		private Member _member;
 		private TokenPermission<Member> _memberPermissions;
 		private TokenPermission<Organization> _organizationPermissions;
-		private string _value;
 		private bool _isDeleted;
 
 		/// <summary>
@@ -154,10 +153,6 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
-		/// Gets the token value.
-		/// </summary>
-		public string Value { get { return _value; } internal set { _value = value; } }
-		/// <summary>
 		/// Gets whether this entity represents an actual entity on Trello.
 		/// </summary>
 		public override bool IsStubbed { get { return _jsonToken is InnerJsonToken; } }
@@ -169,11 +164,6 @@ namespace Manatee.Trello
 		{
 			_jsonToken = new InnerJsonToken();
 		}
-		internal Token(string value)
-			: this()
-		{
-			_value = value;
-		}
 
 		/// <summary>
 		/// Delete the token.  This cannot be undone.
@@ -182,7 +172,7 @@ namespace Manatee.Trello
 		{
 			if (_isDeleted) return;
 			Validator.Writable();
-			Parameters.Add("_token", Value);
+			Parameters.Add("_token", Identifier);
 			EntityRepository.Upload(EntityRequestType.Token_Write_Delete, Parameters);
 			_isDeleted = true;
 		}
@@ -230,7 +220,7 @@ namespace Manatee.Trello
 		/// <param name="other">An object to compare with this object.</param>
 		public bool Equals(Token other)
 		{
-			return (Id == other.Id) || (Value != other.Value);
+			return (Id == other.Id) || (Identifier != other.Identifier);
 		}
 		/// <summary>
 		/// Serves as a hash function for a particular type. 
@@ -249,7 +239,7 @@ namespace Manatee.Trello
 		public override bool Refresh()
 		{
 			if (_isDeleted) return false;
-			Parameters.Add("_token", Value);
+			Parameters.Add("_token", Identifier);
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Token_Read_Refresh);
 		}

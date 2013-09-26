@@ -55,11 +55,10 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				if (_jsonOrganizationPreferences.AssociatedDomain == value) return;
-				_jsonOrganizationPreferences.AssociatedDomain = value ?? string.Empty;
-				Parameters.Add("value", _jsonOrganizationPreferences.AssociatedDomain);
+				_jsonOrganizationPreferences.AssociatedDomain = value;
+				Parameters.Add("value", _jsonOrganizationPreferences.AssociatedDomain ?? string.Empty);
 				Upload(EntityRequestType.OrganizationPreferences_Write_AssociatedDomain);
 			}
 		}
@@ -75,7 +74,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Nullable(value);
 				if (_jsonOrganizationPreferences.ExternalMembersDisabled == value) return;
@@ -94,7 +92,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				if (_jsonOrganizationPreferences.OrgInviteRestrict == value) return;
 				_jsonOrganizationPreferences.OrgInviteRestrict = value;
@@ -113,7 +110,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Enumeration(value);
 				if (_boardVisibilityRestrict.Org == value) return;
@@ -134,7 +130,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Enumeration(value);
 				if (_permissionLevel == value) return;
@@ -156,7 +151,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Enumeration(value);
 				if (_boardVisibilityRestrict.Private == value) return;
@@ -177,7 +171,6 @@ namespace Manatee.Trello
 			}
 			set
 			{
-
 				Validator.Writable();
 				Validator.Enumeration(value);
 				if (_boardVisibilityRestrict.Public == value) return;

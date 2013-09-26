@@ -92,7 +92,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// Indicates the attachment storage location.
 		///</summary>
-		public string Url { get { return _isDeleted || (_jsonAttachment == null) ? null : _jsonAttachment.Url; } }
+		public string Url { get { return _isDeleted ? null : _jsonAttachment.Url; } }
 		/// <summary>
 		/// Gets whether this entity represents an actual entity on Trello.
 		/// </summary>
