@@ -23,14 +23,13 @@
 
 using System.Net;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Rest;
 using RestSharp;
 using IRestClient = Manatee.Trello.Rest.IRestClient;
 using IRestRequest = Manatee.Trello.Rest.IRestRequest;
 
 namespace Manatee.Trello.RestSharp
 {
-	public class RestSharpClient : RestClient, IRestClient
+	internal class RestSharpClient : RestClient, IRestClient
 	{
 		private readonly ILog _log;
 		private readonly global::RestSharp.Deserializers.IDeserializer _deserializer;

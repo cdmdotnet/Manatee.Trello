@@ -27,7 +27,7 @@ using RestSharp.Serializers;
 
 namespace Manatee.Trello.RestSharp
 {
-	public class RestSharpRequestProvider : IRestRequestProvider
+	internal class RestSharpRequestProvider : IRestRequestProvider
 	{
 		private readonly ISerializer _serializer;
 

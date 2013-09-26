@@ -30,7 +30,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeOrganizationPreferences : IJsonOrganizationPreferences, IJsonCompatible
+	internal class ManateeOrganizationPreferences : IJsonOrganizationPreferences, IJsonCompatible
 	{
 		public string PermissionLevel { get; set; }
 		public List<object> OrgInviteRestrict { get; set; }

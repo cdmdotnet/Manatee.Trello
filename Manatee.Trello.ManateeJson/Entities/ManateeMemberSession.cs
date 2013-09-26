@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeMemberSession : IJsonMemberSession, IJsonCompatible
+	internal class ManateeMemberSession : IJsonMemberSession, IJsonCompatible
 	{
 		public bool? IsCurrent { get; set; }
 		public bool? IsRecent { get; set; }

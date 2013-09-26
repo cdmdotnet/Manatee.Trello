@@ -108,6 +108,7 @@ namespace Manatee.Trello.ManateeJson
 			JsonSerializationAbstractionMap.Map<IJsonBoardMembership, ManateeBoardMembership>();
 			JsonSerializationAbstractionMap.Map<IJsonBoardPersonalPreferences, ManateeBoardPersonalPreferences>();
 			JsonSerializationAbstractionMap.Map<IJsonBoardPreferences, ManateeBoardPreferences>();
+			JsonSerializationAbstractionMap.Map<IJsonBoardVisibilityRestrict, ManateeBoardVisibilityRestrict>();
 			JsonSerializationAbstractionMap.Map<IJsonCard, ManateeCard>();
 			JsonSerializationAbstractionMap.Map<IJsonCheckItem, ManateeCheckItem>();
 			JsonSerializationAbstractionMap.Map<IJsonCheckList, ManateeCheckList>();

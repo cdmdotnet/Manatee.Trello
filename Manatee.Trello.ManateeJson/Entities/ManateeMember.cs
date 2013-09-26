@@ -31,7 +31,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeMember : IJsonMember, IJsonCompatible
+	internal class ManateeMember : IJsonMember, IJsonCompatible
 	{
 		public string Id { get; set; }
 		public string AvatarHash { get; set; }

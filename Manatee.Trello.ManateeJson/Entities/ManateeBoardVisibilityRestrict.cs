@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeBoardVisibilityRestrict : IJsonBoardVisibilityRestrict, IJsonCompatible
+	internal class ManateeBoardVisibilityRestrict : IJsonBoardVisibilityRestrict, IJsonCompatible
 	{
 		public string Public { get; set; }
 		public string Org { get; set; }

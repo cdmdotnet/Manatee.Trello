@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeBadges : IJsonBadges, IJsonCompatible
+	internal class ManateeBadges : IJsonBadges, IJsonCompatible
 	{
 		public int? Votes { get; set; }
 		public bool? ViewingMemberVoted { get; set; }

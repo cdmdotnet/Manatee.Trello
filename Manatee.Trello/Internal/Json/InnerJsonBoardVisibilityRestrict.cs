@@ -25,7 +25,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Json
 {
-	public class InnerJsonBoardVisibilityRestrict : IJsonBoardVisibilityRestrict
+	internal class InnerJsonBoardVisibilityRestrict : IJsonBoardVisibilityRestrict
 	{
 		public string Public { get; set; }
 		public string Org { get; set; }

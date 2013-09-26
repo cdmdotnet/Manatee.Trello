@@ -26,7 +26,7 @@ using RestSharp.Deserializers;
 
 namespace Manatee.Trello.RestSharp
 {
-	public class RestSharpDeserializer : IDeserializer
+	internal class RestSharpDeserializer : IDeserializer
 	{
 		private readonly Json.IDeserializer _inner;
 

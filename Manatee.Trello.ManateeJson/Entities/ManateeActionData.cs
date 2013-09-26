@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeActionData : IJsonActionData
+	internal class ManateeActionData : IJsonActionData
 	{
 		private JsonObject _obj;
 
