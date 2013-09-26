@@ -68,8 +68,8 @@ namespace Manatee.Trello
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonOrganization.Desc == value) return;
-				_jsonOrganization.Desc = value ?? string.Empty;
-				Parameters.Add("desc", _jsonOrganization.Desc);
+				_jsonOrganization.Desc = value;
+				Parameters.Add("desc", _jsonOrganization.Desc ?? string.Empty);
 				Upload(EntityRequestType.Organization_Write_Description);
 			}
 		}
@@ -200,8 +200,8 @@ namespace Manatee.Trello
 				Validator.Writable();
 				Validator.Url(value);
 				if (_jsonOrganization.Website == value) return;
-				_jsonOrganization.Website = value ?? string.Empty;
-				Parameters.Add("website", _jsonOrganization.Website);
+				_jsonOrganization.Website = value;
+				Parameters.Add("website", _jsonOrganization.Website ?? string.Empty);
 				Upload(EntityRequestType.Organization_Write_Website);
 			}
 		}

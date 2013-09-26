@@ -112,8 +112,8 @@ namespace Manatee.Trello
 				if (_isDeleted) return;
 				Validator.Writable();
 				if (_jsonCard.Desc == value) return;
-				_jsonCard.Desc = value ?? string.Empty;
-				Parameters.Add("desc", _jsonCard.Desc);
+				_jsonCard.Desc = value;
+				Parameters.Add("desc", _jsonCard.Desc ?? string.Empty);
 				Upload(EntityRequestType.Card_Write_Description);
 			}
 		}

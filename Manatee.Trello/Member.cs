@@ -103,8 +103,8 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				if (_jsonMember.Bio == value) return;
-				_jsonMember.Bio = value ?? string.Empty;
-				Parameters.Add("bio", _jsonMember.Bio);
+				_jsonMember.Bio = value;
+				Parameters.Add("bio", _jsonMember.Bio ?? string.Empty);
 				Upload(EntityRequestType.Member_Write_Bio);
 			}
 		}

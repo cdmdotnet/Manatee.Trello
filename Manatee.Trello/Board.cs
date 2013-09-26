@@ -73,8 +73,8 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				if (_jsonBoard.Desc == value) return;
-				_jsonBoard.Desc = value ?? string.Empty;
-				Parameters.Add("desc", _jsonBoard.Desc);
+				_jsonBoard.Desc = value;
+				Parameters.Add("desc", _jsonBoard.Desc ?? string.Empty);
 				Upload(EntityRequestType.Board_Write_Description);
 			}
 		}

@@ -46,7 +46,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the name of the label.  Tied to the board which contains the card.
 		/// </summary>
-		public string Name { get { return _jsonLabel.Name; } internal set { _jsonLabel.Name = value; } }
+		public string Name
+		{
+			get { return _jsonLabel.Name; }
+			internal set { _jsonLabel.Name = value; }
+		}
 		/// <summary>
 		/// Gets whether this entity represents an actual entity on Trello.
 		/// </summary>

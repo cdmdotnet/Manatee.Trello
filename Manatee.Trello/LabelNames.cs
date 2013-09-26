@@ -51,8 +51,8 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				if (_jsonLabelNames.Red == value) return;
-				_jsonLabelNames.Red = value ?? string.Empty;
-				Parameters.Add("value", _jsonLabelNames.Red);
+				_jsonLabelNames.Red = value;
+				Parameters.Add("value", _jsonLabelNames.Red ?? string.Empty);
 				Upload(EntityRequestType.LabelNames_Write_Red);
 			}
 		}
@@ -70,8 +70,8 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				if (_jsonLabelNames.Orange == value) return;
-				_jsonLabelNames.Orange = value ?? string.Empty;
-				Parameters.Add("value", _jsonLabelNames.Orange);
+				_jsonLabelNames.Orange = value;
+				Parameters.Add("value", _jsonLabelNames.Orange ?? string.Empty);
 				Upload(EntityRequestType.LabelNames_Write_Orange);
 			}
 		}
@@ -89,8 +89,8 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				if (_jsonLabelNames.Yellow == value) return;
-				_jsonLabelNames.Yellow = value ?? string.Empty;
-				Parameters.Add("value", _jsonLabelNames.Yellow);
+				_jsonLabelNames.Yellow = value;
+				Parameters.Add("value", _jsonLabelNames.Yellow ?? string.Empty);
 				Upload(EntityRequestType.LabelNames_Write_Yellow);
 			}
 		}
@@ -108,8 +108,8 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				if (_jsonLabelNames.Green == value) return;
-				_jsonLabelNames.Green = value ?? string.Empty;
-				Parameters.Add("value", _jsonLabelNames.Green);
+				_jsonLabelNames.Green = value;
+				Parameters.Add("value", _jsonLabelNames.Green ?? string.Empty);
 				Upload(EntityRequestType.LabelNames_Write_Green);
 			}
 		}
@@ -127,8 +127,8 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				if (_jsonLabelNames.Blue == value) return;
-				_jsonLabelNames.Blue = value ?? string.Empty;
-				Parameters.Add("value", _jsonLabelNames.Blue);
+				_jsonLabelNames.Blue = value;
+				Parameters.Add("value", _jsonLabelNames.Blue ?? string.Empty);
 				Upload(EntityRequestType.LabelNames_Write_Blue);
 			}
 		}
@@ -146,8 +146,8 @@ namespace Manatee.Trello
 			{
 				Validator.Writable();
 				if (_jsonLabelNames.Purple == value) return;
-				_jsonLabelNames.Purple = value ?? string.Empty;
-				Parameters.Add("value", _jsonLabelNames.Purple);
+				_jsonLabelNames.Purple = value;
+				Parameters.Add("value", _jsonLabelNames.Purple ?? string.Empty);
 				Upload(EntityRequestType.LabelNames_Write_Purple);
 			}
 		}
