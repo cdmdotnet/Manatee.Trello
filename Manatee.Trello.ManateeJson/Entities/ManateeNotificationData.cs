@@ -28,7 +28,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeNotificationData : IJsonNotificationData
+	internal class ManateeNotificationData : IJsonNotificationData
 	{
 		private JsonObject _obj;
 

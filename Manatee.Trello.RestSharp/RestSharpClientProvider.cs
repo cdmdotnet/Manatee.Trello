@@ -28,6 +28,10 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.RestSharp
 {
+	/// <summary>
+	/// Implements IRestClientProvider to provide instances of RestSharp.RestClient
+	/// wrapped in an IRestClient implementation.
+	/// </summary>
 	public class RestSharpClientProvider : IRestClientProvider
 	{
 		private readonly ITrelloServiceConfiguration _configuration;
@@ -35,12 +39,18 @@ namespace Manatee.Trello.RestSharp
 
 		private RestSharpSerializer _serializer;
 		private RestSharpDeserializer _deserializer;
-
+		
+		/// <summary>
+		/// Creates requests for the client.
+		/// </summary>
 		public IRestRequestProvider RequestProvider
 		{
 			get { return _requestProvider ?? (_requestProvider = new RestSharpRequestProvider(VerifySerializer())); }
 		}
 
+		/// <summary>
+		/// Gets and sets the JSON serializer for the client to use.
+		/// </summary>
 		public ISerializer Serializer
 		{
 			get
@@ -52,6 +62,9 @@ namespace Manatee.Trello.RestSharp
 				_serializer = new RestSharpSerializer(value ?? _configuration.Serializer);
 			}
 		}
+		/// <summary>
+		/// Gets and sets the JSON deserializer for the client to use.
+		/// </summary>
 		public IDeserializer Deserializer
 		{
 			get
@@ -64,11 +77,20 @@ namespace Manatee.Trello.RestSharp
 			}
 		}
 
+		/// <summary>
+		/// Creates a new instance of the RestSharpClientProvider class.
+		/// </summary>
+		/// <param name="configuration"></param>
 		public RestSharpClientProvider(ITrelloServiceConfiguration configuration)
 		{
 			_configuration = configuration;
 		}
 
+		/// <summary>
+		/// Creates an instance of IRestClient.
+		/// </summary>
+		/// <param name="apiBaseUrl">The base URL to be used by the client</param>
+		/// <returns>An instance of IRestClient.</returns>
 		public IRestClient CreateRestClient(string apiBaseUrl)
 		{
 			var client = new RestSharpClient(_configuration.Log, VerifyDeserializer(), apiBaseUrl);

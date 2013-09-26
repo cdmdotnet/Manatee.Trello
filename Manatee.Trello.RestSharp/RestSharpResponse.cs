@@ -27,7 +27,7 @@ using IRestResponse = RestSharp.IRestResponse;
 
 namespace Manatee.Trello.RestSharp
 {
-	public class RestSharpResponse<T> : Rest.IRestResponse<T>
+	internal class RestSharpResponse<T> : Rest.IRestResponse<T>
 	{
 		private readonly IRestResponse _response;
 

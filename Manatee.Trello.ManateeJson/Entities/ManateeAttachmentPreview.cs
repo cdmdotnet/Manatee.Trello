@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeAttachmentPreview : IJsonAttachmentPreview, IJsonCompatible
+	internal class ManateeAttachmentPreview : IJsonAttachmentPreview, IJsonCompatible
 	{
 		public int? Width { get; set; }
 		public int? Height { get; set; }

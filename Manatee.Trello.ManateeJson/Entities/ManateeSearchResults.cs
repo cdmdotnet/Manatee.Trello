@@ -31,7 +31,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeSearchResults : IJsonSearchResults, IJsonCompatible
+	internal class ManateeSearchResults : IJsonSearchResults, IJsonCompatible
 	{
 		public List<string> ActionIds { get; set; }
 		public List<string> BoardIds { get; set; }

@@ -21,7 +21,9 @@
 
 ***************************************************************************************/
 
+using System;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
@@ -42,6 +44,10 @@ namespace Manatee.Trello.Internal.Bootstrapping
 
 		public void Initialize(ITrelloService service, ITrelloServiceConfiguration config, TrelloAuthorization auth)
 		{
+			if (config.RestClientProvider == null)
+				throw new MissingRestClientProviderException();
+			if (config.Serializer == null || config.Deserializer == null)
+				throw new MissingSerializerException();
 			EndpointFactory = new EndpointFactory();
 			OfflineChangeQueue = new OfflineChangeQueue();
 			NetworkMonitor = new NetworkMonitor();

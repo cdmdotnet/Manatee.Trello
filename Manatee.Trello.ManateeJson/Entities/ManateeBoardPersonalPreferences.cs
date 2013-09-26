@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeBoardPersonalPreferences : IJsonBoardPersonalPreferences, IJsonCompatible
+	internal class ManateeBoardPersonalPreferences : IJsonBoardPersonalPreferences, IJsonCompatible
 	{
 		public bool? ShowSidebar { get; set; }
 		public bool? ShowSidebarMembers { get; set; }

@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeCheckList : IJsonCheckList, IJsonCompatible
+	internal class ManateeCheckList : IJsonCheckList, IJsonCompatible
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }

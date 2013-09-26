@@ -51,6 +51,8 @@
     <Compile Include="Enumerations\SearchModelType.cs" />
     <Compile Include="Enumerations\TokenModelType.cs" />
     <Compile Include="Enumerations\OrganizationMembershipType.cs" />
+    <Compile Include="Exceptions\MissingRestClientProviderException.cs" />
+    <Compile Include="Exceptions\MissingSerializerException.cs" />
     <Compile Include="Internal\Bootstrapping\Bootstrapper.cs" />
     <Compile Include="Internal\DataAccess\CachingEntityRepository.cs" />
     <Compile Include="Internal\Genesis\EndpointFactory.cs" />

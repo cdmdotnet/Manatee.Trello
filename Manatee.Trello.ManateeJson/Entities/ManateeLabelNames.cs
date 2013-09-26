@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeLabelNames : IJsonLabelNames, IJsonCompatible
+	internal class ManateeLabelNames : IJsonLabelNames, IJsonCompatible
 	{
 		public string Red { get; set; }
 		public string Orange { get; set; }

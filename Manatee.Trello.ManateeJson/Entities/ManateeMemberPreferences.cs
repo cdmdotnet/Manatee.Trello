@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeMemberPreferences : IJsonMemberPreferences, IJsonCompatible
+	internal class ManateeMemberPreferences : IJsonMemberPreferences, IJsonCompatible
 	{
 		public bool? SendSummaries { get; set; }
 		public int? MinutesBetweenSummaries { get; set; }

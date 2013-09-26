@@ -32,7 +32,7 @@ using IRestResponse = Manatee.Trello.Rest.IRestResponse;
 
 namespace Manatee.Trello.RestSharp
 {
-	public class RestSharpRequest : RestRequest, IRestRequest
+	internal class RestSharpRequest : RestRequest, IRestRequest
 	{
 		public new RestMethod Method
 		{
