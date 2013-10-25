@@ -37,7 +37,6 @@ namespace Manatee.Trello
 		private IJsonCheckList _jsonCheckList;
 		private Board _board;
 		private Card _card;
-		private readonly ExpiringList<CheckItem> _checkItems;
 		private Position _position;
 		private bool _isDeleted;
 
@@ -79,8 +78,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the items this checklist contains.
 		/// </summary>
-		public IEnumerable<CheckItem> CheckItems { get { return _checkItems; } }
-		internal ExpiringList<CheckItem> CheckItemsList { get { return _checkItems; } }
+		public IEnumerable<CheckItem> CheckItems { get { return BuildList<CheckItem>(EntityRequestType.CheckList_Read_CheckItems); } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
@@ -144,7 +142,6 @@ namespace Manatee.Trello
 		public CheckList()
 		{
 			_jsonCheckList = new InnerJsonCheckList();
-			_checkItems = new ExpiringList<CheckItem>(this, EntityRequestType.CheckList_Read_CheckItems);
 		}
 
 		/// <summary>
@@ -167,8 +164,6 @@ namespace Manatee.Trello
 			var checkItem = EntityRepository.Download<CheckItem>(EntityRequestType.CheckList_Write_AddCheckItem, Parameters);
 			checkItem.Owner = this;
 			UpdateDependencies(checkItem);
-			_checkItems.Add(checkItem);
-			_checkItems.MarkForUpdate();
 			return checkItem;
 		}
 		/// <summary>
@@ -180,8 +175,6 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.CheckList_Write_Delete, Parameters);
-			if (_card != null)
-				_card.CheckListsList.MarkForUpdate();
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -262,10 +255,7 @@ namespace Manatee.Trello
 			_position = _jsonCheckList.Pos.HasValue ? new Position(_jsonCheckList.Pos.Value) : Position.Unknown;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
-		internal override void PropagateDependencies()
-		{
-			UpdateDependencies(_checkItems);
-		}
+		internal override void PropagateDependencies() {}
 
 		private void Upload(EntityRequestType requestType)
 		{

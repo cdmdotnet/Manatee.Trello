@@ -35,15 +35,13 @@ namespace Manatee.Trello
 	public class List : ExpiringObject, IEquatable<List>, IComparable<List>
 	{
 		private IJsonList _jsonList;
-		private readonly ExpiringList<Action> _actions;
 		private Board _board;
-		private readonly ExpiringList<Card> _cards;
 		private Position _position;
 
 		///<summary>
 		/// Enumerates all actions associated with the list.
 		///</summary>
-		public IEnumerable<Action> Actions { get { return _actions; } }
+		public IEnumerable<Action> Actions { get { return BuildList<Action>(EntityRequestType.List_Read_Actions); } }
 		/// <summary>
 		/// Gets the board which contains the list.
 		/// </summary>
@@ -68,8 +66,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates all cards in the list.
 		/// </summary>
-		public IEnumerable<Card> Cards { get { return _cards; } }
-		internal ExpiringList<Card> CardsList { get { return _cards; } }
+		public IEnumerable<Card> Cards { get { return BuildList<Card>(EntityRequestType.List_Read_Cards); } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>
@@ -161,8 +158,6 @@ namespace Manatee.Trello
 				Parameters.Add("pos", _position);
 				Upload(EntityRequestType.List_Write_Position);
 				MarkForUpdate();
-				if (_board != null)
-					_board.ListsList.MarkForUpdate();
 			}
 		}
 		/// <summary>
@@ -176,8 +171,6 @@ namespace Manatee.Trello
 		public List()
 		{
 			_jsonList = new InnerJsonList();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.List_Read_Actions);
-			_cards = new ExpiringList<Card>(this, EntityRequestType.List_Read_Cards);
 		}
 
 		/// <summary>
@@ -199,8 +192,6 @@ namespace Manatee.Trello
 				Parameters.Add("pos", position);
 			var card = EntityRepository.Download<Card>(EntityRequestType.List_Write_AddCard, Parameters);
 			UpdateDependencies(card);
-			_cards.Add(card);
-			_cards.MarkForUpdate();
 			return card;
 		}
 		/// <summary>
@@ -283,17 +274,12 @@ namespace Manatee.Trello
 			_position = ((_jsonList != null) && _jsonList.Pos.HasValue) ? new Position(_jsonList.Pos.Value) : Position.Unknown;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
-		internal override void PropagateDependencies()
-		{
-			UpdateDependencies(_actions);
-			UpdateDependencies(_cards);
-		}
+		internal override void PropagateDependencies() {}
 
 		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
-			_actions.MarkForUpdate();
 		}
 	}
 }

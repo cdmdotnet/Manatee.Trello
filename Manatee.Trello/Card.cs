@@ -36,23 +36,24 @@ namespace Manatee.Trello
 	public class Card : ExpiringObject, IEquatable<Card>, IComparable<Card>
 	{
 		private IJsonCard _jsonCard;
-		private readonly ExpiringList<Action> _actions;
-		private readonly ExpiringList<Action> _comments;
-		private readonly ExpiringList<Attachment> _attachments;
 		private readonly Badges _badges;
 		private Board _board;
-		private readonly ExpiringList<CheckList> _checkLists;
-		private readonly ExpiringList<Label> _labels;
 		private List _list;
-		private readonly ExpiringList<Member> _members;
 		private Position _position;
-		private readonly ExpiringList<Member> _votingMembers;
 		private bool _isDeleted;
 
 		///<summary>
 		/// Enumerates all actions associated with this card.
 		///</summary>
-		public IEnumerable<Action> Actions { get { return _isDeleted ? Enumerable.Empty<Action>() : _actions; } }
+		public IEnumerable<Action> Actions
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Action>()
+						   : BuildList<Action>(EntityRequestType.Card_Read_Actions);
+			}
+		}
 		/// <summary>
 		/// Gets the ID of the attachment cover image.
 		/// </summary>
@@ -68,8 +69,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the cards attachments.
 		/// </summary>
-		public IEnumerable<Attachment> Attachments { get { return _isDeleted ? Enumerable.Empty<Attachment>() : _attachments; } }
-		internal ExpiringList<Attachment> AttachmentsList { get { return _attachments; } }
+		public IEnumerable<Attachment> Attachments
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Attachment>()
+						   : BuildList<Attachment>(EntityRequestType.Card_Read_Attachments, fields: "all");
+			}
+		}
 		/// <summary>
 		/// Gets the badges summarizing the card's contents.
 		/// </summary>
@@ -89,12 +97,27 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the card's checklists.
 		/// </summary>
-		public IEnumerable<CheckList> CheckLists { get { return _isDeleted ? Enumerable.Empty<CheckList>() : _checkLists; } }
-		internal ExpiringList<CheckList> CheckListsList { get { return _checkLists; } }
+		public IEnumerable<CheckList> CheckLists
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<CheckList>()
+						   : BuildList<CheckList>(EntityRequestType.Card_Read_CheckLists);
+			}
+		}
 		/// <summary>
 		/// Enumerates the card's comments.
 		/// </summary>
-		public IEnumerable<Action> Comments { get { return _isDeleted ? Enumerable.Empty<Action>() : _comments; } }
+		public IEnumerable<Action> Comments
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Action>()
+						   : BuildList<Action>(EntityRequestType.Card_Read_Actions, filter: "commentCard");
+			}
+		}
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
@@ -199,7 +222,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the labels applied to this card.
 		/// </summary>
-		public IEnumerable<Label> Labels { get { return _isDeleted ? Enumerable.Empty<Label>() : _labels; } }
+		public IEnumerable<Label> Labels
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Label>()
+						   : BuildList<Label>(EntityRequestType.Card_Read_Labels);
+			}
+		}
 		/// <summary>
 		/// Gets the date of last activity for this card.
 		/// </summary>
@@ -231,7 +262,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the members assigned to this card.
 		/// </summary>
-		public IEnumerable<Member> Members { get { return _isDeleted ? Enumerable.Empty<Member>() : _members; } }
+		public IEnumerable<Member> Members
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Member>()
+						   : BuildList<Member>(EntityRequestType.Card_Read_Members);
+			}
+		}
 		/// <summary>
 		/// Gets or sets the card's name
 		/// </summary>
@@ -277,8 +316,6 @@ namespace Manatee.Trello
 				Parameters.Add("pos", _position);
 				Upload(EntityRequestType.Card_Write_Position);
 				MarkForUpdate();
-				if (_list != null)
-					_list.CardsList.MarkForUpdate();
 			}
 		}
 		/// <summary>
@@ -292,7 +329,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the members who have voted for this card.
 		/// </summary>
-		public IEnumerable<Member> VotingMembers { get { return _isDeleted ? Enumerable.Empty<Member>() : _votingMembers; } }
+		public IEnumerable<Member> VotingMembers
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Member>()
+						   : BuildList<Member>(EntityRequestType.Card_Read_VotingMembers);
+			}
+		}
 		/// <summary>
 		/// Sets whether the card should generate a notification email when the due date is near.
 		/// </summary>
@@ -317,14 +362,7 @@ namespace Manatee.Trello
 		public Card()
 		{
 			_jsonCard = new InnerJsonCard();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.Card_Read_Actions);
-			_comments = new ExpiringList<Action>(this, EntityRequestType.Card_Read_Actions) {Filter = "commentCard"};
-			_attachments = new ExpiringList<Attachment>(this, EntityRequestType.Card_Read_Attachments) {Fields = "all"};
 			_badges = new Badges(this);
-			_checkLists = new ExpiringList<CheckList>(this, EntityRequestType.Card_Read_CheckLists);
-			_labels = new ExpiringList<Label>(this, EntityRequestType.Card_Read_Labels);
-			_members = new ExpiringList<Member>(this, EntityRequestType.Card_Read_Members);
-			_votingMembers = new ExpiringList<Member>(this, EntityRequestType.Card_Read_VotingMembers);
 		}
 
 		/// <summary>
@@ -347,9 +385,6 @@ namespace Manatee.Trello
 			var attachment = EntityRepository.Download<Attachment>(EntityRequestType.Card_Write_AddAttachment, Parameters);
 			attachment.Owner = this;
 			UpdateDependencies(attachment);
-			_attachments.Add(attachment);
-			_attachments.MarkForUpdate();
-			_actions.MarkForUpdate();
 			return attachment;
 		}
 		/// <summary>
@@ -370,9 +405,6 @@ namespace Manatee.Trello
 			var checkList = EntityRepository.Download<CheckList>(EntityRequestType.Card_Write_AddChecklist, Parameters);
 			checkList.Owner = this;
 			UpdateDependencies(checkList);
-			_checkLists.Add(checkList);
-			_checkLists.MarkForUpdate();
-			_actions.MarkForUpdate();
 			return checkList;
 		}
 		/// <summary>
@@ -387,8 +419,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters.Add("text", comment);
 			EntityRepository.Upload(EntityRequestType.Card_Write_AddComment, Parameters);
-			_actions.MarkForUpdate();
-			_comments.MarkForUpdate();
 		}
 		/// <summary>
 		/// Applies a lable to the card.
@@ -401,8 +431,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters.Add("value", color.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Card_Write_ApplyLabel, Parameters);
-			_labels.MarkForUpdate();
-			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Assigns a member to the card.
@@ -416,9 +444,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters.Add("value", member.Id);
 			EntityRepository.Upload(EntityRequestType.Card_Write_AssignMember, Parameters);
-			_members.Add(member);
-			_members.MarkForUpdate();
-			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Marks all notifications associated to this card as read.
@@ -439,8 +464,6 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Card_Write_Delete, Parameters);
-			if (_list != null)
-				_list.CardsList.MarkForUpdate();
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -465,11 +488,6 @@ namespace Manatee.Trello
 			if (position != null)
 				Parameters.Add("pos", position);
 			EntityRepository.Upload(EntityRequestType.Card_Write_Move, Parameters);
-			_actions.MarkForUpdate();
-			list.CardsList.Add(this);
-			if (_list == null) return;
-			_list.CardsList.Remove(this);
-			_list.CardsList.MarkForUpdate();
 		}
 		/// <summary>
 		/// Removes a label from a card.
@@ -482,8 +500,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters.Add("_color", color.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Card_Write_RemoveLabel, Parameters);
-			_labels.MarkForUpdate();
-			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Removes (unassigns) a member from a card.
@@ -497,9 +513,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters.Add("_memberId", member.Id);
 			EntityRepository.Upload(EntityRequestType.Card_Write_RemoveMember, Parameters);
-			_members.Remove(member);
-			_members.MarkForUpdate();
-			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -577,14 +590,7 @@ namespace Manatee.Trello
 		}
 		internal override void PropagateDependencies()
 		{
-			UpdateDependencies(_actions);
-			UpdateDependencies(_comments);
-			UpdateDependencies(_attachments);
 			UpdateDependencies(_badges);
-			UpdateDependencies(_checkLists);
-			UpdateDependencies(_labels);
-			UpdateDependencies(_members);
-			UpdateDependencies(_votingMembers);
 		}
 		internal void ForceDeleted(bool deleted)
 		{
@@ -595,7 +601,6 @@ namespace Manatee.Trello
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
-			_actions.MarkForUpdate();
 		}
 	}
 }

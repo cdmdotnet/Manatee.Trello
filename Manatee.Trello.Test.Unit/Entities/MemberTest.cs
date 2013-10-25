@@ -143,28 +143,6 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Execute();
 		}
 		[TestMethod]
-		public void ClosedBoards()
-		{
-			var feature = CreateFeature();
-
-			feature.WithScenario("Access ClosedBoards property")
-				.Given(AMember)
-				.And(EntityIsExpired)
-				.When(ClosedBoardsIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Member>)
-				.And(RepositoryRefreshCollectionIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("ClosedBoards collection enumerates")
-				.Given(AMember)
-				.And(EntityIsExpired)
-				.When(ClosedBoardsIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<Board>, EntityRequestType.Member_Read_Boards)
-				.And(ExceptionIsNotThrown)
-
-				.Execute();
-		}
-		[TestMethod]
 		public void Confirmed()
 		{
 			var feature = CreateFeature();
@@ -742,14 +720,6 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void BoardsIsEnumerated()
 		{
 			Execute(() => _test.Sut.Boards.GetEnumerator());
-		}
-		private void ClosedBoardsIsAccessed()
-		{
-			Execute(() => _test.Sut.ClosedBoards);
-		}
-		private void ClosedBoardsIsEnumerated()
-		{
-			Execute(() => _test.Sut.ClosedBoards.GetEnumerator());
 		}
 		private void ConfirmedIsAccessed()
 		{

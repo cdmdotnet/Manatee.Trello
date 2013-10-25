@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 
 namespace Manatee.Trello

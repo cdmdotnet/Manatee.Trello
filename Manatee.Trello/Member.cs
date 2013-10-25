@@ -39,24 +39,14 @@ namespace Manatee.Trello
 		private static readonly OneToOneMap<AvatarSourceType, string> _avatarSourceMap;
 
 		private IJsonMember _jsonMember;
-		private readonly ExpiringList<Action> _actions;
 		private AvatarSourceType _avatarSource;
-		private readonly ExpiringList<Board> _boards;
-		private readonly ExpiringList<Board> _closedBoards;
-		private readonly ExpiringList<Board> _invitedBoards;
-		private readonly ExpiringList<Organization> _invitedOrganizations;
-		private readonly ExpiringList<Notification> _notifications;
-		private readonly ExpiringList<Organization> _organizations;
-		//private readonly ExpiringList<Board> _pinnedBoards;
 		private readonly MemberPreferences _preferences;
-		private readonly ExpiringList<MemberSession> _sessions;
 		private MemberStatusType _status;
-		private readonly ExpiringList<Token> _tokens;
 
 		///<summary>
 		/// Enumerates all actions associated with this member.
 		///</summary>
-		public IEnumerable<Action> Actions { get { return _actions; } }
+		public IEnumerable<Action> Actions { get { return BuildList<Action>(EntityRequestType.Member_Read_Actions); } }
 		/// <summary>
 		/// Gets the member's avatar hash.
 		/// </summary>
@@ -111,12 +101,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the boards owned by the member.
 		/// </summary>
-		public IEnumerable<Board> Boards { get { return _boards; } }
-		internal ExpiringList<Board> BoardsList { get { return _boards; } }
-		/// <summary>
-		/// Enumerates the closed boards owned by the member.
-		/// </summary>
-		public IEnumerable<Board> ClosedBoards { get { return _closedBoards; } }
+		public IEnumerable<Board> Boards { get { return BuildList<Board>(EntityRequestType.Member_Read_Boards); } }
 		/// <summary>
 		/// Gets whether the member is confirmed.
 		/// </summary>
@@ -199,11 +184,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the boards to which the member has been invited to join.
 		/// </summary>
-		public IEnumerable<Board> InvitedBoards { get { return _invitedBoards; } }
+		public IEnumerable<Board> InvitedBoards { get { return BuildList<Board>(EntityRequestType.Member_Read_InvitedBoards); } }
 		/// <summary>
 		/// Enumerates the organizations to which the member has been invited to join.
 		/// </summary>
-		public IEnumerable<Organization> InvitedOrganizations { get { return _invitedOrganizations; } }
+		public IEnumerable<Organization> InvitedOrganizations { get { return BuildList<Organization>(EntityRequestType.Member_Read_InvitedOrganizations); } }
 		/// <summary>
 		/// Enumerates the login types for the member.
 		/// </summary>
@@ -229,12 +214,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the member's notifications.
 		/// </summary>
-		public IEnumerable<Notification> Notifications { get { return _notifications; } }
+		public IEnumerable<Notification> Notifications { get { return BuildList<Notification>(EntityRequestType.Member_Read_Notifications); } }
 		/// <summary>
 		/// Enumerates the organizations to which the member belongs.
 		/// </summary>
-		public IEnumerable<Organization> Organizations { get { return _organizations; } }
-		internal ExpiringList<Organization> OrganizationsList { get { return _organizations; } }
+		public IEnumerable<Organization> Organizations { get { return BuildList<Organization>(EntityRequestType.Member_Read_Organization); } }
 		// / <summary>
 		// / Enumerates the boards the member has pinnned to their boards menu.
 		// / </summary>
@@ -246,7 +230,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the active sessions with trello.com.
 		/// </summary>
-		internal IEnumerable<MemberSession> Sessions { get { return _sessions; } }
+		internal IEnumerable<MemberSession> Sessions { get { return BuildList<MemberSession>(EntityRequestType.Member_Read_Sessions); } }
 		/// <summary>
 		/// Gets the member's activity status.
 		/// </summary>
@@ -261,7 +245,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the tokens provided by the member.
 		/// </summary>
-		public IEnumerable<Token> Tokens { get { return _tokens; } }
+		public IEnumerable<Token> Tokens { get { return BuildList<Token>(EntityRequestType.Member_Read_Tokens); } }
 		/// <summary>
 		/// Enumerates the trophies obtained by the member.
 		/// </summary>
@@ -333,18 +317,8 @@ namespace Manatee.Trello
 		public Member()
 		{
 			_jsonMember = new InnerJsonMember();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.Member_Read_Actions);
 			_avatarSource = AvatarSourceType.Unknown;
-			_boards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_Boards) {Filter = "open"};
-			_closedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_Boards) {Filter = "closed"};
-			_invitedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_InvitedBoards);
-			_invitedOrganizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_InvitedOrganizations);
-			_notifications = new ExpiringList<Notification>(this, EntityRequestType.Member_Read_Notifications);
-			_organizations = new ExpiringList<Organization>(this, EntityRequestType.Member_Read_Organization);
-			//_pinnedBoards = new ExpiringList<Board>(this, EntityRequestType.Member_Read_PinnedBoards);
 			_preferences = new MemberPreferences(this);
-			_sessions = new ExpiringList<MemberSession>(this, EntityRequestType.Member_Read_Sessions);
-			_tokens = new ExpiringList<Token>(this, EntityRequestType.Member_Read_Tokens);
 		}
 
 		/// <summary>
@@ -367,8 +341,6 @@ namespace Manatee.Trello
 			Parameters.Add("name", name);
 			var board = EntityRepository.Download<Board>(EntityRequestType.Member_Write_CreateBoard, Parameters);
 			UpdateDependencies(board);
-			_boards.Add(board);
-			_boards.MarkForUpdate();
 			return board;
 		}
 		/// <summary>
@@ -383,8 +355,6 @@ namespace Manatee.Trello
 			Parameters.Add("displayName", displayName);
 			var org = EntityRepository.Download<Organization>(EntityRequestType.Member_Write_CreateOrganization, Parameters);
 			UpdateDependencies(org);
-			_organizations.Add(org);
-			_organizations.MarkForUpdate();
 			return org;
 		}
 		/// <summary>
@@ -515,23 +485,13 @@ namespace Manatee.Trello
 		}
 		internal override void PropagateDependencies()
 		{
-			UpdateDependencies(_actions);
-			UpdateDependencies(_boards);
-			UpdateDependencies(_closedBoards);
-			UpdateDependencies(_invitedBoards);
-			UpdateDependencies(_invitedOrganizations);
-			UpdateDependencies(_notifications);
-			UpdateDependencies(_organizations);
 			UpdateDependencies(_preferences);
-			UpdateDependencies(_sessions);
-			UpdateDependencies(_tokens);
 		}
 
 		private void Upload(EntityRequestType requestType)
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
-			_actions.MarkForUpdate();
 		}
 		private void UpdateStatus()
 		{

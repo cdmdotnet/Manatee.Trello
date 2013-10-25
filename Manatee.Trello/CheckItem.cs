@@ -92,7 +92,6 @@ namespace Manatee.Trello
 				Parameters.Add("value", _position);
 				Upload(EntityRequestType.CheckItem_Write_Position);
 				MarkForUpdate();
-				((CheckList) Owner).CheckItemsList.MarkForUpdate();
 			}
 		}
 		/// <summary>
@@ -149,7 +148,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters.Add("_checkListId", Owner.Id);
 			EntityRepository.Upload(EntityRequestType.CheckItem_Write_Delete, Parameters);
-			((CheckList) Owner).CheckItemsList.MarkForUpdate();
 			_isDeleted = true;
 		}
 		/// <summary>

@@ -22,8 +22,6 @@
 ***************************************************************************************/
 using System;
 using Manatee.Json;
-using Manatee.Json.Enumerations;
-using Manatee.Json.Extensions;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
 

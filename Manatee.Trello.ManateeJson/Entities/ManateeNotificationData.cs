@@ -23,7 +23,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
-using Manatee.Json.Extensions;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
