@@ -38,6 +38,10 @@ namespace Manatee.Trello.Internal
 		{
 			return item.ToString().ToLower();
 		}
+		public static string ToParameterString<T>(this T types)
+		{
+			return types.ToLowerString().Replace(" ", String.Empty);
+		}
 		public static bool BetweenInclusive(this IComparable value, object low, object high)
 		{
 			return (value.CompareTo(low) >= 0) && (value.CompareTo(high) <= 0);
@@ -49,7 +53,7 @@ namespace Manatee.Trello.Internal
 			if (!type.IsGenericType) return name;
 			sb.Append(name.Substring(0, name.IndexOf('`')));
 			sb.Append("<");
-			sb.Append(string.Join(", ", type.GetGenericArguments().Select(t => t.CSharpName())));
+			sb.Append(String.Join(", ", type.GetGenericArguments().Select(t => t.CSharpName())));
 			sb.Append(">");
 			return sb.ToString();
 		}

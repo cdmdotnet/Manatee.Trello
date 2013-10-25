@@ -35,14 +35,7 @@ namespace Manatee.Trello
 	public class Board : ExpiringObject, IEquatable<Board>, IComparable<Board>
 	{
 		private IJsonBoard _jsonBoard;
-		private readonly ExpiringList<Action> _actions;
-		private readonly ExpiringList<Card> _archivedCards;
-		private readonly ExpiringList<List> _archivedLists;
-		private readonly ExpiringList<Member> _invitedMembers;
 		private readonly LabelNames _labelNames;
-		private readonly ExpiringList<List> _lists;
-		private readonly ExpiringList<Member> _members;
-		private readonly ExpiringList<BoardMembership> _memberships;
 		private Organization _organization;
 		private readonly BoardPreferences _preferences;
 		private readonly BoardPersonalPreferences _personalPreferences;
@@ -50,15 +43,7 @@ namespace Manatee.Trello
 		///<summary>
 		/// Enumerates all actions associated with this board.
 		///</summary>
-		public IEnumerable<Action> Actions { get { return _actions; } }
-		/// <summary>
-		/// Enumerates all archived cards on this board.
-		/// </summary>
-		public IEnumerable<Card> ArchivedCards { get { return _archivedCards; } }
-		/// <summary>
-		/// Enumerates all archived lists on this board.
-		/// </summary>
-		public IEnumerable<List> ArchivedLists { get { return _archivedLists; } }
+		public IEnumerable<Action> Actions { get { return BuildList<Action>(EntityRequestType.Board_Read_Actions); } }
 		///<summary>
 		/// Gets or sets the board's description.
 		///</summary>
@@ -89,7 +74,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates all members who have received invitations to this board.
 		/// </summary>
-		public IEnumerable<Member> InvitedMembers { get { return _invitedMembers; } }
+		public IEnumerable<Member> InvitedMembers { get { return BuildList<Member>(EntityRequestType.Board_Read_InvitedMembers); } }
 		///<summary>
 		/// Gets or sets whether this board is closed.
 		///</summary>
@@ -148,16 +133,15 @@ namespace Manatee.Trello
 		///<summary>
 		/// Gets the board's open lists.
 		///</summary>
-		public IEnumerable<List> Lists { get { return _lists; } }
-		internal ExpiringList<List> ListsList { get { return _lists; } }
+		public IEnumerable<List> Lists { get { return BuildList<List>(EntityRequestType.Board_Read_Lists); } }
 		///<summary>
 		/// Gets the board's members and their types.
 		///</summary>
-		public IEnumerable<Member> Members { get { return _members; } }
+		public IEnumerable<Member> Members { get { return BuildList<Member>(EntityRequestType.Board_Read_Members); } }
 		///<summary>
 		/// Gets the board's members and their types.
 		///</summary>
-		public IEnumerable<BoardMembership> Memberships { get { return _memberships; } }
+		public IEnumerable<BoardMembership> Memberships { get { return BuildList<BoardMembership>(EntityRequestType.Board_Read_Memberships); } }
 		///<summary>
 		/// Gets or sets the board's name.
 		///</summary>
@@ -228,14 +212,7 @@ namespace Manatee.Trello
 		public Board()
 		{
 			_jsonBoard = new InnerJsonBoard();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.Board_Read_Actions);
-			_archivedCards = new ExpiringList<Card>(this, EntityRequestType.Board_Read_Cards) { Filter = "closed" };
-			_archivedLists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists) { Filter = "closed" };
-			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Board_Read_InvitedMembers);
 			_labelNames = new LabelNames(this);
-			_lists = new ExpiringList<List>(this, EntityRequestType.Board_Read_Lists);
-			_members = new ExpiringList<Member>(this, EntityRequestType.Board_Read_Members);
-			_memberships = new ExpiringList<BoardMembership>(this, EntityRequestType.Board_Read_Memberships);
 			_personalPreferences = new BoardPersonalPreferences(this);
 			_preferences = new BoardPreferences(this);
 		}
@@ -256,9 +233,6 @@ namespace Manatee.Trello
 				Parameters.Add("pos", position);
 			var list = EntityRepository.Download<List>(EntityRequestType.Board_Write_AddList, Parameters);
 			UpdateDependencies(list);
-			_lists.Add(list);
-			_lists.MarkForUpdate();
-			_actions.MarkForUpdate();
 			return list;
 		}
 		///<summary>
@@ -274,10 +248,6 @@ namespace Manatee.Trello
 			Parameters.Add("_memberId", member.Id);
 			Parameters.Add("type", type.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Board_Write_AddOrUpdateMember, Parameters);
-			_members.Add(member);
-			_members.MarkForUpdate();
-			_memberships.MarkForUpdate();
-			_actions.MarkForUpdate();
 		}
 		// / <summary>
 		// / Adds a new or existing member to the board or updates the permissions of a member already on the board.
@@ -309,7 +279,6 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Board_Write_MarkAsViewed, Parameters);
-			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Extends an invitation to the board to another member.
@@ -333,10 +302,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters.Add("_memberId", member.Id);
 			EntityRepository.Upload(EntityRequestType.Board_Write_RemoveMember, Parameters);
-			_members.Remove(member);
-			_members.MarkForUpdate();
-			_memberships.MarkForUpdate();
-			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the board.
@@ -421,14 +386,7 @@ namespace Manatee.Trello
 		}
 		internal override void PropagateDependencies()
 		{
-			UpdateDependencies(_actions);
-			UpdateDependencies(_archivedCards);
-			UpdateDependencies(_archivedLists);
-			UpdateDependencies(_invitedMembers);
 			UpdateDependencies(_labelNames);
-			UpdateDependencies(_lists);
-			UpdateDependencies(_members);
-			UpdateDependencies(_memberships);
 			UpdateDependencies(_preferences);
 			UpdateDependencies(_personalPreferences);
 		}
@@ -437,7 +395,6 @@ namespace Manatee.Trello
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
-			_actions.MarkForUpdate();
 		}
 	}
 }

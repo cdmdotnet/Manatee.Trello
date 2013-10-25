@@ -116,9 +116,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters["_cardId"] = Owner.Id;
 			EntityRepository.Upload(EntityRequestType.Attachment_Write_Delete, Parameters);
-			var attachmentsList = ((Card) Owner).AttachmentsList;
-			attachmentsList.Remove(this);
-			attachmentsList.MarkForUpdate();
 			_isDeleted = true;
 		}
 		/// <summary>

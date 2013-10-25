@@ -29,50 +29,6 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Execute();
 		}
 		[TestMethod]
-		public void ArchivedCards()
-		{
-			var feature = CreateFeature();
-
-			feature.WithScenario("Access ArchivedCards property")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(ArchivedCardsIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(RepositoryRefreshCollectionIsNotCalled<Card>)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("ArchivedCards collection enumerates")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(ArchivedCardsIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<Card>, EntityRequestType.Board_Read_Cards)
-				.And(ExceptionIsNotThrown)
-
-				.Execute();
-		}
-		[TestMethod]
-		public void ArchivedLists()
-		{
-			var feature = CreateFeature();
-
-			feature.WithScenario("Access ArchivedLists property")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(ArchivedListsIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(RepositoryRefreshCollectionIsNotCalled<List>)
-				.And(ExceptionIsNotThrown)
-
-				.WithScenario("ArchivedLists collection enumerates")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(ArchivedListsIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<List>, EntityRequestType.Board_Read_Lists)
-				.And(ExceptionIsNotThrown)
-
-				.Execute();
-		}
-		[TestMethod]
 		public void Description()
 		{
 			var feature = CreateFeature();
@@ -588,22 +544,6 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void ActionsIsEnumerated()
 		{
 			Execute(() => _test.Sut.Actions.GetEnumerator());
-		}
-		private void ArchivedCardsIsAccessed()
-		{
-			Execute(() => _test.Sut.ArchivedCards);
-		}
-		private void ArchivedCardsIsEnumerated()
-		{
-			Execute(() => _test.Sut.ArchivedCards.GetEnumerator());
-		}
-		private void ArchivedListsIsAccessed()
-		{
-			Execute(() => _test.Sut.ArchivedLists);
-		}
-		private void ArchivedListsIsEnumerated()
-		{
-			Execute(() => _test.Sut.ArchivedLists.GetEnumerator());
 		}
 		private void DescriptionIsAccessed()
 		{

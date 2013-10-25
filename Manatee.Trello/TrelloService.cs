@@ -45,7 +45,6 @@ namespace Manatee.Trello
 		private readonly IEntityRepository _entityRepository;
 		private readonly IValidator _validator;
 		private readonly IEndpointFactory _endpointFactory;
-		private readonly ExpiringList<Member> _memberSearchList;
 		private Member _me;
 
 		/// <summary>
@@ -80,12 +79,6 @@ namespace Manatee.Trello
 			_validator = bootstrapper.Validator;
 			_entityRepository = bootstrapper.EntityRepository;
 			_endpointFactory = bootstrapper.EndpointFactory;
-			_memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers)
-				{
-					Log = configuration.Log,
-					EntityRepository = _entityRepository,
-					Validator = _validator
-				};
 		}
 		internal TrelloService(ITrelloServiceConfiguration configuration,
 							   IValidator validator,
@@ -98,12 +91,6 @@ namespace Manatee.Trello
 			_entityRepository = entityRepository;
 			_requestProcessor = requestProcessor;
 			_endpointFactory = endpointFactory;
-			_memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers)
-				{
-					Log = configuration.Log,
-					EntityRepository = _entityRepository,
-					Validator = _validator
-				};
 		}
 		/// <summary>
 		/// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
@@ -158,7 +145,7 @@ namespace Manatee.Trello
 				if (!string.IsNullOrEmpty(results))
 					parameters.Add("idOrganizations", results);
 			}
-			parameters.Add("modelTypes", ConstructSearchModelTypeParameter(modelTypes));
+			parameters.Add("modelTypes", modelTypes.ToParameterString());
 			return _entityRepository.Download<SearchResults>(EntityRequestType.Service_Read_Search, parameters);
 		}
 		/// <summary>
@@ -170,9 +157,15 @@ namespace Manatee.Trello
 		public IEnumerable<Member> SearchMembers(string query, int limit = 0)
 		{
 			_validator.NonEmptyString(query);
-			_memberSearchList.Parameters.Add("query", query);
-			_memberSearchList.Refresh();
-			return _memberSearchList;
+			var memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers)
+				{
+					Log = _configuration.Log,
+					EntityRepository = _entityRepository,
+					Validator = _validator
+				};
+			memberSearchList.Parameters.Add("query", query);
+			memberSearchList.Refresh();
+			return memberSearchList;
 		}
 		/// <summary>
 		/// Instructs the service to stop sending requests.
@@ -220,10 +213,6 @@ namespace Manatee.Trello
 			var parameters = RestParameterRepository.GetParameters<Member>()
 				.ToDictionary<KeyValuePair<string, string>, string, object>(k => k.Key, v => v.Value);
 			return _entityRepository.Download<Member>(EntityRequestType.Service_Read_Me, parameters);
-		}
-		private static string ConstructSearchModelTypeParameter(SearchModelType types)
-		{
-			return types.ToLowerString().Replace(" ", string.Empty);
 		}
 		private static string ConstructContextParameter<T>(IEnumerable<ExpiringObject> models)
 			where T : ExpiringObject

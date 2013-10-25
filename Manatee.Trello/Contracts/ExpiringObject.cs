@@ -125,6 +125,7 @@ namespace Manatee.Trello.Contracts
 		protected T UpdateById<T>(ref T entity, EntityRequestType requestType, string id)
 			where T : ExpiringObject
 		{
+			if (id == null) return null;
 			if ((entity == null) || (entity.Id != id))
 			{
 				entity = EntityRepository.Download<T>(requestType, new Dictionary<string, object> {{"_id", id}});
@@ -141,6 +142,21 @@ namespace Manatee.Trello.Contracts
 			{
 				Parameters[parameter.Key] = parameter.Value;
 			}
+		}
+		/// <summary>
+		/// Builds the specified ExpiringList.
+		/// </summary>
+		/// <typeparam name="T">The type of entity.</typeparam>
+		/// <param name="requestType">The request type used to populate the list.</param>
+		/// <param name="fields">The field list for the request.</param>
+		/// <param name="filter">The filter for the request.</param>
+		/// <returns>The specified ExpiringList.</returns>
+		protected IEnumerable<T> BuildList<T>(EntityRequestType requestType, string fields = null, string filter = null)
+			where T : ExpiringObject, IEquatable<T>, IComparable<T>
+		{
+			var list = new ExpiringList<T>(this, requestType) {Fields = fields, Filter = filter};
+			UpdateDependencies(list);
+			return list;
 		}
 	}
 }

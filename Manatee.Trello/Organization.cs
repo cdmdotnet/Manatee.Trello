@@ -36,22 +36,33 @@ namespace Manatee.Trello
 	public class Organization : ExpiringObject, IEquatable<Organization>, IComparable<Organization>
 	{
 		private IJsonOrganization _jsonOrganization;
-		private readonly ExpiringList<Action> _actions;
-		private readonly ExpiringList<Board> _boards;
-		private readonly ExpiringList<Member> _invitedMembers;
-		private readonly ExpiringList<Member> _members;
-		private readonly ExpiringList<OrganizationMembership> _memberships;
 		private readonly OrganizationPreferences _preferences;
 		private bool _isDeleted;
 
 		///<summary>
 		/// Enumerates all actions associated with this organization.
 		///</summary>
-		public IEnumerable<Action> Actions { get { return _isDeleted ? Enumerable.Empty<Action>() : _actions; } }
+		public IEnumerable<Action> Actions
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Action>()
+						   : BuildList<Action>(EntityRequestType.Organization_Read_Actions);
+			}
+		}
 		/// <summary>
 		/// Enumerates the boards owned by the organization.
 		/// </summary>
-		public IEnumerable<Board> Boards { get { return _isDeleted ? Enumerable.Empty<Board>() : _boards; } }
+		public IEnumerable<Board> Boards
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Board>()
+						   : BuildList<Board>(EntityRequestType.Organization_Read_Boards, filter: "open");
+			}
+		}
 		/// <summary>
 		/// Gets or sets the description for the organization.
 		/// </summary>
@@ -105,7 +116,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates all members who have received invitations to this organization.
 		/// </summary>
-		public IEnumerable<Member> InvitedMembers { get { return _invitedMembers; } }
+		public IEnumerable<Member> InvitedMembers
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Member>()
+						   : BuildList<Member>(EntityRequestType.Organization_Read_InvitedMembers);
+			}
+		}
 		/// <summary>
 		/// Gets whether this organization has paid features.
 		/// </summary>
@@ -125,11 +144,27 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the members who belong to the organization.
 		/// </summary>
-		public IEnumerable<Member> Members { get { return _isDeleted ? Enumerable.Empty<Member>() : _members; } }
+		public IEnumerable<Member> Members
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<Member>()
+						   : BuildList<Member>(EntityRequestType.Organization_Read_Members);
+			}
+		}
 		/// <summary>
 		/// Enumerates the members who belong to the organization.
 		/// </summary>
-		public IEnumerable<OrganizationMembership> Memberships { get { return _isDeleted ? Enumerable.Empty<OrganizationMembership>() : _memberships; } }
+		public IEnumerable<OrganizationMembership> Memberships
+		{
+			get
+			{
+				return _isDeleted
+						   ? Enumerable.Empty<OrganizationMembership>()
+						   : BuildList<OrganizationMembership>(EntityRequestType.Organization_Read_Memberships);
+			}
+		}
 		/// <summary>
 		/// Gets or sets the name of the organization.
 		/// </summary>
@@ -216,11 +251,6 @@ namespace Manatee.Trello
 		public Organization()
 		{
 			_jsonOrganization = new InnerJsonOrganization();
-			_actions = new ExpiringList<Action>(this, EntityRequestType.Organization_Read_Actions);
-			_boards = new ExpiringList<Board>(this, EntityRequestType.Organization_Read_Boards);
-			_invitedMembers = new ExpiringList<Member>(this, EntityRequestType.Organization_Read_InvitedMembers);
-			_members = new ExpiringList<Member>(this, EntityRequestType.Organization_Read_Members);
-			_memberships = new ExpiringList<OrganizationMembership>(this, EntityRequestType.Organization_Read_Memberships);
 			_preferences = new OrganizationPreferences(this);
 		}
 
@@ -238,10 +268,6 @@ namespace Manatee.Trello
 			Parameters.Add("_memberId", member.Id);
 			Parameters.Add("type", type.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Organization_Write_AddOrUpdateMember, Parameters);
-			_members.Add(member);
-			_members.MarkForUpdate();
-			_memberships.MarkForUpdate();
-			_actions.MarkForUpdate();
 		}
 		// / <summary>
 		// /  Adds a new or existing member to the organization or updates the permissions of a member already in the organization.
@@ -279,8 +305,6 @@ namespace Manatee.Trello
 			Parameters.Add("idOrganization", Id);
 			var board = EntityRepository.Download<Board>(EntityRequestType.Organization_Write_CreateBoard, Parameters);
 			UpdateDependencies(board);
-			_boards.Add(board);
-			_boards.MarkForUpdate();
 			return board;
 		}
 		/// <summary>
@@ -292,10 +316,6 @@ namespace Manatee.Trello
 			Validator.Writable();
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(EntityRequestType.Organization_Write_Delete, Parameters);
-			foreach (var member in _members)
-			{
-				member.OrganizationsList.MarkForUpdate();
-			}
 			_isDeleted = true;
 		}
 		/// <summary>
@@ -322,10 +342,6 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			Parameters.Add("_memberId", member);
 			EntityRepository.Upload(EntityRequestType.Organization_Write_RemoveMember, Parameters);
-			_members.Remove(member);
-			_members.MarkForUpdate();
-			_memberships.MarkForUpdate();
-			_actions.MarkForUpdate();
 		}
 		/// <summary>
 		/// Rescinds an existing invitation to the organization.
@@ -417,11 +433,6 @@ namespace Manatee.Trello
 		}
 		internal override void PropagateDependencies()
 		{
-			UpdateDependencies(_actions);
-			UpdateDependencies(_boards);
-			UpdateDependencies(_invitedMembers);
-			UpdateDependencies(_members);
-			UpdateDependencies(_memberships);
 			UpdateDependencies(_preferences);
 		}
 		internal void ForceDeleted(bool deleted)
@@ -433,7 +444,6 @@ namespace Manatee.Trello
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
-			_actions.MarkForUpdate();
 		}
 	}
 }
