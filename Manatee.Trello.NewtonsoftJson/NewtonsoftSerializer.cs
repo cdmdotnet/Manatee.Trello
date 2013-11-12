@@ -96,6 +96,7 @@ namespace Manatee.Trello.NewtonsoftJson
 			_serializer.Converters.Add(new SearchResultsConverter());
 			_serializer.Converters.Add(new TokenConverter());
 			_serializer.Converters.Add(new TokenPermissionConverter());
+			_serializer.Converters.Add(new WebhookConverter());
 		}
 	}
 }

@@ -63,5 +63,9 @@ namespace Manatee.Trello.Internal
 			if (i == -1) return;
 			list[i] = with;
 		}
+		public static bool BeginsWith(this string str, string beginning)
+		{
+			return (beginning.Length > str.Length) || (str.Substring(0, beginning.Length) == beginning);
+		}
 	}
 }

@@ -74,6 +74,7 @@
     <Compile Include="Entities\ManateeSearchResults.cs" />
     <Compile Include="Entities\ManateeToken.cs" />
     <Compile Include="Entities\ManateeTokenPermission.cs" />
+    <Compile Include="Entities\ManateeWebhook.cs" />
     <Compile Include="ManateeSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

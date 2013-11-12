@@ -33,7 +33,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an organization.
 	/// </summary>
-	public class Organization : ExpiringObject, IEquatable<Organization>, IComparable<Organization>
+	public class Organization : ExpiringObject, IEquatable<Organization>, IComparable<Organization>, ICanWebhook
 	{
 		private IJsonOrganization _jsonOrganization;
 		private readonly OrganizationPreferences _preferences;
@@ -420,6 +420,15 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Organization_Read_Refresh);
+		}
+
+		/// <summary>
+		/// Verifies that the object is not expired and updates if necessary.
+		/// </summary>
+		protected override void VerifyNotExpired()
+		{
+			if (Url == null) Refresh();
+			base.VerifyNotExpired();
 		}
 
 		internal override void ApplyJson(object obj)

@@ -24,44 +24,17 @@ namespace Manatee.Trello.Test
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
 			var service = new TrelloService(options, auth);
 
-			var start = DateTime.Now;
-			var member = service.Retrieve<Member>("gregsdennis");
+			//var board = service.Retrieve<Board>(TrelloIds.BoardId);
+			//var webhook = board.CreateWebhook("http://requestb.in/1c0gbor1");
 
-			Console.WriteLine(member);
-			foreach (var board in member.Boards)
-			{
-				Console.WriteLine("  {0}", board);
-				foreach (var list in board.Lists)
-				{
-					Console.WriteLine("    {0}", list);
-					foreach (var card in list.Cards)
-					{
-						Console.WriteLine("      {0}", card);
-						foreach (var checkList in card.CheckLists)
-						{
-							Console.WriteLine("        {0}", checkList);
-							foreach (var checkItem in checkList.CheckItems)
-							{
-								Console.WriteLine("          {0}", checkItem);
-							}
-						}
-					}
-				}
-			}
+			var member = service.Retrieve<Member>("gregsdennis");
 			foreach (var action in member.Actions)
 			{
 				Console.WriteLine(action);
 			}
-			foreach (var notification in member.Notifications)
-			{
-				Console.WriteLine(notification);
-			}
-
-			var end = DateTime.Now;
-			Console.WriteLine(end - start);
 		}
 		[TestMethod]
-		public void TestMethod2()
+		public void AttachmentTest()
 		{
 			var options = new TrelloServiceConfiguration();
 			var serializer = new ManateeSerializer();
@@ -73,19 +46,8 @@ namespace Manatee.Trello.Test
 			var service = new TrelloService(options, auth);
 
 			var list = service.Retrieve<List>(TrelloIds.ListId);
-			var card = list.AddCard("this card was created by the new Manatee.Trello");
-			var checklist = card.AddCheckList("a checklist");
-			var checkitem = checklist.AddCheckItem("a new checkItem");
-			var checkitem2 = checklist.AddCheckItem("another new checkItem", CheckItemStateType.Complete);
-			var member = service.Retrieve<Member>("gregsdennis");
-			card.AssignMember(member);
-
-			Console.WriteLine(list);
-			Console.WriteLine(card);
-			Console.WriteLine(checklist);
-			Console.WriteLine(checkitem);
-			Console.WriteLine(checkitem2);
-			card.Delete();
+			var card = list.AddCard("Attachment Test");
+			card.AddAttachment("new attachment", TrelloIds.AttachmentUrl);
 		}
 	}
 }

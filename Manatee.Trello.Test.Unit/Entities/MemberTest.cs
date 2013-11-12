@@ -399,25 +399,25 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(AMember)
 				.And(EntityIsExpired)
 				.When(OrganizationsIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<Organization>, EntityRequestType.Member_Read_Organization)
+				.Then(RepositoryRefreshCollectionIsCalled<Organization>, EntityRequestType.Member_Read_Organizations)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
 		}
-		//[TestMethod]
-		//public void PinnedBoards()
-		//{
-		//	var feature = CreateFeature();
+		[TestMethod]
+		public void PinnedBoards()
+		{
+			var feature = CreateFeature();
 
-		//	feature.WithScenario("Access PinnedBoards property")
-		//		.Given(AMember)
-		//		.And(EntityIsExpired)
-		//		.When(PinnedBoardsIsAccessed)
-		//		.Then(RepositoryRefreshIsNotCalled<Member>)
-		//		.And(ExceptionIsNotThrown)
+			feature.WithScenario("Access PinnedBoards property")
+				.Given(AMember)
+				.And(EntityIsExpired)
+				.When(PinnedBoardsIsAccessed)
+				.Then(RepositoryRefreshIsNotCalled<Member>)
+				.And(ExceptionIsNotThrown)
 
-		//		.Execute();
-		//}
+				.Execute();
+		}
 		[TestMethod]
 		public void Preferences()
 		{
@@ -789,10 +789,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Organizations.GetEnumerator());
 		}
-		//private void PinnedBoardsIsAccessed()
-		//{
-		//	Execute(() => _test.Sut.PinnedBoards);
-		//}
+		private void PinnedBoardsIsAccessed()
+		{
+			Execute(() => _test.Sut.PinnedBoards);
+		}
 		private void PreferencesIsAccessed()
 		{
 			Execute(() => _test.Sut.Preferences);

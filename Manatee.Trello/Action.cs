@@ -110,28 +110,14 @@ namespace Manatee.Trello
 		/// </summary>
 		public List List
 		{
-			get { return _isDeleted ? null : TryGetEntity<List>("list", "list.id", EntityRequestType.List_Read_Refresh); }
-		}
-		/// <summary>
-		/// Gets the list to which a card was moved, if one exists, associated with the action.
-		/// </summary>
-		public List ListAfter
-		{
-			get { return _isDeleted ? null : TryGetEntity<List>("listAfter", "listAfter.id", EntityRequestType.List_Read_Refresh); }
-		}
-		/// <summary>
-		/// Gets the list from which a card was moved, if one exists, associated with the action.
-		/// </summary>
-		public List ListBefore
-		{
-			get { return _isDeleted ? null : TryGetEntity<List>("listBefore", "listBefore.id", EntityRequestType.List_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<List>("list", new[] {"list.id", "listAfter.id"}, EntityRequestType.List_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the member, if one exists, associated with the action.
 		/// </summary>
 		public Member Member
 		{
-			get { return _isDeleted ? null : TryGetEntity<Member>("member", "idMember", EntityRequestType.Member_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<Member>("member", new[] {"idMember", "idMemberAdded", "idMemberRemoved"}, EntityRequestType.Member_Read_Refresh); }
 		}
 		/// <summary>
 		/// The member who performed the action.
@@ -160,6 +146,13 @@ namespace Manatee.Trello
 		public Card SourceCard
 		{
 			get { return _isDeleted ? null : TryGetEntity<Card>("cardSource", "cardSource.id", EntityRequestType.Card_Read_Refresh); }
+		}
+		/// <summary>
+		/// Gets the list from which a card was moved, if one exists, associated with the action.
+		/// </summary>
+		public List SourceList
+		{
+			get { return _isDeleted ? null : TryGetEntity<List>("listSource", "listBefore.id", EntityRequestType.List_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the text, if one exists, associated with the action.
@@ -234,9 +227,9 @@ namespace Manatee.Trello
 				{
 					{ActionType.AddAttachmentToCard, a => a.ToString("{0} attached {1} to card {2}.", a.GetString("attachment.name"), a.GetString("card.name"))},
 					{ActionType.AddChecklistToCard, a => a.ToString("{0} added checklist {1} to card {2}.", a.GetString("checklist.name"), a.GetString("card.name"))},
-					{ActionType.AddMemberToBoard, a => a.ToString("{0} added member {1} to board {2}.", a.Member.FullName, a.GetString("board.name"))},
-					{ActionType.AddMemberToCard, a => a.ToString("{0} assigned member {1} to card {2}.", a.Member.FullName, a.GetString("card.name"))},
-					{ActionType.AddMemberToOrganization, a => a.ToString("{0} added member {1} to organization {2}.", a.Member.FullName, a.GetString("organization.name"))},
+					{ActionType.AddMemberToBoard, a => a.ToString("{0} added member {1} to board {2}.", a.TryGetMemberFullName(), a.GetString("board.name"))},
+					{ActionType.AddMemberToCard, a => a.ToString("{0} assigned member {1} to card {2}.", a.TryGetMemberFullName(), a.GetString("card.name"))},
+					{ActionType.AddMemberToOrganization, a => a.ToString("{0} added member {1} to organization {2}.", a.TryGetMemberFullName(), a.GetString("organization.name"))},
 					{ActionType.AddToOrganizationBoard, a => a.ToString("{0} moved board {1} into organization {2}.", a.GetString("board.id"), a.GetString("organization.name"))},
 					{ActionType.CommentCard, a => a.ToString("{0} commented on card #{1}: '{2}'.", a.GetString("card.name"), a.GetString("text"))},
 					{ActionType.ConvertToCardFromCheckItem, a => a.ToString("{0} converted checkitem {1} to a card.", a.GetString("checkItem.name"))},
@@ -248,18 +241,18 @@ namespace Manatee.Trello
 					{ActionType.CreateOrganization, a => a.ToString("{0} created organization {1}.", a.GetString("organization.name"))},
 					{ActionType.DeleteAttachmentFromCard, a => a.ToString("{0} removed attachment {1} from card {2}.", a.GetString("attachment.name"), a.GetString("card.name"))},
 					{ActionType.DeleteCard, a => a.ToString("{0} deleted card {1} from {2}.", a.GetString("card.idShort"), a.GetString("board.name"))},
-					{ActionType.MakeAdminOfBoard, a => a.ToString("{0} made member {1} an admin of board {2}.", a.Member.FullName, a.GetString("board.name"))},
-					{ActionType.MakeNormalMemberOfBoard, a => a.ToString("{0} made member {1} a normal user of board {2}.", a.Member.FullName, a.GetString("board.name"))},
-					{ActionType.MakeNormalMemberOfOrganization, a => a.ToString("{0} made member {1} a normal user of organization {2}.", a.Member.FullName, a.GetString("organization.name"))},
-					{ActionType.MakeObserverOfBoard, a => a.ToString("{0} made member {1} an observer of board {2}.", a.Member.FullName, a.GetString("board.name"))},
+					{ActionType.MakeAdminOfBoard, a => a.ToString("{0} made member {1} an admin of board {2}.", a.TryGetMemberFullName(), a.GetString("board.name"))},
+					{ActionType.MakeNormalMemberOfBoard, a => a.ToString("{0} made member {1} a normal user of board {2}.", a.TryGetMemberFullName(), a.GetString("board.name"))},
+					{ActionType.MakeNormalMemberOfOrganization, a => a.ToString("{0} made member {1} a normal user of organization {2}.", a.TryGetMemberFullName(), a.GetString("organization.name"))},
+					{ActionType.MakeObserverOfBoard, a => a.ToString("{0} made member {1} an observer of board {2}.", a.TryGetMemberFullName(), a.GetString("board.name"))},
 					{ActionType.MoveCardFromBoard, a => a.ToString("{0} moved card {1} from board {2} to board {3}.", a.GetString("card.name"), a.GetString("board.name"), a.GetString("boardTarget.name"))},
 					{ActionType.MoveCardToBoard, a => a.ToString("{0} moved card {1} from board {2} to board {3}.", a.GetString("card.name"), a.GetString("boardSource.name"), a.GetString("board.name"))},
-					{ActionType.RemoveAdminFromBoard, a => a.ToString("{0} removed member {1} as an admin of board {2}.", a.Member.FullName, a.GetString("board.name"))},
-					{ActionType.RemoveAdminFromOrganization, a => a.ToString("{0} removed member {1} as an admin of organization {2}.", a.Member.FullName, a.GetString("organization.name"))},
+					{ActionType.RemoveAdminFromBoard, a => a.ToString("{0} removed member {1} as an admin of board {2}.", a.TryGetMemberFullName(), a.GetString("board.name"))},
+					{ActionType.RemoveAdminFromOrganization, a => a.ToString("{0} removed member {1} as an admin of organization {2}.", a.TryGetMemberFullName(), a.GetString("organization.name"))},
 					{ActionType.RemoveChecklistFromCard, a => a.ToString("{0} deleted checklist {1} from card {2}.", a.GetString("checklist.name"), a.GetString("card.name"))},
 					{ActionType.RemoveFromOrganizationBoard, a => a.ToString("{0} removed board {1} from organization {2}.", a.GetString("board.name"), a.GetString("organization.name"))},
-					{ActionType.RemoveMemberFromBoard, a => a.ToString("{0} removed member {1} from board {2}.", a.Member.FullName, a.GetString("board.name"))},
-					{ActionType.RemoveMemberFromCard, a => a.ToString("{0} removed member {1} from card {2}.", a.Member.FullName, a.GetString("card.name"))},
+					{ActionType.RemoveMemberFromBoard, a => a.ToString("{0} removed member {1} from board {2}.", a.TryGetMemberFullName(), a.GetString("board.name"))},
+					{ActionType.RemoveMemberFromCard, a => a.ToString("{0} removed member {1} from card {2}.", a.TryGetMemberFullName(), a.GetString("card.name"))},
 					{ActionType.UpdateBoard, a => a.ToString("{0} updated board {1}.", a.GetString("board.name"))},
 					{ActionType.UpdateCard, a => a.ToString("{0} updated card {1}.", a.GetString("card.name"))},
 					{ActionType.UpdateCheckItemStateOnCard, a => a.ToString("{0} updated checkitem {1}.", a.GetString("checkItem.name"))},
@@ -383,13 +376,41 @@ namespace Manatee.Trello
 			if (_entities.ContainsKey(index))
 				return (T)_entities[index];
 			var id = _jsonAction.Data.TryGetString(path.Split('.'));
-			if (id == null) return null;
+			if (id == null)
+			{
+				_entities[index] = null;
+				return null;
+			}
 			T entity = null;
 			try
 			{
 				_entities[index] = UpdateById(ref entity, request, id);
 			}
-			catch {}
+			catch { }
+			return entity;
+		}
+		private T TryGetEntity<T>(string index, IEnumerable<string> paths, EntityRequestType request)
+			where T : ExpiringObject
+		{
+			if (_entities.ContainsKey(index))
+				return (T)_entities[index];
+			string id = null;
+			foreach (var path in paths)
+			{
+				id = _jsonAction.Data.TryGetString(path.Split('.'));
+				if (id != null) break;
+			}
+			if (id == null)
+			{
+				_entities[index] = null;
+				return null;
+			}
+			T entity = null;
+			try
+			{
+				_entities[index] = UpdateById(ref entity, request, id);
+			}
+			catch { }
 			return entity;
 		}
 		private string ToString(string format, params string[] parameters)
@@ -408,6 +429,10 @@ namespace Manatee.Trello
 			value = _jsonAction.Data.TryGetNumber(split);
 			if (value != null) return value.ToString();
 			return string.Empty;
+		}
+		private string TryGetMemberFullName()
+		{
+			return Member == null ? "?Unknown?" : Member.FullName;
 		}
 	}
 }

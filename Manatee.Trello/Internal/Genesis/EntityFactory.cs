@@ -59,6 +59,13 @@ namespace Manatee.Trello.Internal.Genesis
 					{typeof (OrganizationPreferences), () => new OrganizationPreferences()},
 					{typeof (SearchResults), () => new SearchResults()},
 					{typeof (Token), () => new Token()},
+					{typeof (Webhook<Board>), () => new Webhook<Board>()},
+					{typeof (Webhook<Card>), () => new Webhook<Card>()},
+					{typeof (Webhook<CheckItem>), () => new Webhook<CheckItem>()},
+					{typeof (Webhook<CheckList>), () => new Webhook<CheckList>()},
+					{typeof (Webhook<List>), () => new Webhook<List>()},
+					{typeof (Webhook<Member>), () => new Webhook<Member>()},
+					{typeof (Webhook<Organization>), () => new Webhook<Organization>()},
 				};
 		}
 		public EntityFactory(ILog log, IValidator validator)
