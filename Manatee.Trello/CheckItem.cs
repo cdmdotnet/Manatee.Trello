@@ -32,7 +32,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an item in a checklist.
 	/// </summary>
-	public class CheckItem : ExpiringObject, IEquatable<CheckItem>, IComparable<CheckItem>
+	public class CheckItem : ExpiringObject, IEquatable<CheckItem>, IComparable<CheckItem>, ICanWebhook
 	{
 		private static readonly OneToOneMap<CheckItemStateType, string> _stateMap;
 

@@ -38,6 +38,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private readonly Thread _workerThread;
 		private bool _shutdown;
 		private bool _isActive;
+		private bool _isProcessing;
 
 		public bool IsActive
 		{
@@ -89,17 +90,20 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				while (true)
 				{
 					Monitor.Wait(_lock);
+					_isProcessing = true;
 					var client = _clientProvider.CreateRestClient(BaseUrl);
 					while (!_shutdown && IsActive && (_queue.Count != 0))
 					{
 						_queue.DequeueAndExecute(client);
 					}
+					_isProcessing = false;
 					if (_shutdown) return;
 				}
 			}
 		}
 		private void Pulse()
 		{
+			if (_isProcessing) return;
 			lock (_lock)
 				Monitor.Pulse(_lock);
 		}

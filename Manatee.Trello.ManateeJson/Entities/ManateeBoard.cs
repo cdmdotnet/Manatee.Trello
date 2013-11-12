@@ -40,16 +40,22 @@ namespace Manatee.Trello.ManateeJson.Entities
 
 		public void FromJson(JsonValue json)
 		{
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			Name = obj.TryGetString("name");
-			Desc = obj.TryGetString("desc");
-			Closed = obj.TryGetBoolean("closed");
-			IdOrganization = obj.TryGetString("idOrganization");
-			Pinned = obj.TryGetBoolean("pinned");
-			Url = obj.TryGetString("url");
-			Subscribed = obj.TryGetBoolean("subscribed");
+			if (json.Type == JsonValueType.Object)
+			{
+				var obj = json.Object;
+				Id = obj.TryGetString("id");
+				Name = obj.TryGetString("name");
+				Desc = obj.TryGetString("desc");
+				Closed = obj.TryGetBoolean("closed");
+				IdOrganization = obj.TryGetString("idOrganization");
+				Pinned = obj.TryGetBoolean("pinned");
+				Url = obj.TryGetString("url");
+				Subscribed = obj.TryGetBoolean("subscribed");
+			}
+			else if (json.Type == JsonValueType.String)
+			{
+				Id = json.String;
+			}
 		}
 		public JsonValue ToJson()
 		{

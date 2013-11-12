@@ -73,6 +73,7 @@
     <Compile Include="Converters\SearchResultsConverter.cs" />
     <Compile Include="Converters\TokenConverter.cs" />
     <Compile Include="Converters\TokenPermissionConverter.cs" />
+    <Compile Include="Converters\WebhookConverter.cs" />
     <Compile Include="Entities\NewtonsoftAction.cs" />
     <Compile Include="Entities\NewtonsoftActionData.cs" />
     <Compile Include="Entities\NewtonsoftAttachment.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Entities\NewtonsoftSearchResults.cs" />
     <Compile Include="Entities\NewtonsoftToken.cs" />
     <Compile Include="Entities\NewtonsoftTokenPermission.cs" />
+    <Compile Include="Entities\NewtonsoftWebhook.cs" />
     <Compile Include="NewtonsoftSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

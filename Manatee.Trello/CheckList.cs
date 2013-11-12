@@ -32,7 +32,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a checklist.
 	/// </summary>
-	public class CheckList : ExpiringObject, IEquatable<CheckList>, IComparable<CheckList>
+	public class CheckList : ExpiringObject, IEquatable<CheckList>, IComparable<CheckList>, ICanWebhook
 	{
 		private IJsonCheckList _jsonCheckList;
 		private Board _board;

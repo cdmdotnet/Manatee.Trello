@@ -63,6 +63,7 @@
     <Compile Include="Enumerations\OrganizationMembershipType.cs" />
     <Compile Include="Exceptions\MissingRestClientProviderException.cs" />
     <Compile Include="Exceptions\MissingSerializerException.cs" />
+    <Compile Include="Extensions\ExpiringExtensions.cs" />
     <Compile Include="Internal\Bootstrapping\Bootstrapper.cs" />
     <Compile Include="Internal\DataAccess\CachingEntityRepository.cs" />
     <Compile Include="Internal\Genesis\EndpointFactory.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Internal\DataAccess\RestParameterRepository.cs" />
     <Compile Include="Internal\Genesis\EntityFactory.cs" />
     <Compile Include="Internal\Genesis\IEntityFactory.cs" />
+    <Compile Include="Internal\ICanWebhook.cs" />
     <Compile Include="Internal\IValidator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
     <Compile Include="Internal\Endpoint.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Internal\Json\InnerJsonOrganizationPreferences.cs" />
     <Compile Include="Internal\Json\InnerJsonToken.cs" />
     <Compile Include="Internal\ExceptionHandling\DebugLog.cs" />
+    <Compile Include="Internal\Json\InnerJsonWebhook.cs" />
     <Compile Include="Internal\RequestProcessing\IOfflineChangeQueue.cs" />
     <Compile Include="Internal\RequestProcessing\IRequestQueue.cs" />
     <Compile Include="Internal\RequestProcessing\NullRestResponse.cs" />
@@ -116,6 +119,8 @@
     <Compile Include="Json\IJsonCacheable.cs" />
     <Compile Include="Json\IJsonMemberSession.cs" />
     <Compile Include="Json\IJsonOrganizationMembership.cs" />
+    <Compile Include="Json\IJsonWebhook.cs" />
+    <Compile Include="Json\IJsonWebhookNotification.cs" />
     <Compile Include="MemberSession.cs" />
     <Compile Include="ModelScope.cs" />
     <Compile Include="OrganizationMembership.cs" />
@@ -206,6 +211,7 @@
     <Compile Include="SearchResults.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TrelloService.cs" />
+    <Compile Include="Webhook.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -33,317 +33,170 @@ namespace Manatee.Trello
 	/// </remarks>
 	public enum EntityRequestType
 	{
-		/// <summary />
+#pragma warning disable 1591
 		Unsupported,
-		/// <summary />
-		Action_Write_Delete,
-		/// <summary />
 		Action_Read_Refresh,
-		/// <summary />
-		Attachment_Write_Delete,
-		/// <summary />
+		Action_Write_Delete,
 		Attachment_Read_Refresh,
-		/// <summary />
+		Attachment_Write_Delete,
 		Badges_Read_Refresh,
-		/// <summary />
 		Board_Read_Actions,
-		/// <summary />
-		Board_Write_AddList,
-		/// <summary />
-		Board_Write_AddOrUpdateMember,
-		/// <summary />
 		Board_Read_Cards,
-		/// <summary />
 		Board_Read_Checklists,
-		/// <summary />
-		Board_Write_Description,
-		/// <summary />
 		Board_Read_InvitedMembers,
-		/// <summary />
-		Board_Write_InviteMember,
-		/// <summary />
-		Board_Write_IsClosed,
-		/// <summary />
-		Board_Write_IsPinned,
-		/// <summary />
-		Board_Write_IsSubscribed,
-		/// <summary />
 		Board_Read_Lists,
-		/// <summary />
-		Board_Write_MarkAsViewed,
-		/// <summary />
 		Board_Read_Members,
-		/// <summary />
 		Board_Read_Memberships,
-		/// <summary />
-		Board_Write_Name,
-		/// <summary />
-		Board_Write_Organization,
-		/// <summary />
 		Board_Read_Refresh,
-		/// <summary />
+		Board_Write_AddList,
+		Board_Write_AddOrUpdateMember,
+		Board_Write_Description,
+		Board_Write_InviteMember,
+		Board_Write_IsClosed,
+		Board_Write_IsPinned,
+		Board_Write_IsSubscribed,
+		Board_Write_MarkAsViewed,
+		Board_Write_Name,
+		Board_Write_Organization,
 		Board_Write_RemoveMember,
-		/// <summary />
 		Board_Write_RescindInvitation,
-		/// <summary />
 		BoardMembership_Read_Refresh,
-		/// <summary />
 		BoardPersonalPreferences_Read_Refresh,
-		/// <summary />
 		BoardPersonalPreferences_Write_ShowListGuide,
-		/// <summary />
 		BoardPersonalPreferences_Write_ShowSidebar,
-		/// <summary />
 		BoardPersonalPreferences_Write_ShowSidebarActivity,
-		/// <summary />
 		BoardPersonalPreferences_Write_ShowSidebarBoardActions,
-		/// <summary />
 		BoardPersonalPreferences_Write_ShowSidebarMembers,
-		/// <summary />
-		BoardPreferences_Write_AllowsSelfJoin,
-		/// <summary />
-		BoardPreferences_Write_Comments,
-		/// <summary />
-		BoardPreferences_Write_Invitations,
-		/// <summary />
-		BoardPreferences_Write_PermissionLevel,
-		/// <summary />
 		BoardPreferences_Read_Refresh,
-		/// <summary />
+		BoardPreferences_Write_AllowsSelfJoin,
+		BoardPreferences_Write_Comments,
+		BoardPreferences_Write_Invitations,
+		BoardPreferences_Write_PermissionLevel,
 		BoardPreferences_Write_ShowCardCovers,
-		/// <summary />
 		BoardPreferences_Write_Voting,
-		/// <summary />
 		Card_Read_Actions,
-		/// <summary />
-		Card_Write_AddAttachment,
-		/// <summary />
-		Card_Write_AddChecklist,
-		/// <summary />
-		Card_Write_AddComment,
-		/// <summary />
-		Card_Write_ApplyLabel,
-		/// <summary />
-		Card_Write_AssignMember,
-		/// <summary />
 		Card_Read_Attachments,
-		/// <summary />
 		Card_Read_CheckItems,
-		/// <summary />
 		Card_Read_CheckLists,
-		/// <summary />
-		Card_Write_ClearNotifications,
-		/// <summary />
-		Card_Write_Delete,
-		/// <summary />
-		Card_Write_Description,
-		/// <summary />
-		Card_Write_DueDate,
-		/// <summary />
-		Card_Write_IsClosed,
-		/// <summary />
-		Card_Write_IsSubscribed,
-		/// <summary />
 		Card_Read_Labels,
-		/// <summary />
 		Card_Read_Members,
-		/// <summary />
-		Card_Write_Move,
-		/// <summary />
-		Card_Write_Name,
-		/// <summary />
-		Card_Write_Position,
-		/// <summary />
 		Card_Read_Refresh,
-		/// <summary />
-		Card_Write_RemoveLabel,
-		/// <summary />
-		Card_Write_RemoveMember,
-		/// <summary />
 		Card_Read_VotingMembers,
-		/// <summary />
+		Card_Write_AddAttachment,
+		Card_Write_AddChecklist,
+		Card_Write_AddComment,
+		Card_Write_ApplyLabel,
+		Card_Write_AssignMember,
+		Card_Write_ClearNotifications,
+		Card_Write_Delete,
+		Card_Write_Description,
+		Card_Write_DueDate,
+		Card_Write_IsClosed,
+		Card_Write_IsSubscribed,
+		Card_Write_Move,
+		Card_Write_Name,
+		Card_Write_Position,
+		Card_Write_RemoveLabel,
+		Card_Write_RemoveMember,
 		Card_Write_WarnWhenUpcoming,
-		/// <summary />
-		CheckItem_Write_Delete,
-		/// <summary />
-		CheckItem_Write_Name,
-		/// <summary />
-		CheckItem_Write_Position,
-		/// <summary />
 		CheckItem_Read_Refresh,
-		/// <summary />
+		CheckItem_Write_Delete,
+		CheckItem_Write_Name,
+		CheckItem_Write_Position,
 		CheckItem_Write_State,
-		/// <summary />
-		CheckList_Write_AddCheckItem,
-		/// <summary />
-		CheckList_Write_Card,
-		/// <summary />
 		CheckList_Read_CheckItems,
-		/// <summary />
-		CheckList_Write_Delete,
-		/// <summary />
-		CheckList_Write_Name,
-		/// <summary />
-		CheckList_Write_Position,
-		/// <summary />
 		CheckList_Read_Refresh,
-		/// <summary />
+		CheckList_Write_AddCheckItem,
+		CheckList_Write_Card,
+		CheckList_Write_Delete,
+		CheckList_Write_Name,
+		CheckList_Write_Position,
 		Label_Read_Refresh,
-		/// <summary />
-		LabelNames_Write_Blue,
-		/// <summary />
-		LabelNames_Write_Green,
-		/// <summary />
-		LabelNames_Write_Orange,
-		/// <summary />
-		LabelNames_Write_Purple,
-		/// <summary />
-		LabelNames_Write_Red,
-		/// <summary />
 		LabelNames_Read_Refresh,
-		/// <summary />
+		LabelNames_Write_Blue,
+		LabelNames_Write_Green,
+		LabelNames_Write_Orange,
+		LabelNames_Write_Purple,
+		LabelNames_Write_Red,
 		LabelNames_Write_Yellow,
-		/// <summary />
 		List_Read_Actions,
-		/// <summary />
-		List_Write_AddCard,
-		/// <summary />
-		List_Write_Board,
-		/// <summary />
 		List_Read_Cards,
-		/// <summary />
-		List_Write_Delete,
-		/// <summary />
-		List_Write_IsClosed,
-		/// <summary />
-		List_Write_IsSubscribed,
-		/// <summary />
-		List_Write_Move,
-		/// <summary />
-		List_Write_Name,
-		/// <summary />
-		List_Write_Position,
-		/// <summary />
 		List_Read_Refresh,
-		/// <summary />
+		List_Write_AddCard,
+		List_Write_Board,
+		List_Write_Delete,
+		List_Write_IsClosed,
+		List_Write_IsSubscribed,
+		List_Write_Move,
+		List_Write_Name,
+		List_Write_Position,
 		Member_Read_Actions,
-		/// <summary />
-		Member_Write_AvatarSource,
-		/// <summary />
-		Member_Write_Bio,
-		/// <summary />
 		Member_Read_Boards,
-		/// <summary />
 		Member_Read_Cards,
-		/// <summary />
-		Member_Write_ClearNotifications,
-		/// <summary />
-		Member_Write_CreateBoard,
-		/// <summary />
-		Member_Write_CreateOrganization,
-		/// <summary />
-		Member_Write_FullName,
-		/// <summary />
-		Member_Write_Initials,
-		/// <summary />
 		Member_Read_InvitedBoards,
-		/// <summary />
 		Member_Read_InvitedOrganizations,
-		/// <summary />
 		Member_Read_Notifications,
-		/// <summary />
-		Member_Read_Organization,
-		/// <summary />
-		Member_Write_PinBoard,
-		/// <summary />
+		Member_Read_Organizations,
+		Member_Read_PinnedBoards,
 		Member_Read_Refresh,
-		/// <summary />
-		Member_Write_RescindVoteForCard,
-		/// <summary />
 		Member_Read_Sessions,
-		/// <summary />
 		Member_Read_Tokens,
-		/// <summary />
+		Member_Write_AvatarSource,
+		Member_Write_Bio,
+		Member_Write_ClearNotifications,
+		Member_Write_CreateBoard,
+		Member_Write_CreateOrganization,
+		Member_Write_FullName,
+		Member_Write_Initials,
+		Member_Write_PinBoard,
+		Member_Write_RescindVoteForCard,
 		Member_Write_UnpinBoard,
-		/// <summary />
 		Member_Write_Username,
-		/// <summary />
 		Member_Write_VoteForCard,
-		/// <summary />
-		MemberPreferences_Write_ColorBlind,
-		/// <summary />
-		MemberPreferences_Write_MinutesBeforeDeadlineToNotify,
-		/// <summary />
-		MemberPreferences_Write_MinutesBetweenSummaries,
-		/// <summary />
 		MemberPreferences_Read_Refresh,
-		/// <summary />
+		MemberPreferences_Write_ColorBlind,
+		MemberPreferences_Write_MinutesBeforeDeadlineToNotify,
+		MemberPreferences_Write_MinutesBetweenSummaries,
 		MemberPreferences_Write_SendSummaries,
-		/// <summary />
 		MemberSession_Write_Delete,
-		/// <summary />
-		Notification_Write_IsUnread,
-		/// <summary />
 		Notification_Read_Refresh,
-		/// <summary />
+		Notification_Write_IsUnread,
 		Organization_Read_Actions,
-		/// <summary />
-		Organization_Write_AddOrUpdateMember,
-		/// <summary />
 		Organization_Read_Boards,
-		/// <summary />
-		Organization_Write_CreateBoard,
-		/// <summary />
-		Organization_Write_Delete,
-		/// <summary />
-		Organization_Write_Description,
-		/// <summary />
-		Organization_Write_DisplayName,
-		/// <summary />
 		Organization_Read_InvitedMembers,
-		/// <summary />
-		Organization_Write_InviteMember,
-		/// <summary />
 		Organization_Read_Members,
-		/// <summary />
 		Organization_Read_Memberships,
-		/// <summary />
-		Organization_Write_Name,
-		/// <summary />
 		Organization_Read_Refresh,
-		/// <summary />
+		Organization_Write_AddOrUpdateMember,
+		Organization_Write_CreateBoard,
+		Organization_Write_Delete,
+		Organization_Write_Description,
+		Organization_Write_DisplayName,
+		Organization_Write_InviteMember,
+		Organization_Write_Name,
 		Organization_Write_RemoveMember,
-		/// <summary />
 		Organization_Write_RescindInvitation,
-		/// <summary />
 		Organization_Write_Website,
-		/// <summary />
 		OrganizationMembership_Read_Refresh,
-		/// <summary />
-		OrganizationPreferences_Write_AssociatedDomain,
-		/// <summary />
-		OrganizationPreferences_Write_ExternalMembersDisabled,
-		/// <summary />
-		OrganizationPreferences_Write_OrgInviteRestrict,
-		/// <summary />
-		OrganizationPreferences_Write_OrgVisibleBoardVisibility,
-		/// <summary />
-		OrganizationPreferences_Write_PermissionLevel,
-		/// <summary />
-		OrganizationPreferences_Write_PrivateBoardVisibility,
-		/// <summary />
-		OrganizationPreferences_Write_PublicBoardVisibility,
-		/// <summary />
 		OrganizationPreferences_Read_Refresh,
-		/// <summary />
+		OrganizationPreferences_Write_AssociatedDomain,
+		OrganizationPreferences_Write_ExternalMembersDisabled,
+		OrganizationPreferences_Write_OrgInviteRestrict,
+		OrganizationPreferences_Write_OrgVisibleBoardVisibility,
+		OrganizationPreferences_Write_PermissionLevel,
+		OrganizationPreferences_Write_PrivateBoardVisibility,
+		OrganizationPreferences_Write_PublicBoardVisibility,
 		Service_Read_Me,
-		/// <summary />
 		Service_Read_Search,
-		/// <summary />
 		Service_Read_SearchMembers,
-		/// <summary />
-		Token_Write_Delete,
-		/// <summary />
 		Token_Read_Refresh,
+		Token_Write_Delete,
+		Webhook_Read_Refresh,
+		Webhook_Write_Active,
+		Webhook_Write_CallbackUrl,
+		Webhook_Write_Delete,
+		Webhook_Write_Description,
+		Webhook_Write_Entity,
+#pragma warning restore 1591
 	}
 }

@@ -33,7 +33,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member (user).
 	/// </summary>
-	public class Member : ExpiringObject, IEquatable<Member>, IComparable<Member>
+	public class Member : ExpiringObject, IEquatable<Member>, IComparable<Member>, ICanWebhook
 	{
 		private static readonly OneToOneMap<MemberStatusType, string> _statusMap;
 		private static readonly OneToOneMap<AvatarSourceType, string> _avatarSourceMap;
@@ -218,11 +218,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the organizations to which the member belongs.
 		/// </summary>
-		public IEnumerable<Organization> Organizations { get { return BuildList<Organization>(EntityRequestType.Member_Read_Organization); } }
-		// / <summary>
-		// / Enumerates the boards the member has pinnned to their boards menu.
-		// / </summary>
-		//internal IEnumerable<Board> PinnedBoards { get { return _pinnedBoards; } }
+		public IEnumerable<Organization> Organizations { get { return BuildList<Organization>(EntityRequestType.Member_Read_Organizations); } }
+		/// <summary>
+		/// Enumerates the boards the member has pinnned to their boards menu.
+		/// </summary>
+		public IEnumerable<Board> PinnedBoards { get { return BuildList<Board>(EntityRequestType.Member_Read_PinnedBoards); } }
 		///<summary>
 		/// Gets the set of preferences for the member.
 		///</summary>

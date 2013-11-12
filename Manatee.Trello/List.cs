@@ -32,7 +32,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public class List : ExpiringObject, IEquatable<List>, IComparable<List>
+	public class List : ExpiringObject, IEquatable<List>, IComparable<List>, ICanWebhook
 	{
 		private IJsonList _jsonList;
 		private Board _board;

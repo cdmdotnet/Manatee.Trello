@@ -44,22 +44,28 @@ namespace Manatee.Trello.ManateeJson.Entities
 
 		public void FromJson(JsonValue json)
 		{
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			Name = obj.TryGetString("name");
-			DisplayName = obj.TryGetString("displayName");
-			Desc = obj.TryGetString("desc");
-			Url = obj.TryGetString("url");
-			Website = obj.TryGetString("website");
-			LogoHash = obj.TryGetString("logoHash");
-			var array = obj.TryGetArray("powerUps");
-			if (array != null)
-				PowerUps = array.Select(j => (int) j.Number).ToList();
-			PaidAccount = obj.TryGetBoolean("paid_account");
-			array = obj.TryGetArray("premiumFeatures");
-			if (array != null)
-				PremiumFeatures = array.Select(o => o.String).ToList();
+			if (json.Type == JsonValueType.Object)
+			{
+				var obj = json.Object;
+				Id = obj.TryGetString("id");
+				Name = obj.TryGetString("name");
+				DisplayName = obj.TryGetString("displayName");
+				Desc = obj.TryGetString("desc");
+				Url = obj.TryGetString("url");
+				Website = obj.TryGetString("website");
+				LogoHash = obj.TryGetString("logoHash");
+				var array = obj.TryGetArray("powerUps");
+				if (array != null)
+					PowerUps = array.Select(j => (int) j.Number).ToList();
+				PaidAccount = obj.TryGetBoolean("paid_account");
+				array = obj.TryGetArray("premiumFeatures");
+				if (array != null)
+					PremiumFeatures = array.Select(o => o.String).ToList();
+			}
+			else if (json.Type == JsonValueType.String)
+			{
+				Id = json.String;
+			}
 		}
 		public JsonValue ToJson()
 		{

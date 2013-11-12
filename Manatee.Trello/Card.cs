@@ -33,7 +33,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a card.
 	/// </summary>
-	public class Card : ExpiringObject, IEquatable<Card>, IComparable<Card>
+	public class Card : ExpiringObject, IEquatable<Card>, IComparable<Card>, ICanWebhook
 	{
 		private IJsonCard _jsonCard;
 		private readonly Badges _badges;

@@ -32,7 +32,7 @@ namespace Manatee.Trello
 	///<summary>
 	/// Represents a board.
 	///</summary>
-	public class Board : ExpiringObject, IEquatable<Board>, IComparable<Board>
+	public class Board : ExpiringObject, IEquatable<Board>, IComparable<Board>, ICanWebhook
 	{
 		private IJsonBoard _jsonBoard;
 		private readonly LabelNames _labelNames;
@@ -377,6 +377,15 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Board_Read_Refresh);
+		}
+
+		/// <summary>
+		/// Verifies that the object is not expired and updates if necessary.
+		/// </summary>
+		protected override void VerifyNotExpired()
+		{
+			if (Url == null) Refresh();
+			base.VerifyNotExpired();
 		}
 
 		internal override void ApplyJson(object obj)

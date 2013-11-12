@@ -104,7 +104,7 @@ namespace Manatee.Trello.Contracts
 		/// <summary>
 		/// Verifies that the object is not expired and updates if necessary.
 		/// </summary>
-		protected void VerifyNotExpired()
+		protected virtual void VerifyNotExpired()
 		{
 			if (!IsExpired || IsStubbed || !Refresh()) return;
 			if (Id != null)

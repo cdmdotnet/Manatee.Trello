@@ -52,7 +52,7 @@ namespace Manatee.Trello.Internal
 				if (allowNulls) return;
 				_log.Error(new ArgumentNullException("entity"));
 			}
-			if (string.IsNullOrWhiteSpace(entity.Id))
+			if (string.IsNullOrWhiteSpace(entity.Id) || entity.IsStubbed)
 				_log.Error(new EntityNotOnTrelloException<T>(entity));
 		}
 		public void Nullable<T>(T? value)
@@ -125,8 +125,8 @@ namespace Manatee.Trello.Internal
 		public void Url(string url)
 		{
 			if (string.IsNullOrWhiteSpace(url)) return;
-			if ((url.Substring(0, 7) != "http://") && (url.Substring(0, 8) != "https://"))
-				_log.Error(new ArgumentException("URL is not valid.  Must begin with 'http://' or 'https://'"));
+			if (!(url.BeginsWith("http://") || url.BeginsWith("http://")) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
+				_log.Error(new ArgumentException("URL is not valid.  Must be well-formed and begin with 'http://' or 'https://'"));
 		}
 		public void ArgumentNotNull(object value, string name = "value")
 		{
