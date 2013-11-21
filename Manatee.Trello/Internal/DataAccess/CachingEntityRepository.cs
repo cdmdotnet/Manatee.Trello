@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2012 Greg Dennis
+	Copyright 2013 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -49,7 +49,13 @@ namespace Manatee.Trello.Internal.DataAccess
 		public bool RefreshCollection<T>(ExpiringObject list, EntityRequestType request)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			return _innerRepository.RefreshCollection<T>(list, request);
+			var enumerable = list as ExpiringList<T>;
+			var retVal = _innerRepository.RefreshCollection<T>(list, request);
+			foreach (var entity in enumerable)
+			{
+				_cache.Add(entity);
+			}
+			return retVal;
 		}
 		public T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject
@@ -70,11 +76,18 @@ namespace Manatee.Trello.Internal.DataAccess
 				throw;
 			}
 		}
+		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, string fields)
+			where T : ExpiringObject, IEquatable<T>, IComparable<T>
+		{
+			var list = _innerRepository.GenerateList<T>(owner, request, filter, fields);
+			return _cache.Find(l => l.Equals(list), () => list);
+		}
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)
 		{
 			_innerRepository.Upload(request, parameters);
 		}
 		public void NetworkStatusChanged(object sender, EventArgs e) {}
+		public bool AllowSelfUpdate { get; set; }
 
 		private T DownloadAndAddToCache<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject

@@ -421,6 +421,15 @@ namespace Manatee.Trello
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Organization_Read_Refresh);
 		}
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		void ICanWebhook.ApplyAction(Action action)
+		{
+			if (action.Type != ActionType.UpdateOrganization) return;
+			MergeJson(action.Data);
+		}
 
 		/// <summary>
 		/// Verifies that the object is not expired and updates if necessary.
@@ -453,6 +462,18 @@ namespace Manatee.Trello
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
+		}
+		private void MergeJson(IJsonActionData data)
+		{
+			_jsonOrganization.Name = data.TryGetString("organization", "name") ?? _jsonOrganization.Name;
+			_jsonOrganization.DisplayName = data.TryGetString("organization", "displayName") ?? _jsonOrganization.DisplayName;
+			_jsonOrganization.Desc = data.TryGetString("organization", "desc") ?? _jsonOrganization.Desc;
+			_jsonOrganization.Url = data.TryGetString("organization", "url") ?? _jsonOrganization.Url;
+			_jsonOrganization.Website = data.TryGetString("organization", "website") ?? _jsonOrganization.Website;
+			_jsonOrganization.LogoHash = data.TryGetString("organization", "logoHash") ?? _jsonOrganization.LogoHash;
+			_jsonOrganization.PaidAccount = data.TryGetBoolean("organization", "paidAccount") ?? _jsonOrganization.PaidAccount;
+			_jsonOrganization.Name = data.TryGetString("organization", "name") ?? _jsonOrganization.Name;
+			_jsonOrganization.Name = data.TryGetString("organization", "name") ?? _jsonOrganization.Name;
 		}
 	}
 }

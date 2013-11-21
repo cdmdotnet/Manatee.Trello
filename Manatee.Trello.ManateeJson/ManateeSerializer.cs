@@ -127,6 +127,7 @@ namespace Manatee.Trello.ManateeJson
 			JsonSerializationAbstractionMap.Map<IJsonToken, ManateeToken>();
 			JsonSerializationAbstractionMap.Map<IJsonTokenPermission, ManateeTokenPermission>();
 			JsonSerializationAbstractionMap.Map<IJsonWebhook, ManateeWebhook>();
+			JsonSerializationAbstractionMap.Map<IJsonWebhookNotification, ManateeWebhookNotification>();
 		}
 	}
 }

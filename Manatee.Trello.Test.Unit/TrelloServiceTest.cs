@@ -23,18 +23,31 @@ namespace Manatee.Trello.Test.Unit
 			public Mock<IEndpointFactory> EndpointFactory { get; private set; }
 			public MockRequestProcessor RequestProcessor { get; private set; }
 			public Mock<ITrelloServiceConfiguration> Config { get; private set; }
+			public Mock<IEntityFactory> EntityFactory { get; private set; }
 
 			public DependencyCollection()
 			{
 				EndpointFactory = new Mock<IEndpointFactory>();
 				RequestProcessor = new MockRequestProcessor();
 				Config = new Mock<ITrelloServiceConfiguration>();
+				EntityFactory = new Mock<IEntityFactory>();
 
 				Config.SetupGet(c => c.Log).Returns(Log.Object);
 			}
 		}
 
-		private class ServiceUnderTest : SystemUnderTest<DependencyCollection> {}
+		private class ServiceUnderTest : SystemUnderTest<DependencyCollection>
+		{
+			public ServiceUnderTest()
+			{
+				Sut = new TrelloService(Dependencies.Config.Object,
+										Dependencies.Validator.Object,
+										Dependencies.EntityRepository.Object,
+										Dependencies.RequestProcessor,
+										Dependencies.EndpointFactory.Object,
+										Dependencies.EntityFactory.Object);
+			}
+		}
 
 		#endregion
 
@@ -116,11 +129,6 @@ namespace Manatee.Trello.Test.Unit
 		private void AService()
 		{
 			_systemUnderTest = new ServiceUnderTest();
-			_systemUnderTest.Sut = new TrelloService(_systemUnderTest.Dependencies.Config.Object,
-													 _systemUnderTest.Dependencies.Validator.Object,
-													 _systemUnderTest.Dependencies.EntityRepository.Object,
-													 _systemUnderTest.Dependencies.RequestProcessor,
-													 _systemUnderTest.Dependencies.EndpointFactory.Object);
 		}
 
 		[GenericMethodFormat("The {0} exists")]

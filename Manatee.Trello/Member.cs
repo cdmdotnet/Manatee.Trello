@@ -471,6 +471,15 @@ namespace Manatee.Trello
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Member_Read_Refresh);
 		}
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		void ICanWebhook.ApplyAction(Action action)
+		{
+			if (action.Type != ActionType.UpdateMember) return;
+			MergeJson(action.Data);
+		}
 
 		internal override void ApplyJson(object obj)
 		{
@@ -509,6 +518,22 @@ namespace Manatee.Trello
 		{
 			if (_avatarSourceMap.Any(kvp => kvp.Key == _avatarSource))
 				_jsonMember.AvatarSource = _avatarSourceMap[_avatarSource];
+		}
+		private void MergeJson(IJsonActionData data)
+		{
+			_jsonMember.AvatarHash = data.TryGetString("member", "avatarHash") ?? _jsonMember.AvatarHash;
+			_jsonMember.Bio = data.TryGetString("member", "bio") ?? _jsonMember.Bio;
+			_jsonMember.FullName = data.TryGetString("member", "fullName") ?? _jsonMember.FullName;
+			_jsonMember.Initials = data.TryGetString("member", "initials") ?? _jsonMember.Initials;
+			_jsonMember.MemberType = data.TryGetString("member", "memberType") ?? _jsonMember.MemberType;
+			_jsonMember.Status = data.TryGetString("member", "status") ?? _jsonMember.Status;
+			_jsonMember.Url = data.TryGetString("member", "url") ?? _jsonMember.Url;
+			_jsonMember.Username = data.TryGetString("member", "username") ?? _jsonMember.Username;
+			_jsonMember.AvatarSource = data.TryGetString("member", "avatarSource") ?? _jsonMember.AvatarSource;
+			_jsonMember.Confirmed = data.TryGetBoolean("member", "confirmed") ?? _jsonMember.Confirmed;
+			_jsonMember.Email = data.TryGetString("member", "email") ?? _jsonMember.Email;
+			_jsonMember.GravatarHash = data.TryGetString("member", "gravatarHash") ?? _jsonMember.GravatarHash;
+			_jsonMember.UploadedAvatarHash = data.TryGetString("member", "uploadedAvatarHash") ?? _jsonMember.UploadedAvatarHash;
 		}
 	}
 }

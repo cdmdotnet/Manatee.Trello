@@ -535,7 +535,7 @@ namespace Manatee.Trello
 		public override bool Equals(object obj)
 		{
 			if (!(obj is Card)) return false;
-			return Equals((Card) obj);
+			return Equals((Card)obj);
 		}
 		/// <summary>
 		/// Serves as a hash function for a particular type. 
@@ -558,7 +558,7 @@ namespace Manatee.Trello
 		public int CompareTo(Card other)
 		{
 			var order = Position.Value - other.Position.Value;
-			return (int) order;
+			return (int)order;
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.
@@ -581,6 +581,27 @@ namespace Manatee.Trello
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.Card_Read_Refresh);
 		}
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		void ICanWebhook.ApplyAction(Action action)
+		{
+			if ((action.CardShortId != ShortId)) return;
+			switch (action.Type)
+			{
+				case ActionType.DeleteCard:
+					ForceDeleted(true);
+					break;
+				case ActionType.UpdateCard:
+				case ActionType.UpdateCardClosed:
+				case ActionType.UpdateCardDesc:
+				case ActionType.UpdateCardIdList:
+				case ActionType.UpdateCardName:
+					MergeJson(action.Data);
+					break;
+			}
+		}
 
 		internal override void ApplyJson(object obj)
 		{
@@ -601,6 +622,26 @@ namespace Manatee.Trello
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
+		}
+		private void MergeJson(IJsonActionData data)
+		{
+			_jsonCard.Closed = data.TryGetBoolean("card", "closed") ?? _jsonCard.Closed;
+			var date = data.TryGetString("card", "dateLastActivity");
+			if (date != null)
+				_jsonCard.DateLastActivity = date == string.Empty ? (DateTime?)null : DateTime.Parse(date);
+			_jsonCard.Desc = data.TryGetString("card", "desc") ?? _jsonCard.Desc;
+			date = data.TryGetString("card", "due");
+			if (date != null)
+				_jsonCard.Due = date == string.Empty ? (DateTime?)null : DateTime.Parse(date);
+			_jsonCard.IdBoard = data.TryGetString("card", "idBoard") ?? _jsonCard.IdBoard;
+			_jsonCard.IdList = data.TryGetString("card", "idList") ?? _jsonCard.IdList;
+			_jsonCard.IdShort = (int?)data.TryGetNumber("card", "closed") ?? _jsonCard.IdShort;
+			_jsonCard.IdAttachmentCover = data.TryGetString("card", "idAttachmentCover") ?? _jsonCard.IdAttachmentCover;
+			_jsonCard.ManualCoverAttachment = data.TryGetBoolean("card", "manualCoverAttachment") ?? _jsonCard.ManualCoverAttachment;
+			_jsonCard.Name = data.TryGetString("card", "name") ?? _jsonCard.Name;
+			_jsonCard.Pos = data.TryGetNumber("card", "pos") ?? _jsonCard.Pos;
+			_jsonCard.Url = data.TryGetString("card", "url") ?? _jsonCard.Url;
+			_jsonCard.Subscribed = data.TryGetBoolean("card", "subscribed") ?? _jsonCard.Subscribed;
 		}
 	}
 }

@@ -23,11 +23,180 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
 {
-	internal class ExpiringList<T> : ExpiringObject, IEnumerable<T>
+	internal class ListActionDefinition
+	{
+		public IEnumerable<ActionType> ActionTypes { get; set; }
+		public IEnumerable<IEnumerable<string>> OwnerPaths { get; set; }
+	}
+
+	internal abstract class ExpiringListBase : ExpiringObject
+	{
+		internal static readonly Dictionary<Type, ListActionDefinition> ActionTypeMap;
+
+		static ExpiringListBase()
+		{
+			ActionTypeMap = new Dictionary<Type, ListActionDefinition>
+				{
+					{
+						typeof (Action), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.CommentCard,
+										ActionType.CopyCommentCard
+									},
+								OwnerPaths = new[] {new[] {"card", "id"}}
+							}
+					},
+					{
+						typeof (Attachment), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.AddAttachmentToCard,
+										ActionType.DeleteAttachmentFromCard
+									},
+								OwnerPaths = new[] {new[] {"card", "id"}}
+							}
+					},
+					{
+						typeof (Board), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.AddToOrganizationBoard,
+										ActionType.CopyBoard,
+										ActionType.CreateBoard,
+										ActionType.RemoveFromOrganizationBoard
+									},
+								OwnerPaths = new[]
+									{
+										new[] {"member", "id"},
+										new[] {"organization", "id"}
+									}
+							}
+					},
+					{
+						typeof (BoardMembership), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.AddMemberToBoard, ActionType.AddMemberToCard, ActionType.AddMemberToOrganization, ActionType.MakeAdminOfBoard, ActionType.MakeNormalMemberOfBoard,
+										ActionType.MakeNormalMemberOfOrganization, ActionType.MakeObserverOfBoard, ActionType.MemberJoinedTrello, ActionType.RemoveAdminFromBoard, ActionType.RemoveAdminFromOrganization,
+										ActionType.RemoveMemberFromBoard, ActionType.RemoveMemberFromCard
+									},
+								OwnerPaths = new[] {new[] {"member", "id"}}
+							}
+					},
+					{
+						typeof (Card), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.ConvertToCardFromCheckItem,
+										ActionType.CopyCard,
+										ActionType.CreateCard,
+										ActionType.DeleteCard,
+										ActionType.MoveCardFromBoard,
+										ActionType.MoveCardToBoard
+									},
+								OwnerPaths = new[]
+									{
+										new[] {"board", "id"},
+										new[] {"list", "id"}
+									}
+							}
+					},
+					{
+						typeof (CheckItem), new ListActionDefinition
+							{
+								ActionTypes = new[] {ActionType.ConvertToCardFromCheckItem},
+								OwnerPaths = new[] {new[] {"checkList", "id"}}
+							}
+					},
+					{
+						typeof (CheckList), new ListActionDefinition
+							{
+								ActionTypes = new[] {ActionType.AddChecklistToCard},
+								OwnerPaths = new[] {new[] {"card", "id"}}
+							}
+					},
+					{
+						typeof (List), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.CreateList,
+										ActionType.MoveListFromBoard,
+										ActionType.MoveListToBoard
+									},
+								OwnerPaths = new[] {new[] {"board", "id"}}
+							}
+					},
+					{
+						typeof (Member), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.AddMemberToBoard,
+										ActionType.AddMemberToCard,
+										ActionType.AddMemberToOrganization,
+										ActionType.MakeAdminOfBoard,
+										ActionType.MakeNormalMemberOfBoard,
+										ActionType.MakeNormalMemberOfOrganization,
+										ActionType.MakeObserverOfBoard,
+										ActionType.MemberJoinedTrello,
+										ActionType.RemoveAdminFromBoard,
+										ActionType.RemoveAdminFromOrganization,
+										ActionType.RemoveMemberFromBoard,
+										ActionType.RemoveMemberFromCard
+									},
+								OwnerPaths = new[]
+									{
+										new[] {"board", "id"},
+										new[] {"card", "id"},
+										new[] {"organization", "id"}
+									}
+							}
+					},
+					{
+						typeof (Organization), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.AddMemberToOrganization,
+										ActionType.MakeNormalMemberOfOrganization,
+										ActionType.MakeObserverOfBoard,
+										ActionType.MemberJoinedTrello,
+										ActionType.RemoveAdminFromOrganization,
+									},
+								OwnerPaths = new[] {new[] {"organization", "id"}}
+							}
+					},
+					{
+						typeof (OrganizationMembership), new ListActionDefinition
+							{
+								ActionTypes = new[]
+									{
+										ActionType.AddMemberToOrganization,
+										ActionType.MakeNormalMemberOfOrganization,
+										ActionType.MakeObserverOfBoard,
+										ActionType.MemberJoinedTrello,
+										ActionType.RemoveAdminFromOrganization,
+									},
+								OwnerPaths = new[] {new[] {"organization", "id"}}
+							}
+					},
+				};
+		}
+	}
+
+	internal class ExpiringList<T> : ExpiringListBase, IEnumerable<T>, ICanWebhook, IEquatable<ExpiringList<T>>
 		where T : ExpiringObject, IEquatable<T>, IComparable<T>
 	{
 		private readonly EntityRequestType _requestType;
@@ -35,7 +204,11 @@ namespace Manatee.Trello.Internal
 
 		public string Filter { get; set; }
 		public string Fields { get; set; }
-		public override bool IsStubbed { get { return Owner == null || Owner.IsStubbed; } }
+		public override bool IsStubbed { get { return (Owner == null) || Owner.IsStubbed; } }
+
+		internal List<T> List { get { return _list; } }
+
+		protected override bool AllowSelfUpdate { get { return true; } }
 
 		public ExpiringList(ExpiringObject owner, EntityRequestType requestType)
 		{
@@ -53,6 +226,24 @@ namespace Manatee.Trello.Internal
 		{
 			return GetEnumerator();
 		}
+		public bool Equals(ExpiringList<T> other)
+		{
+			return Equals(Owner, other.Owner) && (Filter == other.Filter) && (Fields == other.Fields);
+		}
+		public override bool Equals(object obj)
+		{
+			if (!(obj is ExpiringList<T>)) return false;
+			return Equals((ExpiringList<T>) obj);
+		}
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				return ((Owner != null ? Owner.GetHashCode() : 0)*397) ^
+					   ((Filter != null ? Filter.GetHashCode() : 0)*397) ^
+					   (Fields != null ? Fields.GetHashCode() : 0);
+			}
+		}
 		public override string ToString()
 		{
 			return _list.ToString();
@@ -68,6 +259,19 @@ namespace Manatee.Trello.Internal
 			EntityRepository.RefreshCollection<T>(this, _requestType);
 			return true;
 		}
+		void ICanWebhook.ApplyAction(Action action)
+		{
+			if (!ActionTypeMap.ContainsKey(typeof(T))) return;
+			var definition = ActionTypeMap[typeof (T)];
+			if (!definition.ActionTypes.Contains(action.Type)) return;
+			var ids = definition.OwnerPaths.Select(p => action.Data.TryGetString(p.ToArray())).Where(s => s != null);
+			if (!ids.Contains(Owner.Id)) return;
+			foreach (var entity in _list)
+			{
+				entity.MarkForUpdate();
+			}
+			MarkForUpdate();
+		}
 
 		internal override void PropagateDependencies()
 		{
@@ -76,7 +280,6 @@ namespace Manatee.Trello.Internal
 				item.Owner = Owner;
 			}
 		}
-
 		internal void Update(IEnumerable<T> items)
 		{
 			_list.Clear();

@@ -14,21 +14,22 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonBoardVisibilityRestrict.cs
-	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonBoardVisibilityRestrict
-	Purpose:		Internal implementation of IJsonBoardVisibilityRestrict.
+	File Name:		InnerRestRequest.cs
+	Namespace:		Manatee.Trello.Internal
+	Class Name:		InnerRestRequest
+	Purpose:		Implements IRestResponse<T> for internal purposes.
 
 ***************************************************************************************/
 
-using Manatee.Trello.Json;
+using System.Net;
+using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Internal.Json
+namespace Manatee.Trello.Internal
 {
-	internal class InnerJsonBoardVisibilityRestrict : IJsonBoardVisibilityRestrict
+	internal class InnerRestResponse<T> : IRestResponse<T>
 	{
-		public string Public { get; set; }
-		public string Org { get; set; }
-		public string Private { get; set; }
+		public string Content { get; set; }
+		public HttpStatusCode StatusCode { get; set; }
+		public T Data { get; set; }
 	}
 }

@@ -74,6 +74,7 @@
     <Compile Include="Internal\Genesis\EntityFactory.cs" />
     <Compile Include="Internal\Genesis\IEntityFactory.cs" />
     <Compile Include="Internal\ICanWebhook.cs" />
+    <Compile Include="Internal\InnerRestResponse.cs" />
     <Compile Include="Internal\IValidator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
     <Compile Include="Internal\Endpoint.cs" />

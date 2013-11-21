@@ -49,21 +49,21 @@ namespace Manatee.Trello
 		/// </summary>
 		public Attachment Attachment
 		{
-			get { return _isDeleted ? null : TryGetEntity<Attachment>("attachment", "attachment.id", EntityRequestType.Attachment_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<Attachment>("attachment", new[] {"attachment.id"}, EntityRequestType.Attachment_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the board, if one exists, associated with the action.
 		/// </summary>
 		public Board Board
 		{
-			get { return _isDeleted ? null : TryGetEntity<Board>("board", "board.id", EntityRequestType.Board_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<Board>("board", new[] {"board.id"}, EntityRequestType.Board_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the card, if one exists, associated with the action.
 		/// </summary>
 		public Card Card
 		{
-			get { return _isDeleted ? null : TryGetEntity<Card>("card", "card.id", EntityRequestType.Card_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<Card>("card", new[] {"card.id"}, EntityRequestType.Card_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the short ID of the card, if one exists, associated with the action.
@@ -77,19 +77,19 @@ namespace Manatee.Trello
 		/// </summary>
 		public CheckList CheckList
 		{
-			get { return _isDeleted ? null : TryGetEntity<CheckList>("checklist", "checklist.id", EntityRequestType.CheckList_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<CheckList>("checklist", new[] {"checklist.id"}, EntityRequestType.CheckList_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the check item, if one exists, associated with the action.
 		/// </summary>
 		public CheckItem CheckItem
 		{
-			get { return _isDeleted ? null : TryGetEntity<CheckItem>("checkItem", "checkItem.id", EntityRequestType.CheckItem_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<CheckItem>("checkItem", new[] {"checkItem.id"}, EntityRequestType.CheckItem_Read_Refresh); }
 		}
 		/// <summary>
 		/// Data associated with the action.  Contents depend upon the action's type.
 		/// </summary>
-		private IJsonActionData Data
+		internal IJsonActionData Data
 		{
 			get { return _isDeleted ? null : _jsonAction.Data; }
 		}
@@ -131,28 +131,28 @@ namespace Manatee.Trello
 		/// </summary>
 		public Organization Organization
 		{
-			get { return _isDeleted ? null : TryGetEntity<Organization>("organization", "organization", EntityRequestType.Organization_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<Organization>("organization", new[] {"organization"}, EntityRequestType.Organization_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the board which was copied, if one exists, associated with the action.
 		/// </summary>
 		public Board SourceBoard
 		{
-			get { return _isDeleted ? null : TryGetEntity<Board>("boardSource", "boardSource.id", EntityRequestType.Board_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<Board>("boardSource", new[] {"boardSource.id"}, EntityRequestType.Board_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the card which was copied, if one exists, associated with the action.
 		/// </summary>
 		public Card SourceCard
 		{
-			get { return _isDeleted ? null : TryGetEntity<Card>("cardSource", "cardSource.id", EntityRequestType.Card_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<Card>("cardSource", new[] {"cardSource.id"}, EntityRequestType.Card_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the list from which a card was moved, if one exists, associated with the action.
 		/// </summary>
 		public List SourceList
 		{
-			get { return _isDeleted ? null : TryGetEntity<List>("listSource", "listBefore.id", EntityRequestType.List_Read_Refresh); }
+			get { return _isDeleted ? null : TryGetEntity<List>("listSource", new[] {"listBefore.id"}, EntityRequestType.List_Read_Refresh); }
 		}
 		/// <summary>
 		/// Gets the text, if one exists, associated with the action.
@@ -232,7 +232,7 @@ namespace Manatee.Trello
 					{ActionType.AddMemberToOrganization, a => a.ToString("{0} added member {1} to organization {2}.", a.TryGetMemberFullName(), a.GetString("organization.name"))},
 					{ActionType.AddToOrganizationBoard, a => a.ToString("{0} moved board {1} into organization {2}.", a.GetString("board.id"), a.GetString("organization.name"))},
 					{ActionType.CommentCard, a => a.ToString("{0} commented on card #{1}: '{2}'.", a.GetString("card.name"), a.GetString("text"))},
-					{ActionType.ConvertToCardFromCheckItem, a => a.ToString("{0} converted checkitem {1} to a card.", a.GetString("checkItem.name"))},
+					{ActionType.ConvertToCardFromCheckItem, a => a.ToString("{0} converted checkitem {1} to a card.", a.GetString("card.name"))},
 					{ActionType.CopyBoard, a => a.ToString("{0} copied board {1} from board {2}.", a.GetString("board.name"), a.GetString("boardSource.name"))},
 					{ActionType.CopyCard, a => a.ToString("{0} copied card {1} from card {2}.", a.GetString("card.name"), a.GetString("cardSource.name"))},
 					{ActionType.CreateBoard, a => a.ToString("{0} created board {1}.", a.GetString("board.name"))},
@@ -370,6 +370,7 @@ namespace Manatee.Trello
 		{
 			_type = _typeMap.Any(kvp => kvp.Value == _jsonAction.Type) ? _typeMap[_jsonAction.Type] : ActionType.Unknown;
 		}
+		[Obsolete("Use the overload which takes multiple paths instead.")]
 		private T TryGetEntity<T>(string index, string path, EntityRequestType request)
 			where T : ExpiringObject
 		{

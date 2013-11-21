@@ -38,6 +38,11 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		Member Me { get; }
 		/// <summary>
+		/// Gets or sets whether entities are allowed to update themselves.  A value of false implies that
+		/// updates will be performed via webhook notifications or manually.
+		/// </summary>
+		bool AllowSelfUpdate { get; set; }
+		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>
 		/// <typeparam name="T">The type of entity to retrieve.</typeparam>
@@ -68,5 +73,10 @@ namespace Manatee.Trello.Contracts
 		/// Instructs the service to continue sending requests.
 		/// </summary>
 		void ResumeRequests();
+		/// <summary>
+		/// Processes a received webhook notification.
+		/// </summary>
+		/// <param name="body"></param>
+		void ProcessWebhookNotification(string body);
 	}
 }

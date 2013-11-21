@@ -217,6 +217,15 @@ namespace Manatee.Trello
 			Parameters["_id"] = Id;
 			return EntityRepository.Refresh(this, EntityRequestType.CheckItem_Read_Refresh);
 		}
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		void ICanWebhook.ApplyAction(Action action)
+		{
+			if (action.Type != ActionType.UpdateCheckItemStateOnCard) return;
+			MergeJson(action.Data);
+		}
 
 		internal override void ApplyJson(object obj)
 		{
@@ -246,6 +255,12 @@ namespace Manatee.Trello
 		{
 			if (_stateMap.Any(kvp => kvp.Key == _state))
 				_jsonCheckItem.State = _stateMap[_state];
+		}
+		private void MergeJson(IJsonActionData data)
+		{
+			_jsonCheckItem.State = data.TryGetString("checkItem", "state") ?? _jsonCheckItem.State;
+			_jsonCheckItem.Name = data.TryGetString("checkItem", "name") ?? _jsonCheckItem.Name;
+			_jsonCheckItem.Pos = data.TryGetNumber("checkItem", "pos") ?? _jsonCheckItem.Pos;
 		}
 	}
 }

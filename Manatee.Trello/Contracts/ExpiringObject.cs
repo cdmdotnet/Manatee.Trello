@@ -64,6 +64,10 @@ namespace Manatee.Trello.Contracts
 		/// Gets or sets when this entity expires.
 		/// </summary>
 		protected DateTime Expires { get; set; }
+		/// <summary>
+		/// Gets or sets whether this entity is allowed to update itself.
+		/// </summary>
+		protected virtual bool AllowSelfUpdate { get { return EntityRepository.AllowSelfUpdate; } }
 
 		internal ExpiringObject()
 		{
@@ -106,7 +110,7 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		protected virtual void VerifyNotExpired()
 		{
-			if (!IsExpired || IsStubbed || !Refresh()) return;
+			if (!IsExpired || IsStubbed || !AllowSelfUpdate || !Refresh()) return;
 			if (Id != null)
 				Log.Info("{0} with ID {{{1}}} will expire at {2}.", GetType().CSharpName(), Id, Expires);
 			else if (Owner != null)
@@ -154,7 +158,7 @@ namespace Manatee.Trello.Contracts
 		protected IEnumerable<T> BuildList<T>(EntityRequestType requestType, string fields = null, string filter = null)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			var list = new ExpiringList<T>(this, requestType) {Fields = fields, Filter = filter};
+			var list = (ExpiringList<T>) EntityRepository.GenerateList<T>(this, requestType, fields, filter);
 			UpdateDependencies(list);
 			return list;
 		}

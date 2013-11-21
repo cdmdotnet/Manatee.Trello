@@ -267,6 +267,16 @@ namespace Manatee.Trello
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.List_Read_Refresh);
 		}
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		void ICanWebhook.ApplyAction(Action action)
+		{
+			// There is no UpdateList action...
+			//if (action.Type != ActionType.Unknown) return;
+			//MergeJson(action.Data);
+		}
 
 		internal override void ApplyJson(object obj)
 		{
@@ -280,6 +290,14 @@ namespace Manatee.Trello
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
+		}
+		private void MergeJson(IJsonActionData data)
+		{
+			_jsonList.Name = data.TryGetString("list", "name") ?? _jsonList.Name;
+			_jsonList.Closed = data.TryGetBoolean("list", "closed") ?? _jsonList.Closed;
+			_jsonList.IdBoard = data.TryGetString("list", "idBoard") ?? _jsonList.IdBoard;
+			_jsonList.Pos = data.TryGetNumber("list", "pos") ?? _jsonList.Pos;
+			_jsonList.Subscribed = data.TryGetBoolean("list", "subscribed") ?? _jsonList.Subscribed;
 		}
 	}
 }

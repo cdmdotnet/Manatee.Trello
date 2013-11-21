@@ -57,6 +57,7 @@
     <Compile Include="Converters\CardConverter.cs" />
     <Compile Include="Converters\CheckItemConverter.cs" />
     <Compile Include="Converters\CheckListConverter.cs" />
+    <Compile Include="Converters\WebhookNotificationConverter.cs" />
     <Compile Include="Converters\IdListConverter.cs" />
     <Compile Include="Converters\JsonCreationConverter.cs" />
     <Compile Include="Converters\LabelConverter.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Entities\NewtonsoftToken.cs" />
     <Compile Include="Entities\NewtonsoftTokenPermission.cs" />
     <Compile Include="Entities\NewtonsoftWebhook.cs" />
+    <Compile Include="Entities\NewtonsoftWebhookNotification.cs" />
     <Compile Include="NewtonsoftSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
