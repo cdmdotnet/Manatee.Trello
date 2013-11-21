@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2012 Greg Dennis
+	Copyright 2013 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -28,6 +28,10 @@ namespace Manatee.Trello.Internal
 	/// </summary>
 	public interface ICanWebhook
 	{
-		
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		void ApplyAction(Action action);
 	}
 }

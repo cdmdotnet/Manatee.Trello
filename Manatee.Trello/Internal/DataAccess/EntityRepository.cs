@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2012 Greg Dennis
+	Copyright 2013 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -163,6 +163,11 @@ namespace Manatee.Trello.Internal.DataAccess
 			parameters.Clear();
 			return entity;
 		}
+		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, string fields)
+			where T : ExpiringObject, IEquatable<T>, IComparable<T>
+		{
+			return new ExpiringList<T>(owner, request) { Fields = fields, Filter = filter };
+		}
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)
 		{
 			var endpoint = _endpointFactory.Build(request, parameters);
@@ -191,6 +196,7 @@ namespace Manatee.Trello.Internal.DataAccess
 			}
 			_offlineChangeQueue.Requeue(failedChanges);
 		}
+		public bool AllowSelfUpdate { get; set; }
 
 		private static void ApplyJson<T, TJson>(IEntityFactory entityFactory, ExpiringObject obj, object json)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>

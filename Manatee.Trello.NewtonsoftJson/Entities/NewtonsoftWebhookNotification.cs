@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Greg Dennis
+	Copyright 2012 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,21 +14,21 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonBoardVisibilityRestrict.cs
-	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonBoardVisibilityRestrict
-	Purpose:		Internal implementation of IJsonBoardVisibilityRestrict.
+	File Name:		NewtonsoftWebhookNotification.cs
+	Namespace:		Manatee.Trello.NewtonsoftJson.Entities
+	Class Name:		NewtonsoftWebhookNotification
+	Purpose:		Implements IJsonWebhookNotification for Newtonsoft's Json.Net.
 
 ***************************************************************************************/
 
 using Manatee.Trello.Json;
+using Newtonsoft.Json;
 
-namespace Manatee.Trello.Internal.Json
+namespace Manatee.Trello.NewtonsoftJson.Entities
 {
-	internal class InnerJsonBoardVisibilityRestrict : IJsonBoardVisibilityRestrict
+	internal class NewtonsoftWebhookNotification : IJsonWebhookNotification
 	{
-		public string Public { get; set; }
-		public string Org { get; set; }
-		public string Private { get; set; }
+		[JsonProperty("action")]
+		public IJsonAction Action { get; set; }
 	}
 }

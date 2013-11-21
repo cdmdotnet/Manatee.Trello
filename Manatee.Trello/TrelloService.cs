@@ -32,6 +32,7 @@ using Manatee.Trello.Internal.Bootstrapping;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -46,6 +47,7 @@ namespace Manatee.Trello
 		private readonly IValidator _validator;
 		private readonly IEndpointFactory _endpointFactory;
 		private Member _me;
+		private readonly IEntityFactory _entityFactory;
 
 		/// <summary>
 		/// Allows the TrelloService instance to access data as if it was the member
@@ -63,6 +65,15 @@ namespace Manatee.Trello
 		{
 			get { return _me ?? (_me = GetMe()); }
 		}
+		/// <summary>
+		/// Gets or sets whether entities are allowed to update themselves.  A value of false implies that
+		/// updates will be performed via webhook notifications or manually.
+		/// </summary>
+		public bool AllowSelfUpdate
+		{
+			get { return _entityRepository.AllowSelfUpdate; }
+			set { _entityRepository.AllowSelfUpdate = value; }
+		}
 
 		/// <summary>
 		/// Creates a new instance of the TrelloService class using a given configuration.
@@ -79,18 +90,21 @@ namespace Manatee.Trello
 			_validator = bootstrapper.Validator;
 			_entityRepository = bootstrapper.EntityRepository;
 			_endpointFactory = bootstrapper.EndpointFactory;
+			_entityFactory = bootstrapper.EntityFactory;
 		}
 		internal TrelloService(ITrelloServiceConfiguration configuration,
 							   IValidator validator,
 							   IEntityRepository entityRepository,
 							   IRestRequestProcessor requestProcessor,
-							   IEndpointFactory endpointFactory)
+							   IEndpointFactory endpointFactory,
+							   IEntityFactory entityFactory)
 		{
 			_configuration = configuration;
 			_validator = validator;
 			_entityRepository = entityRepository;
 			_requestProcessor = requestProcessor;
 			_endpointFactory = endpointFactory;
+			_entityFactory = entityFactory;
 		}
 		/// <summary>
 		/// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
@@ -180,6 +194,26 @@ namespace Manatee.Trello
 		public void ResumeRequests()
 		{
 			_requestProcessor.IsActive = true;
+		}
+		/// <summary>
+		/// Processes a received webhook notification.
+		/// </summary>
+		/// <param name="body"></param>
+		public void ProcessWebhookNotification(string body)
+		{
+			if (_configuration.Deserializer == null)
+				throw new Exception("Configuration.Deserializer must be set in order to handle webhook notifications.");
+			if (_configuration.Cache == null)
+				throw new Exception("Configuration.Cache must be set in order to handle webhook notifications.");
+			var request = new InnerRestResponse<IJsonWebhookNotification> {Content = body};
+			var json = _configuration.Deserializer.Deserialize(request).Action;
+			var action = _entityFactory.CreateEntity<Action>();
+			action.EntityRepository = _entityRepository;
+			action.ApplyJson(json);
+			foreach (var entity in _configuration.Cache.OfType<ICanWebhook>())
+			{
+				entity.ApplyAction(action);
+			}
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

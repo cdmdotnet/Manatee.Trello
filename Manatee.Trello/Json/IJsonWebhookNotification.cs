@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2012 Greg Dennis
+	Copyright 2013 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -25,10 +25,14 @@ using Manatee.Trello.Internal;
 
 namespace Manatee.Trello.Json
 {
-	internal interface IJsonWebhookNotification<T>
-		where T : ICanWebhook
+	/// <summary>
+	/// Defines the JSON structure for the WebhookNotification object.
+	/// </summary>
+	public interface IJsonWebhookNotification
 	{
+		/// <summary>
+		/// Gets or sets the action associated with the notification.
+		/// </summary>
 		IJsonAction Action { get; set; }
-		T Model { get; set; }
 	}
 }

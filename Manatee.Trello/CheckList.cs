@@ -244,11 +244,20 @@ namespace Manatee.Trello
 			AddDefaultParameters();
 			return EntityRepository.Refresh(this, EntityRequestType.CheckList_Read_Refresh);
 		}
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		void ICanWebhook.ApplyAction(Action action)
+		{
+			if (action.Type != ActionType.UpdateChecklist) return;
+			MergeJson(action.Data);
+		}
+
 		internal void ForceDeleted(bool deleted)
 		{
 			_isDeleted = deleted;
 		}
-
 		internal override void ApplyJson(object obj)
 		{
 			_jsonCheckList = (IJsonCheckList)obj;
@@ -261,6 +270,13 @@ namespace Manatee.Trello
 		{
 			Parameters["_id"] = Id;
 			EntityRepository.Upload(requestType, Parameters);
+		}
+		private void MergeJson(IJsonActionData data)
+		{
+			_jsonCheckList.Name = data.TryGetString("checkList", "name") ?? _jsonCheckList.Name;
+			_jsonCheckList.IdBoard = data.TryGetString("checkList", "idBoard") ?? _jsonCheckList.IdBoard;
+			_jsonCheckList.IdCard = data.TryGetString("checkList", "idCard") ?? _jsonCheckList.IdCard;
+			_jsonCheckList.Pos = data.TryGetNumber("checkList", "pos") ?? _jsonCheckList.Pos;
 		}
 	}
 }

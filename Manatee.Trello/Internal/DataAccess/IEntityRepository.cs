@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2012 Greg Dennis
+	Copyright 2013 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -47,8 +47,13 @@ namespace Manatee.Trello.Internal.DataAccess
 		T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject;
 		/// <summary />
+		IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, string fields)
+			where T : ExpiringObject, IEquatable<T>, IComparable<T>;
+		/// <summary />
 		void Upload(EntityRequestType request, IDictionary<string, object> parameters);
 		/// <summary />
 		void NetworkStatusChanged(object sender, EventArgs e);
+		/// <summary />
+		bool AllowSelfUpdate { get; set; }
 	}
 }

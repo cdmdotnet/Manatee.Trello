@@ -14,21 +14,21 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonBoardVisibilityRestrict.cs
-	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonBoardVisibilityRestrict
-	Purpose:		Internal implementation of IJsonBoardVisibilityRestrict.
+	File Name:		ManateeWebhookNotification.cs
+	Namespace:		Manatee.Trello.ManateeJson.Entities
+	Class Name:		ManateeWebhookNotification
+	Purpose:		Implements IJsonWebhookNotification for Manatee.Json.
 
 ***************************************************************************************/
 
+using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
 
-namespace Manatee.Trello.Internal.Json
+namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class InnerJsonBoardVisibilityRestrict : IJsonBoardVisibilityRestrict
+	internal class ManateeWebhookNotification : IJsonWebhookNotification
 	{
-		public string Public { get; set; }
-		public string Org { get; set; }
-		public string Private { get; set; }
+		[JsonMapTo("action")]
+		public IJsonAction Action { get; set; }
 	}
 }
