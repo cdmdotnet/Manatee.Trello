@@ -31,7 +31,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Contains extension methods for any ExpiringObject implementation.
 	/// </summary>
-	public static class GeneralExtensions
+	public static class ExpiringExtensions
 	{
 		/// <summary>
 		/// Creates a webhook for the specified entity.
