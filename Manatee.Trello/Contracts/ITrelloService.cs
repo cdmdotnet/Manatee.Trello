@@ -36,7 +36,7 @@ namespace Manatee.Trello.Contracts
 		/// <summary>
 		/// Gets the Member object associated with the provided UserToken.
 		/// </summary>
-		Member Me { get; }
+		Me Me { get; }
 		/// <summary>
 		/// Gets or sets whether entities are allowed to update themselves.  A value of false implies that
 		/// updates will be performed via webhook notifications or manually.

@@ -46,7 +46,7 @@ namespace Manatee.Trello
 		private readonly IEntityRepository _entityRepository;
 		private readonly IValidator _validator;
 		private readonly IEndpointFactory _endpointFactory;
-		private Member _me;
+		private Me _me;
 		private readonly IEntityFactory _entityFactory;
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the Member object associated with the provided AppKey.
 		/// </summary>
-		public Member Me
+		public Me Me
 		{
 			get { return _me ?? (_me = GetMe()); }
 		}
@@ -240,13 +240,13 @@ namespace Manatee.Trello
 			T entity = _entityRepository.Download<T>(requestType, parameters);
 			return entity;
 		}
-		private Member GetMe()
+		private Me GetMe()
 		{
 			if (UserToken == null)
 				_configuration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
 			var parameters = RestParameterRepository.GetParameters<Member>()
 				.ToDictionary<KeyValuePair<string, string>, string, object>(k => k.Key, v => v.Value);
-			return _entityRepository.Download<Member>(EntityRequestType.Service_Read_Me, parameters);
+			return _entityRepository.Download<Me>(EntityRequestType.Service_Read_Me, parameters);
 		}
 		private static string ConstructContextParameter<T>(IEnumerable<ExpiringObject> models)
 			where T : ExpiringObject

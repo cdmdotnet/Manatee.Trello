@@ -139,6 +139,30 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
+		/// Converts the CheckItem to a Card and deletes the CheckItem.
+		/// </summary>
+		/// <returns></returns>
+		public Card ConvertToCard()
+		{
+			if (_isDeleted) return null;
+			var card = DuplicateAsCard();
+			Delete();
+			return card;
+		}
+		/// <summary>
+		/// Converts the CheckItem to a Card, leaving the CheckItem in place.
+		/// </summary>
+		/// <returns></returns>
+		public Card DuplicateAsCard()
+		{
+			if (_isDeleted) return null;
+			var hostChecklist = Owner as CheckList;
+			if (hostChecklist == null) return null;
+			var hostCard = hostChecklist.Card;
+			var hostList = hostCard.List;
+			return hostList.AddCard(Name, position: Position.Bottom);
+		}
+		/// <summary>
 		/// Deletes this checklist item.  This cannot be undone.
 		/// </summary>
 		public void Delete()

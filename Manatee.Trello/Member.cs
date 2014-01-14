@@ -40,7 +40,6 @@ namespace Manatee.Trello
 
 		private IJsonMember _jsonMember;
 		private AvatarSourceType _avatarSource;
-		private readonly MemberPreferences _preferences;
 		private MemberStatusType _status;
 
 		///<summary>
@@ -89,7 +88,7 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _jsonMember.Bio;
 			}
-			set
+			protected set
 			{
 				Validator.Writable();
 				if (_jsonMember.Bio == value) return;
@@ -116,7 +115,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member's registered email address.
 		/// </summary>
-		public string Email
+		protected string Email
 		{
 			get
 			{
@@ -134,7 +133,7 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _jsonMember.FullName;
 			}
-			set
+			protected set
 			{
 				Validator.Writable();
 				if (_jsonMember.FullName == value) return;
@@ -172,7 +171,7 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _jsonMember.Initials;
 			}
-			set
+			protected set
 			{
 				Validator.Writable();
 				if (_jsonMember.Initials == value) return;
@@ -212,25 +211,9 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
-		/// Enumerates the member's notifications.
-		/// </summary>
-		public IEnumerable<Notification> Notifications { get { return BuildList<Notification>(EntityRequestType.Member_Read_Notifications); } }
-		/// <summary>
 		/// Enumerates the organizations to which the member belongs.
 		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return BuildList<Organization>(EntityRequestType.Member_Read_Organizations); } }
-		/// <summary>
-		/// Enumerates the boards the member has pinnned to their boards menu.
-		/// </summary>
-		public IEnumerable<Board> PinnedBoards { get { return BuildList<Board>(EntityRequestType.Member_Read_PinnedBoards); } }
-		///<summary>
-		/// Gets the set of preferences for the member.
-		///</summary>
-		public MemberPreferences Preferences { get { return _preferences; } }
-		/// <summary>
-		/// Enumerates the active sessions with trello.com.
-		/// </summary>
-		internal IEnumerable<MemberSession> Sessions { get { return BuildList<MemberSession>(EntityRequestType.Member_Read_Sessions); } }
 		/// <summary>
 		/// Gets the member's activity status.
 		/// </summary>
@@ -242,10 +225,6 @@ namespace Manatee.Trello
 				return _status;
 			}
 		}
-		/// <summary>
-		/// Enumerates the tokens provided by the member.
-		/// </summary>
-		public IEnumerable<Token> Tokens { get { return BuildList<Token>(EntityRequestType.Member_Read_Tokens); } }
 		/// <summary>
 		/// Enumerates the trophies obtained by the member.
 		/// </summary>
@@ -282,7 +261,7 @@ namespace Manatee.Trello
 				VerifyNotExpired();
 				return _jsonMember.Username;
 			}
-			set
+			protected set
 			{
 				Validator.Writable();
 				if (_jsonMember.Username == value) return;
@@ -318,93 +297,8 @@ namespace Manatee.Trello
 		{
 			_jsonMember = new InnerJsonMember();
 			_avatarSource = AvatarSourceType.Unknown;
-			_preferences = new MemberPreferences(this);
 		}
 
-		/// <summary>
-		/// Marks all unread notifications for the member as read.
-		/// </summary>
-		public void ClearNotifications()
-		{
-			Validator.Writable();
-			EntityRepository.Upload(EntityRequestType.Member_Write_ClearNotifications, Parameters);
-		}
-		/// <summary>
-		/// Creates a personal board for the current member.
-		/// </summary>
-		/// <param name="name">The name of the board.</param>
-		/// <returns>The newly-created Board object.</returns>
-		public Board CreateBoard(string name)
-		{
-			Validator.Writable();
-			Validator.NonEmptyString(name);
-			Parameters.Add("name", name);
-			var board = EntityRepository.Download<Board>(EntityRequestType.Member_Write_CreateBoard, Parameters);
-			UpdateDependencies(board);
-			return board;
-		}
-		/// <summary>
-		/// Creates an organization administered by the current member.
-		/// </summary>
-		/// <param name="displayName">The display name of the organization.</param>
-		/// <returns>The newly-created Organization object.</returns>
-		public Organization CreateOrganization(string displayName)
-		{
-			Validator.Writable();
-			Validator.NonEmptyString(displayName);
-			Parameters.Add("displayName", displayName);
-			var org = EntityRepository.Download<Organization>(EntityRequestType.Member_Write_CreateOrganization, Parameters);
-			UpdateDependencies(org);
-			return org;
-		}
-		/// <summary>
-		/// Adds a board to the member's boards menu.
-		/// </summary>
-		/// <param name="board">The board to pin.</param>
-		public void PinBoard(Board board)
-		{
-			Validator.Writable();
-			Validator.Entity(board);
-			Parameters["_id"] = Id;
-			Parameters.Add("value", board.Id);
-			EntityRepository.Upload(EntityRequestType.Member_Write_PinBoard, Parameters);
-		}
-		/// <summary>
-		/// Removes the member's vote from a card.
-		/// </summary>
-		/// <param name="card"></param>
-		public void RescindVoteForCard(Card card)
-		{
-			Validator.Writable();
-			Validator.Entity(card);
-			Parameters.Add("_cardId", card.Id);
-			Parameters["_id"] = Id;
-			EntityRepository.Upload(EntityRequestType.Member_Write_RescindVoteForCard, Parameters);
-		}
-		/// <summary>
-		/// Removes a board from the member's boards menu.
-		/// </summary>
-		/// <param name="board"></param>
-		public void UnpinBoard(Board board)
-		{
-			Validator.Writable();
-			Validator.Entity(board);
-			Parameters["_id"] = Id;
-			Parameters.Add("_boardId", board.Id);
-			EntityRepository.Upload(EntityRequestType.Member_Write_UnpinBoard, Parameters);
-		}
-		/// <summary>
-		/// Applies the member's vote to a card.
-		/// </summary>
-		/// <param name="card"></param>
-		public void VoteForCard(Card card)
-		{
-			Validator.Writable();
-			Validator.Entity(card);
-			Parameters.Add("_cardId", card.Id);
-			Parameters["_id"] = Id;
-			EntityRepository.Upload(EntityRequestType.Member_Write_VoteForCard, Parameters);
-		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
 		/// </summary>
@@ -491,10 +385,6 @@ namespace Manatee.Trello
 		internal override bool Matches(string id)
 		{
 			return (Id == id) || (Username == id);
-		}
-		internal override void PropagateDependencies()
-		{
-			UpdateDependencies(_preferences);
 		}
 
 		private void Upload(EntityRequestType requestType)

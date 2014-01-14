@@ -59,6 +59,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{typeof (Label), (r, e, d) => r.Execute<IJsonLabel>(e, d)},
 					{typeof (LabelNames), (r, e, d) => r.Execute<IJsonLabelNames>(e, d)},
 					{typeof (List), (r, e, d) => r.Execute<IJsonList>(e, d)},
+					{typeof (Me), (r, e, d) => r.Execute<IJsonMember>(e, d)},
 					{typeof (Member), (r, e, d) => r.Execute<IJsonMember>(e, d)},
 					{typeof (MemberPreferences), (r, e, d) => r.Execute<IJsonMemberPreferences>(e, d)},
 					{typeof (MemberSession), (r, e, d) => r.Execute<IJsonMemberSession>(e, d)},

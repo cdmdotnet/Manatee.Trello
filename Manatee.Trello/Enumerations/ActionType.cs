@@ -219,5 +219,9 @@ namespace Manatee.Trello
 		/// Indicates a member voted on a card.
 		/// </summary>
 		VoteOnCard,
+		/// <summary>
+		/// Indicates a member updated a list.
+		/// </summary>
+		UpdateList
 	}
 }
