@@ -222,6 +222,8 @@ namespace Manatee.Trello
 			           		{ActionType.UpdateCardClosed, "updateCard:closed"},
 			           		{ActionType.UpdateCardDesc, "updateCard:desc"},
 			           		{ActionType.UpdateCardName, "updateCard:name"},
+			           		{ActionType.UpdateList, "updateList"},
+			           		{ActionType.VoteOnCard, "voteOnCard"},
 			           	};
 			_stringDefinitions = new Dictionary<ActionType, Func<Action, string>>
 				{
@@ -231,7 +233,7 @@ namespace Manatee.Trello
 					{ActionType.AddMemberToCard, a => a.ToString("{0} assigned member {1} to card {2}.", a.TryGetMemberFullName(), a.GetString("card.name"))},
 					{ActionType.AddMemberToOrganization, a => a.ToString("{0} added member {1} to organization {2}.", a.TryGetMemberFullName(), a.GetString("organization.name"))},
 					{ActionType.AddToOrganizationBoard, a => a.ToString("{0} moved board {1} into organization {2}.", a.GetString("board.id"), a.GetString("organization.name"))},
-					{ActionType.CommentCard, a => a.ToString("{0} commented on card #{1}: '{2}'.", a.GetString("card.name"), a.GetString("text"))},
+					{ActionType.CommentCard, a => a.ToString("{0} commented on card {1}: '{2}'.", a.GetString("card.name"), a.GetString("text"))},
 					{ActionType.ConvertToCardFromCheckItem, a => a.ToString("{0} converted checkitem {1} to a card.", a.GetString("card.name"))},
 					{ActionType.CopyBoard, a => a.ToString("{0} copied board {1} from board {2}.", a.GetString("board.name"), a.GetString("boardSource.name"))},
 					{ActionType.CopyCard, a => a.ToString("{0} copied card {1} from card {2}.", a.GetString("card.name"), a.GetString("cardSource.name"))},
@@ -262,6 +264,9 @@ namespace Manatee.Trello
 					{ActionType.UpdateCardIdList, a => a.ToString("{0} moved card {1} from list {2} to list {3}.", a.GetString("card.name"), a.GetString("listBefore.name"), a.GetString("listAfter.name"))},
 					{ActionType.UpdateCardClosed, a => a.ToString("{0} archived card {1}.", a.GetString("card.name"))},
 					{ActionType.UpdateCardDesc, a => a.ToString("{0} changed the description of card {1}.", a.GetString("card.name"))},
+					{ActionType.UpdateCardName, a => a.ToString("{0} changed the name of card {1}.", a.GetString("card.name"))},
+					{ActionType.UpdateList, a => a.ToString("{0} changed the name of list {1}.", a.GetString("list.name"))},
+					{ActionType.VoteOnCard, a => a.ToString("{0} voted on card {1}.", a.GetString("card.name"))},
 				};
 		}
 		/// <summary>

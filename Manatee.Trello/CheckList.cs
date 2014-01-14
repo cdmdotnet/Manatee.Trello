@@ -22,6 +22,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
@@ -165,6 +166,26 @@ namespace Manatee.Trello
 			checkItem.Owner = this;
 			UpdateDependencies(checkItem);
 			return checkItem;
+		}
+		/// <summary>
+		/// Converts all CheckItems to cards and optionally deletes the CheckList.
+		/// </summary>
+		/// <param name="deleteCheckList">true if the CheckList is to be deleted after conversion.</param>
+		/// <returns>The Cards which represent the CheckItems.</returns>
+		public IEnumerable<Card> ConvertAllCheckItemsToCards(bool deleteCheckList)
+		{
+			var cards = CheckItems.Select(checkItem => checkItem.ConvertToCard());
+			if (deleteCheckList)
+				Delete();
+			return cards;
+		}
+		/// <summary>
+		/// Duplicates all CheckItems to cards, leaving the CheckItems in place.
+		/// </summary>
+		/// <returns>The Cards which represent the CheckItems.</returns>
+		public IEnumerable<Card> DuplicateAllCheckItemsAsCards()
+		{
+			return CheckItems.Select(checkItem => checkItem.DuplicateAsCard());
 		}
 		/// <summary>
 		/// Deletes this checklist.  This cannot be undone.

@@ -44,7 +44,7 @@ namespace Manatee.Trello.Internal.DataAccess
 						}},
 					{typeof(Board), new Dictionary<string, string>
 						{
-							{"fields", "name,desc,closed,idOrganization,pinned,url,subscribed"},
+							{"fields", "name,desc,closed,idOrganization,labelNames,pinned,url,subscribed"},
 							{"actions", "none"},
 							{"cards", "none"},
 							{"lists", "none"},
@@ -128,6 +128,8 @@ namespace Manatee.Trello.Internal.DataAccess
 		}
 		public static Dictionary<string, string> GetParameters(Type type)
 		{
+			if (type == typeof (Me))
+				type = typeof (Member);
 			return _parameterSets.ContainsKey(type)
 					   ? _parameterSets[type]
 					   : new Dictionary<string, string>();

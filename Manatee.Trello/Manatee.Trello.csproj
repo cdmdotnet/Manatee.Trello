@@ -34,10 +34,6 @@
     <DocumentationFile>bin\Release\Manatee.Trello.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -116,6 +112,7 @@
     <Compile Include="Json\IJsonOrganizationMembership.cs" />
     <Compile Include="Json\IJsonWebhook.cs" />
     <Compile Include="Json\IJsonWebhookNotification.cs" />
+    <Compile Include="Me.cs" />
     <Compile Include="MemberSession.cs" />
     <Compile Include="ModelScope.cs" />
     <Compile Include="OrganizationMembership.cs" />
@@ -207,9 +204,6 @@
     <Compile Include="Token.cs" />
     <Compile Include="TrelloService.cs" />
     <Compile Include="Webhook.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

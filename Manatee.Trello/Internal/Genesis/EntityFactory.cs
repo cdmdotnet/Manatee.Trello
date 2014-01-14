@@ -50,6 +50,7 @@ namespace Manatee.Trello.Internal.Genesis
 					{typeof (Label), () => new Label()},
 					{typeof (LabelNames), () => new LabelNames()},
 					{typeof (List), () => new List()},
+					{typeof (Me), () => new Me()},
 					{typeof (Member), () => new Member()},
 					{typeof (MemberPreferences), () => new MemberPreferences()},
 					{typeof (MemberSession), () => new MemberSession()},
