@@ -34,6 +34,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		private readonly ICache _cache;
 
 		public TimeSpan EntityDuration { get { return _innerRepository.EntityDuration; } }
+		public bool AllowSelfUpdate { get; set; }
 
 		public CachingEntityRepository(IEntityRepository innerRepository, ICache cache)
 		{
@@ -60,19 +61,19 @@ namespace Manatee.Trello.Internal.DataAccess
 		public T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject
 		{
-			T value = null;
+			T entity = null;
 			try
 			{
 				var id = parameters.SingleOrDefault(kvp => kvp.Key.In("_id")).Value;
 				Func<T> query = () => DownloadAndAddToCache<T>(request, parameters);
-				var entity = id == null ? query() : _cache.Find(e => e.Matches(id.ToString()), query);
+				entity = id == null ? query() : _cache.Find(e => e.Matches(id.ToString()), query);
 				entity.EntityRepository = this;
 				entity.PropagateDependencies();
 				return entity;
 			}
 			catch (Exception)
 			{
-				_cache.Remove(value);
+				_cache.Remove(entity);
 				throw;
 			}
 		}
@@ -87,7 +88,6 @@ namespace Manatee.Trello.Internal.DataAccess
 			_innerRepository.Upload(request, parameters);
 		}
 		public void NetworkStatusChanged(object sender, EventArgs e) {}
-		public bool AllowSelfUpdate { get; set; }
 
 		private T DownloadAndAddToCache<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject

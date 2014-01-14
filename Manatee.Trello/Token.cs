@@ -101,7 +101,6 @@ namespace Manatee.Trello
 			get
 			{
 				if (_isDeleted) return null;
-				VerifyNotExpired();
 				return _jsonToken.Identifier;
 			}
 		}
