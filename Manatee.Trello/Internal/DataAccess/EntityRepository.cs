@@ -166,7 +166,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, string fields)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			return new ExpiringList<T>(owner, request) { Fields = fields, Filter = filter };
+			return new ExpiringList<T>(owner, request) {Fields = fields, Filter = filter};
 		}
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)
 		{

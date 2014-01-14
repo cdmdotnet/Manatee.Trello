@@ -125,7 +125,7 @@ namespace Manatee.Trello.Internal
 		public void Url(string url)
 		{
 			if (string.IsNullOrWhiteSpace(url)) return;
-			if (!(url.BeginsWith("http://") || url.BeginsWith("http://")) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
+			if (!(url.BeginsWith("http://") || url.BeginsWith("https://")) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
 				_log.Error(new ArgumentException("URL is not valid.  Must be well-formed and begin with 'http://' or 'https://'"));
 		}
 		public void ArgumentNotNull(object value, string name = "value")
