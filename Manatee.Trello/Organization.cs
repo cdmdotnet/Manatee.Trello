@@ -128,7 +128,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether this organization has paid features.
 		/// </summary>
-		internal bool? IsPaidAccount { get { return _jsonOrganization.PaidAccount; } }
+		public bool? IsPaidAccount { get { return _jsonOrganization.PaidAccount; } }
 		/// <summary>
 		/// Gets the organization's logo hash.
 		/// </summary>

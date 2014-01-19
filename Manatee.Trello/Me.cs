@@ -17,10 +17,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member's registered email address.
 		/// </summary>
-		public new string Email
-		{
-			get { return base.Email; }
-		}
+		public new string Email { get { return base.Email; } }
 		/// <summary>
 		/// Gets the member's full name.
 		/// </summary>
@@ -42,9 +39,13 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<Notification> Notifications { get { return BuildList<Notification>(EntityRequestType.Member_Read_Notifications); } }
 		/// <summary>
-		/// Enumerates the boards the member has pinnned to their boards menu.
+		/// Enumerates the types of messages automatically dismissed for the user.
 		/// </summary>
-		public IEnumerable<Board> PinnedBoards { get { return BuildList<Board>(EntityRequestType.Member_Read_PinnedBoards); } }
+		public new IEnumerable<string> OneTimeMessagesDismissed { get { return base.OneTimeMessagesDismissed; } }
+		/// <summary>
+		/// Enumerates the boards the member has starred in their boards menu.
+		/// </summary>
+		public IEnumerable<Board> StarredBoards { get { return BuildList<Board>(EntityRequestType.Member_Read_StarredBoards); } }
 		///<summary>
 		/// Gets the set of preferences for the member.
 		///</summary>

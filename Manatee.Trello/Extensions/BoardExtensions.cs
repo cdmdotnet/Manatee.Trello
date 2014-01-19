@@ -24,8 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal;
 
 namespace Manatee.Trello
 {
@@ -67,13 +65,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of members.</returns>
 		public static IEnumerable<Member> Admins(this Board board)
 		{
-			if (board.EntityRepository != null)
-			{
-				var list = new ExpiringList<Member>(board, EntityRequestType.Board_Read_Members) {Filter = "admins"};
-				list.Refresh();
-				return list;
-			}
-			return Enumerable.Empty<Member>();
+			return board.BuildList<Member>(EntityRequestType.Board_Read_Members, "admins");
 		}
 		/// <summary>
 		/// Retrieves all cards contained within a board, both archived and active.
@@ -82,18 +74,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> AllCards(this Board board)
 		{
-			var list = new ExpiringList<Card>(board, EntityRequestType.Board_Read_Cards) { Filter = "all", Fields = "id"};
-			list.Parameters.Add("actions", "none");
-			list.Parameters.Add("attachments", "false");
-			list.Parameters.Add("badges", "false");
-			list.Parameters.Add("members", "false");
-			list.Parameters.Add("membersVoted", "false");
-			list.Parameters.Add("checkItemStates", "false");
-			list.Parameters.Add("checkLists", "false");
-			list.Parameters.Add("board", "false");
-			list.Parameters.Add("list", "false");
-			list.Refresh();
-			return list;
+			return board.BuildList<Card>(EntityRequestType.Board_Read_Cards, "all");
 		}
 		/// <summary>
 		/// Retrieves all lists contained within a board, both archived and active.
@@ -102,10 +83,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of lists.</returns>
 		public static IEnumerable<List> AllLists(this Board board)
 		{
-			var list = new ExpiringList<List>(board, EntityRequestType.Board_Read_Lists) { Filter = "all", Fields = "id" };
-			list.Parameters.Add("cards", "none");
-			list.Refresh();
-			return list;
+			return board.BuildList<List>(EntityRequestType.Board_Read_Lists, "all");
 		}
 		/// <summary>
 		/// Retrieves all active cards contained within a board.
@@ -114,18 +92,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> Cards(this Board board)
 		{
-			var list = new ExpiringList<Card>(board, EntityRequestType.Board_Read_Cards) { Filter = "visible", Fields = "id" };
-			list.Parameters.Add("actions", "none");
-			list.Parameters.Add("attachments", "false");
-			list.Parameters.Add("badges", "false");
-			list.Parameters.Add("members", "false");
-			list.Parameters.Add("membersVoted", "false");
-			list.Parameters.Add("checkItemStates", "false");
-			list.Parameters.Add("checkLists", "false");
-			list.Parameters.Add("board", "false");
-			list.Parameters.Add("list", "false");
-			list.Refresh();
-			return list;
+			return board.BuildList<Card>(EntityRequestType.Board_Read_Cards, "visible");
 		}
 		/// <summary>
 		/// Retrieves all active cards contained within a board which are assigned to a specified member.

@@ -47,6 +47,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public List<string> LoginTypes { get; set; }
 		public List<string> Trophies { get; set; }
 		public string UploadedAvatarHash { get; set; }
+		public List<string> OneTimeMessagesDismissed { get; set; }
 
 		public void FromJson(JsonValue json)
 		{
@@ -72,6 +73,9 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (loginTypes != null)
 				Trophies = trophies.Select(j => j.String).ToList();
 			UploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
+			var messagesDismissed = obj.TryGetArray("oneTimeMessagesDismissed");
+			if (messagesDismissed != null)
+				OneTimeMessagesDismissed = messagesDismissed.Select(j => j.String).ToList();
 		}
 		public JsonValue ToJson()
 		{
@@ -93,6 +97,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"loginTypes", LoginTypes.ToJson()},
 			       		{"trophies", Trophies.ToJson()},
 			       		{"uploadedAvatarHash", UploadedAvatarHash},
+			       		{"oneTimeMessagesDismissed", OneTimeMessagesDismissed.ToJson()},
 			       	};
 		}
 	}
