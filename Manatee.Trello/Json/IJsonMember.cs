@@ -89,5 +89,9 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the user's uploaded avatar hash.
 		/// </summary>
 		string UploadedAvatarHash { get; set; }
+		/// <summary>
+		/// Gets or sets the types of message which are dismissed for the member.
+		/// </summary>
+		List<string> OneTimeMessagesDismissed { get; set; }
 	}
 }

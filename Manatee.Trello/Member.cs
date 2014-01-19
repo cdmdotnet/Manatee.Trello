@@ -211,6 +211,17 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
+		/// Enumerates the types of messages automatically dismissed for the user.
+		/// </summary>
+		protected IEnumerable<string> OneTimeMessagesDismissed
+		{
+			get
+			{
+				VerifyNotExpired();
+				return _jsonMember.OneTimeMessagesDismissed;
+			}
+		}
+		/// <summary>
 		/// Enumerates the organizations to which the member belongs.
 		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return BuildList<Organization>(EntityRequestType.Member_Read_Organizations); } }

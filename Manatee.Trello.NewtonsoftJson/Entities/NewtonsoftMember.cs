@@ -61,5 +61,7 @@ namespace Manatee.Trello.NewtonsoftJson.Entities
 		public List<string> Trophies { get; set; }
 		[JsonProperty("uploadedAvatarHash")]
 		public string UploadedAvatarHash { get; set; }
+		[JsonProperty("oneTimeMessagesDismissed")]
+		public List<string> OneTimeMessagesDismissed { get; set; }
 	}
 }

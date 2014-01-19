@@ -42,5 +42,6 @@ namespace Manatee.Trello.Internal.Json
 		public List<string> LoginTypes { get; set; }
 		public List<string> Trophies { get; set; }
 		public string UploadedAvatarHash { get; set; }
+		public List<string> OneTimeMessagesDismissed { get; set; }
 	}
 }

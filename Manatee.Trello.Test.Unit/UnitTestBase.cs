@@ -25,6 +25,13 @@ namespace Manatee.Trello.Test.Unit
 				EntityRepository.SetupGet(r => r.EntityDuration)
 								.Returns(TimeSpan.FromDays(1));
 			}
+
+			public void SetupListGeneration<TList>()
+				where TList : ExpiringObject, IEquatable<TList>, IComparable<TList>
+			{
+				EntityRepository.Setup(r => r.GenerateList<TList>(It.IsAny<ExpiringObject>(), It.IsAny<EntityRequestType>(), It.IsAny<string>(), It.IsAny<string>()))
+								.Returns((ExpiringObject o, EntityRequestType r, string s1, string s2) => new ExpiringList<TList>(o, r));
+			}
 		}
 	}
 }

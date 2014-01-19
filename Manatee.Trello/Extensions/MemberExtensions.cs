@@ -40,18 +40,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> AllCards(this Member member)
 		{
-			var list = new ExpiringList<Card>(member, EntityRequestType.Member_Read_Cards) { Filter = "all", Fields = "id" };
-			list.Parameters.Add("actions", "none");
-			list.Parameters.Add("attachments", "false");
-			list.Parameters.Add("badges", "false");
-			list.Parameters.Add("members", "false");
-			list.Parameters.Add("membersVoted", "false");
-			list.Parameters.Add("checkItemStates", "false");
-			list.Parameters.Add("checkLists", "false");
-			list.Parameters.Add("board", "false");
-			list.Parameters.Add("list", "false");
-			list.Refresh();
-			return list;
+			return member.BuildList<Card>(EntityRequestType.Member_Read_Cards, "all", "id");
 		}
 		/// <summary>
 		/// Retrieves all active cards assigned to a member.
@@ -60,18 +49,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> ActiveCards(this Member member)
 		{
-			var list = new ExpiringList<Card>(member, EntityRequestType.Member_Read_Cards) { Filter = "visible", Fields = "id" };
-			list.Parameters.Add("actions", "none");
-			list.Parameters.Add("attachments", "false");
-			list.Parameters.Add("badges", "false");
-			list.Parameters.Add("members", "false");
-			list.Parameters.Add("membersVoted", "false");
-			list.Parameters.Add("checkItemStates", "false");
-			list.Parameters.Add("checkLists", "false");
-			list.Parameters.Add("board", "false");
-			list.Parameters.Add("list", "false");
-			list.Refresh();
-			return list;
+			return member.BuildList<Card>(EntityRequestType.Member_Read_Cards, "visible", "id");
 		}
 		/// <summary>
 		/// Returns only the boards which are owned by a member.
