@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -594,7 +595,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 			feature.WithScenario("PinBoard is called")
 				.Given(AMember)
-				.When(PinBoardIsCalled, new Board {Id = TrelloIds.Test})
+				.When<Func<Board>>(PinBoardIsCalled, Create<Board>)
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Board>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_PinBoard)
@@ -624,7 +625,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 			feature.WithScenario("UnpinBoard is called")
 				.Given(AMember)
-				.When(UnpinBoardIsCalled, new Board {Id = TrelloIds.Test})
+				.When<Func<Board>>(UnpinBoardIsCalled, Create<Board>)
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Board>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_UnpinBoard)
@@ -653,6 +654,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void AMember()
 		{
 			_test = new EntityUnderTest();
+			_test.Dependencies.SetupListGeneration<Action>();
+			_test.Dependencies.SetupListGeneration<Board>();
+			_test.Dependencies.SetupListGeneration<Notification>();
+			_test.Dependencies.SetupListGeneration<Organization>();
 		}
 		private void AvatarSourceIs(AvatarSourceType value)
 		{
@@ -833,17 +838,17 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.CreateOrganization(value));
 		}
-		private void PinBoardIsCalled(Board value)
+		private void PinBoardIsCalled(Func<Board> value)
 		{
-			Execute(() => _test.Sut.PinBoard(value));
+			Execute(() => _test.Sut.PinBoard(value()));
 		}
 		private void RescindVoteForCardIsCalled(Card value)
 		{
 			Execute(() => _test.Sut.RescindVoteForCard(value));
 		}
-		private void UnpinBoardIsCalled(Board value)
+		private void UnpinBoardIsCalled(Func<Board> value)
 		{
-			Execute(() => _test.Sut.UnpinBoard(value));
+			Execute(() => _test.Sut.UnpinBoard(value()));
 		}
 		private void VoteForCardIsCalled(Card value)
 		{

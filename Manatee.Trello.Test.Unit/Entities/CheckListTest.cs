@@ -202,6 +202,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void ACheckList()
 		{
 			_test = new EntityUnderTest();
+			_test.Dependencies.SetupListGeneration<CheckItem>();
 			OwnedBy<Card>();
 		}
 		private void CardIs(Card value)

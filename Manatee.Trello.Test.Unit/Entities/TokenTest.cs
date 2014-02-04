@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -84,7 +83,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Given(AToken)
 				.And(EntityIsExpired)
 				.When(IdentifierIsAccessed)
-				.Then(RepositoryRefreshIsCalled<Token>, EntityRequestType.Token_Read_Refresh)
+				.Then(RepositoryRefreshIsNotCalled<Token>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();

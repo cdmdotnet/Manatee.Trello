@@ -8,7 +8,6 @@ using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestSharp;
 
 namespace Manatee.Trello.Test
 {
@@ -28,11 +27,11 @@ namespace Manatee.Trello.Test
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
 			var service = new TrelloService(options, auth);
 
-			var board = service.Retrieve<Board>(TrelloIds.BoardId);
+			var checkList = service.Retrieve<CheckList>(TrelloIds.CheckListId);
 
-			foreach (var list in board.Lists)
+			foreach (var checkItem in checkList.CheckItems)
 			{
-				Console.WriteLine(list);
+				Console.WriteLine(checkItem);
 			}
 		}
 		[TestMethod]

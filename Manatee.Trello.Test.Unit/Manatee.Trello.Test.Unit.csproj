@@ -85,6 +85,7 @@
     <Compile Include="Entities\OrganizationPreferencesTest.cs" />
     <Compile Include="Entities\OrganizationTest.cs" />
     <Compile Include="Entities\TokenTest.cs" />
+    <Compile Include="Factories\DataFactory.cs" />
     <Compile Include="Internal\CachingEntityRepositoryTest.cs" />
     <Compile Include="Internal\EntityRepositoryTest.cs" />
     <Compile Include="Internal\ExpiringListTest.cs" />
@@ -117,6 +118,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

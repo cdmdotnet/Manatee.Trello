@@ -7,8 +7,7 @@ using Moq;
 
 namespace Manatee.Trello.Test.Unit.Entities
 {
-	public abstract class EntityTestBase<T, TJson> : UnitTestBase<T>
-		where T : ExpiringObject, new()
+	public abstract class EntityTestBase<T, TJson> : UnitTestBase<T> where T : ExpiringObject, new()
 		where TJson : class
 	{
 		#region Dependencies
@@ -264,6 +263,16 @@ namespace Manatee.Trello.Test.Unit.Entities
 			_test.Dependencies.EntityRepository.Setup(r => r.Download<TEntity>(It.IsAny<EntityRequestType>(),
 																						  It.IsAny<IDictionary<string, object>>()))
 							.Returns(new TEntity());
+		}
+		protected T Create<T>()
+			where T : ExpiringObject, new()
+		{
+			return new T
+				{
+					EntityRepository = _test.Dependencies.EntityRepository.Object,
+					Log = _test.Dependencies.Log.Object,
+					Validator = _test.Dependencies.Validator.Object
+				};
 		}
 
 		#endregion

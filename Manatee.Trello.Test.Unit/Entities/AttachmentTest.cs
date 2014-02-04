@@ -1,4 +1,6 @@
-﻿using Manatee.Trello.Json;
+﻿using System;
+using Manatee.Trello.Json;
+using Manatee.Trello.Test.Unit.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.Unit.Entities
@@ -52,6 +54,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void AnAttachment()
 		{
 			_test = new EntityUnderTest();
+			_test.Json.Setup(j => j.IdMember)
+				.Returns(DataFactory.CreateMockId);
 			OwnedBy<Card>();
 		}
 		private void AlreadyDeleted()

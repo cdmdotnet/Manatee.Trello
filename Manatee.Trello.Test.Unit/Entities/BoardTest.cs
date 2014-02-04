@@ -1,5 +1,10 @@
-﻿using Manatee.Trello.Json;
+﻿using System;
+using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
+using Manatee.Trello.Test.Unit.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Manatee.Trello.Test.Unit.Entities
 {
@@ -331,7 +336,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Organization property")
 				.Given(ABoard)
-				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Test})
+				.When<Func<Organization>>(OrganizationIsSet, Create<Organization>)
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Organization>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_Organization)
@@ -340,7 +345,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.WithScenario("Set Organization property to same")
 				.Given(ABoard)
 				.And(OrganizationIs, TrelloIds.Test)
-				.When(OrganizationIsSet, new Organization {Id = TrelloIds.Test})
+				.When<Func<Organization>>(OrganizationIsSet, Create<Organization>)
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Organization>)
 				.And(RepositoryUploadIsNotCalled)
@@ -501,6 +506,11 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void ABoard()
 		{
 			_test = new EntityUnderTest();
+			_test.Dependencies.SetupListGeneration<Action>();
+			_test.Dependencies.SetupListGeneration<BoardMembership>();
+			_test.Dependencies.SetupListGeneration<List>();
+			_test.Dependencies.SetupListGeneration<Member>();
+			_test.Json.Setup(j => j.Url).Returns("http://trello.com/board-test");
 		}
 		private void DescriptionIs(string value)
 		{
@@ -625,9 +635,9 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Organization);
 		}
-		private void OrganizationIsSet(Organization value)
+		private void OrganizationIsSet(Func<Organization> value)
 		{
-			Execute(() => _test.Sut.Organization = value);
+			Execute(() => _test.Sut.Organization = value());
 		}
 		private void PersonalPreferencesIsAccessed()
 		{
