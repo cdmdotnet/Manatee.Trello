@@ -79,7 +79,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Enumerates the items this checklist contains.
 		/// </summary>
-		public IEnumerable<CheckItem> CheckItems { get { return BuildList<CheckItem>(EntityRequestType.CheckList_Read_CheckItems); } }
+		public IEnumerable<CheckItem> CheckItems { get { return BuildList<CheckItem>(EntityRequestType.CheckList_Read_CheckItems).OrderBy(ci => ci.Position); } }
 		/// <summary>
 		/// Gets a unique identifier (not necessarily a GUID).
 		/// </summary>

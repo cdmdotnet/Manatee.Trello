@@ -6,7 +6,9 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Genesis;
+using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Internal.RequestProcessing;
+using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Test.Unit.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -37,7 +39,7 @@ namespace Manatee.Trello.Test.Unit.Internal
 
 				EndpointFactory.Setup(f => f.Build(It.IsAny<EntityRequestType>(), It.IsAny<IDictionary<string, object>>()))
 							   .Callback((EntityRequestType r, IDictionary<string, object> p) => Endpoint = new Endpoint(RestMethod.Get))
-							   .Returns(Endpoint);
+							   .Returns(() => Endpoint);
 			}
 		}
 
@@ -66,12 +68,35 @@ namespace Manatee.Trello.Test.Unit.Internal
 		[TestMethod]
 		public void Refresh()
 		{
-			throw new NotImplementedException();
+			var feature = CreateFeature();
+
+			feature.WithScenario("Refresh an entity")
+				   .Given(ARepository)
+				   .And(AnExpiredEntity<Board, InnerJsonBoard>)
+				   .When(RefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
+				   .Then(EndpointFactoryBuildIsCalled, EntityRequestType.Board_Read_Refresh, (IDictionary<string, object>) null)
+				   .And(JsonRepositoryExecuteIsCalled<IJsonBoard>, (IDictionary<string, object>) null)
+				   .And(ExceptionIsNotThrown)
+
+				   .Execute();
+
 		}
 		[TestMethod]
 		public void RefreshCollection()
 		{
-			throw new NotImplementedException();
+			var feature = CreateFeature();
+			var parameters = new Dictionary<string, object>();
+
+			feature.WithScenario("Refresh a collection")
+				   .Given(ARepository)
+				   .And(AnExpiredList<Board, InnerJsonBoard>)
+				   .When(RefreshCollectionIsCalled<Board>, EntityRequestType.Member_Read_Boards)
+				   .Then(EndpointFactoryBuildIsCalled, EntityRequestType.Board_Read_Refresh, parameters)
+				   .And(JsonRepositoryExecuteIsCalled<IJsonBoard>, parameters)
+				   .And(EntityFactoryCreateEntityIsCalled<Board>)
+				   .And(ExceptionIsNotThrown)
+
+				   .Execute();
 		}
 		[TestMethod]
 		public void Download()
@@ -107,22 +132,37 @@ namespace Manatee.Trello.Test.Unit.Internal
 		{
 			_test = new SystemUnderTest();
 		}
-		private void AnEntity()
+		private void AnExpiredEntity<T, TJson>()
+			where T : ExpiringObject, new()
+			where TJson : class, new()
 		{
-			_test.Dependencies.Entity = new MockEntity();
+			_test.Dependencies.Entity = new T {EntityRepository = new Mock<IEntityRepository>().Object};
+			_test.Dependencies.Entity.MarkForUpdate();
+			_test.Dependencies.JsonRepository.Setup(r => r.Execute<TJson>(It.IsAny<Endpoint>(), It.IsAny<IDictionary<string, object>>()))
+				 .Returns(new TJson());
+		}
+		private void AnExpiredList<T, TJson>()
+			where T : ExpiringObject, IEquatable<T>, IComparable<T>
+			where TJson : class, new()
+		{
+			_test.Dependencies.Entity = new ExpiringList<T>(new Board(), EntityRequestType.Member_Read_Boards);
+			_test.Dependencies.JsonRepository.Setup(r => r.Execute<IEnumerable<TJson>>(It.IsAny<Endpoint>(), It.IsAny<IDictionary<string, object>>()))
+				 .Returns(new List<TJson> {new TJson()});
 		}
 
 		#endregion
 
 		#region When
 
-		private void RefreshIsCalled(EntityRequestType request)
+		private void RefreshIsCalled<T>(EntityRequestType request)
+			where T : ExpiringObject
 		{
-			Execute(() => _test.Sut.Refresh(_test.Dependencies.Entity, request));
+			Execute(() => _test.Sut.Refresh<T>((T) _test.Dependencies.Entity, request));
 		}
-		private void RefreshCollectionIsCalled(EntityRequestType request)
+		private void RefreshCollectionIsCalled<T>(EntityRequestType request)
+			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			
+			Execute(() => _test.Sut.RefreshCollection<T>(_test.Dependencies.Entity, request));
 		}
 		private void DownloadIsCalled(EntityRequestType request, IDictionary<string, object> parameters)
 		{
@@ -144,6 +184,8 @@ namespace Manatee.Trello.Test.Unit.Internal
 		[ParameterizedMethodFormat("EndpointFactory.Build({0}, {1}) is called")]
 		private void EndpointFactoryBuildIsCalled(EntityRequestType request, IDictionary<string, object> parameters)
 		{
+			if (parameters == null)
+				parameters = _test.Dependencies.Entity.Parameters;
 			_test.Dependencies.EndpointFactory.Verify(f => f.Build(It.Is<EntityRequestType>(r => r == request),
 																   It.Is<IDictionary<string, object>>(d => Equals(d, parameters))));
 		}
@@ -157,8 +199,16 @@ namespace Manatee.Trello.Test.Unit.Internal
 		private void JsonRepositoryExecuteIsCalled<T>(IDictionary<string, object> parameters)
 			where T : class
 		{
+			if (parameters == null)
+				parameters = _test.Dependencies.Entity.Parameters;
 			_test.Dependencies.JsonRepository.Verify(r => r.Execute<T>(It.Is<Endpoint>(e => Equals(e, _test.Dependencies.Endpoint)),
 																   It.Is<IDictionary<string, object>>(d => Equals(d, parameters))));
+		}
+		[GenericMethodFormat("EntityFactory.CreateEntity<{0}>() is called")]
+		private void EntityFactoryCreateEntityIsCalled<T>()
+			where T : ExpiringObject
+		{
+			_test.Dependencies.EntityFactory.Verify(f => f.CreateEntity<T>());
 		}
 
 		#endregion

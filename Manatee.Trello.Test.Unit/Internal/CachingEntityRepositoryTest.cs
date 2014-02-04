@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Test.Unit.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -66,7 +67,7 @@ namespace Manatee.Trello.Test.Unit.Internal
 		public void RefreshCollecion()
 		{
 			var feature = CreateFeature();
-			var entity = new MockEntity();
+			var entity = new ExpiringList<MockEntity>(null, EntityRequestType.Unsupported);
 			const EntityRequestType request = EntityRequestType.Board_Read_Lists;
 
 			feature.WithScenario("Cache is not used on RefreshCollection")
@@ -163,7 +164,7 @@ namespace Manatee.Trello.Test.Unit.Internal
 			Execute(() => _test.Sut.Refresh(entity, request));
 		}
 		[GenericMethodFormat("CachingRepository.RefreshCollection<{0}>({1}, {2}) is called")]
-		private void RefreshCollectionIsCalled<T>(T entity, EntityRequestType request)
+		private void RefreshCollectionIsCalled<T>(ExpiringList<T> entity, EntityRequestType request)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
 			Execute(() => _test.Sut.RefreshCollection<T>(entity, request));
@@ -201,10 +202,10 @@ namespace Manatee.Trello.Test.Unit.Internal
 																	  It.Is<EntityRequestType>(t => t == request)));
 		}
 		[GenericMethodFormat("EntityRepository.RefreshCollection<{0}>({1}, {2}) is not called")]
-		private void InnerRepositoryRefreshCollectionIsCalled<T>(T entity, EntityRequestType request)
+		private void InnerRepositoryRefreshCollectionIsCalled<T>(ExpiringList<T> entity, EntityRequestType request)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<T>(It.Is<T>(e => Equals(e, entity)),
+			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<T>(It.Is<ExpiringList<T>>(e => Equals(e, entity)),
 																	  It.Is<EntityRequestType>(t => t == request)));
 		}
 		[GenericMethodFormat("EntityRepository.Download<{0}>({1}) is not called")]

@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Json;
+﻿using System;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.Unit.Entities
@@ -48,7 +49,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Board property")
 				.Given(AList)
-				.When(BoardIsSet, new Board { Id = TrelloIds.Test })
+				.When<Func<Board>>(BoardIsSet, Create<Board>)
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Board>)
 				.And(RepositoryUploadIsCalled, EntityRequestType.List_Write_Board)
@@ -56,8 +57,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Board property to same")
 				.Given(AList)
-				.And(BoardIs, new Board { Id = TrelloIds.Test })
-				.When(BoardIsSet, new Board { Id = TrelloIds.Test })
+				.And<Func<Board>>(BoardIs, Create<Board>)
+				.When<Func<Board>>(BoardIsSet, Create<Board>)
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Board>)
 				.And(RepositoryUploadIsNotCalled)
@@ -262,11 +263,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void AList()
 		{
 			_test = new EntityUnderTest();
+			_test.Dependencies.SetupListGeneration<Action>();
+			_test.Dependencies.SetupListGeneration<Card>();
 		}
-		private void BoardIs(Board value)
+		private void BoardIs(Func<Board> value)
 		{
 			_test.Json.SetupGet(j => j.IdBoard)
-				 .Returns(value.Id);
+				 .Returns(value().Id);
 		}
 		private void IsClosedIs(bool? value)
 		{
@@ -306,9 +309,9 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Board);
 		}
-		private void BoardIsSet(Board value)
+		private void BoardIsSet(Func<Board> value)
 		{
-			Execute(() => _test.Sut.Board = value);
+			Execute(() => _test.Sut.Board = value());
 		}
 		private void CardsIsAccessed()
 		{

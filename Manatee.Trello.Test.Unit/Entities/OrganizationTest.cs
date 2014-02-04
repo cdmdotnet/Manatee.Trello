@@ -452,6 +452,11 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void AnOrganization()
 		{
 			_test = new EntityUnderTest();
+			_test.Dependencies.SetupListGeneration<Action>();
+			_test.Dependencies.SetupListGeneration<Board>();
+			_test.Dependencies.SetupListGeneration<Member>();
+			_test.Dependencies.SetupListGeneration<OrganizationMembership>();
+			_test.Json.Setup(j => j.Url).Returns("http://trello.com/organization-test");
 		}
 		private void DescriptionIs(string value)
 		{

@@ -684,6 +684,11 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void ACard()
 		{
 			_test = new EntityUnderTest();
+			_test.Dependencies.SetupListGeneration<Action>();
+			_test.Dependencies.SetupListGeneration<Attachment>();
+			_test.Dependencies.SetupListGeneration<CheckList>();
+			_test.Dependencies.SetupListGeneration<Label>();
+			_test.Dependencies.SetupListGeneration<Member>();
 		}
 		private void DescriptionIs(string value)
 		{

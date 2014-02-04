@@ -32,8 +32,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Position : IComparable, IComparable<Position>
 	{
-		private const double TopValue = double.PositiveInfinity;
-		private const double BottomValue = double.NegativeInfinity;
+		private const double TopValue = double.NegativeInfinity;
+		private const double BottomValue = double.PositiveInfinity;
 		private const double UnknownValue = double.NaN;
 
 		private static readonly Position _top = new Position(TopValue);
