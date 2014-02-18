@@ -131,8 +131,8 @@ namespace Manatee.Trello.Internal.DataAccess
 			if (type == typeof (Me))
 				type = typeof (Member);
 			return _parameterSets.ContainsKey(type)
-					   ? _parameterSets[type]
-					   : new Dictionary<string, string>();
+				       ? _parameterSets[type]
+				       : new Dictionary<string, string> {{"fields", "all"}};
 		}
 	}
 }
