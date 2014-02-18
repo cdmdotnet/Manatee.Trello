@@ -138,7 +138,7 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Member_Read_InvitedBoards, () => new Endpoint(RestMethod.Get, new[]{"members","_id","boardsInvited"})},
 					{EntityRequestType.Member_Read_InvitedOrganizations, () => new Endpoint(RestMethod.Get, new[]{"members","_id","organizationsInvited"})},
 					{EntityRequestType.Member_Read_Notifications, () => new Endpoint(RestMethod.Get, new[]{"members","_id","notifications"})},
-					{EntityRequestType.Member_Read_Organizations, () => new Endpoint(RestMethod.Get, new[]{"members","_id","idOrganizations"})},
+					{EntityRequestType.Member_Read_Organizations, () => new Endpoint(RestMethod.Get, new[]{"members","_id","organizations"})},
 					{EntityRequestType.Member_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"members","_id"})},
 					{EntityRequestType.Member_Read_Sessions, () => new Endpoint(RestMethod.Get, new[]{"members","_id","sessions"})},
 					{EntityRequestType.Member_Read_StarredBoards, () => new Endpoint(RestMethod.Get, new[]{"members","_id","boardStars"})},

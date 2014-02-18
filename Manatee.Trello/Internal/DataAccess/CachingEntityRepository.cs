@@ -77,10 +77,10 @@ namespace Manatee.Trello.Internal.DataAccess
 				throw;
 			}
 		}
-		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, string fields)
+		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			var list = _innerRepository.GenerateList<T>(owner, request, filter, fields);
+			var list = _innerRepository.GenerateList<T>(owner, request, filter);
 			return _cache.Find(l => l.Equals(list), () => list);
 		}
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)

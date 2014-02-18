@@ -23,15 +23,15 @@ namespace Manatee.Trello.Test
 			options.Serializer = serializer;
 			options.Deserializer = serializer;
 			options.RestClientProvider = new RestSharpClientProvider(options);
-			
+
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
 			var service = new TrelloService(options, auth);
 
-			var checkList = service.Retrieve<CheckList>(TrelloIds.CheckListId);
+			var me = service.Me;
 
-			foreach (var checkItem in checkList.CheckItems)
+			foreach (var org in me.Organizations)
 			{
-				Console.WriteLine(checkItem);
+				Console.WriteLine(org);
 			}
 		}
 		[TestMethod]
@@ -107,9 +107,8 @@ namespace Manatee.Trello.Test
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
 			var service = new TrelloService(options, auth);
 
-			var board = service.Retrieve<Board>(TrelloIds.BoardId);
-			var cards = board.Cards();
-			foreach (var card in cards)
+			var me = service.Me;
+			foreach (var card in me.AllCards())
 			{
 				Console.WriteLine(card);
 			}
