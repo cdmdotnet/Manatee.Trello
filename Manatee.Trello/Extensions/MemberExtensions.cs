@@ -40,7 +40,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> AllCards(this Member member)
 		{
-			return member.BuildList<Card>(EntityRequestType.Member_Read_Cards, "all", "id");
+			return member.BuildList<Card>(EntityRequestType.Member_Read_Cards, "all");
 		}
 		/// <summary>
 		/// Retrieves all active cards assigned to a member.
@@ -49,7 +49,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> ActiveCards(this Member member)
 		{
-			return member.BuildList<Card>(EntityRequestType.Member_Read_Cards, "visible", "id");
+			return member.BuildList<Card>(EntityRequestType.Member_Read_Cards, "visible");
 		}
 		/// <summary>
 		/// Returns only the boards which are owned by a member.

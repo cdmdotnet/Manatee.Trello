@@ -164,10 +164,10 @@ namespace Manatee.Trello.Internal.DataAccess
 			parameters.Clear();
 			return entity;
 		}
-		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, string fields)
+		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			return new ExpiringList<T>(owner, request) {Fields = fields, Filter = filter};
+			return new ExpiringList<T>(owner, request) {Filter = filter};
 		}
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)
 		{

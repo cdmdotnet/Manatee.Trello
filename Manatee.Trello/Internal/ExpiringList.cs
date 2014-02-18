@@ -25,6 +25,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal.DataAccess;
 
 namespace Manatee.Trello.Internal
 {
@@ -203,7 +204,6 @@ namespace Manatee.Trello.Internal
 		private readonly List<T> _list;
 
 		public string Filter { get; set; }
-		public string Fields { get; set; }
 		public override bool IsStubbed { get { return (Owner == null) || Owner.IsStubbed; } }
 
 		internal List<T> List { get { return _list; } }
@@ -228,7 +228,7 @@ namespace Manatee.Trello.Internal
 		}
 		public bool Equals(ExpiringList<T> other)
 		{
-			return Equals(Owner, other.Owner) && (Filter == other.Filter) && (Fields == other.Fields);
+			return Equals(Owner, other.Owner) && (Filter == other.Filter);
 		}
 		public override bool Equals(object obj)
 		{
@@ -240,8 +240,7 @@ namespace Manatee.Trello.Internal
 			unchecked
 			{
 				return ((Owner != null ? Owner.GetHashCode() : 0)*397) ^
-					   ((Filter != null ? Filter.GetHashCode() : 0)*397) ^
-					   (Fields != null ? Fields.GetHashCode() : 0);
+				       (Filter != null ? Filter.GetHashCode() : 0);
 			}
 		}
 		public override string ToString()
@@ -254,8 +253,7 @@ namespace Manatee.Trello.Internal
 				Parameters.Add("_id", Owner.Id);
 			if (Filter != null)
 				Parameters.Add("filter", Filter);
-			if (Fields != null)
-				Parameters.Add("fields", Fields);
+			Parameters.Add("fields", RestParameterRepository.GetParameters<T>()["fields"]);
 			EntityRepository.RefreshCollection<T>(this, _requestType);
 			return true;
 		}

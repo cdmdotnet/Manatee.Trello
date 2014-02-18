@@ -155,10 +155,10 @@ namespace Manatee.Trello.Contracts
 		/// <param name="fields">The field list for the request.</param>
 		/// <param name="filter">The filter for the request.</param>
 		/// <returns>The specified ExpiringList.</returns>
-		protected internal IEnumerable<T> BuildList<T>(EntityRequestType requestType, string filter = null, string fields = null)
+		protected internal IEnumerable<T> BuildList<T>(EntityRequestType requestType, string filter = null)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			var list = (ExpiringList<T>) EntityRepository.GenerateList<T>(this, requestType, filter, fields);
+			var list = (ExpiringList<T>) EntityRepository.GenerateList<T>(this, requestType, filter);
 			UpdateDependencies(list);
 			return list;
 		}

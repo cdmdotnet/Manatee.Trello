@@ -75,7 +75,7 @@ namespace Manatee.Trello
 			{
 				return _isDeleted
 						   ? Enumerable.Empty<Attachment>()
-						   : BuildList<Attachment>(EntityRequestType.Card_Read_Attachments, fields: "all");
+						   : BuildList<Attachment>(EntityRequestType.Card_Read_Attachments);
 			}
 		}
 		/// <summary>
