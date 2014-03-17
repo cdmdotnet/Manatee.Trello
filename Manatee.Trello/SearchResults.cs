@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -83,28 +84,29 @@ namespace Manatee.Trello
 		{
 			var results = (IJsonSearchResults) obj;
 			_actions = (results.ActionIds != null)
-						   ? results.ActionIds.Select(Download<Action>).ToList()
+						   ? results.ActionIds.Select(a => Download<Action>(a, EntityRequestType.Action_Read_Refresh)).ToList()
 						   : Enumerable.Empty<Action>();
 			_boards = (results.BoardIds != null)
-						  ? results.BoardIds.Select(Download<Board>).ToList()
+						  ? results.BoardIds.Select(b => Download<Board>(b, EntityRequestType.Board_Read_Refresh)).ToList()
 						  : Enumerable.Empty<Board>();
 			_cards = (results.CardIds != null)
-						 ? results.CardIds.Select(Download<Card>).ToList()
+						 ? results.CardIds.Select(c => Download<Card>(c, EntityRequestType.Card_Read_Refresh)).ToList()
 						 : Enumerable.Empty<Card>();
 			_members = (results.MemberIds != null)
-						   ? results.MemberIds.Select(Download<Member>).ToList()
+						   ? results.MemberIds.Select(m => Download<Member>(m, EntityRequestType.Member_Read_Refresh)).ToList()
 						   : Enumerable.Empty<Member>();
 			_organizations = (results.OrganizationIds != null)
-								 ? results.OrganizationIds.Select(Download<Organization>).ToList()
+								 ? results.OrganizationIds.Select(o => Download<Organization>(o, EntityRequestType.Organization_Read_Refresh)).ToList()
 								 : Enumerable.Empty<Organization>();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
 
-		private T Download<T>(string id)
+		private T Download<T>(string id, EntityRequestType request)
 			where T : ExpiringObject
 		{
-			return EntityRepository.Download<T>(EntityRequestType.Action_Read_Refresh,
-												new Dictionary<string, object> {{"_id", id}});
+			Parameters.Add("_id", id);
+			Parameters.Add("fields", RestParameterRepository.GetParameters<T>()["fields"]);
+			return EntityRepository.Download<T>(request, Parameters);
 		}
 	}
 }
