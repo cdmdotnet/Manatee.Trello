@@ -112,11 +112,11 @@ namespace Manatee.Trello.Internal.DataAccess
 						}},
 					{typeof(SearchResults), new Dictionary<string, string>
 						{
-							{"action_fields", "id"},
-							{"board_fields", "id"},
-							{"card_fields", "id"},
-							{"member_fields", "id"},
-							{"organization_fields", "id"},
+							{"action_fields", "idMemberCreator,data,type,date"},
+							{"board_fields", "name,desc,closed,idOrganization,labelNames,pinned,url,subscribed"},
+							{"card_fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,subscribed"},
+							{"member_fields", "avatarHash,bio,fullName,initials,memberType,status,url,username,avatarSource,confirmed,email,gravatarHash,loginTypes,newEmail,oneTimeMessagesDismissed,status,trophies,uploadedAvatarHash"},
+							{"organization_fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures"},
 						}},
 				};
 		}
