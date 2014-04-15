@@ -393,6 +393,11 @@ namespace Manatee.Trello
 			UpdateAvatarSource();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonMember;
+			return (json != null) && (json.Id == _jsonMember.Id);
+		}
 		internal override bool Matches(string id)
 		{
 			return (Id == id) || (Username == id);

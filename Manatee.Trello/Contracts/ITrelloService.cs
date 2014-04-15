@@ -57,7 +57,7 @@ namespace Manatee.Trello.Contracts
 		/// <param name="context">The items in which to perform the search.</param>
 		/// <param name="modelTypes">The model types to return.  Can be combined using the '|' operator.</param>
 		/// <returns>An object which contains the results of the query.</returns>
-		SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All);
+		SearchResults Search(string query, IEnumerable<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All);
 		/// <summary>
 		/// Searches for members whose names or usernames match a provided query string.
 		/// </summary>

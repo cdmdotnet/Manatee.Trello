@@ -152,5 +152,10 @@ namespace Manatee.Trello
 			_jsonMemberSession = (IJsonMemberSession)obj;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonMemberSession;
+			return (json != null) && (json.Id == _jsonMemberSession.Id);
+		}
 	}
 }

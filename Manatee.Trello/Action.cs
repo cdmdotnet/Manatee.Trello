@@ -366,6 +366,11 @@ namespace Manatee.Trello
 			UpdateType();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonAction;
+			return (json != null) && (json.Id == _jsonAction.Id);
+		}
 		internal void ForceDeleted(bool deleted)
 		{
 			_isDeleted = deleted;

@@ -53,9 +53,9 @@
     <Compile Include="Enumerations\OrganizationMembershipType.cs" />
     <Compile Include="Exceptions\MissingRestClientProviderException.cs" />
     <Compile Include="Exceptions\MissingSerializerException.cs" />
+    <Compile Include="Exceptions\TrelloInteractionException.cs" />
     <Compile Include="Extensions\ExpiringExtensions.cs" />
     <Compile Include="Internal\Bootstrapping\Bootstrapper.cs" />
-    <Compile Include="Internal\DataAccess\CachingEntityRepository.cs" />
     <Compile Include="Internal\Genesis\EndpointFactory.cs" />
     <Compile Include="Internal\DataAccess\EntityRepository.cs" />
     <Compile Include="Internal\DataAccess\IEntityRepository.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="Internal\RequestProcessing\RequestQueue.cs" />
     <Compile Include="Internal\RequestProcessing\RestRequestProcessor.cs" />
     <Compile Include="Internal\SimpleCache.cs" />
-    <Compile Include="Internal\ThreadSafeCache.cs" />
+    <Compile Include="Internal\ThreadSafeCacheDecorator.cs" />
     <Compile Include="Contracts\ITrelloServiceConfiguration.cs" />
     <Compile Include="Json\IJsonCacheable.cs" />
     <Compile Include="Json\IJsonMemberSession.cs" />
@@ -173,7 +173,7 @@
     <Compile Include="Rest\RestMethod.cs" />
     <Compile Include="Exceptions\EntityNotOnTrelloException.cs" />
     <Compile Include="Internal\Validator.cs" />
-    <Compile Include="Internal\ExpiringList.cs" />
+    <Compile Include="Internal\ExpiringCollection.cs" />
     <Compile Include="Contracts\ExpiringObject.cs" />
     <Compile Include="Internal\OneToOneMap.cs" />
     <Compile Include="Enumerations\LabelColor.cs" />

@@ -41,11 +41,17 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		/// <typeparam name="T">The type of object to find.</typeparam>
 		/// <param name="match">A function which evaluates the matching criteria.</param>
+		T Find<T>(Func<T, bool> match);
+		/// <summary>
+		/// Finds an object of a certain type meeting specified criteria.
+		/// </summary>
+		/// <typeparam name="T">The type of object to find.</typeparam>
+		/// <param name="match">A function which evaluates the matching criteria.</param>
 		/// <param name="fetch">A function which can use alternate means to retrieve the item.</param>
 		/// <returns>The first matching object, or the fetched object if applicable.</returns>
 		/// <remarks>
 		/// When the function in the fetch parameter is called, the returned object should be
-		/// added to the queue.
+		/// added to the cache.
 		/// </remarks>
 		T Find<T>(Func<T, bool> match, Func<T> fetch);
 		/// <summary>

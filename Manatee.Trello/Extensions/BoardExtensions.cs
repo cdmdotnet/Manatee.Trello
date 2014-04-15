@@ -102,7 +102,8 @@ namespace Manatee.Trello
 		/// <returns>A collection of cards.</returns>
 		public static IEnumerable<Card> CardsAssignedToMember(this Board board, Member member)
 		{
-			return board.Cards().Where(c => c.Members.Contains(member));
+			return board.BuildList<Card>(EntityRequestType.Board_Read_CardsForMember,
+			                             customParameters: new Dictionary<string, object> {{"_memberId", member.Id}});
 		}
 		/// <summary>
 		/// Retrieves all active cards within a board with due dates within a specified time span of DateTime.Now.

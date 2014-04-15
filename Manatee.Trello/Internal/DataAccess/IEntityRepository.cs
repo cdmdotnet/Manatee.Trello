@@ -47,7 +47,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject;
 		/// <summary />
-		IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter)
+		IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, IDictionary<string, object> customParameters)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>;
 		/// <summary />
 		void Upload(EntityRequestType request, IDictionary<string, object> parameters);

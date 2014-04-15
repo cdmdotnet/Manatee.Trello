@@ -609,6 +609,11 @@ namespace Manatee.Trello
 			_position = _jsonCard.Pos.HasValue ? new Position(_jsonCard.Pos.Value) : Position.Unknown;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonCard;
+			return (json != null) && (json.Id == _jsonCard.Id);
+		}
 		internal override void PropagateDependencies()
 		{
 			UpdateDependencies(_badges);

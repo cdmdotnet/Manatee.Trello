@@ -223,6 +223,10 @@ namespace Manatee.Trello
 			UpdatePermissionLevel();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			return false;
+		}
 
 		private void Upload(EntityRequestType requestType)
 		{

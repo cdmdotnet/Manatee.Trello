@@ -1,0 +1,17 @@
+GET https://trello.com/1/OAuthGetRequestToken?
+oauth_callback=oob
+oauth_consumer_key=0ed09e53a35f9ba4d5b6cb0a6733efe1
+oauth_nonce=iBw5wkCA
+oauth_signature_method=HMAC-SHA1
+oauth_signature=fkD4qMv%2FQ2O0CtNHmedIJH964t8%3D
+oauth_version=1.0
+oauth_timestamp=1386825978
+name=TrelloAssist
+expiration=never
+response_type=token
+scope=read%2Cwrite%2Caccount
+HTTP/1.1
+User-Agent: DotNetOpenAuth.Core/4.3.4.13329
+Host: trello.com
+Connection: Keep-Alive
+

@@ -178,5 +178,9 @@ namespace Manatee.Trello
 			_jsonBadges = (IJsonBadges)obj;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			return false;
+		}
 	}
 }

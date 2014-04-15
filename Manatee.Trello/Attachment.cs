@@ -194,6 +194,12 @@ namespace Manatee.Trello
 			            	? _jsonAttachment.Previews.Select(p => new AttachmentPreview(p)).ToList()
 			            	: null;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonAttachment;
+			return (json != null) && (json.Id == _jsonAttachment.Id);
+
+		}
 		internal void ForceDeleted(bool deleted)
 		{
 			_isDeleted = deleted;

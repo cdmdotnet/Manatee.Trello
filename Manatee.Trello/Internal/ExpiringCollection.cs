@@ -25,7 +25,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal.DataAccess;
 
 namespace Manatee.Trello.Internal
 {
@@ -35,11 +34,11 @@ namespace Manatee.Trello.Internal
 		public IEnumerable<IEnumerable<string>> OwnerPaths { get; set; }
 	}
 
-	internal abstract class ExpiringListBase : ExpiringObject
+	internal abstract class ExpiringCollectionBase : ExpiringObject
 	{
 		internal static readonly Dictionary<Type, ListActionDefinition> ActionTypeMap;
 
-		static ExpiringListBase()
+		static ExpiringCollectionBase()
 		{
 			ActionTypeMap = new Dictionary<Type, ListActionDefinition>
 				{
@@ -197,20 +196,21 @@ namespace Manatee.Trello.Internal
 		}
 	}
 
-	internal class ExpiringList<T> : ExpiringListBase, IEnumerable<T>, ICanWebhook, IEquatable<ExpiringList<T>>
+	internal class ExpiringCollection<T> : ExpiringCollectionBase, IEnumerable<T>, ICanWebhook, IEquatable<ExpiringCollection<T>>
 		where T : ExpiringObject, IEquatable<T>, IComparable<T>
 	{
 		private readonly EntityRequestType _requestType;
 		private readonly List<T> _list;
 
 		public string Filter { get; set; }
+		public IDictionary<string, object> AdditionalParameters { get; set; }
 		public override bool IsStubbed { get { return (Owner == null) || Owner.IsStubbed; } }
 
 		internal List<T> List { get { return _list; } }
 
 		protected override bool AllowSelfUpdate { get { return true; } }
 
-		public ExpiringList(ExpiringObject owner, EntityRequestType requestType)
+		public ExpiringCollection(ExpiringObject owner, EntityRequestType requestType)
 		{
 			_requestType = requestType;
 			Owner = owner;
@@ -226,14 +226,14 @@ namespace Manatee.Trello.Internal
 		{
 			return GetEnumerator();
 		}
-		public bool Equals(ExpiringList<T> other)
+		public bool Equals(ExpiringCollection<T> other)
 		{
 			return Equals(Owner, other.Owner) && (Filter == other.Filter);
 		}
 		public override bool Equals(object obj)
 		{
-			if (!(obj is ExpiringList<T>)) return false;
-			return Equals((ExpiringList<T>) obj);
+			if (!(obj is ExpiringCollection<T>)) return false;
+			return Equals((ExpiringCollection<T>) obj);
 		}
 		public override int GetHashCode()
 		{
@@ -249,11 +249,15 @@ namespace Manatee.Trello.Internal
 		}
 		public override sealed bool Refresh()
 		{
+			if (AdditionalParameters != null)
+				foreach (var additionalParamter in AdditionalParameters)
+					Parameters[additionalParamter.Key] = additionalParamter.Value;
 			if (Owner != null)
-				Parameters.Add("_id", Owner.Id);
+				Parameters["_id"] = Owner.Id;
 			if (Filter != null)
-				Parameters.Add("filter", Filter);
-			Parameters.Add("fields", RestParameterRepository.GetParameters<T>()["fields"]);
+				Parameters["filter"] = Filter;
+			//Parameters["fields"] = RestParameterRepository.GetParameters<T>()["fields"];
+			Parameters["fields"] = "id";
 			EntityRepository.RefreshCollection<T>(this, _requestType);
 			return true;
 		}
@@ -271,6 +275,10 @@ namespace Manatee.Trello.Internal
 			MarkForUpdate();
 		}
 
+		internal override bool EqualsJson(object obj)
+		{
+			return false;
+		}
 		internal override void PropagateDependencies()
 		{
 			foreach (var item in _list)

@@ -445,6 +445,11 @@ namespace Manatee.Trello
 			_jsonOrganization = (IJsonOrganization)obj;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonOrganization;
+			return (json != null) && (json.Id == _jsonOrganization.Id);
+		}
 		internal override bool Matches(string id)
 		{
 			return (Id == id) || (Name == id);

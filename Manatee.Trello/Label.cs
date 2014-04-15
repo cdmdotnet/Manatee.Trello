@@ -148,6 +148,11 @@ namespace Manatee.Trello
 			UpdateColor();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonLabel;
+			return (json != null) && (json.Color == _jsonLabel.Color);
+		}
 
 		private void UpdateColor()
 		{

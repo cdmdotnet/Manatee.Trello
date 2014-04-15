@@ -103,10 +103,14 @@ namespace Manatee.Trello
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
 		public ILog Log { get { return _log ?? (_log = new DebugLog()); } set { _log = value ?? new DebugLog(); } }
+		/// <summary>
+		/// Specifies whether the service should throw an exception when an error is received from Trello.
+		/// </summary>
+		public bool ThrowOnTrelloError { get; set; }
 
 		static TrelloServiceConfiguration()
 		{
-			GlobalCache = new ThreadSafeCache(new SimpleCache());
+			GlobalCache = new ThreadSafeCacheDecorator(new SimpleCache());
 			GlobalLog = new DebugLog();
 		}
 		/// <summary>
@@ -116,6 +120,7 @@ namespace Manatee.Trello
 		{
 			ItemDuration = TimeSpan.FromSeconds(60);
 			Cache = GlobalCache;
+			ThrowOnTrelloError = true;
 		}
 	}
 }
