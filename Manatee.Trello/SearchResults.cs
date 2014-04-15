@@ -100,6 +100,10 @@ namespace Manatee.Trello
 								 : Enumerable.Empty<Organization>();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			return false;
+		}
 
 		private T Download<T>(string id, EntityRequestType request)
 			where T : ExpiringObject

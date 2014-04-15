@@ -106,6 +106,14 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
+		/// Gets a unique identifier (not necessarily a GUID).
+		/// </summary>
+		public sealed override string Id
+		{
+			get { return _jsonWebhook.Id; }
+			internal set { _jsonWebhook.Id = value; }
+		}
+		/// <summary>
 		/// Gets or sets whether the webhook is active.
 		/// </summary>
 		public bool? IsActive
@@ -172,6 +180,11 @@ namespace Manatee.Trello
 		internal override void ApplyJson(object obj)
 		{
 			_jsonWebhook = (IJsonWebhook) obj;
+		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonWebhook;
+			return (json != null) && (json.Id == _jsonWebhook.Id);
 		}
 
 		private void Upload(EntityRequestType requestType)

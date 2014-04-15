@@ -59,5 +59,9 @@ namespace Manatee.Trello.Contracts
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
 		ILog Log { get; set; }
+		/// <summary>
+		/// Specifies whether the service should throw an exception when an error is received from Trello.
+		/// </summary>
+		bool ThrowOnTrelloError { get; set; }
 	}
 }

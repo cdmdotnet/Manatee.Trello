@@ -27,12 +27,12 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal
 {
-	internal class ThreadSafeCache : ICache
+	internal class ThreadSafeCacheDecorator : ICache
 	{
 		private readonly ICache _innerCache;
 		private readonly object _lock;
 
-		public ThreadSafeCache(ICache innerCache)
+		public ThreadSafeCacheDecorator(ICache innerCache)
 		{
 			_innerCache = innerCache;
 			_lock = new object();
@@ -43,6 +43,13 @@ namespace Manatee.Trello.Internal
 			lock (_lock)
 			{
 				_innerCache.Add(obj);
+			}
+		}
+		public T Find<T>(Func<T, bool> match)
+		{
+			lock (_lock)
+			{
+				return _innerCache.Find(match);
 			}
 		}
 		public T Find<T>(Func<T, bool> match, Func<T> fetch)

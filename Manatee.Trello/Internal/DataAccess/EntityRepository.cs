@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Internal.RequestProcessing;
@@ -33,12 +34,13 @@ namespace Manatee.Trello.Internal.DataAccess
 	internal class EntityRepository : IEntityRepository
 	{
 		private static readonly Dictionary<Type, Func<IJsonRepository, Endpoint, IDictionary<string, object>, object>> _repositoryMethods;
-		private static readonly Dictionary<Type, Action<IEntityFactory, ExpiringObject, object>> _applyJsonMethods;
+		private static readonly Dictionary<Type, Action<IEntityFactory, ICache, ExpiringObject, object>> _applyJsonMethods;
 
 		private readonly IJsonRepository _jsonRepository;
 		private readonly IEndpointFactory _endpointFactory;
 		private readonly IEntityFactory _entityFactory;
 		private readonly IOfflineChangeQueue _offlineChangeQueue;
+		private readonly ICache _cache;
 		private readonly TimeSpan _entityDuration;
 
 		public TimeSpan EntityDuration { get { return _entityDuration; } }
@@ -90,7 +92,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{typeof (IEnumerable<OrganizationMembership>), (r, e, d) => r.Execute<List<IJsonOrganizationMembership>>(e, d)},
 					{typeof (IEnumerable<Token>), (r, e, d) => r.Execute<List<IJsonToken>>(e, d)},
 				};
-			_applyJsonMethods = new Dictionary<Type, Action<IEntityFactory, ExpiringObject, object>>
+			_applyJsonMethods = new Dictionary<Type, Action<IEntityFactory, ICache, ExpiringObject, object>>
 				{
 					{typeof (Action), ApplyJson<Action, IJsonAction>},
 					{typeof (Attachment), ApplyJson<Attachment, IJsonAttachment>},
@@ -110,12 +112,13 @@ namespace Manatee.Trello.Internal.DataAccess
 				};
 		}
 		public EntityRepository(IJsonRepository jsonRepository, IEndpointFactory endpointFactory, IEntityFactory entityFactory,
-								IOfflineChangeQueue offlineChangeQueue, TimeSpan entityDuration)
+								IOfflineChangeQueue offlineChangeQueue, ICache cache, TimeSpan entityDuration)
 		{
 			_jsonRepository = jsonRepository;
 			_endpointFactory = endpointFactory;
 			_entityFactory = entityFactory;
 			_offlineChangeQueue = offlineChangeQueue;
+			_cache = cache;
 			_entityDuration = entityDuration;
 		}
 
@@ -132,7 +135,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		public bool RefreshCollection<T>(ExpiringObject obj, EntityRequestType request)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			var list = obj as ExpiringList<T>;
+			var list = obj as ExpiringCollection<T>;
 			if (list == null) return false;
 			foreach (var parameter in RestParameterRepository.GetParameters<T>())
 			{
@@ -142,32 +145,32 @@ namespace Manatee.Trello.Internal.DataAccess
 			var json = _repositoryMethods[typeof(IEnumerable<T>)](_jsonRepository, endpoint, list.Parameters);
 			list.Parameters.Clear();
 			if (json == null) return false;
-			_applyJsonMethods[typeof(T)](_entityFactory, list, json);
+			_applyJsonMethods[typeof(T)](_entityFactory, _cache, list, json);
 			return true;
 		}
 		public T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject
 		{
-			var endpoint = _endpointFactory.Build(request, parameters);
-			var json = _repositoryMethods[typeof(T)](_jsonRepository, endpoint, parameters);
-			var entity = _entityFactory.CreateEntity<T>();
-			entity.EntityRepository = this;
-			entity.PropagateDependencies();
-			if (json == null)
+			T entity = null;
+			try
 			{
-				_offlineChangeQueue.Enqueue(entity, endpoint, parameters);
+				var id = parameters.SingleOrDefault(kvp => kvp.Key.In("_id")).Value;
+				Func<T> query = () => DownloadFromSource<T>(request, parameters);
+				entity = id == null ? query() : _cache.Find(e => e.Matches(id.ToString()), query);
+				entity.EntityRepository = this;
+				entity.PropagateDependencies();
+				return entity;
 			}
-			else
+			catch (Exception)
 			{
-				entity.ApplyJson(json);
+				_cache.Remove(entity);
+				throw;
 			}
-			parameters.Clear();
-			return entity;
 		}
-		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter)
+		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, IDictionary<string, object> customParameters)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			return new ExpiringList<T>(owner, request) {Filter = filter};
+			return new ExpiringCollection<T>(owner, request) {Filter = filter, AdditionalParameters = customParameters};
 		}
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)
 		{
@@ -199,24 +202,52 @@ namespace Manatee.Trello.Internal.DataAccess
 		}
 		public bool AllowSelfUpdate { get; set; }
 
-		private static void ApplyJson<T, TJson>(IEntityFactory entityFactory, ExpiringObject obj, object json)
+		private static void ApplyJson<T, TJson>(IEntityFactory entityFactory, ICache cache, ExpiringObject obj, object json)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			var list = obj as ExpiringList<T>;
+			var list = obj as ExpiringCollection<T>;
 			if (list == null) return;
 			var jsonList = json as List<TJson>;
 			if (jsonList == null) return;
-			var entities = new List<T>();
-			foreach (var jsonEntity in jsonList)
+			Func<TJson, T> createNew = j =>
+				{
+					var entity = entityFactory.CreateEntity<T>();
+					entity.Owner = list.Owner;
+					entity.EntityRepository = list.EntityRepository;
+					entity.PropagateDependencies();
+					entity.ApplyJson(j);
+					return entity;
+				};
+			var found = jsonList.Select(je => new {Json = je, Entity = cache.Find<ExpiringObject>(e => e.EqualsJson(je))})
+			                    .Where(map => map.Entity != null)
+			                    .ToList();
+			var entities = jsonList.Select(je => cache.Find(e => e.EqualsJson(je), () => createNew(je)))
+			                       .ToList();
+			foreach (var entity in found)
 			{
-				var entity = entityFactory.CreateEntity<T>();
-				entity.Owner = list.Owner;
-				entity.EntityRepository = list.EntityRepository;
-				entity.PropagateDependencies();
-				entity.ApplyJson(jsonEntity);
-				entities.Add(entity);
+				entity.Entity.ApplyJson(entity.Json);
 			}
+
 			list.Update(entities);
+		}
+		private T DownloadFromSource<T>(EntityRequestType request, IDictionary<string, object> parameters)
+			where T : ExpiringObject
+		{
+			var endpoint = _endpointFactory.Build(request, parameters);
+			var json = _repositoryMethods[typeof(T)](_jsonRepository, endpoint, parameters);
+			var entity = _entityFactory.CreateEntity<T>();
+			entity.EntityRepository = this;
+			entity.PropagateDependencies();
+			if (json == null)
+			{
+				_offlineChangeQueue.Enqueue(entity, endpoint, parameters);
+			}
+			else
+			{
+				entity.ApplyJson(json);
+			}
+			parameters.Clear();
+			return entity;
 		}
 	}
 }

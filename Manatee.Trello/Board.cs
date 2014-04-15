@@ -402,6 +402,11 @@ namespace Manatee.Trello
 			_jsonBoard = (IJsonBoard)obj;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonBoard;
+			return (json != null) && (json.Id == _jsonBoard.Id);
+		}
 		internal override void PropagateDependencies()
 		{
 			UpdateDependencies(_labelNames);

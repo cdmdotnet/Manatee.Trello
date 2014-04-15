@@ -42,6 +42,7 @@ namespace Manatee.Trello
 		Badges_Read_Refresh,
 		Board_Read_Actions,
 		Board_Read_Cards,
+		Board_Read_CardsForMember,
 		Board_Read_Checklists,
 		Board_Read_InvitedMembers,
 		Board_Read_Lists,

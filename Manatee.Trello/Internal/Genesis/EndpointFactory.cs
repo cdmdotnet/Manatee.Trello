@@ -44,6 +44,7 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Badges_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"cards","_cardId","badges"})},
 					{EntityRequestType.Board_Read_Actions, () => new Endpoint(RestMethod.Get, new[]{"boards","_id","actions"})},
 					{EntityRequestType.Board_Read_Cards, () => new Endpoint(RestMethod.Get, new[]{"boards","_id","cards"})},
+					{EntityRequestType.Board_Read_CardsForMember, () => new Endpoint(RestMethod.Get, new[]{"board","_id","members","_memberId","cards"})},
 					{EntityRequestType.Board_Read_Checklists, () => new Endpoint(RestMethod.Get, new[]{"boards","_id","checklists"})},
 					{EntityRequestType.Board_Read_InvitedMembers, () => new Endpoint(RestMethod.Get, new[]{"boards","_id","membersInvited"})},
 					{EntityRequestType.Board_Read_Lists, () => new Endpoint(RestMethod.Get, new[]{"boards","_id","lists"})},
@@ -221,8 +222,11 @@ namespace Manatee.Trello.Internal.Genesis
 		}
 		public EntityRequestType GetRequestType<T>()
 		{
-			if (_refreshRequestTypeMap.ContainsKey(typeof (T)))
-				return _refreshRequestTypeMap[typeof (T)];
+			var type = typeof (T);
+			if (type.IsGenericType)
+				type = type.GetGenericTypeDefinition();
+			if (_refreshRequestTypeMap.ContainsKey(type))
+				return _refreshRequestTypeMap[type];
 			return EntityRequestType.Unsupported;
 		}
 

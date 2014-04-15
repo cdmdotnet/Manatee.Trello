@@ -214,6 +214,10 @@ namespace Manatee.Trello
 			_jsonLabelNames = (IJsonLabelNames)obj;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			return false;
+		}
 
 		private void Upload(EntityRequestType color)
 		{

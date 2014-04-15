@@ -103,6 +103,7 @@ namespace Manatee.Trello.Contracts
 			entity.EntityRepository = EntityRepository;
 		}
 		internal abstract void ApplyJson(object obj);
+		internal abstract bool EqualsJson(object obj);
 		internal virtual void PropagateDependencies() { }
 
 		/// <summary>
@@ -155,10 +156,10 @@ namespace Manatee.Trello.Contracts
 		/// <param name="fields">The field list for the request.</param>
 		/// <param name="filter">The filter for the request.</param>
 		/// <returns>The specified ExpiringList.</returns>
-		protected internal IEnumerable<T> BuildList<T>(EntityRequestType requestType, string filter = null)
+		protected internal IEnumerable<T> BuildList<T>(EntityRequestType requestType, string filter = null, IDictionary<string, object> customParameters = null)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			var list = (ExpiringList<T>) EntityRepository.GenerateList<T>(this, requestType, filter);
+			var list = (ExpiringCollection<T>) EntityRepository.GenerateList<T>(this, requestType, filter, customParameters);
 			UpdateDependencies(list);
 			return list;
 		}

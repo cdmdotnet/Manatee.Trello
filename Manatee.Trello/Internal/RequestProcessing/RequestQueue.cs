@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
@@ -32,14 +33,16 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	{
 		private readonly ILog _log;
 		private readonly INetworkMonitor _networkMonitor;
+		private readonly bool _throwOnException;
 		private readonly Queue<QueuableRestRequest> _queue;
 
 		public int Count { get { return _queue.Count; } }
 
-		public RequestQueue(ILog log, INetworkMonitor networkMonitor)
+		public RequestQueue(ILog log, INetworkMonitor networkMonitor, bool throwOnException)
 		{
 			_log = log;
 			_networkMonitor = networkMonitor;
+			_throwOnException = throwOnException;
 			_queue = new Queue<QueuableRestRequest>();
 		}
 
@@ -68,7 +71,8 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				}
 				catch (Exception e)
 				{
-					_log.Error(e, false);
+					var tie = new TrelloInteractionException(e);
+					_log.Error(tie, _throwOnException);
 					queuableRequest.CreateNullResponse();
 				}
 			}

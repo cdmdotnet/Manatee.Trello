@@ -42,9 +42,13 @@ namespace Manatee.Trello.Internal
 			if (_list.Contains(obj)) return;
 			_list.Add(obj);
 		}
+		public T Find<T>(Func<T, bool> match)
+		{
+			return _list.OfType<T>().FirstOrDefault(match);
+		}
 		public T Find<T>(Func<T, bool> match, Func<T> fetch)
 		{
-			T result = _list.OfType<T>().FirstOrDefault(match);
+			T result = Find(match);
 			if (Equals(null, result))
 			{
 				result = fetch();

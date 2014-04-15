@@ -285,6 +285,11 @@ namespace Manatee.Trello
 			_position = _jsonCheckList.Pos.HasValue ? new Position(_jsonCheckList.Pos.Value) : Position.Unknown;
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonCheckList;
+			return (json != null) && (json.Id == _jsonCheckList.Id);
+		}
 		internal override void PropagateDependencies() {}
 
 		private void Upload(EntityRequestType requestType)

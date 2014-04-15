@@ -139,7 +139,7 @@ namespace Manatee.Trello
 		/// <param name="context">The items in which to perform the search.</param>
 		/// <param name="modelTypes">The model types to return.  Can be combined using the '|' operator.</param>
 		/// <returns>An object which contains the results of the query.</returns>
-		public SearchResults Search(string query, List<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All)
+		public SearchResults Search(string query, IEnumerable<ExpiringObject> context = null, SearchModelType modelTypes = SearchModelType.All)
 		{
 			_validator.NonEmptyString(query);
 			var parameters = new Dictionary<string, object> {{"query", query}};
@@ -149,13 +149,14 @@ namespace Manatee.Trello
 			}
 			if (context != null)
 			{
-				var results = ConstructContextParameter<Board>(context);
+				var contextList = context as IList<ExpiringObject> ?? context.ToList();
+				var results = ConstructContextParameter<Board>(contextList);
 				if (!string.IsNullOrEmpty(results))
 					parameters.Add("idBoards", results);
-				results = ConstructContextParameter<Card>(context);
+				results = ConstructContextParameter<Card>(contextList);
 				if (!string.IsNullOrEmpty(results))
 					parameters.Add("idCards", results);
-				results = ConstructContextParameter<Organization>(context);
+				results = ConstructContextParameter<Organization>(contextList);
 				if (!string.IsNullOrEmpty(results))
 					parameters.Add("idOrganizations", results);
 			}
@@ -171,7 +172,7 @@ namespace Manatee.Trello
 		public IEnumerable<Member> SearchMembers(string query, int limit = 0)
 		{
 			_validator.NonEmptyString(query);
-			var memberSearchList = new ExpiringList<Member>(null, EntityRequestType.Service_Read_SearchMembers)
+			var memberSearchList = new ExpiringCollection<Member>(null, EntityRequestType.Service_Read_SearchMembers)
 				{
 					Log = _configuration.Log,
 					EntityRepository = _entityRepository,

@@ -170,6 +170,11 @@ namespace Manatee.Trello
 			UpdateType();
 			Expires = DateTime.Now + EntityRepository.EntityDuration;
 		}
+		internal override bool EqualsJson(object obj)
+		{
+			var json = obj as IJsonOrganizationMembership;
+			return (json != null) && (json.Id == _jsonOrganizationMembership.Id);
+		}
 
 		private void UpdateType()
 		{
