@@ -27,6 +27,7 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Json;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -327,6 +328,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Url { get { return _jsonCard.Url; } }
 		/// <summary>
+        /// Gets the Short URL for this card.
+        /// </summary>
+        public string ShortUrl { get { return _jsonCard.ShortUrl; } }
+        /// <summary>
 		/// Enumerates the members who have voted for this card.
 		/// </summary>
 		public IEnumerable<Member> VotingMembers
@@ -387,6 +392,22 @@ namespace Manatee.Trello
 			UpdateDependencies(attachment);
 			return attachment;
 		}
+        public void AddAttachment(string fileName, byte[] content)
+        {
+            if (_isDeleted) return;
+            Validator.Writable();
+
+            var rf = new RestFile
+            {
+                ContentBytes = content,
+                FileName = fileName
+            };
+
+            Parameters.Add("file", rf);
+            Parameters["_id"] = Id;
+
+            EntityRepository.Upload(EntityRequestType.Card_Write_AddAttachment, Parameters);
+        }
 		/// <summary>
 		/// Adds a checklist to the card.
 		/// </summary>
