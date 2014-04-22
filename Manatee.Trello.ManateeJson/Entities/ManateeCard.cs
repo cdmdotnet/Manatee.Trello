@@ -42,6 +42,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Name { get; set; }
 		public double? Pos { get; set; }
 		public string Url { get; set; }
+        public string ShortUrl { get; set; }
 		public bool? Subscribed { get; set; }
 
 		public void FromJson(JsonValue json)
@@ -66,6 +67,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Name = obj.TryGetString("name");
 			Pos = obj.TryGetNumber("pos");
 			Url = obj.TryGetString("url");
+		    ShortUrl = obj.TryGetString("shortUrl");
 			Subscribed = obj.TryGetBoolean("subscribed");
 		}
 		public JsonValue ToJson()

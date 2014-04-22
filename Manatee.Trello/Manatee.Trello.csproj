@@ -116,6 +116,7 @@
     <Compile Include="MemberSession.cs" />
     <Compile Include="ModelScope.cs" />
     <Compile Include="OrganizationMembership.cs" />
+    <Compile Include="Rest\RestFile.cs" />
     <Compile Include="TokenPermission.cs" />
     <Compile Include="Json\IJsonAction.cs" />
     <Compile Include="Json\IJsonActionData.cs" />

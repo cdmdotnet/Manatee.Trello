@@ -77,6 +77,8 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the URL for this card.
 		/// </summary>
 		string Url { get; set; }
+
+        string ShortUrl { get; set; }
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to this card.
 		/// </summary>
