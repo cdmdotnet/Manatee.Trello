@@ -32,32 +32,19 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Exposes a set of run-time options for all automatically-refreshing objects.
 	/// </summary>
-	public class TrelloServiceConfiguration : ITrelloServiceConfiguration
+	public static class TrelloServiceConfiguration
 	{
-		private ILog _log;
-		private ISerializer _serializer;
-		private IDeserializer _deserializer;
-		private IRestClientProvider _restClientProvider;
+		private static ILog _log;
+		private static ISerializer _serializer;
+		private static IDeserializer _deserializer;
+		private static IRestClientProvider _restClientProvider;
+		private static ICache _cache;
 
-		/// <summary>
-		/// Provides a default logging solution.  New ITrelloService instances will use
-		/// this unless overridden in an ITrelloServiceConfiguration instance.
-		/// </summary>
-		public static ILog GlobalLog { get; set; }
-		/// <summary>
-		/// Provides a default caching solution.  New ITrelloService instances will use
-		/// this unless overridden in an ITrelloServiceConfiguration instance.
-		/// </summary>
-		public static ICache GlobalCache { get; set; }
-		/// <summary>
-		/// Gets and sets the global duration setting for all auto-refreshing objects.
-		/// </summary>
-		public TimeSpan ItemDuration { get; set; }
 		/// <summary>
 		/// Specifies the serializer which is used the first time a request is made from
 		/// a given instance of the TrelloService class.
 		/// </summary>
-		public ISerializer Serializer
+		public static ISerializer Serializer
 		{
 			get { return _serializer; }
 			set
@@ -71,7 +58,7 @@ namespace Manatee.Trello
 		/// Specifies the deserializer which is used the first time a request is made from
 		/// a given instance of the TrelloService class.
 		/// </summary>
-		public IDeserializer Deserializer
+		public static IDeserializer Deserializer
 		{
 			get { return _deserializer; }
 			set
@@ -85,7 +72,7 @@ namespace Manatee.Trello
 		/// Specifies the REST client provider which is used the first time a request is made from
 		/// a given instance of the TrelloService class.
 		/// </summary>
-		public IRestClientProvider RestClientProvider
+		public static IRestClientProvider RestClientProvider
 		{
 			get { return _restClientProvider; }
 			set
@@ -98,28 +85,26 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Provides a cache for TrelloService.  Defaults to TrelloServiceConfiguration.GlobalCache.
 		/// </summary>
-		public ICache Cache { get; set; }
+		public static ICache Cache
+		{
+			get { return _cache ?? (_cache = new ThreadSafeCacheDecorator(new SimpleCache())); }
+			set { _cache = value ?? new ThreadSafeCacheDecorator(new SimpleCache()); }
+		}
 		/// <summary>
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
-		public ILog Log { get { return _log ?? (_log = new DebugLog()); } set { _log = value ?? new DebugLog(); } }
+		public static ILog Log
+		{
+			get { return _log ?? (_log = new DebugLog()); }
+			set { _log = value ?? new DebugLog(); }
+		}
 		/// <summary>
 		/// Specifies whether the service should throw an exception when an error is received from Trello.
 		/// </summary>
-		public bool ThrowOnTrelloError { get; set; }
+		public static bool ThrowOnTrelloError { get; set; }
 
 		static TrelloServiceConfiguration()
 		{
-			GlobalCache = new ThreadSafeCacheDecorator(new SimpleCache());
-			GlobalLog = new DebugLog();
-		}
-		/// <summary>
-		/// Creates a new instance of the TrelloServiceConfiguration class.
-		/// </summary>
-		public TrelloServiceConfiguration()
-		{
-			ItemDuration = TimeSpan.FromSeconds(60);
-			Cache = GlobalCache;
 			ThrowOnTrelloError = true;
 		}
 	}

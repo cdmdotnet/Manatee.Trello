@@ -21,74 +21,32 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
-	internal class RequestQueue : IRequestQueue
+	internal class RequestQueue
 	{
-		private readonly ILog _log;
-		private readonly INetworkMonitor _networkMonitor;
-		private readonly bool _throwOnException;
 		private readonly Queue<QueuableRestRequest> _queue;
 
 		public int Count { get { return _queue.Count; } }
 
-		public RequestQueue(ILog log, INetworkMonitor networkMonitor, bool throwOnException)
+		public RequestQueue()
 		{
-			_log = log;
-			_networkMonitor = networkMonitor;
-			_throwOnException = throwOnException;
 			_queue = new Queue<QueuableRestRequest>();
 		}
 
 		public void Enqueue<T>(IRestRequest request)
 			where T : class
 		{
-			LogRequest(request, "Queuing");
 			_queue.Enqueue(new QueuableRestRequest<T>(request));
 		}
-		public void DequeueAndExecute(IRestClient client)
+		public QueuableRestRequest Dequeue()
 		{
-			if (_queue.Count == 0) return;
+			if (_queue.Count == 0) return null;
 			var request = _queue.Dequeue();
-			Execute(client, request);
-		}
-
-		private void Execute(IRestClient client, QueuableRestRequest queuableRequest)
-		{
-			if (_networkMonitor.IsConnected)
-			{
-				LogRequest(queuableRequest.Request, "Sending");
-				try
-				{
-					queuableRequest.Execute(client);
-					LogResponse(queuableRequest.Request.Response);
-				}
-				catch (Exception e)
-				{
-					var tie = new TrelloInteractionException(e);
-					_log.Error(tie, _throwOnException);
-					queuableRequest.CreateNullResponse();
-				}
-			}
-			else
-			{
-				LogRequest(queuableRequest.Request, "Stubbing");
-				queuableRequest.CreateNullResponse();
-			}
-		}
-		private void LogRequest(IRestRequest request, string action)
-		{
-			_log.Info("{2}: {0} {1}", request.Method, request.Resource, action);
-		}
-		private void LogResponse(IRestResponse response)
-		{
-			_log.Info("Received: {0}", response.Content);
+			return request;
 		}
 	}
 }

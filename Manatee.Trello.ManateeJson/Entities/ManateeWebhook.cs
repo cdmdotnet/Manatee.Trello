@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeWebhook : IJsonWebhook, IJsonCompatible
+	internal class ManateeWebhook : IJsonWebhook, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public string Description { get; set; }
@@ -35,7 +35,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string CallbackUrl { get; set; }
 		public bool? Active { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -45,7 +45,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			CallbackUrl = obj.TryGetString("callbackURL");
 			Active = obj.TryGetBoolean("active");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 				{

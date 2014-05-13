@@ -28,7 +28,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeOrganizationPreferences : IJsonOrganizationPreferences, IJsonCompatible
+	internal class ManateeOrganizationPreferences : IJsonOrganizationPreferences, IJsonSerializable
 	{
 		public string PermissionLevel { get; set; }
 		public List<object> OrgInviteRestrict { get; set; }
@@ -36,7 +36,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string AssociatedDomain { get; set; }
 		public IJsonBoardVisibilityRestrict BoardVisibilityRestrict { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -44,9 +44,9 @@ namespace Manatee.Trello.ManateeJson.Entities
 			//OrgInviteRestrict = obj.TryGetArray("orgInviteRestrict").Cast<object>().ToList();
 			ExternalMembersDisabled = obj.TryGetBoolean("externalMembersDisabled");
 			AssociatedDomain = obj.TryGetString("associatedDomain");
-			BoardVisibilityRestrict = obj.TryGetObject("boardVisibilityRestrict").FromJson<ManateeBoardVisibilityRestrict>();
+			BoardVisibilityRestrict = obj.TryGetObject("boardVisibilityRestrict").FromJson<ManateeBoardVisibilityRestrict>(serializer);
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{
@@ -54,7 +54,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		//{"idMemberCreator", OrgInviteRestrict.ToJson()},
 			       		{"data", ExternalMembersDisabled},
 			       		{"type", AssociatedDomain},
-			       		{"date", ((ManateeBoardVisibilityRestrict) BoardVisibilityRestrict).ToJson()},
+			       		{"date", ((ManateeBoardVisibilityRestrict) BoardVisibilityRestrict).ToJson(serializer)},
 			       	};
 		}
 	}

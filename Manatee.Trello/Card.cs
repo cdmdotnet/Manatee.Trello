@@ -328,10 +328,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Url { get { return _jsonCard.Url; } }
 		/// <summary>
-        /// Gets the Short URL for this card.
-        /// </summary>
-        public string ShortUrl { get { return _jsonCard.ShortUrl; } }
-        /// <summary>
+		/// Gets the Short URL for this card.
+		/// </summary>
+		public string ShortUrl { get { return _jsonCard.ShortUrl; } }
+		/// <summary>
 		/// Enumerates the members who have voted for this card.
 		/// </summary>
 		public IEnumerable<Member> VotingMembers
@@ -371,11 +371,12 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Adds an attachment to the card.
+		/// Adds an attachment defined by a URL to the card.
 		/// </summary>
 		/// <returns>The attachment object.</returns>
 		public Attachment AddAttachment(string name, string url)
 		{
+			if (_isDeleted) return null;
 			Validator.Writable();
 			Validator.Url(url);
 			if (string.IsNullOrWhiteSpace(name))
@@ -392,22 +393,26 @@ namespace Manatee.Trello
 			UpdateDependencies(attachment);
 			return attachment;
 		}
-        public void AddAttachment(string fileName, byte[] content)
-        {
-            if (_isDeleted) return;
-            Validator.Writable();
-
-            var rf = new RestFile
-            {
-                ContentBytes = content,
-                FileName = fileName
-            };
-
-            Parameters.Add("file", rf);
-            Parameters["_id"] = Id;
-
-            EntityRepository.Upload(EntityRequestType.Card_Write_AddAttachment, Parameters);
-        }
+		/// <summary>
+		/// Adds an attachment defined by a byte array to the card.
+		/// </summary>
+		/// <returns>The attachment object.</returns>
+		public Attachment AddAttachment(string fileName, byte[] content)
+		{
+			if (_isDeleted) return null;
+			Validator.Writable();
+			var rf = new RestFile
+			{
+				ContentBytes = content,
+				FileName = fileName
+			};
+			Parameters.Add(RestFile.ParameterKey, rf);
+			Parameters["_id"] = Id;
+			var attachment = EntityRepository.Download<Attachment>(EntityRequestType.Card_Write_AddAttachment, Parameters);
+			attachment.Owner = this;
+			UpdateDependencies(attachment);
+			return attachment;
+		}
 		/// <summary>
 		/// Adds a checklist to the card.
 		/// </summary>
@@ -501,7 +506,7 @@ namespace Manatee.Trello
 			Validator.Entity(list);
 			Parameters["_id"] = Id;
 			if (!board.Lists.Contains(list))
-				Log.Error(new InvalidOperationException(string.Format("Board '{0}' does not contain list with ID '{1}'.", board.Name, list.Id)));
+				TrelloServiceConfiguration.Log.Error(new InvalidOperationException(string.Format("Board '{0}' does not contain list with ID '{1}'.", board.Name, list.Id)));
 			if (_jsonCard.IdBoard != board.Id)
 				Parameters.Add("idBoard", board.Id);
 			if (_jsonCard.IdList != list.Id)
@@ -667,6 +672,7 @@ namespace Manatee.Trello
 			_jsonCard.Name = data.TryGetString("card", "name") ?? _jsonCard.Name;
 			_jsonCard.Pos = data.TryGetNumber("card", "pos") ?? _jsonCard.Pos;
 			_jsonCard.Url = data.TryGetString("card", "url") ?? _jsonCard.Url;
+			_jsonCard.Url = data.TryGetString("card", "shortUrl") ?? _jsonCard.ShortUrl;
 			_jsonCard.Subscribed = data.TryGetBoolean("card", "subscribed") ?? _jsonCard.Subscribed;
 		}
 	}

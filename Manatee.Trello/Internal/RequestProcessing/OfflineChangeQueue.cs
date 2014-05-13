@@ -27,7 +27,7 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
-	internal class OfflineChangeQueue : IOfflineChangeQueue
+	internal class OfflineChangeQueue
 	{
 		private readonly Queue<OfflineChange> _queue;
 

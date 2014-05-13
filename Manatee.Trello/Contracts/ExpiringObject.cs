@@ -56,7 +56,6 @@ namespace Manatee.Trello.Contracts
 		internal Dictionary<string, object> Parameters { get; private set; }
 
 		internal ExpiringObject Owner { get; set; }
-		internal ILog Log { get; set; }
 		internal IValidator Validator { get; set; }
 		internal IEntityRepository EntityRepository { get; set; }
 
@@ -98,7 +97,6 @@ namespace Manatee.Trello.Contracts
 		internal void UpdateDependencies(ExpiringObject entity)
 		{
 			if (entity == null) return;
-			entity.Log = Log;
 			entity.Validator = Validator;
 			entity.EntityRepository = EntityRepository;
 		}
@@ -113,11 +111,11 @@ namespace Manatee.Trello.Contracts
 		{
 			if (!IsExpired || IsStubbed || !AllowSelfUpdate || !Refresh()) return;
 			if (Id != null)
-				Log.Info("{0} with ID {{{1}}} will expire at {2}.", GetType().CSharpName(), Id, Expires);
+				TrelloServiceConfiguration.Log.Info("{0} with ID {{{1}}} will expire at {2}.", GetType().CSharpName(), Id, Expires);
 			else if (Owner != null)
-				Log.Info("{0} owned by {1} with ID {{{2}}} will expire at {3}.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id, Expires);
+				TrelloServiceConfiguration.Log.Info("{0} owned by {1} with ID {{{2}}} will expire at {3}.", GetType().CSharpName(), Owner.GetType().CSharpName(), Owner.Id, Expires);
 			else
-				Log.Info("A {0} will expire at {1}.", GetType().CSharpName(), Expires);
+				TrelloServiceConfiguration.Log.Info("A {0} will expire at {1}.", GetType().CSharpName(), Expires);
 		}
 		/// <summary>
 		/// Updates a reference to another object if null by downloading it from trello.com.
@@ -153,7 +151,7 @@ namespace Manatee.Trello.Contracts
 		/// </summary>
 		/// <typeparam name="T">The type of entity.</typeparam>
 		/// <param name="requestType">The request type used to populate the list.</param>
-		/// <param name="fields">The field list for the request.</param>
+		/// <param name="customParameters">The field list for the request.</param>
 		/// <param name="filter">The filter for the request.</param>
 		/// <returns>The specified ExpiringList.</returns>
 		protected internal IEnumerable<T> BuildList<T>(EntityRequestType requestType, string filter = null, IDictionary<string, object> customParameters = null)

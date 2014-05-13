@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeCard : IJsonCard, IJsonCompatible
+	internal class ManateeCard : IJsonCard, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public bool? Closed { get; set; }
@@ -42,10 +42,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Name { get; set; }
 		public double? Pos { get; set; }
 		public string Url { get; set; }
-        public string ShortUrl { get; set; }
+		public string ShortUrl { get; set; }
 		public bool? Subscribed { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -67,10 +67,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Name = obj.TryGetString("name");
 			Pos = obj.TryGetNumber("pos");
 			Url = obj.TryGetString("url");
-		    ShortUrl = obj.TryGetString("shortUrl");
+			ShortUrl = obj.TryGetString("shortUrl");
 			Subscribed = obj.TryGetBoolean("subscribed");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 				{
@@ -87,6 +87,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					{"name", Name},
 					{"pos", Pos},
 					{"url", Url},
+					{"shortUrl", ShortUrl},
 					{"subscribed", Subscribed},
 				};
 		}

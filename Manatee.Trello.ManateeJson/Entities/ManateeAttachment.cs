@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeAttachment : IJsonAttachment, IJsonCompatible
+	internal class ManateeAttachment : IJsonAttachment, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public int? Bytes { get; set; }
@@ -41,7 +41,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public List<IJsonAttachmentPreview> Previews { get; set; }
 		public string Url { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -57,12 +57,12 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Name = obj.TryGetString("name");
 			var previews = obj.TryGetArray("previews");
 			if (previews != null)
-				Previews = previews.FromJson<ManateeAttachmentPreview>()
+				Previews = previews.FromJson<ManateeAttachmentPreview>(serializer)
 								   .Cast<IJsonAttachmentPreview>()
 								   .ToList();
 			Url = obj.TryGetString("url");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{
@@ -73,7 +73,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"isUpload", IsUpload},
 			       		{"mimeType", MimeType},
 			       		{"name", Name},
-			       		{"previews", Previews.Cast<ManateeAttachmentPreview>().ToJson()},
+			       		{"previews", Previews.Cast<ManateeAttachmentPreview>().ToJson(serializer)},
 			       		{"url", Url}
 			       	};
 		}

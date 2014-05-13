@@ -27,14 +27,14 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeCheckItem : IJsonCheckItem, IJsonCompatible
+	internal class ManateeCheckItem : IJsonCheckItem, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public string State { get; set; }
 		public string Name { get; set; }
 		public double? Pos { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -43,7 +43,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Name = obj.TryGetString("name");
 			Pos = obj.TryGetNumber("pos");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

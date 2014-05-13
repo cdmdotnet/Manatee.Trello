@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
@@ -6,9 +7,9 @@ using Moq;
 
 namespace Manatee.Trello.Test.Unit
 {
-	public abstract class UnitTestBase<T> : TrelloTestBase<T>
+	public abstract class UnitTestBase : TrelloTestBase
 	{
-		protected class DependencyCollection
+		public class DependencyCollection
 		{
 			public Mock<ILog> Log { get; private set; }
 			public Mock<IValidator> Validator { get; private set; }
@@ -26,11 +27,11 @@ namespace Manatee.Trello.Test.Unit
 								.Returns(TimeSpan.FromDays(1));
 			}
 
-			public void SetupListGeneration<TList>()
-				where TList : ExpiringObject, IEquatable<TList>, IComparable<TList>
+			public void SetupListGeneration<T>()
+				where T : ExpiringObject, IEquatable<T>, IComparable<T>
 			{
-				EntityRepository.Setup(r => r.GenerateList<TList>(It.IsAny<ExpiringObject>(), It.IsAny<EntityRequestType>(), It.IsAny<string>(), It.IsAny<string>()))
-								.Returns((ExpiringObject o, EntityRequestType r, string s1, string s2) => new ExpiringList<TList>(o, r));
+				EntityRepository.Setup(r => r.GenerateList<T>(It.IsAny<ExpiringObject>(), It.IsAny<EntityRequestType>(), It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+								.Returns((ExpiringObject o, EntityRequestType r, string s, IDictionary<string, object> p) => new ExpiringCollection<T>(o, r));
 			}
 		}
 	}

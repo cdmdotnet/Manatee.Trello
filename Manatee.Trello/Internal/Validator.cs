@@ -30,19 +30,17 @@ namespace Manatee.Trello.Internal
 {
 	internal class Validator : IValidator
 	{
-		private readonly ILog _log;
 		private readonly ITrelloService _trelloService;
 
-		public Validator(ILog log, ITrelloService trelloService)
+		public Validator(ITrelloService trelloService)
 		{
-			_log = log;
 			_trelloService = trelloService;
 		}
 
 		public void Writable()
 		{
 			if (string.IsNullOrWhiteSpace(_trelloService.UserToken))
-				_log.Error(new ReadOnlyAccessException());
+				TrelloServiceConfiguration.Log.Error(new ReadOnlyAccessException());
 		}
 		public void Entity<T>(T entity, bool allowNulls = false)
 			where T : ExpiringObject
@@ -50,37 +48,36 @@ namespace Manatee.Trello.Internal
 			if (entity == null)
 			{
 				if (allowNulls) return;
-				_log.Error(new ArgumentNullException("entity"));
+				TrelloServiceConfiguration.Log.Error(new ArgumentNullException("entity"));
 			}
 			if (string.IsNullOrWhiteSpace(entity.Id) || entity.IsStubbed)
-				_log.Error(new EntityNotOnTrelloException<T>(entity));
+				TrelloServiceConfiguration.Log.Error(new EntityNotOnTrelloException<T>(entity));
 		}
 		public void Nullable<T>(T? value)
 			where T : struct
 		{
 			if (!value.HasValue)
-				_log.Error(new ArgumentNullException("value"));
+				TrelloServiceConfiguration.Log.Error(new ArgumentNullException("value"));
 		}
 		public void NonEmptyString(string str)
 		{
 			if (string.IsNullOrWhiteSpace(str))
-				_log.Error(new ArgumentNullException("str"));
+				TrelloServiceConfiguration.Log.Error(new ArgumentNullException("str"));
 		}
 		public void Position(Position pos)
 		{
 			if (pos == null)
-				_log.Error(new ArgumentNullException("pos"));
+				TrelloServiceConfiguration.Log.Error(new ArgumentNullException("pos"));
 			if (!pos.IsValid)
-				_log.Error(new ArgumentException("Cannot set an invalid position."));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException("Cannot set an invalid position."));
 		}
 		public string MinStringLength(string str, int minLength, string parameter)
 		{
 			NonEmptyString(str);
 			str = str.Trim();
 			if (str.Length < minLength)
-				_log.Error(new ArgumentException(string.Format("{0} must be at least {1} characters and cannot begin or end with whitespace.",
-																				  parameter,
-																				  minLength)));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException(string.Format("{0} must be at least {1} characters and cannot begin or end with whitespace.",
+				                                                                         parameter, minLength)));
 			return str;
 		}
 		public string StringLengthRange(string str, int low, int high, string parameter)
@@ -88,10 +85,8 @@ namespace Manatee.Trello.Internal
 			NonEmptyString(str);
 			str = str.Trim();
 			if (!str.Length.BetweenInclusive(low, high))
-				_log.Error(new ArgumentException(string.Format("{0} must be from {1} to {2} characters and cannot begin or end with whitespace.",
-																	parameter,
-																	low,
-																	high)));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException(string.Format("{0} must be from {1} to {2} characters and cannot begin or end with whitespace.",
+				                                                                         parameter, low, high)));
 			return str;
 		}
 		public string UserName(string value)
@@ -99,10 +94,10 @@ namespace Manatee.Trello.Internal
 			var retVal = MinStringLength(value, 3, "Username");
 			var regex = new Regex("^[a-z0-9_]+$");
 			if (!regex.IsMatch(retVal))
-				_log.Error(new ArgumentException("Username may only contain lowercase characters, underscores, and numbers"));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException("Username may only contain lowercase characters, underscores, and numbers"));
 			var response = _trelloService.SearchMembers(value);
 			if (response.Any())
-				_log.Error(new ArgumentException(string.Format("Username '{0}' already exists.", value)));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException(string.Format("Username '{0}' already exists.", value)));
 			return retVal;
 		}
 		public string OrgName(string value)
@@ -110,28 +105,28 @@ namespace Manatee.Trello.Internal
 			var retVal = MinStringLength(value, 3, "Name");
 			var regex = new Regex("^[a-z0-9_]+$");
 			if (!regex.IsMatch(retVal))
-				_log.Error(new ArgumentException("Name may only contain lowercase characters, underscores, and numbers"));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException("Name may only contain lowercase characters, underscores, and numbers"));
 			var response = _trelloService.Search(value, modelTypes: SearchModelType.Organizations);
 			if ((response.Organizations != null) && response.Organizations.Any())
-				_log.Error(new ArgumentException(string.Format("Organization '{0}' already exists.", value)));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException(string.Format("Organization '{0}' already exists.", value)));
 			return retVal;
 		}
 		public void Enumeration<T>(T value)
 		{
-			var validValues = Enum.GetValues(typeof(T)).Cast<T>();
+			var validValues = Enum.GetValues(typeof (T)).Cast<T>();
 			if (!validValues.Contains(value))
-				_log.Error(new ArgumentException(string.Format("Value '{0}' is not valid for type '{1}'", value, typeof(T))));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException(string.Format("Value '{0}' is not valid for type '{1}'", value, typeof (T))));
 		}
 		public void Url(string url)
 		{
 			if (string.IsNullOrWhiteSpace(url)) return;
 			if (!(url.BeginsWith("http://") || url.BeginsWith("https://")) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
-				_log.Error(new ArgumentException("URL is not valid.  Must be well-formed and begin with 'http://' or 'https://'"));
+				TrelloServiceConfiguration.Log.Error(new ArgumentException("URL is not valid.  Must be well-formed and begin with 'http://' or 'https://'"));
 		}
 		public void ArgumentNotNull(object value, string name = "value")
 		{
 			if (value == null)
-				_log.Error(new ArgumentNullException(name));
+				TrelloServiceConfiguration.Log.Error(new ArgumentNullException(name));
 		}
 	}
 }

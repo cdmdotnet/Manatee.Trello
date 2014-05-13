@@ -21,7 +21,8 @@
 					calls.
 
 ***************************************************************************************/
-using System.Net;
+
+using System;
 
 namespace Manatee.Trello.Rest
 {
@@ -35,9 +36,9 @@ namespace Manatee.Trello.Rest
 		/// </summary>
 		string Content { get; }
 		/// <summary>
-		/// Indicates the status of the response.
+		/// Gets any exception that was thrown during the call.
 		/// </summary>
-		HttpStatusCode StatusCode { get; }
+		Exception Exception { get; set; }
 	}
 	/// <summary>
 	/// Defines required properties returned by RESTful calls.

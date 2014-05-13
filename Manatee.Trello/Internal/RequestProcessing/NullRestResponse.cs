@@ -22,7 +22,7 @@
 
 ***************************************************************************************/
 
-using System.Net;
+using System;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
@@ -30,7 +30,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	internal class NullRestResponse<T> : IRestResponse<T>
 	{
 		public string Content { get; set; }
-		public HttpStatusCode StatusCode { get; set; }
 		public T Data { get; set; }
+		public Exception Exception { get; set; }
 	}
 }

@@ -1,10 +1,6 @@
 ﻿using System;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
-using Manatee.Trello.Test.Unit.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Manatee.Trello.Test.Unit.Entities
 {

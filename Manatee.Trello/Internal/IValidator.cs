@@ -103,11 +103,5 @@ namespace Manatee.Trello.Internal
 		/// </summary>
 		/// <param name="url"></param>
 		void Url(string url);
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="value"></param>
-		/// <param name="name"></param>
-		void ArgumentNotNull(object value, string name = "value");
 	}
 }

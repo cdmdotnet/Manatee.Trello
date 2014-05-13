@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeBoard : IJsonBoard, IJsonCompatible
+	internal class ManateeBoard : IJsonBoard, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
@@ -38,7 +38,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Url { get; set; }
 		public bool? Subscribed { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type == JsonValueType.Object)
 			{
@@ -57,7 +57,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 				Id = json.String;
 			}
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

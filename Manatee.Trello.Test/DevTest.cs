@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,20 +11,18 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
-			var options = new TrelloServiceConfiguration {ThrowOnTrelloError = true};
+			TrelloServiceConfiguration.ThrowOnTrelloError = false;
 			var serializer = new ManateeSerializer();
-			options.Serializer = serializer;
-			options.Deserializer = serializer;
-			options.RestClientProvider = new RestSharpClientProvider(options);
+			TrelloServiceConfiguration.Serializer = serializer;
+			TrelloServiceConfiguration.Deserializer = serializer;
+			TrelloServiceConfiguration.RestClientProvider = new RestSharpClientProvider();
 
-			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
-			var service = new TrelloService(options, auth);
+			var auth = new TrelloAuthorization(TrelloIds.AppKey, "asfqwrqewqg3524qwerarb");
+			var service = new TrelloService(auth);
 
-			var webhook = service.Retrieve<Webhook<Board>>("534c9305b83fda402777f1cb");
+			var card = service.Retrieve<Card>(TrelloIds.CardId);
 
-			Assert.IsNotNull(webhook);
-
-			webhook.Delete();
+			Console.WriteLine(card);
 		}
 	}
 }

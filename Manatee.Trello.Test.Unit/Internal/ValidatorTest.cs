@@ -13,7 +13,7 @@ using Moq;
 namespace Manatee.Trello.Test.Unit.Internal
 {
 	[TestClass]
-	public class ValidatorTest : TrelloTestBase<IValidator>
+	public class ValidatorTest : TrelloTestBase
 	{
 		#region Dependencies
 
@@ -32,12 +32,11 @@ namespace Manatee.Trello.Test.Unit.Internal
 			}
 		}
 
-		private class ValidatorUnderTest : SystemUnderTest<DependencyCollection>
+		private class ValidatorUnderTest : SystemUnderTest<Validator, DependencyCollection>
 		{
 			public ValidatorUnderTest()
 			{
-				Sut = new Validator(Dependencies.Log.Object,
-									Dependencies.TrelloService.Object);
+				Sut = new Validator(Dependencies.TrelloService.Object);
 			}
 		}
 

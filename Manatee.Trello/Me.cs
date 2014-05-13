@@ -2,6 +2,9 @@
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a Trello user with account ownership privileges.
+	/// </summary>
 	public class Me : Member
 	{
 		private readonly MemberPreferences _preferences;
@@ -67,6 +70,9 @@ namespace Manatee.Trello
 			set { base.Username = value; }
 		}
 
+		/// <summary>
+		/// Creates a new instance of the Me class.
+		/// </summary>
 		public Me()
 		{
 			_preferences = new MemberPreferences(this);

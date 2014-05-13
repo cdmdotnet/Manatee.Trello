@@ -22,7 +22,7 @@
 
 ***************************************************************************************/
 
-using System.Net;
+using System;
 using IRestResponse = RestSharp.IRestResponse;
 
 namespace Manatee.Trello.RestSharp
@@ -32,8 +32,8 @@ namespace Manatee.Trello.RestSharp
 		private readonly IRestResponse _response;
 
 		public string Content { get { return _response.Content; } }
+		public Exception Exception { get; set; }
 		public T Data { get; private set; }
-		public HttpStatusCode StatusCode { get { return _response.StatusCode; } }
 
 		public RestSharpResponse(IRestResponse response, T data)
 		{

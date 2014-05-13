@@ -41,13 +41,10 @@ namespace Manatee.Trello
 	/// </summary>
 	public class TrelloService : ITrelloService
 	{
-		private readonly ITrelloServiceConfiguration _configuration;
-		private readonly IRestRequestProcessor _requestProcessor;
+		private readonly TrelloAuthorization _auth;
 		private readonly IEntityRepository _entityRepository;
 		private readonly IValidator _validator;
-		private readonly IEndpointFactory _endpointFactory;
 		private Me _me;
-		private readonly IEntityFactory _entityFactory;
 
 		/// <summary>
 		/// Allows the TrelloService instance to access data as if it was the member
@@ -55,8 +52,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public string UserToken
 		{
-			get { return _requestProcessor.UserToken; }
-			set { _requestProcessor.UserToken = value; }
+			get { return _auth.UserToken; }
+			set { _auth.UserToken = value; }
 		}
 		/// <summary>
 		/// Gets the Member object associated with the provided AppKey.
@@ -74,44 +71,28 @@ namespace Manatee.Trello
 			get { return _entityRepository.AllowSelfUpdate; }
 			set { _entityRepository.AllowSelfUpdate = value; }
 		}
+		/// <summary>
+		/// Gets and sets the global duration setting for all auto-refreshing objects.
+		/// </summary>
+		public TimeSpan ItemDuration { get; set; }
 
 		/// <summary>
 		/// Creates a new instance of the TrelloService class using a given configuration.
 		/// </summary>
-		/// <param name="configuration">A configuration object.</param>
 		/// <param name="auth">The authorization object for this service.</param>
-		public TrelloService(ITrelloServiceConfiguration configuration, TrelloAuthorization auth)
+		public TrelloService(TrelloAuthorization auth)
 		{
-			if (configuration == null) throw new ArgumentNullException("configuration");
-			_configuration = configuration;
+			_auth = auth;
 			var bootstrapper = new Bootstrapper();
-			bootstrapper.Initialize(this, configuration, auth);
-			_requestProcessor = bootstrapper.RequestProcessor;
+			bootstrapper.Initialize(this, auth);
 			_validator = bootstrapper.Validator;
 			_entityRepository = bootstrapper.EntityRepository;
-			_endpointFactory = bootstrapper.EndpointFactory;
-			_entityFactory = bootstrapper.EntityFactory;
 		}
-		internal TrelloService(ITrelloServiceConfiguration configuration,
-							   IValidator validator,
-							   IEntityRepository entityRepository,
-							   IRestRequestProcessor requestProcessor,
-							   IEndpointFactory endpointFactory,
-							   IEntityFactory entityFactory)
+		internal TrelloService(IValidator validator,
+							   IEntityRepository entityRepository)
 		{
-			_configuration = configuration;
 			_validator = validator;
 			_entityRepository = entityRepository;
-			_requestProcessor = requestProcessor;
-			_endpointFactory = endpointFactory;
-			_entityFactory = entityFactory;
-		}
-		/// <summary>
-		/// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
-		/// </summary>
-		~TrelloService()
-		{
-			_requestProcessor.ShutDown();
 		}
 
 		/// <summary>
@@ -174,7 +155,6 @@ namespace Manatee.Trello
 			_validator.NonEmptyString(query);
 			var memberSearchList = new ExpiringCollection<Member>(null, EntityRequestType.Service_Read_SearchMembers)
 				{
-					Log = _configuration.Log,
 					EntityRepository = _entityRepository,
 					Validator = _validator
 				};
@@ -185,16 +165,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Instructs the service to stop sending requests.
 		/// </summary>
+		// TODO: Move these to TrelloServiceConfiguration
 		public void HoldRequests()
 		{
-			_requestProcessor.IsActive = false;
+			RestRequestProcessor.IsActive = false;
 		}
 		/// <summary>
 		/// Instructs the service to continue sending requests.
 		/// </summary>
 		public void ResumeRequests()
 		{
-			_requestProcessor.IsActive = true;
+			RestRequestProcessor.IsActive = true;
 		}
 		/// <summary>
 		/// Processes a received webhook notification.
@@ -202,16 +183,17 @@ namespace Manatee.Trello
 		/// <param name="body"></param>
 		public void ProcessWebhookNotification(string body)
 		{
-			if (_configuration.Deserializer == null)
+			if (TrelloServiceConfiguration.Deserializer == null)
 				throw new Exception("Configuration.Deserializer must be set in order to handle webhook notifications.");
-			if (_configuration.Cache == null)
+			if (TrelloServiceConfiguration.Cache == null)
 				throw new Exception("Configuration.Cache must be set in order to handle webhook notifications.");
 			var request = new InnerRestResponse<IJsonWebhookNotification> {Content = body};
-			var json = _configuration.Deserializer.Deserialize(request).Action;
-			var action = _entityFactory.CreateEntity<Action>();
+			var json = TrelloServiceConfiguration.Deserializer.Deserialize(request).Action;
+			var action = EntityFactory.CreateEntity<Action>();
 			action.EntityRepository = _entityRepository;
+			action.Validator = _validator;
 			action.ApplyJson(json);
-			foreach (var entity in _configuration.Cache.OfType<ICanWebhook>())
+			foreach (var entity in TrelloServiceConfiguration.Cache.OfType<ICanWebhook>())
 			{
 				entity.ApplyAction(action);
 			}
@@ -225,13 +207,13 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("Key: {0}, Token: {1}", _requestProcessor.AppKey, _requestProcessor.UserToken);
+			return string.Format("Key: {0}, Token: {1}", _auth.AppKey, _auth.UserToken);
 		}
 
 		private T Verify<T>(string id)
 			where T : ExpiringObject
 		{
-			var requestType = _endpointFactory.GetRequestType<T>();
+			var requestType = EndpointFactory.GetRequestType<T>();
 			if (requestType == EntityRequestType.Unsupported) return null;
 			var parameters = new Dictionary<string, object> {{"_id", id}};
 			foreach (var parameter in RestParameterRepository.GetParameters<T>())
@@ -244,9 +226,8 @@ namespace Manatee.Trello
 		private Me GetMe()
 		{
 			if (UserToken == null)
-				_configuration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
-			var parameters = RestParameterRepository.GetParameters<Member>()
-				.ToDictionary<KeyValuePair<string, string>, string, object>(k => k.Key, v => v.Value);
+				TrelloServiceConfiguration.Log.Error(new ReadOnlyAccessException("A valid user token must be supplied to retrieve the 'Me' object."));
+			var parameters = RestParameterRepository.GetParameters<Member>().ToDictionary<KeyValuePair<string, string>, string, object>(k => k.Key, v => v.Value);
 			return _entityRepository.Download<Me>(EntityRequestType.Service_Read_Me, parameters);
 		}
 		private static string ConstructContextParameter<T>(IEnumerable<ExpiringObject> models)

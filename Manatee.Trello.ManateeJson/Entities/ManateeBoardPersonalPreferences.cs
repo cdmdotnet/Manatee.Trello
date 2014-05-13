@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeBoardPersonalPreferences : IJsonBoardPersonalPreferences, IJsonCompatible
+	internal class ManateeBoardPersonalPreferences : IJsonBoardPersonalPreferences, IJsonSerializable
 	{
 		public bool? ShowSidebar { get; set; }
 		public bool? ShowSidebarMembers { get; set; }
@@ -35,7 +35,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? ShowSidebarActivity { get; set; }
 		public bool? ShowListGuide { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -45,7 +45,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			ShowSidebarActivity = obj.TryGetBoolean("showSidebarActivity");
 			ShowListGuide = obj.TryGetBoolean("showListGuide");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

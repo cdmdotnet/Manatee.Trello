@@ -42,15 +42,15 @@ namespace Manatee.Trello.RestSharp
 			if (parameters != null)
 				foreach (var parameter in parameters)
 				{
-                    if (parameter.Key == "file")
-                    {
-                        var rf = (RestFile)parameter.Value;
-                        request.AddFile(parameter.Key, rf.ContentBytes, rf.FileName);
-                    }
-                    else
-                    {
-                        request.AddParameter(parameter.Key, parameter.Value);
-                    }
+					if (parameter.Key == RestFile.ParameterKey)
+					{
+						var rf = (RestFile)parameter.Value;
+						request.AddFile(parameter.Key, rf.ContentBytes, rf.FileName);
+					}
+					else
+					{
+						request.AddParameter(parameter.Key, parameter.Value);
+					}
 				}
 			return request;
 		}

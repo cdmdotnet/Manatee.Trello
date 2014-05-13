@@ -61,7 +61,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = DrillDown(path);
 			if (obj == null) return null;
 			var data = obj.TryGetObject(path.Last());
-			return data != null ? data.FromJson<ManateeAttachment>() : null;
+			return data != null ? data.FromJson<ManateeAttachment>(null) : null;
 		}
 
 		private JsonObject DrillDown(IEnumerable<string> path)

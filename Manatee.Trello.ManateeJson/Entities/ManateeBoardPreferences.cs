@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeBoardPreferences : IJsonBoardPreferences, IJsonCompatible
+	internal class ManateeBoardPreferences : IJsonBoardPreferences, IJsonSerializable
 	{
 		public string PermissionLevel { get; set; }
 		public string Voting { get; set; }
@@ -36,7 +36,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? SelfJoin { get; set; }
 		public bool? CardCovers { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -47,7 +47,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			SelfJoin = obj.TryGetBoolean("selfJoin");
 			CardCovers = obj.TryGetBoolean("cardCovers");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

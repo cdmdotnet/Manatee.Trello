@@ -27,13 +27,13 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeBoardVisibilityRestrict : IJsonBoardVisibilityRestrict, IJsonCompatible
+	internal class ManateeBoardVisibilityRestrict : IJsonBoardVisibilityRestrict, IJsonSerializable
 	{
 		public string Public { get; set; }
 		public string Org { get; set; }
 		public string Private { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -41,7 +41,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Org = obj.TryGetString("org");
 			Private = obj.TryGetString("private");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

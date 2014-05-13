@@ -27,19 +27,19 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeLabel : IJsonLabel, IJsonCompatible
+	internal class ManateeLabel : IJsonLabel, IJsonSerializable
 	{
 		public string Color { get; set; }
 		public string Name { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Color = obj.TryGetString("color");
 			Name = obj.TryGetString("name");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

@@ -263,7 +263,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Url { get { return _jsonMember.Url; } }
 		/// <summary>
-		/// Gets or sets the member's username.
+		/// Gets the member's username.
 		/// </summary>
 		public string Username
 		{

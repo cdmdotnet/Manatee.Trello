@@ -11,14 +11,14 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void AttachmentTest()
 		{
-			var options = new TrelloServiceConfiguration();
+			TrelloServiceConfiguration.ThrowOnTrelloError = false;
 			var serializer = new ManateeSerializer();
-			options.Serializer = serializer;
-			options.Deserializer = serializer;
-			options.RestClientProvider = new RestSharpClientProvider(options);
+			TrelloServiceConfiguration.Serializer = serializer;
+			TrelloServiceConfiguration.Deserializer = serializer;
+			TrelloServiceConfiguration.RestClientProvider = new RestSharpClientProvider();
 
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
-			var service = new TrelloService(options, auth);
+			var service = new TrelloService(auth);
 
 			var list = service.Retrieve<List>(TrelloIds.ListId);
 			var card = list.AddCard("Attachment Test");
@@ -27,14 +27,14 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void GetAllActions()
 		{
-			var options = new TrelloServiceConfiguration();
+			TrelloServiceConfiguration.ThrowOnTrelloError = false;
 			var serializer = new ManateeSerializer();
-			options.Serializer = serializer;
-			options.Deserializer = serializer;
-			options.RestClientProvider = new RestSharpClientProvider(options);
+			TrelloServiceConfiguration.Serializer = serializer;
+			TrelloServiceConfiguration.Deserializer = serializer;
+			TrelloServiceConfiguration.RestClientProvider = new RestSharpClientProvider();
 
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
-			var service = new TrelloService(options, auth);
+			var service = new TrelloService(auth);
 
 			var member = service.Retrieve<Member>("gregsdennis");
 			foreach (var action in member.Actions)
@@ -45,14 +45,14 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void CardCreationDateTest()
 		{
-			var options = new TrelloServiceConfiguration();
+			TrelloServiceConfiguration.ThrowOnTrelloError = false;
 			var serializer = new ManateeSerializer();
-			options.Serializer = serializer;
-			options.Deserializer = serializer;
-			options.RestClientProvider = new RestSharpClientProvider(options);
+			TrelloServiceConfiguration.Serializer = serializer;
+			TrelloServiceConfiguration.Deserializer = serializer;
+			TrelloServiceConfiguration.RestClientProvider = new RestSharpClientProvider();
 
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
-			var service = new TrelloService(options, auth);
+			var service = new TrelloService(auth);
 
 			var list = service.Retrieve<List>(TrelloIds.ListId);
 			foreach (var action in list.Actions)
@@ -69,14 +69,14 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void TestBoardCardsExtensionMethod()
 		{
-			var options = new TrelloServiceConfiguration();
+			TrelloServiceConfiguration.ThrowOnTrelloError = false;
 			var serializer = new ManateeSerializer();
-			options.Serializer = serializer;
-			options.Deserializer = serializer;
-			options.RestClientProvider = new RestSharpClientProvider(options);
+			TrelloServiceConfiguration.Serializer = serializer;
+			TrelloServiceConfiguration.Deserializer = serializer;
+			TrelloServiceConfiguration.RestClientProvider = new RestSharpClientProvider();
 
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
-			var service = new TrelloService(options, auth);
+			var service = new TrelloService(auth);
 
 			var me = service.Me;
 			foreach (var card in me.AllCards())
@@ -87,17 +87,17 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void WebhookForBoardGeneratingWebException()
 		{
-			var options = new TrelloServiceConfiguration();
+			TrelloServiceConfiguration.ThrowOnTrelloError = false;
 			var serializer = new ManateeSerializer();
-			options.Serializer = serializer;
-			options.Deserializer = serializer;
-			options.RestClientProvider = new RestSharpClientProvider(options);
+			TrelloServiceConfiguration.Serializer = serializer;
+			TrelloServiceConfiguration.Deserializer = serializer;
+			TrelloServiceConfiguration.RestClientProvider = new RestSharpClientProvider();
 
 			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
-			var service = new TrelloService(options, auth);
+			var service = new TrelloService(auth);
 
 			var board = service.Retrieve<Board>(TrelloIds.BoardId);
-			var hook = board.CreateWebhook("http://12.25.107.2/");
+			var hook = board.CreateWebhook("http://requestb.in/1k36jm21");
 
 			Console.WriteLine(hook == null ? "null" : hook.IsActive.ToString());
 		}

@@ -21,46 +21,27 @@
 
 ***************************************************************************************/
 
-using System;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
-using Manatee.Trello.Internal.RequestProcessing;
 
 namespace Manatee.Trello.Internal.Bootstrapping
 {
 	internal class Bootstrapper
 	{
-		public IRequestQueue RequestQueue { get; private set; }
-		public INetworkMonitor NetworkMonitor { get; private set; }
-		public IRestRequestProcessor RequestProcessor { get; private set; }
-		public IJsonRepository JsonRepository { get; private set; }
 		public IValidator Validator { get; private set; }
-		public IEntityFactory EntityFactory { get; private set; }
 		public IEntityRepository EntityRepository { get; private set; }
-		public IEndpointFactory EndpointFactory { get; private set; }
-		public IOfflineChangeQueue OfflineChangeQueue { get; private set; }
 
-		public void Initialize(ITrelloService service, ITrelloServiceConfiguration config, TrelloAuthorization auth)
+		public void Initialize(ITrelloService service, TrelloAuthorization auth)
 		{
-			if (config.RestClientProvider == null)
+			if (TrelloServiceConfiguration.RestClientProvider == null)
 				throw new MissingRestClientProviderException();
-			if (config.Serializer == null || config.Deserializer == null)
+			if (TrelloServiceConfiguration.Serializer == null || TrelloServiceConfiguration.Deserializer == null)
 				throw new MissingSerializerException();
-			EndpointFactory = new EndpointFactory();
-			OfflineChangeQueue = new OfflineChangeQueue();
-			NetworkMonitor = new NetworkMonitor();
-			RequestQueue = new RequestQueue(config.Log, NetworkMonitor, config.ThrowOnTrelloError);
-			RequestProcessor = new RestRequestProcessor(RequestQueue, config.RestClientProvider, auth);
-			JsonRepository = new JsonRepository(RequestProcessor, config.RestClientProvider.RequestProvider);
-			Validator = new Validator(config.Log, service);
-			EntityFactory = new EntityFactory(config.Log, Validator);
-			EntityRepository = new EntityRepository(JsonRepository, EndpointFactory, EntityFactory,
-			                                        OfflineChangeQueue, config.Cache ?? new ThreadSafeCacheDecorator(new SimpleCache()),
-			                                        config.ItemDuration);
-			NetworkMonitor.ConnectionStatusChanged += EntityRepository.NetworkStatusChanged;
-			NetworkMonitor.ConnectionStatusChanged += RequestProcessor.NetworkStatusChanged;
+
+			Validator = new Validator(service);
+
+			EntityRepository = new EntityRepository(service.ItemDuration, Validator, auth);
 		}
 	}
 }

@@ -21,7 +21,7 @@
 
 ***************************************************************************************/
 
-using System.Net;
+using System;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal
@@ -29,7 +29,7 @@ namespace Manatee.Trello.Internal
 	internal class InnerRestResponse<T> : IRestResponse<T>
 	{
 		public string Content { get; set; }
-		public HttpStatusCode StatusCode { get; set; }
+		public Exception Exception { get; set; }
 		public T Data { get; set; }
 	}
 }

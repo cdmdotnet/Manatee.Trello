@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeOrganization : IJsonOrganization, IJsonCompatible
+	internal class ManateeOrganization : IJsonOrganization, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
@@ -42,7 +42,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? PaidAccount { get; set; }
 		public List<string> PremiumFeatures { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type == JsonValueType.Object)
 			{
@@ -67,7 +67,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 				Id = json.String;
 			}
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 					{

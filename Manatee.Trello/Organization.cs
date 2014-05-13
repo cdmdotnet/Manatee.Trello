@@ -328,7 +328,7 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
-			Log.Error(new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API."));
+			TrelloServiceConfiguration.Log.Error(new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API."));
 		}
 		///<summary>
 		/// Removes a member from the organization.
@@ -352,7 +352,7 @@ namespace Manatee.Trello
 			if (_isDeleted) return;
 			Validator.Writable();
 			Validator.Entity(member);
-			Log.Error(new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API."));
+			TrelloServiceConfiguration.Log.Error(new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API."));
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.

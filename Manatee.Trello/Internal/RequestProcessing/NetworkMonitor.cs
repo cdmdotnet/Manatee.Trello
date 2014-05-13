@@ -21,31 +21,31 @@
 					exists.
 
 ***************************************************************************************/
-using System;
+
 using System.Net.NetworkInformation;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
-	internal class NetworkMonitor : INetworkMonitor
+	internal static class NetworkMonitor
 	{
-		private bool _isConnected;
+		private static bool _isConnected;
 
-		public bool IsConnected { get { return _isConnected; } }
+		public static bool IsConnected { get { return _isConnected; } }
 
-		public event EventHandler ConnectionStatusChanged;
+		public static event System.Action ConnectionStatusChanged;
 
-		public NetworkMonitor()
+		static NetworkMonitor()
 		{
 			_isConnected = NetworkInterface.GetIsNetworkAvailable();
 			NetworkChange.NetworkAvailabilityChanged += HandleNetworkAvailabilityChange;
 		}
 
-		private void HandleNetworkAvailabilityChange(object sender, NetworkAvailabilityEventArgs e)
+		private static void HandleNetworkAvailabilityChange(object sender, NetworkAvailabilityEventArgs e)
 		{
 			if (_isConnected == e.IsAvailable) return;
 			_isConnected = e.IsAvailable;
 			if (ConnectionStatusChanged != null)
-				ConnectionStatusChanged(this, new EventArgs());
+				ConnectionStatusChanged();
 		}
 	}
 }

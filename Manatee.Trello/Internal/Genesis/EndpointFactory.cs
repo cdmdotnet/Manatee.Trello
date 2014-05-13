@@ -28,7 +28,7 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.Genesis
 {
-	internal class EndpointFactory : IEndpointFactory
+	internal static class EndpointFactory
 	{
 		private static readonly Dictionary<EntityRequestType, Func<Endpoint>> _library;
 		private static readonly Dictionary<Type, EntityRequestType> _refreshRequestTypeMap;
@@ -216,11 +216,11 @@ namespace Manatee.Trello.Internal.Genesis
 				};
 		}
 
-		public Endpoint Build(EntityRequestType requestType, IDictionary<string, object> parameters)
+		public static Endpoint Build(EntityRequestType requestType, IDictionary<string, object> parameters)
 		{
 			return BuildUrl(requestType, parameters);
 		}
-		public EntityRequestType GetRequestType<T>()
+		public static EntityRequestType GetRequestType<T>()
 		{
 			var type = typeof (T);
 			if (type.IsGenericType)
