@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeToken : IJsonToken, IJsonCompatible
+	internal class ManateeToken : IJsonToken, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public string Identifier { get; set; }
@@ -38,7 +38,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public DateTime? DateExpires { get; set; }
 		public List<IJsonTokenPermission> Permissions { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -54,11 +54,11 @@ namespace Manatee.Trello.ManateeJson.Entities
 				DateExpires = date;
 			var perms = obj.TryGetArray("permissions");
 			if (perms != null)
-				Permissions = perms.FromJson<ManateeTokenPermission>()
+				Permissions = perms.FromJson<ManateeTokenPermission>(serializer)
 								   .Cast<IJsonTokenPermission>()
 								   .ToList();
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{
@@ -67,7 +67,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"idMember", IdMember},
 			       		{"dateCreated", DateCreated.HasValue ? DateCreated.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
 			       		{"dateExpires", DateExpires.HasValue ? DateExpires.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"permissions", Permissions.Cast<ManateeTokenPermission>().ToJson()},
+			       		{"permissions", Permissions.Cast<ManateeTokenPermission>().ToJson(serializer)},
 			       	};
 		}
 	}

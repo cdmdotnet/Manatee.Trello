@@ -28,26 +28,26 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.DataAccess
 {
-	internal class JsonRepository : IJsonRepository
+	internal static class JsonRepository
 	{
-		private readonly IRestRequestProcessor _requestProcessor;
-		private readonly IRestRequestProvider _requestProvider;
-
-		public JsonRepository(IRestRequestProcessor requestProcessor, IRestRequestProvider requestProvider)
-		{
-			_requestProcessor = requestProcessor;
-			_requestProvider = requestProvider;
-		}
-
-		public T Execute<T>(Endpoint endpoint, IDictionary<string, object> parameters = null)
+		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
 			where T : class
 		{
-			var request = _requestProvider.Create(endpoint.ToString(), parameters);
+			var request = TrelloServiceConfiguration.RestClientProvider.RequestProvider.Create(endpoint.ToString(), parameters);
 			request.Method = endpoint.Method;
-			_requestProcessor.AddRequest<T>(request);
+			PrepRequest(request, auth);
+			RestRequestProcessor.AddRequest<T>(request);
 			SpinWait.SpinUntil(() => request.Response != null);
+			if (request.Response.Exception != null && TrelloServiceConfiguration.ThrowOnTrelloError)
+				throw request.Response.Exception;
 			var response = (IRestResponse<T>)request.Response;
 			return response.Data;
+		}
+		private static void PrepRequest(IRestRequest request, TrelloAuthorization auth)
+		{
+			request.AddParameter("key", auth.AppKey);
+			if (auth.UserToken != null)
+				request.AddParameter("token", auth.UserToken);
 		}
 	}
 }

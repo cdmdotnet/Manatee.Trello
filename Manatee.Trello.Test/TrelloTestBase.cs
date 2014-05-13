@@ -5,9 +5,9 @@ using StoryQ;
 
 namespace Manatee.Trello.Test
 {
-	public abstract class TrelloTestBase<T>
+	public abstract class TrelloTestBase
 	{
-		protected abstract class SystemUnderTest<TDepCol>
+		public abstract class SystemUnderTest<T, TDepCol>
 			where TDepCol : new()
 		{
 			public TDepCol Dependencies { get; private set; }

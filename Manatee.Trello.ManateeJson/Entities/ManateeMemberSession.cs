@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeMemberSession : IJsonMemberSession, IJsonCompatible
+	internal class ManateeMemberSession : IJsonMemberSession, IJsonSerializable
 	{
 		public bool? IsCurrent { get; set; }
 		public bool? IsRecent { get; set; }
@@ -39,7 +39,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Type { get; set; }
 		public string UserAgent { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -60,7 +60,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Type = obj.TryGetString("type");
 			UserAgent = obj.TryGetString("userAgent");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

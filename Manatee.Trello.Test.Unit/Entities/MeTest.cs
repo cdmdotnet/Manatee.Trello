@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Manatee.Trello.Test.Unit.Entities
 {
 	[TestClass]
-	public class MemberTest : EntityTestBase<Member, IJsonMember>
+	public class MeTest : EntityTestBase<Me, IJsonMember>
 	{
 		[TestMethod]
 		public void Actions()
@@ -104,6 +104,21 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Then(RepositoryRefreshIsCalled<Member>, EntityRequestType.Member_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Bio property")
+				.Given(AMember)
+				.When(BioIsSet, "description")
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_Bio)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Bio property to same")
+				.Given(AMember)
+				.And(BioIs, "description")
+				.When(BioIsSet, "description")
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsNotCalled)
+				.And(ExceptionIsNotThrown)
+
 				.Execute();
 		}
 		[TestMethod]
@@ -149,6 +164,26 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Execute();
 		}
 		[TestMethod]
+		public void Email()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("Access Email property when not expired")
+				.Given(AMember)
+				.When(EmailIsAccessed)
+				.Then(RepositoryRefreshIsNotCalled<Member>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Access Email property when expired")
+				.Given(AMember)
+				.And(EntityIsExpired)
+				.When(EmailIsAccessed)
+				.Then(RepositoryRefreshIsCalled<Member>, EntityRequestType.Member_Read_Refresh)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void FullName()
 		{
 			var feature = CreateFeature();
@@ -164,6 +199,23 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(FullNameIsAccessed)
 				.Then(RepositoryRefreshIsCalled<Member>, EntityRequestType.Member_Read_Refresh)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set FullName property")
+				.Given(AMember)
+				.When(FullNameIsSet, "description")
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorMinStringLengthIsCalled, 4)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_FullName)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set FullName property to same")
+				.Given(AMember)
+				.And(FullNameIs, "description")
+				.When(FullNameIsSet, "description")
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorMinStringLengthIsNotCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -204,6 +256,23 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(InitialsIsAccessed)
 				.Then(RepositoryRefreshIsCalled<Member>, EntityRequestType.Member_Read_Refresh)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Initials property")
+				.Given(AMember)
+				.When(InitialsIsSet, "mt")
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorStringLengthRangeIsCalled, 1, 3)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_Initials)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Initials property to same")
+				.Given(AMember)
+				.And(InitialsIs, "mt")
+				.When(InitialsIsSet, "mt")
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorStringLengthRangeIsNotCalled)
+				.And(RepositoryUploadIsNotCalled)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -293,6 +362,28 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Execute();
 		}
 		[TestMethod]
+		public void Notifications()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("Access Notifications property")
+				.Given(AMember)
+				.And(EntityIsExpired)
+				.When(NotificationsIsAccessed)
+				.Then(RepositoryRefreshIsNotCalled<Member>)
+				.And(RepositoryRefreshCollectionIsNotCalled<Notification>)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Notifications collection enumerates")
+				.Given(AMember)
+				.And(EntityIsExpired)
+				.When(NotificationsIsEnumerated)
+				.Then(RepositoryRefreshCollectionIsCalled<Notification>, EntityRequestType.Member_Read_Notifications)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
 		public void Organizations()
 		{
 			var feature = CreateFeature();
@@ -310,6 +401,34 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.And(EntityIsExpired)
 				.When(OrganizationsIsEnumerated)
 				.Then(RepositoryRefreshCollectionIsCalled<Organization>, EntityRequestType.Member_Read_Organizations)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void StarredBoards()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("Access StarredBoards property")
+				.Given(AMember)
+				.And(EntityIsExpired)
+				.When(StarredBoardsIsAccessed)
+				.Then(RepositoryRefreshIsNotCalled<Member>)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void Preferences()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("Access Preferences property")
+				.Given(AMember)
+				.And(EntityIsExpired)
+				.When(PreferencesIsAccessed)
+				.Then(RepositoryRefreshIsNotCalled<Member>)
 				.And(ExceptionIsNotThrown)
 
 				.Execute();
@@ -406,6 +525,127 @@ namespace Manatee.Trello.Test.Unit.Entities
 				.Then(RepositoryRefreshIsCalled<Member>, EntityRequestType.Member_Read_Refresh)
 				.And(ExceptionIsNotThrown)
 
+				.WithScenario("Set Username property")
+				.Given(AMember)
+				.When(UsernameIsSet, "description")
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorUserNameIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_Username)
+				.And(ExceptionIsNotThrown)
+
+				.WithScenario("Set Username property to same")
+				.Given(AMember)
+				.And(UsernameIs, "description")
+				.When(UsernameIsSet, "description")
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorUserNameIsNotCalled)
+				.And(RepositoryUploadIsNotCalled)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void ClearNotifications()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("ClearNotifications is called")
+				.Given(AMember)
+				.When(ClearNotificationsIsCalled)
+				.Then(ValidatorWritableIsCalled)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_ClearNotifications)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void CreateBoard()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("CreateBoard is called")
+				.Given(AMember)
+				.When(CreateBoardIsCalled, "org name")
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNonEmptyStringIsCalled)
+				.And(RepositoryDownloadIsCalled<Board>, EntityRequestType.Member_Write_CreateBoard)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void CreateOrganization()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("CreateOrganization is called")
+				.Given(AMember)
+				.When(CreateOrganizationIsCalled, "org name")
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorNonEmptyStringIsCalled)
+				.And(RepositoryDownloadIsCalled<Organization>, EntityRequestType.Member_Write_CreateOrganization)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void PinBoard()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("PinBoard is called")
+				.Given(AMember)
+				.When<Func<Board>>(PinBoardIsCalled, Create<Board>)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEntityIsCalled<Board>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_PinBoard)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void RescindVoteForCard()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("RescindVoteForCard is called")
+				.Given(AMember)
+				.When(RescindVoteForCardIsCalled, new Card {Id = TrelloIds.Test})
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEntityIsCalled<Card>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_RescindVoteForCard)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void UnpinBoard()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("UnpinBoard is called")
+				.Given(AMember)
+				.When<Func<Board>>(UnpinBoardIsCalled, Create<Board>)
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEntityIsCalled<Board>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_UnpinBoard)
+				.And(ExceptionIsNotThrown)
+
+				.Execute();
+		}
+		[TestMethod]
+		public void VoteForCard()
+		{
+			var feature = CreateFeature();
+
+			feature.WithScenario("VoteForCard is called")
+				.Given(AMember)
+				.When(VoteForCardIsCalled, new Card {Id = TrelloIds.Test})
+				.Then(ValidatorWritableIsCalled)
+				.And(ValidatorEntityIsCalled<Card>)
+				.And(RepositoryUploadIsCalled, EntityRequestType.Member_Write_VoteForCard)
+				.And(ExceptionIsNotThrown)
+
 				.Execute();
 		}
 
@@ -474,6 +714,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Bio);
 		}
+		private void BioIsSet(string value)
+		{
+			Execute(() => _test.Sut.Bio = value);
+		}
 		private void BoardsIsAccessed()
 		{
 			Execute(() => _test.Sut.Boards);
@@ -486,9 +730,17 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.Confirmed);
 		}
+		private void EmailIsAccessed()
+		{
+			Execute(() => _test.Sut.Email);
+		}
 		private void FullNameIsAccessed()
 		{
 			Execute(() => _test.Sut.FullName);
+		}
+		private void FullNameIsSet(string value)
+		{
+			Execute(() => _test.Sut.FullName = value);
 		}
 		private void GravatarHashIsAccessed()
 		{
@@ -497,6 +749,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void InitialsIsAccessed()
 		{
 			Execute(() => _test.Sut.Initials);
+		}
+		private void InitialsIsSet(string value)
+		{
+			Execute(() => _test.Sut.Initials = value);
 		}
 		private void InvitedBoardsIsAccessed()
 		{
@@ -522,6 +778,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 		{
 			Execute(() => _test.Sut.MemberType);
 		}
+		private void NotificationsIsAccessed()
+		{
+			Execute(() => _test.Sut.Notifications);
+		}
+		private void NotificationsIsEnumerated()
+		{
+			Execute(() => _test.Sut.Notifications.GetEnumerator());
+		}
 		private void OrganizationsIsAccessed()
 		{
 			Execute(() => _test.Sut.Organizations);
@@ -529,6 +793,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void OrganizationsIsEnumerated()
 		{
 			Execute(() => _test.Sut.Organizations.GetEnumerator());
+		}
+		private void StarredBoardsIsAccessed()
+		{
+			Execute(() => _test.Sut.StarredBoards);
+		}
+		private void PreferencesIsAccessed()
+		{
+			Execute(() => _test.Sut.Preferences);
 		}
 		private void StatusIsAccessed()
 		{
@@ -549,6 +821,38 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void UsernameIsAccessed()
 		{
 			Execute(() => _test.Sut.Username);
+		}
+		private void UsernameIsSet(string value)
+		{
+			Execute(() => _test.Sut.Username = value);
+		}
+		private void ClearNotificationsIsCalled()
+		{
+			Execute(() => _test.Sut.ClearNotifications());
+		}
+		private void CreateBoardIsCalled(string value)
+		{
+			Execute(() => _test.Sut.CreateBoard(value));
+		}
+		private void CreateOrganizationIsCalled(string value)
+		{
+			Execute(() => _test.Sut.CreateOrganization(value));
+		}
+		private void PinBoardIsCalled(Func<Board> value)
+		{
+			Execute(() => _test.Sut.PinBoard(value()));
+		}
+		private void RescindVoteForCardIsCalled(Card value)
+		{
+			Execute(() => _test.Sut.RescindVoteForCard(value));
+		}
+		private void UnpinBoardIsCalled(Func<Board> value)
+		{
+			Execute(() => _test.Sut.UnpinBoard(value()));
+		}
+		private void VoteForCardIsCalled(Card value)
+		{
+			Execute(() => _test.Sut.VoteForCard(value));
 		}
 
 		#endregion

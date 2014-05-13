@@ -1,6 +1,6 @@
 /***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2013 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,27 +14,24 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IEntityRepository.cs
-	Namespace:		Manatee.Trello.Internal.DataAccess
-	Class Name:		IEntityRepository
-	Purpose:		Defines methods required to retrieve entities from Trello.
+	File Name:		ICanWebhook.cs
+	Namespace:		Manatee.Trello.Contracts
+	Class Name:		ICanWebhook
+	Purpose:		Simple interface for defining whether an entity supports webhooks.
 
 ***************************************************************************************/
 
-using System.Collections.Generic;
-
-namespace Manatee.Trello.Internal.DataAccess
+namespace Manatee.Trello.Contracts
 {
 	/// <summary>
-	/// Defines methods required to retrieve entities from Trello.
+	/// Simple interface for defining whether an entity supports webhooks.
 	/// </summary>
-	/// <remarks>
-	/// This interface is only exposed for unit testing purposes.
-	/// </remarks>
-	public interface IJsonRepository
+	public interface ICanWebhook
 	{
-		/// <summary />
-		T Execute<T>(Endpoint endpoint, IDictionary<string, object> parameters = null)
-			where T : class;
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		void ApplyAction(Action action);
 	}
 }

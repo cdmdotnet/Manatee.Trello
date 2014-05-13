@@ -199,7 +199,7 @@ namespace Manatee.Trello
 		/// </summary>
 		internal void Delete()
 		{
-			Log.Error(new NotSupportedException("Deleting lists is not yet supported by Trello."));
+			TrelloServiceConfiguration.Log.Error(new NotSupportedException("Deleting lists is not yet supported by Trello."));
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.

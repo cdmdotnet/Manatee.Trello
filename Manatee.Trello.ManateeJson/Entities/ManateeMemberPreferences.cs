@@ -27,14 +27,14 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeMemberPreferences : IJsonMemberPreferences, IJsonCompatible
+	internal class ManateeMemberPreferences : IJsonMemberPreferences, IJsonSerializable
 	{
 		public bool? SendSummaries { get; set; }
 		public int? MinutesBetweenSummaries { get; set; }
 		public int? MinutesBeforeDeadlineToNotify { get; set; }
 		public bool? ColorBlind { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -43,7 +43,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			MinutesBeforeDeadlineToNotify = (int?) obj.TryGetNumber("minutesBeforeDeadlineToNotify");
 			ColorBlind = obj.TryGetBoolean("colorBlind");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

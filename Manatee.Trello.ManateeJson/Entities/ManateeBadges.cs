@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeBadges : IJsonBadges, IJsonCompatible
+	internal class ManateeBadges : IJsonBadges, IJsonSerializable
 	{
 		public int? Votes { get; set; }
 		public bool? ViewingMemberVoted { get; set; }
@@ -40,7 +40,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public int? CheckItems { get; set; }
 		public int? Attachments { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -58,7 +58,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			CheckItems = (int?)obj.TryGetNumber("checkItems");
 			Attachments = (int?)obj.TryGetNumber("attachments");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

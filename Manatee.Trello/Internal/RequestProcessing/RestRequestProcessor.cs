@@ -23,24 +23,23 @@
 
 using System;
 using System.Threading;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
-	internal class RestRequestProcessor : IRestRequestProcessor
+	internal static class RestRequestProcessor
 	{
 		private const string BaseUrl = "https://api.trello.com/1";
 
-		private readonly IRequestQueue _queue;
-		private readonly IRestClientProvider _clientProvider;
-		private readonly string _appKey;
-		private readonly object _lock;
-		private readonly Thread _workerThread;
-		private bool _shutdown;
-		private bool _isActive;
-		private bool _isProcessing;
+		private static readonly RequestQueue _queue;
+		private static readonly object _lock;
+		private static readonly Thread _workerThread;
+		private static bool _shutdown;
+		private static bool _isActive;
+		private static bool _isProcessing;
 
-		public bool IsActive
+		public static bool IsActive
 		{
 			get { return _isActive; }
 			set
@@ -49,41 +48,33 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				Pulse();
 			}
 		}
-		public string AppKey { get { return _appKey; } }
-		public string UserToken { get; set; }
 
-		public RestRequestProcessor(IRequestQueue queue, IRestClientProvider clientProvider, TrelloAuthorization auth)
+		static RestRequestProcessor()
 		{
-			_queue = queue;
-			_clientProvider = clientProvider;
-			_appKey = auth.AppKey;
-			UserToken = auth.UserToken;
+			_queue = new RequestQueue();
 			_lock = new object();
 			_shutdown = false;
 			_isActive = true;
-			_workerThread = new Thread(Process) { IsBackground = true };
+			_workerThread = new Thread(Process) {IsBackground = true};
 			_workerThread.Start();
+			NetworkMonitor.ConnectionStatusChanged += Pulse;
 		}
 
-		public void AddRequest<T>(IRestRequest request)
+		public static void AddRequest<T>(IRestRequest request)
 			where T : class
 		{
-			PrepRequest(request);
+			LogRequest(request, "Queuing");
 			_queue.Enqueue<T>(request);
 			Pulse();
 		}
-		public void ShutDown()
+		public static void ShutDown()
 		{
 			_shutdown = true;
 			Pulse();
 			_workerThread.Join();
 		}
-		public void NetworkStatusChanged(object sender, EventArgs e)
-		{
-			Pulse();
-		}
 
-		private void Process()
+		private static void Process()
 		{
 			lock (_lock)
 			{
@@ -91,27 +82,54 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				{
 					Monitor.Wait(_lock);
 					_isProcessing = true;
-					var client = _clientProvider.CreateRestClient(BaseUrl);
+					var client = TrelloServiceConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 					while (!_shutdown && IsActive && (_queue.Count != 0))
 					{
-						_queue.DequeueAndExecute(client);
+						var request = _queue.Dequeue();
+						if (request == null) break;
+						Execute(client, request);
 					}
 					_isProcessing = false;
 					if (_shutdown) return;
 				}
 			}
 		}
-		private void Pulse()
+		private static void Pulse()
 		{
 			if (_isProcessing) return;
 			lock (_lock)
 				Monitor.Pulse(_lock);
 		}
-		private void PrepRequest(IRestRequest request)
+		private static void Execute(IRestClient client, QueuableRestRequest queuableRequest)
 		{
-			request.AddParameter("key", _appKey);
-			if (UserToken != null)
-				request.AddParameter("token", UserToken);
+			if (NetworkMonitor.IsConnected)
+			{
+				LogRequest(queuableRequest.Request, "Sending");
+				try
+				{
+					queuableRequest.Execute(client);
+					LogResponse(queuableRequest.Request.Response, "Received");
+				}
+				catch (Exception e)
+				{
+					var tie = new TrelloInteractionException(e);
+					queuableRequest.CreateNullResponse(tie);
+					TrelloServiceConfiguration.Log.Error(tie, false);
+				}
+			}
+			else
+			{
+				LogRequest(queuableRequest.Request, "Stubbing");
+				queuableRequest.CreateNullResponse();
+			}
+		}
+		private static void LogRequest(IRestRequest request, string action)
+		{
+			TrelloServiceConfiguration.Log.Info("{2}: {0} {1}", request.Method, request.Resource, action);
+		}
+		private static void LogResponse(IRestResponse response, string action)
+		{
+			TrelloServiceConfiguration.Log.Info("{0}: {1}", action, response.Content);
 		}
 	}
 }

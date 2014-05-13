@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Action.cs" />
     <Compile Include="Contracts\ICache.cs" />
+    <Compile Include="Contracts\ICanWebhook.cs" />
     <Compile Include="Contracts\ILog.cs" />
     <Compile Include="Enumerations\AvatarSourceType.cs" />
     <Compile Include="Enumerations\EntityRequestType.cs" />
@@ -59,11 +60,8 @@
     <Compile Include="Internal\Genesis\EndpointFactory.cs" />
     <Compile Include="Internal\DataAccess\EntityRepository.cs" />
     <Compile Include="Internal\DataAccess\IEntityRepository.cs" />
-    <Compile Include="Internal\Genesis\IEndpointFactory.cs" />
     <Compile Include="Internal\DataAccess\RestParameterRepository.cs" />
     <Compile Include="Internal\Genesis\EntityFactory.cs" />
-    <Compile Include="Internal\Genesis\IEntityFactory.cs" />
-    <Compile Include="Internal\ICanWebhook.cs" />
     <Compile Include="Internal\InnerRestResponse.cs" />
     <Compile Include="Internal\IValidator.cs" />
     <Compile Include="Internal\BoardVisibilityRestrict.cs" />
@@ -93,12 +91,8 @@
     <Compile Include="Internal\Json\InnerJsonToken.cs" />
     <Compile Include="Internal\ExceptionHandling\DebugLog.cs" />
     <Compile Include="Internal\Json\InnerJsonWebhook.cs" />
-    <Compile Include="Internal\RequestProcessing\IOfflineChangeQueue.cs" />
-    <Compile Include="Internal\RequestProcessing\IRequestQueue.cs" />
     <Compile Include="Internal\RequestProcessing\NullRestResponse.cs" />
-    <Compile Include="Internal\RequestProcessing\INetworkMonitor.cs" />
     <Compile Include="Internal\RequestProcessing\NetworkMonitor.cs" />
-    <Compile Include="Internal\RequestProcessing\IRestRequestProcessor.cs" />
     <Compile Include="Internal\RequestProcessing\OfflineChange.cs" />
     <Compile Include="Internal\RequestProcessing\OfflineChangeQueue.cs" />
     <Compile Include="Internal\RequestProcessing\QueuableRestRequest.cs" />
@@ -149,7 +143,6 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\MemberExtensions.cs" />
     <Compile Include="Extensions\OrganizationExtensions.cs" />
-    <Compile Include="Internal\DataAccess\IJsonRepository.cs" />
     <Compile Include="Enumerations\ActionType.cs" />
     <Compile Include="Attachment.cs" />
     <Compile Include="AttachmentPreview.cs" />

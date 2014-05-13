@@ -7,12 +7,12 @@ using Moq;
 
 namespace Manatee.Trello.Test.Unit.Entities
 {
-	public abstract class EntityTestBase<T, TJson> : UnitTestBase<T> where T : ExpiringObject, new()
+	public abstract class EntityTestBase<T, TJson> : UnitTestBase where T : ExpiringObject, new()
 		where TJson : class
 	{
 		#region Dependencies
 
-		protected class EntityUnderTest : SystemUnderTest<DependencyCollection>
+		protected class EntityUnderTest : SystemUnderTest<T, DependencyCollection>
 		{
 			public Mock<TJson> Json { get; private set; }
 
@@ -24,7 +24,6 @@ namespace Manatee.Trello.Test.Unit.Entities
 				Sut = new T
 					{
 						EntityRepository = Dependencies.EntityRepository.Object,
-						Log = Dependencies.Log.Object,
 						Validator = Dependencies.Validator.Object
 					};
 				Sut.PropagateDependencies();
@@ -33,6 +32,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 				Dependencies.EntityRepository.Setup(r => r.Refresh(It.Is<T>(e => e.Id == Sut.Id), It.IsAny<EntityRequestType>()))
 							.Callback((T e, EntityRequestType t) => e.Parameters.Clear())
 							.Returns(true);
+				Dependencies.EntityRepository.SetupGet(r => r.AllowSelfUpdate)
+				            .Returns(true);
 			}
 		}
 
@@ -92,14 +93,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 		protected void RepositoryRefreshCollectionIsCalled<TEntity>(EntityRequestType requestType)
 			where TEntity : ExpiringObject, IEquatable<TEntity>, IComparable<TEntity>
 		{
-			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringList<TEntity>>(),
+			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringCollection<TEntity>>(),
 																						It.Is<EntityRequestType>(rt => rt == requestType)));
 		}
 		[GenericMethodFormat("Repository.RefreshCollection<{0}>() is not called")]
 		protected void RepositoryRefreshCollectionIsNotCalled<TEntity>()
 			where TEntity : ExpiringObject, IEquatable<TEntity>, IComparable<TEntity>
 		{
-			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringList<TEntity>>(),
+			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringCollection<TEntity>>(),
 																						It.IsAny<EntityRequestType>()), Times.Never());
 		}
 		[ParameterizedMethodFormat("Repository.Upload({0}) is called")]
@@ -264,13 +265,12 @@ namespace Manatee.Trello.Test.Unit.Entities
 																						  It.IsAny<IDictionary<string, object>>()))
 							.Returns(new TEntity());
 		}
-		protected T Create<T>()
-			where T : ExpiringObject, new()
+		protected TObj Create<TObj>()
+			where TObj : ExpiringObject, new()
 		{
-			return new T
+			return new TObj
 				{
 					EntityRepository = _test.Dependencies.EntityRepository.Object,
-					Log = _test.Dependencies.Log.Object,
 					Validator = _test.Dependencies.Validator.Object
 				};
 		}

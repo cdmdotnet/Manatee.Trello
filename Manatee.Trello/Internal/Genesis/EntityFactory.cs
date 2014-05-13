@@ -27,10 +27,8 @@ using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.Genesis
 {
-	internal class EntityFactory : IEntityFactory
+	internal static class EntityFactory
 	{
-		private readonly ILog _log;
-		private readonly IValidator _validator;
 		private static readonly Dictionary<Type, Func<ExpiringObject>> _map;
 
 		static EntityFactory()
@@ -69,18 +67,11 @@ namespace Manatee.Trello.Internal.Genesis
 					{typeof (Webhook<Organization>), () => new Webhook<Organization>()},
 				};
 		}
-		public EntityFactory(ILog log, IValidator validator)
-		{
-			_log = log;
-			_validator = validator;
-		}
 
-		public T CreateEntity<T>()
+		public static T CreateEntity<T>()
 			where T : ExpiringObject
 		{
 			T entity = _map[typeof(T)]() as T;
-			entity.Log = _log;
-			entity.Validator = _validator;
 			return entity;
 		}
 	}

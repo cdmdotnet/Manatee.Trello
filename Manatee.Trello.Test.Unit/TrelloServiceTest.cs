@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.Genesis;
-using Manatee.Trello.Test.Unit.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StoryQ;
@@ -12,40 +10,30 @@ using StoryQ;
 namespace Manatee.Trello.Test.Unit
 {
 	[TestClass]
-	public class TrelloServiceTest : UnitTestBase<TrelloService>
+	public class TrelloServiceTest : UnitTestBase
 	{
 		private const string MockEntityId = "mock entity ID";
 
 		#region Dependencies
 
-		private new class DependencyCollection : UnitTestBase<TrelloService>.DependencyCollection
+		private new class DependencyCollection : UnitTestBase.DependencyCollection
 		{
-			public Mock<IEndpointFactory> EndpointFactory { get; private set; }
-			public MockRequestProcessor RequestProcessor { get; private set; }
 			public Mock<ITrelloServiceConfiguration> Config { get; private set; }
-			public Mock<IEntityFactory> EntityFactory { get; private set; }
 
 			public DependencyCollection()
 			{
-				EndpointFactory = new Mock<IEndpointFactory>();
-				RequestProcessor = new MockRequestProcessor();
 				Config = new Mock<ITrelloServiceConfiguration>();
-				EntityFactory = new Mock<IEntityFactory>();
 
 				Config.SetupGet(c => c.Log).Returns(Log.Object);
 			}
 		}
 
-		private class ServiceUnderTest : SystemUnderTest<DependencyCollection>
+		private class ServiceUnderTest : SystemUnderTest<TrelloService, DependencyCollection>
 		{
 			public ServiceUnderTest()
 			{
-				Sut = new TrelloService(Dependencies.Config.Object,
-										Dependencies.Validator.Object,
-										Dependencies.EntityRepository.Object,
-										Dependencies.RequestProcessor,
-										Dependencies.EndpointFactory.Object,
-										Dependencies.EntityFactory.Object);
+				Sut = new TrelloService(Dependencies.Validator.Object,
+										Dependencies.EntityRepository.Object);
 			}
 		}
 
@@ -53,7 +41,7 @@ namespace Manatee.Trello.Test.Unit
 
 		#region Data
 
-		private SystemUnderTest<DependencyCollection> _systemUnderTest;
+		private SystemUnderTest<TrelloService, DependencyCollection> _systemUnderTest;
 
 		#endregion
 
@@ -70,7 +58,6 @@ namespace Manatee.Trello.Test.Unit
 
 			feature.WithScenario("Calls repository")
 				.Given(AService)
-				.And(AnEntityExists<Board>)
 				.When(RetrieveIsCalled<Board>, MockEntityId)
 				.Then(ValidatorNonEmptyStringIsCalled)
 				.And(RepositoryDownloadIsCalled<Board>, 1)
@@ -90,7 +77,6 @@ namespace Manatee.Trello.Test.Unit
 
 			feature.WithScenario("Search a string")
 				.Given(AService)
-				.And(SearchableEntitiesExist)
 				.When(SearchIsCalled, MockEntityId)
 				.Then(ValidatorNonEmptyStringIsCalled)
 				.And(RepositoryDownloadIsCalled<SearchResults>, 1)
@@ -111,7 +97,6 @@ namespace Manatee.Trello.Test.Unit
 
 			feature.WithScenario("Search a string")
 				.Given(AService)
-				.And(SearchableMembersExist)
 				.When(SearchMembersIsCalled, MockEntityId)
 				.Then(ValidatorNonEmptyStringIsCalled)
 				.And(RepositoryRefreshCollectionIsCalled<Member>, 1)
@@ -129,30 +114,6 @@ namespace Manatee.Trello.Test.Unit
 		private void AService()
 		{
 			_systemUnderTest = new ServiceUnderTest();
-		}
-
-		[GenericMethodFormat("The {0} exists")]
-		private void AnEntityExists<T>()
-			where T : ExpiringObject
-		{
-			_systemUnderTest.Dependencies.EntityRepository.Setup(r => r.Download<T>(It.IsAny<EntityRequestType>(),
-																					It.IsAny<IDictionary<string, object>>()))
-							.Returns(new Mock<T>().Object);
-			_systemUnderTest.Dependencies.EndpointFactory.Setup(f => f.GetRequestType<T>())
-							.Returns(EntityRequestType.Badges_Read_Refresh);
-		}
-		private void SearchableEntitiesExist()
-		{
-			_systemUnderTest.Dependencies.EntityRepository.Setup(r => r.Download<SearchResults>(It.IsAny<EntityRequestType>(),
-																								It.IsAny<IDictionary<string, object>>()))
-							.Returns(new SearchResults());
-			_systemUnderTest.Dependencies.EndpointFactory.Setup(f => f.GetRequestType<SearchResults>())
-							.Returns(EntityRequestType.Service_Read_Search);
-		}
-		private void SearchableMembersExist()
-		{
-			_systemUnderTest.Dependencies.EndpointFactory.Setup(f => f.GetRequestType<SearchResults>())
-							.Returns(EntityRequestType.Service_Read_SearchMembers);
 		}
 
 		#endregion
@@ -193,7 +154,7 @@ namespace Manatee.Trello.Test.Unit
 		private void RepositoryRefreshCollectionIsCalled<T>(int times)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
-			_systemUnderTest.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<T>(It.IsAny<ExpiringList<T>>(),
+			_systemUnderTest.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<T>(It.IsAny<ExpiringCollection<T>>(),
 																							 It.IsAny<EntityRequestType>()), Times.Exactly(times));
 		}
 

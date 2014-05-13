@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeLabelNames : IJsonLabelNames, IJsonCompatible
+	internal class ManateeLabelNames : IJsonLabelNames, IJsonSerializable
 	{
 		public string Red { get; set; }
 		public string Orange { get; set; }
@@ -36,7 +36,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Blue { get; set; }
 		public string Purple { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -47,7 +47,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Blue = obj.TryGetString("blue");
 			Purple = obj.TryGetString("purple");
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

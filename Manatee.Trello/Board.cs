@@ -289,7 +289,7 @@ namespace Manatee.Trello
 		{
 			Validator.Writable();
 			Validator.Entity(member);
-			Log.Error(new NotSupportedException("Inviting members to boards is not yet supported by the Trello API."));
+			TrelloServiceConfiguration.Log.Error(new NotSupportedException("Inviting members to boards is not yet supported by the Trello API."));
 		}
 		///<summary>
 		/// Removes a member from the board.
@@ -310,7 +310,7 @@ namespace Manatee.Trello
 		internal void RescindInvitation(Member member)
 		{
 			Validator.Entity(member);
-			Log.Error(new NotSupportedException("Inviting members to boards is not yet supported by the Trello API."));
+			TrelloServiceConfiguration.Log.Error(new NotSupportedException("Inviting members to boards is not yet supported by the Trello API."));
 		}
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.

@@ -52,8 +52,6 @@ namespace Manatee.Trello.Internal.DataAccess
 		/// <summary />
 		void Upload(EntityRequestType request, IDictionary<string, object> parameters);
 		/// <summary />
-		void NetworkStatusChanged(object sender, EventArgs e);
-		/// <summary />
 		bool AllowSelfUpdate { get; set; }
 	}
 }

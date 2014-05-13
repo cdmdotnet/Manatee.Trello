@@ -55,7 +55,7 @@ namespace Manatee.Trello.Internal.DataAccess
 						}},
 					{typeof(Card), new Dictionary<string, string>
 						{
-							{"fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,subscribed"},
+							{"fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,shortLink,shortUrl,subscribed"},
 							{"actions", "none"},
 							{"attachments", "false"},
 							{"badges", "false"},
@@ -114,7 +114,7 @@ namespace Manatee.Trello.Internal.DataAccess
 						{
 							{"action_fields", "idMemberCreator,data,type,date"},
 							{"board_fields", "name,desc,closed,idOrganization,labelNames,pinned,url,subscribed"},
-							{"card_fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,subscribed"},
+							{"card_fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,shortLink,shortUrl,subscribed"},
 							{"member_fields", "avatarHash,bio,fullName,initials,memberType,status,url,username,avatarSource,confirmed,email,gravatarHash,loginTypes,newEmail,oneTimeMessagesDismissed,status,trophies,uploadedAvatarHash"},
 							{"organization_fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures"},
 						}},

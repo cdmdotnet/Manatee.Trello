@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -10,29 +9,31 @@ using Moq;
 namespace Manatee.Trello.Test.Unit.Internal
 {
 	[TestClass]
-	public class ExpiringListTest : UnitTestBase<IEnumerable<MockEntity>>
+	public class ExpiringListTest : UnitTestBase
 	{
 		#region Dependencies
 
-		protected class EntityUnderTest : SystemUnderTest<DependencyCollection>
+		private class EntityUnderTest : SystemUnderTest<ExpiringCollection<MockEntity>, DependencyCollection>
 		{
-			internal ExpiringList<MockEntity> List { get { return (ExpiringList<MockEntity>) Sut; } } 
+			internal ExpiringCollection<MockEntity> List
+			{
+				get { return Sut; }
+			}
 
 			public EntityUnderTest()
 			{
-				Sut = new ExpiringList<MockEntity>(new MockEntity(), EntityRequestType.Board_Read_Lists)
+				Sut = new ExpiringCollection<MockEntity>(new MockEntity(), EntityRequestType.Board_Read_Lists)
 					{
 						EntityRepository = Dependencies.EntityRepository.Object,
-						Log = Dependencies.Log.Object,
 						Validator = Dependencies.Validator.Object
 					};
 				List.PropagateDependencies();
 				List.Update(Enumerable.Empty<MockEntity>());
 
 				Dependencies.EntityRepository.Setup(r => r.RefreshCollection<MockEntity>(It.Is<ExpiringObject>(e => e.Id == List.Id),
-																						It.IsAny<EntityRequestType>()))
-							.Callback((ExpiringObject e, EntityRequestType t) => e.Parameters.Clear())
-							.Returns(true);
+				                                                                         It.IsAny<EntityRequestType>()))
+				            .Callback((ExpiringObject e, EntityRequestType t) => e.Parameters.Clear())
+				            .Returns(true);
 			}
 		}
 
@@ -40,7 +41,7 @@ namespace Manatee.Trello.Test.Unit.Internal
 
 		#region Data
 
-		protected EntityUnderTest _test;
+		private EntityUnderTest _test;
 
 		#endregion
 
@@ -52,19 +53,19 @@ namespace Manatee.Trello.Test.Unit.Internal
 			var feature = CreateFeature();
 
 			feature.WithScenario("Call GetEnumerator when not expired")
-				.Given(AnExpiringList)
-				.When(GetEnumeratorIsCalled)
-				.Then(RepositoryRefreshCollectionIsNotCalled<MockEntity>)
-				.And(ExceptionIsNotThrown)
+			       .Given(AnExpiringList)
+			       .When(GetEnumeratorIsCalled)
+			       .Then(RepositoryRefreshCollectionIsNotCalled<MockEntity>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Call GetEnumerator when expired")
-				.Given(AnExpiringList)
-				.And(EntityIsExpired)
-				.When(GetEnumeratorIsCalled)
-				.Then(RepositoryRefreshCollectionIsCalled<MockEntity>, EntityRequestType.Board_Read_Lists)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Call GetEnumerator when expired")
+			       .Given(AnExpiringList)
+			       .And(EntityIsExpired)
+			       .When(GetEnumeratorIsCalled)
+			       .Then(RepositoryRefreshCollectionIsCalled<MockEntity>, EntityRequestType.Board_Read_Lists)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 
 		#endregion
@@ -94,18 +95,18 @@ namespace Manatee.Trello.Test.Unit.Internal
 		#region Then
 
 		[GenericMethodFormat("Repository.RefreshCollection<{0}>({1}) is called")]
-		protected void RepositoryRefreshCollectionIsCalled<TEntity>(EntityRequestType requestType)
+		private void RepositoryRefreshCollectionIsCalled<TEntity>(EntityRequestType requestType)
 			where TEntity : ExpiringObject, IEquatable<TEntity>, IComparable<TEntity>
 		{
-			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringList<TEntity>>(),
-																						It.Is<EntityRequestType>(rt => rt == requestType)), Times.Once());
+			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringCollection<TEntity>>(),
+			                                                                             It.Is<EntityRequestType>(rt => rt == requestType)), Times.Once());
 		}
 		[GenericMethodFormat("Repository.RefreshCollection<{0}>() is not called")]
-		protected void RepositoryRefreshCollectionIsNotCalled<TEntity>()
+		private void RepositoryRefreshCollectionIsNotCalled<TEntity>()
 			where TEntity : ExpiringObject, IEquatable<TEntity>, IComparable<TEntity>
 		{
-			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringList<TEntity>>(),
-																						It.IsAny<EntityRequestType>()), Times.Never());
+			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringCollection<TEntity>>(),
+			                                                                             It.IsAny<EntityRequestType>()), Times.Never());
 		}
 
 		#endregion

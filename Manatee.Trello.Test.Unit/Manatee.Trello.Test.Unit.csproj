@@ -35,8 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.2.1402.2112, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="StoryQ">
       <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.dll</HintPath>
@@ -75,6 +76,7 @@
     <Compile Include="Entities\CardTest.cs" />
     <Compile Include="Entities\CheckItemTest.cs" />
     <Compile Include="Entities\CheckListTest.cs" />
+    <Compile Include="Entities\MeTest.cs" />
     <Compile Include="Entities\EntityTestBase.cs" />
     <Compile Include="Entities\LabelNamesTest.cs" />
     <Compile Include="Entities\ListTest.cs" />
@@ -85,13 +87,10 @@
     <Compile Include="Entities\OrganizationPreferencesTest.cs" />
     <Compile Include="Entities\OrganizationTest.cs" />
     <Compile Include="Entities\TokenTest.cs" />
-    <Compile Include="Factories\DataFactory.cs" />
-    <Compile Include="Internal\CachingEntityRepositoryTest.cs" />
     <Compile Include="Internal\EntityRepositoryTest.cs" />
     <Compile Include="Internal\ExpiringListTest.cs" />
     <Compile Include="Internal\ValidatorTest.cs" />
     <Compile Include="Mocks\MockEntity.cs" />
-    <Compile Include="Mocks\MockRequestProcessor.cs" />
     <Compile Include="Mocks\MockRestClient.cs" />
     <Compile Include="TrelloServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

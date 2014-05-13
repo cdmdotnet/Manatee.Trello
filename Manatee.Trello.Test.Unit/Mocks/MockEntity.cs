@@ -28,5 +28,9 @@ namespace Manatee.Trello.Test.Unit.Mocks
 		}
 
 		internal override void ApplyJson(object obj) { }
+		internal override bool EqualsJson(object obj)
+		{
+			return true;
+		}
 	}
 }

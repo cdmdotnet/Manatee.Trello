@@ -33,66 +33,64 @@ namespace Manatee.Trello.Internal.DataAccess
 {
 	internal class EntityRepository : IEntityRepository
 	{
-		private static readonly Dictionary<Type, Func<IJsonRepository, Endpoint, IDictionary<string, object>, object>> _repositoryMethods;
-		private static readonly Dictionary<Type, Action<IEntityFactory, ICache, ExpiringObject, object>> _applyJsonMethods;
+		private static readonly Dictionary<Type, Func<TrelloAuthorization, Endpoint, IDictionary<string, object>, object>> _repositoryMethods;
+		private static readonly Dictionary<Type, Action<ICache, ExpiringObject, object>> _applyJsonMethods;
 
-		private readonly IJsonRepository _jsonRepository;
-		private readonly IEndpointFactory _endpointFactory;
-		private readonly IEntityFactory _entityFactory;
-		private readonly IOfflineChangeQueue _offlineChangeQueue;
-		private readonly ICache _cache;
+		private readonly OfflineChangeQueue _offlineChangeQueue;
 		private readonly TimeSpan _entityDuration;
+		private readonly IValidator _validator;
+		private readonly TrelloAuthorization _auth;
 
 		public TimeSpan EntityDuration { get { return _entityDuration; } }
 
 		static EntityRepository()
 		{
-			_repositoryMethods = new Dictionary<Type, Func<IJsonRepository, Endpoint, IDictionary<string, object>, object>>
+			_repositoryMethods = new Dictionary<Type, Func<TrelloAuthorization, Endpoint, IDictionary<string, object>, object>>
 				{
-					{typeof (Action), (r, e, d) => r.Execute<IJsonAction>(e, d)},
-					{typeof (Attachment), (r, e, d) => r.Execute<IJsonAttachment>(e, d)},
-					{typeof (Badges), (r, e, d) => r.Execute<IJsonBadges>(e, d)},
-					{typeof (Board), (r, e, d) => r.Execute<IJsonBoard>(e, d)},
-					{typeof (BoardPersonalPreferences), (r, e, d) => r.Execute<IJsonBoardPersonalPreferences>(e, d)},
-					{typeof (BoardPreferences), (r, e, d) => r.Execute<IJsonBoardPreferences>(e, d)},
-					{typeof (Card), (r, e, d) => r.Execute<IJsonCard>(e, d)},
-					{typeof (CheckItem), (r, e, d) => r.Execute<IJsonCheckItem>(e, d)},
-					{typeof (CheckList), (r, e, d) => r.Execute<IJsonCheckList>(e, d)},
-					{typeof (Label), (r, e, d) => r.Execute<IJsonLabel>(e, d)},
-					{typeof (LabelNames), (r, e, d) => r.Execute<IJsonLabelNames>(e, d)},
-					{typeof (List), (r, e, d) => r.Execute<IJsonList>(e, d)},
-					{typeof (Me), (r, e, d) => r.Execute<IJsonMember>(e, d)},
-					{typeof (Member), (r, e, d) => r.Execute<IJsonMember>(e, d)},
-					{typeof (MemberPreferences), (r, e, d) => r.Execute<IJsonMemberPreferences>(e, d)},
-					{typeof (MemberSession), (r, e, d) => r.Execute<IJsonMemberSession>(e, d)},
-					{typeof (Notification), (r, e, d) => r.Execute<IJsonNotification>(e, d)},
-					{typeof (Organization), (r, e, d) => r.Execute<IJsonOrganization>(e, d)},
-					{typeof (SearchResults), (r, e, d) => r.Execute<IJsonSearchResults>(e, d)},
-					{typeof (Token), (r, e, d) => r.Execute<IJsonToken>(e, d)},
-					{typeof (Webhook<Board>), (r, e, d) => r.Execute<IJsonWebhook>(e, d)},
-					{typeof (Webhook<Card>), (r, e, d) => r.Execute<IJsonWebhook>(e, d)},
-					{typeof (Webhook<CheckItem>), (r, e, d) => r.Execute<IJsonWebhook>(e, d)},
-					{typeof (Webhook<CheckList>), (r, e, d) => r.Execute<IJsonWebhook>(e, d)},
-					{typeof (Webhook<List>), (r, e, d) => r.Execute<IJsonWebhook>(e, d)},
-					{typeof (Webhook<Member>), (r, e, d) => r.Execute<IJsonWebhook>(e, d)},
-					{typeof (Webhook<Organization>), (r, e, d) => r.Execute<IJsonWebhook>(e, d)},
-					{typeof (IEnumerable<Action>), (r, e, d) => r.Execute<List<IJsonAction>>(e, d)},
-					{typeof (IEnumerable<Attachment>), (r, e, d) => r.Execute<List<IJsonAttachment>>(e, d)},
-					{typeof (IEnumerable<Board>), (r, e, d) => r.Execute<List<IJsonBoard>>(e, d)},
-					{typeof (IEnumerable<BoardMembership>), (r, e, d) => r.Execute<List<IJsonBoardMembership>>(e, d)},
-					{typeof (IEnumerable<Card>), (r, e, d) => r.Execute<List<IJsonCard>>(e, d)},
-					{typeof (IEnumerable<CheckItem>), (r, e, d) => r.Execute<List<IJsonCheckItem>>(e, d)},
-					{typeof (IEnumerable<CheckList>), (r, e, d) => r.Execute<List<IJsonCheckList>>(e, d)},
-					{typeof (IEnumerable<Label>), (r, e, d) => r.Execute<List<IJsonLabel>>(e, d)},
-					{typeof (IEnumerable<List>), (r, e, d) => r.Execute<List<IJsonList>>(e, d)},
-					{typeof (IEnumerable<Member>), (r, e, d) => r.Execute<List<IJsonMember>>(e, d)},
-					{typeof (IEnumerable<MemberSession>), (r, e, d) => r.Execute<List<IJsonMemberSession>>(e, d)},
-					{typeof (IEnumerable<Notification>), (r, e, d) => r.Execute<List<IJsonNotification>>(e, d)},
-					{typeof (IEnumerable<Organization>), (r, e, d) => r.Execute<List<IJsonOrganization>>(e, d)},
-					{typeof (IEnumerable<OrganizationMembership>), (r, e, d) => r.Execute<List<IJsonOrganizationMembership>>(e, d)},
-					{typeof (IEnumerable<Token>), (r, e, d) => r.Execute<List<IJsonToken>>(e, d)},
+					{typeof (Action), JsonRepository.Execute<IJsonAction>},
+					{typeof (Attachment), JsonRepository.Execute<IJsonAttachment>},
+					{typeof (Badges), JsonRepository.Execute<IJsonBadges>},
+					{typeof (Board), JsonRepository.Execute<IJsonBoard>},
+					{typeof (BoardPersonalPreferences), JsonRepository.Execute<IJsonBoardPersonalPreferences>},
+					{typeof (BoardPreferences), JsonRepository.Execute<IJsonBoardPreferences>},
+					{typeof (Card), JsonRepository.Execute<IJsonCard>},
+					{typeof (CheckItem), JsonRepository.Execute<IJsonCheckItem>},
+					{typeof (CheckList), JsonRepository.Execute<IJsonCheckList>},
+					{typeof (Label), JsonRepository.Execute<IJsonLabel>},
+					{typeof (LabelNames), JsonRepository.Execute<IJsonLabelNames>},
+					{typeof (List), JsonRepository.Execute<IJsonList>},
+					{typeof (Me), JsonRepository.Execute<IJsonMember>},
+					{typeof (Member), JsonRepository.Execute<IJsonMember>},
+					{typeof (MemberPreferences), JsonRepository.Execute<IJsonMemberPreferences>},
+					{typeof (MemberSession), JsonRepository.Execute<IJsonMemberSession>},
+					{typeof (Notification), JsonRepository.Execute<IJsonNotification>},
+					{typeof (Organization), JsonRepository.Execute<IJsonOrganization>},
+					{typeof (SearchResults), JsonRepository.Execute<IJsonSearchResults>},
+					{typeof (Token), JsonRepository.Execute<IJsonToken>},
+					{typeof (Webhook<Board>), JsonRepository.Execute<IJsonWebhook>},
+					{typeof (Webhook<Card>), JsonRepository.Execute<IJsonWebhook>},
+					{typeof (Webhook<CheckItem>), JsonRepository.Execute<IJsonWebhook>},
+					{typeof (Webhook<CheckList>), JsonRepository.Execute<IJsonWebhook>},
+					{typeof (Webhook<List>), JsonRepository.Execute<IJsonWebhook>},
+					{typeof (Webhook<Member>), JsonRepository.Execute<IJsonWebhook>},
+					{typeof (Webhook<Organization>), JsonRepository.Execute<IJsonWebhook>},
+					{typeof (IEnumerable<Action>), JsonRepository.Execute<List<IJsonAction>>},
+					{typeof (IEnumerable<Attachment>), JsonRepository.Execute<List<IJsonAttachment>>},
+					{typeof (IEnumerable<Board>), JsonRepository.Execute<List<IJsonBoard>>},
+					{typeof (IEnumerable<BoardMembership>), JsonRepository.Execute<List<IJsonBoardMembership>>},
+					{typeof (IEnumerable<Card>), JsonRepository.Execute<List<IJsonCard>>},
+					{typeof (IEnumerable<CheckItem>), JsonRepository.Execute<List<IJsonCheckItem>>},
+					{typeof (IEnumerable<CheckList>), JsonRepository.Execute<List<IJsonCheckList>>},
+					{typeof (IEnumerable<Label>), JsonRepository.Execute<List<IJsonLabel>>},
+					{typeof (IEnumerable<List>), JsonRepository.Execute<List<IJsonList>>},
+					{typeof (IEnumerable<Member>), JsonRepository.Execute<List<IJsonMember>>},
+					{typeof (IEnumerable<MemberSession>), JsonRepository.Execute<List<IJsonMemberSession>>},
+					{typeof (IEnumerable<Notification>), JsonRepository.Execute<List<IJsonNotification>>},
+					{typeof (IEnumerable<Organization>), JsonRepository.Execute<List<IJsonOrganization>>},
+					{typeof (IEnumerable<OrganizationMembership>), JsonRepository.Execute<List<IJsonOrganizationMembership>>},
+					{typeof (IEnumerable<Token>), JsonRepository.Execute<List<IJsonToken>>},
 				};
-			_applyJsonMethods = new Dictionary<Type, Action<IEntityFactory, ICache, ExpiringObject, object>>
+			_applyJsonMethods = new Dictionary<Type, Action<ICache, ExpiringObject, object>>
 				{
 					{typeof (Action), ApplyJson<Action, IJsonAction>},
 					{typeof (Attachment), ApplyJson<Attachment, IJsonAttachment>},
@@ -111,22 +109,20 @@ namespace Manatee.Trello.Internal.DataAccess
 					{typeof (Token), ApplyJson<Token, IJsonToken>},
 				};
 		}
-		public EntityRepository(IJsonRepository jsonRepository, IEndpointFactory endpointFactory, IEntityFactory entityFactory,
-								IOfflineChangeQueue offlineChangeQueue, ICache cache, TimeSpan entityDuration)
+		public EntityRepository(TimeSpan entityDuration, IValidator validator, TrelloAuthorization auth)
 		{
-			_jsonRepository = jsonRepository;
-			_endpointFactory = endpointFactory;
-			_entityFactory = entityFactory;
-			_offlineChangeQueue = offlineChangeQueue;
-			_cache = cache;
 			_entityDuration = entityDuration;
+			_validator = validator;
+			_auth = auth;
+			_offlineChangeQueue = new OfflineChangeQueue();
+			NetworkMonitor.ConnectionStatusChanged += NetworkStatusChanged;
 		}
 
 		public bool Refresh<T>(T entity, EntityRequestType request)
 			where T : ExpiringObject
 		{
-			var endpoint = _endpointFactory.Build(request, entity.Parameters);
-			var json = _repositoryMethods[typeof (T)](_jsonRepository, endpoint, entity.Parameters);
+			var endpoint = EndpointFactory.Build(request, entity.Parameters);
+			var json = _repositoryMethods[typeof (T)](_auth, endpoint, entity.Parameters);
 			entity.Parameters.Clear();
 			if (json == null) return false;
 			entity.ApplyJson(json);
@@ -141,11 +137,11 @@ namespace Manatee.Trello.Internal.DataAccess
 			{
 				list.Parameters[parameter.Key] = parameter.Value;
 			}
-			var endpoint = _endpointFactory.Build(request, list.Parameters);
-			var json = _repositoryMethods[typeof(IEnumerable<T>)](_jsonRepository, endpoint, list.Parameters);
+			var endpoint = EndpointFactory.Build(request, list.Parameters);
+			var json = _repositoryMethods[typeof(IEnumerable<T>)](_auth, endpoint, list.Parameters);
 			list.Parameters.Clear();
 			if (json == null) return false;
-			_applyJsonMethods[typeof(T)](_entityFactory, _cache, list, json);
+			_applyJsonMethods[typeof(T)](TrelloServiceConfiguration.Cache, list, json);
 			return true;
 		}
 		public T Download<T>(EntityRequestType request, IDictionary<string, object> parameters)
@@ -156,15 +152,14 @@ namespace Manatee.Trello.Internal.DataAccess
 			{
 				var id = parameters.SingleOrDefault(kvp => kvp.Key.In("_id")).Value;
 				Func<T> query = () => DownloadFromSource<T>(request, parameters);
-				entity = id == null ? query() : _cache.Find(e => e.Matches(id.ToString()), query);
+				entity = id == null ? query() : TrelloServiceConfiguration.Cache.Find(e => e.Matches(id.ToString()), query);
 				entity.EntityRepository = this;
 				entity.PropagateDependencies();
 				return entity;
 			}
-			catch (Exception)
+			finally
 			{
-				_cache.Remove(entity);
-				throw;
+				TrelloServiceConfiguration.Cache.Remove(entity);
 			}
 		}
 		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, IDictionary<string, object> customParameters)
@@ -174,35 +169,14 @@ namespace Manatee.Trello.Internal.DataAccess
 		}
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)
 		{
-			var endpoint = _endpointFactory.Build(request, parameters);
-			_jsonRepository.Execute<object>(endpoint, parameters);
+			var endpoint = EndpointFactory.Build(request, parameters);
+			// TODO: reimplement with a real type parameter, not object
+			JsonRepository.Execute<object>(_auth, endpoint, parameters);
 			parameters.Clear();
-		}
-		public void NetworkStatusChanged(object sender, EventArgs e)
-		{
-			OfflineChange change;
-			var failedChanges = new List<OfflineChange>();
-			while ((change = _offlineChangeQueue.Dequeue()) != null)
-			{
-				var entity = change.Entity;
-				var json = _repositoryMethods[entity.GetType()](_jsonRepository, change.Endpoint, change.Parameters);
-				if (json == null)
-				{
-					failedChanges.Add(change);
-				}
-				else
-				{
-					var id = entity.Id;
-					entity.ApplyJson(json);
-					if (entity.Id != id)
-						_offlineChangeQueue.ResolveId(id, entity.Id);
-				}
-			}
-			_offlineChangeQueue.Requeue(failedChanges);
 		}
 		public bool AllowSelfUpdate { get; set; }
 
-		private static void ApplyJson<T, TJson>(IEntityFactory entityFactory, ICache cache, ExpiringObject obj, object json)
+		private static void ApplyJson<T, TJson>(ICache cache, ExpiringObject obj, object json)
 			where T : ExpiringObject, IEquatable<T>, IComparable<T>
 		{
 			var list = obj as ExpiringCollection<T>;
@@ -211,9 +185,10 @@ namespace Manatee.Trello.Internal.DataAccess
 			if (jsonList == null) return;
 			Func<TJson, T> createNew = j =>
 				{
-					var entity = entityFactory.CreateEntity<T>();
+					var entity = EntityFactory.CreateEntity<T>();
 					entity.Owner = list.Owner;
 					entity.EntityRepository = list.EntityRepository;
+					entity.Validator = list.Validator;
 					entity.PropagateDependencies();
 					entity.ApplyJson(j);
 					return entity;
@@ -233,9 +208,10 @@ namespace Manatee.Trello.Internal.DataAccess
 		private T DownloadFromSource<T>(EntityRequestType request, IDictionary<string, object> parameters)
 			where T : ExpiringObject
 		{
-			var endpoint = _endpointFactory.Build(request, parameters);
-			var json = _repositoryMethods[typeof(T)](_jsonRepository, endpoint, parameters);
-			var entity = _entityFactory.CreateEntity<T>();
+			var endpoint = EndpointFactory.Build(request, parameters);
+			var json = _repositoryMethods[typeof(T)](_auth, endpoint, parameters);
+			var entity = EntityFactory.CreateEntity<T>();
+			entity.Validator = _validator;
 			entity.EntityRepository = this;
 			entity.PropagateDependencies();
 			if (json == null)
@@ -248,6 +224,28 @@ namespace Manatee.Trello.Internal.DataAccess
 			}
 			parameters.Clear();
 			return entity;
+		}
+		private void NetworkStatusChanged()
+		{
+			OfflineChange change;
+			var failedChanges = new List<OfflineChange>();
+			while ((change = _offlineChangeQueue.Dequeue()) != null)
+			{
+				var entity = change.Entity;
+				var json = _repositoryMethods[entity.GetType()](_auth, change.Endpoint, change.Parameters);
+				if (json == null)
+				{
+					failedChanges.Add(change);
+				}
+				else
+				{
+					var id = entity.Id;
+					entity.ApplyJson(json);
+					if (entity.Id != id)
+						_offlineChangeQueue.ResolveId(id, entity.Id);
+				}
+			}
+			_offlineChangeQueue.Requeue(failedChanges);
 		}
 	}
 }

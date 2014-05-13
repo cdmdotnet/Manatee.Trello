@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeMember : IJsonMember, IJsonCompatible
+	internal class ManateeMember : IJsonMember, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public string AvatarHash { get; set; }
@@ -49,7 +49,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string UploadedAvatarHash { get; set; }
 		public List<string> OneTimeMessagesDismissed { get; set; }
 
-		public void FromJson(JsonValue json)
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
@@ -77,7 +77,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (messagesDismissed != null)
 				OneTimeMessagesDismissed = messagesDismissed.Select(j => j.String).ToList();
 		}
-		public JsonValue ToJson()
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{

@@ -319,9 +319,9 @@ namespace Manatee.Trello
 		{
 			if (_stringDefinitions.ContainsKey(Type))
 				return _stringDefinitions[Type](this);
-			Log.Info("I don't have notification type '{0}' configured yet.  If you can, please find the log entry where " +
-					 "the JSON data is being received and email it to littlecrabsolutions@yahoo.com.  I'll try to add " +
-					 "it in the next release.", _jsonNotification.Type);
+			TrelloServiceConfiguration.Log.Info("I don't have notification type '{0}' configured yet.  If you can, please find the log entry where " +
+			                                    "the JSON data is being received and email it to littlecrabsolutions@yahoo.com.  I'll try to add " +
+			                                    "it in the next release.", _jsonNotification.Type);
 			return string.Format("{0} did something, but it's classified.", MemberCreator.FullName);
 		}
 		/// <summary>

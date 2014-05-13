@@ -20,6 +20,8 @@
 	Purpose:		Defines methods required to retrieve entities from Trello.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 
 namespace Manatee.Trello.Contracts
@@ -42,6 +44,10 @@ namespace Manatee.Trello.Contracts
 		/// updates will be performed via webhook notifications or manually.
 		/// </summary>
 		bool AllowSelfUpdate { get; set; }
+		/// <summary>
+		/// Gets and sets the global duration setting for all auto-refreshing objects.
+		/// </summary>
+		TimeSpan ItemDuration { get; set; }
 		/// <summary>
 		/// Retrieves an entity from Trello.
 		/// </summary>
