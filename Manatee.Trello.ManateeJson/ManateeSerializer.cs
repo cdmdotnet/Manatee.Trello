@@ -82,6 +82,7 @@ namespace Manatee.Trello.ManateeJson
 		{
 			JsonSerializationTypeRegistry.RegisterListType<IJsonAction>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonAttachment>();
+			JsonSerializationTypeRegistry.RegisterListType<IJsonAttachmentPreview>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonBoard>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonBoardMembership>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonCard>();
