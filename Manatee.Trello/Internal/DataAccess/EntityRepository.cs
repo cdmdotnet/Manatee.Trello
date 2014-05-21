@@ -157,9 +157,10 @@ namespace Manatee.Trello.Internal.DataAccess
 				entity.PropagateDependencies();
 				return entity;
 			}
-			finally
+			catch
 			{
 				TrelloServiceConfiguration.Cache.Remove(entity);
+				throw;
 			}
 		}
 		public IEnumerable<T> GenerateList<T>(ExpiringObject owner, EntityRequestType request, string filter, IDictionary<string, object> customParameters)
