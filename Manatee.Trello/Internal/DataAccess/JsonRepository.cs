@@ -30,24 +30,41 @@ namespace Manatee.Trello.Internal.DataAccess
 {
 	internal static class JsonRepository
 	{
+		public static void Execute(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
+		{
+			var request = BuildRequest(auth, endpoint, parameters);
+			RestRequestProcessor.AddRequest(request);
+			SpinWait.SpinUntil(() => request.Response != null);
+			ValidateResponse(request);
+		}
 		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
 			where T : class
+		{
+			var request = BuildRequest(auth, endpoint, parameters);
+			RestRequestProcessor.AddRequest<T>(request);
+			SpinWait.SpinUntil(() => request.Response != null);
+			ValidateResponse(request);
+			var response = (IRestResponse<T>)request.Response;
+			return response.Data;
+		}
+
+		private static IRestRequest BuildRequest(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
 		{
 			var request = TrelloServiceConfiguration.RestClientProvider.RequestProvider.Create(endpoint.ToString(), parameters);
 			request.Method = endpoint.Method;
 			PrepRequest(request, auth);
-			RestRequestProcessor.AddRequest<T>(request);
-			SpinWait.SpinUntil(() => request.Response != null);
-			if (request.Response.Exception != null && TrelloServiceConfiguration.ThrowOnTrelloError)
-				throw request.Response.Exception;
-			var response = (IRestResponse<T>)request.Response;
-			return response.Data;
+			return request;
 		}
 		private static void PrepRequest(IRestRequest request, TrelloAuthorization auth)
 		{
 			request.AddParameter("key", auth.AppKey);
 			if (auth.UserToken != null)
 				request.AddParameter("token", auth.UserToken);
+		}
+		private static void ValidateResponse(IRestRequest request)
+		{
+			if (request.Response.Exception != null && TrelloServiceConfiguration.ThrowOnTrelloError)
+				throw request.Response.Exception;
 		}
 	}
 }

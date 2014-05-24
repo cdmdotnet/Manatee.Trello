@@ -5,6 +5,11 @@ namespace Manatee.Trello.Test.Unit.Mocks
 {
 	public class MockRestClient : IRestClient
 	{
+		public IRestResponse Execute(IRestRequest request)
+		{
+			var mock = new Mock<IRestResponse>();
+			return mock.Object;
+		}
 		public IRestResponse<TRequest> Execute<TRequest>(IRestRequest request)
 			where TRequest : class
 		{

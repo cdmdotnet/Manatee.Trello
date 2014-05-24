@@ -29,6 +29,12 @@ namespace Manatee.Trello.Rest
 	public interface IRestClient
 	{
 		/// <summary>
+		/// Makes a RESTful call and ignores any return data.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		IRestResponse Execute(IRestRequest request);
+
+		/// <summary>
 		/// Makes a RESTful call and expects a single object to be returned.
 		/// </summary>
 		/// <typeparam name="T">The expected type of object to receive in response.</typeparam>

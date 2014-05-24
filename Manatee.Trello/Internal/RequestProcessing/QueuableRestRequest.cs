@@ -27,7 +27,7 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
-	internal abstract class QueuableRestRequest
+	internal class QueuableRestRequest
 	{
 		public IRestRequest Request { get; private set; }
 
@@ -36,8 +36,14 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			Request = request;
 		}
 
-		public abstract void Execute(IRestClient client);
-		public abstract void CreateNullResponse(Exception e = null);
+		public virtual void Execute(IRestClient client)
+		{
+			Request.Response = client.Execute(Request);
+		}
+		public virtual void CreateNullResponse(Exception e = null)
+		{
+			Request.Response = new NullRestResponse {Exception = e};
+		}
 	}
 
 	internal class QueuableRestRequest<T> : QueuableRestRequest
