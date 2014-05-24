@@ -11,18 +11,30 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
-			TrelloServiceConfiguration.ThrowOnTrelloError = false;
+			TrelloServiceConfiguration.ThrowOnTrelloError = true;
 			var serializer = new ManateeSerializer();
 			TrelloServiceConfiguration.Serializer = serializer;
 			TrelloServiceConfiguration.Deserializer = serializer;
 			TrelloServiceConfiguration.RestClientProvider = new RestSharpClientProvider();
 
-			var auth = new TrelloAuthorization(TrelloIds.AppKey, "asfqwrqewqg3524qwerarb");
+			var auth = new TrelloAuthorization(TrelloIds.AppKey, TrelloIds.UserToken);
 			var service = new TrelloService(auth);
 
 			var card = service.Retrieve<Card>(TrelloIds.CardId);
 
-			Console.WriteLine(card);
+			var description = card.Description;
+
+			Console.WriteLine(description);
+
+			card.Description = "this is a **new** description";
+			card.Refresh();
+
+			Console.WriteLine(card.Description);
+
+			card.Description = description;
+			card.Refresh();
+
+			Console.WriteLine(card.Description);
 		}
 	}
 }

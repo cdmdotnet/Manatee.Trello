@@ -27,6 +27,7 @@ using Manatee.Trello.Contracts;
 using RestSharp;
 using IRestClient = Manatee.Trello.Rest.IRestClient;
 using IRestRequest = Manatee.Trello.Rest.IRestRequest;
+using IRestResponse = Manatee.Trello.Rest.IRestResponse;
 
 namespace Manatee.Trello.RestSharp
 {
@@ -42,6 +43,14 @@ namespace Manatee.Trello.RestSharp
 			_deserializer = deserializer;
 			AddHandler("application/json", _deserializer);
 			AddHandler("text/json", _deserializer);
+		}
+
+		public IRestResponse Execute(IRestRequest request)
+		{
+			var restSharpRequest = (RestSharpRequest)request;
+			var restSharpResponse = base.Execute(restSharpRequest);
+			ValidateResponse(restSharpResponse);
+			return new RestSharpResponse(restSharpResponse);
 		}
 
 		public Rest.IRestResponse<T> Execute<T>(IRestRequest request)

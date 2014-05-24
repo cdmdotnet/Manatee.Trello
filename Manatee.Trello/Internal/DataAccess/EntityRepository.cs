@@ -171,8 +171,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		public void Upload(EntityRequestType request, IDictionary<string, object> parameters)
 		{
 			var endpoint = EndpointFactory.Build(request, parameters);
-			// TODO: reimplement with a real type parameter, not object
-			JsonRepository.Execute<object>(_auth, endpoint, parameters);
+			JsonRepository.Execute(_auth, endpoint, parameters);
 			parameters.Clear();
 		}
 		public bool AllowSelfUpdate { get; set; }
