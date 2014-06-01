@@ -379,12 +379,21 @@ namespace Manatee.Trello
 			if (_isDeleted) return null;
 			Validator.Writable();
 			Validator.Url(url);
+#if NET35 || NET35C
+			if (name.IsNullOrWhiteSpace())
+			{
+				name = url.Split('/').LastOrDefault();
+				if (name.IsNullOrWhiteSpace())
+					name = url;
+			}
+#elif NET4 || NET4C || NET45
 			if (string.IsNullOrWhiteSpace(name))
 			{
 				name = url.Split('/').LastOrDefault();
 				if (string.IsNullOrWhiteSpace(name))
 					name = url;
 			}
+#endif
 			Parameters.Add("name", name);
 			Parameters.Add("url", url);
 			Parameters["_id"] = Id;
@@ -514,6 +523,7 @@ namespace Manatee.Trello
 			if (position != null)
 				Parameters.Add("pos", position);
 			EntityRepository.Upload(EntityRequestType.Card_Write_Move, Parameters);
+			MarkForUpdate();
 		}
 		/// <summary>
 		/// Removes a label from a card.

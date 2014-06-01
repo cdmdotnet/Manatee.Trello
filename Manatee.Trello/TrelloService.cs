@@ -83,6 +83,7 @@ namespace Manatee.Trello
 		public TrelloService(TrelloAuthorization auth)
 		{
 			_auth = auth;
+			ItemDuration = TimeSpan.FromSeconds(30);
 			var bootstrapper = new Bootstrapper();
 			bootstrapper.Initialize(this, auth);
 			_validator = bootstrapper.Validator;
@@ -233,7 +234,11 @@ namespace Manatee.Trello
 		private static string ConstructContextParameter<T>(IEnumerable<ExpiringObject> models)
 			where T : ExpiringObject
 		{
+#if NET35 || NET35C
+			return string.Join(",", models.OfType<T>().Take(24).Select(m => m.Id).ToArray());
+#elif NET4 || NET4C || NET45
 			return string.Join(",", models.OfType<T>().Take(24).Select(m => m.Id));
+#endif
 		}
 	}
 }

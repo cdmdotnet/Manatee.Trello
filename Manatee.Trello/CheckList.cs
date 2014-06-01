@@ -172,7 +172,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="deleteCheckList">true if the CheckList is to be deleted after conversion.</param>
 		/// <returns>The Cards which represent the CheckItems.</returns>
-		public IEnumerable<Card> ConvertAllCheckItemsToCards(bool deleteCheckList)
+		public IEnumerable<Card> ConvertAllCheckItemsToCards(bool deleteCheckList = true)
 		{
 			var cards = CheckItems.Select(checkItem => checkItem.ConvertToCard());
 			if (deleteCheckList)

@@ -39,7 +39,11 @@ namespace Manatee.Trello.Internal
 
 		public void Writable()
 		{
+#if NET35 || NET35C
+			if (_trelloService.UserToken.IsNullOrWhiteSpace())
+#elif NET4 || NET4C || NET45
 			if (string.IsNullOrWhiteSpace(_trelloService.UserToken))
+#endif
 				TrelloServiceConfiguration.Log.Error(new ReadOnlyAccessException());
 		}
 		public void Entity<T>(T entity, bool allowNulls = false)
@@ -50,8 +54,12 @@ namespace Manatee.Trello.Internal
 				if (allowNulls) return;
 				TrelloServiceConfiguration.Log.Error(new ArgumentNullException("entity"));
 			}
+#if NET35 || NET35C
+			if (entity.Id.IsNullOrWhiteSpace() || entity.IsStubbed)
+#elif NET4 || NET4C || NET45
 			if (string.IsNullOrWhiteSpace(entity.Id) || entity.IsStubbed)
-				TrelloServiceConfiguration.Log.Error(new EntityNotOnTrelloException<T>(entity));
+#endif
+			TrelloServiceConfiguration.Log.Error(new EntityNotOnTrelloException<T>(entity));
 		}
 		public void Nullable<T>(T? value)
 			where T : struct
@@ -61,8 +69,12 @@ namespace Manatee.Trello.Internal
 		}
 		public void NonEmptyString(string str)
 		{
+#if NET35 || NET35C
+			if (str.IsNullOrWhiteSpace())
+#elif NET4 || NET4C || NET45
 			if (string.IsNullOrWhiteSpace(str))
-				TrelloServiceConfiguration.Log.Error(new ArgumentNullException("str"));
+#endif
+			TrelloServiceConfiguration.Log.Error(new ArgumentNullException("str"));
 		}
 		public void Position(Position pos)
 		{
@@ -119,7 +131,11 @@ namespace Manatee.Trello.Internal
 		}
 		public void Url(string url)
 		{
+#if NET35 || NET35C
+			if (url.IsNullOrWhiteSpace()) return;
+#elif NET4 || NET4C || NET45
 			if (string.IsNullOrWhiteSpace(url)) return;
+#endif
 			if (!(url.BeginsWith("http://") || url.BeginsWith("https://")) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
 				TrelloServiceConfiguration.Log.Error(new ArgumentException("URL is not valid.  Must be well-formed and begin with 'http://' or 'https://'"));
 		}

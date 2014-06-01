@@ -269,29 +269,26 @@ namespace Manatee.Trello
 			Parameters.Add("type", type.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Organization_Write_AddOrUpdateMember, Parameters);
 		}
-		// / <summary>
-		// /  Adds a new or existing member to the organization or updates the permissions of a member already in the organization.
-		// / </summary>
-		// / <param name="fullName"></param>
-		// / <param name="type">The permission level for the member</param>
-		// / <param name="emailAddress"></param>
-		//public Member AddOrUpdateMember(string emailAddress, string fullName, OrganizationMembershipType type = OrganizationMembershipType.Normal)
-		//{
-		//	throw new NotImplementedException("The functionality to add a non-Trello member to to organizations has been temporarily disabled.");
-		//	if (_isDeleted) return null;
-		//	Validator.Writable();
-		//	Validator.NonEmptyString(emailAddress);
-		//	Validator.NonEmptyString(fullName);
-		//	Member member = null;
-		//	if (member != null)
-		//	{
-		//		AddOrUpdateMember(member, type);
-		//		_members.MarkForUpdate();
-		//		_memberships.MarkForUpdate();
-		//		_actions.MarkForUpdate();
-		//	}
-		//	return member;
-		//}
+		/// <summary>
+		///  Adds a new or existing member to the organization or updates the permissions of a member already in the organization.
+		/// </summary>
+		/// <param name="fullName"></param>
+		/// <param name="type">The permission level for the member</param>
+		/// <param name="emailAddress"></param>
+		internal Member AddOrUpdateMember(string emailAddress, string fullName, OrganizationMembershipType type = OrganizationMembershipType.Normal)
+		{
+			throw new NotImplementedException("The functionality to add a non-Trello member to to organizations has been temporarily disabled.");
+			//if (_isDeleted) return null;
+			//Validator.Writable();
+			//Validator.NonEmptyString(emailAddress);
+			//Validator.NonEmptyString(fullName);
+			//Member member = null;
+			//if (member != null)
+			//{
+			//	AddOrUpdateMember(member, type);
+			//}
+			//return member;
+		}
 		/// <summary>
 		/// Creates a board for the organization, owned by the current member.
 		/// </summary>

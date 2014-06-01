@@ -53,7 +53,11 @@ namespace Manatee.Trello.Internal
 			if (!type.IsGenericType) return name;
 			sb.Append(name.Substring(0, name.IndexOf('`')));
 			sb.Append("<");
+#if NET35 || NET35C
+			sb.Append(String.Join(", ", type.GetGenericArguments().Select(t => t.CSharpName()).ToArray()));
+#elif NET4 || NET4C || NET45
 			sb.Append(String.Join(", ", type.GetGenericArguments().Select(t => t.CSharpName())));
+#endif
 			sb.Append(">");
 			return sb.ToString();
 		}
@@ -67,5 +71,11 @@ namespace Manatee.Trello.Internal
 		{
 			return (beginning.Length > str.Length) || (str.Substring(0, beginning.Length) == beginning);
 		}
+#if NET35 || NET35C
+		public static bool IsNullOrWhiteSpace(this string value)
+		{
+			return string.IsNullOrEmpty(value.Trim());
+		}
+#endif
 	}
 }

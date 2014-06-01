@@ -55,13 +55,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the IP Address associated with the session.
 		/// </summary>
-		public IPAddress IpAddress
-		{
-			get
-			{
-				return _ipAddress ?? (_ipAddress = IPAddress.Parse(_jsonMemberSession.IpAddress));
-			}
-		}
+		public IPAddress IpAddress { get { return _ipAddress ?? (_ipAddress = IPAddress.Parse(_jsonMemberSession.IpAddress)); } }
 		/// <summary>
 		/// Gets whether the session is the currently active session.
 		/// </summary>
