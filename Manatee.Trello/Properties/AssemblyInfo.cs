@@ -2,6 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+#if NET4
+
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
@@ -10,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Little Crab Solutions")]
 [assembly: AssemblyProduct("Manatee.Trello")]
-[assembly: AssemblyCopyright("Copyright © 2013 Little Crab Solutions")]
+[assembly: AssemblyCopyright("Copyright © 2014 Little Crab Solutions")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -37,3 +39,5 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("Manatee.Trello.Test")]
 [assembly: InternalsVisibleTo("Manatee.Trello.Test.Unit")]
+
+#endif

@@ -37,14 +37,14 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			_queue = new Queue<QueuableRestRequest>();
 		}
 
-		public void Enqueue(IRestRequest request)
+		public void Enqueue(IRestRequest request, object signal)
 		{
-			_queue.Enqueue(new QueuableRestRequest(request));
+			_queue.Enqueue(new QueuableRestRequest(request, signal));
 		}
-		public void Enqueue<T>(IRestRequest request)
+		public void Enqueue<T>(IRestRequest request, object signal)
 			where T : class
 		{
-			_queue.Enqueue(new QueuableRestRequest<T>(request));
+			_queue.Enqueue(new QueuableRestRequest<T>(request, signal));
 		}
 		public QueuableRestRequest Dequeue()
 		{

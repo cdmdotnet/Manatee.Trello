@@ -32,17 +32,21 @@ namespace Manatee.Trello.Internal.DataAccess
 	{
 		public static void Execute(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
 		{
+			var obj = new object();
 			var request = BuildRequest(auth, endpoint, parameters);
-			RestRequestProcessor.AddRequest(request);
-			SpinWait.SpinUntil(() => request.Response != null);
+			RestRequestProcessor.AddRequest(request, obj);
+			lock (obj)
+				Monitor.Wait(obj);
 			ValidateResponse(request);
 		}
 		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
 			where T : class
 		{
+			var obj = new object();
 			var request = BuildRequest(auth, endpoint, parameters);
-			RestRequestProcessor.AddRequest<T>(request);
-			SpinWait.SpinUntil(() => request.Response != null);
+			RestRequestProcessor.AddRequest<T>(request, obj);
+			lock (obj)
+				Monitor.Wait(obj);
 			ValidateResponse(request);
 			var response = (IRestResponse<T>)request.Response;
 			return response.Data;

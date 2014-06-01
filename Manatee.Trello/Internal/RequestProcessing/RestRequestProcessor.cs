@@ -60,17 +60,17 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			NetworkMonitor.ConnectionStatusChanged += Pulse;
 		}
 
-		public static void AddRequest(IRestRequest request)
+		public static void AddRequest(IRestRequest request, object signal)
 		{
 			LogRequest(request, "Queuing");
-			_queue.Enqueue(request);
+			_queue.Enqueue(request, signal);
 			Pulse();
 		}
-		public static void AddRequest<T>(IRestRequest request)
+		public static void AddRequest<T>(IRestRequest request, object signal)
 			where T : class
 		{
 			LogRequest(request, "Queuing");
-			_queue.Enqueue<T>(request);
+			_queue.Enqueue<T>(request, signal);
 			Pulse();
 		}
 		public static void ShutDown()

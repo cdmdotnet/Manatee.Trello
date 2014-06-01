@@ -33,13 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Manatee.Json.2.3.1\lib\net40\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json">
+      <HintPath>..\packages\Manatee.Json.2.4.1\lib\net40\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Manatee.StateMachine.1.0.1\lib\net40\Manatee.StateMachine.dll</HintPath>
+      <HintPath>..\packages\Manatee.StateMachine.1.1\lib\net40\Manatee.StateMachine.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq, Version=4.2.1402.2112, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
@@ -83,19 +82,19 @@
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj">
       <Project>{fb07603f-bd9b-4cbb-8142-47666c5d88cf}</Project>
-      <Name>Manatee.Trello.ManateeJson</Name>
+      <Name>Manatee.Trello.ManateeJson %284.0\Manatee.Trello.ManateeJson%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello.NewtonsoftJson\Manatee.Trello.NewtonsoftJson.csproj">
       <Project>{0f10f723-f5c5-487d-a956-631494ed957d}</Project>
-      <Name>Manatee.Trello.NewtonsoftJson</Name>
+      <Name>Manatee.Trello.NewtonsoftJson %284.0\Manatee.Trello.NewtonsoftJson%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj">
       <Project>{bad3068d-bffb-4b0d-9826-1df8295827c9}</Project>
-      <Name>Manatee.Trello.RestSharp</Name>
+      <Name>Manatee.Trello.RestSharp %284.0\Manatee.Trello.RestSharp%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
       <Project>{E11BD6AE-0373-40CF-A4F3-6B156096DDB0}</Project>
-      <Name>Manatee.Trello</Name>
+      <Name>Manatee.Trello %284.0\Manatee.Trello%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

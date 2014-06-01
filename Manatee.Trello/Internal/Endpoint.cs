@@ -52,7 +52,11 @@ namespace Manatee.Trello.Internal
 		public Endpoint(RestMethod method, params string[] segments)
 		{
 			Method = method;
+#if NET35 || NET35C
+			_segments = segments.Where(s => !s.IsNullOrWhiteSpace()).ToList();
+#elif NET4 || NET4C || NET45
 			_segments = segments.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+#endif
 		}
 
 		/// <summary />
@@ -81,7 +85,11 @@ namespace Manatee.Trello.Internal
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
+#if NET35 || NET35C
+			return string.Join("/", _segments.ToArray());
+#elif NET4 || NET4C || NET45
 			return string.Join("/", _segments);
+#endif
 		}
 		/// <summary>
 		/// Returns an enumerator that iterates through a collection.

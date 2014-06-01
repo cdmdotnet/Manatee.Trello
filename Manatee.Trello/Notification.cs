@@ -244,7 +244,7 @@ namespace Manatee.Trello
 					{NotificationType.CreatedCard, n => n.ToString("{0} created card {1} on board {2}.", n.GetString("card.name"), n.GetString("board.name"))},
 					{NotificationType.RemovedFromBoard, n => n.ToString("{0} removed member {1} from board {2}.", n.Member.FullName, n.GetString("board.name"))},
 					{NotificationType.RemovedFromCard, n => n.ToString("{0} removed you from card {1}.", n.GetString("card.name"))},
-					{NotificationType.RemovedMemberFromCard, n => n.ToString("{0} removed member {1} from organization {2}.", n.Member.FullName, n.GetString("organization.name"))},
+					{NotificationType.RemovedMemberFromCard, n => n.ToString("{0} removed member {1} from card {2}.", n.Member.FullName, n.GetString("card.name"))},
 					{NotificationType.RemovedFromOrganization, n => n.ToString("{0} removed member {1} from organization {2}.", n.Member.FullName, n.GetString("organization.name"))},
 					{NotificationType.MentionedOnCard, n => n.ToString("{0} mentioned you on card {1}: '{2}'.", n.GetString("card.name"), n.GetString("text"))},
 					{NotificationType.UpdateCheckItemStateOnCard, n => n.ToString("{0} updated checkItem {1} on card {2}.", n.GetString("checkItem.name"), n.GetString("card.name"))},

@@ -249,28 +249,25 @@ namespace Manatee.Trello
 			Parameters.Add("type", type.ToLowerString());
 			EntityRepository.Upload(EntityRequestType.Board_Write_AddOrUpdateMember, Parameters);
 		}
-		// / <summary>
-		// / Adds a new or existing member to the board or updates the permissions of a member already on the board.
-		// / </summary>
-		// / <param name="fullName"></param>
-		// / <param name="type">The permission level for the member</param>
-		// / <param name="emailAddress"></param>
-		//public Member AddOrUpdateMember(string emailAddress, string fullName, BoardMembershipType type = BoardMembershipType.Normal)
-		//{
-		//	throw new NotImplementedException("The functionality to add a non-Trello member to to boards has been temporarily disabled.");
-		//	Validator.Writable();
-		//	Validator.NonEmptyString(emailAddress);
-		//	Validator.NonEmptyString(fullName);
-		//	Member member = null;
-		//	if (member != null)
-		//	{
-		//		AddOrUpdateMember(member, type);
-		//		_memberships.MarkForUpdate();
-		//		_memberships.MarkForUpdate();
-		//		_actions.MarkForUpdate();
-		//	}
-		//	return member;
-		//}
+		/// <summary>
+		/// Adds a new or existing member to the board or updates the permissions of a member already on the board.
+		/// </summary>
+		/// <param name="fullName"></param>
+		/// <param name="type">The permission level for the member</param>
+		/// <param name="emailAddress"></param>
+		internal Member AddOrUpdateMember(string emailAddress, string fullName, BoardMembershipType type = BoardMembershipType.Normal)
+		{
+			throw new NotImplementedException("The functionality to add a non-Trello member to to boards has been temporarily disabled.");
+			//Validator.Writable();
+			//Validator.NonEmptyString(emailAddress);
+			//Validator.NonEmptyString(fullName);
+			//Member member = null;
+			//if (member != null)
+			//{
+			//	AddOrUpdateMember(member, type);
+			//}
+			//return member;
+		}
 		///<summary>
 		/// Marks the board as viewed by the current member.
 		///</summary>
