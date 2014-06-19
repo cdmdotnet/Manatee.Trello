@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Json;
+﻿using System.Linq;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.Unit.Entities
@@ -54,7 +55,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 
 				.WithScenario("Set Card property to same")
 				.Given(ACheckList)
-				.And(CardIs, new Card { Id = TrelloIds.Test })
+				.And(CardIs, TrelloIds.Test)
 				.When(CardIsSet, new Card {Id = TrelloIds.Test})
 				.Then(ValidatorWritableIsCalled)
 				.And(ValidatorEntityIsCalled<Card>)
@@ -205,10 +206,10 @@ namespace Manatee.Trello.Test.Unit.Entities
 			_test.Dependencies.SetupListGeneration<CheckItem>();
 			OwnedBy<Card>();
 		}
-		private void CardIs(Card value)
+		private void CardIs(string value)
 		{
 			_test.Json.SetupGet(j => j.IdCard)
-				 .Returns(value.Id);
+				 .Returns(value);
 		}
 		private void NameIs(string value)
 		{
@@ -248,7 +249,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void CheckItemsIsEnumerated()
 		{
-			Execute(() => _test.Sut.CheckItems.GetEnumerator());
+			Execute(() => _test.Sut.CheckItems.ToList());
 		}
 		private void NameIsAccessed()
 		{

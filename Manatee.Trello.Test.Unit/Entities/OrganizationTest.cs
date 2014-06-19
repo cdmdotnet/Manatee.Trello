@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Json;
+﻿using System.Linq;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.Unit.Entities
@@ -493,7 +494,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void ActionsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Actions.GetEnumerator());
+			Execute(() => _test.Sut.Actions.ToList());
 		}
 		private void BoardsIsAccessed()
 		{
@@ -501,7 +502,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void BoardsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Boards.GetEnumerator());
+			Execute(() => _test.Sut.Boards.ToList());
 		}
 		private void DescriptionIsAccessed()
 		{
@@ -525,7 +526,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void InvitedMembersIsEnumerated()
 		{
-			Execute(() => _test.Sut.InvitedMembers.GetEnumerator());
+			Execute(() => _test.Sut.InvitedMembers.ToList());
 		}
 		private void IsPaidAccountIsAccessed()
 		{
@@ -541,7 +542,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void MembershipsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Memberships.GetEnumerator());
+			Execute(() => _test.Sut.Memberships.ToList());
 		}
 		private void MembersIsAccessed()
 		{
@@ -549,7 +550,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void MembersIsEnumerated()
 		{
-			Execute(() => _test.Sut.Members.GetEnumerator());
+			Execute(() => _test.Sut.Members.ToList());
 		}
 		private void NameIsAccessed()
 		{

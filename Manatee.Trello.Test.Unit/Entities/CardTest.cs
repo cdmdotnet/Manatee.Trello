@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -740,7 +741,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void ActionsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Actions.GetEnumerator());
+			Execute(() => _test.Sut.Actions.ToList());
 		}
 		private void AttachmentCoverIdIsAccessed()
 		{
@@ -752,7 +753,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void AttachmentsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Attachments.GetEnumerator());
+			Execute(() => _test.Sut.Attachments.ToList());
 		}
 		private void BadgesIsAccessed()
 		{
@@ -768,7 +769,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void CheckListsIsEnumerated()
 		{
-			Execute(() => _test.Sut.CheckLists.GetEnumerator());
+			Execute(() => _test.Sut.CheckLists.ToList());
 		}
 		private void CommentsIsAccessed()
 		{
@@ -776,7 +777,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void CommentsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Comments.GetEnumerator());
+			Execute(() => _test.Sut.Comments.ToList());
 		}
 		private void DescriptionIsAccessed()
 		{
@@ -816,7 +817,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void LabelsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Labels.GetEnumerator());
+			Execute(() => _test.Sut.Labels.ToList());
 		}
 		private void ListIsAccessed()
 		{
@@ -832,7 +833,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void MembersIsEnumerated()
 		{
-			Execute(() => _test.Sut.Members.GetEnumerator());
+			Execute(() => _test.Sut.Members.ToList());
 		}
 		private void NameIsAccessed()
 		{
@@ -864,7 +865,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void VotingMembersIsEnumerated()
 		{
-			Execute(() => _test.Sut.VotingMembers.GetEnumerator());
+			Execute(() => _test.Sut.VotingMembers.ToList());
 		}
 		private void AddAttachmentIsCalled(string name, string url)
 		{

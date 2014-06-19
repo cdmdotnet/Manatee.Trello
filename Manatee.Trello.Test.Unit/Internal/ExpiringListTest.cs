@@ -87,7 +87,7 @@ namespace Manatee.Trello.Test.Unit.Internal
 
 		private void GetEnumeratorIsCalled()
 		{
-			Execute(() => _test.List.GetEnumerator());
+			Execute(() => _test.List.ToList());
 		}
 
 		#endregion

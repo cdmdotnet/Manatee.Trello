@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -303,7 +304,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void ActionsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Actions.GetEnumerator());
+			Execute(() => _test.Sut.Actions.ToList());
 		}
 		private void BoardIsAccessed()
 		{
@@ -319,7 +320,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void CardsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Cards.GetEnumerator());
+			Execute(() => _test.Sut.Cards.ToList());
 		}
 		private void IsClosedIsAccessed()
 		{
