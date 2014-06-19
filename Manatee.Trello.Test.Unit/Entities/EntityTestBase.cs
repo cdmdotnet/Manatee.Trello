@@ -8,7 +8,7 @@ using Moq;
 namespace Manatee.Trello.Test.Unit.Entities
 {
 	public abstract class EntityTestBase<T, TJson> : UnitTestBase where T : ExpiringObject, new()
-		where TJson : class
+	                                                              where TJson : class
 	{
 		#region Dependencies
 
@@ -30,8 +30,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 				Sut.ApplyJson(Json.Object);
 
 				Dependencies.EntityRepository.Setup(r => r.Refresh(It.Is<T>(e => e.Id == Sut.Id), It.IsAny<EntityRequestType>()))
-							.Callback((T e, EntityRequestType t) => e.Parameters.Clear())
-							.Returns(true);
+				            .Callback((T e, EntityRequestType t) => e.Parameters.Clear())
+				            .Returns(true);
 				Dependencies.EntityRepository.SetupGet(r => r.AllowSelfUpdate)
 				            .Returns(true);
 			}
@@ -67,21 +67,21 @@ namespace Manatee.Trello.Test.Unit.Entities
 			where TEntity : ExpiringObject
 		{
 			_test.Dependencies.EntityRepository.Verify(r => r.Download<TEntity>(It.Is<EntityRequestType>(rt => rt == requestType),
-																				It.IsAny<Dictionary<string, object>>()), Times.Once());
+			                                                                    It.IsAny<Dictionary<string, object>>()), Times.Once());
 		}
 		[GenericMethodFormat("Repository.Download<{0}>() is not called")]
 		protected void RepositoryDownloadIsNotCalled<TEntity>()
 			where TEntity : ExpiringObject
 		{
 			_test.Dependencies.EntityRepository.Verify(r => r.Download<TEntity>(It.IsAny<EntityRequestType>(),
-																				It.IsAny<Dictionary<string, object>>()), Times.Never());
+			                                                                    It.IsAny<Dictionary<string, object>>()), Times.Never());
 		}
 		[GenericMethodFormat("Repository.Refresh<{0}>({1}) is called")]
 		protected void RepositoryRefreshIsCalled<TEntity>(EntityRequestType requestType)
 			where TEntity : ExpiringObject
 		{
 			_test.Dependencies.EntityRepository.Verify(r => r.Refresh(It.IsAny<TEntity>(),
-																	  It.Is<EntityRequestType>(rt => rt == requestType)), Times.Once());
+			                                                          It.Is<EntityRequestType>(rt => rt == requestType)), Times.Once());
 		}
 		[GenericMethodFormat("Repository.Refresh<{0}>() is not called")]
 		protected void RepositoryRefreshIsNotCalled<TEntity>()
@@ -94,26 +94,26 @@ namespace Manatee.Trello.Test.Unit.Entities
 			where TEntity : ExpiringObject, IEquatable<TEntity>, IComparable<TEntity>
 		{
 			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringCollection<TEntity>>(),
-																						It.Is<EntityRequestType>(rt => rt == requestType)));
+			                                                                             It.Is<EntityRequestType>(rt => rt == requestType)));
 		}
 		[GenericMethodFormat("Repository.RefreshCollection<{0}>() is not called")]
 		protected void RepositoryRefreshCollectionIsNotCalled<TEntity>()
 			where TEntity : ExpiringObject, IEquatable<TEntity>, IComparable<TEntity>
 		{
 			_test.Dependencies.EntityRepository.Verify(r => r.RefreshCollection<TEntity>(It.IsAny<ExpiringCollection<TEntity>>(),
-																						It.IsAny<EntityRequestType>()), Times.Never());
+			                                                                             It.IsAny<EntityRequestType>()), Times.Never());
 		}
 		[ParameterizedMethodFormat("Repository.Upload({0}) is called")]
 		protected void RepositoryUploadIsCalled(EntityRequestType requestType)
 		{
 			_test.Dependencies.EntityRepository.Verify(r => r.Upload(It.Is<EntityRequestType>(rt => rt == requestType),
-																	 It.IsAny<Dictionary<string, object>>()), Times.Once());
+			                                                         It.IsAny<Dictionary<string, object>>()), Times.Once());
 		}
 		[ParameterizedMethodFormat("Repository.Upload() is not called")]
 		protected void RepositoryUploadIsNotCalled()
 		{
 			_test.Dependencies.EntityRepository.Verify(r => r.Upload(It.IsAny<EntityRequestType>(),
-																	 It.IsAny<Dictionary<string, object>>()), Times.Never());
+			                                                         It.IsAny<Dictionary<string, object>>()), Times.Never());
 		}
 		[ParameterizedMethodFormat("Validator.NonEmptyString() is called")]
 		protected void ValidatorNonEmptyStringIsCalled()
@@ -169,25 +169,25 @@ namespace Manatee.Trello.Test.Unit.Entities
 		protected void ValidatorMinStringLengthIsCalled(int length)
 		{
 			_test.Dependencies.Validator.Verify(v => v.MinStringLength(It.IsAny<string>(), It.Is<int>(i => i == length),
-																	   It.IsAny<string>()));
+			                                                           It.IsAny<string>()));
 		}
 		[ParameterizedMethodFormat("Validator.MinStringLength() is not called")]
 		protected void ValidatorMinStringLengthIsNotCalled()
 		{
 			_test.Dependencies.Validator.Verify(v => v.MinStringLength(It.IsAny<string>(), It.IsAny<int>(),
-																	   It.IsAny<string>()), Times.Never());
+			                                                           It.IsAny<string>()), Times.Never());
 		}
 		[ParameterizedMethodFormat("Validator.StringLengthRange({0}, {1}) is called")]
 		protected void ValidatorStringLengthRangeIsCalled(int min, int max)
 		{
 			_test.Dependencies.Validator.Verify(v => v.StringLengthRange(It.IsAny<string>(), It.Is<int>(i => i == min),
-																		 It.Is<int>(i => i == max), It.IsAny<string>()));
+			                                                             It.Is<int>(i => i == max), It.IsAny<string>()));
 		}
 		[ParameterizedMethodFormat("Validator.StringLengthRange() is not called")]
 		protected void ValidatorStringLengthRangeIsNotCalled()
 		{
 			_test.Dependencies.Validator.Verify(v => v.StringLengthRange(It.IsAny<string>(), It.IsAny<int>(),
-																		 It.IsAny<int>(), It.IsAny<string>()), Times.Never());
+			                                                             It.IsAny<int>(), It.IsAny<string>()), Times.Never());
 		}
 		[ParameterizedMethodFormat("Validator.UserName() is called")]
 		protected void ValidatorUserNameIsCalled()
@@ -262,8 +262,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 			where TEntity : ExpiringObject, new()
 		{
 			_test.Dependencies.EntityRepository.Setup(r => r.Download<TEntity>(It.IsAny<EntityRequestType>(),
-																						  It.IsAny<IDictionary<string, object>>()))
-							.Returns(new TEntity());
+			                                                                   It.IsAny<IDictionary<string, object>>()))
+			     .Returns(new TEntity());
 		}
 		protected TObj Create<TObj>()
 			where TObj : ExpiringObject, new()
@@ -271,7 +271,8 @@ namespace Manatee.Trello.Test.Unit.Entities
 			return new TObj
 				{
 					EntityRepository = _test.Dependencies.EntityRepository.Object,
-					Validator = _test.Dependencies.Validator.Object
+					Validator = _test.Dependencies.Validator.Object,
+					Id = TrelloIds.Test
 				};
 		}
 

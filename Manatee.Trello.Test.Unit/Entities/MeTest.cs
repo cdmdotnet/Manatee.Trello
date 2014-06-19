@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -696,7 +697,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void ActionsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Actions.GetEnumerator());
+			Execute(() => _test.Sut.Actions.ToList());
 		}
 		private void AvatarHashIsAccessed()
 		{
@@ -724,7 +725,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void BoardsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Boards.GetEnumerator());
+			Execute(() => _test.Sut.Boards.ToList());
 		}
 		private void ConfirmedIsAccessed()
 		{
@@ -760,7 +761,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void InvitedBoardsIsEnumerated()
 		{
-			Execute(() => _test.Sut.InvitedBoards.GetEnumerator());
+			Execute(() => _test.Sut.InvitedBoards.ToList());
 		}
 		private void InvitedOrganizationsIsAccessed()
 		{
@@ -768,7 +769,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void InvitedOrganizationsIsEnumerated()
 		{
-			Execute(() => _test.Sut.InvitedOrganizations.GetEnumerator());
+			Execute(() => _test.Sut.InvitedOrganizations.ToList());
 		}
 		private void LoginTypesIsAccessed()
 		{
@@ -784,7 +785,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void NotificationsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Notifications.GetEnumerator());
+			Execute(() => _test.Sut.Notifications.ToList());
 		}
 		private void OrganizationsIsAccessed()
 		{
@@ -792,7 +793,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void OrganizationsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Organizations.GetEnumerator());
+			Execute(() => _test.Sut.Organizations.ToList());
 		}
 		private void StarredBoardsIsAccessed()
 		{

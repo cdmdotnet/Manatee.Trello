@@ -29,6 +29,7 @@ namespace Manatee.Trello.Test.Unit.Internal
 
 				Log.Setup(l => l.Error(It.IsAny<Exception>(), It.Is<bool>(b => b)))
 						.Callback((Exception e, bool b) => { throw e; });
+				TrelloServiceConfiguration.Log = Log.Object;
 			}
 		}
 

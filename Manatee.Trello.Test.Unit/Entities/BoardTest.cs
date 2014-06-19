@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,21 +14,21 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Actions property")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(ActionsIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(RepositoryRefreshCollectionIsNotCalled<Action>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(ActionsIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(RepositoryRefreshCollectionIsNotCalled<Action>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Actions collection enumerates")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(ActionsIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<Action>, EntityRequestType.Board_Read_Actions)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Actions collection enumerates")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(ActionsIsEnumerated)
+			       .Then(RepositoryRefreshCollectionIsCalled<Action>, EntityRequestType.Board_Read_Actions)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void Description()
@@ -35,34 +36,34 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Description property when not expired")
-				.Given(ABoard)
-				.When(DescriptionIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(DescriptionIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Access Description property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(DescriptionIsAccessed)
-				.Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Access Description property when expired")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(DescriptionIsAccessed)
+			       .Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Description property")
-				.Given(ABoard)
-				.When(DescriptionIsSet, "description")
-				.Then(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_Description)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set Description property")
+			       .Given(ABoard)
+			       .When(DescriptionIsSet, "description")
+			       .Then(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_Description)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Description property to same")
-				.Given(ABoard)
-				.And(DescriptionIs, "description")
-				.When(DescriptionIsSet, "description")
-				.Then(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsNotCalled)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set Description property to same")
+			       .Given(ABoard)
+			       .And(DescriptionIs, "description")
+			       .When(DescriptionIsSet, "description")
+			       .Then(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsNotCalled)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void InvitedMembers()
@@ -70,21 +71,21 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access InvitedMembers property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(InvitedMembersIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(RepositoryRefreshCollectionIsNotCalled<Member>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(InvitedMembersIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(RepositoryRefreshCollectionIsNotCalled<Member>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("InvitedMembers collection enumerates")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(InvitedMembersIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<Member>, EntityRequestType.Board_Read_InvitedMembers)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("InvitedMembers collection enumerates")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(InvitedMembersIsEnumerated)
+			       .Then(RepositoryRefreshCollectionIsCalled<Member>, EntityRequestType.Board_Read_InvitedMembers)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void IsClosed()
@@ -92,36 +93,36 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access IsClosed property when not expired")
-				.Given(ABoard)
-				.When(IsClosedIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(IsClosedIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Access IsClosed property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(IsClosedIsAccessed)
-				.Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Access IsClosed property when expired")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(IsClosedIsAccessed)
+			       .Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsClosed property")
-				.Given(ABoard)
-				.When(IsClosedIsSet, (bool?)true)
-				.Then(ValidatorNullableIsCalled<bool>)
-				.And(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_IsClosed)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set IsClosed property")
+			       .Given(ABoard)
+			       .When(IsClosedIsSet, (bool?) true)
+			       .Then(ValidatorNullableIsCalled<bool>)
+			       .And(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_IsClosed)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsClosed property to same")
-				.Given(ABoard)
-				.And(IsClosedIs, (bool?)true)
-				.When(IsClosedIsSet, (bool?) true)
-				.Then(ValidatorNullableIsCalled<bool>)
-				.And(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsNotCalled)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set IsClosed property to same")
+			       .Given(ABoard)
+			       .And(IsClosedIs, (bool?) true)
+			       .When(IsClosedIsSet, (bool?) true)
+			       .Then(ValidatorNullableIsCalled<bool>)
+			       .And(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsNotCalled)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void IsPinned()
@@ -129,17 +130,17 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access IsPinned property when not expired")
-				.Given(ABoard)
-				.When(IsPinnedIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(IsPinnedIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Access IsPinned property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(IsPinnedIsAccessed)
-				.Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Access IsPinned property when expired")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(IsPinnedIsAccessed)
+			       .Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
+			       .And(ExceptionIsNotThrown)
 
 				//.WithScenario("Set IsPinned property")
 				//.Given(ABoard)
@@ -158,7 +159,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 				//.And(RepositoryUploadIsNotCalled)
 				//.And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void IsSubscribed()
@@ -166,36 +167,36 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access IsSubscribed property when not expired")
-				.Given(ABoard)
-				.When(IsSubscribedIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(IsSubscribedIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Access IsSubscribed property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(IsSubscribedIsAccessed)
-				.Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Access IsSubscribed property when expired")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(IsSubscribedIsAccessed)
+			       .Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsSubscribed property")
-				.Given(ABoard)
-				.When(IsSubscribedIsSet, (bool?)true)
-				.Then(ValidatorNullableIsCalled<bool>)
-				.And(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_IsSubscribed)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set IsSubscribed property")
+			       .Given(ABoard)
+			       .When(IsSubscribedIsSet, (bool?) true)
+			       .Then(ValidatorNullableIsCalled<bool>)
+			       .And(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_IsSubscribed)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set IsSubscribed property to same")
-				.Given(ABoard)
-				.And(IsSubscribedIs, (bool?)true)
-				.When(IsSubscribedIsSet, (bool?) true)
-				.Then(ValidatorNullableIsCalled<bool>)
-				.And(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsNotCalled)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set IsSubscribed property to same")
+			       .Given(ABoard)
+			       .And(IsSubscribedIs, (bool?) true)
+			       .When(IsSubscribedIsSet, (bool?) true)
+			       .Then(ValidatorNullableIsCalled<bool>)
+			       .And(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsNotCalled)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void LabelNames()
@@ -203,13 +204,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access IsSubscribed property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(LabelNamesIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(LabelNamesIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void Lists()
@@ -217,21 +218,21 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Lists property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(ListsIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(RepositoryRefreshCollectionIsNotCalled<List>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(ListsIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(RepositoryRefreshCollectionIsNotCalled<List>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Lists collection enumerates")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(ListsIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<List>, EntityRequestType.Board_Read_Lists)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Lists collection enumerates")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(ListsIsEnumerated)
+			       .Then(RepositoryRefreshCollectionIsCalled<List>, EntityRequestType.Board_Read_Lists)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void Members()
@@ -239,21 +240,21 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Members property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(MembersIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(RepositoryRefreshCollectionIsNotCalled<Member>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(MembersIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(RepositoryRefreshCollectionIsNotCalled<Member>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Members collection enumerates")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(MembersIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<Member>, EntityRequestType.Board_Read_Members)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Members collection enumerates")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(MembersIsEnumerated)
+			       .Then(RepositoryRefreshCollectionIsCalled<Member>, EntityRequestType.Board_Read_Members)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void Memberships()
@@ -261,21 +262,21 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Memberships property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(MembershipsIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(RepositoryRefreshCollectionIsNotCalled<BoardMembership>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(MembershipsIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(RepositoryRefreshCollectionIsNotCalled<BoardMembership>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Memberships collection enumerates")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(MembershipsIsEnumerated)
-				.Then(RepositoryRefreshCollectionIsCalled<BoardMembership>, EntityRequestType.Board_Read_Memberships)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Memberships collection enumerates")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(MembershipsIsEnumerated)
+			       .Then(RepositoryRefreshCollectionIsCalled<BoardMembership>, EntityRequestType.Board_Read_Memberships)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void Name()
@@ -283,34 +284,34 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Name property when not expired")
-				.Given(ABoard)
-				.When(NameIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(NameIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Access Name property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(NameIsAccessed)
-				.Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Access Name property when expired")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(NameIsAccessed)
+			       .Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Name property")
-				.Given(ABoard)
-				.When(NameIsSet, "name")
-				.Then(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_Name)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set Name property")
+			       .Given(ABoard)
+			       .When(NameIsSet, "name")
+			       .Then(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_Name)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Name property to same")
-				.Given(ABoard)
-				.And(NameIs, "description")
-				.When(NameIsSet, "description")
-				.Then(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsNotCalled)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set Name property to same")
+			       .Given(ABoard)
+			       .And(NameIs, "description")
+			       .When(NameIsSet, "description")
+			       .Then(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsNotCalled)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void Organization()
@@ -318,36 +319,36 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Organization property when not expired")
-				.Given(ABoard)
-				.When(OrganizationIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(OrganizationIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Access Organization property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(OrganizationIsAccessed)
-				.Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Access Organization property when expired")
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(OrganizationIsAccessed)
+			       .Then(RepositoryRefreshIsCalled<Board>, EntityRequestType.Board_Read_Refresh)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Organization property")
-				.Given(ABoard)
-				.When<Func<Organization>>(OrganizationIsSet, Create<Organization>)
-				.Then(ValidatorWritableIsCalled)
-				.And(ValidatorEntityIsCalled<Organization>)
-				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_Organization)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set Organization property")
+			       .Given(ABoard)
+			       .When<Func<Organization>>(OrganizationIsSet, Create<Organization>)
+			       .Then(ValidatorWritableIsCalled)
+			       .And(ValidatorEntityIsCalled<Organization>)
+			       .And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_Organization)
+			       .And(ExceptionIsNotThrown)
 
-				.WithScenario("Set Organization property to same")
-				.Given(ABoard)
-				.And(OrganizationIs, TrelloIds.Test)
-				.When<Func<Organization>>(OrganizationIsSet, Create<Organization>)
-				.Then(ValidatorWritableIsCalled)
-				.And(ValidatorEntityIsCalled<Organization>)
-				.And(RepositoryUploadIsNotCalled)
-				.And(ExceptionIsNotThrown)
+			       .WithScenario("Set Organization property to same")
+			       .Given(ABoard)
+			       .And(OrganizationIs, TrelloIds.Test)
+			       .When<Func<Organization>>(OrganizationIsSet, Create<Organization>)
+			       .Then(ValidatorWritableIsCalled)
+			       .And(ValidatorEntityIsCalled<Organization>)
+			       .And(RepositoryUploadIsNotCalled)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void PersonalPreferences()
@@ -355,13 +356,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access PersonalPreferences property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(PersonalPreferencesIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(PersonalPreferencesIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void Preferences()
@@ -369,13 +370,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Preferences property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(PreferencesIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(PreferencesIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void Url()
@@ -383,13 +384,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("Access Url property when expired")
-				.Given(ABoard)
-				.And(EntityIsExpired)
-				.When(UrlIsAccessed)
-				.Then(RepositoryRefreshIsNotCalled<Board>)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .And(EntityIsExpired)
+			       .When(UrlIsAccessed)
+			       .Then(RepositoryRefreshIsNotCalled<Board>)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void AddList()
@@ -397,14 +398,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("AddList is called")
-				.Given(ABoard)
-				.When(AddListIsCalled, "list")
-				.Then(ValidatorWritableIsCalled)
-				.And(ValidatorNonEmptyStringIsCalled)
-				.And(RepositoryDownloadIsCalled<List>, EntityRequestType.Board_Write_AddList)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(AddListIsCalled, "list")
+			       .Then(ValidatorWritableIsCalled)
+			       .And(ValidatorNonEmptyStringIsCalled)
+			       .And(RepositoryDownloadIsCalled<List>, EntityRequestType.Board_Write_AddList)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		[TestMethod]
 		public void AddOrUpdateMemberByMember()
@@ -412,14 +413,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("AddOrUpdateMember is called")
-				.Given(ABoard)
-				.When(AddOrUpdateMemberIsCalled, new Member {Id = TrelloIds.Test})
-				.Then(ValidatorWritableIsCalled)
-				.And(ValidatorEntityIsCalled<Member>)
-				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_AddOrUpdateMember)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(AddOrUpdateMemberIsCalled, new Member {Id = TrelloIds.Test})
+			       .Then(ValidatorWritableIsCalled)
+			       .And(ValidatorEntityIsCalled<Member>)
+			       .And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_AddOrUpdateMember)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		//[TestMethod]
 		//public void AddOrUpdateMemberByEmailAndName()
@@ -445,13 +446,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("MarkAsViewed is called")
-				.Given(ABoard)
-				.When(MarkAsViewedIsCalled)
-				.Then(ValidatorWritableIsCalled)
-				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_MarkAsViewed)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(MarkAsViewedIsCalled)
+			       .Then(ValidatorWritableIsCalled)
+			       .And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_MarkAsViewed)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		//[TestMethod]
 		//[Ignore]
@@ -473,14 +474,14 @@ namespace Manatee.Trello.Test.Unit.Entities
 			var feature = CreateFeature();
 
 			feature.WithScenario("RemoveMember is called")
-				.Given(ABoard)
-				.When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Test})
-				.Then(ValidatorWritableIsCalled)
-				.And(ValidatorEntityIsCalled<Member>)
-				.And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_RemoveMember)
-				.And(ExceptionIsNotThrown)
+			       .Given(ABoard)
+			       .When(RemoveMemberIsCalled, new Member {Id = TrelloIds.Test})
+			       .Then(ValidatorWritableIsCalled)
+			       .And(ValidatorEntityIsCalled<Member>)
+			       .And(RepositoryUploadIsCalled, EntityRequestType.Board_Write_RemoveMember)
+			       .And(ExceptionIsNotThrown)
 
-				.Execute();
+			       .Execute();
 		}
 		//[TestMethod]
 		//[Ignore]
@@ -511,12 +512,12 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void DescriptionIs(string value)
 		{
 			_test.Json.SetupGet(j => j.Desc)
-							.Returns(value);
+			     .Returns(value);
 		}
 		private void IsClosedIs(bool? value)
 		{
 			_test.Json.SetupGet(j => j.Closed)
-							.Returns(value);
+			     .Returns(value);
 		}
 		//private void IsPinnedIs(bool? value)
 		//{
@@ -526,17 +527,17 @@ namespace Manatee.Trello.Test.Unit.Entities
 		private void IsSubscribedIs(bool? value)
 		{
 			_test.Json.SetupGet(j => j.Subscribed)
-							.Returns(value);
+			     .Returns(value);
 		}
 		private void NameIs(string value)
 		{
 			_test.Json.SetupGet(j => j.Name)
-							.Returns(value);
+			     .Returns(value);
 		}
 		private void OrganizationIs(string value)
 		{
 			_test.Json.SetupGet(j => j.IdOrganization)
-							.Returns(value);
+			     .Returns(value);
 		}
 
 		#endregion
@@ -549,7 +550,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void ActionsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Actions.GetEnumerator());
+			Execute(() => _test.Sut.Actions.ToList());
 		}
 		private void DescriptionIsAccessed()
 		{
@@ -565,7 +566,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void InvitedMembersIsEnumerated()
 		{
-			Execute(() => _test.Sut.InvitedMembers.GetEnumerator());
+			Execute(() => _test.Sut.InvitedMembers.ToList());
 		}
 		private void IsClosedIsAccessed()
 		{
@@ -601,7 +602,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void ListsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Lists.GetEnumerator());
+			Execute(() => _test.Sut.Lists.ToList());
 		}
 		private void MembersIsAccessed()
 		{
@@ -609,7 +610,7 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void MembersIsEnumerated()
 		{
-			Execute(() => _test.Sut.Members.GetEnumerator());
+			Execute(() => _test.Sut.Members.ToList());
 		}
 		private void MembershipsIsAccessed()
 		{
@@ -617,13 +618,13 @@ namespace Manatee.Trello.Test.Unit.Entities
 		}
 		private void MembershipsIsEnumerated()
 		{
-			Execute(() => _test.Sut.Memberships.GetEnumerator());
+			Execute(() => _test.Sut.Memberships.ToList());
 		}
 		private void NameIsAccessed()
 		{
 			Execute(() => _test.Sut.Name);
 		}
-		private void NameIsSet(string value) 
+		private void NameIsSet(string value)
 		{
 			Execute(() => _test.Sut.Name = value);
 		}
