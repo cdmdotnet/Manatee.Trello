@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,432 +14,102 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		Member.cs
+	File Name:		Member2.cs
 	Namespace:		Manatee.Trello
-	Class Name:		Member
-	Purpose:		Represents a member (user) on Trello.com.
+	Class Name:		Member2
+	Purpose:		Represents a member.
 
 ***************************************************************************************/
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.Json;
+using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	/// <summary>
-	/// Represents a member (user).
-	/// </summary>
-	public class Member : ExpiringObject, IEquatable<Member>, IComparable<Member>, ICanWebhook
+	public class Member
 	{
-		private static readonly OneToOneMap<MemberStatusType, string> _statusMap;
-		private static readonly OneToOneMap<AvatarSourceType, string> _avatarSourceMap;
+		private readonly Field<AvatarSource> _avatarSource;
+		private readonly Field<string> _bio;
+		private readonly ReadOnlyBoardCollection _boards;
+		private readonly Field<string> _fullName;
+		private readonly string _id;
+		private readonly Field<string> _initials;
+		private readonly Field<bool?> _isConfirmed;
+		private readonly ReadOnlyOrganizationCollection _organizations;
+		private readonly Field<MemberStatus> _status;
+		private readonly Field<IEnumerable<string>> _trophies;
+		private readonly Field<string> _url;
+		private readonly Field<string> _userName;
+		internal readonly MemberContext _context;
 
-		private IJsonMember _jsonMember;
-		private AvatarSourceType _avatarSource;
-		private MemberStatusType _status;
-
-		///<summary>
-		/// Enumerates all actions associated with this member.
-		///</summary>
-		public IEnumerable<Action> Actions { get { return BuildList<Action>(EntityRequestType.Member_Read_Actions); } }
-		/// <summary>
-		/// Gets the member's avatar hash.
-		/// </summary>
-		public string AvatarHash
+		public AvatarSource AvatarSource
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.AvatarHash;
-			}
+			get { return _avatarSource.Value; }
+			internal set { _avatarSource.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets the source URL for the member's avatar.
-		/// </summary>
-		public AvatarSourceType AvatarSource
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _avatarSource;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_avatarSource == value) return;
-				_avatarSource = value;
-				UpdateApiAvatarSource();
-				Parameters.Add("avatarSource", _jsonMember.AvatarSource);
-				Upload(EntityRequestType.Member_Write_AvatarSource);
-			}
-		}
-		/// <summary>
-		/// Gets or sets the bio of the member.
-		/// </summary>
 		public string Bio
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.Bio;
-			}
-			protected set
-			{
-				Validator.Writable();
-				if (_jsonMember.Bio == value) return;
-				_jsonMember.Bio = value;
-				Parameters.Add("bio", _jsonMember.Bio ?? string.Empty);
-				Upload(EntityRequestType.Member_Write_Bio);
-			}
+			get { return _bio.Value; }
+			internal set { _bio.Value = value; }
 		}
-		/// <summary>
-		/// Enumerates the boards owned by the member.
-		/// </summary>
-		public IEnumerable<Board> Boards { get { return BuildList<Board>(EntityRequestType.Member_Read_Boards); } }
-		/// <summary>
-		/// Gets whether the member is confirmed.
-		/// </summary>
-		public bool? Confirmed
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.Confirmed;
-			}
-		}
-		/// <summary>
-		/// Gets the member's registered email address.
-		/// </summary>
-		protected string Email
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.Email;
-			}
-		}
-		/// <summary>
-		/// Gets the member's full name.
-		/// </summary>
+		public ReadOnlyBoardCollection Boards { get { return _boards; } }
 		public string FullName
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.FullName;
-			}
-			protected set
-			{
-				Validator.Writable();
-				if (_jsonMember.FullName == value) return;
-				_jsonMember.FullName = Validator.MinStringLength(value, 4, "FullName");
-				Parameters.Add("fullName", _jsonMember.FullName);
-				Upload(EntityRequestType.Member_Write_FullName);
-			}
+			get { return _fullName.Value; }
+			internal set { _fullName.Value = value; }
 		}
-		/// <summary>
-		/// Gets the member's Gravatar hash.
-		/// </summary>
-		public string GravatarHash
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.GravatarHash;
-			}
-		}
-		/// <summary>
-		/// Gets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		public override string Id
-		{
-			get { return _jsonMember.Id; }
-			internal set { _jsonMember.Id = value; }
-		}
-		/// <summary>
-		/// Gets or sets the member's initials.
-		/// </summary>
+		public string Id { get { return _id; } }
 		public string Initials
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.Initials;
-			}
-			protected set
-			{
-				Validator.Writable();
-				if (_jsonMember.Initials == value) return;
-				_jsonMember.Initials = Validator.StringLengthRange(value, 1, 3, "Initials");
-				Parameters.Add("initials", _jsonMember.Initials);
-				Upload(EntityRequestType.Member_Write_Initials);
-			}
+			get { return _initials.Value; }
+			internal set { _initials.Value = value; }
 		}
-		/// <summary>
-		/// Enumerates the boards to which the member has been invited to join.
-		/// </summary>
-		public IEnumerable<Board> InvitedBoards { get { return BuildList<Board>(EntityRequestType.Member_Read_InvitedBoards); } }
-		/// <summary>
-		/// Enumerates the organizations to which the member has been invited to join.
-		/// </summary>
-		public IEnumerable<Organization> InvitedOrganizations { get { return BuildList<Organization>(EntityRequestType.Member_Read_InvitedOrganizations); } }
-		/// <summary>
-		/// Enumerates the login types for the member.
-		/// </summary>
-		public IEnumerable<string> LoginTypes
+		public bool? IsConfirmed
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.LoginTypes;
-			}
+			get { return _isConfirmed.Value; }
 		}
-		/// <summary>
-		/// Gets the type of member.
-		/// </summary>
-		public string MemberType
+		public ReadOnlyOrganizationCollection Organizations { get { return _organizations; } }
+		public MemberStatus Status { get { return _status.Value; } }
+		public IEnumerable<string> Trophies { get { return _trophies.Value; } }
+		public string Url { get { return _url.Value; } }
+		public string UserName
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.MemberType;
-			}
-		}
-		/// <summary>
-		/// Enumerates the types of messages automatically dismissed for the user.
-		/// </summary>
-		protected IEnumerable<string> OneTimeMessagesDismissed
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.OneTimeMessagesDismissed;
-			}
-		}
-		/// <summary>
-		/// Enumerates the organizations to which the member belongs.
-		/// </summary>
-		public IEnumerable<Organization> Organizations { get { return BuildList<Organization>(EntityRequestType.Member_Read_Organizations); } }
-		/// <summary>
-		/// Gets the member's activity status.
-		/// </summary>
-		public MemberStatusType Status
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _status;
-			}
-		}
-		/// <summary>
-		/// Enumerates the trophies obtained by the member.
-		/// </summary>
-		public IEnumerable<string> Trophies
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.Trophies;
-			}
-		}
-		/// <summary>
-		/// Gets the user's uploaded avatar hash.
-		/// </summary>
-		public string UploadedAvatarHash
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.UploadedAvatarHash;
-			}
-		}
-		/// <summary>
-		/// Gets the URL to the member's profile.
-		/// </summary>
-		public string Url { get { return _jsonMember.Url; } }
-		/// <summary>
-		/// Gets the member's username.
-		/// </summary>
-		public string Username
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonMember.Username;
-			}
-			protected set
-			{
-				Validator.Writable();
-				if (_jsonMember.Username == value) return;
-				_jsonMember.Username = Validator.UserName(value);
-				Parameters.Add("username", _jsonMember.Username);
-				Upload(EntityRequestType.Member_Write_Username);
-			}
-		}
-		/// <summary>
-		/// Gets whether this entity represents an actual entity on Trello.
-		/// </summary>
-		public override bool IsStubbed { get { return _jsonMember is InnerJsonMember; } }
-
-		static Member()
-		{
-			_statusMap = new OneToOneMap<MemberStatusType, string>
-			           	{
-			           		{MemberStatusType.Disconnected, "disconnected"},
-			           		{MemberStatusType.Idle, "idle"},
-			           		{MemberStatusType.Active, "active"},
-			           	};
-			_avatarSourceMap = new OneToOneMap<AvatarSourceType, string>
-			                   	{
-			                   		{AvatarSourceType.None, "none"},
-			                   		{AvatarSourceType.Upload, "upload"},
-			                   		{AvatarSourceType.Gravatar, "gravatar"},
-			                   	};
-		}
-		/// <summary>
-		/// Creates a new instance of the Member class.
-		/// </summary>
-		public Member()
-		{
-			_jsonMember = new InnerJsonMember();
-			_avatarSource = AvatarSourceType.Unknown;
+			get { return _userName.Value; }
+			internal set { _userName.Value = value; }
 		}
 
-		/// <summary>
-		/// Indicates whether the current object is equal to another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
-		public bool Equals(Member other)
-		{
-			return Id == other.Id;
-		}
-		/// <summary>
-		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
-		/// </summary>
-		/// <returns>
-		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
-		/// </returns>
-		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
-		public override bool Equals(object obj)
-		{
-			if (!(obj is Member)) return false;
-			return Equals((Member) obj);
-		}
-		/// <summary>
-		/// Serves as a hash function for a particular type. 
-		/// </summary>
-		/// <returns>
-		/// A hash code for the current <see cref="T:System.Object"/>.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override int GetHashCode()
-		{
-			return Id.GetHashCode();
-		}
-		/// <summary>
-		/// Compares the current object with another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
-		public int CompareTo(Member other)
-		{
-			var order = string.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
-			return order;
-		}
-		/// <summary>
-		/// Returns a string that represents the current object.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override string ToString()
-		{
-			return FullName;
-		}
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		public override bool Refresh()
-		{
-			Parameters["_id"] = Id;
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.Member_Read_Refresh);
-		}
-		/// <summary>
-		/// Applies the changes an action represents.
-		/// </summary>
-		/// <param name="action">The action.</param>
-		void ICanWebhook.ApplyAction(Action action)
-		{
-			if (action.Type != ActionType.UpdateMember) return;
-			MergeJson(action.Data);
-		}
+		internal IJsonMember Json { get { return _context.Data; } }
 
-		internal override void ApplyJson(object obj)
+		public Member(string id)
+			: this(id, false) {}
+		internal Member(string id, bool isMe)
 		{
-			_jsonMember = (IJsonMember)obj;
-			UpdateStatus();
-			UpdateAvatarSource();
-			Expires = DateTime.Now + EntityRepository.EntityDuration;
-		}
-		internal override bool EqualsJson(object obj)
-		{
-			var json = obj as IJsonMember;
-			return (json != null) && (json.Id == _jsonMember.Id);
-		}
-		internal override bool Matches(string id)
-		{
-			return (Id == id) || (Username == id);
-		}
+			_context = new MemberContext(id);
 
-		private void Upload(EntityRequestType requestType)
-		{
-			Parameters["_id"] = Id;
-			EntityRepository.Upload(requestType, Parameters);
+			_avatarSource = new Field<AvatarSource>(_context, () => AvatarSource);
+			_bio = new Field<string>(_context, () => Bio);
+			_boards = isMe ? new BoardCollection(typeof(Member), id) : new ReadOnlyBoardCollection(typeof(Member), id);
+			_fullName = new Field<string>(_context, () => FullName);
+			_id = id;
+			_initials = new Field<string>(_context, () => Initials);
+			_initials.AddRule(MemberInitialsRule.Instance);
+			_isConfirmed = new Field<bool?>(_context, () => IsConfirmed);
+			_organizations = isMe ? new OrganizationCollection(id) : new ReadOnlyOrganizationCollection(id);
+			_status = new Field<MemberStatus>(_context, () => Status);
+			_trophies = new Field<IEnumerable<string>>(_context, () => Trophies);
+			_url = new Field<string>(_context, () => Url);
+			_userName = new Field<string>(_context, () => UserName);
+			_userName.AddRule(UsernameRule.Instance);
+
+			TrelloConfiguration.Cache.Add(this);
 		}
-		private void UpdateStatus()
+		internal Member(IJsonMember json)
+			: this(json.Id)
 		{
-			_status = _statusMap.Any(kvp => kvp.Value == _jsonMember.Status)
-			          	? _statusMap[_jsonMember.Status]
-			          	: MemberStatusType.Unknown;
-		}
-		private void UpdateAvatarSource()
-		{
-			_avatarSource = _avatarSourceMap.Any(kvp => kvp.Value == _jsonMember.AvatarSource)
-			                	? _avatarSourceMap[_jsonMember.AvatarSource]
-			                	: AvatarSourceType.Unknown;
-		}
-		private void UpdateApiAvatarSource()
-		{
-			if (_avatarSourceMap.Any(kvp => kvp.Key == _avatarSource))
-				_jsonMember.AvatarSource = _avatarSourceMap[_avatarSource];
-		}
-		private void MergeJson(IJsonActionData data)
-		{
-			_jsonMember.AvatarHash = data.TryGetString("member", "avatarHash") ?? _jsonMember.AvatarHash;
-			_jsonMember.Bio = data.TryGetString("member", "bio") ?? _jsonMember.Bio;
-			_jsonMember.FullName = data.TryGetString("member", "fullName") ?? _jsonMember.FullName;
-			_jsonMember.Initials = data.TryGetString("member", "initials") ?? _jsonMember.Initials;
-			_jsonMember.MemberType = data.TryGetString("member", "memberType") ?? _jsonMember.MemberType;
-			_jsonMember.Status = data.TryGetString("member", "status") ?? _jsonMember.Status;
-			_jsonMember.Url = data.TryGetString("member", "url") ?? _jsonMember.Url;
-			_jsonMember.Username = data.TryGetString("member", "username") ?? _jsonMember.Username;
-			_jsonMember.AvatarSource = data.TryGetString("member", "avatarSource") ?? _jsonMember.AvatarSource;
-			_jsonMember.Confirmed = data.TryGetBoolean("member", "confirmed") ?? _jsonMember.Confirmed;
-			_jsonMember.Email = data.TryGetString("member", "email") ?? _jsonMember.Email;
-			_jsonMember.GravatarHash = data.TryGetString("member", "gravatarHash") ?? _jsonMember.GravatarHash;
-			_jsonMember.UploadedAvatarHash = data.TryGetString("member", "uploadedAvatarHash") ?? _jsonMember.UploadedAvatarHash;
+			_context.Merge(json);
 		}
 	}
 }

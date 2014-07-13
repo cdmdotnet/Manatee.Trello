@@ -1,4 +1,4 @@
-/***************************************************************************************
+﻿/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,34 +14,38 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		MemberStatus.cs
+	File Name:		BoardCommentPermission.cs
 	Namespace:		Manatee.Trello
-	Class Name:		MemberStatus
-	Purpose:		Enumerates known values for member status on Trello.com.
+	Class Name:		BoardCommentPermission
+	Purpose:		Enumerates known board commenting permission levels on Trello.com.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
-	/// <summary>
-	/// Enumerates known values for a member's activity status.
-	/// </summary>
-	public enum MemberStatusType
+	///<summary>
+	/// Enumerates known board commenting permission levels.
+	///</summary>
+	public enum BoardCommentPermission
 	{
 		/// <summary>
 		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
 		Unknown,
 		/// <summary>
-		/// Indicates the member is not connected to the website.
+		/// Indicates that only members of the board may comment on cards.
 		/// </summary>
-		Disconnected,
+		Members,
 		/// <summary>
-		/// Indicates the member is connected to the website but inactive.
+		/// Indicates that only members of the organization to which the board belongs may comment on cards.
 		/// </summary>
-		Idle,
+		Org,
 		/// <summary>
-		/// Indicates the member is actively using the website.
+		/// Indicates that any Trello member may comment on cards.
 		/// </summary>
-		Active
+		Public,
+		/// <summary>
+		/// Indicates that no members may comment on cards.
+		/// </summary>
+		Disabled
 	}
 }

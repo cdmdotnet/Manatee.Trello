@@ -57,7 +57,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of checklist items.</returns>
 		public static IEnumerable<CheckItem> CompleteCheckItems(this Card card)
 		{
-			return card.AllCheckItems().Where(i => i.State == CheckItemStateType.Complete);
+			return card.AllCheckItems().Where(i => i.State == CheckItemState.Complete);
 		}
 		/// <summary>
 		/// Retrieves all incomplete checklist items contained within a card.
@@ -66,7 +66,7 @@ namespace Manatee.Trello
 		/// <returns>A collection of checklist items.</returns>
 		public static IEnumerable<CheckItem> IncompleteCheckItems(this Card card)
 		{
-			return card.AllCheckItems().Where(i => i.State == CheckItemStateType.Incomplete);
+			return card.AllCheckItems().Where(i => i.State == CheckItemState.Incomplete);
 		}
 	}
 }

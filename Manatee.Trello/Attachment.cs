@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -17,192 +17,67 @@
 	File Name:		Attachment.cs
 	Namespace:		Manatee.Trello
 	Class Name:		Attachment
-	Purpose:		Represents an attachment to a card on Trello.com.
+	Purpose:		Represents an attachment to a card.
 
 ***************************************************************************************/
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal.Json;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	///<summary>
-	/// Represents an attachment to a Card.
-	///</summary>
-	public class Attachment : ExpiringObject, IEquatable<Attachment>, IComparable<Attachment>
+	public class Attachment
 	{
-		private IJsonAttachment _jsonAttachment;
-		private Member _member;
-		private List<AttachmentPreview> _previews;
-		private bool _isDeleted;
+		private readonly Field<int?> _bytes;
+		private readonly Field<DateTime?> _date;
+		private readonly string _id;
+		private readonly Field<bool?> _isUpload;
+		private readonly Field<Member> _member;
+		private readonly Field<string> _mimeType;
+		private readonly Field<string> _name;
+		private readonly ReadOnlyAttachmentPreviewCollection _previews;
+		private readonly Field<string> _url;
+		private readonly AttachmentContext _context;
+		private bool _deleted;
 
-		///<summary>
-		/// The size of the attachment.
-		///</summary>
-		public int? Bytes { get { return _isDeleted ? null : _jsonAttachment.Bytes; } }
-		/// <summary>
-		/// The date on which the attachment was created.
-		/// </summary>
-		public DateTime? Date { get { return _isDeleted ? null : _jsonAttachment.Date; } }
-		/// <summary>
-		/// Gets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		public override string Id
-		{
-			get { return _jsonAttachment.Id; }
-			internal set { _jsonAttachment.Id = value; }
-		}
-		///<summary>
-		/// ?
-		///</summary>
-		public bool? IsUpload { get { return _isDeleted ? null : _jsonAttachment.IsUpload; } }
-		///<summary>
-		/// The member who created the attachment.
-		///</summary>
-		public Member Member
-		{
-			get
-			{
-				if (_isDeleted) return null;
-				return UpdateById(ref _member, EntityRequestType.Member_Read_Refresh, _jsonAttachment.IdMember);
-			}
-		}
-		///<summary>
-		/// Indicates the type of attachment.
-		///</summary>
-		public string MimeType { get { return _isDeleted ? null : _jsonAttachment.MimeType; } }
-		///<summary>
-		/// The name of the attachment.
-		///</summary>
-		public string Name { get { return _isDeleted ? null : _jsonAttachment.Name; } }
-		///<summary>
-		/// Enumerates a collection of previews for the attachment.
-		///</summary>
-		public IEnumerable<AttachmentPreview> Previews
-		{
-			get
-			{
-				if (_isDeleted) return Enumerable.Empty<AttachmentPreview>();
-				return _previews ?? Enumerable.Empty<AttachmentPreview>();
-			}
-		}
-		///<summary>
-		/// Indicates the attachment storage location.
-		///</summary>
-		public string Url { get { return _isDeleted ? null : _jsonAttachment.Url; } }
-		/// <summary>
-		/// Gets whether this entity represents an actual entity on Trello.
-		/// </summary>
-		public override bool IsStubbed { get { return false; } }
+		public int? Bytes { get { return _bytes.Value; } }
+		public DateTime? Date { get { return _date.Value; } }
+		public string Id { get { return _id; } }
+		public bool? IsUpload { get { return _isUpload.Value; } }
+		public Member Member { get { return _member.Value; } }
+		public string MimeType { get { return _mimeType.Value; } }
+		public string Name { get { return _name.Value; } }
+		public ReadOnlyAttachmentPreviewCollection Previews { get { return _previews; } }
+		public string Url { get { return _url.Value; } }
 
-		/// <summary>
-		/// Creates a new instance of the Attachment class.
-		/// </summary>
-		public Attachment()
+		internal Attachment(IJsonAttachment json, string ownerId)
 		{
-			_jsonAttachment = new InnerJsonAttachment();
+			_id = json.Id;
+			_context = new AttachmentContext(_id, ownerId);
+
+			_bytes = new Field<int?>(_context, () => Bytes);
+			_date = new Field<DateTime?>(_context, () => Date);
+			_member = new Field<Member>(_context, () => Member);
+			_isUpload = new Field<bool?>(_context, () => IsUpload);
+			_mimeType = new Field<string>(_context, () => MimeType);
+			_name = new Field<string>(_context, () => Name);
+			_previews = new ReadOnlyAttachmentPreviewCollection(_context);
+			_url = new Field<string>(_context, () => Url);
+
+			TrelloConfiguration.Cache.Add(this);
+
+			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Deletes this attachment.
-		/// </summary>
 		public void Delete()
 		{
-			if (_isDeleted) return;
-			Validator.Writable();
-			Parameters["_id"] = Id;
-			Parameters["_cardId"] = Owner.Id;
-			EntityRepository.Upload(EntityRequestType.Attachment_Write_Delete, Parameters);
-			_isDeleted = true;
-		}
-		/// <summary>
-		/// Indicates whether the current object is equal to another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
-		public bool Equals(Attachment other)
-		{
-			return Id == other.Id;
-		}
-		/// <summary>
-		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
-		/// </summary>
-		/// <returns>
-		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
-		/// </returns>
-		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
-		public override bool Equals(object obj)
-		{
-			if (!(obj is Attachment)) return false;
-			return Equals((Attachment) obj);
-		}
-		/// <summary>
-		/// Serves as a hash function for a particular type. 
-		/// </summary>
-		/// <returns>
-		/// A hash code for the current <see cref="T:System.Object"/>.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override int GetHashCode()
-		{
-			return Id.GetHashCode();
-		}
-		/// <summary>
-		/// Compares the current object with another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
-		public int CompareTo(Attachment other)
-		{
-			var diff = Date - other.Date;
-			return diff.HasValue ? (int)diff.Value.TotalMilliseconds : 0;
-		}
-		/// <summary>
-		/// Returns a string that represents the current object.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override string ToString()
-		{
-			return Name;
-		}
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		public override bool Refresh()
-		{
-			if (_isDeleted) return false;
-			Parameters["_id"] = Id;
-			Parameters["_cardId"] = Owner.Id;
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.Attachment_Read_Refresh);
-		}
+			if (_deleted) return;
+			_context.Delete();
 
-		internal override void ApplyJson(object obj)
-		{
-			_jsonAttachment = (IJsonAttachment)obj;
-			_previews = _jsonAttachment.Previews != null
-			            	? _jsonAttachment.Previews.Select(p => new AttachmentPreview(p)).ToList()
-			            	: null;
-		}
-		internal override bool EqualsJson(object obj)
-		{
-			var json = obj as IJsonAttachment;
-			return (json != null) && (json.Id == _jsonAttachment.Id);
-
-		}
-		internal void ForceDeleted(bool deleted)
-		{
-			_isDeleted = deleted;
+			_deleted = true;
+			TrelloConfiguration.Cache.Remove(this);
 		}
 	}
 }

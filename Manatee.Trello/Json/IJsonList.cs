@@ -38,7 +38,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the ID of the board which contains the list.
 		/// </summary>
-		string IdBoard { get; set; }
+		IJsonBoard Board { get; set; }
 		/// <summary>
 		/// Gets or sets the position of the list.
 		/// </summary>

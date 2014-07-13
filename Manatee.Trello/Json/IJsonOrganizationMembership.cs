@@ -34,7 +34,7 @@ namespace Manatee.Trello.Json
 		///<summary>
 		/// Gets or sets the ID of the member.
 		///</summary>
-		string IdMember { get; set; }
+		IJsonMember Member { get; set; }
 		///<summary>
 		/// Gets or sets the membership type.
 		///</summary>

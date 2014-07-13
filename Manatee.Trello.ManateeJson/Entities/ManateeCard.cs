@@ -21,6 +21,8 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -30,14 +32,16 @@ namespace Manatee.Trello.ManateeJson.Entities
 	internal class ManateeCard : IJsonCard, IJsonSerializable
 	{
 		public string Id { get; set; }
+		public IJsonBadges Badges { get; set; }
 		public bool? Closed { get; set; }
 		public DateTime? DateLastActivity { get; set; }
 		public string Desc { get; set; }
 		public DateTime? Due { get; set; }
-		public string IdBoard { get; set; }
-		public string IdList { get; set; }
+		public IJsonBoard Board { get; set; }
+		public IJsonList List { get; set; }
 		public int? IdShort { get; set; }
 		public string IdAttachmentCover { get; set; }
+		public List<IJsonLabel> Labels { get; set; }
 		public bool? ManualCoverAttachment { get; set; }
 		public string Name { get; set; }
 		public double? Pos { get; set; }
@@ -50,6 +54,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
+			Badges = serializer.Deserialize<IJsonBadges>(obj.TryGetObject("badges"));
 			Closed = obj.TryGetBoolean("closed");
 			Desc = obj.TryGetString("desc");
 			var dateString = obj.TryGetString("due");
@@ -59,10 +64,11 @@ namespace Manatee.Trello.ManateeJson.Entities
 			dateString = obj.TryGetString("dateLastActivity");
 			if (DateTime.TryParse(dateString, out date))
 				DateLastActivity = date;
-			IdBoard = obj.TryGetString("idBoard");
-			IdList = obj.TryGetString("idList");
+			Board = serializer.Deserialize<IJsonBoard>(obj["idBoard"]);
+			List = serializer.Deserialize<IJsonList>(obj["idList"]);
 			IdShort = (int?) obj.TryGetNumber("idShort");
 			IdAttachmentCover = obj.TryGetString("idAttachmentCover");
+			Labels = serializer.Deserialize<List<IJsonLabel>>(obj.TryGetArray("labels"));
 			ManualCoverAttachment = obj.TryGetBoolean("manualAttachmentCover");
 			Name = obj.TryGetString("name");
 			Pos = obj.TryGetNumber("pos");
@@ -75,14 +81,17 @@ namespace Manatee.Trello.ManateeJson.Entities
 			return new JsonObject
 				{
 					{"id", Id},
+					{"badges", serializer.Serialize(Badges)},
 					{"closed", Closed},
 					{"dateLastActivity", DateLastActivity.HasValue ? DateLastActivity.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
 					{"desc", Desc},
 					{"due", Due.HasValue ? Due.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-					{"idBoard", IdBoard},
-					{"idList", IdList},
+					{"idBoard", Board == null ? JsonValue.Null : Board.Id},
+					{"idList", List == null ? JsonValue.Null : List.Id},
 					{"idShort", IdShort},
 					{"idAttachmentCover", IdAttachmentCover},
+					// Don't serialize the Label collection because Trello wants a comma-sparated list
+					{"labels", Labels.Select(l => l.Color.ToLowerString()).Join(",")},
 					{"manualAttachmentCover", ManualCoverAttachment},
 					{"name", Name},
 					{"pos", Pos},

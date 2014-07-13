@@ -28,6 +28,7 @@ namespace Manatee.Trello.Internal.Json
 	{
 		public string Name { get; set; }
 		public bool? Closed { get; set; }
+		public IJsonBoard Board { get; set; }
 		public string IdBoard { get; set; }
 		public double? Pos { get; set; }
 		public bool? Subscribed { get; set; }

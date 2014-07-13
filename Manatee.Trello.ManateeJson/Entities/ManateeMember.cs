@@ -51,31 +51,38 @@ namespace Manatee.Trello.ManateeJson.Entities
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			AvatarHash = obj.TryGetString("avatarHash");
-			Bio = obj.TryGetString("bio");
-			FullName = obj.TryGetString("fullName");
-			Initials = obj.TryGetString("initials");
-			MemberType = obj.TryGetString("memberType");
-			Status = obj.TryGetString("status");
-			Url = obj.TryGetString("url");
-			Username = obj.TryGetString("username");
-			AvatarSource = obj.TryGetString("avatarSource");
-			Confirmed = obj.TryGetBoolean("confirmed");
-			Email = obj.TryGetString("email");
-			GravatarHash = obj.TryGetString("gravatarHash");
-			var loginTypes = obj.TryGetArray("loginTypes");
-			if (loginTypes != null)
-				LoginTypes = loginTypes.Select(j => j.String).ToList();
-			var trophies = obj.TryGetArray("trophies");
-			if (loginTypes != null)
-				Trophies = trophies.Select(j => j.String).ToList();
-			UploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
-			var messagesDismissed = obj.TryGetArray("oneTimeMessagesDismissed");
-			if (messagesDismissed != null)
-				OneTimeMessagesDismissed = messagesDismissed.Select(j => j.String).ToList();
+			switch (json.Type)
+			{
+				case JsonValueType.Object:
+					var obj = json.Object;
+					Id = obj.TryGetString("id");
+					AvatarHash = obj.TryGetString("avatarHash");
+					Bio = obj.TryGetString("bio");
+					FullName = obj.TryGetString("fullName");
+					Initials = obj.TryGetString("initials");
+					MemberType = obj.TryGetString("memberType");
+					Status = obj.TryGetString("status");
+					Url = obj.TryGetString("url");
+					Username = obj.TryGetString("username");
+					AvatarSource = obj.TryGetString("avatarSource");
+					Confirmed = obj.TryGetBoolean("confirmed");
+					Email = obj.TryGetString("email");
+					GravatarHash = obj.TryGetString("gravatarHash");
+					var loginTypes = obj.TryGetArray("loginTypes");
+					if (loginTypes != null)
+						LoginTypes = loginTypes.Select(j => j.String).ToList();
+					var trophies = obj.TryGetArray("trophies");
+					if (loginTypes != null)
+						Trophies = trophies.Select(j => j.String).ToList();
+					UploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
+					var messagesDismissed = obj.TryGetArray("oneTimeMessagesDismissed");
+					if (messagesDismissed != null)
+						OneTimeMessagesDismissed = messagesDismissed.Select(j => j.String).ToList();
+					break;
+				case JsonValueType.String:
+					Id = json.String;
+					break;
+			}
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{

@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		BoardPermissionLevelType.cs
+	File Name:		BoardPermissionLevel.cs
 	Namespace:		Manatee.Trello
-	Class Name:		BoardPermissionLevelType
+	Class Name:		BoardPermissionLevel
 	Purpose:		Enumerates known values for board permission levels on Trello.com.
 
 ***************************************************************************************/
@@ -25,7 +25,7 @@ namespace Manatee.Trello
 	///<summary>
 	/// Enumerates known values for board permission levels
 	///</summary>
-	public enum BoardPermissionLevelType
+	public enum BoardPermissionLevel
 	{
 		/// <summary>
 		/// Not recognized.  May have been created since the current version of this API.

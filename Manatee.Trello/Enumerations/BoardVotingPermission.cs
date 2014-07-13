@@ -14,31 +14,39 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		OrganizationPermissionLevelType.cs
+	File Name:		BoardVotingPermission.cs
 	Namespace:		Manatee.Trello
-	Class Name:		OrganizationPermissionLevelType
-	Purpose:		Enumerates known viewing permission levels for an organization
-					on Trello.com.
+	Class Name:		BoardVotingPermission
+	Purpose:		Enumerates known voting permission levels for a board on
+					Trello.com.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
-	///<summary>
-	/// Enumerates known values for organization permission levels
-	///</summary>
-	public enum OrganizationPermissionLevelType
+	/// <summary>
+	/// Enumerates known voting permission levels for a board
+	/// </summary>
+	public enum BoardVotingPermission
 	{
 		/// <summary>
 		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
 		Unknown,
 		/// <summary>
-		/// Indicates that the organization can only be viewed by its members.
+		/// Indicates that only members of the board may vote on cards.
 		/// </summary>
-		Private,
+		Members,
 		/// <summary>
-		/// Indicates that anyone (even non-Trello users) may view the organization.
+		/// Indicates that only members of the organization to which the board belongs may vote on cards.
 		/// </summary>
-		Public
+		Org,
+		/// <summary>
+		/// Indicates that any Trello member may vote on cards.
+		/// </summary>
+		Public,
+		/// <summary>
+		/// Indicates that no members may vote on cards.
+		/// </summary>
+		Disabled
 	}
 }

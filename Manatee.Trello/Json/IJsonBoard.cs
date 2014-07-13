@@ -42,11 +42,16 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the ID of the organization, if any, to which this board belongs.
 		/// </summary>
-		string IdOrganization { get; set; }
+		IJsonOrganization Organization { get; set; }
+		/// <summary>
+		/// Gets or sets the label names for the board.
+		/// </summary>
+		IJsonLabelNames LabelNames { get; set; }
 		///<summary>
 		/// Gets or sets whether this board is pinned to the user's Boards menu.
 		///</summary>
 		bool? Pinned { get; set; }
+		IJsonBoardPreferences Prefs { get; set; }
 		///<summary>
 		/// Gets or sets the URL for this board.
 		///</summary>

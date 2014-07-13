@@ -31,9 +31,8 @@
     <DocumentationFile>bin\Release\Manatee.Trello.ManateeJson.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Manatee.Json.2.4.1\lib\net40\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json">
+      <HintPath>..\packages\Manatee.Json.2.5.1\lib\net40\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,11 +71,14 @@
     <Compile Include="Entities\ManateeOrganization.cs" />
     <Compile Include="Entities\ManateeOrganizationMembership.cs" />
     <Compile Include="Entities\ManateeOrganizationPreferences.cs" />
+    <Compile Include="Entities\ManateeParameter.cs" />
     <Compile Include="Entities\ManateeSearchResults.cs" />
     <Compile Include="Entities\ManateeToken.cs" />
     <Compile Include="Entities\ManateeTokenPermission.cs" />
     <Compile Include="Entities\ManateeWebhook.cs" />
     <Compile Include="Entities\ManateeWebhookNotification.cs" />
+    <Compile Include="GeneralExtensions.cs" />
+    <Compile Include="ManateeFactory.cs" />
     <Compile Include="ManateeSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

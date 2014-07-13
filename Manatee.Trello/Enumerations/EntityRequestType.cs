@@ -15,23 +15,16 @@
 	   limitations under the License.
  
 	File Name:		EntityRequestType.cs
-	Namespace:		Manatee.Trello
+	Namespace:		Manatee.Trello.Enumerations
 	Class Name:		EntityRequestType
 	Purpose:		Enumerates the various types of requests, including which kind
 					of entity is submitting the request and the desired operation.
 
 ***************************************************************************************/
 
-namespace Manatee.Trello
+namespace Manatee.Trello.Enumerations
 {
-	/// <summary>
-	/// Enumerates the various types of requests, including which kind of entity
-	/// is submitting the request and the desired operation.
-	/// </summary>
-	/// <remarks>
-	/// This enumeration is exposed solely for unit testing purposes.
-	/// </remarks>
-	public enum EntityRequestType
+	internal enum EntityRequestType
 	{
 #pragma warning disable 1591
 		Unsupported,
@@ -49,7 +42,9 @@ namespace Manatee.Trello
 		Board_Read_Members,
 		Board_Read_Memberships,
 		Board_Read_Refresh,
+		Board_Write_Update,
 		Board_Write_AddList,
+		Board_Write_AddNewMember,
 		Board_Write_AddOrUpdateMember,
 		Board_Write_Description,
 		Board_Write_InviteMember,
@@ -62,6 +57,7 @@ namespace Manatee.Trello
 		Board_Write_RemoveMember,
 		Board_Write_RescindInvitation,
 		BoardMembership_Read_Refresh,
+		BoardMembership_Write_Update,
 		BoardPersonalPreferences_Read_Refresh,
 		BoardPersonalPreferences_Write_ShowListGuide,
 		BoardPersonalPreferences_Write_ShowSidebar,
@@ -83,6 +79,7 @@ namespace Manatee.Trello
 		Card_Read_Members,
 		Card_Read_Refresh,
 		Card_Read_VotingMembers,
+		Card_Write_Update,
 		Card_Write_AddAttachment,
 		Card_Write_AddChecklist,
 		Card_Write_AddComment,
@@ -97,6 +94,7 @@ namespace Manatee.Trello
 		Card_Write_Move,
 		Card_Write_Name,
 		Card_Write_Position,
+		Card_Write_RemoveAttachment,
 		Card_Write_RemoveLabel,
 		Card_Write_RemoveMember,
 		Card_Write_WarnWhenUpcoming,
@@ -105,6 +103,7 @@ namespace Manatee.Trello
 		CheckItem_Write_Name,
 		CheckItem_Write_Position,
 		CheckItem_Write_State,
+		CheckItem_Write_Update,
 		CheckList_Read_CheckItems,
 		CheckList_Read_Refresh,
 		CheckList_Write_AddCheckItem,
@@ -112,6 +111,7 @@ namespace Manatee.Trello
 		CheckList_Write_Delete,
 		CheckList_Write_Name,
 		CheckList_Write_Position,
+		CheckList_Write_Update,
 		Label_Read_Refresh,
 		LabelNames_Read_Refresh,
 		LabelNames_Write_Blue,
@@ -131,6 +131,7 @@ namespace Manatee.Trello
 		List_Write_Move,
 		List_Write_Name,
 		List_Write_Position,
+		List_Write_Update,
 		Member_Read_Actions,
 		Member_Read_Boards,
 		Member_Read_Cards,
@@ -152,6 +153,7 @@ namespace Manatee.Trello
 		Member_Write_PinBoard,
 		Member_Write_RescindVoteForCard,
 		Member_Write_UnpinBoard,
+		Member_Write_Update,
 		Member_Write_Username,
 		Member_Write_VoteForCard,
 		MemberPreferences_Read_Refresh,
@@ -177,8 +179,10 @@ namespace Manatee.Trello
 		Organization_Write_Name,
 		Organization_Write_RemoveMember,
 		Organization_Write_RescindInvitation,
+		Organization_Write_Update,
 		Organization_Write_Website,
 		OrganizationMembership_Read_Refresh,
+		OrganizationMembership_Write_Update,
 		OrganizationPreferences_Read_Refresh,
 		OrganizationPreferences_Write_AssociatedDomain,
 		OrganizationPreferences_Write_ExternalMembersDisabled,

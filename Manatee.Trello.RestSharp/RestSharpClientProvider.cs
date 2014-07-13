@@ -22,7 +22,6 @@
 
 ***************************************************************************************/
 
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 
@@ -58,7 +57,7 @@ namespace Manatee.Trello.RestSharp
 			}
 			set
 			{
-				_serializer = new RestSharpSerializer(value ?? TrelloServiceConfiguration.Serializer);
+				_serializer = new RestSharpSerializer(value ?? TrelloConfiguration.Serializer);
 			}
 		}
 		/// <summary>
@@ -72,7 +71,7 @@ namespace Manatee.Trello.RestSharp
 			}
 			set
 			{
-				_deserializer = new RestSharpDeserializer(value ?? TrelloServiceConfiguration.Deserializer);
+				_deserializer = new RestSharpDeserializer(value ?? TrelloConfiguration.Deserializer);
 			}
 		}
 
@@ -83,14 +82,14 @@ namespace Manatee.Trello.RestSharp
 		/// <returns>An instance of IRestClient.</returns>
 		public IRestClient CreateRestClient(string apiBaseUrl)
 		{
-			var client = new RestSharpClient(TrelloServiceConfiguration.Log, VerifyDeserializer(), apiBaseUrl);
+			var client = new RestSharpClient(TrelloConfiguration.Log, VerifyDeserializer(), apiBaseUrl);
 			return client;
 		}
 
 		private void GetDefaultSerializer()
 		{
-			_serializer = new RestSharpSerializer(TrelloServiceConfiguration.Serializer);
-			_deserializer = new RestSharpDeserializer(TrelloServiceConfiguration.Deserializer);
+			_serializer = new RestSharpSerializer(TrelloConfiguration.Serializer);
+			_deserializer = new RestSharpDeserializer(TrelloConfiguration.Deserializer);
 		}
 		private RestSharpSerializer VerifySerializer()
 		{

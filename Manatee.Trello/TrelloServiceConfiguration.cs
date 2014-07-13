@@ -32,7 +32,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Exposes a set of run-time options for all automatically-refreshing objects.
 	/// </summary>
-	public static class TrelloServiceConfiguration
+	public static class TrelloConfiguration
 	{
 		private static ILog _log;
 		private static ISerializer _serializer;
@@ -88,7 +88,7 @@ namespace Manatee.Trello
 		public static ICache Cache
 		{
 			get { return _cache ?? (_cache = new ThreadSafeCacheDecorator(new SimpleCache())); }
-			set { _cache = value ?? new ThreadSafeCacheDecorator(new SimpleCache()); }
+			set { _cache = value; }
 		}
 		/// <summary>
 		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
@@ -98,14 +98,17 @@ namespace Manatee.Trello
 			get { return _log ?? (_log = new DebugLog()); }
 			set { _log = value ?? new DebugLog(); }
 		}
+		public static IJsonFactory JsonFactory { get; set; }
 		/// <summary>
 		/// Specifies whether the service should throw an exception when an error is received from Trello.
 		/// </summary>
 		public static bool ThrowOnTrelloError { get; set; }
+		public static TimeSpan ExpiryTime { get; set; }
 
-		static TrelloServiceConfiguration()
+		static TrelloConfiguration()
 		{
 			ThrowOnTrelloError = true;
+			ExpiryTime = TimeSpan.FromSeconds(30);
 		}
 	}
 }

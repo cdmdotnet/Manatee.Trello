@@ -14,34 +14,34 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		AvatarSourceType.cs
+	File Name:		MemberStatus.cs
 	Namespace:		Manatee.Trello
-	Class Name:		AvatarSourceType
-	Purpose:		Enumerates the avatar sources used by Trello.
+	Class Name:		MemberStatus
+	Purpose:		Enumerates known values for member status on Trello.com.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Enumerates the avatar sources used by Trello.
+	/// Enumerates known values for a member's activity status.
 	/// </summary>
-	public enum AvatarSourceType
+	public enum MemberStatus
 	{
 		/// <summary>
-		/// Indicates the avatar source is not recognized.
+		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
 		Unknown,
 		/// <summary>
-		/// Indicates there is no avatar.
+		/// Indicates the member is not connected to the website.
 		/// </summary>
-		None,
+		Disconnected,
 		/// <summary>
-		/// Indicates the avatar has been uploaded by the user.
+		/// Indicates the member is connected to the website but inactive.
 		/// </summary>
-		Upload,
+		Idle,
 		/// <summary>
-		/// Indicates the avatar is supplied by Gravatar.
+		/// Indicates the member is actively using the website.
 		/// </summary>
-		Gravatar
+		Active
 	}
 }

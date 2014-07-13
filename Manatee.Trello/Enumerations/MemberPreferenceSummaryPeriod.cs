@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		MemberPreferenceSummaryPeriodType.cs
+	File Name:		MemberPreferenceSummaryPeriod.cs
 	Namespace:		Manatee.Trello
-	Class Name:		MemberPreferenceSummaryPeriodType
+	Class Name:		MemberPreferenceSummaryPeriod
 	Purpose:		Enumerates the accepted values for the MinutesBetweenSummaries
 					property on the MemberPreferences object.
 
@@ -27,7 +27,7 @@ namespace Manatee.Trello
 	/// Enumerates the accepted values for the MinutesBetweenSummaries property on the
 	/// MemberPreferences object.
 	/// </summary>
-	public enum MemberPreferenceSummaryPeriodType
+	public enum MemberPreferenceSummaryPeriod
 	{
 		/// <summary>
 		/// Indicates that summary emails are disabled.

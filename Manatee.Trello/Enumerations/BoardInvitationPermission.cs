@@ -14,39 +14,30 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		BoardVotingType.cs
+	File Name:		BoardInvitationPermission.cs
 	Namespace:		Manatee.Trello
-	Class Name:		BoardVotingType
-	Purpose:		Enumerates known voting permission levels for a board on
-					Trello.com.
+	Class Name:		BoardInvitationPermission
+	Purpose:		Enumerates known board invitation permission levels on Trello.com.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
-	/// <summary>
-	/// Enumerates known voting permission levels for a board
-	/// </summary>
-	public enum BoardVotingType
+	///<summary>
+	/// Enumerates known board invitation permission levels.
+	///</summary>
+	public enum BoardInvitationPermission
 	{
 		/// <summary>
 		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
 		Unknown,
 		/// <summary>
-		/// Indicates that only members of the board may vote on cards.
+		/// Indicates that any member of the board may extend an invitation to join the board.
 		/// </summary>
 		Members,
 		/// <summary>
-		/// Indicates that only members of the organization to which the board belongs may vote on cards.
+		/// Indicates that only admins of the board may extend an invitation to joni the board.
 		/// </summary>
-		Org,
-		/// <summary>
-		/// Indicates that any Trello member may vote on cards.
-		/// </summary>
-		Public,
-		/// <summary>
-		/// Indicates that no members may vote on cards.
-		/// </summary>
-		Disabled
+		Admins
 	}
 }

@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -17,212 +17,66 @@
 	File Name:		LabelNames.cs
 	Namespace:		Manatee.Trello
 	Class Name:		LabelNames
-	Purpose:		Defines a set of labels for a board on Trello.com.
+	Purpose:		Represents a collection of labels for a board.
 
 ***************************************************************************************/
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal.Json;
-using Manatee.Trello.Json;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
-	/// <summary>
-	/// Defines a set of labels for a board.
-	/// </summary>
-	public class LabelNames : ExpiringObject, IEnumerable<Label>
+	public class LabelNames
 	{
-		private IJsonLabelNames _jsonLabelNames;
+		private readonly Field<string> _green;
+		private readonly Field<string> _yellow;
+		private readonly Field<string> _orange;
+		private readonly Field<string> _red;
+		private readonly Field<string> _purple;
+		private readonly Field<string> _blue;
+		private LabelNamesContext _context;
 
-		/// <summary>
-		/// Gets or sets the name of the red label.
-		/// </summary>
-		public string Red
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonLabelNames.Red;
-			}
-			set
-			{
-				Validator.Writable();
-				if (_jsonLabelNames.Red == value) return;
-				_jsonLabelNames.Red = value;
-				Parameters.Add("value", _jsonLabelNames.Red ?? string.Empty);
-				Upload(EntityRequestType.LabelNames_Write_Red);
-			}
-		}
-		/// <summary>
-		/// Gets or sets the name of the orange label.
-		/// </summary>
-		public string Orange
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonLabelNames.Orange;
-			}
-			set
-			{
-				Validator.Writable();
-				if (_jsonLabelNames.Orange == value) return;
-				_jsonLabelNames.Orange = value;
-				Parameters.Add("value", _jsonLabelNames.Orange ?? string.Empty);
-				Upload(EntityRequestType.LabelNames_Write_Orange);
-			}
-		}
-		/// <summary>
-		/// Gets or sets the name of the yellow label.
-		/// </summary>
-		public string Yellow
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonLabelNames.Yellow;
-			}
-			set
-			{
-				Validator.Writable();
-				if (_jsonLabelNames.Yellow == value) return;
-				_jsonLabelNames.Yellow = value;
-				Parameters.Add("value", _jsonLabelNames.Yellow ?? string.Empty);
-				Upload(EntityRequestType.LabelNames_Write_Yellow);
-			}
-		}
-		/// <summary>
-		/// Gets or sets the name of the green label.
-		/// </summary>
 		public string Green
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonLabelNames.Green;
-			}
-			set
-			{
-				Validator.Writable();
-				if (_jsonLabelNames.Green == value) return;
-				_jsonLabelNames.Green = value;
-				Parameters.Add("value", _jsonLabelNames.Green ?? string.Empty);
-				Upload(EntityRequestType.LabelNames_Write_Green);
-			}
+			get { return _green.Value; }
+			set { _green.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets the name of the blue label.
-		/// </summary>
-		public string Blue
+		public string Yellow
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonLabelNames.Blue;
-			}
-			set
-			{
-				Validator.Writable();
-				if (_jsonLabelNames.Blue == value) return;
-				_jsonLabelNames.Blue = value;
-				Parameters.Add("value", _jsonLabelNames.Blue ?? string.Empty);
-				Upload(EntityRequestType.LabelNames_Write_Blue);
-			}
+			get { return _yellow.Value; }
+			set { _yellow.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets the name of the purple label.
-		/// </summary>
+		public string Red
+		{
+			get { return _orange.Value; }
+			set { _orange.Value = value; }
+		}
+		public string Orange
+		{
+			get { return _red.Value; }
+			set { _red.Value = value; }
+		}
 		public string Purple
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonLabelNames.Purple;
-			}
-			set
-			{
-				Validator.Writable();
-				if (_jsonLabelNames.Purple == value) return;
-				_jsonLabelNames.Purple = value;
-				Parameters.Add("value", _jsonLabelNames.Purple ?? string.Empty);
-				Upload(EntityRequestType.LabelNames_Write_Purple);
-			}
+			get { return _purple.Value; }
+			set { _purple.Value = value; }
 		}
-		/// <summary>
-		/// Gets whether this entity represents an actual entity on Trello.
-		/// </summary>
-		public override bool IsStubbed { get { return _jsonLabelNames is InnerJsonLabelNames; } }
-
-		/// <summary>
-		/// Creates a new instance of the LabelNames class.
-		/// </summary>
-		public LabelNames()
+		public string Blue
 		{
-			_jsonLabelNames = new InnerJsonLabelNames();
-		}
-		internal LabelNames(Board owner)
-			: this()
-		{
-			Owner = owner;
+			get { return _blue.Value; }
+			set { _blue.Value = value; }
 		}
 
-		/// <summary>
-		/// Returns an enumerator that iterates through the collection.
-		/// </summary>
-		/// <returns>
-		/// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
-		/// </returns>
-		/// <filterpriority>1</filterpriority>
-		public IEnumerator<Label> GetEnumerator()
+		internal LabelNames(LabelNamesContext context)
 		{
-			return new List<Label>
-			       	{
-			       		new Label {Color = LabelColor.Red, Name = Red},
-			       		new Label {Color = LabelColor.Orange, Name = Orange},
-			       		new Label {Color = LabelColor.Yellow, Name = Yellow},
-			       		new Label {Color = LabelColor.Green, Name = Green},
-			       		new Label {Color = LabelColor.Blue, Name = Blue},
-			       		new Label {Color = LabelColor.Purple, Name = Purple},
-			       	}.GetEnumerator();
-		}
-		/// <summary>
-		/// Returns an enumerator that iterates through a collection.
-		/// </summary>
-		/// <returns>
-		/// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		public override bool Refresh()
-		{
-			Parameters["_boardId"] = Owner.Id;
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.LabelNames_Read_Refresh);
-		}
+			_context = context;
 
-		internal override void ApplyJson(object obj)
-		{
-			_jsonLabelNames = (IJsonLabelNames)obj;
-			Expires = DateTime.Now + EntityRepository.EntityDuration;
-		}
-		internal override bool EqualsJson(object obj)
-		{
-			return false;
-		}
-
-		private void Upload(EntityRequestType color)
-		{
-			Parameters.Add("_boardId", Owner.Id);
-			EntityRepository.Upload(color, Parameters);
+			_green = new Field<string>(_context, () => Green);
+			_yellow = new Field<string>(_context, () => Yellow);
+			_orange = new Field<string>(_context, () => Red);
+			_red = new Field<string>(_context, () => Orange);
+			_purple = new Field<string>(_context, () => Purple);
+			_blue = new Field<string>(_context, () => Blue);
 		}
 	}
 }

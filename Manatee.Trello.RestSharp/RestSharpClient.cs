@@ -41,8 +41,8 @@ namespace Manatee.Trello.RestSharp
 		{
 			_log = log;
 			_deserializer = deserializer;
+			ClearHandlers();
 			AddHandler("application/json", _deserializer);
-			AddHandler("text/json", _deserializer);
 		}
 
 		public IRestResponse Execute(IRestRequest request)

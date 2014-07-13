@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,52 +19,21 @@ namespace Manatee.Trello.Test
 		public void TestMethod1()
 		{
 			var serializer = new ManateeSerializer();
-			TrelloServiceConfiguration.Serializer = serializer;
-			TrelloServiceConfiguration.Deserializer = serializer;
-			TrelloServiceConfiguration.RestClientProvider = new RestSharpClientProvider();
+			TrelloConfiguration.Serializer = serializer;
+			TrelloConfiguration.Deserializer = serializer;
+			TrelloConfiguration.JsonFactory = new ManateeFactory();
+			TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
 
-			var auth = new TrelloAuthorization(TrelloIds.AppKey, "4a691187d87ea9d47723f74b9af4cbe466f8cc08dd8fbd9568e431803cd21abf");
-			var service = new TrelloService(auth);
+			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var me = service.Me;
+			var org = new Organization("littlecrabsolutions");
 
-			var actions = Task.Factory.StartNew(() => GetActions(me));
-			var notifications = Task.Factory.StartNew(() => GetNotifications(me));
-			var cards = Task.Factory.StartNew(() => GetCards(me));
+			Console.WriteLine(org.Preferences.PrivateBoardVisibility);
 
-			SpinWait.SpinUntil(() => actions.IsCompleted && notifications.IsCompleted && cards.IsCompleted);
+			Thread.Sleep(1000);
 
-			Console.WriteLine("Done");
-		}
-
-		private void GetActions(Me me)
-		{
-			foreach (var action in me.Actions)
-			{
-				Console.WriteLine("Action: {0}", action);
-			}
-		}
-
-		private void GetNotifications(Me me)
-		{
-			foreach (var notification in me.Notifications)
-			{
-				Console.WriteLine("Notification: {0}", notification);
-			}
-		}
-
-		private void GetCards(Me me)
-		{
-			foreach (var board in me.Boards)
-			{
-				foreach (var list in board.Lists)
-				{
-					foreach (var card in list.Cards)
-					{
-						Console.WriteLine("Card: {0}", card);
-					}
-				}
-			}
+			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}
 	}
 }

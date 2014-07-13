@@ -41,5 +41,6 @@ namespace Manatee.Trello.Internal.Json
 		public string Url { get; set; }
 		public string ShortUrl { get; set; }
 		public bool? Subscribed { get; set; }
+		public IJsonBadges Badges { get; set; }
 	}
 }

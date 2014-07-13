@@ -75,7 +75,7 @@ namespace Manatee.Trello.Contracts
 		}
 
 		/// <summary>
-		/// Explicitly marks the entity as expired, forcing it to update.
+		/// Explicitly marks the entity as expired, forcing it to update the next time it's accessed.
 		/// </summary>
 		public void MarkForUpdate()
 		{

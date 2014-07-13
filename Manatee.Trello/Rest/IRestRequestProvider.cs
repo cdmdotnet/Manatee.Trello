@@ -39,12 +39,5 @@ namespace Manatee.Trello.Rest
 		/// <param name="parameters">A list of paramaters to include in the request.</param>
 		/// <returns>An IRestRequest instance which can be sent to an IRestClient.</returns>
 		IRestRequest Create(string endpoint, IDictionary<string, object> parameters = null);
-		/// <summary>
-		/// Creates a general request using an existing request.  This is used when restoring
-		/// requests for type conformity.
-		/// </summary>
-		/// <param name="request">The request to copy.</param>
-		/// <returns>A new request of the correct type for the REST client.</returns>
-		IRestRequest Create(IRestRequest request);
 	}
 }

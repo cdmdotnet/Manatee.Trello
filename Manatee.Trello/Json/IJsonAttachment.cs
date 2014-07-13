@@ -41,7 +41,7 @@ namespace Manatee.Trello.Json
 		///<summary>
 		/// Gets or sets the ID of the member who created the attachment.
 		///</summary>
-		string IdMember { get; set; }
+		IJsonMember Member { get; set; }
 		///<summary>
 		/// ?
 		///</summary>

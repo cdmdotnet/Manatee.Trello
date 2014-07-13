@@ -32,20 +32,27 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Id { get; set; }
 		public string Name { get; set; }
 		public bool? Closed { get; set; }
-		public string IdBoard { get; set; }
+		public IJsonBoard Board { get; set; }
 		public double? Pos { get; set; }
 		public bool? Subscribed { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			Name = obj.TryGetString("name");
-			Closed = obj.TryGetBoolean("closed");
-			IdBoard = obj.TryGetString("idBoard");
-			Pos = obj.TryGetNumber("pos");
-			Subscribed = obj.TryGetBoolean("subscribed");
+			switch (json.Type)
+			{
+				case JsonValueType.Object:
+					var obj = json.Object;
+					Id = obj.TryGetString("id");
+					Name = obj.TryGetString("name");
+					Closed = obj.TryGetBoolean("closed");
+					Board = serializer.Deserialize<IJsonBoard>(obj["idBoard"]);
+					Pos = obj.TryGetNumber("pos");
+					Subscribed = obj.TryGetBoolean("subscribed");
+					break;
+				case JsonValueType.String:
+					Id = json.String;
+					break;
+			}
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
@@ -54,7 +61,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"id", Id},
 			       		{"name", Name},
 			       		{"closed", Closed},
-			       		{"idBoard", IdBoard},
+			       		{"idBoard", Board == null ? JsonValue.Null : Board.Id},
 			       		{"pos", Pos},
 			       		{"subscribed", Subscribed},
 			       	};

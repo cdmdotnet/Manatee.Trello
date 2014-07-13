@@ -41,35 +41,38 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public List<int> PowerUps { get; set; }
 		public bool? PaidAccount { get; set; }
 		public List<string> PremiumFeatures { get; set; }
+		public IJsonOrganizationPreferences Prefs { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type == JsonValueType.Object)
+			switch (json.Type)
 			{
-				var obj = json.Object;
-				Id = obj.TryGetString("id");
-				Name = obj.TryGetString("name");
-				DisplayName = obj.TryGetString("displayName");
-				Desc = obj.TryGetString("desc");
-				Url = obj.TryGetString("url");
-				Website = obj.TryGetString("website");
-				LogoHash = obj.TryGetString("logoHash");
-				var array = obj.TryGetArray("powerUps");
-				if (array != null)
-					PowerUps = array.Select(j => (int) j.Number).ToList();
-				PaidAccount = obj.TryGetBoolean("paid_account");
-				array = obj.TryGetArray("premiumFeatures");
-				if (array != null)
-					PremiumFeatures = array.Select(o => o.String).ToList();
-			}
-			else if (json.Type == JsonValueType.String)
-			{
-				Id = json.String;
+				case JsonValueType.Object:
+					var obj = json.Object;
+					Id = obj.TryGetString("id");
+					Name = obj.TryGetString("name");
+					DisplayName = obj.TryGetString("displayName");
+					Desc = obj.TryGetString("desc");
+					Url = obj.TryGetString("url");
+					Website = obj.TryGetString("website");
+					LogoHash = obj.TryGetString("logoHash");
+					var array = obj.TryGetArray("powerUps");
+					if (array != null)
+						PowerUps = array.Select(j => (int) j.Number).ToList();
+					PaidAccount = obj.TryGetBoolean("paid_account");
+					array = obj.TryGetArray("premiumFeatures");
+					if (array != null)
+						PremiumFeatures = array.Select(o => o.String).ToList();
+					break;
+				case JsonValueType.String:
+					Id = json.String;
+					break;
 			}
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
+			// TODO: refactor to omit optional arguments if they don't have values
+			var json = new JsonObject
 					{
 						{"id", Id},
 						{"name", Name},
@@ -82,6 +85,16 @@ namespace Manatee.Trello.ManateeJson.Entities
 						{"paid_account", PaidAccount},
 						{"premiumFeatures", PremiumFeatures.ToJson()}
 					};
+			if (Prefs != null)
+			{
+				json.Add("prefs/permissionLevel", Prefs.PermissionLevel.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.PermissionLevel);
+				json.Add("prefs/orgInviteRestrict", serializer.Serialize(Prefs.OrgInviteRestrict));
+				json.Add("prefs/associatedDomain", Prefs.AssociatedDomain.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.AssociatedDomain);
+				json.Add("prefs/boardVisibilityRestrict/private", Prefs.BoardVisibilityRestrict.Private.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.BoardVisibilityRestrict.Private);
+				json.Add("prefs/boardVisibilityRestrict/org", Prefs.BoardVisibilityRestrict.Org.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.BoardVisibilityRestrict.Org);
+				json.Add("prefs/boardVisibilityRestrict/public", Prefs.BoardVisibilityRestrict.Public.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.BoardVisibilityRestrict.Public);
+			}
+			return json;
 		}
 	}
 }

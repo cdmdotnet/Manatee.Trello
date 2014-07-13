@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Manatee.Trello.Internal
@@ -53,11 +54,7 @@ namespace Manatee.Trello.Internal
 			if (!type.IsGenericType) return name;
 			sb.Append(name.Substring(0, name.IndexOf('`')));
 			sb.Append("<");
-#if NET35 || NET35C
-			sb.Append(String.Join(", ", type.GetGenericArguments().Select(t => t.CSharpName()).ToArray()));
-#elif NET4 || NET4C || NET45
-			sb.Append(String.Join(", ", type.GetGenericArguments().Select(t => t.CSharpName())));
-#endif
+			sb.Append(type.GetGenericArguments().Select(t => t.CSharpName()).Join(", "));
 			sb.Append(">");
 			return sb.ToString();
 		}
@@ -71,11 +68,50 @@ namespace Manatee.Trello.Internal
 		{
 			return (beginning.Length > str.Length) || (str.Substring(0, beginning.Length) == beginning);
 		}
-#if NET35 || NET35C
 		public static bool IsNullOrWhiteSpace(this string value)
 		{
+#if NET35 || NET35C
 			return string.IsNullOrEmpty(value.Trim());
-		}
+#elif NET4 || NET4C || NET45
+			return string.IsNullOrWhiteSpace(value);
 #endif
+		}
+		public static string Join(this IEnumerable<string> segments, string separator)
+		{
+#if NET35 || NET35C
+			return string.Join(separator, segments.ToArray());
+#elif NET4 || NET4C || NET45
+			return string.Join(separator, segments);
+#endif
+		}
+		public static string GetName<T>(this Expression<Func<T>> property)
+		{
+			var lambda = (LambdaExpression)property;
+
+			MemberExpression memberExpression;
+			var body = lambda.Body as UnaryExpression;
+			if (body != null)
+			{
+				var unaryExpression = body;
+				memberExpression = (MemberExpression)unaryExpression.Operand;
+			}
+			else
+				memberExpression = (MemberExpression)lambda.Body;
+
+			return memberExpression.Member.Name;
+		}
+		public static T ConvertEnum<T>(this string value, T fallback = default(T))
+			where T : struct
+		{
+			if (value.IsNullOrWhiteSpace()) return fallback;
+			T status;
+			return Enum.TryParse(value, true, out status) ? status : fallback;
+		}
+		// TODO: Update JSON types to use enums to remove this method.
+		public static string ConvertEnum<T>(this T value)
+			where T : struct
+		{
+			return value.ToLowerString();
+		}
 	}
 }
