@@ -58,7 +58,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the position is valid.
 		/// </summary>
-		public bool IsValid { get { return !Equals(_value, UnknownValue); } }
+		public bool IsValid { get { return Equals(_value, TopValue) || (!Equals(_value, UnknownValue) && !Equals(_value, TopValue) && _value > 0); } }
 		internal double Value { get { return _value; } }
 
 		/// <summary>

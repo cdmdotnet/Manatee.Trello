@@ -62,8 +62,9 @@ namespace Manatee.Trello.NewtonsoftJson.Entities
 		public string Url { get; set; }
 		[JsonProperty("shortUrl")]
 		public string ShortUrl { get; set; }
-
 		[JsonProperty("subscribed")]
 		public bool? Subscribed { get; set; }
+		[JsonProperty("badges")]
+		public IJsonBadges Badges { get; set; }
 	}
 }

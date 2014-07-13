@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,468 +14,98 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		Organization.cs
+	File Name:		Organization2.cs
 	Namespace:		Manatee.Trello
-	Class Name:		Organization
-	Purpose:		Represents an organization on Trello.com.
+	Class Name:		Organization2
+	Purpose:		Represents an organization.
 
 ***************************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Manatee.Trello.Contracts;
+
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.Json;
+using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	/// <summary>
-	/// Represents an organization.
-	/// </summary>
-	public class Organization : ExpiringObject, IEquatable<Organization>, IComparable<Organization>, ICanWebhook
+	public class Organization
 	{
-		private IJsonOrganization _jsonOrganization;
-		private readonly OrganizationPreferences _preferences;
-		private bool _isDeleted;
+		private readonly BoardCollection _boards;
+		private readonly Field<string> _description;
+		private readonly Field<string> _displayName;
+		private readonly string _id;
+		private readonly Field<bool> _isBusinessClass;
+		private readonly ReadOnlyMemberCollection _members;
+		private readonly OrganizationMembershipCollection _memberships;
+		private readonly Field<string> _name;
+		private readonly Field<string> _website;
+		private readonly OrganizationContext _context;
+		private bool _deleted;
 
-		///<summary>
-		/// Enumerates all actions associated with this organization.
-		///</summary>
-		public IEnumerable<Action> Actions
-		{
-			get
-			{
-				return _isDeleted
-						   ? Enumerable.Empty<Action>()
-						   : BuildList<Action>(EntityRequestType.Organization_Read_Actions);
-			}
-		}
-		/// <summary>
-		/// Enumerates the boards owned by the organization.
-		/// </summary>
-		public IEnumerable<Board> Boards
-		{
-			get
-			{
-				return _isDeleted
-						   ? Enumerable.Empty<Board>()
-						   : BuildList<Board>(EntityRequestType.Organization_Read_Boards, filter: "open");
-			}
-		}
-		/// <summary>
-		/// Gets or sets the description for the organization.
-		/// </summary>
+		public BoardCollection Boards { get { return _boards; } }
 		public string Description
 		{
-			get
-			{
-				if (_isDeleted) return null;
-				VerifyNotExpired();
-				return _jsonOrganization.Desc;
-			}
-			set
-			{
-				if (_isDeleted) return;
-				Validator.Writable();
-				if (_jsonOrganization.Desc == value) return;
-				_jsonOrganization.Desc = value;
-				Parameters.Add("desc", _jsonOrganization.Desc ?? string.Empty);
-				Upload(EntityRequestType.Organization_Write_Description);
-			}
+			get { return _description.Value; }
+			set { _description.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets the name to be displayed for the organization.
-		/// </summary>
 		public string DisplayName
 		{
-			get
-			{
-				if (_isDeleted) return null;
-				VerifyNotExpired();
-				return _jsonOrganization.DisplayName;
-			}
-			set
-			{
-				if (_isDeleted) return;
-				Validator.Writable();
-				if (_jsonOrganization.DisplayName == value) return;
-				_jsonOrganization.DisplayName = Validator.MinStringLength(value, 4, "DisplayName");
-				Parameters.Add("displayName", _jsonOrganization.DisplayName);
-				Upload(EntityRequestType.Organization_Write_DisplayName);
-			}
+			get { return _displayName.Value; }
+			set { _displayName.Value = value; }
 		}
-		/// <summary>
-		/// Gets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		public override string Id
+		public string Id { get { return _id; } }
+		public bool IsBusinessClass
 		{
-			get { return _jsonOrganization.Id; }
-			internal set { _jsonOrganization.Id = value; }
+			get { return _isBusinessClass.Value; }
 		}
-		/// <summary>
-		/// Enumerates all members who have received invitations to this organization.
-		/// </summary>
-		public IEnumerable<Member> InvitedMembers
-		{
-			get
-			{
-				return _isDeleted
-						   ? Enumerable.Empty<Member>()
-						   : BuildList<Member>(EntityRequestType.Organization_Read_InvitedMembers);
-			}
-		}
-		/// <summary>
-		/// Gets whether this organization has paid features.
-		/// </summary>
-		public bool? IsPaidAccount { get { return _jsonOrganization.PaidAccount; } }
-		/// <summary>
-		/// Gets the organization's logo hash.
-		/// </summary>
-		public string LogoHash
-		{
-			get
-			{
-				if (_isDeleted) return null;
-				VerifyNotExpired();
-				return _jsonOrganization.LogoHash;
-			}
-		}
-		/// <summary>
-		/// Enumerates the members who belong to the organization.
-		/// </summary>
-		public IEnumerable<Member> Members
-		{
-			get
-			{
-				return _isDeleted
-						   ? Enumerable.Empty<Member>()
-						   : BuildList<Member>(EntityRequestType.Organization_Read_Members);
-			}
-		}
-		/// <summary>
-		/// Enumerates the members who belong to the organization.
-		/// </summary>
-		public IEnumerable<OrganizationMembership> Memberships
-		{
-			get
-			{
-				return _isDeleted
-						   ? Enumerable.Empty<OrganizationMembership>()
-						   : BuildList<OrganizationMembership>(EntityRequestType.Organization_Read_Memberships);
-			}
-		}
-		/// <summary>
-		/// Gets or sets the name of the organization.
-		/// </summary>
+		public ReadOnlyMemberCollection Members { get { return _members; } }
+		public OrganizationMembershipCollection Memberships { get { return _memberships; } }
 		public string Name
 		{
-			get
-			{
-				if (_isDeleted) return null;
-				VerifyNotExpired();
-				return _jsonOrganization.Name;
-			}
-			set
-			{
-				if (_isDeleted) return;
-				Validator.Writable();
-				if (_jsonOrganization.Name == value) return;
-				_jsonOrganization.Name = Validator.OrgName(value);
-				Parameters.Add("name", _jsonOrganization.Name);
-				Upload(EntityRequestType.Organization_Write_Name);
-			}
+			get { return _name.Value; }
+			set { _name.Value = value; }
 		}
-		/// <summary>
-		/// Enumerates the powerups obtained by the organization.
-		/// </summary>
-		public IEnumerable<int> PowerUps
-		{
-			get
-			{
-				if (_isDeleted) return Enumerable.Empty<int>();
-				VerifyNotExpired();
-				return _jsonOrganization.PowerUps;
-			}
-		}
-		///<summary>
-		/// Gets the set of preferences for the organization.
-		///</summary>
-		public OrganizationPreferences Preferences { get { return _isDeleted ? null : _preferences; } }
-		/// <summary>
-		/// Gets a collection of premium features available to the organization.
-		/// </summary>
-		public IEnumerable<string> PremiumFeatures
-		{
-			get
-			{
-				if (_isDeleted) return Enumerable.Empty<string>();
-				VerifyNotExpired();
-				return _jsonOrganization.PremiumFeatures;
-			}
-		}
-		/// <summary>
-		/// Gets the URL to the organization's profile.
-		/// </summary>
-		public string Url { get { return (_jsonOrganization == null) ? null : _jsonOrganization.Url; } }
-		/// <summary>
-		/// Gets or sets the organization's website.
-		/// </summary>
+		public OrganizationPreferences Preferences { get; private set; }
 		public string Website
 		{
-			get
-			{
-				if (_isDeleted) return null;
-				VerifyNotExpired();
-				return _jsonOrganization.Website;
-			}
-			set
-			{
-				if (_isDeleted) return;
-				Validator.Writable();
-				Validator.Url(value);
-				if (_jsonOrganization.Website == value) return;
-				_jsonOrganization.Website = value;
-				Parameters.Add("website", _jsonOrganization.Website ?? string.Empty);
-				Upload(EntityRequestType.Organization_Write_Website);
-			}
-		}
-		/// <summary>
-		/// Gets whether this entity represents an actual entity on Trello.
-		/// </summary>
-		public override bool IsStubbed { get { return _jsonOrganization is InnerJsonOrganization; } }
-
-		/// <summary>
-		/// Creates a new instance of the Organization class.
-		/// </summary>
-		public Organization()
-		{
-			_jsonOrganization = new InnerJsonOrganization();
-			_preferences = new OrganizationPreferences(this);
+			get { return _website.Value; }
+			set { _website.Value = value; }
 		}
 
-		///<summary>
-		/// Adds an existing member to the organization or updates the permissions of a member already in the organization.
-		///</summary>
-		///<param name="member">The member</param>
-		///<param name="type">The permission level for the member</param>
-		public void AddOrUpdateMember(Member member, OrganizationMembershipType type = OrganizationMembershipType.Normal)
+		internal IJsonOrganization Json { get { return _context.Data; } }
+
+		public Organization(string id)
 		{
-			if (_isDeleted) return;
-			Validator.Writable();
-			Validator.Entity(member);
-			Parameters["_id"] = Id;
-			Parameters.Add("_memberId", member.Id);
-			Parameters.Add("type", type.ToLowerString());
-			EntityRepository.Upload(EntityRequestType.Organization_Write_AddOrUpdateMember, Parameters);
+			_context = new OrganizationContext(id);
+
+			_boards = new BoardCollection(typeof (Organization), id);
+			_description = new Field<string>(_context, () => Description);
+			_displayName = new Field<string>(_context, () => DisplayName);
+			_id = id;
+			_isBusinessClass = new Field<bool>(_context, () => IsBusinessClass);
+			_members = new ReadOnlyMemberCollection(typeof(Organization), id);
+			_memberships = new OrganizationMembershipCollection(id);
+			_name = new Field<string>(_context, () => Name);
+			_name.AddRule(OrganizationNameRule.Instance);
+			Preferences = new OrganizationPreferences(_context.OrganizationPreferencesContext);
+			_website = new Field<string>(_context, () => Website);
+			_website.AddRule(UriRule.Instance);
+
+			TrelloConfiguration.Cache.Add(this);
 		}
-		/// <summary>
-		///  Adds a new or existing member to the organization or updates the permissions of a member already in the organization.
-		/// </summary>
-		/// <param name="fullName"></param>
-		/// <param name="type">The permission level for the member</param>
-		/// <param name="emailAddress"></param>
-		internal Member AddOrUpdateMember(string emailAddress, string fullName, OrganizationMembershipType type = OrganizationMembershipType.Normal)
+		internal Organization(IJsonOrganization json)
+			: this(json.Id)
 		{
-			throw new NotImplementedException("The functionality to add a non-Trello member to to organizations has been temporarily disabled.");
-			//if (_isDeleted) return null;
-			//Validator.Writable();
-			//Validator.NonEmptyString(emailAddress);
-			//Validator.NonEmptyString(fullName);
-			//Member member = null;
-			//if (member != null)
-			//{
-			//	AddOrUpdateMember(member, type);
-			//}
-			//return member;
+			_context.Merge(json);
 		}
-		/// <summary>
-		/// Creates a board for the organization, owned by the current member.
-		/// </summary>
-		/// <param name="name">The name of the board.</param>
-		/// <returns>The newly-created Board object.</returns>
-		public Board CreateBoard(string name)
-		{
-			Validator.Writable();
-			Validator.NonEmptyString(name);
-			Parameters.Add("name", name);
-			Parameters.Add("idOrganization", Id);
-			var board = EntityRepository.Download<Board>(EntityRequestType.Organization_Write_CreateBoard, Parameters);
-			UpdateDependencies(board);
-			return board;
-		}
-		/// <summary>
-		/// Deletes the organization.  This cannot be undone.
-		/// </summary>
+
 		public void Delete()
 		{
-			if (_isDeleted) return;
-			Validator.Writable();
-			Parameters["_id"] = Id;
-			EntityRepository.Upload(EntityRequestType.Organization_Write_Delete, Parameters);
-			_isDeleted = true;
-		}
-		/// <summary>
-		/// Extends an invitation to the organization to another member.
-		/// </summary>
-		/// <param name="member">The member to invite.</param>
-		/// <param name="type">The level of membership offered.</param>
-		internal void InviteMember(Member member, BoardMembershipType type = BoardMembershipType.Normal)
-		{
-			if (_isDeleted) return;
-			Validator.Writable();
-			Validator.Entity(member);
-			TrelloServiceConfiguration.Log.Error(new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API."));
-		}
-		///<summary>
-		/// Removes a member from the organization.
-		///</summary>
-		///<param name="member"></param>
-		public void RemoveMember(Member member)
-		{
-			if (_isDeleted) return;
-			Validator.Writable();
-			Validator.Entity(member);
-			Parameters["_id"] = Id;
-			Parameters.Add("_memberId", member);
-			EntityRepository.Upload(EntityRequestType.Organization_Write_RemoveMember, Parameters);
-		}
-		/// <summary>
-		/// Rescinds an existing invitation to the organization.
-		/// </summary>
-		/// <param name="member"></param>
-		internal void RescindInvitation(Member member)
-		{
-			if (_isDeleted) return;
-			Validator.Writable();
-			Validator.Entity(member);
-			TrelloServiceConfiguration.Log.Error(new NotSupportedException("Inviting members to organizations is not yet supported by the Trello API."));
-		}
-		/// <summary>
-		/// Indicates whether the current object is equal to another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
-		public bool Equals(Organization other)
-		{
-			return Id == other.Id;
-		}
-		/// <summary>
-		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
-		/// </summary>
-		/// <returns>
-		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
-		/// </returns>
-		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
-		public override bool Equals(object obj)
-		{
-			if (!(obj is Organization)) return false;
-			return Equals((Organization) obj);
-		}
-		/// <summary>
-		/// Serves as a hash function for a particular type. 
-		/// </summary>
-		/// <returns>
-		/// A hash code for the current <see cref="T:System.Object"/>.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override int GetHashCode()
-		{
-			return Id.GetHashCode();
-		}
-		/// <summary>
-		/// Compares the current object with another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
-		public int CompareTo(Organization other)
-		{
-			var order = string.Compare(DisplayName, other.DisplayName, StringComparison.InvariantCulture);
-			return order;
-		}
-		/// <summary>
-		/// Returns a string that represents the current object.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override string ToString()
-		{
-			return DisplayName;
-		}
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		public override bool Refresh()
-		{
-			if (_isDeleted) return false;
-			Parameters["_id"] = Id;
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.Organization_Read_Refresh);
-		}
-		/// <summary>
-		/// Applies the changes an action represents.
-		/// </summary>
-		/// <param name="action">The action.</param>
-		void ICanWebhook.ApplyAction(Action action)
-		{
-			if (action.Type != ActionType.UpdateOrganization) return;
-			MergeJson(action.Data);
-		}
+			if (_deleted) return;
 
-		/// <summary>
-		/// Verifies that the object is not expired and updates if necessary.
-		/// </summary>
-		protected override void VerifyNotExpired()
-		{
-			if (Url == null) Refresh();
-			base.VerifyNotExpired();
-		}
-
-		internal override void ApplyJson(object obj)
-		{
-			_jsonOrganization = (IJsonOrganization)obj;
-			Expires = DateTime.Now + EntityRepository.EntityDuration;
-		}
-		internal override bool EqualsJson(object obj)
-		{
-			var json = obj as IJsonOrganization;
-			return (json != null) && (json.Id == _jsonOrganization.Id);
-		}
-		internal override bool Matches(string id)
-		{
-			return (Id == id) || (Name == id);
-		}
-		internal override void PropagateDependencies()
-		{
-			UpdateDependencies(_preferences);
-		}
-		internal void ForceDeleted(bool deleted)
-		{
-			_isDeleted = deleted;
-		}
-
-		private void Upload(EntityRequestType requestType)
-		{
-			Parameters["_id"] = Id;
-			EntityRepository.Upload(requestType, Parameters);
-		}
-		private void MergeJson(IJsonActionData data)
-		{
-			_jsonOrganization.Name = data.TryGetString("organization", "name") ?? _jsonOrganization.Name;
-			_jsonOrganization.DisplayName = data.TryGetString("organization", "displayName") ?? _jsonOrganization.DisplayName;
-			_jsonOrganization.Desc = data.TryGetString("organization", "desc") ?? _jsonOrganization.Desc;
-			_jsonOrganization.Url = data.TryGetString("organization", "url") ?? _jsonOrganization.Url;
-			_jsonOrganization.Website = data.TryGetString("organization", "website") ?? _jsonOrganization.Website;
-			_jsonOrganization.LogoHash = data.TryGetString("organization", "logoHash") ?? _jsonOrganization.LogoHash;
-			_jsonOrganization.PaidAccount = data.TryGetBoolean("organization", "paidAccount") ?? _jsonOrganization.PaidAccount;
-			_jsonOrganization.Name = data.TryGetString("organization", "name") ?? _jsonOrganization.Name;
-			_jsonOrganization.Name = data.TryGetString("organization", "name") ?? _jsonOrganization.Name;
+			_context.Delete();
+			_deleted = true;
+			TrelloConfiguration.Cache.Remove(this);
 		}
 	}
 }

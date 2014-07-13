@@ -33,43 +33,70 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Name { get; set; }
 		public string Desc { get; set; }
 		public bool? Closed { get; set; }
-		public string IdOrganization { get; set; }
+		public IJsonOrganization Organization { get; set; }
+		public IJsonLabelNames LabelNames { get; set; }
 		public bool? Pinned { get; set; }
+		public IJsonBoardPreferences Prefs { get; set; }
 		public string Url { get; set; }
 		public bool? Subscribed { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type == JsonValueType.Object)
+			switch (json.Type)
 			{
-				var obj = json.Object;
-				Id = obj.TryGetString("id");
-				Name = obj.TryGetString("name");
-				Desc = obj.TryGetString("desc");
-				Closed = obj.TryGetBoolean("closed");
-				IdOrganization = obj.TryGetString("idOrganization");
-				Pinned = obj.TryGetBoolean("pinned");
-				Url = obj.TryGetString("url");
-				Subscribed = obj.TryGetBoolean("subscribed");
-			}
-			else if (json.Type == JsonValueType.String)
-			{
-				Id = json.String;
+				case JsonValueType.Object:
+				{
+					var obj = json.Object;
+					Id = obj.TryGetString("id");
+					Name = obj.TryGetString("name");
+					Desc = obj.TryGetString("desc");
+					Closed = obj.TryGetBoolean("closed");
+					Organization = serializer.Deserialize<IJsonOrganization>(obj["idOrganization"]);
+					LabelNames = serializer.Deserialize<IJsonLabelNames>(obj.TryGetObject("labelNames"));
+					Pinned = obj.TryGetBoolean("pinned");
+					Prefs = serializer.Deserialize<IJsonBoardPreferences>(obj["prefs"]);
+					Url = obj.TryGetString("url");
+					Subscribed = obj.TryGetBoolean("subscribed");
+				}
+					break;
+				case JsonValueType.String:
+					Id = json.String;
+					break;
 			}
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
+			var json = new JsonObject
 			       	{
 			       		{"id", Id},
 			       		{"name", Name},
 			       		{"desc", Desc},
 			       		{"closed", Closed},
-			       		{"idOrganization", IdOrganization},
+			       		{"idOrganization", Organization == null ? JsonValue.Null : Organization.Id},
 			       		{"pinned", Pinned},
 			       		{"url", Url},
 			       		{"subscribed", Subscribed},
 			       	};
+			// Don't serialize the LabelNames or Preferences collections because Trello wants individual properties.
+			if (LabelNames != null)
+			{
+				json.Add("labelNames/green", LabelNames.Green.IsNullOrWhiteSpace() ? JsonValue.Null : LabelNames.Green);
+				json.Add("labelNames/yellow", LabelNames.Yellow.IsNullOrWhiteSpace() ? JsonValue.Null : LabelNames.Yellow);
+				json.Add("labelNames/orange", LabelNames.Orange.IsNullOrWhiteSpace() ? JsonValue.Null : LabelNames.Orange);
+				json.Add("labelNames/red", LabelNames.Red.IsNullOrWhiteSpace() ? JsonValue.Null : LabelNames.Red);
+				json.Add("labelNames/purple", LabelNames.Purple.IsNullOrWhiteSpace() ? JsonValue.Null : LabelNames.Purple);
+				json.Add("labelNames/blue", LabelNames.Blue.IsNullOrWhiteSpace() ? JsonValue.Null : LabelNames.Blue);
+			}
+			if (Prefs != null)
+			{
+				json.Add("prefs/permissionLevel", Prefs.PermissionLevel.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.PermissionLevel);
+				json.Add("prefs/selfJoin", !Prefs.SelfJoin.HasValue ? JsonValue.Null : Prefs.SelfJoin);
+				json.Add("prefs/cardCovers", !Prefs.CardCovers.HasValue ? JsonValue.Null : Prefs.CardCovers);
+				json.Add("prefs/invitations", Prefs.Invitations.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.Invitations);
+				json.Add("prefs/voting", Prefs.Voting.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.Voting);
+				json.Add("prefs/comments", Prefs.Comments.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.Comments);
+			}
+			return json;
 		}
 	}
 }

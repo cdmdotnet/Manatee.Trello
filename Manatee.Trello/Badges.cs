@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,173 +14,88 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		Badges.cs
+	File Name:		Badges2.cs
 	Namespace:		Manatee.Trello
-	Class Name:		Badges
-	Purpose:		Represents the set of badges shown on the card cover (when viewed
-					in a list) on Trello.com.
+	Class Name:		Badges2
+	Purpose:		Represents the badges on the card cover.
 
 ***************************************************************************************/
+
 using System;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal.Json;
-using Manatee.Trello.Json;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
-	///<summary>
-	/// Represents the set of badges shown on the card cover.
-	///</summary>
-	public class Badges : ExpiringObject
+	public class Badges
 	{
-		private IJsonBadges _jsonBadges;
+		private readonly Field<int?> _attachments;
+		private readonly Field<int?> _checkItems;
+		private readonly Field<int?> _checkItemsChecked;
+		private readonly Field<int?> _comments;
+		private readonly Field<DateTime?> _dueDate;
+		private readonly Field<string> _fogBugz;
+		private readonly Field<bool?> _hasDescription;
+		private readonly Field<bool?> _hasVoted;
+		private readonly Field<bool?> _isSubscribed;
+		private readonly Field<int?> _votes;
+		private BadgesContext _context;
 
-		///<summary>
-		/// Indicates the number of attachments.
-		///</summary>
 		public int? Attachments
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.Attachments;
-			}
+			get { return _attachments.Value; }
 		}
-		/// <summary>
-		/// Indicates the number of check items.
-		/// </summary>
 		public int? CheckItems
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.CheckItems;
-			}
+			get { return _checkItems.Value; }
 		}
-		/// <summary>
-		/// Indicates the number of check items which have been checked.
-		/// </summary>
 		public int? CheckItemsChecked
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.CheckItemsChecked;
-			}
+			get { return _checkItemsChecked.Value; }
 		}
-		/// <summary>
-		/// Indicates the number of comments.
-		/// </summary>
 		public int? Comments
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.Comments;
-			}
+			get { return _comments.Value; }
 		}
-		/// <summary>
-		/// Indicates the due date, if one exists.
-		/// </summary>
 		public DateTime? DueDate
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.Due;
-			}
+			get { return _dueDate.Value; }
 		}
-		/// <summary>
-		/// Indicates the FogBugz ID.
-		/// </summary>
 		public string FogBugz
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.Fogbugz;
-			}
+			get { return _fogBugz.Value; }
 		}
-		/// <summary>
-		/// Indicates whether the card has a description.
-		/// </summary>
 		public bool? HasDescription
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.Description;
-			}
+			get { return _hasDescription.Value; }
 		}
-		/// <summary>
-		/// Indicates whether the member is subscribed to the card.
-		/// </summary>
+		public bool? HasVoted
+		{
+			get { return _hasVoted.Value; }
+		}
 		public bool? IsSubscribed
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.Subscribed;
-			}
+			get { return _isSubscribed.Value; }
 		}
-		/// <summary>
-		/// Indicates whether the member has voted for this card.
-		/// </summary>
-		public bool? ViewingMemberVoted
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.ViewingMemberVoted;
-			}
-		}
-		/// <summary>
-		/// Indicates the number of votes.
-		/// </summary>
 		public int? Votes
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBadges.Votes;
-			}
-		}
-		/// <summary>
-		/// Gets whether this entity represents an actual entity on Trello.
-		/// </summary>
-		public override bool IsStubbed { get { return _jsonBadges is InnerJsonBadges; } }
-
-		/// <summary>
-		/// Creates a new instance of the Badges class.
-		/// </summary>
-		public Badges()
-		{
-			_jsonBadges = new InnerJsonBadges();
-		}
-		internal Badges(Card owner)
-			: this()
-		{
-			Owner = owner;
+			get { return _votes.Value; }
 		}
 
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		public override bool Refresh()
+		internal Badges(BadgesContext context)
 		{
-			Parameters["_cardId"] = Owner.Id;
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.Badges_Read_Refresh);
-		}
+			_context = context;
 
-		internal override void ApplyJson(object obj)
-		{
-			_jsonBadges = (IJsonBadges)obj;
-			Expires = DateTime.Now + EntityRepository.EntityDuration;
-		}
-		internal override bool EqualsJson(object obj)
-		{
-			return false;
+			_attachments = new Field<int?>(_context, () => Attachments);
+			_checkItems = new Field<int?>(_context, () => CheckItems);
+			_checkItemsChecked = new Field<int?>(_context, () => CheckItemsChecked);
+			_comments = new Field<int?>(_context, () => Comments);
+			_dueDate = new Field<DateTime?>(_context, () => DueDate);
+			_fogBugz = new Field<string>(_context, () => FogBugz);
+			_hasDescription = new Field<bool?>(_context, () => HasDescription);
+			_hasVoted = new Field<bool?>(_context, () => HasVoted);
+			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
+			_votes = new Field<int?>(_context, () => Votes);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,295 +14,87 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		List.cs
+	File Name:		List2.cs
 	Namespace:		Manatee.Trello
-	Class Name:		List
-	Purpose:		Represents a list on Trello.com.
+	Class Name:		List2
+	Purpose:		Represents a list.
 
 ***************************************************************************************/
-using System;
-using System.Collections.Generic;
-using Manatee.Trello.Contracts;
+
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.Json;
+using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	/// <summary>
-	/// Represents a list.
-	/// </summary>
-	public class List : ExpiringObject, IEquatable<List>, IComparable<List>, ICanWebhook
+	public class List
 	{
-		private IJsonList _jsonList;
-		private Board _board;
-		private Position _position;
+		private readonly Field<Board> _board;
+		private readonly CardCollection _cards;
+		private readonly string _id;
+		private readonly Field<bool?> _isArchived;
+		private readonly Field<bool?> _isSubscribed;
+		private readonly Field<string> _name;
+		private readonly Field<Position> _position;
+		private readonly ListContext _context;
 
-		///<summary>
-		/// Enumerates all actions associated with the list.
-		///</summary>
-		public IEnumerable<Action> Actions { get { return BuildList<Action>(EntityRequestType.List_Read_Actions); } }
-		/// <summary>
-		/// Gets the board which contains the list.
-		/// </summary>
 		public Board Board
 		{
-			get
-			{
-				VerifyNotExpired();
-				return UpdateById(ref _board, EntityRequestType.Board_Read_Refresh, _jsonList.IdBoard);
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Entity(value);
-				if (_jsonList.IdBoard == value.Id) return;
-				_jsonList.IdBoard = value.Id;
-				_board = value;
-				Parameters.Add("idBoard", _jsonList.IdBoard);
-				Upload(EntityRequestType.List_Write_Board);
-			}
+			get { return _board.Value; }
+			set { _board.Value = value; }
 		}
-		/// <summary>
-		/// Enumerates all cards in the list.
-		/// </summary>
-		public IEnumerable<Card> Cards { get { return BuildList<Card>(EntityRequestType.List_Read_Cards); } }
-		/// <summary>
-		/// Gets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		public override string Id
+		public CardCollection Cards
 		{
-			get { return _jsonList.Id; }
-			internal set { _jsonList.Id = value; }
+			get { return _cards; }
 		}
-		/// <summary>
-		/// Gets or sets whether the list is archived.
-		/// </summary>
-		public bool? IsClosed
+		public string Id {get { return _id; } }
+		public bool? IsArchived
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonList.Closed;
-			}
-			set
-			{
-
-				Validator.Writable();
-				Validator.Nullable(value);
-				if (_jsonList.Closed == value) return;
-				_jsonList.Closed = value;
-				Parameters.Add("closed", _jsonList.Closed.ToLowerString());
-				Upload(EntityRequestType.List_Write_IsClosed);
-			}
+			get { return _isArchived.Value; }
+			set { _isArchived.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets whether the current member is subscribed to the list.
-		/// </summary>
 		public bool? IsSubscribed
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonList.Subscribed;
-			}
-			set
-			{
-
-				Validator.Writable();
-				Validator.Nullable(value);
-				if (_jsonList.Subscribed == value) return;
-				_jsonList.Subscribed = value;
-				Parameters.Add("subscribed", _jsonList.Subscribed.ToLowerString());
-				Upload(EntityRequestType.List_Write_IsSubscribed);
-			}
+			get { return _isSubscribed.Value; }
+			set { _isSubscribed.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets the name of the list.
-		/// </summary>
 		public string Name
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonList.Name;
-			}
-			set
-			{
-
-				Validator.Writable();
-				Validator.NonEmptyString(value);
-				if (_jsonList.Name == value) return;
-				_jsonList.Name = value;
-				Parameters.Add("name", _jsonList.Name);
-				Upload(EntityRequestType.List_Write_Name);
-			}
+			get { return _name.Value; }
+			set { _name.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets the position of the list.
-		/// </summary>
 		public Position Position
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _position;
-			}
-			set
-			{
-
-				Validator.Writable();
-				Validator.Position(value);
-				if (_position == value) return;
-				_position = value;
-				Parameters.Add("pos", _position);
-				Upload(EntityRequestType.List_Write_Position);
-				MarkForUpdate();
-			}
-		}
-		/// <summary>
-		/// Gets whether this entity represents an actual entity on Trello.
-		/// </summary>
-		public override bool IsStubbed { get { return _jsonList is InnerJsonList; } }
-
-		/// <summary>
-		/// Creates a new instance of the List class.
-		/// </summary>
-		public List()
-		{
-			_jsonList = new InnerJsonList();
+			get { return _position.Value; }
+			set { _position.Value = value; }
 		}
 
-		/// <summary>
-		/// Adds a new card to the list.
-		/// </summary>
-		/// <param name="name">The name of the card.</param>
-		/// <param name="description">The description of the card.</param>
-		/// <param name="position">The position of the card.  Default is Bottom.  Invalid positions are ignored.</param>
-		/// <returns>The card.</returns>
-		public Card AddCard(string name, string description = null, Position position = null)
-		{
-			Validator.Writable();
-			Validator.NonEmptyString(name);
-			Parameters.Add("name", name);
-			Parameters.Add("idList", Id);
-			if (description != null)
-				Parameters.Add("desc", description);
-			if ((position != null) && position.IsValid)
-				Parameters.Add("pos", position);
-			var card = EntityRepository.Download<Card>(EntityRequestType.List_Write_AddCard, Parameters);
-			UpdateDependencies(card);
-			return card;
-		}
-		/// <summary>
-		/// Deletes the list.  This cannot be undone.
-		/// </summary>
-		internal void Delete()
-		{
-			TrelloServiceConfiguration.Log.Error(new NotSupportedException("Deleting lists is not yet supported by Trello."));
-		}
-		/// <summary>
-		/// Indicates whether the current object is equal to another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
-		public bool Equals(List other)
-		{
-			return Id == other.Id;
-		}
-		/// <summary>
-		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
-		/// </summary>
-		/// <returns>
-		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
-		/// </returns>
-		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
-		public override bool Equals(object obj)
-		{
-			if (!(obj is List)) return false;
-			return Equals((List) obj);
-		}
-		/// <summary>
-		/// Serves as a hash function for a particular type. 
-		/// </summary>
-		/// <returns>
-		/// A hash code for the current <see cref="T:System.Object"/>.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override int GetHashCode()
-		{
-			return Id.GetHashCode();
-		}
-		/// <summary>
-		/// Compares the current object with another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
-		public int CompareTo(List other)
-		{
-			var order = Position.Value - other.Position.Value;
-			return (int)order;
-		}
-		/// <summary>
-		/// Returns a string that represents the current object.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override string ToString()
-		{
-			return Name;
-		}
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		public override bool Refresh()
-		{
-			Parameters["_id"] = Id;
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.List_Read_Refresh);
-		}
-		/// <summary>
-		/// Applies the changes an action represents.
-		/// </summary>
-		/// <param name="action">The action.</param>
-		void ICanWebhook.ApplyAction(Action action)
-		{
-			// There is no UpdateList action...
-			//if (action.Type != ActionType.Unknown) return;
-			//MergeJson(action.Data);
-		}
+		internal IJsonList Json { get { return _context.Data; } }
 
-		internal override void ApplyJson(object obj)
+		public List(string id)
 		{
-			_jsonList = (IJsonList)obj;
-			_position = ((_jsonList != null) && _jsonList.Pos.HasValue) ? new Position(_jsonList.Pos.Value) : Position.Unknown;
-			Expires = DateTime.Now + EntityRepository.EntityDuration;
-		}
-		internal override bool EqualsJson(object obj)
-		{
-			var json = obj as IJsonList;
-			return (json != null) && (json.Id == _jsonList.Id);
-		}
-		internal override void PropagateDependencies() {}
+			_context = new ListContext(id);
 
-		private void Upload(EntityRequestType requestType)
-		{
-			Parameters["_id"] = Id;
-			EntityRepository.Upload(requestType, Parameters);
+			_board = new Field<Board>(_context, () => Board);
+			_cards = new CardCollection(id);
+			_id = id;
+			_isArchived = new Field<bool?>(_context, () => IsArchived);
+			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
+			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
+			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
+			_name = new Field<string>(_context, () => Name);
+			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
+			_position = new Field<Position>(_context, () => Position);
+			_position.AddRule(NotNullRule<Position>.Instance);
+			_position.AddRule(PositionRule.Instance);
+
+			TrelloConfiguration.Cache.Add(this);
 		}
-		private void MergeJson(IJsonActionData data)
+		internal List(IJsonList json)
+			: this(json.Id)
 		{
-			_jsonList.Name = data.TryGetString("list", "name") ?? _jsonList.Name;
-			_jsonList.Closed = data.TryGetBoolean("list", "closed") ?? _jsonList.Closed;
-			_jsonList.IdBoard = data.TryGetString("list", "idBoard") ?? _jsonList.IdBoard;
-			_jsonList.Pos = data.TryGetNumber("list", "pos") ?? _jsonList.Pos;
-			_jsonList.Subscribed = data.TryGetBoolean("list", "subscribed") ?? _jsonList.Subscribed;
+			_context.Merge(json);
 		}
 	}
 }

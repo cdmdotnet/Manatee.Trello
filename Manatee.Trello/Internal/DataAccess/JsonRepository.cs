@@ -30,7 +30,7 @@ namespace Manatee.Trello.Internal.DataAccess
 {
 	internal static class JsonRepository
 	{
-		public static void Execute(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
+		public static void Execute(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters = null)
 		{
 			var obj = new object();
 			var request = BuildRequest(auth, endpoint, parameters);
@@ -39,7 +39,7 @@ namespace Manatee.Trello.Internal.DataAccess
 				Monitor.Wait(obj);
 			ValidateResponse(request);
 		}
-		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
+		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters = null)
 			where T : class
 		{
 			var obj = new object();
@@ -51,10 +51,23 @@ namespace Manatee.Trello.Internal.DataAccess
 			var response = (IRestResponse<T>)request.Response;
 			return response.Data;
 		}
-
-		private static IRestRequest BuildRequest(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters)
+		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, T body)
+			where T : class
 		{
-			var request = TrelloServiceConfiguration.RestClientProvider.RequestProvider.Create(endpoint.ToString(), parameters);
+			var obj = new object();
+			var request = BuildRequest(auth, endpoint);
+			request.AddBody(body);
+			RestRequestProcessor.AddRequest<T>(request, obj);
+			lock (obj)
+				Monitor.Wait(obj);
+			ValidateResponse(request);
+			var response = (IRestResponse<T>)request.Response;
+			return response.Data;
+		}
+
+		private static IRestRequest BuildRequest(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters = null)
+		{
+			var request = TrelloConfiguration.RestClientProvider.RequestProvider.Create(endpoint.ToString(), parameters);
 			request.Method = endpoint.Method;
 			PrepRequest(request, auth);
 			return request;
@@ -67,7 +80,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		}
 		private static void ValidateResponse(IRestRequest request)
 		{
-			if (request.Response.Exception != null && TrelloServiceConfiguration.ThrowOnTrelloError)
+			if (request.Response.Exception != null && TrelloConfiguration.ThrowOnTrelloError)
 				throw request.Response.Exception;
 		}
 	}

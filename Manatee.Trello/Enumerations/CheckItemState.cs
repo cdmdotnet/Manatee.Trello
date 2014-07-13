@@ -14,38 +14,30 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		BoardCommentType.cs
+	File Name:		CheckItemState.cs
 	Namespace:		Manatee.Trello
-	Class Name:		BoardCommentType
-	Purpose:		Enumerates known board commenting permission levels on Trello.com.
+	Class Name:		CheckItemState
+	Purpose:		Enumerates known values for an item in a checklist on Trello.com.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
-	///<summary>
-	/// Enumerates known board commenting permission levels.
-	///</summary>
-	public enum BoardCommentType
+	/// <summary>
+	/// Enumerates known values for an item in a checklist.
+	/// </summary>
+	public enum CheckItemState
 	{
 		/// <summary>
 		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
 		Unknown,
 		/// <summary>
-		/// Indicates that only members of the board may comment on cards.
+		/// Indicates that the checlist item is not checked.
 		/// </summary>
-		Members,
+		Incomplete,
 		/// <summary>
-		/// Indicates that only members of the organization to which the board belongs may comment on cards.
+		/// Indicates that the checlist item is checked.
 		/// </summary>
-		Org,
-		/// <summary>
-		/// Indicates that any Trello member may comment on cards.
-		/// </summary>
-		Public,
-		/// <summary>
-		/// Indicates that no members may comment on cards.
-		/// </summary>
-		Disabled
+		Complete
 	}
 }

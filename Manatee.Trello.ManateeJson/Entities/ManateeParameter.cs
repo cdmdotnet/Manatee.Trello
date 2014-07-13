@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,30 +14,31 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		CheckItemStateType.cs
-	Namespace:		Manatee.Trello
-	Class Name:		CheckItemStateType
-	Purpose:		Enumerates known values for an item in a checklist on Trello.com.
+	File Name:		ManateeParameter.cs
+	Namespace:		Manatee.Trello.ManateeJson.Entities
+	Class Name:		ManateeParameter
+	Purpose:		Implements IJsonParameter for Manatee.Json. 
 
 ***************************************************************************************/
-namespace Manatee.Trello
+
+using Manatee.Json;
+using Manatee.Json.Serialization;
+using Manatee.Trello.Json;
+
+namespace Manatee.Trello.ManateeJson.Entities
 {
-	/// <summary>
-	/// Enumerates known values for an item in a checklist.
-	/// </summary>
-	public enum CheckItemStateType
+	public class ManateeParameter : IJsonParameter, IJsonSerializable
 	{
-		/// <summary>
-		/// Not recognized.  May have been created since the current version of this API.
-		/// </summary>
-		Unknown,
-		/// <summary>
-		/// Indicates that the checlist item is not checked.
-		/// </summary>
-		Incomplete,
-		/// <summary>
-		/// Indicates that the checlist item is checked.
-		/// </summary>
-		Complete
+		public string Value { get; set; }
+
+		public void FromJson(JsonValue json, JsonSerializer serializer)
+		{
+			if (json.Type != JsonValueType.Object) return;
+			Value = json.Object.TryGetString("value");
+		}
+		public JsonValue ToJson(JsonSerializer serializer)
+		{
+			return new JsonObject {{"value", Value}};
+		}
 	}
 }

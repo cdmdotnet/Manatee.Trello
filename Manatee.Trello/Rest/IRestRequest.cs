@@ -43,10 +43,6 @@ namespace Manatee.Trello.Rest
 		/// </summary>
 		IRestResponse Response { get; set; }
 		/// <summary>
-		/// Gets the collection of parameters for the request.
-		/// </summary>
-		IDictionary<string, object> Parameters { get; }
-		/// <summary>
 		/// Explicitly adds a parameter to the request.
 		/// </summary>
 		/// <param name="name">The name.</param>

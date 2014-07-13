@@ -22,7 +22,6 @@
 ***************************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Rest;
 using RestSharp;
@@ -34,6 +33,7 @@ namespace Manatee.Trello.RestSharp
 {
 	internal class RestSharpRequest : RestRequest, IRestRequest
 	{
+		private bool _hasBody;
 		public new RestMethod Method
 		{
 			get { return GetMethod(); }
@@ -49,14 +49,37 @@ namespace Manatee.Trello.RestSharp
 		}
 
 		public new string Resource { get { return base.Resource; } }
-		public new IDictionary<string, object> Parameters { get { return base.Parameters.ToDictionary(p => p.Name, p => p.Value); } }
 		public new void AddParameter(string name, object value)
 		{
-			base.AddParameter(name, value);
+			if (_hasBody)
+			{
+				if (!base.Resource.Contains("?"))
+					base.Resource += "?";
+				else
+					base.Resource += ",";
+				base.Resource += string.Format("{0}={1}", name, value);
+				return;
+			}
+			AddParameter(name, value, ParameterType.GetOrPost);
 		}
 		public new void AddBody(object body)
 		{
-			base.AddBody(body);
+			if (Parameters.Any())
+			{
+				var parameterList = Parameters.Where(p => p.Type == ParameterType.GetOrPost).ToList();
+				var parameterCallout = string.Join("&", parameterList.Select(p => string.Format("{0}={1}", p.Name, p.Value)));
+				base.Resource += string.Format("?{0}", parameterCallout);
+				foreach (var parameter in parameterList)
+				{
+					Parameters.Remove(parameter);
+				}
+			}
+			// See http://boredwookie.net/index.php/blog/how-get-restsharp-send-content-type-header-applicationjson/.
+			// Due to the way that R# tries to determine the Content-Type header automatically, we can't use AddBody() here.
+			// Instead we serialze the content manually and add the parameter explicitly as the body.
+			var content = JsonSerializer.Serialize(body);
+			AddParameter("application/json", content, ParameterType.RequestBody);
+			_hasBody = true;
 		}
 		public IRestResponse Response { get; set; }
 

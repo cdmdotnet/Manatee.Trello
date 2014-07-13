@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -17,232 +17,68 @@
 	File Name:		OrganizationPreferences.cs
 	Namespace:		Manatee.Trello
 	Class Name:		OrganizationPreferences
-	Purpose:		Represents available preference settings for an organization
-					on Trello.com.
+	Purpose:		Represents preferences for an organization.
 
 ***************************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Manatee.Trello.Contracts;
+using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.Json;
-using Manatee.Trello.Json;
+using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
-	/// <summary>
-	/// Represents available preference settings for an organization.
-	/// </summary>
-	public class OrganizationPreferences : ExpiringObject
+	public class OrganizationPreferences
 	{
-		private static readonly OneToOneMap<OrganizationPermissionLevelType, string> _permissionLevelMap;
+		private readonly Field<OrganizationPermissionLevel> _permissionLevel;
+		private readonly Field<bool?> _externalMembersDisabled;
+		private readonly Field<string> _assocatedDomain;
+		private readonly Field<OrganizationBoardVisibility> _publicBoardVisibility;
+		private readonly Field<OrganizationBoardVisibility> _organizationBoardVisibility;
+		private readonly Field<OrganizationBoardVisibility> _privateBoardVisibility;
+		private OrganizationPreferencesContext _context;
 
-		private IJsonOrganizationPreferences _jsonOrganizationPreferences;
-		private BoardVisibilityRestrict _boardVisibilityRestrict;
-		private OrganizationPermissionLevelType _permissionLevel = OrganizationPermissionLevelType.Unknown;
-
-		/// <summary>
-		/// Gets or sets the Google Apps domain.
-		/// </summary>
-		public string AssociatedDomain
+		public OrganizationPermissionLevel PermissionLevel
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonOrganizationPreferences.AssociatedDomain;
-			}
-			set
-			{
-				Validator.Writable();
-				if (_jsonOrganizationPreferences.AssociatedDomain == value) return;
-				_jsonOrganizationPreferences.AssociatedDomain = value;
-				Parameters.Add("value", _jsonOrganizationPreferences.AssociatedDomain ?? string.Empty);
-				Upload(EntityRequestType.OrganizationPreferences_Write_AssociatedDomain);
-			}
+			get { return _permissionLevel.Value; }
+			set { _permissionLevel.Value = value; }
 		}
-		/// <summary>
-		/// ?
-		/// </summary>
 		public bool? ExternalMembersDisabled
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonOrganizationPreferences.ExternalMembersDisabled;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Nullable(value);
-				if (_jsonOrganizationPreferences.ExternalMembersDisabled == value) return;
-				_jsonOrganizationPreferences.ExternalMembersDisabled = value;
-				Parameters.Add("value", _jsonOrganizationPreferences.ExternalMembersDisabled);
-				Upload(EntityRequestType.OrganizationPreferences_Write_ExternalMembersDisabled);
-			}
+			get { return _externalMembersDisabled.Value; }
+			set { _externalMembersDisabled.Value = value; }
 		}
-		// TODO: Determine contents of this array
-		internal List<object> OrgInviteRestrict
+		public string AssociatedDomain
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonOrganizationPreferences.OrgInviteRestrict;
-			}
-			set
-			{
-				Validator.Writable();
-				if (_jsonOrganizationPreferences.OrgInviteRestrict == value) return;
-				_jsonOrganizationPreferences.OrgInviteRestrict = value;
-				Upload(EntityRequestType.OrganizationPreferences_Write_OrgInviteRestrict);
-			}
+			get { return _assocatedDomain.Value; }
+			set { _assocatedDomain.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets the visibility of Org-visible boards owned by the organization.
-		/// </summary>
-		public BoardPermissionLevelType OrgVisibleBoardVisibility
+		public OrganizationBoardVisibility PublicBoardVisibility
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _boardVisibilityRestrict.Org;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_boardVisibilityRestrict.Org == value) return;
-				_boardVisibilityRestrict.Org = value;
-				Parameters.Add("value", _boardVisibilityRestrict.Org.ToLowerString());
-				Upload(EntityRequestType.OrganizationPreferences_Write_OrgVisibleBoardVisibility);
-			}
+			get { return _publicBoardVisibility.Value; }
+			set { _publicBoardVisibility.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets who may view the organization.
-		/// </summary>
-		public OrganizationPermissionLevelType PermissionLevel
+		public OrganizationBoardVisibility OrganizationBoardVisibility
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _permissionLevel;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_permissionLevel == value) return;
-				_permissionLevel = value;
-				UpdateApiPermissionLevel();
-				Parameters.Add("value", _jsonOrganizationPreferences.PermissionLevel);
-				Upload(EntityRequestType.OrganizationPreferences_Write_PermissionLevel);
-			}
+			get { return _organizationBoardVisibility.Value; }
+			set { _organizationBoardVisibility.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets the visibility of private boards owned by the organization.
-		/// </summary>
-		public BoardPermissionLevelType PrivateBoardVisibility
+		public OrganizationBoardVisibility PrivateBoardVisibility
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _boardVisibilityRestrict.Private;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_boardVisibilityRestrict.Private == value) return;
-				_boardVisibilityRestrict.Private = value;
-				Parameters.Add("value", _boardVisibilityRestrict.Private.ToLowerString());
-				Upload(EntityRequestType.OrganizationPreferences_Write_PrivateBoardVisibility);
-			}
-		}
-		/// <summary>
-		/// Gets or sets the visibility of publicly-visible boards owned by the organization.
-		/// </summary>
-		public BoardPermissionLevelType PublicBoardVisibility
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _boardVisibilityRestrict.Public;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_boardVisibilityRestrict.Public == value) return;
-				_boardVisibilityRestrict.Public = value;
-				Parameters.Add("value", _boardVisibilityRestrict.Public.ToLowerString());
-				Upload(EntityRequestType.OrganizationPreferences_Write_PublicBoardVisibility);
-			}
-		}
-		/// <summary>
-		/// Gets whether this entity represents an actual entity on Trello.
-		/// </summary>
-		public override bool IsStubbed { get { return _jsonOrganizationPreferences is InnerJsonOrganizationPreferences; } }
-
-		static OrganizationPreferences()
-		{
-			_permissionLevelMap = new OneToOneMap<OrganizationPermissionLevelType, string>
-			                      	{
-			                      		{OrganizationPermissionLevelType.Private, "private"},
-			                      		{OrganizationPermissionLevelType.Public, "public"},
-			                      	};
-		}
-		/// <summary>
-		/// Creates a new instance of the OrganizationPreferences class.
-		/// </summary>
-		public OrganizationPreferences()
-		{
-			_jsonOrganizationPreferences = new InnerJsonOrganizationPreferences();
-		}
-		internal OrganizationPreferences(Organization owner)
-			: this()
-		{
-			Owner = owner;
+			get { return _privateBoardVisibility.Value; }
+			set { _privateBoardVisibility.Value = value; }
 		}
 
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		public override bool Refresh()
+		internal OrganizationPreferences(OrganizationPreferencesContext context)
 		{
-			Parameters["_id"] = Id;
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.OrganizationPreferences_Read_Refresh);
-		}
+			_context = context;
 
-		internal override void ApplyJson(object obj)
-		{
-			if (obj == null) return;
-			_jsonOrganizationPreferences = (IJsonOrganizationPreferences)obj;
-			_boardVisibilityRestrict = new BoardVisibilityRestrict(_jsonOrganizationPreferences.BoardVisibilityRestrict);
-			UpdatePermissionLevel();
-			Expires = DateTime.Now + EntityRepository.EntityDuration;
-		}
-		internal override bool EqualsJson(object obj)
-		{
-			return false;
-		}
-
-		private void Upload(EntityRequestType requestType)
-		{
-			Parameters["_id"] = Id;
-			EntityRepository.Upload(requestType, Parameters);
-		}
-		private void UpdatePermissionLevel()
-		{
-			_permissionLevel = _permissionLevelMap.Any(kvp => kvp.Value == _jsonOrganizationPreferences.PermissionLevel)
-			                   	? _permissionLevelMap[_jsonOrganizationPreferences.PermissionLevel]
-			                   	: OrganizationPermissionLevelType.Unknown;
-		}
-		private void UpdateApiPermissionLevel()
-		{
-			if (_permissionLevelMap.Any(kvp => kvp.Key == _permissionLevel))
-				_jsonOrganizationPreferences.PermissionLevel = _permissionLevelMap[_permissionLevel];
+			_permissionLevel = new Field<OrganizationPermissionLevel>(_context, () => PermissionLevel);
+			// TOOD: verify that validators are set
+			_externalMembersDisabled = new Field<bool?>(_context, () => ExternalMembersDisabled);
+			_assocatedDomain = new Field<string>(_context, () => AssociatedDomain);
+			_publicBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => PublicBoardVisibility);
+			_organizationBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => OrganizationBoardVisibility);
+			_privateBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => PrivateBoardVisibility);
 		}
 	}
 }

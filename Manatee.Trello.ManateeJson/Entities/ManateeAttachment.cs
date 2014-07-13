@@ -34,7 +34,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Id { get; set; }
 		public int? Bytes { get; set; }
 		public DateTime? Date { get; set; }
-		public string IdMember { get; set; }
+		public IJsonMember Member { get; set; }
 		public bool? IsUpload { get; set; }
 		public string MimeType { get; set; }
 		public string Name { get; set; }
@@ -51,7 +51,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			DateTime date;
 			if (DateTime.TryParse(dateString, out date))
 				Date = date;
-			IdMember = obj.TryGetString("idMember");
+			Member = serializer.Deserialize<IJsonMember>(obj["idMember"]);
 			IsUpload = obj.TryGetBoolean("isUpload");
 			MimeType = obj.TryGetString("mimeType");
 			Name = obj.TryGetString("name");
@@ -69,7 +69,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"id", Id},
 			       		{"bytes", Bytes},
 			       		{"date", Date.HasValue ? Date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"idMember", IdMember},
+			       		{"idMember", Member == null ? JsonValue.Null : Member.Id},
 			       		{"isUpload", IsUpload},
 			       		{"mimeType", MimeType},
 			       		{"name", Name},

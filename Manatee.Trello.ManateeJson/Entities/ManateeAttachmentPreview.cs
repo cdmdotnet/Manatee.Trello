@@ -33,6 +33,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public int? Height { get; set; }
 		public string Url { get; set; }
 		public string Id { get; set; }
+		public bool? Scaled { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -42,6 +43,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Height = (int?)obj.TryGetNumber("height");
 			Url = obj.TryGetString("url");
 			Id = obj.TryGetString("id");
+			Scaled = obj.TryGetBoolean("scaled");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
@@ -51,6 +53,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"height", Height},
 			       		{"url", Url},
 			       		{"id", Id},
+						{"scaled", Scaled},
 			       	};
 		}
 	}

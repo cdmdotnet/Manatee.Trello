@@ -37,12 +37,12 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		/// <summary />
 		public IDictionary<string, object> Parameters { get; private set; }
 		/// <summary />
-		public ExpiringObject Entity { get; private set; }
+		public object Entity { get; private set; }
 		/// <summary />
 		public Endpoint Endpoint { get; private set; }
 
 		/// <summary />
-		public OfflineChange(ExpiringObject entity, Endpoint endpoint, IDictionary<string, object> parameters)
+		public OfflineChange(object entity, Endpoint endpoint, IDictionary<string, object> parameters)
 		{
 			Entity = entity;
 			Endpoint = endpoint;

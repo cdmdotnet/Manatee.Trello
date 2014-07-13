@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Enumerations;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.Genesis
@@ -31,7 +32,6 @@ namespace Manatee.Trello.Internal.Genesis
 	internal static class EndpointFactory
 	{
 		private static readonly Dictionary<EntityRequestType, Func<Endpoint>> _library;
-		private static readonly Dictionary<Type, EntityRequestType> _refreshRequestTypeMap;
 
 		static EndpointFactory()
 		{
@@ -52,7 +52,7 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Board_Read_Memberships, () => new Endpoint(RestMethod.Get, new[]{"boards","_id","memberships"})},
 					{EntityRequestType.Board_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"boards","_id"})},
 					{EntityRequestType.Board_Write_AddList, () => new Endpoint(RestMethod.Post, new[]{"lists"})},
-					{EntityRequestType.Board_Write_AddOrUpdateMember, () => new Endpoint(RestMethod.Put, new[]{"boards","_id","members"})},
+					{EntityRequestType.Board_Write_AddOrUpdateMember, () => new Endpoint(RestMethod.Put, new[]{"boards","_id","members", "_memberId"})},
 					{EntityRequestType.Board_Write_Description, () => new Endpoint(RestMethod.Put, new[]{"boards","_id"})},
 					{EntityRequestType.Board_Write_InviteMember, () => new Endpoint(RestMethod.Post, new[]{string.Empty})},
 					{EntityRequestType.Board_Write_IsClosed, () => new Endpoint(RestMethod.Put, new[]{"boards","_id"})},
@@ -63,7 +63,9 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Board_Write_Organization, () => new Endpoint(RestMethod.Put, new[]{"boards","_id"})},
 					{EntityRequestType.Board_Write_RemoveMember, () => new Endpoint(RestMethod.Delete, new[]{"boards","_id","members","_memberId"})},
 					{EntityRequestType.Board_Write_RescindInvitation, () => new Endpoint(RestMethod.Delete, new[]{string.Empty})},
+					{EntityRequestType.Board_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"boards", "_id"})},
 					{EntityRequestType.BoardMembership_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"boards","_boardId","memberships","_id"})},
+					{EntityRequestType.BoardMembership_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"boards","_boardId","memberships","_id"})},
 					{EntityRequestType.BoardPersonalPreferences_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"boards","_boardId","myPrefs"})},
 					{EntityRequestType.BoardPersonalPreferences_Write_ShowListGuide, () => new Endpoint(RestMethod.Put, new[]{"boards","_boardId","myPrefs","showListGuide"})},
 					{EntityRequestType.BoardPersonalPreferences_Write_ShowSidebar, () => new Endpoint(RestMethod.Put, new[]{"boards","_boardId","myPrefs","showSidebar"})},
@@ -99,14 +101,17 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Card_Write_Move, () => new Endpoint(RestMethod.Put, new[]{"cards","_id"})},
 					{EntityRequestType.Card_Write_Name, () => new Endpoint(RestMethod.Put, new[]{"cards","_id"})},
 					{EntityRequestType.Card_Write_Position, () => new Endpoint(RestMethod.Put, new[]{"cards","_id"})},
+					{EntityRequestType.Card_Write_RemoveAttachment, () => new Endpoint(RestMethod.Delete, new[]{"cards","_id","attachments","_attachmentId"})},
 					{EntityRequestType.Card_Write_RemoveLabel, () => new Endpoint(RestMethod.Delete, new[]{"cards","_id","labels","_color"})},
 					{EntityRequestType.Card_Write_RemoveMember, () => new Endpoint(RestMethod.Delete, new[]{"cards","_id","members","_memberId"})},
+					{EntityRequestType.Card_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"cards", "_id"})},
 					{EntityRequestType.Card_Write_WarnWhenUpcoming, () => new Endpoint(RestMethod.Put, new[]{"cards","_id"})},
 					{EntityRequestType.CheckItem_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"checklists","_checkListId","checkItems","_id"})},
 					{EntityRequestType.CheckItem_Write_Delete, () => new Endpoint(RestMethod.Delete, new[]{"checklists","_checkListId","checkItems","_id"})},
 					{EntityRequestType.CheckItem_Write_Name, () => new Endpoint(RestMethod.Put, new[]{"cards","_cardId","checklist","_checkListId","checkItem","_id","name"})},
 					{EntityRequestType.CheckItem_Write_Position, () => new Endpoint(RestMethod.Put, new[]{"cards","_cardId","checklist","_checkListId","checkItem","_id","pos"})},
 					{EntityRequestType.CheckItem_Write_State, () => new Endpoint(RestMethod.Put, new[]{"cards","_cardId","checklist","_checkListId","checkItem","_id","state"})},
+					{EntityRequestType.CheckItem_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"cards","_cardId","checklist","_checkListId","checkItem","_id"})},
 					{EntityRequestType.CheckList_Read_CheckItems, () => new Endpoint(RestMethod.Get, new[]{"checklists","_id","checkItems"})},
 					{EntityRequestType.CheckList_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"checklists","_id"})},
 					{EntityRequestType.CheckList_Write_AddCheckItem, () => new Endpoint(RestMethod.Post, new[]{"checklists","_id","checkItems"})},
@@ -114,6 +119,7 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.CheckList_Write_Delete, () => new Endpoint(RestMethod.Delete, new[]{"checklists","_id"})},
 					{EntityRequestType.CheckList_Write_Name, () => new Endpoint(RestMethod.Put, new[]{"checklists","_id"})},
 					{EntityRequestType.CheckList_Write_Position, () => new Endpoint(RestMethod.Put, new[]{"checklists","_id"})},
+					{EntityRequestType.CheckList_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"checklists","_id"})},
 					{EntityRequestType.Label_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{string.Empty})},
 					{EntityRequestType.LabelNames_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"board","_boardId","labelNames"})},
 					{EntityRequestType.LabelNames_Write_Blue, () => new Endpoint(RestMethod.Put, new[]{"board","_boardId","labelNames","_color"})},
@@ -133,6 +139,7 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.List_Write_Move, () => new Endpoint(RestMethod.Put, new[]{"lists","_id"})},
 					{EntityRequestType.List_Write_Name, () => new Endpoint(RestMethod.Put, new[]{"lists","_id"})},
 					{EntityRequestType.List_Write_Position, () => new Endpoint(RestMethod.Put, new[]{"lists","_id"})},
+					{EntityRequestType.List_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"lists", "_id"})},
 					{EntityRequestType.Member_Read_Actions, () => new Endpoint(RestMethod.Get, new[]{"members","_id","actions"})},
 					{EntityRequestType.Member_Read_Boards, () => new Endpoint(RestMethod.Get, new[]{"members","_id","boards"})},
 					{EntityRequestType.Member_Read_Cards, () => new Endpoint(RestMethod.Get, new[]{"members","_id","cards"})},
@@ -154,6 +161,7 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Member_Write_PinBoard, () => new Endpoint(RestMethod.Post, new[]{"members","_id","idBoardsPinned"})},
 					{EntityRequestType.Member_Write_RescindVoteForCard, () => new Endpoint(RestMethod.Delete, new[]{"cards","_cardId","membersVoted","_id"})},
 					{EntityRequestType.Member_Write_UnpinBoard, () => new Endpoint(RestMethod.Delete, new[]{"members","_id","idBoardsPinned","_boardId"})},
+					{EntityRequestType.Member_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"members", "_id"})},
 					{EntityRequestType.Member_Write_Username, () => new Endpoint(RestMethod.Put, new[]{"members","_id"})},
 					{EntityRequestType.Member_Write_VoteForCard, () => new Endpoint(RestMethod.Post, new[]{"cards","_cardId","membersVoted"})},
 					{EntityRequestType.MemberPreferences_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"members","_memberId","prefs"})},
@@ -179,8 +187,10 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Organization_Write_Name, () => new Endpoint(RestMethod.Put, new[]{"organizations","_id"})},
 					{EntityRequestType.Organization_Write_RemoveMember, () => new Endpoint(RestMethod.Delete, new[]{"organizations","_id","members","_memberId"})},
 					{EntityRequestType.Organization_Write_RescindInvitation, () => new Endpoint(RestMethod.Delete, new[]{string.Empty})},
+					{EntityRequestType.Organization_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"organizations", "_id"})},
 					{EntityRequestType.Organization_Write_Website, () => new Endpoint(RestMethod.Put, new[]{"organizations","_id"})},
 					{EntityRequestType.OrganizationMembership_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"organizations","_organizationId","memberships","_id"})},
+					{EntityRequestType.OrganizationMembership_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"organizations","_organizationId","memberships","_id"})},
 					{EntityRequestType.OrganizationPreferences_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"organizations","_organizationId","prefs"})},
 					{EntityRequestType.OrganizationPreferences_Write_AssociatedDomain, () => new Endpoint(RestMethod.Put, new[]{"organizations","_organizationId","prefs","associatedDomain"})},
 					{EntityRequestType.OrganizationPreferences_Write_ExternalMembersDisabled, () => new Endpoint(RestMethod.Put, new[]{"organizations","_organizationId","prefs","externalMembersDisabled"})},
@@ -201,47 +211,30 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Webhook_Write_Description, () => new Endpoint(RestMethod.Put, new[]{"webhooks","_id"})},
 					{EntityRequestType.Webhook_Write_Entity, () => new Endpoint(RestMethod.Put, new[]{"webhooks"})},
 				};
-			_refreshRequestTypeMap = new Dictionary<Type, EntityRequestType>
-				{
-					{typeof (Action), EntityRequestType.Action_Read_Refresh},
-					{typeof (Board), EntityRequestType.Board_Read_Refresh},
-					{typeof (Card), EntityRequestType.Card_Read_Refresh},
-					{typeof (CheckList), EntityRequestType.CheckList_Read_Refresh},
-					{typeof (List), EntityRequestType.List_Read_Refresh},
-					{typeof (Member), EntityRequestType.Member_Read_Refresh},
-					{typeof (Notification), EntityRequestType.Notification_Read_Refresh},
-					{typeof (Organization), EntityRequestType.Organization_Read_Refresh},
-					{typeof (Token), EntityRequestType.Token_Read_Refresh},
-					{typeof (Webhook<>), EntityRequestType.Webhook_Read_Refresh},
-				};
 		}
 
-		public static Endpoint Build(EntityRequestType requestType, IDictionary<string, object> parameters)
+		public static Endpoint Build(EntityRequestType requestType, IDictionary<string, object> parameters = null)
 		{
 			return BuildUrl(requestType, parameters);
-		}
-		public static EntityRequestType GetRequestType<T>()
-		{
-			var type = typeof (T);
-			if (type.IsGenericType)
-				type = type.GetGenericTypeDefinition();
-			if (_refreshRequestTypeMap.ContainsKey(type))
-				return _refreshRequestTypeMap[type];
-			return EntityRequestType.Unsupported;
 		}
 
 		private static Endpoint BuildUrl(EntityRequestType requestType, IDictionary<string, object> parameters)
 		{
 			var endpoint = _library[requestType]();
 			var requiredParameters = endpoint.Where(p => p.StartsWith("_")).ToList();
-			foreach (var parameter in requiredParameters)
+			if (parameters != null)
 			{
-				if (!parameters.ContainsKey(parameter))
-					throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
-				var value = parameters[parameter] ?? string.Empty;
-				endpoint.Resolve(parameter, value.ToString());
-				parameters.Remove(parameter);
+				foreach (var parameter in requiredParameters)
+				{
+					if (!parameters.ContainsKey(parameter))
+						throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
+					var value = parameters[parameter] ?? string.Empty;
+					endpoint.Resolve(parameter, value.ToString());
+					parameters.Remove(parameter);
+				}
 			}
+			else if (requiredParameters.Any())
+				throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
 			return endpoint;
 		}
 	}

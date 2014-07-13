@@ -78,7 +78,6 @@ namespace Manatee.Trello.Internal.ExceptionHandling
 		private static void Post(string output)
 		{
 			System.Diagnostics.Debug.WriteLine(output);
-			//Console.WriteLine(output);
 		}
 	}
 }

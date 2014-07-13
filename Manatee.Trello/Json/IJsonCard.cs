@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 
 namespace Manatee.Trello.Json
 {
@@ -29,6 +30,10 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonCard : IJsonCacheable
 	{
+		/// <summary>
+		/// Gets or set the badges displayed on the card cover.
+		/// </summary>
+		IJsonBadges Badges { get; set; }
 		/// <summary>
 		/// Gets or sets whether a card has been archived.
 		/// </summary>
@@ -48,11 +53,11 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the ID of the board which contains the card.
 		/// </summary>
-		string IdBoard { get; set; }
+		IJsonBoard Board { get; set; }
 		/// <summary>
 		/// Gets or sets the ID of the list which contains the card.
 		/// </summary>
-		string IdList { get; set; }
+		IJsonList List { get; set; }
 		/// <summary>
 		/// Gets or sets the card's short ID.
 		/// </summary>
@@ -61,6 +66,10 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the ID of the attachment cover image.
 		/// </summary>
 		string IdAttachmentCover { get; set; }
+		/// <summary>
+		/// Gets or sets the labels assigned to this card.
+		/// </summary>
+		List<IJsonLabel> Labels { get; set; }
 		/// <summary>
 		/// Gets or sets whether the cover attachment was manually selected
 		/// </summary>

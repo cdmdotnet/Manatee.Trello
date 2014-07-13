@@ -48,6 +48,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				Pulse();
 			}
 		}
+		public static bool HasRequests { get { return _queue.Count != 0 || _isProcessing; } }
 
 		static RestRequestProcessor()
 		{
@@ -88,7 +89,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				{
 					Monitor.Wait(_lock);
 					_isProcessing = true;
-					var client = TrelloServiceConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
+					var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 					while (!_shutdown && IsActive && (_queue.Count != 0))
 					{
 						var request = _queue.Dequeue();
@@ -120,7 +121,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				{
 					var tie = new TrelloInteractionException(e);
 					queuableRequest.CreateNullResponse(tie);
-					TrelloServiceConfiguration.Log.Error(tie, false);
+					TrelloConfiguration.Log.Error(tie, false);
 				}
 			}
 			else
@@ -131,11 +132,11 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		}
 		private static void LogRequest(IRestRequest request, string action)
 		{
-			TrelloServiceConfiguration.Log.Info("{2}: {0} {1}", request.Method, request.Resource, action);
+			TrelloConfiguration.Log.Info("{2}: {0} {1}", request.Method, request.Resource, action);
 		}
 		private static void LogResponse(IRestResponse response, string action)
 		{
-			TrelloServiceConfiguration.Log.Info("{0}: {1}", action, response.Content);
+			TrelloConfiguration.Log.Info("{0}: {1}", action, response.Content);
 		}
 	}
 }

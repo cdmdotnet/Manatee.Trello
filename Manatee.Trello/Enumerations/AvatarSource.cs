@@ -1,4 +1,4 @@
-﻿/***************************************************************************************
+/***************************************************************************************
 
 	Copyright 2013 Little Crab Solutions
 
@@ -14,30 +14,34 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		BoardInvitationType.cs
+	File Name:		AvatarSource.cs
 	Namespace:		Manatee.Trello
-	Class Name:		BoardInvitationType
-	Purpose:		Enumerates known board invitation permission levels on Trello.com.
+	Class Name:		AvatarSource
+	Purpose:		Enumerates the avatar sources used by Trello.
 
 ***************************************************************************************/
 namespace Manatee.Trello
 {
-	///<summary>
-	/// Enumerates known board invitation permission levels.
-	///</summary>
-	public enum BoardInvitationType
+	/// <summary>
+	/// Enumerates the avatar sources used by Trello.
+	/// </summary>
+	public enum AvatarSource
 	{
 		/// <summary>
-		/// Not recognized.  May have been created since the current version of this API.
+		/// Indicates the avatar source is not recognized.
 		/// </summary>
 		Unknown,
 		/// <summary>
-		/// Indicates that any member of the board may extend an invitation to join the board.
+		/// Indicates there is no avatar.
 		/// </summary>
-		Members,
+		None,
 		/// <summary>
-		/// Indicates that only admins of the board may extend an invitation to joni the board.
+		/// Indicates the avatar has been uploaded by the user.
 		/// </summary>
-		Admins
+		Upload,
+		/// <summary>
+		/// Indicates the avatar is supplied by Gravatar.
+		/// </summary>
+		Gravatar
 	}
 }

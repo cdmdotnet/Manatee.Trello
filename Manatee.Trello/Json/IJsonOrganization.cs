@@ -65,5 +65,6 @@ namespace Manatee.Trello.Json
 		/// Gets or sets a collection of premium features available to the organization.
 		/// </summary>
 		List<string> PremiumFeatures { get; set; }
+		IJsonOrganizationPreferences Prefs { get; set; }
 	}
 }

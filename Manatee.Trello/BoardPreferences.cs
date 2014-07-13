@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -17,279 +17,66 @@
 	File Name:		BoardPreferences.cs
 	Namespace:		Manatee.Trello
 	Class Name:		BoardPreferences
-	Purpose:		Represents available preferences setting for a board
-					on Trello.com.
+	Purpose:		Represents the preferences of a board.
 
 ***************************************************************************************/
 
-using System;
-using System.Linq;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.Json;
-using Manatee.Trello.Json;
+using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
-	///<summary>
-	/// Represents available preferences setting for a board
-	///</summary>
-	public class BoardPreferences : ExpiringObject
+	public class BoardPreferences
 	{
-		private static readonly OneToOneMap<BoardCommentType, string> _commentMap;
-		private static readonly OneToOneMap<BoardInvitationType, string> _invitationMap;
-		private static readonly OneToOneMap<BoardPermissionLevelType, string> _permissionMap;
-		private static readonly OneToOneMap<BoardVotingType, string> _votingMap;
+		private readonly Field<BoardPermissionLevel> _permissionLevel;
+		private readonly Field<BoardVotingPermission> _voting;
+		private readonly Field<BoardCommentPermission> _commenting;
+		private readonly Field<BoardInvitationPermission> _invitations;
+		private readonly Field<bool?> _allowSelfJoin;
+		private readonly Field<bool?> _showCardCovers;
+		private BoardPreferencesContext _context;
 
-		private IJsonBoardPreferences _jsonBoardPreferences;
-		private BoardCommentType _comments = BoardCommentType.Unknown;
-		private BoardInvitationType _invitations = BoardInvitationType.Unknown;
-		private BoardPermissionLevelType _permissionLevel = BoardPermissionLevelType.Unknown;
-		private BoardVotingType _voting = BoardVotingType.Unknown;
-
-		/// <summary>
-		/// Gets or sets whether any Trello member may join a board without an invitation.
-		/// </summary>
-		public bool? AllowsSelfJoin
+		public BoardPermissionLevel PermissionLevel
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBoardPreferences.SelfJoin;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Nullable(value);
-				if (_jsonBoardPreferences.SelfJoin == value) return;
-				_jsonBoardPreferences.SelfJoin = value;
-				Parameters.Add("value", _jsonBoardPreferences.SelfJoin.ToLowerString());
-				Upload(EntityRequestType.BoardPreferences_Write_AllowsSelfJoin);
-			}
+			get { return _permissionLevel.Value; }
+			set { _permissionLevel.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets who may comment on cards.
-		/// </summary>
-		public BoardCommentType Comments
+		public BoardVotingPermission Voting
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _comments;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_comments == value) return;
-				_comments = value;
-				UpdateApiComments();
-				Parameters.Add("value", _jsonBoardPreferences.Comments);
-				Upload(EntityRequestType.BoardPreferences_Write_Comments);
-			}
+			get { return _voting.Value; }
+			set { _voting.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets who may extend invitations to join the board.
-		/// </summary>
-		public BoardInvitationType Invitations
+		public BoardCommentPermission Commenting
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _invitations;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_invitations == value) return;
-				_invitations = value;
-				UpdateApiInvitations();
-				Parameters.Add("value", _jsonBoardPreferences.Invitations);
-				Upload(EntityRequestType.BoardPreferences_Write_Invitations);
-			}
+			get { return _commenting.Value; }
+			set { _commenting.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets who may view the board.
-		/// </summary>
-		public BoardPermissionLevelType PermissionLevel
+		public BoardInvitationPermission Invitations
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _permissionLevel;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_permissionLevel == value) return;
-				_permissionLevel = value;
-				UpdateApiPermissionLevel();
-				Parameters.Add("value", _jsonBoardPreferences.PermissionLevel);
-				Upload(EntityRequestType.BoardPreferences_Write_PermissionLevel);
-			}
+			get { return _invitations.Value; }
+			set { _invitations.Value = value; }
 		}
-		/// <summary>
-		/// Gets or sets whether card covers are shown on the board.
-		/// </summary>
+		public bool? AllowSelfJoin
+		{
+			get { return _allowSelfJoin.Value; }
+			set { _allowSelfJoin.Value = value; }
+		}
 		public bool? ShowCardCovers
 		{
-			get
-			{
-				VerifyNotExpired();
-				return _jsonBoardPreferences.CardCovers;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Nullable(value);
-				if (_jsonBoardPreferences.CardCovers == value) return;
-				_jsonBoardPreferences.CardCovers = value;
-				Parameters.Add("value", _jsonBoardPreferences.CardCovers.ToLowerString());
-				Upload(EntityRequestType.BoardPreferences_Write_ShowCardCovers);
-			}
-		}
-		/// <summary>
-		/// Gets or sets who may vote on cards.
-		/// </summary>
-		public BoardVotingType Voting
-		{
-			get
-			{
-				VerifyNotExpired();
-				return _voting;
-			}
-			set
-			{
-				Validator.Writable();
-				Validator.Enumeration(value);
-				if (_voting == value) return;
-				_voting = value;
-				UpdateApiVoting();
-				Parameters.Add("value", _jsonBoardPreferences.Voting);
-				Upload(EntityRequestType.BoardPreferences_Write_Voting);
-			}
-		}
-		/// <summary>
-		/// Gets whether this entity represents an actual entity on Trello.
-		/// </summary>
-		public override bool IsStubbed { get { return _jsonBoardPreferences is InnerJsonBoardPreferences; } }
-
-		static BoardPreferences()
-		{
-			_commentMap = new OneToOneMap<BoardCommentType, string>
-			              	{
-			              		{BoardCommentType.Members, "members"},
-			              		{BoardCommentType.Org, "org"},
-			              		{BoardCommentType.Public, "public"},
-			              		{BoardCommentType.Disabled, "disabled"},
-			              	};
-			_invitationMap = new OneToOneMap<BoardInvitationType, string>
-			                 	{
-			                 		{BoardInvitationType.Members, "members"},
-			                 		{BoardInvitationType.Admins, "admins"},
-			                 	};
-			_permissionMap = new OneToOneMap<BoardPermissionLevelType, string>
-			                 	{
-			                 		{BoardPermissionLevelType.Private, "private"},
-			                 		{BoardPermissionLevelType.Org, "org"},
-			                 		{BoardPermissionLevelType.Public, "public"},
-			                 	};
-			_votingMap = new OneToOneMap<BoardVotingType, string>
-			             	{
-			             		{BoardVotingType.Members, "members"},
-			             		{BoardVotingType.Org, "org"},
-			             		{BoardVotingType.Public, "public"},
-			             		{BoardVotingType.Disabled, "disabled"},
-			             	};
-		}
-		/// <summary>
-		/// Creates a new instance of the BoardPreferences class.
-		/// </summary>
-		public BoardPreferences()
-		{
-			_jsonBoardPreferences = new InnerJsonBoardPreferences();
-		}
-		internal BoardPreferences(Board owner)
-			: this()
-		{
-			Owner = owner;
+			get { return _showCardCovers.Value; }
+			set { _showCardCovers.Value = value; }
 		}
 
-		/// <summary>
-		/// Retrieves updated data from the service instance and refreshes the object.
-		/// </summary>
-		public override bool Refresh()
+		internal BoardPreferences(BoardPreferencesContext context)
 		{
-			Parameters.Add("_boardId", Owner.Id);
-			AddDefaultParameters();
-			return EntityRepository.Refresh(this, EntityRequestType.BoardPreferences_Read_Refresh);
-		}
+			_context = context;
 
-		internal override void ApplyJson(object obj)
-		{
-			_jsonBoardPreferences = (IJsonBoardPreferences)obj;
-			UpdateComments();
-			UpdateInvitations();
-			UpdatePermissionLevel();
-			UpdateVoting();
-			Expires = DateTime.Now + EntityRepository.EntityDuration;
-		}
-		internal override bool EqualsJson(object obj)
-		{
-			return false;
-		}
-
-		private void Upload(EntityRequestType requestType)
-		{
-			Parameters.Add("_boardId", Owner.Id);
-			EntityRepository.Upload(requestType, Parameters);
-			Parameters.Clear();
-		}
-		private void UpdateComments()
-		{
-			_comments = _commentMap.Any(kvp => kvp.Value == _jsonBoardPreferences.Comments)
-			            	? _commentMap[_jsonBoardPreferences.Comments]
-			            	: BoardCommentType.Unknown;
-		}
-		private void UpdateApiComments()
-		{
-			if (_commentMap.Any(kvp => kvp.Key == _comments))
-				_jsonBoardPreferences.Comments = _commentMap[_comments];
-		}
-		private void UpdateInvitations()
-		{
-			_invitations = _invitationMap.Any(kvp => kvp.Value == _jsonBoardPreferences.Invitations)
-			               	? _invitationMap[_jsonBoardPreferences.Invitations]
-			               	: BoardInvitationType.Unknown;
-		}
-		private void UpdateApiInvitations()
-		{
-			if (_invitationMap.Any(kvp => kvp.Key == _invitations))
-				_jsonBoardPreferences.Invitations = _invitationMap[_invitations];
-		}
-		private void UpdatePermissionLevel()
-		{
-			_permissionLevel = _permissionMap.Any(kvp => kvp.Value == _jsonBoardPreferences.PermissionLevel)
-			                   	? _permissionMap[_jsonBoardPreferences.PermissionLevel]
-			                   	: BoardPermissionLevelType.Unknown;
-		}
-		private void UpdateApiPermissionLevel()
-		{
-			if (_permissionMap.Any(kvp => kvp.Key == _permissionLevel))
-				_jsonBoardPreferences.PermissionLevel = _permissionMap[_permissionLevel];
-		}
-		private void UpdateVoting()
-		{
-			_voting = _votingMap.Any(kvp => kvp.Value == _jsonBoardPreferences.Voting)
-			          	? _votingMap[_jsonBoardPreferences.Voting]
-			          	: BoardVotingType.Unknown;
-		}
-		private void UpdateApiVoting()
-		{
-			if (_votingMap.Any(kvp => kvp.Key == _voting))
-				_jsonBoardPreferences.Voting = _votingMap[_voting];
+			_permissionLevel = new Field<BoardPermissionLevel>(_context, () => PermissionLevel);
+			_voting = new Field<BoardVotingPermission>(_context, () => Voting);
+			_commenting = new Field<BoardCommentPermission>(_context, () => Commenting);
+			_invitations = new Field<BoardInvitationPermission>(_context, () => Invitations);
+			_allowSelfJoin = new Field<bool?>(_context, () => AllowSelfJoin);
+			_showCardCovers = new Field<bool?>(_context, () => ShowCardCovers);
 		}
 	}
 }

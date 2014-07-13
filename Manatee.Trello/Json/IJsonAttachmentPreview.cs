@@ -43,5 +43,6 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the ID of the attachment preview.
 		///</summary>
 		string Id { get; set; }
+		bool? Scaled { get; set; }
 	}
 }
