@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -14,15 +12,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonOrganizationMembership>>
 				{
-					{"IsUnconfirmed", new Property<IJsonOrganizationMembership>(d => d.Unconfirmed, (d, o) => d.Unconfirmed = (bool?) o)},
+					{"Id", new Property<IJsonOrganizationMembership, string>(d => d.Id, (d, o) => d.Id = o)},
+					{"IsUnconfirmed", new Property<IJsonOrganizationMembership, bool?>(d => d.Unconfirmed, (d, o) => d.Unconfirmed = o)},
 					{
-						"Member", new Property<IJsonOrganizationMembership>(d => TrelloConfiguration.Cache.Find<Member>(b => b.Id == d.Member.Id) ?? new Member(d.Member),
-						                                                    (d, o) => d.Member = o != null ? ((Member) o).Json : null)
+						"Member", new Property<IJsonOrganizationMembership, Member>(d => TrelloConfiguration.Cache.Find<Member>(b => b.Id == d.Member.Id) ?? new Member(d.Member, true),
+						                                                    (d, o) => d.Member = o != null ? o.Json : null)
 					},
-					{
-						"MemberType", new Property<IJsonOrganizationMembership>(d => d.MemberType.ConvertEnum<OrganizationMembershipType>(),
-						                                                        (d, o) => d.MemberType = ((OrganizationMembershipType) o).ConvertEnum())
-					},
+					{"MemberType", new Property<IJsonOrganizationMembership, OrganizationMembershipType>(d => d.MemberType, (d, o) => d.MemberType = o)},
 				};
 		}
 		public OrganizationMembershipContext(string id, string ownerId)

@@ -24,6 +24,7 @@
 using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
@@ -73,12 +74,16 @@ namespace Manatee.Trello
 			_context = context;
 
 			_permissionLevel = new Field<OrganizationPermissionLevel>(_context, () => PermissionLevel);
-			// TOOD: verify that validators are set
+			_permissionLevel.AddRule(EnumerationRule<OrganizationPermissionLevel>.Instance);
 			_externalMembersDisabled = new Field<bool?>(_context, () => ExternalMembersDisabled);
+			_externalMembersDisabled.AddRule(NullableHasValueRule<bool>.Instance);
 			_assocatedDomain = new Field<string>(_context, () => AssociatedDomain);
 			_publicBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => PublicBoardVisibility);
+			_publicBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility>.Instance);
 			_organizationBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => OrganizationBoardVisibility);
+			_organizationBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility>.Instance);
 			_privateBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => PrivateBoardVisibility);
+			_privateBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility>.Instance);
 		}
 	}
 }

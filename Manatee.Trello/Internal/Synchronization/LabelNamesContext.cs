@@ -32,12 +32,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonLabelNames>>
 				{
-					{"Green", new Property<IJsonLabelNames>(d => d.Green, (d, o) => d.Green = (string) o)},
-					{"Yellow", new Property<IJsonLabelNames>(d => d.Yellow, (d, o) => d.Yellow = (string) o)},
-					{"Orange", new Property<IJsonLabelNames>(d => d.Orange, (d, o) => d.Orange = (string) o)},
-					{"Red", new Property<IJsonLabelNames>(d => d.Red, (d, o) => d.Red = (string) o)},
-					{"Purple", new Property<IJsonLabelNames>(d => d.Purple, (d, o) => d.Purple = (string) o)},
-					{"Blue", new Property<IJsonLabelNames>(d => d.Blue, (d, o) => d.Blue = (string) o)},
+					{"Green", new Property<IJsonLabelNames, string>(d => d.Green, (d, o) => d.Green = o)},
+					{"Yellow", new Property<IJsonLabelNames, string>(d => d.Yellow, (d, o) => d.Yellow = o)},
+					{"Orange", new Property<IJsonLabelNames, string>(d => d.Orange, (d, o) => d.Orange = o)},
+					{"Red", new Property<IJsonLabelNames, string>(d => d.Red, (d, o) => d.Red = o)},
+					{"Purple", new Property<IJsonLabelNames, string>(d => d.Purple, (d, o) => d.Purple = o)},
+					{"Blue", new Property<IJsonLabelNames, string>(d => d.Blue, (d, o) => d.Blue = o)},
 				};
 		}
 	}

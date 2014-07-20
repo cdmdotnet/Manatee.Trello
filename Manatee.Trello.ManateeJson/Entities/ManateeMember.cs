@@ -22,7 +22,6 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -37,10 +36,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string FullName { get; set; }
 		public string Initials { get; set; }
 		public string MemberType { get; set; }
-		public string Status { get; set; }
+		public MemberStatus Status { get; set; }
 		public string Url { get; set; }
 		public string Username { get; set; }
-		public string AvatarSource { get; set; }
+		public AvatarSource AvatarSource { get; set; }
 		public bool? Confirmed { get; set; }
 		public string Email { get; set; }
 		public string GravatarHash { get; set; }
@@ -61,23 +60,17 @@ namespace Manatee.Trello.ManateeJson.Entities
 					FullName = obj.TryGetString("fullName");
 					Initials = obj.TryGetString("initials");
 					MemberType = obj.TryGetString("memberType");
-					Status = obj.TryGetString("status");
+					Status = serializer.Deserialize<MemberStatus>(obj.TryGetString("status"));
 					Url = obj.TryGetString("url");
 					Username = obj.TryGetString("username");
-					AvatarSource = obj.TryGetString("avatarSource");
+					AvatarSource = serializer.Deserialize<AvatarSource>(obj.TryGetString("avatarSource"));
 					Confirmed = obj.TryGetBoolean("confirmed");
 					Email = obj.TryGetString("email");
 					GravatarHash = obj.TryGetString("gravatarHash");
-					var loginTypes = obj.TryGetArray("loginTypes");
-					if (loginTypes != null)
-						LoginTypes = loginTypes.Select(j => j.String).ToList();
-					var trophies = obj.TryGetArray("trophies");
-					if (loginTypes != null)
-						Trophies = trophies.Select(j => j.String).ToList();
+					LoginTypes = obj.Deserialize<List<string>>(serializer, "loginTypes");
+					Trophies = obj.Deserialize<List<string>>(serializer, "trophies");
 					UploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
-					var messagesDismissed = obj.TryGetArray("oneTimeMessagesDismissed");
-					if (messagesDismissed != null)
-						OneTimeMessagesDismissed = messagesDismissed.Select(j => j.String).ToList();
+					OneTimeMessagesDismissed = obj.Deserialize<List<string>>(serializer, "oneTimeMessagesDismissed");
 					break;
 				case JsonValueType.String:
 					Id = json.String;
@@ -88,23 +81,24 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			return new JsonObject
 			       	{
+						// TODO: remove read-only properties from serialization
 			       		{"id", Id},
 			       		{"avatarHash", AvatarHash},
 			       		{"bio", Bio},
 			       		{"fullName", FullName},
 			       		{"initials", Initials},
 			       		{"memberType", MemberType},
-			       		{"status", Status},
+			       		{"status", serializer.Serialize(Status)},
 			       		{"url", Url},
 			       		{"username", Username},
-			       		{"avatarSource", AvatarSource},
+			       		{"avatarSource", serializer.Serialize(AvatarSource)},
 			       		{"confirmed", Confirmed},
 			       		{"email", Email},
 			       		{"gravatarHash", GravatarHash},
-			       		{"loginTypes", LoginTypes.ToJson()},
-			       		{"trophies", Trophies.ToJson()},
+			       		{"loginTypes", serializer.Serialize(LoginTypes)},
+			       		{"trophies", serializer.Serialize(Trophies)},
 			       		{"uploadedAvatarHash", UploadedAvatarHash},
-			       		{"oneTimeMessagesDismissed", OneTimeMessagesDismissed.ToJson()},
+			       		{"oneTimeMessagesDismissed", serializer.Serialize(OneTimeMessagesDismissed)},
 			       	};
 		}
 	}

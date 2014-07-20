@@ -35,9 +35,9 @@ namespace Manatee.Trello.Internal.Validation
 		}
 		private UriRule() { }
 
-		public string Validate(string value)
+		public string Validate(string oldValue, string newValue)
 		{
-			return !(value.BeginsWith("http://") || value.BeginsWith("https://")) || !Uri.IsWellFormedUriString(value, UriKind.Absolute)
+			return !(newValue.BeginsWith("http://") || newValue.BeginsWith("https://")) || !Uri.IsWellFormedUriString(newValue, UriKind.Absolute)
 					   ? "Value must begin with \"http://\" or \"https://\" and be a valid URI."
 					   : null;
 		}

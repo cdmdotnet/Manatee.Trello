@@ -22,7 +22,6 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -33,7 +32,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 	{
 		public string Id { get; set; }
 		public string Identifier { get; set; }
-		public string IdMember { get; set; }
+		public IJsonMember Member { get; set; }
 		public DateTime? DateCreated { get; set; }
 		public DateTime? DateExpires { get; set; }
 		public List<IJsonTokenPermission> Permissions { get; set; }
@@ -44,31 +43,23 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Identifier = obj.TryGetString("identifier");
-			IdMember = obj.TryGetString("idMember");
-			var dateString = obj.TryGetString("dateCreated");
-			DateTime date;
-			if (DateTime.TryParse(dateString, out date))
-				DateCreated = date;
-			dateString = obj.TryGetString("dateExpires");
-			if (DateTime.TryParse(dateString, out date))
-				DateExpires = date;
-			var perms = obj.TryGetArray("permissions");
-			if (perms != null)
-				Permissions = perms.FromJson<ManateeTokenPermission>(serializer)
-								   .Cast<IJsonTokenPermission>()
-								   .ToList();
+			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
+			DateCreated = obj.Deserialize<DateTime?>(serializer, "dateCreated");
+			DateExpires = obj.Deserialize<DateTime?>(serializer, "dateExpires");
+			Permissions = obj.Deserialize<List<IJsonTokenPermission>>(serializer, "permissions");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-			       	{
-			       		{"id", Id},
-			       		{"identifier", Identifier},
-			       		{"idMember", IdMember},
-			       		{"dateCreated", DateCreated.HasValue ? DateCreated.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"dateExpires", DateExpires.HasValue ? DateExpires.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"permissions", Permissions.Cast<ManateeTokenPermission>().ToJson(serializer)},
-			       	};
+			var json = new JsonObject
+				{
+					{"id", Id},
+					{"identifier", Identifier},
+					{"dateCreated", serializer.Serialize(DateCreated)},
+					{"dateExpires", serializer.Serialize(DateExpires)},
+					{"permissions", serializer.Serialize(Permissions)},
+				};
+			Member.SerializeId(json, serializer, "idMember");
+			return json;
 		}
 	}
 }

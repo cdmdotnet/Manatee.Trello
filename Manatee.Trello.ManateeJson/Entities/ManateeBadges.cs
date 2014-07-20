@@ -48,10 +48,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			ViewingMemberVoted = obj.TryGetBoolean("viewingMemberVoted");
 			Subscribed = obj.TryGetBoolean("subscribed");
 			Fogbugz = obj.TryGetString("fogbugz");
-			var dateString = obj.TryGetString("due");
-			DateTime date;
-			if (DateTime.TryParse(dateString, out date))
-				Due = date;
+			Due = obj.Deserialize<DateTime?>(serializer, "due");
 			Description = obj.TryGetBoolean("description");
 			Comments = (int?)obj.TryGetNumber("comments");
 			CheckItemsChecked = (int?)obj.TryGetNumber("checkItemsChecked");
@@ -60,19 +57,20 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-			       	{
-			       		{"votes", Votes},
-			       		{"viewingMemberVoted", ViewingMemberVoted},
-			       		{"subscribed", Subscribed},
-			       		{"fogbugz", Fogbugz},
-			       		{"due", Due.HasValue ? Due.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"description", Description},
-			       		{"comments", Comments},
-			       		{"checkItemsChecked", CheckItemsChecked},
-			       		{"checkItems", CheckItems},
-			       		{"attachments", Attachments},
-			       	};
+			var json = new JsonObject
+				{
+					{"votes", Votes},
+					{"viewingMemberVoted", ViewingMemberVoted},
+					{"subscribed", Subscribed},
+					{"fogbugz", Fogbugz},
+					{"description", Description},
+					{"comments", Comments},
+					{"checkItemsChecked", CheckItemsChecked},
+					{"checkItems", CheckItems},
+					{"attachments", Attachments},
+				};
+			Due.Serialize(json, serializer, "due");
+			return json;
 		}
 	}
 }

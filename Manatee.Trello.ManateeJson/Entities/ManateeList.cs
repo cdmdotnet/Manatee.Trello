@@ -45,7 +45,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Id = obj.TryGetString("id");
 					Name = obj.TryGetString("name");
 					Closed = obj.TryGetBoolean("closed");
-					Board = serializer.Deserialize<IJsonBoard>(obj["idBoard"]);
+					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
 					Pos = obj.TryGetNumber("pos");
 					Subscribed = obj.TryGetBoolean("subscribed");
 					break;
@@ -56,15 +56,16 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
+			var json = new JsonObject
 			       	{
 			       		{"id", Id},
 			       		{"name", Name},
 			       		{"closed", Closed},
-			       		{"idBoard", Board == null ? JsonValue.Null : Board.Id},
 			       		{"pos", Pos},
 			       		{"subscribed", Subscribed},
 			       	};
+			Board.SerializeId(json, serializer, "idBoard");
+			return json;
 		}
 	}
 }

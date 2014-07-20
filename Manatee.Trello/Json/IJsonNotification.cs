@@ -29,6 +29,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonNotification : IJsonCacheable
 	{
+		// TODO: Implment notifications
 		/// <summary>
 		/// Gets or sets whether the notification has been read.
 		/// </summary>
@@ -36,7 +37,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the notification's type.
 		/// </summary>
-		string Type { get; set; }
+		NotificationType Type { get; set; }
 		///<summary>
 		/// Gets or sets the date on which the notification was created.
 		///</summary>
@@ -48,6 +49,6 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the ID of the member whose action spawned the notification.
 		/// </summary>
-		string IdMemberCreator { get; set; }
+		IJsonMember MemberCreator { get; set; }
 	}
 }

@@ -1,7 +1,5 @@
-﻿using Manatee.Trello.Enumerations;
-using Manatee.Trello.Internal;
+﻿using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello

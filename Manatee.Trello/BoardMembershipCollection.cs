@@ -27,7 +27,6 @@ using System.Linq;
 using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -56,7 +55,7 @@ namespace Manatee.Trello
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonBoardMembership>();
 			json.Member = member.Json;
-			json.MemberType = membership.ConvertEnum();
+			json.MemberType = membership;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);

@@ -29,6 +29,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonSearchResults
 	{
+		// TODO: Implment search
 		/// <summary>
 		/// Lists the IDs of actions which match the query.
 		/// </summary>

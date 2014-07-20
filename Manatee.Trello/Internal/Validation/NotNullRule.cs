@@ -34,9 +34,9 @@ namespace Manatee.Trello.Internal.Validation
 		}
 		private NotNullRule() { }
 
-		public string Validate(T value)
+		public string Validate(T oldValue, T newValue)
 		{
-			return value != null
+			return newValue != null
 				       ? "Value cannot be null"
 				       : null;
 		}

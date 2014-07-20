@@ -29,10 +29,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 {
 	internal class ManateeBoardPreferences : IJsonBoardPreferences, IJsonSerializable
 	{
-		public string PermissionLevel { get; set; }
-		public string Voting { get; set; }
-		public string Comments { get; set; }
-		public string Invitations { get; set; }
+		public BoardPermissionLevel PermissionLevel { get; set; }
+		public BoardVotingPermission Voting { get; set; }
+		public BoardCommentPermission Comments { get; set; }
+		public BoardInvitationPermission Invitations { get; set; }
 		public bool? SelfJoin { get; set; }
 		public bool? CardCovers { get; set; }
 
@@ -40,24 +40,24 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			PermissionLevel = obj.TryGetString("permissionLevel");
-			Voting = obj.TryGetString("voting");
-			Comments = obj.TryGetString("comments");
-			Invitations = obj.TryGetString("invitations");
+			PermissionLevel = serializer.Deserialize<BoardPermissionLevel>(obj.TryGetString("permissionLevel"));
+			Voting = serializer.Deserialize<BoardVotingPermission>(obj.TryGetString("voting"));
+			Comments = serializer.Deserialize<BoardCommentPermission>(obj.TryGetString("comments"));
+			Invitations = serializer.Deserialize<BoardInvitationPermission>(obj.TryGetString("invitations"));
 			SelfJoin = obj.TryGetBoolean("selfJoin");
 			CardCovers = obj.TryGetBoolean("cardCovers");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
-			       	{
-			       		{"permissionLevel", PermissionLevel},
-			       		{"voting", Voting},
-			       		{"comments", Comments},
-			       		{"invitations", Invitations},
-			       		{"selfJoin", SelfJoin},
-			       		{"cardCovers", CardCovers},
-			       	};
+				{
+					{"permissionLevel", serializer.Serialize(PermissionLevel)},
+					{"voting", serializer.Serialize(Voting)},
+					{"comments", serializer.Serialize(Comments)},
+					{"invitations", serializer.Serialize(Invitations)},
+					{"selfJoin", SelfJoin},
+					{"cardCovers", CardCovers},
+				};
 		}
 	}
 }

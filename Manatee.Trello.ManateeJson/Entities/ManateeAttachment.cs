@@ -22,7 +22,6 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -47,35 +46,29 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Bytes = (int?) obj.TryGetNumber("bytes");
-			var dateString = obj.TryGetString("date");
-			DateTime date;
-			if (DateTime.TryParse(dateString, out date))
-				Date = date;
-			Member = serializer.Deserialize<IJsonMember>(obj["idMember"]);
+			Date = obj.Deserialize<DateTime?>(serializer, "date");
+			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
 			IsUpload = obj.TryGetBoolean("isUpload");
 			MimeType = obj.TryGetString("mimeType");
 			Name = obj.TryGetString("name");
-			var previews = obj.TryGetArray("previews");
-			if (previews != null)
-				Previews = previews.FromJson<ManateeAttachmentPreview>(serializer)
-								   .Cast<IJsonAttachmentPreview>()
-								   .ToList();
+			Previews = obj.Deserialize<List<IJsonAttachmentPreview>>(serializer, "previews");
 			Url = obj.TryGetString("url");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
+			var json = new JsonObject
 			       	{
 			       		{"id", Id},
 			       		{"bytes", Bytes},
-			       		{"date", Date.HasValue ? Date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"idMember", Member == null ? JsonValue.Null : Member.Id},
+			       		{"date", serializer.Serialize(Date)},
 			       		{"isUpload", IsUpload},
 			       		{"mimeType", MimeType},
 			       		{"name", Name},
-			       		{"previews", Previews.Cast<ManateeAttachmentPreview>().ToJson(serializer)},
+			       		{"previews", serializer.Serialize(Previews)},
 			       		{"url", Url}
 			       	};
+			Member.SerializeId(json, serializer, "idMember");
+			return json;
 		}
 	}
 }

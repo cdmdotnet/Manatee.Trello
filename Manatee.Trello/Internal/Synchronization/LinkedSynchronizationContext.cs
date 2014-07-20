@@ -1,11 +1,9 @@
-using System;
-
 namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class LinkedSynchronizationContext<TJson> : SynchronizationContext<TJson>
 	{
-		public event Action SynchronizeRequested;
-		public event Action SubmitRequested;
+		public event System.Action SynchronizeRequested;
+		public event System.Action SubmitRequested;
 
 		public LinkedSynchronizationContext() : base(false) {}
 
@@ -20,7 +18,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			RaiseEvent(SubmitRequested);
 		}
 
-		private void RaiseEvent(Action action)
+		private static void RaiseEvent(System.Action action)
 		{
 			var handler = action;
 			if (handler != null)

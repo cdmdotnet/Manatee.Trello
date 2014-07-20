@@ -20,11 +20,16 @@
 	Purpose:		Enumerates current label colors on Trello.com.
 
 ***************************************************************************************/
+
+using System;
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// Enumerates label colors for a board.
 	/// </summary>
+	[Flags]
 	public enum LabelColor
 	{
 		/// <summary>
@@ -34,26 +39,32 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates a green label.
 		/// </summary>
+		[Description("green")]
 		Green,
 		/// <summary>
 		/// Indicates a yellow label.
 		/// </summary>
+		[Description("yellow")]
 		Yellow,
 		/// <summary>
 		/// Indicates an orange label.
 		/// </summary>
+		[Description("orange")]
 		Orange,
 		/// <summary>
 		/// Indicates a red label.
 		/// </summary>
+		[Description("red")]
 		Red,
 		/// <summary>
 		/// Indicates a purple label.
 		/// </summary>
+		[Description("purple")]
 		Purple,
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
+		[Description("blue")]
 		Blue
 	}
 }

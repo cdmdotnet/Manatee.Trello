@@ -30,7 +30,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets and sets the color of the label.
 		/// </summary>
-		string Color { get; set; }
+		LabelColor Color { get; set; }
 		/// <summary>
 		/// Gets and sets the name of the label.
 		/// </summary>

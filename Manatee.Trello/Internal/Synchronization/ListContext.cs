@@ -22,9 +22,7 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -36,14 +34,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonList>>
 				{
 					{
-						// TODO: Translate properties in other JSON types to use other JSON types like this:
-						"Board", new Property<IJsonList>(d => TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.Board.Id) ?? new Board(d.Board),
-						                                 (d, o) => d.Board = ((Board) o).Json)
+						"Board", new Property<IJsonList, Board>(d => d.Board == null ? null : TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.Board.Id) ?? new Board(d.Board, true),
+						                                        (d, o) => { if (o != null) d.Board = o.Json; })
 					},
-					{"IsArchived", new Property<IJsonList>(d => d.Closed, (d, o) => d.Closed = (bool?) o)},
-					{"IsSubscribed", new Property<IJsonList>(d => d.Subscribed, (d, o) => d.Subscribed = (bool?) o)},
-					{"Name", new Property<IJsonList>(d => d.Name, (d, o) => d.Name = (string) o)},
-					{"Position", new Property<IJsonList>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null, (d, o) => d.Pos = ((Position) o).Value)},
+					{"Id", new Property<IJsonList, string>(d => d.Id, (d, o) => d.Id = o)},
+					{"IsArchived", new Property<IJsonList, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
+					{"IsSubscribed", new Property<IJsonList, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
+					{"Name", new Property<IJsonList, string>(d => d.Name, (d, o) => d.Name = o)},
+					{
+						"Position", new Property<IJsonList, Position>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null,
+						                                              (d, o) => { if (o != null) d.Pos = o.Value; })
+					},
 				};
 		}
 		public ListContext(string id)

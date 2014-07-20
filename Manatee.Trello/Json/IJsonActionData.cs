@@ -27,59 +27,17 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonActionData
 	{
-		/// <summary>
-		/// Contains the raw JSON data.  The type of this object will be determined
-		/// by the JSON serializer implementation.
-		/// </summary>
-		object RawData { get; set; }
-
-		/// <summary>
-		/// Attempts to retrieve a string from an object.
-		/// </summary>
-		/// <param name="path">
-		/// The set of successive keys to use while drilling down
-		/// through successive JSON object structures.
-		/// </param>
-		/// <returns>
-		/// The string value of the item at the specified path,
-		/// or null if the path does not exist.
-		/// </returns>
-		string TryGetString(params string[] path);
-		/// <summary>
-		/// Attempts to retrieve a number from an object.
-		/// </summary>
-		/// <param name="path">
-		/// The set of successive keys to use while drilling down
-		/// through successive JSON object structures.
-		/// </param>
-		/// <returns>
-		/// The number value of the item at the specified path,
-		/// or null if the path does not exist.
-		/// </returns>
-		double? TryGetNumber(params string[] path);
-		/// <summary>
-		/// Attempts to retrieve a boolean from an object.
-		/// </summary>
-		/// <param name="path">
-		/// The set of successive keys to use while drilling down
-		/// through successive JSON object structures.
-		/// </param>
-		/// <returns>
-		/// The boolean value of the item at the specified path,
-		/// or null if the path does not exist.
-		/// </returns>
-		bool? TryGetBoolean(params string[] path);
-		/// <summary>
-		/// Attempts to retrieve the JSON data to represent an attachment from an object.
-		/// </summary>
-		/// <param name="path">
-		/// The set of successive keys to use while drilling down
-		/// through successive JSON object structures.
-		/// </param>
-		/// <returns>
-		/// The IJsonAttachment value of the item at the specified path,
-		/// or null if the path does not exist.
-		/// </returns>
-		IJsonAttachment TryGetAttachment(params string[] path);
+		IJsonAttachment Attachment { get; set; }
+		IJsonBoard Board { get; set; }
+		IJsonCard Card { get; set; }
+		IJsonCheckItem CheckItem { get; set; }
+		IJsonCheckList CheckList { get; set; }
+		IJsonList List { get; set; }
+		IJsonList ListAfter { get; set; }
+		IJsonList ListBefore { get; set; }
+		IJsonMember Member { get; set; }
+		IJsonOrganization Org { get; set; }
+		IJsonActionOldData Old { get; set; }
+		string Text { get; set; }
 	}
 }

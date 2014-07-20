@@ -30,7 +30,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 	internal class ManateeTokenPermission : IJsonTokenPermission, IJsonSerializable
 	{
 		public string IdModel { get; set; }
-		public string ModelType { get; set; }
+		public TokenModelType ModelType { get; set; }
 		public bool? Read { get; set; }
 		public bool? Write { get; set; }
 
@@ -39,7 +39,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			IdModel = obj.TryGetString("idModel");
-			ModelType = obj.TryGetString("modelType");
+			ModelType = serializer.Deserialize<TokenModelType>(obj["modelType"]);
 			Read = obj.TryGetBoolean("read");
 			Write = obj.TryGetBoolean("write");
 		}
@@ -48,7 +48,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			return new JsonObject
 			       	{
 			       		{"idModel", IdModel},
-			       		{"modelType", ModelType},
+			       		{"modelType", serializer.Serialize(ModelType)},
 			       		{"read", Read},
 			       		{"write", Write},
 			       	};

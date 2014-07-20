@@ -37,12 +37,12 @@ namespace Manatee.Trello.Internal.Validation
 		}
 		private OrganizationNameRule() { }
 
-		public string Validate(string value)
+		public string Validate(string oldValue, string newValue)
 		{
-			var isValid = _regex.IsMatch(value);
+			var isValid = _regex.IsMatch(newValue);
 			if (isValid)
 			{
-				// TODO: search Trello for a org with this name.
+				// TODO: search Trello for a org with this name. (Need search first)
 				//isValid = 
 			}
 			return isValid

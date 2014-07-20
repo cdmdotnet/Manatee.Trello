@@ -42,7 +42,7 @@ namespace Manatee.Trello.Internal
 			get
 			{
 				_context.Synchronize();
-				return _context.GetValue<T>(_property);
+				return CurrentValue;
 			}
 			set
 			{
@@ -50,6 +50,7 @@ namespace Manatee.Trello.Internal
 				_context.SetValue(_property, value);
 			}
 		}
+		private T CurrentValue { get { return _context.GetValue<T>(_property); } }
 
 		public Field(SynchronizationContext context, Expression<Func<T>> property)
 		{
@@ -65,7 +66,7 @@ namespace Manatee.Trello.Internal
 
 		private void Validate(T value)
 		{
-			var errors = _rules.Select(r => r.Validate(value)).Where(s => s != null).ToList();
+			var errors = _rules.Select(r => r.Validate(CurrentValue, value)).Where(s => s != null).ToList();
 			if (errors.Any())
 				throw new Exception(string.Format("'{0}' is not a valid value:\n - {1}", value, errors.Join("\n - ")));
 		}

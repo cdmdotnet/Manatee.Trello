@@ -38,7 +38,7 @@ namespace Manatee.Trello.Json
 		///<summary>
 		/// Gets or sets the membership type.
 		///</summary>
-		string MemberType { get; set; }
+		OrganizationMembershipType MemberType { get; set; }
 		///<summary>
 		/// Gets or sets whether the membership is unconfirmed.
 		///</summary>

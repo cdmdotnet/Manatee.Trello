@@ -22,6 +22,7 @@
 ***************************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -32,7 +33,6 @@ namespace Manatee.Trello
 	{
 		private readonly Field<int?> _bytes;
 		private readonly Field<DateTime?> _date;
-		private readonly string _id;
 		private readonly Field<bool?> _isUpload;
 		private readonly Field<Member> _member;
 		private readonly Field<string> _mimeType;
@@ -40,11 +40,12 @@ namespace Manatee.Trello
 		private readonly ReadOnlyAttachmentPreviewCollection _previews;
 		private readonly Field<string> _url;
 		private readonly AttachmentContext _context;
+
 		private bool _deleted;
 
 		public int? Bytes { get { return _bytes.Value; } }
 		public DateTime? Date { get { return _date.Value; } }
-		public string Id { get { return _id; } }
+		public string Id { get; private set; }
 		public bool? IsUpload { get { return _isUpload.Value; } }
 		public Member Member { get { return _member.Value; } }
 		public string MimeType { get { return _mimeType.Value; } }
@@ -52,10 +53,15 @@ namespace Manatee.Trello
 		public ReadOnlyAttachmentPreviewCollection Previews { get { return _previews; } }
 		public string Url { get { return _url.Value; } }
 
-		internal Attachment(IJsonAttachment json, string ownerId)
+		internal IJsonAttachment Json { get { return _context.Data; } }
+
+		public event Action<Attachment, IEnumerable<string>> Updated;
+
+		internal Attachment(IJsonAttachment json, string ownerId, bool cache)
 		{
-			_id = json.Id;
-			_context = new AttachmentContext(_id, ownerId);
+			Id = json.Id;
+			_context = new AttachmentContext(Id, ownerId);
+			_context.Synchronized += Synchronized;
 
 			_bytes = new Field<int?>(_context, () => Bytes);
 			_date = new Field<DateTime?>(_context, () => Date);
@@ -66,7 +72,8 @@ namespace Manatee.Trello
 			_previews = new ReadOnlyAttachmentPreviewCollection(_context);
 			_url = new Field<string>(_context, () => Url);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (cache)
+				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 		}
@@ -78,6 +85,14 @@ namespace Manatee.Trello
 
 			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
+		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+			var handler = Updated;
+			if (handler != null)
+				handler(this, properties);
 		}
 	}
 }

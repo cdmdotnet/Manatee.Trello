@@ -32,24 +32,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonBoardPreferences>>
 				{
-					{
-						"PermissionLevel", new Property<IJsonBoardPreferences>(d => d.PermissionLevel.ConvertEnum<BoardPermissionLevel>(),
-						                                                       (d, o) => d.PermissionLevel = ((BoardPermissionLevel) o).ConvertEnum())
-					},
-					{
-						"Voting", new Property<IJsonBoardPreferences>(d => d.Voting.ConvertEnum<BoardVotingPermission>(),
-						                                              (d, o) => d.Voting = ((BoardVotingPermission) o).ConvertEnum())
-					},
-					{
-						"Comments", new Property<IJsonBoardPreferences>(d => d.Comments.ConvertEnum<BoardCommentPermission>(),
-						                                                (d, o) => d.Comments = ((BoardCommentPermission) o).ConvertEnum())
-					},
-					{
-						"Invitations", new Property<IJsonBoardPreferences>(d => d.Invitations.ConvertEnum<BoardInvitationPermission>(),
-						                                                   (d, o) => d.Invitations = ((BoardInvitationPermission) o).ConvertEnum())
-					},
-					{"SelfJoin", new Property<IJsonBoardPreferences>(d => d.SelfJoin, (d, o) => d.SelfJoin = (bool?) o)},
-					{"CardCovers", new Property<IJsonBoardPreferences>(d => d.CardCovers, (d, o) => d.CardCovers = (bool?) o)},
+					{"PermissionLevel", new Property<IJsonBoardPreferences, BoardPermissionLevel>(d => d.PermissionLevel, (d, o) => d.PermissionLevel = o)},
+					{"Voting", new Property<IJsonBoardPreferences, BoardVotingPermission>(d => d.Voting, (d, o) => d.Voting = o)},
+					{"Comments", new Property<IJsonBoardPreferences, BoardCommentPermission>(d => d.Comments, (d, o) => d.Comments = o)},
+					{"Invitations", new Property<IJsonBoardPreferences, BoardInvitationPermission>(d => d.Invitations, (d, o) => d.Invitations = o)},
+					{"SelfJoin", new Property<IJsonBoardPreferences, bool?>(d => d.SelfJoin, (d, o) => d.SelfJoin = o)},
+					{"CardCovers", new Property<IJsonBoardPreferences, bool?>(d => d.CardCovers, (d, o) => d.CardCovers = o)},
 				};
 		}
 	}

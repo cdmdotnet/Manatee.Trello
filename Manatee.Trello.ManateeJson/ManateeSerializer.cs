@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
@@ -49,7 +50,7 @@ namespace Manatee.Trello.ManateeJson
 		/// </summary>
 		public ManateeSerializer()
 		{
-			_serializer = new JsonSerializer();
+			_serializer = new JsonSerializer {Options = {EnumSerializationFormat = EnumSerializationFormat.AsName}};
 			_method = _serializer.GetType().GetMethod("Serialize");
 		}
 
@@ -80,6 +81,8 @@ namespace Manatee.Trello.ManateeJson
 
 		private static void InitializeTypeRegistry()
 		{
+			JsonSerializationTypeRegistry.RegisterListType<int>();
+			JsonSerializationTypeRegistry.RegisterListType<string>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonAction>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonAttachment>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonAttachmentPreview>();
@@ -97,11 +100,13 @@ namespace Manatee.Trello.ManateeJson
 			JsonSerializationTypeRegistry.RegisterListType<IJsonOrganizationMembership>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonToken>();
 			JsonSerializationTypeRegistry.RegisterListType<IJsonTokenPermission>();
+			JsonSerializationTypeRegistry.RegisterNullableType<DateTime>();
 		}
 		private static void InitializeAbstractionMap()
 		{
 			JsonSerializationAbstractionMap.Map<IJsonAction, ManateeAction>();
 			JsonSerializationAbstractionMap.Map<IJsonActionData, ManateeActionData>();
+			JsonSerializationAbstractionMap.Map<IJsonActionOldData, ManateeActionOldData>();
 			JsonSerializationAbstractionMap.Map<IJsonAttachment, ManateeAttachment>();
 			JsonSerializationAbstractionMap.Map<IJsonAttachmentPreview, ManateeAttachmentPreview>();
 			JsonSerializationAbstractionMap.Map<IJsonBadges, ManateeBadges>();

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -14,11 +12,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonOrganization>>
 				{
-					{"Description", new Property<IJsonOrganization>(d => d.Desc, (d, o) => d.Desc = (string) o)},
-					{"DisplayName", new Property<IJsonOrganization>(d => d.DisplayName, (d, o) => d.DisplayName = (string) o)},
-					{"IsBusinessClass", new Property<IJsonOrganization>(d => d.PaidAccount, (d, o) => d.PaidAccount = (bool?) o)},
-					{"Name", new Property<IJsonOrganization>(d => d.Name, (d, o) => d.Name = (string) o)},
-					{"Website", new Property<IJsonOrganization>(d => d.Name, (d, o) => d.Name = (string) o)},
+					{"Description", new Property<IJsonOrganization, string>(d => d.Desc, (d, o) => d.Desc = o)},
+					{"DisplayName", new Property<IJsonOrganization, string>(d => d.DisplayName, (d, o) => d.DisplayName = o)},
+					{"Id", new Property<IJsonOrganization, string>(d => d.Id, (d, o) => d.Id = o)},
+					{"IsBusinessClass", new Property<IJsonOrganization, bool?>(d => d.PaidAccount, (d, o) => d.PaidAccount = o)},
+					{"Name", new Property<IJsonOrganization, string>(d => d.Name, (d, o) => d.Name = o)},
+					{"Website", new Property<IJsonOrganization, string>(d => d.Name, (d, o) => d.Name = o)},
 				};
 		}
 		public OrganizationContext(string id)
@@ -46,6 +45,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+		}
+		protected override IEnumerable<string> MergeDependencies(IJsonOrganization json)
+		{
+			return OrganizationPreferencesContext.Merge(json.Prefs);
 		}
 	}
 }

@@ -21,21 +21,23 @@
 
 ***************************************************************************************/
 
+using System;
+using System.Collections.Generic;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
 	public class OrganizationMembership
 	{
-		private readonly string _id;
 		private readonly Field<Member> _member;
 		private readonly Field<OrganizationMembershipType> _memberType;
 		private readonly Field<bool?> _isDeactivated;
 		private readonly OrganizationMembershipContext _context;
 
-		public string Id { get { return _id; } }
+		public string Id { get; private set; }
 		public bool? IsDeactivated { get { return _isDeactivated.Value; } }
 		public Member Member { get { return _member.Value; } }
 		public OrganizationMembershipType MemberType
@@ -44,18 +46,30 @@ namespace Manatee.Trello
 			set { _memberType.Value = value; }
 		}
 
+		public event Action<OrganizationMembership, IEnumerable<string>> Updated;
+
 		internal OrganizationMembership(IJsonOrganizationMembership json, string ownerId)
 		{
-			_id = json.Id;
-			_context = new OrganizationMembershipContext(_id, ownerId);
+			Id = json.Id;
+			_context = new OrganizationMembershipContext(Id, ownerId);
+			_context.Synchronized += Synchronized;
 
 			_member = new Field<Member>(_context, () => Member);
 			_memberType = new Field<OrganizationMembershipType>(_context, () => MemberType);
+			_memberType.AddRule(EnumerationRule<OrganizationMembershipType>.Instance);
 			_isDeactivated = new Field<bool?>(_context, () => IsDeactivated);
 
 			TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
+		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+			var handler = Updated;
+			if (handler != null)
+				handler(this, properties);
 		}
 	}
 }

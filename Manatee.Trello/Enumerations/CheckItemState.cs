@@ -20,6 +20,9 @@
 	Purpose:		Enumerates known values for an item in a checklist on Trello.com.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -34,10 +37,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that the checlist item is not checked.
 		/// </summary>
+		[Description("incomplete")]
 		Incomplete,
 		/// <summary>
 		/// Indicates that the checlist item is checked.
 		/// </summary>
+		[Description("complete")]
 		Complete
 	}
 }

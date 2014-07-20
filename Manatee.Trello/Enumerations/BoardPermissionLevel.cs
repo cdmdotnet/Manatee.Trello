@@ -20,6 +20,9 @@
 	Purpose:		Enumerates known values for board permission levels on Trello.com.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	///<summary>
@@ -34,14 +37,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that the board can only be viewed by its members.
 		/// </summary>
+		[Description("private")]
 		Private,
 		/// <summary>
 		/// Indicates that the board may be viewed by any member of the organization to which the board belongs.
 		/// </summary>
+		[Description("org")]
 		Org,
 		/// <summary>
 		/// Indicates that anyone (even non-Trello users) may view the board.
 		/// </summary>
+		[Description("public")]
 		Public
 	}
 }

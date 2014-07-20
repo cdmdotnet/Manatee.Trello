@@ -27,47 +27,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Manatee.Json;
+using Manatee.Json.Serialization;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson
 {
 	internal static class GeneralExtensions
 	{
-		public static bool In<T>(this T item, params T[] items)
-		{
-			return items.Contains(item);
-		}
 		public static string ToLowerString<T>(this T item)
 		{
 			return item.ToString().ToLower();
-		}
-		public static string ToParameterString<T>(this T types)
-		{
-			return types.ToLowerString().Replace(" ", String.Empty);
-		}
-		public static bool BetweenInclusive(this IComparable value, object low, object high)
-		{
-			return (value.CompareTo(low) >= 0) && (value.CompareTo(high) <= 0);
-		}
-		public static string CSharpName(this Type type)
-		{
-			var sb = new StringBuilder();
-			var name = type.Name;
-			if (!type.IsGenericType) return name;
-			sb.Append(name.Substring(0, name.IndexOf('`')));
-			sb.Append("<");
-			sb.Append(type.GetGenericArguments().Select(t => t.CSharpName()).Join(", "));
-			sb.Append(">");
-			return sb.ToString();
-		}
-		public static void Replace<T>(this List<T> list, T replace, T with)
-		{
-			var i = list.IndexOf(replace);
-			if (i == -1) return;
-			list[i] = with;
-		}
-		public static bool BeginsWith(this string str, string beginning)
-		{
-			return (beginning.Length > str.Length) || (str.Substring(0, beginning.Length) == beginning);
 		}
 		public static bool IsNullOrWhiteSpace(this string value)
 		{
@@ -85,32 +55,20 @@ namespace Manatee.Trello.ManateeJson
 			return string.Join(separator, segments);
 #endif
 		}
-		public static string GetName<T>(this Expression<Func<T>> property)
+		public static T Deserialize<T>(this JsonObject obj, JsonSerializer serializer, string key)
 		{
-			var lambda = (LambdaExpression)property;
-
-			MemberExpression memberExpression;
-			var body = lambda.Body as UnaryExpression;
-			if (body != null)
-			{
-				var unaryExpression = body;
-				memberExpression = (MemberExpression)unaryExpression.Operand;
-			}
-			else
-				memberExpression = (MemberExpression)lambda.Body;
-
-			return memberExpression.Member.Name;
+			return obj.ContainsKey(key) ? serializer.Deserialize<T>(obj[key]) : default(T);
 		}
-		public static T ConvertEnum<T>(this string value, T fallback = default(T))
-			where T : struct
+		public static void Serialize<T>(this T obj, JsonObject json, JsonSerializer serializer, string key)
 		{
-			T status;
-			return Enum.TryParse(value, true, out status) ? status : fallback;
+			if (!Equals(obj, default(T)))
+				json[key] = serializer.Serialize(obj);
 		}
-		public static string ConvertEnum<T>(this T value)
-			where T : struct
+		public static void SerializeId<T>(this T obj, JsonObject json, JsonSerializer serializer, string key)
+			where T : IJsonCacheable
 		{
-			return value.ToLowerString();
+			if (!Equals(obj, default(T)))
+				json[key] = obj.Id;
 		}
 	}
 }

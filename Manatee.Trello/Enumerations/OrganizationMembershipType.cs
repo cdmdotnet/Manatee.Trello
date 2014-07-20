@@ -20,6 +20,9 @@
 	Purpose:		Enumerates known organization membership types on Trello.com.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	///<summary>
@@ -34,18 +37,22 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the member is an admin of the organization.
 		/// </summary>
+		[Description("admin")]
 		Admin,
 		/// <summary>
 		/// Indicates the member is a normal member of the organization.
 		/// </summary>
+		[Description("normal")]
 		Normal,
 		/// <summary>
 		/// Indicates the member is may only view the organization.
 		/// </summary>
+		[Description("observer")]
 		Observer,
 		/// <summary>
 		/// Indicates the member has been invited, but has not yet joined Trello.
 		/// </summary>
+		[Description("ghost")]
 		Ghost
 	}
 }

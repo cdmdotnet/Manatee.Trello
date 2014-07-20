@@ -39,48 +39,18 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _hasVoted;
 		private readonly Field<bool?> _isSubscribed;
 		private readonly Field<int?> _votes;
-		private BadgesContext _context;
+		private readonly BadgesContext _context;
 
-		public int? Attachments
-		{
-			get { return _attachments.Value; }
-		}
-		public int? CheckItems
-		{
-			get { return _checkItems.Value; }
-		}
-		public int? CheckItemsChecked
-		{
-			get { return _checkItemsChecked.Value; }
-		}
-		public int? Comments
-		{
-			get { return _comments.Value; }
-		}
-		public DateTime? DueDate
-		{
-			get { return _dueDate.Value; }
-		}
-		public string FogBugz
-		{
-			get { return _fogBugz.Value; }
-		}
-		public bool? HasDescription
-		{
-			get { return _hasDescription.Value; }
-		}
-		public bool? HasVoted
-		{
-			get { return _hasVoted.Value; }
-		}
-		public bool? IsSubscribed
-		{
-			get { return _isSubscribed.Value; }
-		}
-		public int? Votes
-		{
-			get { return _votes.Value; }
-		}
+		public int? Attachments { get { return _attachments.Value; } }
+		public int? CheckItems { get { return _checkItems.Value; } }
+		public int? CheckItemsChecked { get { return _checkItemsChecked.Value; } }
+		public int? Comments { get { return _comments.Value; } }
+		public DateTime? DueDate { get { return _dueDate.Value; } }
+		public string FogBugz { get { return _fogBugz.Value; } }
+		public bool? HasDescription { get { return _hasDescription.Value; } }
+		public bool? HasVoted { get { return _hasVoted.Value; } }
+		public bool? IsSubscribed { get { return _isSubscribed.Value; } }
+		public int? Votes { get { return _votes.Value; } }
 
 		internal Badges(BadgesContext context)
 		{

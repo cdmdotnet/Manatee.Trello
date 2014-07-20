@@ -100,18 +100,5 @@ namespace Manatee.Trello.Internal
 
 			return memberExpression.Member.Name;
 		}
-		public static T ConvertEnum<T>(this string value, T fallback = default(T))
-			where T : struct
-		{
-			if (value.IsNullOrWhiteSpace()) return fallback;
-			T status;
-			return Enum.TryParse(value, true, out status) ? status : fallback;
-		}
-		// TODO: Update JSON types to use enums to remove this method.
-		public static string ConvertEnum<T>(this T value)
-			where T : struct
-		{
-			return value.ToLowerString();
-		}
 	}
 }

@@ -20,6 +20,9 @@
 	Purpose:		Enumerates known values for member status on Trello.com.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -34,14 +37,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the member is not connected to the website.
 		/// </summary>
+		[Description("disconnected")]
 		Disconnected,
 		/// <summary>
 		/// Indicates the member is connected to the website but inactive.
 		/// </summary>
+		[Description("idle")]
 		Idle,
 		/// <summary>
 		/// Indicates the member is actively using the website.
 		/// </summary>
+		[Description("active")]
 		Active
 	}
 }

@@ -24,10 +24,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Internal.Genesis
+namespace Manatee.Trello.Internal.DataAccess
 {
 	internal static class EndpointFactory
 	{
@@ -210,6 +209,7 @@ namespace Manatee.Trello.Internal.Genesis
 					{EntityRequestType.Webhook_Write_Delete, () => new Endpoint(RestMethod.Delete, new[]{"webhooks","_id"})},
 					{EntityRequestType.Webhook_Write_Description, () => new Endpoint(RestMethod.Put, new[]{"webhooks","_id"})},
 					{EntityRequestType.Webhook_Write_Entity, () => new Endpoint(RestMethod.Put, new[]{"webhooks"})},
+					{EntityRequestType.Webhook_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"webhooks", "_id"})},
 				};
 		}
 

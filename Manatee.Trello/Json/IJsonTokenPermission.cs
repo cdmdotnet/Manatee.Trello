@@ -34,7 +34,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the type of the model.
 		/// </summary>
-		string ModelType { get; set; }
+		TokenModelType ModelType { get; set; }
 		/// <summary>
 		/// Gets or sets whether a token grants read permissions to the model.
 		/// </summary>

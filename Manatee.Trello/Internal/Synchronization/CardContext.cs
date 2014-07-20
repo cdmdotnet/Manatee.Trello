@@ -23,9 +23,7 @@
 
 using System;
 using System.Collections.Generic;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -39,24 +37,27 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonCard>>
 				{
 					{
-						"Board", new Property<IJsonCard>(d => TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.Board.Id) ?? new Board(d.Board),
-						                                 (d, o) => d.Board = o != null ? ((Board) o).Json : null)
+						"Board", new Property<IJsonCard, Board>(d => d.Board == null ? null : TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.Board.Id) ?? new Board(d.Board, true),
+						                                        (d, o) => d.Board = o == null ? null : o.Json)
 					},
-					{"Description", new Property<IJsonCard>(d => d.Desc, (d, o) => d.Desc = (string) o)},
-					{"DueDate", new Property<IJsonCard>(d => d.Due, (d, o) => d.Due = (DateTime?) o)},
-					{"IsArchived", new Property<IJsonCard>(d => d.Closed, (d, o) => d.Closed = (bool?) o)},
-					{"IsSubscribed", new Property<IJsonCard>(d => d.Subscribed, (d, o) => d.Subscribed = (bool?) o)},
-					{"Labels", new Property<IJsonCard>(d => d.Labels, (d, o) => d.Labels = (List<IJsonLabel>) o)},
-					{"LastActivity", new Property<IJsonCard>(d => d.DateLastActivity, (d, o) => d.DateLastActivity = (DateTime?) o)},
+					{"Description", new Property<IJsonCard, string>(d => d.Desc, (d, o) => d.Desc = o)},
+					{"DueDate", new Property<IJsonCard, DateTime?>(d => d.Due, (d, o) => d.Due = o)},
+					{"Id", new Property<IJsonCard, string>(d => d.Id, (d, o) => d.Id = o)},
+					{"IsArchived", new Property<IJsonCard, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
+					{"IsSubscribed", new Property<IJsonCard, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
+					{"LastActivity", new Property<IJsonCard, DateTime?>(d => d.DateLastActivity, (d, o) => d.DateLastActivity = o)},
 					{
-						"List", new Property<IJsonCard>(d => TrelloConfiguration.Cache.Find<List>(l => l.Id == d.List.Id) ?? new List(d.List),
-						                                (d, o) => d.List = ((List) o).Json)
+						"List", new Property<IJsonCard, List>(d => d.List == null ? null : TrelloConfiguration.Cache.Find<List>(l => l.Id == d.List.Id) ?? new List(d.List, true),
+						                                      (d, o) => d.List = o == null ? null : o.Json)
 					},
-					{"Name", new Property<IJsonCard>(d => d.Name, (d, o) => d.Name = (string) o)},
-					{"Position", new Property<IJsonCard>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null, (d, o) => d.Pos = ((Position) o).Value)},
-					{"ShortId", new Property<IJsonCard>(d => d.IdShort, (d, o) => d.IdShort = (int?) o)},
-					{"ShortUrl", new Property<IJsonCard>(d => d.ShortUrl, (d, o) => d.ShortUrl = (string) o)},
-					{"Url", new Property<IJsonCard>(d => d.Url, (d, o) => d.Url = (string) o)},
+					{"Name", new Property<IJsonCard, string>(d => d.Name, (d, o) => d.Name = o)},
+					{
+						"Position", new Property<IJsonCard, Position>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null,
+						                                              (d, o) => d.Pos = o == null ? (double?) null : o.Value)
+					},
+					{"ShortId", new Property<IJsonCard, int?>(d => d.IdShort, (d, o) => d.IdShort = o)},
+					{"ShortUrl", new Property<IJsonCard, string>(d => d.ShortUrl, (d, o) => d.ShortUrl = o)},
+					{"Url", new Property<IJsonCard, string>(d => d.Url, (d, o) => d.Url = o)},
 				};
 		}
 		public CardContext(string id)
@@ -78,14 +79,16 @@ namespace Manatee.Trello.Internal.Synchronization
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = JsonRepository.Execute<IJsonCard>(TrelloAuthorization.Default, endpoint);
 
-			BadgesContext.Merge(newData.Badges);
-
 			return newData;
 		}
 		protected override void SubmitData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+		}
+		protected override IEnumerable<string> MergeDependencies(IJsonCard json)
+		{
+			return BadgesContext.Merge(json.Badges);
 		}
 	}
 }

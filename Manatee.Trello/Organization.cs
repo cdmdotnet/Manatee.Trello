@@ -21,6 +21,9 @@
 
 ***************************************************************************************/
 
+using System;
+using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -28,21 +31,19 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class Organization
+	public class Organization : ICanWebhook
 	{
-		private readonly BoardCollection _boards;
 		private readonly Field<string> _description;
 		private readonly Field<string> _displayName;
-		private readonly string _id;
 		private readonly Field<bool> _isBusinessClass;
-		private readonly ReadOnlyMemberCollection _members;
-		private readonly OrganizationMembershipCollection _memberships;
 		private readonly Field<string> _name;
 		private readonly Field<string> _website;
 		private readonly OrganizationContext _context;
+
 		private bool _deleted;
 
-		public BoardCollection Boards { get { return _boards; } }
+		public ReadOnlyActionCollection Actions { get; private set; }
+		public BoardCollection Boards { get; private set; }
 		public string Description
 		{
 			get { return _description.Value; }
@@ -53,13 +54,10 @@ namespace Manatee.Trello
 			get { return _displayName.Value; }
 			set { _displayName.Value = value; }
 		}
-		public string Id { get { return _id; } }
-		public bool IsBusinessClass
-		{
-			get { return _isBusinessClass.Value; }
-		}
-		public ReadOnlyMemberCollection Members { get { return _members; } }
-		public OrganizationMembershipCollection Memberships { get { return _memberships; } }
+		public string Id { get; private set; }
+		public bool IsBusinessClass { get { return _isBusinessClass.Value; } }
+		public ReadOnlyMemberCollection Members { get; private set; }
+		public OrganizationMembershipCollection Memberships { get; private set; }
 		public string Name
 		{
 			get { return _name.Value; }
@@ -74,31 +72,44 @@ namespace Manatee.Trello
 
 		internal IJsonOrganization Json { get { return _context.Data; } }
 
-		public Organization(string id)
-		{
-			_context = new OrganizationContext(id);
+		public event Action<Organization, IEnumerable<string>> Updated;
 
-			_boards = new BoardCollection(typeof (Organization), id);
+		public Organization(string id)
+			: this(id, true) {}
+		internal Organization(IJsonOrganization json, bool cache)
+			: this(json.Id, cache)
+		{
+			_context.Merge(json);
+		}
+		private Organization(string id, bool cache)
+		{
+			Id = id;
+			_context = new OrganizationContext(id);
+			_context.Synchronized += Synchronized;
+
+			Actions = new ReadOnlyActionCollection(typeof(Organization), id);
+			Boards = new BoardCollection(typeof(Organization), id);
 			_description = new Field<string>(_context, () => Description);
 			_displayName = new Field<string>(_context, () => DisplayName);
-			_id = id;
 			_isBusinessClass = new Field<bool>(_context, () => IsBusinessClass);
-			_members = new ReadOnlyMemberCollection(typeof(Organization), id);
-			_memberships = new OrganizationMembershipCollection(id);
+			Members = new ReadOnlyMemberCollection(typeof(Organization), id);
+			Memberships = new OrganizationMembershipCollection(id);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(OrganizationNameRule.Instance);
 			Preferences = new OrganizationPreferences(_context.OrganizationPreferencesContext);
 			_website = new Field<string>(_context, () => Website);
 			_website.AddRule(UriRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
-		}
-		internal Organization(IJsonOrganization json)
-			: this(json.Id)
-		{
-			_context.Merge(json);
+			if (cache)
+				TrelloConfiguration.Cache.Add(this);
 		}
 
+		void ICanWebhook.ApplyAction(Action action)
+		{
+			if (action.Type != ActionType.UpdateOrganization || action.Data.Organization == null || action.Data.Organization.Id != Id)
+				return;
+			_context.Merge(action.Data.Organization.Json);
+		}
 		public void Delete()
 		{
 			if (_deleted) return;
@@ -106,6 +117,14 @@ namespace Manatee.Trello
 			_context.Delete();
 			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
+		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+			var handler = Updated;
+			if (handler != null)
+				handler(this, properties);
 		}
 	}
 }
