@@ -20,6 +20,9 @@
 	Purpose:		Enumerates known types of actions on Trello.com.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	///<summary>
@@ -34,194 +37,242 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates an attachment was added to a card.
 		/// </summary>
+		[Description("addAttachmentToCard")]
 		AddAttachmentToCard,
 		/// <summary>
 		/// Indicates a checklist was added to a card.
 		/// </summary>
+		[Description("addChecklistToCard")]
 		AddChecklistToCard,
 		/// <summary>
 		/// Indicates a member was added to a board.
 		/// </summary>
+		[Description("addMemberToBoard")]
 		AddMemberToBoard,
 		/// <summary>
 		/// Indicates a member was added to a card.
 		/// </summary>
+		[Description("addMemberToCard")]
 		AddMemberToCard,
 		/// <summary>
 		/// Indicates a member was added to an organization.
 		/// </summary>
+		[Description("addMemberToOrganization")]
 		AddMemberToOrganization,
 		/// <summary>
 		/// Indicates a organization was added to a board.
 		/// </summary>
+		[Description("addToOrganizationBoard")]
 		AddToOrganizationBoard,
 		/// <summary>
 		/// Indicates a comment was added to a card.
 		/// </summary>
+		[Description("commentCard")]
 		CommentCard,
 		/// <summary>
 		/// Indicates a comment was copied from one card to another.
 		/// </summary>
+		[Description("copyCommentCard")]
 		CopyCommentCard,
 		/// <summary>
 		/// Indicates a checklist item was converted to card.
 		/// </summary>
+		[Description("convertToCardFromCheckItem")]
 		ConvertToCardFromCheckItem,
 		/// <summary>
 		/// Indicates a board was copied.
 		/// </summary>
+		[Description("copyBoard")]
 		CopyBoard,
 		/// <summary>
 		/// Indicates a card was copied.
 		/// </summary>
+		[Description("copyCard")]
 		CopyCard,
 		/// <summary>
 		/// Indicates a board was created.
 		/// </summary>
+		[Description("createBoard")]
 		CreateBoard,
 		/// <summary>
 		/// Indicates a card was created.
 		/// </summary>
+		[Description("createCard")]
 		CreateCard,
 		/// <summary>
 		/// Indicates a list was created.
 		/// </summary>
+		[Description("createList")]
 		CreateList,
 		/// <summary>
 		/// Indicates an organization was created.
 		/// </summary>
+		[Description("createOrganization")]
 		CreateOrganization,
 		/// <summary>
 		/// Indicates an attachment was deleted from a card.
 		/// </summary>
+		[Description("deleteAttachmentFromCard")]
 		DeleteAttachmentFromCard,
 		/// <summary>
 		/// Indicates an invitation to a board was rescinded.
 		/// </summary>
+		[Description("deleteBoardInvitation")]
 		DeleteBoardInvitation,
 		/// <summary>
 		/// Indicates a card was deleted.
 		/// </summary>
+		[Description("deleteCard")]
 		DeleteCard,
 		/// <summary>
 		/// Indicates an invitation to an organization was rescinded.
 		/// </summary>
+		[Description("deleteOrganizationInvitation")]
 		DeleteOrganizationInvitation,
 		/// <summary>
 		/// Indicates a member was made an admin of a board.
 		/// </summary>
+		[Description("makeAdminOfBoard")]
 		MakeAdminOfBoard,
 		/// <summary>
 		/// Indicates a member was made a normal member of a board.
 		/// </summary>
+		[Description("makeNormalMemberOfBoard")]
 		MakeNormalMemberOfBoard,
 		/// <summary>
 		/// Indicates a member was made a normal member of an organization.
 		/// </summary>
+		[Description("makeNormalMemberOfOrganization")]
 		MakeNormalMemberOfOrganization,
 		/// <summary>
 		/// Indicates a member was made an observer of a board.
 		/// </summary>
+		[Description("makeObserverOfBoard")]
 		MakeObserverOfBoard,
 		/// <summary>
 		/// Indicates a member joined Trello.
 		/// </summary>
+		[Description("memberJoinedTrello")]
 		MemberJoinedTrello,
 		/// <summary>
 		/// Indicates a card was moved from one board to another.
 		/// </summary>
+		[Description("moveCardFromBoard")]
 		MoveCardFromBoard,
 		/// <summary>
 		/// Indicates a list was moved from one board to another.
 		/// </summary>
+		[Description("moveListFromBoard")]
 		MoveListFromBoard,
 		/// <summary>
 		/// Indicates a card was moved from one board to another.
 		/// </summary>
+		[Description("moveCardToBoard")]
 		MoveCardToBoard,
 		/// <summary>
 		/// Indicates a list was moved from one board to another.
 		/// </summary>
+		[Description("roveListToBoard")]
 		MoveListToBoard,
 		/// <summary>
 		/// Indicates an admin member was removed from a board.
 		/// </summary>
+		[Description("removeAdminFromBoard")]
 		RemoveAdminFromBoard,
 		/// <summary>
 		/// Indicates an admin member was removed from an organization.
 		/// </summary>
+		[Description("removeAdminFromOrganization")]
 		RemoveAdminFromOrganization,
 		/// <summary>
 		/// Indicates a checklist was removed from a card.
 		/// </summary>
+		[Description("removeChecklistFromCard")]
 		RemoveChecklistFromCard,
 		/// <summary>
 		/// Indicates an organization was removed from a board.
 		/// </summary>
+		[Description("removeFromOrganizationBoard")]
 		RemoveFromOrganizationBoard,
 		/// <summary>
 		/// Indicates a member was removed from a board.
 		/// </summary>
+		[Description("removeMemberFromBoard")]
 		RemoveMemberFromBoard,
 		/// <summary>
 		/// Indicates a member was removed from a card.
 		/// </summary>
+		[Description("removeMemberFromCard")]
 		RemoveMemberFromCard,
 		/// <summary>
 		/// Indicates an invitation to a board was created.
 		/// </summary>
+		[Description("unconfirmedBoardInvitation")]
 		UnconfirmedBoardInvitation,
 		/// <summary>
 		/// Indicates an invitation to an organization was created.
 		/// </summary>
+		[Description("unconfirmedOrganizationInvitation")]
 		UnconfirmedOrganizationInvitation,
 		/// <summary>
 		/// Indicates a board was updated.
 		/// </summary>
+		[Description("updateBoard")]
 		UpdateBoard,
 		/// <summary>
 		/// Indicates a card was updated.
 		/// </summary>
+		[Description("updateCard")]
 		UpdateCard,
 		/// <summary>
 		/// Indicates a checklist item was checked or unchecked.
 		/// </summary>
+		[Description("updateCheckItemStateOnCard")]
 		UpdateCheckItemStateOnCard,
 		/// <summary>
 		/// Indicates a checklist was updated.
 		/// </summary>
+		[Description("updateChecklist")]
 		UpdateChecklist,
 		/// <summary>
 		/// Indicates a member was updated.
 		/// </summary>
+		[Description("updateMember")]
 		UpdateMember,
 		/// <summary>
 		/// Indicates an organization was updated.
 		/// </summary>
+		[Description("updateOrganization")]
 		UpdateOrganization,
 		/// <summary>
 		/// Indicates a card was moved to a new list.
 		/// </summary>
+		[Description("updateCardIdList")]
 		UpdateCardIdList,
 		/// <summary>
 		/// Indicates a card was archived or unarchived.
 		/// </summary>
+		[Description("updateCardClosed")]
 		UpdateCardClosed,
 		/// <summary>
 		/// Indicates a card description was updated.
 		/// </summary>
+		[Description("updateCardDesc")]
 		UpdateCardDesc,
 		/// <summary>
 		/// Indicates a card name was updated.
 		/// </summary>
+		[Description("updateCardName")]
 		UpdateCardName,
 		/// <summary>
 		/// Indicates a member voted on a card.
 		/// </summary>
+		[Description("voteOnCard")]
 		VoteOnCard,
 		/// <summary>
 		/// Indicates a member updated a list.
 		/// </summary>
+		[Description("updateList")]
 		UpdateList
 	}
 }

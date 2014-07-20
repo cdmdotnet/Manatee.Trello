@@ -20,6 +20,9 @@
 	Purpose:		Enumerates the avatar sources used by Trello.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -34,14 +37,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates there is no avatar.
 		/// </summary>
+		[Description("none")]
 		None,
 		/// <summary>
 		/// Indicates the avatar has been uploaded by the user.
 		/// </summary>
+		[Description("upload")]
 		Upload,
 		/// <summary>
 		/// Indicates the avatar is supplied by Gravatar.
 		/// </summary>
+		[Description("gravatar")]
 		Gravatar
 	}
 }

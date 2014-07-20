@@ -34,9 +34,9 @@ namespace Manatee.Trello.Internal.Validation
 		}
 		private NullableHasValueRule() { }
 
-		public string Validate(T? value)
+		public string Validate(T? oldValue, T? newValue)
 		{
-			return value.HasValue
+			return newValue.HasValue
 				       ? "Value cannot be null"
 				       : null;
 		}

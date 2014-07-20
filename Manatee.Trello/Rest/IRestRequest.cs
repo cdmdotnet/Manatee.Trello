@@ -20,9 +20,6 @@
 	Purpose:		Defines properties and methods required to make RESTful requests.
 
 ***************************************************************************************/
-
-using System.Collections.Generic;
-
 namespace Manatee.Trello.Rest
 {
 	/// <summary>

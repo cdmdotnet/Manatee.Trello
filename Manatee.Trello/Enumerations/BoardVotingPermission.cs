@@ -21,6 +21,9 @@
 					Trello.com.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -35,18 +38,22 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that only members of the board may vote on cards.
 		/// </summary>
+		[Description("members")]
 		Members,
 		/// <summary>
 		/// Indicates that only members of the organization to which the board belongs may vote on cards.
 		/// </summary>
+		[Description("org")]
 		Org,
 		/// <summary>
 		/// Indicates that any Trello member may vote on cards.
 		/// </summary>
+		[Description("public")]
 		Public,
 		/// <summary>
 		/// Indicates that no members may vote on cards.
 		/// </summary>
+		[Description("disabled")]
 		Disabled
 	}
 }

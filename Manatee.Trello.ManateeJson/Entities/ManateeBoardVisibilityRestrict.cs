@@ -23,31 +23,32 @@
 
 using Manatee.Json;
 using Manatee.Json.Serialization;
+using Manatee.Trello.Enumerations;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
 	internal class ManateeBoardVisibilityRestrict : IJsonBoardVisibilityRestrict, IJsonSerializable
 	{
-		public string Public { get; set; }
-		public string Org { get; set; }
-		public string Private { get; set; }
+		public OrganizationBoardVisibility Public { get; set; }
+		public OrganizationBoardVisibility Org { get; set; }
+		public OrganizationBoardVisibility Private { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			Public = obj.TryGetString("public");
-			Org = obj.TryGetString("org");
-			Private = obj.TryGetString("private");
+			Public = serializer.Deserialize<OrganizationBoardVisibility>(obj.TryGetString("public"));
+			Org = serializer.Deserialize<OrganizationBoardVisibility>(obj.TryGetString("org"));
+			Private = serializer.Deserialize<OrganizationBoardVisibility>(obj.TryGetString("private"));
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
 			       	{
-			       		{"public", Public},
-			       		{"org", Org},
-			       		{"private", Private},
+			       		{"public", serializer.Serialize(Public)},
+			       		{"org", serializer.Serialize(Org)},
+			       		{"private", serializer.Serialize(Private)},
 			       	};
 		}
 	}

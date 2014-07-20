@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Enumerations;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 
@@ -19,7 +19,7 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonAttachment>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(ja => TrelloConfiguration.Cache.Find<Attachment>(a => a.Id == ja.Id) ?? new Attachment(ja, OwnerId)));
+			Items.AddRange(newData.Select(ja => TrelloConfiguration.Cache.Find<Attachment>(a => a.Id == ja.Id) ?? new Attachment(ja, OwnerId, true)));
 		}
 	}
 
@@ -38,7 +38,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddAttachment, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<IJsonAttachment>(TrelloAuthorization.Default, endpoint, parameters);
 
-			return new Attachment(newData, OwnerId);
+			return new Attachment(newData, OwnerId, true);
 		}
 		public Attachment Add(string name, byte[] data)
 		{
@@ -46,7 +46,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddAttachment, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<IJsonAttachment>(TrelloAuthorization.Default, endpoint, parameters);
 
-			return new Attachment(newData, OwnerId);
+			return new Attachment(newData, OwnerId, true);
 		}
 	}
 }

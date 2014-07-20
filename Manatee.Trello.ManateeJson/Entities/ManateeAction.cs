@@ -31,34 +31,32 @@ namespace Manatee.Trello.ManateeJson.Entities
 	internal class ManateeAction : IJsonAction, IJsonSerializable
 	{
 		public string Id { get; set; }
-		public string IdMemberCreator { get; set; }
+		public IJsonMember MemberCreator { get; set; }
 		public IJsonActionData Data { get; set; }
-		public string Type { get; set; }
+		public ActionType Type { get; set; }
 		public DateTime? Date { get; set; }
 
-		public void FromJson(JsonValue json, JsonSerializer serializer)
+		public virtual void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			IdMemberCreator = obj.TryGetString("idMemberCreator");
-			Data = new ManateeActionData {RawData = obj.TryGetObject("data")};
-			Type = obj.TryGetString("type");
-			var dateString = obj.TryGetString("date");
-			DateTime date;
-			if (DateTime.TryParse(dateString, out date))
-				Date = date;
+			MemberCreator = obj.Deserialize<IJsonMember>(serializer, "idMemberCreator");
+			Data = obj.Deserialize<IJsonActionData>(serializer, "data");
+			Type = serializer.Deserialize<ActionType>(obj.TryGetString("type"));
+			Date = obj.Deserialize<DateTime?>(serializer, "date");
 		}
-		public JsonValue ToJson(JsonSerializer serializer)
+		public virtual JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-			       	{
-			       		{"id", Id},
-			       		{"idMemberCreator", IdMemberCreator},
-			       		{"data", Data.RawData as JsonObject},
-			       		{"type", Type},
-			       		{"date", Date.HasValue ? Date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       	};
+			var json = new JsonObject
+				{
+					{"id", Id}
+				};
+			MemberCreator.SerializeId(json, serializer, "idMemberCreator");
+			Data.Serialize(json, serializer, "data");
+			Type.Serialize(json, serializer, "type");
+			Date.Serialize(json, serializer, "date");
+			return json;
 		}
 	}
 }

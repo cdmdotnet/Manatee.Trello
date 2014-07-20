@@ -36,20 +36,38 @@ namespace Manatee.Trello.ManateeJson
 		{
 			_factory = new Dictionary<Type, Func<object>>
 				{
+					{typeof (IJsonAction), () => new ManateeAction()},
+					{typeof (IJsonActionData), () => new ManateeActionData()},
+					{typeof (IJsonActionOldData), () => new ManateeActionOldData()},
 					{typeof (IJsonAttachment), () => new ManateeAttachment()},
+					{typeof (IJsonAttachmentPreview), () => new ManateeAttachmentPreview()},
 					{typeof (IJsonBadges), () => new ManateeBadges()},
 					{typeof (IJsonBoard), () => new ManateeBoard()},
 					{typeof (IJsonBoardMembership), () => new ManateeBoardMembership()},
+					{typeof (IJsonBoardPersonalPreferences), () => new ManateeBoardPersonalPreferences()},
 					{typeof (IJsonBoardPreferences), () => new ManateeBoardPreferences()},
 					{typeof (IJsonBoardVisibilityRestrict), () => new ManateeBoardVisibilityRestrict()},
 					{typeof (IJsonCard), () => new ManateeCard()},
+					{typeof (IJsonCheckItem), () => new ManateeCheckItem()},
+					{typeof (IJsonCheckList), () => new ManateeCheckList()},
+					{typeof (IJsonComment), () => new ManateeComment()},
 					{typeof (IJsonLabel), () => new ManateeLabel()},
 					{typeof (IJsonLabelNames), () => new ManateeLabelNames()},
 					{typeof (IJsonList), () => new ManateeList()},
 					{typeof (IJsonMember), () => new ManateeMember()},
+					{typeof (IJsonMemberPreferences), () => new ManateeMemberPreferences()},
+					{typeof (IJsonMemberSession), () => new ManateeMemberSession()},
+					{typeof (IJsonNotification), () => new ManateeNotification()},
+					{typeof (IJsonNotificationData), () => new ManateeNotificationData()},
 					{typeof (IJsonOrganization), () => new ManateeOrganization()},
+					{typeof (IJsonOrganizationMembership), () => new ManateeOrganizationMembership()},
 					{typeof (IJsonOrganizationPreferences), () => new ManateeOrganizationPreferences()},
 					{typeof (IJsonParameter), () => new ManateeParameter()},
+					{typeof (IJsonSearchResults), () => new ManateeSearchResults()},
+					{typeof (IJsonToken), () => new ManateeToken()},
+					{typeof (IJsonTokenPermission), () => new ManateeTokenPermission()},
+					{typeof (IJsonWebhook), () => new ManateeWebhook()},
+					{typeof (IJsonWebhookNotification), () => new ManateeWebhookNotification()},
 				};
 		}
 

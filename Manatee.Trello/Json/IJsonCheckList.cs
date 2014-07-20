@@ -34,11 +34,11 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the ID of the board which contains this checklist.
 		/// </summary>
-		string IdBoard { get; set; }
+		IJsonBoard Board { get; set; }
 		/// <summary>
 		/// Gets or sets the ID of the card which contains this checklist.
 		/// </summary>
-		string IdCard { get; set; }
+		IJsonCard Card { get; set; }
 		/// <summary>
 		/// Gets or sets the position of this checklist.
 		/// </summary>

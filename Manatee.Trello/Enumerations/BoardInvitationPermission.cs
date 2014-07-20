@@ -20,6 +20,9 @@
 	Purpose:		Enumerates known board invitation permission levels on Trello.com.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	///<summary>
@@ -34,10 +37,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that any member of the board may extend an invitation to join the board.
 		/// </summary>
+		[Description("members")]
 		Members,
 		/// <summary>
 		/// Indicates that only admins of the board may extend an invitation to joni the board.
 		/// </summary>
+		[Description("admins")]
 		Admins
 	}
 }

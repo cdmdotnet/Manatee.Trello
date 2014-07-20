@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using System.ComponentModel;
 
 namespace Manatee.Trello
 {
@@ -33,26 +34,32 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the search should return actions.
 		/// </summary>
+		[Description("actions")]
 		Actions = 1,
 		/// <summary>
 		/// Indicates the search should return boards.
 		/// </summary>
+		[Description("boards")]
 		Boards = 2,
 		/// <summary>
 		/// Indicates the search should return cards.
 		/// </summary>
+		[Description("cards")]
 		Cards = 4,
 		/// <summary>
 		/// Indicates the search should return members.
 		/// </summary>
+		[Description("members")]
 		Members = 8,
 		/// <summary>
 		/// Indicates the search should return organizations.
 		/// </summary>
+		[Description("orgainzations")]
 		Organizations = 16,
 		/// <summary>
 		/// Indicates the search should return all model types.
 		/// </summary>
+		[Description("all")]
 		All = 31
 	}
 }

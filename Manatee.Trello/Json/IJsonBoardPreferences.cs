@@ -30,19 +30,19 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets who may view the board.
 		/// </summary>
-		string PermissionLevel { get; set; }
+		BoardPermissionLevel PermissionLevel { get; set; }
 		/// <summary>
 		/// Gets or sets who may vote on cards.
 		/// </summary>
-		string Voting { get; set; }
+		BoardVotingPermission Voting { get; set; }
 		/// <summary>
 		/// Gets or sets who may comment on cards.
 		/// </summary>
-		string Comments { get; set; }
+		BoardCommentPermission Comments { get; set; }
 		/// <summary>
 		/// Gets or sets who may extend invitations to join the board.
 		/// </summary>
-		string Invitations { get; set; }
+		BoardInvitationPermission Invitations { get; set; }
 		/// <summary>
 		/// Gets or sets whether any Trello member may join a board without an invitation.
 		/// </summary>

@@ -21,12 +21,10 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Enumerations;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -42,7 +40,7 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonCheckItem>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<CheckItem>(b => b.Id == jc.Id) ?? new CheckItem(jc, OwnerId)));
+			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<CheckItem>(b => b.Id == jc.Id) ?? new CheckItem(jc, OwnerId, true)));
 		}
 	}
 
@@ -59,7 +57,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_AddCheckItem, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
-			return new CheckItem(newData, OwnerId);
+			return new CheckItem(newData, OwnerId, true);
 		}
 	}
 }

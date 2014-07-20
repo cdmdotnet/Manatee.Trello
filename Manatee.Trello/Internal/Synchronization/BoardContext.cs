@@ -22,9 +22,8 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
-using Manatee.Trello.Enumerations;
+using System.Linq;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -38,18 +37,19 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonBoard>>
 				{
-					{"Description", new Property<IJsonBoard>(d => d.Desc, (d, o) => d.Desc = (string) o)},
-					{"IsClosed", new Property<IJsonBoard>(d => d.Closed, (d, o) => d.Closed = (bool?) o)},
-					{"IsSubscribed", new Property<IJsonBoard>(d => d.Subscribed, (d, o) => d.Subscribed = (bool?) o)},
-					{"Name", new Property<IJsonBoard>(d => d.Name, (d, o) => d.Name = (string) o)},
+					{"Description", new Property<IJsonBoard, string>(d => d.Desc, (d, o) => d.Desc = o)},
+					{"Id", new Property<IJsonBoard, string>(d => d.Id, (d, o) => d.Id = o)},
+					{"IsClosed", new Property<IJsonBoard, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
+					{"IsSubscribed", new Property<IJsonBoard, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
+					{"Name", new Property<IJsonBoard, string>(d => d.Name, (d, o) => d.Name = o)},
 					{
-						"Organization", new Property<IJsonBoard>(d => d.Organization == null
-							                                              ? null
-							                                              : TrelloConfiguration.Cache.Find<Organization>(b => b.Id == d.Organization.Id) ??
-							                                                new Organization(d.Organization),
-						                                         (d, o) => d.Organization = o != null ? ((Organization) o).Json : null)
+						"Organization", new Property<IJsonBoard, Organization>(d => d.Organization == null
+							                                                            ? null
+							                                                            : TrelloConfiguration.Cache.Find<Organization>(b => b.Id == d.Organization.Id) ??
+							                                                              new Organization(d.Organization, true),
+						                                                       (d, o) => d.Organization = o != null ? o.Json : null)
 					},
-					{"Url", new Property<IJsonBoard>(d => d.Url, (d, o) => d.Url = (string) o)},
+					{"Url", new Property<IJsonBoard, string>(d => d.Url, (d, o) => d.Url = o)},
 				};
 		}
 		public BoardContext(string id)
@@ -70,14 +70,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = JsonRepository.Execute<IJsonBoard>(TrelloAuthorization.Default, endpoint);
 
-			LabelNamesContext.Merge(newData.LabelNames);
-
 			return newData;
 		}
 		protected override void SubmitData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+		}
+		protected override IEnumerable<string> MergeDependencies(IJsonBoard json)
+		{
+			return LabelNamesContext.Merge(json.LabelNames)
+			                        .Concat(BoardPreferencesContext.Merge(json.Prefs));
 		}
 	}
 }

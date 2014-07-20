@@ -23,14 +23,26 @@
 
 namespace Manatee.Trello
 {
-	public class Label
+	public class ReadOnlyLabel
 	{
 		public LabelColor Color { get; private set; }
-		public string Name { get; set; }
+		public string Name { get; internal set; }
 
-		internal Label(LabelColor color)
+		internal ReadOnlyLabel(LabelColor color, string name)
 		{
 			Color = color;
+			Name = name;
 		}
+	}
+	public class Label : ReadOnlyLabel
+	{
+		public new string Name
+		{
+			get { return base.Name; }
+			set { base.Name = Name; }
+		}
+
+		internal Label(LabelColor color, string name)
+			: base(color, name) {}
 	}
 }

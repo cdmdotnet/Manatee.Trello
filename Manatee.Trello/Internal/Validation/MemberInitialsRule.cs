@@ -14,12 +14,12 @@ namespace Manatee.Trello.Internal.Validation
 		}
 		private MemberInitialsRule() { }
 
-		public string Validate(string value)
+		public string Validate(string oldValue, string newValue)
 		{
-			var isValid = _regex.IsMatch(value);
+			var isValid = _regex.IsMatch(newValue);
 			return isValid
-				       ? "Value must consist of between one and three characters and cannot begin or end with whitespace."
-				       : null;
+					   ? "Value must consist of between one and three characters and cannot begin or end with whitespace."
+					   : null;
 		}
 	}
 }

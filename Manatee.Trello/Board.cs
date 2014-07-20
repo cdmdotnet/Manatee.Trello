@@ -21,6 +21,9 @@
 
 ***************************************************************************************/
 
+using System;
+using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -28,29 +31,25 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class Board
+	public class Board : ICanWebhook
 	{
-		private readonly ReadOnlyCardCollection _cards;
 		private readonly Field<string> _description;
-		private readonly string _id;
 		private readonly Field<bool?> _isClosed;
 		private readonly Field<bool?> _isPinned;
 		private readonly Field<bool?> _isSubscribed;
-		private readonly ListCollection _lists;
-		private readonly ReadOnlyMemberCollection _members;
-		private readonly BoardMembershipCollection _memberships;
 		private readonly Field<string> _name;
 		private readonly Field<Organization> _organization;
 		private readonly Field<string> _url;
 		private readonly BoardContext _context;
 
-		public ReadOnlyCardCollection Cards { get { return _cards; } }
+		public ReadOnlyActionCollection Actions { get; private set; }
+		public ReadOnlyCardCollection Cards { get; private set; }
 		public string Description
 		{
 			get { return _description.Value; }
 			set { _description.Value = value; }
 		}
-		public string Id { get { return _id; } }
+		public string Id { get; private set; }
 		public bool? IsClosed
 		{
 			get { return _isClosed.Value; }
@@ -63,9 +62,9 @@ namespace Manatee.Trello
 			set { _isSubscribed.Value = value; }
 		}
 		public LabelNames LabelNames { get; private set; }
-		public ListCollection Lists { get { return _lists; } }
-		public ReadOnlyMemberCollection Members { get { return _members; } }
-		public BoardMembershipCollection Memberships { get { return _memberships; } }
+		public ListCollection Lists { get; private set; }
+		public ReadOnlyMemberCollection Members { get; private set; }
+		public BoardMembershipCollection Memberships { get; private set; }
 		public string Name
 		{
 			get { return _name.Value; }
@@ -81,34 +80,56 @@ namespace Manatee.Trello
 
 		internal IJsonBoard Json { get { return _context.Data; } }
 
+		public event Action<Board, IEnumerable<string>> Updated;
+
 		public Board(string id)
+			: this(id, true) {}
+		internal Board(IJsonBoard json, bool cache)
+			: this(json.Id, false)
+		{
+			_context.Merge(json);
+		}
+		private Board(string id, bool cache)
 		{
 			_context = new BoardContext(id);
+			_context.Synchronized += Synchronized;
 
-			_cards = new ReadOnlyCardCollection(typeof (Board), id);
+			Actions = new ReadOnlyActionCollection(typeof(Board), id);
+			Cards = new ReadOnlyCardCollection(typeof(Board), id);
 			_description = new Field<string>(_context, () => Description);
-			_id = id;
+			Id = id;
 			_isClosed = new Field<bool?>(_context, () => IsClosed);
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
 			_isPinned = new Field<bool?>(_context, () => IsPinned);
+			_isPinned.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
 			LabelNames = new LabelNames(_context.LabelNamesContext);
-			_lists = new ListCollection(id);
-			_members = new ReadOnlyMemberCollection(typeof(Board), id);
-			_memberships = new BoardMembershipCollection(id);
+			Lists = new ListCollection(id);
+			Members = new ReadOnlyMemberCollection(typeof(Board), id);
+			Memberships = new BoardMembershipCollection(id);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, () => Organization);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			_url = new Field<string>(_context, () => Url);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (cache)
+				TrelloConfiguration.Cache.Add(this);
 		}
-		internal Board(IJsonBoard json)
-			: this(json.Id)
+
+		void ICanWebhook.ApplyAction(Action action)
 		{
-			_context.Merge(json);
+			if (action.Type != ActionType.UpdateBoard || action.Data.Board == null || action.Data.Board.Id != Id) return;
+			_context.Merge(action.Data.Board.Json);
+		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+			var handler = Updated;
+			if (handler != null)
+				handler(this, properties);
 		}
 	}
 }

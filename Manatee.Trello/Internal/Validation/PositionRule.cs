@@ -33,9 +33,9 @@ namespace Manatee.Trello.Internal.Validation
 		}
 		private PositionRule() { }
 
-		public string Validate(Position value)
+		public string Validate(Position oldValue, Position newValue)
 		{
-			return value.IsValid
+			return newValue.IsValid
 					   ? "Value must be a positive number."
 					   : null;
 		}

@@ -21,6 +21,8 @@
 
 ***************************************************************************************/
 
+using System;
+using System.Collections.Generic;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -32,11 +34,10 @@ namespace Manatee.Trello
 	{
 		private readonly Field<Board> _board;
 		private readonly Field<Card> _card;
-		private readonly CheckItemCollection _checkItems;
-		private readonly string _id;
 		private readonly Field<string> _name;
 		private readonly Field<Position> _position;
 		private readonly CheckListContext _context;
+
 		private bool _deleted;
 
 		public Board Board { get { return _board.Value; } }
@@ -45,8 +46,8 @@ namespace Manatee.Trello
 			get { return _card.Value; }
 			set { _card.Value = value; }
 		}
-		public CheckItemCollection CheckItems { get { return _checkItems; } }
-		public string Id { get { return _id; } }
+		public CheckItemCollection CheckItems { get; private set; }
+		public string Id { get; private set; }
 		public string Name
 		{
 			get { return _name.Value; }
@@ -58,25 +59,35 @@ namespace Manatee.Trello
 			set { _position.Value = value; }
 		}
 
+		internal IJsonCheckList Json { get { return _context.Data; } }
+
+		public event Action<CheckList, IEnumerable<string>> Updated;
+
 		public CheckList(string id)
+			: this(id, true) {}
+		internal CheckList(IJsonCheckList json, bool cache)
+			: this(json.Id, cache)
 		{
+			_context.Merge(json);
+		}
+		private CheckList(string id, bool cache)
+		{
+			Id = id;
 			_context = new CheckListContext(id);
+			_context.Synchronized += Synchronized;
 
 			_board = new Field<Board>(_context, () => Board);
 			_card = new Field<Card>(_context, () => Card);
 			_card.AddRule(NotNullRule<Card>.Instance);
-			_checkItems = new CheckItemCollection(id);
-			_id = id;
+			CheckItems = new CheckItemCollection(id);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, () => Position);
+			_position.AddRule(NotNullRule<Position>.Instance);
+			_position.AddRule(PositionRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
-		}
-		internal CheckList(IJsonCheckList json)
-			: this(json.Id)
-		{
-			_context.Merge(json);
+			if (cache)
+				TrelloConfiguration.Cache.Add(this);
 		}
 
 		public void Delete()
@@ -86,6 +97,14 @@ namespace Manatee.Trello
 			_context.Delete();
 			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
+		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+			var handler = Updated;
+			if (handler != null)
+				handler(this, properties);
 		}
 	}
 }

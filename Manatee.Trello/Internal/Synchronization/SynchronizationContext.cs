@@ -31,10 +31,10 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal abstract class SynchronizationContext
 	{
 		private readonly Timer _timer;
-
 		private readonly object _lock;
+		private DateTime _lastUpdate;
 
-		internal DateTime _lastUpdate;
+		public event Action<IEnumerable<string>>  Synchronized;
 
 		protected SynchronizationContext(bool useTimer)
 		{
@@ -62,8 +62,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (_lock)
 			{
 				if (!force && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
-				Merge();
-				_lastUpdate = DateTime.Now;
+				var properties = Merge().ToList();
+				if (!properties.Any()) return;
+				var handler = Synchronized;
+				if (handler != null)
+					handler(properties);
 			}
 		}
 		public void ResetTimer()
@@ -74,7 +77,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			_timer.Start();
 		}
 
-		protected abstract void Merge();
+		protected void MarkAsUpdated()
+		{
+			_lastUpdate = DateTime.Now;
+		}
+		protected abstract IEnumerable<string> Merge();
 		protected abstract void Submit();
 
 		private void TimerElapsed(object sender, ElapsedEventArgs e)
@@ -118,27 +125,37 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected virtual void SubmitData() {}
 
-		protected sealed override void Merge()
+		protected sealed override IEnumerable<string> Merge()
 		{
 			var newData = GetData();
-			Merge(newData);
+			return Merge(newData);
 		}
 		protected sealed override void Submit()
 		{
 			SubmitData();
 			_localChanges.Clear();
 		}
-
-		internal void Merge(TJson json)
+		protected virtual IEnumerable<string> MergeDependencies(TJson json)
 		{
-			if (ReferenceEquals(json, Data)) return;
+			return Enumerable.Empty<string>();
+		}
+
+		internal IEnumerable<string> Merge(TJson json)
+		{
+			MarkAsUpdated();
+			if (Equals(json, default(TJson)) || ReferenceEquals(json, Data))
+				return Enumerable.Empty<string>();
+			var propertyNames = new List<string>();
 			foreach (var propertyName in _properties.Keys.Except(_localChanges))
 			{
 				var property = _properties[propertyName];
 				var newValue = property.Get(json);
+				var oldValue = property.Get(Data);
+				if (!Equals(newValue, oldValue))
+					propertyNames.Add(propertyName);
 				property.Set(Data, newValue);
 			}
-			_lastUpdate = DateTime.Now;
+			return propertyNames.Concat(MergeDependencies(json));
 		}
 	}
 }

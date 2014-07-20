@@ -28,22 +28,20 @@ namespace Manatee.Trello.Internal.RequestProcessing
 {
 	internal static class NetworkMonitor
 	{
-		private static bool _isConnected;
-
-		public static bool IsConnected { get { return _isConnected; } }
+		public static bool IsConnected { get; private set; }
 
 		public static event System.Action ConnectionStatusChanged;
 
 		static NetworkMonitor()
 		{
-			_isConnected = NetworkInterface.GetIsNetworkAvailable();
+			IsConnected = NetworkInterface.GetIsNetworkAvailable();
 			NetworkChange.NetworkAvailabilityChanged += HandleNetworkAvailabilityChange;
 		}
 
 		private static void HandleNetworkAvailabilityChange(object sender, NetworkAvailabilityEventArgs e)
 		{
-			if (_isConnected == e.IsAvailable) return;
-			_isConnected = e.IsAvailable;
+			if (IsConnected == e.IsAvailable) return;
+			IsConnected = e.IsAvailable;
 			if (ConnectionStatusChanged != null)
 				ConnectionStatusChanged();
 		}

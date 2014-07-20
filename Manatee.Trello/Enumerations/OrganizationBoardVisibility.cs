@@ -21,13 +21,19 @@
 
 ***************************************************************************************/
 
+using System.ComponentModel;
+
 namespace Manatee.Trello.Enumerations
 {
 	public enum OrganizationBoardVisibility
 	{
+		Unknown,
 		// TODO: add XML comments
+		[Description("none")]
 		None,
+		[Description("admin")]
 		Admin,
+		[Description("org")]
 		Org
 	}
 }

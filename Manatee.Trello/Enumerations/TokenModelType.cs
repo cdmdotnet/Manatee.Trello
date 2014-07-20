@@ -21,6 +21,9 @@
 					grant access.
 
 ***************************************************************************************/
+
+using System.ComponentModel;
+
 namespace Manatee.Trello
 {
 	/// <summary>
@@ -35,14 +38,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the model is one or more Members.
 		/// </summary>
+		[Description("Member")]
 		Member,
 		/// <summary>
 		/// Indicates the model is one or more Boards.
 		/// </summary>
+		[Description("Board")]
 		Board,
 		/// <summary>
 		/// Indicates the model is one or more Organizations.
 		/// </summary>
+		[Description("Organization")]
 		Organization
 	}
 }

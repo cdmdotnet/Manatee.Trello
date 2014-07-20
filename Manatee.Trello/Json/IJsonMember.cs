@@ -52,7 +52,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the member's activity status.
 		/// </summary>
-		string Status { get; set; }
+		MemberStatus Status { get; set; }
 		/// <summary>
 		/// Gets or sets the URL to the member's profile.
 		/// </summary>
@@ -64,7 +64,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the source URL for the member's avatar.
 		/// </summary>
-		string AvatarSource { get; set; }
+		AvatarSource AvatarSource { get; set; }
 		/// <summary>
 		/// Gets or sets whether the member is confirmed.
 		/// </summary>

@@ -54,21 +54,16 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			Badges = serializer.Deserialize<IJsonBadges>(obj.TryGetObject("badges"));
+			Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
 			Closed = obj.TryGetBoolean("closed");
+			DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 			Desc = obj.TryGetString("desc");
-			var dateString = obj.TryGetString("due");
-			DateTime date;
-			if (DateTime.TryParse(dateString, out date))
-				Due = date;
-			dateString = obj.TryGetString("dateLastActivity");
-			if (DateTime.TryParse(dateString, out date))
-				DateLastActivity = date;
-			Board = serializer.Deserialize<IJsonBoard>(obj["idBoard"]);
-			List = serializer.Deserialize<IJsonList>(obj["idList"]);
+			Due = obj.Deserialize<DateTime?>(serializer, "due");
+			Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
+			List = obj.Deserialize<IJsonList>(serializer, "idList");
 			IdShort = (int?) obj.TryGetNumber("idShort");
 			IdAttachmentCover = obj.TryGetString("idAttachmentCover");
-			Labels = serializer.Deserialize<List<IJsonLabel>>(obj.TryGetArray("labels"));
+			Labels = obj.Deserialize<List<IJsonLabel>>(serializer, "labels");
 			ManualCoverAttachment = obj.TryGetBoolean("manualAttachmentCover");
 			Name = obj.TryGetString("name");
 			Pos = obj.TryGetNumber("pos");
@@ -78,20 +73,13 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
+			var json = new JsonObject
 				{
 					{"id", Id},
-					{"badges", serializer.Serialize(Badges)},
 					{"closed", Closed},
-					{"dateLastActivity", DateLastActivity.HasValue ? DateLastActivity.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
 					{"desc", Desc},
-					{"due", Due.HasValue ? Due.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-					{"idBoard", Board == null ? JsonValue.Null : Board.Id},
-					{"idList", List == null ? JsonValue.Null : List.Id},
 					{"idShort", IdShort},
 					{"idAttachmentCover", IdAttachmentCover},
-					// Don't serialize the Label collection because Trello wants a comma-sparated list
-					{"labels", Labels.Select(l => l.Color.ToLowerString()).Join(",")},
 					{"manualAttachmentCover", ManualCoverAttachment},
 					{"name", Name},
 					{"pos", Pos},
@@ -99,6 +87,15 @@ namespace Manatee.Trello.ManateeJson.Entities
 					{"shortUrl", ShortUrl},
 					{"subscribed", Subscribed},
 				};
+			DateLastActivity.Serialize(json, serializer, "dateLastActivity");
+			Due.Serialize(json, serializer, "due");
+			Badges.Serialize(json, serializer, "badges");
+			Board.SerializeId(json, serializer, "idBoard");
+			List.SerializeId(json, serializer, "idList");
+			// Don't serialize the Label collection because Trello wants a comma-sparated list
+			if (Labels != null)
+				json["labels"] = Labels.Select(l => l.Color.ToLowerString()).Join(",");
+			return json;
 		}
 	}
 }

@@ -32,7 +32,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the ID of the member who performed the action.
 		/// </summary>
-		string IdMemberCreator { get; set; }
+		IJsonMember MemberCreator { get; set; }
 		/// <summary>
 		/// Gets or sets the data associated with the action.  Contents depend upon the action's type.
 		/// </summary>
@@ -40,7 +40,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the action's type.
 		/// </summary>
-		string Type { get; set; }
+		ActionType Type { get; set; }
 		///<summary>
 		/// Gets or sets the date on which the action was performed.
 		///</summary>

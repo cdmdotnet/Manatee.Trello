@@ -27,6 +27,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonBoardPersonalPreferences
 	{
+		// TODO: Implement board personal preferences
 		///<summary>
 		/// Gets or sets whether the side bar (right side of the screen) is shown
 		///</summary>

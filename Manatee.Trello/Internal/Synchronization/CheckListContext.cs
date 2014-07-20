@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -13,15 +11,16 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonCheckList>>
 				{
 					{
-						"Board", new Property<IJsonCheckList>(d => TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.IdBoard) ?? new Board(d.IdBoard),
-						                                      (d, o) => d.IdBoard = o != null ? ((Board) o).Id : null)
+						"Board", new Property<IJsonCheckList, Board>(d => TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.Board.Id) ?? new Board(d.Board.Id),
+						                                             (d, o) => d.Board = o != null ? (o).Json : null)
 					},
 					{
-						"Card", new Property<IJsonCheckList>(d => TrelloConfiguration.Cache.Find<Card>(b => b.Id == d.IdCard) ?? new Card(d.IdCard),
-						                                     (d, o) => d.IdCard = o != null ? ((Card) o).Id : null)
+						"Card", new Property<IJsonCheckList, Card>(d => TrelloConfiguration.Cache.Find<Card>(b => b.Id == d.Card.Id) ?? new Card(d.Card.Id),
+						                                           (d, o) => d.Card = o != null ? (o).Json : null)
 					},
-					{"Name", new Property<IJsonCheckList>(d => d.Name, (d, o) => d.Name = (string) o)},
-					{"Position", new Property<IJsonCheckList>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null, (d, o) => d.Pos = ((Position) o).Value)},
+					{"Id", new Property<IJsonCheckList, string>(d => d.Id, (d, o) => d.Id = o)},
+					{"Name", new Property<IJsonCheckList, string>(d => d.Name, (d, o) => d.Name = o)},
+					{"Position", new Property<IJsonCheckList, Position>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null, (d, o) => d.Pos = (o).Value)},
 				};
 		}
 		public CheckListContext(string id)

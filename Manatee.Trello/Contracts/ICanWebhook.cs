@@ -20,7 +20,6 @@
 	Purpose:		Simple interface for defining whether an entity supports webhooks.
 
 ***************************************************************************************/
-
 namespace Manatee.Trello.Contracts
 {
 	/// <summary>
@@ -28,6 +27,7 @@ namespace Manatee.Trello.Contracts
 	/// </summary>
 	public interface ICanWebhook
 	{
+		string Id { get; }
 		/// <summary>
 		/// Applies the changes an action represents.
 		/// </summary>

@@ -21,6 +21,10 @@
 
 ***************************************************************************************/
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -28,27 +32,23 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class List
+	public class List : ICanWebhook
 	{
 		private readonly Field<Board> _board;
-		private readonly CardCollection _cards;
-		private readonly string _id;
 		private readonly Field<bool?> _isArchived;
 		private readonly Field<bool?> _isSubscribed;
 		private readonly Field<string> _name;
 		private readonly Field<Position> _position;
 		private readonly ListContext _context;
 
+		public ReadOnlyActionCollection Actions { get; private set; }
 		public Board Board
 		{
 			get { return _board.Value; }
 			set { _board.Value = value; }
 		}
-		public CardCollection Cards
-		{
-			get { return _cards; }
-		}
-		public string Id {get { return _id; } }
+		public CardCollection Cards { get; private set; }
+		public string Id { get; private set; }
 		public bool? IsArchived
 		{
 			get { return _isArchived.Value; }
@@ -72,13 +72,25 @@ namespace Manatee.Trello
 
 		internal IJsonList Json { get { return _context.Data; } }
 
-		public List(string id)
-		{
-			_context = new ListContext(id);
+		public event Action<List, IEnumerable<string>> Updated;
 
+		public List(string id)
+			: this(id, true) {}
+		internal List(IJsonList json, bool cache)
+			: this(json.Id, cache)
+		{
+			_context.Merge(json);
+		}
+		private List(string id, bool cache)
+		{
+			Id = id;
+			_context = new ListContext(id);
+			_context.Synchronized += Synchronized;
+
+			Actions = new ReadOnlyActionCollection(typeof(List), id);
 			_board = new Field<Board>(_context, () => Board);
-			_cards = new CardCollection(id);
-			_id = id;
+			_board.AddRule(NotNullRule<Board>.Instance);
+			Cards = new CardCollection(id);
 			_isArchived = new Field<bool?>(_context, () => IsArchived);
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
@@ -89,12 +101,22 @@ namespace Manatee.Trello
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (cache)
+				TrelloConfiguration.Cache.Add(this);
 		}
-		internal List(IJsonList json)
-			: this(json.Id)
+
+		void ICanWebhook.ApplyAction(Action action)
 		{
-			_context.Merge(json);
+			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;
+			_context.Merge(action.Data.List.Json);
+		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+			var handler = Updated;
+			if (handler != null)
+				handler(this, properties);
 		}
 	}
 }

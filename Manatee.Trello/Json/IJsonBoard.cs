@@ -20,6 +20,9 @@
 	Purpose:		Defines the JSON structure for the Board object.
 
 ***************************************************************************************/
+
+using System;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
@@ -50,6 +53,7 @@ namespace Manatee.Trello.Json
 		///<summary>
 		/// Gets or sets whether this board is pinned to the user's Boards menu.
 		///</summary>
+		[Obsolete("Trello has replaced this with the Starred property.")]
 		bool? Pinned { get; set; }
 		IJsonBoardPreferences Prefs { get; set; }
 		///<summary>

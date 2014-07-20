@@ -51,10 +51,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Name = obj.TryGetString("name");
 					Desc = obj.TryGetString("desc");
 					Closed = obj.TryGetBoolean("closed");
-					Organization = serializer.Deserialize<IJsonOrganization>(obj["idOrganization"]);
-					LabelNames = serializer.Deserialize<IJsonLabelNames>(obj.TryGetObject("labelNames"));
+					Organization = obj.Deserialize<IJsonOrganization>(serializer, "idOrganization");
+					LabelNames = obj.Deserialize<IJsonLabelNames>(serializer, "labelNames");
 					Pinned = obj.TryGetBoolean("pinned");
-					Prefs = serializer.Deserialize<IJsonBoardPreferences>(obj["prefs"]);
+					Prefs = obj.Deserialize<IJsonBoardPreferences>(serializer, "prefs");
 					Url = obj.TryGetString("url");
 					Subscribed = obj.TryGetBoolean("subscribed");
 				}
@@ -72,11 +72,11 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"name", Name},
 			       		{"desc", Desc},
 			       		{"closed", Closed},
-			       		{"idOrganization", Organization == null ? JsonValue.Null : Organization.Id},
 			       		{"pinned", Pinned},
 			       		{"url", Url},
 			       		{"subscribed", Subscribed},
 			       	};
+			Organization.SerializeId(json, serializer, "idOrganization");
 			// Don't serialize the LabelNames or Preferences collections because Trello wants individual properties.
 			if (LabelNames != null)
 			{
@@ -89,12 +89,12 @@ namespace Manatee.Trello.ManateeJson.Entities
 			}
 			if (Prefs != null)
 			{
-				json.Add("prefs/permissionLevel", Prefs.PermissionLevel.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.PermissionLevel);
+				json.Add("prefs/permissionLevel", serializer.Serialize(Prefs.PermissionLevel));
 				json.Add("prefs/selfJoin", !Prefs.SelfJoin.HasValue ? JsonValue.Null : Prefs.SelfJoin);
 				json.Add("prefs/cardCovers", !Prefs.CardCovers.HasValue ? JsonValue.Null : Prefs.CardCovers);
-				json.Add("prefs/invitations", Prefs.Invitations.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.Invitations);
-				json.Add("prefs/voting", Prefs.Voting.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.Voting);
-				json.Add("prefs/comments", Prefs.Comments.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.Comments);
+				json.Add("prefs/invitations", serializer.Serialize(Prefs.Invitations));
+				json.Add("prefs/voting", serializer.Serialize(Prefs.Voting));
+				json.Add("prefs/comments", serializer.Serialize(Prefs.Comments));
 			}
 			return json;
 		}

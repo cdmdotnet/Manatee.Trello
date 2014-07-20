@@ -22,7 +22,6 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -56,13 +55,9 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Url = obj.TryGetString("url");
 					Website = obj.TryGetString("website");
 					LogoHash = obj.TryGetString("logoHash");
-					var array = obj.TryGetArray("powerUps");
-					if (array != null)
-						PowerUps = array.Select(j => (int) j.Number).ToList();
+					PowerUps = obj.Deserialize<List<int>>(serializer, "powerUps");
 					PaidAccount = obj.TryGetBoolean("paid_account");
-					array = obj.TryGetArray("premiumFeatures");
-					if (array != null)
-						PremiumFeatures = array.Select(o => o.String).ToList();
+					PremiumFeatures = obj.Deserialize<List<string>>(serializer, "premiumFeatures");
 					break;
 				case JsonValueType.String:
 					Id = json.String;
@@ -71,28 +66,27 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			// TODO: refactor to omit optional arguments if they don't have values
 			var json = new JsonObject
-					{
-						{"id", Id},
-						{"name", Name},
-						{"displayName", DisplayName},
-						{"desc", Desc},
-						{"url", Url},
-						{"website", Website},
-						{"logoHash", LogoHash},
-						{"powerUps", PowerUps.Cast<double>().ToJson()},
-						{"paid_account", PaidAccount},
-						{"premiumFeatures", PremiumFeatures.ToJson()}
-					};
+				{
+					{"id", Id},
+					{"name", Name},
+					{"displayName", DisplayName},
+					{"desc", Desc},
+					{"url", Url},
+					{"website", Website},
+					{"logoHash", LogoHash},
+					{"powerUps", serializer.Serialize(PowerUps)},
+					{"paid_account", PaidAccount},
+					{"premiumFeatures", serializer.Serialize(PremiumFeatures)}
+				};
 			if (Prefs != null)
 			{
-				json.Add("prefs/permissionLevel", Prefs.PermissionLevel.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.PermissionLevel);
+				json.Add("prefs/permissionLevel", serializer.Serialize(Prefs.PermissionLevel));
 				json.Add("prefs/orgInviteRestrict", serializer.Serialize(Prefs.OrgInviteRestrict));
 				json.Add("prefs/associatedDomain", Prefs.AssociatedDomain.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.AssociatedDomain);
-				json.Add("prefs/boardVisibilityRestrict/private", Prefs.BoardVisibilityRestrict.Private.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.BoardVisibilityRestrict.Private);
-				json.Add("prefs/boardVisibilityRestrict/org", Prefs.BoardVisibilityRestrict.Org.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.BoardVisibilityRestrict.Org);
-				json.Add("prefs/boardVisibilityRestrict/public", Prefs.BoardVisibilityRestrict.Public.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.BoardVisibilityRestrict.Public);
+				json.Add("prefs/boardVisibilityRestrict/private", serializer.Serialize(Prefs.BoardVisibilityRestrict.Private));
+				json.Add("prefs/boardVisibilityRestrict/org", serializer.Serialize(Prefs.BoardVisibilityRestrict.Org));
+				json.Add("prefs/boardVisibilityRestrict/public", serializer.Serialize(Prefs.BoardVisibilityRestrict.Public));
 			}
 			return json;
 		}

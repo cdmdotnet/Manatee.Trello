@@ -5,7 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.RequestProcessing;
+using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -27,11 +29,16 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var org = new Organization("littlecrabsolutions");
-
-			Console.WriteLine(org.Preferences.PrivateBoardVisibility);
-
-			Thread.Sleep(1000);
+			var board = new Board("asdaweae");
+			Console.WriteLine(board.Name);
+			foreach (var list in board.Lists)
+			{
+				Console.WriteLine(list.Name);
+				foreach (var card in list.Cards)
+				{
+					Console.WriteLine(card.Name);
+				}
+			}
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}

@@ -41,7 +41,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the ID of the member who issued the token.
 		/// </summary>
-		string IdMember { get; set; }
+		IJsonMember Member { get; set; }
 		/// <summary>
 		/// Gets or sets the date the token was created.
 		/// </summary>

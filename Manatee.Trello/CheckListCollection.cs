@@ -21,12 +21,10 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Enumerations;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -42,7 +40,7 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonCheckList>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<CheckList>(b => b.Id == jc.Id) ?? new CheckList(jc.Id)));
+			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<CheckList>(b => b.Id == jc.Id) ?? new CheckList(jc, true)));
 		}
 	}
 
@@ -59,7 +57,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddChecklist);
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
-			return new CheckList(newData);
+			return new CheckList(newData, true);
 		}
 	}
 }

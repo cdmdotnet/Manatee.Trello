@@ -24,9 +24,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Enumerations;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -49,7 +48,7 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonBoard>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<Board>(b => b.Id == jc.Id) ?? new Board(jc.Id)));
+			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<Board>(b => b.Id == jc.Id) ?? new Board(jc, true)));
 		}
 	}
 
@@ -78,7 +77,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(_addRequestType);
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
-			return new Board(newData);
+			return new Board(newData, true);
 		}
 	}
 }

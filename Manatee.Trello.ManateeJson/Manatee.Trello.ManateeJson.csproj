@@ -31,8 +31,9 @@
     <DocumentationFile>bin\Release\Manatee.Trello.ManateeJson.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Manatee.Json">
-      <HintPath>..\packages\Manatee.Json.2.5.1\lib\net40\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Manatee.Json.2.5.2\lib\net40\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -49,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Entities\ManateeAction.cs" />
     <Compile Include="Entities\ManateeActionData.cs" />
+    <Compile Include="Entities\ManateeActionOldData.cs" />
     <Compile Include="Entities\ManateeAttachment.cs" />
     <Compile Include="Entities\ManateeAttachmentPreview.cs" />
     <Compile Include="Entities\ManateeBadges.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Entities\ManateeCard.cs" />
     <Compile Include="Entities\ManateeCheckItem.cs" />
     <Compile Include="Entities\ManateeCheckList.cs" />
+    <Compile Include="Entities\ManateeComment.cs" />
     <Compile Include="Entities\ManateeLabel.cs" />
     <Compile Include="Entities\ManateeLabelNames.cs" />
     <Compile Include="Entities\ManateeList.cs" />

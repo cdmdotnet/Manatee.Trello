@@ -31,10 +31,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 	{
 		public string Id { get; set; }
 		public bool? Unread { get; set; }
-		public string Type { get; set; }
+		public NotificationType Type { get; set; }
 		public DateTime? Date { get; set; }
 		public IJsonNotificationData Data { get; set; }
-		public string IdMemberCreator { get; set; }
+		public IJsonMember MemberCreator { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -42,13 +42,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Unread = obj.TryGetBoolean("unread");
-			Type = obj.TryGetString("type");
-			var dateString = obj.TryGetString("date");
-			DateTime date;
-			if (DateTime.TryParse(dateString, out date))
-				Date = date;
+			Type = serializer.Deserialize<NotificationType>(obj["type"]);
+			Date = serializer.Deserialize<DateTime?>("date");
 			Data = new ManateeNotificationData {RawData = obj.TryGetObject("data")};
-			IdMemberCreator = obj.TryGetString("idMemberCreator");
+			MemberCreator = serializer.Deserialize<IJsonMember>(obj["idMemberCreator"]);
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
@@ -56,10 +53,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       	{
 			       		{"id", Id},
 			       		{"unread", Unread},
-			       		{"type", Type},
-			       		{"date", Date.HasValue ? Date.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
+			       		{"type", serializer.Serialize(Type)},
+			       		{"date", serializer.Serialize(Date)},
 			       		{"data", Data.RawData as JsonObject},
-			       		{"idMemberCreator", IdMemberCreator},
+			       		{"idMemberCreator", serializer.Serialize(MemberCreator)},
 			       	};
 		}
 	}

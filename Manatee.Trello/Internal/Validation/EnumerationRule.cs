@@ -28,7 +28,7 @@ namespace Manatee.Trello.Internal.Validation
 {
 	internal class EnumerationRule<T> : IValidationRule<T>
 	{
-		public static EnumerationRule<T> Instance { get; private set; }
+		public static IValidationRule<T> Instance { get; private set; }
 
 		static EnumerationRule()
 		{
@@ -40,11 +40,11 @@ namespace Manatee.Trello.Internal.Validation
 				throw new ArgumentException(string.Format("Type {0} must be an enumeration.", typeof (T)));
 		}
 
-		public string Validate(T value)
+		public string Validate(T oldValue, T newValue)
 		{
 			var validValues = Enum.GetValues(typeof(T)).Cast<T>();
-			return !validValues.Contains(value)
-				       ? string.Format("{0} is not defined in type {1}", value, typeof (T).Name)
+			return !validValues.Contains(newValue)
+					   ? string.Format("{0} is not defined in type {1}", newValue, typeof(T).Name)
 				       : null;
 		}
 	}

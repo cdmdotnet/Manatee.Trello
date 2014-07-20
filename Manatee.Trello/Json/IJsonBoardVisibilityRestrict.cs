@@ -20,6 +20,9 @@
 	Purpose:		Defines the JSON structure for the BoardVisibilityRestrict object.
 
 ***************************************************************************************/
+
+using Manatee.Trello.Enumerations;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
@@ -30,14 +33,14 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the visibility of publicly-visible boards owned by the organization.
 		/// </summary>
-		string Public { get; set; }
+		OrganizationBoardVisibility Public { get; set; }
 		/// <summary>
 		/// Gets or sets the visibility of Org-visible boards owned by the organization.
 		/// </summary>
-		string Org { get; set; }
+		OrganizationBoardVisibility Org { get; set; }
 		/// <summary>
 		/// Gets or sets the visibility of private boards owned by the organization.
 		/// </summary>
-		string Private { get; set; }
+		OrganizationBoardVisibility Private { get; set; }
 	}
 }

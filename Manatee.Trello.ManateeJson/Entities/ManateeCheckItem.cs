@@ -30,7 +30,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 	internal class ManateeCheckItem : IJsonCheckItem, IJsonSerializable
 	{
 		public string Id { get; set; }
-		public string State { get; set; }
+		public CheckItemState State { get; set; }
 		public string Name { get; set; }
 		public double? Pos { get; set; }
 
@@ -39,19 +39,19 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			State = obj.TryGetString("state");
+			State = serializer.Deserialize<CheckItemState>(obj.TryGetString("state"));
 			Name = obj.TryGetString("name");
 			Pos = obj.TryGetNumber("pos");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			return new JsonObject
-			       	{
-			       		{"id", Id},
-			       		{"state", State},
-			       		{"name", Name},
-			       		{"pos", Pos},
-			       	};
+				{
+					{"id", Id},
+					{"state", serializer.Serialize(State)},
+					{"name", Name},
+					{"pos", Pos},
+				};
 		}
 	}
 }

@@ -33,9 +33,9 @@ namespace Manatee.Trello.Internal.Validation
 		}
 		private NotNullOrWhiteSpaceRule() { }
 
-		public string Validate(string value)
+		public string Validate(string oldValue, string newValue)
 		{
-			return value.IsNullOrWhiteSpace()
+			return newValue.IsNullOrWhiteSpace()
 				       ? "Value cannot be null, empty, or whitespace."
 				       : null;
 		}

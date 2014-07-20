@@ -23,6 +23,7 @@
 
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
@@ -72,11 +73,17 @@ namespace Manatee.Trello
 			_context = context;
 
 			_permissionLevel = new Field<BoardPermissionLevel>(_context, () => PermissionLevel);
+			_permissionLevel.AddRule(EnumerationRule<BoardPermissionLevel>.Instance);
 			_voting = new Field<BoardVotingPermission>(_context, () => Voting);
+			_voting.AddRule(EnumerationRule<BoardVotingPermission>.Instance);
 			_commenting = new Field<BoardCommentPermission>(_context, () => Commenting);
+			_commenting.AddRule(EnumerationRule<BoardCommentPermission>.Instance);
 			_invitations = new Field<BoardInvitationPermission>(_context, () => Invitations);
+			_invitations.AddRule(EnumerationRule<BoardInvitationPermission>.Instance);
 			_allowSelfJoin = new Field<bool?>(_context, () => AllowSelfJoin);
+			_allowSelfJoin.AddRule(NullableHasValueRule<bool>.Instance);
 			_showCardCovers = new Field<bool?>(_context, () => ShowCardCovers);
+			_showCardCovers.AddRule(NullableHasValueRule<bool>.Instance);
 		}
 	}
 }

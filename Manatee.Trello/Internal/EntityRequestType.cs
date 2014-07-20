@@ -22,11 +22,12 @@
 
 ***************************************************************************************/
 
-namespace Manatee.Trello.Enumerations
+namespace Manatee.Trello.Internal
 {
 	internal enum EntityRequestType
 	{
 #pragma warning disable 1591
+		// TODO: Remove unused request types
 		Unsupported,
 		Action_Read_Refresh,
 		Action_Write_Delete,
@@ -202,6 +203,7 @@ namespace Manatee.Trello.Enumerations
 		Webhook_Write_Delete,
 		Webhook_Write_Description,
 		Webhook_Write_Entity,
+		Webhook_Write_Update,
 #pragma warning restore 1591
 	}
 }

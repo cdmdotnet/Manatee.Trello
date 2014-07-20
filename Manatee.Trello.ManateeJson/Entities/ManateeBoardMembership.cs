@@ -31,7 +31,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 	{
 		public string Id { get; set; }
 		public IJsonMember Member { get; set; }
-		public string MemberType { get; set; }
+		public BoardMembershipType MemberType { get; set; }
 		public bool? Deactivated { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -39,17 +39,18 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			Member = serializer.Deserialize<IJsonMember>(obj.TryGetString("idMember"));
-			MemberType = obj.TryGetString("memberType");
+			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
+			MemberType = serializer.Deserialize<BoardMembershipType>(obj.TryGetString("memberType"));
 			Deactivated = obj.TryGetBoolean("deactivated");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-			       	{
-			       		{"idMember", Member == null ? JsonValue.Null : Member.Id},
-			       		{"type", MemberType},
-			       	};
+			var json = new JsonObject
+				{
+					{"type", serializer.Serialize(MemberType)}
+				};
+			Member.SerializeId(json, serializer, "idMember");
+			return json;
 		}
 	}
 }

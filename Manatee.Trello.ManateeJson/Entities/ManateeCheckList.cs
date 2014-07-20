@@ -31,8 +31,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
-		public string IdBoard { get; set; }
-		public string IdCard { get; set; }
+		public IJsonBoard Board { get; set; }
+		public IJsonCard Card { get; set; }
 		public double? Pos { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -41,20 +41,23 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Name = obj.TryGetString("name");
-			IdBoard = obj.TryGetString("idBoard");
-			IdCard = obj.TryGetString("idCard");
+			Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
+			Card = obj.Deserialize<IJsonCard>(serializer, "idCard");
 			Pos = obj.TryGetNumber("pos");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
+			var json = new JsonObject
 			       	{
 			       		{"id", Id},
 			       		{"name", Name},
-			       		{"idBoard", IdBoard},
-			       		{"idCard", IdCard},
+			       		{"idBoard", serializer.Serialize(Board)},
+			       		{"idCard", serializer.Serialize(Card)},
 			       		{"pos", Pos},
 			       	};
+			Board.SerializeId(json, serializer, "idBoard");
+			Card.SerializeId(json, serializer, "idCard");
+			return json;
 		}
 	}
 }

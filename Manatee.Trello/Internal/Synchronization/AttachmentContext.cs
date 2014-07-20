@@ -23,9 +23,7 @@
 
 using System;
 using System.Collections.Generic;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Genesis;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -38,17 +36,18 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonAttachment>>
 				{
-					{"Bytes", new Property<IJsonAttachment>(d => d.Bytes, (d, o) => d.Bytes = (int?) o)},
-					{"Date", new Property<IJsonAttachment>(d => d.Date, (d, o) => d.Date = (DateTime?) o)},
+					{"Bytes", new Property<IJsonAttachment, int?>(d => d.Bytes, (d, o) => d.Bytes = o)},
+					{"Date", new Property<IJsonAttachment, DateTime?>(d => d.Date, (d, o) => d.Date = o)},
 					{
-						"Member", new Property<IJsonAttachment>(d => d.Member != null ? TrelloConfiguration.Cache.Find<Member>(b => b.Id == d.Member.Id) ?? new Member(d.Member) : null,
-						                                        (d, o) => d.Member = o != null ? ((Member) o).Json : null)
+						"Member", new Property<IJsonAttachment, Member>(d => d.Member == null ? null : TrelloConfiguration.Cache.Find<Member>(b => b.Id == d.Member.Id) ?? new Member(d.Member, true),
+						                                                (d, o) => d.Member = o != null ? o.Json : null)
 					},
-					{"IsUpload", new Property<IJsonAttachment>(d => d.IsUpload, (d, o) => d.IsUpload = (bool?) o)},
-					{"MimeType", new Property<IJsonAttachment>(d => d.MimeType, (d, o) => d.MimeType = (string) o)},
-					{"Name", new Property<IJsonAttachment>(d => d.Name, (d, o) => d.Name = (string) o)},
-					{"Previews", new Property<IJsonAttachment>(d => d.Previews, (d, o) => d.Previews = (List<IJsonAttachmentPreview>) o)},
-					{"Url", new Property<IJsonAttachment>(d => d.Url, (d, o) => d.Url = (string) o)},
+					{"Id", new Property<IJsonAttachment, string>(d => d.Id, (d, o) => d.Id = o)},
+					{"IsUpload", new Property<IJsonAttachment, bool?>(d => d.IsUpload, (d, o) => d.IsUpload = o)},
+					{"MimeType", new Property<IJsonAttachment, string>(d => d.MimeType, (d, o) => d.MimeType = o)},
+					{"Name", new Property<IJsonAttachment, string>(d => d.Name, (d, o) => d.Name = o)},
+					{"Previews", new Property<IJsonAttachment, List<IJsonAttachmentPreview>>(d => d.Previews, (d, o) => d.Previews = o)},
+					{"Url", new Property<IJsonAttachment, string>(d => d.Url, (d, o) => d.Url = o)},
 				};
 		}
 		public AttachmentContext(string id, string ownerId)
