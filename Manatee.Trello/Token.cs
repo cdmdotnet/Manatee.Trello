@@ -23,18 +23,21 @@
 
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class Token
+	public class Token : ICacheable
 	{
 		private readonly Field<string> _appName;
 		private readonly Field<DateTime?> _dateCreated;
 		private readonly Field<DateTime?> _dateExpires;
 		private readonly Field<Member> _member;
 		private readonly TokenContext _context;
+		private bool _deleted;
 
 		public string AppName { get { return _appName.Value; } }
 		public TokenPermission BoardPermissions { get; private set; }
@@ -62,6 +65,20 @@ namespace Manatee.Trello
 			OrganizationPermissions = new TokenPermission(_context.OrganizationPermissions);
 
 			TrelloConfiguration.Cache.Add(this);
+		}
+		internal Token(IJsonToken json)
+			: this(json.Id)
+		{
+			_context.Merge(json);
+		}
+
+		public void Delete()
+		{
+			if (_deleted) return;
+
+			_context.Delete();
+			_deleted = true;
+			TrelloConfiguration.Cache.Remove(this);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

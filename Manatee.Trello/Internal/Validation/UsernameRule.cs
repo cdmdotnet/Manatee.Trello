@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Manatee.Trello.Internal.Validation
@@ -42,8 +43,8 @@ namespace Manatee.Trello.Internal.Validation
 			var isValid = _regex.IsMatch(newValue);
 			if (isValid)
 			{
-				// TODO: search Trello for a member with this username. (Need search first)
-				//isValid = 
+				var search = new MemberSearch(newValue);
+				isValid &= search.Results == null || search.Results.All(o => o.Member.UserName != newValue);
 			}
 			return isValid
 					   ? "Value must consist of at least three lowercase letters, number, or underscores and must be unique on Trello."

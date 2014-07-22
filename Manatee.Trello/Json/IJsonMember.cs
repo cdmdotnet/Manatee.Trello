@@ -93,5 +93,6 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the types of message which are dismissed for the member.
 		/// </summary>
 		List<string> OneTimeMessagesDismissed { get; set; }
+		int? Similarity { get; set; }
 	}
 }

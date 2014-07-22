@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal.Synchronization;
+﻿using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
@@ -19,7 +20,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			foreach (var jsonPreview in _context.Data.Previews)
 			{
-				var preview = TrelloConfiguration.Cache.Find<AttachmentPreview>(ap => ap.Id == jsonPreview.Id) ?? new AttachmentPreview(jsonPreview);
+				var preview = jsonPreview.GetFromCache<AttachmentPreview>();
 				Items.Add(preview);
 			}
 		}

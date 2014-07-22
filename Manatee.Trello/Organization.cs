@@ -31,7 +31,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class Organization : ICanWebhook
+	public class Organization : ICanWebhook, IQueryable
 	{
 		private readonly Field<string> _description;
 		private readonly Field<string> _displayName;

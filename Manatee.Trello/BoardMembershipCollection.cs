@@ -21,10 +21,8 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;

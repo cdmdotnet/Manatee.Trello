@@ -37,7 +37,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonCard>>
 				{
 					{
-						"Board", new Property<IJsonCard, Board>(d => d.Board == null ? null : TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.Board.Id) ?? new Board(d.Board, true),
+						"Board", new Property<IJsonCard, Board>(d => d.Board == null ? null : d.Board.GetFromCache<Board>(),
 						                                        (d, o) => d.Board = o == null ? null : o.Json)
 					},
 					{"Description", new Property<IJsonCard, string>(d => d.Desc, (d, o) => d.Desc = o)},
@@ -47,7 +47,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"IsSubscribed", new Property<IJsonCard, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
 					{"LastActivity", new Property<IJsonCard, DateTime?>(d => d.DateLastActivity, (d, o) => d.DateLastActivity = o)},
 					{
-						"List", new Property<IJsonCard, List>(d => d.List == null ? null : TrelloConfiguration.Cache.Find<List>(l => l.Id == d.List.Id) ?? new List(d.List, true),
+						"List", new Property<IJsonCard, List>(d => d.List == null ? null : d.List.GetFromCache<List>(),
 						                                      (d, o) => d.List = o == null ? null : o.Json)
 					},
 					{"Name", new Property<IJsonCard, string>(d => d.Name, (d, o) => d.Name = o)},

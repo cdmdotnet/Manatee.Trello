@@ -23,13 +23,14 @@
 
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class Attachment
+	public class Attachment : ICacheable
 	{
 		private readonly Field<int?> _bytes;
 		private readonly Field<DateTime?> _date;

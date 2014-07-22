@@ -14,33 +14,19 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		AttachmentPreview.cs
-	Namespace:		Manatee.Trello
-	Class Name:		AttachmentPreview
-	Purpose:		Represents a preview for an attachment on a card.
+	File Name:		ICacheable.cs
+	Namespace:		Manatee.Trello.Contracts
+	Class Name:		ICacheable
+	Purpose:		Defines properties which are required to cache an object.
 
 ***************************************************************************************/
 
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Json;
-
-namespace Manatee.Trello
+namespace Manatee.Trello.Contracts
 {
-	public class AttachmentPreview : ICacheable
+	public interface ICacheable
 	{
-		public string Id { get; private set; }
-		public int? Height { get; private set; }
-		public bool? IsScaled { get; set; }
-		public string Url { get; private set; }
-		public int? Width { get; private set; }
-
-		internal AttachmentPreview(IJsonAttachmentPreview json)
-		{
-			Id = json.Id;
-			Height = json.Height;
-			IsScaled = json.Scaled;
-			Url = json.Url;
-			Width = json.Width;
-		}
+		string Id { get; } 
 	}
+
+	public interface IQueryable : ICacheable {}
 }

@@ -29,15 +29,12 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var board = new Board("asdaweae");
-			Console.WriteLine(board.Name);
-			foreach (var list in board.Lists)
+			var search = new MemberSearch("jason");
+
+			foreach (var result in search.Results)
 			{
-				Console.WriteLine(list.Name);
-				foreach (var card in list.Cards)
-				{
-					Console.WriteLine(card.Name);
-				}
+				Console.WriteLine(result.Member.FullName);
+				Console.WriteLine(result.Similarity);
 			}
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);

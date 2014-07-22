@@ -45,8 +45,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						"Organization", new Property<IJsonBoard, Organization>(d => d.Organization == null
 							                                                            ? null
-							                                                            : TrelloConfiguration.Cache.Find<Organization>(b => b.Id == d.Organization.Id) ??
-							                                                              new Organization(d.Organization, true),
+							                                                            : d.Organization.GetFromCache<Organization>(),
 						                                                       (d, o) => d.Organization = o != null ? o.Json : null)
 					},
 					{"Url", new Property<IJsonBoard, string>(d => d.Url, (d, o) => d.Url = o)},

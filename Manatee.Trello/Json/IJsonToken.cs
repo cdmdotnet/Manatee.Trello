@@ -28,12 +28,8 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Token object.
 	/// </summary>
-	public interface IJsonToken
+	public interface IJsonToken : IJsonCacheable
 	{
-		/// <summary>
-		/// Gets or sets the ID of the token.
-		/// </summary>
-		string Id { get; set; }
 		/// <summary>
 		/// Gets or sets the identifier of the application which requested the token.
 		/// </summary>

@@ -41,7 +41,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{"AppName", new Property<IJsonToken, string>(d => d.Identifier, (d, o) => d.Identifier = o)},
 					{
-						"Member", new Property<IJsonToken, Member>(d => d.Member == null ? null : TrelloConfiguration.Cache.Find<Member>(b => b.Id == d.Member.Id) ?? new Member(d.Member, true),
+						"Member", new Property<IJsonToken, Member>(d => d.Member == null ? null : d.Member.GetFromCache<Member>(),
 						                                   (d, o) => d.Member = o != null ? o.Json : null)
 					},
 					{"DateCreated", new Property<IJsonToken, DateTime?>(d => d.DateCreated, (d, o) => d.DateCreated = o)},
@@ -65,6 +65,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			OrganizationPermissions.SynchronizeRequested += () => Synchronize();
 			OrganizationPermissions.SubmitRequested += ResetTimer;
 			Data.Permissions.Add(OrganizationPermissions.Data);
+		}
+
+		public void Delete()
+		{
+			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
 		}
 
 		protected override IJsonToken GetData()

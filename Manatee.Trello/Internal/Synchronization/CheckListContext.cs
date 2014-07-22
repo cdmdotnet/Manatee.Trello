@@ -11,11 +11,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonCheckList>>
 				{
 					{
-						"Board", new Property<IJsonCheckList, Board>(d => TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.Board.Id) ?? new Board(d.Board.Id),
+						"Board", new Property<IJsonCheckList, Board>(d => d.Board.GetFromCache<Board>(),
 						                                             (d, o) => d.Board = o != null ? (o).Json : null)
 					},
 					{
-						"Card", new Property<IJsonCheckList, Card>(d => TrelloConfiguration.Cache.Find<Card>(b => b.Id == d.Card.Id) ?? new Card(d.Card.Id),
+						"Card", new Property<IJsonCheckList, Card>(d => d.Card.GetFromCache<Card>(),
 						                                           (d, o) => d.Card = o != null ? (o).Json : null)
 					},
 					{"Id", new Property<IJsonCheckList, string>(d => d.Id, (d, o) => d.Id = o)},

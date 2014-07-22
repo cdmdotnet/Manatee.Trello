@@ -150,10 +150,8 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var property = _properties[propertyName];
 				var newValue = property.Get(json);
-				var oldValue = property.Get(Data);
-				if (!Equals(newValue, oldValue))
-					propertyNames.Add(propertyName);
 				property.Set(Data, newValue);
+				propertyNames.Add(propertyName);
 			}
 			return propertyNames.Concat(MergeDependencies(json));
 		}

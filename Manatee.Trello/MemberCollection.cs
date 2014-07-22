@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -29,7 +28,7 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonMember>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<Member>(c => c.Id == jc.Id) ?? new Member(jc, true)));
+			Items.AddRange(newData.Select(jc => jc.GetFromCache<Member>()));
 		}
 	}
 

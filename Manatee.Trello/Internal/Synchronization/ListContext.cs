@@ -34,7 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonList>>
 				{
 					{
-						"Board", new Property<IJsonList, Board>(d => d.Board == null ? null : TrelloConfiguration.Cache.Find<Board>(b => b.Id == d.Board.Id) ?? new Board(d.Board, true),
+						"Board", new Property<IJsonList, Board>(d => d.Board == null ? null : d.Board.GetFromCache<Board>(),
 						                                        (d, o) => { if (o != null) d.Board = o.Json; })
 					},
 					{"Id", new Property<IJsonList, string>(d => d.Id, (d, o) => d.Id = o)},

@@ -23,13 +23,14 @@
 
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class Action
+	public class Action : ICacheable
 	{
 		private readonly Field<Member> _creator;
 		private readonly Field<DateTime?> _date;
@@ -41,6 +42,8 @@ namespace Manatee.Trello
 		public DateTime? Date { get { return _date.Value; } }
 		public string Id { get; private set; }
 		public ActionType Type { get { return _type.Value; } }
+
+		internal IJsonAction Json { get { return _context.Data; } }
 
 		public event Action<Action, IEnumerable<string>> Updated;
 

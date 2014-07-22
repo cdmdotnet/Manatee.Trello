@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -30,7 +31,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class BoardMembership
+	public class BoardMembership : ICacheable
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<BoardMembershipType> _memberType;
