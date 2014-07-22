@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IJsonSearchResults.cs
+	File Name:		IJsonSearch.cs
 	Namespace:		Manatee.Trello.Json
-	Class Name:		IJsonSearchResults
-	Purpose:		Defines the JSON structure for the SearchResults object.
+	Class Name:		IJsonSearch
+	Purpose:		Defines the JSON structure for the Search object.
 
 ***************************************************************************************/
 using System.Collections.Generic;
@@ -25,30 +25,32 @@ using System.Collections.Generic;
 namespace Manatee.Trello.Json
 {
 	/// <summary>
-	/// Defines the JSON structure for the SearchResults object.
+	/// Defines the JSON structure for the Search object.
 	/// </summary>
-	public interface IJsonSearchResults
+	public interface IJsonSearch
 	{
-		// TODO: Implment search
 		/// <summary>
 		/// Lists the IDs of actions which match the query.
 		/// </summary>
-		List<string> ActionIds { get; set; }
+		List<IJsonAction> Actions { get; set; }
 		/// <summary>
 		/// Lists the IDs of boards which match the query.
 		/// </summary>
-		List<string> BoardIds { get; set; }
+		List<IJsonBoard> Boards { get; set; }
 		/// <summary>
 		/// Lists the IDs of cards which match the query.
 		/// </summary>
-		List<string> CardIds { get; set; }
+		List<IJsonCard> Cards { get; set; }
 		/// <summary>
 		/// Lists the IDs of members which match the query.
 		/// </summary>
-		List<string> MemberIds { get; set; }
+		List<IJsonMember> Members { get; set; }
 		/// <summary>
 		/// Lists the IDs of organizations which match the query.
 		/// </summary>
-		List<string> OrganizationIds { get; set; }
+		List<IJsonOrganization> Organizations { get; set; }
+		string Query { get; set; }
+		List<IJsonCacheable> Context { get; set; }
+		SearchModelType Types { get; set; }
 	}
 }

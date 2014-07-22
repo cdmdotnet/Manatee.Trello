@@ -18,6 +18,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonMember, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"Initials", new Property<IJsonMember, string>(d => d.Initials, (d, o) => d.Initials = o)},
 					{"IsConfirmed", new Property<IJsonMember, bool?>(d => d.Confirmed, (d, o) => d.Confirmed = o)},
+					{"Similarity", new Property<IJsonMember, int?>(d => d.Similarity, (d, o) => d.Similarity = o)},
 					{"Status", new Property<IJsonMember, MemberStatus>(d => d.Status, (d, o) => d.Status = o)},
 					{"Trophies", new Property<IJsonMember, List<string>>(d => d.Trophies, (d, o) => d.Trophies = o == null ? null : o.ToList())},
 					{"Url", new Property<IJsonMember, string>(d => d.Url, (d, o) => d.Url = o)},

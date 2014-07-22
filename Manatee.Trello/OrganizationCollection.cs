@@ -17,7 +17,7 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonOrganization>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<Organization>(c => c.Id == jc.Id) ?? new Organization(jc, true)));
+			Items.AddRange(newData.Select(jc => jc.GetFromCache<Organization>()));
 		}
 	}
 

@@ -40,7 +40,7 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonCheckList>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<CheckList>(b => b.Id == jc.Id) ?? new CheckList(jc, true)));
+			Items.AddRange(newData.Select(jc => jc.GetFromCache<CheckList>()));
 		}
 	}
 

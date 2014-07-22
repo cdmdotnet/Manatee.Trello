@@ -31,7 +31,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class Board : ICanWebhook
+	public class Board : ICanWebhook, IQueryable
 	{
 		private readonly Field<string> _description;
 		private readonly Field<bool?> _isClosed;
@@ -85,7 +85,7 @@ namespace Manatee.Trello
 		public Board(string id)
 			: this(id, true) {}
 		internal Board(IJsonBoard json, bool cache)
-			: this(json.Id, false)
+			: this(json.Id, cache)
 		{
 			_context.Merge(json);
 		}

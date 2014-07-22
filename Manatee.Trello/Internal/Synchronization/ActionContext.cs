@@ -14,7 +14,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonAction>>
 				{
 					{
-						"Creator", new Property<IJsonAction, Member>(d => TrelloConfiguration.Cache.Find<Member>(m => m.Id == d.MemberCreator.Id) ?? new Member(d.MemberCreator, true),
+						"Creator", new Property<IJsonAction, Member>(d => d.MemberCreator.GetFromCache<Member>(),
 						                                             (d, o) => d.MemberCreator = o.Json)
 					},
 					{"Date", new Property<IJsonAction, DateTime?>(d => d.Date, (d, o) => d.Date = o)},

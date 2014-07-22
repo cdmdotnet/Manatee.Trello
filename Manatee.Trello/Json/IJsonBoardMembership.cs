@@ -25,12 +25,8 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the BoardMembership object.
 	/// </summary>
-	public interface IJsonBoardMembership
+	public interface IJsonBoardMembership : IJsonCacheable
 	{
-		/// <summary>
-		/// Gets or sets a unique identifier (not necessarily a GUID).
-		/// </summary>
-		string Id { get; set; }
 		///<summary>
 		/// Gets or sets the ID of the member.
 		///</summary>

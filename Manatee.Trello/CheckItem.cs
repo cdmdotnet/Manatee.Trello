@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -7,7 +8,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class CheckItem
+	public class CheckItem : ICacheable
 	{
 		private readonly Field<CheckList> _checkList;
 		private readonly Field<string> _name;

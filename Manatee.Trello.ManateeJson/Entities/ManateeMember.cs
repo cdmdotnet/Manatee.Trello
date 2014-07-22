@@ -47,6 +47,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public List<string> Trophies { get; set; }
 		public string UploadedAvatarHash { get; set; }
 		public List<string> OneTimeMessagesDismissed { get; set; }
+		public int? Similarity { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -71,6 +72,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Trophies = obj.Deserialize<List<string>>(serializer, "trophies");
 					UploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
 					OneTimeMessagesDismissed = obj.Deserialize<List<string>>(serializer, "oneTimeMessagesDismissed");
+					Similarity = (int?) obj.TryGetNumber("similarity");
 					break;
 				case JsonValueType.String:
 					Id = json.String;

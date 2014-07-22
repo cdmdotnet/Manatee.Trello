@@ -68,6 +68,7 @@
     <Compile Include="Entities\ManateeList.cs" />
     <Compile Include="Entities\ManateeMember.cs" />
     <Compile Include="Entities\ManateeMemberPreferences.cs" />
+    <Compile Include="Entities\ManateeMemberSearch.cs" />
     <Compile Include="Entities\ManateeMemberSession.cs" />
     <Compile Include="Entities\ManateeNotification.cs" />
     <Compile Include="Entities\ManateeNotificationData.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Entities\ManateeOrganizationMembership.cs" />
     <Compile Include="Entities\ManateeOrganizationPreferences.cs" />
     <Compile Include="Entities\ManateeParameter.cs" />
-    <Compile Include="Entities\ManateeSearchResults.cs" />
+    <Compile Include="Entities\ManateeSearch.cs" />
     <Compile Include="Entities\ManateeToken.cs" />
     <Compile Include="Entities\ManateeTokenPermission.cs" />
     <Compile Include="Entities\ManateeWebhook.cs" />

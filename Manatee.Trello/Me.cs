@@ -55,6 +55,12 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_Me);
 			_myJson = JsonRepository.Execute<IJsonMember>(TrelloAuthorization.Default, endpoint);
+
+			// If this object exists in the cache already as a regular Member, it needs to be replaced.
+			var meAsMember = TrelloConfiguration.Cache.Find<Member>(m => m.Id == _myJson.Id);
+			if (meAsMember != null)
+				TrelloConfiguration.Cache.Remove(meAsMember);
+
 			return _myJson.Id;
 		}
 	}

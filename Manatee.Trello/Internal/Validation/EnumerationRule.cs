@@ -44,7 +44,7 @@ namespace Manatee.Trello.Internal.Validation
 		{
 			var validValues = Enum.GetValues(typeof(T)).Cast<T>();
 			return !validValues.Contains(newValue)
-					   ? string.Format("{0} is not defined in type {1}", newValue, typeof(T).Name)
+					   ? string.Format("{0} is not defined in type {1}.", newValue, typeof(T).Name)
 				       : null;
 		}
 	}

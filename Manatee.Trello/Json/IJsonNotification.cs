@@ -29,7 +29,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonNotification : IJsonCacheable
 	{
-		// TODO: Implment notifications
+		// TODO: Implement notifications
 		/// <summary>
 		/// Gets or sets whether the notification has been read.
 		/// </summary>

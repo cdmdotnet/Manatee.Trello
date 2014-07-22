@@ -25,7 +25,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the AttachmentPreview object.
 	/// </summary>
-	public interface IJsonAttachmentPreview
+	public interface IJsonAttachmentPreview : IJsonCacheable
 	{
 		///<summary>
 		/// Gets or sets the width in pixels of the attachment preview.
@@ -39,10 +39,6 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the attachment storage location.
 		///</summary>
 		string Url { get; set; }
-		///<summary>
-		/// Gets or sets the ID of the attachment preview.
-		///</summary>
-		string Id { get; set; }
 		bool? Scaled { get; set; }
 	}
 }

@@ -39,7 +39,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Bytes", new Property<IJsonAttachment, int?>(d => d.Bytes, (d, o) => d.Bytes = o)},
 					{"Date", new Property<IJsonAttachment, DateTime?>(d => d.Date, (d, o) => d.Date = o)},
 					{
-						"Member", new Property<IJsonAttachment, Member>(d => d.Member == null ? null : TrelloConfiguration.Cache.Find<Member>(b => b.Id == d.Member.Id) ?? new Member(d.Member, true),
+						"Member", new Property<IJsonAttachment, Member>(d => d.Member == null ? null : d.Member.GetFromCache<Member>(),
 						                                                (d, o) => d.Member = o != null ? o.Json : null)
 					},
 					{"Id", new Property<IJsonAttachment, string>(d => d.Id, (d, o) => d.Id = o)},

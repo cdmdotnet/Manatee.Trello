@@ -58,7 +58,7 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonAction>>(TrelloAuthorization.Default, endpoint).Where(Filter);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<Action>(b => b.Id == jc.Id) ?? new Action(jc)));
+			Items.AddRange(newData.Select(jc => jc.GetFromCache<Action>()));
 		}
 		protected virtual bool Filter(IJsonAction action)
 		{

@@ -15,7 +15,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonOrganizationMembership, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"IsUnconfirmed", new Property<IJsonOrganizationMembership, bool?>(d => d.Unconfirmed, (d, o) => d.Unconfirmed = o)},
 					{
-						"Member", new Property<IJsonOrganizationMembership, Member>(d => TrelloConfiguration.Cache.Find<Member>(b => b.Id == d.Member.Id) ?? new Member(d.Member, true),
+						"Member", new Property<IJsonOrganizationMembership, Member>(d => d.Member.GetFromCache<Member>(),
 						                                                    (d, o) => d.Member = o != null ? o.Json : null)
 					},
 					{"MemberType", new Property<IJsonOrganizationMembership, OrganizationMembershipType>(d => d.MemberType, (d, o) => d.MemberType = o)},
