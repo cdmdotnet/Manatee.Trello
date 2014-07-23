@@ -62,9 +62,12 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		bool? PaidAccount { get; set; }
 		/// <summary>
+		/// Gets or sets a set of preferences for the organization.
+		/// </summary>
+		IJsonOrganizationPreferences Prefs { get; set; }
+		/// <summary>
 		/// Gets or sets a collection of premium features available to the organization.
 		/// </summary>
 		List<string> PremiumFeatures { get; set; }
-		IJsonOrganizationPreferences Prefs { get; set; }
 	}
 }

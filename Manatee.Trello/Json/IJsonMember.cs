@@ -29,6 +29,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonMember : IJsonCacheable
 	{
+		// TODO: Implement missing member properties.
 		/// <summary>
 		/// Gets or sets the member's avatar hash.
 		/// </summary>
@@ -93,6 +94,9 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the types of message which are dismissed for the member.
 		/// </summary>
 		List<string> OneTimeMessagesDismissed { get; set; }
+		/// <summary>
+		/// Gets or sets the similarity of the member to a search query.
+		/// </summary>
 		int? Similarity { get; set; }
 	}
 }

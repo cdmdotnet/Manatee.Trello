@@ -22,7 +22,6 @@
 
 ***************************************************************************************/
 
-using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.RestSharp
@@ -34,7 +33,6 @@ namespace Manatee.Trello.RestSharp
 	public class RestSharpClientProvider : IRestClientProvider
 	{
 		private RestSharpRequestProvider _requestProvider;
-
 		private RestSharpSerializer _serializer;
 		private RestSharpDeserializer _deserializer;
 		
@@ -44,35 +42,6 @@ namespace Manatee.Trello.RestSharp
 		public IRestRequestProvider RequestProvider
 		{
 			get { return _requestProvider ?? (_requestProvider = new RestSharpRequestProvider(VerifySerializer())); }
-		}
-
-		/// <summary>
-		/// Gets and sets the JSON serializer for the client to use.
-		/// </summary>
-		public ISerializer Serializer
-		{
-			get
-			{
-				return VerifySerializer().Inner;
-			}
-			set
-			{
-				_serializer = new RestSharpSerializer(value ?? TrelloConfiguration.Serializer);
-			}
-		}
-		/// <summary>
-		/// Gets and sets the JSON deserializer for the client to use.
-		/// </summary>
-		public IDeserializer Deserializer
-		{
-			get
-			{
-				return VerifyDeserializer().Inner;
-			}
-			set
-			{
-				_deserializer = new RestSharpDeserializer(value ?? TrelloConfiguration.Deserializer);
-			}
 		}
 
 		/// <summary>

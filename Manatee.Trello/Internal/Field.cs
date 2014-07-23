@@ -68,6 +68,7 @@ namespace Manatee.Trello.Internal
 		{
 			var errors = _rules.Select(r => r.Validate(CurrentValue, value)).Where(s => s != null).ToList();
 			if (errors.Any())
+				// TODO: make an exception type for this.
 				throw new Exception(string.Format("'{0}' is not a valid value:\n - {1}", value, errors.Join("\n - ")));
 		}
 	}

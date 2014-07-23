@@ -26,12 +26,30 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a preview for an attachment on a card.
+	/// </summary>
 	public class AttachmentPreview : ICacheable
 	{
-		public string Id { get; private set; }
+		/// <summary>
+		/// Gets the preview's height in pixels.
+		/// </summary>
 		public int? Height { get; private set; }
+		/// <summary>
+		/// Gets the preview's ID.
+		/// </summary>
+		public string Id { get; private set; }
+		/// <summary>
+		/// Gets whether the attachment was scaled to generate the preview.
+		/// </summary>
 		public bool? IsScaled { get; set; }
+		/// <summary>
+		/// Gets the URI where the preview data is stored.
+		/// </summary>
 		public string Url { get; private set; }
+		/// <summary>
+		/// Gets the preview's width in pixels.
+		/// </summary>
 		public int? Width { get; private set; }
 
 		internal AttachmentPreview(IJsonAttachmentPreview json)

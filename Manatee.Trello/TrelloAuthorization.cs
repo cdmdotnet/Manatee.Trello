@@ -26,8 +26,12 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Contains authorization tokens needed to connect to trello.com.
 	/// </summary>
+	// TODO: Make TrelloAuthorization a static class.
 	public class TrelloAuthorization
 	{
+		/// <summary>
+		/// Gets the default authorization.
+		/// </summary>
 		public static TrelloAuthorization Default { get; private set; }
 
 		/// <summary>
@@ -42,16 +46,6 @@ namespace Manatee.Trello
 		static TrelloAuthorization()
 		{
 			Default = new TrelloAuthorization();
-		}
-		/// <summary>
-		/// Creates a new instance of the TrelloAuthorization class.
-		/// </summary>
-		/// <param name="appKey">The application key.</param>
-		/// <param name="userToken">The user token.</param>
-		public TrelloAuthorization(string appKey, string userToken = null)
-		{
-			AppKey = appKey;
-			UserToken = userToken;
 		}
 		private TrelloAuthorization() {}
 	}

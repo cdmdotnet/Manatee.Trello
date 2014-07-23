@@ -31,6 +31,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a list.
+	/// </summary>
 	public class List : ICanWebhook, ICacheable
 	{
 		private readonly Field<Board> _board;
@@ -40,29 +43,53 @@ namespace Manatee.Trello
 		private readonly Field<Position> _position;
 		private readonly ListContext _context;
 
+		/// <summary>
+		/// Gets the collection of actions performed on the list.
+		/// </summary>
 		public ReadOnlyActionCollection Actions { get; private set; }
+		/// <summary>
+		/// Gets or sets the board on which the list belongs.
+		/// </summary>
 		public Board Board
 		{
 			get { return _board.Value; }
 			set { _board.Value = value; }
 		}
+		/// <summary>
+		/// Gets the collection of cards contained in the list.
+		/// </summary>
 		public CardCollection Cards { get; private set; }
+		/// <summary>
+		/// Gets the list's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets or sets whether the list is archived.
+		/// </summary>
 		public bool? IsArchived
 		{
 			get { return _isArchived.Value; }
 			set { _isArchived.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets whether the current member is subscribed to the list.
+		/// </summary>
 		public bool? IsSubscribed
 		{
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
 		}
+		/// <summary>
+		/// Gets the list's name.
+		/// </summary>
 		public string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
 		}
+		/// <summary>
+		/// Gets the list's position.
+		/// </summary>
 		public Position Position
 		{
 			get { return _position.Value; }
@@ -71,8 +98,15 @@ namespace Manatee.Trello
 
 		internal IJsonList Json { get { return _context.Data; } }
 
+		/// <summary>
+		/// Raised when data on the list is updated.
+		/// </summary>
 		public event Action<List, IEnumerable<string>> Updated;
 
+		/// <summary>
+		/// Creates a new instance of the <see cref="List"/> object.
+		/// </summary>
+		/// <param name="id">The list's ID.</param>
 		public List(string id)
 			: this(id, true) {}
 		internal List(IJsonList json, bool cache)
@@ -104,6 +138,10 @@ namespace Manatee.Trello
 				TrelloConfiguration.Cache.Add(this);
 		}
 
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
 		void ICanWebhook.ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;

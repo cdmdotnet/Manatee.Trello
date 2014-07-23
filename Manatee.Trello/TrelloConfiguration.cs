@@ -22,7 +22,7 @@
 ***************************************************************************************/
 using System;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.ExceptionHandling;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
@@ -30,7 +30,7 @@ using Manatee.Trello.Rest;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Exposes a set of run-time options for all automatically-refreshing objects.
+	/// Exposes a set of run-time options for Manatee.Trello.
 	/// </summary>
 	public static class TrelloConfiguration
 	{
@@ -39,14 +39,19 @@ namespace Manatee.Trello
 		private static IDeserializer _deserializer;
 		private static IRestClientProvider _restClientProvider;
 		private static ICache _cache;
+		private static IJsonFactory _jsonFactory;
 
 		/// <summary>
-		/// Specifies the serializer which is used the first time a request is made from
-		/// a given instance of the TrelloService class.
+		/// Specifies the serializer for the REST client.
 		/// </summary>
 		public static ISerializer Serializer
 		{
-			get { return _serializer; }
+			get
+			{
+				if (_serializer == null)
+					throw new InvalidOperationException("TrelloConfiguration.Serializer must be set before creating Trello objects.");
+				return _serializer;
+			}
 			set
 			{
 				if (value == null)
@@ -55,12 +60,16 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
-		/// Specifies the deserializer which is used the first time a request is made from
-		/// a given instance of the TrelloService class.
+		/// Specifies the deserializer for the REST client.
 		/// </summary>
 		public static IDeserializer Deserializer
 		{
-			get { return _deserializer; }
+			get
+			{
+				if (_deserializer == null)
+					throw new InvalidOperationException("TrelloConfiguration.Deserializer must be set before creating Trello objects.");
+				return _deserializer;
+			}
 			set
 			{
 				if (value == null)
@@ -69,12 +78,16 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
-		/// Specifies the REST client provider which is used the first time a request is made from
-		/// a given instance of the TrelloService class.
+		/// Specifies the REST client provider.
 		/// </summary>
 		public static IRestClientProvider RestClientProvider
 		{
-			get { return _restClientProvider; }
+			get
+			{
+				if (_restClientProvider == null)
+					throw new InvalidOperationException("TrelloConfiguration.RestClientProvider must be set before creating Trello objects.");
+				return _restClientProvider;
+			}
 			set
 			{
 				if (value == null)
@@ -83,7 +96,7 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
-		/// Provides a cache for TrelloService.  Defaults to TrelloServiceConfiguration.GlobalCache.
+		/// Provides a cache to manage all Trello objects.
 		/// </summary>
 		public static ICache Cache
 		{
@@ -91,18 +104,33 @@ namespace Manatee.Trello
 			set { _cache = value; }
 		}
 		/// <summary>
-		/// Provides logging for all of Manatee.Trello.  The default log only writes to the Debug window.
+		/// Provides logging for Manatee.Trello.  The default log only writes to the Debug window.
 		/// </summary>
 		public static ILog Log
 		{
 			get { return _log ?? (_log = new DebugLog()); }
 			set { _log = value ?? new DebugLog(); }
 		}
-		public static IJsonFactory JsonFactory { get; set; }
 		/// <summary>
-		/// Specifies whether the service should throw an exception when an error is received from Trello.
+		/// Provides a factory which is used to create instances of JSON objects.
+		/// </summary>
+		public static IJsonFactory JsonFactory
+		{
+			get
+			{
+				if (_jsonFactory == null)
+					throw new InvalidOperationException("TrelloConfiguration.JsonFactory must be set before creating Trello objects.");
+				return _jsonFactory;
+			}
+			set { _jsonFactory = value; }
+		}
+		/// <summary>
+		/// Specifies whether the service should throw an exception when an error is received from Trello.  Default is true.
 		/// </summary>
 		public static bool ThrowOnTrelloError { get; set; }
+		/// <summary>
+		/// Specifies a length of time after which each Trello object will be marked as expired. Default is 30 seconds.
+		/// </summary>
 		public static TimeSpan ExpiryTime { get; set; }
 
 		static TrelloConfiguration()

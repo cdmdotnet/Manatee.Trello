@@ -31,6 +31,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the permission level a member has on a board.
+	/// </summary>
 	public class BoardMembership : ICacheable
 	{
 		private readonly Field<Member> _member;
@@ -38,15 +41,30 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _isDeactivated;
 		private readonly BoardMembershipContext _context;
 
+		/// <summary>
+		/// Gets the membership definition's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets whether the member has accepted the invitation to join Trello.
+		/// </summary>
 		public bool? IsDeactivated { get { return _isDeactivated.Value; } }
+		/// <summary>
+		/// Gets the member.
+		/// </summary>
 		public Member Member { get { return _member.Value; } }
+		/// <summary>
+		/// Gets the membership's permission level.
+		/// </summary>
 		public BoardMembershipType MemberType
 		{
 			get { return _memberType.Value; }
 			set { _memberType.Value = value; }
 		}
 
+		/// <summary>
+		/// Raised when data on the membership is updated.
+		/// </summary>
 		public event Action<BoardMembership, IEnumerable<string>> Updated;
 
 		internal BoardMembership(IJsonBoardMembership json, string ownerId)

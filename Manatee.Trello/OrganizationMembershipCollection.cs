@@ -14,26 +14,31 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		BoardMembershipCollection.cs
+	File Name:		OrganizationMembershipCollection.cs
 	Namespace:		Manatee.Trello
-	Class Name:		BoardMembershipCollection
-	Purpose:		Represents a collection of board memberships.
+	Class Name:		ReadOnlyOrganizationMembershipCollection, OrganizationMembershipCollection
+	Purpose:		Collection objects for organization memberships.
 
 ***************************************************************************************/
 
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of organization memberships.
+	/// </summary>
 	public class ReadOnlyOrganizationMembershipCollection : ReadOnlyCollection<OrganizationMembership>
 	{
 		internal ReadOnlyOrganizationMembershipCollection(string ownerId)
 			: base(ownerId) {}
 
+		/// <summary>
+		/// Implement to provide data to the collection.
+		/// </summary>
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Memberships, new Dictionary<string, object> { { "_id", OwnerId } });
@@ -44,11 +49,19 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of organization memberships.
+	/// </summary>
 	public class OrganizationMembershipCollection : ReadOnlyOrganizationMembershipCollection
 	{
 		internal OrganizationMembershipCollection(string ownerId)
 			: base(ownerId) {}
 
+		/// <summary>
+		/// Adds a member to an organization with specified privileges.
+		/// </summary>
+		/// <param name="member">The member to add.</param>
+		/// <param name="membership">The membership type.</param>
 		public void Add(Member member, OrganizationMembershipType membership)
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonOrganizationMembership>();
@@ -58,6 +71,10 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
+		/// <summary>
+		/// Removes a member from an organization.
+		/// </summary>
+		/// <param name="member">The member to remove.</param>
 		public void Remove(Member member)
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();

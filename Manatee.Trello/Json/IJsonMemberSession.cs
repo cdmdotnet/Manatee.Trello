@@ -29,6 +29,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonMemberSession
 	{
+		// TODO: Implement member sessions.
 		/// <summary>
 		/// Gets or sets whether this session is active.
 		/// </summary>

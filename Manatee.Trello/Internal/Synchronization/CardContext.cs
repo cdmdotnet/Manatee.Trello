@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 

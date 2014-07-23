@@ -27,17 +27,53 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonActionData
 	{
+		/// <summary>
+		/// Gets or sets an attachment associated with the action if any.
+		/// </summary>
 		IJsonAttachment Attachment { get; set; }
+		/// <summary>
+		/// Gets or sets a board associated with the action if any.
+		/// </summary>
 		IJsonBoard Board { get; set; }
+		/// <summary>
+		/// Gets or sets a card associated with the action if any.
+		/// </summary>
 		IJsonCard Card { get; set; }
+		/// <summary>
+		/// Gets or sets a check item associated with the action if any.
+		/// </summary>
 		IJsonCheckItem CheckItem { get; set; }
+		/// <summary>
+		/// Gets or sets a check list associated with the action if any.
+		/// </summary>
 		IJsonCheckList CheckList { get; set; }
+		/// <summary>
+		/// Gets or sets a list associated with the action if any.
+		/// </summary>
 		IJsonList List { get; set; }
+		/// <summary>
+		/// Gets or sets a destination list associated with the action if any.
+		/// </summary>
 		IJsonList ListAfter { get; set; }
+		/// <summary>
+		/// Gets or sets a source list associated with the action if any.
+		/// </summary>
 		IJsonList ListBefore { get; set; }
+		/// <summary>
+		/// Gets or sets a member associated with the action if any.
+		/// </summary>
 		IJsonMember Member { get; set; }
+		/// <summary>
+		/// Gets or sets an organization associated with the action if any.
+		/// </summary>
 		IJsonOrganization Org { get; set; }
+		/// <summary>
+		/// Gets or sets any previous data associated with the action.
+		/// </summary>
 		IJsonActionOldData Old { get; set; }
+		/// <summary>
+		/// Gets or sets text associated with the action if any.
+		/// </summary>
 		string Text { get; set; }
 	}
 }

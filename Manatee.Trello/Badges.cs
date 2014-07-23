@@ -27,6 +27,9 @@ using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a collection of badges which summarize the contents of a card.
+	/// </summary>
 	public class Badges
 	{
 		private readonly Field<int?> _attachments;
@@ -41,15 +44,45 @@ namespace Manatee.Trello
 		private readonly Field<int?> _votes;
 		private readonly BadgesContext _context;
 
+		/// <summary>
+		/// Gets the number of attachments on this card.
+		/// </summary>
 		public int? Attachments { get { return _attachments.Value; } }
+		/// <summary>
+		/// Gets the number of check items on this card.
+		/// </summary>
 		public int? CheckItems { get { return _checkItems.Value; } }
+		/// <summary>
+		/// Gets the number of check items on this card which are checked.
+		/// </summary>
 		public int? CheckItemsChecked { get { return _checkItemsChecked.Value; } }
+		/// <summary>
+		/// Gets the number of comments on this card.
+		/// </summary>
 		public int? Comments { get { return _comments.Value; } }
+		/// <summary>
+		/// Gets the due date for this card.
+		/// </summary>
 		public DateTime? DueDate { get { return _dueDate.Value; } }
+		/// <summary>
+		/// Gets some FogBugz information.
+		/// </summary>
 		public string FogBugz { get { return _fogBugz.Value; } }
+		/// <summary>
+		/// Gets whether this card has a description.
+		/// </summary>
 		public bool? HasDescription { get { return _hasDescription.Value; } }
+		/// <summary>
+		/// Gets whether the current member has voted for this card.
+		/// </summary>
 		public bool? HasVoted { get { return _hasVoted.Value; } }
+		/// <summary>
+		/// Gets whether the current member is subscribed to this card.
+		/// </summary>
 		public bool? IsSubscribed { get { return _isSubscribed.Value; } }
+		/// <summary>
+		/// Gets the number of votes for this card.
+		/// </summary>
 		public int? Votes { get { return _votes.Value; } }
 
 		internal Badges(BadgesContext context)

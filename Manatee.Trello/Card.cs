@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		Card2.cs
+	File Name:		Card.cs
 	Namespace:		Manatee.Trello
-	Class Name:		Card2
+	Class Name:		Card
 	Purpose:		Represents a card.
 
 ***************************************************************************************/
@@ -31,6 +31,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a card.
+	/// </summary>
 	public class Card : ICanWebhook, IQueryable
 	{
 		private readonly Field<Board> _board;
@@ -49,59 +52,135 @@ namespace Manatee.Trello
 
 		private bool _deleted;
 
+		/// <summary>
+		/// Gets the collection of actions performed on this card.
+		/// </summary>
 		public ReadOnlyActionCollection Actions { get; private set; }
+		/// <summary>
+		/// Gets the collection of attachments contained in the card.
+		/// </summary>
 		public AttachmentCollection Attachments { get; private set; }
+		/// <summary>
+		/// Gets the badges summarizing the content of the card.
+		/// </summary>
 		public Badges Badges { get; private set; }
+		/// <summary>
+		/// Gets the board to which the card belongs.
+		/// </summary>
 		public Board Board { get { return _board.Value; } }
+		/// <summary>
+		/// Gets the collection of checklists contained in the card.
+		/// </summary>
 		public CheckListCollection CheckLists { get; private set; }
+		/// <summary>
+		/// Gets the collection of comments made on the card.
+		/// </summary>
 		public CommentCollection Comments { get; private set; }
+		/// <summary>
+		/// Gets or sets the card's description.
+		/// </summary>
 		public string Description
 		{
 			get { return _description.Value; }
 			set { _description.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the card's due date.
+		/// </summary>
 		public DateTime? DueDate
 		{
 			get { return _dueDate.Value; }
 			set { _dueDate.Value = value; }
 		}
+		/// <summary>
+		/// Gets the card's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets or sets whether the card is archived.
+		/// </summary>
 		public bool? IsArchived
 		{
 			get { return _isArchived.Value; }
 			set { _isArchived.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets whether the current member is subscribed to the card.
+		/// </summary>
 		public bool? IsSubscribed
 		{
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
 		}
+		/// <summary>
+		/// Gets the collection of labels on the card.
+		/// </summary>
 		public LabelCollection Labels { get; private set; }
+		/// <summary>
+		/// Gets the most recent date of activity on the card.
+		/// </summary>
 		public DateTime? LastActivity { get { return _lastActivity.Value; } }
+		/// <summary>
+		/// Gets or sets the list to the card belongs.
+		/// </summary>
 		public List List
 		{
 			get { return _list.Value; }
 			set { _list.Value = value; }
 		}
+		/// <summary>
+		/// Gets the collection of members who are assigned to the card.
+		/// </summary>
 		public MemberCollection Members { get; private set; }
+		/// <summary>
+		/// Gets or sets the card's name.
+		/// </summary>
 		public string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the card's position.
+		/// </summary>
 		public Position Position
 		{
 			get { return _position.Value; }
 			set { _position.Value = value; }
 		}
+		/// <summary>
+		/// Gets the card's short ID.
+		/// </summary>
 		public int? ShortId { get { return _shortId.Value; } }
+		/// <summary>
+		/// Gets the card's short URL.
+		/// </summary>
+		/// <remarks>
+		/// Because this value does not change, it can be used as a permalink.
+		/// </remarks>
 		public string ShortUrl { get { return _shortUrl.Value; } }
+		/// <summary>
+		/// Gets the card's full URL.
+		/// </summary>
+		/// <remarks>
+		/// 
+		/// </remarks>
 		public string Url { get { return _url.Value; } }
 
 		internal IJsonCard Json { get { return _context.Data; } }
 
+		/// <summary>
+		/// Raised when data on the card is updated.
+		/// </summary>
 		public event Action<Card, IEnumerable<string>> Updated; 
 
+		/// <summary>
+		/// Creates a new instance of the <see cref="Card"/> object.
+		/// </summary>
+		/// <param name="id">The card's ID.</param>
+		/// <remarks>
+		/// The supplied ID can be either the full or short ID.
+		/// </remarks>
 		public Card(string id)
 			: this(id, true) {}
 		internal Card(IJsonCard json, bool cache)
@@ -146,11 +225,22 @@ namespace Manatee.Trello
 				TrelloConfiguration.Cache.Add(this);
 		}
 
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
 		void ICanWebhook.ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateCard || action.Data.Card == null || action.Data.Card.Id != Id) return;
 			_context.Merge(action.Data.Card.Json);
 		}
+		/// <summary>
+		/// Deletes the card.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
 		public void Delete()
 		{
 			if (_deleted) return;

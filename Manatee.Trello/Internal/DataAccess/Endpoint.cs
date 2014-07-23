@@ -15,18 +15,19 @@
 	   limitations under the License.
  
 	File Name:		Endpoint.cs
-	Namespace:		Manatee.Trello.Internal
+	Namespace:		Manatee.Trello.Internal.DataAccess
 	Class Name:		Endpoint
 	Purpose:		Represents a series of URL segments which together represent
 					a REST method in Trello's API.
 
 ***************************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Rest;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.DataAccess
 {
 	/// <summary>
 	/// Represents a series of URL segments which together represent a REST

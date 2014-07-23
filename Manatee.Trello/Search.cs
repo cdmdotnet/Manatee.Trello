@@ -17,7 +17,7 @@
 	File Name:		Search.cs
 	Namespace:		Manatee.Trello
 	Class Name:		Search
-	Purpose:		Represents a search.
+	Purpose:		Performs a search.
 
 ***************************************************************************************/
 
@@ -30,6 +30,9 @@ using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Performs a search.
+	/// </summary>
 	public class Search
 	{
 		private readonly Field<IEnumerable<Action>> _actions;
@@ -42,10 +45,25 @@ namespace Manatee.Trello
 		private readonly Field<SearchModelType> _modelTypes;
 		private readonly SearchContext _context;
 
+		/// <summary>
+		/// Gets the collection of actions returned by the search.
+		/// </summary>
 		public IEnumerable<Action> Actions { get { return _actions.Value; } }
+		/// <summary>
+		/// Gets the collection of boards returned by the search.
+		/// </summary>
 		public IEnumerable<Board> Boards { get { return _boards.Value; } }
+		/// <summary>
+		/// Gets the collection of cards returned by the search.
+		/// </summary>
 		public IEnumerable<Card> Cards { get { return _cards.Value; } }
+		/// <summary>
+		/// Gets the collection of members returned by the search.
+		/// </summary>
 		public IEnumerable<Member> Members { get { return _members.Value; } }
+		/// <summary>
+		/// Gets the collection of organizations returned by the search.
+		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return _organizations.Value; } }
 
 		private string Query
@@ -64,6 +82,12 @@ namespace Manatee.Trello
 			set { _modelTypes.Value = value; }
 		}
 
+		/// <summary>
+		/// Creates a new instance of the <see cref="Search"/> object and performs the search.
+		/// </summary>
+		/// <param name="query">The query.</param>
+		/// <param name="modelTypes">Optional - The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
+		/// <param name="context">Optional - A collection of queryable items to serve as a context in which to search.</param>
 		public Search(string query, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null)
 		{
 			_context = new SearchContext();

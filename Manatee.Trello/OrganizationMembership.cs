@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		BoardMembership.cs
+	File Name:		OrganizationMembership.cs
 	Namespace:		Manatee.Trello
-	Class Name:		BoardMembership
-	Purpose:		Represents the permission level a member has on a board.
+	Class Name:		OrganizationMembership
+	Purpose:		Represents the permission level a member has on an organization.
 
 ***************************************************************************************/
 
@@ -31,6 +31,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the permission level a member has on an organization.
+	/// </summary>
 	public class OrganizationMembership : ICacheable
 	{
 		private readonly Field<Member> _member;
@@ -38,15 +41,30 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _isDeactivated;
 		private readonly OrganizationMembershipContext _context;
 
+		/// <summary>
+		/// Gets the membership definition's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets whether the member has accepted the invitation to join Trello.
+		/// </summary>
 		public bool? IsDeactivated { get { return _isDeactivated.Value; } }
+		/// <summary>
+		/// Gets the member.
+		/// </summary>
 		public Member Member { get { return _member.Value; } }
+		/// <summary>
+		/// Gets the membership's permission level.
+		/// </summary>
 		public OrganizationMembershipType MemberType
 		{
 			get { return _memberType.Value; }
 			set { _memberType.Value = value; }
 		}
 
+		/// <summary>
+		/// Raised when data on the membership is updated.
+		/// </summary>
 		public event Action<OrganizationMembership, IEnumerable<string>> Updated;
 
 		internal OrganizationMembership(IJsonOrganizationMembership json, string ownerId)

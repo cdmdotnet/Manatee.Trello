@@ -49,8 +49,18 @@ namespace Manatee.Trello.Json
 		/// Lists the IDs of organizations which match the query.
 		/// </summary>
 		List<IJsonOrganization> Organizations { get; set; }
+		/// <summary>
+		/// Gets or sets the search query.
+		/// </summary>
 		string Query { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of boards, cards, and organizations within
+		/// which the search should run.
+		/// </summary>
 		List<IJsonCacheable> Context { get; set; }
+		/// <summary>
+		/// Gets or sets which types of objects should be returned.
+		/// </summary>
 		SearchModelType Types { get; set; }
 	}
 }

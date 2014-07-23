@@ -17,16 +17,20 @@
 	File Name:		ICanWebhook.cs
 	Namespace:		Manatee.Trello.Contracts
 	Class Name:		ICanWebhook
-	Purpose:		Simple interface for defining whether an entity supports webhooks.
+	Purpose:		Definines properties and methods required to support
+					webhooks.
 
 ***************************************************************************************/
 namespace Manatee.Trello.Contracts
 {
 	/// <summary>
-	/// Simple interface for defining whether an entity supports webhooks.
+	/// Definines properties and methods required to support webhooks.
 	/// </summary>
 	public interface ICanWebhook
 	{
+		/// <summary>
+		/// Gets the ID.
+		/// </summary>
 		string Id { get; }
 		/// <summary>
 		/// Applies the changes an action represents.

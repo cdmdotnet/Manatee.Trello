@@ -17,14 +17,20 @@
 	File Name:		IJsonParameter.cs
 	Namespace:		Manatee.Trello.Json
 	Class Name:		IJsonParameter
-	Purpose:		
+	Purpose:		Defines the JSON structure for a single-value parameter.
 
 ***************************************************************************************/
 
 namespace Manatee.Trello.Json
 {
+	/// <summary>
+	/// Defines the JSON structure for a single-value parameter.
+	/// </summary>
 	public interface IJsonParameter
 	{
+		/// <summary>
+		/// Gets or sets the parameter value;
+		/// </summary>
 		string Value { get; set; } 
 	}
 }

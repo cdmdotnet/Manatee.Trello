@@ -31,6 +31,10 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a webhook.
+	/// </summary>
+	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
 	public class Webhook<T>
 		where T : class, ICanWebhook
 	{
@@ -42,30 +46,54 @@ namespace Manatee.Trello
 
 		private bool _deleted;
 
+		/// <summary>
+		/// Gets or sets a callback URL for the webhook.
+		/// </summary>
 		public string CallBackUrl
 		{
 			get { return _callBackUrl.Value; }
 			set { _callBackUrl.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets a description for the webhook.
+		/// </summary>
 		public string Description
 		{
 			get { return _description.Value; }
 			set { _description.Value = value; }
 		}
+		/// <summary>
+		/// Gets the webhook's ID>
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets or sets whether the webhook is active.
+		/// </summary>
 		public bool? IsActive
 		{
 			get { return _isActive.Value; }
 			set { _isActive.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the webhook's target.
+		/// </summary>
 		public T Target
 		{
 			get { return _target.Value; }
 			set { _target.Value = value; }
 		}
 
+		/// <summary>
+		/// Raised when data on the webhook is updated.
+		/// </summary>
 		public event Action<Webhook<T>, IEnumerable<string>> Updated;
 
+		/// <summary>
+		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.
+		/// </summary>
+		/// <param name="target"></param>
+		/// <param name="description"></param>
+		/// <param name="callBackUrl"></param>
 		public Webhook(T target, string description, string callBackUrl)
 		{
 			_context = new WebhookContext<T>();
@@ -80,6 +108,10 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
+		/// <summary>
+		/// Creates a new instance of the <see cref="Webhook{T}"/> object for a webhook which has already been registered with Trello.
+		/// </summary>
+		/// <param name="id"></param>
 		public Webhook(string id)
 		{
 			Id = id;
@@ -101,6 +133,13 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
+		/// <summary>
+		/// Deletes the webhook.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
 		public void Delete()
 		{
 			if (_deleted) return;

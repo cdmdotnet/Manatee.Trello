@@ -39,6 +39,9 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the attachment storage location.
 		///</summary>
 		string Url { get; set; }
+		/// <summary>
+		/// Gets or sets whether the attachment was scaled to produce the preview.
+		/// </summary>
 		bool? Scaled { get; set; }
 	}
 }

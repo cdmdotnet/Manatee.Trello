@@ -24,7 +24,7 @@
 
 namespace Manatee.Trello.Internal.Validation
 {
-	public class OldValueNotNullOrWhiteSpaceRule : IValidationRule<string>
+	internal class OldValueNotNullOrWhiteSpaceRule : IValidationRule<string>
 	{
 		public static OldValueNotNullOrWhiteSpaceRule Instance { get; private set; }
 

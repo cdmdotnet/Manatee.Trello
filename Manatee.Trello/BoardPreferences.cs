@@ -17,7 +17,7 @@
 	File Name:		BoardPreferences.cs
 	Namespace:		Manatee.Trello
 	Class Name:		BoardPreferences
-	Purpose:		Represents the preferences of a board.
+	Purpose:		Represents the preferences for a board.
 
 ***************************************************************************************/
 
@@ -27,6 +27,9 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the preferences for a board.
+	/// </summary>
 	public class BoardPreferences
 	{
 		private readonly Field<BoardPermissionLevel> _permissionLevel;
@@ -37,31 +40,52 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _showCardCovers;
 		private BoardPreferencesContext _context;
 
+		/// <summary>
+		/// Gets or sets the general visibility of the board.
+		/// </summary>
 		public BoardPermissionLevel PermissionLevel
 		{
 			get { return _permissionLevel.Value; }
 			set { _permissionLevel.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets whether voting is enabled and which members are allowed
+		/// to vote. 
+		/// </summary>
 		public BoardVotingPermission Voting
 		{
 			get { return _voting.Value; }
 			set { _voting.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets whether commenting is enabled and which members are
+		/// allowed to add comments.
+		/// </summary>
 		public BoardCommentPermission Commenting
 		{
 			get { return _commenting.Value; }
 			set { _commenting.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets which members may invite others to the board.
+		/// </summary>
 		public BoardInvitationPermission Invitations
 		{
 			get { return _invitations.Value; }
 			set { _invitations.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets whether any Trello member may join the board themselves
+		/// or if an invitation must be sent.
+		/// </summary>
 		public bool? AllowSelfJoin
 		{
 			get { return _allowSelfJoin.Value; }
 			set { _allowSelfJoin.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets whether card covers are shown.
+		/// </summary>
 		public bool? ShowCardCovers
 		{
 			get { return _showCardCovers.Value; }

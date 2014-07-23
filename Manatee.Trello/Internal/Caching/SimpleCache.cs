@@ -15,18 +15,19 @@
 	   limitations under the License.
  
 	File Name:		SimpleCache.cs
-	Namespace:		Manatee.Trello.Internal
+	Namespace:		Manatee.Trello.Internal.Caching
 	Class Name:		SimpleCache
 	Purpose:		Simple implementation of the ICache interface.
 
 ***************************************************************************************/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Contracts;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.Caching
 {
 	internal class SimpleCache : ICache
 	{
@@ -45,16 +46,6 @@ namespace Manatee.Trello.Internal
 		public T Find<T>(Func<T, bool> match)
 		{
 			return _list.OfType<T>().FirstOrDefault(match);
-		}
-		public T Find<T>(Func<T, bool> match, Func<T> fetch)
-		{
-			T result = Find(match);
-			if (Equals(null, result))
-			{
-				result = fetch();
-				Add(result);
-			}
-			return result;
 		}
 		public void Remove(object obj)
 		{

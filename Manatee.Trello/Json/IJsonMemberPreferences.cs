@@ -27,6 +27,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonMemberPreferences
 	{
+		// TODO: Implement Member Preferences
 		/// <summary>
 		/// Enables/disables summary emails.
 		/// </summary>

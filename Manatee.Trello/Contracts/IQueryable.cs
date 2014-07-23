@@ -1,6 +1,6 @@
-/***************************************************************************************
+﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,23 +14,17 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonLabelNames.cs
-	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonLabelNames
-	Purpose:		Internal implementation of IJsonLabelNames.
+	File Name:		IQueryable.cs
+	Namespace:		Manatee.Trello.Contracts
+	Class Name:		IQueryable
+	Purpose:		Defines properties which are required to perform a search
+					within an object.
 
 ***************************************************************************************/
-using Manatee.Trello.Json;
-
-namespace Manatee.Trello.Internal.Json
+namespace Manatee.Trello.Contracts
 {
-	internal class InnerJsonLabelNames : IJsonLabelNames
-	{
-		public string Red { get; set; }
-		public string Orange { get; set; }
-		public string Yellow { get; set; }
-		public string Green { get; set; }
-		public string Blue { get; set; }
-		public string Purple { get; set; }
-	}
+	/// <summary>
+	/// Defines properties which are required to perform a search within an object.
+	/// </summary>
+	public interface IQueryable : ICacheable {}
 }
