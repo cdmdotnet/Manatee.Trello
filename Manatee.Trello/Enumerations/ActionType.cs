@@ -26,7 +26,7 @@ using System.ComponentModel;
 namespace Manatee.Trello
 {
 	///<summary>
-	/// Enumerates known types of Actions.
+	/// Enumerates known types of <see cref="Action"/>s.
 	///</summary>
 	public enum ActionType
 	{
@@ -35,242 +35,242 @@ namespace Manatee.Trello
 		/// </summary>
 		Unknown,
 		/// <summary>
-		/// Indicates an attachment was added to a card.
+		/// Indicates an <see cref="Attachment"/> was added to a <see cref="Card"/>.
 		/// </summary>
 		[Description("addAttachmentToCard")]
 		AddAttachmentToCard,
 		/// <summary>
-		/// Indicates a checklist was added to a card.
+		/// Indicates a <see cref="CheckList"/> was added to a <see cref="Card"/>.
 		/// </summary>
 		[Description("addChecklistToCard")]
 		AddChecklistToCard,
 		/// <summary>
-		/// Indicates a member was added to a board.
+		/// Indicates a <see cref="Member"/> was added to a <see cref="Board"/>.
 		/// </summary>
 		[Description("addMemberToBoard")]
 		AddMemberToBoard,
 		/// <summary>
-		/// Indicates a member was added to a card.
+		/// Indicates a <see cref="Member"/> was added to a <see cref="Card"/>.
 		/// </summary>
 		[Description("addMemberToCard")]
 		AddMemberToCard,
 		/// <summary>
-		/// Indicates a member was added to an organization.
+		/// Indicates a <see cref="Member"/> was added to an <see cref="Organization"/>.
 		/// </summary>
 		[Description("addMemberToOrganization")]
 		AddMemberToOrganization,
 		/// <summary>
-		/// Indicates a organization was added to a board.
+		/// Indicates a <see cref="Organization"/> was added to a <see cref="Board"/>.
 		/// </summary>
 		[Description("addToOrganizationBoard")]
 		AddToOrganizationBoard,
 		/// <summary>
-		/// Indicates a comment was added to a card.
+		/// Indicates a comment was added to a <see cref="Card"/>.
 		/// </summary>
 		[Description("commentCard")]
 		CommentCard,
 		/// <summary>
-		/// Indicates a comment was copied from one card to another.
+		/// Indicates a comment was copied from one <see cref="Card"/> to another.
 		/// </summary>
 		[Description("copyCommentCard")]
 		CopyCommentCard,
 		/// <summary>
-		/// Indicates a checklist item was converted to card.
+		/// Indicates a <see cref="CheckList"/> item was converted to <see cref="Card"/>.
 		/// </summary>
 		[Description("convertToCardFromCheckItem")]
 		ConvertToCardFromCheckItem,
 		/// <summary>
-		/// Indicates a board was copied.
+		/// Indicates a <see cref="Board"/> was copied.
 		/// </summary>
 		[Description("copyBoard")]
 		CopyBoard,
 		/// <summary>
-		/// Indicates a card was copied.
+		/// Indicates a <see cref="Card"/> was copied.
 		/// </summary>
 		[Description("copyCard")]
 		CopyCard,
 		/// <summary>
-		/// Indicates a board was created.
+		/// Indicates a <see cref="Board"/> was created.
 		/// </summary>
 		[Description("createBoard")]
 		CreateBoard,
 		/// <summary>
-		/// Indicates a card was created.
+		/// Indicates a <see cref="Card"/> was created.
 		/// </summary>
 		[Description("createCard")]
 		CreateCard,
 		/// <summary>
-		/// Indicates a list was created.
+		/// Indicates a <see cref="List"/> was created.
 		/// </summary>
 		[Description("createList")]
 		CreateList,
 		/// <summary>
-		/// Indicates an organization was created.
+		/// Indicates an <see cref="Organization"/> was created.
 		/// </summary>
 		[Description("createOrganization")]
 		CreateOrganization,
 		/// <summary>
-		/// Indicates an attachment was deleted from a card.
+		/// Indicates an <see cref="Attachment"/> was deleted from a <see cref="Card"/>.
 		/// </summary>
 		[Description("deleteAttachmentFromCard")]
 		DeleteAttachmentFromCard,
 		/// <summary>
-		/// Indicates an invitation to a board was rescinded.
+		/// Indicates an invitation to a <see cref="Board"/> was rescinded.
 		/// </summary>
 		[Description("deleteBoardInvitation")]
 		DeleteBoardInvitation,
 		/// <summary>
-		/// Indicates a card was deleted.
+		/// Indicates a <see cref="Card"/> was deleted.
 		/// </summary>
 		[Description("deleteCard")]
 		DeleteCard,
 		/// <summary>
-		/// Indicates an invitation to an organization was rescinded.
+		/// Indicates an invitation to an <see cref="Organization"/> was rescinded.
 		/// </summary>
 		[Description("deleteOrganizationInvitation")]
 		DeleteOrganizationInvitation,
 		/// <summary>
-		/// Indicates a member was made an admin of a board.
+		/// Indicates a <see cref="Member"/> was made an admin of a <see cref="Board"/>.
 		/// </summary>
 		[Description("makeAdminOfBoard")]
 		MakeAdminOfBoard,
 		/// <summary>
-		/// Indicates a member was made a normal member of a board.
+		/// Indicates a <see cref="Member"/> was made a normal <see cref="Member"/> of a <see cref="Board"/>.
 		/// </summary>
 		[Description("makeNormalMemberOfBoard")]
 		MakeNormalMemberOfBoard,
 		/// <summary>
-		/// Indicates a member was made a normal member of an organization.
+		/// Indicates a <see cref="Member"/> was made a normal <see cref="Member"/> of an <see cref="Organization"/>.
 		/// </summary>
 		[Description("makeNormalMemberOfOrganization")]
 		MakeNormalMemberOfOrganization,
 		/// <summary>
-		/// Indicates a member was made an observer of a board.
+		/// Indicates a <see cref="Member"/> was made an observer of a <see cref="Board"/>.
 		/// </summary>
 		[Description("makeObserverOfBoard")]
 		MakeObserverOfBoard,
 		/// <summary>
-		/// Indicates a member joined Trello.
+		/// Indicates a <see cref="Member"/> joined Trello.
 		/// </summary>
 		[Description("memberJoinedTrello")]
 		MemberJoinedTrello,
 		/// <summary>
-		/// Indicates a card was moved from one board to another.
+		/// Indicates a <see cref="Card"/> was moved from one <see cref="Board"/> to another.
 		/// </summary>
 		[Description("moveCardFromBoard")]
 		MoveCardFromBoard,
 		/// <summary>
-		/// Indicates a list was moved from one board to another.
+		/// Indicates a <see cref="List"/> was moved from one <see cref="Board"/> to another.
 		/// </summary>
 		[Description("moveListFromBoard")]
 		MoveListFromBoard,
 		/// <summary>
-		/// Indicates a card was moved from one board to another.
+		/// Indicates a <see cref="Card"/> was moved from one <see cref="Board"/> to another.
 		/// </summary>
 		[Description("moveCardToBoard")]
 		MoveCardToBoard,
 		/// <summary>
-		/// Indicates a list was moved from one board to another.
+		/// Indicates a <see cref="List"/> was moved from one <see cref="Board"/> to another.
 		/// </summary>
 		[Description("roveListToBoard")]
 		MoveListToBoard,
 		/// <summary>
-		/// Indicates an admin member was removed from a board.
+		/// Indicates an admin <see cref="Member"/> was removed from a <see cref="Board"/>.
 		/// </summary>
 		[Description("removeAdminFromBoard")]
 		RemoveAdminFromBoard,
 		/// <summary>
-		/// Indicates an admin member was removed from an organization.
+		/// Indicates an admin <see cref="Member"/> was removed from an <see cref="Organization"/>.
 		/// </summary>
 		[Description("removeAdminFromOrganization")]
 		RemoveAdminFromOrganization,
 		/// <summary>
-		/// Indicates a checklist was removed from a card.
+		/// Indicates a <see cref="CheckList"/> was removed from a <see cref="Card"/>.
 		/// </summary>
 		[Description("removeChecklistFromCard")]
 		RemoveChecklistFromCard,
 		/// <summary>
-		/// Indicates an organization was removed from a board.
+		/// Indicates an <see cref="Organization"/> was removed from a <see cref="Board"/>.
 		/// </summary>
 		[Description("removeFromOrganizationBoard")]
 		RemoveFromOrganizationBoard,
 		/// <summary>
-		/// Indicates a member was removed from a board.
+		/// Indicates a <see cref="Member"/> was removed from a <see cref="Board"/>.
 		/// </summary>
 		[Description("removeMemberFromBoard")]
 		RemoveMemberFromBoard,
 		/// <summary>
-		/// Indicates a member was removed from a card.
+		/// Indicates a <see cref="Member"/> was removed from a <see cref="Card"/>.
 		/// </summary>
 		[Description("removeMemberFromCard")]
 		RemoveMemberFromCard,
 		/// <summary>
-		/// Indicates an invitation to a board was created.
+		/// Indicates an invitation to a <see cref="Board"/> was created.
 		/// </summary>
 		[Description("unconfirmedBoardInvitation")]
 		UnconfirmedBoardInvitation,
 		/// <summary>
-		/// Indicates an invitation to an organization was created.
+		/// Indicates an invitation to an <see cref="Organization"/> was created.
 		/// </summary>
 		[Description("unconfirmedOrganizationInvitation")]
 		UnconfirmedOrganizationInvitation,
 		/// <summary>
-		/// Indicates a board was updated.
+		/// Indicates a <see cref="Board"/> was updated.
 		/// </summary>
 		[Description("updateBoard")]
 		UpdateBoard,
 		/// <summary>
-		/// Indicates a card was updated.
+		/// Indicates a <see cref="Card"/> was updated.
 		/// </summary>
 		[Description("updateCard")]
 		UpdateCard,
 		/// <summary>
-		/// Indicates a checklist item was checked or unchecked.
+		/// Indicates a <see cref="CheckItem"/> was checked or unchecked.
 		/// </summary>
 		[Description("updateCheckItemStateOnCard")]
 		UpdateCheckItemStateOnCard,
 		/// <summary>
-		/// Indicates a checklist was updated.
+		/// Indicates a <see cref="CheckList"/> was updated.
 		/// </summary>
 		[Description("updateChecklist")]
 		UpdateChecklist,
 		/// <summary>
-		/// Indicates a member was updated.
+		/// Indicates a <see cref="Member"/> was updated.
 		/// </summary>
 		[Description("updateMember")]
 		UpdateMember,
 		/// <summary>
-		/// Indicates an organization was updated.
+		/// Indicates an <see cref="Organization"/> was updated.
 		/// </summary>
 		[Description("updateOrganization")]
 		UpdateOrganization,
 		/// <summary>
-		/// Indicates a card was moved to a new list.
+		/// Indicates a <see cref="Card"/> was moved to a new <see cref="List"/>.
 		/// </summary>
 		[Description("updateCardIdList")]
 		UpdateCardIdList,
 		/// <summary>
-		/// Indicates a card was archived or unarchived.
+		/// Indicates a <see cref="Card"/> was archived or unarchived.
 		/// </summary>
 		[Description("updateCardClosed")]
 		UpdateCardClosed,
 		/// <summary>
-		/// Indicates a card description was updated.
+		/// Indicates a <see cref="Card"/> description was updated.
 		/// </summary>
 		[Description("updateCardDesc")]
 		UpdateCardDesc,
 		/// <summary>
-		/// Indicates a card name was updated.
+		/// Indicates a <see cref="Card"/> name was updated.
 		/// </summary>
 		[Description("updateCardName")]
 		UpdateCardName,
 		/// <summary>
-		/// Indicates a member voted on a card.
+		/// Indicates a <see cref="Member"/> voted on a <see cref="Card"/>.
 		/// </summary>
 		[Description("voteOnCard")]
 		VoteOnCard,
 		/// <summary>
-		/// Indicates a member updated a list.
+		/// Indicates a <see cref="Member"/> updated a <see cref="List"/>.
 		/// </summary>
 		[Description("updateList")]
 		UpdateList

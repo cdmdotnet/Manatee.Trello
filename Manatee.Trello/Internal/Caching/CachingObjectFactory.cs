@@ -15,7 +15,7 @@
 	   limitations under the License.
  
 	File Name:		CachingObjectFactory.cs
-	Namespace:		Manatee.Trello.Internal
+	Namespace:		Manatee.Trello.Internal.Caching
 	Class Name:		CachingObjectFactory
 	Purpose:		Checks the cache and builds new objects when nothing is found.
 
@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Json;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.Caching
 {
 	internal static class CachingObjectFactory
 	{

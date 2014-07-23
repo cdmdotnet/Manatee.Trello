@@ -1,3 +1,25 @@
+/***************************************************************************************
+
+	Copyright 2014 Greg Dennis
+
+	   Licensed under the Apache License, Version 2.0 (the "License");
+	   you may not use this file except in compliance with the License.
+	   You may obtain a copy of the License at
+
+		 http://www.apache.org/licenses/LICENSE-2.0
+
+	   Unless required by applicable law or agreed to in writing, software
+	   distributed under the License is distributed on an "AS IS" BASIS,
+	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	   See the License for the specific language governing permissions and
+	   limitations under the License.
+ 
+	File Name:		OrganizationContext.cs
+	Namespace:		Manatee.Trello.Internal.Synchronization
+	Class Name:		OrganizationContext
+	Purpose:		Provides a data context for an organization.
+
+***************************************************************************************/
 using System.Collections.Generic;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -6,6 +28,7 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class OrganizationContext : SynchronizationContext<IJsonOrganization>
 	{
+		// TODO: Prefs are not included in org download by default.  Should re-implement custom parameter list.
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; private set; }
 
 		static OrganizationContext()
@@ -17,7 +40,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonOrganization, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"IsBusinessClass", new Property<IJsonOrganization, bool?>(d => d.PaidAccount, (d, o) => d.PaidAccount = o)},
 					{"Name", new Property<IJsonOrganization, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Website", new Property<IJsonOrganization, string>(d => d.Name, (d, o) => d.Name = o)},
+					{"Url", new Property<IJsonOrganization, string>(d => d.Url, (d, o) => d.Url = o)},
+					{"Website", new Property<IJsonOrganization, string>(d => d.Website, (d, o) => d.Website = o)},
 				};
 		}
 		public OrganizationContext(string id)

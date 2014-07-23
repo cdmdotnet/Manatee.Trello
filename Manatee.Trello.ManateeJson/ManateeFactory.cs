@@ -28,6 +28,9 @@ using Manatee.Trello.ManateeJson.Entities;
 
 namespace Manatee.Trello.ManateeJson
 {
+	/// <summary>
+	/// Creates instances of JSON interfaces.
+	/// </summary>
 	public class ManateeFactory : IJsonFactory
 	{
 		private static readonly Dictionary<Type, Func<object>> _factory;
@@ -72,6 +75,11 @@ namespace Manatee.Trello.ManateeJson
 				};
 		}
 
+		/// <summary>
+		/// Creates an instance of the requested JSON interface.
+		/// </summary>
+		/// <typeparam name="T">The type to create.</typeparam>
+		/// <returns>An instance of the requested type.</returns>
 		public T Create<T>()
 		{
 			return (T) _factory[typeof (T)]();

@@ -1,6 +1,6 @@
 /***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,23 +14,33 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		InnerJsonNotification.cs
-	Namespace:		Manatee.Trello.Internal.Json
-	Class Name:		InnerJsonNotification
-	Purpose:		Internal implementation of IJsonNotification.
+	File Name:		Property.cs
+	Namespace:		Manatee.Trello.Internal.Synchronization
+	Class Name:		Property
+	Purpose:		Provides generic access to properties for the synchronization
+					context.
 
 ***************************************************************************************/
-using System;
-using Manatee.Trello.Json;
 
-namespace Manatee.Trello.Internal.Json
+using System;
+
+namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class InnerJsonNotification : IdentifiableJson, IJsonNotification
+	internal class Property<T>
 	{
-		public bool? Unread { get; set; }
-		public string Type { get; set; }
-		public DateTime? Date { get; set; }
-		public IJsonNotificationData Data { get; set; }
-		public string IdMemberCreator { get; set; }
+		public Func<T, object> Get { get; private set; }
+		public Action<T, object> Set { get; private set; }
+
+		protected Property(Func<T, object> get, Action<T, object> set)
+		{
+			Get = get;
+			Set = set;
+		}
+	}
+
+	internal class Property<TJson, T> : Property<TJson>
+	{
+		public Property(Func<TJson, T> get, Action<TJson, T> set)
+			: base(j => get(j), (j, o) => set(j, (T) o)) {}
 	}
 }

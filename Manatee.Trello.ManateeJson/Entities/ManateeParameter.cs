@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeParameter : IJsonParameter, IJsonSerializable
+	internal class ManateeParameter : IJsonParameter, IJsonSerializable
 	{
 		public string Value { get; set; }
 

@@ -17,8 +17,7 @@
 	File Name:		ICache.cs
 	Namespace:		Manatee.Trello.Contracts
 	Class Name:		ICache
-	Purpose:		Defines operations for a cache.  Used by the TrelloService
-					class.
+	Purpose:		Defines operations for a cache.
 
 ***************************************************************************************/
 using System;
@@ -27,7 +26,7 @@ using System.Collections;
 namespace Manatee.Trello.Contracts
 {
 	/// <summary>
-	/// Defines operations for a cache.  Used by the TrelloService class.
+	/// Defines operations for a cache.
 	/// </summary>
 	public interface ICache : IEnumerable
 	{
@@ -42,18 +41,6 @@ namespace Manatee.Trello.Contracts
 		/// <typeparam name="T">The type of object to find.</typeparam>
 		/// <param name="match">A function which evaluates the matching criteria.</param>
 		T Find<T>(Func<T, bool> match);
-		/// <summary>
-		/// Finds an object of a certain type meeting specified criteria.
-		/// </summary>
-		/// <typeparam name="T">The type of object to find.</typeparam>
-		/// <param name="match">A function which evaluates the matching criteria.</param>
-		/// <param name="fetch">A function which can use alternate means to retrieve the item.</param>
-		/// <returns>The first matching object, or the fetched object if applicable.</returns>
-		/// <remarks>
-		/// When the function in the fetch parameter is called, the returned object should be
-		/// added to the cache.
-		/// </remarks>
-		T Find<T>(Func<T, bool> match, Func<T> fetch);
 		/// <summary>
 		/// Removes an object from the cache, if it exists.
 		/// </summary>

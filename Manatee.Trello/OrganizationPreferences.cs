@@ -28,6 +28,9 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the preferences for an organization.
+	/// </summary>
 	public class OrganizationPreferences
 	{
 		private readonly Field<OrganizationPermissionLevel> _permissionLevel;
@@ -38,31 +41,57 @@ namespace Manatee.Trello
 		private readonly Field<OrganizationBoardVisibility> _privateBoardVisibility;
 		private OrganizationPreferencesContext _context;
 
+		/// <summary>
+		/// Gets or sets the general visibility of the organization.
+		/// </summary>
 		public OrganizationPermissionLevel PermissionLevel
 		{
 			get { return _permissionLevel.Value; }
 			set { _permissionLevel.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets whether external members are disabled.
+		/// </summary>
+		/// <remarks>
+		/// Still researching what this means.
+		/// </remarks>
+		// TODO: What does ExternalMembersDisabled do?
 		public bool? ExternalMembersDisabled
 		{
 			get { return _externalMembersDisabled.Value; }
 			set { _externalMembersDisabled.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets a domain to associate with the organization.
+		/// </summary>
+		/// <remarks>
+		/// Still researching what this means.
+		/// </remarks>
+		// TODO: What does AssociatedDomain do?
 		public string AssociatedDomain
 		{
 			get { return _assocatedDomain.Value; }
 			set { _assocatedDomain.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the visibility of public-viewable boards owned by the organizations.
+		/// </summary>
 		public OrganizationBoardVisibility PublicBoardVisibility
 		{
 			get { return _publicBoardVisibility.Value; }
 			set { _publicBoardVisibility.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the visibility of organization-viewable boards owned by the organization.
+		/// </summary>
 		public OrganizationBoardVisibility OrganizationBoardVisibility
 		{
 			get { return _organizationBoardVisibility.Value; }
 			set { _organizationBoardVisibility.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the visibility of private-viewable boards owned by the organization.
+		/// </summary>
 		public OrganizationBoardVisibility PrivateBoardVisibility
 		{
 			get { return _privateBoardVisibility.Value; }

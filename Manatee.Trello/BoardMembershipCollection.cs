@@ -16,24 +16,29 @@
  
 	File Name:		BoardMembershipCollection.cs
 	Namespace:		Manatee.Trello
-	Class Name:		BoardMembershipCollection
-	Purpose:		Represents a collection of board memberships.
+	Class Name:		ReadOnlyBoardMembershipCollection, BoardMembershipCollection
+	Purpose:		Collection objects for board memberships.
 
 ***************************************************************************************/
 
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of board memberships.
+	/// </summary>
 	public class ReadOnlyBoardMembershipCollection : ReadOnlyCollection<BoardMembership>
 	{
 		internal ReadOnlyBoardMembershipCollection(string ownerId)
 			: base(ownerId) {}
 
+		/// <summary>
+		/// Implement to provide data to the collection.
+		/// </summary>
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
@@ -44,20 +49,34 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of board memberships.
+	/// </summary>
 	public class BoardMembershipCollection : ReadOnlyBoardMembershipCollection
 	{
 		internal BoardMembershipCollection(string ownerId)
 			: base(ownerId) {}
 
-		public void Add(Member member, BoardMembershipType membership)
+		/// <summary>
+		/// Adds a member to a board with specified privileges.
+		/// </summary>
+		/// <param name="member">The member to add.</param>
+		/// <param name="membership">The membership type.</param>
+		public BoardMembership Add(Member member, BoardMembershipType membership)
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonBoardMembership>();
 			json.Member = member.Json;
 			json.MemberType = membership;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+
+			return new BoardMembership(newData, OwnerId);
 		}
+		/// <summary>
+		/// Removes a member from a board.
+		/// </summary>
+		/// <param name="member">The member to remove.</param>
 		public void Remove(Member member)
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();

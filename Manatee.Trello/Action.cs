@@ -17,7 +17,7 @@
 	File Name:		Action.cs
 	Namespace:		Manatee.Trello
 	Class Name:		Action
-	Purpose:		Represents an action.
+	Purpose:		Represents an action performed on Trello objects.
 
 ***************************************************************************************/
 
@@ -30,6 +30,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents an action performed on Trello objects.
+	/// </summary>
 	public class Action : ICacheable
 	{
 		private readonly Field<Member> _creator;
@@ -37,16 +40,39 @@ namespace Manatee.Trello
 		private readonly Field<ActionType> _type;
 		private readonly ActionContext _context;
 
+		/// <summary>
+		/// Gets the member who performed the action.
+		/// </summary>
 		public Member Creator { get { return _creator.Value; } }
+		/// <summary>
+		/// Gets any data associated with the action.
+		/// </summary>
 		public ActionData Data { get; private set; }
+		/// <summary>
+		/// Gets the date and time at which the action was performed.
+		/// </summary>
 		public DateTime? Date { get { return _date.Value; } }
+		/// <summary>
+		/// Gets the action's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets the type of action.
+		/// </summary>
 		public ActionType Type { get { return _type.Value; } }
 
 		internal IJsonAction Json { get { return _context.Data; } }
 
+		/// <summary>
+		/// Raised when data on the action is updated.
+		/// </summary>
 		public event Action<Action, IEnumerable<string>> Updated;
 
+		// TODO: Implement ToString().
+		/// <summary>
+		/// Creates a new <see cref="Action"/> object.
+		/// </summary>
+		/// <param name="id">The action's ID.</param>
 		public Action(string id)
 		{
 			Id = id;

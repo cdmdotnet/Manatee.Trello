@@ -14,22 +14,25 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		BoardCollection.cs
+	File Name:		ActionCollection.cs
 	Namespace:		Manatee.Trello
-	Class Name:		BoardCollection
-	Purpose:		Represents a collection of actions.
+	Class Name:		ReadOnlyActionCollection, CommentCollection
+	Purpose:		Collection objects for actions.
 
 ***************************************************************************************/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of actions.
+	/// </summary>
 	public class ReadOnlyActionCollection : ReadOnlyCollection<Action>
 	{
 		private static readonly Dictionary<Type, EntityRequestType> _requestTypes;
@@ -52,7 +55,10 @@ namespace Manatee.Trello
 			_updateRequestType = _requestTypes[type];
 		}
 
-		protected override sealed void Update()
+		/// <summary>
+		/// Implement to provide data to the collection.
+		/// </summary>
+		protected override void Update()
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonAction>>(TrelloAuthorization.Default, endpoint).Where(Filter);
@@ -60,17 +66,30 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(jc => jc.GetFromCache<Action>()));
 		}
+		/// <summary>
+		/// Provides a filter delegate.
+		/// </summary>
+		/// <param name="action">The subject action.</param>
+		/// <returns>True if the action is match, otherwise false.</returns>
 		protected virtual bool Filter(IJsonAction action)
 		{
 			return true;
 		}
 	}
 
+	/// <summary>
+	/// A collection of comment actions.
+	/// </summary>
 	public class CommentCollection : ReadOnlyActionCollection
 	{
 		internal CommentCollection(string ownerId)
 			: base(typeof (Card), ownerId) {}
 
+		/// <summary>
+		/// Posts a new comment to a card.
+		/// </summary>
+		/// <param name="text">The content of the comment.</param>
+		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
 		public Action Add(string text)
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonComment>();
@@ -82,6 +101,22 @@ namespace Manatee.Trello
 			return new Action(newData);
 		}
 
+		/// <summary>
+		/// Implement to provide data to the collection.
+		/// </summary>
+		protected override sealed void Update()
+		{
+			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Actions, new Dictionary<string, object> {{"_id", OwnerId}});
+			var newData = JsonRepository.Execute<List<IJsonAction>>(TrelloAuthorization.Default, endpoint).Where(Filter);
+
+			Items.Clear();
+			Items.AddRange(newData.Where(jc => jc.Type == ActionType.CommentCard).Select(jc => jc.GetFromCache<Action>()));
+		}
+		/// <summary>
+		/// Provides a filter delegate.
+		/// </summary>
+		/// <param name="action">The subject action.</param>
+		/// <returns>True if the action is match, otherwise false.</returns>
 		protected override bool Filter(IJsonAction action)
 		{
 			return action.Type == ActionType.CommentCard;

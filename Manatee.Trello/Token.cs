@@ -17,7 +17,7 @@
 	File Name:		Token.cs
 	Namespace:		Manatee.Trello
 	Class Name:		Token
-	Purpose:		Represents a token.
+	Purpose:		Represents a user token.
 
 ***************************************************************************************/
 
@@ -30,6 +30,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a user token.
+	/// </summary>
 	public class Token : ICacheable
 	{
 		private readonly Field<string> _appName;
@@ -39,17 +42,46 @@ namespace Manatee.Trello
 		private readonly TokenContext _context;
 		private bool _deleted;
 
+		/// <summary>
+		/// Gets the name of the application associated with the token.
+		/// </summary>
 		public string AppName { get { return _appName.Value; } }
+		/// <summary>
+		/// Gets the permissions on boards granted by the token.
+		/// </summary>
 		public TokenPermission BoardPermissions { get; private set; }
+		/// <summary>
+		/// Gets the date and time the token was created.
+		/// </summary>
 		public DateTime? DateCreated { get { return _dateCreated.Value; } }
+		/// <summary>
+		/// Gets the date and time the token expires, if any.
+		/// </summary>
 		public DateTime? DateExpires { get { return _dateExpires.Value; } }
+		/// <summary>
+		/// Gets the token's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets the member for which the token was issued.
+		/// </summary>
 		public Member Member { get { return _member.Value; } }
+		/// <summary>
+		/// Gets the permissions on members granted by the token.
+		/// </summary>
 		public TokenPermission MemberPermissions { get; private set; }
+		/// <summary>
+		/// Gets the permissions on organizations granted by the token.
+		/// </summary>
 		public TokenPermission OrganizationPermissions { get; private set; }
 
-		public event Action<Token, IEnumerable<string>> Updated;
-
+		/// <summary>
+		/// Creates a new instance of the <see cref="Token"/> object.
+		/// </summary>
+		/// <param name="id">The token's ID.</param>
+		/// <remarks>
+		/// The supplied ID can be either the full ID or the token itself.
+		/// </remarks>
 		public Token(string id)
 		{
 			Id = id;
@@ -72,6 +104,13 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
+		/// <summary>
+		/// Deletes the token.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the token from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
 		public void Delete()
 		{
 			if (_deleted) return;
@@ -84,9 +123,6 @@ namespace Manatee.Trello
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
-			var handler = Updated;
-			if (handler != null)
-				handler(this, properties);
 		}
 	}
 }

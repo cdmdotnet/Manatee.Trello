@@ -21,7 +21,6 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Net;
 using Manatee.Trello.Contracts;
 using RestSharp;

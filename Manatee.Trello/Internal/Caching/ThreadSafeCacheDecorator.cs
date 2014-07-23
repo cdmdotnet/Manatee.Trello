@@ -15,7 +15,7 @@
 	   limitations under the License.
  
 	File Name:		ThreadSafeCache.cs
-	Namespace:		Manatee.Trello.Internal
+	Namespace:		Manatee.Trello.Internal.Caching
 	Class Name:		ThreadSafeCache
 	Purpose:		Adds thread safe operation to an ICache implementation.
 
@@ -25,7 +25,7 @@ using System;
 using System.Collections;
 using Manatee.Trello.Contracts;
 
-namespace Manatee.Trello.Internal
+namespace Manatee.Trello.Internal.Caching
 {
 	internal class ThreadSafeCacheDecorator : ICache
 	{
@@ -50,13 +50,6 @@ namespace Manatee.Trello.Internal
 			lock (_lock)
 			{
 				return _innerCache.Find(match);
-			}
-		}
-		public T Find<T>(Func<T, bool> match, Func<T> fetch)
-		{
-			lock (_lock)
-			{
-				return _innerCache.Find(match, fetch);
 			}
 		}
 		public void Remove(object obj)

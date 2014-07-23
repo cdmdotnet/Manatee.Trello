@@ -31,6 +31,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a checklist.
+	/// </summary>
 	public class CheckList : ICacheable
 	{
 		private readonly Field<Board> _board;
@@ -41,19 +44,37 @@ namespace Manatee.Trello
 
 		private bool _deleted;
 
+		/// <summary>
+		/// Gets the board on which the checklist belongs.
+		/// </summary>
 		public Board Board { get { return _board.Value; } }
+		/// <summary>
+		/// Gets or sets the card on which the checklist belongs.
+		/// </summary>
 		public Card Card
 		{
 			get { return _card.Value; }
 			set { _card.Value = value; }
 		}
+		/// <summary>
+		/// Gets the collection of items in the checklist.
+		/// </summary>
 		public CheckItemCollection CheckItems { get; private set; }
+		/// <summary>
+		/// Gets the checklist's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets the checklist's name.
+		/// </summary>
 		public string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
 		}
+		/// <summary>
+		/// Gets the checklist's position.
+		/// </summary>
 		public Position Position
 		{
 			get { return _position.Value; }
@@ -62,8 +83,15 @@ namespace Manatee.Trello
 
 		internal IJsonCheckList Json { get { return _context.Data; } }
 
+		/// <summary>
+		/// Raised when data on the checklist is updated.
+		/// </summary>
 		public event Action<CheckList, IEnumerable<string>> Updated;
 
+		/// <summary>
+		/// Creates a new instance of the <see cref="CheckList"/> object.
+		/// </summary>
+		/// <param name="id">The checklist's ID.</param>
 		public CheckList(string id)
 			: this(id, true) {}
 		internal CheckList(IJsonCheckList json, bool cache)
@@ -91,6 +119,13 @@ namespace Manatee.Trello
 				TrelloConfiguration.Cache.Add(this);
 		}
 
+		/// <summary>
+		/// Deletes the checklist.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the checklist from Trello's server, however, this object
+		/// will remain in memory and all properties will remain accessible.
+		/// </remarks>
 		public void Delete()
 		{
 			if (_deleted) return;

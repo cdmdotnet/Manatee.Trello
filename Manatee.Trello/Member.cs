@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		Member2.cs
+	File Name:		Member.cs
 	Namespace:		Manatee.Trello
-	Class Name:		Member2
+	Class Name:		Member
 	Purpose:		Represents a member.
 
 ***************************************************************************************/
@@ -31,6 +31,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a member.
+	/// </summary>
 	public class Member : ICanWebhook, ICacheable
 	{
 		private readonly Field<AvatarSource> _avatarSource;
@@ -44,34 +47,74 @@ namespace Manatee.Trello
 		private readonly Field<string> _userName;
 		internal readonly MemberContext _context;
 
+		/// <summary>
+		/// Gets the collection of actions performed by the member.
+		/// </summary>
 		public ReadOnlyActionCollection Actions { get; private set; }
+		/// <summary>
+		/// Gets the source type for the member's avatar.
+		/// </summary>
 		public AvatarSource AvatarSource
 		{
 			get { return _avatarSource.Value; }
 			internal set { _avatarSource.Value = value; }
 		}
+		/// <summary>
+		/// Gets the member's bio.
+		/// </summary>
 		public string Bio
 		{
 			get { return _bio.Value; }
 			internal set { _bio.Value = value; }
 		}
+		/// <summary>
+		/// Gets the collection of boards owned by the member.
+		/// </summary>
 		public ReadOnlyBoardCollection Boards { get; private set; }
+		/// <summary>
+		/// Gets the member's full name.
+		/// </summary>
 		public string FullName
 		{
 			get { return _fullName.Value; }
 			internal set { _fullName.Value = value; }
 		}
+		/// <summary>
+		/// Gets the member's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets or sets the member's initials.
+		/// </summary>
 		public string Initials
 		{
 			get { return _initials.Value; }
 			internal set { _initials.Value = value; }
 		}
+		/// <summary>
+		/// Gets whether the member has actually join or has merely been invited (ghost).
+		/// </summary>
 		public bool? IsConfirmed { get { return _isConfirmed.Value; } }
+		/// <summary>
+		/// Gets the collection of organizations to which the member belongs.
+		/// </summary>
 		public ReadOnlyOrganizationCollection Organizations { get; private set; }
+		/// <summary>
+		/// Gets the member's online status.
+		/// </summary>
+		// TODO: Add forced refresh to support member status.
 		public MemberStatus Status { get { return _status.Value; } }
+		/// <summary>
+		/// Gets the collection of trophies earned by the member.
+		/// </summary>
 		public IEnumerable<string> Trophies { get { return _trophies.Value; } }
+		/// <summary>
+		/// Gets the member's URL.
+		/// </summary>
 		public string Url { get { return _url.Value; } }
+		/// <summary>
+		/// Gets the member's username.
+		/// </summary>
 		public string UserName
 		{
 			get { return _userName.Value; }
@@ -80,8 +123,18 @@ namespace Manatee.Trello
 
 		internal IJsonMember Json { get { return _context.Data; } }
 
+		/// <summary>
+		/// Raised when data on the member is updated.
+		/// </summary>
 		public event Action<Member, IEnumerable<string>> Updated;
 
+		/// <summary>
+		/// Creates a new instance of the <see cref="Member"/> object.
+		/// </summary>
+		/// <param name="id">The member's ID.</param>
+		/// <remarks>
+		/// The supplied ID can be either the full ID or the username.
+		/// </remarks>
 		public Member(string id)
 			: this(id, false) {}
 		internal Member(string id, bool isMe)
