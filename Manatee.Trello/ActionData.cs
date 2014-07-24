@@ -33,7 +33,10 @@ namespace Manatee.Trello
 	{
 		private readonly Field<Attachment> _attachment;
 		private readonly Field<Board> _board;
+		private readonly Field<Board> _boardSource;
+		private readonly Field<Board> _boardTarget;
 		private readonly Field<Card> _card;
+		private readonly Field<Card> _cardSource;
 		private readonly Field<CheckItem> _checkItem;
 		private readonly Field<CheckList> _checkList;
 		private readonly Field<List> _list;
@@ -58,9 +61,21 @@ namespace Manatee.Trello
 		/// </summary>
 		public Board Board { get { return _board.Value; } }
 		/// <summary>
+		/// Gets an assocated board.
+		/// </summary>
+		public Board BoardSource { get { return _boardSource.Value; } }
+		/// <summary>
+		/// Gets an assocated board.
+		/// </summary>
+		public Board BoardTarget { get { return _boardTarget.Value; } }
+		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
 		public Card Card { get { return _card.Value; } }
+		/// <summary>
+		/// Gets an assocated card.
+		/// </summary>
+		public Card CardSource { get { return _card.Value; } }
 		/// <summary>
 		/// Gets an assocated checklist item.
 		/// </summary>
@@ -136,7 +151,10 @@ namespace Manatee.Trello
 
 			_attachment = new Field<Attachment>(_context, () => Attachment);
 			_board = new Field<Board>(_context, () => Board);
+			_boardSource = new Field<Board>(_context, () => BoardSource);
+			_boardTarget = new Field<Board>(_context, () => BoardTarget);
 			_card = new Field<Card>(_context, () => Card);
+			_cardSource = new Field<Card>(_context, () => CardSource);
 			_checkItem = new Field<CheckItem>(_context, () => CheckItem);
 			_checkList = new Field<CheckList>(_context, () => CheckList);
 			_list = new Field<List>(_context, () => List);

@@ -48,6 +48,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string UploadedAvatarHash { get; set; }
 		public List<string> OneTimeMessagesDismissed { get; set; }
 		public int? Similarity { get; set; }
+		public IJsonMemberPreferences Prefs { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -73,6 +74,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					UploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
 					OneTimeMessagesDismissed = obj.Deserialize<List<string>>(serializer, "oneTimeMessagesDismissed");
 					Similarity = (int?) obj.TryGetNumber("similarity");
+					Prefs = obj.Deserialize<IJsonMemberPreferences>(serializer, "prefs");
 					break;
 				case JsonValueType.String:
 					Id = json.String;
@@ -81,7 +83,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
+			var json = new JsonObject
 			       	{
 						// TODO: remove read-only properties from serialization
 			       		{"id", Id},
@@ -102,6 +104,12 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"uploadedAvatarHash", UploadedAvatarHash},
 			       		{"oneTimeMessagesDismissed", serializer.Serialize(OneTimeMessagesDismissed)},
 			       	};
+			if (Prefs != null)
+			{
+				json.Add("prefs/minutesBetweenSummaries", Prefs.MinutesBetweenSummaries);
+				json.Add("prefs/colorBlind", Prefs.ColorBlind);
+			}
+			return json;
 		}
 	}
 }

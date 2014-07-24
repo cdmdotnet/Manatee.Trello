@@ -24,8 +24,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -92,6 +95,10 @@ namespace Manatee.Trello
 		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
 		public Action Add(string text)
 		{
+			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, text);
+			if (error != null)
+				throw new ValidationException<string>(text, new[] {error});
+
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonComment>();
 			json.Text = text;
 

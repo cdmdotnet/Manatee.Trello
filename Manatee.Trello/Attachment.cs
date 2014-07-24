@@ -45,8 +45,6 @@ namespace Manatee.Trello
 		private readonly Field<string> _url;
 		private readonly AttachmentContext _context;
 
-		private bool _deleted;
-
 		/// <summary>
 		/// Gets the size of the attachment in bytes.
 		/// </summary>
@@ -120,11 +118,19 @@ namespace Manatee.Trello
 		/// </remarks>
 		public void Delete()
 		{
-			if (_deleted) return;
 			_context.Delete();
-
-			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return Name;
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

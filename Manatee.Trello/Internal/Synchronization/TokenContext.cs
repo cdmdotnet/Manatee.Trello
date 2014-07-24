@@ -32,6 +32,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class TokenContext : SynchronizationContext<IJsonToken>
 	{
+		private bool _deleted;
+
 		public TokenPermissionContext MemberPermissions { get; private set; }
 		public TokenPermissionContext BoardPermissions { get; private set; }
 		public TokenPermissionContext OrganizationPermissions { get; private set; }
@@ -70,8 +72,12 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public void Delete()
 		{
+			if (_deleted) return;
+
 			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+
+			_deleted = true;
 		}
 
 		protected override IJsonToken GetData()
@@ -90,6 +96,10 @@ namespace Manatee.Trello.Internal.Synchronization
 			return MemberPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Member))
 			                        .Concat(BoardPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Board)))
 			                        .Concat(OrganizationPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Organization)));
+		}
+		protected override bool CanUpdate()
+		{
+			return !_deleted;
 		}
 	}
 }

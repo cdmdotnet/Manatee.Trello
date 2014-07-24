@@ -29,7 +29,7 @@ namespace Manatee.Trello.Internal.DataAccess
 #pragma warning disable 1591
 		Unsupported,
 		Action_Read_Refresh,
-		//Action_Write_Delete,
+		Action_Write_Delete,
 		//Attachment_Read_Refresh,
 		Attachment_Write_Delete,
 		Board_Read_Actions,
@@ -182,7 +182,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		//Organization_Write_Website,
 		OrganizationMembership_Read_Refresh,
 		OrganizationMembership_Write_Update,
-		//OrganizationPreferences_Read_Refresh,
+		OrganizationPreferences_Read_Refresh,
 		//OrganizationPreferences_Write_AssociatedDomain,
 		//OrganizationPreferences_Write_ExternalMembersDisabled,
 		//OrganizationPreferences_Write_OrgInviteRestrict,

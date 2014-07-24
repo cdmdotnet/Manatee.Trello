@@ -24,8 +24,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -81,6 +83,10 @@ namespace Manatee.Trello
 		// TODO: Add source board to use as a template.
 		public Board Add(string name)
 		{
+			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, name);
+			if (error != null)
+				throw new ValidationException<string>(name, new[] { error });
+
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonBoard>();
 			json.Name = name;
 			if (_addRequestType == EntityRequestType.Organization_Write_CreateBoard)

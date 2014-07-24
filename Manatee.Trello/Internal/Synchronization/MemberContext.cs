@@ -29,11 +29,14 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class MemberContext : SynchronizationContext<IJsonMember>
 	{
+		public MemberPreferencesContext MemberPreferencesContext { get; private set; }
+		
 		static MemberContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonMember>>
 				{
 					{"AvatarSource", new Property<IJsonMember, AvatarSource>(d => d.AvatarSource, (d, o) => d.AvatarSource = o)},
+					{"AvatarUrl", new Property<IJsonMember, string>(d => d.AvatarHash, (d, o) => d.AvatarHash = o)},
 					{"Bio", new Property<IJsonMember, string>(d => d.Bio, (d, o) => d.Bio = o)},
 					{"Email", new Property<IJsonMember, string>(d => d.Email, (d, o) => d.Email = o)},
 					{"FullName", new Property<IJsonMember, string>(d => d.FullName, (d, o) => d.FullName = o)},
@@ -50,6 +53,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		public MemberContext(string id)
 		{
 			Data.Id = id;
+			MemberPreferencesContext = new MemberPreferencesContext();
+			MemberPreferencesContext.SynchronizeRequested += () => Synchronize();
+			MemberPreferencesContext.SubmitRequested += ResetTimer;
+			Data.Prefs = MemberPreferencesContext.Data;
 		}
 
 		protected override IJsonMember GetData()

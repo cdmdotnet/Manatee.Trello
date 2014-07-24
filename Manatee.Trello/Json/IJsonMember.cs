@@ -29,7 +29,6 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonMember : IJsonCacheable
 	{
-		// TODO: Implement missing member properties.
 		/// <summary>
 		/// Gets or sets the member's avatar hash.
 		/// </summary>
@@ -49,6 +48,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the type of member.
 		/// </summary>
+		// TODO: Implement Member.MemberType.
 		string MemberType { get; set; }
 		/// <summary>
 		/// Gets or sets the member's activity status.
@@ -77,10 +77,12 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the member's Gravatar hash.
 		/// </summary>
+		// TODO: Implement Member.GravatarHash.
 		string GravatarHash { get; set; }
 		/// <summary>
 		/// Gets or sets the login types for the member.
 		/// </summary>
+		// TODO: Implement Member.LoginTypes.
 		List<string> LoginTypes { get; set; }
 		/// <summary>
 		/// Gets or sets the trophies obtained by the member.
@@ -89,14 +91,20 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the user's uploaded avatar hash.
 		/// </summary>
+		// TODO: Implement Member.UploadedAvatarHash.
 		string UploadedAvatarHash { get; set; }
 		/// <summary>
 		/// Gets or sets the types of message which are dismissed for the member.
 		/// </summary>
+		// TODO: Implement Member.OneTimeMessagesDismissed.
 		List<string> OneTimeMessagesDismissed { get; set; }
 		/// <summary>
 		/// Gets or sets the similarity of the member to a search query.
 		/// </summary>
 		int? Similarity { get; set; }
+		/// <summary>
+		/// Gets or sets a set of preferences for the member.
+		/// </summary>
+		IJsonMemberPreferences Prefs { get; set; }
 	}
 }

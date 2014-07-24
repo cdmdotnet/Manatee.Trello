@@ -32,6 +32,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class AttachmentContext : SynchronizationContext<IJsonAttachment>
 	{
 		private readonly string _ownerId;
+		private bool _deleted;
 
 		static AttachmentContext()
 		{
@@ -59,8 +60,16 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public void Delete()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete, new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
+			if (_deleted) return;
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete, new Dictionary<string, object> { { "_cardId", _ownerId }, { "_id", Data.Id } });
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+
+			_deleted = true;
+		}
+		protected override bool CanUpdate()
+		{
+			return !_deleted;
 		}
 	}
 }

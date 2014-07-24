@@ -40,7 +40,6 @@ namespace Manatee.Trello
 		private readonly Field<DateTime?> _dateExpires;
 		private readonly Field<Member> _member;
 		private readonly TokenContext _context;
-		private bool _deleted;
 
 		/// <summary>
 		/// Gets the name of the application associated with the token.
@@ -113,11 +112,19 @@ namespace Manatee.Trello
 		/// </remarks>
 		public void Delete()
 		{
-			if (_deleted) return;
-
 			_context.Delete();
-			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return AppName;
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

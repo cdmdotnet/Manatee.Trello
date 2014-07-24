@@ -32,6 +32,8 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class WebhookContext<T> : SynchronizationContext<IJsonWebhook>
 		where T : class, ICanWebhook
 	{
+		private bool _deleted;
+
 		static WebhookContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonWebhook>>
@@ -67,8 +69,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public void Delete()
 		{
+			if (_deleted) return;
+
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+
+			_deleted = true;
 		}
 
 		protected override IJsonWebhook GetData()
@@ -82,6 +88,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+		}
+		protected override bool CanUpdate()
+		{
+			return !_deleted;
 		}
 
 		private static T BuildModel(string id)

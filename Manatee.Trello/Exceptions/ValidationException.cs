@@ -14,26 +14,37 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		TrelloInteractionException.cs
+	File Name:		ValidationException.cs
 	Namespace:		Manatee.Trello.Exceptions
-	Class Name:		TrelloInteractionException
-	Purpose:		Thrown when Trello reports an error with a request.
+	Class Name:		ValidationException
+	Purpose:		Thrown when validation fails on a Trello object property.
 
 ***************************************************************************************/
+
 using System;
+using System.Collections.Generic;
 
 namespace Manatee.Trello.Exceptions
 {
 	/// <summary>
-	/// Thrown when Trello reports an error with a request.
+	/// Thrown when validation fails on a Trello object property.
 	/// </summary>
-	public class TrelloInteractionException : Exception
+	public class ValidationException<T> : Exception
 	{
 		/// <summary>
-		/// Creates a new instance of the TrelloInteractionException class.
+		/// Gets a collection of errors that occurred while validating the value.
 		/// </summary>
-		/// <param name="innerException">The exception which occurred during the call.</param>
-		public TrelloInteractionException(Exception innerException)
-			: base("Trello has reported an error with the request.", innerException) {}
+		public IEnumerable<string> Errors { get; private set; }
+
+		/// <summary>
+		/// Creates a new instance of the <see cref="ValidationException{T}"/> object.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="errors"></param>
+		public ValidationException(T value, IEnumerable<string> errors)
+			: base(string.Format("'{0}' is not a valid value.", value))
+		{
+			Errors = errors;
+		}
 	}
 }

@@ -7,8 +7,13 @@ namespace Manatee.Trello.Test
 {
 	public abstract class TrelloTestBase
 	{
-		public abstract class SystemUnderTest<T, TDepCol>
-			where TDepCol : new()
+		protected interface IDependencyCollection
+		{
+			void ConfigureDefaultBehavior();
+		}
+
+		protected abstract class SystemUnderTest<T, TDepCol>
+			where TDepCol : IDependencyCollection, new()
 		{
 			public TDepCol Dependencies { get; private set; }
 			public T Sut { get; set; }

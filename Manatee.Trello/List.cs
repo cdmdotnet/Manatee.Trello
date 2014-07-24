@@ -142,10 +142,21 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		void ICanWebhook.ApplyAction(Action action)
+		public void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;
 			_context.Merge(action.Data.List.Json);
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return Name;
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

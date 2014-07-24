@@ -50,8 +50,6 @@ namespace Manatee.Trello
 		private readonly Field<string> _url;
 		private readonly CardContext _context;
 
-		private bool _deleted;
-
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
@@ -229,7 +227,7 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		void ICanWebhook.ApplyAction(Action action)
+		public void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateCard || action.Data.Card == null || action.Data.Card.Id != Id) return;
 			_context.Merge(action.Data.Card.Json);
@@ -243,11 +241,19 @@ namespace Manatee.Trello
 		/// </remarks>
 		public void Delete()
 		{
-			if (_deleted) return;
-
 			_context.Delete();
-			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return Name;
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
