@@ -31,6 +31,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class CardContext : SynchronizationContext<IJsonCard>
 	{
+		private bool _deleted;
+
 		public BadgesContext BadgesContext { get; private set; }
 
 		static CardContext()
@@ -71,8 +73,12 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public void Delete()
 		{
+			if (_deleted) return;
+
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+
+			_deleted = true;
 		}
 
 		protected override IJsonCard GetData()
@@ -90,6 +96,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override IEnumerable<string> MergeDependencies(IJsonCard json)
 		{
 			return BadgesContext.Merge(json.Badges);
+		}
+		protected override bool CanUpdate()
+		{
+			return !_deleted;
 		}
 	}
 }

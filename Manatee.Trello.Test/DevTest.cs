@@ -29,15 +29,11 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var org = new Organization("trelloapps");
+			var org = new Organization("littlecrabsolutions");
 
-			Console.WriteLine("External members disabled: {0}", org.Preferences.ExternalMembersDisabled);
-			Console.WriteLine("Associated domain: {0}", org.Preferences.AssociatedDomain);
-
-			var board = new Board("iXQE21lJ");
-
-			Console.WriteLine("Allow self-join: {0}", board.Preferences.AllowSelfJoin);
-			Console.WriteLine("Commenting: {0}", board.Preferences.Commenting);
+			Console.WriteLine(org);
+			Console.WriteLine(org.Preferences.PermissionLevel);
+			Console.WriteLine(org.Preferences.AssociatedDomain);
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}

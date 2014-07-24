@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 
@@ -68,8 +69,7 @@ namespace Manatee.Trello.Internal
 		{
 			var errors = _rules.Select(r => r.Validate(CurrentValue, value)).Where(s => s != null).ToList();
 			if (errors.Any())
-				// TODO: make an exception type for this.
-				throw new Exception(string.Format("'{0}' is not a valid value:\n - {1}", value, errors.Join("\n - ")));
+				throw new ValidationException<T>(value, errors);
 		}
 	}
 }

@@ -36,7 +36,10 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Member : ICanWebhook, ICacheable
 	{
+		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/30.png";
+
 		private readonly Field<AvatarSource> _avatarSource;
+		private readonly Field<string> _avatarUrl;
 		private readonly Field<string> _bio;
 		private readonly Field<string> _fullName;
 		private readonly Field<string> _initials;
@@ -59,6 +62,10 @@ namespace Manatee.Trello
 			get { return _avatarSource.Value; }
 			internal set { _avatarSource.Value = value; }
 		}
+		/// <summary>
+		/// Gets the URL to the member's avatar.
+		/// </summary>
+		public string AvatarUrl { get { return GetAvatar(); } }
 		/// <summary>
 		/// Gets the member's bio.
 		/// </summary>
@@ -153,6 +160,7 @@ namespace Manatee.Trello
 			Actions = new ReadOnlyActionCollection(typeof(Member), id);
 			_avatarSource = new Field<AvatarSource>(_context, () => AvatarSource);
 			_avatarSource.AddRule(EnumerationRule<AvatarSource>.Instance);
+			_avatarUrl = new Field<string>(_context, () => AvatarUrl);
 			_bio = new Field<string>(_context, () => Bio);
 			Boards = isMe ? new BoardCollection(typeof(Member), id) : new ReadOnlyBoardCollection(typeof(Member), id);
 			_fullName = new Field<string>(_context, () => FullName);
@@ -171,10 +179,25 @@ namespace Manatee.Trello
 				TrelloConfiguration.Cache.Add(this);
 		}
 
-		void ICanWebhook.ApplyAction(Action action)
+		/// <summary>
+		/// Applies the changes an action represents.
+		/// </summary>
+		/// <param name="action">The action.</param>
+		public void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
 			_context.Merge(action.Data.Member.Json);
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return FullName;
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
@@ -183,6 +206,11 @@ namespace Manatee.Trello
 			var handler = Updated;
 			if (handler != null)
 				handler(this, properties);
+		}
+		private string GetAvatar()
+		{
+			var hash = _avatarUrl.Value;
+			return hash.IsNullOrWhiteSpace() ? null : string.Format(AvatarUrlFormat, hash);
 		}
 	}
 }

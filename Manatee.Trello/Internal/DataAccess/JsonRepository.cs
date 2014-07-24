@@ -22,6 +22,7 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Rest;
@@ -44,6 +45,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			var obj = new object();
 			var request = BuildRequest(auth, endpoint, parameters);
+			AddDefaultParameters<T>(request);
 			RestRequestProcessor.AddRequest<T>(request, obj);
 			lock (obj)
 				Monitor.Wait(obj);
@@ -57,6 +59,7 @@ namespace Manatee.Trello.Internal.DataAccess
 			var obj = new object();
 			var request = BuildRequest(auth, endpoint);
 			request.AddBody(body);
+			AddDefaultParameters<T>(request);
 			RestRequestProcessor.AddRequest<T>(request, obj);
 			lock (obj)
 				Monitor.Wait(obj);
@@ -82,6 +85,14 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			if (request.Response.Exception != null && TrelloConfiguration.ThrowOnTrelloError)
 				throw request.Response.Exception;
+		}
+		private static void AddDefaultParameters<T>(IRestRequest request)
+		{
+			var defaultParameters = RestParameterRepository.GetParameters<T>();
+			foreach (var parameter in defaultParameters)
+			{
+				request.AddParameter(parameter.Key, parameter.Value);
+			}
 		}
 	}
 }

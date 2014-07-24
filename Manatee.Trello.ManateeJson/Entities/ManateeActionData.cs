@@ -31,7 +31,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 	{
 		public IJsonAttachment Attachment { get; set; }
 		public IJsonBoard Board { get; set; }
+		public IJsonBoard BoardSource { get; set; }
+		public IJsonBoard BoardTarget { get; set; }
 		public IJsonCard Card { get; set; }
+		public IJsonCard CardSource { get; set; }
 		public IJsonCheckItem CheckItem { get; set; }
 		public IJsonCheckList CheckList { get; set; }
 		public IJsonList List { get; set; }
@@ -48,6 +51,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Attachment = obj.Deserialize<IJsonAttachment>(serializer, "attachment");
 			Board = obj.Deserialize<IJsonBoard>(serializer, "board");
+			BoardSource = obj.Deserialize<IJsonBoard>(serializer, "boardSource");
+			BoardTarget = obj.Deserialize<IJsonBoard>(serializer, "boardTarget");
 			Card = obj.Deserialize<IJsonCard>(serializer, "card");
 			CheckItem = obj.Deserialize<IJsonCheckItem>(serializer, "checkItem");
 			CheckList = obj.Deserialize<IJsonCheckList>(serializer, "checklist");
@@ -64,7 +69,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var json = new JsonObject();
 			Attachment.Serialize(json, serializer, "attachment");
 			Board.Serialize(json, serializer, "board");
+			BoardSource.Serialize(json, serializer, "boardSource");
+			BoardTarget.Serialize(json, serializer, "boardTarget");
 			Card.Serialize(json, serializer, "card");
+			CardSource.Serialize(json, serializer, "cardSource");
 			CheckItem.Serialize(json, serializer, "checkItem");
 			CheckList.Serialize(json, serializer, "checklist");
 			List.Serialize(json, serializer, "list");

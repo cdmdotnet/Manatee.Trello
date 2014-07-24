@@ -30,6 +30,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class ActionContext : SynchronizationContext<IJsonAction>
 	{
+		private bool _deleted;
+
 		public ActionDataContext ActionDataContext { get; private set; }
 
 		static ActionContext()
@@ -53,6 +55,16 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Data = ActionDataContext.Data;
 		}
 
+		public void Delete()
+		{
+			if (_deleted) return;
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+
+			_deleted = true;
+		}
+
 		protected override IJsonAction GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
@@ -63,6 +75,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override IEnumerable<string> MergeDependencies(IJsonAction json)
 		{
 			return ActionDataContext.Merge(json.Data);
+		}
+		protected override bool CanUpdate()
+		{
+			return !_deleted;
 		}
 	}
 }

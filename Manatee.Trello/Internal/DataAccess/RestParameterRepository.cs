@@ -23,7 +23,7 @@
 
 using System;
 using System.Collections.Generic;
-using Manatee.Trello.Contracts;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.DataAccess
 {
@@ -35,104 +35,23 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			_parameterSets = new Dictionary<Type, Dictionary<string, string>>
 				{
-					{typeof (Action), new Dictionary<string, string>
-						{
-							{"fields", "idMemberCreator,data,type,date"},
-							{"entities", "false"},
-							{"memberCreator", "false"},
-							{"member", "false"},
-						}},
-					{typeof(Board), new Dictionary<string, string>
-						{
-							{"fields", "name,desc,closed,idOrganization,labelNames,pinned,url,subscribed"},
-							{"actions", "none"},
-							{"cards", "none"},
-							{"lists", "none"},
-							{"members", "none"},
-							{"checklists", "none"},
-							{"organization", "false"},
-							{"myPrefs", "false"},
-						}},
-					{typeof(Card), new Dictionary<string, string>
-						{
-							{"fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,shortLink,shortUrl,subscribed"},
-							{"actions", "none"},
-							{"attachments", "false"},
-							{"badges", "false"},
-							{"members", "false"},
-							{"membersVoted", "false"},
-							{"checkItemStates", "false"},
-							{"checkLists", "false"},
-							{"board", "false"},
-							{"list", "false"},
-						}},
-					{typeof(CheckList), new Dictionary<string, string>
-						{
-							{"fields", "name,idBoard,idCard,pos"},
-							{"cards", "none"},
-							{"checkItems", "none"},
-						}},
-					{typeof(List), new Dictionary<string, string>
-						{
-							{"fields", "name,closed,idBoard,pos,subscribed"},
-							{"cards", "none"},
-						}},
-					{typeof(Member), new Dictionary<string, string>
-						{
-							{"fields", "avatarHash,bio,fullName,initials,memberType,status,url,username,avatarSource,confirmed,email,gravatarHash,loginTypes,newEmail,oneTimeMessagesDismissed,status,trophies,uploadedAvatarHash"},
-							{"actions", "none"},
-							{"cards", "none"},
-							{"boards", "none"},
-							{"boardsInvited", "none"},
-							{"organizations", "none"},
-							{"organizationsInvited", "none"},
-							{"notifications", "none"},
-							{"tokens", "none"},
-						}},
-					{typeof(Notification), new Dictionary<string, string>
-						{
-							{"fields", "unread,type,date,data,idMemberCreator"},
-							{"entities", "false"},
-							{"memberCreator", "false"},
-							{"board", "false"},
-							{"list", "false"},
-							{"card", "false"},
-							{"organization", "false"},
-							{"member", "false"},
-						}},
-					{typeof(Organization), new Dictionary<string, string>
-						{
-							{"fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures"},
-							{"paid_account", "true"},
-							{"actions", "none"},
-							{"members", "none"},
-							{"membersInvited", "none"},
-							{"boards", "none"},
-							{"memberships", "none"},
-						}},
-					{typeof(SearchResults), new Dictionary<string, string>
-						{
-							{"action_fields", "idMemberCreator,data,type,date"},
-							{"board_fields", "name,desc,closed,idOrganization,labelNames,pinned,url,subscribed"},
-							{"card_fields", "closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,name,pos,url,shortLink,shortUrl,subscribed"},
-							{"member_fields", "avatarHash,bio,fullName,initials,memberType,status,url,username,avatarSource,confirmed,email,gravatarHash,loginTypes,newEmail,oneTimeMessagesDismissed,status,trophies,uploadedAvatarHash"},
-							{"organization_fields", "name,displayName,desc,invited,powerUps,url,website,logoHash,premiumFeatures"},
-						}},
+					{
+						typeof (IJsonOrganization), new Dictionary<string, string>
+							{
+								{"fields", "name,displayName,desc,descData,url,website,logoHash,products,powerUps,prefs"},
+							}
+					},
 				};
 		}
 
 		public static Dictionary<string, string> GetParameters<T>()
-			where T : ExpiringObject
 		{
-			return GetParameters(typeof (T));
-		}
-		public static Dictionary<string, string> GetParameters(Type type)
-		{
+			var type = typeof (T);
 			if (type == typeof (Me))
 				type = typeof (Member);
 			return _parameterSets.ContainsKey(type)
 				       ? _parameterSets[type]
-				       : new Dictionary<string, string> {{"fields", "all"}};
+				       : new Dictionary<string, string>();
 		}
 	}
 }

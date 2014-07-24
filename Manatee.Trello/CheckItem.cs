@@ -41,8 +41,6 @@ namespace Manatee.Trello
 		private readonly Field<CheckItemState> _state;
 		private readonly CheckItemContext _context;
 
-		private bool _deleted;
-
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.
 		/// </summary>
@@ -118,11 +116,19 @@ namespace Manatee.Trello
 		/// </remarks>
 		public void Delete()
 		{
-			if (_deleted) return;
-
 			_context.Delete();
-			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return Name;
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

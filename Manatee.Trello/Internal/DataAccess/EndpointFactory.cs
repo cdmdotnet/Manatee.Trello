@@ -37,6 +37,7 @@ namespace Manatee.Trello.Internal.DataAccess
 			_library = new Dictionary<EntityRequestType, Func<Endpoint>>
 				{
 					{EntityRequestType.Action_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"actions","_id"})},
+					{EntityRequestType.Action_Write_Delete, () => new Endpoint(RestMethod.Delete, new[]{"actions","_id"})},
 					{EntityRequestType.Attachment_Write_Delete, () => new Endpoint(RestMethod.Delete, new[]{"cards","_cardId","attachments","_id"})},
 					{EntityRequestType.Board_Read_Actions, () => new Endpoint(RestMethod.Get, new[]{"boards","_id","actions"})},
 					{EntityRequestType.Board_Read_Cards, () => new Endpoint(RestMethod.Get, new[]{"boards","_id","cards"})},
@@ -100,6 +101,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Organization_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"organizations", "_id"})},
 					{EntityRequestType.OrganizationMembership_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"organizations","_organizationId","memberships","_id"})},
 					{EntityRequestType.OrganizationMembership_Write_Update, () => new Endpoint(RestMethod.Put, new[]{"organizations","_organizationId","memberships","_id"})},
+					{EntityRequestType.OrganizationPreferences_Read_Refresh, () => new Endpoint(RestMethod.Get, new[]{"organizations","_id","prefs"})},
 					{EntityRequestType.Service_Read_Me, () => new Endpoint(RestMethod.Get, new[]{"members","me"})},
 					{EntityRequestType.Service_Read_Search, () => new Endpoint(RestMethod.Get, new[]{"search"})},
 					{EntityRequestType.Service_Read_SearchMembers, () => new Endpoint(RestMethod.Get, new[]{"search","members"})},

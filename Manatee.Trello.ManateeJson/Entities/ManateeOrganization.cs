@@ -58,6 +58,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					PowerUps = obj.Deserialize<List<int>>(serializer, "powerUps");
 					PaidAccount = obj.TryGetBoolean("paid_account");
 					PremiumFeatures = obj.Deserialize<List<string>>(serializer, "premiumFeatures");
+					Prefs = obj.Deserialize<IJsonOrganizationPreferences>(serializer, "prefs");
 					break;
 				case JsonValueType.String:
 					Id = json.String;

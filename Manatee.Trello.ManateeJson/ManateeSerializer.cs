@@ -78,6 +78,18 @@ namespace Manatee.Trello.ManateeJson
 			T obj = _serializer.Deserialize<T>(json);
 			return obj;
 		}
+		/// <summary>
+		/// Attempts to deserialize a RESTful response to the indicated type.
+		/// </summary>
+		/// <typeparam name="T">The type of object expected.</typeparam>
+		/// <param name="content">A string which contains the JSON to deserialize.</param>
+		/// <returns>The requested object, if JSON is valid; null otherwise.</returns>
+		public T Deserialize<T>(string content)
+		{
+			var json = JsonValue.Parse(content);
+			T obj = _serializer.Deserialize<T>(json);
+			return obj;
+		}
 
 		private static void InitializeTypeRegistry()
 		{

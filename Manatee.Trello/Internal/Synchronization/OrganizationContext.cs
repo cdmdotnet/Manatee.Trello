@@ -28,7 +28,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class OrganizationContext : SynchronizationContext<IJsonOrganization>
 	{
-		// TODO: Prefs are not included in org download by default.  Should re-implement custom parameter list.
+		private bool _deleted;
+
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; private set; }
 
 		static OrganizationContext()
@@ -55,14 +56,19 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public void Delete()
 		{
+			if (_deleted) return;
+
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+
+			_deleted = true;
 		}
 
 		protected override IJsonOrganization GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = JsonRepository.Execute<IJsonOrganization>(TrelloAuthorization.Default, endpoint);
+
 			return newData;
 		}
 		protected override void SubmitData()
@@ -73,6 +79,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override IEnumerable<string> MergeDependencies(IJsonOrganization json)
 		{
 			return OrganizationPreferencesContext.Merge(json.Prefs);
+		}
+		protected override bool CanUpdate()
+		{
+			return !_deleted;
 		}
 	}
 }

@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -74,8 +75,7 @@ namespace Manatee.Trello
 					UriRule.Instance.Validate(null, url)
 				};
 			if (errors.Any())
-				// TODO: use the validation exception type for this.
-				throw new Exception(string.Format("'{0}' is not a valid value:\n - {1}", url, errors.Join("\n - ")));
+				throw new ValidationException<string>(url, errors);
 
 			var parameters = new Dictionary<string, object>
 				{

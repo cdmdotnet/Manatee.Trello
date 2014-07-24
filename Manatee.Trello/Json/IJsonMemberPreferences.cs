@@ -27,19 +27,10 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonMemberPreferences
 	{
-		// TODO: Implement Member Preferences
-		/// <summary>
-		/// Enables/disables summary emails.
-		/// </summary>
-		bool? SendSummaries { get; set; }
 		/// <summary>
 		/// Gets or sets the number of minutes between summary emails.
 		/// </summary>
 		int? MinutesBetweenSummaries { get; set; }
-		/// <summary>
-		/// Gets or sets the number of minutes before a deadline to notify the member.
-		/// </summary>
-		int? MinutesBeforeDeadlineToNotify { get; set; }
 		/// <summary>
 		/// Enables/disables color-blind mode.
 		/// </summary>

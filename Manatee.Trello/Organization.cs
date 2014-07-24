@@ -44,8 +44,6 @@ namespace Manatee.Trello
 		private readonly Field<string> _website;
 		private readonly OrganizationContext _context;
 
-		private bool _deleted;
-
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
@@ -160,7 +158,7 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		void ICanWebhook.ApplyAction(Action action)
+		public void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateOrganization || action.Data.Organization == null || action.Data.Organization.Id != Id)
 				return;
@@ -175,12 +173,19 @@ namespace Manatee.Trello
 		/// </remarks>
 		public void Delete()
 		{
-			// TODO: Add a CanUpdate() method to the context which is based on whether an object has been deleted.
-			if (_deleted) return;
-
 			_context.Delete();
-			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return DisplayName;
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

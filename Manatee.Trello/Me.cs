@@ -84,6 +84,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public new OrganizationCollection Organizations { get { return base.Organizations as OrganizationCollection; } }
 		/// <summary>
+		/// Gets the set of preferences for the member.
+		/// </summary>
+		public MemberPreferences Preferences { get; private set; }
+		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>
 		public new string UserName
@@ -99,6 +103,7 @@ namespace Manatee.Trello
 			: base(GetId(), true)
 		{
 			_email = new Field<string>(_context, () => Email);
+			Preferences = new MemberPreferences(_context.MemberPreferencesContext);
 
 			_context.Merge(_myJson);
 		}

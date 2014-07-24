@@ -36,9 +36,21 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		IJsonBoard Board { get; set; }
 		/// <summary>
+		/// Gets or sets a board associated with the action if any.
+		/// </summary>
+		IJsonBoard BoardSource { get; set; }
+		/// <summary>
+		/// Gets or sets a board associated with the action if any.
+		/// </summary>
+		IJsonBoard BoardTarget { get; set; }
+		/// <summary>
 		/// Gets or sets a card associated with the action if any.
 		/// </summary>
 		IJsonCard Card { get; set; }
+		/// <summary>
+		/// Gets or sets a card associated with the action if any.
+		/// </summary>
+		IJsonCard CardSource { get; set; }
 		/// <summary>
 		/// Gets or sets a check item associated with the action if any.
 		/// </summary>

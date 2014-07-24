@@ -29,6 +29,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class CheckItemContext : SynchronizationContext<IJsonCheckItem>
 	{
 		private readonly string _ownerId;
+		private bool _deleted;
 
 		static CheckItemContext()
 		{
@@ -36,7 +37,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{"Id", new Property<IJsonCheckItem, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"Name", new Property<IJsonCheckItem, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Position", new Property<IJsonCheckItem, Position>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null, (d, o) => d.Pos = o.Value)},
+					{"Position", new Property<IJsonCheckItem, Position>(d => d.Pos != null ? new Position(d.Pos.Value) : null, (d, o) => { if (o != null) d.Pos = o.Value; })},
 					{"State", new Property<IJsonCheckItem, CheckItemState>(d => d.State, (d, o) => d.State = o)},
 				};
 		}
@@ -48,8 +49,12 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public void Delete()
 		{
+			if (_deleted) return;
+
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Write_Delete, new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+
+			_deleted = true;
 		}
 
 		protected override IJsonCheckItem GetData()
@@ -72,6 +77,10 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"_id", Data.Id},
 				});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+		}
+		protected override bool CanUpdate()
+		{
+			return !_deleted;
 		}
 	}
 }

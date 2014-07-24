@@ -23,7 +23,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -64,6 +66,10 @@ namespace Manatee.Trello
 		/// <param name="membership">The membership type.</param>
 		public void Add(Member member, OrganizationMembershipType membership)
 		{
+			var error = NotNullRule<Member>.Instance.Validate(null, member);
+			if (error != null)
+				throw new ValidationException<Member>(member, new[] { error });
+
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonOrganizationMembership>();
 			json.Member = member.Json;
 			json.MemberType = membership;
@@ -77,6 +83,10 @@ namespace Manatee.Trello
 		/// <param name="member">The member to remove.</param>
 		public void Remove(Member member)
 		{
+			var error = NotNullRule<Member>.Instance.Validate(null, member);
+			if (error != null)
+				throw new ValidationException<Member>(member, new[] { error });
+
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
 			json.Value = member.Id;
 

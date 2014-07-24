@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -31,11 +32,27 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	public abstract class Webhook
+	{
+		internal Webhook() {}
+
+		public static void ProcessNotification(string content)
+		{
+			var notification = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhookNotification>(content);
+			var action = new Action(notification.Action);
+
+			foreach (var obj in TrelloConfiguration.Cache.OfType<ICanWebhook>())
+			{
+				obj.ApplyAction(action);
+			}
+		}
+	}
+
 	/// <summary>
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T>
+	public class Webhook<T> : Webhook
 		where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
@@ -43,8 +60,6 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _isActive;
 		private readonly Field<T> _target;
 		private readonly WebhookContext<T> _context;
-
-		private bool _deleted;
 
 		/// <summary>
 		/// Gets or sets a callback URL for the webhook.
@@ -142,10 +157,7 @@ namespace Manatee.Trello
 		/// </remarks>
 		public void Delete()
 		{
-			if (_deleted) return;
-
 			_context.Delete();
-			_deleted = true;
 			TrelloConfiguration.Cache.Remove(this);
 		}
 

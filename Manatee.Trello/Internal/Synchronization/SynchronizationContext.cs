@@ -114,6 +114,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public override void SetValue<T>(string property, T value)
 		{
+			if (!CanUpdate()) return;
 			_properties[property].Set(Data, value);
 			_localChanges.Add(property);
 			ResetTimer();
@@ -138,6 +139,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected virtual IEnumerable<string> MergeDependencies(TJson json)
 		{
 			return Enumerable.Empty<string>();
+		}
+		protected virtual bool CanUpdate()
+		{
+			return true;
 		}
 
 		internal IEnumerable<string> Merge(TJson json)

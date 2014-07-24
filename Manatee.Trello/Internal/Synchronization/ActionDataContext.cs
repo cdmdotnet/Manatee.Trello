@@ -44,10 +44,28 @@ namespace Manatee.Trello.Internal.Synchronization
 						                                              (d, o) => { if (o != null) d.Board = o.Json; })
 					},
 					{
+						"BoardSource", new Property<IJsonActionData, Board>(d => d.BoardSource == null
+							                                                         ? null
+							                                                         : new Board(d.BoardSource, false),
+						                                                    (d, o) => { if (o != null) d.BoardSource = o.Json; })
+					},
+					{
+						"BoardTarget", new Property<IJsonActionData, Board>(d => d.BoardTarget == null
+							                                                         ? null
+							                                                         : new Board(d.BoardTarget, false),
+						                                                    (d, o) => { if (o != null) d.BoardTarget = o.Json; })
+					},
+					{
 						"Card", new Property<IJsonActionData, Card>(d => d.Card == null
 							                                                 ? null
 							                                                 : new Card(d.Card, false),
 						                                            (d, o) => { if (o != null) d.Card = o.Json; })
+					},
+					{
+						"CardSource", new Property<IJsonActionData, Card>(d => d.CardSource == null
+							                                                       ? null
+							                                                       : new Card(d.CardSource, false),
+						                                                  (d, o) => { if (o != null) d.CardSource = o.Json; })
 					},
 					{
 						"CheckItem", new Property<IJsonActionData, CheckItem>(d => d.CheckItem == null
