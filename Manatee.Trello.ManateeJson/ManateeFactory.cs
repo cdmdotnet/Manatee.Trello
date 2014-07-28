@@ -67,6 +67,7 @@ namespace Manatee.Trello.ManateeJson
 					{typeof (IJsonOrganizationMembership), () => new ManateeOrganizationMembership()},
 					{typeof (IJsonOrganizationPreferences), () => new ManateeOrganizationPreferences()},
 					{typeof (IJsonParameter), () => new ManateeParameter()},
+					{typeof (IJsonPosition), () => new ManateePosition()},
 					{typeof (IJsonSearch), () => new ManateeSearch()},
 					{typeof (IJsonToken), () => new ManateeToken()},
 					{typeof (IJsonTokenPermission), () => new ManateeTokenPermission()},

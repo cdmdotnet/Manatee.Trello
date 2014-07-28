@@ -103,7 +103,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		//CheckItem_Write_Position,
 		//CheckItem_Write_State,
 		CheckItem_Write_Update,
-		//CheckList_Read_CheckItems,
+		CheckList_Read_CheckItems,
 		CheckList_Read_Refresh,
 		CheckList_Write_AddCheckItem,
 		//CheckList_Write_Card,

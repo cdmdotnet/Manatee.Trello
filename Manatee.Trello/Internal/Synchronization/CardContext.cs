@@ -56,8 +56,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{"Name", new Property<IJsonCard, string>(d => d.Name, (d, o) => d.Name = o)},
 					{
-						"Position", new Property<IJsonCard, Position>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null,
-						                                              (d, o) => { if (o != null) d.Pos = o.Value; })
+						"Position", new Property<IJsonCard, Position>(d => Position.GetPosition(d.Pos),
+						                                              (d, o) => d.Pos = Position.GetJson(o))
 					},
 					{"ShortId", new Property<IJsonCard, int?>(d => d.IdShort, (d, o) => d.IdShort = o)},
 					{"ShortUrl", new Property<IJsonCard, string>(d => d.ShortUrl, (d, o) => d.ShortUrl = o)},
@@ -101,6 +101,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override bool CanUpdate()
 		{
 			return !_deleted;
+		}
+		protected override bool IsDataComplete()
+		{
+			return !Data.Name.IsNullOrWhiteSpace();
 		}
 	}
 }

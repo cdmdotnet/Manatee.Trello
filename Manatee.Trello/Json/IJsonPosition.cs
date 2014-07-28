@@ -1,6 +1,6 @@
-/***************************************************************************************
+﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,30 +14,30 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IJsonCheckItem.cs
+	File Name:		IJsonPosition.cs
 	Namespace:		Manatee.Trello.Json
-	Class Name:		IJsonCheckItem
-	Purpose:		Defines the JSON structure for the CheckItem object.
+	Class Name:		IJsonPosition
+	Purpose:		Defines the JSON structure for the Position object.
 
 ***************************************************************************************/
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
-	/// Defines the JSON structure for the CheckItem object.
+	/// Defines the JSON structure for the Position object.
 	/// </summary>
-	public interface IJsonCheckItem : IJsonCacheable
+	public interface IJsonPosition
 	{
 		/// <summary>
-		/// Gets or sets the check state of the checklist item.
+		/// Gets or sets an explicit numeric value for the position.
 		/// </summary>
-		CheckItemState State { get; set; }
+		double? Explicit { get; set; }
 		/// <summary>
-		/// Gets or sets the name of the checklist item.
+		/// Gets or sets a named value for the position.
 		/// </summary>
-		string Name { get; set; }
-		/// <summary>
-		/// Gets or sets the position of the checklist item.
-		/// </summary>
-		IJsonPosition Pos { get; set; }
+		/// <remarks>
+		/// Valid values are "top" and "bottom".
+		/// </remarks>
+		string Named { get; set; }
 	}
 }

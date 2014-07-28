@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
@@ -35,19 +36,32 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCheckItemCollection : ReadOnlyCollection<CheckItem>
 	{
-		internal ReadOnlyCheckItemCollection(string ownerId)
-			: base(ownerId) {}
+		internal readonly CheckListContext _context;
+
+		internal ReadOnlyCheckItemCollection(CheckListContext context)
+			: base(context.Data.Id)
+		{
+			_context = context;
+		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
 		protected override sealed void Update()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonCheckItem>>(TrelloAuthorization.Default, endpoint);
-
-			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<CheckItem>(b => b.Id == jc.Id) ?? new CheckItem(jc, OwnerId, true)));
+			_context.Synchronize();
+			if (_context.Data.CheckItems == null) return;
+			foreach (var jsonCheckItem in _context.Data.CheckItems)
+			{
+				var checkItem = Items.SingleOrDefault(ci => ci.Id == jsonCheckItem.Id);
+				if (checkItem == null)
+					Items.Add(new CheckItem(jsonCheckItem, _context.Data.Id, true));
+			}
+			foreach (var checkItem in Items.ToList())
+			{
+				if (_context.Data.CheckItems.All(jci => jci.Id != checkItem.Id))
+					Items.Remove(checkItem);
+			}
 		}
 	}
 
@@ -56,8 +70,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckItemCollection : ReadOnlyCheckItemCollection
 	{
-		internal CheckItemCollection(string ownerId)
-			: base(ownerId) {}
+		internal CheckItemCollection(CheckListContext context)
+			: base(context) { }
 
 		/// <summary>
 		/// Creates a new checklist item.

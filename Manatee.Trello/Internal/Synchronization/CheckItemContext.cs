@@ -37,7 +37,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{"Id", new Property<IJsonCheckItem, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"Name", new Property<IJsonCheckItem, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Position", new Property<IJsonCheckItem, Position>(d => d.Pos != null ? new Position(d.Pos.Value) : null, (d, o) => { if (o != null) d.Pos = o.Value; })},
+					{"Position", new Property<IJsonCheckItem, Position>(d => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))},
 					{"State", new Property<IJsonCheckItem, CheckItemState>(d => d.State, (d, o) => d.State = o)},
 				};
 		}
@@ -59,7 +59,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IJsonCheckItem GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh, new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
 			var newData = JsonRepository.Execute<IJsonCheckItem>(TrelloAuthorization.Default, endpoint);
 
 			return newData;
@@ -73,7 +73,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Write_Update, new Dictionary<string, object>
 				{
 					{"_cardId", checkList.Card.Id},
-					{"_checkListId", _ownerId},
+					{"_checklistId", _ownerId},
 					{"_id", Data.Id},
 				});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);

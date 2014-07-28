@@ -32,7 +32,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Id { get; set; }
 		public CheckItemState State { get; set; }
 		public string Name { get; set; }
-		public double? Pos { get; set; }
+		public IJsonPosition Pos { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -41,17 +41,18 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Id = obj.TryGetString("id");
 			State = serializer.Deserialize<CheckItemState>(obj.TryGetString("state"));
 			Name = obj.TryGetString("name");
-			Pos = obj.TryGetNumber("pos");
+			Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
+			var json = new JsonObject
 				{
 					{"id", Id},
 					{"state", serializer.Serialize(State)},
 					{"name", Name},
-					{"pos", Pos},
 				};
+			Pos.Serialize(json, serializer, "pos");
+			return json;
 		}
 	}
 }

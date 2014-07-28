@@ -44,32 +44,39 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public List<IJsonLabel> Labels { get; set; }
 		public bool? ManualCoverAttachment { get; set; }
 		public string Name { get; set; }
-		public double? Pos { get; set; }
+		public IJsonPosition Pos { get; set; }
 		public string Url { get; set; }
 		public string ShortUrl { get; set; }
 		public bool? Subscribed { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
-			Closed = obj.TryGetBoolean("closed");
-			DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
-			Desc = obj.TryGetString("desc");
-			Due = obj.Deserialize<DateTime?>(serializer, "due");
-			Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
-			List = obj.Deserialize<IJsonList>(serializer, "idList");
-			IdShort = (int?) obj.TryGetNumber("idShort");
-			IdAttachmentCover = obj.TryGetString("idAttachmentCover");
-			Labels = obj.Deserialize<List<IJsonLabel>>(serializer, "labels");
-			ManualCoverAttachment = obj.TryGetBoolean("manualAttachmentCover");
-			Name = obj.TryGetString("name");
-			Pos = obj.TryGetNumber("pos");
-			Url = obj.TryGetString("url");
-			ShortUrl = obj.TryGetString("shortUrl");
-			Subscribed = obj.TryGetBoolean("subscribed");
+			switch (json.Type)
+			{
+				case JsonValueType.Object:
+					var obj = json.Object;
+					Id = obj.TryGetString("id");
+					Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
+					Closed = obj.TryGetBoolean("closed");
+					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
+					Desc = obj.TryGetString("desc");
+					Due = obj.Deserialize<DateTime?>(serializer, "due");
+					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
+					List = obj.Deserialize<IJsonList>(serializer, "idList");
+					IdShort = (int?) obj.TryGetNumber("idShort");
+					IdAttachmentCover = obj.TryGetString("idAttachmentCover");
+					Labels = obj.Deserialize<List<IJsonLabel>>(serializer, "labels");
+					ManualCoverAttachment = obj.TryGetBoolean("manualAttachmentCover");
+					Name = obj.TryGetString("name");
+					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
+					Url = obj.TryGetString("url");
+					ShortUrl = obj.TryGetString("shortUrl");
+					Subscribed = obj.TryGetBoolean("subscribed");
+					break;
+				case JsonValueType.String:
+					Id = json.String;
+					break;
+			}
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
@@ -82,7 +89,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 					{"idAttachmentCover", IdAttachmentCover},
 					{"manualAttachmentCover", ManualCoverAttachment},
 					{"name", Name},
-					{"pos", Pos},
 					{"url", Url},
 					{"shortUrl", ShortUrl},
 					{"subscribed", Subscribed},
@@ -92,6 +98,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Badges.Serialize(json, serializer, "badges");
 			Board.SerializeId(json, serializer, "idBoard");
 			List.SerializeId(json, serializer, "idList");
+			Pos.Serialize(json, serializer, "pos");
 			// Don't serialize the Label collection because Trello wants a comma-sparated list
 			if (Labels != null)
 				json["labels"] = Labels.Select(l => l.Color.ToLowerString()).Join(",");

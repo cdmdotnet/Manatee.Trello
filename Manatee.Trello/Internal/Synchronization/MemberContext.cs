@@ -70,5 +70,9 @@ namespace Manatee.Trello.Internal.Synchronization
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
 		}
+		protected override bool IsDataComplete()
+		{
+			return !Data.FullName.IsNullOrWhiteSpace();
+		}
 	}
 }

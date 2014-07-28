@@ -43,8 +43,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"IsSubscribed", new Property<IJsonList, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
 					{"Name", new Property<IJsonList, string>(d => d.Name, (d, o) => d.Name = o)},
 					{
-						"Position", new Property<IJsonList, Position>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null,
-						                                              (d, o) => { if (o != null) d.Pos = o.Value; })
+						"Position", new Property<IJsonList, Position>(d => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))
 					},
 				};
 		}
@@ -63,6 +62,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+		}
+		protected override bool IsDataComplete()
+		{
+			return !Data.Name.IsNullOrWhiteSpace();
 		}
 	}
 }
