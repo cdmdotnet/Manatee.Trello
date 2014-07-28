@@ -46,7 +46,7 @@ namespace Manatee.Trello.Internal.Validation
 				var search = new MemberSearch(newValue);
 				isValid &= search.Results == null || search.Results.All(o => o.Member.UserName != newValue);
 			}
-			return isValid
+			return !isValid
 					   ? "Value must consist of at least three lowercase letters, number, or underscores and must be unique on Trello."
 					   : null;
 		}

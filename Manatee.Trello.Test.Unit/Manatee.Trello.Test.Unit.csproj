@@ -73,8 +73,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BoardTest.cs" />
     <Compile Include="CardTest.cs" />
     <Compile Include="EntityTestBase.cs" />
+    <Compile Include="Factories\JsonObjectFactory.cs" />
     <Compile Include="Mocks\MockRestClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

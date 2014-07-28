@@ -116,7 +116,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private void TryAddContext<T>(Dictionary<string, object> json, string key)
 			where T : IJsonCacheable
 		{
-			var ids = Data.Context.OfType<T>().Select(o => o.Id).Join(",");
+			var ids = Data.Context.OfType<T>().Select(o => o.Id).Take(24).Join(",");
 			if (!ids.IsNullOrWhiteSpace())
 				json[key] = ids;
 		}

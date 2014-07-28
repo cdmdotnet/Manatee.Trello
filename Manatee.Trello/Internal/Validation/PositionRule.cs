@@ -35,8 +35,8 @@ namespace Manatee.Trello.Internal.Validation
 
 		public string Validate(Position oldValue, Position newValue)
 		{
-			return newValue.IsValid
-					   ? "Value must be a positive number."
+			return newValue == null || !newValue.IsValid
+					   ? "Value must be non-null and positive."
 					   : null;
 		}
 	}

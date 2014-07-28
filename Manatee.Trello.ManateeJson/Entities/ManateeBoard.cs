@@ -35,7 +35,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? Closed { get; set; }
 		public IJsonOrganization Organization { get; set; }
 		public IJsonLabelNames LabelNames { get; set; }
-		public bool? Pinned { get; set; }
 		public IJsonBoardPreferences Prefs { get; set; }
 		public string Url { get; set; }
 		public bool? Subscribed { get; set; }
@@ -53,7 +52,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Closed = obj.TryGetBoolean("closed");
 					Organization = obj.Deserialize<IJsonOrganization>(serializer, "idOrganization");
 					LabelNames = obj.Deserialize<IJsonLabelNames>(serializer, "labelNames");
-					Pinned = obj.TryGetBoolean("pinned");
 					Prefs = obj.Deserialize<IJsonBoardPreferences>(serializer, "prefs");
 					Url = obj.TryGetString("url");
 					Subscribed = obj.TryGetBoolean("subscribed");
@@ -72,7 +70,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"name", Name},
 			       		{"desc", Desc},
 			       		{"closed", Closed},
-			       		{"pinned", Pinned},
 			       		{"url", Url},
 			       		{"subscribed", Subscribed},
 			       	};

@@ -28,7 +28,6 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonWebhookNotification
 	{
-		// TODO: Implement a mechanism for processing webhook notifications.
 		/// <summary>
 		/// Gets or sets the action associated with the notification.
 		/// </summary>

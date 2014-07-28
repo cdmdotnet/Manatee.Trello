@@ -21,9 +21,6 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Manatee.Trello.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -34,12 +31,12 @@ namespace Manatee.Trello.NewtonsoftJson.Entities
 	{
 		[JsonProperty("id")]
 		public string Id { get; set; }
-		[JsonProperty("idMemberCreator")]
-		public string IdMemberCreator { get; set; }
+		[JsonProperty("idMember")]
+		public IJsonMember MemberCreator { get; set; }
 		[JsonProperty("data")]
 		public IJsonActionData Data { get; set; }
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public ActionType Type { get; set; }
 		[JsonProperty("date")]
 		[JsonConverter(typeof(IsoDateTimeConverter))]
 		public DateTime? Date { get; set; }

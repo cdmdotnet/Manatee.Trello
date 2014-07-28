@@ -22,7 +22,6 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Rest;

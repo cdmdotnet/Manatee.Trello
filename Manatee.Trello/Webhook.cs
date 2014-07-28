@@ -109,7 +109,7 @@ namespace Manatee.Trello
 		/// <param name="target"></param>
 		/// <param name="description"></param>
 		/// <param name="callBackUrl"></param>
-		public Webhook(T target, string description, string callBackUrl)
+		public Webhook(T target, string callBackUrl, string description = null)
 		{
 			_context = new WebhookContext<T>();
 			Id = _context.Create(target, description, callBackUrl);

@@ -22,9 +22,6 @@
 
 ***************************************************************************************/
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Manatee.Trello.Json;
 using Manatee.Trello.NewtonsoftJson.Entities;
 using Newtonsoft.Json.Linq;
