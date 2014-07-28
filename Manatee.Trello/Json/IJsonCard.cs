@@ -81,7 +81,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the card's position.
 		/// </summary>
-		double? Pos { get; set; }
+		IJsonPosition Pos { get; set; }
 		/// <summary>
 		/// Gets or sets the URL for this card.
 		/// </summary>

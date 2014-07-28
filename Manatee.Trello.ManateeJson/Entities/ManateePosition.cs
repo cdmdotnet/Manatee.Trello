@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ManateeList.cs
+	File Name:		ManateePosition.cs
 	Namespace:		Manatee.Trello.ManateeJson.Entities
-	Class Name:		ManateeList
-	Purpose:		Implements IJsonList for Manatee.Json.
+	Class Name:		ManateePosition
+	Purpose:		Implements IJsonPosition for Manatee.Json.
 
 ***************************************************************************************/
 
@@ -27,45 +27,30 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeList : IJsonList, IJsonSerializable
+	public class ManateePosition : IJsonPosition, IJsonSerializable
 	{
-		public string Id { get; set; }
-		public string Name { get; set; }
-		public bool? Closed { get; set; }
-		public IJsonBoard Board { get; set; }
-		public IJsonPosition Pos { get; set; }
-		public bool? Subscribed { get; set; }
+		public double? Explicit { get; set; }
+		public string Named { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			switch (json.Type)
 			{
-				case JsonValueType.Object:
-					var obj = json.Object;
-					Id = obj.TryGetString("id");
-					Name = obj.TryGetString("name");
-					Closed = obj.TryGetBoolean("closed");
-					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
-					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
-					Subscribed = obj.TryGetBoolean("subscribed");
+				case JsonValueType.Number:
+					Explicit = json.Number;
 					break;
 				case JsonValueType.String:
-					Id = json.String;
+					Named = json.String;
 					break;
 			}
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-			       	{
-			       		{"id", Id},
-			       		{"name", Name},
-			       		{"closed", Closed},
-			       		{"subscribed", Subscribed},
-			       	};
-			Board.SerializeId(json, serializer, "idBoard");
-			Pos.Serialize(json, serializer, "pos");
-			return json;
+			return Named.IsNullOrWhiteSpace()
+				       ? (Explicit.HasValue
+					          ? Explicit
+					          : JsonValue.Null)
+				       : Named;
 		}
 	}
 }

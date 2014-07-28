@@ -84,5 +84,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return !_deleted;
 		}
+		protected override bool IsDataComplete()
+		{
+			return Data.DisplayName.IsNullOrWhiteSpace();
+		}
 	}
 }

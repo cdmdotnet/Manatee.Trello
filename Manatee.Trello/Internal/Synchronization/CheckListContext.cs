@@ -43,9 +43,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						"Card", new Property<IJsonCheckList, Card>(d => d.Card.GetFromCache<Card>(),
 						                                           (d, o) => d.Card = o != null ? (o).Json : null)
 					},
+					{"CheckItems", new Property<IJsonCheckList, List<IJsonCheckItem>>(d => d.CheckItems, (d, o) => d.CheckItems = o)},
 					{"Id", new Property<IJsonCheckList, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"Name", new Property<IJsonCheckList, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Position", new Property<IJsonCheckList, Position>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null, (d, o) => { if (o != null) d.Pos = o.Value; })},
+					{"Position", new Property<IJsonCheckList, Position>(d => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))},
 				};
 		}
 		public CheckListContext(string id)
@@ -57,7 +58,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			if (_deleted) return;
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
+			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
 
 			_deleted = true;

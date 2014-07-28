@@ -64,7 +64,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			lock (_lock)
 			{
-				if (!force && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
+				if (!force && IsDataComplete() && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
 				var properties = Merge().ToList();
 				if (!properties.Any()) return;
 				var handler = Synchronized;
@@ -84,12 +84,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			_timer.Start();
 		}
 
+		protected abstract IEnumerable<string> Merge();
+		protected abstract void Submit();
+
 		protected void MarkAsUpdated()
 		{
 			_lastUpdate = DateTime.Now;
 		}
-		protected abstract IEnumerable<string> Merge();
-		protected abstract void Submit();
+		protected virtual bool IsDataComplete()
+		{
+			return true;
+		}
 
 		private void TimerElapsed(object sender, ElapsedEventArgs e)
 		{
@@ -120,6 +125,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public sealed override T GetValue<T>(string property)
 		{
+			// TODO: consider placing a hold on getting properties that have writes pending
 			var value = (T)_properties[property].Get(Data);
 			return value;
 		}

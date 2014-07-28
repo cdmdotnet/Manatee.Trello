@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -33,7 +34,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Name { get; set; }
 		public IJsonBoard Board { get; set; }
 		public IJsonCard Card { get; set; }
-		public double? Pos { get; set; }
+		public List<IJsonCheckItem> CheckItems { get; set; }
+		public IJsonPosition Pos { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -43,7 +45,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Name = obj.TryGetString("name");
 			Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
 			Card = obj.Deserialize<IJsonCard>(serializer, "idCard");
-			Pos = obj.TryGetNumber("pos");
+			CheckItems = obj.Deserialize<List<IJsonCheckItem>>(serializer, "checkItems");
+			Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
@@ -53,10 +56,11 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"name", Name},
 			       		{"idBoard", serializer.Serialize(Board)},
 			       		{"idCard", serializer.Serialize(Card)},
-			       		{"pos", Pos},
 			       	};
 			Board.SerializeId(json, serializer, "idBoard");
 			Card.SerializeId(json, serializer, "idCard");
+			Pos.Serialize(json, serializer, "pos");
+			CheckItems.Serialize(json, serializer, "checkItems");
 			return json;
 		}
 	}

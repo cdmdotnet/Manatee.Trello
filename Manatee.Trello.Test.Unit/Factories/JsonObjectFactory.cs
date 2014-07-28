@@ -148,7 +148,10 @@ namespace Manatee.Trello.Test.Unit.Factories
 			card.Object.List = list.Object;
 			card.Object.ManualCoverAttachment = false;
 			card.Object.Name = "card name";
-			card.Object.Pos = 30;
+			var pos = CreateMock<IJsonPosition>();
+			pos.SetupGet(p => p.Explicit)
+			   .Returns(30);
+			card.Object.Pos = pos.Object;
 			card.Object.ShortUrl = "http://manatee.trello.com/card";
 			card.Object.Subscribed = true;
 			card.Object.Url = "http://manatee.trello.com/card";

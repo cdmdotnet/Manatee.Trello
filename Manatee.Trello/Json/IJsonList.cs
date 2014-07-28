@@ -42,7 +42,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the position of the list.
 		/// </summary>
-		double? Pos { get; set; }
+		IJsonPosition Pos { get; set; }
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to the list.
 		/// </summary>

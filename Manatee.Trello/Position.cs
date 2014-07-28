@@ -23,6 +23,7 @@
 ***************************************************************************************/
 using System;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -68,6 +69,35 @@ namespace Manatee.Trello
 		public Position(double value)
 		{
 			_value = value;
+		}
+
+		internal static Position GetPosition(IJsonPosition pos)
+		{
+			if (pos == null) return null;
+			if (pos.Named.IsNullOrWhiteSpace() && pos.Explicit.HasValue)
+				return new Position(pos.Explicit.Value);
+			switch (pos.Named)
+			{
+				case "top":
+					return Top;
+				case "bottom":
+					return Bottom;
+			}
+			return null;
+		}
+		internal static IJsonPosition GetJson(Position pos)
+		{
+			var json = TrelloConfiguration.JsonFactory.Create<IJsonPosition>();
+			if (pos == null) return json;
+			if (Equals(pos, _unknown))
+				json.Named = "unknown";
+			else if (Equals(pos, _top))
+				json.Named = "top";
+			else if (Equals(pos, _bottom))
+				json.Named = "bottom";
+			else
+				json.Explicit = pos.Value;
+			return json;
 		}
 
 		/// <summary>

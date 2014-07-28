@@ -106,7 +106,7 @@ namespace Manatee.Trello
 			_board = new Field<Board>(_context, () => Board);
 			_card = new Field<Card>(_context, () => Card);
 			_card.AddRule(NotNullRule<Card>.Instance);
-			CheckItems = new CheckItemCollection(id);
+			CheckItems = new CheckItemCollection(_context);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, () => Position);

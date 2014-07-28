@@ -75,6 +75,7 @@
     <Compile Include="Json\IJsonActionOldData.cs" />
     <Compile Include="Json\IJsonComment.cs" />
     <Compile Include="Json\IJsonMemberSearch.cs" />
+    <Compile Include="Json\IJsonPosition.cs" />
     <Compile Include="MemberPreferences.cs" />
     <Compile Include="MemberSearch.cs" />
     <Compile Include="MemberSearchResult.cs" />

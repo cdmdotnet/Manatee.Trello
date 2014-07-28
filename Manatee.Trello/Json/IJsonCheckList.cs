@@ -20,6 +20,9 @@
 	Purpose:		Defines the JSON structure for the CheckList object.
 
 ***************************************************************************************/
+
+using System.Collections.Generic;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
@@ -40,8 +43,12 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		IJsonCard Card { get; set; }
 		/// <summary>
+		/// Gets or sets the collection of items in this checklist.
+		/// </summary>
+		List<IJsonCheckItem> CheckItems { get; set; }
+		/// <summary>
 		/// Gets or sets the position of this checklist.
 		/// </summary>
-		double? Pos { get; set; }
+		IJsonPosition Pos { get; set; }
 	}
 }

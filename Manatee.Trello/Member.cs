@@ -36,7 +36,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Member : ICanWebhook, ICacheable
 	{
-		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/30.png";
+		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
 
 		private readonly Field<AvatarSource> _avatarSource;
 		private readonly Field<string> _avatarUrl;
