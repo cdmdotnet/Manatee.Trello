@@ -29,11 +29,9 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var org = new Organization("littlecrabsolutions");
+			var me = new Me();
 
-			Console.WriteLine(org);
-			Console.WriteLine(org.Preferences.PermissionLevel);
-			Console.WriteLine(org.Preferences.AssociatedDomain);
+			me.Initials = "ABC";
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}

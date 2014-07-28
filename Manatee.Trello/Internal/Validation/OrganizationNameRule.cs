@@ -43,10 +43,10 @@ namespace Manatee.Trello.Internal.Validation
 			var isValid = _regex.IsMatch(newValue);
 			if (isValid)
 			{
-				var search = new Search(newValue, modelTypes: SearchModelType.Organizations);
+				var search = new Search(newValue, SearchModelType.Organizations);
 				isValid &= search.Organizations == null || search.Organizations.All(o => o.Name != newValue);
 			}
-			return isValid
+			return !isValid
 				       ? "Value must consist of at least three lowercase letters, number, or underscores and must be unique on Trello."
 				       : null;
 		}

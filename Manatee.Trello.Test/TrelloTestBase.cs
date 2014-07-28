@@ -21,6 +21,7 @@ namespace Manatee.Trello.Test
 			protected SystemUnderTest()
 			{
 				Dependencies = new TDepCol();
+				Dependencies.ConfigureDefaultBehavior();
 			}
 		}
 

@@ -201,6 +201,7 @@ namespace Manatee.Trello
 			Comments = new CommentCollection(id);
 			_description = new Field<string>(_context, () => Description);
 			_dueDate = new Field<DateTime?>(_context, () => DueDate);
+			_dueDate.AddRule(NullableHasValueRule<DateTime>.Instance);
 			_isArchived = new Field<bool?>(_context, () => IsArchived);
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
@@ -213,7 +214,6 @@ namespace Manatee.Trello
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, () => Position);
-			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 			_shortId = new Field<int?>(_context, () => ShortId);
 			_shortUrl = new Field<string>(_context, () => ShortUrl);

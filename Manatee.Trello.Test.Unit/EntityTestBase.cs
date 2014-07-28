@@ -1,31 +1,11 @@
-﻿/***************************************************************************************
-
-	Copyright 2014 Greg Dennis
-
-	   Licensed under the Apache License, Version 2.0 (the "License");
-	   you may not use this file except in compliance with the License.
-	   You may obtain a copy of the License at
-
-		 http://www.apache.org/licenses/LICENSE-2.0
-
-	   Unless required by applicable law or agreed to in writing, software
-	   distributed under the License is distributed on an "AS IS" BASIS,
-	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	   See the License for the specific language governing permissions and
-	   limitations under the License.
- 
-	File Name:		EntityTestBase.cs
-	Namespace:		Manatee.Trello.Test.Unit.Entities
-	Class Name:		EntityTestBase
-	Purpose:		Provides base functionality for the entity classes.
-
-***************************************************************************************/
-
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Test.Unit.Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace Manatee.Trello.Test.Unit
@@ -40,6 +20,7 @@ namespace Manatee.Trello.Test.Unit
 			public Mock<IDeserializer> Deserializer { get; private set; }
 			public Mock<IJsonFactory> JsonFactory { get; private set; }
 			public Mock<IRestClientProvider> RestClientProvider { get; private set; }
+			public Mock<IRestRequestProvider> RestRequestProvider { get; private set; }
 			public MockRestClient RestClient { get; private set; }
 			public Mock<ICache> Cache { get; private set; }
 			public Mock<ILog> Log { get; private set; }
@@ -50,6 +31,7 @@ namespace Manatee.Trello.Test.Unit
 				Deserializer = new Mock<IDeserializer>();
 				JsonFactory = new Mock<IJsonFactory>();
 				RestClientProvider = new Mock<IRestClientProvider>();
+				RestRequestProvider = new Mock<IRestRequestProvider>();
 				RestClient = new MockRestClient();
 				Cache = new Mock<ICache>();
 				Log = new Mock<ILog>();
@@ -63,39 +45,128 @@ namespace Manatee.Trello.Test.Unit
 				TrelloConfiguration.RestClientProvider = RestClientProvider.Object;
 				TrelloConfiguration.Cache = Cache.Object;
 				TrelloConfiguration.Log = Log.Object;
+				TrelloConfiguration.ChangeSubmissionTime = TimeSpan.FromMilliseconds(0);
 
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				RestClientProvider.Setup(p => p.CreateRestClient(It.IsAny<string>()))
 				                  .Returns(RestClient);
+				RestClientProvider.SetupGet(p => p.RequestProvider)
+				                  .Returns(RestRequestProvider.Object);
+				RestRequestProvider.Setup(p => p.Create(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+				                   .Returns((string s, IDictionary<string, object> d) =>
+					                   {
+						                   var mockResponse = new Mock<IRestRequest>();
+						                   mockResponse.SetupAllProperties();
+						                   return mockResponse.Object;
+					                   });
+				ConfigureJsonFactory();
+			}
+
+			private void ConfigureJsonFactory()
+			{
+				ConfigureJsonFactory<IJsonAction>();
+				ConfigureJsonFactory<IJsonActionData>();
+				ConfigureJsonFactory<IJsonActionOldData>();
+				ConfigureJsonFactory<IJsonAttachment>();
+				ConfigureJsonFactory<IJsonAttachmentPreview>();
+				ConfigureJsonFactory<IJsonBadges>();
+				ConfigureJsonFactory<IJsonBoard>();
+				ConfigureJsonFactory<IJsonBoardMembership>();
+				ConfigureJsonFactory<IJsonBoardPersonalPreferences>();
+				ConfigureJsonFactory<IJsonBoardPreferences>();
+				ConfigureJsonFactory<IJsonBoardVisibilityRestrict>();
+				ConfigureJsonFactory<IJsonCard>();
+				ConfigureJsonFactory<IJsonCheckItem>();
+				ConfigureJsonFactory<IJsonCheckList>();
+				ConfigureJsonFactory<IJsonComment>();
+				ConfigureJsonFactory<IJsonLabel>();
+				ConfigureJsonFactory<IJsonLabelNames>();
+				ConfigureJsonFactory<IJsonList>();
+				ConfigureJsonFactory<IJsonMember>();
+				ConfigureJsonFactory<IJsonMemberPreferences>();
+				ConfigureJsonFactory<IJsonMemberSearch>();
+				ConfigureJsonFactory<IJsonMemberSession>();
+				ConfigureJsonFactory<IJsonNotification>();
+				ConfigureJsonFactory<IJsonNotificationData>();
+				ConfigureJsonFactory<IJsonOrganization>();
+				ConfigureJsonFactory<IJsonOrganizationMembership>();
+				ConfigureJsonFactory<IJsonOrganizationPreferences>();
+				ConfigureJsonFactory<IJsonParameter>();
+				ConfigureJsonFactory<IJsonSearch>();
+				ConfigureJsonFactory<IJsonToken>();
+				ConfigureJsonFactory<IJsonTokenPermission>();
+				ConfigureJsonFactory<IJsonWebhook>();
+				ConfigureJsonFactory<IJsonWebhookNotification>();
+			}
+
+			private void ConfigureJsonFactory<TJson>()
+				where TJson : class
+			{
+				var mock = new Mock<TJson>();
+				mock.SetupAllProperties();
+				JsonFactory.Setup(f => f.Create<TJson>())
+				           .Returns(mock.Object);
 			}
 		}
 
-		#endregion
-
-		#region Test methods
-
-		[TestMethod]
-		public void TestMethod1()
+		protected abstract class SystemUnderTest : SystemUnderTest<T, DependencyCollection>
 		{
-			throw new NotImplementedException();
+			protected SystemUnderTest()
+			{
+				Sut = BuildSut();
+			}
+
+			protected abstract T BuildSut();
 		}
+
+		protected SystemUnderTest _sut;
 
 		#endregion
 
 		#region Given
 
-
 		#endregion
 
 		#region When
 
+		protected void NothingHappens() {}
 
 		#endregion
 
 		#region Then
 
+		protected void RestClientProviderCreateClientIsInvoked()
+		{
+			_sut.Dependencies.RestClientProvider.Verify(p => p.CreateRestClient(It.IsAny<string>()));
+		}
+		protected void RestClientProviderCreateClientIsNotInvoked()
+		{
+			_sut.Dependencies.RestClientProvider.Verify(p => p.CreateRestClient(It.IsAny<string>()), Times.Never());
+		}
+		protected void CacheAddIsInvoked()
+		{
+			_sut.Dependencies.Cache.Verify(c => c.Add(It.IsAny<object>()));
+		}
+		[GenericMethodFormat("Cache.Find<{0}> is invoked")]
+		protected void CacheFindIsInvoked<TObj>()
+		{
+			_sut.Dependencies.Cache.Verify(c => c.Find(It.IsAny<Func<TObj, bool>>()));
+		}
+		protected void CacheRemoveIsInvoked()
+		{
+			_sut.Dependencies.Cache.Verify(c => c.Remove(It.IsAny<object>()));
+		}
+
+		#endregion
+
+		#region Other
+
+		protected void WaitForProcessor()
+		{
+			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
+		}
 
 		#endregion
 	}

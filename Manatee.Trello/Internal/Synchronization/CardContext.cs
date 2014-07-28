@@ -56,7 +56,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Name", new Property<IJsonCard, string>(d => d.Name, (d, o) => d.Name = o)},
 					{
 						"Position", new Property<IJsonCard, Position>(d => d.Pos.HasValue ? new Position(d.Pos.Value) : null,
-						                                              (d, o) => d.Pos = o == null ? (double?) null : o.Value)
+						                                              (d, o) => { if (o != null) d.Pos = o.Value; })
 					},
 					{"ShortId", new Property<IJsonCard, int?>(d => d.IdShort, (d, o) => d.IdShort = o)},
 					{"ShortUrl", new Property<IJsonCard, string>(d => d.ShortUrl, (d, o) => d.ShortUrl = o)},

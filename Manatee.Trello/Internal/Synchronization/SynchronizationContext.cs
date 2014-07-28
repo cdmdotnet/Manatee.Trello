@@ -38,10 +38,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected SynchronizationContext(bool useTimer)
 		{
-			if (useTimer)
+			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
 			{
-				// default interval is 100ms
-				_timer = new Timer { AutoReset = false };
+				_timer = new Timer
+					{
+						AutoReset = false,
+						Interval = TrelloConfiguration.ChangeSubmissionTime.Milliseconds
+					};
 				_timer.Elapsed += TimerElapsed;
 			}
 
@@ -71,7 +74,11 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public void ResetTimer()
 		{
-			if (_timer == null) return;
+			if (_timer == null)
+			{
+				SubmitChanges();
+				return;
+			}
 			if (_timer.Enabled)
 				_timer.Stop();
 			_timer.Start();
@@ -87,6 +94,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		private void TimerElapsed(object sender, ElapsedEventArgs e)
 		{
 			_timer.Stop();
+			SubmitChanges();
+		}
+		private void SubmitChanges()
+		{
 			Submit();
 			_lastUpdate = DateTime.Now;
 		}
@@ -148,6 +159,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		internal IEnumerable<string> Merge(TJson json)
 		{
 			MarkAsUpdated();
+			if (!CanUpdate()) return Enumerable.Empty<string>();
 			if (Equals(json, default(TJson)) || ReferenceEquals(json, Data))
 				return Enumerable.Empty<string>();
 			var propertyNames = new List<string>();

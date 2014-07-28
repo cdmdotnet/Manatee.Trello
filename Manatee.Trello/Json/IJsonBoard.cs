@@ -30,6 +30,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonBoard : IJsonCacheable
 	{
+		// TODO: implement the Starred property.
 		///<summary>
 		/// Gets or sets the board's name.
 		///</summary>
@@ -50,12 +51,6 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the label names for the board.
 		/// </summary>
 		IJsonLabelNames LabelNames { get; set; }
-		///<summary>
-		/// Gets or sets whether this board is pinned to the user's Boards menu.
-		///</summary>
-		// TODO: implement the Starred property.
-		[Obsolete("Trello has replaced this with the Starred property.")]
-		bool? Pinned { get; set; }
 		/// <summary>
 		/// Gets or sets a set of preferences for the board.
 		/// </summary>

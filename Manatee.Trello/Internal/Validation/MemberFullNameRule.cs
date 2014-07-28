@@ -39,7 +39,7 @@ namespace Manatee.Trello.Internal.Validation
 		public string Validate(string oldValue, string newValue)
 		{
 			var isValid = _regex.IsMatch(newValue);
-			return isValid
+			return !isValid
 				       ? "Value must consist of at least four characters and cannot begin or end with whitespace."
 				       : null;
 		}

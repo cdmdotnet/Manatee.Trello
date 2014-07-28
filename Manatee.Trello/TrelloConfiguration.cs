@@ -132,11 +132,19 @@ namespace Manatee.Trello
 		/// Specifies a length of time after which each Trello object will be marked as expired. Default is 30 seconds.
 		/// </summary>
 		public static TimeSpan ExpiryTime { get; set; }
+		/// <summary>
+		/// Specifies a length of time an object holds changes before it submits them.  The timer is reset with every change.  Default is 100 ms.
+		/// </summary>
+		/// <remarks>
+		/// Setting a value of 0 ms will result in instant upload of changes, dramatically increasing call volume and slowing performance.
+		/// </remarks>
+		public static TimeSpan ChangeSubmissionTime { get; set; }
 
 		static TrelloConfiguration()
 		{
 			ThrowOnTrelloError = true;
 			ExpiryTime = TimeSpan.FromSeconds(30);
+			ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
 		}
 	}
 }

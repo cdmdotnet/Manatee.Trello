@@ -21,14 +21,17 @@
 
 ***************************************************************************************/
 
+using System;
+using Manatee.Trello.Internal;
+
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// Contains authorization tokens needed to connect to trello.com.
 	/// </summary>
-	// TODO: Make TrelloAuthorization a static class.
 	public class TrelloAuthorization
 	{
+		private string _appKey;
 		/// <summary>
 		/// Gets the default authorization.
 		/// </summary>
@@ -37,7 +40,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// The token which identifies the application attempting to connect.
 		/// </summary>
-		public string AppKey { get; set; }
+		public string AppKey
+		{
+			get { return _appKey; }
+			set
+			{
+				if (value.IsNullOrWhiteSpace())
+					throw new ArgumentNullException("value");
+				_appKey = value;
+			}
+		}
 		/// <summary>
 		/// The token which identifies special permissions as granted by a specific user.
 		/// </summary>
