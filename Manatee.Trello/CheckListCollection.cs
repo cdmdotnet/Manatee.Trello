@@ -44,7 +44,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Update()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Read_Refresh, new Dictionary<string, object> {{"_id", OwnerId}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CheckLists, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonCheckList>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();

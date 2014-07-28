@@ -29,9 +29,13 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var me = new Me();
+			var card = new Card("7TK8KvcJ");
 
-			me.Initials = "ABC";
+			Console.WriteLine(card);
+			foreach (var checkList in card.CheckLists)
+			{
+				Console.WriteLine(checkList);
+			}
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}

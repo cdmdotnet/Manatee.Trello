@@ -48,6 +48,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonCard, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"IsArchived", new Property<IJsonCard, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
 					{"IsSubscribed", new Property<IJsonCard, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
+					{"Labels", new Property<IJsonCard, List<IJsonLabel>>(d => d.Labels, (d, o) => d.Labels = o)},
 					{"LastActivity", new Property<IJsonCard, DateTime?>(d => d.DateLastActivity, (d, o) => d.DateLastActivity = o)},
 					{
 						"List", new Property<IJsonCard, List>(d => d.List == null ? null : d.List.GetFromCache<List>(),
