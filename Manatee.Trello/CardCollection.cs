@@ -38,6 +38,7 @@ namespace Manatee.Trello
 	public class ReadOnlyCardCollection : ReadOnlyCollection<Card>
 	{
 		private readonly EntityRequestType _updateRequestType;
+		private readonly Dictionary<string, object> _requestParameters;
 
 		internal ReadOnlyCardCollection(Type type, string ownerId)
 			: base(ownerId)
@@ -45,6 +46,14 @@ namespace Manatee.Trello
 			_updateRequestType = type == typeof (List)
 				                     ? EntityRequestType.List_Read_Cards
 				                     : EntityRequestType.Board_Read_Cards;
+			_requestParameters = new Dictionary<string, object> {{"_id", ownerId}};
+		}
+		internal ReadOnlyCardCollection(EntityRequestType requestType, string ownerId, Dictionary<string, object> additionalParameters)
+			: base(ownerId)
+		{
+			_updateRequestType = requestType;
+			_requestParameters = additionalParameters;
+			_requestParameters.Add("_id", ownerId);
 		}
 
 		/// <summary>
@@ -52,7 +61,7 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Update()
 		{
-			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
+			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
 			var newData = JsonRepository.Execute<List<IJsonCard>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
