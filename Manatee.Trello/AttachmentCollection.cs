@@ -49,7 +49,12 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonAttachment>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(ja => TrelloConfiguration.Cache.Find<Attachment>(a => a.Id == ja.Id) ?? new Attachment(ja, OwnerId, true)));
+			Items.AddRange(newData.Select(ja =>
+				{
+					var attachment = TrelloConfiguration.Cache.Find<Attachment>(a => a.Id == ja.Id) ?? new Attachment(ja, OwnerId, true);
+					attachment.Json = ja;
+					return attachment;
+				}));
 		}
 	}
 

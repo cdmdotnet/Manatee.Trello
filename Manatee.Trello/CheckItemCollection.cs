@@ -56,6 +56,8 @@ namespace Manatee.Trello
 				var checkItem = Items.SingleOrDefault(ci => ci.Id == jsonCheckItem.Id);
 				if (checkItem == null)
 					Items.Add(new CheckItem(jsonCheckItem, _context.Data.Id, true));
+				else
+					checkItem.Json = jsonCheckItem;
 			}
 			foreach (var checkItem in Items.ToList())
 			{

@@ -66,7 +66,12 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonAction>>(TrelloAuthorization.Default, endpoint).Where(Filter);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => jc.GetFromCache<Action>()));
+			Items.AddRange(newData.Select(ja =>
+				{
+					var action = ja.GetFromCache<Action>();
+					action.Json = ja;
+					return action;
+				}));
 		}
 		/// <summary>
 		/// Provides a filter delegate.

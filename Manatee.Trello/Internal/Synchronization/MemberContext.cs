@@ -30,6 +30,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class MemberContext : SynchronizationContext<IJsonMember>
 	{
 		public MemberPreferencesContext MemberPreferencesContext { get; private set; }
+		public override bool IsDataComplete { get { return !Data.FullName.IsNullOrWhiteSpace(); } }
 		
 		static MemberContext()
 		{
@@ -69,10 +70,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
-		}
-		protected override bool IsDataComplete()
-		{
-			return !Data.FullName.IsNullOrWhiteSpace();
 		}
 	}
 }

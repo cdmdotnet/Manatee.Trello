@@ -30,6 +30,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class ListContext : SynchronizationContext<IJsonList>
 	{
+		public override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
+
 		static ListContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonList>>
@@ -62,10 +64,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
-		}
-		protected override bool IsDataComplete()
-		{
-			return !Data.Name.IsNullOrWhiteSpace();
 		}
 	}
 }

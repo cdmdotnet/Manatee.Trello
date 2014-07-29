@@ -63,7 +63,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public ActionType Type { get { return _type.Value; } }
 
-		internal IJsonAction Json { get { return _context.Data; } }
+		internal IJsonAction Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		/// <summary>
 		/// Raised when data on the action is updated.

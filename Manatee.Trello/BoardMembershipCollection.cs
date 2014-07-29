@@ -44,10 +44,15 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonBoardMembership>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonBoardMembership>>(TrelloAuthorization.Default, endpoint, new Dictionary<string, object> {{"fields", "all"}});
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<BoardMembership>(c => c.Id == jc.Id) ?? new BoardMembership(jc, OwnerId)));
+			Items.AddRange(newData.Select(jbm =>
+				{
+					var membership = TrelloConfiguration.Cache.Find<BoardMembership>(c => c.Id == jbm.Id) ?? new BoardMembership(jbm, OwnerId);
+					membership.Json = jbm;
+					return membership;
+				}));
 		}
 	}
 

@@ -116,6 +116,13 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
+		/// Marks the token to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
+		}
+		/// <summary>
 		/// Returns a string that represents the current object.
 		/// </summary>
 		/// <returns>

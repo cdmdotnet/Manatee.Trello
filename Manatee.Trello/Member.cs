@@ -50,6 +50,8 @@ namespace Manatee.Trello
 		private readonly Field<string> _userName;
 		internal readonly MemberContext _context;
 
+		private string _id;
+
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
@@ -89,7 +91,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id
+		{
+			get
+			{
+				if (!_context.IsDataComplete)
+					_context.Synchronize();
+				return _id;
+			}
+			private set { _id = value; }
+		}
 		/// <summary>
 		/// Gets or sets the member's initials.
 		/// </summary>
@@ -128,7 +139,11 @@ namespace Manatee.Trello
 			internal set { _userName.Value = value; }
 		}
 
-		internal IJsonMember Json { get { return _context.Data; } }
+		internal IJsonMember Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		/// <summary>
 		/// Raised when data on the member is updated.
@@ -187,6 +202,13 @@ namespace Manatee.Trello
 		{
 			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
 			_context.Merge(action.Data.Member.Json);
+		}
+		/// <summary>
+		/// Marks the member to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

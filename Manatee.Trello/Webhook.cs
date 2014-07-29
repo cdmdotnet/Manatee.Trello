@@ -160,6 +160,13 @@ namespace Manatee.Trello
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
 		}
+		/// <summary>
+		/// Marks the webhook to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
+		}
 
 		private void Synchronized(IEnumerable<string> properties)
 		{

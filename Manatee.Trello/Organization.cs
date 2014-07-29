@@ -44,6 +44,8 @@ namespace Manatee.Trello
 		private readonly Field<string> _website;
 		private readonly OrganizationContext _context;
 
+		private string _id;
+
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
@@ -71,7 +73,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the organization's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id
+		{
+			get
+			{
+				if (!_context.IsDataComplete)
+					_context.Synchronize();
+				return _id;
+			}
+			private set { _id = value; }
+		}
 		/// <summary>
 		/// Gets whether the organization has business class status.
 		/// </summary>
@@ -109,7 +120,11 @@ namespace Manatee.Trello
 			set { _website.Value = value; }
 		}
 
-		internal IJsonOrganization Json { get { return _context.Data; } }
+		internal IJsonOrganization Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		/// <summary>
 		/// Raised when data on the organization is updated.
@@ -175,6 +190,13 @@ namespace Manatee.Trello
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Marks the organization to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

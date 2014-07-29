@@ -29,18 +29,13 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var checkList = new CheckList("53d5c89dbf82d6dfed20ca94");
+			var member = new Member("jakeginnivan");
 
-			Console.WriteLine(checkList);
-			foreach (var checkItem in checkList.CheckItems)
+			Console.WriteLine(member);
+			foreach (var board in member.Boards)
 			{
-				Console.WriteLine(checkItem);
-				Console.WriteLine(checkItem.State);
+				Console.WriteLine(board);
 			}
-			checkList.CheckItems.First().State = CheckItemState.Complete;
-			Console.WriteLine(checkList.CheckItems.First().State);
-
-			Thread.Sleep(200);
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}
