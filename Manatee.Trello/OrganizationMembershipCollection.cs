@@ -43,11 +43,16 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Update()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Memberships, new Dictionary<string, object> { { "_id", OwnerId } });
-			var newData = JsonRepository.Execute<List<IJsonOrganizationMembership>>(TrelloAuthorization.Default, endpoint);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
+			var newData = JsonRepository.Execute<List<IJsonOrganizationMembership>>(TrelloAuthorization.Default, endpoint, new Dictionary<string, object> {{"fields", "all"}});
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => TrelloConfiguration.Cache.Find<OrganizationMembership>(c => c.Id == jc.Id) ?? new OrganizationMembership(jc, OwnerId)));
+			Items.AddRange(newData.Select(jom =>
+				{
+					var membership = TrelloConfiguration.Cache.Find<OrganizationMembership>(c => c.Id == jom.Id) ?? new OrganizationMembership(jom, OwnerId);
+					membership.Json = jom;
+					return membership;
+				}));
 		}
 	}
 
@@ -68,7 +73,7 @@ namespace Manatee.Trello
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<Member>(member, new[] { error });
+				throw new ValidationException<Member>(member, new[] {error});
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonOrganizationMembership>();
 			json.Member = member.Json;
@@ -85,7 +90,7 @@ namespace Manatee.Trello
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<Member>(member, new[] { error });
+				throw new ValidationException<Member>(member, new[] {error});
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
 			json.Value = member.Id;

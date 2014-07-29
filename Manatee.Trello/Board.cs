@@ -44,6 +44,8 @@ namespace Manatee.Trello
 		private readonly Field<string> _url;
 		private readonly BoardContext _context;
 
+		private string _id;
+
 		/// <summary>
 		/// Gets the collection of actions performed on and within this board.
 		/// </summary>
@@ -66,7 +68,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the board's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id
+		{
+			get
+			{
+				if (!_context.IsDataComplete)
+					_context.Synchronize();
+				return _id;
+			}
+			private set { _id = value; }
+		}
 		/// <summary>
 		/// Gets or sets whether this board is closed.
 		/// </summary>
@@ -130,7 +141,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Url { get { return _url.Value; } }
 
-		internal IJsonBoard Json { get { return _context.Data; } }
+		internal IJsonBoard Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		/// <summary>
 		/// Raised when data on the board is updated.
@@ -183,6 +198,13 @@ namespace Manatee.Trello
 		{
 			if (action.Type != ActionType.UpdateBoard || action.Data.Board == null || action.Data.Board.Id != Id) return;
 			_context.Merge(action.Data.Board.Json);
+		}
+		/// <summary>
+		/// Marks the board to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

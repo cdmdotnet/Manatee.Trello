@@ -82,7 +82,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Url { get { return _url.Value; } }
 
-		internal IJsonAttachment Json { get { return _context.Data; } }
+		internal IJsonAttachment Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		/// <summary>
 		/// Raised when the attachment is updated.

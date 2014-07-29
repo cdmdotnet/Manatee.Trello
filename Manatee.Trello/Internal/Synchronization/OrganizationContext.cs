@@ -31,6 +31,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private bool _deleted;
 
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; private set; }
+		public override bool IsDataComplete { get { return Data.DisplayName.IsNullOrWhiteSpace(); } }
 
 		static OrganizationContext()
 		{
@@ -83,10 +84,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override bool CanUpdate()
 		{
 			return !_deleted;
-		}
-		protected override bool IsDataComplete()
-		{
-			return Data.DisplayName.IsNullOrWhiteSpace();
 		}
 	}
 }

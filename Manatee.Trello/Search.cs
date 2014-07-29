@@ -107,5 +107,13 @@ namespace Manatee.Trello
 				Context = context.ToList();
 			Types = modelTypes;
 		}
+
+		/// <summary>
+		/// Marks the search to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
+		}
 	}
 }

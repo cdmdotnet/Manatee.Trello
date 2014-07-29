@@ -100,5 +100,13 @@ namespace Manatee.Trello
 			Organization = organization;
 			RestrictToOrganization = restrictToOrganization;
 		}
+
+		/// <summary>
+		/// Marks the member search to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
+		}
 	}
 }

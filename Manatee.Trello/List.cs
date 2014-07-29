@@ -43,6 +43,8 @@ namespace Manatee.Trello
 		private readonly Field<Position> _position;
 		private readonly ListContext _context;
 
+		private string _id;
+
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
@@ -62,7 +64,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the list's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id
+		{
+			get
+			{
+				if (!_context.IsDataComplete)
+					_context.Synchronize();
+				return _id;
+			}
+			private set { _id = value; }
+		}
 		/// <summary>
 		/// Gets or sets whether the list is archived.
 		/// </summary>
@@ -96,7 +107,11 @@ namespace Manatee.Trello
 			set { _position.Value = value; }
 		}
 
-		internal IJsonList Json { get { return _context.Data; } }
+		internal IJsonList Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		/// <summary>
 		/// Raised when data on the list is updated.
@@ -146,6 +161,13 @@ namespace Manatee.Trello
 		{
 			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;
 			_context.Merge(action.Data.List.Json);
+		}
+		/// <summary>
+		/// Marks the list to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

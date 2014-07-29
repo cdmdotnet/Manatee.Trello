@@ -50,6 +50,8 @@ namespace Manatee.Trello
 		private readonly Field<string> _url;
 		private readonly CardContext _context;
 
+		private string _id;
+
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
@@ -93,7 +95,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the card's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id
+		{
+			get
+			{
+				if (!_context.IsDataComplete)
+					_context.Synchronize();
+				return _id;
+			}
+			private set { _id = value; }
+		}
 		/// <summary>
 		/// Gets or sets whether the card is archived.
 		/// </summary>
@@ -165,7 +176,11 @@ namespace Manatee.Trello
 		/// </remarks>
 		public string Url { get { return _url.Value; } }
 
-		internal IJsonCard Json { get { return _context.Data; } }
+		internal IJsonCard Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		/// <summary>
 		/// Raised when data on the card is updated.
@@ -243,6 +258,13 @@ namespace Manatee.Trello
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Marks the card to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

@@ -65,7 +65,12 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<List<IJsonCard>>(TrelloAuthorization.Default, endpoint);
 
 			Items.Clear();
-			Items.AddRange(newData.Select(jc => jc.GetFromCache<Card>()));
+			Items.AddRange(newData.Select(jc =>
+				{
+					var card = jc.GetFromCache<Card>();
+					card.Json = jc;
+					return card;
+				}));
 		}
 	}
 

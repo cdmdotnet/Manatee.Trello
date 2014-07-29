@@ -34,7 +34,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		private readonly object _lock;
 		private DateTime _lastUpdate;
 
-		public event Action<IEnumerable<string>>  Synchronized;
+		public virtual bool IsDataComplete { get { return true; } }
+
+		public event Action<IEnumerable<string>> Synchronized;
 
 		protected SynchronizationContext(bool useTimer)
 		{
@@ -64,7 +66,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			lock (_lock)
 			{
-				if (!force && IsDataComplete() && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
+				if (!force && IsDataComplete && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
 				var properties = Merge().ToList();
 				if (!properties.Any()) return;
 				var handler = Synchronized;
@@ -83,6 +85,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				_timer.Stop();
 			_timer.Start();
 		}
+		public void Expire()
+		{
+			_lastUpdate = DateTime.MinValue;
+		}
 
 		protected abstract IEnumerable<string> Merge();
 		protected abstract void Submit();
@@ -90,10 +96,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected void MarkAsUpdated()
 		{
 			_lastUpdate = DateTime.Now;
-		}
-		protected virtual bool IsDataComplete()
-		{
-			return true;
 		}
 
 		private void TimerElapsed(object sender, ElapsedEventArgs e)

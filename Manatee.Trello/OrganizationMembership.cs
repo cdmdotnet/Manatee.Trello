@@ -62,6 +62,12 @@ namespace Manatee.Trello
 			set { _memberType.Value = value; }
 		}
 
+		internal IJsonOrganizationMembership Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
+
 		/// <summary>
 		/// Raised when data on the membership is updated.
 		/// </summary>
@@ -81,6 +87,14 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
+		}
+
+		/// <summary>
+		/// Marks the organization membership to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

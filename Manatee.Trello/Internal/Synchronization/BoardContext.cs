@@ -82,9 +82,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			return LabelNamesContext.Merge(json.LabelNames)
 			                        .Concat(BoardPreferencesContext.Merge(json.Prefs));
 		}
-		protected override bool IsDataComplete()
-		{
-			return !Data.Name.IsNullOrWhiteSpace();
-		}
+		public override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
 	}
 }

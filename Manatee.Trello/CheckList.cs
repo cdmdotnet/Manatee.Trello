@@ -79,7 +79,11 @@ namespace Manatee.Trello
 			set { _position.Value = value; }
 		}
 
-		internal IJsonCheckList Json { get { return _context.Data; } }
+		internal IJsonCheckList Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		/// <summary>
 		/// Raised when data on the checklist is updated.
@@ -128,6 +132,13 @@ namespace Manatee.Trello
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Marks the checklist to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.
