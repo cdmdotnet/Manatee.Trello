@@ -20,7 +20,10 @@
 	Purpose:		Provides a data context for a check list.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections.Generic;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -30,6 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class CheckListContext : SynchronizationContext<IJsonCheckList>
 	{
 		private bool _deleted;
+		private bool _successfulDownload;
 
 		static CheckListContext()
 		{
@@ -66,10 +70,21 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IJsonCheckList GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonCheckList>(TrelloAuthorization.Default, endpoint);
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
+				var newData = JsonRepository.Execute<IJsonCheckList>(TrelloAuthorization.Default, endpoint);
+				_successfulDownload = true;
 
-			return newData;
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!_successfulDownload || e.IsNotFoundError())
+					throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override void SubmitData()
 		{

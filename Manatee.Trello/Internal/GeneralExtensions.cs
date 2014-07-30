@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Manatee.Trello.Exceptions;
 
 namespace Manatee.Trello.Internal
 {
@@ -75,6 +76,10 @@ namespace Manatee.Trello.Internal
 				memberExpression = (MemberExpression)lambda.Body;
 
 			return memberExpression.Member.Name;
+		}
+		public static bool IsNotFoundError(this TrelloInteractionException e)
+		{
+			return e.Message.ToLower().Contains("not found");
 		}
 	}
 }
