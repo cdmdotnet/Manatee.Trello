@@ -20,7 +20,9 @@
 	Purpose:		Provides a data context for a check item.
 
 ***************************************************************************************/
+
 using System.Collections.Generic;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
@@ -30,6 +32,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private readonly string _ownerId;
 		private bool _deleted;
+		private bool _successfulDownload;
 
 		static CheckItemContext()
 		{
@@ -59,10 +62,21 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IJsonCheckItem GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh, new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonCheckItem>(TrelloAuthorization.Default, endpoint);
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh, new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
+				var newData = JsonRepository.Execute<IJsonCheckItem>(TrelloAuthorization.Default, endpoint);
+				_successfulDownload = true;
 
-			return newData;
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!_successfulDownload || e.IsNotFoundError())
+					throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override void SubmitData()
 		{

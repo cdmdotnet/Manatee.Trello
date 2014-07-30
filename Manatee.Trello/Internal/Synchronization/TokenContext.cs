@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -33,6 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class TokenContext : SynchronizationContext<IJsonToken>
 	{
 		private bool _deleted;
+		private bool _successfulDownload;
 
 		public TokenPermissionContext MemberPermissions { get; private set; }
 		public TokenPermissionContext BoardPermissions { get; private set; }
@@ -82,14 +84,25 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IJsonToken GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> { { "_token", Data.Id } });
-			var newData = JsonRepository.Execute<IJsonToken>(TrelloAuthorization.Default, endpoint);
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> { { "_token", Data.Id } });
+				var newData = JsonRepository.Execute<IJsonToken>(TrelloAuthorization.Default, endpoint);
 
-			MemberPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Member));
-			BoardPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Board));
-			OrganizationPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Organization));
+				MemberPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Member));
+				BoardPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Board));
+				OrganizationPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Organization));
+				_successfulDownload = true;
 
-			return newData;
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!_successfulDownload || e.IsNotFoundError())
+					throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonToken json)
 		{

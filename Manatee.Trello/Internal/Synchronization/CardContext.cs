@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -32,6 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class CardContext : SynchronizationContext<IJsonCard>
 	{
 		private bool _deleted;
+		private bool _successfulDownload;
 
 		public BadgesContext BadgesContext { get; private set; }
 		public override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
@@ -85,10 +87,21 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IJsonCard GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonCard>(TrelloAuthorization.Default, endpoint);
-
-			return newData;
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
+				var newData = JsonRepository.Execute<IJsonCard>(TrelloAuthorization.Default, endpoint);
+				_successfulDownload = true;
+				
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!_successfulDownload || e.IsNotFoundError())
+					throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override void SubmitData()
 		{

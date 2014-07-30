@@ -22,6 +22,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -31,6 +32,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class ActionContext : SynchronizationContext<IJsonAction>
 	{
 		private bool _deleted;
+		private bool _successfulDownload;
 
 		public ActionDataContext ActionDataContext { get; private set; }
 
@@ -59,7 +61,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			if (_deleted) return;
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
+			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
 
 			_deleted = true;
@@ -67,10 +69,21 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IJsonAction GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonAction>(TrelloAuthorization.Default, endpoint);
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
+				var newData = JsonRepository.Execute<IJsonAction>(TrelloAuthorization.Default, endpoint);
+				_successfulDownload = true;
 
-			return newData;
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!_successfulDownload || !e.IsNotFoundError())
+					throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonAction json)
 		{

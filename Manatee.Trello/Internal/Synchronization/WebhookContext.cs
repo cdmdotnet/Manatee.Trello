@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
@@ -33,6 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		where T : class, ICanWebhook
 	{
 		private bool _deleted;
+		private bool _successfulDownload;
 
 		static WebhookContext()
 		{
@@ -79,10 +81,21 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IJsonWebhook GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonWebhook>(TrelloAuthorization.Default, endpoint);
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
+				var newData = JsonRepository.Execute<IJsonWebhook>(TrelloAuthorization.Default, endpoint);
+				_successfulDownload = true;
 
-			return newData;
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!_successfulDownload || e.IsNotFoundError())
+					throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override void SubmitData()
 		{

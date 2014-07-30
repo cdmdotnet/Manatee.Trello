@@ -55,6 +55,7 @@
     <Compile Include="Enumerations\OrganizationBoardVisibility.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Extensions\BoardExtensions.cs" />
+    <Compile Include="Extensions\CacheExtensions.cs" />
     <Compile Include="Internal\Caching\CachingObjectFactory.cs" />
     <Compile Include="Internal\DataAccess\EntityRequestType.cs" />
     <Compile Include="Internal\DataAccess\RestParameterRepository.cs" />
