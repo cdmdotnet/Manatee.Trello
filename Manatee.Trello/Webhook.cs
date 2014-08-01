@@ -32,10 +32,17 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Provides a common base class for the generic Webhook classes.
+	/// </summary>
 	public abstract class Webhook
 	{
 		internal Webhook() {}
 
+		/// <summary>
+		/// Processes webhook notification content.
+		/// </summary>
+		/// <param name="content">The string content of the notification.</param>
 		public static void ProcessNotification(string content)
 		{
 			var notification = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhookNotification>(content);

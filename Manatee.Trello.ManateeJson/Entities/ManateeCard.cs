@@ -48,6 +48,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Url { get; set; }
 		public string ShortUrl { get; set; }
 		public bool? Subscribed { get; set; }
+		public IJsonCard CardSource { get; set; }
+		public object UrlSource { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -99,6 +101,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Board.SerializeId(json, serializer, "idBoard");
 			List.SerializeId(json, serializer, "idList");
 			Pos.Serialize(json, serializer, "pos");
+			CardSource.SerializeId(json, serializer, "idCardSource");
+			UrlSource.Serialize(json, serializer, "urlSource");
 			// Don't serialize the Label collection because Trello wants a comma-sparated list
 			if (Labels != null)
 				json["labels"] = Labels.Select(l => l.Color.ToLowerString()).Join(",");

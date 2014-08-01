@@ -41,6 +41,8 @@ namespace Manatee.Trello
 		private readonly Field<Member> _member;
 		private readonly TokenContext _context;
 
+		private string _id;
+
 		/// <summary>
 		/// Gets the name of the application associated with the token.
 		/// </summary>
@@ -60,7 +62,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the token's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id
+		{
+			get
+			{
+				if (!_context.HasValidId)
+					_context.Synchronize();
+				return _id;
+			}
+			private set { _id = value; }
+		}
 		/// <summary>
 		/// Gets the member for which the token was issued.
 		/// </summary>

@@ -37,6 +37,7 @@ namespace Manatee.Trello
 	public class Member : ICanWebhook, ICacheable
 	{
 		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
+		private static Me _me;
 
 		private readonly Field<AvatarSource> _avatarSource;
 		private readonly Field<string> _avatarUrl;
@@ -51,6 +52,11 @@ namespace Manatee.Trello
 		internal readonly MemberContext _context;
 
 		private string _id;
+
+		/// <summary>
+		/// Returns the <see cref="Member"/> associated with the current User Token.
+		/// </summary>
+		public static Me Me { get { return _me ?? (_me = new Me()); } }
 
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
@@ -95,7 +101,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				if (!_context.IsDataComplete)
+				if (!_context.HasValidId)
 					_context.Synchronize();
 				return _id;
 			}

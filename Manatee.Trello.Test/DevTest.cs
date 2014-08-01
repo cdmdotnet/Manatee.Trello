@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Extensions;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
@@ -29,13 +31,9 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var member = new Member("jakeginnivan");
-
-			Console.WriteLine(member);
-			foreach (var board in member.Boards)
-			{
-				Console.WriteLine(board);
-			}
+			var card = new Card("pcxNvPY8");
+			var list = new List(TrelloIds.ListId);
+			var copiedCard = list.Cards.Add(card);
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}

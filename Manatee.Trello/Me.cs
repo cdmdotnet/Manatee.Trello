@@ -96,10 +96,7 @@ namespace Manatee.Trello
 			set { base.UserName = value; }
 		}
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="Me"/> object.
-		/// </summary>
-		public Me()
+		internal Me()
 			: base(GetId(), true)
 		{
 			_email = new Field<string>(_context, () => Email);

@@ -17,13 +17,14 @@
 	File Name:		GeneralExtensions.cs
 	Namespace:		Manatee.Trello.Internal
 	Class Name:		GeneralExtensions
-	Purpose:		A set of general extension methods used throughout the
-					project.
+	Purpose:		A set of general extension methods used throughout the project.
 
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
+#if NET35 || NET35C
 using System.Linq;
+#endif
 using System.Linq.Expressions;
 using Manatee.Trello.Exceptions;
 
@@ -80,6 +81,10 @@ namespace Manatee.Trello.Internal
 		public static bool IsNotFoundError(this TrelloInteractionException e)
 		{
 			return e.Message.ToLower().Contains("not found");
+		}
+		public static string FlagsEnumToCommaList<T>(this T value)
+		{
+			return value.ToLowerString().Replace(" ", string.Empty);
 		}
 	}
 }

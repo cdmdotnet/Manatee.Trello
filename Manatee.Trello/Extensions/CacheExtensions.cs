@@ -27,8 +27,18 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Extensions
 {
+	/// <summary>
+	/// Extension methods for ICache implementations.
+	/// </summary>
 	public static class CacheExtensions
 	{
+		/// <summary>
+		/// Gets an already-instantiated object or creates one.
+		/// </summary>
+		/// <typeparam name="T">The type of object to get.</typeparam>
+		/// <param name="cache">The ICache implementation.</param>
+		/// <param name="id">The ID of the object.</param>
+		/// <returns>The object requested.</returns>
 		public static T GetOrCreate<T>(this ICache cache, string id)
 			where T : class, ICacheable
 		{

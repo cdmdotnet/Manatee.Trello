@@ -94,5 +94,13 @@ namespace Manatee.Trello.Json
 		/// Gets or sets whether the current member is subscribed to this card.
 		/// </summary>
 		bool? Subscribed { get; set; }
+		/// <summary>
+		/// Gets or sets a card to be used as a template during creation.
+		/// </summary>
+		IJsonCard CardSource { get; set; }
+		/// <summary>
+		/// Gets or set a URL to be imported during creation.
+		/// </summary>
+		object UrlSource { get; set; }
 	}
 }

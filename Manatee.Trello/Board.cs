@@ -72,7 +72,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				if (!_context.IsDataComplete)
+				if (!_context.HasValidId)
 					_context.Synchronize();
 				return _id;
 			}
