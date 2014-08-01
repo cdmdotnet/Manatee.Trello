@@ -17,29 +17,27 @@
 	File Name:		BoardExtensions.cs
 	Namespace:		Manatee.Trello.Extensions
 	Class Name:		BoardExtensions
-	Purpose:		Extension methods for boards.
+	Purpose:		Extension methods for members.
 
 ***************************************************************************************/
 
-using System.Collections.Generic;
 using Manatee.Trello.Internal.DataAccess;
 
 namespace Manatee.Trello.Extensions
 {
 	/// <summary>
-	/// Extension methods for boards.
+	/// Extension methods for members.
 	/// </summary>
-	public static class BoardExtensions
+	public static class MemberExtensions
 	{
 		/// <summary>
-		/// Gets all open cards for a member on a specific board.
+		/// Gets all open cards for a member.
 		/// </summary>
-		/// <param name="board">The board.</param>
 		/// <param name="member">The member.</param>
 		/// <returns>A <see cref="ReadOnlyCardCollection"/> containing the member's cards.</returns>
-		public static ReadOnlyCardCollection CardsForMember(this Board board, Member member)
+		public static ReadOnlyCardCollection Cards(this Member member)
 		{
-			return new ReadOnlyCardCollection(EntityRequestType.Board_Read_CardsForMember, board.Id, new Dictionary<string, object> {{"_idMember", member.Id}});
+			return new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, member.Id);
 		}
 	}
 }

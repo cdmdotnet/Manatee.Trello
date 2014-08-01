@@ -56,6 +56,7 @@
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Extensions\BoardExtensions.cs" />
     <Compile Include="Extensions\CacheExtensions.cs" />
+    <Compile Include="Extensions\MemberExtensions.cs" />
     <Compile Include="Internal\Caching\CachingObjectFactory.cs" />
     <Compile Include="Internal\DataAccess\EntityRequestType.cs" />
     <Compile Include="Internal\DataAccess\RestParameterRepository.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Internal\Synchronization\TokenContext.cs" />
     <Compile Include="Internal\Synchronization\TokenPermissionContext.cs" />
     <Compile Include="Internal\Synchronization\WebhookContext.cs" />
+    <Compile Include="Internal\Validation\IdRule.cs" />
     <Compile Include="Internal\Validation\MemberFullNameRule.cs" />
     <Compile Include="Internal\Validation\NumericRule.cs" />
     <Compile Include="Internal\Validation\OldValueNotNullOrWhiteSpaceRule.cs" />

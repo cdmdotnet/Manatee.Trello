@@ -50,5 +50,9 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the position of this checklist.
 		/// </summary>
 		IJsonPosition Pos { get; set; }
+		/// <summary>
+		/// Gets or sets a checklist to copy during creation.
+		/// </summary>
+		IJsonCheckList CheckListSource { get; set; }
 	}
 }

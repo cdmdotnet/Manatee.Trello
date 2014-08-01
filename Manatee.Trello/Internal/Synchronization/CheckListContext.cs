@@ -21,11 +21,11 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -34,6 +34,8 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private bool _deleted;
 		private bool _successfulDownload;
+
+		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static CheckListContext()
 		{

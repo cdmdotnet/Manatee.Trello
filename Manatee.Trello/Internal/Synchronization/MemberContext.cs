@@ -23,6 +23,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -31,6 +32,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		public MemberPreferencesContext MemberPreferencesContext { get; private set; }
 		public override bool IsDataComplete { get { return !Data.FullName.IsNullOrWhiteSpace(); } }
+		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 		
 		static MemberContext()
 		{

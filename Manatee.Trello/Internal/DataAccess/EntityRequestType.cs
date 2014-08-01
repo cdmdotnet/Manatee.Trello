@@ -133,7 +133,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		List_Write_Update,
 		Member_Read_Actions,
 		Member_Read_Boards,
-		//Member_Read_Cards,
+		Member_Read_Cards,
 		//Member_Read_InvitedBoards,
 		//Member_Read_InvitedOrganizations,
 		//Member_Read_Notifications,

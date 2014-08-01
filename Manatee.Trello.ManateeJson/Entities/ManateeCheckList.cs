@@ -36,6 +36,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public IJsonCard Card { get; set; }
 		public List<IJsonCheckItem> CheckItems { get; set; }
 		public IJsonPosition Pos { get; set; }
+		public IJsonCheckList CheckListSource { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -61,6 +62,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Card.SerializeId(json, serializer, "idCard");
 			Pos.Serialize(json, serializer, "pos");
 			CheckItems.Serialize(json, serializer, "checkItems");
+			CheckListSource.SerializeId(json, serializer, "idChecklistSource");
 			return json;
 		}
 	}

@@ -99,7 +99,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				if (!_context.IsDataComplete)
+				if (!_context.HasValidId)
 					_context.Synchronize();
 				return _id;
 			}
@@ -212,7 +212,7 @@ namespace Manatee.Trello
 			Badges = new Badges(_context.BadgesContext);
 			_board = new Field<Board>(_context, () => Board);
 			_board.AddRule(NotNullRule<Board>.Instance);
-			CheckLists = new CheckListCollection(id);
+			CheckLists = new CheckListCollection(this);
 			Comments = new CommentCollection(id);
 			_description = new Field<string>(_context, () => Description);
 			_dueDate = new Field<DateTime?>(_context, () => DueDate);

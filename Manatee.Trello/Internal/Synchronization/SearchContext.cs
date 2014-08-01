@@ -94,7 +94,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			var parameters = new Dictionary<string, object>
 				{
 					{"query", Data.Query},
-					{"modelTypes", Data.Types.ToLowerString().Replace(" ", string.Empty)}
+					{"modelTypes", Data.Types.FlagsEnumToCommaList()}
 				};
 			if (Data.Context != null)
 			{

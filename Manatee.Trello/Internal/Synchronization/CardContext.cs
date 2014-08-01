@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -37,6 +38,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public BadgesContext BadgesContext { get; private set; }
 		public override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
+		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static CardContext()
 		{

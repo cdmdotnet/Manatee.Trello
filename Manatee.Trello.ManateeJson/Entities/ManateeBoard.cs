@@ -38,6 +38,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public IJsonBoardPreferences Prefs { get; set; }
 		public string Url { get; set; }
 		public bool? Subscribed { get; set; }
+		public IJsonBoard BoardSource { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -74,6 +75,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			       		{"subscribed", Subscribed},
 			       	};
 			Organization.SerializeId(json, serializer, "idOrganization");
+			BoardSource.SerializeId(json, serializer, "idBoardSource");
 			// Don't serialize the LabelNames or Preferences collections because Trello wants individual properties.
 			if (LabelNames != null)
 			{

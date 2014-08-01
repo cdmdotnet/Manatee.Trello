@@ -20,7 +20,6 @@
 	Purpose:		Collection objects for attachments.
 
 ***************************************************************************************/
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;

@@ -35,6 +35,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private DateTime _lastUpdate;
 
 		public virtual bool IsDataComplete { get { return true; } }
+		public virtual bool HasValidId { get { return true; } }
 
 		public event Action<IEnumerable<string>> Synchronized;
 

@@ -63,5 +63,9 @@ namespace Manatee.Trello.Json
 		/// Gets or sets whether the user is subscribed to this board.
 		///</summary>
 		bool? Subscribed { get; set; }
+		/// <summary>
+		/// Gets or sets a board to be used as a template.
+		/// </summary>
+		IJsonBoard BoardSource { get; set; }
 	}
 }
