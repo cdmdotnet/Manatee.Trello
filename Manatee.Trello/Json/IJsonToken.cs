@@ -33,22 +33,27 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the identifier of the application which requested the token.
 		/// </summary>
+		[JsonDeserialize]
 		string Identifier { get; set; }
 		/// <summary>
 		/// Gets or sets the ID of the member who issued the token.
 		/// </summary>
+		[JsonDeserialize]
 		IJsonMember Member { get; set; }
 		/// <summary>
 		/// Gets or sets the date the token was created.
 		/// </summary>
+		[JsonDeserialize]
 		DateTime? DateCreated { get; set; }
 		/// <summary>
 		/// Gets or sets the date the token will expire, if any.
 		/// </summary>
+		[JsonDeserialize]
 		DateTime? DateExpires { get; set; }
 		/// <summary>
 		/// Gets or sets the collection of permissions granted by the token.
 		/// </summary>
+		[JsonDeserialize]
 		List<IJsonTokenPermission> Permissions { get; set; }
 	}
 }

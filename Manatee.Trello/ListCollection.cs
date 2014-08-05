@@ -83,7 +83,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_AddList);
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
-			return new List(newData, true);
+			return new List(newData);
 		}
 	}
 }

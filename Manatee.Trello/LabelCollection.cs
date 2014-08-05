@@ -85,6 +85,7 @@ namespace Manatee.Trello
 				var jsonLabel = TrelloConfiguration.JsonFactory.Create<IJsonLabel>();
 				jsonLabel.Color = color;
 				_context.Data.Labels.Add(jsonLabel);
+				_context.AddLocalChange("Labels");
 				_context.ResetTimer();
 			}
 			return label;
@@ -102,6 +103,7 @@ namespace Manatee.Trello
 			var jsonLabel = _context.Data.Labels.FirstOrDefault(l => l.Color == color);
 			if (jsonLabel == null) return;
 			_context.Data.Labels.Remove(jsonLabel);
+			_context.AddLocalChange("Labels");
 			_context.ResetTimer();
 		}
 	}

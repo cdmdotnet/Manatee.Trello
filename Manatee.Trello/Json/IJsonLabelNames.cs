@@ -30,26 +30,38 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets and sets the name for the red label.
 		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
 		string Red { get; set; }
 		/// <summary>
 		/// Gets and sets the name for the orange label.
 		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
 		string Orange { get; set; }
 		/// <summary>
 		/// Gets and sets the name for the yellow label.
 		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
 		string Yellow { get; set; }
 		/// <summary>
 		/// Gets and sets the name for the green label.
 		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
 		string Green { get; set; }
 		/// <summary>
 		/// Gets and sets the name for the blue label.
 		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
 		string Blue { get; set; }
 		/// <summary>
 		/// Gets and sets the name for the purple label.
 		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
 		string Purple { get; set; }
 	}
 }

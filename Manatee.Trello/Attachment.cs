@@ -93,7 +93,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<Attachment, IEnumerable<string>> Updated;
 
-		internal Attachment(IJsonAttachment json, string ownerId, bool cache)
+		internal Attachment(IJsonAttachment json, string ownerId)
 		{
 			Id = json.Id;
 			_context = new AttachmentContext(Id, ownerId);
@@ -108,8 +108,7 @@ namespace Manatee.Trello
 			_previews = new ReadOnlyAttachmentPreviewCollection(_context);
 			_url = new Field<string>(_context, () => Url);
 
-			if (cache)
-				TrelloConfiguration.Cache.Add(this);
+			TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 		}

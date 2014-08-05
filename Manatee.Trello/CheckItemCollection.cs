@@ -55,7 +55,7 @@ namespace Manatee.Trello
 			{
 				var checkItem = Items.SingleOrDefault(ci => ci.Id == jsonCheckItem.Id);
 				if (checkItem == null)
-					Items.Add(new CheckItem(jsonCheckItem, _context.Data.Id, true));
+					Items.Add(new CheckItem(jsonCheckItem, _context.Data.Id));
 				else
 					checkItem.Json = jsonCheckItem;
 			}
@@ -92,7 +92,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_AddCheckItem, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
-			return new CheckItem(newData, OwnerId, true);
+			return new CheckItem(newData, OwnerId);
 		}
 	}
 }

@@ -50,7 +50,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
 				{
-					var attachment = TrelloConfiguration.Cache.Find<Attachment>(a => a.Id == ja.Id) ?? new Attachment(ja, OwnerId, true);
+					var attachment = TrelloConfiguration.Cache.Find<Attachment>(a => a.Id == ja.Id) ?? new Attachment(ja, OwnerId);
 					attachment.Json = ja;
 					return attachment;
 				}));
@@ -90,7 +90,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddAttachment, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<IJsonAttachment>(TrelloAuthorization.Default, endpoint, parameters);
 
-			return new Attachment(newData, OwnerId, true);
+			return new Attachment(newData, OwnerId);
 		}
 		/// <summary>
 		/// Adds an attachment to a card by uploading data.
@@ -104,7 +104,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddAttachment, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<IJsonAttachment>(TrelloAuthorization.Default, endpoint, parameters);
 
-			return new Attachment(newData, OwnerId, true);
+			return new Attachment(newData, OwnerId);
 		}
 	}
 }

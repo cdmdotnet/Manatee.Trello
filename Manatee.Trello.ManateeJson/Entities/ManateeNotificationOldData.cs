@@ -14,34 +14,36 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ManateeTokenPermission.cs
+	File Name:		ManateeNotificationOldData.cs
 	Namespace:		Manatee.Trello.ManateeJson.Entities
-	Class Name:		ManateeTokenPermission
-	Purpose:		Implements IJsonTokenPermission for Manatee.Json.
+	Class Name:		ManateeNotificationOldData
+	Purpose:		Implements IJsonActionOldData for Manatee.Json.
 
 ***************************************************************************************/
-
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeTokenPermission : IJsonTokenPermission, IJsonSerializable
+	internal class ManateeNotificationOldData : IJsonNotificationOldData, IJsonSerializable
 	{
-		public string IdModel { get; set; }
-		public TokenModelType ModelType { get; set; }
-		public bool? Read { get; set; }
-		public bool? Write { get; set; }
+		public string Desc { get; set; }
+		public IJsonList List { get; set; }
+		public double? Pos { get; set; }
+		public string Text { get; set; }
+		public bool? Closed { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type != JsonValueType.Object) return;
+			if (json.Type != JsonValueType.Object)
+				return;
 			var obj = json.Object;
-			IdModel = obj.TryGetString("idModel");
-			ModelType = serializer.Deserialize<TokenModelType>(obj["modelType"]);
-			Read = obj.TryGetBoolean("read");
-			Write = obj.TryGetBoolean("write");
+			Desc = obj.TryGetString("desc");
+			List = obj.Deserialize<IJsonList>(serializer, "list");
+			Pos = obj.TryGetNumber("pos");
+			Text = obj.TryGetString("text");
+			Closed = obj.TryGetBoolean("closed");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{

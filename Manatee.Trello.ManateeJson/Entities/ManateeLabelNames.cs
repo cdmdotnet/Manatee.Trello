@@ -49,15 +49,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-			       	{
-			       		{"red", Red},
-			       		{"orange", Orange},
-			       		{"yellow", Yellow},
-			       		{"green", Green},
-			       		{"blue", Blue},
-			       		{"purple", Purple},
-			       	};
+			return null;
 		}
 	}
 }

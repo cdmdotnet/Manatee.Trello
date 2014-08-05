@@ -31,6 +31,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the action associated with the notification.
 		/// </summary>
+		[JsonDeserialize]
 		IJsonAction Action { get; set; }
 	}
 }

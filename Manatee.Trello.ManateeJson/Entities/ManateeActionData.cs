@@ -59,30 +59,14 @@ namespace Manatee.Trello.ManateeJson.Entities
 			List = obj.Deserialize<IJsonList>(serializer, "list");
 			ListAfter = obj.Deserialize<IJsonList>(serializer, "listAfter");
 			ListBefore = obj.Deserialize<IJsonList>(serializer, "listBefore");
-			Member = obj.Deserialize<IJsonMember>(serializer, "member");
+			Member = obj.Deserialize<IJsonMember>(serializer, obj.ContainsKey("member") ? "member" : "idMember");
 			Old = obj.Deserialize<IJsonActionOldData>(serializer, "old");
 			Org = obj.Deserialize<IJsonOrganization>(serializer, "org");
 			Text = obj.TryGetString("text");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject();
-			Attachment.Serialize(json, serializer, "attachment");
-			Board.Serialize(json, serializer, "board");
-			BoardSource.Serialize(json, serializer, "boardSource");
-			BoardTarget.Serialize(json, serializer, "boardTarget");
-			Card.Serialize(json, serializer, "card");
-			CardSource.Serialize(json, serializer, "cardSource");
-			CheckItem.Serialize(json, serializer, "checkItem");
-			CheckList.Serialize(json, serializer, "checklist");
-			List.Serialize(json, serializer, "list");
-			ListAfter.Serialize(json, serializer, "listAfter");
-			ListBefore.Serialize(json, serializer, "listBefore");
-			Member.Serialize(json, serializer, "member");
-			Old.Serialize(json, serializer, "old");
-			Org.Serialize(json, serializer, "org");
-			Text.Serialize(json, serializer, "text");
-			return json;
+			return null;
 		}
 	}
 }

@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="Json\JsonAttributes.cs" />
+    <Compile Include="NotificationCollection.cs" />
     <Compile Include="ActionData.cs" />
     <Compile Include="Attachment.cs" />
     <Compile Include="AttachmentCollection.cs" />
@@ -61,10 +63,12 @@
     <Compile Include="Internal\DataAccess\EntityRequestType.cs" />
     <Compile Include="Internal\DataAccess\RestParameterRepository.cs" />
     <Compile Include="Internal\Synchronization\ActionContext.cs" />
+    <Compile Include="Internal\Synchronization\NotificationDataContext.cs" />
     <Compile Include="Internal\Synchronization\ActionDataContext.cs" />
     <Compile Include="Internal\Synchronization\BoardPreferencesContext.cs" />
     <Compile Include="Internal\Synchronization\MemberPreferencesContext.cs" />
     <Compile Include="Internal\Synchronization\MemberSearchContext.cs" />
+    <Compile Include="Internal\Synchronization\NotificationContext.cs" />
     <Compile Include="Internal\Synchronization\OrganizationPreferencesContext.cs" />
     <Compile Include="Internal\Synchronization\Property.cs" />
     <Compile Include="Internal\Synchronization\SearchContext.cs" />
@@ -75,6 +79,7 @@
     <Compile Include="Internal\Validation\MemberFullNameRule.cs" />
     <Compile Include="Internal\Validation\NumericRule.cs" />
     <Compile Include="Internal\Validation\OldValueNotNullOrWhiteSpaceRule.cs" />
+    <Compile Include="Json\IJsonNotificationOldData.cs" />
     <Compile Include="Json\IJsonActionOldData.cs" />
     <Compile Include="Json\IJsonComment.cs" />
     <Compile Include="Json\IJsonMemberSearch.cs" />
@@ -82,6 +87,8 @@
     <Compile Include="MemberPreferences.cs" />
     <Compile Include="MemberSearch.cs" />
     <Compile Include="MemberSearchResult.cs" />
+    <Compile Include="Notification.cs" />
+    <Compile Include="NotificationData.cs" />
     <Compile Include="OrganizationMembershipCollection.cs" />
     <Compile Include="Internal\Synchronization\OrganizationMembershipContext.cs" />
     <Compile Include="OrganizationMembership.cs" />

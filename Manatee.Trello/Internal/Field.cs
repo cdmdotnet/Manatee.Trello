@@ -47,6 +47,7 @@ namespace Manatee.Trello.Internal
 			}
 			set
 			{
+				if (Equals(CurrentValue, value)) return;
 				Validate(value);
 				_context.SetValue(_property, value);
 			}

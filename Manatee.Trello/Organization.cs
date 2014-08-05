@@ -139,13 +139,6 @@ namespace Manatee.Trello
 		/// The supplied ID can be either the full ID or the organization's name.
 		/// </remarks>
 		public Organization(string id)
-			: this(id, true) {}
-		internal Organization(IJsonOrganization json, bool cache)
-			: this(json.Id, cache)
-		{
-			_context.Merge(json);
-		}
-		private Organization(string id, bool cache)
 		{
 			Id = id;
 			_context = new OrganizationContext(id);
@@ -165,8 +158,12 @@ namespace Manatee.Trello
 			_website = new Field<string>(_context, () => Website);
 			_website.AddRule(UriRule.Instance);
 
-			if (cache)
-				TrelloConfiguration.Cache.Add(this);
+			TrelloConfiguration.Cache.Add(this);
+		}
+		internal Organization(IJsonOrganization json)
+			: this(json.Id)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>

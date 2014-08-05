@@ -28,46 +28,79 @@ namespace Manatee.Trello.Json
 	public interface IJsonNotificationData
 	{
 		/// <summary>
-		/// Contains the raw JSON data.  The type of this object will be determined
-		/// by the JSON serializer implementation.
+		/// Gets or sets an attachment associated with the action if any.
 		/// </summary>
-		object RawData { get; set; }
-
+		[JsonDeserialize]
+		IJsonAttachment Attachment { get; set; }
 		/// <summary>
-		/// Attempts to retrieve a string from an object.
+		/// Gets or sets a board associated with the action if any.
 		/// </summary>
-		/// <param name="path">
-		/// The set of successive keys to use while drilling down
-		/// through successive JSON object structures.
-		/// </param>
-		/// <returns>
-		/// The string value of the item at the specified path,
-		/// or null if the path does not exist.
-		/// </returns>
-		string TryGetString(params string[] path);
+		[JsonDeserialize]
+		IJsonBoard Board { get; set; }
 		/// <summary>
-		/// Attempts to retrieve a number from an object.
+		/// Gets or sets a board associated with the action if any.
 		/// </summary>
-		/// <param name="path">
-		/// The set of successive keys to use while drilling down
-		/// through successive JSON object structures.
-		/// </param>
-		/// <returns>
-		/// The number value of the item at the specified path,
-		/// or null if the path does not exist.
-		/// </returns>
-		double? TryGetNumber(params string[] path);
+		[JsonDeserialize]
+		IJsonBoard BoardSource { get; set; }
 		/// <summary>
-		/// Attempts to retrieve a boolean from an object.
+		/// Gets or sets a board associated with the action if any.
 		/// </summary>
-		/// <param name="path">
-		/// The set of successive keys to use while drilling down
-		/// through successive JSON object structures.
-		/// </param>
-		/// <returns>
-		/// The boolean value of the item at the specified path,
-		/// or null if the path does not exist.
-		/// </returns>
-		bool? TryGetBoolean(params string[] path);
+		[JsonDeserialize]
+		IJsonBoard BoardTarget { get; set; }
+		/// <summary>
+		/// Gets or sets a card associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonCard Card { get; set; }
+		/// <summary>
+		/// Gets or sets a card associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonCard CardSource { get; set; }
+		/// <summary>
+		/// Gets or sets a check item associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonCheckItem CheckItem { get; set; }
+		/// <summary>
+		/// Gets or sets a check list associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonCheckList CheckList { get; set; }
+		/// <summary>
+		/// Gets or sets a list associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonList List { get; set; }
+		/// <summary>
+		/// Gets or sets a destination list associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonList ListAfter { get; set; }
+		/// <summary>
+		/// Gets or sets a source list associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonList ListBefore { get; set; }
+		/// <summary>
+		/// Gets or sets a member associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonMember Member { get; set; }
+		/// <summary>
+		/// Gets or sets an organization associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonOrganization Org { get; set; }
+		/// <summary>
+		/// Gets or sets any previous data associated with the action.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonNotificationOldData Old { get; set; }
+		/// <summary>
+		/// Gets or sets text associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		string Text { get; set; }
 	}
 }

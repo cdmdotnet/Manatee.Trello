@@ -31,9 +31,13 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var card = new Card("pcxNvPY8");
 			var list = new List(TrelloIds.ListId);
-			var copiedCard = list.Cards.Add(card);
+			var card = list.Cards.Add("new card");
+			card.Position = Position.Top;
+			card.Labels.Add(LabelColor.Blue);
+			card.Description = "a description";
+
+			Thread.Sleep(200);
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}

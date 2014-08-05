@@ -32,7 +32,11 @@ namespace Manatee.Trello.ManateeJson.Entities
 
 		public override JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject {{"text", Text.IsNullOrWhiteSpace() ? JsonValue.Null : Text}};
+			var json = new JsonObject();
+
+			Text.Serialize(json, serializer, "text");
+
+			return json;
 		}
 	}
 }

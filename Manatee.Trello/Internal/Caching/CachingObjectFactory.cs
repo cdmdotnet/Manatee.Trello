@@ -46,18 +46,20 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof (IJsonList), typeof (List)},
 					{typeof (IJsonMember), typeof (Member)},
 					{typeof (IJsonOrganization), typeof (Organization)},
+					{typeof (IJsonNotification), typeof (Notification)},
 					{typeof (IJsonToken), typeof (Token)},
 				};
 			_jsonFactory = new Dictionary<Type, Func<IJsonCacheable, ICacheable>>
 				{
 					{typeof (Action), j => new Action((IJsonAction) j)},
 					{typeof (AttachmentPreview), j => new AttachmentPreview((IJsonAttachmentPreview) j)},
-					{typeof (Board), j => new Board((IJsonBoard) j, true)},
-					{typeof (Card), j => new Card((IJsonCard) j, true)},
-					{typeof (CheckList), j => new CheckList((IJsonCheckList) j, true)},
-					{typeof (List), j => new List((IJsonList) j, true)},
-					{typeof (Member), j => new Member((IJsonMember) j, true)},
-					{typeof (Organization), j => new Organization((IJsonOrganization) j, true)},
+					{typeof (Board), j => new Board((IJsonBoard) j)},
+					{typeof (Card), j => new Card((IJsonCard) j)},
+					{typeof (CheckList), j => new CheckList((IJsonCheckList) j)},
+					{typeof (List), j => new List((IJsonList) j)},
+					{typeof (Member), j => new Member((IJsonMember) j)},
+					{typeof (Organization), j => new Organization((IJsonOrganization) j)},
+					{typeof (Notification), j => new Notification((IJsonNotification) j)},
 					{typeof (Token), j => new Token((IJsonToken) j)},
 				};
 		}

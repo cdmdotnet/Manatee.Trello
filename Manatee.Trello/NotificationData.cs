@@ -1,4 +1,4 @@
-/***************************************************************************************
+﻿/***************************************************************************************
 
 	Copyright 2014 Greg Dennis
 
@@ -14,12 +14,13 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ActionData.cs
+	File Name:		NotificationData.cs
 	Namespace:		Manatee.Trello
-	Class Name:		ActionData
-	Purpose:		Exposes any data associated with an action.
+	Class Name:		NotificationData
+	Purpose:		Exposes any data associated with a notification.
 
 ***************************************************************************************/
+
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -27,9 +28,9 @@ using Manatee.Trello.Internal.Validation;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Exposes any data associated with an action.
+	/// Exposes any data associated with a notification.
 	/// </summary>
-	public class ActionData
+	public class NotificationData
 	{
 		private readonly Field<Attachment> _attachment;
 		private readonly Field<Board> _board;
@@ -50,7 +51,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _oldText;
 		private readonly Field<Organization> _organization;
 		private readonly Field<string> _text;
-		private readonly ActionDataContext _context;
+		private readonly NotificationDataContext _context;
 
 		/// <summary>
 		/// Gets an assocated attachment.
@@ -145,7 +146,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public bool? WasArchived { get { return _wasArchived.Value; } }
 
-		internal ActionData(ActionDataContext context)
+		internal NotificationData(NotificationDataContext context)
 		{
 			_context = context;
 

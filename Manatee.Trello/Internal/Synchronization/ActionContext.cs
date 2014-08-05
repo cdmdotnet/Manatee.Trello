@@ -22,7 +22,6 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -34,10 +33,9 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class ActionContext : SynchronizationContext<IJsonAction>
 	{
 		private bool _deleted;
-		private bool _successfulDownload;
 
 		public ActionDataContext ActionDataContext { get; private set; }
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static ActionContext()
 		{
@@ -76,14 +74,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonAction>(TrelloAuthorization.Default, endpoint);
-				_successfulDownload = true;
 
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!_successfulDownload || !e.IsNotFoundError())
-					throw;
+				if (!e.IsNotFoundError()) throw;
 				_deleted = true;
 				return Data;
 			}

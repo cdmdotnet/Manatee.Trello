@@ -48,16 +48,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-			       	{
-			       		{"id", serializer.Serialize(PermissionLevel)},
-			       		//{"orgInviteRestrict", OrgInviteRestrict.ToJson()},
-			       		{"data", ExternalMembersDisabled},
-			       		{"type", AssociatedDomain},
-			       		{"boardVisibilityRestrict", serializer.Serialize(BoardVisibilityRestrict)},
-			       	};
-			BoardVisibilityRestrict.Serialize(json, serializer, "boardVisibilityRestrict");
-			return json;
+			return null;
 		}
 	}
 }

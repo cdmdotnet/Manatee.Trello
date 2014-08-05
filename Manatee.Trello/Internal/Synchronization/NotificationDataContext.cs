@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ActionDataContext.cs
+	File Name:		NotificationDataContext.cs
 	Namespace:		Manatee.Trello.Internal.Synchronization
-	Class Name:		ActionDataContext
+	Class Name:		NotificationDataContext
 	Purpose:		Provides a data context for action data.
 
 ***************************************************************************************/
@@ -26,101 +26,101 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class ActionDataContext : LinkedSynchronizationContext<IJsonActionData>
+	internal class NotificationDataContext : LinkedSynchronizationContext<IJsonNotificationData>
 	{
-		static ActionDataContext()
+		static NotificationDataContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonActionData>>
+			_properties = new Dictionary<string, Property<IJsonNotificationData>>
 				{
 					{
-						"Attachment", new Property<IJsonActionData, Attachment>(d => d.Attachment == null
+						"Attachment", new Property<IJsonNotificationData, Attachment>(d => d.Attachment == null
 							                                                             ? null
 							                                                             : new Attachment(d.Attachment, d.Card.Id),
 						                                                        (d, o) => { if (o != null) d.Attachment = o.Json; })
 					},
 					{
-						"Board", new Property<IJsonActionData, Board>(d => d.Board == null
+						"Board", new Property<IJsonNotificationData, Board>(d => d.Board == null
 							                                                   ? null
 							                                                   : new Board(d.Board),
 						                                              (d, o) => { if (o != null) d.Board = o.Json; })
 					},
 					{
-						"BoardSource", new Property<IJsonActionData, Board>(d => d.BoardSource == null
+						"BoardSource", new Property<IJsonNotificationData, Board>(d => d.BoardSource == null
 							                                                         ? null
 							                                                         : new Board(d.BoardSource),
 						                                                    (d, o) => { if (o != null) d.BoardSource = o.Json; })
 					},
 					{
-						"BoardTarget", new Property<IJsonActionData, Board>(d => d.BoardTarget == null
+						"BoardTarget", new Property<IJsonNotificationData, Board>(d => d.BoardTarget == null
 							                                                         ? null
 							                                                         : new Board(d.BoardTarget),
 						                                                    (d, o) => { if (o != null) d.BoardTarget = o.Json; })
 					},
 					{
-						"Card", new Property<IJsonActionData, Card>(d => d.Card == null
+						"Card", new Property<IJsonNotificationData, Card>(d => d.Card == null
 							                                                 ? null
 							                                                 : new Card(d.Card),
 						                                            (d, o) => { if (o != null) d.Card = o.Json; })
 					},
 					{
-						"CardSource", new Property<IJsonActionData, Card>(d => d.CardSource == null
+						"CardSource", new Property<IJsonNotificationData, Card>(d => d.CardSource == null
 							                                                       ? null
 							                                                       : new Card(d.CardSource),
 						                                                  (d, o) => { if (o != null) d.CardSource = o.Json; })
 					},
 					{
-						"CheckItem", new Property<IJsonActionData, CheckItem>(d => d.CheckItem == null || d.CheckList == null
+						"CheckItem", new Property<IJsonNotificationData, CheckItem>(d => d.CheckItem == null || d.CheckList == null
 							                                                           ? null
 							                                                           : new CheckItem(d.CheckItem, d.CheckList.Id),
 						                                                      (d, o) => { if (o != null) d.CheckItem = o.Json; })
 					},
 					{
-						"CheckList", new Property<IJsonActionData, CheckList>(d => d.CheckList == null
+						"CheckList", new Property<IJsonNotificationData, CheckList>(d => d.CheckList == null
 							                                                           ? null
 							                                                           : new CheckList(d.CheckList),
 						                                                      (d, o) => { if (o != null) d.CheckList = o.Json; })
 					},
 					{
-						"List", new Property<IJsonActionData, List>(d => d.List == null
+						"List", new Property<IJsonNotificationData, List>(d => d.List == null
 							                                                 ? null
 							                                                 : new List(d.List),
 						                                            (d, o) => { if (o != null) d.List = o.Json; })
 					},
 					{
-						"ListAfter", new Property<IJsonActionData, List>(d => d.ListAfter == null
+						"ListAfter", new Property<IJsonNotificationData, List>(d => d.ListAfter == null
 							                                                      ? null
 							                                                      : new List(d.ListAfter),
 						                                                 (d, o) => { if (o != null) d.ListAfter = o.Json; })
 					},
 					{
-						"ListBefore", new Property<IJsonActionData, List>(d => d.ListBefore == null
+						"ListBefore", new Property<IJsonNotificationData, List>(d => d.ListBefore == null
 							                                                       ? null
 							                                                       : new List(d.ListBefore),
 						                                                  (d, o) => { if (o != null) d.ListBefore = o.Json; })
 					},
 					{
-						"Member", new Property<IJsonActionData, Member>(d => d.Member == null
+						"Member", new Property<IJsonNotificationData, Member>(d => d.Member == null
 							                                                     ? null
 							                                                     : d.Member.GetFromCache<Member>(),
 						                                                (d, o) => { if (o != null) d.Member = o.Json; })
 					},
-					{"WasArchived", new Property<IJsonActionData, bool?>(d => d.Old == null ? null : d.Old.Closed, (d, o) => { if (d.Old != null && o != null) d.Old.Closed = o; })},
-					{"OldDesc", new Property<IJsonActionData, string>(d => d.Old == null ? null : d.Old.Desc, (d, o) => { if (d.Old != null && o != null) d.Old.Desc = o; })},
+					{"WasArchived", new Property<IJsonNotificationData, bool?>(d => d.Old == null ? null : d.Old.Closed, (d, o) => { if (d.Old != null && o != null) d.Old.Closed = o; })},
+					{"OldDesc", new Property<IJsonNotificationData, string>(d => d.Old == null ? null : d.Old.Desc, (d, o) => { if (d.Old != null && o != null) d.Old.Desc = o; })},
 					{
-						"OldList", new Property<IJsonActionData, List>(d => d.Old == null || d.Old.List == null
+						"OldList", new Property<IJsonNotificationData, List>(d => d.Old == null || d.Old.List == null
 							                                                    ? null
 							                                                    : new List(d.Old.List),
 						                                               (d, o) => { if (d.Old != null) d.Old.List = o.Json; })
 					},
-					{"OldPos", new Property<IJsonActionData, Position>(d => d.Old == null ? null : d.Old.Pos, (d, o) => { if (d.Old != null) d.Old.Pos = o.Value; })},
-					{"OldText", new Property<IJsonActionData, string>(d => d.Old == null ? null : d.Old.Text, (d, o) => { if (d.Old != null) d.Old.Text = o; })},
+					{"OldPos", new Property<IJsonNotificationData, Position>(d => d.Old == null ? null : d.Old.Pos, (d, o) => { if (d.Old != null) d.Old.Pos = o.Value; })},
+					{"OldText", new Property<IJsonNotificationData, string>(d => d.Old == null ? null : d.Old.Text, (d, o) => { if (d.Old != null) d.Old.Text = o; })},
 					{
-						"Organization", new Property<IJsonActionData, Organization>(d => d.Org == null
+						"Organization", new Property<IJsonNotificationData, Organization>(d => d.Org == null
 							                                                                 ? null
 							                                                                 : new Organization(d.Org),
 						                                                            (d, o) => { if (o != null) d.Org = o.Json; })
 					},
-					{"Text", new Property<IJsonActionData, string>(d => d.Text, (d, o) => d.Text = o)},
+					{"Text", new Property<IJsonNotificationData, string>(d => d.Text, (d, o) => d.Text = o)},
 				};
 		}
 	}

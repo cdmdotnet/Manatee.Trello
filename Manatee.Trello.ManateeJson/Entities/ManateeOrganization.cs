@@ -67,19 +67,12 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-				{
-					{"id", Id},
-					{"name", Name},
-					{"displayName", DisplayName},
-					{"desc", Desc},
-					{"url", Url},
-					{"website", Website},
-					{"logoHash", LogoHash},
-					{"powerUps", serializer.Serialize(PowerUps)},
-					{"paid_account", PaidAccount},
-					{"premiumFeatures", serializer.Serialize(PremiumFeatures)}
-				};
+			var json = new JsonObject();
+			Id.Serialize(json, serializer, "id");
+			Name.Serialize(json, serializer, "name");
+			DisplayName.Serialize(json, serializer, "displayName");
+			Desc.Serialize(json, serializer, "desc");
+			Website.Serialize(json, serializer, "website");
 			if (Prefs != null)
 			{
 				json.Add("prefs/permissionLevel", serializer.Serialize(Prefs.PermissionLevel));

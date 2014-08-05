@@ -88,7 +88,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddChecklist);
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
-			return new CheckList(newData, true);
+			return new CheckList(newData);
 		}
 	}
 }

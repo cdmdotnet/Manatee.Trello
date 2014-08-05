@@ -41,23 +41,18 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
+			MemberCreator = obj.Deserialize<IJsonMember>(serializer, "idMemberCreator");
+			Data = obj.Deserialize<IJsonNotificationData>(serializer, "data");
 			Unread = obj.TryGetBoolean("unread");
-			Type = serializer.Deserialize<NotificationType>(obj["type"]);
-			Date = serializer.Deserialize<DateTime?>("date");
-			Data = new ManateeNotificationData {RawData = obj.TryGetObject("data")};
-			MemberCreator = serializer.Deserialize<IJsonMember>(obj["idMemberCreator"]);
+			Type = serializer.Deserialize<NotificationType>(obj.TryGetString("type"));
+			Date = obj.Deserialize<DateTime?>(serializer, "date");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-			       	{
-			       		{"id", Id},
-			       		{"unread", Unread},
-			       		{"type", serializer.Serialize(Type)},
-			       		{"date", serializer.Serialize(Date)},
-			       		{"data", Data.RawData as JsonObject},
-			       		{"idMemberCreator", serializer.Serialize(MemberCreator)},
-			       	};
+			var json = new JsonObject();
+			Id.Serialize(json, serializer, "id");
+			Unread.Serialize(json, serializer, "unread");
+			return json;
 		}
 	}
 }

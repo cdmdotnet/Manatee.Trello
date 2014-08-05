@@ -35,12 +35,11 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class TokenContext : SynchronizationContext<IJsonToken>
 	{
 		private bool _deleted;
-		private bool _successfulDownload;
 
 		public TokenPermissionContext MemberPermissions { get; private set; }
 		public TokenPermissionContext BoardPermissions { get; private set; }
 		public TokenPermissionContext OrganizationPermissions { get; private set; }
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static TokenContext()
 		{
@@ -91,17 +90,11 @@ namespace Manatee.Trello.Internal.Synchronization
 				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> { { "_token", Data.Id } });
 				var newData = JsonRepository.Execute<IJsonToken>(TrelloAuthorization.Default, endpoint);
 
-				MemberPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Member));
-				BoardPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Board));
-				OrganizationPermissions.Merge(newData.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Organization));
-				_successfulDownload = true;
-
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!_successfulDownload || e.IsNotFoundError())
-					throw;
+				if (!e.IsNotFoundError()) throw;
 				_deleted = true;
 				return Data;
 			}

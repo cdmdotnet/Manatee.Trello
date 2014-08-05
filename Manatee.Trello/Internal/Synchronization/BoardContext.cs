@@ -34,7 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		public LabelNamesContext LabelNamesContext { get; private set; }
 		public BoardPreferencesContext BoardPreferencesContext { get; private set; }
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static BoardContext()
 		{
@@ -74,16 +74,16 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			return newData;
 		}
-		protected override void SubmitData()
+		protected override void SubmitData(IJsonBoard json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonBoard json)
 		{
 			return LabelNamesContext.Merge(json.LabelNames)
 			                        .Concat(BoardPreferencesContext.Merge(json.Prefs));
 		}
-		public override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
+		protected override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
 	}
 }

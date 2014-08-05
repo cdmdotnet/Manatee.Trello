@@ -57,20 +57,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-				{
-					{"votes", Votes},
-					{"viewingMemberVoted", ViewingMemberVoted},
-					{"subscribed", Subscribed},
-					{"fogbugz", Fogbugz},
-					{"description", Description},
-					{"comments", Comments},
-					{"checkItemsChecked", CheckItemsChecked},
-					{"checkItems", CheckItems},
-					{"attachments", Attachments},
-				};
-			Due.Serialize(json, serializer, "due");
-			return json;
+			return null;
 		}
 	}
 }

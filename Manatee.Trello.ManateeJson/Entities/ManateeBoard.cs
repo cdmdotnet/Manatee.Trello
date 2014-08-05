@@ -65,15 +65,12 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-			       	{
-			       		{"id", Id},
-			       		{"name", Name},
-			       		{"desc", Desc},
-			       		{"closed", Closed},
-			       		{"url", Url},
-			       		{"subscribed", Subscribed},
-			       	};
+			var json = new JsonObject();
+			Id.Serialize(json, serializer, "id");
+			Name.Serialize(json, serializer, "name");
+			Desc.Serialize(json, serializer, "desc");
+			Closed.Serialize(json, serializer, "closed");
+			Subscribed.Serialize(json, serializer, "subscribed");
 			Organization.SerializeId(json, serializer, "idOrganization");
 			BoardSource.SerializeId(json, serializer, "idBoardSource");
 			// Don't serialize the LabelNames or Preferences collections because Trello wants individual properties.

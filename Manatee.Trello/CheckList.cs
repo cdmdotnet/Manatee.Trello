@@ -95,13 +95,6 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="id">The checklist's ID.</param>
 		public CheckList(string id)
-			: this(id, true) {}
-		internal CheckList(IJsonCheckList json, bool cache)
-			: this(json.Id, cache)
-		{
-			_context.Merge(json);
-		}
-		private CheckList(string id, bool cache)
 		{
 			Id = id;
 			_context = new CheckListContext(id);
@@ -117,8 +110,12 @@ namespace Manatee.Trello
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 
-			if (cache)
-				TrelloConfiguration.Cache.Add(this);
+			TrelloConfiguration.Cache.Add(this);
+		}
+		internal CheckList(IJsonCheckList json)
+			: this(json.Id)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>
