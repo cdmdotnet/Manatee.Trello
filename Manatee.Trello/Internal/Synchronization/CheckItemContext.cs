@@ -33,9 +33,8 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private readonly string _ownerId;
 		private bool _deleted;
-		private bool _successfulDownload;
 
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static CheckItemContext()
 		{
@@ -69,19 +68,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh, new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonCheckItem>(TrelloAuthorization.Default, endpoint);
-				_successfulDownload = true;
 
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!_successfulDownload || e.IsNotFoundError())
-					throw;
+				if (!e.IsNotFoundError()) throw;
 				_deleted = true;
 				return Data;
 			}
 		}
-		protected override void SubmitData()
+		protected override void SubmitData(IJsonCheckItem json)
 		{
 			// Checklist should be downloaded already since CheckItem ctor is internal,
 			// but allow for the case where it has not been anyway.
@@ -93,7 +90,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"_checklistId", _ownerId},
 					{"_id", Data.Id},
 				});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
 		protected override bool CanUpdate()
 		{

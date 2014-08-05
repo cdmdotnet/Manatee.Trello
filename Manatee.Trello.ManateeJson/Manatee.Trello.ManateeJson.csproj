@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Entities\ManateeAction.cs" />
     <Compile Include="Entities\ManateeActionData.cs" />
+    <Compile Include="Entities\ManateeNotificationOldData.cs" />
     <Compile Include="Entities\ManateeActionOldData.cs" />
     <Compile Include="Entities\ManateeAttachment.cs" />
     <Compile Include="Entities\ManateeAttachmentPreview.cs" />

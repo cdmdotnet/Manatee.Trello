@@ -90,16 +90,6 @@ namespace Manatee.Trello
 		[Description("createdCard")]
 		CreatedCard,
 		/// <summary>
-		/// Indicates the current member was invited to a board.
-		/// </summary>
-		[Description("invitedToBoard")]
-		InvitedToBoard,
-		/// <summary>
-		/// Indicates the current member was invited to an organization.
-		/// </summary>
-		[Description("invitedToOrganization")]
-		InvitedToOrganization,
-		/// <summary>
 		/// Indicates the current member was removed from a board.
 		/// </summary>
 		[Description("removedFromBoard")]
@@ -124,16 +114,6 @@ namespace Manatee.Trello
 		/// </summary>
 		[Description("mentionedOnCard")]
 		MentionedOnCard,
-		/// <summary>
-		/// Indicates the current member is unconfirmed and invited to a board. ?
-		/// </summary>
-		[Description("unconfirmedInvitedToBoard")]
-		UnconfirmedInvitedToBoard,
-		/// <summary>
-		/// Indicates the current member is unconfirmed and invited to an organization. ?
-		/// </summary>
-		[Description("unconfirmedInvitedToOrganization")]
-		UnconfirmedInvitedToOrganization,
 		/// <summary>
 		/// Indicates a checklist item was updated.
 		/// </summary>

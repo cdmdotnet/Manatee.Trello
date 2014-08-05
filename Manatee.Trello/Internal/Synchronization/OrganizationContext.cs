@@ -32,11 +32,10 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class OrganizationContext : SynchronizationContext<IJsonOrganization>
 	{
 		private bool _deleted;
-		private bool _successfulDownload;
 
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; private set; }
-		public override bool IsDataComplete { get { return Data.DisplayName.IsNullOrWhiteSpace(); } }
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		protected override bool IsDataComplete { get { return Data.DisplayName.IsNullOrWhiteSpace(); } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static OrganizationContext()
 		{
@@ -76,22 +75,20 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonOrganization>(TrelloAuthorization.Default, endpoint);
-				_successfulDownload = true;
 
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!_successfulDownload || e.IsNotFoundError())
-					throw;
+				if (!e.IsNotFoundError()) throw;
 				_deleted = true;
 				return Data;
 			}
 		}
-		protected override void SubmitData()
+		protected override void SubmitData(IJsonOrganization json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonOrganization json)
 		{

@@ -83,27 +83,15 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-			       	{
-						// TODO: remove read-only properties from serialization
-			       		{"id", Id},
-			       		{"avatarHash", AvatarHash},
-			       		{"bio", Bio},
-			       		{"fullName", FullName},
-			       		{"initials", Initials},
-			       		{"memberType", MemberType},
-			       		{"status", serializer.Serialize(Status)},
-			       		{"url", Url},
-			       		{"username", Username},
-			       		{"avatarSource", serializer.Serialize(AvatarSource)},
-			       		{"confirmed", Confirmed},
-			       		{"email", Email},
-			       		{"gravatarHash", GravatarHash},
-			       		{"loginTypes", serializer.Serialize(LoginTypes)},
-			       		{"trophies", serializer.Serialize(Trophies)},
-			       		{"uploadedAvatarHash", UploadedAvatarHash},
-			       		{"oneTimeMessagesDismissed", serializer.Serialize(OneTimeMessagesDismissed)},
-			       	};
+			var json = new JsonObject();
+			Id.Serialize(json, serializer, "id");
+			Bio.Serialize(json, serializer, "bio");
+			FullName.Serialize(json, serializer, "fullName");
+			Initials.Serialize(json, serializer, "initials");
+			Username.Serialize(json, serializer, "username");
+			AvatarSource.Serialize(json, serializer, "avatarSource");
+			Email.Serialize(json, serializer, "email");
+			OneTimeMessagesDismissed.Serialize(json, serializer, "oneTimeMessagesDismissed");
 			if (Prefs != null)
 			{
 				json.Add("prefs/minutesBetweenSummaries", Prefs.MinutesBetweenSummaries);

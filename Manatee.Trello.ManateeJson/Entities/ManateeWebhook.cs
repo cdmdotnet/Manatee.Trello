@@ -47,14 +47,13 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-				{
-					{"id", Id},
-					{"description", Description},
-					{"idModel", IdModel},
-					{"callbackURL", CallbackUrl},
-					{"active", Active},
-				};
+			var json = new JsonObject();
+			Id.Serialize(json, serializer, "id");
+			Description.Serialize(json, serializer, "description");
+			IdModel.Serialize(json, serializer, "idModel");
+			CallbackUrl.Serialize(json, serializer, "callbackURL");
+			Active.Serialize(json, serializer, "active");
+			return json;
 		}
 	}
 }

@@ -35,7 +35,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private readonly string _ownerId;
 		private bool _deleted;
 
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static AttachmentContext()
 		{

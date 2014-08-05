@@ -185,7 +185,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the card is updated.
 		/// </summary>
-		public event Action<Card, IEnumerable<string>> Updated; 
+		public event Action<Card, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Card"/> object.
@@ -195,13 +195,6 @@ namespace Manatee.Trello
 		/// The supplied ID can be either the full or short ID.
 		/// </remarks>
 		public Card(string id)
-			: this(id, true) {}
-		internal Card(IJsonCard json, bool cache)
-			: this(json.Id, cache)
-		{
-			_context.Merge(json);
-		}
-		private Card(string id, bool cache)
 		{
 			Id = id;
 			_context = new CardContext(id);
@@ -234,8 +227,12 @@ namespace Manatee.Trello
 			_shortUrl = new Field<string>(_context, () => ShortUrl);
 			_url = new Field<string>(_context, () => Url);
 
-			if (cache)
-				TrelloConfiguration.Cache.Add(this);
+			TrelloConfiguration.Cache.Add(this);
+		}
+		internal Card(IJsonCard json)
+			: this(json.Id)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>
@@ -275,7 +272,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return Name;
+			return Name ?? string.Format("#{0}", ShortId);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

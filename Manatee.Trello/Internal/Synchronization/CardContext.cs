@@ -34,11 +34,10 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class CardContext : SynchronizationContext<IJsonCard>
 	{
 		private bool _deleted;
-		private bool _successfulDownload;
 
 		public BadgesContext BadgesContext { get; private set; }
-		public override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		protected override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static CardContext()
 		{
@@ -93,22 +92,20 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonCard>(TrelloAuthorization.Default, endpoint);
-				_successfulDownload = true;
 				
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!_successfulDownload || e.IsNotFoundError())
-					throw;
+				if (!e.IsNotFoundError()) throw;
 				_deleted = true;
 				return Data;
 			}
 		}
-		protected override void SubmitData()
+		protected override void SubmitData(IJsonCard json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonCard json)
 		{

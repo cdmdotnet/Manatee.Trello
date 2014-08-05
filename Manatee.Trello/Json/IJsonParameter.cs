@@ -31,6 +31,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the parameter value;
 		/// </summary>
+		[JsonSerialize(IsRequired = true)]
 		string Value { get; set; } 
 	}
 }

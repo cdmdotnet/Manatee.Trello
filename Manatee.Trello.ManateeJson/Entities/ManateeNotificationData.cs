@@ -20,53 +20,53 @@
 	Purpose:		Implements IJsonNotificationData for Manatee.Json.
 
 ***************************************************************************************/
-using System.Collections.Generic;
-using System.Linq;
 using Manatee.Json;
+using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeNotificationData : IJsonNotificationData
+	internal class ManateeNotificationData : IJsonNotificationData, IJsonSerializable
 	{
-		private JsonObject _obj;
+		public IJsonAttachment Attachment { get; set; }
+		public IJsonBoard Board { get; set; }
+		public IJsonBoard BoardSource { get; set; }
+		public IJsonBoard BoardTarget { get; set; }
+		public IJsonCard Card { get; set; }
+		public IJsonCard CardSource { get; set; }
+		public IJsonCheckItem CheckItem { get; set; }
+		public IJsonCheckList CheckList { get; set; }
+		public IJsonList List { get; set; }
+		public IJsonList ListAfter { get; set; }
+		public IJsonList ListBefore { get; set; }
+		public IJsonMember Member { get; set; }
+		public IJsonOrganization Org { get; set; }
+		public IJsonNotificationOldData Old { get; set; }
+		public string Text { get; set; }
 
-		public object RawData
+		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			get { return _obj; }
-			set { _obj = (JsonObject)value; }
+			if (json.Type != JsonValueType.Object)
+				return;
+			var obj = json.Object;
+			Attachment = obj.Deserialize<IJsonAttachment>(serializer, "attachment");
+			Board = obj.Deserialize<IJsonBoard>(serializer, "board");
+			BoardSource = obj.Deserialize<IJsonBoard>(serializer, "boardSource");
+			BoardTarget = obj.Deserialize<IJsonBoard>(serializer, "boardTarget");
+			Card = obj.Deserialize<IJsonCard>(serializer, "card");
+			CheckItem = obj.Deserialize<IJsonCheckItem>(serializer, "checkItem");
+			CheckList = obj.Deserialize<IJsonCheckList>(serializer, "checklist");
+			List = obj.Deserialize<IJsonList>(serializer, "list");
+			ListAfter = obj.Deserialize<IJsonList>(serializer, "listAfter");
+			ListBefore = obj.Deserialize<IJsonList>(serializer, "listBefore");
+			Member = obj.Deserialize<IJsonMember>(serializer, obj.ContainsKey("member") ? "member" : "idMember");
+			Old = obj.Deserialize<IJsonNotificationOldData>(serializer, "old");
+			Org = obj.Deserialize<IJsonOrganization>(serializer, "org");
+			Text = obj.TryGetString("text");
 		}
-
-		public string TryGetString(params string[] path)
+		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var obj = DrillDown(path);
-			if (obj == null) return null;
-			return obj.TryGetString(path.Last());
-		}
-		public double? TryGetNumber(params string[] path)
-		{
-			var obj = DrillDown(path);
-			if (obj == null) return null;
-			return obj.TryGetNumber(path.Last());
-		}
-		public bool? TryGetBoolean(params string[] path)
-		{
-			var obj = DrillDown(path);
-			if (obj == null) return null;
-			return obj.TryGetBoolean(path.Last());
-		}
-
-		private JsonObject DrillDown(IEnumerable<string> path)
-		{
-			var leadingPath = path.Take(path.Count() - 1);
-			var obj = _obj;
-			foreach (var key in leadingPath)
-			{
-				obj = obj.TryGetObject(key);
-				if (obj == null)
-					return null;
-			}
-			return obj;
+			return null;
 		}
 	}
 }

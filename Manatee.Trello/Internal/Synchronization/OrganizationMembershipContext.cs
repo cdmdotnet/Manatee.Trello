@@ -32,7 +32,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private readonly string _ownerId;
 
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static OrganizationMembershipContext()
 		{
@@ -56,12 +56,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.OrganizationMembership_Read_Refresh, new Dictionary<string, object> {{"_organizationId", _ownerId}, {"_id", Data.Id}});
 			var newData = JsonRepository.Execute<IJsonOrganizationMembership>(TrelloAuthorization.Default, endpoint);
+
 			return newData;
 		}
-		protected override void SubmitData()
+		protected override void SubmitData(IJsonOrganizationMembership json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.OrganizationMembership_Write_Update, new Dictionary<string, object> {{"_organizationId", _ownerId}, {"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
 	}
 }

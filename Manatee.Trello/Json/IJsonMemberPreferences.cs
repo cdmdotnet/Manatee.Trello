@@ -30,10 +30,12 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the number of minutes between summary emails.
 		/// </summary>
+		[JsonDeserialize]
 		int? MinutesBetweenSummaries { get; set; }
 		/// <summary>
 		/// Enables/disables color-blind mode.
 		/// </summary>
+		[JsonDeserialize]
 		bool? ColorBlind { get; set; }
 	}
 }

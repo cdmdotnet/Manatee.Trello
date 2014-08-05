@@ -50,16 +50,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-				{
-					{"id", Id},
-					{"identifier", Identifier},
-					{"dateCreated", serializer.Serialize(DateCreated)},
-					{"dateExpires", serializer.Serialize(DateExpires)},
-					{"permissions", serializer.Serialize(Permissions)},
-				};
-			Member.SerializeId(json, serializer, "idMember");
-			return json;
+			return null;
 		}
 	}
 }

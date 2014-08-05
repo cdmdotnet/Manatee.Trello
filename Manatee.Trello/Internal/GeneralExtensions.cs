@@ -80,7 +80,7 @@ namespace Manatee.Trello.Internal
 		}
 		public static bool IsNotFoundError(this TrelloInteractionException e)
 		{
-			return e.Message.ToLower().Contains("not found");
+			return e.InnerException != null && e.InnerException.Message.ToLower().Contains("not found");
 		}
 		public static string FlagsEnumToCommaList<T>(this T value)
 		{

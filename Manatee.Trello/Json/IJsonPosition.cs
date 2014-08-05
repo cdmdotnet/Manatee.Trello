@@ -31,6 +31,8 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets an explicit numeric value for the position.
 		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
 		double? Explicit { get; set; }
 		/// <summary>
 		/// Gets or sets a named value for the position.
@@ -38,6 +40,8 @@ namespace Manatee.Trello.Json
 		/// <remarks>
 		/// Valid values are "top" and "bottom".
 		/// </remarks>
+		[JsonDeserialize]
+		[JsonSerialize]
 		string Named { get; set; }
 	}
 }

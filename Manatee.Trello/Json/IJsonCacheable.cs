@@ -30,6 +30,8 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets a unique identifier (not necessarily a GUID).
 		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize(IsRequired = true)]
 		string Id { get; set; }
 	}
 }

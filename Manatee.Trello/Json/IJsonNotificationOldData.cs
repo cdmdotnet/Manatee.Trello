@@ -1,6 +1,6 @@
 /***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,46 +14,43 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IJsonNotification.cs
+	File Name:		IJsonNotificationOldData.cs
 	Namespace:		Manatee.Trello.Json
-	Class Name:		IJsonNotification
-	Purpose:		Defines the JSON structure for the Notification object.
+	Class Name:		IJsonNotificationOldData
+	Purpose:		Defines the JSON structure for the ActionOldData object.
 
 ***************************************************************************************/
-using System;
-
 namespace Manatee.Trello.Json
 {
 	/// <summary>
-	/// Defines the JSON structure for the Notification object.
+	/// Defines the JSON structure for the ActionOldData object.
 	/// </summary>
-	public interface IJsonNotification : IJsonCacheable
+	public interface IJsonNotificationOldData
 	{
 		/// <summary>
-		/// Gets or sets whether the notification has been read.
+		/// Gets or sets an old description.
 		/// </summary>
 		[JsonDeserialize]
-		[JsonSerialize]
-		bool? Unread { get; set; }
+		string Desc { get; set; }
 		/// <summary>
-		/// Gets or sets the notification's type.
+		/// Gets or sets an old list.
 		/// </summary>
 		[JsonDeserialize]
-		NotificationType Type { get; set; }
-		///<summary>
-		/// Gets or sets the date on which the notification was created.
-		///</summary>
-		[JsonDeserialize]
-		DateTime? Date { get; set; }
+		IJsonList List { get; set; }
 		/// <summary>
-		/// Gets or sets the data associated with the notification.  Contents depend upon the notification's type.
+		/// Gets or sets an old position.
 		/// </summary>
 		[JsonDeserialize]
-		IJsonNotificationData Data { get; set; }
+		double? Pos { get; set; }
 		/// <summary>
-		/// Gets or sets the ID of the member whose action spawned the notification.
+		/// Gets or sets old text.
 		/// </summary>
 		[JsonDeserialize]
-		IJsonMember MemberCreator { get; set; }
+		string Text { get; set; }
+		/// <summary>
+		/// Gets or sets whether an item was closed.
+		/// </summary>
+		[JsonDeserialize]
+		bool? Closed { get; set; }
 	}
 }

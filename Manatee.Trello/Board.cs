@@ -157,13 +157,6 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="id">The board's ID.</param>
 		public Board(string id)
-			: this(id, true) {}
-		internal Board(IJsonBoard json, bool cache)
-			: this(json.Id, cache)
-		{
-			_context.Merge(json);
-		}
-		private Board(string id, bool cache)
 		{
 			_context = new BoardContext(id);
 			_context.Synchronized += Synchronized;
@@ -186,8 +179,12 @@ namespace Manatee.Trello
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			_url = new Field<string>(_context, () => Url);
 
-			if (cache)
-				TrelloConfiguration.Cache.Add(this);
+			TrelloConfiguration.Cache.Add(this);
+		}
+		internal Board(IJsonBoard json)
+			: this(json.Id)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>

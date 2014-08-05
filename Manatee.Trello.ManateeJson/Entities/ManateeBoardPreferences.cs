@@ -49,15 +49,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-				{
-					{"permissionLevel", serializer.Serialize(PermissionLevel)},
-					{"voting", serializer.Serialize(Voting)},
-					{"comments", serializer.Serialize(Comments)},
-					{"invitations", serializer.Serialize(Invitations)},
-					{"selfJoin", SelfJoin},
-					{"cardCovers", CardCovers},
-				};
+			return null;
 		}
 	}
 }

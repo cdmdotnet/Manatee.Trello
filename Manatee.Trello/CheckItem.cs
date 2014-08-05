@@ -89,7 +89,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<CheckItem, IEnumerable<string>> Updated;
 
-		internal CheckItem(IJsonCheckItem json, string checkListId, bool cache)
+		internal CheckItem(IJsonCheckItem json, string checkListId)
 		{
 			Id = json.Id;
 			_context = new CheckItemContext(Id, checkListId);
@@ -105,8 +105,7 @@ namespace Manatee.Trello
 			_state = new Field<CheckItemState>(_context, () => State);
 			_state.AddRule(EnumerationRule<CheckItemState>.Instance);
 
-			if (cache)
-				TrelloConfiguration.Cache.Add(this);
+			TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 		}

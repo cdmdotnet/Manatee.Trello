@@ -81,7 +81,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_CreateOrganization);
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
-			return new Organization(newData, true);
+			return new Organization(newData);
 		}
 	}
 }

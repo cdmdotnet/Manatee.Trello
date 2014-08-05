@@ -82,25 +82,16 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-				{
-					{"id", Id},
-					{"closed", Closed},
-					{"desc", Desc},
-					{"idShort", IdShort},
-					{"idAttachmentCover", IdAttachmentCover},
-					{"manualAttachmentCover", ManualCoverAttachment},
-					{"name", Name},
-					{"url", Url},
-					{"shortUrl", ShortUrl},
-					{"subscribed", Subscribed},
-				};
+			var json = new JsonObject();
+			Id.Serialize(json, serializer, "id");
+			Closed.Serialize(json, serializer, "closed");
 			DateLastActivity.Serialize(json, serializer, "dateLastActivity");
+			Desc.Serialize(json, serializer, "desc");
 			Due.Serialize(json, serializer, "due");
-			Badges.Serialize(json, serializer, "badges");
-			Board.SerializeId(json, serializer, "idBoard");
 			List.SerializeId(json, serializer, "idList");
+			Name.Serialize(json, serializer, "name");
 			Pos.Serialize(json, serializer, "pos");
+			Subscribed.Serialize(json, serializer, "subscribed");
 			CardSource.SerializeId(json, serializer, "idCardSource");
 			UrlSource.Serialize(json, serializer, "urlSource");
 			// Don't serialize the Label collection because Trello wants a comma-sparated list

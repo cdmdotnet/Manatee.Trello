@@ -33,9 +33,8 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class CheckListContext : SynchronizationContext<IJsonCheckList>
 	{
 		private bool _deleted;
-		private bool _successfulDownload;
 
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static CheckListContext()
 		{
@@ -76,22 +75,20 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonCheckList>(TrelloAuthorization.Default, endpoint);
-				_successfulDownload = true;
 
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!_successfulDownload || e.IsNotFoundError())
-					throw;
+				if (!e.IsNotFoundError()) throw;
 				_deleted = true;
 				return Data;
 			}
 		}
-		protected override void SubmitData()
+		protected override void SubmitData(IJsonCheckList json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
 		protected override bool CanUpdate()
 		{

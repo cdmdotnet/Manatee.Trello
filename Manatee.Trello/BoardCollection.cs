@@ -105,7 +105,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(_addRequestType);
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
-			return new Board(newData, true);
+			return new Board(newData);
 		}
 	}
 }

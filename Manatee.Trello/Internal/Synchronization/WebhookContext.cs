@@ -35,9 +35,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		where T : class, ICanWebhook
 	{
 		private bool _deleted;
-		private bool _successfulDownload;
 
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static WebhookContext()
 		{
@@ -88,22 +87,20 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonWebhook>(TrelloAuthorization.Default, endpoint);
-				_successfulDownload = true;
 
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!_successfulDownload || e.IsNotFoundError())
-					throw;
+				if (!e.IsNotFoundError()) throw;
 				_deleted = true;
 				return Data;
 			}
 		}
-		protected override void SubmitData()
+		protected override void SubmitData(IJsonWebhook json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
 		protected override bool CanUpdate()
 		{

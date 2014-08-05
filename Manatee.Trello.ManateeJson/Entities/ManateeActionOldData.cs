@@ -46,15 +46,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var json = new JsonObject
-				{
-					{"desc", Desc},
-					{"pos", Pos.HasValue ? Pos : JsonValue.Null},
-					{"text", Text},
-					{"closed", Closed}
-				};
-			List.Serialize(json, serializer, "list");
-			return json;
+			return null;
 		}
 	}
 }

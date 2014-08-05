@@ -123,13 +123,6 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="id">The list's ID.</param>
 		public List(string id)
-			: this(id, true) {}
-		internal List(IJsonList json, bool cache)
-			: this(json.Id, cache)
-		{
-			_context.Merge(json);
-		}
-		private List(string id, bool cache)
 		{
 			Id = id;
 			_context = new ListContext(id);
@@ -149,8 +142,12 @@ namespace Manatee.Trello
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 
-			if (cache)
 				TrelloConfiguration.Cache.Add(this);
+		}
+		internal List(IJsonList json)
+			: this(json.Id)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>

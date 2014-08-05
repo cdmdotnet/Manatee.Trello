@@ -31,8 +31,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class ListContext : SynchronizationContext<IJsonList>
 	{
-		public override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
-		public override bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		protected override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
+		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static ListContext()
 		{
@@ -60,12 +60,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = JsonRepository.Execute<IJsonList>(TrelloAuthorization.Default, endpoint);
+
 			return newData;
 		}
-		protected override void SubmitData()
+		protected override void SubmitData(IJsonList json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, Data);
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 		}
 	}
 }

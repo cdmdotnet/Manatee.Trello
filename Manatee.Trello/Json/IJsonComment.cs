@@ -30,6 +30,7 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the text content of the comment.
 		/// </summary>
+		[JsonDeserialize]
 		string Text { get; set; }
 	}
 }

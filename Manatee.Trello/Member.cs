@@ -126,7 +126,6 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
-		// TODO: Add forced refresh to support member status.
 		public MemberStatus Status { get { return _status.Value; } }
 		/// <summary>
 		/// Gets the collection of trophies earned by the member.
@@ -166,13 +165,6 @@ namespace Manatee.Trello
 		public Member(string id)
 			: this(id, false) {}
 		internal Member(string id, bool isMe)
-			: this(id, isMe, true) {}
-		internal Member(IJsonMember json, bool cache)
-			: this(json.Id, cache)
-		{
-			_context.Merge(json);
-		}
-		private Member(string id, bool isMe, bool cache)
 		{
 			Id = id;
 			_context = new MemberContext(id);
@@ -196,8 +188,12 @@ namespace Manatee.Trello
 			_userName = new Field<string>(_context, () => UserName);
 			_userName.AddRule(UsernameRule.Instance);
 
-			if (cache)
-				TrelloConfiguration.Cache.Add(this);
+			TrelloConfiguration.Cache.Add(this);
+		}
+		internal Member(IJsonMember json)
+			: this(json.Id, false)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>
