@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -38,6 +39,16 @@ namespace Manatee.Trello
 	public class ReadOnlyBoardCollection : ReadOnlyCollection<Board>
 	{
 		private readonly EntityRequestType _updateRequestType;
+
+		/// <summary>
+		/// Retrieves a board which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching board, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on Board.Id and Board.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public Board this[string key] { get { return GetByKey(key); } }
 
 		internal ReadOnlyBoardCollection(Type type, string ownerId)
 			: base(ownerId)
@@ -62,6 +73,11 @@ namespace Manatee.Trello
 					board.Json = jb;
 					return board;
 				}));
+		}
+
+		private Board GetByKey(string key)
+		{
+			return this.FirstOrDefault(b => key.In(b.Id, b.Name));
 		}
 	}
 

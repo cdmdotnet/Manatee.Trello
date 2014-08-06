@@ -32,12 +32,9 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			var list = new List(TrelloIds.ListId);
-			var card = list.Cards.Add("new card");
-			card.Position = Position.Top;
-			card.Labels.Add(LabelColor.Blue);
-			card.Description = "a description";
 
-			Thread.Sleep(200);
+			Console.WriteLine(list["Card"].Description);
+			Console.WriteLine(list["514be64c722bfe8c65002724"].Name);
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}

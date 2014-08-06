@@ -24,6 +24,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -36,7 +37,17 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCheckItemCollection : ReadOnlyCollection<CheckItem>
 	{
-		internal readonly CheckListContext _context;
+		private readonly CheckListContext _context;
+
+		/// <summary>
+		/// Retrieves a check list item which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching check list item, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public CheckItem this[string key] { get { return GetByKey(key); } }
 
 		internal ReadOnlyCheckItemCollection(CheckListContext context)
 			: base(context.Data.Id)
@@ -64,6 +75,11 @@ namespace Manatee.Trello
 				if (_context.Data.CheckItems.All(jci => jci.Id != checkItem.Id))
 					Items.Remove(checkItem);
 			}
+		}
+
+		private CheckItem GetByKey(string key)
+		{
+			return this.FirstOrDefault(ci => key.In(ci.Id, ci.Name));
 		}
 	}
 

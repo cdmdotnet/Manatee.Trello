@@ -79,6 +79,25 @@ namespace Manatee.Trello
 			set { _position.Value = value; }
 		}
 
+		/// <summary>
+		/// Retrieves a check list item which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching check list item, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public CheckItem this[string key] { get { return CheckItems[key]; } }
+		/// <summary>
+		/// Retrieves the check list item at the specified index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <returns>The check list item.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
+		/// </exception>
+		public CheckItem this[int index] { get { return CheckItems[index]; } }
+
 		internal IJsonCheckList Json
 		{
 			get { return _context.Data; }

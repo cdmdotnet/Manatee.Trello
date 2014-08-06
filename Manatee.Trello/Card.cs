@@ -176,6 +176,25 @@ namespace Manatee.Trello
 		/// </remarks>
 		public string Url { get { return _url.Value; } }
 
+		/// <summary>
+		/// Retrieves a check list which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching check list, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on CheckList.Id and CheckList.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public CheckList this[string key] { get { return CheckLists[key]; } }
+		/// <summary>
+		/// Retrieves the check list at the specified index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <returns>The check list.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
+		/// </exception>
+		public CheckList this[int index] { get { return CheckLists[index]; } }
+
 		internal IJsonCard Json
 		{
 			get { return _context.Data; }

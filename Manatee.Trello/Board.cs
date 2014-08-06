@@ -141,6 +141,25 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Url { get { return _url.Value; } }
 
+		/// <summary>
+		/// Retrieves a list which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching list, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on List.Id and List.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public List this[string key] { get { return Lists[key]; } }
+		/// <summary>
+		/// Retrieves the list at the specified index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <returns>The list.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
+		/// </exception>
+		public List this[int index] { get { return Lists[index]; } }
+
 		internal IJsonBoard Json
 		{
 			get { return _context.Data; }
