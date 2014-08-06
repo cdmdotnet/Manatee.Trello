@@ -22,9 +22,7 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-#if NET35 || NET35C
 using System.Linq;
-#endif
 using System.Linq.Expressions;
 using Manatee.Trello.Exceptions;
 
@@ -85,6 +83,10 @@ namespace Manatee.Trello.Internal
 		public static string FlagsEnumToCommaList<T>(this T value)
 		{
 			return value.ToLowerString().Replace(" ", string.Empty);
+		}
+		public static bool In<T>(this T obj, params T[] values)
+		{
+			return values.Contains(obj);
 		}
 	}
 }

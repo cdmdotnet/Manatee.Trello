@@ -21,8 +21,10 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Manatee.Trello
 {
@@ -34,6 +36,17 @@ namespace Manatee.Trello
 	{
 		private readonly List<T> _items;
 		private readonly string _ownerId;
+		private DateTime _lastUpdate;
+
+		/// <summary>
+		/// Retrieves the item at the specified index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <returns>The item.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
+		/// </exception>
+		public T this[int index] { get { return GetByIndex(index); } }
 
 		internal string OwnerId { get { return _ownerId; } }
 		internal List<T> Items { get { return _items; } }
@@ -46,6 +59,7 @@ namespace Manatee.Trello
 		{
 			_ownerId = ownerId;
 			_items = new List<T>();
+			_lastUpdate = DateTime.MinValue;
 		}
 
 		/// <summary>
@@ -57,7 +71,11 @@ namespace Manatee.Trello
 		/// <filterpriority>1</filterpriority>
 		public IEnumerator<T> GetEnumerator()
 		{
-			Update();
+			if (DateTime.Now >= _lastUpdate.Add(TrelloConfiguration.ExpiryTime))
+			{
+				Update();
+				_lastUpdate = DateTime.Now;
+			}
 			return _items.GetEnumerator();
 		}
 		/// <summary>
@@ -76,5 +94,10 @@ namespace Manatee.Trello
 		/// Implement to provide data to the collection.
 		/// </summary>
 		protected abstract void Update();
+
+		private T GetByIndex(int index)
+		{
+			return this.ElementAt(index);
+		}
 	}
 }

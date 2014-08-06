@@ -24,6 +24,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -37,6 +38,18 @@ namespace Manatee.Trello
 	{
 		internal ReadOnlyBoardMembershipCollection(string ownerId)
 			: base(ownerId) {}
+
+		/// <summary>
+		/// Retrieves a membership which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching membership, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on BoardMembership.Id, BoardMembership.Member.Id,
+		/// BoardMembership.Member.Name, and BoardMembership.Usernamee.
+		/// Comparison is case-sensitive.
+		/// </remarks>
+		public BoardMembership this[string key] { get { return GetByKey(key); } }
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -53,6 +66,11 @@ namespace Manatee.Trello
 					membership.Json = jbm;
 					return membership;
 				}));
+		}
+
+		private BoardMembership GetByKey(string key)
+		{
+			return this.FirstOrDefault(bm => key.In(bm.Id, bm.Member.Id, bm.Member.FullName, bm.Member.UserName));
 		}
 	}
 

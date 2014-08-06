@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -39,6 +40,16 @@ namespace Manatee.Trello
 	{
 		private readonly EntityRequestType _updateRequestType;
 		private readonly Dictionary<string, object> _requestParameters;
+
+		/// <summary>
+		/// Retrieves a card which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching card, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public Card this[string key] { get { return GetByKey(key); } }
 
 		internal ReadOnlyCardCollection(Type type, string ownerId)
 			: base(ownerId)
@@ -71,6 +82,11 @@ namespace Manatee.Trello
 					card.Json = jc;
 					return card;
 				}));
+		}
+
+		private Card GetByKey(string key)
+		{
+			return this.FirstOrDefault(c => key.In(c.Id, c.Name));
 		}
 	}
 

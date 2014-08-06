@@ -136,7 +136,6 @@ namespace Manatee.Trello.Internal.DataAccess
 						throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
 					var value = parameters[parameter] ?? string.Empty;
 					endpoint.Resolve(parameter, value.ToString());
-					parameters.Remove(parameter);
 				}
 			}
 			else if (requiredParameters.Any())

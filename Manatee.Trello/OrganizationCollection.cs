@@ -23,6 +23,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -39,6 +40,16 @@ namespace Manatee.Trello
 			: base(ownerId) { }
 
 		/// <summary>
+		/// Retrieves a organization which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching organization, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on Organization.Id, Organization.Name, and Organization.DisplayName.  Comparison is case-sensitive.
+		/// </remarks>
+		public Organization this[string key] { get { return GetByKey(key); } }
+
+		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
 		protected override sealed void Update()
@@ -53,6 +64,11 @@ namespace Manatee.Trello
 					org.Json = jo;
 					return org;
 				}));
+		}
+
+		private Organization GetByKey(string key)
+		{
+			return this.FirstOrDefault(o => key.In(o.Id, o.Name, o.DisplayName));
 		}
 	}
 

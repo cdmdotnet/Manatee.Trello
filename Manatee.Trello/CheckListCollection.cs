@@ -24,6 +24,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -40,6 +41,16 @@ namespace Manatee.Trello
 			: base(card.Id) {}
 
 		/// <summary>
+		/// Retrieves a check list which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching check list, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on CheckList.Id and CheckList.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public CheckList this[string key] { get { return GetByKey(key); } }
+
+		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
 		protected override sealed void Update()
@@ -54,6 +65,11 @@ namespace Manatee.Trello
 					checkList.Json = jc;
 					return checkList;
 				}));
+		}
+
+		private CheckList GetByKey(string key)
+		{
+			return this.FirstOrDefault(cl => key.In(cl.Id, cl.Name));
 		}
 	}
 

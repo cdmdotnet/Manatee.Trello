@@ -107,6 +107,25 @@ namespace Manatee.Trello
 			set { _position.Value = value; }
 		}
 
+		/// <summary>
+		/// Retrieves a card which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching card, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public Card this[string key] { get { return Cards[key]; } }
+		/// <summary>
+		/// Retrieves the card at the specified index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <returns>The card.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
+		/// </exception>
+		public Card this[int index] { get { return Cards[index]; } }
+
 		internal IJsonList Json
 		{
 			get { return _context.Data; }

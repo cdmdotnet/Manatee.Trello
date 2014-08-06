@@ -23,6 +23,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -35,6 +36,16 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyListCollection : ReadOnlyCollection<List>
 	{
+		/// <summary>
+		/// Retrieves a list which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching list, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on List.Id and List.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		public List this[string key] { get { return GetByKey(key); } }
+
 		internal ReadOnlyListCollection(string ownerId)
 			: base(ownerId) { }
 
@@ -53,6 +64,11 @@ namespace Manatee.Trello
 					list.Json = jl;
 					return list;
 				}));
+		}
+
+		private List GetByKey(string key)
+		{
+			return this.FirstOrDefault(l => key.In(l.Id, l.Name));
 		}
 	}
 
