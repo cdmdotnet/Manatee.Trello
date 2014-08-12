@@ -51,10 +51,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 					{"query", Query}
 				};
 			Limit.Serialize(json, serializer, "limit");
-			Board.SerializeId(json, serializer, "idBoard");
+			Board.SerializeId(json, "idBoard");
 			if (Organization != null)
 			{
-				Organization.SerializeId(json, serializer, "idOrganization");
+				Organization.SerializeId(json, "idOrganization");
 				OnlyOrgMembers.Serialize(json, serializer, "onlyOrgMembers");
 			}
 			return json;

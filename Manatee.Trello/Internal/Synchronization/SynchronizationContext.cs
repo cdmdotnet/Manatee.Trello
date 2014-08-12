@@ -36,7 +36,17 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected virtual bool IsDataComplete { get { return true; } }
 
+#if IOS
+		private Action<IEnumerable<string>> _synchronizedInvoker;
+
+		public event Action<IEnumerable<string>> Synchronized
+		{
+			add { _synchronizedInvoker += value; }
+			remove { _synchronizedInvoker -= value; }
+		}
+#else
 		public event Action<IEnumerable<string>> Synchronized;
+#endif
 
 		protected SynchronizationContext(bool useTimer)
 		{
@@ -69,7 +79,11 @@ namespace Manatee.Trello.Internal.Synchronization
 				if (!force && IsDataComplete && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
 				var properties = Merge().ToList();
 				if (!properties.Any()) return;
+#if IOS
+				var handler = _synchronizedInvoker;
+#else
 				var handler = Synchronized;
+#endif
 				if (handler != null)
 					handler(properties);
 			}

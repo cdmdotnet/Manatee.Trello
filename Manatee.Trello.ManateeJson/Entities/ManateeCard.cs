@@ -88,15 +88,14 @@ namespace Manatee.Trello.ManateeJson.Entities
 			DateLastActivity.Serialize(json, serializer, "dateLastActivity");
 			Desc.Serialize(json, serializer, "desc");
 			Due.Serialize(json, serializer, "due");
-			List.SerializeId(json, serializer, "idList");
+			List.SerializeId(json, "idList");
 			Name.Serialize(json, serializer, "name");
 			Pos.Serialize(json, serializer, "pos");
 			Subscribed.Serialize(json, serializer, "subscribed");
-			CardSource.SerializeId(json, serializer, "idCardSource");
+			CardSource.SerializeId(json, "idCardSource");
 			UrlSource.Serialize(json, serializer, "urlSource");
 			// Don't serialize the Label collection because Trello wants a comma-sparated list
-			if (Labels != null)
-				json["labels"] = Labels.Select(l => l.Color.ToLowerString()).Join(",");
+			Labels.Select(l => l.Color).Combine().Serialize(json, serializer, "labels");
 			return json;
 		}
 	}

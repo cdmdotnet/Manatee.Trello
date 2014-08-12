@@ -53,10 +53,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			var json = new JsonObject();
 			Id.Serialize(json, serializer, "id");
-			Card.SerializeId(json, serializer, "idCard");
+			Card.SerializeId(json, "idCard");
 			Name.Serialize(json, serializer, "name");
 			Pos.Serialize(json, serializer, "pos");
-			CheckListSource.SerializeId(json, serializer, "idChecklistSource");
+			CheckListSource.SerializeId(json, "idChecklistSource");
 			return json;
 		}
 	}

@@ -47,7 +47,7 @@ namespace Manatee.Trello.Internal
 		public static bool IsNullOrWhiteSpace(this string value)
 		{
 #if NET35 || NET35C
-			return string.IsNullOrEmpty(value.Trim());
+			return string.IsNullOrEmpty(value) || string.IsNullOrEmpty(value.Trim());
 #elif NET4 || NET4C || NET45
 			return string.IsNullOrWhiteSpace(value);
 #endif

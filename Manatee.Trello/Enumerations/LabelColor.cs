@@ -40,31 +40,31 @@ namespace Manatee.Trello
 		/// Indicates a green label.
 		/// </summary>
 		[Description("green")]
-		Green,
+		Green = 0x01,
 		/// <summary>
 		/// Indicates a yellow label.
 		/// </summary>
 		[Description("yellow")]
-		Yellow,
+		Yellow = 0x02,
 		/// <summary>
 		/// Indicates an orange label.
 		/// </summary>
 		[Description("orange")]
-		Orange,
+		Orange = 0x04,
 		/// <summary>
 		/// Indicates a red label.
 		/// </summary>
 		[Description("red")]
-		Red,
+		Red = 0x08,
 		/// <summary>
 		/// Indicates a purple label.
 		/// </summary>
 		[Description("purple")]
-		Purple,
+		Purple = 0x10,
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
 		[Description("blue")]
-		Blue
+		Blue = 0x11
 	}
 }

@@ -31,9 +31,9 @@
     <DocumentationFile>bin\Release\Manatee.Trello.ManateeJson.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Manatee.Json.2.5.2\lib\net40\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json">
+      <HintPath>..\packages\Manatee.Json.2.5.3\lib\net40\Manatee.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -91,7 +91,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
       <Project>{e11bd6ae-0373-40cf-a4f3-6b156096ddb0}</Project>
-      <Name>Manatee.Trello %284.0\Manatee.Trello%29</Name>
+      <Name>Manatee.Trello</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

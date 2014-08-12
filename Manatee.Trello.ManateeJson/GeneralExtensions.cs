@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
@@ -39,7 +40,7 @@ namespace Manatee.Trello.ManateeJson
 		public static bool IsNullOrWhiteSpace(this string value)
 		{
 #if NET35 || NET35C
-			return string.IsNullOrEmpty(value.Trim());
+			return string.IsNullOrEmpty(value) || string.IsNullOrEmpty(value.Trim());
 #elif NET4 || NET4C || NET45
 			return string.IsNullOrWhiteSpace(value);
 #endif
@@ -61,11 +62,17 @@ namespace Manatee.Trello.ManateeJson
 			if (!Equals(obj, default(T)))
 				json[key] = serializer.Serialize(obj);
 		}
-		public static void SerializeId<T>(this T obj, JsonObject json, JsonSerializer serializer, string key)
+		public static void SerializeId<T>(this T obj, JsonObject json, string key)
 			where T : IJsonCacheable
 		{
 			if (!Equals(obj, default(T)))
 				json[key] = obj.Id;
+		}
+		public static T Combine<T>(this IEnumerable<T> values)
+			where T : struct
+		{
+			return (T) Enum.ToObject(typeof (T), values.Select(value => Convert.ToInt32(value))
+			                                           .Aggregate(0, (current, longValue) => current + longValue));
 		}
 	}
 }

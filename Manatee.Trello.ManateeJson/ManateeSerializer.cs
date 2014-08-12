@@ -50,7 +50,14 @@ namespace Manatee.Trello.ManateeJson
 		/// </summary>
 		public ManateeSerializer()
 		{
-			_serializer = new JsonSerializer {Options = {EnumSerializationFormat = EnumSerializationFormat.AsName}};
+			_serializer = new JsonSerializer
+				{
+					Options =
+						{
+							EnumSerializationFormat = EnumSerializationFormat.AsName,
+							FlagsEnumSeparator = ","
+						}
+				};
 			_method = _serializer.GetType().GetMethod("Serialize");
 		}
 
