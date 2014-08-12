@@ -55,10 +55,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 				{
 					{"query", Query},
 				};
-			// NOTE: This can go away once Manatee.Json is updated to handle [Flags] enums
-			var modelTypes = Types.ToString().Replace(" ", string.Empty).ToLower();
-			if (!modelTypes.IsNullOrWhiteSpace())
-				json["modelTypes"] = modelTypes;
+			Types.Serialize(json, serializer, "types");
 			if (Context != null)
 			{
 				TryAddContext<IJsonCard>(json, "idCards");

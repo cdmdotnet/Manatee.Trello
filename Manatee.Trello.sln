@@ -62,6 +62,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.RestSharp", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.RestSharp", "Frameworks\4.5\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj", "{E13FD93D-3DB4-4412-846C-80AAAEA7E645}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOS", "iOS", "{9A86ED8F-630E-4209-AB69-6AC12D3A66D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello", "Frameworks\iOS\Manatee.Trello\Manatee.Trello.csproj", "{DE0D7D57-75B3-40CB-84FF-13265FD4049D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -146,6 +150,10 @@ Global
 		{E13FD93D-3DB4-4412-846C-80AAAEA7E645}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E13FD93D-3DB4-4412-846C-80AAAEA7E645}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E13FD93D-3DB4-4412-846C-80AAAEA7E645}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE0D7D57-75B3-40CB-84FF-13265FD4049D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE0D7D57-75B3-40CB-84FF-13265FD4049D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE0D7D57-75B3-40CB-84FF-13265FD4049D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE0D7D57-75B3-40CB-84FF-13265FD4049D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +179,7 @@ Global
 		{64EC04C5-CB98-4A16-95F0-A70D000E1137} = {63824823-B83A-46FA-806D-E00A175BA93B}
 		{ECBF9042-66C8-44B9-85A6-C1F55C563A11} = {2127486F-A4FF-41AB-B793-996A777628BF}
 		{E13FD93D-3DB4-4412-846C-80AAAEA7E645} = {63824823-B83A-46FA-806D-E00A175BA93B}
+		{DE0D7D57-75B3-40CB-84FF-13265FD4049D} = {9A86ED8F-630E-4209-AB69-6AC12D3A66D9}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Manatee.Trello.vsmdi

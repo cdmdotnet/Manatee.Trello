@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using StoryQ.Formatting.Methods;
 
@@ -22,7 +23,6 @@ namespace Manatee.Trello.Test
 			var generics = method.GetGenericArguments();
 			var genericsList = string.Join<Type>(", ", generics);
 			var inputs = new List<object> { genericsList };
-			inputs.AddRange(parameters);
 			return string.Format(_textFormat, inputs.ToArray());
 		}
 	}

@@ -35,31 +35,31 @@ namespace Manatee.Trello
 		/// Indicates the search should return actions.
 		/// </summary>
 		[Description("actions")]
-		Actions = 1,
+		Actions = 0x01,
 		/// <summary>
 		/// Indicates the search should return boards.
 		/// </summary>
 		[Description("boards")]
-		Boards = 2,
+		Boards = 0x02,
 		/// <summary>
 		/// Indicates the search should return cards.
 		/// </summary>
 		[Description("cards")]
-		Cards = 4,
+		Cards = 0x04,
 		/// <summary>
 		/// Indicates the search should return members.
 		/// </summary>
 		[Description("members")]
-		Members = 8,
+		Members = 0x08,
 		/// <summary>
 		/// Indicates the search should return organizations.
 		/// </summary>
 		[Description("orgainzations")]
-		Organizations = 16,
+		Organizations = 0x10,
 		/// <summary>
 		/// Indicates the search should return all model types.
 		/// </summary>
 		[Description("all")]
-		All = 31
+		All = 0x1F
 	}
 }

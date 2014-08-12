@@ -104,15 +104,28 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+#if IOS
+		private Action<CheckList, IEnumerable<string>> _updatedInvoker;
+
 		/// <summary>
-		/// Raised when data on the checklist is updated.
+		/// Raised when data on the check list is updated.
+		/// </summary>
+		public event Action<CheckList, IEnumerable<string>> Updated
+		{
+			add { _updatedInvoker += value; }
+			remove { _updatedInvoker -= value; }
+		}
+#else
+		/// <summary>
+		/// Raised when data on the check list is updated.
 		/// </summary>
 		public event Action<CheckList, IEnumerable<string>> Updated;
+#endif
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="CheckList"/> object.
 		/// </summary>
-		/// <param name="id">The checklist's ID.</param>
+		/// <param name="id">The check list's ID.</param>
 		public CheckList(string id)
 		{
 			Id = id;
@@ -171,7 +184,11 @@ namespace Manatee.Trello
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
+#if IOS
+			var handler = _updatedInvoker;
+#else
 			var handler = Updated;
+#endif
 			if (handler != null)
 				handler(this, properties);
 		}

@@ -22,6 +22,15 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void TestMethod1()
 		{
+			Run(() =>
+				{
+					var board = new Board("5144051cbd0da6681200201e");
+					Console.WriteLine(board.Name);
+				});
+		}
+
+		private static void Run(System.Action action)
+		{
 			var serializer = new ManateeSerializer();
 			TrelloConfiguration.Serializer = serializer;
 			TrelloConfiguration.Deserializer = serializer;
@@ -31,10 +40,7 @@ namespace Manatee.Trello.Test
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var list = new List(TrelloIds.ListId);
-
-			Console.WriteLine(list["Card"].Description);
-			Console.WriteLine(list["514be64c722bfe8c65002724"].Name);
+			action();
 
 			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}

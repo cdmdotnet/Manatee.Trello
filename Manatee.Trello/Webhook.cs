@@ -105,10 +105,23 @@ namespace Manatee.Trello
 			set { _target.Value = value; }
 		}
 
+#if IOS
+		private Action<Webhook, IEnumerable<string>> _updatedInvoker;
+
 		/// <summary>
 		/// Raised when data on the webhook is updated.
 		/// </summary>
-		public event Action<Webhook<T>, IEnumerable<string>> Updated;
+		public event Action<Webhook, IEnumerable<string>> Updated
+		{
+			add { _updatedInvoker += value; }
+			remove { _updatedInvoker -= value; }
+		}
+#else
+		/// <summary>
+		/// Raised when data on the webhook is updated.
+		/// </summary>
+		public event Action<Webhook, IEnumerable<string>> Updated;
+#endif
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.
@@ -178,7 +191,11 @@ namespace Manatee.Trello
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
+#if IOS
+			var handler = _updatedInvoker;
+#else
 			var handler = Updated;
+#endif
 			if (handler != null)
 				handler(this, properties);
 		}
