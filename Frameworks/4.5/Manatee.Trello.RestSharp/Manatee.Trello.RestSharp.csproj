@@ -54,7 +54,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
       <Project>{6327037e-7ca1-4e77-bae0-d8019749164f}</Project>
-      <Name>Manatee.Trello %284.5\Manatee.Trello%29</Name>
+      <Name>Manatee.Trello</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,5 @@
 syntax: glob
 _ReSharper.Manatee.Trello/
-Manatee.Trello/bin/
-Manatee.Trello/obj/
-Manatee.Trello.Test/bin/
-Manatee.Trello.Test/obj/
 Manatee.Trello.5.1.ReSharper.user
 Manatee.Trello.sln.docstates.suo
 Manatee.Trello.suo
@@ -16,14 +12,38 @@ packages/
 Manatee.Trello.sln.DotSettings.user
 Debugging/
 ~$Endpoint definitions.xlsx
+TestResults/
+Frameworks/4.0 Client/Manatee.Trello.RestSharp/obj
+Frameworks/4.0 Client/Manatee.Trello/bin
+Frameworks/4.0 Client/Manatee.Trello/obj
+Frameworks/4.5/Manatee.Trello.ManateeJson/bin
+Frameworks/4.5/Manatee.Trello.ManateeJson/obj
+Frameworks/4.5/Manatee.Trello.RestSharp/bin
+Frameworks/4.5/Manatee.Trello.RestSharp/obj
+Frameworks/4.5/Manatee.Trello/bin
+Frameworks/4.5/Manatee.Trello/obj
+Frameworks/iOS/Manatee.Trello.ManateeJson/bin
+Frameworks/iOS/Manatee.Trello.ManateeJson/obj
+Frameworks/iOS/Manatee.Trello/bin
+Frameworks/iOS/Manatee.Trello/obj
 Manatee.Trello.ManateeJson/bin
+Manatee.Trello.RestSharp/bin
+Manatee.Trello.Test/bin
+Manatee.Trello.Test.Unit/obj
+Manatee.Trello.Test.Unit/bin
+Manatee.Trello.RestSharp/obj
+Manatee.Trello.NewtonsoftJson/obj
+Frameworks/3.5 Client/Manatee.Trello.ManateeJson/obj
+Frameworks/3.5 Client/Manatee.Trello.NewtonsoftJson/bin
+Frameworks/3.5 Client/Manatee.Trello/bin
+Frameworks/3.5 Client/Manatee.Trello/obj
+Frameworks/3.5/Manatee.Trello.ManateeJson/obj
+Frameworks/3.5/Manatee.Trello.NewtonsoftJson/bin
+Frameworks/3.5/Manatee.Trello/bin
+Frameworks/3.5/Manatee.Trello/obj
+Frameworks/4.0 Client/Manatee.Trello.ManateeJson/obj
 Manatee.Trello.ManateeJson/obj
 Manatee.Trello.NewtonsoftJson/bin
-Manatee.Trello.NewtonsoftJson/obj
-Manatee.Trello.RestSharp/bin
-Manatee.Trello.RestSharp/obj
-Manatee.Trello.Test.Functional/bin/
-Manatee.Trello.Test.Functional/obj/
-Manatee.Trello.Test.Unit/bin/
-Manatee.Trello.Test.Unit/obj/
-TestResults/
+Manatee.Trello.Test/obj
+Manatee.Trello/bin
+Manatee.Trello/obj
