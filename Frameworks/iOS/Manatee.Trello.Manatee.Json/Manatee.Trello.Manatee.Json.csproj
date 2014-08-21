@@ -4,22 +4,21 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE0D7D57-75B3-40CB-84FF-13265FD4049D}</ProjectGuid>
+    <ProjectGuid>{FEF8C7E8-BE7E-4B52-BEF4-502E267B87FB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Manatee.Trello</RootNamespace>
-    <AssemblyName>Manatee.Trello</AssemblyName>
+    <RootNamespace>Manatee.Trello.Manatee.Json</RootNamespace>
+    <AssemblyName>Manatee.Trello.Manatee.Json</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET35, IOS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -30,20 +29,33 @@
     <DefineConstants>TRACE;NET35, IOS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Manatee.Trello.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Manatee.Trello.Manatee.Json.XML</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Manatee.Json">
+      <HintPath>..\..\..\packages\Manatee.Json.2.5.3\lib\net35\Manatee.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\Manatee.Trello\**\*.cs" />
+    <Compile Include="..\..\..\Manatee.Trello.ManateeJson\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
+    <ProjectReference Include="..\..\3.5\Manatee.Trello\Manatee.Trello.csproj">
+      <Project>{21123d00-f73c-49f7-b2eb-26816eebc231}</Project>
+      <Name>Manatee.Trello</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

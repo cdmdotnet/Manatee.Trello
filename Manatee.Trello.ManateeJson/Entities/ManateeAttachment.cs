@@ -46,7 +46,14 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Bytes = (int?) obj.TryGetNumber("bytes");
+#if IOS
+			var dateString = obj.TryGetString("date");
+			DateTime date;
+			if (DateTime.TryParse(dateString, out date))
+				Date = date;
+#else
 			Date = obj.Deserialize<DateTime?>(serializer, "date");
+#endif
 			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
 			IsUpload = obj.TryGetBoolean("isUpload");
 			MimeType = obj.TryGetString("mimeType");

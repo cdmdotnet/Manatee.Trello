@@ -1,0 +1,12 @@
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Trello.Manatee.Json.XML
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Trello.Manatee.Json.dll
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Trello.Manatee.Json.pdb
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Json.dll
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Trello.dll
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Trello.pdb
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Trello.xml
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Json.pdb
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\bin\Release\Manatee.Json.xml
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\obj\Release\Manatee.Trello.Manatee.Json.csprojResolveAssemblyReference.cache
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\obj\Release\Manatee.Trello.Manatee.Json.dll
+E:\Projects\Manatee.Trello\Frameworks\iOS\Manatee.Trello.Manatee.Json\obj\Release\Manatee.Trello.Manatee.Json.pdb

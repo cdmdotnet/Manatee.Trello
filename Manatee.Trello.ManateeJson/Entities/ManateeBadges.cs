@@ -48,7 +48,14 @@ namespace Manatee.Trello.ManateeJson.Entities
 			ViewingMemberVoted = obj.TryGetBoolean("viewingMemberVoted");
 			Subscribed = obj.TryGetBoolean("subscribed");
 			Fogbugz = obj.TryGetString("fogbugz");
+#if IOS
+			var dateString = obj.TryGetString("due");
+			DateTime date;
+			if (DateTime.TryParse(dateString, out date))
+				Due = date;
+#else
 			Due = obj.Deserialize<DateTime?>(serializer, "due");
+#endif
 			Description = obj.TryGetBoolean("description");
 			Comments = (int?)obj.TryGetNumber("comments");
 			CheckItemsChecked = (int?)obj.TryGetNumber("checkItemsChecked");

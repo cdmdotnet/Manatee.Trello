@@ -45,7 +45,14 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Data = obj.Deserialize<IJsonNotificationData>(serializer, "data");
 			Unread = obj.TryGetBoolean("unread");
 			Type = serializer.Deserialize<NotificationType>(obj.TryGetString("type"));
+#if IOS
+			var dateString = obj.TryGetString("date");
+			DateTime date;
+			if (DateTime.TryParse(dateString, out date))
+				Date = date;
+#else
 			Date = obj.Deserialize<DateTime?>(serializer, "date");
+#endif
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{

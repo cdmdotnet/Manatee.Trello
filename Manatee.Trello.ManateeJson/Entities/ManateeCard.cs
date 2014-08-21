@@ -60,9 +60,20 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Id = obj.TryGetString("id");
 					Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
 					Closed = obj.TryGetBoolean("closed");
+#if IOS
+					var dateString = obj.TryGetString("dateLastActivity");
+					DateTime date;
+					if (DateTime.TryParse(dateString, out date))
+						DateLastActivity = date;
+					dateString = obj.TryGetString("due");
+					if (DateTime.TryParse(dateString, out date))
+						Due = date;
+#else
+					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
+					Due = obj.Deserialize<DateTime?>(serializer, "due");
+#endif
 					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 					Desc = obj.TryGetString("desc");
-					Due = obj.Deserialize<DateTime?>(serializer, "due");
 					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
 					List = obj.Deserialize<IJsonList>(serializer, "idList");
 					IdShort = (int?) obj.TryGetNumber("idShort");
@@ -85,7 +96,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var json = new JsonObject();
 			Id.Serialize(json, serializer, "id");
 			Closed.Serialize(json, serializer, "closed");
-			DateLastActivity.Serialize(json, serializer, "dateLastActivity");
 			Desc.Serialize(json, serializer, "desc");
 			Due.Serialize(json, serializer, "due");
 			List.SerializeId(json, "idList");
