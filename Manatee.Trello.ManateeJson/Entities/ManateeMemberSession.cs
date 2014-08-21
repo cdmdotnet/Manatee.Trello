@@ -46,6 +46,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Id = obj.TryGetString("id");
 			IsCurrent = obj.TryGetBoolean("isCurrent");
 			IsRecent = obj.TryGetBoolean("isRecent");
+#if IOS
 			var dateString = obj.TryGetString("dateCreated");
 			DateTime date;
 			if (DateTime.TryParse(dateString, out date))
@@ -56,24 +57,18 @@ namespace Manatee.Trello.ManateeJson.Entities
 			dateString = obj.TryGetString("dateLastUsed");
 			if (DateTime.TryParse(dateString, out date))
 				DateLastUsed = date;
+#else
+			DateCreated = obj.Deserialize<DateTime?>(serializer, "dateCreated");
+			DateExpires = obj.Deserialize<DateTime?>(serializer, "dateExpires");
+			DateLastUsed = obj.Deserialize<DateTime?>(serializer, "dateLastUsed");
+#endif
 			IpAddress = obj.TryGetString("ipAddress");
 			Type = obj.TryGetString("type");
 			UserAgent = obj.TryGetString("userAgent");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-			       	{
-			       		{"isCurrent", IsCurrent},
-			       		{"isRecent", IsRecent},
-			       		{"id", Id},
-			       		{"dateCreated", DateCreated.HasValue ? DateCreated.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"dateExpires", DateExpires.HasValue ? DateExpires.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"dateLastUsed", DateLastUsed.HasValue ? DateLastUsed.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : JsonValue.Null},
-			       		{"ipAddress", IpAddress},
-			       		{"type", Type},
-			       		{"userAgent", UserAgent},
-			       	};
+			return null;
 		}
 	}
 }

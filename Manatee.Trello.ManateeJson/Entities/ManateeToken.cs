@@ -44,8 +44,18 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Id = obj.TryGetString("id");
 			Identifier = obj.TryGetString("identifier");
 			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
+#if IOS
+			var dateString = obj.TryGetString("dateCreated");
+			DateTime date;
+			if (DateTime.TryParse(dateString, out date))
+				DateCreated = date;
+			dateString = obj.TryGetString("dateExpires");
+			if (DateTime.TryParse(dateString, out date))
+				DateExpires = date;
+#else
 			DateCreated = obj.Deserialize<DateTime?>(serializer, "dateCreated");
 			DateExpires = obj.Deserialize<DateTime?>(serializer, "dateExpires");
+#endif
 			Permissions = obj.Deserialize<List<IJsonTokenPermission>>(serializer, "permissions");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)

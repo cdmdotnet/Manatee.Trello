@@ -40,8 +40,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Desc = obj.TryGetString("desc");
 			List = obj.Deserialize<IJsonList>(serializer, "list");
-			Pos = obj.TryGetNumber("pos");
 			Text = obj.TryGetString("text");
+			Pos = obj.TryGetNumber("pos");
 			Closed = obj.TryGetBoolean("closed");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
