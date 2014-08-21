@@ -72,7 +72,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 					Due = obj.Deserialize<DateTime?>(serializer, "due");
 #endif
-					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 					Desc = obj.TryGetString("desc");
 					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
 					List = obj.Deserialize<IJsonList>(serializer, "idList");

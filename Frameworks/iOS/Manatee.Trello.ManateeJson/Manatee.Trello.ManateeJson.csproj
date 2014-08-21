@@ -7,8 +7,8 @@
     <ProjectGuid>{FEF8C7E8-BE7E-4B52-BEF4-502E267B87FB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Manatee.Trello.Manatee.Json</RootNamespace>
-    <AssemblyName>Manatee.Trello.Manatee.Json</AssemblyName>
+    <RootNamespace>Manatee.Trello.ManateeJson</RootNamespace>
+    <AssemblyName>Manatee.Trello.ManateeJson</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE;NET35, IOS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Manatee.Trello.Manatee.Json.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Manatee.Trello.ManateeJson.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Manatee.Json">
