@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello", "Manatee.Trello\Manatee.Trello.csproj", "{E11BD6AE-0373-40CF-A4F3-6B156096DDB0}"
 EndProject
@@ -66,7 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOS", "iOS", "{9A86ED8F-630
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello", "Frameworks\iOS\Manatee.Trello\Manatee.Trello.csproj", "{DE0D7D57-75B3-40CB-84FF-13265FD4049D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.ManateeJson", "Frameworks\iOS\Manatee.Trello.Manatee.Json\Manatee.Trello.ManateeJson.csproj", "{FEF8C7E8-BE7E-4B52-BEF4-502E267B87FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.ManateeJson", "Frameworks\iOS\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj", "{FEF8C7E8-BE7E-4B52-BEF4-502E267B87FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

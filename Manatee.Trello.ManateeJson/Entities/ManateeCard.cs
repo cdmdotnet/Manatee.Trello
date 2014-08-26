@@ -104,7 +104,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 			CardSource.SerializeId(json, "idCardSource");
 			UrlSource.Serialize(json, serializer, "urlSource");
 			// Don't serialize the Label collection because Trello wants a comma-sparated list
-			Labels.Select(l => l.Color).Combine().Serialize(json, serializer, "labels");
+			if (Labels != null)
+				Labels.Select(l => l.Color).Combine().Serialize(json, serializer, "labels");
 			return json;
 		}
 	}
