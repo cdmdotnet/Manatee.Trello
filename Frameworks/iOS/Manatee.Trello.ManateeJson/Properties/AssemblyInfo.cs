@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Manatee.Trello.Manatee.Json")]
+[assembly: AssemblyTitle("Manatee.Trello.ManateeJson")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GameStop, Inc.")]
-[assembly: AssemblyProduct("Manatee.Trello.Manatee.Json")]
-[assembly: AssemblyCopyright("Copyright © GameStop, Inc. 2014")]
+[assembly: AssemblyCompany("Little Crab Solutions")]
+[assembly: AssemblyProduct("Manatee.Trello.ManateeJson")]
+[assembly: AssemblyCopyright("Copyright © 2014 Little Crab Solutions")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

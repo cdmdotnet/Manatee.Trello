@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Manatee.Trello")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GameStop, Inc.")]
+[assembly: AssemblyCompany("Little Crab Solutions")]
 [assembly: AssemblyProduct("Manatee.Trello")]
-[assembly: AssemblyCopyright("Copyright © GameStop, Inc. 2014")]
+[assembly: AssemblyCopyright("Copyright © 2014 Little Crab Solutions")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
