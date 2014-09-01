@@ -42,7 +42,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the member is a normal member of the board.
 		/// </summary>
-		[Description("members")]
+		[Description("normal")]
 		Normal,
 		/// <summary>
 		/// Indicates the member is may only view the board.
