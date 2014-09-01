@@ -33,8 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Manatee.Json">
-      <HintPath>..\..\..\packages\Manatee.Json.2.5.3\lib\net35\Manatee.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\packages\Manatee.Json.2.6.1\lib\net35\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
