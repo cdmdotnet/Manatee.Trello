@@ -21,8 +21,6 @@
 
 ***************************************************************************************/
 
-using Manatee.Trello.Enumerations;
-
 namespace Manatee.Trello.Json
 {
 	/// <summary>

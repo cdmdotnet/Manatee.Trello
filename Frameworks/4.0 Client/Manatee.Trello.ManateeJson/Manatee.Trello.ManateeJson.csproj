@@ -33,8 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Manatee.Json.2.6.1\lib\net40-client\Manatee.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Manatee.Json.2.6.2.1\lib\net40-client\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

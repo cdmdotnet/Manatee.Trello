@@ -34,7 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private bool _deleted;
 
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; private set; }
-		protected override bool IsDataComplete { get { return Data.DisplayName.IsNullOrWhiteSpace(); } }
+		protected override bool IsDataComplete { get { return !Data.DisplayName.IsNullOrWhiteSpace(); } }
 		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static OrganizationContext()

@@ -21,7 +21,6 @@
 
 ***************************************************************************************/
 using System.Collections.Generic;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization

@@ -23,7 +23,6 @@
 
 using Manatee.Json;
 using Manatee.Json.Serialization;
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities

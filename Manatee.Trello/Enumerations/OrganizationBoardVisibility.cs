@@ -15,7 +15,7 @@
 	   limitations under the License.
  
 	File Name:		OrganizationBoardVisibility.cs
-	Namespace:		Manatee.Trello.Enumerations
+	Namespace:		Manatee.Trello
 	Class Name:		OrganizationBoardVisibility
 	Purpose:		Enumerates known visibility levels for board in orgainzations.
 
@@ -23,7 +23,7 @@
 
 using System.ComponentModel;
 
-namespace Manatee.Trello.Enumerations
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Enumerates known visibility levels for board in orgainzations.
