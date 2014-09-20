@@ -6,6 +6,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Json;
+using Manatee.Json.Serialization;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Extensions;
 using Manatee.Trello.Internal.RequestProcessing;
@@ -19,15 +21,34 @@ namespace Manatee.Trello.Test
 	[TestClass]
 	public class DevTest
 	{
+		public enum TestEnum
+		{
+			[System.ComponentModel.Description("value1")]
+			Value1,
+			[System.ComponentModel.Description("value2")]
+			Value2,
+			[System.ComponentModel.Description("value3")]
+			Value3
+		}
+
+		[TestMethod]
+		public void Test()
+		{
+			var serializer = new JsonSerializer();
+			serializer.Options.EnumSerializationFormat = EnumSerializationFormat.AsName;
+			var json = serializer.Serialize(TestEnum.Value2);
+			Console.WriteLine(json);
+		}
+
 		[TestMethod]
 		public void TestMethod1()
 		{
 			Run(() =>
 				{
-					var org = new Organization("4ee269e0c9feba4446044c2f");
-					var board = new Board("5144051cbd0da6681200201e");
+					var board = Member.Me.Boards.FirstOrDefault(b => b.Organization != null);
+					if (board == null) return;
 					Console.WriteLine(board.Name);
-					Console.WriteLine(org.DisplayName);
+					Console.WriteLine(board.Organization.DisplayName);
 				});
 		}
 

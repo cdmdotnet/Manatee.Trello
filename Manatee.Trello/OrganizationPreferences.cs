@@ -21,7 +21,6 @@
 
 ***************************************************************************************/
 
-using Manatee.Trello.Enumerations;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;

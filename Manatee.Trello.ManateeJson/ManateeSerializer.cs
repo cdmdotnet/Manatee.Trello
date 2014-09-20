@@ -44,6 +44,9 @@ namespace Manatee.Trello.ManateeJson
 		{
 			InitializeTypeRegistry();
 			InitializeAbstractionMap();
+#if IOS
+			ForceBasicTypes();
+#endif
 		}
 		/// <summary>
 		/// Creates and initializes a new instance of the ManateeJsonSerializer class.
@@ -158,5 +161,32 @@ namespace Manatee.Trello.ManateeJson
 			JsonSerializationAbstractionMap.Map<IJsonWebhook, ManateeWebhook>();
 			JsonSerializationAbstractionMap.Map<IJsonWebhookNotification, ManateeWebhookNotification>();
 		}
+#if IOS
+		private static void ForceBasicTypes()
+		{
+			ForceBasicType<ActionType>();
+			ForceBasicType<AvatarSource>();
+			ForceBasicType<BoardCommentPermission>();
+			ForceBasicType<BoardInvitationPermission>();
+			ForceBasicType<BoardMembershipType>();
+			ForceBasicType<BoardPermissionLevel>();
+			ForceBasicType<BoardVotingPermission>();
+			ForceBasicType<CheckItemState>();
+			ForceBasicType<LabelColor>();
+			ForceBasicType<MemberPreferenceSummaryPeriod>();
+			ForceBasicType<MemberStatus>();
+			ForceBasicType<NotificationType>();
+			ForceBasicType<OrganizationBoardVisibility>();
+			ForceBasicType<OrganizationMembershipType>();
+			ForceBasicType<OrganizationPermissionLevel>();
+			ForceBasicType<SearchModelType>();
+			ForceBasicType<TokenModelType>();
+		}
+		private static void ForceBasicType<T>()
+		{
+			var serializer = new JsonSerializer();
+			Console.WriteLine(serializer.Serialize(default(T)));
+		}
+#endif
 	}
 }
