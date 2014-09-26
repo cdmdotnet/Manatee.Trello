@@ -75,6 +75,15 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Website.Serialize(json, serializer, "website");
 			if (Prefs != null)
 			{
+				Prefs.PermissionLevel.Serialize(json, serializer, "prefs/permissionLevel");
+				Prefs.OrgInviteRestrict.Serialize(json, serializer, "prefs/orgInviteRestrict");
+				if (Prefs.AssociatedDomain.IsNullOrWhiteSpace())
+					json.Add("prefs/associatedDomain", JsonValue.Null);
+				else
+					Prefs.AssociatedDomain.Serialize(json, serializer, "prefs/associatedDomain");
+				Prefs.BoardVisibilityRestrict.Private.Serialize(json, serializer, "prefs/boardVisibilityRestrict/private");
+				Prefs.BoardVisibilityRestrict.Org.Serialize(json, serializer, "prefs/boardVisibilityRestrict/org");
+				Prefs.BoardVisibilityRestrict.Public.Serialize(json, serializer, "prefs/boardVisibilityRestrict/public");
 				json.Add("prefs/permissionLevel", serializer.Serialize(Prefs.PermissionLevel));
 				json.Add("prefs/orgInviteRestrict", serializer.Serialize(Prefs.OrgInviteRestrict));
 				json.Add("prefs/associatedDomain", Prefs.AssociatedDomain.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.AssociatedDomain);

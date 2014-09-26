@@ -40,7 +40,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
-			MemberType = serializer.Deserialize<OrganizationMembershipType>(obj.TryGetString("memberType"));
+			MemberType = obj.Deserialize<OrganizationMembershipType>(serializer, "memberType");
 			Unconfirmed = obj.TryGetBoolean("unconfirmed");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)

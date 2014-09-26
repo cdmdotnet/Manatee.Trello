@@ -85,6 +85,18 @@ namespace Manatee.Trello.ManateeJson.Entities
 			}
 			if (Prefs != null)
 			{
+				Prefs.PermissionLevel.Serialize(json, serializer, "prefs/permissionLevel");
+				if (Prefs.SelfJoin.HasValue)
+					Prefs.SelfJoin.Serialize(json, serializer, "prefs/selfJoin");
+				else
+					json.Add("prefs/selfJoin", JsonValue.Null);
+				if (Prefs.SelfJoin.HasValue)
+					Prefs.CardCovers.Serialize(json, serializer, "prefs/cardCovers");
+				else
+					json.Add("prefs/cardCovers", JsonValue.Null);
+				Prefs.Invitations.Serialize(json, serializer, "prefs/invitations");
+				Prefs.Voting.Serialize(json, serializer, "prefs/voting");
+				Prefs.Comments.Serialize(json, serializer, "prefs/comments");
 				json.Add("prefs/permissionLevel", serializer.Serialize(Prefs.PermissionLevel));
 				json.Add("prefs/selfJoin", !Prefs.SelfJoin.HasValue ? JsonValue.Null : Prefs.SelfJoin);
 				json.Add("prefs/cardCovers", !Prefs.CardCovers.HasValue ? JsonValue.Null : Prefs.CardCovers);

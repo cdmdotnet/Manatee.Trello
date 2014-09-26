@@ -36,7 +36,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			Color = serializer.Deserialize<LabelColor>(obj.TryGetString("color"));
+			Color = obj.Deserialize<LabelColor>(serializer, "color");
 			Name = obj.TryGetString("name");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)

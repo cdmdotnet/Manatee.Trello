@@ -43,7 +43,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Id = obj.TryGetString("id");
 			MemberCreator = obj.Deserialize<IJsonMember>(serializer, "idMemberCreator");
 			Data = obj.Deserialize<IJsonActionData>(serializer, "data");
-			Type = serializer.Deserialize<ActionType>(obj.TryGetString("type"));
+			Type = obj.Deserialize<ActionType>(serializer,"type");
 #if IOS
 			var dateString = obj.TryGetString("date");
 			DateTime date;

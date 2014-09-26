@@ -39,7 +39,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			IdModel = obj.TryGetString("idModel");
-			ModelType = serializer.Deserialize<TokenModelType>(obj["modelType"]);
+			ModelType = obj.Deserialize<TokenModelType>(serializer, "modelType");
 			Read = obj.TryGetBoolean("read");
 			Write = obj.TryGetBoolean("write");
 		}

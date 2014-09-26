@@ -65,6 +65,6 @@ namespace Manatee.Trello
 		/// Indicates a blue label.
 		/// </summary>
 		[Description("blue")]
-		Blue = 0x11
+		Blue = 0x20
 	}
 }

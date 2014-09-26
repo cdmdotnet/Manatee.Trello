@@ -40,7 +40,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			PermissionLevel = serializer.Deserialize<OrganizationPermissionLevel>(obj.TryGetString("permissionLevel"));
+			PermissionLevel = obj.Deserialize<OrganizationPermissionLevel>(serializer, "permissionLevel");
 			//OrgInviteRestrict = obj.TryGetArray("orgInviteRestrict").Cast<object>().ToList();
 			ExternalMembersDisabled = obj.TryGetBoolean("externalMembersDisabled");
 			AssociatedDomain = obj.TryGetString("associatedDomain");
