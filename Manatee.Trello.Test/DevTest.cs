@@ -21,23 +21,10 @@ namespace Manatee.Trello.Test
 	[TestClass]
 	public class DevTest
 	{
-		public enum TestEnum
-		{
-			[System.ComponentModel.Description("value1")]
-			Value1,
-			[System.ComponentModel.Description("value2")]
-			Value2,
-			[System.ComponentModel.Description("value3")]
-			Value3
-		}
-
 		[TestMethod]
 		public void Test()
 		{
-			var serializer = new JsonSerializer();
-			serializer.Options.EnumSerializationFormat = EnumSerializationFormat.AsName;
-			var json = serializer.Serialize(TestEnum.Value2);
-			Console.WriteLine(json);
+			Console.WriteLine(typeof(Enum).IsAssignableFrom(typeof(LabelColor)));
 		}
 
 		[TestMethod]

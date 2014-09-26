@@ -40,10 +40,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			PermissionLevel = serializer.Deserialize<BoardPermissionLevel>(obj.TryGetString("permissionLevel"));
-			Voting = serializer.Deserialize<BoardVotingPermission>(obj.TryGetString("voting"));
-			Comments = serializer.Deserialize<BoardCommentPermission>(obj.TryGetString("comments"));
-			Invitations = serializer.Deserialize<BoardInvitationPermission>(obj.TryGetString("invitations"));
+			PermissionLevel = obj.Deserialize<BoardPermissionLevel>(serializer, "permissionLevel");
+			Voting = obj.Deserialize<BoardVotingPermission>(serializer, "voting");
+			Comments = obj.Deserialize<BoardCommentPermission>(serializer, "comments");
+			Invitations = obj.Deserialize<BoardInvitationPermission>(serializer, "invitations");
 			SelfJoin = obj.TryGetBoolean("selfJoin");
 			CardCovers = obj.TryGetBoolean("cardCovers");
 		}

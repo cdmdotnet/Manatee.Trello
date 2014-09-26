@@ -106,7 +106,7 @@ namespace Manatee.Trello
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonComment>();
 			json.Text = text;
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddComment);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddComment, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
 			return new Action(newData);

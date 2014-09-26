@@ -37,9 +37,9 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			Public = serializer.Deserialize<OrganizationBoardVisibility>(obj.TryGetString("public"));
-			Org = serializer.Deserialize<OrganizationBoardVisibility>(obj.TryGetString("org"));
-			Private = serializer.Deserialize<OrganizationBoardVisibility>(obj.TryGetString("private"));
+			Public = obj.Deserialize<OrganizationBoardVisibility>(serializer, "public");
+			Org = obj.Deserialize<OrganizationBoardVisibility>(serializer, "org");
+			Private = obj.Deserialize<OrganizationBoardVisibility>(serializer, "private");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{

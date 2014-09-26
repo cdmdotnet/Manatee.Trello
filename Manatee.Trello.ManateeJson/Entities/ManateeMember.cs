@@ -62,10 +62,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 					FullName = obj.TryGetString("fullName");
 					Initials = obj.TryGetString("initials");
 					MemberType = obj.TryGetString("memberType");
-					Status = serializer.Deserialize<MemberStatus>(obj.TryGetString("status"));
+					Status = obj.Deserialize<MemberStatus>(serializer, "status");
 					Url = obj.TryGetString("url");
 					Username = obj.TryGetString("username");
-					AvatarSource = serializer.Deserialize<AvatarSource>(obj.TryGetString("avatarSource"));
+					AvatarSource = obj.Deserialize<AvatarSource>(serializer, "avatarSource");
 					Confirmed = obj.TryGetBoolean("confirmed");
 					Email = obj.TryGetString("email");
 					GravatarHash = obj.TryGetString("gravatarHash");
