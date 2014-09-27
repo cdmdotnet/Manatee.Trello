@@ -129,6 +129,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected static Dictionary<string, Property<TJson>> _properties;
 
 		private readonly List<string> _localChanges;
+		private readonly object _mergeLock;
 
 		internal TJson Data { get; private set; }
 
@@ -137,6 +138,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data = TrelloConfiguration.JsonFactory.Create<TJson>();
 			_localChanges = new List<string>();
+			_mergeLock = new object();
 		}
 
 		public sealed override T GetValue<T>(string property)
@@ -188,19 +190,22 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		internal IEnumerable<string> Merge(TJson json)
 		{
-			MarkAsUpdated();
-			if (!CanUpdate()) return Enumerable.Empty<string>();
-			if (Equals(json, default(TJson)) || ReferenceEquals(json, Data))
-				return Enumerable.Empty<string>();
-			var propertyNames = new List<string>();
-			foreach (var propertyName in _properties.Keys.Except(_localChanges))
+			lock (_mergeLock)
 			{
-				var property = _properties[propertyName];
-				var newValue = property.Get(json);
-				property.Set(Data, newValue);
-				propertyNames.Add(propertyName);
+				MarkAsUpdated();
+				if (!CanUpdate()) return Enumerable.Empty<string>();
+				if (Equals(json, default(TJson)) || ReferenceEquals(json, Data))
+					return Enumerable.Empty<string>();
+				var propertyNames = new List<string>();
+				foreach (var propertyName in _properties.Keys.Except(_localChanges))
+				{
+					var property = _properties[propertyName];
+					var newValue = property.Get(json);
+					property.Set(Data, newValue);
+					propertyNames.Add(propertyName);
+				}
+				return propertyNames.Concat(MergeDependencies(json));
 			}
-			return propertyNames.Concat(MergeDependencies(json));
 		}
 		internal void AddLocalChange(string property)
 		{

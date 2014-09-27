@@ -77,7 +77,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override void SubmitData(IJsonBoard json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			Merge(newData);
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonBoard json)
 		{

@@ -88,7 +88,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override void SubmitData(IJsonCheckList json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			Merge(newData);
 		}
 		protected override bool CanUpdate()
 		{
