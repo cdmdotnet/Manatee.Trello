@@ -67,13 +67,13 @@ namespace Manatee.Trello.ManateeJson
 		{
 			if (!Equals(obj, default(T)))
 			{
-				var enumValue = obj as Enum;
 #if IOS
+				var enumValue = obj as Enum;
 				if (enumValue != null)
 					json[key] = enumValue.ToDescription();
 				else
 #endif
-					json[key] = serializer.Serialize(obj);
+				json[key] = serializer.Serialize(obj);
 			}
 		}
 		public static void SerializeId<T>(this T obj, JsonObject json, string key)
@@ -92,14 +92,18 @@ namespace Manatee.Trello.ManateeJson
 		// source for these two methods: http://www.kevinwilliampang.com/2008/09/20/mapping-enums-to-strings-and-strings-to-enums-in-net/
 		public static string ToDescription(this Enum value)
 		{
-			var da = (DescriptionAttribute[]) value.GetType().GetField(value.ToString()).GetCustomAttributes(typeof (DescriptionAttribute), false);
+			var type = value.GetType();
+			var field = type.GetField(value.ToString());
+			var da = (DescriptionAttribute[]) field.GetCustomAttributes(typeof (DescriptionAttribute), false);
 			return da.Length > 0 ? da[0].Description : value.ToString();
 		}
 		public static T ToEnum<T>(this string stringValue, T defaultValue = default (T))
 		{
 			foreach (T enumValue in Enum.GetValues(typeof (T)))
 			{
-				var da = (DescriptionAttribute[]) typeof (T).GetField(enumValue.ToString()).GetCustomAttributes(typeof (DescriptionAttribute), false);
+				var type = typeof (T);
+				var field = type.GetField(enumValue.ToString());
+				var da = (DescriptionAttribute[]) field.GetCustomAttributes(typeof (DescriptionAttribute), false);
 				if (da.Length > 0 && da[0].Description == stringValue) return enumValue;
 			}
 			return defaultValue;

@@ -90,7 +90,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"_checklistId", _ownerId},
 					{"_id", Data.Id},
 				});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			Merge(newData);
 		}
 		protected override bool CanUpdate()
 		{
