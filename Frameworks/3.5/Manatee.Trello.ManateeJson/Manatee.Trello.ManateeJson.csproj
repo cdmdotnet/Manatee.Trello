@@ -34,7 +34,7 @@
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Manatee.Json.2.6.2.1\lib\net35\Manatee.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Manatee.Json.2.7.1\lib\net35\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.StateMachine">
       <HintPath>..\..\..\packages\Manatee.StateMachine.1.1\lib\net35\Manatee.StateMachine.dll</HintPath>
@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
-      <Project>{21123d00-f73c-49f7-b2eb-26816eebc231}</Project>
+      <Project>{21123D00-F73C-49F7-B2EB-26816EEBC231}</Project>
       <Name>Manatee.Trello</Name>
     </ProjectReference>
   </ItemGroup>

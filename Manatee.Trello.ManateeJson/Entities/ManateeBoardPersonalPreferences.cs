@@ -34,6 +34,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? ShowSidebarBoardActions { get; set; }
 		public bool? ShowSidebarActivity { get; set; }
 		public bool? ShowListGuide { get; set; }
+		public IJsonPosition EmailPosition { get; set; }
+		public IJsonList EmailList { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -44,17 +46,22 @@ namespace Manatee.Trello.ManateeJson.Entities
 			ShowSidebarBoardActions = obj.TryGetBoolean("showSidebarBoardActions");
 			ShowSidebarActivity = obj.TryGetBoolean("showSidebarActivity");
 			ShowListGuide = obj.TryGetBoolean("showListGuide");
+			EmailPosition = obj.Deserialize<IJsonPosition>(serializer, "emailPosition");
+			EmailList = obj.Deserialize<IJsonList>(serializer, "idEmailList");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject
-			       	{
-			       		{"showSidebar", ShowSidebar},
-			       		{"showSidebarMembers", ShowSidebarMembers},
-			       		{"showSidebarBoardActions", ShowSidebarBoardActions},
-			       		{"showSidebarActivity", ShowSidebarActivity},
-			       		{"showListGuide", ShowListGuide},
-			       	};
+			var json = new JsonObject();
+
+			ShowSidebar.Serialize(json, serializer, "showSidebar");
+			ShowSidebarMembers.Serialize(json, serializer, "showSidebarMembers");
+			ShowSidebarBoardActions.Serialize(json, serializer, "showSidebarBoardActions");
+			ShowSidebarActivity.Serialize(json, serializer, "showSidebarActivity");
+			ShowListGuide.Serialize(json, serializer, "showListGuide");
+			EmailPosition.Serialize(json, serializer, "emailPosition");
+			EmailList.Serialize(json, serializer, "idEmailList");
+
+			return json;
 		}
 	}
 }

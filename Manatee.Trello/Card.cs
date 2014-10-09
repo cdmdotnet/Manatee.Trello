@@ -168,11 +168,12 @@ namespace Manatee.Trello
 		/// Because this value does not change, it can be used as a permalink.
 		/// </remarks>
 		public string ShortUrl { get { return _shortUrl.Value; } }
+		public CardStickerCollection Stickers { get; private set; }
 		/// <summary>
 		/// Gets the card's full URL.
 		/// </summary>
 		/// <remarks>
-		/// 
+		/// Trello will likely change this value as the name changes.  You can use <see cref="ShortUrl"/> for permalinks.
 		/// </remarks>
 		public string Url { get { return _url.Value; } }
 
@@ -257,6 +258,7 @@ namespace Manatee.Trello
 			_position.AddRule(PositionRule.Instance);
 			_shortId = new Field<int?>(_context, () => ShortId);
 			_shortUrl = new Field<string>(_context, () => ShortUrl);
+			Stickers = new CardStickerCollection(id);
 			_url = new Field<string>(_context, () => Url);
 
 			TrelloConfiguration.Cache.Add(this);

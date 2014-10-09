@@ -28,7 +28,6 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonBoard : IJsonCacheable
 	{
-		// TODO: implement the Starred property.
 		///<summary>
 		/// Gets or sets the board's name.
 		///</summary>

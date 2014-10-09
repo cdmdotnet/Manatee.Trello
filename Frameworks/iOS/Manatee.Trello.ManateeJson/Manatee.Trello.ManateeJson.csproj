@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -34,11 +34,7 @@
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Manatee.Json.2.6.2.1\lib\net35\Manatee.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Manatee.StateMachine.1.1\lib\net35\Manatee.StateMachine.dll</HintPath>
+      <HintPath>..\..\..\packages\Manatee.Json.2.7.1\lib\net35\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,6 +42,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Manatee.StateMachine">
+      <HintPath>..\..\..\packages\Manatee.StateMachine.1.1\lib\net35\Manatee.StateMachine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
-      <Project>{de0d7d57-75b3-40cb-84ff-13265fd4049d}</Project>
+      <Project>{DE0D7D57-75B3-40CB-84FF-13265FD4049D}</Project>
       <Name>Manatee.Trello</Name>
     </ProjectReference>
   </ItemGroup>

@@ -64,7 +64,7 @@ namespace Manatee.Trello.Json
 		/// Gets or sets a collection of previews for the attachment.
 		///</summary>
 		[JsonDeserialize]
-		List<IJsonAttachmentPreview> Previews { get; set; }
+		List<IJsonImagePreview> Previews { get; set; }
 		///<summary>
 		/// Gets or sets the attachment storage location.
 		///</summary>

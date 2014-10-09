@@ -143,7 +143,6 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public sealed override T GetValue<T>(string property)
 		{
-			// TODO: consider placing a hold on getting properties that have writes pending
 			var value = (T)_properties[property].Get(Data);
 			return value;
 		}

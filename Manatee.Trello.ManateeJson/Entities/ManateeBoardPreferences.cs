@@ -35,6 +35,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public BoardInvitationPermission Invitations { get; set; }
 		public bool? SelfJoin { get; set; }
 		public bool? CardCovers { get; set; }
+		public bool? CalendarFeed { get; set; }
+		public CardAgingStyle CardAging { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -46,6 +48,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Invitations = obj.Deserialize<BoardInvitationPermission>(serializer, "invitations");
 			SelfJoin = obj.TryGetBoolean("selfJoin");
 			CardCovers = obj.TryGetBoolean("cardCovers");
+			CalendarFeed = obj.TryGetBoolean("calendarFeed");
+			CardAging = obj.Deserialize<CardAgingStyle>(serializer, "cardAging");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{

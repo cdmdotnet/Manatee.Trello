@@ -137,6 +137,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public BoardPreferences Preferences { get; private set; }
 		/// <summary>
+		/// Gets the set of preferences for the board.
+		/// </summary>
+		public BoardPersonalPreferences PersonalPreferences { get; private set; }
+		/// <summary>
 		/// Gets the board's URI.
 		/// </summary>
 		public string Url { get { return _url.Value; } }
@@ -209,6 +213,7 @@ namespace Manatee.Trello
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, () => Organization);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
+			PersonalPreferences = new BoardPersonalPreferences(id);
 			_url = new Field<string>(_context, () => Url);
 
 			TrelloConfiguration.Cache.Add(this);

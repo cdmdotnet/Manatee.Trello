@@ -38,7 +38,9 @@ namespace Manatee.Trello
 		private readonly Field<BoardInvitationPermission> _invitations;
 		private readonly Field<bool?> _allowSelfJoin;
 		private readonly Field<bool?> _showCardCovers;
-		private BoardPreferencesContext _context;
+		private readonly Field<bool?> _isCalendarFeedEnabled;
+		private readonly Field<CardAgingStyle> _cardAgingStyle;
+		private readonly BoardPreferencesContext _context;
 
 		/// <summary>
 		/// Gets or sets the general visibility of the board.
@@ -91,6 +93,16 @@ namespace Manatee.Trello
 			get { return _showCardCovers.Value; }
 			set { _showCardCovers.Value = value; }
 		}
+		public bool? IsCalendarFeedEnabled
+		{
+			get { return _isCalendarFeedEnabled.Value; }
+			set { _isCalendarFeedEnabled.Value = value; }
+		}
+		public CardAgingStyle CardAgingStyle
+		{
+			get { return _cardAgingStyle.Value; }
+			set { _cardAgingStyle.Value = value; }
+		}
 
 		internal BoardPreferences(BoardPreferencesContext context)
 		{
@@ -108,6 +120,10 @@ namespace Manatee.Trello
 			_allowSelfJoin.AddRule(NullableHasValueRule<bool>.Instance);
 			_showCardCovers = new Field<bool?>(_context, () => ShowCardCovers);
 			_showCardCovers.AddRule(NullableHasValueRule<bool>.Instance);
+			_isCalendarFeedEnabled = new Field<bool?>(_context, () => IsCalendarFeedEnabled);
+			_isCalendarFeedEnabled.AddRule(NullableHasValueRule<bool>.Instance);
+			_cardAgingStyle = new Field<CardAgingStyle>(_context, () => CardAgingStyle);
+			_cardAgingStyle.AddRule(EnumerationRule<CardAgingStyle>.Instance);
 		}
 	}
 }

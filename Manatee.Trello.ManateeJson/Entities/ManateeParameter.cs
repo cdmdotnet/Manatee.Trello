@@ -29,16 +29,24 @@ namespace Manatee.Trello.ManateeJson.Entities
 {
 	internal class ManateeParameter : IJsonParameter, IJsonSerializable
 	{
-		public string Value { get; set; }
+		public string String { get; set; }
+		public bool? Boolean { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
 			if (json.Type != JsonValueType.Object) return;
-			Value = json.Object.TryGetString("value");
+			String = json.Object.TryGetString("value");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return new JsonObject {{"value", Value}};
+			var json = new JsonObject();
+
+			if (Boolean.HasValue)
+				json.Add("value", Boolean);
+			else
+				json.Add("value", String);
+
+			return json;
 		}
 	}
 }
