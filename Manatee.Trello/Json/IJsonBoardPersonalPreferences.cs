@@ -27,7 +27,6 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonBoardPersonalPreferences
 	{
-		// TODO: Implement board personal preferences
 		///<summary>
 		/// Gets or sets whether the side bar (right side of the screen) is shown
 		///</summary>
@@ -53,5 +52,15 @@ namespace Manatee.Trello.Json
 		///</summary>
 		[JsonDeserialize]
 		bool? ShowListGuide { get; set; }
+		///<summary>
+		/// Gets or sets the position of new cards when they are added via email.
+		///</summary>
+		[JsonDeserialize]
+		IJsonPosition EmailPosition { get; set; }
+		///<summary>
+		/// Gets or sets the list for new cards when they are added via email.
+		///</summary>
+		[JsonDeserialize]
+		IJsonList EmailList { get; set; }
 	}
 }

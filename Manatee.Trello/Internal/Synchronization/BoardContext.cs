@@ -34,6 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		public LabelNamesContext LabelNamesContext { get; private set; }
 		public BoardPreferencesContext BoardPreferencesContext { get; private set; }
+		public BoardPersonalPreferencesContext BoardPersonalPreferencesContext { get; private set; }
 		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static BoardContext()

@@ -57,5 +57,15 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		bool? CardCovers { get; set; }
+		/// <summary>
+		/// Gets or sets whether the calendar feed is enabled.
+		/// </summary>
+		[JsonDeserialize]
+		bool? CalendarFeed { get; set; }
+		/// <summary>
+		/// Gets or sets
+		/// </summary>
+		[JsonDeserialize]
+		CardAgingStyle CardAging { get; set; }
 	}
 }

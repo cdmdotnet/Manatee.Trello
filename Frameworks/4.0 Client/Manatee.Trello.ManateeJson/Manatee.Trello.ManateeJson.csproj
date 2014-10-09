@@ -33,11 +33,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Manatee.Json.2.6.2.1\lib\net40-client\Manatee.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Manatee.StateMachine.1.1\lib\net40-client\Manatee.StateMachine.dll</HintPath>
+      <HintPath>..\..\..\packages\Manatee.Json.2.7.1\lib\net40-client\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,6 +43,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Manatee.StateMachine">
+      <HintPath>..\..\..\packages\Manatee.StateMachine.1.1\lib\net40-client\Manatee.StateMachine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,8 +54,8 @@
     <Compile Include="..\..\..\Manatee.Trello.ManateeJson\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
-      <Project>{60cc62a0-80d2-4b2d-ae98-b25327b9742c}</Project>
+    <ProjectReference Include="..\..\3.5\Manatee.Trello\Manatee.Trello.csproj">
+      <Project>{21123D00-F73C-49F7-B2EB-26816EEBC231}</Project>
       <Name>Manatee.Trello</Name>
     </ProjectReference>
   </ItemGroup>

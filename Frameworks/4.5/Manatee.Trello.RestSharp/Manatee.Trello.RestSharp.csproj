@@ -36,7 +36,6 @@
   <ItemGroup>
     <Reference Include="RestSharp">
       <HintPath>..\..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,8 +52,8 @@
     <Compile Include="..\..\..\Manatee.Trello.RestSharp\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
-      <Project>{6327037e-7ca1-4e77-bae0-d8019749164f}</Project>
+    <ProjectReference Include="..\..\3.5\Manatee.Trello\Manatee.Trello.csproj">
+      <Project>{21123D00-F73C-49F7-B2EB-26816EEBC231}</Project>
       <Name>Manatee.Trello</Name>
     </ProjectReference>
   </ItemGroup>

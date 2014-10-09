@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IJsonAttachmentPreview.cs
+	File Name:		IJsonImagePreview.cs
 	Namespace:		Manatee.Trello.Json
-	Class Name:		IJsonAttachmentPreview
+	Class Name:		IJsonImagePreview
 	Purpose:		Defines the JSON structure for the AttachmentPreview object.
 
 ***************************************************************************************/
@@ -25,7 +25,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the AttachmentPreview object.
 	/// </summary>
-	public interface IJsonAttachmentPreview : IJsonCacheable
+	public interface IJsonImagePreview : IJsonCacheable
 	{
 		///<summary>
 		/// Gets or sets the width in pixels of the attachment preview.

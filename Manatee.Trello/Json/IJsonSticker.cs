@@ -14,29 +14,40 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IJsonParameter.cs
+	File Name:		IJsonSticker.cs
 	Namespace:		Manatee.Trello.Json
-	Class Name:		IJsonParameter
-	Purpose:		Defines the JSON structure for a single-value parameter.
+	Class Name:		IJsonSticker
+	Purpose:		Defines the JSON structure for the Sticker object.
 
 ***************************************************************************************/
 
+using System.Collections.Generic;
+
 namespace Manatee.Trello.Json
 {
-	/// <summary>
-	/// Defines the JSON structure for a single-value parameter.
-	/// </summary>
-	public interface IJsonParameter
+	public interface IJsonSticker : IJsonCacheable
 	{
-		/// <summary>
-		/// Gets or sets a string parameter value;
-		/// </summary>
 		[JsonSerialize]
-		string String { get; set; }
-		/// <summary>
-		/// Gets or sets a boolean parameter value;
-		/// </summary>
+		[JsonDeserialize]
+		double? Left { get; set; }
+		[JsonDeserialize]
 		[JsonSerialize]
-		bool? Boolean { get; set; }
+		string Name { get; set; }
+		///<summary>
+		/// Gets or sets a collection of previews for the attachment.
+		///</summary>
+		[JsonDeserialize]
+		List<IJsonImagePreview> Previews { get; set; }
+		[JsonSerialize]
+		[JsonDeserialize]
+		int? Rotation { get; set; }
+		[JsonSerialize]
+		[JsonDeserialize]
+		double? Top { get; set; }
+		[JsonDeserialize]
+		string Url { get; set; }
+		[JsonSerialize]
+		[JsonDeserialize]
+		int? ZIndex { get; set; }
 	}
 }

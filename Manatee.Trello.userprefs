@@ -1,0 +1,27 @@
+﻿<Properties>
+  <DisabledProjects>
+    <String>Manatee.Trello\Manatee.Trello.csproj</String>
+    <String>Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj</String>
+    <String>Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj</String>
+    <String>Frameworks\3.5\Manatee.Trello\Manatee.Trello.csproj</String>
+    <String>Frameworks\3.5\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj</String>
+    <String>Frameworks\3.5\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj</String>
+    <String>Frameworks\3.5 Client\Manatee.Trello\Manatee.Trello.csproj</String>
+    <String>Frameworks\3.5 Client\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj</String>
+    <String>Frameworks\3.5 Client\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj</String>
+    <String>Frameworks\4.0 Client\Manatee.Trello\Manatee.Trello.csproj</String>
+    <String>Frameworks\4.0 Client\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj</String>
+    <String>Frameworks\4.0 Client\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj</String>
+    <String>Frameworks\4.5\Manatee.Trello\Manatee.Trello.csproj</String>
+    <String>Frameworks\4.5\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj</String>
+    <String>Frameworks\4.5\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj</String>
+    <String>Manatee.Trello.Test\Manatee.Trello.Test.csproj</String>
+    <String>Manatee.Trello.Test.Unit\Manatee.Trello.Test.Unit.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

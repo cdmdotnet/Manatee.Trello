@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************
 
-	Copyright 2013 Little Crab Solutions
+	Copyright 2014 Greg Dennis
 
 	   Licensed under the Apache License, Version 2.0 (the "License");
 	   you may not use this file except in compliance with the License.
@@ -14,12 +14,13 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ManateeAttachment.cs
+	File Name:		ManateeSticker.cs
 	Namespace:		Manatee.Trello.ManateeJson.Entities
-	Class Name:		ManateeAttachment
-	Purpose:		Implements IJsonAttachment for Manatee.Json.
+	Class Name:		ManateeSticker
+	Purpose:		Implements IJsonSticker for Manatee.Json
 
 ***************************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using Manatee.Json;
@@ -28,42 +29,49 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeAttachment : IJsonAttachment, IJsonSerializable
+	public class ManateeSticker : IJsonSticker, IJsonSerializable
 	{
 		public string Id { get; set; }
-		public int? Bytes { get; set; }
-		public DateTime? Date { get; set; }
-		public IJsonMember Member { get; set; }
-		public bool? IsUpload { get; set; }
-		public string MimeType { get; set; }
+		public double? Left { get; set; }
 		public string Name { get; set; }
 		public List<IJsonImagePreview> Previews { get; set; }
+		public int? Rotation { get; set; }
+		public double? Top { get; set; }
 		public string Url { get; set; }
+		public int? ZIndex { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			Bytes = (int?) obj.TryGetNumber("bytes");
-#if IOS
-			var dateString = obj.TryGetString("date");
-			DateTime date;
-			if (DateTime.TryParse(dateString, out date))
-				Date = date;
-#else
-			Date = obj.Deserialize<DateTime?>(serializer, "date");
-#endif
-			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
-			IsUpload = obj.TryGetBoolean("isUpload");
-			MimeType = obj.TryGetString("mimeType");
-			Name = obj.TryGetString("name");
-			Previews = obj.Deserialize<List<IJsonImagePreview>>(serializer, "previews");
-			Url = obj.TryGetString("url");
+			switch (json.Type)
+			{
+				case JsonValueType.Object:
+					var obj = json.Object;
+					Id = obj.TryGetString("id");
+					Left = obj.TryGetNumber("left");
+					Name = obj.TryGetString("image");
+					Previews = obj.Deserialize<List<IJsonImagePreview>>(serializer, "imageScaled");
+					Rotation = (int?) obj.TryGetNumber("rotate");
+					Top = obj.TryGetNumber("top");
+					Url = obj.TryGetString("imageUrl");
+					ZIndex = (int?) obj.TryGetNumber("zIndex");
+					break;
+				case JsonValueType.String:
+					Id = json.String;
+					break;
+			}
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return null;
+			var json = new JsonObject();
+
+			Id.Serialize(json, serializer, "id");
+			Left.Serialize(json, serializer, "left");
+			Name.Serialize(json, serializer, "image");
+			Rotation.Serialize(json, serializer, "rotate");
+			Top.Serialize(json, serializer, "top");
+			ZIndex.Serialize(json, serializer, "zIndex");
+
+			return json;
 		}
 	}
 }

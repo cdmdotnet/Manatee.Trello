@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ReadOnlyAttachmentPreviewCollection.cs
+	File Name:		ReadOnlyStickerPreviewCollection.cs
 	Namespace:		Manatee.Trello
-	Class Name:		ReadOnlyAttachmentPreviewCollection
+	Class Name:		ReadOnlyStickerPreviewCollection
 	Purpose:		Collection objects for image previews.
 
 ***************************************************************************************/
@@ -28,11 +28,11 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of image previews for attachments.
 	/// </summary>
-	public class ReadOnlyAttachmentPreviewCollection : ReadOnlyCollection<ImagePreview>
+	public class ReadOnlyStickerPreviewCollection : ReadOnlyCollection<ImagePreview>
 	{
-		private readonly AttachmentContext _context;
+		private readonly StickerContext _context;
 
-		internal ReadOnlyAttachmentPreviewCollection(AttachmentContext context)
+		internal ReadOnlyStickerPreviewCollection(StickerContext context)
 			: base(context.Data.Id)
 		{
 			_context = context;

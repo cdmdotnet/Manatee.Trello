@@ -102,7 +102,7 @@ namespace Manatee.Trello
 				throw new ValidationException<Member>(member, new[] {error});
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
-			json.Value = member.Id;
+			json.String = member.Id;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AssignMember, new Dictionary<string, object> {{"_id", OwnerId}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);

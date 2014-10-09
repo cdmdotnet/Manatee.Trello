@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ManateeAttachmentPreview.cs
+	File Name:		ManateeImagePreview.cs
 	Namespace:		Manatee.Trello.ManateeJson.Entities
-	Class Name:		ManateeAttachmentPreview
-	Purpose:		Implements IJsonAttachmentPreview for Manatee.Json.
+	Class Name:		ManateeImagePreview
+	Purpose:		Implements IJsonImagePreview for Manatee.Json.
 
 ***************************************************************************************/
 
@@ -27,7 +27,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	internal class ManateeAttachmentPreview : IJsonAttachmentPreview, IJsonSerializable
+	internal class ManateeImagePreview : IJsonImagePreview, IJsonSerializable
 	{
 		public int? Width { get; set; }
 		public int? Height { get; set; }

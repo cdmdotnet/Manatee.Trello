@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		AttachmentPreview.cs
+	File Name:		ImagePreview.cs
 	Namespace:		Manatee.Trello
-	Class Name:		AttachmentPreview
+	Class Name:		ImagePreview
 	Purpose:		Represents a preview for an attachment on a card.
 
 ***************************************************************************************/
@@ -29,7 +29,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a preview for an attachment on a card.
 	/// </summary>
-	public class AttachmentPreview : ICacheable
+	public class ImagePreview : ICacheable
 	{
 		/// <summary>
 		/// Gets the preview's height in pixels.
@@ -52,7 +52,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public int? Width { get; private set; }
 
-		internal AttachmentPreview(IJsonAttachmentPreview json)
+		internal ImagePreview(IJsonImagePreview json)
 		{
 			Id = json.Id;
 			Height = json.Height;

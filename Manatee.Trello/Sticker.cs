@@ -1,0 +1,175 @@
+﻿/***************************************************************************************
+
+	Copyright 2014 Greg Dennis
+
+	   Licensed under the Apache License, Version 2.0 (the "License");
+	   you may not use this file except in compliance with the License.
+	   You may obtain a copy of the License at
+
+		 http://www.apache.org/licenses/LICENSE-2.0
+
+	   Unless required by applicable law or agreed to in writing, software
+	   distributed under the License is distributed on an "AS IS" BASIS,
+	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	   See the License for the specific language governing permissions and
+	   limitations under the License.
+ 
+	File Name:		Sticker.cs
+	Namespace:		Manatee.Trello
+	Class Name:		Sticker
+	Purpose:		Represents a sticker on a card.
+
+***************************************************************************************/
+
+using System;
+using System.Collections.Generic;
+using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
+using Manatee.Trello.Json;
+
+namespace Manatee.Trello
+{
+	public class Sticker : ICacheable
+	{
+		public const string Check = "check";
+		public const string Heart = "heart";
+		public const string Warning = "warning";
+		public const string Clock = "clock";
+		public const string Smile = "smile";
+		public const string Laugh = "laugh";
+		public const string Huh = "huh";
+		public const string Frown = "frown";
+		public const string ThumbsUp = "thumbsup";
+		public const string ThumbsDown = "thumbsdown";
+		public const string Star = "star";
+		public const string RocketShip = "rocketship";
+
+		private readonly Field<double?> _left;
+		private readonly Field<string> _name;
+		private readonly ReadOnlyStickerPreviewCollection _previews;
+		private readonly Field<int?> _rotation;
+		private readonly Field<double?> _top;
+		private readonly Field<string> _url;
+		private readonly Field<int?> _zIndex;
+		private readonly StickerContext _context;
+
+		/// <summary>
+		/// Gets the checklist's ID.
+		/// </summary>
+		public string Id { get; private set; }
+		public double? Left
+		{
+			get { return _left.Value; }
+			set { _left.Value = value; }
+		}
+		public string Name { get { return _name.Value; } }
+		public ReadOnlyStickerPreviewCollection Previews { get { return _previews; } }
+		public int? Rotation
+		{
+			get { return _rotation.Value; }
+			set { _rotation.Value = value; }
+		}
+		public double? Top
+		{
+			get { return _top.Value; }
+			set { _top.Value = value; }
+		}
+		public string ImageUrl { get { return _url.Value; } }
+		public int? ZIndex
+		{
+			get { return _zIndex.Value; }
+			set { _zIndex.Value = value; }
+		}
+
+		internal IJsonSticker Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
+
+#if IOS
+		private Action<Attachment, IEnumerable<string>> _updatedInvoker;
+
+		/// <summary>
+		/// Raised when data on the attachment is updated.
+		/// </summary>
+		public event Action<Attachment, IEnumerable<string>> Updated
+		{
+			add { _updatedInvoker += value; }
+			remove { _updatedInvoker -= value; }
+		}
+#else
+		/// <summary>
+		/// Raised when data on the attachment is updated.
+		/// </summary>
+		public event Action<Sticker, IEnumerable<string>> Updated;
+#endif
+
+		internal Sticker(IJsonSticker json, string ownerId)
+		{
+			Id = json.Id;
+			_context = new StickerContext(Id, ownerId);
+			_context.Synchronized += Synchronized;
+
+			_left = new Field<double?>(_context, () => Left);
+			_left.AddRule(NullableHasValueRule<double>.Instance);
+			_name = new Field<string>(_context, () => Name);
+			_previews = new ReadOnlyStickerPreviewCollection(_context);
+			_rotation = new Field<int?>(_context, () => Rotation);
+			_rotation.AddRule(NullableHasValueRule<int>.Instance);
+			_rotation.AddRule(new NumericRule<int> {Min = 0, Max = 359});
+			_top = new Field<double?>(_context, () => Top);
+			_top.AddRule(NullableHasValueRule<double>.Instance);
+			_url = new Field<string>(_context, () => ImageUrl);
+			_zIndex = new Field<int?>(_context, () => ZIndex);
+			_zIndex.AddRule(NullableHasValueRule<int>.Instance);
+
+			_context.Merge(json);
+			TrelloConfiguration.Cache.Add(this);
+		}
+		/// <summary>
+		/// Deletes the card.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		public void Delete()
+		{
+			_context.Delete();
+			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Marks the card to be refreshed the next time data is accessed.
+		/// </summary>
+		public void Refresh()
+		{
+			_context.Expire();
+		}
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>
+		/// A string that represents the current object.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override string ToString()
+		{
+			return Name;
+		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+#if IOS
+			var handler = _updatedInvoker;
+#else
+			var handler = Updated;
+#endif
+			if (handler != null)
+				handler(this, properties);
+		}
+	}
+}

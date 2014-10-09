@@ -37,7 +37,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Commenting", new Property<IJsonBoardPreferences, BoardCommentPermission>(d => d.Comments, (d, o) => d.Comments = o)},
 					{"Invitations", new Property<IJsonBoardPreferences, BoardInvitationPermission>(d => d.Invitations, (d, o) => d.Invitations = o)},
 					{"AllowSelfJoin", new Property<IJsonBoardPreferences, bool?>(d => d.SelfJoin, (d, o) => d.SelfJoin = o)},
-					{"CardCovers", new Property<IJsonBoardPreferences, bool?>(d => d.CardCovers, (d, o) => d.CardCovers = o)},
+					{"ShowCardCovers", new Property<IJsonBoardPreferences, bool?>(d => d.CardCovers, (d, o) => d.CardCovers = o)},
+					{"IsCalendarFeedEnabled", new Property<IJsonBoardPreferences, bool?>(d => d.CalendarFeed, (d, o) => d.CalendarFeed = o)},
+					{"CardAgingStyle", new Property<IJsonBoardPreferences, CardAgingStyle>(d => d.CardAging, (d, o) => d.CardAging = o)},
 				};
 		}
 	}

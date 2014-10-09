@@ -39,7 +39,7 @@ namespace Manatee.Trello.Internal.Caching
 				{
 					{typeof (IJsonAction), typeof (Action)},
 					{typeof (IJsonAttachment), typeof (Attachment)},
-					{typeof (IJsonAttachmentPreview), typeof (AttachmentPreview)},
+					{typeof (IJsonImagePreview), typeof (ImagePreview)},
 					{typeof (IJsonBoard), typeof (Board)},
 					{typeof (IJsonCard), typeof (Card)},
 					{typeof (IJsonCheckList), typeof (CheckList)},
@@ -52,7 +52,7 @@ namespace Manatee.Trello.Internal.Caching
 			_jsonFactory = new Dictionary<Type, Func<IJsonCacheable, ICacheable>>
 				{
 					{typeof (Action), j => new Action((IJsonAction) j)},
-					{typeof (AttachmentPreview), j => new AttachmentPreview((IJsonAttachmentPreview) j)},
+					{typeof (ImagePreview), j => new ImagePreview((IJsonImagePreview) j)},
 					{typeof (Board), j => new Board((IJsonBoard) j)},
 					{typeof (Card), j => new Card((IJsonCard) j)},
 					{typeof (CheckList), j => new CheckList((IJsonCheckList) j)},

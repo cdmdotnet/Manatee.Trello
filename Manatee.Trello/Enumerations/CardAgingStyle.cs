@@ -14,29 +14,26 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		IJsonParameter.cs
-	Namespace:		Manatee.Trello.Json
-	Class Name:		IJsonParameter
-	Purpose:		Defines the JSON structure for a single-value parameter.
+	File Name:		CardAgingStyle.cs
+	Namespace:		Manatee.Trello
+	Class Name:		CardAgingStyle
+	Purpose:		Enumerates the various styles of aging for the Card Aging power up.
 
 ***************************************************************************************/
 
-namespace Manatee.Trello.Json
+using System.ComponentModel;
+
+namespace Manatee.Trello
 {
-	/// <summary>
-	/// Defines the JSON structure for a single-value parameter.
-	/// </summary>
-	public interface IJsonParameter
+	public enum CardAgingStyle
 	{
 		/// <summary>
-		/// Gets or sets a string parameter value;
+		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
-		[JsonSerialize]
-		string String { get; set; }
-		/// <summary>
-		/// Gets or sets a boolean parameter value;
-		/// </summary>
-		[JsonSerialize]
-		bool? Boolean { get; set; }
+		Unknown,
+		[Description("regular")]
+		Regular,
+		[Description("pirate")]
+		Pirate
 	}
 }

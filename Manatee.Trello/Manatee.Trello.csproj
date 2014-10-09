@@ -43,12 +43,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="StickerCollection.cs" />
+    <Compile Include="StickerPreviewCollection.cs" />
+    <Compile Include="BoardPersonalPreferences.cs" />
+    <Compile Include="Enumerations\CardAgingStyle.cs" />
+    <Compile Include="Internal\Synchronization\BoardPersonalPreferencesContext.cs" />
+    <Compile Include="Internal\Synchronization\StickerContext.cs" />
+    <Compile Include="Json\IJsonSticker.cs" />
     <Compile Include="Json\JsonAttributes.cs" />
     <Compile Include="NotificationCollection.cs" />
     <Compile Include="ActionData.cs" />
     <Compile Include="Attachment.cs" />
     <Compile Include="AttachmentCollection.cs" />
-    <Compile Include="AttachmentPreview.cs" />
+    <Compile Include="ImagePreview.cs" />
     <Compile Include="ActionCollection.cs" />
     <Compile Include="BoardPreferences.cs" />
     <Compile Include="Contracts\ICacheable.cs" />
@@ -170,7 +177,7 @@
     <Compile Include="Json\IJsonAction.cs" />
     <Compile Include="Json\IJsonActionData.cs" />
     <Compile Include="Json\IJsonAttachment.cs" />
-    <Compile Include="Json\IJsonAttachmentPreview.cs" />
+    <Compile Include="Json\IJsonImagePreview.cs" />
     <Compile Include="Json\IJsonBadges.cs" />
     <Compile Include="Json\IJsonBoard.cs" />
     <Compile Include="Json\IJsonBoardMembership.cs" />
@@ -211,6 +218,7 @@
     <Compile Include="Enumerations\MemberStatus.cs" />
     <Compile Include="Enumerations\NotificationType.cs" />
     <Compile Include="Search.cs" />
+    <Compile Include="Sticker.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenPermission.cs" />
     <Compile Include="TrelloAuthorization.cs" />

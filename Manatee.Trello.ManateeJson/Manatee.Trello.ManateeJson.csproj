@@ -31,8 +31,9 @@
     <DocumentationFile>bin\Release\Manatee.Trello.ManateeJson.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Manatee.Json">
-      <HintPath>..\packages\Manatee.Json.2.6.2.1\lib\net40\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Manatee.Json.2.7.1\lib\net40\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.StateMachine">
       <HintPath>..\packages\Manatee.StateMachine.1.1\lib\net40\Manatee.StateMachine.dll</HintPath>
@@ -51,7 +52,7 @@
     <Compile Include="Entities\ManateeNotificationOldData.cs" />
     <Compile Include="Entities\ManateeActionOldData.cs" />
     <Compile Include="Entities\ManateeAttachment.cs" />
-    <Compile Include="Entities\ManateeAttachmentPreview.cs" />
+    <Compile Include="Entities\ManateeImagePreview.cs" />
     <Compile Include="Entities\ManateeBadges.cs" />
     <Compile Include="Entities\ManateeBoard.cs" />
     <Compile Include="Entities\ManateeBoardMembership.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Entities\ManateeParameter.cs" />
     <Compile Include="Entities\ManateePosition.cs" />
     <Compile Include="Entities\ManateeSearch.cs" />
+    <Compile Include="Entities\ManateeSticker.cs" />
     <Compile Include="Entities\ManateeToken.cs" />
     <Compile Include="Entities\ManateeTokenPermission.cs" />
     <Compile Include="Entities\ManateeWebhook.cs" />
@@ -87,13 +89,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
       <Project>{e11bd6ae-0373-40cf-a4f3-6b156096ddb0}</Project>
       <Name>Manatee.Trello</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
