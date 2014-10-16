@@ -168,6 +168,9 @@ namespace Manatee.Trello
 		/// Because this value does not change, it can be used as a permalink.
 		/// </remarks>
 		public string ShortUrl { get { return _shortUrl.Value; } }
+		/// <summary>
+		/// Gets the collection of stickers which appear on the card.
+		/// </summary>
 		public CardStickerCollection Stickers { get; private set; }
 		/// <summary>
 		/// Gets the card's full URL.

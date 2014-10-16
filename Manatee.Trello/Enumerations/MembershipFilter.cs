@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		CardAgingStyle.cs
+	File Name:		MembershipFilter.cs
 	Namespace:		Manatee.Trello
-	Class Name:		CardAgingStyle
-	Purpose:		Enumerates the various styles of aging for the Card Aging power up.
+	Class Name:		MembershipFilter
+	Purpose:		Enumerates the filter options for membership collections.
 
 ***************************************************************************************/
 
@@ -26,23 +26,37 @@ using System.ComponentModel;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Enumerates the various styles of aging for the Card Aging power up.
+	/// Enumerates the filter options for membership collections.
 	/// </summary>
-	public enum CardAgingStyle
+	public enum MembershipFilter
 	{
 		/// <summary>
-		/// Not recognized.  May have been created since the current version of this API.
+		/// Filters to only the owner of the user token.
 		/// </summary>
-		Unknown,
+		/// <remarks>
+		/// Get the board/organization membership information in addition to the member's profile.
+		/// </remarks>
+		[Description("me")]
+		Me,
 		/// <summary>
-		/// Indicates that cards will age by fading.
+		/// Filters to only normal members.
 		/// </summary>
-		[Description("regular")]
-		Regular,
+		[Description("normal")]
+		Normal,
 		/// <summary>
-		/// Indicates that cards will age using a treasure map effect.
+		/// Filters to only admins.
 		/// </summary>
-		[Description("pirate")]
-		Pirate
+		[Description("admin")]
+		Admin,
+		/// <summary>
+		/// Filters to only active members.
+		/// </summary>
+		[Description("active")]
+		Active,
+		/// <summary>
+		/// Filters to only deactivated members.
+		/// </summary>
+		[Description("deactivated")]
+		Deactivated
 	}
 }

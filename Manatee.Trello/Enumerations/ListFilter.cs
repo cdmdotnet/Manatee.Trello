@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		CardAgingStyle.cs
+	File Name:		ListFilter.cs
 	Namespace:		Manatee.Trello
-	Class Name:		CardAgingStyle
-	Purpose:		Enumerates the various styles of aging for the Card Aging power up.
+	Class Name:		ListFilter
+	Purpose:		Enumerates the filter options for list collections.
 
 ***************************************************************************************/
 
@@ -26,23 +26,19 @@ using System.ComponentModel;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Enumerates the various styles of aging for the Card Aging power up.
+	/// Enumerates the filter options for list collections.
 	/// </summary>
-	public enum CardAgingStyle
+	public enum ListFilter
 	{
 		/// <summary>
-		/// Not recognized.  May have been created since the current version of this API.
+		/// Filters to only unarchived lists.
 		/// </summary>
-		Unknown,
+		[Description("open")]
+		Open,
 		/// <summary>
-		/// Indicates that cards will age by fading.
+		/// Filters to only archived lists.
 		/// </summary>
-		[Description("regular")]
-		Regular,
-		/// <summary>
-		/// Indicates that cards will age using a treasure map effect.
-		/// </summary>
-		[Description("pirate")]
-		Pirate
+		[Description("closed")]
+		Closed,
 	}
 }

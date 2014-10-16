@@ -36,6 +36,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyListCollection : ReadOnlyCollection<List>
 	{
+		private Dictionary<string, object> _additionalParameters;
+		
 		/// <summary>
 		/// Retrieves a list which matches the supplied key.
 		/// </summary>
@@ -48,6 +50,8 @@ namespace Manatee.Trello
 
 		internal ReadOnlyListCollection(string ownerId)
 			: base(ownerId) { }
+		internal ReadOnlyListCollection(ReadOnlyListCollection source)
+			: base(source.OwnerId) {}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -55,7 +59,7 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Lists, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonList>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonList>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jl =>
@@ -64,6 +68,13 @@ namespace Manatee.Trello
 					list.Json = jl;
 					return list;
 				}));
+		}
+
+		internal void SetFilter(ListFilter cardStatus)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>();
+			_additionalParameters["filter"] = cardStatus.GetDescription();
 		}
 
 		private List GetByKey(string key)

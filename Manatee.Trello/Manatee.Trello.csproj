@@ -43,6 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="Enumerations\BoardFilter.cs" />
+    <Compile Include="Enumerations\OrganizationFilter.cs" />
+    <Compile Include="Enumerations\MembershipFilter.cs" />
+    <Compile Include="Enumerations\MemberFilter.cs" />
+    <Compile Include="Enumerations\ListFilter.cs" />
+    <Compile Include="Enumerations\CardFilter.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="StickerCollection.cs" />
     <Compile Include="StickerPreviewCollection.cs" />
     <Compile Include="BoardPersonalPreferences.cs" />

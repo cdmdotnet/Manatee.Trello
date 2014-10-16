@@ -36,8 +36,18 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyBoardMembershipCollection : ReadOnlyCollection<BoardMembership>
 	{
+		private Dictionary<string, object> _additionalParameters;
+
 		internal ReadOnlyBoardMembershipCollection(string ownerId)
-			: base(ownerId) {}
+			: base(ownerId)
+		{
+			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
+		}
+		internal ReadOnlyBoardMembershipCollection(ReadOnlyBoardMembershipCollection source)
+			: base(source.OwnerId)
+		{
+			_additionalParameters = source._additionalParameters;
+		}
 
 		/// <summary>
 		/// Retrieves a membership which matches the supplied key.
@@ -57,7 +67,7 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonBoardMembership>>(TrelloAuthorization.Default, endpoint, new Dictionary<string, object> {{"fields", "all"}});
+			var newData = JsonRepository.Execute<List<IJsonBoardMembership>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jbm =>
@@ -71,6 +81,17 @@ namespace Manatee.Trello
 		private BoardMembership GetByKey(string key)
 		{
 			return this.FirstOrDefault(bm => key.In(bm.Id, bm.Member.Id, bm.Member.FullName, bm.Member.UserName));
+		}
+
+		internal void AddFilter(IEnumerable<MembershipFilter> actionTypes)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object> { { "filter", string.Empty } };
+			var filter = ((string)_additionalParameters["filter"]);
+			if (!filter.IsNullOrWhiteSpace())
+				filter += ",";
+			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
+			_additionalParameters["filter"] = filter;
 		}
 	}
 

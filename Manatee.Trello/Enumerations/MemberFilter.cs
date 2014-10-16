@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		CardAgingStyle.cs
+	File Name:		MemberFilter.cs
 	Namespace:		Manatee.Trello
-	Class Name:		CardAgingStyle
-	Purpose:		Enumerates the various styles of aging for the Card Aging power up.
+	Class Name:		MemberFilter
+	Purpose:		Enumerates the filter options for member collections.
 
 ***************************************************************************************/
 
@@ -26,23 +26,27 @@ using System.ComponentModel;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Enumerates the various styles of aging for the Card Aging power up.
+	/// Enumerates the filter options for member collections.
 	/// </summary>
-	public enum CardAgingStyle
+	public enum MemberFilter
 	{
 		/// <summary>
-		/// Not recognized.  May have been created since the current version of this API.
+		/// Filters to only normal members.
 		/// </summary>
-		Unknown,
+		[Description("normal")]
+		Normal,
 		/// <summary>
-		/// Indicates that cards will age by fading.
+		/// Filters to only admins.
 		/// </summary>
-		[Description("regular")]
-		Regular,
+		[Description("admins")]
+		Admins,
 		/// <summary>
-		/// Indicates that cards will age using a treasure map effect.
+		/// Filters to only owners.
 		/// </summary>
-		[Description("pirate")]
-		Pirate
+		/// <remarks>
+		/// Per @doug at Trello: "Turns out owners was once used by the iOS app and we only have it there for backwards compatibility. They are the same."
+		/// </remarks>
+		[Description("owners")]
+		Owners,
 	}
 }
