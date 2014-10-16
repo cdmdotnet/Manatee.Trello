@@ -39,6 +39,7 @@ namespace Manatee.Trello
 	public class ReadOnlyBoardCollection : ReadOnlyCollection<Board>
 	{
 		private readonly EntityRequestType _updateRequestType;
+		private Dictionary<string, object> _additionalParameters; 
 
 		/// <summary>
 		/// Retrieves a board which matches the supplied key.
@@ -57,6 +58,11 @@ namespace Manatee.Trello
 				                     ? EntityRequestType.Organization_Read_Boards
 				                     : EntityRequestType.Member_Read_Boards;
 		}
+		internal ReadOnlyBoardCollection(ReadOnlyBoardCollection source)
+			: base(source.OwnerId)
+		{
+			_updateRequestType = source._updateRequestType;
+		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -64,7 +70,7 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonBoard>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonBoard>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jb =>
@@ -73,6 +79,13 @@ namespace Manatee.Trello
 					board.Json = jb;
 					return board;
 				}));
+		}
+
+		internal void SetFilter(BoardFilter cardStatus)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>();
+			_additionalParameters["filter"] = cardStatus.GetDescription();
 		}
 
 		private Board GetByKey(string key)

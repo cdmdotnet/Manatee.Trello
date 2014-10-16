@@ -27,9 +27,21 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var board = new Board(TrelloIds.BoardId);
-					Console.WriteLine(board.PersonalPreferences.ShowSidebar);
-					board.PersonalPreferences.ShowSidebarMembers = false;
+					var board = new Board("nC8QJJoZ");
+					foreach (var member in board.Members)
+					{
+						Console.WriteLine(member);
+					}
+					Console.WriteLine();
+					foreach (var member in board.Members.Filter(MemberFilter.Admins))
+					{
+						Console.WriteLine(member);
+					}
+					Console.WriteLine();
+					foreach (var member in board.Members.Filter(MemberFilter.Owners))
+					{
+						Console.WriteLine(member);
+					}
 				});
 		}
 

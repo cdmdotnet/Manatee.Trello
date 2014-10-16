@@ -29,7 +29,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.ManateeJson.Entities
 {
-	public class ManateeSticker : IJsonSticker, IJsonSerializable
+	internal class ManateeSticker : IJsonSticker, IJsonSerializable
 	{
 		public string Id { get; set; }
 		public double? Left { get; set; }

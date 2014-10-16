@@ -31,19 +31,58 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a sticker on a card.
+	/// </summary>
 	public class Sticker : ICacheable
 	{
+		/// <summary>
+		/// Represents the stock Check sticker.
+		/// </summary>
 		public const string Check = "check";
+		/// <summary>
+		/// Represents the stock Heart sticker.
+		/// </summary>
 		public const string Heart = "heart";
+		/// <summary>
+		/// Represents the stock Warning sticker.
+		/// </summary>
 		public const string Warning = "warning";
+		/// <summary>
+		/// Represents the stock Clock sticker.
+		/// </summary>
 		public const string Clock = "clock";
+		/// <summary>
+		/// Represents the stock Smile sticker.
+		/// </summary>
 		public const string Smile = "smile";
+		/// <summary>
+		/// Represents the stock Laugh sticker.
+		/// </summary>
 		public const string Laugh = "laugh";
+		/// <summary>
+		/// Represents the stock Huh sticker.
+		/// </summary>
 		public const string Huh = "huh";
+		/// <summary>
+		/// Represents the stock Frown sticker.
+		/// </summary>
 		public const string Frown = "frown";
+		/// <summary>
+		/// Represents the stock ThumbsUp sticker.
+		/// </summary>
 		public const string ThumbsUp = "thumbsup";
+		/// <summary>
+		/// Represents the stock ThumbsDown sticker.
+		/// </summary>
 		public const string ThumbsDown = "thumbsdown";
+		/// <summary>
+		/// Represents the stock Star sticker.
+		/// </summary>
 		public const string Star = "star";
+		/// <summary>
+		/// Represents the stock RocketShip sticker.
+		/// </summary>
 		public const string RocketShip = "rocketship";
 
 		private readonly Field<double?> _left;
@@ -59,24 +98,48 @@ namespace Manatee.Trello
 		/// Gets the checklist's ID.
 		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets or sets the position of the left edge.
+		/// </summary>
 		public double? Left
 		{
 			get { return _left.Value; }
 			set { _left.Value = value; }
 		}
+		/// <summary>
+		/// Gets the name of the sticker.
+		/// </summary>
 		public string Name { get { return _name.Value; } }
+		/// <summary>
+		/// Gets the collection of previews.
+		/// </summary>
 		public ReadOnlyStickerPreviewCollection Previews { get { return _previews; } }
+		/// <summary>
+		/// Gets or sets the rotation.
+		/// </summary>
+		/// <remarks>
+		/// Rotation is clockwise and in degrees.
+		/// </remarks>
 		public int? Rotation
 		{
 			get { return _rotation.Value; }
 			set { _rotation.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the position of the top edge.
+		/// </summary>
 		public double? Top
 		{
 			get { return _top.Value; }
 			set { _top.Value = value; }
 		}
+		/// <summary>
+		/// Gets the URL for the sticker's image.
+		/// </summary>
 		public string ImageUrl { get { return _url.Value; } }
+		/// <summary>
+		/// Gets or sets the z-index.
+		/// </summary>
 		public int? ZIndex
 		{
 			get { return _zIndex.Value; }
@@ -90,12 +153,12 @@ namespace Manatee.Trello
 		}
 
 #if IOS
-		private Action<Attachment, IEnumerable<string>> _updatedInvoker;
+		private Action<Sticker, IEnumerable<string>> _updatedInvoker;
 
 		/// <summary>
 		/// Raised when data on the attachment is updated.
 		/// </summary>
-		public event Action<Attachment, IEnumerable<string>> Updated
+		public event Action<Sticker, IEnumerable<string>> Updated
 		{
 			add { _updatedInvoker += value; }
 			remove { _updatedInvoker -= value; }

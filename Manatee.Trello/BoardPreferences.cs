@@ -93,11 +93,17 @@ namespace Manatee.Trello
 			get { return _showCardCovers.Value; }
 			set { _showCardCovers.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets whether the calendar feed is enabled.
+		/// </summary>
 		public bool? IsCalendarFeedEnabled
 		{
 			get { return _isCalendarFeedEnabled.Value; }
 			set { _isCalendarFeedEnabled.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the card aging style for the Card Aging power up.
+		/// </summary>
 		public CardAgingStyle CardAgingStyle
 		{
 			get { return _cardAgingStyle.Value; }

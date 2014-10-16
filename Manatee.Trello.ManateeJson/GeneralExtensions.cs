@@ -86,7 +86,12 @@ namespace Manatee.Trello.ManateeJson
 #if IOS
 		public static int Combine(this IEnumerable values)
 		{
-			return values.Cast<int>().Sum();
+			var total = 0;
+			foreach (var value in values)
+			{
+				total += (int) value;
+			}
+			return total;
 		}
 		// source for these two methods: http://www.kevinwilliampang.com/2008/09/20/mapping-enums-to-strings-and-strings-to-enums-in-net/
 		public static string ToDescription(this Enum value)

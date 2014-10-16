@@ -23,6 +23,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -34,8 +35,15 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyNotificationCollection : ReadOnlyCollection<Notification>
 	{
+		private Dictionary<string, object> _additionalParameters; 
+	
 		internal ReadOnlyNotificationCollection(string ownerId)
 			: base(ownerId) {}
+		internal ReadOnlyNotificationCollection(ReadOnlyNotificationCollection source)
+			: base(source.OwnerId)
+		{
+			_additionalParameters = source._additionalParameters;
+		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -43,7 +51,7 @@ namespace Manatee.Trello
 		protected override void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Notifications, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonNotification>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonNotification>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jn =>
@@ -52,6 +60,17 @@ namespace Manatee.Trello
 					notification.Json = jn;
 					return notification;
 				}));
+		}
+
+		internal void AddFilter(IEnumerable<NotificationType> actionTypes)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object> { { "filter", string.Empty } };
+			var filter = ((string)_additionalParameters["filter"]);
+			if (!filter.IsNullOrWhiteSpace())
+				filter += ",";
+			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
+			_additionalParameters["filter"] = filter;
 		}
 	}
 }

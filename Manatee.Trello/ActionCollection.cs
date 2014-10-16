@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -39,6 +40,7 @@ namespace Manatee.Trello
 	{
 		private static readonly Dictionary<Type, EntityRequestType> _requestTypes;
 		private readonly EntityRequestType _updateRequestType;
+		private Dictionary<string, object> _additionalParameters; 
 
 		static ReadOnlyActionCollection()
 		{
@@ -56,6 +58,12 @@ namespace Manatee.Trello
 		{
 			_updateRequestType = _requestTypes[type];
 		}
+		internal ReadOnlyActionCollection(ReadOnlyActionCollection source)
+			: base(source.OwnerId)
+		{
+			_updateRequestType = source._updateRequestType;
+			_additionalParameters = source._additionalParameters;
+		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -63,7 +71,7 @@ namespace Manatee.Trello
 		protected override void Update()
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonAction>>(TrelloAuthorization.Default, endpoint).Where(Filter);
+			var newData = JsonRepository.Execute<List<IJsonAction>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
@@ -73,14 +81,16 @@ namespace Manatee.Trello
 					return action;
 				}));
 		}
-		/// <summary>
-		/// Provides a filter delegate.
-		/// </summary>
-		/// <param name="action">The subject action.</param>
-		/// <returns>True if the action is match, otherwise false.</returns>
-		protected virtual bool Filter(IJsonAction action)
+
+		internal void AddFilter(IEnumerable<ActionType> actionTypes)
 		{
-			return true;
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>{{"filter", string.Empty}};
+			var filter = _additionalParameters.ContainsKey("filter") ? ((string)_additionalParameters["filter"]) : string.Empty;
+			if (!filter.IsNullOrWhiteSpace())
+				filter += ",";
+			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
+			_additionalParameters["filter"] = filter;
 		}
 	}
 
@@ -90,7 +100,10 @@ namespace Manatee.Trello
 	public class CommentCollection : ReadOnlyActionCollection
 	{
 		internal CommentCollection(string ownerId)
-			: base(typeof (Card), ownerId) {}
+			: base(typeof (Card), ownerId)
+		{
+			AddFilter(new[] {ActionType.CommentCard});
+		}
 
 		/// <summary>
 		/// Posts a new comment to a card.
@@ -110,27 +123,6 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 
 			return new Action(newData);
-		}
-
-		/// <summary>
-		/// Implement to provide data to the collection.
-		/// </summary>
-		protected override sealed void Update()
-		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Actions, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonAction>>(TrelloAuthorization.Default, endpoint).Where(Filter);
-
-			Items.Clear();
-			Items.AddRange(newData.Where(jc => jc.Type == ActionType.CommentCard).Select(jc => jc.GetFromCache<Action>()));
-		}
-		/// <summary>
-		/// Provides a filter delegate.
-		/// </summary>
-		/// <param name="action">The subject action.</param>
-		/// <returns>True if the action is match, otherwise false.</returns>
-		protected override bool Filter(IJsonAction action)
-		{
-			return action.Type == ActionType.CommentCard;
 		}
 	}
 }

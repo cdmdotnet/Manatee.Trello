@@ -36,8 +36,12 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyOrganizationCollection : ReadOnlyCollection<Organization>
 	{
+		private Dictionary<string, object> _additionalParameters;
+		
 		internal ReadOnlyOrganizationCollection(string ownerId)
 			: base(ownerId) { }
+		internal ReadOnlyOrganizationCollection(ReadOnlyOrganizationCollection source)
+			: base(source.OwnerId) {}
 
 		/// <summary>
 		/// Retrieves a organization which matches the supplied key.
@@ -55,7 +59,7 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Organizations, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonOrganization>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonOrganization>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jo =>
@@ -64,6 +68,13 @@ namespace Manatee.Trello
 					org.Json = jo;
 					return org;
 				}));
+		}
+
+		internal void SetFilter(OrganizationFilter cardStatus)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>();
+			_additionalParameters["filter"] = cardStatus.GetDescription();
 		}
 
 		private Organization GetByKey(string key)

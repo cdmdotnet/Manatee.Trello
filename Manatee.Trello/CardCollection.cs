@@ -40,6 +40,7 @@ namespace Manatee.Trello
 	{
 		private readonly EntityRequestType _updateRequestType;
 		private readonly Dictionary<string, object> _requestParameters;
+		private Dictionary<string, object> _additionalParameters; 
 
 		/// <summary>
 		/// Retrieves a card which matches the supplied key.
@@ -59,12 +60,18 @@ namespace Manatee.Trello
 				                     : EntityRequestType.Board_Read_Cards;
 			_requestParameters = new Dictionary<string, object> {{"_id", ownerId}};
 		}
-		internal ReadOnlyCardCollection(EntityRequestType requestType, string ownerId, Dictionary<string, object> additionalParameters = null)
+		internal ReadOnlyCardCollection(EntityRequestType requestType, string ownerId, Dictionary<string, object> requestParameters = null)
 			: base(ownerId)
 		{
 			_updateRequestType = requestType;
-			_requestParameters = additionalParameters ?? new Dictionary<string, object>();
+			_requestParameters = requestParameters ?? new Dictionary<string, object>();
 			_requestParameters.Add("_id", ownerId);
+		}
+		internal ReadOnlyCardCollection(ReadOnlyCardCollection source)
+			: base(source.OwnerId)
+		{
+			_updateRequestType = source._updateRequestType;
+			_requestParameters = source._requestParameters;
 		}
 
 		/// <summary>
@@ -73,7 +80,7 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
-			var newData = JsonRepository.Execute<List<IJsonCard>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonCard>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jc =>
@@ -82,6 +89,13 @@ namespace Manatee.Trello
 					card.Json = jc;
 					return card;
 				}));
+		}
+
+		internal void SetFilter(CardFilter cardStatus)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>();
+			_additionalParameters["filter"] = cardStatus.GetDescription();
 		}
 
 		private Card GetByKey(string key)
