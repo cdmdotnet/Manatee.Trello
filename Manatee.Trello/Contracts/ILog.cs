@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 using System;
+using JetBrains.Annotations;
 
 namespace Manatee.Trello.Contracts
 {
@@ -55,6 +56,7 @@ namespace Manatee.Trello.Contracts
 		/// Manatee.Trello relies on the logger to throw any exceptions.  Not implmenting this functionality
 		/// may result in undesired behavior.
 		/// </remarks>
+		[ContractAnnotation("shouldThrow:true => halt")]
 		void Error(Exception e, bool shouldThrow = true);
 	}
 }

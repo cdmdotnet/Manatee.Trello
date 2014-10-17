@@ -50,6 +50,7 @@
     <Compile Include="Enumerations\ListFilter.cs" />
     <Compile Include="Enumerations\CardFilter.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Properties\ResharperAnnotations.cs" />
     <Compile Include="StickerCollection.cs" />
     <Compile Include="StickerPreviewCollection.cs" />
     <Compile Include="BoardPersonalPreferences.cs" />

@@ -56,7 +56,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			_lock = new object();
 			_shutdown = false;
 			_isActive = true;
-			_workerThread = new Thread(Process) {IsBackground = true};
+			_workerThread = new Thread(Process) { IsBackground = true };
 			_workerThread.Start();
 			NetworkMonitor.ConnectionStatusChanged += Pulse;
 		}
@@ -85,11 +85,11 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		{
 			lock (_lock)
 			{
+				var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 				while (true)
 				{
 					Monitor.Wait(_lock);
 					_isProcessing = true;
-					var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 					while (!_shutdown && IsActive && (_queue.Count != 0))
 					{
 						var request = _queue.Dequeue();
