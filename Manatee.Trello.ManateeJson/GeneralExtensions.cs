@@ -84,22 +84,21 @@ namespace Manatee.Trello.ManateeJson
 				json[key] = obj.Id;
 		}
 #if IOS
-		public static int Combine(this IEnumerable values)
-		{
-			var total = 0;
-			foreach (var value in values)
-			{
-				total += (int) value;
-			}
-			return total;
-		}
 		// source for these two methods: http://www.kevinwilliampang.com/2008/09/20/mapping-enums-to-strings-and-strings-to-enums-in-net/
 		public static string ToDescription(this Enum value)
 		{
-			var type = value.GetType();
-			var field = type.GetField(value.ToString());
-			var da = (DescriptionAttribute[]) field.GetCustomAttributes(typeof (DescriptionAttribute), false);
-			return da.Length > 0 ? da[0].Description : value.ToString();
+			try
+			{
+				var type = value.GetType();
+				var field = type.GetField(value.ToString());
+				var da = (DescriptionAttribute[]) field.GetCustomAttributes(typeof (DescriptionAttribute), false);
+				return da.Length > 0 ? da[0].Description : value.ToString();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 		public static T ToEnum<T>(this string stringValue, T defaultValue = default (T))
 		{
