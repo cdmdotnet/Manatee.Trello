@@ -26,7 +26,7 @@ using System.ComponentModel;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Enumerates the filter options for board collections.
+	/// Enumerates the filter options for board collections.  Can be combined with the bitwise-OR operator.
 	/// </summary>
 	public enum BoardFilter
 	{
@@ -69,6 +69,11 @@ namespace Manatee.Trello
 		/// Filters to starred boards.
 		/// </summary>
 		[Description("starred")]
-		Starred
+		Starred,
+		/// <summary>
+		/// Indicates that all boards should be returned.
+		/// </summary>
+		[Description("all")]
+		All,
 	}
 }

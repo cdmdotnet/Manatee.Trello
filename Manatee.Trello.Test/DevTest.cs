@@ -33,9 +33,9 @@ namespace Manatee.Trello.Test
 						Console.WriteLine(member);
 					}
 					Console.WriteLine();
-					foreach (var member in board.Members.Filter(MemberFilter.Admins))
+					foreach (var list in board.Lists.Filter(ListFilter.All))
 					{
-						Console.WriteLine(member);
+						Console.WriteLine(list);
 					}
 					Console.WriteLine();
 					foreach (var member in board.Members.Filter(MemberFilter.Owners))

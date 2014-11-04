@@ -40,5 +40,10 @@ namespace Manatee.Trello
 		/// </summary>
 		[Description("closed")]
 		Closed,
+		/// <summary>
+		/// Indicates that all lists should be returned.
+		/// </summary>
+		[Description("all")]
+		All,
 	}
 }
