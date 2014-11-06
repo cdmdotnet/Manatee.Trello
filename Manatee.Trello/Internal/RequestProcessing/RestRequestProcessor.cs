@@ -83,22 +83,24 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 		private static void Process()
 		{
-			lock (_lock)
+			var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
+			while (true)
 			{
-				var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
-				while (true)
+				QueuableRestRequest request = null;
+				lock (_lock)
 				{
-					Monitor.Wait(_lock);
-					_isProcessing = true;
-					while (!_shutdown && IsActive && (_queue.Count != 0))
+					if (_queue.Count == 0)
 					{
-						var request = _queue.Dequeue();
-						if (request == null) break;
-						Execute(client, request);
+						_isProcessing = false;
+						Monitor.Wait(_lock);
+						_isProcessing = true;
 					}
-					_isProcessing = false;
-					if (_shutdown) return;
+					else
+						request = _queue.Dequeue();
 				}
+				if (request == null) continue;
+				Execute(client, request);
+				if (_shutdown) return;
 			}
 		}
 		private static void Pulse()
