@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Manatee.Json.2.7.1\lib\net45\Manatee.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Manatee.Json.2.8.0\lib\net45\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

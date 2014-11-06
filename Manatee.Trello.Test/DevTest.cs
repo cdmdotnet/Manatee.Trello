@@ -27,21 +27,20 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var board = new Board("nC8QJJoZ");
-					foreach (var member in board.Members)
-					{
-						Console.WriteLine(member);
-					}
-					Console.WriteLine();
+					var board = new Board(TrelloIds.BoardId);
 					foreach (var list in board.Lists.Filter(ListFilter.All))
 					{
 						Console.WriteLine(list);
+						foreach (var card in list.Cards)
+						{
+							Console.WriteLine("- {0}", card);
+							foreach (var label in card.Labels)
+							{
+								Console.WriteLine("  - {0}", label.Color);
+							}
+						}
 					}
-					Console.WriteLine();
-					foreach (var member in board.Members.Filter(MemberFilter.Owners))
-					{
-						Console.WriteLine(member);
-					}
+					Console.WriteLine(board);
 				});
 		}
 

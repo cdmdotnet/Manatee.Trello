@@ -42,7 +42,6 @@ namespace Manatee.Trello.ManateeJson
 
 		static ManateeSerializer()
 		{
-			InitializeTypeRegistry();
 			InitializeAbstractionMap();
 		}
 		/// <summary>
@@ -98,34 +97,6 @@ namespace Manatee.Trello.ManateeJson
 			return obj;
 		}
 
-		private static void InitializeTypeRegistry()
-		{
-			JsonSerializationTypeRegistry.RegisterListType<int>();
-			JsonSerializationTypeRegistry.RegisterListType<string>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonAction>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonAttachment>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonBoard>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonBoardMembership>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonCard>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonCheckItem>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonCheckList>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonImagePreview>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonLabel>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonList>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonMember>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonMemberSession>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonNotification>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonOrganization>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonOrganizationMembership>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonSticker>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonToken>();
-			JsonSerializationTypeRegistry.RegisterListType<IJsonTokenPermission>();
-
-			JsonSerializationTypeRegistry.RegisterNullableType<bool>();
-			JsonSerializationTypeRegistry.RegisterNullableType<DateTime>();
-			JsonSerializationTypeRegistry.RegisterNullableType<double>();
-			JsonSerializationTypeRegistry.RegisterNullableType<int>();
-		}
 		private static void InitializeAbstractionMap()
 		{
 			JsonSerializationAbstractionMap.Map<IJsonAction, ManateeAction>();
