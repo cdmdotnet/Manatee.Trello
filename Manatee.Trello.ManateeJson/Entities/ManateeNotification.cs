@@ -31,7 +31,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 	{
 		public string Id { get; set; }
 		public bool? Unread { get; set; }
-		public NotificationType Type { get; set; }
+		public NotificationType? Type { get; set; }
 		public DateTime? Date { get; set; }
 		public IJsonNotificationData Data { get; set; }
 		public IJsonMember MemberCreator { get; set; }
@@ -44,7 +44,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			MemberCreator = obj.Deserialize<IJsonMember>(serializer, "idMemberCreator");
 			Data = obj.Deserialize<IJsonNotificationData>(serializer, "data");
 			Unread = obj.TryGetBoolean("unread");
-			Type = obj.Deserialize<NotificationType>(serializer, "type");
+			Type = obj.Deserialize<NotificationType?>(serializer, "type");
 #if IOS
 			var dateString = obj.TryGetString("date");
 			DateTime date;

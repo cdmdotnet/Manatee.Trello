@@ -40,6 +40,19 @@ namespace Manatee.Trello.Test
 						.IWant(string.Empty);
 		}
 
+		protected Scenario CreateScenario()
+		{
+			var frame = new StackFrame(1);
+			var method = frame.GetMethod();
+			var type = GetType();
+
+			var story = new Story(string.Format("{0}.{1}", type.Name, method.Name));
+			return story.InOrderTo(string.Empty)
+						.AsA(string.Empty)
+						.IWant(string.Empty)
+						.WithScenario(string.Empty);
+		}
+
 		protected void Execute<TRequest>(Func<TRequest> func)
 		{
 			Exception = null;

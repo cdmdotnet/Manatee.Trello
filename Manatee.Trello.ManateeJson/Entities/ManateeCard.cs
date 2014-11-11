@@ -110,11 +110,16 @@ namespace Manatee.Trello.ManateeJson.Entities
 				var names = new List<string>();
 				foreach (var label in Labels)
 				{
-					names.Add(label.Color.ToDescription());
+					if (label.Color.HasValue)
+						names.Add(label.Color.Value.ToDescription());
 				}
 				json["labels"] = names.Join(",");
 #else
-				Labels.Select(l => l.Color).Combine().Serialize(json, serializer, "labels");
+
+				Labels.Where(l => l.Color.HasValue)
+					  .Select(l => l.Color.Value)
+					  .Combine()
+					  .Serialize(json, serializer, "labels");
 #endif
 			}
 			return json;

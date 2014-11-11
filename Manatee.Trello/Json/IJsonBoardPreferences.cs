@@ -31,24 +31,24 @@ namespace Manatee.Trello.Json
 		/// Gets or sets who may view the board.
 		/// </summary>
 		[JsonDeserialize]
-		BoardPermissionLevel PermissionLevel { get; set; }
+		BoardPermissionLevel? PermissionLevel { get; set; }
 		/// <summary>
 		/// Gets or sets who may vote on cards.
 		/// </summary>
 		[JsonDeserialize]
-		BoardVotingPermission Voting { get; set; }
+		BoardVotingPermission? Voting { get; set; }
 		/// <summary>
 		/// Gets or sets who may comment on cards.
 		/// </summary>
 		[JsonDeserialize]
-		BoardCommentPermission Comments { get; set; }
+		BoardCommentPermission? Comments { get; set; }
 		/// <summary>
 		/// Gets or sets who may extend invitations to join the board.
 		/// </summary>
 		[JsonDeserialize]
-		BoardInvitationPermission Invitations { get; set; }
+		BoardInvitationPermission? Invitations { get; set; }
 		/// <summary>
-		/// Gets or sets whether any Trello member may join a board without an invitation.
+		/// Gets or sets whether a Trello member may join the board without an invitation.
 		/// </summary>
 		[JsonDeserialize]
 		bool? SelfJoin { get; set; }
@@ -63,9 +63,9 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		bool? CalendarFeed { get; set; }
 		/// <summary>
-		/// Gets or sets
+		/// Gets or sets the style of card aging is used, if the power up is enabled.
 		/// </summary>
 		[JsonDeserialize]
-		CardAgingStyle CardAging { get; set; }
+		CardAgingStyle? CardAging { get; set; }
 	}
 }

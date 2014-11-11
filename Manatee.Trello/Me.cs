@@ -38,7 +38,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the source type for the member's avatar.
 		/// </summary>
-		public new AvatarSource AvatarSource
+		public new AvatarSource? AvatarSource
 		{
 			get { return base.AvatarSource; }
 			set { base.AvatarSource = value; }

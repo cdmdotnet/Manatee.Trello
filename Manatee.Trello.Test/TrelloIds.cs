@@ -15,10 +15,10 @@
 		public const string ListId = "51478f6469fd3d9341001daf";
 		public const string CardId = "51478f6ce7d2d11751005681";
 		public const string CheckListId = "51478f72231d38143c0057e1";
-		public const string OrganizationId = "514a7dd9321c387f2600059e";
+		public const string OrganizationId = "50d4eb07a1b0902152003329";
 		public const string ActionId = "51446f605061aeb832002655";
 		public const string NotificationId = "51832de023195de57800095c";
-		public const string Test = "12345w123456wvb123456789";
+		public const string Test = "12345a123456acb123456789";
 		public const string AttachmentUrl = "http://i.imgur.com/H7ybFd0.png";
 	}
 }

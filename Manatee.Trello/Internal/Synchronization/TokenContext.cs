@@ -61,21 +61,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Permissions = new List<IJsonTokenPermission>();
 			MemberPermissions = new TokenPermissionContext();
 			MemberPermissions.SynchronizeRequested += () => Synchronize();
-			MemberPermissions.SubmitRequested += ResetTimer;
 			Data.Permissions.Add(MemberPermissions.Data);
 			BoardPermissions = new TokenPermissionContext();
 			BoardPermissions.SynchronizeRequested += () => Synchronize();
-			BoardPermissions.SubmitRequested += ResetTimer;
 			Data.Permissions.Add(BoardPermissions.Data);
 			OrganizationPermissions = new TokenPermissionContext();
 			OrganizationPermissions.SynchronizeRequested += () => Synchronize();
-			OrganizationPermissions.SubmitRequested += ResetTimer;
 			Data.Permissions.Add(OrganizationPermissions.Data);
 		}
 
 		public void Delete()
 		{
 			if (_deleted) return;
+			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);

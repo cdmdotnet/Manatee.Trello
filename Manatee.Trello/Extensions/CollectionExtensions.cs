@@ -23,7 +23,7 @@
 
 using System.Collections.Generic;
 
-namespace Manatee.Trello.Extensions
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Extension methods for various collection types.

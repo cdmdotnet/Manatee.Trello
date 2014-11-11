@@ -25,7 +25,7 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Json;
 
-namespace Manatee.Trello.Extensions
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Extension methods for ICache implementations.

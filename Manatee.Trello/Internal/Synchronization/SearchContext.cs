@@ -27,6 +27,7 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
+using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
@@ -79,12 +80,13 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{"Query", new Property<IJsonSearch, string>(d => d.Query, (d, o) => { if (!o.IsNullOrWhiteSpace()) d.Query = o; })},
 					{
-						"Context", new Property<IJsonSearch, List<ICacheable>>(d => d.Context == null
+						"Context", new Property<IJsonSearch, List<IQueryable>>(d => d.Context == null
 							                                                            ? null
-							                                                            : d.Context.Select(j => j.GetFromCache()).ToList(),
+							                                                            : d.Context.Select(j => j.GetFromCache()).Cast<IQueryable>().ToList(),
 						                                                       (d, o) => { if (o != null) d.Context = o.Select(ExtractData).ToList(); })
 					},
-					{"Types", new Property<IJsonSearch, SearchModelType>(d => d.Types, (d, o) => { if (o != 0) d.Types = o; })},
+					{"Types", new Property<IJsonSearch, SearchModelType?>(d => d.Types, (d, o) => { if (o != 0) d.Types = o; })},
+					{"Limit", new Property<IJsonSearch, int?>(d => d.Limit, (d, o) => { if (o != 0) d.Limit = o; })},
 				};
 		}
 
@@ -101,6 +103,13 @@ namespace Manatee.Trello.Internal.Synchronization
 				TryAddContext<IJsonCard>(parameters, "idCards");
 				TryAddContext<IJsonBoard>(parameters, "idBoards");
 				TryAddContext<IJsonOrganization>(parameters, "idOrganizations");
+			}
+			if (Data.Limit.HasValue)
+			{
+				parameters.Add("boards_limit", Data.Limit);
+				parameters.Add("cards_limit", Data.Limit);
+				parameters.Add("organizations_limit", Data.Limit);
+				parameters.Add("members_limit", Data.Limit);
 			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_Search);
 			var newData = JsonRepository.Execute<IJsonSearch>(TrelloAuthorization.Default, endpoint, parameters);

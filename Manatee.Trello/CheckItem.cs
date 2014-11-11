@@ -38,7 +38,7 @@ namespace Manatee.Trello
 		private readonly Field<CheckList> _checkList;
 		private readonly Field<string> _name;
 		private readonly Field<Position> _position;
-		private readonly Field<CheckItemState> _state;
+		private readonly Field<CheckItemState?> _state;
 		private readonly CheckItemContext _context;
 
 		/// <summary>
@@ -72,7 +72,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist item's state.
 		/// </summary>
-		public CheckItemState State
+		public CheckItemState? State
 		{
 			get { return _state.Value; }
 			set { _state.Value = value; }
@@ -115,8 +115,9 @@ namespace Manatee.Trello
 			_position = new Field<Position>(_context, () => Position);
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
-			_state = new Field<CheckItemState>(_context, () => State);
-			_state.AddRule(EnumerationRule<CheckItemState>.Instance);
+			_state = new Field<CheckItemState?>(_context, () => State);
+			_state.AddRule(NullableHasValueRule<CheckItemState>.Instance);
+			_state.AddRule(EnumerationRule<CheckItemState?>.Instance);
 
 			TrelloConfiguration.Cache.Add(this);
 

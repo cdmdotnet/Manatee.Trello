@@ -46,7 +46,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Date", new Property<IJsonNotification, DateTime?>(d => d.Date, (d, o) => d.Date = o)},
 					{"Id", new Property<IJsonNotification, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"IsUnread", new Property<IJsonNotification, bool?>(d => d.Unread, (d, o) => d.Unread = o)},
-					{"Type", new Property<IJsonNotification, NotificationType>(d => d.Type, (d, o) => d.Type = o)},
+					{"Type", new Property<IJsonNotification, NotificationType?>(d => d.Type, (d, o) => d.Type = o)},
 				};
 		}
 		public NotificationContext(string id)

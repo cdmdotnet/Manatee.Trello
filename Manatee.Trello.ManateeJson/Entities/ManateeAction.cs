@@ -22,7 +22,6 @@
 ***************************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -34,7 +33,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Id { get; set; }
 		public IJsonMember MemberCreator { get; set; }
 		public IJsonActionData Data { get; set; }
-		public ActionType Type { get; set; }
+		public ActionType? Type { get; set; }
 		public DateTime? Date { get; set; }
 
 		public virtual void FromJson(JsonValue json, JsonSerializer serializer)
@@ -44,7 +43,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Id = obj.TryGetString("id");
 			MemberCreator = obj.Deserialize<IJsonMember>(serializer, "idMemberCreator");
 			Data = obj.Deserialize<IJsonActionData>(serializer, "data");
-			Type = obj.Deserialize<ActionType>(serializer,"type");
+			Type = obj.Deserialize<ActionType?>(serializer, "type");
 #if IOS
 			var dateString = obj.TryGetString("date");
 			DateTime date;

@@ -30,7 +30,14 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	{
 		private readonly Queue<QueuableRestRequest> _queue;
 
-		public int Count { get { return _queue.Count; } }
+		public int Count
+		{
+			get
+			{
+				lock(_queue)
+					return _queue.Count;
+			}
+		}
 
 		public RequestQueue()
 		{
@@ -39,18 +46,20 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 		public void Enqueue(IRestRequest request, object signal)
 		{
-			_queue.Enqueue(new QueuableRestRequest(request, signal));
+			lock (_queue)
+				_queue.Enqueue(new QueuableRestRequest(request, signal));
 		}
 		public void Enqueue<T>(IRestRequest request, object signal)
 			where T : class
 		{
-			_queue.Enqueue(new QueuableRestRequest<T>(request, signal));
+			lock (_queue)
+				_queue.Enqueue(new QueuableRestRequest<T>(request, signal));
 		}
 		public QueuableRestRequest Dequeue()
 		{
 			if (_queue.Count == 0) return null;
-			var request = _queue.Dequeue();
-			return request;
+			lock (_queue)
+				return _queue.Dequeue();
 		}
 	}
 }

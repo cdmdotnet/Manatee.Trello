@@ -37,7 +37,7 @@ namespace Manatee.Trello.Json
 		///</summary>
 		[JsonDeserialize]
 		[JsonSerialize(IsRequired = true)]
-		OrganizationMembershipType MemberType { get; set; }
+		OrganizationMembershipType? MemberType { get; set; }
 		///<summary>
 		/// Gets or sets whether the membership is unconfirmed.
 		///</summary>

@@ -39,7 +39,7 @@ namespace Manatee.Trello
 
 		private readonly Field<Member> _creator;
 		private readonly Field<DateTime?> _date;
-		private readonly Field<ActionType> _type;
+		private readonly Field<ActionType?> _type;
 		private readonly ActionContext _context;
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the type of action.
 		/// </summary>
-		public ActionType Type { get { return _type.Value; } }
+		public ActionType? Type { get { return _type.Value; } }
 
 		internal IJsonAction Json
 		{
@@ -146,7 +146,7 @@ namespace Manatee.Trello
 			_creator = new Field<Member>(_context, () => Creator);
 			_date = new Field<DateTime?>(_context, () => Date);
 			Data = new ActionData(_context.ActionDataContext);
-			_type = new Field<ActionType>(_context, () => Type);
+			_type = new Field<ActionType?>(_context, () => Type);
 
 			TrelloConfiguration.Cache.Add(this);
 		}
@@ -177,7 +177,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return _stringDefinitions[Type](this);
+			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Action type could not be determined.";
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

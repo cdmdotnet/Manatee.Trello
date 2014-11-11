@@ -33,7 +33,7 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the permission level.
 		/// </summary>
 		[JsonDeserialize]
-		OrganizationPermissionLevel PermissionLevel { get; set; }
+		OrganizationPermissionLevel? PermissionLevel { get; set; }
 		/// <summary>
 		/// Gets or sets organization invitation restrictions.
 		/// </summary>

@@ -47,7 +47,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{"Date", new Property<IJsonAction, DateTime?>(d => d.Date, (d, o) => d.Date = o)},
 					{"Id", new Property<IJsonAction, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"Type", new Property<IJsonAction, ActionType>(d => d.Type, (d, o) => d.Type = o)},
+					{"Type", new Property<IJsonAction, ActionType?>(d => d.Type, (d, o) => d.Type = o)},
 				};
 		}
 		public ActionContext(string id)
@@ -83,10 +83,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				_deleted = true;
 				return Data;
 			}
-		}
-		protected override IEnumerable<string> MergeDependencies(IJsonAction json)
-		{
-			return ActionDataContext.Merge(json.Data);
 		}
 		protected override bool CanUpdate()
 		{

@@ -46,6 +46,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonOrganization, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"IsBusinessClass", new Property<IJsonOrganization, bool?>(d => d.PaidAccount, (d, o) => d.PaidAccount = o)},
 					{"Name", new Property<IJsonOrganization, string>(d => d.Name, (d, o) => d.Name = o)},
+					{"Preferences", new Property<IJsonOrganization, IJsonOrganizationPreferences>(d => d.Prefs, (d, o) => d.Prefs = o)},
 					{"Url", new Property<IJsonOrganization, string>(d => d.Url, (d, o) => d.Url = o)},
 					{"Website", new Property<IJsonOrganization, string>(d => d.Website, (d, o) => d.Website = o)},
 				};
@@ -55,13 +56,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 			OrganizationPreferencesContext = new OrganizationPreferencesContext();
 			OrganizationPreferencesContext.SynchronizeRequested += () => Synchronize();
-			OrganizationPreferencesContext.SubmitRequested += ResetTimer;
+			OrganizationPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
 			Data.Prefs = OrganizationPreferencesContext.Data;
 		}
 
 		public void Delete()
 		{
 			if (_deleted) return;
+			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
@@ -90,6 +92,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 			Merge(newData);
+		}
+		protected override void ApplyDependentChanges(IJsonOrganization json)
+		{
+			if (json.Prefs != null)
+			{
+				json.Prefs = OrganizationPreferencesContext.GetChanges();
+				OrganizationPreferencesContext.ClearChanges();
+			}
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonOrganization json)
 		{

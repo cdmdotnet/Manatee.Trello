@@ -37,7 +37,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public List<IJsonOrganization> Organizations { get; set; }
 		public string Query { get; set; }
 		public List<IJsonCacheable> Context { get; set; }
-		public SearchModelType Types { get; set; }
+		public SearchModelType? Types { get; set; }
+		public int? Limit { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -56,6 +57,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 					{"query", Query},
 				};
 			Types.Serialize(json, serializer, "types");
+			Limit.Serialize(json, serializer, "boards_limit");
+			Limit.Serialize(json, serializer, "cards_limit");
+			Limit.Serialize(json, serializer, "organizations_limit");
+			Limit.Serialize(json, serializer, "members_limit");
 			if (Context != null)
 			{
 				TryAddContext<IJsonCard>(json, "idCards");
