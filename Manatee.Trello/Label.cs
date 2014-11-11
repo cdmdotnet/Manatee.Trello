@@ -31,13 +31,13 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the label's color.
 		/// </summary>
-		public LabelColor Color { get; private set; }
+		public LabelColor? Color { get; private set; }
 		/// <summary>
 		/// Gets the label's name.
 		/// </summary>
 		public string Name { get; internal set; }
 
-		internal ReadOnlyLabel(LabelColor color, string name)
+		internal ReadOnlyLabel(LabelColor? color, string name)
 		{
 			Color = color;
 			Name = name;
@@ -58,7 +58,7 @@ namespace Manatee.Trello
 			set { base.Name = Name; }
 		}
 
-		internal Label(LabelColor color, string name)
+		internal Label(LabelColor? color, string name)
 			: base(color, name) {}
 	}
 }

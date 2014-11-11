@@ -1,4 +1,5 @@
 ﻿using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.Unit
@@ -25,217 +26,251 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Constructor()
 		{
-			CreateFeature().WithScenario("Constructor makes no calls")
-						   .Given(ABoard)
-						   .When(NothingHappens)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
-						   .And(CacheAddIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(NothingHappens)
+							.Then(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(CacheAddIsInvoked)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void Actions()
+		public void GetActions()
 		{
-			CreateFeature().WithScenario("Get Actions")
-						   .Given(ABoard)
-						   .When(ActionsIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(ActionsIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void Cards()
+		public void GetCards()
 		{
-			CreateFeature().WithScenario("Get Cards")
-						   .Given(ABoard)
-						   .When(CardsIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(CardsIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void Description()
+		public void GetDescription()
 		{
-			CreateFeature().WithScenario("Get Description")
-						   .Given(ABoard)
-						   .When(DescriptionIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Description with non-empty")
-						   .Given(ABoard)
-						   .When(DescriptionIsSet, "A description")
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Description with null")
-						   .Given(ABoard)
-						   .When(DescriptionIsSet, (string)null)
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Description with empty")
-						   .Given(ABoard)
-						   .When(DescriptionIsSet, string.Empty)
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(DescriptionIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void IsArchived()
+		public void SetDescription()
 		{
-			CreateFeature().WithScenario("Get IsClosed")
-						   .Given(ABoard)
-						   .When(IsClosedIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set IsClosed with non-null")
-						   .Given(ABoard)
-						   .When(IsClosedIsSet, (bool?)false)
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set IsClosed with null")
-						   .Given(ABoard)
-						   .When(IsClosedIsSet, (bool?)null)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsThrown<ValidationException<bool?>>)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(DescriptionIsSet, "A description")
+							.Then(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void IsSubscribed()
+		public void SetDescriptionWithNull()
 		{
-			CreateFeature().WithScenario("Get IsSubscribed")
-						   .Given(ABoard)
-						   .When(IsSubscribedIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set IsSubscribed with non-null")
-						   .Given(ABoard)
-						   .When(IsSubscribedIsSet, (bool?)false)
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set IsSubscribed with null")
-						   .Given(ABoard)
-						   .When(IsSubscribedIsSet, (bool?)null)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsThrown<ValidationException<bool?>>)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(DescriptionIsSet, (string) null)
+							.Then(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void LabelNames()
+		public void SetDescriptionWithEmpty()
 		{
-			CreateFeature().WithScenario("Get LabelNames")
-						   .Given(ABoard)
-						   .When(LabelNamesIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(DescriptionIsSet, string.Empty)
+							.Then(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void Lists()
+		public void GetIsArchived()
 		{
-			CreateFeature().WithScenario("Get Lists")
-						   .Given(ABoard)
-						   .When(ListsIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(IsClosedIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void Members()
+		public void SetIsArchived()
 		{
-			CreateFeature().WithScenario("Get Members")
-						   .Given(ABoard)
-						   .When(MembersIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(IsClosedIsSet, (bool?) true)
+							.Then(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void Memberships()
+		public void SetIsArchivedWithNull()
 		{
-			CreateFeature().WithScenario("Get Memberships")
-						   .Given(ABoard)
-						   .When(MembershipsIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(IsClosedIsSet, (bool?) null)
+							.Then(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsThrown<ValidationException<bool?>>)
+							.Execute();
 		}
 		[TestMethod]
-		public void Name()
+		public void GetIsSubscribed()
 		{
-			CreateFeature().WithScenario("Get Name")
-						   .Given(ABoard)
-						   .When(NameIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Name with non-empty")
-						   .Given(ABoard)
-						   .When(NameIsSet, "A description")
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Name with null")
-						   .Given(ABoard)
-						   .When(NameIsSet, (string)null)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsThrown<ValidationException<string>>)
-						   .WithScenario("Set Name with empty")
-						   .Given(ABoard)
-						   .When(NameIsSet, string.Empty)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsThrown<ValidationException<string>>)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(IsSubscribedIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void Organization()
+		public void SetIsSubscribed()
 		{
-			CreateFeature().WithScenario("Get Organization")
-						   .Given(ABoard)
-						   .When(OrganizationIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(CacheFindIsInvoked<Organization>)
-						   .And(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Organization with non-null")
-						   .Given(ABoard)
-						   .When(OrganizationIsSet, TrelloIds.Test)
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Organization with null")
-						   .Given(ABoard)
-						   .When(OrganizationIsSet, (string)null)
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(IsSubscribedIsSet, (bool?) false)
+							.Then(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 		[TestMethod]
-		public void Preferences()
+		public void SetIsSubscribedWithNull()
 		{
-			CreateFeature().WithScenario("Get Preferences")
-						   .Given(ABoard)
-						   .When(PreferencesIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(IsSubscribedIsSet, (bool?) null)
+							.Then(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsThrown<ValidationException<bool?>>)
+							.Execute();
 		}
 		[TestMethod]
-		public void Url()
+		public void GetLabelNames()
 		{
-			CreateFeature().WithScenario("Get Url")
-						   .Given(ABoard)
-						   .When(UrlIsAccessed)
-						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .Execute();
+			CreateScenario().Given(ABoard)
+							.When(LabelNamesIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void GetLists()
+		{
+			CreateScenario().Given(ABoard)
+							.When(ListsIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void GetMembers()
+		{
+			CreateScenario().Given(ABoard)
+							.When(MembersIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void GetMemberships()
+		{
+			CreateScenario().Given(ABoard)
+							.When(MembershipsIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void GetName()
+		{
+			CreateScenario().Given(ABoard)
+							.When(NameIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void SetName()
+		{
+			CreateScenario().Given(ABoard)
+							.When(NameIsSet, "A description")
+							.Then(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void SetNameWithNull()
+		{
+			CreateScenario().Given(ABoard)
+							.When(NameIsSet, (string) null)
+							.Then(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsThrown<ValidationException<string>>)
+							.Execute();
+		}
+		[TestMethod]
+		public void SetNameWithEmpty()
+		{
+			CreateScenario().Given(ABoard)
+							.When(NameIsSet, string.Empty)
+							.Then(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsThrown<ValidationException<string>>)
+							.Execute();
+		}
+		[TestMethod]
+		public void GetOrganization()
+		{
+			CreateScenario().Given(ABoard)
+							.When(OrganizationIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(CacheFindIsInvoked<Organization>)
+							.And(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void SetOrganization()
+		{
+			CreateScenario().Given(ABoard)
+							.When(OrganizationIsSet, TrelloIds.Test)
+							.Then(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void SetOrganizationWithNull()
+		{
+			CreateScenario().Given(ABoard)
+							.When(OrganizationIsSet, (string) null)
+							.Then(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void GetPreferences()
+		{
+			CreateScenario().Given(ABoard)
+							.When(PreferencesIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsNotInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
+		}
+		[TestMethod]
+		public void GetUrl()
+		{
+			CreateScenario().Given(ABoard)
+							.When(UrlIsAccessed)
+							.Then(ResponseIsNotNull)
+							.And(RestClientExecuteIsInvoked<IJsonBoard>)
+							.And(ExceptionIsNotThrown)
+							.Execute();
 		}
 
 		#endregion

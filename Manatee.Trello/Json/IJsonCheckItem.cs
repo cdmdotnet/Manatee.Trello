@@ -32,7 +32,7 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		[JsonSerialize]
-		CheckItemState State { get; set; }
+		CheckItemState? State { get; set; }
 		/// <summary>
 		/// Gets or sets the name of the checklist item.
 		/// </summary>

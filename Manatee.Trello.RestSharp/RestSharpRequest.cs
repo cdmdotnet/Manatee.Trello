@@ -56,7 +56,7 @@ namespace Manatee.Trello.RestSharp
 				if (!base.Resource.Contains("?"))
 					base.Resource += "?";
 				else
-					base.Resource += ",";
+					base.Resource += "&";
 				base.Resource += string.Format("{0}={1}", name, value);
 				return;
 			}

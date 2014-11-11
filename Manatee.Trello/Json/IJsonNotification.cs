@@ -39,7 +39,7 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the notification's type.
 		/// </summary>
 		[JsonDeserialize]
-		NotificationType Type { get; set; }
+		NotificationType? Type { get; set; }
 		///<summary>
 		/// Gets or sets the date on which the notification was created.
 		///</summary>

@@ -37,7 +37,7 @@ namespace Manatee.Trello.Json
 		///</summary>
 		[JsonDeserialize]
 		[JsonSerialize(IsRequired = true)]
-		BoardMembershipType MemberType { get; set; }
+		BoardMembershipType? MemberType { get; set; }
 		///<summary>
 		/// Gets or sets whether the membership is deactivated.
 		///</summary>

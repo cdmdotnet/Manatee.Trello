@@ -8,9 +8,9 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Json;
+using Manatee.Json.Path;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Contracts;
-using Manatee.Trello.Extensions;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
@@ -28,19 +28,10 @@ namespace Manatee.Trello.Test
 			Run(() =>
 				{
 					var board = new Board(TrelloIds.BoardId);
-					foreach (var list in board.Lists.Filter(ListFilter.All))
-					{
-						Console.WriteLine(list);
-						foreach (var card in list.Cards)
-						{
-							Console.WriteLine("- {0}", card);
-							foreach (var label in card.Labels)
-							{
-								Console.WriteLine("  - {0}", label.Color);
-							}
-						}
-					}
-					Console.WriteLine(board);
+					var list = board.Lists.First();
+					var card = list.Cards.Add("hello");
+					card.Description = "test";
+					card.Delete();
 				});
 		}
 
@@ -59,9 +50,7 @@ namespace Manatee.Trello.Test
 
 			action();
 
-			Thread.Sleep(500);
-
-			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
+			TrelloProcessor.Shutdown();
 		}
 	}
 }

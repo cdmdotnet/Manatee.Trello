@@ -69,6 +69,11 @@ namespace Manatee.Trello.Json
 		/// Gets or sets which types of objects should be returned.
 		/// </summary>
 		[JsonSerialize]
-		SearchModelType Types { get; set; }
+		SearchModelType? Types { get; set; }
+		/// <summary>
+		/// Gets or sets how many results to return;
+		/// </summary>
+		[JsonSerialize]
+		int? Limit { get; set; }
 	}
 }

@@ -45,10 +45,22 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			set
 			{
 				_isActive = value;
-				Pulse();
+				Pulse(() => { });
 			}
 		}
 		public static bool HasRequests { get { return _queue.Count != 0 || _isProcessing; } }
+
+#if IOS
+		private static System.Action _lastCall;
+
+		public static event System.Action LastCall
+		{
+			add { _lastCall += value; }
+			remove { _lastCall -= value; }
+		}
+#else
+		public static event System.Action LastCall;
+#endif
 
 		static RestRequestProcessor()
 		{
@@ -56,58 +68,63 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			_lock = new object();
 			_shutdown = false;
 			_isActive = true;
-			_workerThread = new Thread(Process) { IsBackground = true };
+			_workerThread = new Thread(Process) {IsBackground = !TrelloProcessor.WaitForPendingRequests};
 			_workerThread.Start();
-			NetworkMonitor.ConnectionStatusChanged += Pulse;
+			NetworkMonitor.ConnectionStatusChanged += () => Pulse(() => { });
 		}
 
 		public static void AddRequest(IRestRequest request, object signal)
 		{
 			LogRequest(request, "Queuing");
-			_queue.Enqueue(request, signal);
-			Pulse();
+			Pulse(() => _queue.Enqueue(request, signal));
 		}
 		public static void AddRequest<T>(IRestRequest request, object signal)
 			where T : class
 		{
 			LogRequest(request, "Queuing");
-			_queue.Enqueue<T>(request, signal);
-			Pulse();
+			Pulse(() => _queue.Enqueue<T>(request, signal));
 		}
 		public static void ShutDown()
 		{
 			_shutdown = true;
-			Pulse();
+#if IOS
+			var handler = _lastCall;
+#else
+			var handler = LastCall;
+#endif
+			if (handler != null)
+				handler();
+			Pulse(() => { });
 			_workerThread.Join();
 		}
 
 		private static void Process()
 		{
 			var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
-			while (true)
+			while (!_shutdown || (TrelloProcessor.WaitForPendingRequests && _queue.Count > 0))
 			{
-				QueuableRestRequest request = null;
 				lock (_lock)
 				{
 					if (_queue.Count == 0)
 					{
 						_isProcessing = false;
 						Monitor.Wait(_lock);
-						_isProcessing = true;
 					}
-					else
-						request = _queue.Dequeue();
 				}
+				var request = _queue.Dequeue();
 				if (request == null) continue;
 				Execute(client, request);
-				if (_shutdown) return;
 			}
 		}
-		private static void Pulse()
+		private static void Pulse(System.Action action)
 		{
-			if (_isProcessing) return;
 			lock (_lock)
+			{
+				action();
+				if (_isProcessing) return;
+				_isProcessing = true;
 				Monitor.Pulse(_lock);
+			}
 		}
 		private static void Execute(IRestClient client, QueuableRestRequest queuableRequest)
 		{

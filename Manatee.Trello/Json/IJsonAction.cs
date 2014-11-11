@@ -43,7 +43,7 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the action's type.
 		/// </summary>
 		[JsonDeserialize]
-		ActionType Type { get; set; }
+		ActionType? Type { get; set; }
 		///<summary>
 		/// Gets or sets the date on which the action was performed.
 		///</summary>

@@ -34,7 +34,6 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		public LabelNamesContext LabelNamesContext { get; private set; }
 		public BoardPreferencesContext BoardPreferencesContext { get; private set; }
-		public BoardPersonalPreferencesContext BoardPersonalPreferencesContext { get; private set; }
 		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static BoardContext()
@@ -45,13 +44,15 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonBoard, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"IsClosed", new Property<IJsonBoard, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
 					{"IsSubscribed", new Property<IJsonBoard, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
+					{"LabelNames", new Property<IJsonBoard, IJsonLabelNames>(d => d.LabelNames, (d, o) => d.LabelNames = o)},
 					{"Name", new Property<IJsonBoard, string>(d => d.Name, (d, o) => d.Name = o)},
 					{
 						"Organization", new Property<IJsonBoard, Organization>(d => d.Organization == null
-							                                                            ? null
-							                                                            : d.Organization.GetFromCache<Organization>(),
-						                                                       (d, o) => d.Organization = o != null ? o.Json : null)
+																						? null
+																						: d.Organization.GetFromCache<Organization>(),
+																			   (d, o) => d.Organization = o != null ? o.Json : null)
 					},
+					{"Preferences", new Property<IJsonBoard, IJsonBoardPreferences>(d => d.Prefs, (d, o) => d.Prefs = o)},
 					{"Url", new Property<IJsonBoard, string>(d => d.Url, (d, o) => d.Url = o)},
 				};
 		}
@@ -60,11 +61,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 			LabelNamesContext = new LabelNamesContext();
 			LabelNamesContext.SynchronizeRequested += () => Synchronize();
-			LabelNamesContext.SubmitRequested += ResetTimer;
+			LabelNamesContext.SubmitRequested += () => HandleSubmitRequested("LabelNames");
 			Data.LabelNames = LabelNamesContext.Data;
 			BoardPreferencesContext = new BoardPreferencesContext();
 			BoardPreferencesContext.SynchronizeRequested += () => Synchronize();
-			BoardPreferencesContext.SubmitRequested += ResetTimer;
+			BoardPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
 			Data.Prefs = BoardPreferencesContext.Data;
 		}
 
@@ -80,6 +81,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
 			Merge(newData);
+		}
+		protected override void ApplyDependentChanges(IJsonBoard json)
+		{
+			if (json.LabelNames != null)
+			{
+				json.LabelNames = LabelNamesContext.GetChanges();
+				LabelNamesContext.ClearChanges();
+			}
+			if (json.Prefs != null)
+			{
+				json.Prefs = BoardPreferencesContext.GetChanges();
+				BoardPreferencesContext.ClearChanges();
+			}
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonBoard json)
 		{

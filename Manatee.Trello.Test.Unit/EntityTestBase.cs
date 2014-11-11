@@ -5,6 +5,7 @@ using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
+using Manatee.Trello.Test.Unit.Factories;
 using Manatee.Trello.Test.Unit.Mocks;
 using Moq;
 
@@ -51,7 +52,7 @@ namespace Manatee.Trello.Test.Unit
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				RestClientProvider.Setup(p => p.CreateRestClient(It.IsAny<string>()))
-				                  .Returns(RestClient);
+								  .Returns(RestClient);
 				RestClientProvider.SetupGet(p => p.RequestProvider)
 				                  .Returns(RestRequestProvider.Object);
 				RestRequestProvider.Setup(p => p.Create(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
@@ -70,7 +71,6 @@ namespace Manatee.Trello.Test.Unit
 				ConfigureJsonFactory<IJsonActionData>();
 				ConfigureJsonFactory<IJsonActionOldData>();
 				ConfigureJsonFactory<IJsonAttachment>();
-				ConfigureJsonFactory<IJsonAttachmentPreview>();
 				ConfigureJsonFactory<IJsonBadges>();
 				ConfigureJsonFactory<IJsonBoard>();
 				ConfigureJsonFactory<IJsonBoardMembership>();
@@ -81,6 +81,7 @@ namespace Manatee.Trello.Test.Unit
 				ConfigureJsonFactory<IJsonCheckItem>();
 				ConfigureJsonFactory<IJsonCheckList>();
 				ConfigureJsonFactory<IJsonComment>();
+				ConfigureJsonFactory<IJsonImagePreview>();
 				ConfigureJsonFactory<IJsonLabel>();
 				ConfigureJsonFactory<IJsonLabelNames>();
 				ConfigureJsonFactory<IJsonList>();
@@ -104,10 +105,8 @@ namespace Manatee.Trello.Test.Unit
 			private void ConfigureJsonFactory<TJson>()
 				where TJson : class
 			{
-				var mock = new Mock<TJson>();
-				mock.SetupAllProperties();
 				JsonFactory.Setup(f => f.Create<TJson>())
-				           .Returns(mock.Object);
+				           .Returns(JsonObjectFactory.Get<TJson>().Object);
 			}
 		}
 
@@ -137,13 +136,23 @@ namespace Manatee.Trello.Test.Unit
 
 		#region Then
 
-		protected void RestClientProviderCreateClientIsInvoked()
+		protected void RestClientExecuteIsInvoked()
 		{
-			_sut.Dependencies.RestClientProvider.Verify(p => p.CreateRestClient(It.IsAny<string>()));
+			_sut.Dependencies.RestClient.Verify(null);
 		}
-		protected void RestClientProviderCreateClientIsNotInvoked()
+		[GenericMethodFormat("RestClient.Execute<{0}> is invoked")]
+		protected void RestClientExecuteIsInvoked<TRequest>()
 		{
-			_sut.Dependencies.RestClientProvider.Verify(p => p.CreateRestClient(It.IsAny<string>()), Times.Never());
+			_sut.Dependencies.RestClient.Verify(typeof(TRequest));
+		}
+		protected void RestClientExecuteIsNotInvoked()
+		{
+			_sut.Dependencies.RestClient.Verify(null, 0);
+		}
+		[GenericMethodFormat("RestClient.Execute<{0}> is not invoked")]
+		protected void RestClientExecuteIsNotInvoked<TRequest>()
+		{
+			_sut.Dependencies.RestClient.Verify(typeof(TRequest), 0);
 		}
 		protected void CacheAddIsInvoked()
 		{

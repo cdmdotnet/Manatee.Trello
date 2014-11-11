@@ -18,11 +18,9 @@ namespace Manatee.Trello.Test.Unit.Factories
 		public static Mock<T> Get<T>()
 			where T : class
 		{
-			if (_factories.ContainsKey(typeof (T)))
-				return (Mock<T>) _factories[typeof (T)]();
-			var mock = new Mock<T>();
-			mock.SetupAllProperties();
-			return mock;
+			return _factories.ContainsKey(typeof (T))
+					   ? (Mock<T>) _factories[typeof (T)]()
+					   : CreateMock<T>();
 		}
 
 		private static Mock<IJsonAction> Action()
@@ -70,19 +68,19 @@ namespace Manatee.Trello.Test.Unit.Factories
 			attachment.Object.Member = member.Object;
 			attachment.Object.MimeType = "image/png";
 			attachment.Object.Name = "attachment 1";
-			var preview1 = CreateMock<IJsonAttachmentPreview>();
+			var preview1 = CreateMock<IJsonImagePreview>();
 			preview1.Object.Height = 600;
 			preview1.Object.Id = Guid.NewGuid().ToString();
 			preview1.Object.Scaled = false;
 			preview1.Object.Url = "http://manatee.trello.com/attachmentPreview1";
 			preview1.Object.Width = 800;
-			var preview2 = CreateMock<IJsonAttachmentPreview>();
+			var preview2 = CreateMock<IJsonImagePreview>();
 			preview2.Object.Height = 300;
 			preview2.Object.Id = Guid.NewGuid().ToString();
 			preview2.Object.Scaled = true;
 			preview2.Object.Url = "http://manatee.trello.com/attachmentPreview2";
 			preview2.Object.Width = 400;
-			attachment.Object.Previews = new List<IJsonAttachmentPreview> {preview1.Object, preview2.Object};
+			attachment.Object.Previews = new List<IJsonImagePreview> {preview1.Object, preview2.Object};
 			attachment.Object.Url = "http://manatee.trello.com/attachment";
 			return attachment;
 		}

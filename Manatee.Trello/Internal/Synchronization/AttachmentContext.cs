@@ -64,6 +64,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public void Delete()
 		{
 			if (_deleted) return;
+			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete, new Dictionary<string, object> { { "_cardId", _ownerId }, { "_id", Data.Id } });
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);

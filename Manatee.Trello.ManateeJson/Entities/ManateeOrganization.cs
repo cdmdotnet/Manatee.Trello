@@ -81,15 +81,12 @@ namespace Manatee.Trello.ManateeJson.Entities
 					json.Add("prefs/associatedDomain", JsonValue.Null);
 				else
 					Prefs.AssociatedDomain.Serialize(json, serializer, "prefs/associatedDomain");
-				Prefs.BoardVisibilityRestrict.Private.Serialize(json, serializer, "prefs/boardVisibilityRestrict/private");
-				Prefs.BoardVisibilityRestrict.Org.Serialize(json, serializer, "prefs/boardVisibilityRestrict/org");
-				Prefs.BoardVisibilityRestrict.Public.Serialize(json, serializer, "prefs/boardVisibilityRestrict/public");
-				json.Add("prefs/permissionLevel", serializer.Serialize(Prefs.PermissionLevel));
-				json.Add("prefs/orgInviteRestrict", serializer.Serialize(Prefs.OrgInviteRestrict));
-				json.Add("prefs/associatedDomain", Prefs.AssociatedDomain.IsNullOrWhiteSpace() ? JsonValue.Null : Prefs.AssociatedDomain);
-				json.Add("prefs/boardVisibilityRestrict/private", serializer.Serialize(Prefs.BoardVisibilityRestrict.Private));
-				json.Add("prefs/boardVisibilityRestrict/org", serializer.Serialize(Prefs.BoardVisibilityRestrict.Org));
-				json.Add("prefs/boardVisibilityRestrict/public", serializer.Serialize(Prefs.BoardVisibilityRestrict.Public));
+				if (Prefs.BoardVisibilityRestrict != null)
+				{
+					Prefs.BoardVisibilityRestrict.Private.Serialize(json, serializer, "prefs/boardVisibilityRestrict/private");
+					Prefs.BoardVisibilityRestrict.Org.Serialize(json, serializer, "prefs/boardVisibilityRestrict/org");
+					Prefs.BoardVisibilityRestrict.Public.Serialize(json, serializer, "prefs/boardVisibilityRestrict/public");
+				}
 			}
 			return json;
 		}

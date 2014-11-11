@@ -39,13 +39,13 @@ namespace Manatee.Trello
 		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
 		private static Me _me;
 
-		private readonly Field<AvatarSource> _avatarSource;
+		private readonly Field<AvatarSource?> _avatarSource;
 		private readonly Field<string> _avatarUrl;
 		private readonly Field<string> _bio;
 		private readonly Field<string> _fullName;
 		private readonly Field<string> _initials;
 		private readonly Field<bool?> _isConfirmed;
-		private readonly Field<MemberStatus> _status;
+		private readonly Field<MemberStatus?> _status;
 		private readonly Field<IEnumerable<string>> _trophies;
 		private readonly Field<string> _url;
 		private readonly Field<string> _userName;
@@ -65,7 +65,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
-		public AvatarSource AvatarSource
+		public AvatarSource? AvatarSource
 		{
 			get { return _avatarSource.Value; }
 			internal set { _avatarSource.Value = value; }
@@ -120,13 +120,18 @@ namespace Manatee.Trello
 		/// </summary>
 		public bool? IsConfirmed { get { return _isConfirmed.Value; } }
 		/// <summary>
+		/// Gets a string which can be used in comments or descriptions to mention another
+		/// user.  The user will receive notification that they've been mentioned.
+		/// </summary>
+		public string Mention { get { return "@" + UserName; } }
+		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
 		public ReadOnlyOrganizationCollection Organizations { get; private set; }
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
-		public MemberStatus Status { get { return _status.Value; } }
+		public MemberStatus? Status { get { return _status.Value; } }
 		/// <summary>
 		/// Gets the collection of trophies earned by the member.
 		/// </summary>
@@ -184,8 +189,9 @@ namespace Manatee.Trello
 			_context.Synchronized += Synchronized;
 
 			Actions = new ReadOnlyActionCollection(typeof(Member), id);
-			_avatarSource = new Field<AvatarSource>(_context, () => AvatarSource);
-			_avatarSource.AddRule(EnumerationRule<AvatarSource>.Instance);
+			_avatarSource = new Field<AvatarSource?>(_context, () => AvatarSource);
+			_avatarSource.AddRule(NullableHasValueRule<AvatarSource>.Instance);
+			_avatarSource.AddRule(EnumerationRule<AvatarSource?>.Instance);
 			_avatarUrl = new Field<string>(_context, () => AvatarUrl);
 			_bio = new Field<string>(_context, () => Bio);
 			Boards = isMe ? new BoardCollection(typeof(Member), id) : new ReadOnlyBoardCollection(typeof(Member), id);
@@ -195,7 +201,7 @@ namespace Manatee.Trello
 			_initials.AddRule(MemberInitialsRule.Instance);
 			_isConfirmed = new Field<bool?>(_context, () => IsConfirmed);
 			Organizations = isMe ? new OrganizationCollection(id) : new ReadOnlyOrganizationCollection(id);
-			_status = new Field<MemberStatus>(_context, () => Status);
+			_status = new Field<MemberStatus?>(_context, () => Status);
 			_trophies = new Field<IEnumerable<string>>(_context, () => Trophies);
 			_url = new Field<string>(_context, () => Url);
 			_userName = new Field<string>(_context, () => UserName);

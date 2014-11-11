@@ -30,21 +30,30 @@ namespace Manatee.Trello.Internal.Validation
 	{
 		public static IValidationRule<T> Instance { get; private set; }
 
+		private readonly Type _enumType;
+
 		static EnumerationRule()
 		{
 			Instance = new EnumerationRule<T>();
 		}
 		private EnumerationRule()
 		{
-			if (!typeof (Enum).IsAssignableFrom(typeof (T)))
-				throw new ArgumentException(string.Format("Type {0} must be an enumeration.", typeof (T)));
+			_enumType = typeof (T);
+			if (_enumType.IsGenericType)
+			{
+				if (_enumType.GetGenericTypeDefinition() != typeof(Nullable<>))
+					throw new ArgumentException(string.Format("Type {0} must be an enumeration or a nullable enumeration.", _enumType));
+				_enumType = _enumType.GetGenericArguments().First();
+			}
+			if (!_enumType.IsEnum)
+				throw new ArgumentException(string.Format("Type {0} must be an enumeration or a nullable enumeration.", _enumType));
 		}
 
 		public string Validate(T oldValue, T newValue)
 		{
-			var validValues = Enum.GetValues(typeof(T)).Cast<T>();
+			var validValues = Enum.GetValues(_enumType).Cast<T>();
 			return !validValues.Contains(newValue)
-					   ? string.Format("{0} is not defined in type {1}.", newValue, typeof(T).Name)
+					   ? string.Format("{0} is not defined in type {1}.", newValue, _enumType.Name)
 				       : null;
 		}
 	}

@@ -32,14 +32,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonBoardPreferences>>
 				{
-					{"PermissionLevel", new Property<IJsonBoardPreferences, BoardPermissionLevel>(d => d.PermissionLevel, (d, o) => d.PermissionLevel = o)},
-					{"Voting", new Property<IJsonBoardPreferences, BoardVotingPermission>(d => d.Voting, (d, o) => d.Voting = o)},
-					{"Commenting", new Property<IJsonBoardPreferences, BoardCommentPermission>(d => d.Comments, (d, o) => d.Comments = o)},
-					{"Invitations", new Property<IJsonBoardPreferences, BoardInvitationPermission>(d => d.Invitations, (d, o) => d.Invitations = o)},
+					{"PermissionLevel", new Property<IJsonBoardPreferences, BoardPermissionLevel?>(d => d.PermissionLevel, (d, o) => d.PermissionLevel = o)},
+					{"Voting", new Property<IJsonBoardPreferences, BoardVotingPermission?>(d => d.Voting, (d, o) => d.Voting = o)},
+					{"Commenting", new Property<IJsonBoardPreferences, BoardCommentPermission?>(d => d.Comments, (d, o) => d.Comments = o)},
+					{"Invitations", new Property<IJsonBoardPreferences, BoardInvitationPermission?>(d => d.Invitations, (d, o) => d.Invitations = o)},
 					{"AllowSelfJoin", new Property<IJsonBoardPreferences, bool?>(d => d.SelfJoin, (d, o) => d.SelfJoin = o)},
 					{"ShowCardCovers", new Property<IJsonBoardPreferences, bool?>(d => d.CardCovers, (d, o) => d.CardCovers = o)},
 					{"IsCalendarFeedEnabled", new Property<IJsonBoardPreferences, bool?>(d => d.CalendarFeed, (d, o) => d.CalendarFeed = o)},
-					{"CardAgingStyle", new Property<IJsonBoardPreferences, CardAgingStyle>(d => d.CardAging, (d, o) => d.CardAging = o)},
+					{"CardAgingStyle", new Property<IJsonBoardPreferences, CardAgingStyle?>(d => d.CardAging, (d, o) => d.CardAging = o)},
 				};
 		}
 	}

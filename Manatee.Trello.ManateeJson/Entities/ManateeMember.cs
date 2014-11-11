@@ -36,10 +36,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string FullName { get; set; }
 		public string Initials { get; set; }
 		public string MemberType { get; set; }
-		public MemberStatus Status { get; set; }
+		public MemberStatus? Status { get; set; }
 		public string Url { get; set; }
 		public string Username { get; set; }
-		public AvatarSource AvatarSource { get; set; }
+		public AvatarSource? AvatarSource { get; set; }
 		public bool? Confirmed { get; set; }
 		public string Email { get; set; }
 		public string GravatarHash { get; set; }
@@ -62,10 +62,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 					FullName = obj.TryGetString("fullName");
 					Initials = obj.TryGetString("initials");
 					MemberType = obj.TryGetString("memberType");
-					Status = obj.Deserialize<MemberStatus>(serializer, "status");
+					Status = obj.Deserialize<MemberStatus?>(serializer, "status");
 					Url = obj.TryGetString("url");
 					Username = obj.TryGetString("username");
-					AvatarSource = obj.Deserialize<AvatarSource>(serializer, "avatarSource");
+					AvatarSource = obj.Deserialize<AvatarSource?>(serializer, "avatarSource");
 					Confirmed = obj.TryGetBoolean("confirmed");
 					Email = obj.TryGetString("email");
 					GravatarHash = obj.TryGetString("gravatarHash");

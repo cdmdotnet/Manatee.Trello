@@ -37,7 +37,7 @@ namespace Manatee.Trello
 	public class BoardMembership : ICacheable
 	{
 		private readonly Field<Member> _member;
-		private readonly Field<BoardMembershipType> _memberType;
+		private readonly Field<BoardMembershipType?> _memberType;
 		private readonly Field<bool?> _isDeactivated;
 		private readonly BoardMembershipContext _context;
 
@@ -56,7 +56,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the membership's permission level.
 		/// </summary>
-		public BoardMembershipType MemberType
+		public BoardMembershipType? MemberType
 		{
 			get { return _memberType.Value; }
 			set { _memberType.Value = value; }
@@ -93,8 +93,9 @@ namespace Manatee.Trello
 			_context.Synchronized += Synchronized;
 
 			_member = new Field<Member>(_context, () => Member);
-			_memberType = new Field<BoardMembershipType>(_context, () => MemberType);
-			_memberType.AddRule(EnumerationRule<BoardMembershipType>.Instance);
+			_memberType = new Field<BoardMembershipType?>(_context, () => MemberType);
+			_memberType.AddRule(NullableHasValueRule<BoardMembershipType>.Instance);
+			_memberType.AddRule(EnumerationRule<BoardMembershipType?>.Instance);
 			_isDeactivated = new Field<bool?>(_context, () => IsDeactivated);
 
 			TrelloConfiguration.Cache.Add(this);

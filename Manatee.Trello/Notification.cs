@@ -40,7 +40,7 @@ namespace Manatee.Trello
 		private readonly Field<Member> _creator;
 		private readonly Field<DateTime?> _date;
 		private readonly Field<bool?> _isUnread;
-		private readonly Field<NotificationType> _type;
+		private readonly Field<NotificationType?> _type;
 		private readonly NotificationContext _context;
 
 		/// <summary>
@@ -70,7 +70,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the type of notification.
 		/// </summary>
-		public NotificationType Type { get { return _type.Value; } }
+		public NotificationType? Type { get { return _type.Value; } }
 
 		internal IJsonNotification Json
 		{
@@ -136,7 +136,7 @@ namespace Manatee.Trello
 			_date = new Field<DateTime?>(_context, () => Date);
 			Data = new NotificationData(_context.NotificationDataContext);
 			_isUnread = new Field<bool?>(_context, () => IsUnread);
-			_type = new Field<NotificationType>(_context, () => Type);
+			_type = new Field<NotificationType?>(_context, () => Type);
 
 			TrelloConfiguration.Cache.Add(this);
 		}
@@ -155,7 +155,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return _stringDefinitions[Type](this);
+			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Notification type could not be determined.";
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

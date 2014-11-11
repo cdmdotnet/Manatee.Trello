@@ -42,7 +42,8 @@ namespace Manatee.Trello
 		private readonly Field<IEnumerable<Organization>> _organizations;
 		private readonly Field<string> _query;
 		private readonly Field<List<IQueryable>> _queryContext;
-		private readonly Field<SearchModelType> _modelTypes;
+		private readonly Field<SearchModelType?> _modelTypes;
+		private readonly Field<int?> _limit; 
 		private readonly SearchContext _context;
 
 		/// <summary>
@@ -65,30 +66,48 @@ namespace Manatee.Trello
 		/// Gets the collection of organizations returned by the search.
 		/// </summary>
 		public IEnumerable<Organization> Organizations { get { return _organizations.Value; } }
-
-		private string Query
+		/// <summary>
+		/// Gets the query.
+		/// </summary>
+		public string Query
 		{
 			get { return _query.Value; }
-			set { _query.Value = value; }
+			private set { _query.Value = value; }
 		}
+
 		private List<IQueryable> Context
 		{
 			get { return _queryContext.Value; }
 			set { _queryContext.Value = value; }
 		}
-		private SearchModelType Types
+		private SearchModelType? Types
 		{
 			get { return _modelTypes.Value; }
 			set { _modelTypes.Value = value; }
+		}
+		private int? Limit
+		{
+			get { return _limit.Value; }
+			set { _limit.Value = value; }
 		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Search"/> object and performs the search.
 		/// </summary>
 		/// <param name="query">The query.</param>
+		/// <param name="limit">The maximum number of results to return.</param>
 		/// <param name="modelTypes">Optional - The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
 		/// <param name="context">Optional - A collection of queryable items to serve as a context in which to search.</param>
-		public Search(string query, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null)
+		public Search(SearchFor query, int? limit = null, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null)
+			: this(query.ToString(), limit, modelTypes, context) { }
+		/// <summary>
+		/// Creates a new instance of the <see cref="Search"/> object and performs the search.
+		/// </summary>
+		/// <param name="query">The query.</param>
+		/// <param name="limit">The maximum number of results to return.</param>
+		/// <param name="modelTypes">Optional - The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
+		/// <param name="context">Optional - A collection of queryable items to serve as a context in which to search.</param>
+		public Search(string query, int? limit = null, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null)
 		{
 			_context = new SearchContext();
 
@@ -100,12 +119,16 @@ namespace Manatee.Trello
 			_query = new Field<string>(_context, () => Query);
 			_query.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_queryContext = new Field<List<IQueryable>>(_context, () => Context);
-			_modelTypes = new Field<SearchModelType>(_context, () => Types);
+			_modelTypes = new Field<SearchModelType?>(_context, () => Types);
+			_limit = new Field<int?>(_context, () => Limit);
+			_limit.AddRule(NullableHasValueRule<int>.Instance);
+			_limit.AddRule(new NumericRule<int> { Min = 1, Max = 1000 });
 
 			Query = query;
 			if (context != null)
 				Context = context.ToList();
 			Types = modelTypes;
+			Limit = limit;
 		}
 
 		/// <summary>

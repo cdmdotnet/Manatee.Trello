@@ -67,6 +67,8 @@ namespace Manatee.Trello.Internal.Synchronization
 				parameters.Add("idOrganization", Data.Organization.Id);
 				parameters.Add("onlyOrgMembers", Data.OnlyOrgMembers);
 			}
+			if (Data.Limit.HasValue)
+				parameters.Add("limit", Data.Limit);
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_SearchMembers);
 			var newData = JsonRepository.Execute<IJsonMemberSearch>(TrelloAuthorization.Default, endpoint, parameters);
 

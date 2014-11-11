@@ -43,7 +43,7 @@ namespace Manatee.Trello.Internal.Validation
 			var isValid = _regex.IsMatch(newValue);
 			if (isValid)
 			{
-				var search = new Search(newValue, SearchModelType.Organizations);
+				var search = new Search(newValue, 10, SearchModelType.Organizations);
 				isValid &= search.Organizations == null || search.Organizations.All(o => o.Name != newValue);
 			}
 			return !isValid

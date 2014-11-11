@@ -23,7 +23,7 @@
 
 using Manatee.Trello.Internal.DataAccess;
 
-namespace Manatee.Trello.Extensions
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Extension methods for members.

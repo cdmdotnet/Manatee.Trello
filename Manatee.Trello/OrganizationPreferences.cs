@@ -32,18 +32,18 @@ namespace Manatee.Trello
 	/// </summary>
 	public class OrganizationPreferences
 	{
-		private readonly Field<OrganizationPermissionLevel> _permissionLevel;
+		private readonly Field<OrganizationPermissionLevel?> _permissionLevel;
 		private readonly Field<bool?> _externalMembersDisabled;
 		private readonly Field<string> _assocatedDomain;
-		private readonly Field<OrganizationBoardVisibility> _publicBoardVisibility;
-		private readonly Field<OrganizationBoardVisibility> _organizationBoardVisibility;
-		private readonly Field<OrganizationBoardVisibility> _privateBoardVisibility;
+		private readonly Field<OrganizationBoardVisibility?> _publicBoardVisibility;
+		private readonly Field<OrganizationBoardVisibility?> _organizationBoardVisibility;
+		private readonly Field<OrganizationBoardVisibility?> _privateBoardVisibility;
 		private OrganizationPreferencesContext _context;
 
 		/// <summary>
 		/// Gets or sets the general visibility of the organization.
 		/// </summary>
-		public OrganizationPermissionLevel PermissionLevel
+		public OrganizationPermissionLevel? PermissionLevel
 		{
 			get { return _permissionLevel.Value; }
 			set { _permissionLevel.Value = value; }
@@ -75,7 +75,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the visibility of public-viewable boards owned by the organizations.
 		/// </summary>
-		public OrganizationBoardVisibility PublicBoardVisibility
+		public OrganizationBoardVisibility? PublicBoardVisibility
 		{
 			get { return _publicBoardVisibility.Value; }
 			set { _publicBoardVisibility.Value = value; }
@@ -83,7 +83,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the visibility of organization-viewable boards owned by the organization.
 		/// </summary>
-		public OrganizationBoardVisibility OrganizationBoardVisibility
+		public OrganizationBoardVisibility? OrganizationBoardVisibility
 		{
 			get { return _organizationBoardVisibility.Value; }
 			set { _organizationBoardVisibility.Value = value; }
@@ -91,7 +91,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the visibility of private-viewable boards owned by the organization.
 		/// </summary>
-		public OrganizationBoardVisibility PrivateBoardVisibility
+		public OrganizationBoardVisibility? PrivateBoardVisibility
 		{
 			get { return _privateBoardVisibility.Value; }
 			set { _privateBoardVisibility.Value = value; }
@@ -101,17 +101,21 @@ namespace Manatee.Trello
 		{
 			_context = context;
 
-			_permissionLevel = new Field<OrganizationPermissionLevel>(_context, () => PermissionLevel);
-			_permissionLevel.AddRule(EnumerationRule<OrganizationPermissionLevel>.Instance);
+			_permissionLevel = new Field<OrganizationPermissionLevel?>(_context, () => PermissionLevel);
+			_permissionLevel.AddRule(NullableHasValueRule<OrganizationPermissionLevel>.Instance);
+			_permissionLevel.AddRule(EnumerationRule<OrganizationPermissionLevel?>.Instance);
 			_externalMembersDisabled = new Field<bool?>(_context, () => ExternalMembersDisabled);
 			_externalMembersDisabled.AddRule(NullableHasValueRule<bool>.Instance);
 			_assocatedDomain = new Field<string>(_context, () => AssociatedDomain);
-			_publicBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => PublicBoardVisibility);
-			_publicBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility>.Instance);
-			_organizationBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => OrganizationBoardVisibility);
-			_organizationBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility>.Instance);
-			_privateBoardVisibility = new Field<OrganizationBoardVisibility>(_context, () => PrivateBoardVisibility);
-			_privateBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility>.Instance);
+			_publicBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, () => PublicBoardVisibility);
+			_publicBoardVisibility.AddRule(NullableHasValueRule<OrganizationBoardVisibility>.Instance);
+			_publicBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility?>.Instance);
+			_organizationBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, () => OrganizationBoardVisibility);
+			_organizationBoardVisibility.AddRule(NullableHasValueRule<OrganizationBoardVisibility>.Instance);
+			_organizationBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility?>.Instance);
+			_privateBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, () => PrivateBoardVisibility);
+			_privateBoardVisibility.AddRule(NullableHasValueRule<OrganizationBoardVisibility>.Instance);
+			_privateBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility?>.Instance);
 		}
 	}
 }

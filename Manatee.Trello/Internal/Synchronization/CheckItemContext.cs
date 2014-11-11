@@ -43,7 +43,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonCheckItem, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"Name", new Property<IJsonCheckItem, string>(d => d.Name, (d, o) => d.Name = o)},
 					{"Position", new Property<IJsonCheckItem, Position>(d => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))},
-					{"State", new Property<IJsonCheckItem, CheckItemState>(d => d.State, (d, o) => d.State = o)},
+					{"State", new Property<IJsonCheckItem, CheckItemState?>(d => d.State, (d, o) => d.State = o)},
 				};
 		}
 		public CheckItemContext(string id, string ownerId)
@@ -55,6 +55,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public void Delete()
 		{
 			if (_deleted) return;
+			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Write_Delete, new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
 			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);

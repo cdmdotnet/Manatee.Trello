@@ -1,5 +1,6 @@
 ﻿using System;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test.Unit
@@ -26,317 +27,364 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Constructor()
 		{
-			CreateFeature().WithScenario("Constructor makes no calls")
-			               .Given(ACard)
+			CreateScenario().Given(ACard)
 			               .When(NothingHappens)
-			               .Then(RestClientProviderCreateClientIsNotInvoked)
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(CacheAddIsInvoked)
 			               .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Actions()
+		public void GetActions()
 		{
-			CreateFeature().WithScenario("Get Actions")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(ActionsIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
+						   .And(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Attachments()
+		public void GetAttachments()
 		{
-			CreateFeature().WithScenario("Get Attachments")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(AttachmentsIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
+						   .And(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Badges()
+		public void GetBadges()
 		{
-			CreateFeature().WithScenario("Get Badges")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(BadgesIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
+						   .And(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Board()
+		public void GetBoard()
 		{
-			CreateFeature().WithScenario("Get Board")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(BoardIsAccessed)
 						   .Then(ResponseIsNotNull)
 						   .And(CacheFindIsInvoked<Board>)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void CheckLists()
+		public void GetCheckLists()
 		{
-			CreateFeature().WithScenario("Get CheckLists")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(CheckListsIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
+						   .And(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Comments()
+		public void GetComments()
 		{
-			CreateFeature().WithScenario("Get Comments")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(CommentsIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
+						   .And(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Description()
+		public void GetDescription()
 		{
-			CreateFeature().WithScenario("Get Description")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(DescriptionIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Description with non-empty")
-						   .Given(ACard)
-						   .When(DescriptionIsSet, "A description")
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Description with null")
-						   .Given(ACard)
-						   .When(DescriptionIsSet, (string) null)
-						   .Then(RestClientProviderCreateClientIsInvoked)
-						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Description with empty")
-						   .Given(ACard)
-						   .When(DescriptionIsSet, string.Empty)
-						   .Then(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void DueDate()
+		public void SetDescription()
 		{
-			CreateFeature().WithScenario("Get DueDate")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
+						   .When(DescriptionIsSet, "A description")
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
+						   .And(ExceptionIsNotThrown)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetDescriptionWithNull()
+		{
+			CreateScenario().Given(ACard)
+						   .When(DescriptionIsSet, (string) null)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
+						   .And(ExceptionIsNotThrown)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetDescriptionWithEmpty()
+		{
+			CreateScenario().Given(ACard)
+						   .When(DescriptionIsSet, string.Empty)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
+						   .And(ExceptionIsNotThrown)
+						   .Execute();
+		}
+		[TestMethod]
+		public void GetDueDate()
+		{
+			CreateScenario().Given(ACard)
 						   .When(DueDateIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set DueDate with non-null")
-						   .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetDueDate()
+		{
+			CreateScenario().Given(ACard)
 						   .When(DueDateIsSet, (DateTime?)DateTime.Today.AddDays(1))
-						   .Then(RestClientProviderCreateClientIsInvoked)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set DueDate with null")
-						   .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetDueDateWithNull()
+		{
+			CreateScenario().Given(ACard)
 						   .When(DueDateIsSet, (DateTime?)null)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsThrown<ValidationException<DateTime?>>)
 						   .Execute();
 		}
 		[TestMethod]
-		public void IsArchived()
+		public void GetIsArchived()
 		{
-			CreateFeature().WithScenario("Get IsArchived")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(IsArchivedIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set IsArchived with non-null")
-						   .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetIsArchived()
+		{
+			CreateScenario().Given(ACard)
 						   .When(IsArchivedIsSet, (bool?)false)
-						   .Then(RestClientProviderCreateClientIsInvoked)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set IsArchived with null")
-						   .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetIsArchivedWithNull()
+		{
+			CreateScenario().Given(ACard)
 						   .When(IsArchivedIsSet, (bool?)null)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsThrown<ValidationException<bool?>>)
 						   .Execute();
 		}
 		[TestMethod]
-		public void IsSubscribed()
+		public void GetIsSubscribed()
 		{
-			CreateFeature().WithScenario("Get IsSubscribed")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(IsSubscribedIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set IsSubscribed with non-null")
-						   .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetIsSubscribed()
+		{
+			CreateScenario().Given(ACard)
 						   .When(IsSubscribedIsSet, (bool?)false)
-						   .Then(RestClientProviderCreateClientIsInvoked)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set IsSubscribed with null")
-						   .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetIsSubscribedWithNull()
+		{
+			CreateScenario().Given(ACard)
 						   .When(IsSubscribedIsSet, (bool?)null)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsThrown<ValidationException<bool?>>)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Labels()
+		public void GetLabels()
 		{
-			CreateFeature().WithScenario("Get Labels")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(LabelsIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
+						   .And(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void LastActivity()
+		public void GetLastActivity()
 		{
-			CreateFeature().WithScenario("Get LastActivity")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(LastActivityIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void List()
+		public void GetList()
 		{
-			CreateFeature().WithScenario("Get List")
-			               .Given(ACard)
+			CreateScenario().Given(ACard)
 			               .When(ListIsAccessed)
 			               .Then(ResponseIsNotNull)
-			               .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(CacheFindIsInvoked<List>)
 						   .And(ExceptionIsNotThrown)
-			               .WithScenario("Set List with non-null")
-			               .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetList()
+		{
+			CreateScenario().Given(ACard)
 			               .When(ListIsSet, TrelloIds.Test)
-			               .Then(RestClientProviderCreateClientIsInvoked)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-			               .WithScenario("Set List with null")
-			               .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetListWithNull()
+		{
+			CreateScenario().Given(ACard)
 			               .When(ListIsSet, (string) null)
-			               .Then(RestClientProviderCreateClientIsNotInvoked)
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsThrown<ValidationException<List>>)
 			               .Execute();
 		}
 		[TestMethod]
-		public void Members()
+		public void GetMembers()
 		{
-			CreateFeature().WithScenario("Get Members")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(MembersIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsNotInvoked)
+						   .And(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Name()
+		public void GetName()
 		{
-			CreateFeature().WithScenario("Get Name")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(NameIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Name with non-empty")
-						   .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetName()
+		{
+			CreateScenario().Given(ACard)
 						   .When(NameIsSet, "A description")
-						   .Then(RestClientProviderCreateClientIsInvoked)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
-						   .WithScenario("Set Name with null")
-						   .Given(ACard)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetNameWithNull()
+		{
+			CreateScenario().Given(ACard)
 						   .When(NameIsSet, (string)null)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
-						   .And(ExceptionIsThrown<ValidationException<string>>)
-						   .WithScenario("Set Name with empty")
-						   .Given(ACard)
-						   .When(NameIsSet, string.Empty)
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsThrown<ValidationException<string>>)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Position()
+		public void SetNameWithEmpty()
 		{
-			CreateFeature().WithScenario("Get Position")
-			               .Given(ACard)
+			CreateScenario().Given(ACard)
+						   .When(NameIsSet, string.Empty)
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
+						   .And(ExceptionIsThrown<ValidationException<string>>)
+						   .Execute();
+		}
+		[TestMethod]
+		public void GetPosition()
+		{
+			CreateScenario().Given(ACard)
 			               .When(PositionIsAccessed)
 			               .Then(ResponseIsNotNull)
-			               .And(RestClientProviderCreateClientIsInvoked)
-			               .And(ExceptionIsNotThrown)
-			               .WithScenario("Set Position with non-null")
-			               .Given(ACard)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
+						   .And(ExceptionIsNotThrown)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetPosition()
+		{
+			CreateScenario().Given(ACard)
 			               .When(PositionIsSet, new Position(30))
-			               .Then(RestClientProviderCreateClientIsInvoked)
-			               .And(ExceptionIsNotThrown)
-			               .WithScenario("Set Position with null")
-			               .Given(ACard)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
+						   .And(ExceptionIsNotThrown)
+						   .Execute();
+		}
+		[TestMethod]
+		public void SetPositionWithNull()
+		{
+			CreateScenario().Given(ACard)
 			               .When(PositionIsSet, (Position) null)
-			               .Then(RestClientProviderCreateClientIsNotInvoked)
-			               .And(ExceptionIsThrown<ValidationException<Position>>)
-						   .WithScenario("Set Position with invalid")
-						   .Given(ACard)
-						   .When(PositionIsSet, new Position(-30))
-						   .Then(RestClientProviderCreateClientIsNotInvoked)
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
 						   .And(ExceptionIsThrown<ValidationException<Position>>)
 						   .Execute();
 		}
 		[TestMethod]
-		public void ShortId()
+		public void SetPositionWithInvalid()
 		{
-			CreateFeature().WithScenario("Get ShortId")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
+						   .When(PositionIsSet, new Position(-30))
+						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
+						   .And(ExceptionIsThrown<ValidationException<Position>>)
+						   .Execute();
+		}
+		[TestMethod]
+		public void GetShortId()
+		{
+			CreateScenario().Given(ACard)
 						   .When(ShortIdIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void ShortUrl()
+		public void GetShortUrl()
 		{
-			CreateFeature().WithScenario("Get ShortUrl")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(ShortUrlIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
-		public void Url()
+		public void GetUrl()
 		{
-			CreateFeature().WithScenario("Get Url")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(UrlIsAccessed)
 						   .Then(ResponseIsNotNull)
-						   .And(RestClientProviderCreateClientIsInvoked)
+						   .And(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
 		public void Delete()
 		{
-			CreateFeature().WithScenario("Delete an active card")
-						   .Given(ACard)
+			CreateScenario().Given(ACard)
 						   .When(DeleteIsCalled)
-						   .Then(RestClientProviderCreateClientIsInvoked)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(CacheRemoveIsInvoked)
 						   .And(ExceptionIsNotThrown)
 						   // TODO: Test when already deleted

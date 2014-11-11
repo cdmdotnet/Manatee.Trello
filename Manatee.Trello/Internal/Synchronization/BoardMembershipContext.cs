@@ -44,7 +44,7 @@ namespace Manatee.Trello.Internal.Synchronization
 						"Member", new Property<IJsonBoardMembership, Member>(d => d.Member.GetFromCache<Member>(),
 						                                                     (d, o) => d.Member = o != null ? o.Json : null)
 					},
-					{"MemberType", new Property<IJsonBoardMembership, BoardMembershipType>(d => d.MemberType, (d, o) => d.MemberType = o)},
+					{"MemberType", new Property<IJsonBoardMembership, BoardMembershipType?>(d => d.MemberType, (d, o) => d.MemberType = o)},
 				};
 		}
 		public BoardMembershipContext(string id, string ownerId)

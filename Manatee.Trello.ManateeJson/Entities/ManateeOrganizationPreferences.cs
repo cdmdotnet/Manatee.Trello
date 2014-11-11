@@ -30,7 +30,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 {
 	internal class ManateeOrganizationPreferences : IJsonOrganizationPreferences, IJsonSerializable
 	{
-		public OrganizationPermissionLevel PermissionLevel { get; set; }
+		public OrganizationPermissionLevel? PermissionLevel { get; set; }
 		public List<object> OrgInviteRestrict { get; set; }
 		public bool? ExternalMembersDisabled { get; set; }
 		public string AssociatedDomain { get; set; }
@@ -40,7 +40,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
-			PermissionLevel = obj.Deserialize<OrganizationPermissionLevel>(serializer, "permissionLevel");
+			PermissionLevel = obj.Deserialize<OrganizationPermissionLevel?>(serializer, "permissionLevel");
 			//OrgInviteRestrict = obj.TryGetArray("orgInviteRestrict").Cast<object>().ToList();
 			ExternalMembersDisabled = obj.TryGetBoolean("externalMembersDisabled");
 			AssociatedDomain = obj.TryGetString("associatedDomain");

@@ -53,9 +53,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		protected void Signal()
 		{
 			lock (_signal)
-			{
 				Monitor.Pulse(_signal);
-			}
 		}
 	}
 
