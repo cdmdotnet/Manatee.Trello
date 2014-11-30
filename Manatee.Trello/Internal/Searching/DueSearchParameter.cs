@@ -36,11 +36,11 @@ namespace Manatee.Trello.Internal.Searching
 
 		public DueSearchParameter(int days)
 		{
-			Query = days.ToString(CultureInfo.InvariantCulture);
+			Query = "due:" + days.ToString(CultureInfo.InvariantCulture);
 		}
 		private DueSearchParameter(string named)
 		{
-			Query = named;
+			Query = "due:" + named;
 		}
 	}
 }

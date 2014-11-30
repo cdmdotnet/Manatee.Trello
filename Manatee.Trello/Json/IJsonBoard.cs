@@ -53,13 +53,6 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		IJsonOrganization Organization { get; set; }
 		/// <summary>
-		/// Gets or sets the label names for the board.
-		/// </summary>
-		[JsonDeserialize]
-		[JsonSerialize]
-		[JsonSpecialSerialization]
-		IJsonLabelNames LabelNames { get; set; }
-		/// <summary>
 		/// Gets or sets a set of preferences for the board.
 		/// </summary>
 		[JsonDeserialize]

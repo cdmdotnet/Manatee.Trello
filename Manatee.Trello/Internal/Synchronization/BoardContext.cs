@@ -22,7 +22,6 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -32,7 +31,6 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class BoardContext : SynchronizationContext<IJsonBoard>
 	{
-		public LabelNamesContext LabelNamesContext { get; private set; }
 		public BoardPreferencesContext BoardPreferencesContext { get; private set; }
 		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
@@ -44,7 +42,6 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonBoard, string>(d => d.Id, (d, o) => d.Id = o)},
 					{"IsClosed", new Property<IJsonBoard, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
 					{"IsSubscribed", new Property<IJsonBoard, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
-					{"LabelNames", new Property<IJsonBoard, IJsonLabelNames>(d => d.LabelNames, (d, o) => d.LabelNames = o)},
 					{"Name", new Property<IJsonBoard, string>(d => d.Name, (d, o) => d.Name = o)},
 					{
 						"Organization", new Property<IJsonBoard, Organization>(d => d.Organization == null
@@ -59,10 +56,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		public BoardContext(string id)
 		{
 			Data.Id = id;
-			LabelNamesContext = new LabelNamesContext();
-			LabelNamesContext.SynchronizeRequested += () => Synchronize();
-			LabelNamesContext.SubmitRequested += () => HandleSubmitRequested("LabelNames");
-			Data.LabelNames = LabelNamesContext.Data;
 			BoardPreferencesContext = new BoardPreferencesContext();
 			BoardPreferencesContext.SynchronizeRequested += () => Synchronize();
 			BoardPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
@@ -84,11 +77,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override void ApplyDependentChanges(IJsonBoard json)
 		{
-			if (json.LabelNames != null)
-			{
-				json.LabelNames = LabelNamesContext.GetChanges();
-				LabelNamesContext.ClearChanges();
-			}
 			if (json.Prefs != null)
 			{
 				json.Prefs = BoardPreferencesContext.GetChanges();
@@ -97,8 +85,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonBoard json)
 		{
-			return LabelNamesContext.Merge(json.LabelNames)
-			                        .Concat(BoardPreferencesContext.Merge(json.Prefs));
+			return BoardPreferencesContext.Merge(json.Prefs);
 		}
 		protected override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
 	}

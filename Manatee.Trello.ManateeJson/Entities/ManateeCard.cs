@@ -103,25 +103,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Subscribed.Serialize(json, serializer, "subscribed");
 			CardSource.SerializeId(json, "idCardSource");
 			UrlSource.Serialize(json, serializer, "urlSource");
-			// Don't serialize the Label collection because Trello wants a comma-sparated list
-			if (Labels != null && Labels.Any())
-			{
-#if IOS
-				var names = new List<string>();
-				foreach (var label in Labels)
-				{
-					if (label.Color.HasValue)
-						names.Add(label.Color.Value.ToDescription());
-				}
-				json["labels"] = names.Join(",");
-#else
-
-				Labels.Where(l => l.Color.HasValue)
-					  .Select(l => l.Color.Value)
-					  .Combine()
-					  .Serialize(json, serializer, "labels");
-#endif
-			}
+			// TODO: Do I need to add labels back in here?
 			return json;
 		}
 	}

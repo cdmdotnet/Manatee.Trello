@@ -64,7 +64,6 @@
     <Compile Include="Entities\ManateeCheckList.cs" />
     <Compile Include="Entities\ManateeComment.cs" />
     <Compile Include="Entities\ManateeLabel.cs" />
-    <Compile Include="Entities\ManateeLabelNames.cs" />
     <Compile Include="Entities\ManateeList.cs" />
     <Compile Include="Entities\ManateeMember.cs" />
     <Compile Include="Entities\ManateeMemberPreferences.cs" />

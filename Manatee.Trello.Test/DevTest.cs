@@ -28,10 +28,18 @@ namespace Manatee.Trello.Test
 			Run(() =>
 				{
 					var board = new Board(TrelloIds.BoardId);
-					var list = board.Lists.First();
-					var card = list.Cards.Add("hello");
-					card.Description = "test";
-					card.Delete();
+					Console.WriteLine(board);
+					foreach (var label in board.Labels)
+					{
+						Console.WriteLine(label);
+					}
+					Console.WriteLine();
+					var card = new Card(TrelloIds.CardId);
+					Console.WriteLine(card);
+					foreach (var label in card.Labels)
+					{
+						Console.WriteLine(label);
+					}
 				});
 		}
 
@@ -45,8 +53,6 @@ namespace Manatee.Trello.Test
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
-
-			TrelloConfiguration.ThrowOnTrelloError = true;
 
 			action();
 

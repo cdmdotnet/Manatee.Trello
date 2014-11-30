@@ -124,7 +124,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of labels on the card.
 		/// </summary>
-		public LabelCollection Labels { get; private set; }
+		public CardLabelCollection Labels { get; private set; }
 		/// <summary>
 		/// Gets the most recent date of activity on the card.
 		/// </summary>
@@ -250,7 +250,7 @@ namespace Manatee.Trello
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
-			Labels = new LabelCollection(_context);
+			Labels = new CardLabelCollection(_context);
 			_lastActivity = new Field<DateTime?>(_context, () => LastActivity);
 			_list = new Field<List>(_context, () => List);
 			_list.AddRule(NotNullRule<List>.Instance);

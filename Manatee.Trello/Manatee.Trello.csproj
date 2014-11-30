@@ -63,6 +63,7 @@
     <Compile Include="Internal\Searching\TextInCardNameSearchParameter.cs" />
     <Compile Include="Internal\Searching\TextInCardCheckListSearchParameter.cs" />
     <Compile Include="Internal\Searching\TextSearchParameter.cs" />
+    <Compile Include="Internal\Synchronization\LabelContext.cs" />
     <Compile Include="Properties\ResharperAnnotations.cs" />
     <Compile Include="SearchFor.cs" />
     <Compile Include="StickerCollection.cs" />
@@ -130,11 +131,9 @@
     <Compile Include="CheckList.cs" />
     <Compile Include="Internal\Synchronization\AttachmentContext.cs" />
     <Compile Include="Internal\Synchronization\BoardMembershipContext.cs" />
-    <Compile Include="LabelNames.cs" />
     <Compile Include="Internal\Synchronization\BadgesContext.cs" />
     <Compile Include="Internal\Synchronization\CheckItemContext.cs" />
     <Compile Include="Internal\Synchronization\CheckListContext.cs" />
-    <Compile Include="Internal\Synchronization\LabelNamesContext.cs" />
     <Compile Include="Internal\Synchronization\LinkedSynchronizationContext.cs" />
     <Compile Include="Internal\Synchronization\MemberContext.cs" />
     <Compile Include="Internal\Synchronization\OrganizationContext.cs" />
@@ -210,7 +209,6 @@
     <Compile Include="Json\IJsonCheckItem.cs" />
     <Compile Include="Json\IJsonCheckList.cs" />
     <Compile Include="Json\IJsonLabel.cs" />
-    <Compile Include="Json\IJsonLabelNames.cs" />
     <Compile Include="Json\IJsonList.cs" />
     <Compile Include="Json\IJsonMember.cs" />
     <Compile Include="Json\IJsonMemberPreferences.cs" />

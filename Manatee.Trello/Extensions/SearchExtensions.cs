@@ -37,7 +37,7 @@ namespace Manatee.Trello
 		/// <param name="search">The current search</param>
 		/// <param name="text">The text to search for.</param>
 		/// <returns>A new <see cref="SearchFor"/> parameter list.</returns>
-		public static SearchFor Text(this SearchFor search, string text)
+		public static SearchFor AndText(this SearchFor search, string text)
 		{
 			return new SearchFor(search, new TextSearchParameter(text));
 		}
@@ -47,7 +47,7 @@ namespace Manatee.Trello
 		/// <param name="search">The current search</param>
 		/// <param name="text">The text to search for.</param>
 		/// <returns>A new <see cref="SearchFor"/> parameter list.</returns>
-		public static SearchFor TextInName(this SearchFor search, string text)
+		public static SearchFor AndTextInName(this SearchFor search, string text)
 		{
 			return new SearchFor(search, new TextInCardNameSearchParameter(text));
 		}
@@ -57,7 +57,7 @@ namespace Manatee.Trello
 		/// <param name="search">The current search</param>
 		/// <param name="text">The text to search for.</param>
 		/// <returns>A new <see cref="SearchFor"/> parameter list.</returns>
-		public static SearchFor TextInDescription(this SearchFor search, string text)
+		public static SearchFor AndTextInDescription(this SearchFor search, string text)
 		{
 			return new SearchFor(search, new TextInCardDescriptionSearchParameter(text));
 		}
@@ -67,7 +67,7 @@ namespace Manatee.Trello
 		/// <param name="search">The current search</param>
 		/// <param name="text">The text to search for.</param>
 		/// <returns>A new <see cref="SearchFor"/> parameter list.</returns>
-		public static SearchFor TextComments(this SearchFor search, string text)
+		public static SearchFor AndTextInComments(this SearchFor search, string text)
 		{
 			return new SearchFor(search, new TextInCardCommentSearchParameter(text));
 		}
@@ -77,7 +77,7 @@ namespace Manatee.Trello
 		/// <param name="search">The current search</param>
 		/// <param name="text">The text to search for.</param>
 		/// <returns>A new <see cref="SearchFor"/> parameter list.</returns>
-		public static SearchFor TextInCheckLists(this SearchFor search, string text)
+		public static SearchFor AndTextInCheckLists(this SearchFor search, string text)
 		{
 			return new SearchFor(search, new TextInCardCheckListSearchParameter(text));
 		}

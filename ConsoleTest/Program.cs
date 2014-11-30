@@ -21,7 +21,6 @@ namespace ConsoleTest
 				var card = list.Cards.Add("new card");
 				Console.WriteLine(card);
 				card.Description = "a new description";
-				card.Labels.Add(LabelColor.Blue);
 
 				TrelloProcessor.Shutdown();
 			});
