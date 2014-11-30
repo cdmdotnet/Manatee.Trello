@@ -94,10 +94,7 @@ namespace Manatee.Trello
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
 		}
-		/// <summary>
-		/// Gets the set of labels for this board and their names.
-		/// </summary>
-		public LabelNames LabelNames { get; private set; }
+		public BoardLabelCollection Labels { get; private set; }
 		/// <summary>
 		/// Gets the collection of lists on this board.
 		/// </summary>
@@ -205,7 +202,7 @@ namespace Manatee.Trello
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
-			LabelNames = new LabelNames(_context.LabelNamesContext);
+			Labels = new BoardLabelCollection(id);
 			Lists = new ListCollection(id);
 			Members = new ReadOnlyMemberCollection(typeof(Board), id);
 			Memberships = new BoardMembershipCollection(id);

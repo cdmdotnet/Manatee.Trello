@@ -36,19 +36,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private static readonly object _lock;
 		private static readonly Thread _workerThread;
 		private static bool _shutdown;
-		private static bool _isActive;
 		private static bool _isProcessing;
-
-		public static bool IsActive
-		{
-			get { return _isActive; }
-			set
-			{
-				_isActive = value;
-				Pulse(() => { });
-			}
-		}
-		public static bool HasRequests { get { return _queue.Count != 0 || _isProcessing; } }
 
 #if IOS
 		private static System.Action _lastCall;
@@ -67,8 +55,11 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			_queue = new RequestQueue();
 			_lock = new object();
 			_shutdown = false;
-			_isActive = true;
-			_workerThread = new Thread(Process) {IsBackground = !TrelloProcessor.WaitForPendingRequests};
+			_workerThread = new Thread(Process)
+				{
+					Name = "RestRequestProcessor",
+					IsBackground = !TrelloProcessor.WaitForPendingRequests
+				};
 			_workerThread.Start();
 			NetworkMonitor.ConnectionStatusChanged += () => Pulse(() => { });
 		}

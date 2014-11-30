@@ -21,7 +21,6 @@
 
 ***************************************************************************************/
 
-using System;
 using System.ComponentModel;
 
 namespace Manatee.Trello
@@ -29,7 +28,6 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Enumerates label colors for a board.
 	/// </summary>
-	[Flags]
 	public enum LabelColor
 	{
 		/// <summary>
@@ -40,31 +38,51 @@ namespace Manatee.Trello
 		/// Indicates a green label.
 		/// </summary>
 		[Description("green")]
-		Green = 0x01,
+		Green,
 		/// <summary>
 		/// Indicates a yellow label.
 		/// </summary>
 		[Description("yellow")]
-		Yellow = 0x02,
+		Yellow,
 		/// <summary>
 		/// Indicates an orange label.
 		/// </summary>
 		[Description("orange")]
-		Orange = 0x04,
+		Orange,
 		/// <summary>
 		/// Indicates a red label.
 		/// </summary>
 		[Description("red")]
-		Red = 0x08,
+		Red,
 		/// <summary>
 		/// Indicates a purple label.
 		/// </summary>
 		[Description("purple")]
-		Purple = 0x10,
+		Purple,
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
 		[Description("blue")]
-		Blue = 0x20
+		Blue,
+		/// <summary>
+		/// Indicates a blue label.
+		/// </summary>
+		[Description("pink")]
+		Pink,
+		/// <summary>
+		/// Indicates a blue label.
+		/// </summary>
+		[Description("sky")]
+		Sky,
+		/// <summary>
+		/// Indicates a blue label.
+		/// </summary>
+		[Description("lime")]
+		Lime,
+		/// <summary>
+		/// Indicates a blue label.
+		/// </summary>
+		[Description("black")]
+		Black,
 	}
 }

@@ -25,17 +25,23 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Label object.
 	/// </summary>
-	public interface IJsonLabel
+	public interface IJsonLabel : IJsonCacheable
 	{
+		[JsonDeserialize]
+		IJsonBoard Board { get; set; }
 		/// <summary>
 		/// Gets and sets the color of the label.
 		/// </summary>
 		[JsonDeserialize]
+		[JsonSerialize]
 		LabelColor? Color { get; set; }
 		/// <summary>
 		/// Gets and sets the name of the label.
 		/// </summary>
 		[JsonDeserialize]
+		[JsonSerialize]
 		string Name { get; set; }
+		[JsonDeserialize]
+		int? Uses { get; set; }
 	}
 }

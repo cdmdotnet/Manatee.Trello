@@ -82,8 +82,8 @@ namespace Manatee.Trello.Internal.DataAccess
 		}
 		private static void ValidateResponse(IRestRequest request)
 		{
-			if (request.Response.Exception != null && TrelloConfiguration.ThrowOnTrelloError)
-				throw request.Response.Exception;
+			if (request.Response.Exception != null)
+				TrelloConfiguration.Log.Error(request.Response.Exception, TrelloConfiguration.ThrowOnTrelloError);
 		}
 		private static void AddDefaultParameters<T>(IRestRequest request)
 		{

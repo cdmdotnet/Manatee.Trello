@@ -76,7 +76,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="text">The text to search for.</param>
 		/// <returns>A new <see cref="SearchFor"/> parameter list.</returns>
-		public static SearchFor TextComments(string text)
+		public static SearchFor TextInComments(string text)
 		{
 			return new SearchFor(new TextInCardCommentSearchParameter(text));
 		}
