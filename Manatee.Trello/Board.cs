@@ -94,6 +94,9 @@ namespace Manatee.Trello
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
 		}
+		/// <summary>
+		/// Gets the collection of labels for this board.
+		/// </summary>
 		public BoardLabelCollection Labels { get; private set; }
 		/// <summary>
 		/// Gets the collection of lists on this board.

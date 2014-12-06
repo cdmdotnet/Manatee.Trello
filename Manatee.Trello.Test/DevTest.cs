@@ -7,15 +7,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Manatee.Json;
-using Manatee.Json.Path;
-using Manatee.Json.Serialization;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello.Test
 {
@@ -28,18 +26,9 @@ namespace Manatee.Trello.Test
 			Run(() =>
 				{
 					var board = new Board(TrelloIds.BoardId);
-					Console.WriteLine(board);
-					foreach (var label in board.Labels)
-					{
-						Console.WriteLine(label);
-					}
-					Console.WriteLine();
+					var label = board.Labels.First(l => l.Name == "Other Blue Label");
 					var card = new Card(TrelloIds.CardId);
-					Console.WriteLine(card);
-					foreach (var label in card.Labels)
-					{
-						Console.WriteLine(label);
-					}
+					card.Labels.Remove(label);
 				});
 		}
 
@@ -57,6 +46,15 @@ namespace Manatee.Trello.Test
 			action();
 
 			TrelloProcessor.Shutdown();
+		}
+
+		private static void OutputCollection<T>(string section, IEnumerable<T> collection)
+		{
+			Console.WriteLine(section);
+			foreach (var item in collection)
+			{
+				Console.WriteLine("    {0}", item);
+			}
 		}
 	}
 }

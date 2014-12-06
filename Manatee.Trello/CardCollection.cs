@@ -121,7 +121,7 @@ namespace Manatee.Trello
 		{
 			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, name);
 			if (error != null)
-				throw new ValidationException<string>(name, new[] { error });
+				throw new ValidationException<string>(name, new[] {error});
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonCard>();
 			json.Name = name;

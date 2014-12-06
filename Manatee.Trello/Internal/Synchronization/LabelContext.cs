@@ -30,6 +30,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class LabelContext : SynchronizationContext<IJsonLabel>
 	{
+		private bool _deleted;
+
 		static LabelContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonLabel>>
@@ -49,6 +51,17 @@ namespace Manatee.Trello.Internal.Synchronization
 		public LabelContext(string id)
 		{
 			Data.Id = id;
+		}
+
+		public void Delete()
+		{
+			if (_deleted) return;
+			CancelUpdate();
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
+			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+
+			_deleted = true;
 		}
 
 		protected override IJsonLabel GetData()

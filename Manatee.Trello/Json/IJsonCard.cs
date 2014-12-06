@@ -62,6 +62,7 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the ID of the board which contains the card.
 		/// </summary>
 		[JsonDeserialize]
+		[JsonSerialize]
 		IJsonBoard Board { get; set; }
 		/// <summary>
 		/// Gets or sets the ID of the list which contains the card.

@@ -5,10 +5,10 @@
 		// To re-authorize and receive new token (must have login access for the user to approve the token)
 		// Other developers working on this should create their own sandbox boards and use their user accounts during the tests
 		// Functional tests will not run successfully without a token with read/write/account access.
-		// https://trello.com/1/authorize?key=062109670e7f56b88783721892f8f66f&name=Manatee.Trello&expiration=never&response_type=token&scope=read,write,account
+		// https://trello.com/1/authorize?key=062109670e7f56b88783721892f8f66f&name=Manatee.Trello&expiration=1day&response_type=token&scope=read,write,account
 
 		public const string AppKey = "062109670e7f56b88783721892f8f66f";
-		public const string UserToken = "f3f5163c3d102e66e98d84fb4e583c4b45e7ca87743a05db28ab777538653c5e";
+		public const string UserToken = "681d7ed3e085b06f5e235c30b974da2ed631f8b6fee9a34be15b7dab91548ee3";
 		public const string UserName = "s_littlecrabsolutions";
 		public const string MemberId = "514464db3fa062da6e00254f";
 		public const string BoardId = "51478f6469fd3d9341001dae";

@@ -135,7 +135,11 @@ namespace Manatee.Trello
 		public List List
 		{
 			get { return _list.Value; }
-			set { _list.Value = value; }
+			set
+			{
+				_board.Value = value.Board;
+				_list.Value = value;
+			}
 		}
 		/// <summary>
 		/// Gets the collection of members who are assigned to the card.

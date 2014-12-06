@@ -31,6 +31,7 @@ namespace Manatee.Trello.Internal.Validation
 		public static IValidationRule<T> Instance { get; private set; }
 
 		private readonly Type _enumType;
+		private readonly bool _isNullable;
 
 		static EnumerationRule()
 		{
@@ -44,6 +45,7 @@ namespace Manatee.Trello.Internal.Validation
 				if (_enumType.GetGenericTypeDefinition() != typeof(Nullable<>))
 					throw new ArgumentException(string.Format("Type {0} must be an enumeration or a nullable enumeration.", _enumType));
 				_enumType = _enumType.GetGenericArguments().First();
+				_isNullable = true;
 			}
 			if (!_enumType.IsEnum)
 				throw new ArgumentException(string.Format("Type {0} must be an enumeration or a nullable enumeration.", _enumType));
@@ -51,6 +53,7 @@ namespace Manatee.Trello.Internal.Validation
 
 		public string Validate(T oldValue, T newValue)
 		{
+			if (_isNullable && Equals(newValue, default(T))) return null;
 			var validValues = Enum.GetValues(_enumType).Cast<T>();
 			return !validValues.Contains(newValue)
 					   ? string.Format("{0} is not defined in type {1}.", newValue, _enumType.Name)

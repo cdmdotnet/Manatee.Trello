@@ -44,7 +44,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 			switch (json.Type)
 			{
 				case JsonValueType.Object:
-				{
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
 					Name = obj.TryGetString("name");
@@ -54,7 +53,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Prefs = obj.Deserialize<IJsonBoardPreferences>(serializer, "prefs");
 					Url = obj.TryGetString("url");
 					Subscribed = obj.TryGetBoolean("subscribed");
-				}
 					break;
 				case JsonValueType.String:
 					Id = json.String;

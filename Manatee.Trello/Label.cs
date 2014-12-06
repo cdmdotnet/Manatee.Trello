@@ -24,6 +24,7 @@
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -39,18 +40,33 @@ namespace Manatee.Trello
 		private readonly Field<int?> _uses;
 		private readonly LabelContext _context;
 
+		/// <summary>
+		/// Gets the <see cref="Board"/> on which the label is defined.
+		/// </summary>
 		public Board Board { get { return _board.Value; } }
+		/// <summary>
+		/// Gets and sets the color.  Use null for no color.
+		/// </summary>
 		public LabelColor? Color
 		{
 			get { return _color.Value; }
 			set { _color.Value = value; }
 		}
+		/// <summary>
+		/// Gets the label's ID.
+		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets and sets the label's name.
+		/// </summary>
 		public string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
 		}
+		/// <summary>
+		/// Gets the number of cards which use this label.
+		/// </summary>
 		public int? Uses { get { return _uses.Value; } }
 
 		internal IJsonLabel Json
@@ -65,6 +81,7 @@ namespace Manatee.Trello
 			_context = new LabelContext(Id);
 			_board = new Field<Board>(_context, () => Board);
 			_color = new Field<LabelColor?>(_context, () => Color);
+			_color.AddRule(EnumerationRule<LabelColor?>.Instance);
 			_name = new Field<string>(_context, () => Name);
 			_uses = new Field<int?>(_context, () => Uses);
 			
@@ -72,7 +89,19 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the card to be refreshed the next time data is accessed.
+		/// Deletes the label.  All usages of the label will also be removed.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the label from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		public void Delete()
+		{
+			_context.Delete();
+			TrelloConfiguration.Cache.Remove(this);
+		}
+		/// <summary>
+		/// Marks the label to be refreshed the next time data is accessed.
 		/// </summary>
 		public void Refresh()
 		{
