@@ -33,18 +33,19 @@
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Manatee.Json.2.8.0\lib\net40\Manatee.Json.dll</HintPath>
+      <HintPath>..\packages\Manatee.Json.2.8.0.2\lib\net40\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Manatee.StateMachine.1.1\lib\net40\Manatee.StateMachine.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="RestSharp">
-      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="StoryQ">
+    <Reference Include="StoryQ, Version=2.0.5.0, Culture=neutral, PublicKeyToken=90a7d07ba39412de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.dll</HintPath>
     </Reference>
     <Reference Include="StoryQ.pt-BR, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
