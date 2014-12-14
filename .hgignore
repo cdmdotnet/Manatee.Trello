@@ -49,3 +49,5 @@ Manatee.Trello/bin
 Manatee.Trello/obj
 ConsoleTest/obj
 ConsoleTest/bin
+NugetTest/bin/
+NugetTest/obj/
