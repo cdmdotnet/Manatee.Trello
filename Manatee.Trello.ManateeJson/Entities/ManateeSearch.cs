@@ -17,7 +17,7 @@
 	File Name:		ManateeSearchResults.cs
 	Namespace:		Manatee.Trello.ManateeJson.Entities
 	Class Name:		ManateeSearchResults
-	Purpose:		Implements IJsonLabelNames for Manatee.Json.
+	Purpose:		Implements IJsonSearch for Manatee.Json.
 
 ***************************************************************************************/
 using System.Collections.Generic;

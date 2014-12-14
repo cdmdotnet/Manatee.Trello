@@ -25,10 +25,12 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var board = new Board(TrelloIds.BoardId);
-					var label = board.Labels.First(l => l.Name == "Other Blue Label");
-					var card = new Card(TrelloIds.CardId);
-					card.Labels.Remove(label);
+					var board = new Board("BVlClkAR");
+					var list = board.Lists.FirstOrDefault(l => l.Name == "Ready to Publish");
+					var card = new Card("69ryhibF");
+					Console.WriteLine(card.Board);
+					card.List = list;
+					Console.WriteLine(card.Board);
 				});
 		}
 
