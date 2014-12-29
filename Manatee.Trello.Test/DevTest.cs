@@ -25,12 +25,10 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var board = new Board("BVlClkAR");
-					var list = board.Lists.FirstOrDefault(l => l.Name == "Ready to Publish");
-					var card = new Card("69ryhibF");
-					Console.WriteLine(card.Board);
-					card.List = list;
-					Console.WriteLine(card.Board);
+					foreach (var action in Member.Me.Actions)
+					{
+						Console.WriteLine(action);
+					}
 				});
 		}
 

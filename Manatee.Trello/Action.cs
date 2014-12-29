@@ -41,6 +41,7 @@ namespace Manatee.Trello
 		private readonly Field<DateTime?> _date;
 		private readonly Field<ActionType?> _type;
 		private readonly ActionContext _context;
+		private string _id;
 
 		/// <summary>
 		/// Gets the member who performed the action.
@@ -57,7 +58,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the action's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id
+		{
+			get
+			{
+				if (!_context.HasValidId)
+					_context.Synchronize();
+				return _id;
+			}
+			private set { _id = value; }
+		}
 		/// <summary>
 		/// Gets the type of action.
 		/// </summary>

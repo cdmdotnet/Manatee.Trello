@@ -84,6 +84,18 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
+		protected override void ApplyDependentChanges(IJsonAction json)
+		{
+			if (json.Data != null)
+			{
+				json.Data = ActionDataContext.GetChanges();
+				ActionDataContext.ClearChanges();
+			}
+		}
+		protected override IEnumerable<string> MergeDependencies(IJsonAction json)
+		{
+			return ActionDataContext.Merge(json.Data);
+		}
 		protected override bool CanUpdate()
 		{
 			return !_deleted;
