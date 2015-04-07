@@ -41,21 +41,22 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonAttachment>>
 				{
-					{"Bytes", new Property<IJsonAttachment, int?>(d => d.Bytes, (d, o) => d.Bytes = o)},
-					{"Date", new Property<IJsonAttachment, DateTime?>(d => d.Date, (d, o) => d.Date = o)},
+					{"Bytes", new Property<IJsonAttachment, int?>((d, a) => d.Bytes, (d, o) => d.Bytes = o)},
+					{"Date", new Property<IJsonAttachment, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
 					{
-						"Member", new Property<IJsonAttachment, Member>(d => d.Member == null ? null : d.Member.GetFromCache<Member>(),
+						"Member", new Property<IJsonAttachment, Member>((d, a) => d.Member == null ? null : d.Member.GetFromCache<Member>(a),
 						                                                (d, o) => d.Member = o != null ? o.Json : null)
 					},
-					{"Id", new Property<IJsonAttachment, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"IsUpload", new Property<IJsonAttachment, bool?>(d => d.IsUpload, (d, o) => d.IsUpload = o)},
-					{"MimeType", new Property<IJsonAttachment, string>(d => d.MimeType, (d, o) => d.MimeType = o)},
-					{"Name", new Property<IJsonAttachment, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Previews", new Property<IJsonAttachment, List<IJsonImagePreview>>(d => d.Previews, (d, o) => d.Previews = o)},
-					{"Url", new Property<IJsonAttachment, string>(d => d.Url, (d, o) => d.Url = o)},
+					{"Id", new Property<IJsonAttachment, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"IsUpload", new Property<IJsonAttachment, bool?>((d, a) => d.IsUpload, (d, o) => d.IsUpload = o)},
+					{"MimeType", new Property<IJsonAttachment, string>((d, a) => d.MimeType, (d, o) => d.MimeType = o)},
+					{"Name", new Property<IJsonAttachment, string>((d, a) => d.Name, (d, o) => d.Name = o)},
+					{"Previews", new Property<IJsonAttachment, List<IJsonImagePreview>>((d, a) => d.Previews, (d, o) => d.Previews = o)},
+					{"Url", new Property<IJsonAttachment, string>((d, a) => d.Url, (d, o) => d.Url = o)},
 				};
 		}
-		public AttachmentContext(string id, string ownerId)
+		public AttachmentContext(string id, string ownerId, TrelloAuthorization auth)
+			: base(auth)
 		{
 			_ownerId = ownerId;
 			Data.Id = id;
@@ -67,7 +68,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete, new Dictionary<string, object> { { "_cardId", _ownerId }, { "_id", Data.Id } });
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}

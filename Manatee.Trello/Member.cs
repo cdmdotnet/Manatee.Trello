@@ -36,6 +36,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Member : ICanWebhook, ICacheable
 	{
+		private readonly TrelloAuthorization _auth;
 		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
 		private static Me _me;
 
@@ -154,6 +155,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		internal TrelloAuthorization Auth { get { return _auth; } }
 
 #if IOS
 		private Action<Member, IEnumerable<string>> _updatedInvoker;
@@ -177,30 +179,33 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Member"/> object.
 		/// </summary>
 		/// <param name="id">The member's ID.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full ID or the username.
 		/// </remarks>
-		public Member(string id)
-			: this(id, false) {}
-		internal Member(string id, bool isMe)
+		public Member(string id, TrelloAuthorization auth = null)
+			: this(id, false, auth) {}
+		internal Member(string id, bool isMe, TrelloAuthorization auth)
 		{
+			_auth = auth;
 			Id = id;
-			_context = new MemberContext(id);
+			_context = new MemberContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Member), id);
+			Actions = new ReadOnlyActionCollection(typeof(Member), id, auth);
 			_avatarSource = new Field<AvatarSource?>(_context, () => AvatarSource);
 			_avatarSource.AddRule(NullableHasValueRule<AvatarSource>.Instance);
 			_avatarSource.AddRule(EnumerationRule<AvatarSource?>.Instance);
 			_avatarUrl = new Field<string>(_context, () => AvatarUrl);
 			_bio = new Field<string>(_context, () => Bio);
-			Boards = isMe ? new BoardCollection(typeof(Member), id) : new ReadOnlyBoardCollection(typeof(Member), id);
+			Boards = isMe ? new BoardCollection(typeof(Member), id, auth) : new ReadOnlyBoardCollection(typeof(Member), id, auth);
 			_fullName = new Field<string>(_context, () => FullName);
 			_fullName.AddRule(MemberFullNameRule.Instance);
 			_initials = new Field<string>(_context, () => Initials);
 			_initials.AddRule(MemberInitialsRule.Instance);
 			_isConfirmed = new Field<bool?>(_context, () => IsConfirmed);
-			Organizations = isMe ? new OrganizationCollection(id) : new ReadOnlyOrganizationCollection(id);
+			Organizations = isMe ? new OrganizationCollection(id, auth) : new ReadOnlyOrganizationCollection(id, auth);
 			_status = new Field<MemberStatus?>(_context, () => Status);
 			_trophies = new Field<IEnumerable<string>>(_context, () => Trophies);
 			_url = new Field<string>(_context, () => Url);
@@ -209,8 +214,8 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Member(IJsonMember json)
-			: this(json.Id, false)
+		internal Member(IJsonMember json, TrelloAuthorization auth)
+			: this(json.Id, false, auth)
 		{
 			_context.Merge(json);
 		}

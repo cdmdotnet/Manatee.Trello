@@ -49,46 +49,48 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonSearch>>
 				{
 					{
-						"Actions", new Property<IJsonSearch, IEnumerable<Action>>(d => d.Actions == null
+						"Actions", new Property<IJsonSearch, IEnumerable<Action>>((d, a) => d.Actions == null
 							                                                        ? Enumerable.Empty<Action>()
-							                                                        : d.Actions.Select(j => j.GetFromCache<Action>()).ToList(),
+							                                                        : d.Actions.Select(j => j.GetFromCache<Action>(a)).ToList(),
 						                                                   (d, o) => d.Actions = o == null ? null : o.Select(a => a.Json).ToList())
 					},
 					{
-						"Boards", new Property<IJsonSearch, IEnumerable<Board>>(d => d.Boards == null
+						"Boards", new Property<IJsonSearch, IEnumerable<Board>>((d, a) => d.Boards == null
 							                                                      ? Enumerable.Empty<Board>()
-							                                                      : d.Boards.Select(j => j.GetFromCache<Board>()).ToList(),
+							                                                      : d.Boards.Select(j => j.GetFromCache<Board>(a)).ToList(),
 						                                                 (d, o) => d.Boards = o == null ? null : o.Select(a => a.Json).ToList())
 					},
 					{
-						"Cards", new Property<IJsonSearch, IEnumerable<Card>>(d => d.Cards == null
+						"Cards", new Property<IJsonSearch, IEnumerable<Card>>((d, a) => d.Cards == null
 							                                                    ? Enumerable.Empty<Card>()
-							                                                    : d.Cards.Select(j => j.GetFromCache<Card>()).ToList(),
+							                                                    : d.Cards.Select(j => j.GetFromCache<Card>(a)).ToList(),
 						                                               (d, o) => d.Cards = o == null ? null : o.Select(a => a.Json).ToList())
 					},
 					{
-						"Members", new Property<IJsonSearch, IEnumerable<Member>>(d => d.Members == null
+						"Members", new Property<IJsonSearch, IEnumerable<Member>>((d, a) => d.Members == null
 							                                                        ? Enumerable.Empty<Member>()
-							                                                        : d.Members.Select(j => j.GetFromCache<Member>()).ToList(),
+							                                                        : d.Members.Select(j => j.GetFromCache<Member>(a)).ToList(),
 						                                                   (d, o) => d.Members = o == null ? null : o.Select(a => a.Json).ToList())
 					},
 					{
-						"Organizations", new Property<IJsonSearch, IEnumerable<Organization>>(d => d.Organizations == null
+						"Organizations", new Property<IJsonSearch, IEnumerable<Organization>>((d, a) => d.Organizations == null
 							                                                                    ? Enumerable.Empty<Organization>()
-							                                                                    : d.Organizations.Select(j => j.GetFromCache<Organization>()).ToList(),
+							                                                                    : d.Organizations.Select(j => j.GetFromCache<Organization>(a)).ToList(),
 						                                                               (d, o) => d.Organizations = o == null ? null : o.Select(a => a.Json).ToList())
 					},
-					{"Query", new Property<IJsonSearch, string>(d => d.Query, (d, o) => { if (!o.IsNullOrWhiteSpace()) d.Query = o; })},
+					{"Query", new Property<IJsonSearch, string>((d, a) => d.Query, (d, o) => { if (!o.IsNullOrWhiteSpace()) d.Query = o; })},
 					{
-						"Context", new Property<IJsonSearch, List<IQueryable>>(d => d.Context == null
+						"Context", new Property<IJsonSearch, List<IQueryable>>((d, a) => d.Context == null
 							                                                            ? null
-							                                                            : d.Context.Select(j => j.GetFromCache()).Cast<IQueryable>().ToList(),
+							                                                            : d.Context.Select(j => j.GetFromCache(a)).Cast<IQueryable>().ToList(),
 						                                                       (d, o) => { if (o != null) d.Context = o.Select(ExtractData).ToList(); })
 					},
-					{"Types", new Property<IJsonSearch, SearchModelType?>(d => d.Types, (d, o) => { if (o != 0) d.Types = o; })},
-					{"Limit", new Property<IJsonSearch, int?>(d => d.Limit, (d, o) => { if (o != 0) d.Limit = o; })},
+					{"Types", new Property<IJsonSearch, SearchModelType?>((d, a) => d.Types, (d, o) => { if (o != 0) d.Types = o; })},
+					{"Limit", new Property<IJsonSearch, int?>((d, a) => d.Limit, (d, o) => { if (o != 0) d.Limit = o; })},
 				};
 		}
+		public SearchContext(TrelloAuthorization auth)
+			: base(auth) {}
 
 		protected override IJsonSearch GetData()
 		{
@@ -112,7 +114,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				parameters.Add("members_limit", Data.Limit);
 			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_Search);
-			var newData = JsonRepository.Execute<IJsonSearch>(TrelloAuthorization.Default, endpoint, parameters);
+			var newData = JsonRepository.Execute<IJsonSearch>(Auth, endpoint, parameters);
 
 			return newData;
 		}

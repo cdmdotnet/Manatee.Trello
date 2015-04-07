@@ -80,9 +80,11 @@ namespace Manatee.Trello
 		/// <param name="board">Optional - A board to which the search should be limited.</param>
 		/// <param name="organization">Optional - An organization to which the search should be limited.</param>
 		/// <param name="restrictToOrganization">Optional - Restricts the search to only organization members.</param>
-		public MemberSearch(string query, int? limit = null, Board board = null, Organization organization = null, bool? restrictToOrganization = null)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public MemberSearch(string query, int? limit = null, Board board = null, Organization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)
 		{
-			_context = new MemberSearchContext();
+			_context = new MemberSearchContext(auth);
 
 			_board = new Field<Board>(_context, () => Board);
 			_limit = new Field<int?>(_context, () => Limit);

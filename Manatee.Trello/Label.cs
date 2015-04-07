@@ -75,10 +75,10 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
-		internal Label(IJsonLabel json)
+		internal Label(IJsonLabel json, TrelloAuthorization auth)
 		{
 			Id = json.Id;
-			_context = new LabelContext(Id);
+			_context = new LabelContext(Id, auth);
 			_board = new Field<Board>(_context, () => Board);
 			_color = new Field<LabelColor?>(_context, () => Color);
 			_color.AddRule(EnumerationRule<LabelColor?>.Instance);

@@ -148,22 +148,24 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Organization"/> object.
 		/// </summary>
 		/// <param name="id">The organization's ID.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full ID or the organization's name.
 		/// </remarks>
-		public Organization(string id)
+		public Organization(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
-			_context = new OrganizationContext(id);
+			_context = new OrganizationContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Organization), id);
-			Boards = new BoardCollection(typeof(Organization), id);
+			Actions = new ReadOnlyActionCollection(typeof(Organization), id, auth);
+			Boards = new BoardCollection(typeof(Organization), id, auth);
 			_description = new Field<string>(_context, () => Description);
 			_displayName = new Field<string>(_context, () => DisplayName);
 			_isBusinessClass = new Field<bool>(_context, () => IsBusinessClass);
-			Members = new ReadOnlyMemberCollection(typeof(Organization), id);
-			Memberships = new OrganizationMembershipCollection(id);
+			Members = new ReadOnlyMemberCollection(typeof(Organization), id, auth);
+			Memberships = new OrganizationMembershipCollection(id, auth);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(OrganizationNameRule.Instance);
 			Preferences = new OrganizationPreferences(_context.OrganizationPreferencesContext);
@@ -173,8 +175,8 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Organization(IJsonOrganization json)
-			: this(json.Id)
+		internal Organization(IJsonOrganization json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}

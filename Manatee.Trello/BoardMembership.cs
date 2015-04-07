@@ -86,10 +86,10 @@ namespace Manatee.Trello
 		public event Action<BoardMembership, IEnumerable<string>> Updated;
 #endif
 
-		internal BoardMembership(IJsonBoardMembership json, string ownerId)
+		internal BoardMembership(IJsonBoardMembership json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;
-			_context = new BoardMembershipContext(Id, ownerId);
+			_context = new BoardMembershipContext(Id, ownerId, auth);
 			_context.Synchronized += Synchronized;
 
 			_member = new Field<Member>(_context, () => Member);

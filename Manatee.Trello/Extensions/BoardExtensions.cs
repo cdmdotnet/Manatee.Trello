@@ -39,7 +39,7 @@ namespace Manatee.Trello
 		/// <returns>A <see cref="ReadOnlyCardCollection"/> containing the member's cards.</returns>
 		public static ReadOnlyCardCollection CardsForMember(this Board board, Member member)
 		{
-			return new ReadOnlyCardCollection(EntityRequestType.Board_Read_CardsForMember, board.Id, new Dictionary<string, object> {{"_idMember", member.Id}});
+			return new ReadOnlyCardCollection(EntityRequestType.Board_Read_CardsForMember, board.Id, board.Auth, new Dictionary<string, object> {{"_idMember", member.Id}});
 		}
 	}
 }

@@ -45,27 +45,28 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonToken>>
 				{
-					{"AppName", new Property<IJsonToken, string>(d => d.Identifier, (d, o) => d.Identifier = o)},
+					{"AppName", new Property<IJsonToken, string>((d, a) => d.Identifier, (d, o) => d.Identifier = o)},
 					{
-						"Member", new Property<IJsonToken, Member>(d => d.Member == null ? null : d.Member.GetFromCache<Member>(),
+						"Member", new Property<IJsonToken, Member>((d, a) => d.Member == null ? null : d.Member.GetFromCache<Member>(a),
 						                                   (d, o) => d.Member = o != null ? o.Json : null)
 					},
-					{"DateCreated", new Property<IJsonToken, DateTime?>(d => d.DateCreated, (d, o) => d.DateCreated = o)},
-					{"DateExpires", new Property<IJsonToken, DateTime?>(d => d.DateExpires, (d, o) => d.DateExpires = o)},
-					{"Id", new Property<IJsonToken, string>(d => d.Id, (d, o) => d.Id = o)},
+					{"DateCreated", new Property<IJsonToken, DateTime?>((d, a) => d.DateCreated, (d, o) => d.DateCreated = o)},
+					{"DateExpires", new Property<IJsonToken, DateTime?>((d, a) => d.DateExpires, (d, o) => d.DateExpires = o)},
+					{"Id", new Property<IJsonToken, string>((d, a) => d.Id, (d, o) => d.Id = o)},
 				};
 		}
-		public TokenContext(string id)
+		public TokenContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
 			Data.Permissions = new List<IJsonTokenPermission>();
-			MemberPermissions = new TokenPermissionContext();
+			MemberPermissions = new TokenPermissionContext(Auth);
 			MemberPermissions.SynchronizeRequested += () => Synchronize();
 			Data.Permissions.Add(MemberPermissions.Data);
-			BoardPermissions = new TokenPermissionContext();
+			BoardPermissions = new TokenPermissionContext(Auth);
 			BoardPermissions.SynchronizeRequested += () => Synchronize();
 			Data.Permissions.Add(BoardPermissions.Data);
-			OrganizationPermissions = new TokenPermissionContext();
+			OrganizationPermissions = new TokenPermissionContext(Auth);
 			OrganizationPermissions.SynchronizeRequested += () => Synchronize();
 			Data.Permissions.Add(OrganizationPermissions.Data);
 		}
@@ -76,7 +77,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
@@ -86,7 +87,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> { { "_token", Data.Id } });
-				var newData = JsonRepository.Execute<IJsonToken>(TrelloAuthorization.Default, endpoint);
+				var newData = JsonRepository.Execute<IJsonToken>(Auth, endpoint);
 
 				return newData;
 			}

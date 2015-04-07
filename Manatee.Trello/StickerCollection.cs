@@ -23,7 +23,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
-using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -36,8 +35,15 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyStickerCollection : ReadOnlyCollection<Sticker>
 	{
-		internal ReadOnlyStickerCollection(string ownerId)
-			: base(ownerId) {}
+		private readonly TrelloAuthorization _auth;
+
+		internal TrelloAuthorization Auth { get { return _auth; } }
+
+		internal ReadOnlyStickerCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId)
+		{
+			_auth = auth;
+		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -45,12 +51,12 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Stickers, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonSticker>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonSticker>>(Auth, endpoint);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
 				{
-					var attachment = TrelloConfiguration.Cache.Find<Sticker>(a => a.Id == ja.Id) ?? new Sticker(ja, OwnerId);
+					var attachment = TrelloConfiguration.Cache.Find<Sticker>(a => a.Id == ja.Id) ?? new Sticker(ja, OwnerId, Auth);
 					attachment.Json = ja;
 					return attachment;
 				}));
@@ -64,8 +70,8 @@ namespace Manatee.Trello
 	{
 		private static readonly NumericRule<int> _rotationRule = new NumericRule<int>{Min = 0, Max = 359};
 
-		internal CardStickerCollection(string ownerId)
-			: base(ownerId) {}
+		internal CardStickerCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId, auth) {}
 
 		/// <summary>
 		/// Adds a <see cref="Sticker"/> to a <see cref="Card"/>.
@@ -96,9 +102,9 @@ namespace Manatee.Trello
 					{"rotate", rotation},
 				};
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddSticker, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<IJsonSticker>(TrelloAuthorization.Default, endpoint, parameters);
+			var newData = JsonRepository.Execute<IJsonSticker>(Auth, endpoint, parameters);
 
-			return new Sticker(newData, OwnerId);
+			return new Sticker(newData, OwnerId, Auth);
 		}
 	}
 
@@ -107,8 +113,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class MemberStickerCollection : ReadOnlyStickerCollection
 	{
-		internal MemberStickerCollection(string ownerId)
-			: base(ownerId) { }
+		internal MemberStickerCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId, auth) { }
 
 		/// <summary>
 		/// Adds a <see cref="Sticker"/> to a <see cref="Member"/>'s custom sticker set by uploading data.
@@ -120,9 +126,9 @@ namespace Manatee.Trello
 		{
 			var parameters = new Dictionary<string, object> { { RestFile.ParameterKey, new RestFile { ContentBytes = data, FileName = name } } };
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddAttachment, new Dictionary<string, object> { { "_id", OwnerId } });
-			var newData = JsonRepository.Execute<IJsonSticker>(TrelloAuthorization.Default, endpoint, parameters);
+			var newData = JsonRepository.Execute<IJsonSticker>(Auth, endpoint, parameters);
 
-			return new Sticker(newData, OwnerId);
+			return new Sticker(newData, OwnerId, Auth);
 		}
 	}
 }

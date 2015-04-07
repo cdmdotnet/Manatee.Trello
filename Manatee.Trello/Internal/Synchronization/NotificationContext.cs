@@ -40,19 +40,20 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonNotification>>
 				{
 					{
-						"Creator", new Property<IJsonNotification, Member>(d => d.MemberCreator.GetFromCache<Member>(),
+						"Creator", new Property<IJsonNotification, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
 						                                                   (d, o) => d.MemberCreator = o.Json)
 					},
-					{"Date", new Property<IJsonNotification, DateTime?>(d => d.Date, (d, o) => d.Date = o)},
-					{"Id", new Property<IJsonNotification, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"IsUnread", new Property<IJsonNotification, bool?>(d => d.Unread, (d, o) => d.Unread = o)},
-					{"Type", new Property<IJsonNotification, NotificationType?>(d => d.Type, (d, o) => d.Type = o)},
+					{"Date", new Property<IJsonNotification, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
+					{"Id", new Property<IJsonNotification, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"IsUnread", new Property<IJsonNotification, bool?>((d, a) => d.Unread, (d, o) => d.Unread = o)},
+					{"Type", new Property<IJsonNotification, NotificationType?>((d, a) => d.Type, (d, o) => d.Type = o)},
 				};
 		}
-		public NotificationContext(string id)
+		public NotificationContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
-			NotificationDataContext = new NotificationDataContext();
+			NotificationDataContext = new NotificationDataContext(Auth);
 			NotificationDataContext.SynchronizeRequested += () => Synchronize();
 			Data.Data = NotificationDataContext.Data;
 		}
@@ -60,14 +61,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override IJsonNotification GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Notification_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonNotification>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<IJsonNotification>(Auth, endpoint);
 
 			return newData;
 		}
 		protected override void SubmitData(IJsonNotification json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Notification_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonNotification json)

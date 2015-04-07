@@ -147,10 +147,12 @@ namespace Manatee.Trello
 		/// Creates a new <see cref="Action"/> object.
 		/// </summary>
 		/// <param name="id">The action's ID.</param>
-		public Action(string id)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public Action(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
-			_context = new ActionContext(id);
+			_context = new ActionContext(id, auth);
 			_context.Synchronized += Synchronized;
 
 			_creator = new Field<Member>(_context, () => Creator);
@@ -160,8 +162,8 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Action(IJsonAction json)
-			: this(json.Id)
+		internal Action(IJsonAction json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}

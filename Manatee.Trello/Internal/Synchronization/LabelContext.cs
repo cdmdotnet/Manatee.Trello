@@ -37,18 +37,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonLabel>>
 				{
 					{
-						"Board", new Property<IJsonLabel, Board>(d => d.Board == null
+						"Board", new Property<IJsonLabel, Board>((d, a) => d.Board == null
 																		  ? null
-																		  : d.Board.GetFromCache<Board>(),
+																		  : d.Board.GetFromCache<Board>(a),
 																 (d, o) => d.Board = o != null ? o.Json : null)
 					},
-					{"Color", new Property<IJsonLabel, LabelColor?>(d => d.Color, (d, o) => d.Color = o)},
-					{"Id", new Property<IJsonLabel, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"Name", new Property<IJsonLabel, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Uses", new Property<IJsonLabel, int?>(d => d.Uses, (d, o) => d.Uses = o)},
+					{"Color", new Property<IJsonLabel, LabelColor?>((d, a) => d.Color, (d, o) => d.Color = o)},
+					{"Id", new Property<IJsonLabel, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"Name", new Property<IJsonLabel, string>((d, a) => d.Name, (d, o) => d.Name = o)},
+					{"Uses", new Property<IJsonLabel, int?>((d, a) => d.Uses, (d, o) => d.Uses = o)},
 				};
 		}
-		public LabelContext(string id)
+		public LabelContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
 		}
@@ -59,7 +60,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
@@ -67,14 +68,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override IJsonLabel GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_boardId", Data.Board.Id}, {"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonLabel>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<IJsonLabel>(Auth, endpoint);
 
 			return newData;
 		}
 		protected override void SubmitData(IJsonLabel json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Write_Update, new Dictionary<string, object> {{"_boardId", Data.Board.Id}, {"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 	}

@@ -31,15 +31,16 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonOrganizationPreferences>>
 				{
-					{"PermissionLevel", new Property<IJsonOrganizationPreferences, OrganizationPermissionLevel?>(d => d.PermissionLevel, (d, o) => d.PermissionLevel = o)},
-					{"ExternalMembersDisabled", new Property<IJsonOrganizationPreferences, bool?>(d => d.ExternalMembersDisabled, (d, o) => d.ExternalMembersDisabled = o)},
-					{"AssociatedDomain", new Property<IJsonOrganizationPreferences, string>(d => d.AssociatedDomain, (d, o) => d.AssociatedDomain = o)},
-					{"PublicBoardVisibility", new Property<IJsonOrganizationPreferences, OrganizationBoardVisibility?>(d => d.BoardVisibilityRestrict.Public, (d, o) => d.BoardVisibilityRestrict.Public = o)},
-					{"OrganizationBoardVisibility", new Property<IJsonOrganizationPreferences, OrganizationBoardVisibility?>(d => d.BoardVisibilityRestrict.Org, (d, o) => d.BoardVisibilityRestrict.Org = o)},
-					{"PrivateBoardVisibility", new Property<IJsonOrganizationPreferences, OrganizationBoardVisibility?>(d => d.BoardVisibilityRestrict.Private, (d, o) => d.BoardVisibilityRestrict.Private = o)}
+					{"PermissionLevel", new Property<IJsonOrganizationPreferences, OrganizationPermissionLevel?>((d, a) => d.PermissionLevel, (d, o) => d.PermissionLevel = o)},
+					{"ExternalMembersDisabled", new Property<IJsonOrganizationPreferences, bool?>((d, a) => d.ExternalMembersDisabled, (d, o) => d.ExternalMembersDisabled = o)},
+					{"AssociatedDomain", new Property<IJsonOrganizationPreferences, string>((d, a) => d.AssociatedDomain, (d, o) => d.AssociatedDomain = o)},
+					{"PublicBoardVisibility", new Property<IJsonOrganizationPreferences, OrganizationBoardVisibility?>((d, a) => d.BoardVisibilityRestrict.Public, (d, o) => d.BoardVisibilityRestrict.Public = o)},
+					{"OrganizationBoardVisibility", new Property<IJsonOrganizationPreferences, OrganizationBoardVisibility?>((d, a) => d.BoardVisibilityRestrict.Org, (d, o) => d.BoardVisibilityRestrict.Org = o)},
+					{"PrivateBoardVisibility", new Property<IJsonOrganizationPreferences, OrganizationBoardVisibility?>((d, a) => d.BoardVisibilityRestrict.Private, (d, o) => d.BoardVisibilityRestrict.Private = o)}
 				};
 		}
-		internal OrganizationPreferencesContext()
+		internal OrganizationPreferencesContext(TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.BoardVisibilityRestrict = TrelloConfiguration.JsonFactory.Create<IJsonBoardVisibilityRestrict>();
 		}

@@ -39,17 +39,18 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonSticker>>
 				{
-					{"Id", new Property<IJsonSticker, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"Left", new Property<IJsonSticker, double?>(d => d.Left, (d, o) => d.Left = o)},
-					{"Name", new Property<IJsonSticker, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Previews", new Property<IJsonSticker, List<IJsonImagePreview>>(d => d.Previews, (d, o) => d.Previews = o)},
-					{"Rotation", new Property<IJsonSticker, int?>(d => d.Rotation, (d, o) => d.Rotation = o)},
-					{"Top", new Property<IJsonSticker, double?>(d => d.Top, (d, o) => d.Top = o)},
-					{"ImageUrl", new Property<IJsonSticker, string>(d => d.Url, (d, o) => d.Url = o)},
-					{"ZIndex", new Property<IJsonSticker, int?>(d => d.ZIndex, (d, o) => d.ZIndex = o)},
+					{"Id", new Property<IJsonSticker, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"Left", new Property<IJsonSticker, double?>((d, a) => d.Left, (d, o) => d.Left = o)},
+					{"Name", new Property<IJsonSticker, string>((d, a) => d.Name, (d, o) => d.Name = o)},
+					{"Previews", new Property<IJsonSticker, List<IJsonImagePreview>>((d, a) => d.Previews, (d, o) => d.Previews = o)},
+					{"Rotation", new Property<IJsonSticker, int?>((d, a) => d.Rotation, (d, o) => d.Rotation = o)},
+					{"Top", new Property<IJsonSticker, double?>((d, a) => d.Top, (d, o) => d.Top = o)},
+					{"ImageUrl", new Property<IJsonSticker, string>((d, a) => d.Url, (d, o) => d.Url = o)},
+					{"ZIndex", new Property<IJsonSticker, int?>((d, a) => d.ZIndex, (d, o) => d.ZIndex = o)},
 				};
 		}
-		public StickerContext(string id, string ownerId)
+		public StickerContext(string id, string ownerId, TrelloAuthorization auth)
+			: base(auth)
 		{
 			_ownerId = ownerId;
 			Data.Id = id;
@@ -61,14 +62,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Sticker_Write_Delete, new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
 		protected override void SubmitData(IJsonSticker json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Sticker_Write_Update, new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override bool CanUpdate()

@@ -36,8 +36,11 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyListCollection : ReadOnlyCollection<List>
 	{
+		private readonly TrelloAuthorization _auth;
 		private Dictionary<string, object> _additionalParameters;
-		
+
+		internal TrelloAuthorization Auth { get { return _auth; } }
+
 		/// <summary>
 		/// Retrieves a list which matches the supplied key.
 		/// </summary>
@@ -48,10 +51,16 @@ namespace Manatee.Trello
 		/// </remarks>
 		public List this[string key] { get { return GetByKey(key); } }
 
-		internal ReadOnlyListCollection(string ownerId)
-			: base(ownerId) { }
-		internal ReadOnlyListCollection(ReadOnlyListCollection source)
-			: base(source.OwnerId) {}
+		internal ReadOnlyListCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId)
+		{
+			_auth = auth ?? TrelloAuthorization.Default;
+		}
+		internal ReadOnlyListCollection(ReadOnlyListCollection source, TrelloAuthorization auth)
+			: base(source.OwnerId)
+		{
+			_auth = auth ?? TrelloAuthorization.Default;
+		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -59,12 +68,12 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Lists, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonList>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
+			var newData = JsonRepository.Execute<List<IJsonList>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jl =>
 				{
-					var list = jl.GetFromCache<List>();
+					var list = jl.GetFromCache<List>(_auth);
 					list.Json = jl;
 					return list;
 				}));
@@ -88,8 +97,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ListCollection : ReadOnlyListCollection
 	{
-		internal ListCollection(string ownerId)
-			: base(ownerId) { }
+		internal ListCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId, auth) { }
 
 		/// <summary>
 		/// Creates a new list.
@@ -108,9 +117,9 @@ namespace Manatee.Trello
 			json.Board.Id = OwnerId;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_AddList);
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 
-			return new List(newData);
+			return new List(newData, Auth);
 		}
 	}
 }

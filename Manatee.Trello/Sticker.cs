@@ -170,16 +170,16 @@ namespace Manatee.Trello
 		public event Action<Sticker, IEnumerable<string>> Updated;
 #endif
 
-		internal Sticker(IJsonSticker json, string ownerId)
+		internal Sticker(IJsonSticker json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;
-			_context = new StickerContext(Id, ownerId);
+			_context = new StickerContext(Id, ownerId, auth);
 			_context.Synchronized += Synchronized;
 
 			_left = new Field<double?>(_context, () => Left);
 			_left.AddRule(NullableHasValueRule<double>.Instance);
 			_name = new Field<string>(_context, () => Name);
-			_previews = new ReadOnlyStickerPreviewCollection(_context);
+			_previews = new ReadOnlyStickerPreviewCollection(_context, auth);
 			_rotation = new Field<int?>(_context, () => Rotation);
 			_rotation.AddRule(NullableHasValueRule<int>.Instance);
 			_rotation.AddRule(new NumericRule<int> {Min = 0, Max = 359});

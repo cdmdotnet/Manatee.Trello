@@ -25,9 +25,11 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					foreach (var action in Member.Me.Actions)
+					var auth = new TrelloAuthorization {AppKey = TrelloIds.AppKey, UserToken = "e6f2e2a54642c20b4384e407a7172bba29894509263a4c6c000d8df97ccae30e"};
+					var board = new Board("cI66RoQS", auth);
+					foreach (var card in board.Cards)
 					{
-						Console.WriteLine(action);
+						Console.WriteLine(card);
 					}
 				});
 		}

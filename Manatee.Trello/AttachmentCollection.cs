@@ -36,8 +36,15 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyAttachmentCollection : ReadOnlyCollection<Attachment>
 	{
-		internal ReadOnlyAttachmentCollection(string ownerId)
-			: base(ownerId) {}
+		private readonly TrelloAuthorization _auth;
+
+		internal TrelloAuthorization Auth { get { return _auth; } }
+
+		internal ReadOnlyAttachmentCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId)
+		{
+			_auth = auth;
+		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -45,12 +52,12 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Attachments, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonAttachment>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonAttachment>>(Auth, endpoint);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
 				{
-					var attachment = TrelloConfiguration.Cache.Find<Attachment>(a => a.Id == ja.Id) ?? new Attachment(ja, OwnerId);
+					var attachment = TrelloConfiguration.Cache.Find<Attachment>(a => a.Id == ja.Id) ?? new Attachment(ja, OwnerId, Auth);
 					attachment.Json = ja;
 					return attachment;
 				}));
@@ -62,8 +69,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class AttachmentCollection : ReadOnlyAttachmentCollection
 	{
-		internal AttachmentCollection(string ownerId)
-			: base(ownerId) {}
+		internal AttachmentCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId, auth) {}
 
 		/// <summary>
 		/// Adds an attachment to a card using the URL of the attachment.
@@ -88,9 +95,9 @@ namespace Manatee.Trello
 			if (!name.IsNullOrWhiteSpace())
 				parameters.Add("name", name);
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddAttachment, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<IJsonAttachment>(TrelloAuthorization.Default, endpoint, parameters);
+			var newData = JsonRepository.Execute<IJsonAttachment>(Auth, endpoint, parameters);
 
-			return new Attachment(newData, OwnerId);
+			return new Attachment(newData, OwnerId, Auth);
 		}
 		/// <summary>
 		/// Adds an attachment to a card by uploading data.
@@ -102,9 +109,9 @@ namespace Manatee.Trello
 		{
 			var parameters = new Dictionary<string, object> {{RestFile.ParameterKey, new RestFile {ContentBytes = data, FileName = name}}};
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddAttachment, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<IJsonAttachment>(TrelloAuthorization.Default, endpoint, parameters);
+			var newData = JsonRepository.Execute<IJsonAttachment>(Auth, endpoint, parameters);
 
-			return new Attachment(newData, OwnerId);
+			return new Attachment(newData, OwnerId, Auth);
 		}
 	}
 }

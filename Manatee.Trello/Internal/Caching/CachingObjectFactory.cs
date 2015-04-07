@@ -31,7 +31,7 @@ namespace Manatee.Trello.Internal.Caching
 	internal static class CachingObjectFactory
 	{
 		private static readonly Dictionary<Type, Type> _jsonTypeMap;
-		private static readonly Dictionary<Type, Func<IJsonCacheable, ICacheable>> _jsonFactory;
+		private static readonly Dictionary<Type, Func<IJsonCacheable, TrelloAuthorization, ICacheable>> _jsonFactory;
 
 		static CachingObjectFactory()
 		{
@@ -50,30 +50,30 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof (IJsonNotification), typeof (Notification)},
 					{typeof (IJsonToken), typeof (Token)},
 				};
-			_jsonFactory = new Dictionary<Type, Func<IJsonCacheable, ICacheable>>
+			_jsonFactory = new Dictionary<Type, Func<IJsonCacheable, TrelloAuthorization, ICacheable>>
 				{
-					{typeof (Action), j => new Action((IJsonAction) j)},
-					{typeof (ImagePreview), j => new ImagePreview((IJsonImagePreview) j)},
-					{typeof (Board), j => new Board((IJsonBoard) j)},
-					{typeof (Card), j => new Card((IJsonCard) j)},
-					{typeof (CheckList), j => new CheckList((IJsonCheckList) j)},
-					{typeof (Label), j => new Label((IJsonLabel) j)},
-					{typeof (List), j => new List((IJsonList) j)},
-					{typeof (Member), j => new Member((IJsonMember) j)},
-					{typeof (Organization), j => new Organization((IJsonOrganization) j)},
-					{typeof (Notification), j => new Notification((IJsonNotification) j)},
-					{typeof (Token), j => new Token((IJsonToken) j)},
+					{typeof (Action), (j, a) => new Action((IJsonAction) j, a)},
+					{typeof (ImagePreview), (j, a) => new ImagePreview((IJsonImagePreview) j)},
+					{typeof (Board), (j, a) => new Board((IJsonBoard) j, a)},
+					{typeof (Card), (j, a) => new Card((IJsonCard) j, a)},
+					{typeof (CheckList), (j, a) => new CheckList((IJsonCheckList) j, a)},
+					{typeof (Label), (j, a) => new Label((IJsonLabel) j, a)},
+					{typeof (List), (j, a) => new List((IJsonList) j, a)},
+					{typeof (Member), (j, a) => new Member((IJsonMember) j, a)},
+					{typeof (Organization), (j, a) => new Organization((IJsonOrganization) j, a)},
+					{typeof (Notification), (j, a) => new Notification((IJsonNotification) j, a)},
+					{typeof (Token), (j, a) => new Token((IJsonToken) j, a)},
 				};
 		}
 
-		public static ICacheable GetFromCache(this IJsonCacheable json)
+		public static ICacheable GetFromCache(this IJsonCacheable json, TrelloAuthorization auth)
 		{
-			return json == null ? null : TrelloConfiguration.Cache.Find<ICacheable>(o => o.Id == json.Id) ?? _jsonFactory[_jsonTypeMap[json.GetType()]](json);
+			return json == null ? null : TrelloConfiguration.Cache.Find<ICacheable>(o => o.Id == json.Id) ?? _jsonFactory[_jsonTypeMap[json.GetType()]](json, auth);
 		}
-		public static T GetFromCache<T>(this IJsonCacheable json)
+		public static T GetFromCache<T>(this IJsonCacheable json, TrelloAuthorization auth)
 			where T : class, ICacheable
 		{
-			return json == null ? null : TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id) ?? (T) _jsonFactory[typeof (T)](json);
+			return json == null ? null : TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id) ?? (T) _jsonFactory[typeof (T)](json, auth);
 		}
 	}
 }

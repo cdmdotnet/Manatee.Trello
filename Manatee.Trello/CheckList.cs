@@ -126,16 +126,18 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="CheckList"/> object.
 		/// </summary>
 		/// <param name="id">The check list's ID.</param>
-		public CheckList(string id)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public CheckList(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
-			_context = new CheckListContext(id);
+			_context = new CheckListContext(id, auth);
 			_context.Synchronized += Synchronized;
 
 			_board = new Field<Board>(_context, () => Board);
 			_card = new Field<Card>(_context, () => Card);
 			_card.AddRule(NotNullRule<Card>.Instance);
-			CheckItems = new CheckItemCollection(_context);
+			CheckItems = new CheckItemCollection(_context, auth);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, () => Position);
@@ -144,8 +146,8 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal CheckList(IJsonCheckList json)
-			: this(json.Id)
+		internal CheckList(IJsonCheckList json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}

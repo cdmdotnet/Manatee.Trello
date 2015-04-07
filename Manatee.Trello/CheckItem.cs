@@ -102,10 +102,10 @@ namespace Manatee.Trello
 		public event Action<CheckItem, IEnumerable<string>> Updated;
 #endif
 
-		internal CheckItem(IJsonCheckItem json, string checkListId)
+		internal CheckItem(IJsonCheckItem json, string checkListId, TrelloAuthorization auth = null)
 		{
 			Id = json.Id;
-			_context = new CheckItemContext(Id, checkListId);
+			_context = new CheckItemContext(Id, checkListId, auth);
 			_context.Synchronized += Synchronized;
 
 			_checkList = new Field<CheckList>(_context, () => CheckList);

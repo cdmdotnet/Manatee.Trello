@@ -41,20 +41,21 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonOrganization>>
 				{
-					{"Description", new Property<IJsonOrganization, string>(d => d.Desc, (d, o) => d.Desc = o)},
-					{"DisplayName", new Property<IJsonOrganization, string>(d => d.DisplayName, (d, o) => d.DisplayName = o)},
-					{"Id", new Property<IJsonOrganization, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"IsBusinessClass", new Property<IJsonOrganization, bool?>(d => d.PaidAccount, (d, o) => d.PaidAccount = o)},
-					{"Name", new Property<IJsonOrganization, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Preferences", new Property<IJsonOrganization, IJsonOrganizationPreferences>(d => d.Prefs, (d, o) => d.Prefs = o)},
-					{"Url", new Property<IJsonOrganization, string>(d => d.Url, (d, o) => d.Url = o)},
-					{"Website", new Property<IJsonOrganization, string>(d => d.Website, (d, o) => d.Website = o)},
+					{"Description", new Property<IJsonOrganization, string>((d, a) => d.Desc, (d, o) => d.Desc = o)},
+					{"DisplayName", new Property<IJsonOrganization, string>((d, a) => d.DisplayName, (d, o) => d.DisplayName = o)},
+					{"Id", new Property<IJsonOrganization, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"IsBusinessClass", new Property<IJsonOrganization, bool?>((d, a) => d.PaidAccount, (d, o) => d.PaidAccount = o)},
+					{"Name", new Property<IJsonOrganization, string>((d, a) => d.Name, (d, o) => d.Name = o)},
+					{"Preferences", new Property<IJsonOrganization, IJsonOrganizationPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
+					{"Url", new Property<IJsonOrganization, string>((d, a) => d.Url, (d, o) => d.Url = o)},
+					{"Website", new Property<IJsonOrganization, string>((d, a) => d.Website, (d, o) => d.Website = o)},
 				};
 		}
-		public OrganizationContext(string id)
+		public OrganizationContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
-			OrganizationPreferencesContext = new OrganizationPreferencesContext();
+			OrganizationPreferencesContext = new OrganizationPreferencesContext(Auth);
 			OrganizationPreferencesContext.SynchronizeRequested += () => Synchronize();
 			OrganizationPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
 			Data.Prefs = OrganizationPreferencesContext.Data;
@@ -66,7 +67,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
@@ -76,7 +77,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonOrganization>(TrelloAuthorization.Default, endpoint);
+				var newData = JsonRepository.Execute<IJsonOrganization>(Auth, endpoint);
 
 				return newData;
 			}
@@ -90,7 +91,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override void SubmitData(IJsonOrganization json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override void ApplyDependentChanges(IJsonOrganization json)

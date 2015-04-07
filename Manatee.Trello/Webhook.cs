@@ -43,10 +43,11 @@ namespace Manatee.Trello
 		/// Processes webhook notification content.
 		/// </summary>
 		/// <param name="content">The string content of the notification.</param>
-		public static void ProcessNotification(string content)
+		/// <param name="auth">The <see cref="TrelloAuthorization"/> under which the notification should be processed</param>
+		public static void ProcessNotification(string content, TrelloAuthorization auth = null)
 		{
 			var notification = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhookNotification>(content);
-			var action = new Action(notification.Action);
+			var action = new Action(notification.Action, auth);
 
 			foreach (var obj in TrelloConfiguration.Cache.OfType<ICanWebhook>())
 			{
@@ -129,15 +130,18 @@ namespace Manatee.Trello
 		/// <param name="target"></param>
 		/// <param name="description"></param>
 		/// <param name="callBackUrl"></param>
-		public Webhook(T target, string callBackUrl, string description = null)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public Webhook(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
 		{
-			_context = new WebhookContext<T>();
+			_context = new WebhookContext<T>(auth);
 			Id = _context.Create(target, description, callBackUrl);
 
 			_callBackUrl = new Field<string>(_context, () => CallBackUrl);
 			_callBackUrl.AddRule(UriRule.Instance);
 			_description = new Field<string>(_context, () => Description);
 			_isActive = new Field<bool?>(_context, () => IsActive);
+			_isActive.AddRule(NullableHasValueRule<bool>.Instance);
 			_target = new Field<T>(_context, () => Target);
 			_target.AddRule(NotNullRule<T>.Instance);
 
@@ -147,13 +151,16 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object for a webhook which has already been registered with Trello.
 		/// </summary>
 		/// <param name="id"></param>
-		public Webhook(string id)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public Webhook(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
-			_context = new WebhookContext<T>(Id);
+			_context = new WebhookContext<T>(Id, auth);
 			_context.Synchronized += Synchronized;
 
 			_callBackUrl = new Field<string>(_context, () => CallBackUrl);
+			_callBackUrl.AddRule(UriRule.Instance);
 			_description = new Field<string>(_context, () => Description);
 			_isActive = new Field<bool?>(_context, () => IsActive);
 			_isActive.AddRule(NullableHasValueRule<bool>.Instance);
@@ -162,8 +169,8 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Webhook(IJsonWebhook json)
-			: this(json.Id)
+		internal Webhook(IJsonWebhook json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}

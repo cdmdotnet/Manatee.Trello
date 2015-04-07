@@ -44,7 +44,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public event System.Action SubmitRequested;
 #endif
 
-		protected LinkedSynchronizationContext() : base(false) {}
+		protected LinkedSynchronizationContext(TrelloAuthorization auth) : base(auth, false) {}
 
 		protected override TJson GetData()
 		{

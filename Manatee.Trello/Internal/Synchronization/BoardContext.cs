@@ -38,25 +38,26 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonBoard>>
 				{
-					{"Description", new Property<IJsonBoard, string>(d => d.Desc, (d, o) => d.Desc = o)},
-					{"Id", new Property<IJsonBoard, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"IsClosed", new Property<IJsonBoard, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
-					{"IsSubscribed", new Property<IJsonBoard, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
-					{"Name", new Property<IJsonBoard, string>(d => d.Name, (d, o) => d.Name = o)},
+					{"Description", new Property<IJsonBoard, string>((d, a) => d.Desc, (d, o) => d.Desc = o)},
+					{"Id", new Property<IJsonBoard, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"IsClosed", new Property<IJsonBoard, bool?>((d, a) => d.Closed, (d, o) => d.Closed = o)},
+					{"IsSubscribed", new Property<IJsonBoard, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)},
+					{"Name", new Property<IJsonBoard, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{
-						"Organization", new Property<IJsonBoard, Organization>(d => d.Organization == null
+						"Organization", new Property<IJsonBoard, Organization>((d, a) => d.Organization == null
 																						? null
-																						: d.Organization.GetFromCache<Organization>(),
+																						: d.Organization.GetFromCache<Organization>(a),
 																			   (d, o) => d.Organization = o != null ? o.Json : null)
 					},
-					{"Preferences", new Property<IJsonBoard, IJsonBoardPreferences>(d => d.Prefs, (d, o) => d.Prefs = o)},
-					{"Url", new Property<IJsonBoard, string>(d => d.Url, (d, o) => d.Url = o)},
+					{"Preferences", new Property<IJsonBoard, IJsonBoardPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
+					{"Url", new Property<IJsonBoard, string>((d, a) => d.Url, (d, o) => d.Url = o)},
 				};
 		}
-		public BoardContext(string id)
+		public BoardContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
-			BoardPreferencesContext = new BoardPreferencesContext();
+			BoardPreferencesContext = new BoardPreferencesContext(Auth);
 			BoardPreferencesContext.SynchronizeRequested += () => Synchronize();
 			BoardPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
 			Data.Prefs = BoardPreferencesContext.Data;
@@ -65,14 +66,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override IJsonBoard GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonBoard>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<IJsonBoard>(Auth, endpoint);
 
 			return newData;
 		}
 		protected override void SubmitData(IJsonBoard json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override void ApplyDependentChanges(IJsonBoard json)

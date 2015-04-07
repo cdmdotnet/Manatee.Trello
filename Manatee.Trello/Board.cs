@@ -36,6 +36,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Board : ICanWebhook, IQueryable
 	{
+		private readonly TrelloAuthorization _auth;
 		private readonly Field<string> _description;
 		private readonly Field<bool?> _isClosed;
 		private readonly Field<bool?> _isSubscribed;
@@ -169,6 +170,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		internal TrelloAuthorization Auth { get { return _auth; } }
 
 #if IOS
 		private Action<Board, IEnumerable<string>> _updatedInvoker;
@@ -192,34 +194,37 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Board"/> object.
 		/// </summary>
 		/// <param name="id">The board's ID.</param>
-		public Board(string id)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public Board(string id, TrelloAuthorization auth = null)
 		{
-			_context = new BoardContext(id);
+			_auth = auth;
+			_context = new BoardContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Board), id);
-			Cards = new ReadOnlyCardCollection(typeof(Board), id);
+			Actions = new ReadOnlyActionCollection(typeof(Board), id, auth);
+			Cards = new ReadOnlyCardCollection(typeof(Board), id, auth);
 			_description = new Field<string>(_context, () => Description);
 			Id = id;
 			_isClosed = new Field<bool?>(_context, () => IsClosed);
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
-			Labels = new BoardLabelCollection(id);
-			Lists = new ListCollection(id);
-			Members = new ReadOnlyMemberCollection(typeof(Board), id);
-			Memberships = new BoardMembershipCollection(id);
+			Labels = new BoardLabelCollection(id, auth);
+			Lists = new ListCollection(id, auth);
+			Members = new ReadOnlyMemberCollection(typeof(Board), id, auth);
+			Memberships = new BoardMembershipCollection(id, auth);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, () => Organization);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
-			PersonalPreferences = new BoardPersonalPreferences(id);
+			PersonalPreferences = new BoardPersonalPreferences(id, auth);
 			_url = new Field<string>(_context, () => Url);
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Board(IJsonBoard json)
-			: this(json.Id)
+		internal Board(IJsonBoard json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}

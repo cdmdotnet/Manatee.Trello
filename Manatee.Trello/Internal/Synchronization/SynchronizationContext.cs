@@ -140,18 +140,21 @@ namespace Manatee.Trello.Internal.Synchronization
 
 	internal abstract class SynchronizationContext<TJson> : SynchronizationContext
 	{
+		private readonly TrelloAuthorization _auth;
 		protected static Dictionary<string, Property<TJson>> _properties;
 
 		private readonly List<string> _localChanges;
 		private readonly object _mergeLock;
 
 		protected override bool HasChanges { get { return _localChanges.Any(); } }
+		protected TrelloAuthorization Auth { get { return _auth; } }
 
 		internal TJson Data { get; private set; }
 
-		protected SynchronizationContext(bool useTimer = true)
+		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer = true)
 			: base(useTimer)
 		{
+			_auth = auth ?? TrelloAuthorization.Default;
 			Data = TrelloConfiguration.JsonFactory.Create<TJson>();
 			_localChanges = new List<string>();
 			_mergeLock = new object();
@@ -159,7 +162,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public sealed override T GetValue<T>(string property)
 		{
-			var value = (T)_properties[property].Get(Data);
+			var value = (T)_properties[property].Get(Data, Auth);
 			return value;
 		}
 		public override void SetValue<T>(string property, T value)
@@ -216,7 +219,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				foreach (var propertyName in _properties.Keys.Except(_localChanges))
 				{
 					var property = _properties[propertyName];
-					var newValue = property.Get(json);
+					var newValue = property.Get(json, Auth);
 					property.Set(Data, newValue);
 					propertyNames.Add(propertyName);
 				}
@@ -238,7 +241,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			foreach (var propertyName in _localChanges)
 			{
 				var property = _properties[propertyName];
-				var newValue = property.Get(Data);
+				var newValue = property.Get(Data, Auth);
 				property.Set(json, newValue);
 			}
 			return json;

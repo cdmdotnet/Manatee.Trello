@@ -31,11 +31,13 @@ namespace Manatee.Trello
 	public class ReadOnlyAttachmentPreviewCollection : ReadOnlyCollection<ImagePreview>
 	{
 		private readonly AttachmentContext _context;
+		private readonly TrelloAuthorization _auth;
 
-		internal ReadOnlyAttachmentPreviewCollection(AttachmentContext context)
+		internal ReadOnlyAttachmentPreviewCollection(AttachmentContext context, TrelloAuthorization auth)
 			: base(context.Data.Id)
 		{
 			_context = context;
+			_auth = auth;
 		}
 
 		/// <summary>
@@ -48,7 +50,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			foreach (var jsonPreview in _context.Data.Previews)
 			{
-				var preview = jsonPreview.GetFromCache<ImagePreview>();
+				var preview = jsonPreview.GetFromCache<ImagePreview>(_auth);
 				Items.Add(preview);
 			}
 		}

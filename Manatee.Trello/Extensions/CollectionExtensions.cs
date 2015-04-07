@@ -39,7 +39,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameter will function as an OR parameter.</remarks>
 		public static ReadOnlyActionCollection Filter(this ReadOnlyActionCollection actions, ActionType filter)
 		{
-			var collection = new ReadOnlyActionCollection(actions);
+			var collection = new ReadOnlyActionCollection(actions, actions.Auth);
 			collection.AddFilter(new[] {filter});
 			return collection;
 		}
@@ -52,7 +52,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameters will function as OR parameters.</remarks>
 		public static ReadOnlyActionCollection Filter(this ReadOnlyActionCollection actions, IEnumerable<ActionType> filters)
 		{
-			var collection = new ReadOnlyActionCollection(actions);
+			var collection = new ReadOnlyActionCollection(actions, actions.Auth);
 			collection.AddFilter(filters);
 			return collection;
 		}
@@ -64,7 +64,7 @@ namespace Manatee.Trello
 		/// <returns></returns>
 		public static ReadOnlyBoardCollection Filter(this ReadOnlyBoardCollection boards, BoardFilter filter)
 		{
-			var collection = new ReadOnlyBoardCollection(boards);
+			var collection = new ReadOnlyBoardCollection(boards, boards.Auth);
 			collection.SetFilter(filter);
 			return collection;
 		}
@@ -77,7 +77,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameter will function as an OR parameter.</remarks>
 		public static ReadOnlyBoardMembershipCollection Filter(this ReadOnlyBoardMembershipCollection memberships, MembershipFilter filter)
 		{
-			var collection = new ReadOnlyBoardMembershipCollection(memberships);
+			var collection = new ReadOnlyBoardMembershipCollection(memberships, memberships.Auth);
 			collection.AddFilter(new[] {filter});
 			return collection;
 		}
@@ -90,7 +90,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameters will function as OR parameters.</remarks>
 		public static ReadOnlyBoardMembershipCollection Filter(this ReadOnlyBoardMembershipCollection memberships, IEnumerable<MembershipFilter> filters)
 		{
-			var collection = new ReadOnlyBoardMembershipCollection(memberships);
+			var collection = new ReadOnlyBoardMembershipCollection(memberships, memberships.Auth);
 			collection.AddFilter(filters);
 			return collection;
 		}
@@ -102,7 +102,7 @@ namespace Manatee.Trello
 		/// <returns></returns>
 		public static ReadOnlyCardCollection Filter(this ReadOnlyCardCollection cards, CardFilter filter)
 		{
-			var collection = new ReadOnlyCardCollection(cards);
+			var collection = new ReadOnlyCardCollection(cards, cards.Auth);
 			collection.SetFilter(filter);
 			return collection;
 		}
@@ -114,7 +114,7 @@ namespace Manatee.Trello
 		/// <returns></returns>
 		public static ReadOnlyListCollection Filter(this ReadOnlyListCollection lists, ListFilter filter)
 		{
-			var collection = new ReadOnlyListCollection(lists);
+			var collection = new ReadOnlyListCollection(lists, lists.Auth);
 			collection.SetFilter(filter);
 			return collection;
 		}
@@ -127,7 +127,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameter will function as an OR parameter.</remarks>
 		public static ReadOnlyMemberCollection Filter(this ReadOnlyMemberCollection members, MemberFilter filter)
 		{
-			var collection = new ReadOnlyMemberCollection(members);
+			var collection = new ReadOnlyMemberCollection(members, members.Auth);
 			collection.AddFilter(new[] {filter});
 			return collection;
 		}
@@ -140,7 +140,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameters will function as OR parameters.</remarks>
 		public static ReadOnlyMemberCollection Filter(this ReadOnlyMemberCollection members, IEnumerable<MemberFilter> filters)
 		{
-			var collection = new ReadOnlyMemberCollection(members);
+			var collection = new ReadOnlyMemberCollection(members, members.Auth);
 			collection.AddFilter(filters);
 			return collection;
 		}
@@ -153,7 +153,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameter will function as an OR parameter.</remarks>
 		public static ReadOnlyNotificationCollection Filter(this ReadOnlyNotificationCollection notifications, NotificationType filter)
 		{
-			var collection = new ReadOnlyNotificationCollection(notifications);
+			var collection = new ReadOnlyNotificationCollection(notifications, notifications.Auth);
 			collection.AddFilter(new[] {filter});
 			return collection;
 		}
@@ -166,7 +166,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameters will function as OR parameters.</remarks>
 		public static ReadOnlyNotificationCollection Filter(this ReadOnlyNotificationCollection notifications, IEnumerable<NotificationType> filters)
 		{
-			var collection = new ReadOnlyNotificationCollection(notifications);
+			var collection = new ReadOnlyNotificationCollection(notifications, notifications.Auth);
 			collection.AddFilter(filters);
 			return collection;
 		}
@@ -178,7 +178,7 @@ namespace Manatee.Trello
 		/// <returns></returns>
 		public static ReadOnlyOrganizationCollection Filter(this ReadOnlyOrganizationCollection orgs, OrganizationFilter filter)
 		{
-			var collection = new ReadOnlyOrganizationCollection(orgs);
+			var collection = new ReadOnlyOrganizationCollection(orgs, orgs.Auth);
 			collection.SetFilter(filter);
 			return collection;
 		}
@@ -191,7 +191,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameter will function as an OR parameter.</remarks>
 		public static ReadOnlyOrganizationMembershipCollection Filter(this ReadOnlyOrganizationMembershipCollection memberships, MembershipFilter filter)
 		{
-			var collection = new ReadOnlyOrganizationMembershipCollection(memberships);
+			var collection = new ReadOnlyOrganizationMembershipCollection(memberships, memberships.Auth);
 			collection.AddFilter(new[] { filter });
 			return collection;
 		}
@@ -204,7 +204,7 @@ namespace Manatee.Trello
 		/// <remarks>The new filter parameters will function as OR parameters.</remarks>
 		public static ReadOnlyOrganizationMembershipCollection Filter(this ReadOnlyOrganizationMembershipCollection memberships, IEnumerable<MembershipFilter> filters)
 		{
-			var collection = new ReadOnlyOrganizationMembershipCollection(memberships);
+			var collection = new ReadOnlyOrganizationMembershipCollection(memberships, memberships.Auth);
 			collection.AddFilter(filters);
 			return collection;
 		}

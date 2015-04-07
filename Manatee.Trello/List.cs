@@ -154,16 +154,18 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="List"/> object.
 		/// </summary>
 		/// <param name="id">The list's ID.</param>
-		public List(string id)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public List(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
-			_context = new ListContext(id);
+			_context = new ListContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(List), id);
+			Actions = new ReadOnlyActionCollection(typeof(List), id, auth);
 			_board = new Field<Board>(_context, () => Board);
 			_board.AddRule(NotNullRule<Board>.Instance);
-			Cards = new CardCollection(id);
+			Cards = new CardCollection(id, auth);
 			_isArchived = new Field<bool?>(_context, () => IsArchived);
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
@@ -176,8 +178,8 @@ namespace Manatee.Trello
 
 				TrelloConfiguration.Cache.Add(this);
 		}
-		internal List(IJsonList json)
-			: this(json.Id)
+		internal List(IJsonList json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}
