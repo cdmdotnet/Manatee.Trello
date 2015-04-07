@@ -41,20 +41,21 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonCheckList>>
 				{
 					{
-						"Board", new Property<IJsonCheckList, Board>(d => d.Board.GetFromCache<Board>(),
+						"Board", new Property<IJsonCheckList, Board>((d, a) => d.Board.GetFromCache<Board>(a),
 						                                             (d, o) => d.Board = o != null ? (o).Json : null)
 					},
 					{
-						"Card", new Property<IJsonCheckList, Card>(d => d.Card.GetFromCache<Card>(),
+						"Card", new Property<IJsonCheckList, Card>((d, a) => d.Card.GetFromCache<Card>(a),
 						                                           (d, o) => d.Card = o != null ? (o).Json : null)
 					},
-					{"CheckItems", new Property<IJsonCheckList, List<IJsonCheckItem>>(d => d.CheckItems, (d, o) => d.CheckItems = o)},
-					{"Id", new Property<IJsonCheckList, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"Name", new Property<IJsonCheckList, string>(d => d.Name, (d, o) => d.Name = o)},
-					{"Position", new Property<IJsonCheckList, Position>(d => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))},
+					{"CheckItems", new Property<IJsonCheckList, List<IJsonCheckItem>>((d, a) => d.CheckItems, (d, o) => d.CheckItems = o)},
+					{"Id", new Property<IJsonCheckList, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"Name", new Property<IJsonCheckList, string>((d, a) => d.Name, (d, o) => d.Name = o)},
+					{"Position", new Property<IJsonCheckList, Position>((d, a) => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))},
 				};
 		}
-		public CheckListContext(string id)
+		public CheckListContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
 		}
@@ -65,7 +66,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
@@ -75,7 +76,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonCheckList>(TrelloAuthorization.Default, endpoint);
+				var newData = JsonRepository.Execute<IJsonCheckList>(Auth, endpoint);
 
 				return newData;
 			}
@@ -89,7 +90,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override void SubmitData(IJsonCheckList json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override bool CanUpdate()

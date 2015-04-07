@@ -42,18 +42,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonAction>>
 				{
 					{
-						"Creator", new Property<IJsonAction, Member>(d => d.MemberCreator.GetFromCache<Member>(),
+						"Creator", new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
 						                                             (d, o) => d.MemberCreator = o.Json)
 					},
-					{"Date", new Property<IJsonAction, DateTime?>(d => d.Date, (d, o) => d.Date = o)},
-					{"Id", new Property<IJsonAction, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"Type", new Property<IJsonAction, ActionType?>(d => d.Type, (d, o) => d.Type = o)},
+					{"Date", new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
+					{"Id", new Property<IJsonAction, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"Type", new Property<IJsonAction, ActionType?>((d, a) => d.Type, (d, o) => d.Type = o)},
 				};
 		}
-		public ActionContext(string id)
+		public ActionContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
-			ActionDataContext = new ActionDataContext();
+			ActionDataContext = new ActionDataContext(Auth);
 			ActionDataContext.SynchronizeRequested += () => Synchronize();
 			Data.Data = ActionDataContext.Data;
 		}
@@ -63,7 +64,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (_deleted) return;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
@@ -73,7 +74,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonAction>(TrelloAuthorization.Default, endpoint);
+				var newData = JsonRepository.Execute<IJsonAction>(Auth, endpoint);
 
 				return newData;
 			}

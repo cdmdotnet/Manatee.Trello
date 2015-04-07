@@ -89,13 +89,15 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Token"/> object.
 		/// </summary>
 		/// <param name="id">The token's ID.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full ID or the token itself.
 		/// </remarks>
-		public Token(string id)
+		public Token(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
-			_context = new TokenContext(id);
+			_context = new TokenContext(id, auth);
 			_context.Synchronized += Synchronized;
 
 			_appName = new Field<string>(_context, () => AppName);
@@ -108,8 +110,8 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Token(IJsonToken json)
-			: this(json.Id)
+		internal Token(IJsonToken json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}

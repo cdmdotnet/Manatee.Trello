@@ -37,8 +37,15 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCheckListCollection : ReadOnlyCollection<CheckList>
 	{
-		internal ReadOnlyCheckListCollection(Card card)
-			: base(card.Id) {}
+		private readonly TrelloAuthorization _auth;
+
+		internal TrelloAuthorization Auth { get { return _auth; } }
+
+		internal ReadOnlyCheckListCollection(Card card, TrelloAuthorization auth)
+			: base(card.Id)
+		{
+			_auth = auth ?? TrelloAuthorization.Default;
+		}
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.
@@ -56,12 +63,12 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CheckLists, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonCheckList>>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonCheckList>>(Auth, endpoint);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jc =>
 				{
-					var checkList = jc.GetFromCache<CheckList>();
+					var checkList = jc.GetFromCache<CheckList>(Auth);
 					checkList.Json = jc;
 					return checkList;
 				}));
@@ -78,8 +85,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckListCollection : ReadOnlyCheckListCollection
 	{
-		internal CheckListCollection(Card card)
-			: base(card) {}
+		internal CheckListCollection(Card card, TrelloAuthorization auth)
+			: base(card, auth) {}
 
 		/// <summary>
 		/// Creates a new checklist, optionally by copying a checklist.
@@ -102,9 +109,9 @@ namespace Manatee.Trello
 				json.CheckListSource = source.Json;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddChecklist);
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 
-			return new CheckList(newData);
+			return new CheckList(newData, Auth);
 		}
 	}
 }

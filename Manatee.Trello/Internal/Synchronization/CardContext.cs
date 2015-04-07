@@ -44,34 +44,35 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonCard>>
 				{
 					{
-						"Board", new Property<IJsonCard, Board>(d => d.Board == null ? null : d.Board.GetFromCache<Board>(),
+						"Board", new Property<IJsonCard, Board>((d, a) => d.Board == null ? null : d.Board.GetFromCache<Board>(a),
 						                                        (d, o) => d.Board = o == null ? null : o.Json)
 					},
-					{"Description", new Property<IJsonCard, string>(d => d.Desc, (d, o) => d.Desc = o)},
-					{"DueDate", new Property<IJsonCard, DateTime?>(d => d.Due, (d, o) => d.Due = o)},
-					{"Id", new Property<IJsonCard, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"IsArchived", new Property<IJsonCard, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
-					{"IsSubscribed", new Property<IJsonCard, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
-					{"Labels", new Property<IJsonCard, List<IJsonLabel>>(d => d.Labels, (d, o) => d.Labels = o)},
-					{"LastActivity", new Property<IJsonCard, DateTime?>(d => d.DateLastActivity, (d, o) => d.DateLastActivity = o)},
+					{"Description", new Property<IJsonCard, string>((d, a) => d.Desc, (d, o) => d.Desc = o)},
+					{"DueDate", new Property<IJsonCard, DateTime?>((d, a) => d.Due, (d, o) => d.Due = o)},
+					{"Id", new Property<IJsonCard, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"IsArchived", new Property<IJsonCard, bool?>((d, a) => d.Closed, (d, o) => d.Closed = o)},
+					{"IsSubscribed", new Property<IJsonCard, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)},
+					{"Labels", new Property<IJsonCard, List<IJsonLabel>>((d, a) => d.Labels, (d, o) => d.Labels = o)},
+					{"LastActivity", new Property<IJsonCard, DateTime?>((d, a) => d.DateLastActivity, (d, o) => d.DateLastActivity = o)},
 					{
-						"List", new Property<IJsonCard, List>(d => d.List == null ? null : d.List.GetFromCache<List>(),
+						"List", new Property<IJsonCard, List>((d, a) => d.List == null ? null : d.List.GetFromCache<List>(a),
 						                                      (d, o) => d.List = o == null ? null : o.Json)
 					},
-					{"Name", new Property<IJsonCard, string>(d => d.Name, (d, o) => d.Name = o)},
+					{"Name", new Property<IJsonCard, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{
-						"Position", new Property<IJsonCard, Position>(d => Position.GetPosition(d.Pos),
+						"Position", new Property<IJsonCard, Position>((d, a) => Position.GetPosition(d.Pos),
 						                                              (d, o) => d.Pos = Position.GetJson(o))
 					},
-					{"ShortId", new Property<IJsonCard, int?>(d => d.IdShort, (d, o) => d.IdShort = o)},
-					{"ShortUrl", new Property<IJsonCard, string>(d => d.ShortUrl, (d, o) => d.ShortUrl = o)},
-					{"Url", new Property<IJsonCard, string>(d => d.Url, (d, o) => d.Url = o)},
+					{"ShortId", new Property<IJsonCard, int?>((d, a) => d.IdShort, (d, o) => d.IdShort = o)},
+					{"ShortUrl", new Property<IJsonCard, string>((d, a) => d.ShortUrl, (d, o) => d.ShortUrl = o)},
+					{"Url", new Property<IJsonCard, string>((d, a) => d.Url, (d, o) => d.Url = o)},
 				};
 		}
-		public CardContext(string id)
+		public CardContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
-			BadgesContext = new BadgesContext();
+			BadgesContext = new BadgesContext(Auth);
 			BadgesContext.SynchronizeRequested += () => Synchronize();
 			Data.Badges = BadgesContext.Data;
 		}
@@ -82,7 +83,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
@@ -92,7 +93,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonCard>(TrelloAuthorization.Default, endpoint);
+				var newData = JsonRepository.Execute<IJsonCard>(Auth, endpoint);
 				
 				return newData;
 			}
@@ -106,7 +107,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override void SubmitData(IJsonCard json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonCard json)

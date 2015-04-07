@@ -38,8 +38,11 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyBoardCollection : ReadOnlyCollection<Board>
 	{
+		private readonly TrelloAuthorization _auth;
 		private readonly EntityRequestType _updateRequestType;
-		private Dictionary<string, object> _additionalParameters; 
+		private Dictionary<string, object> _additionalParameters;
+
+		internal TrelloAuthorization Auth { get { return _auth; } }
 
 		/// <summary>
 		/// Retrieves a board which matches the supplied key.
@@ -51,16 +54,18 @@ namespace Manatee.Trello
 		/// </remarks>
 		public Board this[string key] { get { return GetByKey(key); } }
 
-		internal ReadOnlyBoardCollection(Type type, string ownerId)
+		internal ReadOnlyBoardCollection(Type type, string ownerId, TrelloAuthorization auth)
 			: base(ownerId)
 		{
+			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = type == typeof (Organization)
 				                     ? EntityRequestType.Organization_Read_Boards
 				                     : EntityRequestType.Member_Read_Boards;
 		}
-		internal ReadOnlyBoardCollection(ReadOnlyBoardCollection source)
+		internal ReadOnlyBoardCollection(ReadOnlyBoardCollection source, TrelloAuthorization auth)
 			: base(source.OwnerId)
 		{
+			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = source._updateRequestType;
 		}
 
@@ -70,12 +75,12 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonBoard>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
+			var newData = JsonRepository.Execute<List<IJsonBoard>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jb =>
 				{
-					var board = jb.GetFromCache<Board>();
+					var board = jb.GetFromCache<Board>(Auth);
 					board.Json = jb;
 					return board;
 				}));
@@ -101,8 +106,8 @@ namespace Manatee.Trello
 	{
 		private readonly EntityRequestType _addRequestType;
 
-		internal BoardCollection(Type type, string ownerId)
-			: base(type, ownerId)
+		internal BoardCollection(Type type, string ownerId, TrelloAuthorization auth)
+			: base(type, ownerId, auth)
 		{
 			_addRequestType = type == typeof (Organization)
 				                  ? EntityRequestType.Organization_Write_CreateBoard
@@ -132,9 +137,9 @@ namespace Manatee.Trello
 			}
 
 			var endpoint = EndpointFactory.Build(_addRequestType);
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 
-			return new Board(newData);
+			return new Board(newData, Auth);
 		}
 	}
 }

@@ -112,9 +112,9 @@ namespace Manatee.Trello
 			set { _showSidebarMembers.Value = value; }
 		}
 
-		internal BoardPersonalPreferences(string ownerId)
+		internal BoardPersonalPreferences(string ownerId, TrelloAuthorization auth)
 		{
-			_context = new BoardPersonalPreferencesContext(ownerId);
+			_context = new BoardPersonalPreferencesContext(ownerId, auth);
 
 			_emailList = new Field<List>(_context, () => EmailList);
 			_emailList.AddRule(NotNullRule<List>.Instance);

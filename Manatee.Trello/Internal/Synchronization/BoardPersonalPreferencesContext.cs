@@ -35,22 +35,23 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonBoardPersonalPreferences>>
 				{
-					{"ShowSidebar", new Property<IJsonBoardPersonalPreferences, bool?>(d => d.ShowSidebar, (d, o) => d.ShowSidebar = o)},
-					{"ShowSidebarMembers", new Property<IJsonBoardPersonalPreferences, bool?>(d => d.ShowSidebarMembers, (d, o) => d.ShowSidebarMembers = o)},
-					{"ShowSidebarBoardActions", new Property<IJsonBoardPersonalPreferences, bool?>(d => d.ShowSidebarBoardActions, (d, o) => d.ShowSidebarBoardActions = o)},
-					{"ShowSidebarActivity", new Property<IJsonBoardPersonalPreferences, bool?>(d => d.ShowSidebarActivity, (d, o) => d.ShowSidebarActivity = o)},
-					{"ShowListGuide", new Property<IJsonBoardPersonalPreferences, bool?>(d => d.ShowListGuide, (d, o) => d.ShowListGuide = o)},
+					{"ShowSidebar", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebar, (d, o) => d.ShowSidebar = o)},
+					{"ShowSidebarMembers", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarMembers, (d, o) => d.ShowSidebarMembers = o)},
+					{"ShowSidebarBoardActions", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarBoardActions, (d, o) => d.ShowSidebarBoardActions = o)},
+					{"ShowSidebarActivity", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarActivity, (d, o) => d.ShowSidebarActivity = o)},
+					{"ShowListGuide", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowListGuide, (d, o) => d.ShowListGuide = o)},
 					{
-						"EmailPosition", new Property<IJsonBoardPersonalPreferences, Position>(d => Position.GetPosition(d.EmailPosition),
+						"EmailPosition", new Property<IJsonBoardPersonalPreferences, Position>((d, a) => Position.GetPosition(d.EmailPosition),
 																							   (d, o) => d.EmailPosition = Position.GetJson(o))
 					},
 					{
-						"EmailListId", new Property<IJsonBoardPersonalPreferences, List>(d => d.EmailList == null ? null : d.EmailList.GetFromCache<List>(),
+						"EmailListId", new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList == null ? null : d.EmailList.GetFromCache<List>(a),
 																						 (d, o) => d.EmailList = o == null ? null : o.Json)
 					},
 				};
 		}
-		public BoardPersonalPreferencesContext(string ownerId)
+		public BoardPersonalPreferencesContext(string ownerId, TrelloAuthorization auth)
+			: base(auth)
 		{
 			_ownerId = ownerId;
 		}
@@ -90,7 +91,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_PersonalPrefs, new Dictionary<string, object> {{"_id", _ownerId}});
 			endpoint.AddSegment(segment);
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			JsonRepository.Execute(Auth, endpoint, json);
 		}
 	}
 }

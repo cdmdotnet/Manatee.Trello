@@ -38,6 +38,7 @@ namespace Manatee.Trello
 	public class ReadOnlyCheckItemCollection : ReadOnlyCollection<CheckItem>
 	{
 		private readonly CheckListContext _context;
+		private readonly TrelloAuthorization _auth;
 
 		/// <summary>
 		/// Retrieves a check list item which matches the supplied key.
@@ -49,10 +50,13 @@ namespace Manatee.Trello
 		/// </remarks>
 		public CheckItem this[string key] { get { return GetByKey(key); } }
 
-		internal ReadOnlyCheckItemCollection(CheckListContext context)
+		internal TrelloAuthorization Auth { get { return _auth; } }
+
+		internal ReadOnlyCheckItemCollection(CheckListContext context, TrelloAuthorization auth)
 			: base(context.Data.Id)
 		{
 			_context = context;
+			_auth = auth ?? TrelloAuthorization.Default;
 		}
 
 		/// <summary>
@@ -88,8 +92,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckItemCollection : ReadOnlyCheckItemCollection
 	{
-		internal CheckItemCollection(CheckListContext context)
-			: base(context) { }
+		internal CheckItemCollection(CheckListContext context, TrelloAuthorization auth)
+			: base(context, auth) { }
 
 		/// <summary>
 		/// Creates a new checklist item.
@@ -106,7 +110,7 @@ namespace Manatee.Trello
 			json.Name = name;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Write_AddCheckItem, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 
 			return new CheckItem(newData, OwnerId);
 		}

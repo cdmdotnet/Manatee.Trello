@@ -59,6 +59,5 @@ namespace Manatee.Trello
 		{
 			Default = new TrelloAuthorization();
 		}
-		private TrelloAuthorization() {}
 	}
 }

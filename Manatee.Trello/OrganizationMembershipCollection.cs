@@ -36,16 +36,21 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyOrganizationMembershipCollection : ReadOnlyCollection<OrganizationMembership>
 	{
+		private readonly TrelloAuthorization _auth;
 		private Dictionary<string, object> _additionalParameters;
 
-		internal ReadOnlyOrganizationMembershipCollection(string ownerId)
+		internal TrelloAuthorization Auth { get { return _auth; } }
+
+		internal ReadOnlyOrganizationMembershipCollection(string ownerId, TrelloAuthorization auth)
 			: base(ownerId)
 		{
+			_auth = auth ?? TrelloAuthorization.Default;
 			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
 		}
-		internal ReadOnlyOrganizationMembershipCollection(ReadOnlyOrganizationMembershipCollection source)
+		internal ReadOnlyOrganizationMembershipCollection(ReadOnlyOrganizationMembershipCollection source, TrelloAuthorization auth)
 			: base(source.OwnerId)
 		{
+			_auth = auth ?? TrelloAuthorization.Default;
 			_additionalParameters = source._additionalParameters;
 		}
 
@@ -67,12 +72,12 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonOrganizationMembership>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
+			var newData = JsonRepository.Execute<List<IJsonOrganizationMembership>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jom =>
 				{
-					var membership = TrelloConfiguration.Cache.Find<OrganizationMembership>(c => c.Id == jom.Id) ?? new OrganizationMembership(jom, OwnerId);
+					var membership = TrelloConfiguration.Cache.Find<OrganizationMembership>(c => c.Id == jom.Id) ?? new OrganizationMembership(jom, OwnerId, Auth);
 					membership.Json = jom;
 					return membership;
 				}));
@@ -100,8 +105,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class OrganizationMembershipCollection : ReadOnlyOrganizationMembershipCollection
 	{
-		internal OrganizationMembershipCollection(string ownerId)
-			: base(ownerId) {}
+		internal OrganizationMembershipCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId, auth) {}
 
 		/// <summary>
 		/// Adds a member to an organization with specified privileges.
@@ -119,7 +124,7 @@ namespace Manatee.Trello
 			json.MemberType = membership;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			JsonRepository.Execute(Auth, endpoint, json);
 		}
 		/// <summary>
 		/// Removes a member from an organization.
@@ -135,7 +140,7 @@ namespace Manatee.Trello
 			json.String = member.Id;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_RemoveMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			JsonRepository.Execute(Auth, endpoint, json);
 		}
 	}
 }

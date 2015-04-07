@@ -38,9 +38,12 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyActionCollection : ReadOnlyCollection<Action>
 	{
+		private readonly TrelloAuthorization _auth;
 		private static readonly Dictionary<Type, EntityRequestType> _requestTypes;
 		private readonly EntityRequestType _updateRequestType;
-		private Dictionary<string, object> _additionalParameters; 
+		private Dictionary<string, object> _additionalParameters;
+
+		internal TrelloAuthorization Auth { get { return _auth; } }
 
 		static ReadOnlyActionCollection()
 		{
@@ -53,14 +56,16 @@ namespace Manatee.Trello
 					{typeof(Organization), EntityRequestType.Organization_Read_Actions},
 				};
 		}
-		internal ReadOnlyActionCollection(Type type, string ownerId)
+		internal ReadOnlyActionCollection(Type type, string ownerId, TrelloAuthorization auth)
 			: base(ownerId)
 		{
+			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = _requestTypes[type];
 		}
-		internal ReadOnlyActionCollection(ReadOnlyActionCollection source)
+		internal ReadOnlyActionCollection(ReadOnlyActionCollection source, TrelloAuthorization auth)
 			: base(source.OwnerId)
 		{
+			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = source._updateRequestType;
 			_additionalParameters = source._additionalParameters;
 		}
@@ -71,12 +76,12 @@ namespace Manatee.Trello
 		protected override void Update()
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonAction>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
+			var newData = JsonRepository.Execute<List<IJsonAction>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
 				{
-					var action = ja.GetFromCache<Action>();
+					var action = ja.GetFromCache<Action>(Auth);
 					action.Json = ja;
 					return action;
 				}));
@@ -99,8 +104,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CommentCollection : ReadOnlyActionCollection
 	{
-		internal CommentCollection(string ownerId)
-			: base(typeof (Card), ownerId)
+		internal CommentCollection(string ownerId, TrelloAuthorization auth)
+			: base(typeof (Card), ownerId, auth)
 		{
 			AddFilter(new[] {ActionType.CommentCard});
 		}
@@ -120,9 +125,9 @@ namespace Manatee.Trello
 			json.Text = text;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddComment, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 
-			return new Action(newData);
+			return new Action(newData, Auth);
 		}
 	}
 }

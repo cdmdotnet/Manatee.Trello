@@ -36,12 +36,21 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyOrganizationCollection : ReadOnlyCollection<Organization>
 	{
+		private readonly TrelloAuthorization _auth;
 		private Dictionary<string, object> _additionalParameters;
-		
-		internal ReadOnlyOrganizationCollection(string ownerId)
-			: base(ownerId) { }
-		internal ReadOnlyOrganizationCollection(ReadOnlyOrganizationCollection source)
-			: base(source.OwnerId) {}
+
+		internal TrelloAuthorization Auth { get { return _auth; } }
+
+		internal ReadOnlyOrganizationCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId)
+		{
+			_auth = auth ?? TrelloAuthorization.Default;
+		}
+		internal ReadOnlyOrganizationCollection(ReadOnlyOrganizationCollection source, TrelloAuthorization auth)
+			: base(source.OwnerId)
+		{
+			_auth = auth ?? TrelloAuthorization.Default;
+		}
 
 		/// <summary>
 		/// Retrieves a organization which matches the supplied key.
@@ -59,12 +68,12 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Organizations, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonOrganization>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
+			var newData = JsonRepository.Execute<List<IJsonOrganization>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jo =>
 				{
-					var org = jo.GetFromCache<Organization>();
+					var org = jo.GetFromCache<Organization>(Auth);
 					org.Json = jo;
 					return org;
 				}));
@@ -88,8 +97,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class OrganizationCollection : ReadOnlyOrganizationCollection
 	{
-		internal OrganizationCollection(string ownerId)
-			: base(ownerId) {}
+		internal OrganizationCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId, auth) {}
 
 		/// <summary>
 		/// Creates a new organization.
@@ -106,9 +115,9 @@ namespace Manatee.Trello
 			json.Name = name;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_CreateOrganization);
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 
-			return new Organization(newData);
+			return new Organization(newData, Auth);
 		}
 	}
 }

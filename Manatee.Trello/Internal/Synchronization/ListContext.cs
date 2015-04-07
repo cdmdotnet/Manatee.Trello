@@ -39,19 +39,20 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonList>>
 				{
 					{
-						"Board", new Property<IJsonList, Board>(d => d.Board == null ? null : d.Board.GetFromCache<Board>(),
+						"Board", new Property<IJsonList, Board>((d, a) => d.Board == null ? null : d.Board.GetFromCache<Board>(a),
 						                                        (d, o) => { if (o != null) d.Board = o.Json; })
 					},
-					{"Id", new Property<IJsonList, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"IsArchived", new Property<IJsonList, bool?>(d => d.Closed, (d, o) => d.Closed = o)},
-					{"IsSubscribed", new Property<IJsonList, bool?>(d => d.Subscribed, (d, o) => d.Subscribed = o)},
-					{"Name", new Property<IJsonList, string>(d => d.Name, (d, o) => d.Name = o)},
+					{"Id", new Property<IJsonList, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"IsArchived", new Property<IJsonList, bool?>((d, a) => d.Closed, (d, o) => d.Closed = o)},
+					{"IsSubscribed", new Property<IJsonList, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)},
+					{"Name", new Property<IJsonList, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{
-						"Position", new Property<IJsonList, Position>(d => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))
+						"Position", new Property<IJsonList, Position>((d, a) => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))
 					},
 				};
 		}
-		public ListContext(string id)
+		public ListContext(string id, TrelloAuthorization auth)
+			: base(auth)
 		{
 			Data.Id = id;
 		}
@@ -59,14 +60,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override IJsonList GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonList>(TrelloAuthorization.Default, endpoint);
+			var newData = JsonRepository.Execute<IJsonList>(Auth, endpoint);
 
 			return newData;
 		}
 		protected override void SubmitData(IJsonList json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 	}

@@ -98,8 +98,10 @@ namespace Manatee.Trello
 		/// <param name="limit">The maximum number of results to return.</param>
 		/// <param name="modelTypes">Optional - The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
 		/// <param name="context">Optional - A collection of queryable items to serve as a context in which to search.</param>
-		public Search(SearchFor query, int? limit = null, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null)
-			: this(query.ToString(), limit, modelTypes, context) { }
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public Search(SearchFor query, int? limit = null, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null, TrelloAuthorization auth = null)
+			: this(query.ToString(), limit, modelTypes, context, auth) { }
 		/// <summary>
 		/// Creates a new instance of the <see cref="Search"/> object and performs the search.
 		/// </summary>
@@ -107,9 +109,11 @@ namespace Manatee.Trello
 		/// <param name="limit">The maximum number of results to return.</param>
 		/// <param name="modelTypes">Optional - The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
 		/// <param name="context">Optional - A collection of queryable items to serve as a context in which to search.</param>
-		public Search(string query, int? limit = null, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public Search(string query, int? limit = null, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null, TrelloAuthorization auth = null)
 		{
-			_context = new SearchContext();
+			_context = new SearchContext(auth);
 
 			_actions = new Field<IEnumerable<Action>>(_context, () => Actions);
 			_boards = new Field<IEnumerable<Board>>(_context, () => Boards);

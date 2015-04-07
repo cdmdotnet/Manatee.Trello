@@ -42,18 +42,22 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_properties = new Dictionary<string, Property<IJsonWebhook>>
 				{
-					{"CallbackUrl", new Property<IJsonWebhook, string>(d => d.CallbackUrl, (d, o) => d.CallbackUrl = o)},
-					{"Description", new Property<IJsonWebhook, string>(d => d.Description, (d, o) => d.Description = o)},
-					{"Id", new Property<IJsonWebhook, string>(d => d.Id, (d, o) => d.Id = o)},
-					{"IsActive", new Property<IJsonWebhook, bool?>(d => d.Active, (d, o) => d.Active = o)},
+					{"CallbackUrl", new Property<IJsonWebhook, string>((d, a) => d.CallbackUrl, (d, o) => d.CallbackUrl = o)},
+					{"Description", new Property<IJsonWebhook, string>((d, a) => d.Description, (d, o) => d.Description = o)},
+					{"Id", new Property<IJsonWebhook, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"IsActive", new Property<IJsonWebhook, bool?>((d, a) => d.Active, (d, o) => d.Active = o)},
 					{
-						"Target", new Property<IJsonWebhook, T>(d => d.IdModel == null ? null : TrelloConfiguration.Cache.Find<T>(b => b.Id == d.IdModel) ?? BuildModel(d.IdModel),
+						"Target", new Property<IJsonWebhook, T>((d, a) => d.IdModel == null ? null : TrelloConfiguration.Cache.Find<T>(b => b.Id == d.IdModel) ?? BuildModel(d.IdModel),
 						                                        (d, o) => d.IdModel = o == null ? null : o.Id)
 					},
 				};
 		}
-		public WebhookContext() {}
-		public WebhookContext(string id)
+		public WebhookContext(TrelloAuthorization auth)
+			: base(auth)
+		{
+		}
+		public WebhookContext(string id, TrelloAuthorization auth)
+			: this(auth)
 		{
 			Data.Id = id;
 		}
@@ -66,7 +70,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			json.CallbackUrl = callBackUrl;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Entity);
-			var data = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var data = JsonRepository.Execute(Auth, endpoint, json);
 
 			Merge(data);
 			return data.Id;
@@ -77,7 +81,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(TrelloAuthorization.Default, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
@@ -87,7 +91,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonWebhook>(TrelloAuthorization.Default, endpoint);
+				var newData = JsonRepository.Execute<IJsonWebhook>(Auth, endpoint);
 
 				return newData;
 			}
@@ -101,7 +105,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override void SubmitData(IJsonWebhook json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override bool CanUpdate()
@@ -111,7 +115,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		private static T BuildModel(string id)
 		{
-			return (T) Activator.CreateInstance(typeof (T), id);
+			return (T) Activator.CreateInstance(typeof (T), id, null);
 		}
 	}
 }

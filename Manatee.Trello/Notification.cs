@@ -126,10 +126,12 @@ namespace Manatee.Trello
 		/// Creates a new <see cref="Notification"/> object.
 		/// </summary>
 		/// <param name="id">The notification's ID.</param>
-		public Notification(string id)
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public Notification(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
-			_context = new NotificationContext(id);
+			_context = new NotificationContext(id, auth);
 			_context.Synchronized += Synchronized;
 
 			_creator = new Field<Member>(_context, () => Creator);
@@ -140,8 +142,8 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Notification(IJsonNotification json)
-			: this(json.Id)
+		internal Notification(IJsonNotification json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}

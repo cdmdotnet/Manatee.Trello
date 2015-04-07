@@ -106,10 +106,10 @@ namespace Manatee.Trello
 		public event Action<Attachment, IEnumerable<string>> Updated;
 #endif
 
-		internal Attachment(IJsonAttachment json, string ownerId)
+		internal Attachment(IJsonAttachment json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;
-			_context = new AttachmentContext(Id, ownerId);
+			_context = new AttachmentContext(Id, ownerId, auth);
 			_context.Synchronized += Synchronized;
 
 			_bytes = new Field<int?>(_context, () => Bytes);
@@ -118,7 +118,7 @@ namespace Manatee.Trello
 			_isUpload = new Field<bool?>(_context, () => IsUpload);
 			_mimeType = new Field<string>(_context, () => MimeType);
 			_name = new Field<string>(_context, () => Name);
-			_previews = new ReadOnlyAttachmentPreviewCollection(_context);
+			_previews = new ReadOnlyAttachmentPreviewCollection(_context, auth);
 			_url = new Field<string>(_context, () => Url);
 
 			TrelloConfiguration.Cache.Add(this);

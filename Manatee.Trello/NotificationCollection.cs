@@ -35,13 +35,20 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyNotificationCollection : ReadOnlyCollection<Notification>
 	{
-		private Dictionary<string, object> _additionalParameters; 
-	
-		internal ReadOnlyNotificationCollection(string ownerId)
-			: base(ownerId) {}
-		internal ReadOnlyNotificationCollection(ReadOnlyNotificationCollection source)
+		private readonly TrelloAuthorization _auth;
+		private Dictionary<string, object> _additionalParameters;
+
+		internal TrelloAuthorization Auth { get { return _auth; } }
+
+		internal ReadOnlyNotificationCollection(string ownerId, TrelloAuthorization auth)
+			: base(ownerId)
+		{
+			_auth = auth ?? TrelloAuthorization.Default;
+		}
+		internal ReadOnlyNotificationCollection(ReadOnlyNotificationCollection source, TrelloAuthorization auth)
 			: base(source.OwnerId)
 		{
+			_auth = auth ?? TrelloAuthorization.Default;
 			_additionalParameters = source._additionalParameters;
 		}
 
@@ -51,12 +58,12 @@ namespace Manatee.Trello
 		protected override void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Notifications, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonNotification>>(TrelloAuthorization.Default, endpoint, _additionalParameters);
+			var newData = JsonRepository.Execute<List<IJsonNotification>>(_auth, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jn =>
 				{
-					var notification = jn.GetFromCache<Notification>();
+					var notification = jn.GetFromCache<Notification>(Auth);
 					notification.Json = jn;
 					return notification;
 				}));

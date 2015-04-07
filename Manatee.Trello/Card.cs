@@ -231,22 +231,24 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Card"/> object.
 		/// </summary>
 		/// <param name="id">The card's ID.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
+		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full or short ID.
 		/// </remarks>
-		public Card(string id)
+		public Card(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
-			_context = new CardContext(id);
+			_context = new CardContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Card), id);
-			Attachments = new AttachmentCollection(id);
+			Actions = new ReadOnlyActionCollection(typeof(Card), id, auth);
+			Attachments = new AttachmentCollection(id, auth);
 			Badges = new Badges(_context.BadgesContext);
 			_board = new Field<Board>(_context, () => Board);
 			_board.AddRule(NotNullRule<Board>.Instance);
-			CheckLists = new CheckListCollection(this);
-			Comments = new CommentCollection(id);
+			CheckLists = new CheckListCollection(this, auth);
+			Comments = new CommentCollection(id, auth);
 			_description = new Field<string>(_context, () => Description);
 			_dueDate = new Field<DateTime?>(_context, () => DueDate);
 			_dueDate.AddRule(NullableHasValueRule<DateTime>.Instance);
@@ -254,24 +256,24 @@ namespace Manatee.Trello
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
-			Labels = new CardLabelCollection(_context);
+			Labels = new CardLabelCollection(_context, auth);
 			_lastActivity = new Field<DateTime?>(_context, () => LastActivity);
 			_list = new Field<List>(_context, () => List);
 			_list.AddRule(NotNullRule<List>.Instance);
-			Members = new MemberCollection(id);
+			Members = new MemberCollection(id, auth);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, () => Position);
 			_position.AddRule(PositionRule.Instance);
 			_shortId = new Field<int?>(_context, () => ShortId);
 			_shortUrl = new Field<string>(_context, () => ShortUrl);
-			Stickers = new CardStickerCollection(id);
+			Stickers = new CardStickerCollection(id, auth);
 			_url = new Field<string>(_context, () => Url);
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Card(IJsonCard json)
-			: this(json.Id)
+		internal Card(IJsonCard json, TrelloAuthorization auth)
+			: this(json.Id, auth)
 		{
 			_context.Merge(json);
 		}
