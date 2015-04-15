@@ -25,12 +25,14 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var list = new List(TrelloIds.ListId);
-					var card = list.Cards.Add("test");
-					Console.WriteLine(card);
-					card.Delete();
-					card.Refresh();
-					Console.WriteLine(card);
+					var member = new Member("s_littlecrabsolutions");
+					var board = new Board("semExfKd");
+					board.Memberships.Add(member, BoardMembershipType.Admin);
+					foreach (var membership in board.Memberships)
+					{
+						Console.WriteLine("{0} - {1}", membership.Member, membership.MemberType);
+					}
+					Console.WriteLine(Member.Me);
 				});
 		}
 

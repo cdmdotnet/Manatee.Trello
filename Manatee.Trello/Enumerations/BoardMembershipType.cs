@@ -37,7 +37,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the member is an admin of the board.
 		/// </summary>
-		[Description("admins")]
+		[Description("admin")]
 		Admin,
 		/// <summary>
 		/// Indicates the member is a normal member of the board.
