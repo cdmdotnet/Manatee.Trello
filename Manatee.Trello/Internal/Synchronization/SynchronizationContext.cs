@@ -148,6 +148,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override bool HasChanges { get { return _localChanges.Any(); } }
 		protected TrelloAuthorization Auth { get { return _auth; } }
+		protected bool IsInitialized { get; private set; }
 
 		internal TJson Data { get; private set; }
 
@@ -206,12 +207,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			AddLocalChange(propertyName);
 			ResetTimer();
 		}
+		protected void MarkInitialized()
+		{
+			IsInitialized = true;
+		}
 
 		internal IEnumerable<string> Merge(TJson json)
 		{
 			lock (_mergeLock)
 			{
 				MarkAsUpdated();
+				MarkInitialized();
 				if (!CanUpdate()) return Enumerable.Empty<string>();
 				if (Equals(json, default(TJson)) || ReferenceEquals(json, Data))
 					return Enumerable.Empty<string>();
