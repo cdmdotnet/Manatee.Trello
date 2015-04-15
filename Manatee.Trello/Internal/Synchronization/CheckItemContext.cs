@@ -32,6 +32,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class CheckItemContext : SynchronizationContext<IJsonCheckItem>
 	{
 		private readonly string _ownerId;
+		private bool _initialized;
 		private bool _deleted;
 
 		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
@@ -70,12 +71,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh, new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonCheckItem>(Auth, endpoint);
+				_initialized = true;
 
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!e.IsNotFoundError()) throw;
+				if (!e.IsNotFoundError() || !_initialized) throw;
 				_deleted = true;
 				return Data;
 			}

@@ -39,23 +39,6 @@ namespace Manatee.Trello.Internal.ExceptionHandling
 			var output = string.Format(string.Format("Info: {0}", message), parameters);
 			Post(output);
 		}
-		public void Warning(string message, params object[] parameters)
-		{
-			var output = string.Format(string.Format("Warning: {0}", message), parameters);
-			Post(output);
-		}
-		public void Warning(Exception e)
-		{
-			var output = BuildMessage(string.Format("Warning: An exception of type {0} occurred:", e.GetType().Name),
-			                          e.Message,
-			                          e.StackTrace);
-			Post(output);
-		}
-		public void Error(string message, params object[] parameters)
-		{
-			var output = string.Format(string.Format("Error: {0}", message), parameters);
-			Post(output);
-		}
 		public void Error(Exception e, bool shouldThrow = true)
 		{
 			var output = BuildMessage(string.Format("Error: An exception of type {0} occurred:", e.GetType().Name),

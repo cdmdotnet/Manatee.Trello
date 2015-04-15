@@ -22,6 +22,7 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -30,6 +31,7 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class LabelContext : SynchronizationContext<IJsonLabel>
 	{
+		private bool _initialized;
 		private bool _deleted;
 
 		static LabelContext()
@@ -67,10 +69,20 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IJsonLabel GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_boardId", Data.Board.Id}, {"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonLabel>(Auth, endpoint);
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_boardId", Data.Board.Id}, {"_id", Data.Id}});
+				var newData = JsonRepository.Execute<IJsonLabel>(Auth, endpoint);
+				_initialized = true;
 
-			return newData;
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!e.IsNotFoundError() || !_initialized) throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override void SubmitData(IJsonLabel json)
 		{
