@@ -32,6 +32,7 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class ActionContext : SynchronizationContext<IJsonAction>
 	{
+		private bool _initialized;
 		private bool _deleted;
 
 		public ActionDataContext ActionDataContext { get; private set; }
@@ -75,12 +76,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonAction>(Auth, endpoint);
+				_initialized = true;
 
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!e.IsNotFoundError()) throw;
+				if (!e.IsNotFoundError() || !_initialized) throw;
 				_deleted = true;
 				return Data;
 			}
