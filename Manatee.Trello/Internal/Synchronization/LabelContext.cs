@@ -31,7 +31,6 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class LabelContext : SynchronizationContext<IJsonLabel>
 	{
-		private bool _initialized;
 		private bool _deleted;
 
 		static LabelContext()
@@ -73,13 +72,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_boardId", Data.Board.Id}, {"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonLabel>(Auth, endpoint);
-				_initialized = true;
+				MarkInitialized();
 
 				return newData;
 			}
 			catch (TrelloInteractionException e)
 			{
-				if (!e.IsNotFoundError() || !_initialized) throw;
+				if (!e.IsNotFoundError() || !IsInitialized) throw;
 				_deleted = true;
 				return Data;
 			}
