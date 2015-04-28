@@ -37,7 +37,6 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyMemberCollection : ReadOnlyCollection<Member>
 	{
-		private readonly TrelloAuthorization _auth;
 		private readonly EntityRequestType _updateRequestType;
 		private Dictionary<string, object> _additionalParameters; 
 
@@ -51,25 +50,23 @@ namespace Manatee.Trello
 		/// </remarks>
 		public Member this[string key] { get { return GetByKey(key); } }
 
-		internal TrelloAuthorization Auth { get { return _auth; } }
-
 		internal ReadOnlyMemberCollection(Type type, string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
+			: base(ownerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			if (type == typeof (Board))
 				_updateRequestType = EntityRequestType.Board_Read_Members;
 			else if (type == typeof (Organization))
 				_updateRequestType = EntityRequestType.Organization_Read_Members;
 			else
 				_updateRequestType = EntityRequestType.Card_Read_Members;
+			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
 		}
 		internal ReadOnlyMemberCollection(ReadOnlyMemberCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId)
+			: base(source.OwnerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = source._updateRequestType;
-			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
+			if (source._additionalParameters != null)
+				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
 		/// <summary>

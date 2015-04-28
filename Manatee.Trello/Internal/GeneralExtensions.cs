@@ -32,6 +32,14 @@ namespace Manatee.Trello.Internal
 {
 	internal static class GeneralExtensions
 	{
+		private class Description
+		{
+			public object Value { get; set; }
+			public string String { get; set; }
+		}
+
+		private static readonly Dictionary<Type, List<Description>> _descriptions = new Dictionary<Type, List<Description>>();
+
 		public static string ToLowerString<T>(this T item)
 		{
 			return item.ToString().ToLower();
@@ -62,7 +70,6 @@ namespace Manatee.Trello.Internal
 			return string.Join(separator, segments);
 #endif
 		}
-		// source: http://stackoverflow.com/questions/479410/enum-tostring
 		public static string GetDescription<T>(this T enumerationValue)
 			where T : struct
 		{
@@ -70,22 +77,12 @@ namespace Manatee.Trello.Internal
 			if (!type.IsEnum)
 				throw new ArgumentException("EnumerationValue must be of Enum type", "enumerationValue");
 
-			//Tries to find a DescriptionAttribute for a potential friendly name
-			//for the enum
-			var memberInfo = type.GetMember(enumerationValue.ToString());
-			if (memberInfo.Length > 0)
-			{
-				object[] attrs = memberInfo[0].GetCustomAttributes(typeof (DescriptionAttribute), false);
+			EnsureDescriptions<T>();
 
-				if (attrs.Length > 0)
-				{
-					//Pull out the description value
-					return ((DescriptionAttribute) attrs[0]).Description;
-				}
-			}
-			//If we have no description attribute, just return the ToString of the enum
-			return enumerationValue.ToString();
-
+			var attributes = (typeof(T)).GetCustomAttributes(typeof(FlagsAttribute), false);
+			return !attributes.Any()
+				? _descriptions[typeof(T)].First(d => Equals(d.Value, enumerationValue)).String
+				: BuildFlagsValues(enumerationValue, ",");
 		}
 		public static string GetName<T>(this Expression<Func<T>> property)
 		{
@@ -114,6 +111,41 @@ namespace Manatee.Trello.Internal
 		public static bool In<T>(this T obj, params T[] values)
 		{
 			return values.Contains(obj);
+		}
+
+		private static void EnsureDescriptions<T>()
+		{
+			var type = typeof(T);
+			if (_descriptions.ContainsKey(type))
+				return;
+			var names = Enum.GetValues(type).Cast<T>();
+			var descriptions = names.Select(n => new Description { Value = n, String = GetDescription<T>(n.ToString()) }).ToList();
+			_descriptions.Add(type, descriptions);
+		}
+		private static string GetDescription<T>(string name)
+		{
+			var type = typeof(T);
+			var memInfo = type.GetMember(name);
+			var attributes = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+			return attributes.Any() ? ((DescriptionAttribute)attributes[0]).Description : name;
+		}
+		private static string BuildFlagsValues<T>(T obj, string separator)
+		{
+			var descriptions = _descriptions[typeof(T)];
+			var value = Convert.ToInt64(obj);
+			var index = descriptions.Count - 1;
+			var names = new List<string>();
+			while (value > 0 && index > 0)
+			{
+				var compare = Convert.ToInt64(descriptions[index].Value);
+				if (value >= compare)
+				{
+					names.Insert(0, descriptions[index].String);
+					value -= compare;
+				}
+				index--;
+			}
+			return names.Distinct().Join(separator);
 		}
 	}
 }

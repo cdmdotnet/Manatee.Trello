@@ -83,7 +83,7 @@ namespace Manatee.Trello.Test.Unit
 				ConfigureJsonFactory<IJsonComment>();
 				ConfigureJsonFactory<IJsonImagePreview>();
 				ConfigureJsonFactory<IJsonLabel>();
-				ConfigureJsonFactory<IJsonLabelNames>();
+				//ConfigureJsonFactory<IJsonLabelNames>();
 				ConfigureJsonFactory<IJsonList>();
 				ConfigureJsonFactory<IJsonMember>();
 				ConfigureJsonFactory<IJsonMemberPreferences>();
@@ -174,7 +174,7 @@ namespace Manatee.Trello.Test.Unit
 
 		protected void WaitForProcessor()
 		{
-			SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
+			//SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}
 
 		#endregion

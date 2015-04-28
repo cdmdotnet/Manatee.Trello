@@ -36,22 +36,15 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyAttachmentCollection : ReadOnlyCollection<Attachment>
 	{
-		private readonly TrelloAuthorization _auth;
-
-		internal TrelloAuthorization Auth { get { return _auth; } }
-
 		internal ReadOnlyAttachmentCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
-		{
-			_auth = auth;
-		}
+			: base(ownerId, auth) {}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
 		protected override sealed void Update()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Attachments, new Dictionary<string, object> {{"_id", OwnerId}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Attachments, new Dictionary<string, object> { { "_id", OwnerId } });
 			var newData = JsonRepository.Execute<List<IJsonAttachment>>(Auth, endpoint);
 
 			Items.Clear();

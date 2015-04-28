@@ -32,9 +32,13 @@
     <DocumentationFile>bin\Release\Manatee.Trello.ManateeJson.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=9.1.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\JetBrains.Annotations.9.1.1\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Manatee.Json.2.8.0.2\lib\net35-client\Manatee.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Manatee.Json.2.8.6\lib\net35-client\Manatee.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Manatee.StateMachine">
       <HintPath>..\..\..\packages\Manatee.StateMachine.1.1\lib\net35-client\Manatee.StateMachine.dll</HintPath>

@@ -102,5 +102,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		string Text { get; set; }
+		/// <summary>
+		/// Gets or sets a custom value associate with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		string Value { get; set; }
 	}
 }

@@ -55,6 +55,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
+		/// <remarks>By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.</remarks>
 		public ReadOnlyActionCollection Actions { get; private set; }
 		/// <summary>
 		/// Gets the collection of attachments contained in the card.

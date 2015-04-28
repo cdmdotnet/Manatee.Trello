@@ -25,13 +25,9 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var member = new Member("s_littlecrabsolutions");
-					var board = new Board("semExfKd");
-					board.Memberships.Add(member, BoardMembershipType.Admin);
-					foreach (var membership in board.Memberships)
-					{
-						Console.WriteLine("{0} - {1}", membership.Member, membership.MemberType);
-					}
+					var board = new Board("BVlClkAR");
+					OutputCollection("cards", CollectionExtensions.Limit(board.Actions.Filter(ActionType.AddMemberToBoard | ActionType.CommentCard), 10));
+					Console.WriteLine();
 					Console.WriteLine(Member.Me);
 				});
 		}

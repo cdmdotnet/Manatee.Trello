@@ -44,7 +44,7 @@ namespace Manatee.Trello
 		/// Filters to only owners.
 		/// </summary>
 		/// <remarks>
-		/// Per @doug at Trello: "Turns out owners was once used by the iOS app and we only have it there for backwards compatibility. They are the same."
+		/// Per @doug at Trello regarding <see cref="Admins"/> == <see cref="Owners"/>: "Turns out owners was once used by the iOS app and we only have it there for backwards compatibility. They are the same."
 		/// </remarks>
 		[Description("owners")]
 		Owners,

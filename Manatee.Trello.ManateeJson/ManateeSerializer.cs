@@ -22,12 +22,11 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
-using Manatee.Trello.ManateeJson.Entities;
 using Manatee.Trello.Json;
+using Manatee.Trello.ManateeJson.Entities;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.ManateeJson
@@ -67,7 +66,7 @@ namespace Manatee.Trello.ManateeJson
 		/// <returns>An equivalent JSON string.</returns>
 		public string Serialize(object obj)
 		{
-			var method = _method.MakeGenericMethod(new[] {obj.GetType()});
+			var method = _method.MakeGenericMethod(obj.GetType());
 			var json = method.Invoke(_serializer, new[] {obj});
 			var text = json.ToString();
 			return text;

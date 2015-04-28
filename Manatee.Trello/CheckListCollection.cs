@@ -37,15 +37,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCheckListCollection : ReadOnlyCollection<CheckList>
 	{
-		private readonly TrelloAuthorization _auth;
-
-		internal TrelloAuthorization Auth { get { return _auth; } }
-
 		internal ReadOnlyCheckListCollection(Card card, TrelloAuthorization auth)
-			: base(card.Id)
-		{
-			_auth = auth ?? TrelloAuthorization.Default;
-		}
+			: base(card.Id, auth) {}
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.

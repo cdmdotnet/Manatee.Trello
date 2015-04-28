@@ -323,7 +323,7 @@ namespace Manatee.Trello.Test.Unit
 		}
 		private void LabelNamesIsAccessed()
 		{
-			Execute(() => Board.Sut.LabelNames);
+			//Execute(() => Board.Sut.LabelNames);
 		}
 		private void ListsIsAccessed()
 		{

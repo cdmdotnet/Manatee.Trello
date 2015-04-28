@@ -38,7 +38,6 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCardCollection : ReadOnlyCollection<Card>
 	{
-		private readonly TrelloAuthorization _auth;
 		private readonly EntityRequestType _updateRequestType;
 		private readonly Dictionary<string, object> _requestParameters;
 		private Dictionary<string, object> _additionalParameters; 
@@ -53,31 +52,29 @@ namespace Manatee.Trello
 		/// </remarks>
 		public Card this[string key] { get { return GetByKey(key); } }
 
-		internal TrelloAuthorization Auth { get { return _auth; } }
-
 		internal ReadOnlyCardCollection(Type type, string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
+			: base(ownerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = type == typeof (List)
 				                     ? EntityRequestType.List_Read_Cards
 				                     : EntityRequestType.Board_Read_Cards;
 			_requestParameters = new Dictionary<string, object> {{"_id", ownerId}};
 		}
 		internal ReadOnlyCardCollection(EntityRequestType requestType, string ownerId, TrelloAuthorization auth, Dictionary<string, object> requestParameters = null)
-			: base(ownerId)
+			: base(ownerId, auth)
 		{
 			_updateRequestType = requestType;
-			_auth = auth ?? TrelloAuthorization.Default;
 			_requestParameters = requestParameters ?? new Dictionary<string, object>();
 			_requestParameters.Add("_id", ownerId);
 		}
 		internal ReadOnlyCardCollection(ReadOnlyCardCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId)
+			: base(source.OwnerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = source._updateRequestType;
-			_requestParameters = source._requestParameters;
+			if (source._requestParameters != null)
+				_requestParameters = new Dictionary<string, object>(source._requestParameters);
+			if (source._additionalParameters != null)
+				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
 		/// <summary>
@@ -85,6 +82,8 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Update()
 		{
+			IncorporateLimit(_additionalParameters);
+
 			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
 			var newData = JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, _additionalParameters);
 

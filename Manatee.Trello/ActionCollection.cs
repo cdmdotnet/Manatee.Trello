@@ -38,12 +38,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyActionCollection : ReadOnlyCollection<Action>
 	{
-		private readonly TrelloAuthorization _auth;
 		private static readonly Dictionary<Type, EntityRequestType> _requestTypes;
 		private readonly EntityRequestType _updateRequestType;
 		private Dictionary<string, object> _additionalParameters;
-
-		internal TrelloAuthorization Auth { get { return _auth; } }
 
 		static ReadOnlyActionCollection()
 		{
@@ -57,17 +54,16 @@ namespace Manatee.Trello
 				};
 		}
 		internal ReadOnlyActionCollection(Type type, string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
+			: base(ownerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = _requestTypes[type];
 		}
 		internal ReadOnlyActionCollection(ReadOnlyActionCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId)
+			: base(source.OwnerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = source._updateRequestType;
-			_additionalParameters = source._additionalParameters;
+			if (source._additionalParameters != null)
+				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
 		/// <summary>
@@ -75,6 +71,8 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override void Update()
 		{
+			IncorporateLimit(_additionalParameters);
+
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonAction>>(Auth, endpoint, _additionalParameters);
 
@@ -96,6 +94,16 @@ namespace Manatee.Trello
 				filter += ",";
 			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
 			_additionalParameters["filter"] = filter;
+		}
+
+		internal void AddFilter(DateTime? start, DateTime? end)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>();
+			if (start.HasValue)
+				_additionalParameters["since"] = start.Value;
+			if (end.HasValue)
+				_additionalParameters["before"] = end.Value;
 		}
 	}
 

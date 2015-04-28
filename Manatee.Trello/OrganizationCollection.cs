@@ -36,20 +36,15 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyOrganizationCollection : ReadOnlyCollection<Organization>
 	{
-		private readonly TrelloAuthorization _auth;
 		private Dictionary<string, object> _additionalParameters;
 
-		internal TrelloAuthorization Auth { get { return _auth; } }
-
 		internal ReadOnlyOrganizationCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
-		{
-			_auth = auth ?? TrelloAuthorization.Default;
-		}
+			: base(ownerId, auth) {}
 		internal ReadOnlyOrganizationCollection(ReadOnlyOrganizationCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId)
+			: this(source.OwnerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
+			if (source._additionalParameters != null)
+				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
 		/// <summary>
@@ -67,7 +62,9 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Update()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Organizations, new Dictionary<string, object> {{"_id", OwnerId}});
+			IncorporateLimit(_additionalParameters);
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Organizations, new Dictionary<string, object> { { "_id", OwnerId } });
 			var newData = JsonRepository.Execute<List<IJsonOrganization>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();

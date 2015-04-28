@@ -34,6 +34,7 @@ namespace Manatee.Trello
 	/// <typeparam name="T">The type of object contained by the collection.</typeparam>
 	public abstract class ReadOnlyCollection<T> : IEnumerable<T>
 	{
+		private readonly TrelloAuthorization _auth;
 		private readonly List<T> _items;
 		private readonly string _ownerId;
 		private DateTime _lastUpdate;
@@ -50,14 +51,19 @@ namespace Manatee.Trello
 
 		internal string OwnerId { get { return _ownerId; } }
 		internal List<T> Items { get { return _items; } }
+		internal int? Limit { get; set; }
+		internal TrelloAuthorization Auth { get { return _auth; } }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCollection{T}"/> object.
 		/// </summary>
 		/// <param name="ownerId"></param>
-		protected ReadOnlyCollection(string ownerId)
+		/// <param name="auth"></param>
+		protected ReadOnlyCollection(string ownerId, TrelloAuthorization auth)
 		{
 			_ownerId = ownerId;
+			_auth = auth ?? TrelloAuthorization.Default;
+
 			_items = new List<T>();
 			_lastUpdate = DateTime.MinValue;
 		}
@@ -94,6 +100,17 @@ namespace Manatee.Trello
 		/// Implement to provide data to the collection.
 		/// </summary>
 		protected abstract void Update();
+
+		/// <summary>
+		/// Adds <see cref="Limit"/> to a list of additional parameters.
+		/// </summary>
+		/// <param name="additionalParameters">The list of additional parameters.</param>
+		protected void IncorporateLimit(Dictionary<string, object> additionalParameters)
+		{
+			if (!Limit.HasValue) return;
+
+			additionalParameters["limit"] = Limit.Value;
+		}
 
 		private T GetByIndex(int index)
 		{

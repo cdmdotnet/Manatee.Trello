@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System;
 using System.ComponentModel;
 
 namespace Manatee.Trello

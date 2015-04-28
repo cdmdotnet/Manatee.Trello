@@ -50,6 +50,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _oldText;
 		private readonly Field<Organization> _organization;
 		private readonly Field<string> _text;
+		private readonly Field<string> _value;
 		private readonly ActionDataContext _context;
 
 		/// <summary>
@@ -144,6 +145,10 @@ namespace Manatee.Trello
 		/// Gets whether the object was previously archived.
 		/// </summary>
 		public bool? WasArchived { get { return _wasArchived.Value; } }
+		/// <summary>
+		/// Gets a custom value associate with the action if any.
+		/// </summary>
+		public string Value { get { return _value.Value; } }
 
 		internal ActionData(ActionDataContext context)
 		{
@@ -169,6 +174,7 @@ namespace Manatee.Trello
 			_organization = new Field<Organization>(_context, () => Organization);
 			_text = new Field<string>(_context, () => Text);
 			_text.AddRule(OldValueNotNullOrWhiteSpaceRule.Instance);
+			_value = new Field<string>(_context, () => Value);
 		}
 	}
 }

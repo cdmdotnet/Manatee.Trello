@@ -104,7 +104,6 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Subscribed.Serialize(json, serializer, "subscribed");
 			CardSource.SerializeId(json, "idCardSource");
 			UrlSource.Serialize(json, serializer, "urlSource");
-			// TODO: Do I need to add labels back in here?
 			return json;
 		}
 	}

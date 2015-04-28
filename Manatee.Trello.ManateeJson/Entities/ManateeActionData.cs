@@ -44,6 +44,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public IJsonOrganization Org { get; set; }
 		public IJsonActionOldData Old { get; set; }
 		public string Text { get; set; }
+		public string Value { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -63,6 +64,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Old = obj.Deserialize<IJsonActionOldData>(serializer, "old");
 			Org = obj.Deserialize<IJsonOrganization>(serializer, "org");
 			Text = obj.TryGetString("text");
+			Value = obj.TryGetString("value");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{

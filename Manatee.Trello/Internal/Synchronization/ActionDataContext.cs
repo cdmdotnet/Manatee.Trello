@@ -121,6 +121,7 @@ namespace Manatee.Trello.Internal.Synchronization
 						                                                            (d, o) => { if (o != null) d.Org = o.Json; })
 					},
 					{"Text", new Property<IJsonActionData, string>((d, a) => d.Text, (d, o) => d.Text = o)},
+					{"Value", new Property<IJsonActionData, string>((d, a) => d.Value, (d, o) => d.Value = o)},
 				};
 		}
 		public ActionDataContext(TrelloAuthorization auth)

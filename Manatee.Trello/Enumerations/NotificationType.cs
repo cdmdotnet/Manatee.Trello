@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System;
 using System.ComponentModel;
 
 namespace Manatee.Trello
@@ -28,6 +29,7 @@ namespace Manatee.Trello
 	///<summary>
 	/// Enumerates known types of notifications.
 	///</summary>
+	[Flags]
 	public enum NotificationType
 	{
 		/// <summary>
@@ -38,101 +40,106 @@ namespace Manatee.Trello
 		/// Indicates an attachment was added to a card.
 		/// </summary>
 		[Description("addedAttachmentToCard")]
-		AddedAttachmentToCard,
+		AddedAttachmentToCard = 1 << 0,
 		/// <summary>
 		/// Indicates the current member was added to a board.
 		/// </summary>
 		[Description("addedToBoard")]
-		AddedToBoard,
+		AddedToBoard = 1 << 1,
 		/// <summary>
 		/// Indicates the current member was added to a card.
 		/// </summary>
 		[Description("addedToCard")]
-		AddedToCard,
+		AddedToCard = 1 << 2,
 		/// <summary>
 		/// Indicates the current member was added to an organization.
 		/// </summary>
 		[Description("addedToOrganization")]
-		AddedToOrganization,
+		AddedToOrganization = 1 << 3,
 		/// <summary>
 		/// Indicates another member was added to an card.
 		/// </summary>
 		[Description("addedMemberToCard")]
-		AddedMemberToCard,
+		AddedMemberToCard = 1 << 4,
 		/// <summary>
 		/// Indicates the current member was added to a board as an admin.
 		/// </summary>
 		[Description("addAdminToBoard")]
-		AddAdminToBoard,
+		AddAdminToBoard = 1 << 5,
 		/// <summary>
 		/// Indicates the current member was added to an organization as an admin.
 		/// </summary>
 		[Description("addAdminToOrganization")]
-		AddAdminToOrganization,
+		AddAdminToOrganization = 1 << 6,
 		/// <summary>
 		/// Indicates a card was changed.
 		/// </summary>
 		[Description("changeCard")]
-		ChangeCard,
+		ChangeCard = 1 << 7,
 		/// <summary>
 		/// Indicates a board was closed.
 		/// </summary>
 		[Description("closeBoard")]
-		CloseBoard,
+		CloseBoard = 1 << 8,
 		/// <summary>
 		/// Indicates another member commented on a card.
 		/// </summary>
 		[Description("commentCard")]
-		CommentCard,
+		CommentCard = 1 << 9,
 		/// <summary>
 		/// Indicates another member created a card.
 		/// </summary>
 		[Description("createdCard")]
-		CreatedCard,
+		CreatedCard = 1 << 10,
 		/// <summary>
 		/// Indicates the current member was removed from a board.
 		/// </summary>
 		[Description("removedFromBoard")]
-		RemovedFromBoard,
+		RemovedFromBoard = 1 << 11,
 		/// <summary>
 		/// Indicates the current member was removed from a card.
 		/// </summary>
 		[Description("removedFromCard")]
-		RemovedFromCard,
+		RemovedFromCard = 1 << 12,
 		/// <summary>
 		/// Indicates another member was removed from a card.
 		/// </summary>
 		[Description("removedMemberFromCard")]
-		RemovedMemberFromCard,
+		RemovedMemberFromCard = 1 << 13,
 		/// <summary>
 		/// Indicates the current member was removed from an organization.
 		/// </summary>
 		[Description("removedFromOrganization")]
-		RemovedFromOrganization,
+		RemovedFromOrganization = 1 << 14,
 		/// <summary>
 		/// Indicates the current member was mentioned on a card.
 		/// </summary>
 		[Description("mentionedOnCard")]
-		MentionedOnCard,
+		MentionedOnCard = 1 << 15,
 		/// <summary>
 		/// Indicates a checklist item was updated.
 		/// </summary>
 		[Description("updateCheckItemStateOnCard")]
-		UpdateCheckItemStateOnCard,
+		UpdateCheckItemStateOnCard = 1 << 16,
 		/// <summary>
 		/// Indicates the current member was made an admin of a board.
 		/// </summary>
 		[Description("makeAdminOfBoard")]
-		MakeAdminOfBoard,
+		MakeAdminOfBoard = 1 << 17,
 		/// <summary>
 		/// Indicates the current member was made an admin of an organization.
 		/// </summary>
 		[Description("makeAdminOfOrganization")]
-		MakeAdminOfOrganization,
+		MakeAdminOfOrganization = 1 << 18,
 		/// <summary>
 		/// Indicates a card due date is approaching.
 		/// </summary>
 		[Description("cardDueSoon")]
-		CardDueSoon		
+		CardDueSoon = 1 << 19,
+		/// <summary>
+		/// Indicates all notification types.
+		/// </summary>
+		[Description("all")]
+		All = 1 << 20 - 1,
 	}
 }

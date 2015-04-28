@@ -35,15 +35,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyStickerCollection : ReadOnlyCollection<Sticker>
 	{
-		private readonly TrelloAuthorization _auth;
-
-		internal TrelloAuthorization Auth { get { return _auth; } }
-
 		internal ReadOnlyStickerCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
-		{
-			_auth = auth;
-		}
+			: base(ownerId, auth) {}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
