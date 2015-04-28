@@ -36,22 +36,18 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyOrganizationMembershipCollection : ReadOnlyCollection<OrganizationMembership>
 	{
-		private readonly TrelloAuthorization _auth;
 		private Dictionary<string, object> _additionalParameters;
 
-		internal TrelloAuthorization Auth { get { return _auth; } }
-
 		internal ReadOnlyOrganizationMembershipCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
+			: base(ownerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
 		}
 		internal ReadOnlyOrganizationMembershipCollection(ReadOnlyOrganizationMembershipCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId)
+			: this(source.OwnerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
-			_additionalParameters = source._additionalParameters;
+			if (source._additionalParameters != null)
+				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
 		/// <summary>

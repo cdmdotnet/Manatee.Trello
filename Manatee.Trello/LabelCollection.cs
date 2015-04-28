@@ -38,13 +38,11 @@ namespace Manatee.Trello
 	public class CardLabelCollection : ReadOnlyCollection<Label>
 	{
 		private readonly CardContext _context;
-		private readonly TrelloAuthorization _auth;
 
 		internal CardLabelCollection(CardContext context, TrelloAuthorization auth)
-			: base(context.Data.Id)
+			: base(context.Data.Id, auth)
 		{
 			_context = context;
-			_auth = auth ?? TrelloAuthorization.Default;
 		}
 
 		/// <summary>
@@ -61,7 +59,7 @@ namespace Manatee.Trello
 			json.String = label.Id;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddLabel, new Dictionary<string, object> {{"_id", OwnerId}});
-			JsonRepository.Execute(_auth, endpoint, json);
+			JsonRepository.Execute(Auth, endpoint, json);
 
 			Items.Add(label);
 			_context.Expire();
@@ -77,7 +75,7 @@ namespace Manatee.Trello
 				throw new ValidationException<Label>(label, new[] {error});
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_RemoveLabel, new Dictionary<string, object> {{"_id", OwnerId}, {"_labelId", label.Id}});
-			JsonRepository.Execute(_auth, endpoint);
+			JsonRepository.Execute(Auth, endpoint);
 
 			Items.Remove(label);
 			_context.Expire();
@@ -94,7 +92,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(_context.Data.Labels.Select(jl =>
 				{
-					var label = jl.GetFromCache<Label>(_auth);
+					var label = jl.GetFromCache<Label>(Auth);
 					label.Json = jl;
 					return label;
 				}));
@@ -106,13 +104,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class BoardLabelCollection : ReadOnlyCollection<Label>
 	{
-		private readonly TrelloAuthorization _auth;
-
 		internal BoardLabelCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
-		{
-			_auth = auth ?? TrelloAuthorization.Default;
-		}
+			: base(ownerId, auth) {}
 
 		/// <summary>
 		/// Adds a label to the collection.
@@ -130,9 +123,9 @@ namespace Manatee.Trello
 			json.Board.Id = OwnerId;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_AddLabel);
-			var newData = JsonRepository.Execute(_auth, endpoint, json);
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
 
-			return new Label(newData, _auth);
+			return new Label(newData, Auth);
 		}
 
 		/// <summary>
@@ -141,12 +134,12 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Labels, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonLabel>>(_auth, endpoint);
+			var newData = JsonRepository.Execute<List<IJsonLabel>>(Auth, endpoint);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jb =>
 				{
-					var board = jb.GetFromCache<Label>(_auth);
+					var board = jb.GetFromCache<Label>(Auth);
 					board.Json = jb;
 					return board;
 				}));

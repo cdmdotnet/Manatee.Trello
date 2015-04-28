@@ -36,10 +36,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyListCollection : ReadOnlyCollection<List>
 	{
-		private readonly TrelloAuthorization _auth;
 		private Dictionary<string, object> _additionalParameters;
-
-		internal TrelloAuthorization Auth { get { return _auth; } }
 
 		/// <summary>
 		/// Retrieves a list which matches the supplied key.
@@ -52,14 +49,12 @@ namespace Manatee.Trello
 		public List this[string key] { get { return GetByKey(key); } }
 
 		internal ReadOnlyListCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
-		{
-			_auth = auth ?? TrelloAuthorization.Default;
-		}
+			: base(ownerId, auth) {}
 		internal ReadOnlyListCollection(ReadOnlyListCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId)
+			: this(source.OwnerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
+			if (source._additionalParameters != null)
+				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
 		/// <summary>
@@ -67,13 +62,15 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Update()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Lists, new Dictionary<string, object> {{"_id", OwnerId}});
+			IncorporateLimit(_additionalParameters);
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Lists, new Dictionary<string, object> { { "_id", OwnerId } });
 			var newData = JsonRepository.Execute<List<IJsonList>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jl =>
 				{
-					var list = jl.GetFromCache<List>(_auth);
+					var list = jl.GetFromCache<List>(Auth);
 					list.Json = jl;
 					return list;
 				}));

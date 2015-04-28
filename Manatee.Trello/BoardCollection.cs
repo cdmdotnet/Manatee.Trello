@@ -38,11 +38,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyBoardCollection : ReadOnlyCollection<Board>
 	{
-		private readonly TrelloAuthorization _auth;
 		private readonly EntityRequestType _updateRequestType;
 		private Dictionary<string, object> _additionalParameters;
-
-		internal TrelloAuthorization Auth { get { return _auth; } }
 
 		/// <summary>
 		/// Retrieves a board which matches the supplied key.
@@ -55,18 +52,18 @@ namespace Manatee.Trello
 		public Board this[string key] { get { return GetByKey(key); } }
 
 		internal ReadOnlyBoardCollection(Type type, string ownerId, TrelloAuthorization auth)
-			: base(ownerId)
+			: base(ownerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = type == typeof (Organization)
 				                     ? EntityRequestType.Organization_Read_Boards
 				                     : EntityRequestType.Member_Read_Boards;
 		}
 		internal ReadOnlyBoardCollection(ReadOnlyBoardCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId)
+			: base(source.OwnerId, auth)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
 			_updateRequestType = source._updateRequestType;
+			if (source._additionalParameters != null)
+				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
 		/// <summary>
@@ -74,7 +71,9 @@ namespace Manatee.Trello
 		/// </summary>
 		protected override sealed void Update()
 		{
-			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
+			IncorporateLimit(_additionalParameters);
+
+			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> { { "_id", OwnerId } });
 			var newData = JsonRepository.Execute<List<IJsonBoard>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
