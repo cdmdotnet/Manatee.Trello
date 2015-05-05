@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="BoardBackground.cs" />
     <Compile Include="Enumerations\BoardFilter.cs" />
     <Compile Include="Enumerations\OrganizationFilter.cs" />
     <Compile Include="Enumerations\MembershipFilter.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Internal\Searching\TextInCardCheckListSearchParameter.cs" />
     <Compile Include="Internal\Searching\TextSearchParameter.cs" />
     <Compile Include="Internal\Synchronization\LabelContext.cs" />
+    <Compile Include="Json\IJsonBoardBackground.cs" />
     <Compile Include="Properties\ResharperAnnotations.cs" />
     <Compile Include="SearchFor.cs" />
     <Compile Include="StickerCollection.cs" />
@@ -248,6 +250,7 @@
     <Compile Include="Internal\GeneralExtensions.cs" />
     <Compile Include="Internal\DataAccess\JsonRepository.cs" />
     <Compile Include="TrelloProcessor.cs" />
+    <Compile Include="WebColor.cs" />
     <Compile Include="Webhook.cs" />
   </ItemGroup>
   <ItemGroup />

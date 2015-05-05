@@ -45,6 +45,7 @@ namespace Manatee.Trello.ManateeJson
 					{typeof (IJsonAttachment), () => new ManateeAttachment()},
 					{typeof (IJsonBadges), () => new ManateeBadges()},
 					{typeof (IJsonBoard), () => new ManateeBoard()},
+					{typeof (IJsonBoardBackground), () => new ManateeBoardBackground()},
 					{typeof (IJsonBoardMembership), () => new ManateeBoardMembership()},
 					{typeof (IJsonBoardPersonalPreferences), () => new ManateeBoardPersonalPreferences()},
 					{typeof (IJsonBoardPreferences), () => new ManateeBoardPreferences()},

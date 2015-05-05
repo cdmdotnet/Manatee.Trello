@@ -51,7 +51,6 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"IsUpload", new Property<IJsonAttachment, bool?>((d, a) => d.IsUpload, (d, o) => d.IsUpload = o)},
 					{"MimeType", new Property<IJsonAttachment, string>((d, a) => d.MimeType, (d, o) => d.MimeType = o)},
 					{"Name", new Property<IJsonAttachment, string>((d, a) => d.Name, (d, o) => d.Name = o)},
-					{"Previews", new Property<IJsonAttachment, List<IJsonImagePreview>>((d, a) => d.Previews, (d, o) => d.Previews = o)},
 					{"Url", new Property<IJsonAttachment, string>((d, a) => d.Url, (d, o) => d.Url = o)},
 				};
 		}

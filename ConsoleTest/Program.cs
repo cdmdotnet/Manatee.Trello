@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using Manatee.Trello;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.RestSharp;
 using Manatee.Trello.Test;
+using Action = System.Action;
 
 namespace ConsoleTest
 {
@@ -15,18 +16,16 @@ namespace ConsoleTest
 			{
 				TrelloProcessor.WaitForPendingRequests = true;
 
-				var board = new Board(TrelloIds.BoardId);
-				Console.WriteLine(Member.Me.Email);
-				var list = board.Lists.FirstOrDefault();
-				var card = list.Cards.Add("new card");
-				Console.WriteLine(card);
-				card.Description = "a new description";
+				var card = new Card("js8Ygw89");
+				Console.WriteLine(card.Board.Id);
+				Console.WriteLine();
+				Console.WriteLine(Member.Me);
 
 				TrelloProcessor.Shutdown();
 			});
 		}
 
-		private static void Run(System.Action action)
+		private static void Run(Action action)
 		{
 			var serializer = new ManateeSerializer();
 			TrelloConfiguration.Serializer = serializer;
@@ -40,6 +39,15 @@ namespace ConsoleTest
 			TrelloConfiguration.ThrowOnTrelloError = true;
 
 			action();
+		}
+
+		private static void OutputCollection<T>(string section, IEnumerable<T> collection)
+		{
+			Console.WriteLine(section);
+			foreach (var item in collection)
+			{
+				Console.WriteLine("    {0}", item);
+			}
 		}
 	}
 }
