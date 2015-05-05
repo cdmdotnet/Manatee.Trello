@@ -101,9 +101,9 @@ namespace Manatee.Trello
 			if (_additionalParameters == null)
 				_additionalParameters = new Dictionary<string, object>();
 			if (start.HasValue)
-				_additionalParameters["since"] = start.Value;
+				_additionalParameters["since"] = start.Value.ToUniversalTime().ToString("O");
 			if (end.HasValue)
-				_additionalParameters["before"] = end.Value;
+				_additionalParameters["before"] = end.Value.ToUniversalTime().ToString("O");
 		}
 	}
 

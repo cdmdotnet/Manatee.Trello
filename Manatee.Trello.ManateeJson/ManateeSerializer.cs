@@ -39,6 +39,8 @@ namespace Manatee.Trello.ManateeJson
 		private readonly JsonSerializer _serializer;
 		private readonly MethodInfo _method;
 
+		internal JsonSerializer Serializer { get { return _serializer; } }
+
 		static ManateeSerializer()
 		{
 			InitializeAbstractionMap();
@@ -104,6 +106,7 @@ namespace Manatee.Trello.ManateeJson
 			JsonSerializationAbstractionMap.Map<IJsonAttachment, ManateeAttachment>();
 			JsonSerializationAbstractionMap.Map<IJsonBadges, ManateeBadges>();
 			JsonSerializationAbstractionMap.Map<IJsonBoard, ManateeBoard>();
+			JsonSerializationAbstractionMap.Map<IJsonBoardBackground, ManateeBoardBackground>();
 			JsonSerializationAbstractionMap.Map<IJsonBoardMembership, ManateeBoardMembership>();
 			JsonSerializationAbstractionMap.Map<IJsonBoardPersonalPreferences, ManateeBoardPersonalPreferences>();
 			JsonSerializationAbstractionMap.Map<IJsonBoardPreferences, ManateeBoardPreferences>();

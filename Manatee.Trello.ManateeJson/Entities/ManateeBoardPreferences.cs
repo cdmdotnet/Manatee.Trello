@@ -37,6 +37,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? CardCovers { get; set; }
 		public bool? CalendarFeed { get; set; }
 		public CardAgingStyle? CardAging { get; set; }
+		public IJsonBoardBackground Background { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -50,6 +51,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			CardCovers = obj.TryGetBoolean("cardCovers");
 			CalendarFeed = obj.TryGetBoolean("calendarFeed");
 			CardAging = obj.Deserialize<CardAgingStyle?>(serializer, "cardAging");
+			Background = serializer.Deserialize<IJsonBoardBackground>(obj);
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{

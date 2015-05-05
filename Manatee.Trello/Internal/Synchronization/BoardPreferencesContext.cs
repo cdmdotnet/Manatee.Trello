@@ -45,4 +45,19 @@ namespace Manatee.Trello.Internal.Synchronization
 		public BoardPreferencesContext(TrelloAuthorization auth)
 			: base(auth) {}
 	}
+
+	internal class BoardBackgroundContext : LinkedSynchronizationContext<IJsonBoardBackground>
+	{
+		static BoardBackgroundContext()
+		{
+			_properties = new Dictionary<string, Property<IJsonBoardBackground>>
+				{
+					{"Color", new Property<IJsonBoardBackground, WebColor>((d, a) => new WebColor(d.Color), (d, o) => d.Color = o.ToString())},
+					{"Image", new Property<IJsonBoardBackground, string>((d, a) => d.Image, (d, o) => d.Image = o)},
+					{"IsTiled", new Property<IJsonBoardBackground, bool?>((d, a) => d.Tile, (d, o) => d.Tile = o)},
+				};
+		}
+		public BoardBackgroundContext(TrelloAuthorization auth)
+			: base(auth) {}
+	}
 }
