@@ -67,6 +67,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		CardAgingStyle? CardAging { get; set; }
+		/// <summary>
+		/// Gets or sets the background image of the board.
+		/// </summary>
+		[JsonDeserialize]
 		IJsonBoardBackground Background { get; set; }
 	}
 }

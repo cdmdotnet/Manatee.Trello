@@ -21,10 +21,7 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Manatee.Trello.Json
 {
@@ -38,7 +35,7 @@ namespace Manatee.Trello.Json
 		string Image { get; set; }
 		[JsonDeserialize]
 		[JsonSerialize]
-		IEnumerable<IJsonImagePreview> ImageScaled { get; set; }
+		List<IJsonImagePreview> ImageScaled { get; set; }
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Tile { get; set; }
