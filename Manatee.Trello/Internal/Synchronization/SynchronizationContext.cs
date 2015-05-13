@@ -147,7 +147,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private readonly object _mergeLock;
 
 		protected override bool HasChanges { get { return _localChanges.Any(); } }
-		protected TrelloAuthorization Auth { get { return _auth; } }
+		public TrelloAuthorization Auth { get { return _auth; } }
 		protected bool IsInitialized { get; private set; }
 
 		internal TJson Data { get; private set; }

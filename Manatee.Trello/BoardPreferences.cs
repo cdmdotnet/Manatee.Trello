@@ -40,6 +40,7 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _showCardCovers;
 		private readonly Field<bool?> _isCalendarFeedEnabled;
 		private readonly Field<CardAgingStyle?> _cardAgingStyle;
+		private readonly Field<BoardBackground> _background;
 		private readonly BoardPreferencesContext _context;
 
 		/// <summary>
@@ -109,6 +110,14 @@ namespace Manatee.Trello
 			get { return _cardAgingStyle.Value; }
 			set { _cardAgingStyle.Value = value; }
 		}
+		/// <summary>
+		/// Gets or sets the background of the board.
+		/// </summary>
+		public BoardBackground Background
+		{
+			get { return _background.Value; }
+			set { _background.Value = value; }
+		}
 
 		internal BoardPreferences(BoardPreferencesContext context)
 		{
@@ -135,6 +144,8 @@ namespace Manatee.Trello
 			_cardAgingStyle = new Field<CardAgingStyle?>(_context, () => CardAgingStyle);
 			_cardAgingStyle.AddRule(NullableHasValueRule<CardAgingStyle>.Instance);
 			_cardAgingStyle.AddRule(EnumerationRule<CardAgingStyle?>.Instance);
+			_background = new Field<BoardBackground>(_context, () => Background);
+			_background.AddRule(NotNullRule<BoardBackground>.Instance);
 		}
 	}
 }

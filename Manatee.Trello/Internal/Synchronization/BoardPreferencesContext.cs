@@ -22,6 +22,7 @@
 ***************************************************************************************/
 
 using System.Collections.Generic;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -40,19 +41,26 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"ShowCardCovers", new Property<IJsonBoardPreferences, bool?>((d, a) => d.CardCovers, (d, o) => d.CardCovers = o)},
 					{"IsCalendarFeedEnabled", new Property<IJsonBoardPreferences, bool?>((d, a) => d.CalendarFeed, (d, o) => d.CalendarFeed = o)},
 					{"CardAgingStyle", new Property<IJsonBoardPreferences, CardAgingStyle?>((d, a) => d.CardAging, (d, o) => d.CardAging = o)},
+					{
+						"Background", new Property<IJsonBoardPreferences, BoardBackground>((d, a) => d.Background == null ? null : d.Background.GetFromCache<BoardBackground>(a),
+																						   (d, o) => d.Background = o != null ? o.Json : null)
+					}
 				};
 		}
 		public BoardPreferencesContext(TrelloAuthorization auth)
 			: base(auth) {}
 	}
 
-	internal class BoardBackgroundContext : LinkedSynchronizationContext<IJsonBoardBackground>
+	internal class BoardBackgroundContext : SynchronizationContext<IJsonBoardBackground>
 	{
 		static BoardBackgroundContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonBoardBackground>>
 				{
-					{"Color", new Property<IJsonBoardBackground, WebColor>((d, a) => new WebColor(d.Color), (d, o) => d.Color = o.ToString())},
+					{
+						"Color", new Property<IJsonBoardBackground, WebColor>((d, a) => string.IsNullOrWhiteSpace(d.Color) ? null : new WebColor(d.Color),
+																			  (d, o) => d.Color = o == null ? null : o.ToString())
+					},
 					{"Image", new Property<IJsonBoardBackground, string>((d, a) => d.Image, (d, o) => d.Image = o)},
 					{"IsTiled", new Property<IJsonBoardBackground, bool?>((d, a) => d.Tile, (d, o) => d.Tile = o)},
 				};
