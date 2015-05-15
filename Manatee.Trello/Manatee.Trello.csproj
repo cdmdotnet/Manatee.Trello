@@ -64,9 +64,11 @@
     <Compile Include="Internal\Searching\TextInCardNameSearchParameter.cs" />
     <Compile Include="Internal\Searching\TextInCardCheckListSearchParameter.cs" />
     <Compile Include="Internal\Searching\TextSearchParameter.cs" />
+    <Compile Include="Internal\Synchronization\BoardBackgroundContext.cs" />
     <Compile Include="Internal\Synchronization\LabelContext.cs" />
     <Compile Include="Json\IJsonBoardBackground.cs" />
     <Compile Include="Properties\ResharperAnnotations.cs" />
+    <Compile Include="ReadOnlyBoardBackgroundScalesCollection.cs" />
     <Compile Include="SearchFor.cs" />
     <Compile Include="StickerCollection.cs" />
     <Compile Include="StickerPreviewCollection.cs" />

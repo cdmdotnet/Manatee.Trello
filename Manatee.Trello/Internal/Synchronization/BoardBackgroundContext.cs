@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		TokenPermissionContext.cs
+	File Name:		BoardBackgroundContext.cs
 	Namespace:		Manatee.Trello.Internal.Synchronization
-	Class Name:		TokenPermissionContext
-	Purpose:		Provides a data context for a permissions granted by a token.
+	Class Name:		BoardBackgroundContext
+	Purpose:		Provides a data context for a board background.
 
 ***************************************************************************************/
 using System.Collections.Generic;
@@ -25,18 +25,21 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class TokenPermissionContext : LinkedSynchronizationContext<IJsonTokenPermission>
+	internal class BoardBackgroundContext : SynchronizationContext<IJsonBoardBackground>
 	{
-		static TokenPermissionContext()
+		static BoardBackgroundContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonTokenPermission>>
+			_properties = new Dictionary<string, Property<IJsonBoardBackground>>
 				{
-					{"ModelType", new Property<IJsonTokenPermission, TokenModelType?>((d, a) => d.ModelType, (d, o) => d.ModelType = o)},
-					{"CanRead", new Property<IJsonTokenPermission, bool?>((d, a) => d.Read, (d, o) => d.Read = o)},
-					{"CanWrite", new Property<IJsonTokenPermission, bool?>((d, a) => d.Write, (d, o) => d.Write = o)},
+					{
+						"Color", new Property<IJsonBoardBackground, WebColor>((d, a) => d.Color.IsNullOrWhiteSpace() ? null : new WebColor(d.Color),
+																			  (d, o) => d.Color = o == null ? null : o.ToString())
+					},
+					{"Image", new Property<IJsonBoardBackground, string>((d, a) => d.Image, (d, o) => d.Image = o)},
+					{"IsTiled", new Property<IJsonBoardBackground, bool?>((d, a) => d.Tile, (d, o) => d.Tile = o)},
 				};
 		}
-		public TokenPermissionContext(TrelloAuthorization auth)
+		public BoardBackgroundContext(TrelloAuthorization auth)
 			: base(auth) {}
 	}
 }

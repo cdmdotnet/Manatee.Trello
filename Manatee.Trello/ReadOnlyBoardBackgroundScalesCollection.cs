@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ReadOnlyAttachmentPreviewCollection.cs
+	File Name:		ReadOnlyBoardBackgroundScalesCollection.cs
 	Namespace:		Manatee.Trello
-	Class Name:		ReadOnlyAttachmentPreviewCollection
-	Purpose:		Collection objects for image previews.
+	Class Name:		ReadOnlyBoardBackgroundScalesCollection
+	Purpose:		A read-only collection of scaled versions of board backgrounds.
 
 ***************************************************************************************/
 using Manatee.Trello.Internal.Caching;
@@ -26,13 +26,13 @@ using Manatee.Trello.Internal.Synchronization;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// A read-only collection of image previews for attachments.
+	/// A read-only collection of scaled versions of board backgrounds.
 	/// </summary>
-	public class ReadOnlyAttachmentPreviewCollection : ReadOnlyCollection<ImagePreview>
+	public class ReadOnlyBoardBackgroundScalesCollection : ReadOnlyCollection<ImagePreview>
 	{
-		private readonly AttachmentContext _context;
+		private readonly BoardBackgroundContext _context;
 
-		internal ReadOnlyAttachmentPreviewCollection(AttachmentContext context, TrelloAuthorization auth)
+		internal ReadOnlyBoardBackgroundScalesCollection(BoardBackgroundContext context, TrelloAuthorization auth)
 			: base(context.Data.Id, auth)
 		{
 			_context = context;
@@ -44,9 +44,9 @@ namespace Manatee.Trello
 		protected override sealed void Update()
 		{
 			_context.Synchronize();
-			if (_context.Data.Previews == null) return;
+			if (_context.Data.ImageScaled == null) return;
 			Items.Clear();
-			foreach (var jsonPreview in _context.Data.Previews)
+			foreach (var jsonPreview in _context.Data.ImageScaled)
 			{
 				var preview = jsonPreview.GetFromCache<ImagePreview>(Auth);
 				Items.Add(preview);
