@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Little Crab Solutions")]
 [assembly: AssemblyProduct("Manatee.Trello.RestSharp")]
-[assembly: AssemblyCopyright("Copyright © 2014 Little Crab Solutions")]
+[assembly: AssemblyCopyright("Copyright © 2015 Little Crab Solutions")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

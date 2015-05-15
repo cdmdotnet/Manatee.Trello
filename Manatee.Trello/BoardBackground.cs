@@ -1,10 +1,35 @@
-﻿using Manatee.Trello.Contracts;
+﻿/***************************************************************************************
+
+	Copyright 2015 Greg Dennis
+
+	   Licensed under the Apache License, Version 2.0 (the "License");
+	   you may not use this file except in compliance with the License.
+	   You may obtain a copy of the License at
+
+		 http://www.apache.org/licenses/LICENSE-2.0
+
+	   Unless required by applicable law or agreed to in writing, software
+	   distributed under the License is distributed on an "AS IS" BASIS,
+	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	   See the License for the specific language governing permissions and
+	   limitations under the License.
+ 
+	File Name:		BoardBackground.cs
+	Namespace:		Manatee.Trello
+	Class Name:		BoardBackground
+	Purpose:		Represents a background image for a board.
+
+***************************************************************************************/
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a background image for a board.
+	/// </summary>
 	public class BoardBackground : ICacheable
 	{
 		private readonly Field<WebColor> _color;
@@ -12,23 +37,35 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _isTiled;
 		private readonly BoardBackgroundContext _context;
 
+		/// <summary>
+		/// Gets the color of a stock solid-color background.
+		/// </summary>
 		public WebColor Color
 		{
 			get { return _color.Value; }
 		}
-		public string Image
-		{
-			get { return _image.Value; }
-		}
-		public bool? IsTiled
-		{
-			get { return _isTiled.Value; }
-		}
-		public ReadOnlyBoardBackgroundScalesCollection ScaledImages { get; private set; }
 		/// <summary>
 		/// Gets the background's ID.
 		/// </summary>
 		public string Id { get; private set; }
+		/// <summary>
+		/// Gets the image of a background.
+		/// </summary>
+		public string Image
+		{
+			get { return _image.Value; }
+		}
+		/// <summary>
+		/// Gets whether the image is tiled when displayed.
+		/// </summary>
+		public bool? IsTiled
+		{
+			get { return _isTiled.Value; }
+		}
+		/// <summary>
+		/// Gets a collections of scaled background images.
+		/// </summary>
+		public ReadOnlyBoardBackgroundScalesCollection ScaledImages { get; private set; }
 
 		internal IJsonBoardBackground Json
 		{
