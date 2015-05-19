@@ -252,7 +252,6 @@ namespace Manatee.Trello
 			Comments = new CommentCollection(id, auth);
 			_description = new Field<string>(_context, () => Description);
 			_dueDate = new Field<DateTime?>(_context, () => DueDate);
-			_dueDate.AddRule(NullableHasValueRule<DateTime>.Instance);
 			_isArchived = new Field<bool?>(_context, () => IsArchived);
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);

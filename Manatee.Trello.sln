@@ -66,6 +66,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetTest", "NugetTest\NugetTest.csproj", "{16E45782-2D76-4878-8E51-33DF0D8927DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.WebApi", "Manatee.Trello.WebApi\Manatee.Trello.WebApi.csproj", "{C34EE777-368E-4028-AB8D-D8AF7E98D97F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -152,6 +154,10 @@ Global
 		{16E45782-2D76-4878-8E51-33DF0D8927DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16E45782-2D76-4878-8E51-33DF0D8927DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16E45782-2D76-4878-8E51-33DF0D8927DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C34EE777-368E-4028-AB8D-D8AF7E98D97F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C34EE777-368E-4028-AB8D-D8AF7E98D97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C34EE777-368E-4028-AB8D-D8AF7E98D97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C34EE777-368E-4028-AB8D-D8AF7E98D97F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

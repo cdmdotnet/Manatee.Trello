@@ -64,9 +64,10 @@ namespace Manatee.Trello.ManateeJson
 #endif
 			return serializer.Deserialize<T>(obj[key]);
 		}
-		public static void Serialize<T>(this T obj, JsonObject json, JsonSerializer serializer, string key)
+		public static void Serialize<T>(this T obj, JsonObject json, JsonSerializer serializer, string key, bool force = false)
 		{
-			if (!Equals(obj, default(T)))
+			var isDefault = Equals(obj, default(T));
+			if (force || !isDefault)
 			{
 #if IOS
 				var enumValue = obj as Enum;
@@ -74,7 +75,7 @@ namespace Manatee.Trello.ManateeJson
 					json[key] = enumValue.ToDescription();
 				else
 #endif
-				json[key] = serializer.Serialize(obj);
+				json[key] = isDefault ? string.Empty : serializer.Serialize(obj);
 			}
 		}
 		public static void SerializeId<T>(this T obj, JsonObject json, string key)

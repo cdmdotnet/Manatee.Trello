@@ -19,7 +19,8 @@ namespace NugetTest
 			Run(() =>
 			{
 				var board = new Board(TrelloIds.BoardId);
-				Console.WriteLine(board.Preferences.Background.Image);
+				Console.WriteLine(board.Preferences.Background.Color);
+				Console.ReadLine();
 			});
 		}
 

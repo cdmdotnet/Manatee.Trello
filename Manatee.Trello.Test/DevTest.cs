@@ -23,13 +23,30 @@ namespace Manatee.Trello.Test
 	[TestClass]
 	public class DevTest
 	{
+		private class ReferenceComparer<T> : IEqualityComparer<T>
+		{
+			public bool Equals(T x, T y)
+			{
+				return ReferenceEquals(x, y);
+			}
+			public int GetHashCode(T obj)
+			{
+				return obj.GetHashCode();
+			}
+		}
+
 		[TestMethod]
 		public void TestMethod1()
 		{
 			Run(() =>
 				{
-					var board = new Board("BVlClkAR");
-					Console.WriteLine(board.Preferences.Background.Image);
+					var card = new Card(TrelloIds.CardId);
+					Console.WriteLine(card.DueDate);
+					card.DueDate = null;
+					//var org = new Organization("gamestopit");
+					//OutputCollection("boards", org.Boards.Select(b => b.Preferences.Background)
+					//							  .Distinct(new ReferenceComparer<BoardBackground>())
+					//							  .Select(b => b.Id));
 				});
 		}
 

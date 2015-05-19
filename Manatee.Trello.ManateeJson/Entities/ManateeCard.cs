@@ -22,7 +22,6 @@
 ***************************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -50,6 +49,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? Subscribed { get; set; }
 		public IJsonCard CardSource { get; set; }
 		public object UrlSource { get; set; }
+		public bool ForceDueDate { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -97,7 +97,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Board.SerializeId(json, "idBoard");
 			Closed.Serialize(json, serializer, "closed");
 			Desc.Serialize(json, serializer, "desc");
-			Due.Serialize(json, serializer, "due");
+			Due.Serialize(json, serializer, "due", ForceDueDate);
 			List.SerializeId(json, "idList");
 			Name.Serialize(json, serializer, "name");
 			Pos.Serialize(json, serializer, "pos");

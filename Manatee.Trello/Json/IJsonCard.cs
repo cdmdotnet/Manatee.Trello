@@ -126,9 +126,13 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		IJsonCard CardSource { get; set; }
 		/// <summary>
-		/// Gets or set a URL to be imported during creation.
+		/// Gets or sets a URL to be imported during creation.
 		/// </summary>
 		[JsonSerialize]
 		object UrlSource { get; set; }
+		/// <summary>
+		/// Gets or sets whether the due date should be serialized, even if it is null.
+		/// </summary>
+		bool ForceDueDate { get; set; }
 	}
 }
