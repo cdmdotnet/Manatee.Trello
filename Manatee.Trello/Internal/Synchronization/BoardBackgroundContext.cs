@@ -25,12 +25,13 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class BoardBackgroundContext : SynchronizationContext<IJsonBoardBackground>
+	internal class BoardBackgroundContext : LinkedSynchronizationContext<IJsonBoardBackground>
 	{
 		static BoardBackgroundContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonBoardBackground>>
 				{
+					{"Id", new Property<IJsonBoardBackground, string>((d, a) => d.Id, (d, o ) => d.Id = o)},
 					{
 						"Color", new Property<IJsonBoardBackground, WebColor>((d, a) => d.Color.IsNullOrWhiteSpace() ? null : new WebColor(d.Color),
 																			  (d, o) => d.Color = o == null ? null : o.ToString())

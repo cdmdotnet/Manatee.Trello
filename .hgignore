@@ -51,3 +51,5 @@ ConsoleTest/obj
 ConsoleTest/bin
 NugetTest/bin/
 NugetTest/obj/
+Manatee.Trello.WebApi/bin
+Manatee.Trello.WebApi/obj
