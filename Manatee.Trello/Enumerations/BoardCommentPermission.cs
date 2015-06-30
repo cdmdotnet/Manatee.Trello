@@ -40,6 +40,11 @@ namespace Manatee.Trello
 		[Description("members")]
 		Members,
 		/// <summary>
+		/// Indicates that observers may make comments on cards.
+		/// </summary>
+		[Description("observers")]
+		Observers,
+		/// <summary>
 		/// Indicates that only members of the organization to which the board belongs may comment on cards.
 		/// </summary>
 		[Description("org")]

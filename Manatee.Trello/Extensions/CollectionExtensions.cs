@@ -295,7 +295,7 @@ namespace Manatee.Trello
 			if (limit <= 0)
 				throw new ArgumentException("limit");
 
-			return new ReadOnlyListCollection(lists, lists.Auth) {Limit = limit};
+			return new ReadOnlyListCollection(lists, lists.Auth) { Limit = limit };
 		}
 
 		/// <summary>
