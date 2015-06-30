@@ -14,6 +14,7 @@ using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.ManateeJson.Entities;
+using Manatee.Trello.Rest;
 using Manatee.Trello.RestSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IQueryable = Manatee.Trello.Contracts.IQueryable;
@@ -23,16 +24,11 @@ namespace Manatee.Trello.Test
 	[TestClass]
 	public class DevTest
 	{
-		private class ReferenceComparer<T> : IEqualityComparer<T>
+		private class RestResponse<T> : IRestResponse<T>
 		{
-			public bool Equals(T x, T y)
-			{
-				return ReferenceEquals(x, y);
-			}
-			public int GetHashCode(T obj)
-			{
-				return obj.GetHashCode();
-			}
+			public string Content { get; set; }
+			public Exception Exception { get; set; }
+			public T Data { get; set; }
 		}
 
 		[TestMethod]

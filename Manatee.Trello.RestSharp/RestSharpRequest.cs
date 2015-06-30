@@ -34,11 +34,13 @@ namespace Manatee.Trello.RestSharp
 	internal class RestSharpRequest : RestRequest, IRestRequest
 	{
 		private bool _hasBody;
+
 		public new RestMethod Method
 		{
 			get { return GetMethod(); }
 			set { SetMethod(value); }
 		}
+		public IRestResponse Response { get; set; }
 
 		public RestSharpRequest(ISerializer serializer, string endpoint)
 			: base(endpoint)
@@ -48,16 +50,15 @@ namespace Manatee.Trello.RestSharp
 			JsonSerializer = serializer;
 		}
 
-		public new string Resource { get { return base.Resource; } }
 		public new void AddParameter(string name, object value)
 		{
 			if (_hasBody)
 			{
-				if (!base.Resource.Contains("?"))
-					base.Resource += "?";
+				if (!Resource.Contains("?"))
+					Resource += "?";
 				else
-					base.Resource += "&";
-				base.Resource += string.Format("{0}={1}", name, value);
+					Resource += "&";
+				Resource += string.Format("{0}={1}", name, value);
 				return;
 			}
 			AddParameter(name, value, ParameterType.GetOrPost);
@@ -72,7 +73,7 @@ namespace Manatee.Trello.RestSharp
 #elif NET4 || NET4C || NET45
 				var parameterCallout = string.Join("&", parameterList.Select(p => string.Format("{0}={1}", p.Name, p.Value)));
 #endif
-				base.Resource += string.Format("?{0}", parameterCallout);
+				Resource += string.Format("?{0}", parameterCallout);
 				foreach (var parameter in parameterList)
 				{
 					Parameters.Remove(parameter);
@@ -85,7 +86,6 @@ namespace Manatee.Trello.RestSharp
 			AddParameter("application/json", content, ParameterType.RequestBody);
 			_hasBody = true;
 		}
-		public IRestResponse Response { get; set; }
 
 		private RestMethod GetMethod()
 		{
