@@ -104,7 +104,7 @@ namespace Manatee.Trello
 			set { _cache = value; }
 		}
 		/// <summary>
-		/// Provides logging for Manatee.Trello.  The default log only writes to the Debug window.
+		/// Provides logging for Manatee.Trello.  The default log writes to the Console window.
 		/// </summary>
 		public static ILog Log
 		{

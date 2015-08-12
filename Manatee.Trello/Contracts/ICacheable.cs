@@ -31,6 +31,6 @@ namespace Manatee.Trello.Contracts
 		/// <summary>
 		/// Gets an ID on which matching can be performed.
 		/// </summary>
-		string Id { get; } 
+		string Id { get; }
 	}
 }
