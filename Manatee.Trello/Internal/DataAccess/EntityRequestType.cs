@@ -115,6 +115,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Service_Read_Me,
 		Service_Read_Search,
 		Service_Read_SearchMembers,
+		Serivce_Read_TypeQuery,
 		Sticker_Write_Delete,
 		Sticker_Write_Update,
 		Token_Read_Refresh,
@@ -122,7 +123,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Webhook_Read_Refresh,
 		Webhook_Write_Delete,
 		Webhook_Write_Entity,
-		Webhook_Write_Update,
+		Webhook_Write_Update
 #pragma warning restore 1591
 	}
 }

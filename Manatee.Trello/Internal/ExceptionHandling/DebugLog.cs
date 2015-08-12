@@ -17,7 +17,7 @@
 	File Name:		DebugLog.cs
 	Namespace:		Manatee.Trello.Internal.ExceptionHandling
 	Class Name:		DebugLog
-	Purpose:		Implements ILog, writing messages only to the debug window.
+	Purpose:		Implements ILog, writing messages only to the console window.
 
 ***************************************************************************************/
 

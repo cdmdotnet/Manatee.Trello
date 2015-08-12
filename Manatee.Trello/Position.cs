@@ -41,6 +41,8 @@ namespace Manatee.Trello
 		private static readonly Position _bottom = new Position(BottomValue);
 		private static readonly Position _unknown = new Position(UnknownValue);
 
+		private readonly double _value;
+
 		/// <summary>
 		/// Represents the top position.
 		/// </summary>
@@ -54,21 +56,33 @@ namespace Manatee.Trello
 		/// </summary>
 		public static Position Unknown { get { return _unknown; } }
 
-		private readonly double _value = UnknownValue;
-
 		/// <summary>
 		/// Gets whether the position is valid.
 		/// </summary>
 		public bool IsValid { get { return Equals(_value, TopValue) || (!Equals(_value, UnknownValue) && !Equals(_value, TopValue) && _value > 0); } }
-		internal double Value { get { return _value; } }
+		/// <summary>
+		/// Gets the internal numeric position value.
+		/// </summary>
+		public double Value { get { return _value; } }
 
 		/// <summary>
-		/// Creates a new instance of the Position class.
+		/// Creates a new instance of the <see cref="Position"/> class.
 		/// </summary>
 		/// <param name="value">A positive integer.</param>
 		public Position(double value)
 		{
 			_value = value;
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="Position"/> object between two others.
+		/// </summary>
+		/// <param name="a">A <see cref="Position"/>.</param>
+		/// <param name="b">Another <see cref="Position"/>.</param>
+		/// <returns>The new <see cref="Position"/>.</returns>
+		public static Position Between(Position a, Position b)
+		{
+			return new Position((a.Value + b.Value)/2);
 		}
 
 		internal static Position GetPosition(IJsonPosition pos)
@@ -151,7 +165,7 @@ namespace Manatee.Trello
 			return _value.ToLowerString();
 		}
 		/// <summary>
-		/// Implicitly casts a PositionValue to a Position.
+		/// Implicitly casts a PositionValue to a <see cref="Position"/>.
 		/// </summary>
 		/// <param name="value">The PositionValue value.</param>
 		/// <returns>The Position object.</returns>
@@ -160,7 +174,7 @@ namespace Manatee.Trello
 			return new Position(value);
 		}
 		/// <summary>
-		/// Implicitly casts an int to a Position.
+		/// Implicitly casts an int to a <see cref="Position"/>.
 		/// </summary>
 		/// <param name="value">a positive integer.</param>
 		/// <returns>The Position object.</returns>
@@ -169,7 +183,7 @@ namespace Manatee.Trello
 			return new Position(value);
 		}
 		/// <summary>
-		/// Explicitly casts a Position to a PositionValue.
+		/// Explicitly casts a <see cref="Position"/> to a double.
 		/// </summary>
 		/// <param name="position">The Position object.</param>
 		/// <returns>The PositionValue value.</returns>
@@ -178,7 +192,7 @@ namespace Manatee.Trello
 			return position._value;
 		}
 		/// <summary>
-		/// Explicitly casts a Position to an int.
+		/// Explicitly casts a <see cref="Position"/> to an int.
 		/// </summary>
 		/// <param name="position">The Position object.</param>
 		/// <returns>The int value.</returns>
@@ -187,10 +201,10 @@ namespace Manatee.Trello
 			return (int) position._value;
 		}
 		/// <summary>
-		/// Compares two Position object by examining their content.
+		/// Compares two <see cref="Position"/> objects by examining their content.
 		/// </summary>
-		/// <param name="a">A Position object.</param>
-		/// <param name="b">A Position object.</param>
+		/// <param name="a">A <see cref="Position"/> object.</param>
+		/// <param name="b">A <see cref="Position"/> object.</param>
 		/// <returns>True if equivalent, false otherwise.</returns>
 		public static bool operator ==(Position a, Position b)
 		{
@@ -199,59 +213,59 @@ namespace Manatee.Trello
 			return Equals(a._value, b._value);
 		}
 		/// <summary>
-		/// Compares two Position object by examining their content.
+		/// Compares two <see cref="Position"/> objects by examining their content.
 		/// </summary>
-		/// <param name="a">A Position object.</param>
-		/// <param name="b">A Position object.</param>
+		/// <param name="a">A <see cref="Position"/> object.</param>
+		/// <param name="b">A <see cref="Position"/> object.</param>
 		/// <returns>False if equivalent, true otherwise.</returns>
 		public static bool operator !=(Position a, Position b)
 		{
 			return !(a == b);
 		}
 		/// <summary>
-		/// Compares two position values for linear order.
+		/// Compares two <see cref="Position"/> values for linear order.
 		/// </summary>
-		/// <param name="a">A Position object.</param>
-		/// <param name="b">A Position object.</param>
+		/// <param name="a">A <see cref="Position"/> object.</param>
+		/// <param name="b">A <see cref="Position"/> object.</param>
 		/// <returns>True if the first operand is less than the second, false otherwise.</returns>
 		public static bool operator <(Position a, Position b)
 		{
 			return a._value < b._value;
 		}
 		/// <summary>
-		/// Compares two position values for linear order.
+		/// Compares two <see cref="Position"/> values for linear order.
 		/// </summary>
-		/// <param name="a">A Position object.</param>
-		/// <param name="b">A Position object.</param>
+		/// <param name="a">A <see cref="Position"/> object.</param>
+		/// <param name="b">A <see cref="Position"/> object.</param>
 		/// <returns>True if the first operand is greater than the second, false otherwise.</returns>
 		public static bool operator >(Position a, Position b)
 		{
 			return a._value > b._value;
 		}
 		/// <summary>
-		/// Compares two position values for linear order.
+		/// Compares two <see cref="Position"/> values for linear order.
 		/// </summary>
-		/// <param name="a">A Position object.</param>
-		/// <param name="b">A Position object.</param>
+		/// <param name="a">A <see cref="Position"/> object.</param>
+		/// <param name="b">A <see cref="Position"/> object.</param>
 		/// <returns>True if the first operand is less than or equal to the second, false otherwise.</returns>
 		public static bool operator <=(Position a, Position b)
 		{
 			return a._value <= b._value;
 		}
 		/// <summary>
-		/// Compares two position values for linear order.
+		/// Compares two <see cref="Position"/> values for linear order.
 		/// </summary>
-		/// <param name="a">A Position object.</param>
-		/// <param name="b">A Position object.</param>
+		/// <param name="a">A <see cref="Position"/> object.</param>
+		/// <param name="b">A <see cref="Position"/> object.</param>
 		/// <returns>True if the first operand is greater than or equal to the second, false otherwise.</returns>
 		public static bool operator >=(Position a, Position b)
 		{
 			return a._value >= b._value;
 		}
 		/// <summary>
-		/// Compares two Position object by examining their content.
+		/// Compares two <see cref="Position"/> object by examining their content.
 		/// </summary>
-		/// <param name="other">A Position object.</param>
+		/// <param name="other">A <see cref="Position"/> object.</param>
 		/// <returns>True if equivalent, false otherwise.</returns>
 		public bool Equals(Position other)
 		{
