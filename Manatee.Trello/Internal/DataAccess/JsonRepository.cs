@@ -87,6 +87,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		}
 		private static void AddDefaultParameters<T>(IRestRequest request)
 		{
+			if (request.Method != RestMethod.Get) return;
 			var defaultParameters = RestParameterRepository.GetParameters<T>();
 			foreach (var parameter in defaultParameters)
 			{
