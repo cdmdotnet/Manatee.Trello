@@ -56,7 +56,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			return Id;
 		}
 	}
 }

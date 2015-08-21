@@ -80,6 +80,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 				Prefs.Comments.Serialize(json, serializer, "prefs/comments");
 				Prefs.CardAging.Serialize(json, serializer, "prefs/cardAging");
 				Prefs.CalendarFeed.Serialize(json, serializer, "prefs/calendarFeedEnabled ");
+				Prefs.Background.Serialize(json, serializer, "prefs/background");
 			}
 			return json;
 		}

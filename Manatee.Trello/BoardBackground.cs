@@ -32,10 +32,22 @@ namespace Manatee.Trello
 	/// </summary>
 	public class BoardBackground : ICacheable
 	{
+		private static BoardBackground _blue, _orange, _green, _red, _purple, _pink, _lime, _sky, _grey;
+
 		private readonly Field<WebColor> _color;
 		private readonly Field<string> _image;
 		private readonly Field<bool?> _isTiled;
 		private readonly BoardBackgroundContext _context;
+
+		public static BoardBackground Blue { get { return _blue ?? (_blue = new BoardBackground("blue")); } }
+		public static BoardBackground Orange { get { return _orange ?? (_orange = new BoardBackground("orange")); } }
+		public static BoardBackground Green { get { return _green ?? (_green = new BoardBackground("green")); } }
+		public static BoardBackground Red { get { return _red ?? (_red = new BoardBackground("red")); } }
+		public static BoardBackground Purple { get { return _purple ?? (_purple = new BoardBackground("purple")); } }
+		public static BoardBackground Pink { get { return _pink ?? (_pink = new BoardBackground("pink")); } }
+		public static BoardBackground Lime { get { return _lime ?? (_lime = new BoardBackground("lime")); } }
+		public static BoardBackground Sky { get { return _sky ?? (_sky = new BoardBackground("sky")); } }
+		public static BoardBackground Grey { get { return _grey ?? (_grey = new BoardBackground("grey")); } }
 
 		/// <summary>
 		/// Gets the color of a stock solid-color background.
@@ -83,6 +95,19 @@ namespace Manatee.Trello
 			_image = new Field<string>(_context, () => Image);
 			_isTiled = new Field<bool?>(_context, () => IsTiled);
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, auth);
+
+			TrelloConfiguration.Cache.Add(this);
+		}
+		private BoardBackground(string id)
+		{
+			Id = id;
+			_context = new BoardBackgroundContext(TrelloAuthorization.Default);
+			Json.Id = id;
+
+			_color = new Field<WebColor>(_context, () => Color);
+			_image = new Field<string>(_context, () => Image);
+			_isTiled = new Field<bool?>(_context, () => IsTiled);
+			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, TrelloAuthorization.Default);
 
 			TrelloConfiguration.Cache.Add(this);
 		}
