@@ -39,14 +39,41 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _isTiled;
 		private readonly BoardBackgroundContext _context;
 
+		/// <summary>
+		/// The standard blue board background.
+		/// </summary>
 		public static BoardBackground Blue { get { return _blue ?? (_blue = new BoardBackground("blue")); } }
+		/// <summary>
+		/// The standard orange board background.
+		/// </summary>
 		public static BoardBackground Orange { get { return _orange ?? (_orange = new BoardBackground("orange")); } }
+		/// <summary>
+		/// The standard green board background.
+		/// </summary>
 		public static BoardBackground Green { get { return _green ?? (_green = new BoardBackground("green")); } }
+		/// <summary>
+		/// The standard red board background.
+		/// </summary>
 		public static BoardBackground Red { get { return _red ?? (_red = new BoardBackground("red")); } }
+		/// <summary>
+		/// The standard purple board background.
+		/// </summary>
 		public static BoardBackground Purple { get { return _purple ?? (_purple = new BoardBackground("purple")); } }
+		/// <summary>
+		/// The standard pink board background.
+		/// </summary>
 		public static BoardBackground Pink { get { return _pink ?? (_pink = new BoardBackground("pink")); } }
+		/// <summary>
+		/// The standard bright green board background.
+		/// </summary>
 		public static BoardBackground Lime { get { return _lime ?? (_lime = new BoardBackground("lime")); } }
+		/// <summary>
+		/// The standard light blue board background.
+		/// </summary>
 		public static BoardBackground Sky { get { return _sky ?? (_sky = new BoardBackground("sky")); } }
+		/// <summary>
+		/// The standard grey board background.
+		/// </summary>
 		public static BoardBackground Grey { get { return _grey ?? (_grey = new BoardBackground("grey")); } }
 
 		/// <summary>

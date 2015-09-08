@@ -36,9 +36,9 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var board = new Board("BVlClkAR");
-					Console.WriteLine(board);
-					OutputCollection("Cards:", board.Cards);
+					var org = new Organization("mynewtestorg");
+					Console.WriteLine(org);
+					org.Delete();
 				});
 		}
 
@@ -51,7 +51,8 @@ namespace Manatee.Trello.Test
 			TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			//TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			//TrelloAuthorization.Default.UserToken = "c9e7ff1433e72233a6c0e1e737dd88382b0958df1c46d68d3b976d7fbc31be21";
 
 			action();
 
