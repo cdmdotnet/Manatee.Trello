@@ -36,9 +36,9 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var org = new Organization("mynewtestorg");
-					Console.WriteLine(org);
-					org.Delete();
+					var board = new Board("BVlClkAR");
+					Console.WriteLine(board);
+					OutputCollection("actions", board.Actions);
 				});
 		}
 
@@ -52,7 +52,6 @@ namespace Manatee.Trello.Test
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
-			//TrelloAuthorization.Default.UserToken = "c9e7ff1433e72233a6c0e1e737dd88382b0958df1c46d68d3b976d7fbc31be21";
 
 			action();
 
