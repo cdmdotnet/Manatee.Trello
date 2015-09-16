@@ -145,6 +145,7 @@ namespace Manatee.Trello
 					{ActionType.UpdateCardName, a => string.Format("{0} changed the name of card {1}.", a.Creator, a.Data.Card)},
 					{ActionType.UpdateCheckItemStateOnCard, a => string.Format("{0} updated checkitem {1}.", a.Creator, a.Data.CheckItem)},
 					{ActionType.UpdateChecklist, a => string.Format("{0} updated checklist {1}.", a.Creator, a.Data.CheckList)},
+					{ActionType.UpdateList, a => string.Format("{0} updated list {1}.", a.Creator, a.Data.List)},
 					{ActionType.UpdateListClosed, a => string.Format("{0} archived list {1}.", a.Creator, a.Data.List)},
 					{ActionType.UpdateListName, a => string.Format("{0} changed the name of list {1}.", a.Creator, a.Data.List)},
 					{ActionType.UpdateMember, a => string.Format("{0} updated their profile.", a.Creator)},
@@ -197,7 +198,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Action type could not be determined.";
+			return Type.HasValue && Type != ActionType.Unknown ? _stringDefinitions[Type.Value](this) : "Action type could not be determined.";
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
