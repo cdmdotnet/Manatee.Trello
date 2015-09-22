@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -15,12 +14,10 @@ namespace Manatee.Trello.WebApi
 {
 	public class WebApiFormatter : MediaTypeFormatter
 	{
-		private readonly Dictionary<Type, MethodInfo> _serializeMethods;
 		private readonly Dictionary<Type, MethodInfo> _deserializeMethods;
 
 		public WebApiFormatter()
 		{
-			_serializeMethods = new Dictionary<Type, MethodInfo>();
 			_deserializeMethods = new Dictionary<Type, MethodInfo>();
 
 			SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
@@ -59,6 +56,7 @@ namespace Manatee.Trello.WebApi
 		{
 			return Task.Run(() =>
 				{
+					if (value == null) return;
 					using (var sw = new StreamWriter(writeStream))
 					{
 						var json = TrelloConfiguration.Serializer.Serialize(value);
@@ -70,6 +68,7 @@ namespace Manatee.Trello.WebApi
 		{
 			return Task.Run(() =>
 				{
+					if (value == null) return;
 					using (var sw = new StreamWriter(writeStream))
 					{
 						var json = TrelloConfiguration.Serializer.Serialize(value);

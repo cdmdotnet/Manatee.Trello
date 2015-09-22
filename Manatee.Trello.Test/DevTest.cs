@@ -41,8 +41,8 @@ namespace Manatee.Trello.Test
 					var attachment = card.Attachments.FirstOrDefault(a => a.Name == "Manatee.Trello");
 					if (attachment != null)
 						attachment.Delete();
-					var newAttachment = File.ReadAllBytes("Manatee.Trello.dll");
-					card.Attachments.Add(newAttachment, "Manatee.Trello");
+					var newAttachment = File.ReadAllBytes("Manatee.Trello.Test.dll.config");
+					card.Attachments.Add(newAttachment, "config");
 				});
 		}
 
