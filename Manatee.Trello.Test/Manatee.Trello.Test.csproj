@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Manatee.Trello.Test</RootNamespace>
     <AssemblyName>Manatee.Trello.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile />
@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-4.0C|AnyCPU'">
     <OutputPath>bin\Release-4.0C\</OutputPath>
@@ -40,6 +42,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-3.5|AnyCPU'">
     <OutputPath>bin\Release-3.5\</OutputPath>
@@ -49,9 +52,11 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-3.5C|AnyCPU'">
     <OutputPath>bin\Release-3.5C\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-4.5|AnyCPU'">
     <OutputPath>bin\Release-4.5\</OutputPath>
@@ -61,6 +66,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mono|AnyCPU'">
     <OutputPath>bin\Release-Mono\</OutputPath>
@@ -70,6 +76,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
@@ -77,29 +84,25 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.3.1.3\lib\net40\Manatee.Json.dll</HintPath>
+      <HintPath>..\packages\Manatee.Json.3.1.3\lib\net45\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net40\Manatee.StateMachine.dll</HintPath>
+    <Reference Include="Manatee.StateMachine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net45\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.105.2.3\lib\net4\RestSharp.dll</HintPath>
+    <Reference Include="StoryQ, Version=2.0.5.0, Culture=neutral, PublicKeyToken=90a7d07ba39412de, processorArchitecture=MSIL">
+      <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StoryQ, Version=2.0.5.0, Culture=neutral, PublicKeyToken=90a7d07ba39412de, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.dll</HintPath>
-    </Reference>
     <Reference Include="StoryQ.pt-BR, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.pt-BR.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="StoryQ.sr-SP, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.sr-SP.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -125,6 +128,10 @@
     <ProjectReference Include="..\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj">
       <Project>{bad3068d-bffb-4b0d-9826-1df8295827c9}</Project>
       <Name>Manatee.Trello.RestSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Manatee.Trello.WebApi\Manatee.Trello.WebApi.csproj">
+      <Project>{c34ee777-368e-4028-ab8d-d8af7e98d97f}</Project>
+      <Name>Manatee.Trello.WebApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
       <Project>{E11BD6AE-0373-40CF-A4F3-6B156096DDB0}</Project>

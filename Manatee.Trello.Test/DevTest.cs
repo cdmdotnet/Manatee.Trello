@@ -16,6 +16,7 @@ using Manatee.Trello.ManateeJson;
 using Manatee.Trello.ManateeJson.Entities;
 using Manatee.Trello.Rest;
 using Manatee.Trello.RestSharp;
+using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
@@ -36,9 +37,12 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var board = new Board("BVlClkAR");
-					Console.WriteLine(board);
-					OutputCollection("actions", board.Actions);
+					var card = new Card(TrelloIds.CardId);
+					var attachment = card.Attachments.FirstOrDefault(a => a.Name == "Manatee.Trello");
+					if (attachment != null)
+						attachment.Delete();
+					var newAttachment = File.ReadAllBytes("Manatee.Trello.dll");
+					card.Attachments.Add(newAttachment, "Manatee.Trello");
 				});
 		}
 
@@ -48,7 +52,7 @@ namespace Manatee.Trello.Test
 			TrelloConfiguration.Serializer = serializer;
 			TrelloConfiguration.Deserializer = serializer;
 			TrelloConfiguration.JsonFactory = new ManateeFactory();
-			TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
+			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -60,6 +64,7 @@ namespace Manatee.Trello.Test
 
 		private static void OutputCollection<T>(string section, IEnumerable<T> collection)
 		{
+			Console.WriteLine();
 			Console.WriteLine(section);
 			foreach (var item in collection)
 			{
