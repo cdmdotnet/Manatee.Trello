@@ -68,6 +68,7 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _isActive;
 		private readonly Field<T> _target;
 		private readonly WebhookContext<T> _context;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets or sets a callback URL for the webhook.
@@ -76,6 +77,18 @@ namespace Manatee.Trello
 		{
 			get { return _callBackUrl.Value; }
 			set { _callBackUrl.Value = value; }
+		}
+		/// <summary>
+		/// Gets the creation date of the webhook.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
 		}
 		/// <summary>
 		/// Gets or sets a description for the webhook.

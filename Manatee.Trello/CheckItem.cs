@@ -40,6 +40,7 @@ namespace Manatee.Trello
 		private readonly Field<Position> _position;
 		private readonly Field<CheckItemState?> _state;
 		private readonly CheckItemContext _context;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.
@@ -48,6 +49,18 @@ namespace Manatee.Trello
 		{
 			get { return _checkList.Value; }
 			set { _checkList.Value = value; }
+		}
+		/// <summary>
+		/// Gets the creation date of the checklist item.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
 		}
 		/// <summary>
 		/// Gets or sets the checklist item's ID.

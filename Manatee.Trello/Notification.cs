@@ -42,7 +42,20 @@ namespace Manatee.Trello
 		private readonly Field<bool?> _isUnread;
 		private readonly Field<NotificationType?> _type;
 		private readonly NotificationContext _context;
+		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets the creation date of the notification.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the member who performed the action which created the notification.
 		/// </summary>

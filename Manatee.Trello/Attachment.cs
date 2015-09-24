@@ -44,11 +44,24 @@ namespace Manatee.Trello
 		private readonly ReadOnlyAttachmentPreviewCollection _previews;
 		private readonly Field<string> _url;
 		private readonly AttachmentContext _context;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets the size of the attachment in bytes.
 		/// </summary>
 		public int? Bytes { get { return _bytes.Value; } }
+		/// <summary>
+		/// Gets the creation date of the attachment.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the date and time the attachment was added to a card.
 		/// </summary>

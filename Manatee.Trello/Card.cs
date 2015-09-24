@@ -51,6 +51,7 @@ namespace Manatee.Trello
 		private readonly CardContext _context;
 
 		private string _id;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
@@ -77,6 +78,18 @@ namespace Manatee.Trello
 		/// Gets the collection of comments made on the card.
 		/// </summary>
 		public CommentCollection Comments { get; private set; }
+		/// <summary>
+		/// Gets the creation date of the card.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>

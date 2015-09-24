@@ -45,6 +45,7 @@ namespace Manatee.Trello
 		private readonly OrganizationContext _context;
 
 		private string _id;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
@@ -54,6 +55,18 @@ namespace Manatee.Trello
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
 		public BoardCollection Boards { get; private set; }
+		/// <summary>
+		/// Gets the creation date of the organization.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets or sets the organization's description.
 		/// </summary>

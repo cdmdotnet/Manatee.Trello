@@ -26,12 +26,8 @@ namespace Manatee.Trello.Contracts
 	/// <summary>
 	/// Definines properties and methods required to support webhooks.
 	/// </summary>
-	public interface ICanWebhook
+	public interface ICanWebhook : ICacheable
 	{
-		/// <summary>
-		/// Gets the ID.
-		/// </summary>
-		string Id { get; }
 		/// <summary>
 		/// Applies the changes an action represents.
 		/// </summary>

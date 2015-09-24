@@ -41,6 +41,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _name;
 		private readonly Field<Position> _position;
 		private readonly CheckListContext _context;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets the board on which the checklist belongs.
@@ -58,6 +59,18 @@ namespace Manatee.Trello
 		/// Gets the collection of items in the checklist.
 		/// </summary>
 		public CheckItemCollection CheckItems { get; private set; }
+		/// <summary>
+		/// Gets the creation date of the checklist.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the checklist's ID.
 		/// </summary>

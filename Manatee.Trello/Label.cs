@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -39,6 +40,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _name;
 		private readonly Field<int?> _uses;
 		private readonly LabelContext _context;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets the <see cref="Board"/> on which the label is defined.
@@ -51,6 +53,18 @@ namespace Manatee.Trello
 		{
 			get { return _color.Value; }
 			set { _color.Value = value; }
+		}
+		/// <summary>
+		/// Gets the creation date of the label.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
 		}
 		/// <summary>
 		/// Gets the label's ID.

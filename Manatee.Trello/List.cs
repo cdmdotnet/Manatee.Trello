@@ -44,6 +44,7 @@ namespace Manatee.Trello
 		private readonly ListContext _context;
 
 		private string _id;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
@@ -61,6 +62,18 @@ namespace Manatee.Trello
 		/// Gets the collection of cards contained in the list.
 		/// </summary>
 		public CardCollection Cards { get; private set; }
+		/// <summary>
+		/// Gets the creation date of the list.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the list's ID.
 		/// </summary>

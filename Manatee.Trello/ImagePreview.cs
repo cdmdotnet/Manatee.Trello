@@ -21,7 +21,9 @@
 
 ***************************************************************************************/
 
+using System;
 using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -31,6 +33,20 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ImagePreview : ICacheable
 	{
+		private DateTime? _creation;
+
+		/// <summary>
+		/// Gets the creation date of the image preview.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the preview's height in pixels.
 		/// </summary>

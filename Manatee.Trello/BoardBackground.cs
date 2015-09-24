@@ -20,6 +20,7 @@
 	Purpose:		Represents a background image for a board.
 
 ***************************************************************************************/
+
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;

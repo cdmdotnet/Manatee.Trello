@@ -42,7 +42,20 @@ namespace Manatee.Trello
 		private readonly Field<ActionType?> _type;
 		private readonly ActionContext _context;
 		private string _id;
+		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets the creation date of the action.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the member who performed the action.
 		/// </summary>
