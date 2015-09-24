@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -39,6 +40,7 @@ namespace Manatee.Trello.Internal
 		}
 
 		private static readonly Dictionary<Type, List<Description>> _descriptions = new Dictionary<Type, List<Description>>();
+		private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1);
 
 		public static string ToLowerString<T>(this T item)
 		{
@@ -111,6 +113,14 @@ namespace Manatee.Trello.Internal
 		public static bool In<T>(this T obj, params T[] values)
 		{
 			return values.Contains(obj);
+		}
+		public static DateTime ExtractCreationDate(this string id)
+		{
+			if (id.IsNullOrWhiteSpace())
+				throw new InvalidOperationException("Cannot extract creation date until ID is downloaded.");
+			var asHex = id.Substring(0, 8);
+			var timeStamp = int.Parse(asHex, NumberStyles.HexNumber);
+			return UnixEpoch.AddSeconds(timeStamp);
 		}
 
 		private static void EnsureDescriptions<T>()

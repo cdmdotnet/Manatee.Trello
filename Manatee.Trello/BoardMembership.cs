@@ -40,7 +40,20 @@ namespace Manatee.Trello
 		private readonly Field<BoardMembershipType?> _memberType;
 		private readonly Field<bool?> _isDeactivated;
 		private readonly BoardMembershipContext _context;
+		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets the creation date of the membership.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the membership definition's ID.
 		/// </summary>

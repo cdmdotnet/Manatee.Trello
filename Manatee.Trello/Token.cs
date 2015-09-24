@@ -42,6 +42,7 @@ namespace Manatee.Trello
 		private readonly TokenContext _context;
 
 		private string _id;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets the name of the application associated with the token.
@@ -51,6 +52,18 @@ namespace Manatee.Trello
 		/// Gets the permissions on boards granted by the token.
 		/// </summary>
 		public TokenPermission BoardPermissions { get; private set; }
+		/// <summary>
+		/// Gets the creation date of the token.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the date and time the token was created.
 		/// </summary>

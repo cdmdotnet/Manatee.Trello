@@ -93,8 +93,8 @@
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net40\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Manatee.Trello, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Trello.1.6.1\lib\net40\Manatee.Trello.dll</HintPath>
+    <Reference Include="Manatee.Trello, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Trello.1.7.0\lib\net45\Manatee.Trello.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Manatee.Trello.ManateeJson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -106,7 +106,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Manatee.Trello.WebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Trello.WebApi.1.0.0-alpha\lib\net45\Manatee.Trello.WebApi.dll</HintPath>
+      <HintPath>..\packages\Manatee.Trello.WebApi.1.0.0\lib\net45\Manatee.Trello.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

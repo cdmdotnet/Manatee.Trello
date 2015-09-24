@@ -51,12 +51,7 @@ namespace NugetTest
 			Run(() =>
 				{
 					Console.WriteLine(Member.Me);
-					Console.WriteLine(Member.Me.Bio);
-					OutputCollection("Actions", Member.Me.Actions);
-					OutputCollection("Boards", Member.Me.Boards);
-					OutputCollection("Cards", Member.Me.Cards());
-					OutputCollection("Notifications", Member.Me.Notifications);
-					OutputCollection("Organizations", Member.Me.Organizations);
+					Console.WriteLine(Member.Me.CreationDate);
 				});
 			Console.ReadLine();
 		}

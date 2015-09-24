@@ -53,6 +53,7 @@ namespace Manatee.Trello
 		internal readonly MemberContext _context;
 
 		private string _id;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Returns the <see cref="Member"/> associated with the current User Token.
@@ -87,6 +88,18 @@ namespace Manatee.Trello
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
 		public ReadOnlyBoardCollection Boards { get; private set; }
+		/// <summary>
+		/// Gets the creation date of the member.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets the member's full name.
 		/// </summary>

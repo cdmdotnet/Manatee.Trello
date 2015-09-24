@@ -46,6 +46,7 @@ namespace Manatee.Trello
 		private readonly BoardContext _context;
 
 		private string _id;
+		private DateTime? _creation;
 
 		/// <summary>
 		/// Gets the collection of actions performed on and within this board.
@@ -58,6 +59,18 @@ namespace Manatee.Trello
 		/// This property only exposes unarchived cards.
 		/// </remarks>
 		public ReadOnlyCardCollection Cards { get; private set; }
+		/// <summary>
+		/// Gets the creation date of the board.
+		/// </summary>
+		public DateTime CreationDate
+		{
+			get
+			{
+				if (_creation == null)
+					_creation = Id.ExtractCreationDate();
+				return _creation.Value;
+			}
+		}
 		/// <summary>
 		/// Gets or sets the board's description.
 		/// </summary>
