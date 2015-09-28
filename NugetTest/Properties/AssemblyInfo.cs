@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("NugetTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GameStop, Inc.")]
+[assembly: AssemblyCompany("Little Crab Solutions")]
 [assembly: AssemblyProduct("NugetTest")]
-[assembly: AssemblyCopyright("Copyright © GameStop, Inc. 2014")]
+[assembly: AssemblyCopyright("Copyright © 2015 Little Crab Solutions")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

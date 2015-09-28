@@ -90,7 +90,7 @@ namespace Manatee.Trello.WebApi
 		{
 			if (request.File != null)
 				return string.Format("{0}/{1}", TrelloApiBaseUrl, request.Resource);
-			return string.Format("{0}/{1}?{2}", TrelloApiBaseUrl, request.Resource, string.Join("&", request.Parameters.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value))));
+			return string.Format("{0}/{1}?{2}", TrelloApiBaseUrl, request.Resource, string.Join("&", request.Parameters.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToList()));
 		}
 		private HttpContent GetContent(WebApiRestRequest request)
 		{

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ConsoleTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GameStop, Inc.")]
+[assembly: AssemblyCompany("Little Crab Solutions")]
 [assembly: AssemblyProduct("ConsoleTest")]
-[assembly: AssemblyCopyright("Copyright © GameStop, Inc. 2015")]
+[assembly: AssemblyCopyright("Copyright © 2015 Little Crab Solutions")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
