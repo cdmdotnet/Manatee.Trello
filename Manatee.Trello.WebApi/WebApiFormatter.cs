@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Json;
@@ -33,50 +34,36 @@ namespace Manatee.Trello.WebApi
 		}
 		public override Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content, IFormatterLogger formatterLogger)
 		{
-			return Task.Run(() =>
-				{
-					using (var sr = new StreamReader(readStream))
-					{
-						return Deserialize(type, sr.ReadToEnd());
-					}
-				});
+			return Task.Run(() => Read(type, readStream));
 		}
 
 		public override Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content, IFormatterLogger formatterLogger, CancellationToken cancellationToken)
 		{
-			return Task.Run(() =>
-				{
-					using (var sr = new StreamReader(readStream))
-					{
-						return Deserialize(type, sr.ReadToEnd());
-					}
-				}, cancellationToken);
+			return Task.Run(() => Read(type, readStream), cancellationToken);
 		}
 		public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content, TransportContext transportContext)
 		{
-			return Task.Run(() =>
-				{
-					if (value == null) return;
-					using (var sw = new StreamWriter(writeStream))
-					{
-						var json = TrelloConfiguration.Serializer.Serialize(value);
-						sw.Write(json);
-					}
-				});
+			return Task.Run(() => Write(value, writeStream));
 		}
 		public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content, TransportContext transportContext, CancellationToken cancellationToken)
 		{
-			return Task.Run(() =>
-				{
-					if (value == null) return;
-					using (var sw = new StreamWriter(writeStream))
-					{
-						var json = TrelloConfiguration.Serializer.Serialize(value);
-						sw.Write(json);
-					}
-				}, cancellationToken);
+			return Task.Run(() => Write(value, writeStream), cancellationToken);
 		}
 
+		private object Read(Type type, Stream readStream)
+		{
+			using (var sr = new StreamReader(readStream))
+			{
+				return Deserialize(type, sr.ReadToEnd());
+			}
+		}
+		private static void Write(object value, Stream writeStream)
+		{
+			if (value == null) return;
+			var json = TrelloConfiguration.Serializer.Serialize(value);
+			using (var sw = new StreamWriter(writeStream, Encoding.Default, json.Length, true))
+				sw.Write(json);
+		}
 		private object Deserialize(Type type, string content)
 		{
 			var method = GetDeserializeMethod(type);

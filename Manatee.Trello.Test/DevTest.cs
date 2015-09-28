@@ -37,8 +37,8 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var board = new Board("BVlClkAR");
-					Console.WriteLine(board.CreationDate);
+					var card = new Card(TrelloIds.CardId);
+					card.Name = "something new";
 				});
 		}
 
@@ -50,8 +50,8 @@ namespace Manatee.Trello.Test
 			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 
-			TrelloAuthorization.Default.AppKey = "062109670e7f56b88783721892f8f66f";
-			TrelloAuthorization.Default.UserToken = "45e7f6458f667684c8e8059dc069e4d35737f43df91a9dd4edd9cc2968af6ef1";
+			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			action();
 
