@@ -57,6 +57,7 @@ namespace Manatee.Trello
 			: base(ownerId, auth)
 		{
 			_updateRequestType = _requestTypes[type];
+			_additionalParameters = new Dictionary<string, object>();
 		}
 		internal ReadOnlyActionCollection(ReadOnlyActionCollection source, TrelloAuthorization auth)
 			: base(source.OwnerId, auth)

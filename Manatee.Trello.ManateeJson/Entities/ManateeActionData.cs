@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -37,6 +38,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public IJsonCard CardSource { get; set; }
 		public IJsonCheckItem CheckItem { get; set; }
 		public IJsonCheckList CheckList { get; set; }
+		public DateTime? DateLastEdited { get; set; }
 		public IJsonList List { get; set; }
 		public IJsonList ListAfter { get; set; }
 		public IJsonList ListBefore { get; set; }
@@ -57,12 +59,16 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Card = obj.Deserialize<IJsonCard>(serializer, "card");
 			CheckItem = obj.Deserialize<IJsonCheckItem>(serializer, "checkItem");
 			CheckList = obj.Deserialize<IJsonCheckList>(serializer, "checklist");
+			DateLastEdited = obj.Deserialize<DateTime?>(serializer, "dateLastEdited");
 			List = obj.Deserialize<IJsonList>(serializer, "list");
 			ListAfter = obj.Deserialize<IJsonList>(serializer, "listAfter");
 			ListBefore = obj.Deserialize<IJsonList>(serializer, "listBefore");
-			Member = obj.Deserialize<IJsonMember>(serializer, obj.ContainsKey("member") ? "member" : "idMember");
+			Member = obj.Deserialize<IJsonMember>(serializer, "member") ??
+			         obj.Deserialize<IJsonMember>(serializer, "idMember") ??
+			         obj.Deserialize<IJsonMember>(serializer, "idMemberAdded");
 			Old = obj.Deserialize<IJsonActionOldData>(serializer, "old");
-			Org = obj.Deserialize<IJsonOrganization>(serializer, "org");
+			Org = obj.Deserialize<IJsonOrganization>(serializer, "org") ??
+			      obj.Deserialize<IJsonOrganization>(serializer, "organization");
 			Text = obj.TryGetString("text");
 			Value = obj.TryGetString("value");
 		}

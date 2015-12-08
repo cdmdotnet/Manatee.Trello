@@ -1,24 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Manatee.Json;
-using Manatee.Json.Serialization;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal.RequestProcessing;
-using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
-using Manatee.Trello.ManateeJson.Entities;
 using Manatee.Trello.Rest;
-using Manatee.Trello.RestSharp;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello.Test
 {
@@ -38,7 +24,7 @@ namespace Manatee.Trello.Test
 			Run(() =>
 				{
 					var card = new Card(TrelloIds.CardId);
-					card.Name = "something new";
+					OutputCollection(string.Format("CommentCount: {0}", card.Badges.Comments), card.Comments.Select(c => new Tuple<Action, DateTime?>(c, c.Data.LastEdited)));
 				});
 		}
 
