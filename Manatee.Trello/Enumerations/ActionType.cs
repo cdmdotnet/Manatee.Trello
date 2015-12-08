@@ -290,6 +290,6 @@ namespace Manatee.Trello
 		/// Indicates all action types
 		/// </summary>
 		[Description("all")]
-		All = 1L << 49 - 1,
+		All = (1L << 49) - 1,
 	}
 }

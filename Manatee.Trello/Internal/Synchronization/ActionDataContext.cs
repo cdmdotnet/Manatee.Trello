@@ -20,6 +20,8 @@
 	Purpose:		Provides a data context for action data.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Json;
@@ -80,6 +82,7 @@ namespace Manatee.Trello.Internal.Synchronization
 							                                                           : new CheckList(d.CheckList, a),
 						                                                      (d, o) => { if (o != null) d.CheckList = o.Json; })
 					},
+					{"LastEdited", new Property<IJsonActionData, DateTime?>((d, a) => d.DateLastEdited, (d, o) => { if (o != null) d.DateLastEdited = o; })},
 					{
 						"List", new Property<IJsonActionData, List>((d, a) => d.List == null
 							                                                 ? null

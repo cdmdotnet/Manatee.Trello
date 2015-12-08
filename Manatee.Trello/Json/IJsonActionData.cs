@@ -20,6 +20,9 @@
 	Purpose:		Defines the JSON structure for the ActionData object.
 
 ***************************************************************************************/
+
+using System;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
@@ -67,6 +70,11 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		IJsonCheckList CheckList { get; set; }
+		/// <summary>
+		/// Gets or sets the last date/time that a comment was edited.
+		/// </summary>
+		[JsonDeserialize]
+		DateTime? DateLastEdited { get; set; }
 		/// <summary>
 		/// Gets or sets a list associated with the action if any.
 		/// </summary>

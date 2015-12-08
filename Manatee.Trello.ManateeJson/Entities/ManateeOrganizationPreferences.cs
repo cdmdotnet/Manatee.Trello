@@ -40,11 +40,14 @@ namespace Manatee.Trello.ManateeJson.Entities
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
+			if (obj.ContainsKey("permissionLevel") && obj["permissionLevel"].Type == JsonValueType.Object)
+				obj = obj["permissionLevel"].Object["prefs"].Object;
+
 			PermissionLevel = obj.Deserialize<OrganizationPermissionLevel?>(serializer, "permissionLevel");
 			//OrgInviteRestrict = obj.TryGetArray("orgInviteRestrict").Cast<object>().ToList();
 			ExternalMembersDisabled = obj.TryGetBoolean("externalMembersDisabled");
 			AssociatedDomain = obj.TryGetString("associatedDomain");
-			BoardVisibilityRestrict = obj.Deserialize<IJsonBoardVisibilityRestrict>(serializer, "boardVisibilityRestrict");
+			BoardVisibilityRestrict = obj.Deserialize<IJsonBoardVisibilityRestrict>(serializer, "boardVisibilityRestrict") ?? new ManateeBoardVisibilityRestrict();
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{

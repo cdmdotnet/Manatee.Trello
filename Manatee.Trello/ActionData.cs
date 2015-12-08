@@ -20,6 +20,8 @@
 	Purpose:		Exposes any data associated with an action.
 
 ***************************************************************************************/
+
+using System;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -39,6 +41,7 @@ namespace Manatee.Trello
 		private readonly Field<Card> _cardSource;
 		private readonly Field<CheckItem> _checkItem;
 		private readonly Field<CheckList> _checkList;
+		private readonly Field<DateTime?> _lastEdited;
 		private readonly Field<List> _list;
 		private readonly Field<List> _listAfter;
 		private readonly Field<List> _listBefore;
@@ -85,6 +88,10 @@ namespace Manatee.Trello
 		/// Gets an assocated checklist.
 		/// </summary>
 		public CheckList CheckList { get { return _checkList.Value; } }
+		/// <summary>
+		/// Gets the date/time a comment was last edited.
+		/// </summary>
+		public DateTime? LastEdited { get { return _lastEdited.Value; } }
 		/// <summary>
 		/// Gets an assocated list.
 		/// </summary>
@@ -162,6 +169,7 @@ namespace Manatee.Trello
 			_cardSource = new Field<Card>(_context, () => CardSource);
 			_checkItem = new Field<CheckItem>(_context, () => CheckItem);
 			_checkList = new Field<CheckList>(_context, () => CheckList);
+			_lastEdited = new Field<DateTime?>(_context, () => LastEdited);
 			_list = new Field<List>(_context, () => List);
 			_listAfter = new Field<List>(_context, () => ListAfter);
 			_listBefore = new Field<List>(_context, () => ListBefore);
