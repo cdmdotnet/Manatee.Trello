@@ -190,7 +190,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates a <see cref="List"/> was moved from one <see cref="Board"/> to another.
 		/// </summary>
-		[Description("roveListToBoard")]
+		[Description("moveListToBoard")]
 		MoveListToBoard = 1L << 30,
 		/// <summary>
 		/// Indicates a <see cref="CheckList"/> was removed from a <see cref="Card"/>.
