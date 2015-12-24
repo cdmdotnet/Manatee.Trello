@@ -25,6 +25,8 @@ namespace Manatee.Trello.Test
 				{
 					var card = new Card(TrelloIds.CardId);
 					OutputCollection(string.Format("CommentCount: {0}", card.Badges.Comments), card.Comments.Select(c => new Tuple<Action, DateTime?>(c, c.Data.LastEdited)));
+					var copy = card.List.Cards.Add(card);
+					OutputCollection(string.Format("CommentCount: {0}", copy.Badges.Comments), copy.Comments.Select(c => new Tuple<Action, DateTime?>(c, c.Data.LastEdited)));
 				});
 		}
 

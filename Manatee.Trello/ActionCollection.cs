@@ -116,7 +116,7 @@ namespace Manatee.Trello
 		internal CommentCollection(string ownerId, TrelloAuthorization auth)
 			: base(typeof (Card), ownerId, auth)
 		{
-			AddFilter(new[] {ActionType.CommentCard});
+			AddFilter(new[] {ActionType.CommentCard, ActionType.CopyCommentCard});
 		}
 
 		/// <summary>
