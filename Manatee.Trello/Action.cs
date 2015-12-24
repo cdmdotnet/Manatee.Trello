@@ -124,7 +124,7 @@ namespace Manatee.Trello
 					{ActionType.ConvertToCardFromCheckItem, a => string.Format("{0} converted checkitem {1} to a card.", a.Creator, a.Data.Card)},
 					{ActionType.CopyBoard, a => string.Format("{0} copied board {1} from board {2}.", a.Creator, a.Data.Board, a.Data.BoardSource)},
 					{ActionType.CopyCard, a => string.Format("{0} copied card {1} from card {2}.", a.Creator, a.Data.Card, a.Data.CardSource)},
-					{ActionType.CopyCommentCard, a => string.Format("{0} copied a comment from {1}.", a.Creator, a.Data.Card)},
+					{ActionType.CopyCommentCard, a => string.Format("{0} copied a comment from {1}: '{2}'.", a.Creator, a.Data.Card, a.Data.Text)},
 					{ActionType.CreateBoard, a => string.Format("{0} created board {1}.", a.Creator, a.Data.Board)},
 					{ActionType.CreateCard, a => string.Format("{0} created card {1}.", a.Creator, a.Data.Card)},
 					{ActionType.CreateList, a => string.Format("{0} created list {1}.", a.Creator, a.Data.List)},
