@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -35,8 +34,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		where T : class, ICanWebhook
 	{
 		private bool _deleted;
-
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static WebhookContext()
 		{
@@ -48,7 +45,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"IsActive", new Property<IJsonWebhook, bool?>((d, a) => d.Active, (d, o) => d.Active = o)},
 					{
 						"Target", new Property<IJsonWebhook, T>((d, a) => d.IdModel == null ? null : TrelloConfiguration.Cache.Find<T>(b => b.Id == d.IdModel) ?? BuildModel(d.IdModel),
-						                                        (d, o) => d.IdModel = o == null ? null : o.Id)
+						                                        (d, o) => d.IdModel = o?.Id)
 					},
 				};
 		}

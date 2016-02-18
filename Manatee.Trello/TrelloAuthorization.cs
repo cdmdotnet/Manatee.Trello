@@ -35,7 +35,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the default authorization.
 		/// </summary>
-		public static TrelloAuthorization Default { get; private set; }
+		public static TrelloAuthorization Default { get; }
 
 		/// <summary>
 		/// The token which identifies the application attempting to connect.
@@ -46,7 +46,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (value.IsNullOrWhiteSpace())
-					throw new ArgumentNullException("value");
+					throw new ArgumentNullException(nameof(value));
 				_appKey = value;
 			}
 		}

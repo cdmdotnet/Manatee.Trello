@@ -54,7 +54,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public new BoardCollection Boards { get { return base.Boards as BoardCollection; } }
+		public new BoardCollection Boards => base.Boards as BoardCollection;
 		/// <summary>
 		/// Gets or sets the member's email.
 		/// </summary>
@@ -82,15 +82,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of notificaitons for the member.
 		/// </summary>
-		public ReadOnlyNotificationCollection Notifications { get; private set; }
+		public ReadOnlyNotificationCollection Notifications { get; }
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public new OrganizationCollection Organizations { get { return base.Organizations as OrganizationCollection; } }
+		public new OrganizationCollection Organizations => base.Organizations as OrganizationCollection;
 		/// <summary>
 		/// Gets the set of preferences for the member.
 		/// </summary>
-		public MemberPreferences Preferences { get; private set; }
+		public MemberPreferences Preferences { get; }
 		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>

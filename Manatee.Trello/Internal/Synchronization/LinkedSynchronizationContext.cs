@@ -69,8 +69,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static void RaiseEvent(System.Action action)
 		{
 			var handler = action;
-			if (handler != null)
-				handler();
+			handler?.Invoke();
 		}
 	}
 }

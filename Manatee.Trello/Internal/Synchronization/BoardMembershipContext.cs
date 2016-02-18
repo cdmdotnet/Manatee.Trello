@@ -23,7 +23,6 @@
 using System.Collections.Generic;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -31,8 +30,6 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class BoardMembershipContext : SynchronizationContext<IJsonBoardMembership>
 	{
 		private readonly string _ownerId;
-
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static BoardMembershipContext()
 		{
@@ -42,7 +39,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"IsDeactivated", new Property<IJsonBoardMembership, bool?>((d, a) => d.Deactivated, (d, o) => d.Deactivated = o)},
 					{
 						"Member", new Property<IJsonBoardMembership, Member>((d, a) => d.Member.GetFromCache<Member>(a),
-						                                                     (d, o) => d.Member = o != null ? o.Json : null)
+						                                                     (d, o) => d.Member = o?.Json)
 					},
 					{"MemberType", new Property<IJsonBoardMembership, BoardMembershipType?>((d, a) => d.MemberType, (d, o) => d.MemberType = o)},
 				};

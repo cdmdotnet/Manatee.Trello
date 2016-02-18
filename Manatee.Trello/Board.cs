@@ -36,7 +36,6 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Board : ICanWebhook, IQueryable
 	{
-		private readonly TrelloAuthorization _auth;
 		private readonly Field<string> _description;
 		private readonly Field<bool?> _isClosed;
 		private readonly Field<bool?> _isSubscribed;
@@ -51,14 +50,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on and within this board.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; private set; }
+		public ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the collection of cards contained within this board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived cards.
 		/// </remarks>
-		public ReadOnlyCardCollection Cards { get; private set; }
+		public ReadOnlyCardCollection Cards { get; }
 		/// <summary>
 		/// Gets the creation date of the board.
 		/// </summary>
@@ -111,22 +110,22 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of labels for this board.
 		/// </summary>
-		public BoardLabelCollection Labels { get; private set; }
+		public BoardLabelCollection Labels { get; }
 		/// <summary>
 		/// Gets the collection of lists on this board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived lists.
 		/// </remarks>
-		public ListCollection Lists { get; private set; }
+		public ListCollection Lists { get; }
 		/// <summary>
 		/// Gets the collection of members on this board.
 		/// </summary>
-		public ReadOnlyMemberCollection Members { get; private set; }
+		public ReadOnlyMemberCollection Members { get; }
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this board.
 		/// </summary>
-		public BoardMembershipCollection Memberships { get; private set; }
+		public BoardMembershipCollection Memberships { get; }
 		/// <summary>
 		/// Gets or sets the board's name.
 		/// </summary>
@@ -149,15 +148,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the set of preferences for the board.
 		/// </summary>
-		public BoardPreferences Preferences { get; private set; }
+		public BoardPreferences Preferences { get; }
 		/// <summary>
 		/// Gets the set of preferences for the board.
 		/// </summary>
-		public BoardPersonalPreferences PersonalPreferences { get; private set; }
+		public BoardPersonalPreferences PersonalPreferences { get; }
 		/// <summary>
 		/// Gets the board's URI.
 		/// </summary>
-		public string Url { get { return _url.Value; } }
+		public string Url => _url.Value;
 
 		/// <summary>
 		/// Retrieves a list which matches the supplied key.
@@ -167,7 +166,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on List.Id and List.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public List this[string key] { get { return Lists[key]; } }
+		public List this[string key] => Lists[key];
 		/// <summary>
 		/// Retrieves the list at the specified index.
 		/// </summary>
@@ -176,14 +175,14 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public List this[int index] { get { return Lists[index]; } }
+		public List this[int index] => Lists[index];
 
 		internal IJsonBoard Json
 		{
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
-		internal TrelloAuthorization Auth { get { return _auth; } }
+		internal TrelloAuthorization Auth { get; }
 
 #if IOS
 		private Action<Board, IEnumerable<string>> _updatedInvoker;
@@ -211,7 +210,7 @@ namespace Manatee.Trello
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Board(string id, TrelloAuthorization auth = null)
 		{
-			_auth = auth;
+			Auth = auth;
 			_context = new BoardContext(id, auth);
 			_context.Synchronized += Synchronized;
 
@@ -278,8 +277,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

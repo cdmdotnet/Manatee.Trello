@@ -30,14 +30,14 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Declares that the JSON property should be deserialized.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+	[AttributeUsage(AttributeTargets.Property)]
 	public class JsonDeserializeAttribute : Attribute {}
 
 	/// <summary>
 	/// Declares that the JSON property should be serialized and whether it
 	/// is optional or required.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+	[AttributeUsage(AttributeTargets.Property)]
 	public class JsonSerializeAttribute : Attribute
 	{
 		/// <summary>
@@ -49,6 +49,6 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Declares that the JSON property has a special serialization.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+	[AttributeUsage(AttributeTargets.Property)]
 	public class JsonSpecialSerializationAttribute : Attribute { }
 }

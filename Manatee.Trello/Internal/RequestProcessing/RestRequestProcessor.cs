@@ -83,8 +83,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 #else
 			var handler = LastCall;
 #endif
-			if (handler != null)
-				handler();
+			handler?.Invoke();
 			Pulse(() => { });
 			_workerThread.Join();
 		}

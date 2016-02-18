@@ -37,11 +37,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether a token can read values.
 		/// </summary>
-		public bool? CanRead { get { return _canRead.Value; } }
+		public bool? CanRead => _canRead.Value;
 		/// <summary>
 		/// Gets whether a token can write values.
 		/// </summary>
-		public bool? CanWrite { get { return _canWrite.Value; } }
+		public bool? CanWrite => _canWrite.Value;
 
 		internal TokenPermission(TokenPermissionContext context)
 		{

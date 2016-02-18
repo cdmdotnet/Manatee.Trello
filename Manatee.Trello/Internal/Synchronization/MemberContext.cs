@@ -30,10 +30,10 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class MemberContext : SynchronizationContext<IJsonMember>
 	{
-		public MemberPreferencesContext MemberPreferencesContext { get; private set; }
-		protected override bool IsDataComplete { get { return !Data.FullName.IsNullOrWhiteSpace(); } }
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
-		
+		public MemberPreferencesContext MemberPreferencesContext { get; }
+		protected override bool IsDataComplete => !Data.FullName.IsNullOrWhiteSpace();
+		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
+
 		static MemberContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonMember>>
@@ -49,7 +49,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Preferences", new Property<IJsonMember, IJsonMemberPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
 					{"Similarity", new Property<IJsonMember, int?>((d, a) => d.Similarity, (d, o) => d.Similarity = o)},
 					{"Status", new Property<IJsonMember, MemberStatus?>((d, a) => d.Status, (d, o) => d.Status = o)},
-					{"Trophies", new Property<IJsonMember, List<string>>((d, a) => d.Trophies, (d, o) => d.Trophies = o == null ? null : o.ToList())},
+					{"Trophies", new Property<IJsonMember, List<string>>((d, a) => d.Trophies, (d, o) => d.Trophies = o?.ToList())},
 					{"Url", new Property<IJsonMember, string>((d, a) => d.Url, (d, o) => d.Url = o)},
 					{"UserName", new Property<IJsonMember, string>((d, a) => d.Username, (d, o) => d.Username = o)},
 				};

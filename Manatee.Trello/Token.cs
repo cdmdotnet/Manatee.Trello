@@ -47,11 +47,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the name of the application associated with the token.
 		/// </summary>
-		public string AppName { get { return _appName.Value; } }
+		public string AppName => _appName.Value;
 		/// <summary>
 		/// Gets the permissions on boards granted by the token.
 		/// </summary>
-		public TokenPermission BoardPermissions { get; private set; }
+		public TokenPermission BoardPermissions { get; }
 		/// <summary>
 		/// Gets the creation date of the token.
 		/// </summary>
@@ -67,11 +67,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the date and time the token was created.
 		/// </summary>
-		public DateTime? DateCreated { get { return _dateCreated.Value; } }
+		public DateTime? DateCreated => _dateCreated.Value;
 		/// <summary>
 		/// Gets the date and time the token expires, if any.
 		/// </summary>
-		public DateTime? DateExpires { get { return _dateExpires.Value; } }
+		public DateTime? DateExpires => _dateExpires.Value;
 		/// <summary>
 		/// Gets the token's ID.
 		/// </summary>
@@ -88,15 +88,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member for which the token was issued.
 		/// </summary>
-		public Member Member { get { return _member.Value; } }
+		public Member Member => _member.Value;
 		/// <summary>
 		/// Gets the permissions on members granted by the token.
 		/// </summary>
-		public TokenPermission MemberPermissions { get; private set; }
+		public TokenPermission MemberPermissions { get; }
 		/// <summary>
 		/// Gets the permissions on organizations granted by the token.
 		/// </summary>
-		public TokenPermission OrganizationPermissions { get; private set; }
+		public TokenPermission OrganizationPermissions { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Token"/> object.

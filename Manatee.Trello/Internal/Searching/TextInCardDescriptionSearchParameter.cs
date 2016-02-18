@@ -25,7 +25,7 @@ namespace Manatee.Trello.Internal.Searching
 {
 	internal class TextInCardDescriptionSearchParameter : ISearchParameter
 	{
-		public string Query { get; private set; }
+		public string Query { get; }
 
 		public TextInCardDescriptionSearchParameter(string text)
 		{

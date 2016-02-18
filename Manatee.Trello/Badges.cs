@@ -47,43 +47,43 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the number of attachments on this card.
 		/// </summary>
-		public int? Attachments { get { return _attachments.Value; } }
+		public int? Attachments => _attachments.Value;
 		/// <summary>
 		/// Gets the number of check items on this card.
 		/// </summary>
-		public int? CheckItems { get { return _checkItems.Value; } }
+		public int? CheckItems => _checkItems.Value;
 		/// <summary>
 		/// Gets the number of check items on this card which are checked.
 		/// </summary>
-		public int? CheckItemsChecked { get { return _checkItemsChecked.Value; } }
+		public int? CheckItemsChecked => _checkItemsChecked.Value;
 		/// <summary>
 		/// Gets the number of comments on this card.
 		/// </summary>
-		public int? Comments { get { return _comments.Value; } }
+		public int? Comments => _comments.Value;
 		/// <summary>
 		/// Gets the due date for this card.
 		/// </summary>
-		public DateTime? DueDate { get { return _dueDate.Value; } }
+		public DateTime? DueDate => _dueDate.Value;
 		/// <summary>
 		/// Gets some FogBugz information.
 		/// </summary>
-		public string FogBugz { get { return _fogBugz.Value; } }
+		public string FogBugz => _fogBugz.Value;
 		/// <summary>
 		/// Gets whether this card has a description.
 		/// </summary>
-		public bool? HasDescription { get { return _hasDescription.Value; } }
+		public bool? HasDescription => _hasDescription.Value;
 		/// <summary>
 		/// Gets whether the current member has voted for this card.
 		/// </summary>
-		public bool? HasVoted { get { return _hasVoted.Value; } }
+		public bool? HasVoted => _hasVoted.Value;
 		/// <summary>
 		/// Gets whether the current member is subscribed to this card.
 		/// </summary>
-		public bool? IsSubscribed { get { return _isSubscribed.Value; } }
+		public bool? IsSubscribed => _isSubscribed.Value;
 		/// <summary>
 		/// Gets the number of votes for this card.
 		/// </summary>
-		public int? Votes { get { return _votes.Value; } }
+		public int? Votes => _votes.Value;
 
 		internal Badges(BadgesContext context)
 		{

@@ -31,7 +31,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	internal class QueuableRestRequest
 	{
 		private readonly object _signal;
-		public IRestRequest Request { get; private set; }
+		public IRestRequest Request { get; }
 
 		public QueuableRestRequest(IRestRequest request, object signal)
 		{

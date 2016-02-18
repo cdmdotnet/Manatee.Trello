@@ -42,7 +42,7 @@ namespace Manatee.Trello.Exceptions
 		/// <param name="value"></param>
 		/// <param name="errors"></param>
 		public ValidationException(T value, IEnumerable<string> errors)
-			: base(string.Format("'{0}' is not a valid value.", value))
+			: base($"'{value}' is not a valid value.")
 		{
 			Errors = errors;
 		}

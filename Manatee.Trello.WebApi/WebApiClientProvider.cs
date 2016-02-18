@@ -4,7 +4,7 @@ namespace Manatee.Trello.WebApi
 {
 	public class WebApiClientProvider : IRestClientProvider
 	{
-		public IRestRequestProvider RequestProvider { get; private set; }
+		public IRestRequestProvider RequestProvider { get; }
 
 		public WebApiClientProvider()
 		{
@@ -13,7 +13,7 @@ namespace Manatee.Trello.WebApi
 
 		public IRestClient CreateRestClient(string apiBaseUrl)
 		{
-			return new WebApiClient(); 
+			return new WebApiClient();
 		}
 	}
 }

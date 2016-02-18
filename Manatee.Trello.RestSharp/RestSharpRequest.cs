@@ -58,7 +58,7 @@ namespace Manatee.Trello.RestSharp
 					Resource += "?";
 				else
 					Resource += "&";
-				Resource += string.Format("{0}={1}", name, value);
+				Resource += $"{name}={value}";
 				return;
 			}
 			AddParameter(name, value, ParameterType.GetOrPost);
@@ -69,11 +69,11 @@ namespace Manatee.Trello.RestSharp
 			{
 				var parameterList = Parameters.Where(p => p.Type == ParameterType.GetOrPost).ToList();
 #if NET35 || NET35C
-				var parameterCallout = string.Join("&", parameterList.Select(p => string.Format("{0}={1}", p.Name, p.Value)).ToArray());
+				var parameterCallout = string.Join("&", parameterList.Select(p => $"{p.Name}={p.Value}").ToArray());
 #elif NET4 || NET4C || NET45
-				var parameterCallout = string.Join("&", parameterList.Select(p => string.Format("{0}={1}", p.Name, p.Value)));
+				var parameterCallout = string.Join("&", parameterList.Select(p => $"{p.Name}={p.Value}"));
 #endif
-				Resource += string.Format("?{0}", parameterCallout);
+				Resource += $"?{parameterCallout}";
 				foreach (var parameter in parameterList)
 				{
 					Parameters.Remove(parameter);
@@ -120,7 +120,7 @@ namespace Manatee.Trello.RestSharp
 					base.Method = global::RestSharp.Method.DELETE;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException("value");
+					throw new ArgumentOutOfRangeException(nameof(value));
 			}
 		}
 	}

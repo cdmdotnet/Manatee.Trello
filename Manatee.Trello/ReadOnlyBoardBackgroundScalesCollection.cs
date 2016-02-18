@@ -41,7 +41,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			_context.Synchronize();
 			if (_context.Data.ImageScaled == null) return;

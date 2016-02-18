@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			_context.Synchronize();
 			if (_context.Data.Labels == null) return;
@@ -131,7 +131,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Labels, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonLabel>>(Auth, endpoint);

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using Manatee.Trello.Rest;
 
@@ -9,11 +10,13 @@ namespace Manatee.Trello.WebApi
 	public class WebApiClient : IRestClient
 	{
 		private const string TrelloApiBaseUrl = @"https://api.trello.com/1";
-		private readonly WebApiFormatter _formatter;
+		private readonly WebApiJsonFormatter _formatter;
+		private readonly WebApiTextFormatter _errorLogger;
 
 		internal WebApiClient()
 		{
-			_formatter = new WebApiFormatter();
+			_formatter = new WebApiJsonFormatter();
+			_errorLogger = new WebApiTextFormatter();
 		}
 
 		public IRestResponse Execute(IRestRequest request)
@@ -51,7 +54,10 @@ namespace Manatee.Trello.WebApi
 			}
 			var restResponse = new WebApiRestResponse();
 			if (response.Content != null)
+			{
 				restResponse.Content = await response.Content.ReadAsStringAsync();
+				//TrelloConfiguration.Log.Debug(restResponse.Content);
+			}
 			return restResponse;
 		}
 		private async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request) where T : class
@@ -82,15 +88,10 @@ namespace Manatee.Trello.WebApi
 			if (response.Content != null)
 			{
 				restResponse.Content = await response.Content.ReadAsStringAsync();
-				restResponse.Data = await response.Content.ReadAsAsync<T>(new[] {_formatter});
+				//TrelloConfiguration.Log.Debug(restResponse.Content);
+				restResponse.Data = await response.Content.ReadAsAsync<T>(new MediaTypeFormatter[] {_formatter, _errorLogger});
 			}
 			return restResponse;
-		}
-		private string GetFullResource(WebApiRestRequest request)
-		{
-			if (request.File != null)
-				return string.Format("{0}/{1}", TrelloApiBaseUrl, request.Resource);
-			return string.Format("{0}/{1}?{2}", TrelloApiBaseUrl, request.Resource, string.Join("&", request.Parameters.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToList()));
 		}
 		private HttpContent GetContent(WebApiRestRequest request)
 		{
@@ -100,17 +101,23 @@ namespace Manatee.Trello.WebApi
 				foreach (var parameter in request.Parameters)
 				{
 					var content = new StringContent(parameter.Value.ToString());
-					formData.Add(content, string.Format("\"{0}\"", parameter.Key));
+					formData.Add(content, $"\"{parameter.Key}\"");
 				}
 				var byteContent = new ByteArrayContent(request.File);
-				formData.Add(byteContent, "\"file\"", string.Format("\"{0}\"", request.FileName));
+				formData.Add(byteContent, "\"file\"", $"\"{request.FileName}\"");
 				return formData;
 			}
 			return new ObjectContent(GetRequestType(request), request.Body, _formatter);
 		}
+		private static string GetFullResource(WebApiRestRequest request)
+		{
+			if (request.File != null)
+				return $"{TrelloApiBaseUrl}/{request.Resource}";
+			return $"{TrelloApiBaseUrl}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
+		}
 		private static Type GetRequestType(WebApiRestRequest request)
 		{
-			return request.Body == null ? typeof(object) : request.Body.GetType();
+			return request.Body?.GetType() ?? typeof(object);
 		}
 	}
 }

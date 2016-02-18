@@ -36,10 +36,10 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private bool _deleted;
 
-		public TokenPermissionContext MemberPermissions { get; private set; }
-		public TokenPermissionContext BoardPermissions { get; private set; }
-		public TokenPermissionContext OrganizationPermissions { get; private set; }
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public TokenPermissionContext MemberPermissions { get; }
+		public TokenPermissionContext BoardPermissions { get; }
+		public TokenPermissionContext OrganizationPermissions { get; }
+		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static TokenContext()
 		{
@@ -47,8 +47,8 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{"AppName", new Property<IJsonToken, string>((d, a) => d.Identifier, (d, o) => d.Identifier = o)},
 					{
-						"Member", new Property<IJsonToken, Member>((d, a) => d.Member == null ? null : d.Member.GetFromCache<Member>(a),
-						                                   (d, o) => d.Member = o != null ? o.Json : null)
+						"Member", new Property<IJsonToken, Member>((d, a) => d.Member?.GetFromCache<Member>(a),
+						                                           (d, o) => d.Member = o?.Json)
 					},
 					{"DateCreated", new Property<IJsonToken, DateTime?>((d, a) => d.DateCreated, (d, o) => d.DateCreated = o)},
 					{"DateExpires", new Property<IJsonToken, DateTime?>((d, a) => d.DateExpires, (d, o) => d.DateExpires = o)},
@@ -76,7 +76,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (_deleted) return;
 			CancelUpdate();
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
+			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
 			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
@@ -86,7 +86,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> { { "_token", Data.Id } });
+				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> {{"_token", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonToken>(Auth, endpoint);
 				MarkInitialized();
 

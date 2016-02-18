@@ -32,7 +32,7 @@ namespace Manatee.Trello.Internal.Searching
 		public static readonly DueSearchParameter Month = new DueSearchParameter("month");
 		public static readonly DueSearchParameter Overdue = new DueSearchParameter("overdue");
 
-		public string Query { get; private set; }
+		public string Query { get; }
 
 		public DueSearchParameter(int days)
 		{

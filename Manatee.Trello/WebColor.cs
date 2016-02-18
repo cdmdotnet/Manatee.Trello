@@ -36,15 +36,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the red component.
 		/// </summary>
-		public ushort Red { get; private set; }
+		public ushort Red { get; }
 		/// <summary>
 		/// Gets the green component.
 		/// </summary>
-		public ushort Green { get; private set; }
+		public ushort Green { get; }
 		/// <summary>
 		/// Gets the blue component.
 		/// </summary>
-		public ushort Blue { get; private set; }
+		public ushort Blue { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="WebColor"/> class.
@@ -66,7 +66,7 @@ namespace Manatee.Trello
 		{
 			var matches = _pattern.Matches(serialized);
 			if (matches.Count == 0)
-				throw new ArgumentException(string.Format("'{0}' is not a valid web color", serialized), "serialized");
+				throw new ArgumentException($"'{serialized}' is not a valid web color", nameof(serialized));
 
 			Red = ushort.Parse(matches[0].Groups["Red"].Value, NumberStyles.HexNumber);
 			Green = ushort.Parse(matches[0].Groups["Green"].Value, NumberStyles.HexNumber);
@@ -82,7 +82,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return string.Format("#{0:X2}{1:X2}{2:X2}", Red, Green, Blue);
+			return $"#{Red:X2}{Green:X2}{Blue:X2}";
 		}
 	}
 }

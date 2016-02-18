@@ -34,9 +34,6 @@ namespace Manatee.Trello
 	/// <typeparam name="T">The type of object contained by the collection.</typeparam>
 	public abstract class ReadOnlyCollection<T> : IEnumerable<T>
 	{
-		private readonly TrelloAuthorization _auth;
-		private readonly List<T> _items;
-		private readonly string _ownerId;
 		private DateTime _lastUpdate;
 
 		/// <summary>
@@ -47,12 +44,12 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public T this[int index] { get { return GetByIndex(index); } }
+		public T this[int index] => GetByIndex(index);
 
-		internal string OwnerId { get { return _ownerId; } }
-		internal List<T> Items { get { return _items; } }
+		internal string OwnerId { get; }
+		internal List<T> Items { get; }
 		internal int? Limit { get; set; }
-		internal TrelloAuthorization Auth { get { return _auth; } }
+		internal TrelloAuthorization Auth { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCollection{T}"/> object.
@@ -61,10 +58,10 @@ namespace Manatee.Trello
 		/// <param name="auth"></param>
 		protected ReadOnlyCollection(string ownerId, TrelloAuthorization auth)
 		{
-			_ownerId = ownerId;
-			_auth = auth ?? TrelloAuthorization.Default;
+			OwnerId = ownerId;
+			Auth = auth ?? TrelloAuthorization.Default;
 
-			_items = new List<T>();
+			Items = new List<T>();
 			_lastUpdate = DateTime.MinValue;
 		}
 
@@ -82,7 +79,7 @@ namespace Manatee.Trello
 				Update();
 				_lastUpdate = DateTime.Now;
 			}
-			return _items.GetEnumerator();
+			return Items.GetEnumerator();
 		}
 		/// <summary>
 		/// Returns an enumerator that iterates through a collection.

@@ -31,7 +31,7 @@ namespace Manatee.Trello.RestSharp
 	{
 		private readonly IRestResponse _response;
 
-		public string Content { get { return _response.Content; } }
+		public string Content => _response.Content;
 		public Exception Exception { get; set; }
 
 		public RestSharpResponse(IRestResponse response)

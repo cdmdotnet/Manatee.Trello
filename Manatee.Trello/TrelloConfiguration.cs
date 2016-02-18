@@ -55,7 +55,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (value == null)
-					Log.Error(new ArgumentNullException("value"));
+					Log.Error(new ArgumentNullException(nameof(value)));
 				_serializer = value;
 			}
 		}
@@ -73,7 +73,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (value == null)
-					Log.Error(new ArgumentNullException("value"));
+					Log.Error(new ArgumentNullException(nameof(value)));
 				_deserializer = value;
 			}
 		}
@@ -91,7 +91,7 @@ namespace Manatee.Trello
 			set
 			{
 				if (value == null)
-					Log.Error(new ArgumentNullException("value"));
+					Log.Error(new ArgumentNullException(nameof(value)));
 				_restClientProvider = value;
 			}
 		}

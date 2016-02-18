@@ -38,8 +38,8 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected abstract bool HasChanges { get; }
 
-		protected virtual bool IsDataComplete { get { return true; } }
-		protected bool ManagesSubmissions { get; private set; }
+		protected virtual bool IsDataComplete => true;
+		protected bool ManagesSubmissions { get; }
 
 #if IOS
 		private Action<IEnumerable<string>> _synchronizedInvoker;
@@ -72,8 +72,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		~SynchronizationContext()
 		{
-			if (_timer != null)
-				_timer.Dispose();
+			_timer?.Dispose();
 		}
 
 		public abstract T GetValue<T>(string property);
@@ -91,20 +90,8 @@ namespace Manatee.Trello.Internal.Synchronization
 #else
 				var handler = Synchronized;
 #endif
-				if (handler != null)
-					handler(properties);
+				handler?.Invoke(properties);
 			}
-		}
-		public void ResetTimer()
-		{
-			if (_timer == null)
-			{
-				SubmitChanges();
-				return;
-			}
-			if (_timer.Enabled)
-				_timer.Stop();
-			_timer.Start();
 		}
 		public void Expire()
 		{
@@ -122,11 +109,21 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_cancelUpdate = true;
 		}
+		protected void ResetTimer()
+		{
+			if (_timer == null)
+			{
+				SubmitChanges();
+				return;
+			}
+			if (_timer.Enabled)
+				_timer.Stop();
+			_timer.Start();
+		}
 
 		private void TimerElapsed(object sender, ElapsedEventArgs e)
 		{
-			if (_timer != null)
-				_timer.Stop();
+			_timer?.Stop();
 			if (!_cancelUpdate && HasChanges)
 				SubmitChanges();
 			//_cancelUpdate = false;
@@ -140,14 +137,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 	internal abstract class SynchronizationContext<TJson> : SynchronizationContext
 	{
-		private readonly TrelloAuthorization _auth;
 		protected static Dictionary<string, Property<TJson>> _properties;
 
 		private readonly List<string> _localChanges;
 		private readonly object _mergeLock;
 
-		protected override bool HasChanges { get { return _localChanges.Any(); } }
-		public TrelloAuthorization Auth { get { return _auth; } }
+		protected override bool HasChanges => _localChanges.Any();
+		protected TrelloAuthorization Auth { get; }
 		protected bool IsInitialized { get; private set; }
 
 		internal TJson Data { get; private set; }
@@ -155,7 +151,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer = true)
 			: base(useTimer)
 		{
-			_auth = auth ?? TrelloAuthorization.Default;
+			Auth = auth ?? TrelloAuthorization.Default;
 			Data = TrelloConfiguration.JsonFactory.Create<TJson>();
 			_localChanges = new List<string>();
 			_mergeLock = new object();
@@ -232,11 +228,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				return propertyNames.Concat(MergeDependencies(json));
 			}
 		}
-		internal void AddLocalChange(string property)
-		{
-			if (_localChanges.Contains(property)) return;
-			_localChanges.Add(property);
-		}
 		internal void ClearChanges()
 		{
 			_localChanges.Clear();
@@ -251,6 +242,13 @@ namespace Manatee.Trello.Internal.Synchronization
 				property.Set(json, newValue);
 			}
 			return json;
+		}
+
+		private void AddLocalChange(string property)
+		{
+			if (_localChanges.Contains(property))
+				return;
+			_localChanges.Add(property);
 		}
 	}
 }

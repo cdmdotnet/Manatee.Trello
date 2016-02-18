@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -34,19 +33,17 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private bool _deleted;
 
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
-
 		static CheckListContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonCheckList>>
 				{
 					{
 						"Board", new Property<IJsonCheckList, Board>((d, a) => d.Board.GetFromCache<Board>(a),
-						                                             (d, o) => d.Board = o != null ? (o).Json : null)
+						                                             (d, o) => d.Board = o?.Json)
 					},
 					{
 						"Card", new Property<IJsonCheckList, Card>((d, a) => d.Card.GetFromCache<Card>(a),
-						                                           (d, o) => d.Card = o != null ? (o).Json : null)
+						                                           (d, o) => d.Card = o?.Json)
 					},
 					{"CheckItems", new Property<IJsonCheckList, List<IJsonCheckItem>>((d, a) => d.CheckItems, (d, o) => d.CheckItems = o)},
 					{"Id", new Property<IJsonCheckList, string>((d, a) => d.Id, (d, o) => d.Id = o)},

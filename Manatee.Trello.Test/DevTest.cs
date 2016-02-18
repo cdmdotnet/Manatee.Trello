@@ -11,22 +11,12 @@ namespace Manatee.Trello.Test
 	[TestClass]
 	public class DevTest
 	{
-		private class RestResponse<T> : IRestResponse<T>
-		{
-			public string Content { get; set; }
-			public Exception Exception { get; set; }
-			public T Data { get; set; }
-		}
-
 		[TestMethod]
 		public void TestMethod1()
 		{
 			Run(() =>
 				{
-					var card = new Card(TrelloIds.CardId);
-					OutputCollection(string.Format("CommentCount: {0}", card.Badges.Comments), card.Comments.Select(c => new Tuple<Action, DateTime?>(c, c.Data.LastEdited)));
-					var copy = card.List.Cards.Add(card);
-					OutputCollection(string.Format("CommentCount: {0}", copy.Badges.Comments), copy.Comments.Select(c => new Tuple<Action, DateTime?>(c, c.Data.LastEdited)));
+					Console.WriteLine(Member.Me);
 				});
 		}
 

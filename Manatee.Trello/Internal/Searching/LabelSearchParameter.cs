@@ -25,15 +25,15 @@ namespace Manatee.Trello.Internal.Searching
 {
 	internal class LabelSearchParameter : ISearchParameter
 	{
-		public string Query { get; private set; }
+		public string Query { get; }
 
 		public LabelSearchParameter(Label label)
 		{
-			Query = string.Format("#{0}", label.Name.IsNullOrWhiteSpace() ? label.Color.ToLowerString() : label.Name);
+			Query = $"#{(label.Name.IsNullOrWhiteSpace() ? label.Color.ToLowerString() : label.Name)}";
 		}
 		public LabelSearchParameter(LabelColor color)
 		{
-			Query = string.Format("#{0}", color.ToLowerString());
+			Query = $"#{color.ToLowerString()}";
 		}
 	}
 }

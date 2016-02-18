@@ -46,7 +46,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the board on which the checklist belongs.
 		/// </summary>
-		public Board Board { get { return _board.Value; } }
+		public Board Board => _board.Value;
 		/// <summary>
 		/// Gets or sets the card on which the checklist belongs.
 		/// </summary>
@@ -58,7 +58,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of items in the checklist.
 		/// </summary>
-		public CheckItemCollection CheckItems { get; private set; }
+		public CheckItemCollection CheckItems { get; }
 		/// <summary>
 		/// Gets the creation date of the checklist.
 		/// </summary>
@@ -100,7 +100,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public CheckItem this[string key] { get { return CheckItems[key]; } }
+		public CheckItem this[string key] => CheckItems[key];
 		/// <summary>
 		/// Retrieves the check list item at the specified index.
 		/// </summary>
@@ -109,7 +109,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public CheckItem this[int index] { get { return CheckItems[index]; } }
+		public CheckItem this[int index] => CheckItems[index];
 
 		internal IJsonCheckList Json
 		{
@@ -204,8 +204,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

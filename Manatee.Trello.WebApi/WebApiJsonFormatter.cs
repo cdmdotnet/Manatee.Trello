@@ -13,11 +13,11 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.WebApi
 {
-	public class WebApiFormatter : MediaTypeFormatter
+	internal class WebApiJsonFormatter : MediaTypeFormatter
 	{
 		private readonly Dictionary<Type, MethodInfo> _deserializeMethods;
 
-		public WebApiFormatter()
+		public WebApiJsonFormatter()
 		{
 			_deserializeMethods = new Dictionary<Type, MethodInfo>();
 
@@ -61,8 +61,10 @@ namespace Manatee.Trello.WebApi
 		{
 			if (value == null) return;
 			var json = TrelloConfiguration.Serializer.Serialize(value);
-			using (var sw = new StreamWriter(writeStream, Encoding.Default, json.Length, true))
+			using (var sw = new StreamWriter(writeStream, Encoding.Unicode, json.Length, true))
+			{
 				sw.Write(json);
+			}
 		}
 		private object Deserialize(Type type, string content)
 		{

@@ -34,7 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Id", new Property<IJsonBoardBackground, string>((d, a) => d.Id, (d, o ) => d.Id = o)},
 					{
 						"Color", new Property<IJsonBoardBackground, WebColor>((d, a) => d.Color.IsNullOrWhiteSpace() ? null : new WebColor(d.Color),
-																			  (d, o) => d.Color = o == null ? null : o.ToString())
+																			  (d, o) => d.Color = o?.ToString())
 					},
 					{"Image", new Property<IJsonBoardBackground, string>((d, a) => d.Image, (d, o) => d.Image = o)},
 					{"IsTiled", new Property<IJsonBoardBackground, bool?>((d, a) => d.Tile, (d, o) => d.Tile = o)},

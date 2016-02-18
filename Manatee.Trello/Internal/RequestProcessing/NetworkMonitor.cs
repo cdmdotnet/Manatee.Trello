@@ -56,8 +56,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 #else
 			var handler = ConnectionStatusChanged;
 #endif
-			if (handler != null)
-				handler();
+			handler?.Invoke();
 		}
 	}
 }

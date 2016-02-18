@@ -60,12 +60,12 @@ namespace Manatee.Trello
 		/// BoardMembership.Member.Name, and BoardMembership.Usernamee.
 		/// Comparison is case-sensitive.
 		/// </remarks>
-		public BoardMembership this[string key] { get { return GetByKey(key); } }
+		public BoardMembership this[string key] => GetByKey(key);
 
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonBoardMembership>>(Auth, endpoint, _additionalParameters);
@@ -87,8 +87,8 @@ namespace Manatee.Trello
 		internal void AddFilter(IEnumerable<MembershipFilter> actionTypes)
 		{
 			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object> { { "filter", string.Empty } };
-			var filter = ((string)_additionalParameters["filter"]);
+				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
+			var filter = ((string) _additionalParameters["filter"]);
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += actionTypes.Select(a => a.GetDescription()).Join(",");

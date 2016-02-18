@@ -65,13 +65,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebApiFormatter.cs" />
+    <Compile Include="WebApiJsonFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApiClient.cs" />
     <Compile Include="WebApiClientProvider.cs" />
     <Compile Include="WebApiRequestProvider.cs" />
     <Compile Include="WebApiRestRequest.cs" />
     <Compile Include="WebApiRestResponse.cs" />
+    <Compile Include="WebApiTextFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">

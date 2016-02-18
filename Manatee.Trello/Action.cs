@@ -59,15 +59,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member who performed the action.
 		/// </summary>
-		public Member Creator { get { return _creator.Value; } }
+		public Member Creator => _creator.Value;
 		/// <summary>
 		/// Gets any data associated with the action.
 		/// </summary>
-		public ActionData Data { get; private set; }
+		public ActionData Data { get; }
 		/// <summary>
 		/// Gets the date and time at which the action was performed.
 		/// </summary>
-		public DateTime? Date { get { return _date.Value; } }
+		public DateTime? Date => _date.Value;
 		/// <summary>
 		/// Gets the action's ID.
 		/// </summary>
@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the type of action.
 		/// </summary>
-		public ActionType? Type { get { return _type.Value; } }
+		public ActionType? Type => _type.Value;
 
 		internal IJsonAction Json
 		{
@@ -114,55 +114,55 @@ namespace Manatee.Trello
 		{
 			_stringDefinitions = new Dictionary<ActionType, Func<Action, string>>
 				{
-					{ActionType.AddAttachmentToCard, a => string.Format("{0} attached {1} to card {2}.", a.Creator, a.Data.Attachment, a.Data.Card)},
-					{ActionType.AddChecklistToCard, a => string.Format("{0} added checklist {1} to card {2}.", a.Creator, a.Data.CheckList, a.Data.Card)},
-					{ActionType.AddMemberToBoard, a => string.Format("{0} added member {1} to board {2}.", a.Creator, a.Data.Member, a.Data.Board)},
-					{ActionType.AddMemberToCard, a => string.Format("{0} assigned member {1} to card {2}.", a.Creator, a.Data.Member, a.Data.Card)},
-					{ActionType.AddMemberToOrganization, a => string.Format("{0} added member {1} to organization {2}.", a.Creator, a.Data.Member, a.Data.Organization)},
-					{ActionType.AddToOrganizationBoard, a => string.Format("{0} moved board {1} into organization {2}.", a.Creator, a.Data.Board, a.Data.Organization)},
-					{ActionType.CommentCard, a => string.Format("{0} commented on card {1}: '{2}'.", a.Creator, a.Data.Card, a.Data.Text)},
-					{ActionType.ConvertToCardFromCheckItem, a => string.Format("{0} converted checkitem {1} to a card.", a.Creator, a.Data.Card)},
-					{ActionType.CopyBoard, a => string.Format("{0} copied board {1} from board {2}.", a.Creator, a.Data.Board, a.Data.BoardSource)},
-					{ActionType.CopyCard, a => string.Format("{0} copied card {1} from card {2}.", a.Creator, a.Data.Card, a.Data.CardSource)},
-					{ActionType.CopyCommentCard, a => string.Format("{0} copied a comment from {1}: '{2}'.", a.Creator, a.Data.Card, a.Data.Text)},
-					{ActionType.CreateBoard, a => string.Format("{0} created board {1}.", a.Creator, a.Data.Board)},
-					{ActionType.CreateCard, a => string.Format("{0} created card {1}.", a.Creator, a.Data.Card)},
-					{ActionType.CreateList, a => string.Format("{0} created list {1}.", a.Creator, a.Data.List)},
-					{ActionType.CreateOrganization, a => string.Format("{0} created organization {1}.", a.Creator, a.Data.Organization)},
-					{ActionType.DeleteAttachmentFromCard, a => string.Format("{0} removed attachment {1} from card {2}.", a.Creator, a.Data.Attachment, a.Data.Card)},
-					{ActionType.DeleteBoardInvitation, a => string.Format("{0} rescinded an invitation.", a.Creator)},
-					{ActionType.DeleteCard, a => string.Format("{0} deleted card {1} from {2}.", a.Creator, a.Data.Card, a.Data.Board)},
-					{ActionType.DeleteOrganizationInvitation, a => string.Format("{0} rescinded an invitation.", a.Creator)},
-					{ActionType.DisablePowerUp, a => string.Format("{0} disabled power-up {1}.", a.Creator, a.Data.Value)},
-					{ActionType.EmailCard, a => string.Format("{0} added card {1} by email.", a.Creator, a.Data.Card)},
-					{ActionType.EnablePowerUp, a => string.Format("{0} enabled power-up {1}.", a.Creator, a.Data.Value)},
-					{ActionType.MakeAdminOfBoard, a => string.Format("{0} made member {1} an admin of board {2}.", a.Creator, a.Data.Member, a.Data.Board)},
-					{ActionType.MakeNormalMemberOfBoard, a => string.Format("{0} made member {1} a normal user of board {2}.", a.Creator, a.Data.Member, a.Data.Board)},
-					{ActionType.MakeNormalMemberOfOrganization, a => string.Format("{0} made member {1} a normal user of organization {2}.", a.Creator, a.Data.Member, a.Data.Organization)},
-					{ActionType.MakeObserverOfBoard, a => string.Format("{0} made member {1} an observer of board {2}.", a.Creator, a.Data.Member, a.Data.Board)},
-					{ActionType.MemberJoinedTrello, a => string.Format("{0} joined Trello!.", a.Creator)},
-					{ActionType.MoveCardFromBoard, a => string.Format("{0} moved card {1} from board {2} to board {3}.", a.Creator, a.Data.Card, a.Data.Board, a.Data.BoardTarget)},
-					{ActionType.MoveCardToBoard, a => string.Format("{0} moved card {1} from board {2} to board {3}.", a.Creator, a.Data.Card, a.Data.BoardSource, a.Data.Board)},
-					{ActionType.MoveListFromBoard, a => string.Format("{0} moved list {1} from board {2}.", a.Creator, a.Data.List, a.Data.Board)},
-					{ActionType.MoveListToBoard, a => string.Format("{0} moved list {1} to board {2}.", a.Creator, a.Data.List, a.Data.Board)},
-					{ActionType.RemoveChecklistFromCard, a => string.Format("{0} deleted checklist {1} from card {2}.", a.Creator, a.Data.CheckList, a.Data.Card)},
-					{ActionType.RemoveFromOrganizationBoard, a => string.Format("{0} removed board {1} from organization {2}.", a.Creator, a.Data.Board, a.Data.Organization)},
-					{ActionType.RemoveMemberFromCard, a => string.Format("{0} removed member {1} from card {2}.", a.Creator, a.Data.Member, a.Data.Card)},
-					{ActionType.UnconfirmedBoardInvitation, a => string.Format("{0} invited {1} to board {2}.", a.Creator, a.Data.Member, a.Data.Board)},
-					{ActionType.UnconfirmedOrganizationInvitation, a => string.Format("{0} invited {1} to organization {2}.", a.Creator, a.Data.Member, a.Data.Organization)},
-					{ActionType.UpdateBoard, a => string.Format("{0} updated board {1}.", a.Creator, a.Data.Board)},
-					{ActionType.UpdateCard, a => string.Format("{0} updated card {1}.", a.Creator, a.Data.Card)},
-					{ActionType.UpdateCardIdList, a => string.Format("{0} moved card {1} from list {2} to list {3}.", a.Creator, a.Data.Card, a.Data.ListBefore, a.Data.ListAfter)},
-					{ActionType.UpdateCardClosed, a => string.Format("{0} archived card {1}.", a.Creator, a.Data.Card)},
-					{ActionType.UpdateCardDesc, a => string.Format("{0} changed the description of card {1}.", a.Creator, a.Data.Card)},
-					{ActionType.UpdateCardName, a => string.Format("{0} changed the name of card {1}.", a.Creator, a.Data.Card)},
-					{ActionType.UpdateCheckItemStateOnCard, a => string.Format("{0} updated checkitem {1}.", a.Creator, a.Data.CheckItem)},
-					{ActionType.UpdateChecklist, a => string.Format("{0} updated checklist {1}.", a.Creator, a.Data.CheckList)},
-					{ActionType.UpdateList, a => string.Format("{0} updated list {1}.", a.Creator, a.Data.List)},
-					{ActionType.UpdateListClosed, a => string.Format("{0} archived list {1}.", a.Creator, a.Data.List)},
-					{ActionType.UpdateListName, a => string.Format("{0} changed the name of list {1}.", a.Creator, a.Data.List)},
-					{ActionType.UpdateMember, a => string.Format("{0} updated their profile.", a.Creator)},
-					{ActionType.UpdateOrganization, a => string.Format("{0} updated organization {1}.", a.Creator, a.Data.Organization)},
+					{ActionType.AddAttachmentToCard, a => $"{a.Creator} attached {a.Data.Attachment} to card {a.Data.Card}."},
+					{ActionType.AddChecklistToCard, a => $"{a.Creator} added checklist {a.Data.CheckList} to card {a.Data.Card}."},
+					{ActionType.AddMemberToBoard, a => $"{a.Creator} added member {a.Data.Member} to board {a.Data.Board}."},
+					{ActionType.AddMemberToCard, a => $"{a.Creator} assigned member {a.Data.Member} to card {a.Data.Card}."},
+					{ActionType.AddMemberToOrganization, a => $"{a.Creator} added member {a.Data.Member} to organization {a.Data.Organization}."},
+					{ActionType.AddToOrganizationBoard, a => $"{a.Creator} moved board {a.Data.Board} into organization {a.Data.Organization}."},
+					{ActionType.CommentCard, a => $"{a.Creator} commented on card {a.Data.Card}: '{a.Data.Text}'."},
+					{ActionType.ConvertToCardFromCheckItem, a => $"{a.Creator} converted checkitem {a.Data.Card} to a card."},
+					{ActionType.CopyBoard, a => $"{a.Creator} copied board {a.Data.Board} from board {a.Data.BoardSource}."},
+					{ActionType.CopyCard, a => $"{a.Creator} copied card {a.Data.Card} from card {a.Data.CardSource}."},
+					{ActionType.CopyCommentCard, a => $"{a.Creator} copied a comment from {a.Data.Card}: '{a.Data.Text}'."},
+					{ActionType.CreateBoard, a => $"{a.Creator} created board {a.Data.Board}."},
+					{ActionType.CreateCard, a => $"{a.Creator} created card {a.Data.Card}."},
+					{ActionType.CreateList, a => $"{a.Creator} created list {a.Data.List}."},
+					{ActionType.CreateOrganization, a => $"{a.Creator} created organization {a.Data.Organization}."},
+					{ActionType.DeleteAttachmentFromCard, a => $"{a.Creator} removed attachment {a.Data.Attachment} from card {a.Data.Card}."},
+					{ActionType.DeleteBoardInvitation, a => $"{a.Creator} rescinded an invitation."},
+					{ActionType.DeleteCard, a => $"{a.Creator} deleted card {a.Data.Card} from {a.Data.Board}."},
+					{ActionType.DeleteOrganizationInvitation, a => $"{a.Creator} rescinded an invitation."},
+					{ActionType.DisablePowerUp, a => $"{a.Creator} disabled power-up {a.Data.Value}."},
+					{ActionType.EmailCard, a => $"{a.Creator} added card {a.Data.Card} by email."},
+					{ActionType.EnablePowerUp, a => $"{a.Creator} enabled power-up {a.Data.Value}."},
+					{ActionType.MakeAdminOfBoard, a => $"{a.Creator} made member {a.Data.Member} an admin of board {a.Data.Board}."},
+					{ActionType.MakeNormalMemberOfBoard, a => $"{a.Creator} made member {a.Data.Member} a normal user of board {a.Data.Board}."},
+					{ActionType.MakeNormalMemberOfOrganization, a => $"{a.Creator} made member {a.Data.Member} a normal user of organization {a.Data.Organization}."},
+					{ActionType.MakeObserverOfBoard, a => $"{a.Creator} made member {a.Data.Member} an observer of board {a.Data.Board}."},
+					{ActionType.MemberJoinedTrello, a => $"{a.Creator} joined Trello!."},
+					{ActionType.MoveCardFromBoard, a => $"{a.Creator} moved card {a.Data.Card} from board {a.Data.Board} to board {a.Data.BoardTarget}."},
+					{ActionType.MoveCardToBoard, a => $"{a.Creator} moved card {a.Data.Card} from board {a.Data.BoardSource} to board {a.Data.Board}."},
+					{ActionType.MoveListFromBoard, a => $"{a.Creator} moved list {a.Data.List} from board {a.Data.Board}."},
+					{ActionType.MoveListToBoard, a => $"{a.Creator} moved list {a.Data.List} to board {a.Data.Board}."},
+					{ActionType.RemoveChecklistFromCard, a => $"{a.Creator} deleted checklist {a.Data.CheckList} from card {a.Data.Card}."},
+					{ActionType.RemoveFromOrganizationBoard, a => $"{a.Creator} removed board {a.Data.Board} from organization {a.Data.Organization}."},
+					{ActionType.RemoveMemberFromCard, a => $"{a.Creator} removed member {a.Data.Member} from card {a.Data.Card}."},
+					{ActionType.UnconfirmedBoardInvitation, a => $"{a.Creator} invited {a.Data.Member} to board {a.Data.Board}."},
+					{ActionType.UnconfirmedOrganizationInvitation, a => $"{a.Creator} invited {a.Data.Member} to organization {a.Data.Organization}."},
+					{ActionType.UpdateBoard, a => $"{a.Creator} updated board {a.Data.Board}."},
+					{ActionType.UpdateCard, a => $"{a.Creator} updated card {a.Data.Card}."},
+					{ActionType.UpdateCardIdList, a => $"{a.Creator} moved card {a.Data.Card} from list {a.Data.ListBefore} to list {a.Data.ListAfter}."},
+					{ActionType.UpdateCardClosed, a => $"{a.Creator} archived card {a.Data.Card}."},
+					{ActionType.UpdateCardDesc, a => $"{a.Creator} changed the description of card {a.Data.Card}."},
+					{ActionType.UpdateCardName, a => $"{a.Creator} changed the name of card {a.Data.Card}."},
+					{ActionType.UpdateCheckItemStateOnCard, a => $"{a.Creator} updated checkitem {a.Data.CheckItem}."},
+					{ActionType.UpdateChecklist, a => $"{a.Creator} updated checklist {a.Data.CheckList}."},
+					{ActionType.UpdateList, a => $"{a.Creator} updated list {a.Data.List}."},
+					{ActionType.UpdateListClosed, a => $"{a.Creator} archived list {a.Data.List}."},
+					{ActionType.UpdateListName, a => $"{a.Creator} changed the name of list {a.Data.List}."},
+					{ActionType.UpdateMember, a => $"{a.Creator} updated their profile."},
+					{ActionType.UpdateOrganization, a => $"{a.Creator} updated organization {a.Data.Organization}."},
 				};
 		}
 		/// <summary>
@@ -222,8 +222,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

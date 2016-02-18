@@ -45,7 +45,7 @@ namespace Manatee.Trello
 		public static ReadOnlyActionCollection Filter(this ReadOnlyActionCollection actions, ActionType filter)
 		{
 			if (filter == ActionType.Unknown)
-				throw new ArgumentException(string.Format("Action type '{0}' is not recognized by the Trello API.  Please indicate a different filter.", ActionType.Unknown), "filter");
+				throw new ArgumentException($"Action type '{ActionType.Unknown}' is not recognized by the Trello API.  Please indicate a different filter.", nameof(filter));
 
 			var collection = new ReadOnlyActionCollection(actions, actions.Auth);
 			collection.AddFilter(new[] {filter});
@@ -62,7 +62,7 @@ namespace Manatee.Trello
 		public static ReadOnlyActionCollection Filter(this ReadOnlyActionCollection actions, IEnumerable<ActionType> filters)
 		{
 			if (filters.Any(f => f == ActionType.Unknown))
-				throw new ArgumentException(string.Format("Action type '{0}' is not recognized by the Trello API.  Please remove it from the filters.", ActionType.Unknown), "filters");
+				throw new ArgumentException($"Action type '{ActionType.Unknown}' is not recognized by the Trello API.  Please remove it from the filters.", nameof(filters));
 
 			var collection = new ReadOnlyActionCollection(actions, actions.Auth);
 			collection.AddFilter(filters);

@@ -39,10 +39,7 @@ namespace Manatee.Trello.RestSharp
 		/// <summary>
 		/// Creates requests for the client.
 		/// </summary>
-		public IRestRequestProvider RequestProvider
-		{
-			get { return _requestProvider ?? (_requestProvider = new RestSharpRequestProvider(VerifySerializer())); }
-		}
+		public IRestRequestProvider RequestProvider => _requestProvider ?? (_requestProvider = new RestSharpRequestProvider(VerifySerializer()));
 
 		/// <summary>
 		/// Creates an instance of IRestClient.

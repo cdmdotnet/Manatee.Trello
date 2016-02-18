@@ -46,7 +46,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on List.Id and List.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public List this[string key] { get { return GetByKey(key); } }
+		public List this[string key] => GetByKey(key);
 
 		internal ReadOnlyListCollection(string ownerId, TrelloAuthorization auth)
 			: base(ownerId, auth) {}
@@ -60,7 +60,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			IncorporateLimit(_additionalParameters);
 
