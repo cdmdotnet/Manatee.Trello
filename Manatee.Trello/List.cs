@@ -34,7 +34,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public class List : ICanWebhook, ICacheable
+	public class List : ICanWebhook
 	{
 		private readonly Field<Board> _board;
 		private readonly Field<bool?> _isArchived;
@@ -49,7 +49,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; private set; }
+		public ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets or sets the board on which the list belongs.
 		/// </summary>
@@ -61,7 +61,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of cards contained in the list.
 		/// </summary>
-		public CardCollection Cards { get; private set; }
+		public CardCollection Cards { get; }
 		/// <summary>
 		/// Gets the creation date of the list.
 		/// </summary>
@@ -128,7 +128,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public Card this[string key] { get { return Cards[key]; } }
+		public Card this[string key] => Cards[key];
 		/// <summary>
 		/// Retrieves the card at the specified index.
 		/// </summary>
@@ -137,7 +137,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public Card this[int index] { get { return Cards[index]; } }
+		public Card this[int index] => Cards[index];
 
 		internal IJsonList Json
 		{
@@ -233,8 +233,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

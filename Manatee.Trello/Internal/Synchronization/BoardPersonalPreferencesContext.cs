@@ -45,8 +45,8 @@ namespace Manatee.Trello.Internal.Synchronization
 																							   (d, o) => d.EmailPosition = Position.GetJson(o))
 					},
 					{
-						"EmailListId", new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList == null ? null : d.EmailList.GetFromCache<List>(a),
-																						 (d, o) => d.EmailList = o == null ? null : o.Json)
+						"EmailListId", new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList?.GetFromCache<List>(a),
+																						 (d, o) => d.EmailList = o?.Json)
 					},
 				};
 		}
@@ -65,10 +65,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override void SubmitData(IJsonBoardPersonalPreferences json)
 		{
-			//var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_PersonalPrefs, new Dictionary<string, object> {{"_id", _ownerId}});
-			//var newData = JsonRepository.Execute(TrelloAuthorization.Default, endpoint, json);
-			//Merge(newData);
-
 			if (json.EmailList != null)
 				SubmitDataPoint(json.EmailList.Id, "emailList");
 			SubmitDataPoint(json.EmailPosition, "emailPosition");

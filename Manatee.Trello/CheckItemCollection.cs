@@ -47,7 +47,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public CheckItem this[string key] { get { return GetByKey(key); } }
+		public CheckItem this[string key] => GetByKey(key);
 
 		internal ReadOnlyCheckItemCollection(CheckListContext context, TrelloAuthorization auth)
 			: base(context.Data.Id, auth)
@@ -58,7 +58,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			_context.Synchronize();
 			if (_context.Data.CheckItems == null) return;

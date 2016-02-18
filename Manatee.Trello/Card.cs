@@ -57,27 +57,27 @@ namespace Manatee.Trello
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
 		/// <remarks>By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.</remarks>
-		public ReadOnlyActionCollection Actions { get; private set; }
+		public ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the collection of attachments contained in the card.
 		/// </summary>
-		public AttachmentCollection Attachments { get; private set; }
+		public AttachmentCollection Attachments { get; }
 		/// <summary>
 		/// Gets the badges summarizing the content of the card.
 		/// </summary>
-		public Badges Badges { get; private set; }
+		public Badges Badges { get; }
 		/// <summary>
 		/// Gets the board to which the card belongs.
 		/// </summary>
-		public Board Board { get { return _board.Value; } }
+		public Board Board => _board.Value;
 		/// <summary>
 		/// Gets the collection of checklists contained in the card.
 		/// </summary>
-		public CheckListCollection CheckLists { get; private set; }
+		public CheckListCollection CheckLists { get; }
 		/// <summary>
 		/// Gets the collection of comments made on the card.
 		/// </summary>
-		public CommentCollection Comments { get; private set; }
+		public CommentCollection Comments { get; }
 		/// <summary>
 		/// Gets the creation date of the card.
 		/// </summary>
@@ -138,11 +138,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of labels on the card.
 		/// </summary>
-		public CardLabelCollection Labels { get; private set; }
+		public CardLabelCollection Labels { get; }
 		/// <summary>
 		/// Gets the most recent date of activity on the card.
 		/// </summary>
-		public DateTime? LastActivity { get { return _lastActivity.Value; } }
+		public DateTime? LastActivity => _lastActivity.Value;
 		/// <summary>
 		/// Gets or sets the list to the card belongs.
 		/// </summary>
@@ -158,7 +158,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members who are assigned to the card.
 		/// </summary>
-		public MemberCollection Members { get; private set; }
+		public MemberCollection Members { get; }
 		/// <summary>
 		/// Gets or sets the card's name.
 		/// </summary>
@@ -178,25 +178,25 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the card's short ID.
 		/// </summary>
-		public int? ShortId { get { return _shortId.Value; } }
+		public int? ShortId => _shortId.Value;
 		/// <summary>
 		/// Gets the card's short URL.
 		/// </summary>
 		/// <remarks>
 		/// Because this value does not change, it can be used as a permalink.
 		/// </remarks>
-		public string ShortUrl { get { return _shortUrl.Value; } }
+		public string ShortUrl => _shortUrl.Value;
 		/// <summary>
 		/// Gets the collection of stickers which appear on the card.
 		/// </summary>
-		public CardStickerCollection Stickers { get; private set; }
+		public CardStickerCollection Stickers { get; }
 		/// <summary>
 		/// Gets the card's full URL.
 		/// </summary>
 		/// <remarks>
 		/// Trello will likely change this value as the name changes.  You can use <see cref="ShortUrl"/> for permalinks.
 		/// </remarks>
-		public string Url { get { return _url.Value; } }
+		public string Url => _url.Value;
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.
@@ -206,7 +206,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on CheckList.Id and CheckList.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public CheckList this[string key] { get { return CheckLists[key]; } }
+		public CheckList this[string key] => CheckLists[key];
 		/// <summary>
 		/// Retrieves the check list at the specified index.
 		/// </summary>
@@ -215,7 +215,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public CheckList this[int index] { get { return CheckLists[index]; } }
+		public CheckList this[int index] => CheckLists[index];
 
 		internal IJsonCard Json
 		{
@@ -328,7 +328,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return Name ?? string.Format("#{0}", ShortId);
+			return Name ?? $"#{ShortId}";
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
@@ -339,8 +339,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

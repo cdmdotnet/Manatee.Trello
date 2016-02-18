@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -35,8 +34,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		private readonly string _ownerId;
 		private bool _deleted;
 
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
-
 		static AttachmentContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonAttachment>>
@@ -44,8 +41,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Bytes", new Property<IJsonAttachment, int?>((d, a) => d.Bytes, (d, o) => d.Bytes = o)},
 					{"Date", new Property<IJsonAttachment, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
 					{
-						"Member", new Property<IJsonAttachment, Member>((d, a) => d.Member == null ? null : d.Member.GetFromCache<Member>(a),
-						                                                (d, o) => d.Member = o != null ? o.Json : null)
+						"Member", new Property<IJsonAttachment, Member>((d, a) => d.Member?.GetFromCache<Member>(a),
+						                                                (d, o) => d.Member = o?.Json)
 					},
 					{"Id", new Property<IJsonAttachment, string>((d, a) => d.Id, (d, o) => d.Id = o)},
 					{"IsUpload", new Property<IJsonAttachment, bool?>((d, a) => d.IsUpload, (d, o) => d.IsUpload = o)},
@@ -66,7 +63,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (_deleted) return;
 			CancelUpdate();
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete, new Dictionary<string, object> { { "_cardId", _ownerId }, { "_id", Data.Id } });
+			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete, new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
 			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;

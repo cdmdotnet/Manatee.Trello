@@ -50,11 +50,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; private set; }
+		public ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
-		public BoardCollection Boards { get; private set; }
+		public BoardCollection Boards { get; }
 		/// <summary>
 		/// Gets the creation date of the organization.
 		/// </summary>
@@ -99,15 +99,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the organization has business class status.
 		/// </summary>
-		public bool IsBusinessClass { get { return _isBusinessClass.Value; } }
+		public bool IsBusinessClass => _isBusinessClass.Value;
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		public ReadOnlyMemberCollection Members { get; private set; }
+		public ReadOnlyMemberCollection Members { get; }
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>
-		public OrganizationMembershipCollection Memberships { get; private set; }
+		public OrganizationMembershipCollection Memberships { get; }
 		/// <summary>
 		/// Gets the organization's name.
 		/// </summary>
@@ -119,11 +119,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the set of preferences for the organization.
 		/// </summary>
-		public OrganizationPreferences Preferences { get; private set; }
+		public OrganizationPreferences Preferences { get; }
 		/// <summary>
 		/// Gets the organization's URL.
 		/// </summary>
-		public string Url { get { return _url.Value; } }
+		public string Url => _url.Value;
 		/// <summary>
 		/// Gets or sets the organization's website.
 		/// </summary>
@@ -243,8 +243,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

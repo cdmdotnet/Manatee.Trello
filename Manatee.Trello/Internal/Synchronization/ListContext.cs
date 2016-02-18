@@ -31,15 +31,15 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class ListContext : SynchronizationContext<IJsonList>
 	{
-		protected override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static ListContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonList>>
 				{
 					{
-						"Board", new Property<IJsonList, Board>((d, a) => d.Board == null ? null : d.Board.GetFromCache<Board>(a),
+						"Board", new Property<IJsonList, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
 						                                        (d, o) => { if (o != null) d.Board = o.Json; })
 					},
 					{"Id", new Property<IJsonList, string>((d, a) => d.Id, (d, o) => d.Id = o)},

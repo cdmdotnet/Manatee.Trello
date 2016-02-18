@@ -35,17 +35,17 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private bool _deleted;
 
-		public BadgesContext BadgesContext { get; private set; }
-		protected override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public BadgesContext BadgesContext { get; }
+		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static CardContext()
 		{
 			_properties = new Dictionary<string, Property<IJsonCard>>
 				{
 					{
-						"Board", new Property<IJsonCard, Board>((d, a) => d.Board == null ? null : d.Board.GetFromCache<Board>(a),
-						                                        (d, o) => d.Board = o == null ? null : o.Json)
+						"Board", new Property<IJsonCard, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+						                                        (d, o) => d.Board = o?.Json)
 					},
 					{"Description", new Property<IJsonCard, string>((d, a) => d.Desc, (d, o) => d.Desc = o)},
 					{"DueDate", new Property<IJsonCard, DateTime?>((d, a) => d.Due, (d, o) =>
@@ -59,8 +59,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Labels", new Property<IJsonCard, List<IJsonLabel>>((d, a) => d.Labels, (d, o) => d.Labels = o)},
 					{"LastActivity", new Property<IJsonCard, DateTime?>((d, a) => d.DateLastActivity, (d, o) => d.DateLastActivity = o)},
 					{
-						"List", new Property<IJsonCard, List>((d, a) => d.List == null ? null : d.List.GetFromCache<List>(a),
-						                                      (d, o) => d.List = o == null ? null : o.Json)
+						"List", new Property<IJsonCard, List>((d, a) => d.List?.GetFromCache<List>(a),
+						                                      (d, o) => d.List = o?.Json)
 					},
 					{"Name", new Property<IJsonCard, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{

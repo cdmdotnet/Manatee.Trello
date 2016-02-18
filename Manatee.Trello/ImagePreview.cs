@@ -50,11 +50,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the preview's height in pixels.
 		/// </summary>
-		public int? Height { get; private set; }
+		public int? Height { get; }
 		/// <summary>
 		/// Gets the preview's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id { get; }
 		/// <summary>
 		/// Gets whether the attachment was scaled to generate the preview.
 		/// </summary>
@@ -62,11 +62,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the URI where the preview data is stored.
 		/// </summary>
-		public string Url { get; private set; }
+		public string Url { get; }
 		/// <summary>
 		/// Gets the preview's width in pixels.
 		/// </summary>
-		public int? Width { get; private set; }
+		public int? Width { get; }
 
 		internal ImagePreview(IJsonImagePreview json)
 		{

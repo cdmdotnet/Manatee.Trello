@@ -55,12 +55,12 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on Organization.Id, Organization.Name, and Organization.DisplayName.  Comparison is case-sensitive.
 		/// </remarks>
-		public Organization this[string key] { get { return GetByKey(key); } }
+		public Organization this[string key] => GetByKey(key);
 
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			IncorporateLimit(_additionalParameters);
 

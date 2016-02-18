@@ -32,7 +32,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal class BoardContext : SynchronizationContext<IJsonBoard>
 	{
 		public BoardPreferencesContext BoardPreferencesContext { get; private set; }
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static BoardContext()
 		{
@@ -44,10 +44,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"IsSubscribed", new Property<IJsonBoard, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)},
 					{"Name", new Property<IJsonBoard, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{
-						"Organization", new Property<IJsonBoard, Organization>((d, a) => d.Organization == null
-																						? null
-																						: d.Organization.GetFromCache<Organization>(a),
-																			   (d, o) => d.Organization = o != null ? o.Json : null)
+						"Organization", new Property<IJsonBoard, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
+																			   (d, o) => d.Organization = o?.Json)
 					},
 					{"Preferences", new Property<IJsonBoard, IJsonBoardPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
 					{"Url", new Property<IJsonBoard, string>((d, a) => d.Url, (d, o) => d.Url = o)},
@@ -88,6 +86,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return BoardPreferencesContext.Merge(json.Prefs);
 		}
-		protected override bool IsDataComplete { get { return !Data.Name.IsNullOrWhiteSpace(); } }
+		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 	}
 }

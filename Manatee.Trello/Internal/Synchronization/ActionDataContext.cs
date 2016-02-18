@@ -102,21 +102,19 @@ namespace Manatee.Trello.Internal.Synchronization
 						                                                  (d, o) => { if (o != null) d.ListBefore = o.Json; })
 					},
 					{
-						"Member", new Property<IJsonActionData, Member>((d, a) => d.Member == null
-							                                                     ? null
-							                                                     : d.Member.GetFromCache<Member>(a),
+						"Member", new Property<IJsonActionData, Member>((d, a) => d.Member?.GetFromCache<Member>(a),
 						                                                (d, o) => { if (o != null) d.Member = o.Json; })
 					},
-					{"WasArchived", new Property<IJsonActionData, bool?>((d, a) => d.Old == null ? null : d.Old.Closed, (d, o) => { if (d.Old != null && o != null) d.Old.Closed = o; })},
-					{"OldDesc", new Property<IJsonActionData, string>((d, a) => d.Old == null ? null : d.Old.Desc, (d, o) => { if (d.Old != null && o != null) d.Old.Desc = o; })},
+					{"WasArchived", new Property<IJsonActionData, bool?>((d, a) => d.Old?.Closed, (d, o) => { if (d.Old != null && o != null) d.Old.Closed = o; })},
+					{"OldDesc", new Property<IJsonActionData, string>((d, a) => d.Old?.Desc, (d, o) => { if (d.Old != null && o != null) d.Old.Desc = o; })},
 					{
-						"OldList", new Property<IJsonActionData, List>((d, a) => d.Old == null || d.Old.List == null
+						"OldList", new Property<IJsonActionData, List>((d, a) => d.Old?.List == null
 							                                                    ? null
 							                                                    : new List(d.Old.List, a),
 						                                               (d, o) => { if (d.Old != null) d.Old.List = o.Json; })
 					},
-					{"OldPos", new Property<IJsonActionData, Position>((d, a) => d.Old == null ? null : d.Old.Pos, (d, o) => { if (d.Old != null) d.Old.Pos = o.Value; })},
-					{"OldText", new Property<IJsonActionData, string>((d, a) => d.Old == null ? null : d.Old.Text, (d, o) => { if (d.Old != null) d.Old.Text = o; })},
+					{"OldPos", new Property<IJsonActionData, Position>((d, a) => d.Old?.Pos, (d, o) => { if (d.Old != null) d.Old.Pos = o.Value; })},
+					{"OldText", new Property<IJsonActionData, string>((d, a) => d.Old?.Text, (d, o) => { if (d.Old != null) d.Old.Text = o; })},
 					{
 						"Organization", new Property<IJsonActionData, Organization>((d, a) => d.Org == null
 							                                                                 ? null

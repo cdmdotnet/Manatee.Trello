@@ -49,23 +49,23 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions returned by the search.
 		/// </summary>
-		public IEnumerable<Action> Actions { get { return _actions.Value; } }
+		public IEnumerable<Action> Actions => _actions.Value;
 		/// <summary>
 		/// Gets the collection of boards returned by the search.
 		/// </summary>
-		public IEnumerable<Board> Boards { get { return _boards.Value; } }
+		public IEnumerable<Board> Boards => _boards.Value;
 		/// <summary>
 		/// Gets the collection of cards returned by the search.
 		/// </summary>
-		public IEnumerable<Card> Cards { get { return _cards.Value; } }
+		public IEnumerable<Card> Cards => _cards.Value;
 		/// <summary>
 		/// Gets the collection of members returned by the search.
 		/// </summary>
-		public IEnumerable<Member> Members { get { return _members.Value; } }
+		public IEnumerable<Member> Members => _members.Value;
 		/// <summary>
 		/// Gets the collection of organizations returned by the search.
 		/// </summary>
-		public IEnumerable<Organization> Organizations { get { return _organizations.Value; } }
+		public IEnumerable<Organization> Organizations => _organizations.Value;
 		/// <summary>
 		/// Gets the query.
 		/// </summary>

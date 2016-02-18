@@ -35,21 +35,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonMemberSearch>>
 				{
 					{
-						"Board", new Property<IJsonMemberSearch, Board>((d, a) => d.Board == null ? null : d.Board.GetFromCache<Board>(a),
+						"Board", new Property<IJsonMemberSearch, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
 						                                                (d, o) => { if (o != null) d.Board = o.Json; })
 					},
 					{"Limit", new Property<IJsonMemberSearch, int?>((d, a) => d.Limit, (d, o) => d.Limit = o)},
 					{
-						"Results", new Property<IJsonMemberSearch, IEnumerable<MemberSearchResult>>((d, a) => d.Members == null
-							                                                                                 ? Enumerable.Empty<MemberSearchResult>()
-							                                                                                 : d.Members.Select(m => GetResult(m, a)).ToList(),
-						                                                                            (d, o) => d.Members = o == null ? null : o.Select(a => a.Member.Json).ToList())
+						"Results", new Property<IJsonMemberSearch, IEnumerable<MemberSearchResult>>((d, a) => d.Members?.Select(m => GetResult(m, a)).ToList() ?? Enumerable.Empty<MemberSearchResult>(),
+						                                                                            (d, o) => d.Members = o?.Select(a => a.Member.Json).ToList())
 					},
 					{
-						"Organization", new Property<IJsonMemberSearch, Organization>((d, a) => d.Organization == null
-							                                                                   ? null
-							                                                                   : d.Organization.GetFromCache<Organization>(a),
-						                                                              (d, o) => d.Organization = o != null ? o.Json : null)
+						"Organization", new Property<IJsonMemberSearch, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
+						                                                              (d, o) => d.Organization = o?.Json)
 					},
 					{"Query", new Property<IJsonMemberSearch, string>((d, a) => d.Query, (d, o) => { if (!o.IsNullOrWhiteSpace()) d.Query = o; })},
 					{"RestrictToOrganization", new Property<IJsonMemberSearch, bool?>((d, a) => d.OnlyOrgMembers, (d, o) => d.OnlyOrgMembers = o)},

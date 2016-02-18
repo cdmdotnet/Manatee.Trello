@@ -34,8 +34,8 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private bool _deleted;
 
-		public ActionDataContext ActionDataContext { get; private set; }
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public ActionDataContext ActionDataContext { get; }
+		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static ActionContext()
 		{

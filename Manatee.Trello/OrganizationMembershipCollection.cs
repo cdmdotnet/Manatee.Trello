@@ -60,12 +60,12 @@ namespace Manatee.Trello
 		/// OrganizationMembership.Member.FullName, and OrganizationMembership.Member.Username.
 		/// Comparison is case-sensitive.
 		/// </remarks>
-		public OrganizationMembership this[string key] { get { return GetByKey(key); } }
+		public OrganizationMembership this[string key] => GetByKey(key);
 
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonOrganizationMembership>>(Auth, endpoint, _additionalParameters);

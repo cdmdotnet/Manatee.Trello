@@ -30,10 +30,6 @@ namespace Manatee.Trello.RestSharp
 	{
 		private readonly Json.IDeserializer _inner;
 
-		public Json.IDeserializer Inner
-		{
-			get { return _inner; }
-		}
 		public string RootElement { get; set; }
 		public string Namespace { get; set; }
 		public string DateFormat { get; set; }

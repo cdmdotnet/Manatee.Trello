@@ -36,7 +36,6 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Member : ICanWebhook, ICacheable
 	{
-		private readonly TrelloAuthorization _auth;
 		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
 		private static Me _me;
 
@@ -58,12 +57,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Returns the <see cref="Member"/> associated with the current User Token.
 		/// </summary>
-		public static Me Me { get { return _me ?? (_me = new Me()); } }
+		public static Me Me => _me ?? (_me = new Me());
 
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; private set; }
+		public ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
@@ -75,7 +74,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the URL to the member's avatar.
 		/// </summary>
-		public string AvatarUrl { get { return GetAvatar(); } }
+		public string AvatarUrl => GetAvatar();
 		/// <summary>
 		/// Gets the member's bio.
 		/// </summary>
@@ -87,7 +86,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public ReadOnlyBoardCollection Boards { get; private set; }
+		public ReadOnlyBoardCollection Boards { get; }
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
@@ -132,28 +131,28 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the member has actually join or has merely been invited (ghost).
 		/// </summary>
-		public bool? IsConfirmed { get { return _isConfirmed.Value; } }
+		public bool? IsConfirmed => _isConfirmed.Value;
 		/// <summary>
 		/// Gets a string which can be used in comments or descriptions to mention another
 		/// user.  The user will receive notification that they've been mentioned.
 		/// </summary>
-		public string Mention { get { return "@" + UserName; } }
+		public string Mention => $"@{UserName}";
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public ReadOnlyOrganizationCollection Organizations { get; private set; }
+		public ReadOnlyOrganizationCollection Organizations { get; }
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
-		public MemberStatus? Status { get { return _status.Value; } }
+		public MemberStatus? Status => _status.Value;
 		/// <summary>
 		/// Gets the collection of trophies earned by the member.
 		/// </summary>
-		public IEnumerable<string> Trophies { get { return _trophies.Value; } }
+		public IEnumerable<string> Trophies => _trophies.Value;
 		/// <summary>
 		/// Gets the member's URL.
 		/// </summary>
-		public string Url { get { return _url.Value; } }
+		public string Url => _url.Value;
 		/// <summary>
 		/// Gets the member's username.
 		/// </summary>
@@ -168,7 +167,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
-		internal TrelloAuthorization Auth { get { return _auth; } }
+		internal TrelloAuthorization Auth { get; }
 
 #if IOS
 		private Action<Member, IEnumerable<string>> _updatedInvoker;
@@ -201,7 +200,7 @@ namespace Manatee.Trello
 			: this(id, false, auth) {}
 		internal Member(string id, bool isMe, TrelloAuthorization auth)
 		{
-			_auth = auth;
+			Auth = auth;
 			Id = id;
 			_context = new MemberContext(id, auth);
 			_context.Synchronized += Synchronized;
@@ -269,8 +268,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 		private string GetAvatar()
 		{

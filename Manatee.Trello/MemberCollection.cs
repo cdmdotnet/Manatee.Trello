@@ -48,7 +48,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on Member.Id, Member.FullName, and Member.Username.  Comparison is case-sensitive.
 		/// </remarks>
-		public Member this[string key] { get { return GetByKey(key); } }
+		public Member this[string key] => GetByKey(key);
 
 		internal ReadOnlyMemberCollection(Type type, string ownerId, TrelloAuthorization auth)
 			: base(ownerId, auth)
@@ -72,7 +72,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonMember>>(Auth, endpoint, _additionalParameters);

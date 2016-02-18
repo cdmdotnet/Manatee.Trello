@@ -31,7 +31,7 @@ namespace Manatee.Trello.Internal.Searching
 		public static readonly CreatedSearchParameter Week = new CreatedSearchParameter("week");
 		public static readonly CreatedSearchParameter Month = new CreatedSearchParameter("month");
 
-		public string Query { get; private set; }
+		public string Query { get; }
 
 		public CreatedSearchParameter(int days)
 		{

@@ -67,9 +67,7 @@ namespace Manatee.Trello.RestSharp
 			if (response == null)
 				_log.Error(new WebException("Received null response from Trello."));
 			if (response.StatusCode != HttpStatusCode.OK)
-				_log.Error(new WebException(string.Format("Trello returned with an error.\nError Message: {0}\nContent: {1}",
-				                                          response.ErrorMessage,
-				                                          response.Content),
+				_log.Error(new WebException($"Trello returned with an error.\nError Message: {response.ErrorMessage}\nContent: {response.Content}",
 				                            response.ErrorException));
 		}
 	}

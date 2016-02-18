@@ -52,7 +52,7 @@ namespace Manatee.Trello.Internal
 				_context.SetValue(_property, value);
 			}
 		}
-		private T CurrentValue { get { return _context.GetValue<T>(_property); } }
+		private T CurrentValue => _context.GetValue<T>(_property);
 
 		public Field(SynchronizationContext context, Expression<Func<T>> property)
 		{

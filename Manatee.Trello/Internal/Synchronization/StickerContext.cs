@@ -23,7 +23,6 @@
 
 using System.Collections.Generic;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -32,8 +31,6 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private readonly string _ownerId;
 		private bool _deleted;
-
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
 
 		static StickerContext()
 		{

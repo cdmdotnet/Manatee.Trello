@@ -87,7 +87,6 @@ namespace Manatee.Trello
 
 		private readonly Field<double?> _left;
 		private readonly Field<string> _name;
-		private readonly ReadOnlyStickerPreviewCollection _previews;
 		private readonly Field<int?> _rotation;
 		private readonly Field<double?> _top;
 		private readonly Field<string> _url;
@@ -109,11 +108,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the name of the sticker.
 		/// </summary>
-		public string Name { get { return _name.Value; } }
+		public string Name => _name.Value;
 		/// <summary>
 		/// Gets the collection of previews.
 		/// </summary>
-		public ReadOnlyStickerPreviewCollection Previews { get { return _previews; } }
+		public ReadOnlyStickerPreviewCollection Previews { get; }
 		/// <summary>
 		/// Gets or sets the rotation.
 		/// </summary>
@@ -136,7 +135,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the URL for the sticker's image.
 		/// </summary>
-		public string ImageUrl { get { return _url.Value; } }
+		public string ImageUrl => _url.Value;
 		/// <summary>
 		/// Gets or sets the z-index.
 		/// </summary>
@@ -179,7 +178,7 @@ namespace Manatee.Trello
 			_left = new Field<double?>(_context, () => Left);
 			_left.AddRule(NullableHasValueRule<double>.Instance);
 			_name = new Field<string>(_context, () => Name);
-			_previews = new ReadOnlyStickerPreviewCollection(_context, auth);
+			Previews = new ReadOnlyStickerPreviewCollection(_context, auth);
 			_rotation = new Field<int?>(_context, () => Rotation);
 			_rotation.AddRule(NullableHasValueRule<int>.Instance);
 			_rotation.AddRule(new NumericRule<int> {Min = 0, Max = 359});
@@ -231,8 +230,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

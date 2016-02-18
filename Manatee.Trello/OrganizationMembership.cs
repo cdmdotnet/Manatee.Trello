@@ -61,11 +61,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the member has accepted the invitation to join Trello.
 		/// </summary>
-		public bool? IsDeactivated { get { return _isDeactivated.Value; } }
+		public bool? IsDeactivated => _isDeactivated.Value;
 		/// <summary>
 		/// Gets the member.
 		/// </summary>
-		public Member Member { get { return _member.Value; } }
+		public Member Member => _member.Value;
 		/// <summary>
 		/// Gets the membership's permission level.
 		/// </summary>
@@ -132,8 +132,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

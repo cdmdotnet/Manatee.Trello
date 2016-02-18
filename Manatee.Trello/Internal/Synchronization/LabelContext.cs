@@ -38,10 +38,8 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonLabel>>
 				{
 					{
-						"Board", new Property<IJsonLabel, Board>((d, a) => d.Board == null
-																		  ? null
-																		  : d.Board.GetFromCache<Board>(a),
-																 (d, o) => d.Board = o != null ? o.Json : null)
+						"Board", new Property<IJsonLabel, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+																 (d, o) => d.Board = o?.Json)
 					},
 					{"Color", new Property<IJsonLabel, LabelColor?>((d, a) => d.Color, (d, o) => d.Color = o)},
 					{"Id", new Property<IJsonLabel, string>((d, a) => d.Id, (d, o) => d.Id = o)},

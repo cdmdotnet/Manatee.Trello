@@ -45,7 +45,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the <see cref="Board"/> on which the label is defined.
 		/// </summary>
-		public Board Board { get { return _board.Value; } }
+		public Board Board => _board.Value;
 		/// <summary>
 		/// Gets and sets the color.  Use null for no color.
 		/// </summary>
@@ -69,7 +69,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the label's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id { get; }
 		/// <summary>
 		/// Gets and sets the label's name.
 		/// </summary>
@@ -81,7 +81,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the number of cards which use this label.
 		/// </summary>
-		public int? Uses { get { return _uses.Value; } }
+		public int? Uses => _uses.Value;
 
 		internal IJsonLabel Json
 		{
@@ -132,7 +132,7 @@ namespace Manatee.Trello
 		{
 			if (Name.IsNullOrWhiteSpace() && !Color.HasValue)
 				return string.Empty;
-			return string.Format("{0} ({1})", Name, Color.HasValue ? Color.Value.ToString() : "No color");
+			return $"{Name} ({Color?.ToString() ?? "No color"})";
 		}
 	}
 }

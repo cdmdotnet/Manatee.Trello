@@ -49,7 +49,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on Board.Id and Board.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public Board this[string key] { get { return GetByKey(key); } }
+		public Board this[string key] => GetByKey(key);
 
 		internal ReadOnlyBoardCollection(Type type, string ownerId, TrelloAuthorization auth)
 			: base(ownerId, auth)

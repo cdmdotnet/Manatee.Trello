@@ -25,15 +25,13 @@ using System;
 using System.Collections.Generic;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class NotificationContext : SynchronizationContext<IJsonNotification>
 	{
-		public NotificationDataContext NotificationDataContext { get; private set; }
-		public virtual bool HasValidId { get { return IdRule.Instance.Validate(Data.Id, null) == null; } }
+		public NotificationDataContext NotificationDataContext { get; }
 
 		static NotificationContext()
 		{

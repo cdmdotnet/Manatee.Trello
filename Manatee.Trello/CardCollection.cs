@@ -50,7 +50,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public Card this[string key] { get { return GetByKey(key); } }
+		public Card this[string key] => GetByKey(key);
 
 		internal ReadOnlyCardCollection(Type type, string ownerId, TrelloAuthorization auth)
 			: base(ownerId, auth)
@@ -80,7 +80,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override sealed void Update()
+		protected sealed override void Update()
 		{
 			IncorporateLimit(_additionalParameters);
 

@@ -44,7 +44,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of results returned by the search.
 		/// </summary>
-		public IEnumerable<MemberSearchResult> Results { get { return _results.Value; } }
+		public IEnumerable<MemberSearchResult> Results => _results.Value;
 
 		private Board Board
 		{

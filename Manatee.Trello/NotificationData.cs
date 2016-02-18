@@ -56,39 +56,39 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets an assocated attachment.
 		/// </summary>
-		public Attachment Attachment { get { return _attachment.Value; } }
+		public Attachment Attachment => _attachment.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
-		public Board Board { get { return _board.Value; } }
+		public Board Board => _board.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
-		public Board BoardSource { get { return _boardSource.Value; } }
+		public Board BoardSource => _boardSource.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
-		public Board BoardTarget { get { return _boardTarget.Value; } }
+		public Board BoardTarget => _boardTarget.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
-		public Card Card { get { return _card.Value; } }
+		public Card Card => _card.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
-		public Card CardSource { get { return _cardSource.Value; } }
+		public Card CardSource => _cardSource.Value;
 		/// <summary>
 		/// Gets an assocated checklist item.
 		/// </summary>
-		public CheckItem CheckItem { get { return _checkItem.Value; } }
+		public CheckItem CheckItem => _checkItem.Value;
 		/// <summary>
 		/// Gets an assocated checklist.
 		/// </summary>
-		public CheckList CheckList { get { return _checkList.Value; } }
+		public CheckList CheckList => _checkList.Value;
 		/// <summary>
 		/// Gets an assocated list.
 		/// </summary>
-		public List List { get { return _list.Value; } }
+		public List List => _list.Value;
 		/// <summary>
 		/// Gets the current list.
 		/// </summary>
@@ -96,7 +96,7 @@ namespace Manatee.Trello
 		/// For some action types, this information may be in the <see cref="List"/>
 		/// or <see cref="OldList"/> properties.
 		/// </remarks>
-		public List ListAfter { get { return _listAfter.Value; } }
+		public List ListAfter => _listAfter.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
@@ -104,15 +104,15 @@ namespace Manatee.Trello
 		/// For some action types, this information may be in the <see cref="List"/>
 		/// or <see cref="OldList"/> properties.
 		/// </remarks>
-		public List ListBefore { get { return _listBefore.Value; } }
+		public List ListBefore => _listBefore.Value;
 		/// <summary>
 		/// Gets an assocated member.
 		/// </summary>
-		public Member Member { get { return _member.Value; } }
+		public Member Member => _member.Value;
 		/// <summary>
 		/// Gets the previous description.
 		/// </summary>
-		public string OldDescription { get { return _oldDescription.Value; } }
+		public string OldDescription => _oldDescription.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
@@ -120,19 +120,19 @@ namespace Manatee.Trello
 		/// For some action types, this information may be in the <see cref="ListAfter"/>
 		/// or <see cref="ListBefore"/> properties.
 		/// </remarks>
-		public List OldList { get { return _oldList.Value; } }
+		public List OldList => _oldList.Value;
 		/// <summary>
 		/// Gets the previous position.
 		/// </summary>
-		public Position OldPosition { get { return _oldPosition.Value; } }
+		public Position OldPosition => _oldPosition.Value;
 		/// <summary>
 		/// Gets the previous text value. 
 		/// </summary>
-		public string OldText { get { return _oldText.Value; } }
+		public string OldText => _oldText.Value;
 		/// <summary>
 		/// Gets an assocated organization.
 		/// </summary>
-		public Organization Organization { get { return _organization.Value; } }
+		public Organization Organization => _organization.Value;
 		/// <summary>
 		/// Gets assocated text.
 		/// </summary>
@@ -144,7 +144,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the object was previously archived.
 		/// </summary>
-		public bool? WasArchived { get { return _wasArchived.Value; } }
+		public bool? WasArchived => _wasArchived.Value;
 
 		internal NotificationData(NotificationDataContext context)
 		{

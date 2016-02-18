@@ -29,7 +29,7 @@ namespace Manatee.Trello.Internal.Searching
 		public static readonly IsSearchParameter Archived = new IsSearchParameter("archived");
 		public static readonly IsSearchParameter Starred = new IsSearchParameter("starred");
 
-		public string Query { get; private set; }
+		public string Query { get; }
 
 		private IsSearchParameter(string p)
 		{

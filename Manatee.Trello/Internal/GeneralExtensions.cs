@@ -40,7 +40,7 @@ namespace Manatee.Trello.Internal
 		}
 
 		private static readonly Dictionary<Type, List<Description>> _descriptions = new Dictionary<Type, List<Description>>();
-		private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1);
+		private static readonly DateTime _unixEpoch = new DateTime(1970, 1, 1);
 
 		public static string ToLowerString<T>(this T item)
 		{
@@ -77,7 +77,7 @@ namespace Manatee.Trello.Internal
 		{
 			var type = enumerationValue.GetType();
 			if (!type.IsEnum)
-				throw new ArgumentException("EnumerationValue must be of Enum type", "enumerationValue");
+				throw new ArgumentException("EnumerationValue must be of Enum type", nameof(enumerationValue));
 
 			EnsureDescriptions<T>();
 
@@ -120,7 +120,7 @@ namespace Manatee.Trello.Internal
 				throw new InvalidOperationException("Cannot extract creation date until ID is downloaded.");
 			var asHex = id.Substring(0, 8);
 			var timeStamp = int.Parse(asHex, NumberStyles.HexNumber);
-			return UnixEpoch.AddSeconds(timeStamp);
+			return _unixEpoch.AddSeconds(timeStamp);
 		}
 
 		private static void EnsureDescriptions<T>()

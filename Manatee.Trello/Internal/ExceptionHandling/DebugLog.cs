@@ -23,6 +23,7 @@
 
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.ExceptionHandling
@@ -31,17 +32,17 @@ namespace Manatee.Trello.Internal.ExceptionHandling
 	{
 		public void Debug(string message, params object[] parameters)
 		{
-			var output = string.Format(string.Format("Debug: {0}", message), parameters);
+			var output = string.Format($"Debug: {message}", parameters);
 			Post(output);
 		}
 		public void Info(string message, params object[] parameters)
 		{
-			var output = string.Format(string.Format("Info: {0}", message), parameters);
+			var output = string.Format($"Info: {message}", parameters);
 			Post(output);
 		}
 		public void Error(Exception e, bool shouldThrow = true)
 		{
-			var output = BuildMessage(string.Format("Error: An exception of type {0} occurred:", e.GetType().Name),
+			var output = BuildMessage($"Error: An exception of type {e.GetType().Name} occurred:",
 									  e.Message,
 									  e.StackTrace);
 			Post(output);

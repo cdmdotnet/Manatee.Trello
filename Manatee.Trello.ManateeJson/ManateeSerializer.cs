@@ -39,8 +39,6 @@ namespace Manatee.Trello.ManateeJson
 		private readonly JsonSerializer _serializer;
 		private readonly MethodInfo _method;
 
-		internal JsonSerializer Serializer { get { return _serializer; } }
-
 		static ManateeSerializer()
 		{
 			InitializeAbstractionMap();

@@ -43,69 +43,60 @@ namespace Manatee.Trello
 		/// <summary>
 		/// The standard blue board background.
 		/// </summary>
-		public static BoardBackground Blue { get { return _blue ?? (_blue = new BoardBackground("blue")); } }
+		public static BoardBackground Blue => _blue ?? (_blue = new BoardBackground("blue"));
 		/// <summary>
 		/// The standard orange board background.
 		/// </summary>
-		public static BoardBackground Orange { get { return _orange ?? (_orange = new BoardBackground("orange")); } }
+		public static BoardBackground Orange => _orange ?? (_orange = new BoardBackground("orange"));
 		/// <summary>
 		/// The standard green board background.
 		/// </summary>
-		public static BoardBackground Green { get { return _green ?? (_green = new BoardBackground("green")); } }
+		public static BoardBackground Green => _green ?? (_green = new BoardBackground("green"));
 		/// <summary>
 		/// The standard red board background.
 		/// </summary>
-		public static BoardBackground Red { get { return _red ?? (_red = new BoardBackground("red")); } }
+		public static BoardBackground Red => _red ?? (_red = new BoardBackground("red"));
 		/// <summary>
 		/// The standard purple board background.
 		/// </summary>
-		public static BoardBackground Purple { get { return _purple ?? (_purple = new BoardBackground("purple")); } }
+		public static BoardBackground Purple => _purple ?? (_purple = new BoardBackground("purple"));
 		/// <summary>
 		/// The standard pink board background.
 		/// </summary>
-		public static BoardBackground Pink { get { return _pink ?? (_pink = new BoardBackground("pink")); } }
+		public static BoardBackground Pink => _pink ?? (_pink = new BoardBackground("pink"));
 		/// <summary>
 		/// The standard bright green board background.
 		/// </summary>
-		public static BoardBackground Lime { get { return _lime ?? (_lime = new BoardBackground("lime")); } }
+		public static BoardBackground Lime => _lime ?? (_lime = new BoardBackground("lime"));
 		/// <summary>
 		/// The standard light blue board background.
 		/// </summary>
-		public static BoardBackground Sky { get { return _sky ?? (_sky = new BoardBackground("sky")); } }
+		public static BoardBackground Sky => _sky ?? (_sky = new BoardBackground("sky"));
 		/// <summary>
 		/// The standard grey board background.
 		/// </summary>
-		public static BoardBackground Grey { get { return _grey ?? (_grey = new BoardBackground("grey")); } }
+		public static BoardBackground Grey => _grey ?? (_grey = new BoardBackground("grey"));
 
 		/// <summary>
 		/// Gets the color of a stock solid-color background.
 		/// </summary>
-		public WebColor Color
-		{
-			get { return _color.Value; }
-		}
+		public WebColor Color => _color.Value;
 		/// <summary>
 		/// Gets the background's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public string Id { get; }
 		/// <summary>
 		/// Gets the image of a background.
 		/// </summary>
-		public string Image
-		{
-			get { return _image.Value; }
-		}
+		public string Image => _image.Value;
 		/// <summary>
 		/// Gets whether the image is tiled when displayed.
 		/// </summary>
-		public bool? IsTiled
-		{
-			get { return _isTiled.Value; }
-		}
+		public bool? IsTiled => _isTiled.Value;
 		/// <summary>
 		/// Gets a collections of scaled background images.
 		/// </summary>
-		public ReadOnlyBoardBackgroundScalesCollection ScaledImages { get; private set; }
+		public ReadOnlyBoardBackgroundScalesCollection ScaledImages { get; }
 
 		internal IJsonBoardBackground Json
 		{

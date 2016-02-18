@@ -59,15 +59,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member who performed the action which created the notification.
 		/// </summary>
-		public Member Creator { get { return _creator.Value; } }
+		public Member Creator => _creator.Value;
 		/// <summary>
 		/// Gets any data associated with the notification.
 		/// </summary>
-		public NotificationData Data { get; private set; }
+		public NotificationData Data { get; }
 		/// <summary>
 		/// Gets the date and teim at which the notification was issued.
 		/// </summary>
-		public DateTime? Date { get { return _date.Value; } }
+		public DateTime? Date => _date.Value;
 		/// <summary>
 		/// Gets the notification's ID.
 		/// </summary>
@@ -83,7 +83,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the type of notification.
 		/// </summary>
-		public NotificationType? Type { get { return _type.Value; } }
+		public NotificationType? Type => _type.Value;
 
 		internal IJsonNotification Json
 		{
@@ -113,26 +113,26 @@ namespace Manatee.Trello
 		{
 			_stringDefinitions = new Dictionary<NotificationType, Func<Notification, string>>
 				{
-					{NotificationType.AddedAttachmentToCard, n => string.Format("{0} attached {1} to card {2}.", n.Creator, n.Data.Attachment, n.Data.Card)},
-					{NotificationType.AddedToBoard, n => string.Format("{0} added you to board {1}.", n.Creator, n.Data.Board)},
-					{NotificationType.AddedToCard, n => string.Format("{0} assigned you to card {1}.", n.Creator, n.Data.Card)},
-					{NotificationType.AddedToOrganization, n => string.Format("{0} added member {1} to organization {2}.", n.Creator, n.Data.Member, n.Data.Organization)},
-					{NotificationType.AddedMemberToCard, n => string.Format("{0} assigned member {1} to card {2}.", n.Creator, n.Data.Member, n.Data.Card)},
-					{NotificationType.AddAdminToBoard, n => string.Format("{0} added member {1} to board {2} as an admin.", n.Creator, n.Data.Member, n.Data.Board)},
-					{NotificationType.AddAdminToOrganization, n => string.Format("{0} added member {1} to organization {2} as an admin.", n.Creator, n.Data.Member, n.Data.Organization)},
-					{NotificationType.ChangeCard, n => string.Format("{0} changed card {1}.", n.Creator, n.Data.Card)},
-					{NotificationType.CloseBoard, n => string.Format("{0} closed board {1}.", n.Creator, n.Data.Board)},
-					{NotificationType.CommentCard, n => string.Format("{0} commented on card #{1}: '{2}'.", n.Creator, n.Data.Card, n.Data.Text)},
-					{NotificationType.CreatedCard, n => string.Format("{0} created card {1} on board {2}.", n.Creator, n.Data.Card, n.Data.Board)},
-					{NotificationType.RemovedFromBoard, n => string.Format("{0} removed member {1} from board {2}.", n.Creator, n.Data.Member, n.Data.Board)},
-					{NotificationType.RemovedFromCard, n => string.Format("{0} removed you from card {1}.", n.Creator, n.Data.Card)},
-					{NotificationType.RemovedMemberFromCard, n => string.Format("{0} removed member {1} from card {2}.", n.Creator, n.Data.Member, n.Data.Card)},
-					{NotificationType.RemovedFromOrganization, n => string.Format("{0} removed member {1} from organization {2}.", n.Creator, n.Data.Member, n.Data.Organization)},
-					{NotificationType.MentionedOnCard, n => string.Format("{0} mentioned you on card {1}: '{2}'.", n.Creator, n.Data.Card, n.Data.Text)},
-					{NotificationType.UpdateCheckItemStateOnCard, n => string.Format("{0} updated checkItem {1} on card {2}.", n.Creator, n.Data.CheckItem, n.Data.Card)},
-					{NotificationType.MakeAdminOfBoard, n => string.Format("{0} made member {1} an admin of board {2}.", n.Creator, n.Data.Member, n.Data.Board)},
-					{NotificationType.MakeAdminOfOrganization, n => string.Format("{0} made member {1} an admin of organization {2}.", n.Creator, n.Data.Member, n.Data.Organization)},
-					{NotificationType.CardDueSoon, n => string.Format("Card {0} is due soon.", n.Data.Card)},
+					{NotificationType.AddedAttachmentToCard, n => $"{n.Creator} attached {n.Data.Attachment} to card {n.Data.Card}."},
+					{NotificationType.AddedToBoard, n => $"{n.Creator} added you to board {n.Data.Board}."},
+					{NotificationType.AddedToCard, n => $"{n.Creator} assigned you to card {n.Data.Card}."},
+					{NotificationType.AddedToOrganization, n => $"{n.Creator} added member {n.Data.Member} to organization {n.Data.Organization}."},
+					{NotificationType.AddedMemberToCard, n => $"{n.Creator} assigned member {n.Data.Member} to card {n.Data.Card}."},
+					{NotificationType.AddAdminToBoard, n => $"{n.Creator} added member {n.Data.Member} to board {n.Data.Board} as an admin."},
+					{NotificationType.AddAdminToOrganization, n => $"{n.Creator} added member {n.Data.Member} to organization {n.Data.Organization} as an admin."},
+					{NotificationType.ChangeCard, n => $"{n.Creator} changed card {n.Data.Card}."},
+					{NotificationType.CloseBoard, n => $"{n.Creator} closed board {n.Data.Board}."},
+					{NotificationType.CommentCard, n => $"{n.Creator} commented on card #{n.Data.Card}: '{n.Data.Text}'."},
+					{NotificationType.CreatedCard, n => $"{n.Creator} created card {n.Data.Card} on board {n.Data.Board}."},
+					{NotificationType.RemovedFromBoard, n => $"{n.Creator} removed member {n.Data.Member} from board {n.Data.Board}."},
+					{NotificationType.RemovedFromCard, n => $"{n.Creator} removed you from card {n.Data.Card}."},
+					{NotificationType.RemovedMemberFromCard, n => $"{n.Creator} removed member {n.Data.Member} from card {n.Data.Card}."},
+					{NotificationType.RemovedFromOrganization, n => $"{n.Creator} removed member {n.Data.Member} from organization {n.Data.Organization}."},
+					{NotificationType.MentionedOnCard, n => $"{n.Creator} mentioned you on card {n.Data.Card}: '{n.Data.Text}'."},
+					{NotificationType.UpdateCheckItemStateOnCard, n => $"{n.Creator} updated checkItem {n.Data.CheckItem} on card {n.Data.Card}."},
+					{NotificationType.MakeAdminOfBoard, n => $"{n.Creator} made member {n.Data.Member} an admin of board {n.Data.Board}."},
+					{NotificationType.MakeAdminOfOrganization, n => $"{n.Creator} made member {n.Data.Member} an admin of organization {n.Data.Organization}."},
+					{NotificationType.CardDueSoon, n => $"Card {n.Data.Card} is due soon."},
 				};
 		}
 		/// <summary>
@@ -181,8 +181,7 @@ namespace Manatee.Trello
 #else
 			var handler = Updated;
 #endif
-			if (handler != null)
-				handler(this, properties);
+			handler?.Invoke(this, properties);
 		}
 	}
 }

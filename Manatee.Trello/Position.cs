@@ -37,33 +37,27 @@ namespace Manatee.Trello
 		private const double BottomValue = double.PositiveInfinity;
 		private const double UnknownValue = double.NaN;
 
-		private static readonly Position _top = new Position(TopValue);
-		private static readonly Position _bottom = new Position(BottomValue);
-		private static readonly Position _unknown = new Position(UnknownValue);
-
-		private readonly double _value;
-
 		/// <summary>
 		/// Represents the top position.
 		/// </summary>
-		public static Position Top { get { return _top; } }
+		public static Position Top { get; } = new Position(TopValue);
 		/// <summary>
 		/// Represents the bottom position.
 		/// </summary>
-		public static Position Bottom { get { return _bottom; } }
+		public static Position Bottom { get; } = new Position(BottomValue);
 		/// <summary>
 		/// Represents an invalid position.
 		/// </summary>
-		public static Position Unknown { get { return _unknown; } }
+		public static Position Unknown { get; } = new Position(UnknownValue);
 
 		/// <summary>
 		/// Gets whether the position is valid.
 		/// </summary>
-		public bool IsValid { get { return Equals(_value, TopValue) || (!Equals(_value, UnknownValue) && !Equals(_value, TopValue) && _value > 0); } }
+		public bool IsValid => Equals(Value, TopValue) || (!Equals(Value, UnknownValue) && !Equals(Value, TopValue) && Value > 0);
 		/// <summary>
 		/// Gets the internal numeric position value.
 		/// </summary>
-		public double Value { get { return _value; } }
+		public double Value { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Position"/> class.
@@ -71,7 +65,7 @@ namespace Manatee.Trello
 		/// <param name="value">A positive integer.</param>
 		public Position(double value)
 		{
-			_value = value;
+			Value = value;
 		}
 
 		/// <summary>
@@ -103,11 +97,11 @@ namespace Manatee.Trello
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonPosition>();
 			if (pos == null) return json;
-			if (Equals(pos, _unknown))
+			if (Equals(pos, Unknown))
 				json.Named = "unknown";
-			else if (Equals(pos, _top))
+			else if (Equals(pos, Top))
 				json.Named = "top";
-			else if (Equals(pos, _bottom))
+			else if (Equals(pos, Bottom))
 				json.Named = "bottom";
 			else
 				json.Explicit = pos.Value;
@@ -127,7 +121,7 @@ namespace Manatee.Trello
 		/// <param name="other">An object to compare with this object.</param>
 		public int CompareTo(Position other)
 		{
-			return _value.CompareTo(other._value);
+			return Value.CompareTo(other.Value);
 		}
 		/// <summary>
 		/// Compares the current instance with another object of the same type and returns an integer that
@@ -148,7 +142,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public int CompareTo(object obj)
 		{
-			return _value.CompareTo(obj);
+			return Value.CompareTo(obj);
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.
@@ -159,10 +153,10 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			if (Equals(_unknown)) return "unknown";
-			if (Equals(_top)) return "top";
-			if (Equals(_bottom)) return "bottom";
-			return _value.ToLowerString();
+			if (Equals(Unknown)) return "unknown";
+			if (Equals(Top)) return "top";
+			if (Equals(Bottom)) return "bottom";
+			return Value.ToLowerString();
 		}
 		/// <summary>
 		/// Implicitly casts a PositionValue to a <see cref="Position"/>.
@@ -189,7 +183,7 @@ namespace Manatee.Trello
 		/// <returns>The PositionValue value.</returns>
 		public static explicit operator double(Position position)
 		{
-			return position._value;
+			return position.Value;
 		}
 		/// <summary>
 		/// Explicitly casts a <see cref="Position"/> to an int.
@@ -198,7 +192,7 @@ namespace Manatee.Trello
 		/// <returns>The int value.</returns>
 		public static explicit operator int(Position position)
 		{
-			return (int) position._value;
+			return (int) position.Value;
 		}
 		/// <summary>
 		/// Compares two <see cref="Position"/> objects by examining their content.
@@ -210,7 +204,7 @@ namespace Manatee.Trello
 		{
 			if (ReferenceEquals(a, b)) return true;
 			if (Equals(a, null) || Equals(b, null)) return false;
-			return Equals(a._value, b._value);
+			return Equals(a.Value, b.Value);
 		}
 		/// <summary>
 		/// Compares two <see cref="Position"/> objects by examining their content.
@@ -230,7 +224,7 @@ namespace Manatee.Trello
 		/// <returns>True if the first operand is less than the second, false otherwise.</returns>
 		public static bool operator <(Position a, Position b)
 		{
-			return a._value < b._value;
+			return a.Value < b.Value;
 		}
 		/// <summary>
 		/// Compares two <see cref="Position"/> values for linear order.
@@ -240,7 +234,7 @@ namespace Manatee.Trello
 		/// <returns>True if the first operand is greater than the second, false otherwise.</returns>
 		public static bool operator >(Position a, Position b)
 		{
-			return a._value > b._value;
+			return a.Value > b.Value;
 		}
 		/// <summary>
 		/// Compares two <see cref="Position"/> values for linear order.
@@ -250,7 +244,7 @@ namespace Manatee.Trello
 		/// <returns>True if the first operand is less than or equal to the second, false otherwise.</returns>
 		public static bool operator <=(Position a, Position b)
 		{
-			return a._value <= b._value;
+			return a.Value <= b.Value;
 		}
 		/// <summary>
 		/// Compares two <see cref="Position"/> values for linear order.
@@ -260,7 +254,7 @@ namespace Manatee.Trello
 		/// <returns>True if the first operand is greater than or equal to the second, false otherwise.</returns>
 		public static bool operator >=(Position a, Position b)
 		{
-			return a._value >= b._value;
+			return a.Value >= b.Value;
 		}
 		/// <summary>
 		/// Compares two <see cref="Position"/> object by examining their content.
@@ -271,7 +265,7 @@ namespace Manatee.Trello
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
-			return Equals(other._value, _value);
+			return Equals(other.Value, Value);
 		}
 		/// <summary>
 		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
@@ -296,7 +290,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
-			return _value.GetHashCode();
+			return Value.GetHashCode();
 		}
 	}
 }
