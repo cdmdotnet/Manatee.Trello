@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Rest;
+using Manatee.Trello.RestSharp;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,7 +17,10 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					Console.WriteLine(Member.Me);
+					var name = "ÅÄÖ";
+					var list = new List(TrelloIds.ListId);
+					var card = list.Cards.FirstOrDefault(c => c.Name == name) ?? list.Cards.Add(name);
+					var hook = new Webhook<Card>(card, "http://requestb.in/o841yno8");
 				});
 		}
 
