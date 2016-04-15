@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 using Manatee.Trello;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.ManateeJson;
-using Manatee.Trello.RestSharp;
 using Manatee.Trello.Test;
 using Manatee.Trello.WebApi;
-using RestSharp;
 
 namespace NugetTest
 {

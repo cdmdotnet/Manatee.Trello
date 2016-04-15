@@ -85,53 +85,59 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Manatee.Trello.ManateeJson.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Release-Mono|AnyCPU'">
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.3.1.3\lib\net35\Manatee.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net35\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5C|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.3.1.3\lib\net35-client\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net35\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5C|AnyCPU' ">
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net35-client\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.3.1.3\lib\net40\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net35-client\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net40\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0C|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.3.1.3\lib\net40-client\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net40\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0C|AnyCPU' ">
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net40-client\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.5|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.3.1.3\lib\net45\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net40-client\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.5|AnyCPU' ">
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net45\Manatee.StateMachine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net45\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -139,10 +145,6 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -200,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Manatee.Trello.ManateeJson.snk" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -32,7 +32,7 @@ namespace Manatee.Trello.Internal.ExceptionHandling
 	{
 		public void Debug(string message, params object[] parameters)
 		{
-			var output = string.Format($"Debug: {message}", parameters);
+			var output = $"Debug: {message}";
 			Post(output);
 		}
 		public void Info(string message, params object[] parameters)
