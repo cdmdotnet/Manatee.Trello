@@ -140,6 +140,6 @@ namespace Manatee.Trello
 		/// Indicates all notification types.
 		/// </summary>
 		[Description("all")]
-		All = 1 << 20 - 1,
+		All = (1 << 20) - 1,
 	}
 }

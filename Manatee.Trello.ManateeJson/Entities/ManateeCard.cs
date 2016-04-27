@@ -82,7 +82,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Name = obj.TryGetString("name");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 					Url = obj.TryGetString("url");
-					ShortUrl = obj.TryGetString("shortUrl");
+					ShortUrl = obj.TryGetString("shortUrl") ?? obj.TryGetString("shortLink");
 					Subscribed = obj.TryGetBoolean("subscribed");
 					break;
 				case JsonValueType.String:
