@@ -20,6 +20,8 @@
 	Purpose:		Implements IJsonNotificationData for Manatee.Json.
 
 ***************************************************************************************/
+
+using System;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
