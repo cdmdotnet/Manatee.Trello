@@ -41,7 +41,7 @@ namespace Manatee.Trello.Test
 
 			action();
 
-			TrelloProcessor.Shutdown();
+			TrelloProcessor.Flush();
 		}
 
 		private static void OutputCollection<T>(string section, IEnumerable<T> collection)

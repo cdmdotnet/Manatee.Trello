@@ -22,6 +22,7 @@
 
 ***************************************************************************************/
 
+using System;
 using Manatee.Trello.Internal.RequestProcessing;
 
 namespace Manatee.Trello
@@ -39,6 +40,7 @@ namespace Manatee.Trello
 		/// to ensure that all requests are sent to Trello before an application ends.  This property appears to have no effect in testing
 		/// environments.
 		/// </remarks>
+		[Obsolete("This property is no longer used as of v1.9.0 and will be removed in the next major version.")]
 		public static bool WaitForPendingRequests { get; set; }
 		/// <summary>
 		/// Specifies the number of concurrent calls to the Trello API that the processor can make.  Default is 1.
@@ -51,15 +53,22 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Signals the processor that the application is shutting down.  The processor will perform a "last call" for pending requests.
+		/// Signals the processor that the application is shutting down.  The processor will reject any new changes and perform a
+		/// "last call" for pending requests.
 		/// </summary>
-		/// <remarks>
-		/// Calling this method is only required when <see cref="WaitForPendingRequests"/> is set to true.  This method can also be used
-		/// in testing environments to complete all expected calls.
-		/// </remarks>
+		[Obsolete("This method is no lnger used as of v1.9.0 and will be removed in the next major version.  Functionality has been " +
+		          "redirected to Flush().  Please use that method instead.")]
 		public static void Shutdown()
 		{
-			RestRequestProcessor.ShutDown();
+			Flush();
+		}
+		/// <summary>
+		/// Signals the processor that the application is shutting down.  The processor will reject any new changes and perform a
+		/// "last call" for pending requests.
+		/// </summary>
+		public static void Flush()
+		{
+			RestRequestProcessor.Flush();
 		}
 	}
 }
