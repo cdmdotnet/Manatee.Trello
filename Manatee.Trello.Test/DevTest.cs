@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Rest;
 using Manatee.Trello.RestSharp;
@@ -17,10 +18,13 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var name = "ÅÄÖ";
-					var list = new List(TrelloIds.ListId);
-					var card = list.Cards.FirstOrDefault(c => c.Name == name) ?? list.Cards.Add(name);
-					var hook = new Webhook<Card>(card, "http://requestb.in/o841yno8");
+					TrelloProcessor.ConcurrentCallCount = 4;
+
+					var card = new Card(TrelloIds.CardId);
+					Console.WriteLine(card);
+					Console.WriteLine(card.List);
+					Console.WriteLine(card.List.Board);
+					card.List.Board.Cards.AsParallel().ForAll(Console.WriteLine);
 				});
 		}
 
@@ -46,7 +50,7 @@ namespace Manatee.Trello.Test
 			Console.WriteLine(section);
 			foreach (var item in collection)
 			{
-				Console.WriteLine("    {0}", item);
+				Console.WriteLine($"    {item}");
 			}
 		}
 	}

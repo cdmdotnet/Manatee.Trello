@@ -22,6 +22,7 @@
 ***************************************************************************************/
 
 using System;
+using System.Diagnostics;
 using System.Threading;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
@@ -32,11 +33,8 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	{
 		private const string BaseUrl = "https://api.trello.com/1";
 
-		private static readonly RequestQueue _queue;
-		private static readonly object _lock;
-		private static readonly Thread _workerThread;
+		private static readonly Semaphore _semaphore;
 		private static bool _shutdown;
-		private static bool _isProcessing;
 
 #if IOS
 		private static System.Action _lastCall;
@@ -52,28 +50,24 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 		static RestRequestProcessor()
 		{
-			_queue = new RequestQueue();
-			_lock = new object();
 			_shutdown = false;
-			_workerThread = new Thread(Process)
-				{
-					Name = "RestRequestProcessor",
-					IsBackground = !TrelloProcessor.WaitForPendingRequests
-				};
-			_workerThread.Start();
-			NetworkMonitor.ConnectionStatusChanged += () => Pulse(() => { });
+			_semaphore = new Semaphore(0, TrelloProcessor.ConcurrentCallCount);
+			if (NetworkMonitor.IsConnected)
+				_semaphore.Release(TrelloProcessor.ConcurrentCallCount);
+			else
+				NetworkMonitor.ConnectionStatusChanged += () => _semaphore.Release(TrelloProcessor.ConcurrentCallCount);
 		}
 
-		public static void AddRequest(IRestRequest request, object signal)
+		public static void AddRequest(IRestRequest request, object hold)
 		{
-			LogRequest(request, "Queuing");
-			Pulse(() => _queue.Enqueue(request, signal));
+			if (_shutdown) return;
+			new Thread(() => Process(c => request.Response = c.Execute(request), request, hold)).Start();
 		}
-		public static void AddRequest<T>(IRestRequest request, object signal)
+		public static void AddRequest<T>(IRestRequest request, object hold)
 			where T : class
 		{
-			LogRequest(request, "Queuing");
-			Pulse(() => _queue.Enqueue<T>(request, signal));
+			if (_shutdown) return;
+			new Thread(() => Process(c => request.Response = c.Execute<T>(request), request, hold)).Start();
 		}
 		public static void ShutDown()
 		{
@@ -84,59 +78,45 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			var handler = LastCall;
 #endif
 			handler?.Invoke();
-			Pulse(() => { });
-			_workerThread.Join();
 		}
 
-		private static void Process()
+		private static void Process(Action<IRestClient> ask, IRestRequest request, object hold)
 		{
-			var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
-			while (!_shutdown || (TrelloProcessor.WaitForPendingRequests && _queue.Count > 0))
+			try
 			{
-				lock (_lock)
-				{
-					if (_queue.Count == 0)
-					{
-						_isProcessing = false;
-						Monitor.Wait(_lock);
-					}
-				}
-				var request = _queue.Dequeue();
-				if (request == null) continue;
-				Execute(client, request);
+				_semaphore.WaitOne();
+				Execute(ask, request);
+				_semaphore.Release();
+				lock(hold)
+					Monitor.Pulse(hold);
+			}
+			catch (Exception e)
+			{
+				TrelloConfiguration.Log.Error(e);	
 			}
 		}
-		private static void Pulse(System.Action action)
-		{
-			lock (_lock)
-			{
-				action();
-				if (_isProcessing) return;
-				_isProcessing = true;
-				Monitor.Pulse(_lock);
-			}
-		}
-		private static void Execute(IRestClient client, QueuableRestRequest queuableRequest)
+		private static void Execute(Action<IRestClient> ask, IRestRequest request)
 		{
 			if (NetworkMonitor.IsConnected)
 			{
-				LogRequest(queuableRequest.Request, "Sending");
+				var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
+				LogRequest(request, "Sending");
 				try
 				{
-					queuableRequest.Execute(client);
-					LogResponse(queuableRequest.Request.Response, "Received");
+					ask(client);
+					LogResponse(request.Response, "Received");
 				}
 				catch (Exception e)
 				{
 					var tie = new TrelloInteractionException(e);
-					queuableRequest.CreateNullResponse(tie);
+					request.Response = new NullRestResponse { Exception = e };
 					TrelloConfiguration.Log.Error(tie, false);
 				}
 			}
 			else
 			{
-				LogRequest(queuableRequest.Request, "Stubbing");
-				queuableRequest.CreateNullResponse();
+				LogRequest(request, "Stubbing");
+				request.Response = new NullRestResponse();
 			}
 		}
 		private static void LogRequest(IRestRequest request, string action)

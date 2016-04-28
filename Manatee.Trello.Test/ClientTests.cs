@@ -2,7 +2,6 @@
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.ManateeJson.Entities;
-using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Manatee.Trello.Test
@@ -10,22 +9,6 @@ namespace Manatee.Trello.Test
 	[TestClass]
 	public class ClientTests
 	{
-		public static void Run(System.Action action)
-		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-
-			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
-
-			action();
-
-			TrelloProcessor.Shutdown();
-		}
-
 		[TestMethod]
 		public void NotificationTypeCardDueSoonNotDeserializing_Issue26()
 		{

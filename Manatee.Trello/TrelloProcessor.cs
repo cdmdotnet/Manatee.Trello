@@ -40,6 +40,15 @@ namespace Manatee.Trello
 		/// environments.
 		/// </remarks>
 		public static bool WaitForPendingRequests { get; set; }
+		/// <summary>
+		/// Specifies the number of concurrent calls to the Trello API that the processor can make.  Default is 1.
+		/// </summary>
+		public static int ConcurrentCallCount { get; set; }
+
+		static TrelloProcessor()
+		{
+			ConcurrentCallCount = 1;
+		}
 
 		/// <summary>
 		/// Signals the processor that the application is shutting down.  The processor will perform a "last call" for pending requests.

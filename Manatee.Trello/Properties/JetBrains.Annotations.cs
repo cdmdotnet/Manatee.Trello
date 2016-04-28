@@ -50,18 +50,33 @@ namespace JetBrains.Annotations
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 	public sealed class ContractAnnotationAttribute : Attribute
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="contract"></param>
 		public ContractAnnotationAttribute([NotNull] string contract)
 		  : this(contract, false)
 		{ }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="contract"></param>
+		/// <param name="forceFullStates"></param>
 		public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
 		{
 			Contract = contract;
 			ForceFullStates = forceFullStates;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		[NotNull]
 		public string Contract { get; private set; }
+		/// <summary>
+		/// 
+		/// </summary>
 		public bool ForceFullStates { get; private set; }
 	}
 
