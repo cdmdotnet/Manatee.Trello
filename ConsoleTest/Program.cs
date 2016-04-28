@@ -14,8 +14,6 @@ namespace ConsoleTest
 		{
 			Run(() =>
 			{
-				TrelloProcessor.WaitForPendingRequests = true;
-
 				var card = new Card("js8Ygw89");
 				Console.WriteLine(card.Board.Id);
 				Console.WriteLine();

@@ -22,7 +22,7 @@ namespace Manatee.Trello.Test
 	                              IEqualityComparer<IJsonOrganization>,
 	                              IEqualityComparer<IJsonOrganizationPreferences>,
 	                              IEqualityComparer<IJsonPosition>,
-		IEqualityComparer<IJsonLabel>
+	                              IEqualityComparer<IJsonLabel>
 	{
 		public static TheGodComparer Instance { get; }
 
@@ -39,7 +39,7 @@ namespace Manatee.Trello.Test
 				var hashCode = 0;
 				foreach (var obj in objs)
 				{
-					hashCode = (hashCode * 397) ^ obj?.GetHashCode() ?? 0;
+					hashCode = (hashCode*397) ^ obj?.GetHashCode() ?? 0;
 				}
 				return hashCode;
 			}
@@ -52,7 +52,7 @@ namespace Manatee.Trello.Test
 				var hashCode = 0;
 				foreach (var obj in objs)
 				{
-					hashCode = (hashCode * 397) ^ comparer.GetHashCode(obj);
+					hashCode = (hashCode*397) ^ comparer.GetHashCode(obj);
 				}
 				return hashCode;
 			}
@@ -459,10 +459,10 @@ namespace Manatee.Trello.Test
 
 			unchecked
 			{
-				var hashCode = obj.Id ?.GetHashCode() ?? 0;
-				hashCode = (hashCode * 397) ^ obj.State.GetHashCode();
-				hashCode = (hashCode * 397) ^ (obj.Name?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ Instance.GetHashCode(obj.Pos);
+				var hashCode = obj.Id?.GetHashCode() ?? 0;
+				hashCode = (hashCode*397) ^ obj.State.GetHashCode();
+				hashCode = (hashCode*397) ^ (obj.Name?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ Instance.GetHashCode(obj.Pos);
 				return hashCode;
 			}
 		}
@@ -490,12 +490,12 @@ namespace Manatee.Trello.Test
 			unchecked
 			{
 				var hashCode = obj.Id?.GetHashCode() ?? 0;
-				hashCode = (hashCode * 397) ^ (obj.Name?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ Instance.GetHashCode(obj.Board);
-				hashCode = (hashCode * 397) ^ Instance.GetHashCode(obj.Card);
-				hashCode = (hashCode * 397) ^ GetCollectionHashCode(obj.CheckItems, Instance);
-				hashCode = (hashCode * 397) ^ Instance.GetHashCode(obj.Pos);
-				hashCode = (hashCode * 397) ^ Instance.GetHashCode(obj.CheckListSource);
+				hashCode = (hashCode*397) ^ (obj.Name?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ Instance.GetHashCode(obj.Board);
+				hashCode = (hashCode*397) ^ Instance.GetHashCode(obj.Card);
+				hashCode = (hashCode*397) ^ GetCollectionHashCode(obj.CheckItems, Instance);
+				hashCode = (hashCode*397) ^ Instance.GetHashCode(obj.Pos);
+				hashCode = (hashCode*397) ^ Instance.GetHashCode(obj.CheckListSource);
 				return hashCode;
 			}
 		}
@@ -524,11 +524,11 @@ namespace Manatee.Trello.Test
 			unchecked
 			{
 				var hashCode = obj.Id?.GetHashCode() ?? 0;
-				hashCode = (hashCode * 397) ^ (obj.Name?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ obj.Closed.GetHashCode();
-				hashCode = (hashCode * 397) ^ Instance.GetHashCode(obj.Board);
-				hashCode = (hashCode * 397) ^ Instance.GetHashCode(obj.Pos);
-				hashCode = (hashCode * 397) ^ obj.Subscribed.GetHashCode();
+				hashCode = (hashCode*397) ^ (obj.Name?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ obj.Closed.GetHashCode();
+				hashCode = (hashCode*397) ^ Instance.GetHashCode(obj.Board);
+				hashCode = (hashCode*397) ^ Instance.GetHashCode(obj.Pos);
+				hashCode = (hashCode*397) ^ obj.Subscribed.GetHashCode();
 				return hashCode;
 			}
 		}
@@ -556,10 +556,10 @@ namespace Manatee.Trello.Test
 			unchecked
 			{
 				var hashCode = obj.Desc?.GetHashCode() ?? 0;
-				hashCode = (hashCode * 397) ^ Instance.GetHashCode(obj.List);
-				hashCode = (hashCode * 397) ^ obj.Pos.GetHashCode();
-				hashCode = (hashCode * 397) ^ (obj.Text?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ obj.Closed.GetHashCode();
+				hashCode = (hashCode*397) ^ Instance.GetHashCode(obj.List);
+				hashCode = (hashCode*397) ^ obj.Pos.GetHashCode();
+				hashCode = (hashCode*397) ^ (obj.Text?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ obj.Closed.GetHashCode();
 				return hashCode;
 			}
 		}
@@ -587,10 +587,10 @@ namespace Manatee.Trello.Test
 			unchecked
 			{
 				var hashCode = obj.Id?.GetHashCode() ?? 0;
-				hashCode = (hashCode * 397) ^ (obj.Color?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ (obj.Image?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ GetCollectionHashCode(obj.ImageScaled, Instance);
-				hashCode = (hashCode * 397) ^ obj.Tile.GetHashCode();
+				hashCode = (hashCode*397) ^ (obj.Color?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ (obj.Image?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ GetCollectionHashCode(obj.ImageScaled, Instance);
+				hashCode = (hashCode*397) ^ obj.Tile.GetHashCode();
 				return hashCode;
 			}
 		}
@@ -618,10 +618,10 @@ namespace Manatee.Trello.Test
 			unchecked
 			{
 				var hashCode = obj.PermissionLevel.GetHashCode();
-				hashCode = (hashCode * 397) ^ GetCollectionHashCode(obj.OrgInviteRestrict);
-				hashCode = (hashCode * 397) ^ obj.ExternalMembersDisabled.GetHashCode();
-				hashCode = (hashCode * 397) ^ (obj.AssociatedDomain?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ (obj.BoardVisibilityRestrict?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ GetCollectionHashCode(obj.OrgInviteRestrict);
+				hashCode = (hashCode*397) ^ obj.ExternalMembersDisabled.GetHashCode();
+				hashCode = (hashCode*397) ^ (obj.AssociatedDomain?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ (obj.BoardVisibilityRestrict?.GetHashCode() ?? 0);
 				return hashCode;
 			}
 		}
@@ -649,10 +649,10 @@ namespace Manatee.Trello.Test
 			unchecked
 			{
 				var hashCode = obj.Width.GetHashCode();
-				hashCode = (hashCode * 397) ^ obj.Height.GetHashCode();
-				hashCode = (hashCode * 397) ^ (obj.Url?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ (obj.Id?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ obj.Scaled.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.Height.GetHashCode();
+				hashCode = (hashCode*397) ^ (obj.Url?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ (obj.Id?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ obj.Scaled.GetHashCode();
 				return hashCode;
 			}
 		}
@@ -685,15 +685,15 @@ namespace Manatee.Trello.Test
 			unchecked
 			{
 				var hashCode = obj.Votes.GetHashCode();
-				hashCode = (hashCode * 397) ^ obj.ViewingMemberVoted.GetHashCode();
-				hashCode = (hashCode * 397) ^ obj.Subscribed.GetHashCode();
-				hashCode = (hashCode * 397) ^ (obj.Fogbugz?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ obj.Due.GetHashCode();
-				hashCode = (hashCode * 397) ^ obj.Description.GetHashCode();
-				hashCode = (hashCode * 397) ^ obj.Comments.GetHashCode();
-				hashCode = (hashCode * 397) ^ obj.CheckItemsChecked.GetHashCode();
-				hashCode = (hashCode * 397) ^ obj.CheckItems.GetHashCode();
-				hashCode = (hashCode * 397) ^ obj.Attachments.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.ViewingMemberVoted.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.Subscribed.GetHashCode();
+				hashCode = (hashCode*397) ^ (obj.Fogbugz?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ obj.Due.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.Description.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.Comments.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.CheckItemsChecked.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.CheckItems.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.Attachments.GetHashCode();
 				return hashCode;
 			}
 		}
@@ -717,7 +717,7 @@ namespace Manatee.Trello.Test
 
 			unchecked
 			{
-				return (obj.Explicit.GetHashCode() * 397) ^ (obj.Named?.GetHashCode() ?? 0);
+				return (obj.Explicit.GetHashCode()*397) ^ (obj.Named?.GetHashCode() ?? 0);
 			}
 		}
 
@@ -744,10 +744,10 @@ namespace Manatee.Trello.Test
 			unchecked
 			{
 				var hashCode = Instance.GetHashCode(obj.Board);
-				hashCode = (hashCode * 397) ^ obj.Color.GetHashCode();
-				hashCode = (hashCode * 397) ^ (obj.Id?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ (obj.Name?.GetHashCode() ?? 0);
-				hashCode = (hashCode * 397) ^ obj.Uses.GetHashCode();
+				hashCode = (hashCode*397) ^ obj.Color.GetHashCode();
+				hashCode = (hashCode*397) ^ (obj.Id?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ (obj.Name?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ obj.Uses.GetHashCode();
 				return hashCode;
 			}
 		}

@@ -30,7 +30,7 @@ using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.WebApi
 {
-	public class WebApiClient : IRestClient
+	internal class WebApiClient : IRestClient
 	{
 		private const string TrelloApiBaseUrl = @"https://api.trello.com/1";
 		private readonly WebApiJsonFormatter _formatter;
