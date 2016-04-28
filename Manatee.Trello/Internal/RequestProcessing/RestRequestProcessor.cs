@@ -34,7 +34,6 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private const string BaseUrl = "https://api.trello.com/1";
 
 		private static readonly Semaphore _semaphore;
-		private static bool _shutdown;
 
 #if IOS
 		private static System.Action _lastCall;
@@ -50,7 +49,6 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 		static RestRequestProcessor()
 		{
-			_shutdown = false;
 			_semaphore = new Semaphore(0, TrelloProcessor.ConcurrentCallCount);
 			if (NetworkMonitor.IsConnected)
 				_semaphore.Release(TrelloProcessor.ConcurrentCallCount);
@@ -60,18 +58,15 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 		public static void AddRequest(IRestRequest request, object hold)
 		{
-			if (_shutdown) return;
 			new Thread(() => Process(c => request.Response = c.Execute(request), request, hold)).Start();
 		}
 		public static void AddRequest<T>(IRestRequest request, object hold)
 			where T : class
 		{
-			if (_shutdown) return;
 			new Thread(() => Process(c => request.Response = c.Execute<T>(request), request, hold)).Start();
 		}
-		public static void ShutDown()
+		public static void Flush()
 		{
-			_shutdown = true;
 #if IOS
 			var handler = _lastCall;
 #else

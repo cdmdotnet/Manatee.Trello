@@ -19,7 +19,7 @@ namespace ConsoleTest
 				Console.WriteLine();
 				Console.WriteLine(Member.Me);
 
-				TrelloProcessor.Shutdown();
+				TrelloProcessor.Flush();
 			});
 		}
 
