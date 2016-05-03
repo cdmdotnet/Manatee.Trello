@@ -53,7 +53,7 @@ namespace Manatee.Trello
 		{
 			IncorporateLimit(_additionalParameters);
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Notifications, new Dictionary<string, object> { { "_id", OwnerId } });
+			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Notifications, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonNotification>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
@@ -68,8 +68,8 @@ namespace Manatee.Trello
 		internal void AddFilter(IEnumerable<NotificationType> actionTypes)
 		{
 			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object> { { "filter", string.Empty } };
-			var filter = ((string)_additionalParameters["filter"]);
+				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
+			var filter = (string)_additionalParameters["filter"];
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
