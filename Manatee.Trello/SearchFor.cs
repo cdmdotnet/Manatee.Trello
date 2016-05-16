@@ -47,7 +47,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new <see cref="SearchFor"/> specifying a text search parameter.
 		/// </summary>
-		/// <param name="text"></param>
+		/// <param name="text">The text to search for.</param>
 		/// <returns></returns>
 		public static SearchFor Text(string text)
 		{

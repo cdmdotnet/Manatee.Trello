@@ -75,6 +75,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{"Types", new Property<IJsonSearch, SearchModelType?>((d, a) => d.Types, (d, o) => { if (o != 0) d.Types = o; })},
 					{"Limit", new Property<IJsonSearch, int?>((d, a) => d.Limit, (d, o) => { if (o != 0) d.Limit = o; })},
+					{"IsPartial", new Property<IJsonSearch, bool?>((d, a) => d.Partial, (d, o) => { if (o.HasValue) d.Partial = o.Value; })},
 				};
 		}
 		public SearchContext(TrelloAuthorization auth)
@@ -100,6 +101,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				parameters.Add("cards_limit", Data.Limit);
 				parameters.Add("organizations_limit", Data.Limit);
 				parameters.Add("members_limit", Data.Limit);
+			}
+			if (Data.Partial)
+			{
+				parameters.Add("partial", Data.Partial.ToLowerString());
 			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_Search);
 			var newData = JsonRepository.Execute<IJsonSearch>(Auth, endpoint, parameters);
