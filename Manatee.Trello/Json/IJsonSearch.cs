@@ -75,5 +75,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonSerialize]
 		int? Limit { get; set; }
+		/// <summary>
+		/// Gets or sets whether the search should match on partial words.
+		/// </summary>
+		[JsonSerialize]
+		bool Partial { get; set; }
 	}
 }

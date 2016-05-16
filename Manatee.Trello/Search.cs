@@ -44,6 +44,7 @@ namespace Manatee.Trello
 		private readonly Field<List<IQueryable>> _queryContext;
 		private readonly Field<SearchModelType?> _modelTypes;
 		private readonly Field<int?> _limit; 
+		private readonly Field<bool?> _isPartial;
 		private readonly SearchContext _context;
 
 		/// <summary>
@@ -90,28 +91,37 @@ namespace Manatee.Trello
 			get { return _limit.Value; }
 			set { _limit.Value = value; }
 		}
+		private bool? IsPartial
+		{
+			get { return _isPartial.Value; }
+			set { _isPartial.Value = value; }
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Search"/> object and performs the search.
 		/// </summary>
 		/// <param name="query">The query.</param>
 		/// <param name="limit">The maximum number of results to return.</param>
-		/// <param name="modelTypes">Optional - The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
-		/// <param name="context">Optional - A collection of queryable items to serve as a context in which to search.</param>
+		/// <param name="modelTypes">(Optional) The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
+		/// <param name="context">(Optional) A collection of queryable items to serve as a context in which to search.</param>
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
-		public Search(SearchFor query, int? limit = null, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null, TrelloAuthorization auth = null)
-			: this(query.ToString(), limit, modelTypes, context, auth) { }
+		/// <param name="isPartial">(Optional) Indicates whether to include matches that <em>start with</em> the query text.  Default is false.</param>
+		public Search(SearchFor query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
+			IEnumerable<IQueryable> context = null, TrelloAuthorization auth = null, bool isPartial = false)
+			: this(query.ToString(), limit, modelTypes, context, auth, isPartial) { }
 		/// <summary>
 		/// Creates a new instance of the <see cref="Search"/> object and performs the search.
 		/// </summary>
 		/// <param name="query">The query.</param>
 		/// <param name="limit">The maximum number of results to return.</param>
-		/// <param name="modelTypes">Optional - The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
-		/// <param name="context">Optional - A collection of queryable items to serve as a context in which to search.</param>
+		/// <param name="modelTypes">(Optional) The desired model types to return.  Can be joined using the | operator.  Default is All.</param>
+		/// <param name="context">(Optional) A collection of queryable items to serve as a context in which to search.</param>
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
-		public Search(string query, int? limit = null, SearchModelType modelTypes = SearchModelType.All, IEnumerable<IQueryable> context = null, TrelloAuthorization auth = null)
+		/// <param name="isPartial">(Optional) Indicates whether to include matches that <em>start with</em> the query text.  Default is false.</param>
+		public Search(string query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
+		              IEnumerable<IQueryable> context = null, TrelloAuthorization auth = null, bool isPartial = false)
 		{
 			_context = new SearchContext(auth);
 
@@ -126,13 +136,15 @@ namespace Manatee.Trello
 			_modelTypes = new Field<SearchModelType?>(_context, () => Types);
 			_limit = new Field<int?>(_context, () => Limit);
 			_limit.AddRule(NullableHasValueRule<int>.Instance);
-			_limit.AddRule(new NumericRule<int> { Min = 1, Max = 1000 });
+			_limit.AddRule(new NumericRule<int> {Min = 1, Max = 1000});
+			_isPartial = new Field<bool?>(_context, () => IsPartial);
 
 			Query = query;
 			if (context != null)
 				Context = context.ToList();
 			Types = modelTypes;
 			Limit = limit;
+			IsPartial = isPartial;
 		}
 
 		/// <summary>

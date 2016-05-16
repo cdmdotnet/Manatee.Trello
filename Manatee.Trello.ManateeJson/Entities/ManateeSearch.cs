@@ -39,6 +39,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public List<IJsonCacheable> Context { get; set; }
 		public SearchModelType? Types { get; set; }
 		public int? Limit { get; set; }
+		public bool Partial { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -61,6 +62,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Limit.Serialize(json, serializer, "cards_limit");
 			Limit.Serialize(json, serializer, "organizations_limit");
 			Limit.Serialize(json, serializer, "members_limit");
+			Partial.Serialize(json, serializer, "partial");
 			if (Context != null)
 			{
 				TryAddContext<IJsonCard>(json, "idCards");
