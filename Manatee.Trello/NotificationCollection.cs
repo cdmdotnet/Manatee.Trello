@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Internal;
@@ -37,10 +38,10 @@ namespace Manatee.Trello
 	{
 		private Dictionary<string, object> _additionalParameters;
 
-		internal ReadOnlyNotificationCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) {}
+		internal ReadOnlyNotificationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 		internal ReadOnlyNotificationCollection(ReadOnlyNotificationCollection source, TrelloAuthorization auth)
-			: this(source.OwnerId, auth)
+			: this(() => source.OwnerId, auth)
 		{
 			if (source._additionalParameters != null)
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);

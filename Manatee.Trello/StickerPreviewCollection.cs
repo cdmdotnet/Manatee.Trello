@@ -33,7 +33,7 @@ namespace Manatee.Trello
 		private readonly StickerContext _context;
 
 		internal ReadOnlyStickerPreviewCollection(StickerContext context, TrelloAuthorization auth)
-			: base(context.Data.Id, auth)
+			: base(() => context.Data.Id, auth)
 		{
 			_context = context;
 		}

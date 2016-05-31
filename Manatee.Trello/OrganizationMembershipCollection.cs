@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
@@ -38,13 +39,13 @@ namespace Manatee.Trello
 	{
 		private Dictionary<string, object> _additionalParameters;
 
-		internal ReadOnlyOrganizationMembershipCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth)
+		internal ReadOnlyOrganizationMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth)
 		{
 			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
 		}
 		internal ReadOnlyOrganizationMembershipCollection(ReadOnlyOrganizationMembershipCollection source, TrelloAuthorization auth)
-			: this(source.OwnerId, auth)
+			: this(() => source.OwnerId, auth)
 		{
 			if (source._additionalParameters != null)
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
@@ -101,8 +102,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class OrganizationMembershipCollection : ReadOnlyOrganizationMembershipCollection
 	{
-		internal OrganizationMembershipCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) {}
+		internal OrganizationMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 
 		/// <summary>
 		/// Adds a member to an organization with specified privileges.

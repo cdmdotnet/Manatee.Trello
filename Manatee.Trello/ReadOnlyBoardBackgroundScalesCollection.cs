@@ -33,7 +33,7 @@ namespace Manatee.Trello
 		private readonly BoardBackgroundContext _context;
 
 		internal ReadOnlyBoardBackgroundScalesCollection(BoardBackgroundContext context, TrelloAuthorization auth)
-			: base(context.Data.Id, auth)
+			: base(() => context.Data.Id, auth)
 		{
 			_context = context;
 		}

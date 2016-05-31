@@ -51,15 +51,15 @@ namespace Manatee.Trello
 		/// </remarks>
 		public Board this[string key] => GetByKey(key);
 
-		internal ReadOnlyBoardCollection(Type type, string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth)
+		internal ReadOnlyBoardCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth)
 		{
 			_updateRequestType = type == typeof (Organization)
 				                     ? EntityRequestType.Organization_Read_Boards
 				                     : EntityRequestType.Member_Read_Boards;
 		}
 		internal ReadOnlyBoardCollection(ReadOnlyBoardCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId, auth)
+			: base(() => source.OwnerId, auth)
 		{
 			_updateRequestType = source._updateRequestType;
 			if (source._additionalParameters != null)
@@ -105,8 +105,8 @@ namespace Manatee.Trello
 	{
 		private readonly EntityRequestType _addRequestType;
 
-		internal BoardCollection(Type type, string ownerId, TrelloAuthorization auth)
-			: base(type, ownerId, auth)
+		internal BoardCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(type, getOwnerId, auth)
 		{
 			_addRequestType = type == typeof (Organization)
 				                  ? EntityRequestType.Organization_Write_CreateBoard

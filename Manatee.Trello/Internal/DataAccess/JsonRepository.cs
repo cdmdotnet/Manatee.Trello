@@ -49,8 +49,8 @@ namespace Manatee.Trello.Internal.DataAccess
 			lock (obj)
 				Monitor.Wait(obj);
 			ValidateResponse(request);
-			var response = (IRestResponse<T>)request.Response;
-			return response.Data;
+			var response = request.Response as IRestResponse<T>;
+			return response?.Data;
 		}
 		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, T body)
 			where T : class
@@ -63,8 +63,8 @@ namespace Manatee.Trello.Internal.DataAccess
 			lock (obj)
 				Monitor.Wait(obj);
 			ValidateResponse(request);
-			var response = (IRestResponse<T>)request.Response;
-			return response.Data;
+			var response = request.Response as IRestResponse<T>;
+			return response?.Data;
 		}
 
 		private static IRestRequest BuildRequest(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters = null)

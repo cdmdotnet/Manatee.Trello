@@ -20,6 +20,8 @@
 	Purpose:		Collection objects for attachments.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
@@ -35,8 +37,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyStickerCollection : ReadOnlyCollection<Sticker>
 	{
-		internal ReadOnlyStickerCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) {}
+		internal ReadOnlyStickerCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -63,8 +65,8 @@ namespace Manatee.Trello
 	{
 		private static readonly NumericRule<int> _rotationRule = new NumericRule<int>{Min = 0, Max = 359};
 
-		internal CardStickerCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) {}
+		internal CardStickerCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 
 		/// <summary>
 		/// Adds a <see cref="Sticker"/> to a <see cref="Card"/>.
@@ -106,8 +108,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class MemberStickerCollection : ReadOnlyStickerCollection
 	{
-		internal MemberStickerCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) { }
+		internal MemberStickerCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) { }
 
 		/// <summary>
 		/// Adds a <see cref="Sticker"/> to a <see cref="Member"/>'s custom sticker set by uploading data.

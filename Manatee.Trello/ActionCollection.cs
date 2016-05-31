@@ -53,14 +53,14 @@ namespace Manatee.Trello
 					{typeof(Organization), EntityRequestType.Organization_Read_Actions},
 				};
 		}
-		internal ReadOnlyActionCollection(Type type, string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth)
+		internal ReadOnlyActionCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth)
 		{
 			_updateRequestType = _requestTypes[type];
 			_additionalParameters = new Dictionary<string, object>();
 		}
 		internal ReadOnlyActionCollection(ReadOnlyActionCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId, auth)
+			: base(() => source.OwnerId, auth)
 		{
 			_updateRequestType = source._updateRequestType;
 			if (source._additionalParameters != null)
@@ -113,8 +113,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CommentCollection : ReadOnlyActionCollection
 	{
-		internal CommentCollection(string ownerId, TrelloAuthorization auth)
-			: base(typeof (Card), ownerId, auth)
+		internal CommentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(typeof (Card), getOwnerId, auth)
 		{
 			AddFilter(new[] {ActionType.CommentCard, ActionType.CopyCommentCard});
 		}

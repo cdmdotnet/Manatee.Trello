@@ -20,6 +20,8 @@
 	Purpose:		Collection objects for organizations.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
@@ -38,10 +40,10 @@ namespace Manatee.Trello
 	{
 		private Dictionary<string, object> _additionalParameters;
 
-		internal ReadOnlyOrganizationCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) {}
+		internal ReadOnlyOrganizationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 		internal ReadOnlyOrganizationCollection(ReadOnlyOrganizationCollection source, TrelloAuthorization auth)
-			: this(source.OwnerId, auth)
+			: this(() => source.OwnerId, auth)
 		{
 			if (source._additionalParameters != null)
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
@@ -94,8 +96,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class OrganizationCollection : ReadOnlyOrganizationCollection
 	{
-		internal OrganizationCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) {}
+		internal OrganizationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 
 		/// <summary>
 		/// Creates a new organization.

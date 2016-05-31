@@ -37,7 +37,7 @@ namespace Manatee.Trello
 		/// <returns>A <see cref="ReadOnlyCardCollection"/> containing the member's cards.</returns>
 		public static ReadOnlyCardCollection Cards(this Member member)
 		{
-			return new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, member.Id, member.Auth);
+			return new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, () => member.Id, member.Auth);
 		}
 	}
 }

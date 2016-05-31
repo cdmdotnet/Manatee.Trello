@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.ManateeJson.Entities;
@@ -88,6 +91,40 @@ namespace Manatee.Trello.Test
 			Assert.AreEqual(0, search.Cards.Count());
 
 			TrelloProcessor.Flush();
+		}
+
+		[TestMethod]
+		public async Task CancelPendingRequests_Issue32()
+		{
+			var serializer = new ManateeSerializer();
+			TrelloConfiguration.Serializer = serializer;
+			TrelloConfiguration.Deserializer = serializer;
+			TrelloConfiguration.JsonFactory = new ManateeFactory();
+			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+
+			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
+			TrelloProcessor.ConcurrentCallCount = 1;
+
+			var cards = new List<Card>
+				{
+					new Card("KHKms82H"),
+					new Card("AgTd8qhF"),
+					new Card("R1Kc5KHd"),
+					new Card("vlgbqJES"),
+					new Card("uVD9TAIK"),
+					new Card("prSr36Ny"),
+					new Card("hBoTLb9V"),
+				};
+
+			var nameTasks = cards.Select(c => Task.Run(() => c.Name)).ToList();
+
+			TrelloProcessor.CancelPendingRequests();
+
+			var names = await Task.WhenAll(nameTasks);
+
+			Assert.AreEqual(0, names.Count(n => n != null));
 		}
 	}
 }
