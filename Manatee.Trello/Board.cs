@@ -214,18 +214,18 @@ namespace Manatee.Trello
 			_context = new BoardContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Board), id, auth);
-			Cards = new ReadOnlyCardCollection(typeof(Board), id, auth);
+			Actions = new ReadOnlyActionCollection(typeof(Board), () => id, auth);
+			Cards = new ReadOnlyCardCollection(typeof(Board), () => Id, auth);
 			_description = new Field<string>(_context, () => Description);
 			Id = id;
 			_isClosed = new Field<bool?>(_context, () => IsClosed);
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
-			Labels = new BoardLabelCollection(id, auth);
-			Lists = new ListCollection(id, auth);
-			Members = new ReadOnlyMemberCollection(typeof(Board), id, auth);
-			Memberships = new BoardMembershipCollection(id, auth);
+			Labels = new BoardLabelCollection(() => Id, auth);
+			Lists = new ListCollection(() => Id, auth);
+			Members = new ReadOnlyMemberCollection(typeof(Board), () => Id, auth);
+			Memberships = new BoardMembershipCollection(() => Id, auth);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, () => Organization);

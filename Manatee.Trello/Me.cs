@@ -104,7 +104,7 @@ namespace Manatee.Trello
 			: base(GetId(), true, TrelloAuthorization.Default)
 		{
 			_email = new Field<string>(_context, () => Email);
-			Notifications = new ReadOnlyNotificationCollection(Id, TrelloAuthorization.Default);
+			Notifications = new ReadOnlyNotificationCollection(() => Id, TrelloAuthorization.Default);
 			Preferences = new MemberPreferences(_context.MemberPreferencesContext);
 
 			_context.Merge(_myJson);

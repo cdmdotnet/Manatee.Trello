@@ -172,13 +172,13 @@ namespace Manatee.Trello
 			_context = new OrganizationContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Organization), id, auth);
-			Boards = new BoardCollection(typeof(Organization), id, auth);
+			Actions = new ReadOnlyActionCollection(typeof(Organization), () => Id, auth);
+			Boards = new BoardCollection(typeof(Organization), () => Id, auth);
 			_description = new Field<string>(_context, () => Description);
 			_displayName = new Field<string>(_context, () => DisplayName);
 			_isBusinessClass = new Field<bool>(_context, () => IsBusinessClass);
-			Members = new ReadOnlyMemberCollection(typeof(Organization), id, auth);
-			Memberships = new OrganizationMembershipCollection(id, auth);
+			Members = new ReadOnlyMemberCollection(typeof(Organization), () => Id, auth);
+			Memberships = new OrganizationMembershipCollection(() => Id, auth);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(OrganizationNameRule.Instance);
 			Preferences = new OrganizationPreferences(_context.OrganizationPreferencesContext);

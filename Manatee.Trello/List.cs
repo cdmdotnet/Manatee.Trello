@@ -175,10 +175,10 @@ namespace Manatee.Trello
 			_context = new ListContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(List), id, auth);
+			Actions = new ReadOnlyActionCollection(typeof(List), () => Id, auth);
 			_board = new Field<Board>(_context, () => Board);
 			_board.AddRule(NotNullRule<Board>.Instance);
-			Cards = new CardCollection(id, auth);
+			Cards = new CardCollection(() => Id, auth);
 			_isArchived = new Field<bool?>(_context, () => IsArchived);
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);

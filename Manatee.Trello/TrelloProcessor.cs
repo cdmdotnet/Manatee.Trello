@@ -56,7 +56,7 @@ namespace Manatee.Trello
 		/// Signals the processor that the application is shutting down.  The processor will reject any new changes and perform a
 		/// "last call" for pending requests.
 		/// </summary>
-		[Obsolete("This method is no lnger used as of v1.9.0 and will be removed in the next major version.  Functionality has been " +
+		[Obsolete("This method is no longer used as of v1.9.0 and will be removed in the next major version.  Functionality has been " +
 		          "redirected to Flush().  Please use that method instead.")]
 		public static void Shutdown()
 		{
@@ -69,6 +69,13 @@ namespace Manatee.Trello
 		public static void Flush()
 		{
 			RestRequestProcessor.Flush();
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public static void CancelPendingRequests()
+		{
+			RestRequestProcessor.CancelPendingRequests();
 		}
 	}
 }

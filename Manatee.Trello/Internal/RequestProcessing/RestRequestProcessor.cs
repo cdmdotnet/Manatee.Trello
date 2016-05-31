@@ -34,6 +34,8 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private const string BaseUrl = "https://api.trello.com/1";
 
 		private static readonly Semaphore _semaphore;
+		private static int _pendingRequestCount;
+		private static bool _cancelPendingRequests;
 
 #if IOS
 		private static System.Action _lastCall;
@@ -74,25 +76,37 @@ namespace Manatee.Trello.Internal.RequestProcessing
 #endif
 			handler?.Invoke();
 		}
+		public static void CancelPendingRequests()
+		{
+			_cancelPendingRequests = true;
+			Flush();
+		}
 
 		private static void Process(Action<IRestClient> ask, IRestRequest request, object hold)
 		{
 			try
 			{
+				_pendingRequestCount++;
 				_semaphore.WaitOne();
 				Execute(ask, request);
-				_semaphore.Release();
-				lock(hold)
-					Monitor.Pulse(hold);
 			}
 			catch (Exception e)
 			{
-				TrelloConfiguration.Log.Error(e);	
+				TrelloConfiguration.Log.Error(e);
+			}
+			finally
+			{
+				lock (hold)
+					Monitor.Pulse(hold);
+				_pendingRequestCount--;
+				if (_pendingRequestCount == 0)
+					_cancelPendingRequests = false;
+				_semaphore.Release();
 			}
 		}
 		private static void Execute(Action<IRestClient> ask, IRestRequest request)
 		{
-			if (NetworkMonitor.IsConnected)
+			if (NetworkMonitor.IsConnected && !_cancelPendingRequests)
 			{
 				var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 				LogRequest(request, "Sending");

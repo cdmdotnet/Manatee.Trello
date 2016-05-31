@@ -52,23 +52,23 @@ namespace Manatee.Trello
 		/// </remarks>
 		public Card this[string key] => GetByKey(key);
 
-		internal ReadOnlyCardCollection(Type type, string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth)
+		internal ReadOnlyCardCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth)
 		{
 			_updateRequestType = type == typeof (List)
 				                     ? EntityRequestType.List_Read_Cards
 				                     : EntityRequestType.Board_Read_Cards;
-			_requestParameters = new Dictionary<string, object> {{"_id", ownerId}};
+			_requestParameters = new Dictionary<string, object> {{"_id", getOwnerId}};
 		}
-		internal ReadOnlyCardCollection(EntityRequestType requestType, string ownerId, TrelloAuthorization auth, Dictionary<string, object> requestParameters = null)
-			: base(ownerId, auth)
+		internal ReadOnlyCardCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth, Dictionary<string, object> requestParameters = null)
+			: base(getOwnerId, auth)
 		{
 			_updateRequestType = requestType;
 			_requestParameters = requestParameters ?? new Dictionary<string, object>();
-			_requestParameters.Add("_id", ownerId);
+			_requestParameters.Add("_id", getOwnerId);
 		}
 		internal ReadOnlyCardCollection(ReadOnlyCardCollection source, TrelloAuthorization auth)
-			: base(source.OwnerId, auth)
+			: base(() => source.OwnerId, auth)
 		{
 			_updateRequestType = source._updateRequestType;
 			if (source._requestParameters != null)
@@ -114,8 +114,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CardCollection : ReadOnlyCardCollection
 	{
-		internal CardCollection(string ownerId, TrelloAuthorization auth)
-			: base(typeof (List), ownerId, auth) {}
+		internal CardCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(typeof (List), getOwnerId, auth) {}
 
 		/// <summary>
 		/// Creates a new card.

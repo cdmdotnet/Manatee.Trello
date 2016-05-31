@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
@@ -40,7 +41,7 @@ namespace Manatee.Trello
 		private readonly CardContext _context;
 
 		internal CardLabelCollection(CardContext context, TrelloAuthorization auth)
-			: base(context.Data.Id, auth)
+			: base(() => context.Data.Id, auth)
 		{
 			_context = context;
 		}
@@ -104,8 +105,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class BoardLabelCollection : ReadOnlyCollection<Label>
 	{
-		internal BoardLabelCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) {}
+		internal BoardLabelCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 
 		/// <summary>
 		/// Adds a label to the collection.

@@ -20,6 +20,8 @@
 	Purpose:		Collection objects for lists.
 
 ***************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
@@ -48,10 +50,10 @@ namespace Manatee.Trello
 		/// </remarks>
 		public List this[string key] => GetByKey(key);
 
-		internal ReadOnlyListCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) {}
+		internal ReadOnlyListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 		internal ReadOnlyListCollection(ReadOnlyListCollection source, TrelloAuthorization auth)
-			: this(source.OwnerId, auth)
+			: this(() => source.OwnerId, auth)
 		{
 			if (source._additionalParameters != null)
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
@@ -94,8 +96,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ListCollection : ReadOnlyListCollection
 	{
-		internal ListCollection(string ownerId, TrelloAuthorization auth)
-			: base(ownerId, auth) { }
+		internal ListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) { }
 
 		/// <summary>
 		/// Creates a new list.

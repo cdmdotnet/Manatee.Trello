@@ -35,6 +35,8 @@ namespace Manatee.Trello
 	public abstract class ReadOnlyCollection<T> : IEnumerable<T>
 	{
 		private DateTime _lastUpdate;
+		private string _ownerId;
+		private readonly Func<string> _getOwnerId;
 
 		/// <summary>
 		/// Retrieves the item at the specified index.
@@ -46,7 +48,7 @@ namespace Manatee.Trello
 		/// </exception>
 		public T this[int index] => GetByIndex(index);
 
-		internal string OwnerId { get; }
+		internal string OwnerId => _ownerId ?? (_ownerId = _getOwnerId());
 		internal List<T> Items { get; }
 		internal int? Limit { get; set; }
 		internal TrelloAuthorization Auth { get; }
@@ -54,11 +56,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCollection{T}"/> object.
 		/// </summary>
-		/// <param name="ownerId"></param>
+		/// <param name="getOwnerId"></param>
 		/// <param name="auth"></param>
-		protected ReadOnlyCollection(string ownerId, TrelloAuthorization auth)
+		protected ReadOnlyCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 		{
-			OwnerId = ownerId;
+			_getOwnerId = getOwnerId;
 			Auth = auth ?? TrelloAuthorization.Default;
 
 			Items = new List<T>();

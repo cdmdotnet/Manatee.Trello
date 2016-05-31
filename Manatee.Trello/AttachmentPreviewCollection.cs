@@ -33,7 +33,7 @@ namespace Manatee.Trello
 		private readonly AttachmentContext _context;
 
 		internal ReadOnlyAttachmentPreviewCollection(AttachmentContext context, TrelloAuthorization auth)
-			: base(context.Data.Id, auth)
+			: base(() => context.Data.Id, auth)
 		{
 			_context = context;
 		}

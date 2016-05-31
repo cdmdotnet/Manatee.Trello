@@ -256,13 +256,13 @@ namespace Manatee.Trello
 			_context = new CardContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Card), id, auth);
-			Attachments = new AttachmentCollection(id, auth);
+			Actions = new ReadOnlyActionCollection(typeof(Card), () => id, auth);
+			Attachments = new AttachmentCollection(() => Id, auth);
 			Badges = new Badges(_context.BadgesContext);
 			_board = new Field<Board>(_context, () => Board);
 			_board.AddRule(NotNullRule<Board>.Instance);
 			CheckLists = new CheckListCollection(this, auth);
-			Comments = new CommentCollection(id, auth);
+			Comments = new CommentCollection(() => Id, auth);
 			_description = new Field<string>(_context, () => Description);
 			_dueDate = new Field<DateTime?>(_context, () => DueDate);
 			_isArchived = new Field<bool?>(_context, () => IsArchived);
@@ -273,14 +273,14 @@ namespace Manatee.Trello
 			_lastActivity = new Field<DateTime?>(_context, () => LastActivity);
 			_list = new Field<List>(_context, () => List);
 			_list.AddRule(NotNullRule<List>.Instance);
-			Members = new MemberCollection(id, auth);
+			Members = new MemberCollection(() => Id, auth);
 			_name = new Field<string>(_context, () => Name);
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, () => Position);
 			_position.AddRule(PositionRule.Instance);
 			_shortId = new Field<int?>(_context, () => ShortId);
 			_shortUrl = new Field<string>(_context, () => ShortUrl);
-			Stickers = new CardStickerCollection(id, auth);
+			Stickers = new CardStickerCollection(() => Id, auth);
 			_url = new Field<string>(_context, () => Url);
 
 			TrelloConfiguration.Cache.Add(this);

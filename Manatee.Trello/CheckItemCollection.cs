@@ -50,7 +50,7 @@ namespace Manatee.Trello
 		public CheckItem this[string key] => GetByKey(key);
 
 		internal ReadOnlyCheckItemCollection(CheckListContext context, TrelloAuthorization auth)
-			: base(context.Data.Id, auth)
+			: base(() => context.Data.Id, auth)
 		{
 			_context = context;
 		}
