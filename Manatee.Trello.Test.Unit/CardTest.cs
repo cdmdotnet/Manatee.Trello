@@ -18,7 +18,7 @@ namespace Manatee.Trello.Test.Unit
 			}
 		}
 
-		private CardUnderTest Card { get { return (CardUnderTest) _sut; } }
+		private CardUnderTest Card => (CardUnderTest) _sut;
 
 		#endregion
 
@@ -156,8 +156,8 @@ namespace Manatee.Trello.Test.Unit
 		{
 			CreateScenario().Given(ACard)
 						   .When(DueDateIsSet, (DateTime?)null)
-						   .Then(RestClientExecuteIsNotInvoked<IJsonCard>)
-						   .And(ExceptionIsThrown<ValidationException<DateTime?>>)
+						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
+						   .And(ExceptionIsNotThrown)
 						   .Execute();
 		}
 		[TestMethod]
@@ -174,7 +174,7 @@ namespace Manatee.Trello.Test.Unit
 		public void SetIsArchived()
 		{
 			CreateScenario().Given(ACard)
-						   .When(IsArchivedIsSet, (bool?)false)
+						   .When(IsArchivedIsSet, (bool?)true)
 						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
@@ -326,7 +326,7 @@ namespace Manatee.Trello.Test.Unit
 		public void SetPosition()
 		{
 			CreateScenario().Given(ACard)
-			               .When(PositionIsSet, new Position(30))
+			               .When(PositionIsSet, new Position(10))
 						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
 						   .And(ExceptionIsNotThrown)
 						   .Execute();
@@ -382,6 +382,7 @@ namespace Manatee.Trello.Test.Unit
 		[TestMethod]
 		public void Delete()
 		{
+			// TODO: Have a threading issue in the test.  Succeeds when debugging, but fails when running.
 			CreateScenario().Given(ACard)
 						   .When(DeleteIsCalled)
 						   .Then(RestClientExecuteIsInvoked<IJsonCard>)
@@ -445,7 +446,6 @@ namespace Manatee.Trello.Test.Unit
 		private void DescriptionIsSet(string value)
 		{
 			Execute(() => Card.Sut.Description = value);
-			WaitForProcessor();
 		}
 		private void DueDateIsAccessed()
 		{
@@ -454,7 +454,6 @@ namespace Manatee.Trello.Test.Unit
 		private void DueDateIsSet(DateTime? value)
 		{
 			Execute(() => Card.Sut.DueDate = value);
-			WaitForProcessor();
 		}
 		private void IsArchivedIsAccessed()
 		{
@@ -463,7 +462,6 @@ namespace Manatee.Trello.Test.Unit
 		private void IsArchivedIsSet(bool? value)
 		{
 			Execute(() => Card.Sut.IsArchived = value);
-			WaitForProcessor();
 		}
 		private void IsSubscribedIsAccessed()
 		{
@@ -472,7 +470,6 @@ namespace Manatee.Trello.Test.Unit
 		private void IsSubscribedIsSet(bool? value)
 		{
 			Execute(() => Card.Sut.IsSubscribed = value);
-			WaitForProcessor();
 		}
 		private void LabelsIsAccessed()
 		{
@@ -489,8 +486,9 @@ namespace Manatee.Trello.Test.Unit
 		private void ListIsSet(string value)
 		{
 			var list = value == null ? null : new List(value);
+			// TODO: The test is failing because the list doesn't have a board value.
+			//       This needs to be fixed in the test.  This doesn't happen in actual use.
 			Execute(() => Card.Sut.List = list);
-			WaitForProcessor();
 		}
 		private void MembersIsAccessed()
 		{
@@ -503,7 +501,6 @@ namespace Manatee.Trello.Test.Unit
 		private void NameIsSet(string value)
 		{
 			Execute(() => Card.Sut.Name = value);
-			WaitForProcessor();
 		}
 		private void PositionIsAccessed()
 		{
@@ -512,7 +509,6 @@ namespace Manatee.Trello.Test.Unit
 		private void PositionIsSet(Position value)
 		{
 			Execute(() => Card.Sut.Position = value);
-			WaitForProcessor();
 		}
 		private void ShortIdIsAccessed()
 		{

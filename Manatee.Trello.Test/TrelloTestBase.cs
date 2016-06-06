@@ -34,7 +34,7 @@ namespace Manatee.Trello.Test
 			var method = frame.GetMethod();
 			var type = GetType();
 
-			var story = new Story(string.Format("{0}.{1}", type.Name, method.Name));
+			var story = new Story($"{type.Name}.{method.Name}");
 			return story.InOrderTo(string.Empty)
 						.AsA(string.Empty)
 						.IWant(string.Empty);
@@ -46,7 +46,7 @@ namespace Manatee.Trello.Test
 			var method = frame.GetMethod();
 			var type = GetType();
 
-			var story = new Story(string.Format("{0}.{1}", type.Name, method.Name));
+			var story = new Story($"{type.Name}.{method.Name}");
 			return story.InOrderTo(string.Empty)
 						.AsA(string.Empty)
 						.IWant(string.Empty)

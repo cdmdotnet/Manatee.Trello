@@ -151,8 +151,8 @@ namespace Manatee.Trello
 			get { return _list.Value; }
 			set
 			{
-				_board.Value = value.Board;
 				_list.Value = value;
+				_board.Value = value.Board;
 			}
 		}
 		/// <summary>

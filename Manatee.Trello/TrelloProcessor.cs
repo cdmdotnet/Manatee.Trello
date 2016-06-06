@@ -53,8 +53,7 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Signals the processor that the application is shutting down.  The processor will reject any new changes and perform a
-		/// "last call" for pending requests.
+		/// Signals the processor that the application is shutting down.  The processor will perform a "last call" for pending requests.
 		/// </summary>
 		[Obsolete("This method is no longer used as of v1.9.0 and will be removed in the next major version.  Functionality has been " +
 		          "redirected to Flush().  Please use that method instead.")]
@@ -63,15 +62,14 @@ namespace Manatee.Trello
 			Flush();
 		}
 		/// <summary>
-		/// Signals the processor that the application is shutting down.  The processor will reject any new changes and perform a
-		/// "last call" for pending requests.
+		/// Signals the processor that the application is shutting down.  The processor will perform a "last call" for pending requests.
 		/// </summary>
 		public static void Flush()
 		{
 			RestRequestProcessor.Flush();
 		}
 		/// <summary>
-		/// 
+		/// Cancels any requests that are still pending.  This applies to both downloads and uploads.
 		/// </summary>
 		public static void CancelPendingRequests()
 		{

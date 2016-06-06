@@ -213,11 +213,11 @@ namespace Manatee.Trello
 			Auth = auth;
 			_context = new BoardContext(id, auth);
 			_context.Synchronized += Synchronized;
+			Id = id;
 
-			Actions = new ReadOnlyActionCollection(typeof(Board), () => id, auth);
+			Actions = new ReadOnlyActionCollection(typeof(Board), () => Id, auth);
 			Cards = new ReadOnlyCardCollection(typeof(Board), () => Id, auth);
 			_description = new Field<string>(_context, () => Description);
-			Id = id;
 			_isClosed = new Field<bool?>(_context, () => IsClosed);
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
@@ -230,7 +230,7 @@ namespace Manatee.Trello
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, () => Organization);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
-			PersonalPreferences = new BoardPersonalPreferences(id, auth);
+			PersonalPreferences = new BoardPersonalPreferences(Id, auth);
 			_url = new Field<string>(_context, () => Url);
 
 			TrelloConfiguration.Cache.Add(this);
