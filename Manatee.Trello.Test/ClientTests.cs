@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.ManateeJson.Entities;
+using Manatee.Trello.RestSharp;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -125,6 +126,34 @@ namespace Manatee.Trello.Test
 			var names = await Task.WhenAll(nameTasks);
 
 			Assert.AreEqual(0, names.Count(n => n != null));
+		}
+
+		[TestMethod]
+		public async Task CardsNotDownloading_Issue33()
+		{
+			//json, REST and trello setup
+			var serializer = new ManateeSerializer();
+			TrelloConfiguration.Serializer = serializer;
+			TrelloConfiguration.Deserializer = serializer;
+			TrelloConfiguration.JsonFactory = new ManateeFactory();
+			TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
+
+			//app key and token, user required to enter token
+			TrelloAuthorization.Default.AppKey = "440a184b181002cf00f63713a7f51191";
+			TrelloAuthorization.Default.UserToken = "dfd8dd877fa1775db502f891370fb26882a4d8bad41a1cc8cf1a58874b21322b";
+
+			TrelloConfiguration.ThrowOnTrelloError = true;
+
+			Console.WriteLine(Member.Me);
+			var boardID = "574e95edd8a4fc16207f7079";
+			var board = new Board(boardID);
+			Console.WriteLine(board);
+
+			//here is where it calls the exception with 'invalid id'
+			foreach (var card in board.Cards)
+			{
+				Console.WriteLine(card);
+			}
 		}
 	}
 }

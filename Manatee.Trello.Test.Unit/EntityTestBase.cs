@@ -46,6 +46,7 @@ namespace Manatee.Trello.Test.Unit
 				TrelloConfiguration.RestClientProvider = RestClientProvider.Object;
 				TrelloConfiguration.Cache = Cache.Object;
 				TrelloConfiguration.Log = Log.Object;
+				// Real-time processing for tests means we don't have to wait for the processor.
 				TrelloConfiguration.ChangeSubmissionTime = TimeSpan.FromMilliseconds(0);
 
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
@@ -83,7 +84,6 @@ namespace Manatee.Trello.Test.Unit
 				ConfigureJsonFactory<IJsonComment>();
 				ConfigureJsonFactory<IJsonImagePreview>();
 				ConfigureJsonFactory<IJsonLabel>();
-				//ConfigureJsonFactory<IJsonLabelNames>();
 				ConfigureJsonFactory<IJsonList>();
 				ConfigureJsonFactory<IJsonMember>();
 				ConfigureJsonFactory<IJsonMemberPreferences>();
@@ -95,6 +95,7 @@ namespace Manatee.Trello.Test.Unit
 				ConfigureJsonFactory<IJsonOrganizationMembership>();
 				ConfigureJsonFactory<IJsonOrganizationPreferences>();
 				ConfigureJsonFactory<IJsonParameter>();
+				ConfigureJsonFactory<IJsonPosition>();
 				ConfigureJsonFactory<IJsonSearch>();
 				ConfigureJsonFactory<IJsonToken>();
 				ConfigureJsonFactory<IJsonTokenPermission>();
@@ -166,15 +167,6 @@ namespace Manatee.Trello.Test.Unit
 		protected void CacheRemoveIsInvoked()
 		{
 			_sut.Dependencies.Cache.Verify(c => c.Remove(It.IsAny<object>()));
-		}
-
-		#endregion
-
-		#region Other
-
-		protected void WaitForProcessor()
-		{
-			//SpinWait.SpinUntil(() => !RestRequestProcessor.HasRequests);
 		}
 
 		#endregion

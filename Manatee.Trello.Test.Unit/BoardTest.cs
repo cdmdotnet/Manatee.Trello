@@ -301,7 +301,6 @@ namespace Manatee.Trello.Test.Unit
 		private void DescriptionIsSet(string value)
 		{
 			Execute(() => Board.Sut.Description = value);
-			WaitForProcessor();
 		}
 		private void IsClosedIsAccessed()
 		{
@@ -310,7 +309,6 @@ namespace Manatee.Trello.Test.Unit
 		private void IsClosedIsSet(bool? value)
 		{
 			Execute(() => Board.Sut.IsClosed = value);
-			WaitForProcessor();
 		}
 		private void IsSubscribedIsAccessed()
 		{
@@ -319,7 +317,6 @@ namespace Manatee.Trello.Test.Unit
 		private void IsSubscribedIsSet(bool? value)
 		{
 			Execute(() => Board.Sut.IsSubscribed = value);
-			WaitForProcessor();
 		}
 		private void LabelNamesIsAccessed()
 		{
@@ -344,7 +341,6 @@ namespace Manatee.Trello.Test.Unit
 		private void NameIsSet(string value)
 		{
 			Execute(() => Board.Sut.Name = value);
-			WaitForProcessor();
 		}
 		private void OrganizationIsAccessed()
 		{
@@ -354,7 +350,6 @@ namespace Manatee.Trello.Test.Unit
 		{
 			var list = value == null ? null : new Organization(value);
 			Execute(() => Board.Sut.Organization = list);
-			WaitForProcessor();
 		}
 		private void PreferencesIsAccessed()
 		{
