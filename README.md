@@ -65,7 +65,7 @@ There are four calls being made here:
 - Add a card to the list
 - Assign a member to the card
 
-Note that the board details are never downloaded, only its ID as part of the list (`list.Board`).  The `Board.Members` simply creates a collection object that points to the members of the board with this ID.  When we call `Members.First()`, the collection is enumerated triggering another call.
+Note that the board details are never downloaded, only its ID which is included as part of the list (`list.Board`).  The `Board.Members` simply creates a collection object that points to the members of the board with this ID.  When we call `Members.First()`, the collection is enumerated triggering another call.
 
 In addition to the above optimizations, Manatee.Trello will consolidate multiple rapid changes to the same object into a single call.  So the following code snippet only produces a single call:
 
