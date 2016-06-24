@@ -2,7 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/gregsdennis/Manatee.Trello.svg)](https://gitter.im/gregsdennis/Manatee.Trello?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The primary goal of Manatee.Trello is to provide an object-oriented interface to Trello entities.  Other API wrappers that I encounter contain service objects with functions that return little more than DTIs (data transfer objects) to represent the entities.
+The primary goal of Manatee.Trello is to provide an intuitive, object-oriented representation of Trello entities.  Other API wrappers that I encounter contain service objects with functions that return little more than non-functional DTOs (data transfer objects) to represent the entities.
 
 The architecture of Manatee.Trello ensures:
 
