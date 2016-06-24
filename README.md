@@ -75,6 +75,10 @@ In addition to the above optimizations, Manatee.Trello will consolidate multiple
 
 >**NOTE** The limit here is that this only supports direct changes to the card object itself.  Collections on the card (such as `Checklists` are considered separate objects and additional calls will be made for these changes.
 
+On top of all of this, Manatee.Trello maintains an internal cache (for which you can supply your own implementation, if you choose) that holds every entity that has been downloaded.  Any time one entity references another that has already been cached, the cached entity is used rather than downloading and instantiating a copy.
+
+Lastly, each entity will automatically update itself on-demand, throttled by a configurable timeout.  So, if it's been a while since you checked the name of a card and someone has updated it online, the card will automatically refresh.
+
 Of course, all of this functionality is configurable and completely abstracted from you, the client.
 
 See the wiki pages for more information on how to use this wonderful library!
