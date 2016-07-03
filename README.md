@@ -82,3 +82,9 @@ Lastly, each entity will automatically update itself on-demand, throttled by a c
 Of course, all of this functionality is configurable and completely abstracted from you, the client.
 
 See the wiki pages for more information on how to use this wonderful library!
+
+##Contributing
+
+If you like this library and would like to contribute, feel free to fork it and create a pull request.
+
+If you experience any problems or just have an idea to improve, please create an issue.
