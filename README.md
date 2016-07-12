@@ -2,7 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/gregsdennis/Manatee.Trello.svg)](https://gitter.im/gregsdennis/Manatee.Trello?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The primary goal of Manatee.Trello is to provide an object-oriented interface to Trello entities.  Other API wrappers that I encounter contain service objects with functions that return little more than DTIs (data transfer objects) to represent the entities.
+The primary goal of Manatee.Trello is to provide an intuitive, object-oriented representation of Trello entities.  Other API wrappers that I encounter contain service objects with functions that return little more than non-functional DTOs (data transfer objects) to represent the entities.
 
 The architecture of Manatee.Trello ensures:
 
@@ -16,7 +16,7 @@ The main components of Manatee.Trello are:
 - A JSON parser ([Manatee.Trello.ManateeJson](https://www.nuget.org/packages/Manatee.Trello.ManateeJson/))
 - A REST client ([Manatee.Trello.WebApi](https://www.nuget.org/packages/Manatee.Trello.WebApi/))
 
-The parser and the client are merely implemnetations of interfaces defined in the main application.  If you want to use different providers for this functionality, you can provide your own implementations during setup!
+The parser and the client are merely implemnetations of interfaces defined in the main library.  If you want to use different providers for this functionality, you can provide your own implementations during setup!
 
 ##Setup
 
@@ -65,7 +65,7 @@ There are four calls being made here:
 - Add a card to the list
 - Assign a member to the card
 
-Note that the board details are never downloaded, only its ID as part of the list (`list.Board`).  The `Board.Members` simply creates a collection object that points to the members of the board with this ID.  When we call `Members.First()`, the collection is enumerated triggering another call.
+Note that the board details are never downloaded, only its ID which is included as part of the list (`list.Board`).  The `Board.Members` simply creates a collection object that points to the members of the board with this ID.  When we call `Members.First()`, the collection is enumerated triggering another call.
 
 In addition to the above optimizations, Manatee.Trello will consolidate multiple rapid changes to the same object into a single call.  So the following code snippet only produces a single call:
 
@@ -75,6 +75,16 @@ In addition to the above optimizations, Manatee.Trello will consolidate multiple
 
 >**NOTE** The limit here is that this only supports direct changes to the card object itself.  Collections on the card (such as `Checklists` are considered separate objects and additional calls will be made for these changes.
 
+On top of all of this, Manatee.Trello maintains an internal cache (for which you can supply your own implementation, if you choose) that holds every entity that has been downloaded.  Any time one entity references another that has already been cached, the cached entity is used rather than downloading and instantiating a copy.
+
+Lastly, each entity will automatically update itself on-demand, throttled by a configurable timeout.  So, if it's been a while since you checked the name of a card and someone has updated it online, the card will automatically refresh.
+
 Of course, all of this functionality is configurable and completely abstracted from you, the client.
 
 See the wiki pages for more information on how to use this wonderful library!
+
+##Contributing
+
+If you like this library and would like to contribute, feel free to fork it and create a pull request.
+
+If you experience any problems or just have an idea to improve, please create an issue.
