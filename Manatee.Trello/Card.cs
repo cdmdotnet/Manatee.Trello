@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -197,6 +198,7 @@ namespace Manatee.Trello
 		/// Trello will likely change this value as the name changes.  You can use <see cref="ShortUrl"/> for permalinks.
 		/// </remarks>
 		public string Url => _url.Value;
+		public ReadOnlyMemberCollection VotingMembers { get; }
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.
@@ -259,29 +261,30 @@ namespace Manatee.Trello
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => id, auth);
 			Attachments = new AttachmentCollection(() => Id, auth);
 			Badges = new Badges(_context.BadgesContext);
-			_board = new Field<Board>(_context, () => Board);
+			_board = new Field<Board>(_context, nameof(Board));
 			_board.AddRule(NotNullRule<Board>.Instance);
 			CheckLists = new CheckListCollection(this, auth);
 			Comments = new CommentCollection(() => Id, auth);
-			_description = new Field<string>(_context, () => Description);
-			_dueDate = new Field<DateTime?>(_context, () => DueDate);
-			_isArchived = new Field<bool?>(_context, () => IsArchived);
+			_description = new Field<string>(_context, nameof(Description));
+			_dueDate = new Field<DateTime?>(_context, nameof(DueDate));
+			_isArchived = new Field<bool?>(_context, nameof(IsArchived));
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
-			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
+			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
 			Labels = new CardLabelCollection(_context, auth);
-			_lastActivity = new Field<DateTime?>(_context, () => LastActivity);
-			_list = new Field<List>(_context, () => List);
+			_lastActivity = new Field<DateTime?>(_context, nameof(LastActivity));
+			_list = new Field<List>(_context, nameof(List));
 			_list.AddRule(NotNullRule<List>.Instance);
-			Members = new MemberCollection(() => Id, auth);
-			_name = new Field<string>(_context, () => Name);
+			Members = new MemberCollection(EntityRequestType.Card_Read_Members, () => Id, auth);
+			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
-			_position = new Field<Position>(_context, () => Position);
+			_position = new Field<Position>(_context, nameof(Position));
 			_position.AddRule(PositionRule.Instance);
-			_shortId = new Field<int?>(_context, () => ShortId);
-			_shortUrl = new Field<string>(_context, () => ShortUrl);
+			_shortId = new Field<int?>(_context, nameof(ShortId));
+			_shortUrl = new Field<string>(_context, nameof(ShortUrl));
 			Stickers = new CardStickerCollection(() => Id, auth);
-			_url = new Field<string>(_context, () => Url);
+			_url = new Field<string>(_context, nameof(Url));
+			VotingMembers = new ReadOnlyMemberCollection(EntityRequestType.Card_Read_MembersVoted, () => Id, auth);
 
 			TrelloConfiguration.Cache.Add(this);
 		}

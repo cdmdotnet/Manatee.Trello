@@ -175,17 +175,17 @@ namespace Manatee.Trello
 			_context = new StickerContext(Id, ownerId, auth);
 			_context.Synchronized += Synchronized;
 
-			_left = new Field<double?>(_context, () => Left);
+			_left = new Field<double?>(_context, nameof(Left));
 			_left.AddRule(NullableHasValueRule<double>.Instance);
-			_name = new Field<string>(_context, () => Name);
+			_name = new Field<string>(_context, nameof(Name));
 			Previews = new ReadOnlyStickerPreviewCollection(_context, auth);
-			_rotation = new Field<int?>(_context, () => Rotation);
+			_rotation = new Field<int?>(_context, nameof(Rotation));
 			_rotation.AddRule(NullableHasValueRule<int>.Instance);
 			_rotation.AddRule(new NumericRule<int> {Min = 0, Max = 359});
-			_top = new Field<double?>(_context, () => Top);
+			_top = new Field<double?>(_context, nameof(Top));
 			_top.AddRule(NullableHasValueRule<double>.Instance);
-			_url = new Field<string>(_context, () => ImageUrl);
-			_zIndex = new Field<int?>(_context, () => ZIndex);
+			_url = new Field<string>(_context, nameof(ImageUrl));
+			_zIndex = new Field<int?>(_context, nameof(ZIndex));
 			_zIndex.AddRule(NullableHasValueRule<int>.Instance);
 
 			_context.Merge(json);

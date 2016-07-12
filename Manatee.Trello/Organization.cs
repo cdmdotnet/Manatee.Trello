@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -174,16 +175,16 @@ namespace Manatee.Trello
 
 			Actions = new ReadOnlyActionCollection(typeof(Organization), () => Id, auth);
 			Boards = new BoardCollection(typeof(Organization), () => Id, auth);
-			_description = new Field<string>(_context, () => Description);
-			_displayName = new Field<string>(_context, () => DisplayName);
-			_isBusinessClass = new Field<bool>(_context, () => IsBusinessClass);
-			Members = new ReadOnlyMemberCollection(typeof(Organization), () => Id, auth);
+			_description = new Field<string>(_context, nameof(Description));
+			_displayName = new Field<string>(_context, nameof(DisplayName));
+			_isBusinessClass = new Field<bool>(_context, nameof(IsBusinessClass));
+			Members = new ReadOnlyMemberCollection(EntityRequestType.Organization_Read_Members, () => Id, auth);
 			Memberships = new OrganizationMembershipCollection(() => Id, auth);
-			_name = new Field<string>(_context, () => Name);
+			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(OrganizationNameRule.Instance);
 			Preferences = new OrganizationPreferences(_context.OrganizationPreferencesContext);
-			_url = new Field<string>(_context, () => Url);
-			_website = new Field<string>(_context, () => Website);
+			_url = new Field<string>(_context, nameof(Url));
+			_website = new Field<string>(_context, nameof(Website));
 			_website.AddRule(UriRule.Instance);
 
 			TrelloConfiguration.Cache.Add(this);

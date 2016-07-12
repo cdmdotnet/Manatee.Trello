@@ -86,15 +86,15 @@ namespace Manatee.Trello
 		{
 			_context = new MemberSearchContext(auth);
 
-			_board = new Field<Board>(_context, () => Board);
-			_limit = new Field<int?>(_context, () => Limit);
+			_board = new Field<Board>(_context, nameof(Board));
+			_limit = new Field<int?>(_context, nameof(Limit));
 			_limit.AddRule(NullableHasValueRule<int>.Instance);
 			_limit.AddRule(new NumericRule<int> {Min = 1, Max = 20});
-			_organization = new Field<Organization>(_context, () => Organization);
-			_query = new Field<string>(_context, () => Query);
+			_organization = new Field<Organization>(_context, nameof(Organization));
+			_query = new Field<string>(_context, nameof(Query));
 			_query.AddRule(NotNullOrWhiteSpaceRule.Instance);
-			_restrictToOrganization = new Field<bool?>(_context, () => RestrictToOrganization);
-			_results = new Field<IEnumerable<MemberSearchResult>>(_context, () => Results);
+			_restrictToOrganization = new Field<bool?>(_context, nameof(RestrictToOrganization));
+			_results = new Field<IEnumerable<MemberSearchResult>>(_context, nameof(Results));
 
 			Query = query;
 			Limit = limit;

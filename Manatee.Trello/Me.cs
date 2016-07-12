@@ -103,7 +103,7 @@ namespace Manatee.Trello
 		internal Me()
 			: base(GetId(), true, TrelloAuthorization.Default)
 		{
-			_email = new Field<string>(_context, () => Email);
+			_email = new Field<string>(_context, nameof(Email));
 			Notifications = new ReadOnlyNotificationCollection(() => Id, TrelloAuthorization.Default);
 			Preferences = new MemberPreferences(_context.MemberPreferencesContext);
 

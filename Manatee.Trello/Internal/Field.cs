@@ -22,10 +22,8 @@
 
 ***************************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -54,10 +52,10 @@ namespace Manatee.Trello.Internal
 		}
 		private T CurrentValue => _context.GetValue<T>(_property);
 
-		public Field(SynchronizationContext context, Expression<Func<T>> property)
+		public Field(SynchronizationContext context, string propertyName)
 		{
 			_context = context;
-			_property = property.GetName();
+			_property = propertyName;
 			_rules = new List<IValidationRule<T>>();
 		}
 

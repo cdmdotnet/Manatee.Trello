@@ -53,6 +53,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Card_Read_Attachments,
 		Card_Read_CheckLists,
 		Card_Read_Members,
+		Card_Read_MembersVoted,
 		Card_Read_Refresh,
 		Card_Read_Stickers,
 		//Card_Read_VotingMembers,

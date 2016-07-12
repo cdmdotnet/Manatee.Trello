@@ -125,19 +125,19 @@ namespace Manatee.Trello
 		{
 			_context = new SearchContext(auth);
 
-			_actions = new Field<IEnumerable<Action>>(_context, () => Actions);
-			_boards = new Field<IEnumerable<Board>>(_context, () => Boards);
-			_cards = new Field<IEnumerable<Card>>(_context, () => Cards);
-			_members = new Field<IEnumerable<Member>>(_context, () => Members);
-			_organizations = new Field<IEnumerable<Organization>>(_context, () => Organizations);
-			_query = new Field<string>(_context, () => Query);
+			_actions = new Field<IEnumerable<Action>>(_context, nameof(Actions));
+			_boards = new Field<IEnumerable<Board>>(_context, nameof(Boards));
+			_cards = new Field<IEnumerable<Card>>(_context, nameof(Cards));
+			_members = new Field<IEnumerable<Member>>(_context, nameof(Members));
+			_organizations = new Field<IEnumerable<Organization>>(_context, nameof(Organizations));
+			_query = new Field<string>(_context, nameof(Query));
 			_query.AddRule(NotNullOrWhiteSpaceRule.Instance);
-			_queryContext = new Field<List<IQueryable>>(_context, () => Context);
-			_modelTypes = new Field<SearchModelType?>(_context, () => Types);
-			_limit = new Field<int?>(_context, () => Limit);
+			_queryContext = new Field<List<IQueryable>>(_context, nameof(Context));
+			_modelTypes = new Field<SearchModelType?>(_context, nameof(Types));
+			_limit = new Field<int?>(_context, nameof(Limit));
 			_limit.AddRule(NullableHasValueRule<int>.Instance);
 			_limit.AddRule(new NumericRule<int> {Min = 1, Max = 1000});
-			_isPartial = new Field<bool?>(_context, () => IsPartial);
+			_isPartial = new Field<bool?>(_context, nameof(IsPartial));
 
 			Query = query;
 			if (context != null)

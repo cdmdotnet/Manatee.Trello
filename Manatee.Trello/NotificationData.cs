@@ -150,25 +150,25 @@ namespace Manatee.Trello
 		{
 			_context = context;
 
-			_attachment = new Field<Attachment>(_context, () => Attachment);
-			_board = new Field<Board>(_context, () => Board);
-			_boardSource = new Field<Board>(_context, () => BoardSource);
-			_boardTarget = new Field<Board>(_context, () => BoardTarget);
-			_card = new Field<Card>(_context, () => Card);
-			_cardSource = new Field<Card>(_context, () => CardSource);
-			_checkItem = new Field<CheckItem>(_context, () => CheckItem);
-			_checkList = new Field<CheckList>(_context, () => CheckList);
-			_list = new Field<List>(_context, () => List);
-			_listAfter = new Field<List>(_context, () => ListAfter);
-			_listBefore = new Field<List>(_context, () => ListBefore);
-			_member = new Field<Member>(_context, () => Member);
-			_wasArchived = new Field<bool?>(_context, () => WasArchived);
-			_oldDescription = new Field<string>(_context, () => OldDescription);
-			_oldList = new Field<List>(_context, () => OldList);
-			_oldPosition = new Field<Position>(_context, () => OldPosition);
-			_oldText = new Field<string>(_context, () => OldText);
-			_organization = new Field<Organization>(_context, () => Organization);
-			_text = new Field<string>(_context, () => Text);
+			_attachment = new Field<Attachment>(_context, nameof(Attachment));
+			_board = new Field<Board>(_context, nameof(Board));
+			_boardSource = new Field<Board>(_context, nameof(BoardSource));
+			_boardTarget = new Field<Board>(_context, nameof(BoardTarget));
+			_card = new Field<Card>(_context, nameof(Card));
+			_cardSource = new Field<Card>(_context, nameof(CardSource));
+			_checkItem = new Field<CheckItem>(_context, nameof(CheckItem));
+			_checkList = new Field<CheckList>(_context, nameof(CheckList));
+			_list = new Field<List>(_context, nameof(List));
+			_listAfter = new Field<List>(_context, nameof(ListAfter));
+			_listBefore = new Field<List>(_context, nameof(ListBefore));
+			_member = new Field<Member>(_context, nameof(Member));
+			_wasArchived = new Field<bool?>(_context, nameof(WasArchived));
+			_oldDescription = new Field<string>(_context, nameof(OldDescription));
+			_oldList = new Field<List>(_context, nameof(OldList));
+			_oldPosition = new Field<Position>(_context, nameof(OldPosition));
+			_oldText = new Field<string>(_context, nameof(OldText));
+			_organization = new Field<Organization>(_context, nameof(Organization));
+			_text = new Field<string>(_context, nameof(Text));
 			_text.AddRule(OldValueNotNullOrWhiteSpaceRule.Instance);
 		}
 	}

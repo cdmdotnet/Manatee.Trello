@@ -50,15 +50,10 @@ namespace Manatee.Trello
 		/// </remarks>
 		public Member this[string key] => GetByKey(key);
 
-		internal ReadOnlyMemberCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
+		internal ReadOnlyMemberCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
-			if (type == typeof (Board))
-				_updateRequestType = EntityRequestType.Board_Read_Members;
-			else if (type == typeof (Organization))
-				_updateRequestType = EntityRequestType.Organization_Read_Members;
-			else
-				_updateRequestType = EntityRequestType.Card_Read_Members;
+			_updateRequestType = requestType;
 			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
 		}
 		internal ReadOnlyMemberCollection(ReadOnlyMemberCollection source, TrelloAuthorization auth)
@@ -90,7 +85,7 @@ namespace Manatee.Trello
 		{
 			if (_additionalParameters == null)
 				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
-			var filter = _additionalParameters.ContainsKey("filter") ? ((string)_additionalParameters["filter"]) : string.Empty;
+			var filter = _additionalParameters.ContainsKey("filter") ? (string)_additionalParameters["filter"] : string.Empty;
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
@@ -108,8 +103,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class MemberCollection : ReadOnlyMemberCollection
 	{
-		internal MemberCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(typeof (Card), getOwnerId, auth) {}
+		internal MemberCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(requestType, getOwnerId, auth) {}
 
 		/// <summary>
 		/// Adds a member to the collection.

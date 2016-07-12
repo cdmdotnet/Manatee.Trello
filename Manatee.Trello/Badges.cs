@@ -89,16 +89,16 @@ namespace Manatee.Trello
 		{
 			_context = context;
 
-			_attachments = new Field<int?>(_context, () => Attachments);
-			_checkItems = new Field<int?>(_context, () => CheckItems);
-			_checkItemsChecked = new Field<int?>(_context, () => CheckItemsChecked);
-			_comments = new Field<int?>(_context, () => Comments);
-			_dueDate = new Field<DateTime?>(_context, () => DueDate);
-			_fogBugz = new Field<string>(_context, () => FogBugz);
-			_hasDescription = new Field<bool?>(_context, () => HasDescription);
-			_hasVoted = new Field<bool?>(_context, () => HasVoted);
-			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
-			_votes = new Field<int?>(_context, () => Votes);
+			_attachments = new Field<int?>(_context, nameof(Attachments));
+			_checkItems = new Field<int?>(_context, nameof(CheckItems));
+			_checkItemsChecked = new Field<int?>(_context, nameof(CheckItemsChecked));
+			_comments = new Field<int?>(_context, nameof(Comments));
+			_dueDate = new Field<DateTime?>(_context, nameof(DueDate));
+			_fogBugz = new Field<string>(_context, nameof(FogBugz));
+			_hasDescription = new Field<bool?>(_context, nameof(HasDescription));
+			_hasVoted = new Field<bool?>(_context, nameof(HasVoted));
+			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
+			_votes = new Field<int?>(_context, nameof(Votes));
 		}
 	}
 }

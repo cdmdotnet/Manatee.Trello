@@ -177,10 +177,10 @@ namespace Manatee.Trello
 			_context = new ActionContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			_creator = new Field<Member>(_context, () => Creator);
-			_date = new Field<DateTime?>(_context, () => Date);
+			_creator = new Field<Member>(_context, nameof(Creator));
+			_date = new Field<DateTime?>(_context, nameof(Date));
 			Data = new ActionData(_context.ActionDataContext);
-			_type = new Field<ActionType?>(_context, () => Type);
+			_type = new Field<ActionType?>(_context, nameof(Type));
 
 			TrelloConfiguration.Cache.Add(this);
 		}

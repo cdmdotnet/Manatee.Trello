@@ -147,13 +147,13 @@ namespace Manatee.Trello
 			_context = new CheckListContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			_board = new Field<Board>(_context, () => Board);
-			_card = new Field<Card>(_context, () => Card);
+			_board = new Field<Board>(_context, nameof(Board));
+			_card = new Field<Card>(_context, nameof(Card));
 			_card.AddRule(NotNullRule<Card>.Instance);
 			CheckItems = new CheckItemCollection(_context, auth);
-			_name = new Field<string>(_context, () => Name);
+			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
-			_position = new Field<Position>(_context, () => Position);
+			_position = new Field<Position>(_context, nameof(Position));
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 

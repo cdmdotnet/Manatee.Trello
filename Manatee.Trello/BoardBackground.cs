@@ -110,9 +110,9 @@ namespace Manatee.Trello
 			_context = new BoardBackgroundContext(auth);
 			_context.Merge(json);
 
-			_color = new Field<WebColor>(_context, () => Color);
-			_image = new Field<string>(_context, () => Image);
-			_isTiled = new Field<bool?>(_context, () => IsTiled);
+			_color = new Field<WebColor>(_context, nameof(Color));
+			_image = new Field<string>(_context, nameof(Image));
+			_isTiled = new Field<bool?>(_context, nameof(IsTiled));
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, auth);
 
 			TrelloConfiguration.Cache.Add(this);
@@ -123,9 +123,9 @@ namespace Manatee.Trello
 			_context = new BoardBackgroundContext(TrelloAuthorization.Default);
 			Json.Id = id;
 
-			_color = new Field<WebColor>(_context, () => Color);
-			_image = new Field<string>(_context, () => Image);
-			_isTiled = new Field<bool?>(_context, () => IsTiled);
+			_color = new Field<WebColor>(_context, nameof(Color));
+			_image = new Field<string>(_context, nameof(Image));
+			_isTiled = new Field<bool?>(_context, nameof(IsTiled));
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, TrelloAuthorization.Default);
 
 			TrelloConfiguration.Cache.Add(this);

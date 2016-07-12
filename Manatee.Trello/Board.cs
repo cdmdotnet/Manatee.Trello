@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -217,21 +218,21 @@ namespace Manatee.Trello
 
 			Actions = new ReadOnlyActionCollection(typeof(Board), () => Id, auth);
 			Cards = new ReadOnlyCardCollection(typeof(Board), () => Id, auth);
-			_description = new Field<string>(_context, () => Description);
-			_isClosed = new Field<bool?>(_context, () => IsClosed);
+			_description = new Field<string>(_context, nameof(Description));
+			_isClosed = new Field<bool?>(_context, nameof(IsClosed));
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
-			_isSubscribed = new Field<bool?>(_context, () => IsSubscribed);
+			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
 			Labels = new BoardLabelCollection(() => Id, auth);
 			Lists = new ListCollection(() => Id, auth);
-			Members = new ReadOnlyMemberCollection(typeof(Board), () => Id, auth);
+			Members = new ReadOnlyMemberCollection(EntityRequestType.Board_Read_Members, () => Id, auth);
 			Memberships = new BoardMembershipCollection(() => Id, auth);
-			_name = new Field<string>(_context, () => Name);
+			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
-			_organization = new Field<Organization>(_context, () => Organization);
+			_organization = new Field<Organization>(_context, nameof(Organization));
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			PersonalPreferences = new BoardPersonalPreferences(Id, auth);
-			_url = new Field<string>(_context, () => Url);
+			_url = new Field<string>(_context, nameof(Url));
 
 			TrelloConfiguration.Cache.Add(this);
 		}

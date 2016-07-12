@@ -123,28 +123,28 @@ namespace Manatee.Trello
 		{
 			_context = context;
 
-			_permissionLevel = new Field<BoardPermissionLevel?>(_context, () => PermissionLevel);
+			_permissionLevel = new Field<BoardPermissionLevel?>(_context, nameof(PermissionLevel));
 			_permissionLevel.AddRule(NullableHasValueRule<BoardPermissionLevel>.Instance);
 			_permissionLevel.AddRule(EnumerationRule<BoardPermissionLevel?>.Instance);
-			_voting = new Field<BoardVotingPermission?>(_context, () => Voting);
+			_voting = new Field<BoardVotingPermission?>(_context, nameof(Voting));
 			_voting.AddRule(NullableHasValueRule<BoardVotingPermission>.Instance);
 			_voting.AddRule(EnumerationRule<BoardVotingPermission?>.Instance);
-			_commenting = new Field<BoardCommentPermission?>(_context, () => Commenting);
+			_commenting = new Field<BoardCommentPermission?>(_context, nameof(Commenting));
 			_commenting.AddRule(NullableHasValueRule<BoardCommentPermission>.Instance);
 			_commenting.AddRule(EnumerationRule<BoardCommentPermission?>.Instance);
-			_invitations = new Field<BoardInvitationPermission?>(_context, () => Invitations);
+			_invitations = new Field<BoardInvitationPermission?>(_context, nameof(Invitations));
 			_invitations.AddRule(NullableHasValueRule<BoardInvitationPermission>.Instance);
 			_invitations.AddRule(EnumerationRule<BoardInvitationPermission?>.Instance);
-			_allowSelfJoin = new Field<bool?>(_context, () => AllowSelfJoin);
+			_allowSelfJoin = new Field<bool?>(_context, nameof(AllowSelfJoin));
 			_allowSelfJoin.AddRule(NullableHasValueRule<bool>.Instance);
-			_showCardCovers = new Field<bool?>(_context, () => ShowCardCovers);
+			_showCardCovers = new Field<bool?>(_context, nameof(ShowCardCovers));
 			_showCardCovers.AddRule(NullableHasValueRule<bool>.Instance);
-			_isCalendarFeedEnabled = new Field<bool?>(_context, () => IsCalendarFeedEnabled);
+			_isCalendarFeedEnabled = new Field<bool?>(_context, nameof(IsCalendarFeedEnabled));
 			_isCalendarFeedEnabled.AddRule(NullableHasValueRule<bool>.Instance);
-			_cardAgingStyle = new Field<CardAgingStyle?>(_context, () => CardAgingStyle);
+			_cardAgingStyle = new Field<CardAgingStyle?>(_context, nameof(CardAgingStyle));
 			_cardAgingStyle.AddRule(NullableHasValueRule<CardAgingStyle>.Instance);
 			_cardAgingStyle.AddRule(EnumerationRule<CardAgingStyle?>.Instance);
-			_background = new Field<BoardBackground>(_context, () => Background);
+			_background = new Field<BoardBackground>(_context, nameof(Background));
 			_background.AddRule(NotNullRule<BoardBackground>.Instance);
 		}
 	}

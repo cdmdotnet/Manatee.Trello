@@ -113,11 +113,11 @@ namespace Manatee.Trello
 			_context = new TokenContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			_appName = new Field<string>(_context, () => AppName);
+			_appName = new Field<string>(_context, nameof(AppName));
 			BoardPermissions = new TokenPermission(_context.BoardPermissions);
-			_dateCreated = new Field<DateTime?>(_context, () => DateCreated);
-			_dateExpires = new Field<DateTime?>(_context, () => DateExpires);
-			_member = new Field<Member>(_context, () => Member);
+			_dateCreated = new Field<DateTime?>(_context, nameof(DateCreated));
+			_dateExpires = new Field<DateTime?>(_context, nameof(DateExpires));
+			_member = new Field<Member>(_context, nameof(Member));
 			MemberPermissions = new TokenPermission(_context.MemberPermissions);
 			OrganizationPermissions = new TokenPermission(_context.OrganizationPermissions);
 

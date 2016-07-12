@@ -116,19 +116,19 @@ namespace Manatee.Trello
 		{
 			_context = new BoardPersonalPreferencesContext(ownerId, auth);
 
-			_emailList = new Field<List>(_context, () => EmailList);
+			_emailList = new Field<List>(_context, nameof(EmailList));
 			_emailList.AddRule(NotNullRule<List>.Instance);
-			_emailPosition = new Field<Position>(_context, () => EmailPosition);
+			_emailPosition = new Field<Position>(_context, nameof(EmailPosition));
 			_emailPosition.AddRule(NotNullRule<Position>.Instance);
-			_showListGuide = new Field<bool?>(_context, () => ShowListGuide);
+			_showListGuide = new Field<bool?>(_context, nameof(ShowListGuide));
 			_showListGuide.AddRule(NullableHasValueRule<bool>.Instance);
-			_showSidebar = new Field<bool?>(_context, () => ShowSidebar);
+			_showSidebar = new Field<bool?>(_context, nameof(ShowSidebar));
 			_showSidebar.AddRule(NullableHasValueRule<bool>.Instance);
-			_showSidebarActivity = new Field<bool?>(_context, () => ShowSidebarActivity);
+			_showSidebarActivity = new Field<bool?>(_context, nameof(ShowSidebarActivity));
 			_showSidebarActivity.AddRule(NullableHasValueRule<bool>.Instance);
-			_showSidebarBoardActions = new Field<bool?>(_context, () => ShowSidebarBoardActions);
+			_showSidebarBoardActions = new Field<bool?>(_context, nameof(ShowSidebarBoardActions));
 			_showSidebarBoardActions.AddRule(NullableHasValueRule<bool>.Instance);
-			_showSidebarMembers = new Field<bool?>(_context, () => ShowSidebarMembers);
+			_showSidebarMembers = new Field<bool?>(_context, nameof(ShowSidebarMembers));
 			_showSidebarMembers.AddRule(NullableHasValueRule<bool>.Instance);
 		}
 	}

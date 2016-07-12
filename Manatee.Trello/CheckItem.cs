@@ -121,14 +121,14 @@ namespace Manatee.Trello
 			_context = new CheckItemContext(Id, checkListId, auth);
 			_context.Synchronized += Synchronized;
 
-			_checkList = new Field<CheckList>(_context, () => CheckList);
+			_checkList = new Field<CheckList>(_context, nameof(CheckList));
 			_checkList.AddRule(NotNullRule<CheckList>.Instance);
-			_name = new Field<string>(_context, () => Name);
+			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
-			_position = new Field<Position>(_context, () => Position);
+			_position = new Field<Position>(_context, nameof(Position));
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
-			_state = new Field<CheckItemState?>(_context, () => State);
+			_state = new Field<CheckItemState?>(_context, nameof(State));
 			_state.AddRule(NullableHasValueRule<CheckItemState>.Instance);
 			_state.AddRule(EnumerationRule<CheckItemState?>.Instance);
 

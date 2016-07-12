@@ -57,9 +57,9 @@ namespace Manatee.Trello
 		{
 			_context = context;
 
-			_enableColorBlindMode = new Field<bool?>(_context, () => EnableColorBlindMode);
+			_enableColorBlindMode = new Field<bool?>(_context, nameof(EnableColorBlindMode));
 			_enableColorBlindMode.AddRule(NullableHasValueRule<bool>.Instance);
-			_minutesBetweenSummaries = new Field<int?>(_context, () => MinutesBetweenSummaries);
+			_minutesBetweenSummaries = new Field<int?>(_context, nameof(MinutesBetweenSummaries));
 			_minutesBetweenSummaries.AddRule(NullableHasValueRule<int>.Instance);
 		}
 	}

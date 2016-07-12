@@ -124,14 +124,14 @@ namespace Manatee.Trello
 			_context = new AttachmentContext(Id, ownerId, auth);
 			_context.Synchronized += Synchronized;
 
-			_bytes = new Field<int?>(_context, () => Bytes);
-			_date = new Field<DateTime?>(_context, () => Date);
-			_member = new Field<Member>(_context, () => Member);
-			_isUpload = new Field<bool?>(_context, () => IsUpload);
-			_mimeType = new Field<string>(_context, () => MimeType);
-			_name = new Field<string>(_context, () => Name);
+			_bytes = new Field<int?>(_context, nameof(Bytes));
+			_date = new Field<DateTime?>(_context, nameof(Date));
+			_member = new Field<Member>(_context, nameof(Member));
+			_isUpload = new Field<bool?>(_context, nameof(IsUpload));
+			_mimeType = new Field<string>(_context, nameof(MimeType));
+			_name = new Field<string>(_context, nameof(Name));
 			Previews = new ReadOnlyAttachmentPreviewCollection(_context, auth);
-			_url = new Field<string>(_context, () => Url);
+			_url = new Field<string>(_context, nameof(Url));
 
 			TrelloConfiguration.Cache.Add(this);
 

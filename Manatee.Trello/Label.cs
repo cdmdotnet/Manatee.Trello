@@ -93,11 +93,11 @@ namespace Manatee.Trello
 		{
 			Id = json.Id;
 			_context = new LabelContext(Id, auth);
-			_board = new Field<Board>(_context, () => Board);
-			_color = new Field<LabelColor?>(_context, () => Color);
+			_board = new Field<Board>(_context, nameof(Board));
+			_color = new Field<LabelColor?>(_context, nameof(Color));
 			_color.AddRule(EnumerationRule<LabelColor?>.Instance);
-			_name = new Field<string>(_context, () => Name);
-			_uses = new Field<int?>(_context, () => Uses);
+			_name = new Field<string>(_context, nameof(Name));
+			_uses = new Field<int?>(_context, nameof(Uses));
 			
 			_context.Merge(json);
 		}

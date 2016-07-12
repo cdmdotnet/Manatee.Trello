@@ -47,8 +47,8 @@ namespace Manatee.Trello
 		{
 			_context = context;
 
-			_canRead = new Field<bool?>(_context, () => CanRead);
-			_canWrite = new Field<bool?>(_context, () => CanWrite);
+			_canRead = new Field<bool?>(_context, nameof(CanRead));
+			_canWrite = new Field<bool?>(_context, nameof(CanWrite));
 		}
 	}
 }

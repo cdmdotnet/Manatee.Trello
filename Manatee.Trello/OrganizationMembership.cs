@@ -105,11 +105,11 @@ namespace Manatee.Trello
 			_context = new OrganizationMembershipContext(Id, ownerId, auth);
 			_context.Synchronized += Synchronized;
 
-			_member = new Field<Member>(_context, () => Member);
-			_memberType = new Field<OrganizationMembershipType?>(_context, () => MemberType);
+			_member = new Field<Member>(_context, nameof(Member));
+			_memberType = new Field<OrganizationMembershipType?>(_context, nameof(MemberType));
 			_memberType.AddRule(NullableHasValueRule<OrganizationMembershipType>.Instance);
 			_memberType.AddRule(EnumerationRule<OrganizationMembershipType?>.Instance);
-			_isDeactivated = new Field<bool?>(_context, () => IsDeactivated);
+			_isDeactivated = new Field<bool?>(_context, nameof(IsDeactivated));
 
 			TrelloConfiguration.Cache.Add(this);
 

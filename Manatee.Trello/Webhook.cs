@@ -150,12 +150,12 @@ namespace Manatee.Trello
 			_context = new WebhookContext<T>(auth);
 			Id = _context.Create(target, description, callBackUrl);
 
-			_callBackUrl = new Field<string>(_context, () => CallBackUrl);
+			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
 			_callBackUrl.AddRule(UriRule.Instance);
-			_description = new Field<string>(_context, () => Description);
-			_isActive = new Field<bool?>(_context, () => IsActive);
+			_description = new Field<string>(_context, nameof(Description));
+			_isActive = new Field<bool?>(_context, nameof(IsActive));
 			_isActive.AddRule(NullableHasValueRule<bool>.Instance);
-			_target = new Field<T>(_context, () => Target);
+			_target = new Field<T>(_context, nameof(Target));
 			_target.AddRule(NotNullRule<T>.Instance);
 
 			TrelloConfiguration.Cache.Add(this);
@@ -172,12 +172,12 @@ namespace Manatee.Trello
 			_context = new WebhookContext<T>(Id, auth);
 			_context.Synchronized += Synchronized;
 
-			_callBackUrl = new Field<string>(_context, () => CallBackUrl);
+			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
 			_callBackUrl.AddRule(UriRule.Instance);
-			_description = new Field<string>(_context, () => Description);
-			_isActive = new Field<bool?>(_context, () => IsActive);
+			_description = new Field<string>(_context, nameof(Description));
+			_isActive = new Field<bool?>(_context, nameof(IsActive));
 			_isActive.AddRule(NullableHasValueRule<bool>.Instance);
-			_target = new Field<T>(_context, () => Target);
+			_target = new Field<T>(_context, nameof(Target));
 			_target.AddRule(NotNullRule<T>.Instance);
 
 			TrelloConfiguration.Cache.Add(this);

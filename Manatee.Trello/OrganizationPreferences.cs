@@ -101,19 +101,19 @@ namespace Manatee.Trello
 		{
 			_context = context;
 
-			_permissionLevel = new Field<OrganizationPermissionLevel?>(_context, () => PermissionLevel);
+			_permissionLevel = new Field<OrganizationPermissionLevel?>(_context, nameof(PermissionLevel));
 			_permissionLevel.AddRule(NullableHasValueRule<OrganizationPermissionLevel>.Instance);
 			_permissionLevel.AddRule(EnumerationRule<OrganizationPermissionLevel?>.Instance);
-			_externalMembersDisabled = new Field<bool?>(_context, () => ExternalMembersDisabled);
+			_externalMembersDisabled = new Field<bool?>(_context, nameof(ExternalMembersDisabled));
 			_externalMembersDisabled.AddRule(NullableHasValueRule<bool>.Instance);
-			_assocatedDomain = new Field<string>(_context, () => AssociatedDomain);
-			_publicBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, () => PublicBoardVisibility);
+			_assocatedDomain = new Field<string>(_context, nameof(AssociatedDomain));
+			_publicBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, nameof(PublicBoardVisibility));
 			_publicBoardVisibility.AddRule(NullableHasValueRule<OrganizationBoardVisibility>.Instance);
 			_publicBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility?>.Instance);
-			_organizationBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, () => OrganizationBoardVisibility);
+			_organizationBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, nameof(OrganizationBoardVisibility));
 			_organizationBoardVisibility.AddRule(NullableHasValueRule<OrganizationBoardVisibility>.Instance);
 			_organizationBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility?>.Instance);
-			_privateBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, () => PrivateBoardVisibility);
+			_privateBoardVisibility = new Field<OrganizationBoardVisibility?>(_context, nameof(PrivateBoardVisibility));
 			_privateBoardVisibility.AddRule(NullableHasValueRule<OrganizationBoardVisibility>.Instance);
 			_privateBoardVisibility.AddRule(EnumerationRule<OrganizationBoardVisibility?>.Instance);
 		}

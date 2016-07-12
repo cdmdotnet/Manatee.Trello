@@ -206,22 +206,22 @@ namespace Manatee.Trello
 			_context.Synchronized += Synchronized;
 
 			Actions = new ReadOnlyActionCollection(typeof(Member), () => Id, auth);
-			_avatarSource = new Field<AvatarSource?>(_context, () => AvatarSource);
+			_avatarSource = new Field<AvatarSource?>(_context, nameof(AvatarSource));
 			_avatarSource.AddRule(NullableHasValueRule<AvatarSource>.Instance);
 			_avatarSource.AddRule(EnumerationRule<AvatarSource?>.Instance);
-			_avatarUrl = new Field<string>(_context, () => AvatarUrl);
-			_bio = new Field<string>(_context, () => Bio);
+			_avatarUrl = new Field<string>(_context, nameof(AvatarUrl));
+			_bio = new Field<string>(_context, nameof(Bio));
 			Boards = isMe ? new BoardCollection(typeof(Member), () => Id, auth) : new ReadOnlyBoardCollection(typeof(Member), () => Id, auth);
-			_fullName = new Field<string>(_context, () => FullName);
+			_fullName = new Field<string>(_context, nameof(FullName));
 			_fullName.AddRule(MemberFullNameRule.Instance);
-			_initials = new Field<string>(_context, () => Initials);
+			_initials = new Field<string>(_context, nameof(Initials));
 			_initials.AddRule(MemberInitialsRule.Instance);
-			_isConfirmed = new Field<bool?>(_context, () => IsConfirmed);
+			_isConfirmed = new Field<bool?>(_context, nameof(IsConfirmed));
 			Organizations = isMe ? new OrganizationCollection(() => Id, auth) : new ReadOnlyOrganizationCollection(() => Id, auth);
-			_status = new Field<MemberStatus?>(_context, () => Status);
-			_trophies = new Field<IEnumerable<string>>(_context, () => Trophies);
-			_url = new Field<string>(_context, () => Url);
-			_userName = new Field<string>(_context, () => UserName);
+			_status = new Field<MemberStatus?>(_context, nameof(Status));
+			_trophies = new Field<IEnumerable<string>>(_context, nameof(Trophies));
+			_url = new Field<string>(_context, nameof(Url));
+			_userName = new Field<string>(_context, nameof(UserName));
 			_userName.AddRule(UsernameRule.Instance);
 
 			TrelloConfiguration.Cache.Add(this);

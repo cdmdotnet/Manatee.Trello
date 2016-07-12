@@ -147,11 +147,11 @@ namespace Manatee.Trello
 			_context = new NotificationContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			_creator = new Field<Member>(_context, () => Creator);
-			_date = new Field<DateTime?>(_context, () => Date);
+			_creator = new Field<Member>(_context, nameof(Creator));
+			_date = new Field<DateTime?>(_context, nameof(Date));
 			Data = new NotificationData(_context.NotificationDataContext);
-			_isUnread = new Field<bool?>(_context, () => IsUnread);
-			_type = new Field<NotificationType?>(_context, () => Type);
+			_isUnread = new Field<bool?>(_context, nameof(IsUnread));
+			_type = new Field<NotificationType?>(_context, nameof(Type));
 
 			TrelloConfiguration.Cache.Add(this);
 		}
