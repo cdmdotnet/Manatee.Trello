@@ -51,8 +51,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 #if IOS
 			var dateString = obj.TryGetString("due");
 			DateTime date;
-			if (DateTime.TryParse(dateString, out date))
-				Due = date;
+			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
+				Due = date.ToLocalTime();
 #else
 			Due = obj.Deserialize<DateTime?>(serializer, "due");
 #endif

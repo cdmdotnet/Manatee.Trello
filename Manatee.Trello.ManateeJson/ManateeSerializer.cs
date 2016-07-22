@@ -22,6 +22,8 @@
 
 ***************************************************************************************/
 
+using System;
+using System.Globalization;
 using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
@@ -42,6 +44,8 @@ namespace Manatee.Trello.ManateeJson
 		static ManateeSerializer()
 		{
 			InitializeAbstractionMap();
+
+			JsonSerializationTypeRegistry.RegisterType(DateTimeToJson, JsonToDateTime);
 		}
 		/// <summary>
 		/// Creates and initializes a new instance of the ManateeJsonSerializer class.
@@ -134,6 +138,22 @@ namespace Manatee.Trello.ManateeJson
 			JsonSerializationAbstractionMap.Map<IJsonTokenPermission, ManateeTokenPermission>();
 			JsonSerializationAbstractionMap.Map<IJsonWebhook, ManateeWebhook>();
 			JsonSerializationAbstractionMap.Map<IJsonWebhookNotification, ManateeWebhookNotification>();
+		}
+
+		private static JsonValue DateTimeToJson(DateTime? date, JsonSerializer serializer)
+		{
+			return date?.ToUniversalTime()
+			            .ToString("yyyy-MM-ddThh:mm:ss.fffZ") ?? JsonValue.Null;
+		}
+
+		private static DateTime? JsonToDateTime(JsonValue json, JsonSerializer serializer)
+		{
+			var dateString = json.String;
+			DateTime date;
+			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
+				return date.ToLocalTime();
+
+			return null;
 		}
 	}
 }

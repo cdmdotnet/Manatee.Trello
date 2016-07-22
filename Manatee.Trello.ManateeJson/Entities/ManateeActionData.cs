@@ -59,7 +59,14 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Card = obj.Deserialize<IJsonCard>(serializer, "card");
 			CheckItem = obj.Deserialize<IJsonCheckItem>(serializer, "checkItem");
 			CheckList = obj.Deserialize<IJsonCheckList>(serializer, "checklist");
+#if IOS
+			var dateString = obj.TryGetString("date");
+			DateTime date;
+			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
+				Date = date.ToLocalTime();
+#else
 			DateLastEdited = obj.Deserialize<DateTime?>(serializer, "dateLastEdited");
+#endif
 			List = obj.Deserialize<IJsonList>(serializer, "list");
 			ListAfter = obj.Deserialize<IJsonList>(serializer, "listAfter");
 			ListBefore = obj.Deserialize<IJsonList>(serializer, "listBefore");
