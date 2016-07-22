@@ -64,7 +64,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var dateString = obj.TryGetString("date");
 			DateTime date;
 			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
-				Date = date.ToLocalTime();
+				DateLastEdited = date.ToLocalTime();
 #else
 			DateLastEdited = obj.Deserialize<DateTime?>(serializer, "dateLastEdited");
 #endif
