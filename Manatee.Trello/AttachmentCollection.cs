@@ -80,7 +80,7 @@ namespace Manatee.Trello
 					NotNullOrWhiteSpaceRule.Instance.Validate(null, url),
 					UriRule.Instance.Validate(null, url)
 				};
-			if (errors.Any())
+			if (errors.Any(e => e != null))
 				throw new ValidationException<string>(url, errors);
 
 			var parameters = new Dictionary<string, object>

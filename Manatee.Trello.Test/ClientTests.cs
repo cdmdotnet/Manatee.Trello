@@ -179,5 +179,23 @@ namespace Manatee.Trello.Test
 
 			card.Delete();
 		}
+
+		[TestMethod]
+		public void Issue36_CardAttachmentByUrlThrows()
+		{
+			var serializer = new ManateeSerializer();
+			TrelloConfiguration.Serializer = serializer;
+			TrelloConfiguration.Deserializer = serializer;
+			TrelloConfiguration.JsonFactory = new ManateeFactory();
+			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
+			var list = new List(TrelloIds.ListId);
+			var card = list.Cards.Add("attachment test");
+			card.Attachments.Add("http://i.imgur.com/eKgKEOn.jpg", "me");
+
+			card.Delete();
+		}
 	}
 }

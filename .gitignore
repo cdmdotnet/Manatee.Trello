@@ -18,5 +18,7 @@
 /Manatee.Trello.WebApi/obj
 /packages
 /Nuget
+/NugetTest
+/Logo Legal
 /TestResults
 /.vs
