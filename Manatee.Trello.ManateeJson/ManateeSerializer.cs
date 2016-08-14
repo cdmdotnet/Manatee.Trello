@@ -143,14 +143,14 @@ namespace Manatee.Trello.ManateeJson
 		private static JsonValue DateTimeToJson(DateTime? date, JsonSerializer serializer)
 		{
 			return date?.ToUniversalTime()
-			            .ToString("yyyy-MM-ddThh:mm:ss.fffZ") ?? JsonValue.Null;
+			            .ToString("yyyy-MM-ddTHH:mm:ss.fffZ") ?? JsonValue.Null;
 		}
 
 		private static DateTime? JsonToDateTime(JsonValue json, JsonSerializer serializer)
 		{
 			var dateString = json.String;
 			DateTime date;
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
+			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
 				return date.ToLocalTime();
 
 			return null;
