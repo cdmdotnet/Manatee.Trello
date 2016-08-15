@@ -35,7 +35,7 @@ namespace Manatee.Trello.RestSharp
 	{
 		private bool _hasBody;
 
-		public new RestMethod Method
+	    RestMethod IRestRequest.Method
 		{
 			get { return GetMethod(); }
 			set { SetMethod(value); }
@@ -50,7 +50,7 @@ namespace Manatee.Trello.RestSharp
 			JsonSerializer = serializer;
 		}
 
-		public new void AddParameter(string name, object value)
+	    void IRestRequest.AddParameter(string name, object value)
 		{
 			if (_hasBody)
 			{
@@ -63,7 +63,7 @@ namespace Manatee.Trello.RestSharp
 			}
 			AddParameter(name, value, ParameterType.GetOrPost);
 		}
-		public new void AddBody(object body)
+	    void IRestRequest.AddBody(object body)
 		{
 			if (Parameters.Any())
 			{
@@ -89,15 +89,15 @@ namespace Manatee.Trello.RestSharp
 
 		private RestMethod GetMethod()
 		{
-			switch (base.Method)
+			switch (Method)
 			{
-				case global::RestSharp.Method.GET:
+				case Method.GET:
 					return RestMethod.Get;
-				case global::RestSharp.Method.POST:
+				case Method.POST:
 					return RestMethod.Post;
-				case global::RestSharp.Method.PUT:
+				case Method.PUT:
 					return RestMethod.Put;
-				case global::RestSharp.Method.DELETE:
+				case Method.DELETE:
 					return RestMethod.Delete;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -108,16 +108,16 @@ namespace Manatee.Trello.RestSharp
 			switch (value)
 			{
 				case RestMethod.Get:
-					base.Method = global::RestSharp.Method.GET;
+                    Method = Method.GET;
 					break;
 				case RestMethod.Put:
-					base.Method = global::RestSharp.Method.PUT;
+                    Method = Method.PUT;
 					break;
 				case RestMethod.Post:
-					base.Method = global::RestSharp.Method.POST;
+                    Method = Method.POST;
 					break;
 				case RestMethod.Delete:
-					base.Method = global::RestSharp.Method.DELETE;
+                    Method = Method.DELETE;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(value));
