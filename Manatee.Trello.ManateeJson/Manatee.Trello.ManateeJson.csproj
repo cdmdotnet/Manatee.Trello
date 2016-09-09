@@ -96,8 +96,8 @@
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net35\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net35\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.5.0.0\lib\net35\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -106,8 +106,8 @@
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net35-client\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net35-client\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.5.0.0\lib\net35-client\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -116,8 +116,8 @@
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net40\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net40\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.5.0.0\lib\net40\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -126,8 +126,8 @@
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net40-client\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net40-client\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.5.0.0\lib\net40-client\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -136,8 +136,8 @@
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net45\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Manatee.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.4.0.0\lib\net45\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.5.0.0\lib\net45\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

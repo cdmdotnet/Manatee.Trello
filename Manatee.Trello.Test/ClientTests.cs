@@ -198,32 +198,32 @@ namespace Manatee.Trello.Test
 			card.Delete();
 		}
 
-        [TestMethod]
-        public void Issue37_InconsistentDateEncoding()
-        {
-            Card card = null;
-            try
-            {
-			    var serializer = new ManateeSerializer();
-			    TrelloConfiguration.Serializer = serializer;
-			    TrelloConfiguration.Deserializer = serializer;
-			    TrelloConfiguration.JsonFactory = new ManateeFactory();
-			    TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-			    TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			    TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+		[TestMethod]
+		public void Issue37_InconsistentDateEncoding()
+		{
+			Card card = null;
+			try
+			{
+				var serializer = new ManateeSerializer();
+				TrelloConfiguration.Serializer = serializer;
+				TrelloConfiguration.Deserializer = serializer;
+				TrelloConfiguration.JsonFactory = new ManateeFactory();
+				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			    var list = new List(TrelloIds.ListId);
-			    card = list.Cards.Add("date encoding test");
-                // 2016-12-08T04:45:00.000Z
-                var date = Convert.ToDateTime("8/12/2016 5:45:00PM");
-                card.DueDate = date;
+				var list = new List(TrelloIds.ListId);
+				card = list.Cards.Add("date encoding test");
+				// 2016-12-08T04:45:00.000Z
+				var date = Convert.ToDateTime("8/12/2016 5:45:00PM");
+				card.DueDate = date;
 
-                TrelloProcessor.Flush();
-            }
-            finally
-            {
-                card?.Delete();
-            }
-        }
+				TrelloProcessor.Flush();
+			}
+			finally
+			{
+				card?.Delete();
+			}
+		}
 	}
 }
