@@ -119,6 +119,7 @@
     <Compile Include="DevTest.cs" />
     <Compile Include="GenericMethodFormatAttribute.cs" />
     <Compile Include="ParameterizedMethodFormatAttribute.cs" />
+    <Compile Include="StackOverflowTests.cs" />
     <Compile Include="TheGodComparer.cs" />
     <Compile Include="TrelloTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
