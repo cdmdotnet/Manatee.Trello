@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.5.0.0\lib\net45\Manatee.Json.dll</HintPath>
+      <HintPath>..\packages\Manatee.Json.5.1.1\lib\net45\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Manatee.StateMachine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
@@ -126,6 +126,10 @@
     <Compile Include="TrelloIds.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj">
+      <Project>{BC9E4815-D9EA-403B-B7A9-5993FB282DDC}</Project>
+      <Name>Manatee.Trello.CustomFields</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj">
       <Project>{fb07603f-bd9b-4cbb-8142-47666c5d88cf}</Project>
       <Name>Manatee.Trello.ManateeJson</Name>

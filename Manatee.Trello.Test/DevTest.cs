@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Manatee.Trello.CustomFields;
 using Manatee.Trello.ManateeJson;
-using Manatee.Trello.Rest;
-using Manatee.Trello.RestSharp;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,13 +15,8 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					TrelloProcessor.ConcurrentCallCount = 4;
-
 					var card = new Card(TrelloIds.CardId);
-					Console.WriteLine(card);
-					Console.WriteLine(card.List);
-					Console.WriteLine(card.List.Board);
-					card.List.Board.Cards.AsParallel().ForAll(Console.WriteLine);
+					OutputCollection("fields", card.CustomFields());
 				});
 		}
 

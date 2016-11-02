@@ -2,20 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/ConsoleTest/bin
-/ConsoleTest/obj
-/Manatee.Trello/bin
-/Manatee.Trello/obj
-/Manatee.Trello.ManateeJson/bin
-/Manatee.Trello.ManateeJson/obj
-/Manatee.Trello.RestSharp/bin
-/Manatee.Trello.RestSharp/obj
-/Manatee.Trello.Test/bin
-/Manatee.Trello.Test/obj
-/Manatee.Trello.Test.Unit/bin
-/Manatee.Trello.Test.Unit/obj
-/Manatee.Trello.WebApi/bin
-/Manatee.Trello.WebApi/obj
+[Bb]in
+[Oo]bj
 /packages
 /Nuget
 /NugetTest
