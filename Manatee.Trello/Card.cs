@@ -177,6 +177,10 @@ namespace Manatee.Trello
 			set { _position.Value = value; }
 		}
 		/// <summary>
+		/// Gets specific data regarding power-ups.
+		/// </summary>
+		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		/// <summary>
 		/// Gets the card's short ID.
 		/// </summary>
 		public int? ShortId => _shortId.Value;
@@ -280,6 +284,7 @@ namespace Manatee.Trello
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, nameof(Position));
 			_position.AddRule(PositionRule.Instance);
+			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Card_Read_PowerUpData, () => Id, auth);
 			_shortId = new Field<int?>(_context, nameof(ShortId));
 			_shortUrl = new Field<string>(_context, nameof(ShortUrl));
 			Stickers = new CardStickerCollection(() => Id, auth);

@@ -118,6 +118,10 @@ namespace Manatee.Trello
 			set { _name.Value = value; }
 		}
 		/// <summary>
+		/// Gets specific data regarding power-ups.
+		/// </summary>
+		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		/// <summary>
 		/// Gets the set of preferences for the organization.
 		/// </summary>
 		public OrganizationPreferences Preferences { get; }
@@ -182,6 +186,7 @@ namespace Manatee.Trello
 			Memberships = new OrganizationMembershipCollection(() => Id, auth);
 			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(OrganizationNameRule.Instance);
+			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Organization_Read_PowerUpData, () => Id, auth);
 			Preferences = new OrganizationPreferences(_context.OrganizationPreferencesContext);
 			_url = new Field<string>(_context, nameof(Url));
 			_website = new Field<string>(_context, nameof(Website));

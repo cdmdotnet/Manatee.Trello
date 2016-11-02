@@ -2,5 +2,7 @@
 {
 	public interface IJsonPowerUpData : IJsonCacheable
 	{
+		string PluginId { get; set; }
+		string Value { get; set; }
 	}
 }

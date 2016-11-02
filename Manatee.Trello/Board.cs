@@ -239,7 +239,7 @@ namespace Manatee.Trello
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, nameof(Organization));
 			PowerUps = new ReadOnlyPowerUpCollection(() => Id, auth);
-			PowerUpData = new ReadOnlyPowerUpDataCollection(() => Id, auth);
+			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Board_Read_PowerUpData, () => Id, auth);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			PersonalPreferences = new BoardPersonalPreferences(Id, auth);
 			_url = new Field<string>(_context, nameof(Url));

@@ -35,17 +35,22 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyPowerUpDataCollection : ReadOnlyCollection<PowerUpData>
 	{
-		internal ReadOnlyPowerUpDataCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+		private readonly EntityRequestType _requestType;
+
+		internal ReadOnlyPowerUpDataCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth)
+		{
+			_requestType = requestType;
+		}
 		internal ReadOnlyPowerUpDataCollection(ReadOnlyPowerUpDataCollection source, TrelloAuthorization auth)
-			: this(() => source.OwnerId, auth) {}
+			: this(source._requestType, () => source.OwnerId, auth) {}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
 		protected override void Update()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_PowerUpData, new Dictionary<string, object> {{"_id", OwnerId}});
+			var endpoint = EndpointFactory.Build(_requestType, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonPowerUpData>>(Auth, endpoint);
 
 			Items.Clear();

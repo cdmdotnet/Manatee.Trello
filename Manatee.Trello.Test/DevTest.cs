@@ -18,8 +18,12 @@ namespace Manatee.Trello.Test
 				{
 					TrelloConfiguration.RegisterPowerUp("56d5e249a98895a9797bebb9", (j, a) => new CustomFieldsPowerUp(j, a));
 
-					var board = new Board(TrelloIds.BoardId);
-					OutputCollection("PowerUpData", board.PowerUpData.ToList());
+					var card = new Card(TrelloIds.CardId);
+					OutputCollection("PowerUpData", card.PowerUpData.ToList());
+					foreach (var field in card.CustomFields())
+					{
+						Console.WriteLine($"{field.Key} - {field.Value}");
+					}
 				});
 		}
 
