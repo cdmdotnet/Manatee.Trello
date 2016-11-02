@@ -15,13 +15,8 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					TrelloConfiguration.RegisterPowerUp(CustomFieldsPowerUp.PluginId, (j, a) => new CustomFieldsPowerUp(j, a));
-
 					var card = new Card(TrelloIds.CardId);
-					foreach (var field in card.CustomFields())
-					{
-						Console.WriteLine($"{field.Name} - {field.Value}");
-					}
+					OutputCollection("fields", card.CustomFields());
 				});
 		}
 

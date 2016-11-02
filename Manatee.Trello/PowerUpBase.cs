@@ -4,6 +4,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Provides a base implementation for Trello Power-Ups.
+	/// </summary>
 	public abstract class PowerUpBase : IPowerUp
 	{
 		private readonly Field<string> _name;
@@ -11,6 +14,10 @@ namespace Manatee.Trello
 		private readonly Field<string> _additionalInfo;
 		private readonly PowerUpContext _context;
 
+		/// <summary>
+		/// Gets a URI that provides JSON-formatted data about the plugin.
+		/// </summary>
+		public string AdditionalInfo => _additionalInfo.Value;
 		/// <summary>
 		/// Gets the power-up's ID.
 		/// </summary>
@@ -23,10 +30,6 @@ namespace Manatee.Trello
 		/// Gets or sets whether this power-up is closed.
 		/// </summary>
 		public bool? Public => _public.Value;
-		/// <summary>
-		/// Gets a URI that provides JSON-formatted data about the plugin.
-		/// </summary>
-		protected string AdditionalInfo => _additionalInfo.Value;
 
 		internal IJsonPowerUp Json
 		{
@@ -34,6 +37,9 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+		/// <summary>
+		/// Initializes a power-up.
+		/// </summary>
 		protected PowerUpBase(IJsonPowerUp json, TrelloAuthorization auth)
 		{
 			Id = json.Id;
