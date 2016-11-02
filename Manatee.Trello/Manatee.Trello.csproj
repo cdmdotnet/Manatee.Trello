@@ -131,10 +131,15 @@
     <Compile Include="Internal\Synchronization\BoardBackgroundContext.cs" />
     <Compile Include="Internal\Synchronization\LabelContext.cs" />
     <Compile Include="Internal\Synchronization\PowerUpContext.cs" />
+    <Compile Include="Internal\Synchronization\PowerUpDataContext.cs" />
     <Compile Include="IPowerUp.cs" />
     <Compile Include="Json\IJsonBoardBackground.cs" />
     <Compile Include="Json\IJsonPowerUp.cs" />
-    <Compile Include="ReadOnlyPowerUpCollection.cs" />
+    <Compile Include="Json\IJsonPowerUpData.cs" />
+    <Compile Include="PowerUpBase.cs" />
+    <Compile Include="PowerUpDataCollection.cs" />
+    <Compile Include="PowerUpData.cs" />
+    <Compile Include="PowerUpCollection.cs" />
     <Compile Include="ReadOnlyBoardBackgroundScalesCollection.cs" />
     <Compile Include="SearchFor.cs" />
     <Compile Include="StickerCollection.cs" />
@@ -319,6 +324,7 @@
     <Compile Include="Internal\GeneralExtensions.cs" />
     <Compile Include="Internal\DataAccess\JsonRepository.cs" />
     <Compile Include="TrelloProcessor.cs" />
+    <Compile Include="UnknownPowerUp.cs" />
     <Compile Include="WebColor.cs" />
     <Compile Include="Webhook.cs" />
   </ItemGroup>

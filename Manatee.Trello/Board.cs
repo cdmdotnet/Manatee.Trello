@@ -146,7 +146,14 @@ namespace Manatee.Trello
 			get { return _organization.Value; }
 			set { _organization.Value = value; }
 		}
+		/// <summary>
+		/// Gets metadata about any active power-ups.
+		/// </summary>
 		public ReadOnlyPowerUpCollection PowerUps { get; }
+		/// <summary>
+		/// Gets specific data regarding power-ups.
+		/// </summary>
+		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		/// <summary>
 		/// Gets the set of preferences for the board.
 		/// </summary>
@@ -232,6 +239,7 @@ namespace Manatee.Trello
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, nameof(Organization));
 			PowerUps = new ReadOnlyPowerUpCollection(() => Id, auth);
+			PowerUpData = new ReadOnlyPowerUpDataCollection(() => Id, auth);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			PersonalPreferences = new BoardPersonalPreferences(Id, auth);
 			_url = new Field<string>(_context, nameof(Url));

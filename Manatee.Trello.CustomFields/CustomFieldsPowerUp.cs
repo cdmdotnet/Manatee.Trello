@@ -7,9 +7,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.CustomFields
 {
-	public class CustomFields : PowerUpBase
+	public class CustomFieldsPowerUp : PowerUpBase
 	{
-		private CustomFields(IJsonPowerUp json, TrelloAuthorization auth)
+		public CustomFieldsPowerUp(IJsonPowerUp json, TrelloAuthorization auth)
 			: base(json, auth) {}
 	}
 }

@@ -66,6 +66,7 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof(Notification), (j, a) => new Notification((IJsonNotification) j, a)},
 					{typeof(Token), (j, a) => new Token((IJsonToken) j, a)},
 					{typeof(IPowerUp), (j, a) => BuildConfiguredPowerUp((IJsonPowerUp) j, a) ?? new UnknownPowerUp((IJsonPowerUp) j, a)},
+					{typeof(PowerUpData), (j, a) => new PowerUpData((IJsonPowerUpData) j, a)},
 				};
 		}
 

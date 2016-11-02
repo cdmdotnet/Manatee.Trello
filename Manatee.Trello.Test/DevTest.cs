@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Manatee.Trello.CustomFields;
 using Manatee.Trello.ManateeJson;
-using Manatee.Trello.Rest;
-using Manatee.Trello.RestSharp;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,8 +16,10 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
+					TrelloConfiguration.RegisterPowerUp("56d5e249a98895a9797bebb9", (j, a) => new CustomFieldsPowerUp(j, a));
+
 					var board = new Board(TrelloIds.BoardId);
-					OutputCollection("PowerUps", board.PowerUps.ToList());
+					OutputCollection("PowerUpData", board.PowerUpData.ToList());
 				});
 		}
 

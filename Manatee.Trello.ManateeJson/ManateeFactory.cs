@@ -70,6 +70,7 @@ namespace Manatee.Trello.ManateeJson
 					{typeof (IJsonParameter), () => new ManateeParameter()},
 					{typeof (IJsonPosition), () => new ManateePosition()},
 					{typeof (IJsonPowerUp), () => new ManateePowerUp()},
+					{typeof (IJsonPowerUpData), () => new ManateePowerUpData()},
 					{typeof (IJsonSearch), () => new ManateeSearch()},
 					{typeof (IJsonSticker), () => new ManateeSticker()},
 					{typeof (IJsonToken), () => new ManateeToken()},
