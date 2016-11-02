@@ -11,16 +11,22 @@ namespace Manatee.Trello
 		private readonly Field<string> _additionalInfo;
 		private readonly PowerUpContext _context;
 
-		public string AdditionalInfo => _additionalInfo.Value;
 		/// <summary>
-		/// Gets the board's ID.
+		/// Gets the power-up's ID.
 		/// </summary>
 		public string Id { get; }
+		/// <summary>
+		/// Gets the name of the power-up.
+		/// </summary>
 		public string Name => _name.Value;
 		/// <summary>
-		/// Gets or sets whether this board is closed.
+		/// Gets or sets whether this power-up is closed.
 		/// </summary>
 		public bool? Public => _public.Value;
+		/// <summary>
+		/// Gets a URI that provides JSON-formatted data about the plugin.
+		/// </summary>
+		protected string AdditionalInfo => _additionalInfo.Value;
 
 		internal IJsonPowerUp Json
 		{

@@ -55,7 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomFieldData.cs" />
+    <Compile Include="CustomFieldDefinition.cs" />
+    <Compile Include="CustomFieldExtensions.cs" />
     <Compile Include="CustomFieldsPowerUp.cs" />
+    <Compile Include="CustomFieldsSettings.cs" />
+    <Compile Include="FieldType.cs" />
+    <Compile Include="PowerUpCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

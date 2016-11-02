@@ -3,6 +3,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
+	// TODO: This class should be refreshable.
 	internal class PowerUpDataContext : SynchronizationContext<IJsonPowerUpData>
 	{
 		static PowerUpDataContext()

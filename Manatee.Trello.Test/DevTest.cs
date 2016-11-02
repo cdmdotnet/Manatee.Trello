@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.CustomFields;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.WebApi;
@@ -16,13 +15,12 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					TrelloConfiguration.RegisterPowerUp("56d5e249a98895a9797bebb9", (j, a) => new CustomFieldsPowerUp(j, a));
+					TrelloConfiguration.RegisterPowerUp(CustomFieldsPowerUp.PluginId, (j, a) => new CustomFieldsPowerUp(j, a));
 
 					var card = new Card(TrelloIds.CardId);
-					OutputCollection("PowerUpData", card.PowerUpData.ToList());
 					foreach (var field in card.CustomFields())
 					{
-						Console.WriteLine($"{field.Key} - {field.Value}");
+						Console.WriteLine($"{field.Name} - {field.Value}");
 					}
 				});
 		}

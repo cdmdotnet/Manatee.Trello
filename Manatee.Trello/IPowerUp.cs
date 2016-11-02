@@ -6,6 +6,5 @@ namespace Manatee.Trello
 	{
 		string Name { get; }
 		bool? Public { get; }
-		string AdditionalInfo { get; }
 	}
 }
