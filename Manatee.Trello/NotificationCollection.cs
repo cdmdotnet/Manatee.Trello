@@ -14,10 +14,10 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		ActionCollection.cs
+	File Name:		NotificationCollection.cs
 	Namespace:		Manatee.Trello
-	Class Name:		ReadOnlyActionCollection, CommentCollection
-	Purpose:		Collection objects for actions.
+	Class Name:		ReadOnlyNotificationCollection
+	Purpose:		Collection objects for notifications.
 
 ***************************************************************************************/
 

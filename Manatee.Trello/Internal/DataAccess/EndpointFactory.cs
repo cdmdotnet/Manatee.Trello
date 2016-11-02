@@ -48,6 +48,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Board_Read_Members, () => new Endpoint(RestMethod.Get, "boards", "_id", "members")},
 					{EntityRequestType.Board_Read_Memberships, () => new Endpoint(RestMethod.Get, "boards", "_id", "memberships")},
 					{EntityRequestType.Board_Read_PersonalPrefs, () => new Endpoint(RestMethod.Get, "boards", "_id", "myPrefs")},
+					{EntityRequestType.Board_Read_PowerUps, () => new Endpoint(RestMethod.Get, "boards", "_id", "plugins")},
 					{EntityRequestType.Board_Read_Refresh, () => new Endpoint(RestMethod.Get, "boards", "_id")},
 					{EntityRequestType.Board_Write_AddLabel, () => new Endpoint(RestMethod.Post, "labels")},
 					{EntityRequestType.Board_Write_AddList, () => new Endpoint(RestMethod.Post, "lists")},

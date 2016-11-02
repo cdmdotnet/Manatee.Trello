@@ -183,6 +183,7 @@
     <Compile Include="Entities\ManateeOrganizationPreferences.cs" />
     <Compile Include="Entities\ManateeParameter.cs" />
     <Compile Include="Entities\ManateePosition.cs" />
+    <Compile Include="Entities\ManateePowerUp.cs" />
     <Compile Include="Entities\ManateeSearch.cs" />
     <Compile Include="Entities\ManateeSticker.cs" />
     <Compile Include="Entities\ManateeToken.cs" />

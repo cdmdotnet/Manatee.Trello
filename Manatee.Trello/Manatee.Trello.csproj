@@ -130,7 +130,11 @@
     <Compile Include="Internal\Searching\TextSearchParameter.cs" />
     <Compile Include="Internal\Synchronization\BoardBackgroundContext.cs" />
     <Compile Include="Internal\Synchronization\LabelContext.cs" />
+    <Compile Include="Internal\Synchronization\PowerUpContext.cs" />
+    <Compile Include="IPowerUp.cs" />
     <Compile Include="Json\IJsonBoardBackground.cs" />
+    <Compile Include="Json\IJsonPowerUp.cs" />
+    <Compile Include="ReadOnlyPowerUpCollection.cs" />
     <Compile Include="ReadOnlyBoardBackgroundScalesCollection.cs" />
     <Compile Include="SearchFor.cs" />
     <Compile Include="StickerCollection.cs" />

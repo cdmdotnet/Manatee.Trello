@@ -18,13 +18,8 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					TrelloProcessor.ConcurrentCallCount = 4;
-
-					var card = new Card(TrelloIds.CardId);
-					Console.WriteLine(card);
-					Console.WriteLine(card.List);
-					Console.WriteLine(card.List.Board);
-					card.List.Board.Cards.AsParallel().ForAll(Console.WriteLine);
+					var board = new Board(TrelloIds.BoardId);
+					OutputCollection("PowerUps", board.PowerUps.ToList());
 				});
 		}
 

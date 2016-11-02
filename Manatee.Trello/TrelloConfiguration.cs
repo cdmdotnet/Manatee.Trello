@@ -21,6 +21,7 @@
 
 ***************************************************************************************/
 using System;
+using System.Collections.Generic;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.ExceptionHandling;
@@ -140,11 +141,19 @@ namespace Manatee.Trello
 		/// </remarks>
 		public static TimeSpan ChangeSubmissionTime { get; set; }
 
+		internal static Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>> RegisteredPowerUps { get; }
+
 		static TrelloConfiguration()
 		{
 			ThrowOnTrelloError = true;
 			ExpiryTime = TimeSpan.FromSeconds(30);
 			ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
+			RegisteredPowerUps = new Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>>();
+		}
+
+		public static void RegisterPowerUp(string id, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp> factory)
+		{
+			RegisteredPowerUps[id] = factory;
 		}
 	}
 }

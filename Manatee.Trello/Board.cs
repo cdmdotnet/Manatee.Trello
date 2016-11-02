@@ -14,9 +14,9 @@
 	   See the License for the specific language governing permissions and
 	   limitations under the License.
  
-	File Name:		Board2.cs
+	File Name:		Board.cs
 	Namespace:		Manatee.Trello
-	Class Name:		Board2
+	Class Name:		Board
 	Purpose:		Represents a board.
 
 ***************************************************************************************/
@@ -146,6 +146,7 @@ namespace Manatee.Trello
 			get { return _organization.Value; }
 			set { _organization.Value = value; }
 		}
+		public ReadOnlyPowerUpCollection PowerUps { get; }
 		/// <summary>
 		/// Gets the set of preferences for the board.
 		/// </summary>
@@ -230,6 +231,7 @@ namespace Manatee.Trello
 			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, nameof(Organization));
+			PowerUps = new ReadOnlyPowerUpCollection(() => Id, auth);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			PersonalPreferences = new BoardPersonalPreferences(Id, auth);
 			_url = new Field<string>(_context, nameof(Url));

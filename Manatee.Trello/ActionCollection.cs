@@ -70,7 +70,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override void Update()
+		protected sealed override void Update()
 		{
 			IncorporateLimit(_additionalParameters);
 

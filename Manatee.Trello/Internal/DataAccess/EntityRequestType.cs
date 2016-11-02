@@ -39,6 +39,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Board_Read_Members,
 		Board_Read_Memberships,
 		Board_Read_PersonalPrefs,
+		Board_Read_PowerUps,
 		Board_Read_Refresh,
 		Board_Write_Update,
 		Board_Write_AddLabel,
