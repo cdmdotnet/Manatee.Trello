@@ -16,6 +16,11 @@ The main components of Manatee.Trello are:
 - A JSON parser ([Manatee.Trello.ManateeJson](https://www.nuget.org/packages/Manatee.Trello.ManateeJson/))
 - A REST client ([Manatee.Trello.WebApi](https://www.nuget.org/packages/Manatee.Trello.WebApi/))
 
+There are also a series of packages that implement Trello PowerUps:
+
+- Custom fields ([Manatee.Trello.CustomFields](http://www.nuget.org/packages/Manatee.Trello.CustomFields/))
+- more to come...
+
 The parser and the client are merely implemnetations of interfaces defined in the main library.  If you want to use different providers for this functionality, you can provide your own implementations during setup!
 
 ##Setup
