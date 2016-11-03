@@ -1,27 +1,4 @@
-﻿/***************************************************************************************
-
-	Copyright 2013 Little Crab Solutions
-
-	   Licensed under the Apache License, Version 2.0 (the "License");
-	   you may not use this file except in compliance with the License.
-	   You may obtain a copy of the License at
-
-		 http://www.apache.org/licenses/LICENSE-2.0
-
-	   Unless required by applicable law or agreed to in writing, software
-	   distributed under the License is distributed on an "AS IS" BASIS,
-	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	   See the License for the specific language governing permissions and
-	   limitations under the License.
- 
-	File Name:		RestSharpRequest.cs
-	Namespace:		Manatee.Trello.Rest
-	Class Name:		RestSharpRequest
-	Purpose:		A request object for use with all REST calls.
-
-***************************************************************************************/
-
-using System;
+﻿using System;
 using System.Linq;
 using Manatee.Trello.Rest;
 using RestSharp;
@@ -35,7 +12,7 @@ namespace Manatee.Trello.RestSharp
 	{
 		private bool _hasBody;
 
-	    RestMethod IRestRequest.Method
+		RestMethod IRestRequest.Method
 		{
 			get { return GetMethod(); }
 			set { SetMethod(value); }
@@ -50,7 +27,7 @@ namespace Manatee.Trello.RestSharp
 			JsonSerializer = serializer;
 		}
 
-	    void IRestRequest.AddParameter(string name, object value)
+		void IRestRequest.AddParameter(string name, object value)
 		{
 			if (_hasBody)
 			{
@@ -63,7 +40,7 @@ namespace Manatee.Trello.RestSharp
 			}
 			AddParameter(name, value, ParameterType.GetOrPost);
 		}
-	    void IRestRequest.AddBody(object body)
+		void IRestRequest.AddBody(object body)
 		{
 			if (Parameters.Any())
 			{
@@ -108,16 +85,16 @@ namespace Manatee.Trello.RestSharp
 			switch (value)
 			{
 				case RestMethod.Get:
-                    Method = Method.GET;
+					Method = Method.GET;
 					break;
 				case RestMethod.Put:
-                    Method = Method.PUT;
+					Method = Method.PUT;
 					break;
 				case RestMethod.Post:
-                    Method = Method.POST;
+					Method = Method.POST;
 					break;
 				case RestMethod.Delete:
-                    Method = Method.DELETE;
+					Method = Method.DELETE;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(value));
