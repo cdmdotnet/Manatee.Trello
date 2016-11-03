@@ -15,7 +15,7 @@ namespace Manatee.Trello.Test
 		protected abstract class SystemUnderTest<T, TDepCol>
 			where TDepCol : IDependencyCollection, new()
 		{
-			public TDepCol Dependencies { get; private set; }
+			public TDepCol Dependencies { get; }
 			public T Sut { get; set; }
 
 			protected SystemUnderTest()
