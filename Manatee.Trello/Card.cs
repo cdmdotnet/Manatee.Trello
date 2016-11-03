@@ -179,6 +179,9 @@ namespace Manatee.Trello
 		/// Trello will likely change this value as the name changes.  You can use <see cref="ShortUrl"/> for permalinks.
 		/// </remarks>
 		public string Url => _url.Value;
+		/// <summary>
+		/// Gets all members who have voted for this card.
+		/// </summary>
 		public ReadOnlyMemberCollection VotingMembers { get; }
 
 		/// <summary>
