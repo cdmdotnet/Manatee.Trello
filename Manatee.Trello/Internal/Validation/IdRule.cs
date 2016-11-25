@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Runtime.Remoting.Messaging;
+using System.Text.RegularExpressions;
 
 namespace Manatee.Trello.Internal.Validation
 {
@@ -16,7 +17,7 @@ namespace Manatee.Trello.Internal.Validation
 
 		public string Validate(string oldValue, string newValue)
 		{
-			return _regex.IsMatch(oldValue) ? null : string.Empty;
+			return oldValue != null && _regex.IsMatch(oldValue) ? null : string.Empty;
 		}
 	}
 }

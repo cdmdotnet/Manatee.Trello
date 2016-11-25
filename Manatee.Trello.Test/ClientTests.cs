@@ -225,5 +225,32 @@ namespace Manatee.Trello.Test
 				card?.Delete();
 			}
 		}
+
+		[TestMethod]
+		public void Issue45_DueDateAsMinValue()
+		{
+			Card card = null;
+			try
+			{
+				var serializer = new ManateeSerializer();
+				TrelloConfiguration.Serializer = serializer;
+				TrelloConfiguration.Deserializer = serializer;
+				TrelloConfiguration.JsonFactory = new ManateeFactory();
+				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
+				var list = new List(TrelloIds.ListId);
+				card = list.Cards.Add("min date test");
+				card.Description = "a description";
+				card.DueDate = DateTime.MinValue;
+
+				TrelloProcessor.Flush();
+			}
+			finally
+			{
+				card?.Delete();
+			}
+		}
 	}
 }
