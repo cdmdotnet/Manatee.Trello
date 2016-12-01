@@ -77,6 +77,8 @@ namespace Manatee.Trello
 			_uses = new Field<int?>(_context, nameof(Uses));
 			
 			_context.Merge(json);
+
+			TrelloConfiguration.Cache.Add(this);
 		}
 
 		/// <summary>
