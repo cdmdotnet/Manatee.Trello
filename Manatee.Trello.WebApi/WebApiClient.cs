@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
+using System.Web;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.WebApi
@@ -84,6 +86,10 @@ namespace Manatee.Trello.WebApi
 						throw new ArgumentOutOfRangeException();
 				}
 			}
+			if (!response.IsSuccessStatusCode)
+				throw new HttpException("Received a failure from Trello.\n" +
+				                        $"Status Code: {response.StatusCode} ({(int)response.StatusCode})\n" +
+				                        $"Content: {response.Content.ReadAsStringAsync().Result}");
 			var restResponse = new WebApiRestResponse<T>();
 			if (response.Content != null)
 			{
