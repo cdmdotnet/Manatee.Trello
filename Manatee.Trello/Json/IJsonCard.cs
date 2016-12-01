@@ -112,5 +112,15 @@ namespace Manatee.Trello.Json
 		/// Gets or sets whether the due date should be serialized, even if it is null.
 		/// </summary>
 		bool ForceDueDate { get; set; }
+		/// <summary>
+		/// Gets or sets a comma-delimited list of member IDs. Used during card creation.
+		/// </summary>
+		[JsonSerialize]
+		string IdMembers { get; set; }
+		/// <summary>
+		/// Gets or sets a comma-delimited list of label IDs. Used during card creation.
+		/// </summary>
+		[JsonSerialize]
+		string IdLabels { get; set; }
 	}
 }

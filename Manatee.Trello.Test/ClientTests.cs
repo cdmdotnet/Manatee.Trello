@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
@@ -217,6 +218,47 @@ namespace Manatee.Trello.Test
 				// 2016-12-08T04:45:00.000Z
 				var date = Convert.ToDateTime("8/12/2016 5:45:00PM");
 				card.DueDate = date;
+
+				TrelloProcessor.Flush();
+			}
+			finally
+			{
+				card?.Delete();
+			}
+		}
+
+		[TestMethod]
+		public void Issue47_AddCardWithDetails()
+		{
+			Card card = null;
+			var name = "card detailed creation test";
+			var description = "this is a description";
+			var position = Position.Top;
+			var dueDate = new DateTime(2014, 1, 1);
+			try
+			{
+				var serializer = new ManateeSerializer();
+				TrelloConfiguration.Serializer = serializer;
+				TrelloConfiguration.Deserializer = serializer;
+				TrelloConfiguration.JsonFactory = new ManateeFactory();
+				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+				var members = new Member[] {Member.Me};
+				var board = new Board(TrelloIds.BoardId);
+				var labels = new[] {board.Labels.FirstOrDefault(l => l.Color == LabelColor.Blue)};
+
+				var list = new List(TrelloIds.ListId);
+				card = list.Cards.Add(name, description, position, dueDate, members, labels);
+
+				var recard = new Card(card.Id);
+
+				Assert.AreEqual(name, recard.Name);
+				Assert.AreEqual(description, recard.Description);
+				Assert.AreEqual(card.Id, list.Cards.First().Id);
+				Assert.AreEqual(dueDate, recard.DueDate);
+				Assert.IsTrue(recard.Members.Contains(Member.Me), "member not found");
+				Assert.IsTrue(recard.Labels.Contains(labels[0]), "label not found");
 
 				TrelloProcessor.Flush();
 			}

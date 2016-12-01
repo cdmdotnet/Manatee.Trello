@@ -29,6 +29,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public IJsonCard CardSource { get; set; }
 		public object UrlSource { get; set; }
 		public bool ForceDueDate { get; set; }
+		public string IdMembers { get; set; }
+		public string IdLabels { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -83,6 +85,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Subscribed.Serialize(json, serializer, "subscribed");
 			CardSource.SerializeId(json, "idCardSource");
 			UrlSource.Serialize(json, serializer, "urlSource");
+			IdMembers.Serialize(json, serializer, "idMembers");
+			IdLabels.Serialize(json, serializer, "idLabels");
 			return json;
 		}
 	}
