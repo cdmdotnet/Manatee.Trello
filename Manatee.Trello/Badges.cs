@@ -17,6 +17,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _fogBugz;
 		private readonly Field<bool?> _hasDescription;
 		private readonly Field<bool?> _hasVoted;
+		private readonly Field<bool?> _isComplete;
 		private readonly Field<bool?> _isSubscribed;
 		private readonly Field<int?> _votes;
 		private readonly BadgesContext _context;
@@ -54,6 +55,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public bool? HasVoted => _hasVoted.Value;
 		/// <summary>
+		/// Gets wheterh this card has been marked complete.
+		/// </summary>
+		public bool? IsComplete => _isComplete.Value;
+		/// <summary>
 		/// Gets whether the current member is subscribed to this card.
 		/// </summary>
 		public bool? IsSubscribed => _isSubscribed.Value;
@@ -74,6 +79,7 @@ namespace Manatee.Trello
 			_fogBugz = new Field<string>(_context, nameof(FogBugz));
 			_hasDescription = new Field<bool?>(_context, nameof(HasDescription));
 			_hasVoted = new Field<bool?>(_context, nameof(HasVoted));
+			_isComplete = new Field<bool?>(_context, nameof(IsComplete));
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
 			_votes = new Field<int?>(_context, nameof(Votes));
 		}

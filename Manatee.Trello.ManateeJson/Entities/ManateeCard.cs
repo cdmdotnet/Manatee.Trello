@@ -15,6 +15,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public DateTime? DateLastActivity { get; set; }
 		public string Desc { get; set; }
 		public DateTime? Due { get; set; }
+		public bool? DueComplete { get; set; }
 		public IJsonBoard Board { get; set; }
 		public IJsonList List { get; set; }
 		public int? IdShort { get; set; }
@@ -53,6 +54,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 					Due = obj.Deserialize<DateTime?>(serializer, "due");
 #endif
+					DueComplete = obj.TryGetBoolean("dueComplete");
 					Desc = obj.TryGetString("desc");
 					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
 					List = obj.Deserialize<IJsonList>(serializer, "idList");
@@ -79,6 +81,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Closed.Serialize(json, serializer, "closed");
 			Desc.Serialize(json, serializer, "desc");
 			Due.Serialize(json, serializer, "due", ForceDueDate);
+			DueComplete.Serialize(json, serializer, "dueComplete");
 			List.SerializeId(json, "idList");
 			Name.Serialize(json, serializer, "name");
 			Pos.Serialize(json, serializer, "pos");

@@ -276,7 +276,7 @@ namespace Manatee.Trello.Test
 				var labels = new[] {board.Labels.FirstOrDefault(l => l.Color == LabelColor.Blue)};
 
 				var list = new List(TrelloIds.ListId);
-				card = list.Cards.Add(name, description, position, dueDate, members, labels);
+				card = list.Cards.Add(name, description, position, dueDate, true, members, labels);
 
 				var recard = new Card(card.Id);
 
@@ -284,6 +284,7 @@ namespace Manatee.Trello.Test
 				Assert.AreEqual(description, recard.Description);
 				Assert.AreEqual(card.Id, list.Cards.First().Id);
 				Assert.AreEqual(dueDate, recard.DueDate);
+				Assert.IsTrue(recard.IsComplete.Value, "card not complete");
 				Assert.IsTrue(recard.Members.Contains(Member.Me), "member not found");
 				Assert.IsTrue(recard.Labels.Contains(labels[0]), "label not found");
 
