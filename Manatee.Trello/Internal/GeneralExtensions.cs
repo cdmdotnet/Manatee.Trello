@@ -19,6 +19,7 @@ namespace Manatee.Trello.Internal
 
 		private static readonly Dictionary<Type, List<Description>> _descriptions = new Dictionary<Type, List<Description>>();
 		private static readonly DateTime _unixEpoch = new DateTime(1970, 1, 1);
+		private static readonly DateTime _trelloMinDate = DateTime.MinValue.ToUniversalTime().AddHours(12);
 
 		public static string ToLowerString<T>(this T item)
 		{
@@ -99,6 +100,14 @@ namespace Manatee.Trello.Internal
 			var asHex = id.Substring(0, 8);
 			var timeStamp = int.Parse(asHex, NumberStyles.HexNumber);
 			return _unixEpoch.AddSeconds(timeStamp);
+		}
+		public static DateTime Encode(this DateTime date)
+		{
+			return date <= _trelloMinDate ? _trelloMinDate : date;
+		}
+		public static DateTime Decode(this DateTime date)
+		{
+			return date == _trelloMinDate ? DateTime.MinValue : date;
 		}
 
 		private static void EnsureDescriptions<T>()
