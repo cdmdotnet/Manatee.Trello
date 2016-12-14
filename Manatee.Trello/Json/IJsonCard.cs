@@ -37,6 +37,12 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		DateTime? Due { get; set; }
 		/// <summary>
+		/// Gets or sets whether the card is complete.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		bool? DueComplete { get; set; }
+		/// <summary>
 		/// Gets or sets the ID of the board which contains the card.
 		/// </summary>
 		[JsonDeserialize]

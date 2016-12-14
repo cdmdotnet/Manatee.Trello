@@ -18,6 +18,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _description;
 		private readonly Field<DateTime?> _dueDate;
 		private readonly Field<bool?> _isArchived;
+		private readonly Field<bool?> _isComplete;
 		private readonly Field<bool?> _isSubscribed;
 		private readonly Field<DateTime?> _lastActivity;
 		private readonly Field<List> _list;
@@ -104,6 +105,14 @@ namespace Manatee.Trello
 		{
 			get { return _isArchived.Value; }
 			set { _isArchived.Value = value; }
+		}
+		/// <summary>
+		/// Gets or sets whether the card is complete.  Associated with <see cref="DueDate"/>.
+		/// </summary>
+		public bool? IsComplete
+		{
+			get { return _isComplete.Value; }
+			set { _isComplete.Value = value; }
 		}
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to the card.
@@ -251,6 +260,7 @@ namespace Manatee.Trello
 			Comments = new CommentCollection(() => Id, auth);
 			_description = new Field<string>(_context, nameof(Description));
 			_dueDate = new Field<DateTime?>(_context, nameof(DueDate));
+			_isComplete = new Field<bool?>(_context, nameof(IsComplete));
 			_isArchived = new Field<bool?>(_context, nameof(IsArchived));
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));

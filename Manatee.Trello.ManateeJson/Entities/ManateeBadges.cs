@@ -12,6 +12,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? ViewingMemberVoted { get; set; }
 		public bool? Subscribed { get; set; }
 		public string Fogbugz { get; set; }
+		public bool? DueComplete { get; set; }
 		public DateTime? Due { get; set; }
 		public bool? Description { get; set; }
 		public int? Comments { get; set; }
@@ -35,6 +36,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 #else
 			Due = obj.Deserialize<DateTime?>(serializer, "due");
 #endif
+			DueComplete = obj.TryGetBoolean("dueComplete");
 			Description = obj.TryGetBoolean("description");
 			Comments = (int?)obj.TryGetNumber("comments");
 			CheckItemsChecked = (int?)obj.TryGetNumber("checkItemsChecked");
