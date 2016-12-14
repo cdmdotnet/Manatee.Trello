@@ -159,44 +159,56 @@ namespace Manatee.Trello.Test
 		[TestMethod]
 		public void Issue35_DatesReturningAs1DayBefore()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
-			var learningBoard = new Board(TrelloIds.BoardId);
-			string listId = learningBoard.Lists.First().Id;
-			var list = new List(listId);
-			var member = list.Board.Members.First();
-			var card = list.Cards.Add("test card 2");
-			card.DueDate = new DateTime(2016, 07, 21);
+			Card card = null;
+			try
+			{
+				var serializer = new ManateeSerializer();
+				TrelloConfiguration.Serializer = serializer;
+				TrelloConfiguration.Deserializer = serializer;
+				TrelloConfiguration.JsonFactory = new ManateeFactory();
+				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+				var learningBoard = new Board(TrelloIds.BoardId);
+				string listId = learningBoard.Lists.First().Id;
+				var list = new List(listId);
+				var member = list.Board.Members.First();
+				card = list.Cards.Add("test card 2");
+				card.DueDate = new DateTime(2016, 07, 21);
 
-			TrelloProcessor.Flush();
+				TrelloProcessor.Flush();
 
-			var cardCopy = new Card(card.Id);
-			Assert.AreEqual(new DateTime(2016, 07, 21), cardCopy.DueDate);
-
-			card.Delete();
+				var cardCopy = new Card(card.Id);
+				Assert.AreEqual(new DateTime(2016, 07, 21), cardCopy.DueDate);
+			}
+			finally
+			{
+				card?.Delete();
+			}
 		}
 
 		[TestMethod]
 		public void Issue36_CardAttachmentByUrlThrows()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			Card card = null;
+			try
+			{
+				var serializer = new ManateeSerializer();
+				TrelloConfiguration.Serializer = serializer;
+				TrelloConfiguration.Deserializer = serializer;
+				TrelloConfiguration.JsonFactory = new ManateeFactory();
+				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			var list = new List(TrelloIds.ListId);
-			var card = list.Cards.Add("attachment test");
-			card.Attachments.Add("http://i.imgur.com/eKgKEOn.jpg", "me");
-
-			card.Delete();
+				var list = new List(TrelloIds.ListId);
+				card = list.Cards.Add("attachment test");
+				card.Attachments.Add("http://i.imgur.com/eKgKEOn.jpg", "me");
+			}
+			finally
+			{
+				card?.Delete();
+			}
 		}
 
 		[TestMethod]
@@ -287,6 +299,45 @@ namespace Manatee.Trello.Test
 				Assert.IsTrue(recard.IsComplete.Value, "card not complete");
 				Assert.IsTrue(recard.Members.Contains(Member.Me), "member not found");
 				Assert.IsTrue(recard.Labels.Contains(labels[0]), "label not found");
+
+				TrelloProcessor.Flush();
+			}
+			finally
+			{
+				card?.Delete();
+			}
+		}
+
+		[TestMethod]
+		public void Issue46_DueComplete()
+		{
+			Card card = null;
+			var name = "due complete test";
+			var description = "this is a description";
+			var position = Position.Top;
+			var dueDate = new DateTime(2014, 1, 1);
+			try
+			{
+				var serializer = new ManateeSerializer();
+				TrelloConfiguration.Serializer = serializer;
+				TrelloConfiguration.Deserializer = serializer;
+				TrelloConfiguration.JsonFactory = new ManateeFactory();
+				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
+				var list = new List(TrelloIds.ListId);
+				card = list.Cards.Add(name, description, position, dueDate);
+
+				Assert.AreEqual(false, card.IsComplete);
+
+				card.IsComplete = true;
+
+				TrelloProcessor.Flush();
+
+				var recard = new Card(card.Id);
+
+				Assert.AreEqual(true, recard.IsComplete);
 
 				TrelloProcessor.Flush();
 			}
