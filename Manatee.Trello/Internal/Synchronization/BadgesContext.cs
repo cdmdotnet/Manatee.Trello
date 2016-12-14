@@ -18,6 +18,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"FogBugz", new Property<IJsonBadges, string>((d, a) => d.Fogbugz, (d, o) => d.Fogbugz = o)},
 					{"HasDescription", new Property<IJsonBadges, bool?>((d, a) => d.Description, (d, o) => d.Description = o)},
 					{"HasVoted", new Property<IJsonBadges, bool?>((d, a) => d.ViewingMemberVoted, (d, o) => d.ViewingMemberVoted = o)},
+					{"IsComplete", new Property<IJsonBadges, bool?>((d, a) => d.DueComplete, (d, o) => d.DueComplete = o)},
 					{"IsSubscribed", new Property<IJsonBadges, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)},
 					{"Votes", new Property<IJsonBadges, int?>((d, a) => d.Votes, (d, o) => d.Votes = o)},
 				};

@@ -28,6 +28,11 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		string Fogbugz { get; set; }
 		/// <summary>
+		/// Gets or sets whether the card is complete.
+		/// </summary>
+		[JsonDeserialize]
+		bool? DueComplete { get; set; }
+		/// <summary>
 		/// Gets or sets the due date, if one exists.
 		/// </summary>
 		[JsonDeserialize]
