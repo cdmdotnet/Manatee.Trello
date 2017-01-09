@@ -23,6 +23,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public IJsonMember Member { get; set; }
 		public IJsonOrganization Org { get; set; }
 		public IJsonActionOldData Old { get; set; }
+		public IJsonPowerUp Plugin { get; set; }
 		public string Text { get; set; }
 		public string Value { get; set; }
 
@@ -54,6 +55,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Old = obj.Deserialize<IJsonActionOldData>(serializer, "old");
 			Org = obj.Deserialize<IJsonOrganization>(serializer, "org") ??
 			      obj.Deserialize<IJsonOrganization>(serializer, "organization");
+			Plugin = obj.Deserialize<IJsonPowerUp>(serializer, "plugin");
 			Text = obj.TryGetString("text");
 			Value = obj.TryGetString("value");
 		}

@@ -83,6 +83,11 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		IJsonActionOldData Old { get; set; }
 		/// <summary>
+		/// Gets or sets plugin data associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonPowerUp Plugin { get; set; }
+		/// <summary>
 		/// Gets or sets text associated with the action if any.
 		/// </summary>
 		[JsonDeserialize]

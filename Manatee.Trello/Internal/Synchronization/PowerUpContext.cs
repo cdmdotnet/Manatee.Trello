@@ -15,10 +15,12 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"AdditionalInfo", new Property<IJsonPowerUp, string>((d, a) => d.Url, (d, o) => d.Url = o)},
 				};
 		}
-		public PowerUpContext(string id, TrelloAuthorization auth)
+		public PowerUpContext(IJsonPowerUp json, TrelloAuthorization auth)
 			: base(auth)
 		{
-			Data.Id = id;
+			Data.Id = json.Id;
+
+			Merge(json);
 		}
 	}
 }

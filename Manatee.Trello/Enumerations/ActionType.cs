@@ -260,6 +260,16 @@ namespace Manatee.Trello
 		[Description("updateOrganization")]
 		UpdateOrganization = 1L << 48,
 		/// <summary>
+		/// Indicates a plugin was enabled.
+		/// </summary>
+		[Description("enablePlugin")]
+		EnablePlugin = 1L << 49,
+		/// <summary>
+		/// Indicates a plugin was disabled.
+		/// </summary>
+		[Description("disablePlugin")]
+		DisablePlugin = 1L << 50,
+		/// <summary>
 		/// Indictes the default set of values returned by <see cref="Card.Actions"/>.
 		/// </summary>
 		DefaultForCardActions = CommentCard | UpdateCardIdList,
@@ -267,6 +277,6 @@ namespace Manatee.Trello
 		/// Indicates all action types
 		/// </summary>
 		[Description("all")]
-		All = (1L << 49) - 1,
+		All = (1L << 51) - 1,
 	}
 }

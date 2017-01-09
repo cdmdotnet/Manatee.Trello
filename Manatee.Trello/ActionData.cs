@@ -29,6 +29,7 @@ namespace Manatee.Trello
 		private readonly Field<Position> _oldPosition;
 		private readonly Field<string> _oldText;
 		private readonly Field<Organization> _organization;
+		private readonly Field<PowerUpBase> _powerUp;
 		private readonly Field<string> _text;
 		private readonly Field<string> _value;
 		private readonly ActionDataContext _context;
@@ -114,9 +115,13 @@ namespace Manatee.Trello
 		/// </summary>
 		public string OldText => _oldText.Value;
 		/// <summary>
-		/// Gets an assocated organization.
+		/// Gets an associated organization.
 		/// </summary>
 		public Organization Organization => _organization.Value;
+		/// <summary>
+		/// Gets an associated power-up.
+		/// </summary>
+		public PowerUpBase PowerUp => _powerUp.Value;
 		/// <summary>
 		/// Gets assocated text.
 		/// </summary>
@@ -157,6 +162,7 @@ namespace Manatee.Trello
 			_oldPosition = new Field<Position>(_context, nameof(OldPosition));
 			_oldText = new Field<string>(_context, nameof(OldText));
 			_organization = new Field<Organization>(_context, nameof(Organization));
+			_powerUp = new Field<PowerUpBase>(_context, nameof(PowerUp));
 			_text = new Field<string>(_context, nameof(Text));
 			_text.AddRule(OldValueNotNullOrWhiteSpaceRule.Instance);
 			_value = new Field<string>(_context, nameof(Value));

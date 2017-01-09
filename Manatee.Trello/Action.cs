@@ -108,7 +108,7 @@ namespace Manatee.Trello
 					{ActionType.CreateOrganization, a => $"{a.Creator} created organization {a.Data.Organization}."},
 					{ActionType.DeleteAttachmentFromCard, a => $"{a.Creator} removed attachment {a.Data.Attachment} from card {a.Data.Card}."},
 					{ActionType.DeleteBoardInvitation, a => $"{a.Creator} rescinded an invitation."},
-					{ActionType.DeleteCard, a => $"{a.Creator} deleted card {a.Data.Card} from {a.Data.Board}."},
+					{ActionType.DeleteCard, a => $"{a.Creator} deleted card #{a.Data.Card.Json.IdShort} from {a.Data.Board}."},
 					{ActionType.DeleteOrganizationInvitation, a => $"{a.Creator} rescinded an invitation."},
 					{ActionType.DisablePowerUp, a => $"{a.Creator} disabled power-up {a.Data.Value}."},
 					{ActionType.EmailCard, a => $"{a.Creator} added card {a.Data.Card} by email."},
@@ -140,6 +140,8 @@ namespace Manatee.Trello
 					{ActionType.UpdateListName, a => $"{a.Creator} changed the name of list {a.Data.List}."},
 					{ActionType.UpdateMember, a => $"{a.Creator} updated their profile."},
 					{ActionType.UpdateOrganization, a => $"{a.Creator} updated organization {a.Data.Organization}."},
+					{ActionType.EnablePlugin, a => $"{a.Creator} enabled plugin {a.Data.PowerUp}."},
+					{ActionType.DisablePlugin, a => $"{a.Creator} disabled plugin {a.Data.PowerUp}."},
 				};
 		}
 		/// <summary>

@@ -15,8 +15,8 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var card = new Card(TrelloIds.CardId);
-					OutputCollection("fields", card.CustomFields());
+					var board = new Board("VHHdzCU0");
+					OutputCollection("actions", board.Actions);
 				});
 		}
 

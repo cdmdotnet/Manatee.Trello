@@ -43,11 +43,16 @@ namespace Manatee.Trello
 		protected PowerUpBase(IJsonPowerUp json, TrelloAuthorization auth)
 		{
 			Id = json.Id;
-			_context = new PowerUpContext(Id, auth);
+			_context = new PowerUpContext(json, auth);
 
 			_additionalInfo = new Field<string>(_context, nameof(AdditionalInfo));
 			_name = new Field<string>(_context, nameof(Name));
 			_public = new Field<bool?>(_context, nameof(Public));
+		}
+
+		public override string ToString()
+		{
+			return Name;
 		}
 	}
 }
