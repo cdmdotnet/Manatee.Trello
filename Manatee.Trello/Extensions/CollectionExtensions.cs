@@ -225,7 +225,7 @@ namespace Manatee.Trello
 		/// <param name="actions">The <see cref="ReadOnlyActionCollection"/></param>
 		/// <param name="limit">The limit.</param>
 		/// <returns>The limited collection.</returns>
-		public static ReadOnlyActionCollection Limit(ReadOnlyActionCollection actions, int limit)
+		public static ReadOnlyActionCollection Limit(this ReadOnlyActionCollection actions, int limit)
 		{
 			if (limit <= 0)
 				throw new ArgumentException("limit");
@@ -239,7 +239,7 @@ namespace Manatee.Trello
 		/// <param name="boards">The <see cref="ReadOnlyBoardCollection"/></param>
 		/// <param name="limit">The limit.</param>
 		/// <returns>The limited collection.</returns>
-		public static ReadOnlyBoardCollection Limit(ReadOnlyBoardCollection boards, int limit)
+		public static ReadOnlyBoardCollection Limit(this ReadOnlyBoardCollection boards, int limit)
 		{
 			if (limit <= 0)
 				throw new ArgumentException("limit");
@@ -253,7 +253,7 @@ namespace Manatee.Trello
 		/// <param name="cards">The <see cref="ReadOnlyCardCollection"/></param>
 		/// <param name="limit">The limit.</param>
 		/// <returns>The limited collection.</returns>
-		public static ReadOnlyCardCollection Limit(ReadOnlyCardCollection cards, int limit)
+		public static ReadOnlyCardCollection Limit(this ReadOnlyCardCollection cards, int limit)
 		{
 			if (limit <= 0)
 				throw new ArgumentException("limit");
@@ -267,7 +267,7 @@ namespace Manatee.Trello
 		/// <param name="lists">The <see cref="ReadOnlyListCollection"/></param>
 		/// <param name="limit">The limit.</param>
 		/// <returns>The limited collection.</returns>
-		public static ReadOnlyListCollection Limit(ReadOnlyListCollection lists, int limit)
+		public static ReadOnlyListCollection Limit(this ReadOnlyListCollection lists, int limit)
 		{
 			if (limit <= 0)
 				throw new ArgumentException("limit");
@@ -281,7 +281,7 @@ namespace Manatee.Trello
 		/// <param name="notifications">The <see cref="ReadOnlyNotificationCollection"/></param>
 		/// <param name="limit">The limit.</param>
 		/// <returns>The limited collection.</returns>
-		public static ReadOnlyNotificationCollection Limit(ReadOnlyNotificationCollection notifications, int limit)
+		public static ReadOnlyNotificationCollection Limit(this ReadOnlyNotificationCollection notifications, int limit)
 		{
 			if (limit <= 0)
 				throw new ArgumentException("limit");
@@ -295,7 +295,7 @@ namespace Manatee.Trello
 		/// <param name="organizations">The <see cref="ReadOnlyOrganizationCollection"/></param>
 		/// <param name="limit">The limit.</param>
 		/// <returns>The limited collection.</returns>
-		public static ReadOnlyOrganizationCollection Limit(ReadOnlyOrganizationCollection organizations, int limit)
+		public static ReadOnlyOrganizationCollection Limit(this ReadOnlyOrganizationCollection organizations, int limit)
 		{
 			if (limit <= 0)
 				throw new ArgumentException("limit");
