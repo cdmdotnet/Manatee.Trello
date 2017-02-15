@@ -45,7 +45,7 @@ Most entities can be accessed directly simply by calling their constructors and 
 
 >**NOTE** These contructors can work with both a long and short ID.  The short IDs for boards and cards are pretty easy to find, too: they're in the URL!  For example, the Trello API Dev board ( https://trello.com/b/cI66RoQS/trello-public-api) has a short ID of `cI66RoQS`.  The long IDs can be found in the `Id` property of any of the entities; they're not exposed through the website in any way.
 
-Once you have an entity, you can get any entities related to it through its properties or extention methods.
+Once you have an entity, you can get any entities related to it through its properties or extension methods.
 
     var cards = board.Cards;
 
