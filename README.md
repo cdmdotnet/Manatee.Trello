@@ -21,7 +21,7 @@ There are also a series of packages that implement Trello PowerUps:
 - Custom fields ([Manatee.Trello.CustomFields](http://www.nuget.org/packages/Manatee.Trello.CustomFields/))
 - more to come...
 
-The parser and the client are merely implemnetations of interfaces defined in the main library.  If you want to use different providers for this functionality, you can provide your own implementations during setup!
+The parser and the client are merely implementations of interfaces defined in the main library.  If you want to use different providers for this functionality, you can provide your own implementations during setup!
 
 ##Setup
 
