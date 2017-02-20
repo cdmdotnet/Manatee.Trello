@@ -13,6 +13,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public IJsonActionData Data { get; set; }
 		public ActionType? Type { get; set; }
 		public DateTime? Date { get; set; }
+		public string Text { get; set; }
 
 		public virtual void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -33,7 +34,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public virtual JsonValue ToJson(JsonSerializer serializer)
 		{
-			return null;
+			return new JsonObject {{"text", Text}};
 		}
 	}
 }

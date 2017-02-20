@@ -25,6 +25,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{"Date", new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
 					{"Id", new Property<IJsonAction, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{"Text", new Property<IJsonAction, string>((d, a) => d.Data.Text, (d, o) => d.Text = o)},
 					{"Type", new Property<IJsonAction, ActionType?>((d, a) => d.Type, (d, o) => d.Type = o)},
 				};
 		}
@@ -34,6 +35,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 			ActionDataContext = new ActionDataContext(Auth);
 			ActionDataContext.SynchronizeRequested += () => Synchronize();
+			ActionDataContext.SubmitRequested += () => HandleSubmitRequested("Text");
 			Data.Data = ActionDataContext.Data;
 		}
 
@@ -64,9 +66,17 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
+		protected override void SubmitData(IJsonAction json)
+		{
+			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			Merge(newData);
+			Data.Data = ActionDataContext.Data;
+		}
 		protected override void ApplyDependentChanges(IJsonAction json)
 		{
-			if (json.Data != null)
+			Data.Data = ActionDataContext.Data;
+			if (ActionDataContext.HasChanges)
 			{
 				json.Data = ActionDataContext.GetChanges();
 				ActionDataContext.ClearChanges();

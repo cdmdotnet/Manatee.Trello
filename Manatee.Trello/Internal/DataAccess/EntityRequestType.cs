@@ -6,6 +6,7 @@
 		Unsupported,
 		Action_Read_Refresh,
 		Action_Write_Delete,
+		Action_Write_Update,
 		Attachment_Write_Delete,
 		Board_Read_Actions,
 		Board_Read_Cards,

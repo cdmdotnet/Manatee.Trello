@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Json;
 using Manatee.Trello.ManateeJson;
@@ -344,6 +344,37 @@ namespace Manatee.Trello.Test
 			finally
 			{
 				card?.Delete();
+			}
+		}
+
+		[TestMethod]
+		public void Issue59_EditComments()
+		{
+			Card card = null;
+			var name = "edit comment test";
+			try
+			{
+				var serializer = new ManateeSerializer();
+				TrelloConfiguration.Serializer = serializer;
+				TrelloConfiguration.Deserializer = serializer;
+				TrelloConfiguration.JsonFactory = new ManateeFactory();
+				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+				TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
+
+				var list = new List(TrelloIds.ListId);
+				card = list.Cards.Add(name);
+				var comment = card.Comments.Add("This is a comment");
+				comment.Data.Text = "This comment was changed.";
+
+				Thread.Sleep(5);
+
+				TrelloProcessor.Flush();
+			}
+			finally
+			{
+				//card?.Delete();
 			}
 		}
 	}
