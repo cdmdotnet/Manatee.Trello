@@ -20,7 +20,7 @@ namespace Manatee.Trello.Test
 					TrelloConfiguration.MaxRetryCount = 5;
 
 					var board = new Board("VHHdzCU0");
-					OutputCollection("actions", board.Actions);
+					OutputCollection("recent cards", board.Cards.Filter(new DateTime(2017, 1, 1)));
 				});
 		}
 

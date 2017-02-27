@@ -79,6 +79,15 @@ namespace Manatee.Trello
 				_additionalParameters = new Dictionary<string, object>();
 			_additionalParameters["filter"] = cardStatus.GetDescription();
 		}
+		internal void SetFilter(DateTime? start, DateTime? end)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>();
+			if (start != null)
+				_additionalParameters["since"] = start;
+			if (end != null)
+				_additionalParameters["before"] = end;
+		}
 
 		private Card GetByKey(string key)
 		{
