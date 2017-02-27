@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.CustomFields;
+using System.Net;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,6 +15,9 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
+					TrelloConfiguration.RetryStatusCodes.Add(HttpStatusCode.Forbidden);
+					TrelloConfiguration.MaxRetryCount = 5;
+
 					var board = new Board("VHHdzCU0");
 					OutputCollection("actions", board.Actions);
 				});

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.ExceptionHandling;
@@ -118,6 +119,14 @@ namespace Manatee.Trello
 		/// Setting a value of 0 ms will result in instant upload of changes, dramatically increasing call volume and slowing performance.
 		/// </remarks>
 		public static TimeSpan ChangeSubmissionTime { get; set; }
+		/// <summary>
+		/// Specifies which HTTP response status codes should trigger an automatic retry.
+		/// </summary>
+		public static IList<HttpStatusCode> RetryStatusCodes { get; }
+		/// <summary>
+		/// 
+		/// </summary>
+		public static int MaxRetryCount { get; set; }
 
 		internal static Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>> RegisteredPowerUps { get; }
 
@@ -127,6 +136,7 @@ namespace Manatee.Trello
 			ExpiryTime = TimeSpan.FromSeconds(30);
 			ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
 			RegisteredPowerUps = new Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>>();
+			RetryStatusCodes = new List<HttpStatusCode>();
 		}
 
 		public static void RegisterPowerUp(string id, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp> factory)
