@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using Manatee.Trello.Contracts;
 using RestSharp;
 using IRestClient = Manatee.Trello.Rest.IRestClient;
@@ -23,20 +24,32 @@ namespace Manatee.Trello.RestSharp
 
 		public IRestResponse Execute(IRestRequest request)
 		{
-			var restSharpRequest = (RestSharpRequest)request;
-			var restSharpResponse = base.Execute(restSharpRequest);
-			ValidateResponse(restSharpResponse);
+			var restSharpResponse = ExecuteWithRetry(request);
 			return new RestSharpResponse(restSharpResponse);
 		}
 
 		public Rest.IRestResponse<T> Execute<T>(IRestRequest request)
 			where T : class
 		{
-			var restSharpRequest = (RestSharpRequest) request;
-			var restSharpResponse = base.Execute(restSharpRequest);
-			ValidateResponse(restSharpResponse);
+			var restSharpResponse = ExecuteWithRetry(request);
 			var data = _deserializer.Deserialize<T>(restSharpResponse);
 			return new RestSharpResponse<T>(restSharpResponse, data);
+		}
+
+		private global::RestSharp.IRestResponse ExecuteWithRetry(IRestRequest request)
+		{
+			var restSharpRequest = (RestSharpRequest)request;
+			var count = 0;
+			bool failOut;
+			global::RestSharp.IRestResponse restSharpResponse;
+			do
+			{
+				count++;
+				restSharpResponse = base.Execute(restSharpRequest);
+				failOut = !TrelloConfiguration.RetryStatusCodes.Contains(restSharpResponse.StatusCode);
+			} while (failOut && count <= TrelloConfiguration.MaxRetryCount);
+			ValidateResponse(restSharpResponse);
+			return restSharpResponse;
 		}
 
 		private void ValidateResponse(global::RestSharp.IRestResponse response)

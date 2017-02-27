@@ -12,7 +12,7 @@
 
 		public string Validate(string oldValue, string newValue)
 		{
-			return !oldValue.IsNullOrWhiteSpace()
+			return oldValue.IsNullOrWhiteSpace()
 					   ? "Value cannot be set unless it already has a value."
 					   : null;
 		}

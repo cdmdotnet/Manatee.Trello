@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Web;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
@@ -95,7 +96,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				catch (Exception e)
 				{
 					var tie = new TrelloInteractionException(e);
-					request.Response = new NullRestResponse { Exception = e };
+					request.Response = new NullRestResponse {Exception = e};
 					TrelloConfiguration.Log.Error(tie, false);
 				}
 			}

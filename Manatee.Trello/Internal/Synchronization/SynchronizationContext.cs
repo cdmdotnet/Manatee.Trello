@@ -13,7 +13,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private DateTime _lastUpdate;
 		private bool _cancelUpdate;
 
-		protected abstract bool HasChanges { get; }
+		public abstract bool HasChanges { get; }
 
 		protected virtual bool IsDataComplete => true;
 		protected bool ManagesSubmissions { get; }
@@ -119,7 +119,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		private readonly List<string> _localChanges;
 		private readonly object _mergeLock;
 
-		protected override bool HasChanges => _localChanges.Any();
+		public override bool HasChanges => _localChanges.Any();
+
 		protected TrelloAuthorization Auth { get; }
 		protected bool IsInitialized { get; private set; }
 

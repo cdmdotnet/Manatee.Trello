@@ -126,16 +126,12 @@
     <Compile Include="TrelloIds.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj">
-      <Project>{BC9E4815-D9EA-403B-B7A9-5993FB282DDC}</Project>
-      <Name>Manatee.Trello.CustomFields</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj">
       <Project>{fb07603f-bd9b-4cbb-8142-47666c5d88cf}</Project>
       <Name>Manatee.Trello.ManateeJson</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello.RestSharp\Manatee.Trello.RestSharp.csproj">
-      <Project>{bad3068d-bffb-4b0d-9826-1df8295827c9}</Project>
+      <Project>{BAD3068D-BFFB-4B0D-9826-1DF8295827C9}</Project>
       <Name>Manatee.Trello.RestSharp</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello.WebApi\Manatee.Trello.WebApi.csproj">

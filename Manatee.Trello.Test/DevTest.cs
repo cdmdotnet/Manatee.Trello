@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.CustomFields;
+using System.Net;
 using Manatee.Trello.ManateeJson;
+using Manatee.Trello.RestSharp;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,6 +16,9 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
+					TrelloConfiguration.RetryStatusCodes.Add(HttpStatusCode.Forbidden);
+					TrelloConfiguration.MaxRetryCount = 5;
+
 					var board = new Board("VHHdzCU0");
 					OutputCollection("recent cards", board.Cards.Filter(new DateTime(2017, 1, 1)));
 				});
@@ -26,7 +30,7 @@ namespace Manatee.Trello.Test
 			TrelloConfiguration.Serializer = serializer;
 			TrelloConfiguration.Deserializer = serializer;
 			TrelloConfiguration.JsonFactory = new ManateeFactory();
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+			TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
