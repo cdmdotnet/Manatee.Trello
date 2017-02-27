@@ -113,6 +113,19 @@ namespace Manatee.Trello
 			return collection;
 		}
 		/// <summary>
+		/// Filters a <see cref="ReadOnlyCardCollection"/> for a given <see cref="CardFilter"/>.
+		/// </summary>
+		/// <param name="cards">The <see cref="ReadOnlyCardCollection"/></param>
+		/// <param name="start">The desired start date.</param>
+		/// <param name="end">The desired end date.</param>
+		/// <returns>The filtered collection.</returns>
+		public static ReadOnlyCardCollection Filter(this ReadOnlyCardCollection cards, DateTime? start = null, DateTime? end = null)
+		{
+			var collection = new ReadOnlyCardCollection(cards, cards.Auth);
+			collection.SetFilter(start, end);
+			return collection;
+		}
+		/// <summary>
 		/// Filters a <see cref="ReadOnlyListCollection"/> for a given <see cref="ListFilter"/>.
 		/// </summary>
 		/// <param name="lists">The <see cref="ReadOnlyListCollection"/></param>
