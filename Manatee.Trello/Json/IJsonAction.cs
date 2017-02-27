@@ -27,5 +27,11 @@ namespace Manatee.Trello.Json
 		///</summary>
 		[JsonDeserialize]
 		DateTime? Date { get; set; }
+
+		/// <summary>
+		/// Gets or sets the text for a comment while updating it.
+		/// </summary>
+		[JsonSerialize]
+		string Text { get; set; }
 	}
 }
