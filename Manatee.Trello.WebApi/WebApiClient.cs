@@ -65,26 +65,23 @@ namespace Manatee.Trello.WebApi
 		private async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request) where T : class
 		{
 			HttpResponseMessage response;
-			using (var client = new HttpClient())
+			var webRequest = (WebApiRestRequest) request;
+			switch (request.Method)
 			{
-				var webRequest = (WebApiRestRequest) request;
-				switch (request.Method)
-				{
-					case RestMethod.Get:
-						response = await client.GetAsync(GetFullResource(webRequest));
-						break;
-					case RestMethod.Put:
-						response = await client.PutAsync(GetFullResource(webRequest), GetContent(webRequest));
-						break;
-					case RestMethod.Post:
-						response = await client.PostAsync(GetFullResource(webRequest), GetContent(webRequest));
-						break;
-					case RestMethod.Delete:
-						response = await client.DeleteAsync(GetFullResource(webRequest));
-						break;
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
+				case RestMethod.Get:
+					response = await ExecuteWithRetry(c => c.GetAsync(GetFullResource(webRequest)));
+					break;
+				case RestMethod.Put:
+					response = await ExecuteWithRetry(c => c.PutAsync(GetFullResource(webRequest), GetContent(webRequest)));
+					break;
+				case RestMethod.Post:
+					response = await ExecuteWithRetry(c => c.PostAsync(GetFullResource(webRequest), GetContent(webRequest)));
+					break;
+				case RestMethod.Delete:
+					response = await ExecuteWithRetry(c => c.DeleteAsync(GetFullResource(webRequest)));
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 			if (!response.IsSuccessStatusCode)
 				throw new HttpException("Received a failure from Trello.\n" +
@@ -98,6 +95,22 @@ namespace Manatee.Trello.WebApi
 				restResponse.Data = await response.Content.ReadAsAsync<T>(new MediaTypeFormatter[] {_formatter, _errorLogger});
 			}
 			return restResponse;
+		}
+		private static async Task<HttpResponseMessage> ExecuteWithRetry(Func<HttpClient, Task<HttpResponseMessage>> call)
+		{
+			HttpResponseMessage response;
+			using (var client = new HttpClient())
+			{
+				bool failOut;
+				var count = 0;
+				do
+				{
+					count++;
+					response = await call(client);
+					failOut = !TrelloConfiguration.RetryStatusCodes.Contains(response.StatusCode);
+				} while (failOut && count <= TrelloConfiguration.MaxRetryCount);
+			}
+			return response;
 		}
 		private HttpContent GetContent(WebApiRestRequest request)
 		{
