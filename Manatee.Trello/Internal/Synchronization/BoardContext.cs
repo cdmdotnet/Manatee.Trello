@@ -50,10 +50,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
+			Data.Prefs = BoardPreferencesContext.Data;
 		}
 		protected override void ApplyDependentChanges(IJsonBoard json)
 		{
-			if (json.Prefs != null)
+			Data.Prefs = BoardPreferencesContext.Data;
+			if (BoardPreferencesContext.HasChanges)
 			{
 				json.Prefs = BoardPreferencesContext.GetChanges();
 				BoardPreferencesContext.ClearChanges();
