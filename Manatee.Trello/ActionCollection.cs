@@ -107,7 +107,7 @@ namespace Manatee.Trello
 			if (error != null)
 				throw new ValidationException<string>(text, new[] {error});
 
-			var json = TrelloConfiguration.JsonFactory.Create<IJsonComment>();
+			var json = TrelloConfiguration.JsonFactory.Create<IJsonAction>();
 			json.Text = text;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddComment, new Dictionary<string, object> {{"_id", OwnerId}});

@@ -139,6 +139,11 @@ namespace Manatee.Trello
 			RetryStatusCodes = new List<HttpStatusCode>();
 		}
 
+		/// <summary>
+		/// Registers a new power-up implementation.
+		/// </summary>
+		/// <param name="id">The Trello ID of the power-up.</param>
+		/// <param name="factory">A factory function that creates instances of the power-up implementation.</param>
 		public static void RegisterPowerUp(string id, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp> factory)
 		{
 			RegisteredPowerUps[id] = factory;

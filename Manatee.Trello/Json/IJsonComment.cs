@@ -1,8 +1,11 @@
+using System;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
 	/// Defines the JSON structure for the Comment object.
 	/// </summary>
+	[Obsolete("This JSON type is no longer needed.  It will be deleted with the next major version.")]
 	public interface IJsonComment : IJsonAction
 	{
 		/// <summary>

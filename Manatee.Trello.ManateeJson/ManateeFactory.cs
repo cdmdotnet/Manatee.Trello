@@ -30,7 +30,6 @@ namespace Manatee.Trello.ManateeJson
 					{typeof (IJsonCard), () => new ManateeCard()},
 					{typeof (IJsonCheckItem), () => new ManateeCheckItem()},
 					{typeof (IJsonCheckList), () => new ManateeCheckList()},
-					{typeof (IJsonComment), () => new ManateeComment()},
 					{typeof (IJsonImagePreview), () => new ManateeImagePreview()},
 					{typeof (IJsonLabel), () => new ManateeLabel()},
 					{typeof (IJsonList), () => new ManateeList()},
