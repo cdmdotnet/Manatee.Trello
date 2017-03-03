@@ -18,7 +18,11 @@ namespace Manatee.Trello.RestSharp
 
 		public T Deserialize<T>(IRestResponse response)
 		{
-			var r = new RestSharpResponse<T>(response, default(T));
+			var r = new RestSharpResponse<T>
+				{
+					Content = response.Content,
+					StatusCode = response.StatusCode
+				};
 			return _inner.Deserialize(r);
 		}
 	}
