@@ -16,8 +16,9 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					TrelloConfiguration.RetryStatusCodes.Add(HttpStatusCode.Forbidden);
+					TrelloConfiguration.RetryStatusCodes.Add(HttpStatusCode.Unauthorized);
 					TrelloConfiguration.MaxRetryCount = 5;
+					TrelloConfiguration.DelayBetweenRetries = TimeSpan.FromMilliseconds(50);
 
 					var board = new Board("VHHdzCU0");
 					OutputCollection("recent cards", board.Cards.Filter(new DateTime(2017, 1, 1)));
@@ -31,6 +32,7 @@ namespace Manatee.Trello.Test
 			TrelloConfiguration.Deserializer = serializer;
 			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
+			//TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
