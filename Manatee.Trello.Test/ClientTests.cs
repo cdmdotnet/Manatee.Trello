@@ -374,8 +374,26 @@ namespace Manatee.Trello.Test
 			}
 			finally
 			{
-				//card?.Delete();
+				card?.Delete();
 			}
+		}
+
+		[TestMethod]
+		public void Issue60_BoardPreferencesFromSearch()
+		{
+			var serializer = new ManateeSerializer();
+			TrelloConfiguration.Serializer = serializer;
+			TrelloConfiguration.Deserializer = serializer;
+			TrelloConfiguration.JsonFactory = new ManateeFactory();
+			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
+
+			var search = new Search(SearchFor.TextInName("Sandbox"), 1, SearchModelType.Boards);
+			var board = search.Boards.FirstOrDefault();
+
+			Assert.IsNotNull(board.Preferences.Background.Color);
 		}
 	}
 }

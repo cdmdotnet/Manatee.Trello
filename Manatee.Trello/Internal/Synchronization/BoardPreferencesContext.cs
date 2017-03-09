@@ -19,8 +19,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"IsCalendarFeedEnabled", new Property<IJsonBoardPreferences, bool?>((d, a) => d.CalendarFeed, (d, o) => d.CalendarFeed = o)},
 					{"CardAgingStyle", new Property<IJsonBoardPreferences, CardAgingStyle?>((d, a) => d.CardAging, (d, o) => d.CardAging = o)},
 					{
-						"Background", new Property<IJsonBoardPreferences, BoardBackground>((d, a) => d.Background == null ? null : d.Background.GetFromCache<BoardBackground>(a),
-																						   (d, o) => d.Background = o != null ? o.Json : null)
+						"Background", new Property<IJsonBoardPreferences, BoardBackground>((d, a) => d.Background?.GetFromCache<BoardBackground>(a),
+																						   (d, o) => d.Background = o?.Json)
 					}
 				};
 		}

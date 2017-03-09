@@ -88,5 +88,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return !_deleted;
 		}
+		public override void Expire()
+		{
+			OrganizationPreferencesContext.Expire();
+			base.Expire();
+		}
 	}
 }
