@@ -1,29 +1,17 @@
 ﻿using System;
-using IRestResponse = RestSharp.IRestResponse;
+using System.Net;
 
 namespace Manatee.Trello.RestSharp
 {
-	internal class RestSharpResponse : Rest.IRestResponse
+	public class RestSharpResponse : Rest.IRestResponse
 	{
-		private readonly IRestResponse _response;
-
-		public string Content => _response.Content;
+		public string Content { get; set; }
 		public Exception Exception { get; set; }
-
-		public RestSharpResponse(IRestResponse response)
-		{
-			_response = response;
-		}
+		public HttpStatusCode StatusCode { get; set; }
 	}
 
-	internal class RestSharpResponse<T> : RestSharpResponse, Rest.IRestResponse<T>
+	public class RestSharpResponse<T> : RestSharpResponse, Rest.IRestResponse<T>
 	{
-		public T Data { get; private set; }
-
-		public RestSharpResponse(IRestResponse response, T data)
-			: base(response)
-		{
-			Data = data;
-		}
+		public T Data { get; set; }
 	}
 }
