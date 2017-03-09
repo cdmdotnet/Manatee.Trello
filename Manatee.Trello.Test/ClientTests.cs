@@ -374,7 +374,7 @@ namespace Manatee.Trello.Test
 			}
 			finally
 			{
-				//card?.Delete();
+				card?.Delete();
 			}
 		}
 
@@ -393,7 +393,7 @@ namespace Manatee.Trello.Test
 			var search = new Search(SearchFor.TextInName("Sandbox"), 1, SearchModelType.Boards);
 			var board = search.Boards.FirstOrDefault();
 
-			Assert.IsNull(board.Preferences.Background.Color);
+			Assert.IsNotNull(board.Preferences.Background.Color);
 		}
 	}
 }

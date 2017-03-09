@@ -70,7 +70,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				handler?.Invoke(properties);
 			}
 		}
-		public void Expire()
+		public virtual void Expire()
 		{
 			_lastUpdate = DateTime.MinValue;
 		}
