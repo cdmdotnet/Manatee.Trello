@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.RestSharp;
@@ -16,11 +17,12 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					TrelloConfiguration.RetryStatusCodes.Add(HttpStatusCode.Forbidden);
-					TrelloConfiguration.MaxRetryCount = 5;
+					var search = new Search(SearchFor.TextInName("greg"), 1, SearchModelType.Boards);
+					var board = search.Boards.FirstOrDefault();
+					var background = board.Preferences.Background;
 
-					var board = new Board("VHHdzCU0");
-					OutputCollection("recent cards", board.Cards.Filter(new DateTime(2017, 1, 1)));
+					Console.WriteLine(background.Color);
+					Console.WriteLine(background.Image);
 				});
 		}
 
@@ -30,7 +32,7 @@ namespace Manatee.Trello.Test
 			TrelloConfiguration.Serializer = serializer;
 			TrelloConfiguration.Deserializer = serializer;
 			TrelloConfiguration.JsonFactory = new ManateeFactory();
-			TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
+			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
