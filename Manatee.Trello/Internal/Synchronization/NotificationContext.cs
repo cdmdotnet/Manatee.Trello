@@ -50,5 +50,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return NotificationDataContext.Merge(json.Data);
 		}
+		public override void Expire()
+		{
+			NotificationDataContext.Expire();
+			base.Expire();
+		}
 	}
 }
