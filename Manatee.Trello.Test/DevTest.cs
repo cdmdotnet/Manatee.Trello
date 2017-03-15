@@ -21,7 +21,6 @@ namespace Manatee.Trello.Test
 					var board = search.Boards.FirstOrDefault();
 					var background = board.Preferences.Background;
 
-					var board = new Board("VHHdzCU0");
 					OutputCollection("recent cards", board.Cards.Filter(new DateTime(2017, 1, 1)));
 				});
 		}
