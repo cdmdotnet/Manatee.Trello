@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
@@ -82,8 +83,16 @@ namespace Manatee.Trello
 	/// </summary>
 	public class BoardLabelCollection : ReadOnlyCollection<Label>
 	{
+		private Dictionary<string, object> _additionalParameters;
+
 		internal BoardLabelCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
+		internal BoardLabelCollection(BoardLabelCollection source, TrelloAuthorization auth)
+			: this(() => source.OwnerId, auth)
+		{
+			if (source._additionalParameters != null)
+				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
+		}
 
 		/// <summary>
 		/// Adds a label to the collection.
@@ -111,6 +120,8 @@ namespace Manatee.Trello
 		/// </summary>
 		protected sealed override void Update()
 		{
+			IncorporateLimit(_additionalParameters);
+
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Labels, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonLabel>>(Auth, endpoint);
 
@@ -121,6 +132,13 @@ namespace Manatee.Trello
 					board.Json = jb;
 					return board;
 				}));
+		}
+
+		internal void SetFilter(LabelColor labelColor)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>();
+			_additionalParameters["filter"] = labelColor.GetDescription();
 		}
 	}
 }
