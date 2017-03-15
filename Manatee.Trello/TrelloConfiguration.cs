@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.ExceptionHandling;
@@ -20,6 +21,7 @@ namespace Manatee.Trello
 		private static IRestClientProvider _restClientProvider;
 		private static ICache _cache;
 		private static IJsonFactory _jsonFactory;
+		private static Func<IRestResponse, int, bool> _retryPredicate;
 
 		/// <summary>
 		/// Specifies the serializer for the REST client.
@@ -124,9 +126,28 @@ namespace Manatee.Trello
 		/// </summary>
 		public static IList<HttpStatusCode> RetryStatusCodes { get; }
 		/// <summary>
-		/// 
+		/// Specifies a maximum number of retries allowed before an error is thrown.  
 		/// </summary>
 		public static int MaxRetryCount { get; set; }
+		/// <summary>
+		/// Specifies a delay between retry attempts.
+		/// </summary>
+		public static TimeSpan DelayBetweenRetries { get; set; }
+		/// <summary>
+		/// Specifies a predicate to execute to determine if a retry should be attempted.
+		/// </summary>
+		/// <remarks>
+		/// Arguments are:
+		/// <see cref="IRestResponse"/> - The response object from the REST provider.  Will need to be cast to the appropriate type.
+		/// <see cref="int"/> - The number of retries attempted.
+		/// Return value:
+		/// <see cref="bool"/> - True if the call should be retried; false otherwise.
+		/// </remarks>
+		public static Func<IRestResponse, int, bool> RetryPredicate
+		{
+			get { return _retryPredicate ?? DefaultRetry; }
+			set { _retryPredicate = value; }
+		}
 
 		internal static Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>> RegisteredPowerUps { get; }
 
@@ -139,9 +160,23 @@ namespace Manatee.Trello
 			RetryStatusCodes = new List<HttpStatusCode>();
 		}
 
+		/// <summary>
+		/// Registers a new power-up implementation.
+		/// </summary>
+		/// <param name="id">The Trello ID of the power-up.</param>
+		/// <param name="factory">A factory function that creates instances of the power-up implementation.</param>
 		public static void RegisterPowerUp(string id, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp> factory)
 		{
 			RegisteredPowerUps[id] = factory;
+		}
+
+		private static bool DefaultRetry(IRestResponse response, int callCount)
+		{
+			var retry = RetryStatusCodes.Contains(response.StatusCode) &&
+			            callCount <= MaxRetryCount;
+			if (retry)
+				Thread.Sleep(DelayBetweenRetries);
+			return retry;
 		}
 	}
 }

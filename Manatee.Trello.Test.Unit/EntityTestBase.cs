@@ -81,7 +81,6 @@ namespace Manatee.Trello.Test.Unit
 				ConfigureJsonFactory<IJsonCard>();
 				ConfigureJsonFactory<IJsonCheckItem>();
 				ConfigureJsonFactory<IJsonCheckList>();
-				ConfigureJsonFactory<IJsonComment>();
 				ConfigureJsonFactory<IJsonImagePreview>();
 				ConfigureJsonFactory<IJsonLabel>();
 				ConfigureJsonFactory<IJsonList>();

@@ -64,5 +64,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				MemberPreferencesContext.ClearChanges();
 			}
 		}
+		public override void Expire()
+		{
+			MemberPreferencesContext.Expire();
+			base.Expire();
+		}
 	}
 }

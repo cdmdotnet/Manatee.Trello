@@ -109,6 +109,14 @@ namespace Manatee.Trello.Internal
 		{
 			return date == _trelloMinDate ? DateTime.MinValue : date;
 		}
+		public static IEnumerable<T> ForEach<T>(this IEnumerable<T> collection, Action<T> action)
+		{
+			foreach (var item in collection)
+			{
+				action(item);
+				yield return item;
+			}
+		}
 
 		private static void EnsureDescriptions<T>()
 		{

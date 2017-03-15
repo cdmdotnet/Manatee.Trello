@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace Manatee.Trello.Rest
 {
@@ -15,6 +16,10 @@ namespace Manatee.Trello.Rest
 		/// Gets any exception that was thrown during the call.
 		/// </summary>
 		Exception Exception { get; set; }
+		/// <summary>
+		/// Gets the status code.
+		/// </summary>
+		HttpStatusCode StatusCode { get; }
 	}
 	/// <summary>
 	/// Defines required properties returned by RESTful calls.

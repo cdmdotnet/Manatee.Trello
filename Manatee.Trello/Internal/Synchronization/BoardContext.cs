@@ -8,7 +8,7 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class BoardContext : SynchronizationContext<IJsonBoard>
 	{
-		public BoardPreferencesContext BoardPreferencesContext { get; private set; }
+		public BoardPreferencesContext BoardPreferencesContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static BoardContext()
@@ -66,5 +66,10 @@ namespace Manatee.Trello.Internal.Synchronization
 			return BoardPreferencesContext.Merge(json.Prefs);
 		}
 		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+		public override void Expire()
+		{
+			BoardPreferencesContext.Expire();
+			base.Expire();
+		}
 	}
 }

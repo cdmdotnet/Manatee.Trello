@@ -101,5 +101,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return !_deleted;
 		}
+		public override void Expire()
+		{
+			BadgesContext.Expire();
+			base.Expire();
+		}
 	}
 }
