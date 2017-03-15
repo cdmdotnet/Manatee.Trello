@@ -113,6 +113,18 @@ namespace Manatee.Trello
 			return collection;
 		}
 		/// <summary>
+		/// Filters a <see cref="BoardLabelCollection"/> for a given <see cref="CardFilter"/>.
+		/// </summary>
+		/// <param name="labels">The <see cref="BoardLabelCollection"/></param>
+		/// <param name="filter">The new <see cref="CardFilter"/> by which to filter.</param>
+		/// <returns>The filtered collection.</returns>
+		public static BoardLabelCollection Filter(this BoardLabelCollection labels, LabelColor filter)
+		{
+			var collection = new BoardLabelCollection(labels, labels.Auth);
+			collection.SetFilter(filter);
+			return collection;
+		}
+		/// <summary>
 		/// Filters a <see cref="ReadOnlyCardCollection"/> for a given <see cref="CardFilter"/>.
 		/// </summary>
 		/// <param name="cards">The <see cref="ReadOnlyCardCollection"/></param>
@@ -272,6 +284,20 @@ namespace Manatee.Trello
 				throw new ArgumentException("limit");
 
 			return new ReadOnlyCardCollection(cards, cards.Auth) {Limit = limit};
+		}
+
+		/// <summary>
+		/// Limits a <see cref="ReadOnlyListCollection"/> to a specified count of items.
+		/// </summary>
+		/// <param name="labels">The <see cref="ReadOnlyListCollection"/></param>
+		/// <param name="limit">The limit.</param>
+		/// <returns>The limited collection.</returns>
+		public static BoardLabelCollection Limit(this BoardLabelCollection labels, int limit)
+		{
+			if (limit <= 0)
+				throw new ArgumentException("limit");
+
+			return new BoardLabelCollection(labels, labels.Auth) {Limit = limit};
 		}
 
 		/// <summary>
