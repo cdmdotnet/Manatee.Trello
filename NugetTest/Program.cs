@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Manatee.Trello;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.ManateeJson;
@@ -14,18 +10,6 @@ namespace NugetTest
 {
 	class Program
 	{
-		private class ReferenceComparer<T> : IEqualityComparer<T>
-		{
-			public bool Equals(T x, T y)
-			{
-				return ReferenceEquals(x, y);
-			}
-			public int GetHashCode(T obj)
-			{
-				return obj.GetHashCode();
-			}
-		}
-
 		private class DebugLog : ILog
 		{
 			public void Debug(string message, params object[] parameters)
