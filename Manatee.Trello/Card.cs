@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
+using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
@@ -14,6 +17,45 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Card : ICanWebhook, IQueryable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("badges")]
+			Badges = 1,
+			[Description("idBoard")]
+			Board = 1 << 1,
+			[Description("idCheckLists")]
+			Checklists = 1 << 2,
+			[Description("dateLastActivity")]
+			DateLastActivity = 1 << 3,
+			[Description("desc")]
+			Description = 1 << 4,
+			[Description("due")]
+			Due = 1 << 5,
+			[Description("closed")]
+			IsArchived = 1 << 6,
+			[Description("dueComplete")]
+			IsComplete = 1 << 7,
+			[Description("subscribed")]
+			IsSubscribed = 1 << 8,
+			[Description("idLabels")]
+			Labels = 1 << 9,
+			[Description("idList")]
+			List = 1 << 10,
+			[Description("manualCoverAttachment")]
+			ManualCoverAttachment = 1 << 11,
+			[Description("name")]
+			Name = 1 << 12,
+			[Description("pos")]
+			Position = 1 << 13,
+			[Description("idShort")]
+			ShortId = 1 << 14,
+			[Description("shortUrl")]
+			ShortUrl = 1 << 15,
+			[Description("url")]
+			Url = 1 << 16,
+		}
+
 		private readonly Field<Board> _board;
 		private readonly Field<string> _description;
 		private readonly Field<DateTime?> _dueDate;
@@ -31,6 +73,8 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
