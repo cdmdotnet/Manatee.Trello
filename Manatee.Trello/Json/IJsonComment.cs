@@ -12,6 +12,8 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the text content of the comment.
 		/// </summary>
 		[JsonDeserialize]
+#pragma warning disable 108,114
 		string Text { get; set; }
+#pragma warning restore 108,114
 	}
 }
