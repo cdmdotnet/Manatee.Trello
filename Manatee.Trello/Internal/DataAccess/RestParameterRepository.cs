@@ -13,6 +13,12 @@ namespace Manatee.Trello.Internal.DataAccess
 			_parameterSets = new Dictionary<Type, Dictionary<string, string>>
 				{
 					{
+						typeof (IJsonCard), new Dictionary<string, string>
+							{
+								{"fields", "badges,closed,dateLastActivity,desc,due,idBoard,idList,idShort,idAttachmentCover,manualCoverAttachment,labels,name,pos,shortUrl,url"},
+							}
+					},
+					{
 						typeof (IJsonOrganization), new Dictionary<string, string>
 							{
 								{"fields", "name,displayName,desc,descData,url,website,logoHash,products,powerUps,prefs"},

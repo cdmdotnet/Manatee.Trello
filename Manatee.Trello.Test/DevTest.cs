@@ -15,11 +15,8 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var search = new Search(SearchFor.TextInName("greg"), 1, SearchModelType.Boards);
-					var board = search.Boards.FirstOrDefault();
-					var background = board.Preferences.Background;
-
-					OutputCollection("recent cards", board.Cards.Filter(new DateTime(2017, 1, 1)));
+					var card = new Card(TrelloIds.CardId);
+					Console.WriteLine(card);
 				});
 		}
 
