@@ -15,11 +15,10 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var search = new Search(SearchFor.TextInName("greg"), 1, SearchModelType.Boards);
-					var board = search.Boards.FirstOrDefault();
-					var background = board.Preferences.Background;
+					var board = new Board(TrelloIds.BoardId);
+					Console.WriteLine(board);
 
-					OutputCollection("recent cards", board.Cards.Filter(new DateTime(2017, 1, 1)));
+					OutputCollection("cards", board.Cards);
 				});
 		}
 
