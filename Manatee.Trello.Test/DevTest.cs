@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,8 +15,10 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var card = new Card(TrelloIds.CardId);
-					Console.WriteLine(card);
+					var board = new Board(TrelloIds.BoardId);
+					Console.WriteLine(board);
+
+					OutputCollection("cards", board.Cards);
 				});
 		}
 
