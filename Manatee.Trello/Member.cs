@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -11,8 +13,49 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member.
 	/// </summary>
-	public class Member : ICanWebhook, ICacheable
+	public class Member : ICanWebhook
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("avatarHash")]
+			AvatarHash = 1,
+			[Description("avatarSource")]
+			AvatarSource = 1 << 1,
+			[Description("bio")]
+			Bio = 1 << 2,
+			[Description("confirmed")]
+			IsConfirmed = 1 << 3,
+			[Description("email")]
+			Email = 1 << 4,
+			[Description("fullName")]
+			FullName = 1 << 5,
+			[Description("gravatarHash")]
+			GravatarHash = 1 << 6,
+			[Description("intials")]
+			Initials = 1 << 7,
+			[Description("loginTypes")]
+			LoginTypes = 1 << 8,
+			[Description("memberType")]
+			MemberType = 1 << 9,
+			[Description("oneTimeMessagesReceived")]
+			OneTimeMessagesDismissed = 1 << 10,
+			[Description("prefs")]
+			Preferencess = 1 << 11,
+			[Description("similarity")]
+			Similarity = 1 << 12,
+			[Description("status")]
+			Status = 1 << 13,
+			[Description("trophies")]
+			Trophies = 1 << 14,
+			[Description("uploadedAvatarHash")]
+			UploadedAvatarHash = 1 << 15,
+			[Description("url")]
+			Url = 1 << 16,
+			[Description("username")]
+			Username = 1 << 17
+		}
+
 		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
 		private static Me _me;
 
@@ -30,6 +73,8 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Returns the <see cref="Member"/> associated with the current User Token.

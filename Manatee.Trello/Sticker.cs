@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -13,6 +15,25 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Sticker : ICacheable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("left")]
+			Left = 1,
+			[Description("image")]
+			Name = 1 << 1,
+			[Description("imageScaled")]
+			Previews = 1 << 2,
+			[Description("rotate")]
+			Rotation = 1 << 3,
+			[Description("top")]
+			Top = 1 << 4,
+			[Description("url")]
+			Url = 1 << 5,
+			[Description("zIndex")]
+			ZIndex = 1 << 6
+		}
+
 		/// <summary>
 		/// Represents the stock Check sticker.
 		/// </summary>
@@ -69,6 +90,8 @@ namespace Manatee.Trello
 		private readonly Field<string> _url;
 		private readonly Field<int?> _zIndex;
 		private readonly StickerContext _context;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the checklist's ID.

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -13,6 +15,21 @@ namespace Manatee.Trello
 	/// </summary>
 	public class List : ICanWebhook
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("name")]
+			Name = 1,
+			[Description("closed")]
+			IsClosed = 1 << 1, 
+			[Description("idBoard")]
+			Board = 1 << 2,
+			[Description("pos")]
+			Position = 1 << 3,
+			[Description("subscribed")]
+			Susbcribed = 1 << 4
+		}
+
 		private readonly Field<Board> _board;
 		private readonly Field<bool?> _isArchived;
 		private readonly Field<bool?> _isSubscribed;
@@ -22,6 +39,8 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the collection of actions performed on the list.

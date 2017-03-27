@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -12,6 +14,27 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Attachment : ICacheable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("bytes")]
+			Bytes = 1,
+			[Description("date")]
+			Date = 1 << 1,
+			[Description("isUpload")]
+			IsUpload = 1 << 2,
+			[Description("idMember")]
+			Member = 1 << 3,
+			[Description("mimeType")]
+			MimeType = 1 << 4,
+			[Description("name")]
+			Name = 1 << 5,
+			[Description("previews")]
+			Previews = 1 << 6,
+			[Description("uri")]
+			Url = 1 << 7
+		}
+
 		private readonly Field<int?> _bytes;
 		private readonly Field<DateTime?> _date;
 		private readonly Field<bool?> _isUpload;
@@ -21,6 +44,8 @@ namespace Manatee.Trello
 		private readonly Field<string> _url;
 		private readonly AttachmentContext _context;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the size of the attachment in bytes.

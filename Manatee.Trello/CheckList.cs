@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -13,12 +15,29 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckList : ICacheable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("name")]
+			Name = 1,
+			[Description("idBoard")]
+			Board = 1 << 1,
+			[Description("idCard")]
+			Card = 1 << 2,
+			[Description("checkItems")]
+			CheckItems = 1 << 3,
+			[Description("pos")]
+			Position = 1 << 4
+		}
+
 		private readonly Field<Board> _board;
 		private readonly Field<Card> _card;
 		private readonly Field<string> _name;
 		private readonly Field<Position> _position;
 		private readonly CheckListContext _context;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the board on which the checklist belongs.

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -12,12 +14,27 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Label : ICacheable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("idBoard")]
+			Board = 1,
+			[Description("color")]
+			Color = 1 << 1,
+			[Description("name")]
+			Name = 1 << 2,
+			[Description("uses")]
+			Uses = 1 << 3
+		}
+
 		private readonly Field<Board> _board;
 		private readonly Field<LabelColor?> _color;
 		private readonly Field<string> _name;
 		private readonly Field<int?> _uses;
 		private readonly LabelContext _context;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the <see cref="Board"/> on which the label is defined.
