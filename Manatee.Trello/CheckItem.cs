@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -13,12 +15,25 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckItem : ICacheable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("state")]
+			State = 1,
+			[Description("name")]
+			Name = 1 << 1,
+			[Description("pos")]
+			Position = 1 << 2
+		}
+
 		private readonly Field<CheckList> _checkList;
 		private readonly Field<string> _name;
 		private readonly Field<Position> _position;
 		private readonly Field<CheckItemState?> _state;
 		private readonly CheckItemContext _context;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.

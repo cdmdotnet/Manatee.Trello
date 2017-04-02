@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -12,6 +14,21 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Notification : ICacheable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("idMemberCreator")]
+			Creator = 1,
+			[Description("data")]
+			Data = 1 << 1,
+			[Description("unread")]
+			IsUnread = 1 << 2,
+			[Description("type")]
+			Type = 1 << 3,
+			[Description("date")]
+			Date = 1 << 4
+		}
+
 		private static readonly Dictionary<NotificationType, Func<Notification, string>> _stringDefinitions;
 
 		private readonly Field<Member> _creator;
@@ -20,6 +37,8 @@ namespace Manatee.Trello
 		private readonly Field<NotificationType?> _type;
 		private readonly NotificationContext _context;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the creation date of the notification.

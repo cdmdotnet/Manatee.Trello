@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -12,6 +14,19 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Action : ICacheable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("data")]
+			Data = 1,
+			[Description("date")]
+			Date = 1 << 1,
+			[Description("idMemberCreator")]
+			Creator = 1 << 2,
+			[Description("type")]
+			Type = 1 << 3
+		}
+
 		private static readonly Dictionary<ActionType, Func<Action, string>> _stringDefinitions;
 
 		private readonly Field<Member> _creator;
@@ -20,6 +35,8 @@ namespace Manatee.Trello
 		private readonly ActionContext _context;
 		private string _id;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the creation date of the action.

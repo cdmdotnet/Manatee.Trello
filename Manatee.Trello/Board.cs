@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
+using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
@@ -14,6 +17,25 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Board : ICanWebhook, IQueryable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("name")]
+			Name = 1,
+			[Description("desc")]
+			Description = 1 << 1,
+			[Description("closed")]
+			Closed = 1 << 2,
+			[Description("idOrganization")]
+			Organization = 1 << 3,
+			[Description("prefs")]
+			Preferencess = 1 << 4,
+			[Description("url")]
+			Url = 1 << 5,
+			[Description("subscribed")]
+			Subscribed = 1 << 6
+		}
+
 		private readonly Field<string> _description;
 		private readonly Field<bool?> _isClosed;
 		private readonly Field<bool?> _isSubscribed;
@@ -24,6 +46,8 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the collection of actions performed on and within this board.

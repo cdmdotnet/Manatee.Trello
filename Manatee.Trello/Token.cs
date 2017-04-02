@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -12,6 +14,21 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Token : ICacheable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("identifier")]
+			Id,
+			[Description("idMember")]
+			Member,
+			[Description("dateCreated")]
+			DateCreated,
+			[Description("dateExpires")]
+			DateExpires,
+			[Description("permissions")]
+			Permissions
+		}
+
 		private readonly Field<string> _appName;
 		private readonly Field<DateTime?> _dateCreated;
 		private readonly Field<DateTime?> _dateExpires;
@@ -20,6 +37,8 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the name of the application associated with the token.

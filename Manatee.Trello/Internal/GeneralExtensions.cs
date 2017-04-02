@@ -60,7 +60,7 @@ namespace Manatee.Trello.Internal
 
 			EnsureDescriptions<T>();
 
-			var attributes = (typeof(T)).GetCustomAttributes(typeof(FlagsAttribute), false);
+			var attributes = typeof(T).GetCustomAttributes(typeof(FlagsAttribute), false);
 			return !attributes.Any()
 				? _descriptions[typeof(T)].First(d => Equals(d.Value, enumerationValue)).String
 				: BuildFlagsValues(enumerationValue, ",");

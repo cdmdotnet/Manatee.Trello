@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
+using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
@@ -14,6 +17,27 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Organization : ICanWebhook, IQueryable
 	{
+		[Flags]
+		public enum Fields
+		{
+			[Description("desc")]
+			Description = 1,
+			[Description("displayName")]
+			DisplayName = 1 << 1,
+			[Description("logoHash")]
+			LogoHash = 1 << 2,
+			[Description("name")]
+			Name = 1 << 3,
+			[Description("powerUps")]
+			PowerUps = 1 << 5,
+			[Description("prefs")]
+			Preferences = 1 << 6,
+			[Description("url")]
+			Url = 1 << 7,
+			[Description("website")]
+			Website = 1 << 8
+		}
+
 		private readonly Field<string> _description;
 		private readonly Field<string> _displayName;
 		private readonly Field<bool> _isBusinessClass;
@@ -24,6 +48,8 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+
+		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
