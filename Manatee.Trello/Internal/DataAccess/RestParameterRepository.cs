@@ -49,7 +49,9 @@ namespace Manatee.Trello.Internal.DataAccess
 					type = type.GetGenericArguments().First();
 			}
 			Func<string> getKey;
-			return !_fieldFuncs.TryGetValue(type, out getKey) ? null : getKey();
+			if (!_fieldFuncs.TryGetValue(type, out getKey)) return null;
+			var key = getKey();
+			return key;
 		}
 	}
 }
