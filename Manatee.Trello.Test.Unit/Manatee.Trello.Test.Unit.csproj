@@ -94,10 +94,6 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.5.1.1\lib\net45\Manatee.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Manatee.StateMachine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=15909d91027a225e, processorArchitecture=MSIL">
       <HintPath>..\packages\Manatee.StateMachine.1.1.2\lib\net40\Manatee.StateMachine.dll</HintPath>
       <Private>True</Private>

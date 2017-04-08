@@ -121,11 +121,14 @@ namespace Manatee.Trello.Internal
 		private static void EnsureDescriptions<T>()
 		{
 			var type = typeof(T);
-			if (_descriptions.ContainsKey(type))
-				return;
-			var names = Enum.GetValues(type).Cast<T>();
-			var descriptions = names.Select(n => new Description { Value = n, String = GetDescription<T>(n.ToString()) }).ToList();
-			_descriptions.Add(type, descriptions);
+			if (_descriptions.ContainsKey(type)) return;
+			lock (_descriptions)
+			{
+				if (_descriptions.ContainsKey(type)) return;
+				var names = Enum.GetValues(type).Cast<T>();
+				var descriptions = names.Select(n => new Description {Value = n, String = GetDescription<T>(n.ToString())}).ToList();
+				_descriptions.Add(type, descriptions);
+			}
 		}
 		private static string GetDescription<T>(string name)
 		{
@@ -140,7 +143,7 @@ namespace Manatee.Trello.Internal
 			var value = Convert.ToInt64(obj);
 			var index = descriptions.Count - 1;
 			var names = new List<string>();
-			while (value > 0 && index > 0)
+			while (value > 0 && index >= 0)
 			{
 				var compare = Convert.ToInt64(descriptions[index].Value);
 				if (value >= compare)

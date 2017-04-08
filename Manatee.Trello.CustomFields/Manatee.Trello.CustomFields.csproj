@@ -97,32 +97,32 @@
     <DocumentationFile>bin\Release-Mono\Manatee.Trello.CustomFields.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Release-Mono|AnyCPU'">
-    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.5.1.1\lib\net35\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net35-client\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5C|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.5.1.1\lib\net35-client\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net35-client\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.5.1.1\lib\net40\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net40-client\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0C|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.5.1.1\lib\net40-client\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net40-client\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.5|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.5.1.1\lib\net45\Manatee.Json.dll</HintPath>
+    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
+      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net45\Manatee.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

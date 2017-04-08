@@ -395,5 +395,22 @@ namespace Manatee.Trello.Test
 
 			Assert.IsNotNull(board.Preferences.Background.Color);
 		}
+
+		[TestMethod]
+		public void Issue84_ListNameNotDownloading()
+		{
+			var serializer = new ManateeSerializer();
+			TrelloConfiguration.Serializer = serializer;
+			TrelloConfiguration.Deserializer = serializer;
+			TrelloConfiguration.JsonFactory = new ManateeFactory();
+			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
+
+			var list = new List(TrelloIds.ListId);
+
+			Assert.IsNotNull(list.Name);
+		}
 	}
 }
