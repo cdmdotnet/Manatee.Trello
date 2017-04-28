@@ -61,5 +61,25 @@ namespace Manatee.Trello.Test
 		}
 
 		#endregion
+
+		#region http://stackoverflow.com/q/43667744/878701
+
+		[TestMethod]
+		public void LabelNamesAndCards()
+		{
+			Run(() =>
+				{
+					var card = new Card(TrelloIds.CardId);
+
+					foreach (var label in card.Labels)
+					{
+						Assert.IsNotNull(label.Name);
+						// I can't always ensure Color isn't null.  Colorless labels are a thing.
+						//Assert.IsNotNull(label.Color);
+					}
+				});
+		}
+
+		#endregion
 	}
 }

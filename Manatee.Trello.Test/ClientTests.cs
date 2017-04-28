@@ -412,5 +412,28 @@ namespace Manatee.Trello.Test
 
 			Assert.IsNotNull(list.Name);
 		}
+
+		[TestMethod]
+		public void Email_BoardDownloadHangsOnNameAfterFetchingFromCollection()
+		{
+			var serializer = new ManateeSerializer();
+			TrelloConfiguration.Serializer = serializer;
+			TrelloConfiguration.Deserializer = serializer;
+			TrelloConfiguration.JsonFactory = new ManateeFactory();
+			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
+
+			var board = Member.Me.Boards.Where(b => b.Name == "Sandbox").FirstOrDefault();
+
+			Assert.IsNotNull(board);
+			Assert.AreEqual("Sandbox", board.Name);
+
+			board = Member.Me.Boards.Where(b => b.Name.Equals("Sandbox")).FirstOrDefault();
+
+			Assert.IsNotNull(board);
+			Assert.AreEqual("Sandbox", board.Name);
+		}
 	}
 }

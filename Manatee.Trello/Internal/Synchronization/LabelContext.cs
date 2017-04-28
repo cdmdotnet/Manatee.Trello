@@ -45,7 +45,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_boardId", Data.Board.Id}, {"_id", Data.Id}});
+				var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = JsonRepository.Execute<IJsonLabel>(Auth, endpoint);
 				MarkInitialized();
 
@@ -60,9 +60,11 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override void SubmitData(IJsonLabel json)
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Write_Update, new Dictionary<string, object> {{"_boardId", Data.Board.Id}, {"_id", Data.Id}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
+
+		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 	}
 }
