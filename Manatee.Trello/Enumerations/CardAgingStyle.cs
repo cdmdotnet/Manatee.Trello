@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,12 +14,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that cards will age by fading.
 		/// </summary>
-		[Description("regular")]
+		[Display(Description="regular")]
 		Regular,
 		/// <summary>
 		/// Indicates that cards will age using a treasure map effect.
 		/// </summary>
-		[Description("pirate")]
+		[Display(Description="pirate")]
 		Pirate
 	}
 }

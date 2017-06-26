@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -18,19 +18,19 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
-			[Description("left")]
+			[Display(Description="left")]
 			Left = 1,
-			[Description("image")]
+			[Display(Description="image")]
 			Name = 1 << 1,
-			[Description("imageScaled")]
+			[Display(Description="imageScaled")]
 			Previews = 1 << 2,
-			[Description("rotate")]
+			[Display(Description="rotate")]
 			Rotation = 1 << 3,
-			[Description("top")]
+			[Display(Description="top")]
 			Top = 1 << 4,
-			[Description("url")]
+			[Display(Description="url")]
 			Url = 1 << 5,
-			[Description("zIndex")]
+			[Display(Description="zIndex")]
 			ZIndex = 1 << 6
 		}
 

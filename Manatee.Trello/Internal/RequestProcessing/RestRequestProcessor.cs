@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
-using System.Web;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
@@ -15,25 +13,12 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private static int _pendingRequestCount;
 		private static bool _cancelPendingRequests;
 
-#if IOS
-		private static System.Action _lastCall;
-
-		public static event System.Action LastCall
-		{
-			add { _lastCall += value; }
-			remove { _lastCall -= value; }
-		}
-#else
 		public static event System.Action LastCall;
-#endif
 
 		static RestRequestProcessor()
 		{
 			_semaphore = new Semaphore(0, TrelloProcessor.ConcurrentCallCount);
-			if (NetworkMonitor.IsConnected)
-				_semaphore.Release(TrelloProcessor.ConcurrentCallCount);
-			else
-				NetworkMonitor.ConnectionStatusChanged += () => _semaphore.Release(TrelloProcessor.ConcurrentCallCount);
+			_semaphore.Release(TrelloProcessor.ConcurrentCallCount);
 		}
 
 		public static void AddRequest(IRestRequest request, object hold)
@@ -47,12 +32,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		}
 		public static void Flush()
 		{
-#if IOS
-			var handler = _lastCall;
-#else
-			var handler = LastCall;
-#endif
-			handler?.Invoke();
+			LastCall?.Invoke();
 		}
 		public static void CancelPendingRequests()
 		{
@@ -84,7 +64,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		}
 		private static void Execute(Action<IRestClient> ask, IRestRequest request)
 		{
-			if (NetworkMonitor.IsConnected && !_cancelPendingRequests)
+			if (!_cancelPendingRequests)
 			{
 				var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 				LogRequest(request, "Sending");

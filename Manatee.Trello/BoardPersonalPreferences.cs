@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 
@@ -89,9 +90,9 @@ namespace Manatee.Trello
 			set { _showSidebarMembers.Value = value; }
 		}
 
-		internal BoardPersonalPreferences(string ownerId, TrelloAuthorization auth)
+		internal BoardPersonalPreferences(Func<string> getOwnerId, TrelloAuthorization auth)
 		{
-			_context = new BoardPersonalPreferencesContext(ownerId, auth);
+			_context = new BoardPersonalPreferencesContext(getOwnerId, auth);
 
 			_emailList = new Field<List>(_context, nameof(EmailList));
 			_emailList.AddRule(NotNullRule<List>.Instance);

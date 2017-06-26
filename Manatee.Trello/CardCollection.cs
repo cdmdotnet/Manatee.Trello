@@ -35,14 +35,12 @@ namespace Manatee.Trello
 			_updateRequestType = type == typeof (List)
 				                     ? EntityRequestType.List_Read_Cards
 				                     : EntityRequestType.Board_Read_Cards;
-			_requestParameters = new Dictionary<string, object> {{"_id", getOwnerId()}};
 		}
 		internal ReadOnlyCardCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth, Dictionary<string, object> requestParameters = null)
 			: base(getOwnerId, auth)
 		{
 			_updateRequestType = requestType;
 			_requestParameters = requestParameters ?? new Dictionary<string, object>();
-			_requestParameters.Add("_id", getOwnerId());
 		}
 		internal ReadOnlyCardCollection(ReadOnlyCardCollection source, TrelloAuthorization auth)
 			: base(() => source.OwnerId, auth)
@@ -61,6 +59,7 @@ namespace Manatee.Trello
 		{
 			IncorporateLimit(_additionalParameters);
 
+			_requestParameters["_id"] = OwnerId;
 			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
 			var newData = JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, _additionalParameters);
 

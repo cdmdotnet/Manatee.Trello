@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,22 +14,22 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that only members of the board may vote on cards.
 		/// </summary>
-		[Description("members")]
+		[Display(Description="members")]
 		Members,
 		/// <summary>
 		/// Indicates that only members of the organization to which the board belongs may vote on cards.
 		/// </summary>
-		[Description("org")]
+		[Display(Description="org")]
 		Org,
 		/// <summary>
 		/// Indicates that any Trello member may vote on cards.
 		/// </summary>
-		[Description("public")]
+		[Display(Description="public")]
 		Public,
 		/// <summary>
 		/// Indicates that no members may vote on cards.
 		/// </summary>
-		[Description("disabled")]
+		[Display(Description="disabled")]
 		Disabled
 	}
 }

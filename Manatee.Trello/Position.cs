@@ -119,7 +119,7 @@ namespace Manatee.Trello
 		/// <filterpriority>2</filterpriority>
 		public int CompareTo(object obj)
 		{
-			return Value.CompareTo(obj);
+			return ((IComparable) Value).CompareTo(obj);
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

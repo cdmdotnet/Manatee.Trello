@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.DataAccess
@@ -42,11 +43,11 @@ namespace Manatee.Trello.Internal.DataAccess
 		private static string _TryGetFields<T>()
 		{
 			var type = typeof(T);
-			if (type.IsGenericType)
+			if (type.GetTypeInfo().IsGenericType)
 			{
 				var generic = type.GetGenericTypeDefinition();
 				if (generic == typeof(List<>))
-					type = type.GetGenericArguments().First();
+					type = type.GetTypeInfo().GenericTypeArguments.First();
 			}
 			Func<string> getKey;
 			if (!_fieldFuncs.TryGetValue(type, out getKey)) return null;

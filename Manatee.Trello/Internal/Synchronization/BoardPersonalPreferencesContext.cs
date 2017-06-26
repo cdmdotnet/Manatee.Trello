@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -7,7 +8,10 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class BoardPersonalPreferencesContext : SynchronizationContext<IJsonBoardPersonalPreferences>
 	{
-		private readonly string _ownerId;
+		private readonly Func<string> _getOwnerId;
+		private string _ownerId;
+
+		private string OwnerId => _ownerId ?? (_ownerId = _getOwnerId());
 
 		static BoardPersonalPreferencesContext()
 		{
@@ -28,15 +32,15 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
-		public BoardPersonalPreferencesContext(string ownerId, TrelloAuthorization auth)
+		public BoardPersonalPreferencesContext(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(auth)
 		{
-			_ownerId = ownerId;
+			_getOwnerId = getOwnerId;
 		}
 
 		protected override IJsonBoardPersonalPreferences GetData()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_PersonalPrefs, new Dictionary<string, object> {{"_id", _ownerId}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_PersonalPrefs, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<IJsonBoardPersonalPreferences>(TrelloAuthorization.Default, endpoint);
 
 			return newData;

@@ -10,6 +10,6 @@
 		/// </summary>
 		/// <typeparam name="T">The type to create.</typeparam>
 		/// <returns>An instance of the requested type.</returns>
-		T Create<T>();
+		T Create<T>() where T : class;
 	}
 }

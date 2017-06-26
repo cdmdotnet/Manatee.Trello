@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,17 +14,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that a board within an organization will not be visible.
 		/// </summary>
-		[Description("none")]
+		[Display(Description="none")]
 		None,
 		/// <summary>
 		/// Indicates that a board within an organization will be visible to the organization admins.
 		/// </summary>
-		[Description("admin")]
+		[Display(Description="admin")]
 		Admin,
 		/// <summary>
 		/// Indicates that a board within an organization will be visible to the organization members.
 		/// </summary>
-		[Description("org")]
+		[Display(Description="org")]
 		Org
 	}
 }

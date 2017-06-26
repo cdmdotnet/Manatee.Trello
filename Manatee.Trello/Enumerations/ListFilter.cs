@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -10,17 +10,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Filters to only unarchived lists.
 		/// </summary>
-		[Description("open")]
+		[Display(Description="open")]
 		Open,
 		/// <summary>
 		/// Filters to only archived lists.
 		/// </summary>
-		[Description("closed")]
+		[Display(Description="closed")]
 		Closed,
 		/// <summary>
 		/// Indicates that all lists should be returned.
 		/// </summary>
-		[Description("all")]
+		[Display(Description="all")]
 		All,
 	}
 }

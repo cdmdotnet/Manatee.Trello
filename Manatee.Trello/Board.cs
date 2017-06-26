@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -20,19 +20,19 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
-			[Description("name")]
+			[Display(Description="name")]
 			Name = 1,
-			[Description("desc")]
+			[Display(Description="desc")]
 			Description = 1 << 1,
-			[Description("closed")]
+			[Display(Description="closed")]
 			Closed = 1 << 2,
-			[Description("idOrganization")]
+			[Display(Description="idOrganization")]
 			Organization = 1 << 3,
-			[Description("prefs")]
+			[Display(Description="prefs")]
 			Preferencess = 1 << 4,
-			[Description("url")]
+			[Display(Description="url")]
 			Url = 1 << 5,
-			[Description("subscribed")]
+			[Display(Description="subscribed")]
 			Subscribed = 1 << 6
 		}
 
@@ -242,7 +242,7 @@ namespace Manatee.Trello
 			PowerUps = new ReadOnlyPowerUpCollection(() => Id, auth);
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Board_Read_PowerUpData, () => Id, auth);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
-			PersonalPreferences = new BoardPersonalPreferences(Id, auth);
+			PersonalPreferences = new BoardPersonalPreferences(() => Id, auth);
 			_url = new Field<string>(_context, nameof(Url));
 
 			TrelloConfiguration.Cache.Add(this);

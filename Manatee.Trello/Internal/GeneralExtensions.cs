@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -37,30 +37,22 @@ namespace Manatee.Trello.Internal
 		}
 		public static bool IsNullOrWhiteSpace(this string value)
 		{
-#if NET35 || NET35C
-			return string.IsNullOrEmpty(value) || string.IsNullOrEmpty(value.Trim());
-#elif NET4 || NET4C || NET45
 			return string.IsNullOrWhiteSpace(value);
-#endif
 		}
 		public static string Join(this IEnumerable<string> segments, string separator)
 		{
-#if NET35 || NET35C
-			return string.Join(separator, segments.ToArray());
-#elif NET4 || NET4C || NET45
 			return string.Join(separator, segments);
-#endif
 		}
 		public static string GetDescription<T>(this T enumerationValue)
 			where T : struct
 		{
 			var type = enumerationValue.GetType();
-			if (!type.IsEnum)
+			if (!type.GetTypeInfo().IsEnum)
 				throw new ArgumentException("EnumerationValue must be of Enum type", nameof(enumerationValue));
 
 			EnsureDescriptions<T>();
 
-			var attributes = typeof(T).GetCustomAttributes(typeof(FlagsAttribute), false);
+			var attributes = typeof(T).GetTypeInfo().GetCustomAttributes(typeof(FlagsAttribute), false);
 			return !attributes.Any()
 				? _descriptions[typeof(T)].First(d => Equals(d.Value, enumerationValue)).String
 				: BuildFlagsValues(enumerationValue, ",");
@@ -133,9 +125,9 @@ namespace Manatee.Trello.Internal
 		private static string GetDescription<T>(string name)
 		{
 			var type = typeof(T);
-			var memInfo = type.GetMember(name);
-			var attributes = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-			return attributes.Any() ? ((DescriptionAttribute)attributes[0]).Description : name;
+			var memInfo = type.GetTypeInfo().GetDeclaredField(name);
+			var attributes = memInfo?.GetCustomAttributes(typeof(DisplayAttribute), false).ToList();
+			return attributes != null && attributes.Any() ? ((DisplayAttribute)attributes[0]).Description : name;
 		}
 		private static string BuildFlagsValues<T>(T obj, string separator)
 		{

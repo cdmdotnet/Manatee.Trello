@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,12 +14,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that the checlist item is not checked.
 		/// </summary>
-		[Description("incomplete")]
+		[Display(Description="incomplete")]
 		Incomplete,
 		/// <summary>
 		/// Indicates that the checlist item is checked.
 		/// </summary>
-		[Description("complete")]
+		[Display(Description="complete")]
 		Complete
 	}
 }

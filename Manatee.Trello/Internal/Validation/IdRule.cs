@@ -1,5 +1,4 @@
-﻿using System.Runtime.Remoting.Messaging;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Manatee.Trello.Internal.Validation
 {
@@ -7,7 +6,7 @@ namespace Manatee.Trello.Internal.Validation
 	{
 		private static readonly Regex _regex = new Regex("^[a-z0-9]{24}$", RegexOptions.IgnoreCase);
 
-		public static IdRule Instance { get; private set; }
+		public static IdRule Instance { get; }
 
 		static IdRule()
 		{

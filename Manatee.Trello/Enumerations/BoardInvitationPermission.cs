@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,12 +14,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that any member of the board may extend an invitation to join the board.
 		/// </summary>
-		[Description("members")]
+		[Display(Description="members")]
 		Members,
 		/// <summary>
 		/// Indicates that only admins of the board may extend an invitation to joni the board.
 		/// </summary>
-		[Description("admins")]
+		[Display(Description="admins")]
 		Admins
 	}
 }

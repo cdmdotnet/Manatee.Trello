@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -15,32 +15,32 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Get the board/organization membership information in addition to the member's profile.
 		/// </remarks>
-		[Description("me")]
+		[Display(Description="me")]
 		Me = 1 << 0,
 		/// <summary>
 		/// Filters to only normal members.
 		/// </summary>
-		[Description("normal")]
+		[Display(Description="normal")]
 		Normal = 1 << 1,
 		/// <summary>
 		/// Filters to only admins.
 		/// </summary>
-		[Description("admin")]
+		[Display(Description="admin")]
 		Admin = 1 << 2,
 		/// <summary>
 		/// Filters to only active members.
 		/// </summary>
-		[Description("active")]
+		[Display(Description="active")]
 		Active = 1 << 3,
 		/// <summary>
 		/// Filters to only deactivated members.
 		/// </summary>
-		[Description("deactivated")]
+		[Display(Description="deactivated")]
 		Deactivated = 1 << 4,
 		/// <summary>
 		/// Filters to all members.
 		/// </summary>
-		[Description("all")]
+		[Display(Description="all")]
 		All = 1 << 0 - 1
 	}
 }

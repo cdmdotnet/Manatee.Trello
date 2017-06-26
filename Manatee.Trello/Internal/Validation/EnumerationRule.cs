@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Manatee.Trello.Internal.Validation
 {
 	internal class EnumerationRule<T> : IValidationRule<T>
 	{
-		public static IValidationRule<T> Instance { get; private set; }
+		public static IValidationRule<T> Instance { get; }
 
 		private readonly Type _enumType;
 		private readonly bool _isNullable;
@@ -17,14 +18,14 @@ namespace Manatee.Trello.Internal.Validation
 		private EnumerationRule()
 		{
 			_enumType = typeof (T);
-			if (_enumType.IsGenericType)
+			if (_enumType.GetTypeInfo().IsGenericType)
 			{
 				if (_enumType.GetGenericTypeDefinition() != typeof(Nullable<>))
 					throw new ArgumentException($"Type {_enumType} must be an enumeration or a nullable enumeration.");
-				_enumType = _enumType.GetGenericArguments().First();
+				_enumType = _enumType.GetTypeInfo().GetGenericArguments().First();
 				_isNullable = true;
 			}
-			if (!_enumType.IsEnum)
+			if (!_enumType.GetTypeInfo().IsEnum)
 				throw new ArgumentException($"Type {_enumType} must be an enumeration or a nullable enumeration.");
 		}
 

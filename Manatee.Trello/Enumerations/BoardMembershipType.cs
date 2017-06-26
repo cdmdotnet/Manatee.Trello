@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,22 +14,22 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the member is an admin of the board.
 		/// </summary>
-		[Description("admin")]
+		[Display(Description="admin")]
 		Admin,
 		/// <summary>
 		/// Indicates the member is a normal member of the board.
 		/// </summary>
-		[Description("normal")]
+		[Display(Description="normal")]
 		Normal,
 		/// <summary>
 		/// Indicates the member is may only view the board.
 		/// </summary>
-		[Description("observer")]
+		[Display(Description="observer")]
 		Observer,
 		/// <summary>
 		/// Indicates the member has been invited, but has not yet joined Trello.
 		/// </summary>
-		[Description("ghost")]
+		[Display(Description="ghost")]
 		Ghost
 	}
 }

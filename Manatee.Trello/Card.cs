@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -20,39 +20,39 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
-			[Description("badges")]
+			[Display(Description="badges")]
 			Badges = 1,
-			[Description("idBoard")]
+			[Display(Description="idBoard")]
 			Board = 1 << 1,
-			[Description("idCheckLists")]
+			[Display(Description="idCheckLists")]
 			Checklists = 1 << 2,
-			[Description("dateLastActivity")]
+			[Display(Description="dateLastActivity")]
 			DateLastActivity = 1 << 3,
-			[Description("desc")]
+			[Display(Description="desc")]
 			Description = 1 << 4,
-			[Description("due")]
+			[Display(Description="due")]
 			Due = 1 << 5,
-			[Description("closed")]
+			[Display(Description="closed")]
 			IsArchived = 1 << 6,
-			[Description("dueComplete")]
+			[Display(Description="dueComplete")]
 			IsComplete = 1 << 7,
-			[Description("subscribed")]
+			[Display(Description="subscribed")]
 			IsSubscribed = 1 << 8,
-			[Description("idLabels")]
+			[Display(Description="idLabels")]
 			Labels = 1 << 9,
-			[Description("idList")]
+			[Display(Description="idList")]
 			List = 1 << 10,
-			[Description("manualCoverAttachment")]
+			[Display(Description="manualCoverAttachment")]
 			ManualCoverAttachment = 1 << 11,
-			[Description("name")]
+			[Display(Description="name")]
 			Name = 1 << 12,
-			[Description("pos")]
+			[Display(Description="pos")]
 			Position = 1 << 13,
-			[Description("idShort")]
+			[Display(Description="idShort")]
 			ShortId = 1 << 14,
-			[Description("shortUrl")]
+			[Display(Description="shortUrl")]
 			ShortUrl = 1 << 15,
-			[Description("url")]
+			[Display(Description="url")]
 			Url = 1 << 16,
 		}
 

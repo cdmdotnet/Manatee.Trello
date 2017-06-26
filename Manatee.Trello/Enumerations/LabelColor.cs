@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,52 +14,52 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates a green label.
 		/// </summary>
-		[Description("green")]
+		[Display(Description="green")]
 		Green,
 		/// <summary>
 		/// Indicates a yellow label.
 		/// </summary>
-		[Description("yellow")]
+		[Display(Description="yellow")]
 		Yellow,
 		/// <summary>
 		/// Indicates an orange label.
 		/// </summary>
-		[Description("orange")]
+		[Display(Description="orange")]
 		Orange,
 		/// <summary>
 		/// Indicates a red label.
 		/// </summary>
-		[Description("red")]
+		[Display(Description="red")]
 		Red,
 		/// <summary>
 		/// Indicates a purple label.
 		/// </summary>
-		[Description("purple")]
+		[Display(Description="purple")]
 		Purple,
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Description("blue")]
+		[Display(Description="blue")]
 		Blue,
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Description("pink")]
+		[Display(Description="pink")]
 		Pink,
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Description("sky")]
+		[Display(Description="sky")]
 		Sky,
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Description("lime")]
+		[Display(Description="lime")]
 		Lime,
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Description("black")]
+		[Display(Description="black")]
 		Black,
 	}
 }

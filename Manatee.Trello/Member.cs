@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -18,41 +18,41 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
-			[Description("avatarHash")]
+			[Display(Description="avatarHash")]
 			AvatarHash = 1,
-			[Description("avatarSource")]
+			[Display(Description="avatarSource")]
 			AvatarSource = 1 << 1,
-			[Description("bio")]
+			[Display(Description="bio")]
 			Bio = 1 << 2,
-			[Description("confirmed")]
+			[Display(Description="confirmed")]
 			IsConfirmed = 1 << 3,
-			[Description("email")]
+			[Display(Description="email")]
 			Email = 1 << 4,
-			[Description("fullName")]
+			[Display(Description="fullName")]
 			FullName = 1 << 5,
-			[Description("gravatarHash")]
+			[Display(Description="gravatarHash")]
 			GravatarHash = 1 << 6,
-			[Description("intials")]
+			[Display(Description="intials")]
 			Initials = 1 << 7,
-			[Description("loginTypes")]
+			[Display(Description="loginTypes")]
 			LoginTypes = 1 << 8,
-			[Description("memberType")]
+			[Display(Description="memberType")]
 			MemberType = 1 << 9,
-			[Description("oneTimeMessagesReceived")]
+			[Display(Description="oneTimeMessagesReceived")]
 			OneTimeMessagesDismissed = 1 << 10,
-			[Description("prefs")]
+			[Display(Description="prefs")]
 			Preferencess = 1 << 11,
-			[Description("similarity")]
+			[Display(Description="similarity")]
 			Similarity = 1 << 12,
-			[Description("status")]
+			[Display(Description="status")]
 			Status = 1 << 13,
-			[Description("trophies")]
+			[Display(Description="trophies")]
 			Trophies = 1 << 14,
-			[Description("uploadedAvatarHash")]
+			[Display(Description="uploadedAvatarHash")]
 			UploadedAvatarHash = 1 << 15,
-			[Description("url")]
+			[Display(Description="url")]
 			Url = 1 << 16,
-			[Description("username")]
+			[Display(Description="username")]
 			Username = 1 << 17
 		}
 

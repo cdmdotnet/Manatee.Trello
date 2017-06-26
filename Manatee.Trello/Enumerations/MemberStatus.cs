@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,17 +14,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the member is not connected to the website.
 		/// </summary>
-		[Description("disconnected")]
+		[Display(Description="disconnected")]
 		Disconnected,
 		/// <summary>
 		/// Indicates the member is connected to the website but inactive.
 		/// </summary>
-		[Description("idle")]
+		[Display(Description="idle")]
 		Idle,
 		/// <summary>
 		/// Indicates the member is actively using the website.
 		/// </summary>
-		[Description("active")]
+		[Display(Description="active")]
 		Active
 	}
 }
