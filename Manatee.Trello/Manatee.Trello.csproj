@@ -1,33 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;net46</TargetFrameworks>
     <Description>A fully object-oriented .Net wrapper for the TrelloAPI.</Description>
     <PackageIconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/gregsdennis/Manatee.Trello</PackageProjectUrl>
     <Authors>gregsdennis</Authors>
     <PackageTags>wrapper trello manatee</PackageTags>
-    <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub or on StackOverflow.
+    <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
-v1.18.2
-BUG FIX: Label details not downloaded.
-
-v1.18.1
-BUG FIX: List.Name not downloading. (#84)
-
-v1.18.0
-Added ability to specify which data is downloaded for each entity type. (#74 &amp; #77)
-Further reduces data for each entity.</PackageReleaseNotes>
-    <Version>1.18.2</Version>
+v2.0.0
+BREAKING CHANGE: Frameworks below 4.6 are no longer supported.
+Updated to multi-targeted NetStandard1.3 &amp; NetFramework4.6.</PackageReleaseNotes>
+    <Version>2.0.0</Version>
     <Copyright>Copyright © 2017 Little Crab Solutions</Copyright>
     <Company>Little Crab Solutions</Company>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
+    <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
   </PropertyGroup>
 
@@ -39,7 +34,6 @@ Further reduces data for each entity.</PackageReleaseNotes>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
-    <PackageReference Include="System.Net.NetworkInformation" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
 

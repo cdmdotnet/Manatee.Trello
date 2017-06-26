@@ -36,7 +36,7 @@ namespace Manatee.Trello.ManateeJson
 							FlagsEnumSeparator = ","
 						}
 				};
-			_method = _serializer.GetType().GetMethod("Serialize");
+			_method = _serializer.GetType().GetTypeInfo().GetMethod("Serialize");
 		}
 
 		/// <summary>
@@ -126,8 +126,7 @@ namespace Manatee.Trello.ManateeJson
 		private static DateTime? JsonToDateTime(JsonValue json, JsonSerializer serializer)
 		{
 			var dateString = json.String;
-			DateTime date;
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
+			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime date))
 				return date.ToLocalTime();
 
 			return null;

@@ -25,22 +25,9 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Id = obj.TryGetString("id");
 			IsCurrent = obj.TryGetBoolean("isCurrent");
 			IsRecent = obj.TryGetBoolean("isRecent");
-#if IOS
-			var dateString = obj.TryGetString("dateCreated");
-			DateTime date;
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
-				DateCreated = date.ToLocalTime();
-			dateString = obj.TryGetString("dateExpires");
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
-				DateExpires = date.ToLocalTime();
-			dateString = obj.TryGetString("dateLastUsed");
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
-				DateLastUsed = date.ToLocalTime();
-#else
 			DateCreated = obj.Deserialize<DateTime?>(serializer, "dateCreated");
 			DateExpires = obj.Deserialize<DateTime?>(serializer, "dateExpires");
 			DateLastUsed = obj.Deserialize<DateTime?>(serializer, "dateLastUsed");
-#endif
 			IpAddress = obj.TryGetString("ipAddress");
 			Type = obj.TryGetString("type");
 			UserAgent = obj.TryGetString("userAgent");

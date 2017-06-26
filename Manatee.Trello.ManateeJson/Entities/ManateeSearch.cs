@@ -53,8 +53,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 		private void TryAddContext<T>(JsonObject json, string key)
 			where T : IJsonCacheable
 		{
-			var ids = Context.OfType<T>().Select(o => o.Id).Join(",");
-			if (!ids.IsNullOrWhiteSpace())
+			var ids = string.Join(",", Context.OfType<T>().Select(o => o.Id));
+			if (!string.IsNullOrWhiteSpace(ids))
 				json[key] = ids;
 		}
 	}

@@ -1,4 +1,4 @@
-﻿namespace Manatee.Trello.UnitTests.Framework
+﻿namespace Manatee.Trello.Tests.Common
 {
 	public static class TrelloIds
 	{

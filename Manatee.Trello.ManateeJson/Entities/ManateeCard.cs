@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -42,18 +41,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Id = obj.TryGetString("id");
 					Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
 					Closed = obj.TryGetBoolean("closed");
-#if IOS
-					var dateString = obj.TryGetString("dateLastActivity");
-					DateTime date;
-					if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
-						DateLastActivity = date.ToLocalTime();
-					dateString = obj.TryGetString("due");
-					if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
-						Due = date.ToLocalTime();
-#else
 					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 					Due = obj.Deserialize<DateTime?>(serializer, "due");
-#endif
 					DueComplete = obj.TryGetBoolean("dueComplete");
 					Desc = obj.TryGetString("desc");
 					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");

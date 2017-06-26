@@ -54,7 +54,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			{
 				Prefs.PermissionLevel.Serialize(json, serializer, "prefs/permissionLevel");
 				Prefs.OrgInviteRestrict.Serialize(json, serializer, "prefs/orgInviteRestrict");
-				if (Prefs.AssociatedDomain.IsNullOrWhiteSpace())
+				if (string.IsNullOrWhiteSpace(Prefs.AssociatedDomain))
 					json.Add("prefs/associatedDomain", JsonValue.Null);
 				else
 					Prefs.AssociatedDomain.Serialize(json, serializer, "prefs/associatedDomain");

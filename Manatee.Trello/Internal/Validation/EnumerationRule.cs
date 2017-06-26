@@ -22,7 +22,7 @@ namespace Manatee.Trello.Internal.Validation
 			{
 				if (_enumType.GetGenericTypeDefinition() != typeof(Nullable<>))
 					throw new ArgumentException($"Type {_enumType} must be an enumeration or a nullable enumeration.");
-				_enumType = _enumType.GetTypeInfo().GetGenericArguments().First();
+				_enumType = _enumType.GetTypeInfo().GenericTypeArguments.First();
 				_isNullable = true;
 			}
 			if (!_enumType.GetTypeInfo().IsEnum)

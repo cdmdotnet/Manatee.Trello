@@ -2,6 +2,7 @@
 using System.Threading;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
+using Manatee.Trello.Tests.Common;
 using Manatee.Trello.UnitTests.Framework;
 using Moq;
 using NUnit.Framework;

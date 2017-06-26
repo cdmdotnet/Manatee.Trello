@@ -62,6 +62,7 @@ namespace Manatee.Trello.ManateeJson
 		/// <typeparam name="T">The type to create.</typeparam>
 		/// <returns>An instance of the requested type.</returns>
 		public T Create<T>()
+			where T : class
 		{
 			return (T) _factory[typeof (T)]();
 		}

@@ -63,10 +63,13 @@
     <Compile Include="Framework\MockedRestResponse.cs" />
     <Compile Include="Framework\MockRestResponse.cs" />
     <Compile Include="Framework\MockedJsonFactory.cs" />
-    <Compile Include="Framework\TrelloIds.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Manatee.Trello.Tests.Common\Manatee.Trello.Tests.Common.csproj">
+      <Project>{598234ba-460f-44c4-a3db-e5257b572998}</Project>
+      <Name>Manatee.Trello.Tests.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
       <Project>{ec61fb1f-b27d-41c8-85b8-b56b1863819d}</Project>
       <Name>Manatee.Trello</Name>
