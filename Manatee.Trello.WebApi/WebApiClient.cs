@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using System.Web;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.WebApi
@@ -90,9 +89,9 @@ namespace Manatee.Trello.WebApi
 				} while (TrelloConfiguration.RetryPredicate(restResponse, count));
 			}
 			if (!response.IsSuccessStatusCode)
-				throw new HttpException("Received a failure from Trello.\n" +
-										$"Status Code: {response.StatusCode} ({(int)response.StatusCode})\n" +
-										$"Content: {response.Content.ReadAsStringAsync().Result}");
+				throw new HttpRequestException("Received a failure from Trello.\n" +
+				                               $"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
+				                               $"Content: {response.Content.ReadAsStringAsync().Result}");
 			return restResponse;
 		}
 		private static async Task<IRestResponse> MapResponse(HttpResponseMessage response)

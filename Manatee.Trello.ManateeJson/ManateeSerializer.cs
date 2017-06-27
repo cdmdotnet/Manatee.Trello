@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
@@ -36,7 +37,9 @@ namespace Manatee.Trello.ManateeJson
 							FlagsEnumSeparator = ","
 						}
 				};
-			_method = _serializer.GetType().GetTypeInfo().GetMethod("Serialize");
+			_method = _serializer.GetType().GetTypeInfo().DeclaredMethods
+			                     .First(m => m.Name == "Serialize")
+			                     .GetGenericMethodDefinition();
 		}
 
 		/// <summary>

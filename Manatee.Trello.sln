@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.ManateeJson.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.Tests.Common", "Manatee.Trello.Tests.Common\Manatee.Trello.Tests.Common.csproj", "{598234BA-460F-44C4-A3DB-E5257B572998}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.WebApi", "Manatee.Trello.WebApi\Manatee.Trello.WebApi.csproj", "{A37BC601-B5B7-41AE-AE80-2A5F82068D19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.IntegrationTests", "Manatee.Trello.IntegrationTests\Manatee.Trello.IntegrationTests.csproj", "{F6AA1620-3117-4140-A82B-03BF9C854836}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,14 @@ Global
 		{598234BA-460F-44C4-A3DB-E5257B572998}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{598234BA-460F-44C4-A3DB-E5257B572998}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{598234BA-460F-44C4-A3DB-E5257B572998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6AA1620-3117-4140-A82B-03BF9C854836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6AA1620-3117-4140-A82B-03BF9C854836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6AA1620-3117-4140-A82B-03BF9C854836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6AA1620-3117-4140-A82B-03BF9C854836}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +63,7 @@ Global
 		{A647223A-90B4-42E5-8BA5-2F0E87E3164C} = {29C1914C-949C-4B23-BC09-94D0843D0B1B}
 		{C99043B6-DF1A-48AC-8376-67957E69F5F1} = {29C1914C-949C-4B23-BC09-94D0843D0B1B}
 		{598234BA-460F-44C4-A3DB-E5257B572998} = {29C1914C-949C-4B23-BC09-94D0843D0B1B}
+		{F6AA1620-3117-4140-A82B-03BF9C854836} = {29C1914C-949C-4B23-BC09-94D0843D0B1B}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Manatee.Trello\Manatee.Trello.csproj

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;net46</TargetFrameworks>
     <Version>2.0.0</Version>
     <Description>JSON serialization implementation supported by Manatee.Json.</Description>
     <Copyright>Copyright © 2017 Little Crab Solutions</Copyright>
@@ -15,9 +15,12 @@ Updated to multi-targeted NetStandard1.3 &amp; NetFramework4.6.</PackageReleaseN
     <PackageProjectUrl>https://github.com/gregsdennis/Manatee.Trello</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageIconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-ManateeJson-Icon.png</PackageIconUrl>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>Manatee.Trello.ManateeJson.snk</AssemblyOriginatorKeyFile>
+    <PackageTags>trello json manatee</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
   </PropertyGroup>
 

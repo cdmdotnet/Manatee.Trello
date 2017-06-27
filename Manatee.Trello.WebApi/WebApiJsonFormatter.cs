@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -74,8 +75,8 @@ namespace Manatee.Trello.WebApi
 			MethodInfo method;
 			if (!_deserializeMethods.TryGetValue(type, out method))
 			{
-				method = typeof (IDeserializer).GetMethod("Deserialize", new[] {typeof (string)})
-				                               .MakeGenericMethod(type);
+				method = typeof(IDeserializer).GetTypeInfo().DeclaredMethods.First(m => m.Name == "Deserialize" && m.GetParameters().Any(p => p.ParameterType == typeof(string)))
+				                              .MakeGenericMethod(type);
 				_deserializeMethods[type] = method;
 			}
 			return method;
