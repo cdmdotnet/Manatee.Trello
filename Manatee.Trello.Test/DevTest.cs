@@ -15,10 +15,10 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var list = new List(TrelloIds.ListId);
-					Console.WriteLine(list);
+					var card = new Card(TrelloIds.CardId);
+					Console.WriteLine(card);
 
-					OutputCollection("cards", list.Cards);
+					OutputCollection("cards", card.Attachments.Select(a => a.Url));
 				});
 		}
 
