@@ -273,3 +273,6 @@ __pycache__/
 
 # Cake - Uncomment if you are using it
 # tools/
+
+# Apple add these stupid files to every folder
+.DS_Store
