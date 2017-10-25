@@ -8,7 +8,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// A read-only collection of actions.
+	/// A read-only collection of power-ups.
 	/// </summary>
 	public class ReadOnlyPowerUpCollection : ReadOnlyCollection<IPowerUp>
 	{
@@ -29,8 +29,7 @@ namespace Manatee.Trello
 			Items.AddRange(newData.Select(jn =>
 				{
 					var powerUp = jn.GetFromCache<IPowerUp>(Auth);
-					var contexted = powerUp as PowerUpBase;
-					if (contexted != null)
+					if (powerUp is PowerUpBase contexted)
 						contexted.Json = jn;
 					return powerUp;
 				}));
