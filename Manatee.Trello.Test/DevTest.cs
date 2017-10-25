@@ -16,8 +16,6 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					TrelloConfiguration.ExpiryTime = TimeSpan.Zero;
-
 					var board = new Board(TrelloIds.BoardId);
 					var type = board.PowerUps[0].GetType();
 					Console.WriteLine(board.PowerUps[0].Name);
