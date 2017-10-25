@@ -12,15 +12,16 @@ namespace ConsoleTest
 	{
 		static void Main(string[] args)
 		{
-			Run(() =>
-			{
-				var card = new Card("js8Ygw89");
-				Console.WriteLine(card.Board.Id);
-				Console.WriteLine();
-				Console.WriteLine(Member.Me);
+		    Run(() =>
+		        {
+		            var board = new Board(TrelloIds.BoardId);
+		            var type = board.PowerUps[0].GetType();
+		            Console.WriteLine(board.PowerUps[0].Name);
+		            Console.WriteLine(board.PowerUps[0].Id);
+		            Console.WriteLine(type);
 
-				TrelloProcessor.Flush();
-			});
+		            TrelloProcessor.Flush();
+		        });
 		}
 
 		private static void Run(Action action)
