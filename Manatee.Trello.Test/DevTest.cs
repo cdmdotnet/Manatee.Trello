@@ -16,15 +16,10 @@ namespace Manatee.Trello.Test
 		{
 			Run(() =>
 				{
-					var board = new Board(TrelloIds.BoardId);
-					var type = board.PowerUps[0].GetType();
-					Console.WriteLine(board.PowerUps[0].Name);
-					Console.WriteLine(board.PowerUps[0].Id);
-					Console.WriteLine(type);
+					var list = new List(TrelloIds.ListId);
+					var cards = list.Cards.Filter(CardFilter.Visible);
 
-					CustomFieldsPowerUp.Register();
-					type = board.PowerUps[0].GetType();
-					Console.WriteLine(type);
+					OutputCollection("cards", cards);
 
 					TrelloProcessor.Flush();
 				});

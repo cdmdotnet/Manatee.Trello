@@ -15,17 +15,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private static int _pendingRequestCount;
 		private static bool _cancelPendingRequests;
 
-#if IOS
-		private static System.Action _lastCall;
-
-		public static event System.Action LastCall
-		{
-			add { _lastCall += value; }
-			remove { _lastCall -= value; }
-		}
-#else
 		public static event System.Action LastCall;
-#endif
 
 		static RestRequestProcessor()
 		{
@@ -47,11 +37,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		}
 		public static void Flush()
 		{
-#if IOS
-			var handler = _lastCall;
-#else
 			var handler = LastCall;
-#endif
 			handler?.Invoke();
 		}
 		public static void CancelPendingRequests()
