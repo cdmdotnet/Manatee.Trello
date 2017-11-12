@@ -22,24 +22,19 @@ namespace Manatee.Trello.Internal.DataAccess
 			var obj = new object();
 			var request = BuildRequest(auth, endpoint, parameters);
 			AddDefaultParameters<T>(request);
-			RestRequestProcessor.AddRequest<T>(request, obj);
-			lock (obj)
-				Monitor.Wait(obj);
-			ValidateResponse(request);
-			var response = request.Response as IRestResponse<T>;
+			ProcessRequest<T>(request, obj);
+		    var response = request.Response as IRestResponse<T>;
 			return response?.Data;
 		}
-		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, T body)
+
+	    public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, T body)
 			where T : class
 		{
 			var obj = new object();
 			var request = BuildRequest(auth, endpoint);
 			request.AddBody(body);
 			AddDefaultParameters<T>(request);
-			RestRequestProcessor.AddRequest<T>(request, obj);
-			lock (obj)
-				Monitor.Wait(obj);
-			ValidateResponse(request);
+		    ProcessRequest<T>(request, obj);
 			var response = request.Response as IRestResponse<T>;
 			return response?.Data;
 		}
@@ -71,5 +66,12 @@ namespace Manatee.Trello.Internal.DataAccess
 				request.AddParameter(parameter.Key, parameter.Value);
 			}
 		}
+	    private static void ProcessRequest<T>(IRestRequest request, object obj) where T : class
+	    {
+	        RestRequestProcessor.AddRequest<T>(request, obj);
+	        lock (obj)
+	            Monitor.Wait(obj);
+	        ValidateResponse(request);
+	    }
 	}
 }

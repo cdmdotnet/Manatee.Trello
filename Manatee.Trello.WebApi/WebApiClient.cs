@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.WebApi
@@ -10,14 +11,6 @@ namespace Manatee.Trello.WebApi
 	internal class WebApiClient : IRestClient
 	{
 		private const string TrelloApiBaseUrl = @"https://api.trello.com/1";
-		private readonly WebApiJsonFormatter _formatter;
-		private readonly WebApiTextFormatter _errorLogger;
-
-		internal WebApiClient()
-		{
-			_formatter = new WebApiJsonFormatter();
-			_errorLogger = new WebApiTextFormatter();
-		}
 
 		public IRestResponse Execute(IRestRequest request)
 		{
@@ -28,7 +21,7 @@ namespace Manatee.Trello.WebApi
 			return Task.Run(() => ExecuteAsync<T>(request)).Result;
 		}
 
-		private async Task<IRestResponse> ExecuteAsync(IRestRequest request)
+		private static async Task<IRestResponse> ExecuteAsync(IRestRequest request)
 		{
 			IRestResponse response;
 			var webRequest = (WebApiRestRequest)request;
@@ -51,7 +44,7 @@ namespace Manatee.Trello.WebApi
 			}
 			return response;
 		}
-		private async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request) where T : class
+		private static async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request) where T : class
 		{
 			IRestResponse<T> response;
 			var webRequest = (WebApiRestRequest) request;
@@ -90,8 +83,8 @@ namespace Manatee.Trello.WebApi
 			}
 			if (!response.IsSuccessStatusCode)
 				throw new HttpRequestException("Received a failure from Trello.\n" +
-				                               $"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-				                               $"Content: {response.Content.ReadAsStringAsync().Result}");
+											   $"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
+											   $"Content: {response.Content.ReadAsStringAsync().Result}");
 			return restResponse;
 		}
 		private static async Task<IRestResponse> MapResponse(HttpResponseMessage response)
@@ -102,10 +95,10 @@ namespace Manatee.Trello.WebApi
 					StatusCode = response.StatusCode
 				};
 			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-				                              $"Content: {restResponse.Content}");
+											  $"Content: {restResponse.Content}");
 			return restResponse;
 		}
-		private async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<HttpClient, Task<HttpResponseMessage>> call) where T : class
+		private static async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<HttpClient, Task<HttpResponseMessage>> call) where T : class
 		{
 			IRestResponse<T> restResponse;
 			using (var client = new HttpClient())
@@ -120,7 +113,7 @@ namespace Manatee.Trello.WebApi
 			}
 			return restResponse;
 		}
-		private async Task<IRestResponse<T>> MapResponse<T>(HttpResponseMessage response) where T : class
+		private static async Task<IRestResponse<T>> MapResponse<T>(HttpResponseMessage response) where T : class
 		{
 			var restResponse = new WebApiRestResponse<T>
 				{
@@ -128,10 +121,14 @@ namespace Manatee.Trello.WebApi
 					StatusCode = response.StatusCode
 				};
 			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-				                            $"Content: {restResponse.Content}");
+											$"Content: {restResponse.Content}");
 			try
 			{
-				restResponse.Data = await response.Content.ReadAsAsync<T>(new MediaTypeFormatter[] {_formatter, _errorLogger});
+				var body = await response.Content.ReadAsStringAsync();
+				if (response.Content.Headers.ContentType.MediaType == "text/plain")
+					restResponse.Exception = new TrelloInteractionException(body);
+				else
+					restResponse.Data = TrelloConfiguration.Deserializer.Deserialize<T>(body);
 			}
 			catch (Exception e)
 			{
@@ -139,7 +136,7 @@ namespace Manatee.Trello.WebApi
 			}
 			return restResponse;
 		}
-		private HttpContent GetContent(WebApiRestRequest request)
+		private static HttpContent GetContent(WebApiRestRequest request)
 		{
 			if (request.File != null)
 			{
@@ -153,17 +150,14 @@ namespace Manatee.Trello.WebApi
 				formData.Add(byteContent, "\"file\"", $"\"{request.FileName}\"");
 				return formData;
 			}
-			return new ObjectContent(GetRequestType(request), request.Body, _formatter);
+			var body = TrelloConfiguration.Serializer.Serialize(request.Body);
+			return new StringContent(body);
 		}
 		private static string GetFullResource(WebApiRestRequest request)
 		{
 			if (request.File != null)
 				return $"{TrelloApiBaseUrl}/{request.Resource}";
 			return $"{TrelloApiBaseUrl}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
-		}
-		private static Type GetRequestType(WebApiRestRequest request)
-		{
-			return request.Body?.GetType() ?? typeof(object);
 		}
 	}
 }

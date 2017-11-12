@@ -50,6 +50,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			}
 			catch (Exception e)
 			{
+				request.Response = new NullRestResponse {Exception = e};
 				TrelloConfiguration.Log.Error(e);
 			}
 			finally

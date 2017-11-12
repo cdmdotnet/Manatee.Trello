@@ -35,6 +35,7 @@ namespace Manatee.Trello
 			_updateRequestType = type == typeof (List)
 				                     ? EntityRequestType.List_Read_Cards
 				                     : EntityRequestType.Board_Read_Cards;
+			_requestParameters = new Dictionary<string, object>();
 		}
 		internal ReadOnlyCardCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth, Dictionary<string, object> requestParameters = null)
 			: base(getOwnerId, auth)
