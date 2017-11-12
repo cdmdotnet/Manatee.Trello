@@ -138,6 +138,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj">
+      <Project>{096dbffd-f298-407b-9909-44b05abafb5c}</Project>
+      <Name>Manatee.Trello.CustomFields</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj">
       <Project>{ba9a0392-7442-40c8-ae4e-cd7f9db56ccb}</Project>
       <Name>Manatee.Trello.ManateeJson</Name>
