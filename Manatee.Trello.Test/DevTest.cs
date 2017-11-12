@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.CustomFields;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,9 +17,11 @@ namespace Manatee.Trello.Test
 			Run(() =>
 				{
 					var list = new List(TrelloIds.ListId);
-					Console.WriteLine(list);
+					var cards = list.Cards.Filter(CardFilter.Visible);
 
-					OutputCollection("cards", list.Cards);
+					OutputCollection("cards", cards);
+
+					TrelloProcessor.Flush();
 				});
 		}
 

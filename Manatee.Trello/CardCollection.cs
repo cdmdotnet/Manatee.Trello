@@ -75,6 +75,13 @@ namespace Manatee.Trello
 
 		internal void SetFilter(CardFilter cardStatus)
 		{
+			// NOTE: See issue 109.  /1/lists/{listId}/cards does not support filter=visible
+			if (_updateRequestType == EntityRequestType.List_Read_Cards && cardStatus == CardFilter.Visible)
+			{
+				_additionalParameters?.Remove("filter");
+				return;
+			}
+
 			if (_additionalParameters == null)
 				_additionalParameters = new Dictionary<string, object>();
 			_additionalParameters["filter"] = cardStatus.GetDescription();

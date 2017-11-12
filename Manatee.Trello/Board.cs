@@ -125,7 +125,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public ReadOnlyMemberCollection Members { get; }
 		/// <summary>
-		/// Gets the collection of members and their priveledges on this board.
+		/// Gets the collection of members and their privileges on this board.
 		/// </summary>
 		public BoardMembershipCollection Memberships { get; }
 		/// <summary>
