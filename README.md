@@ -23,7 +23,7 @@ There are also a series of packages that implement Trello PowerUps:
 
 The parser and the client are merely implementations of interfaces defined in the main library.  If you want to use different providers for this functionality, you can provide your own implementations during setup!
 
-##Setup
+## Setup
 
 Before any data is retrieved, some configuration is required.  It's fairly simple:
 
@@ -37,7 +37,7 @@ Before any data is retrieved, some configuration is required.  It's fairly simpl
 
 This will initialize using the libraries linked above.
 
-##Reading data
+## Reading data
 
 Most entities can be accessed directly simply by calling their constructors and passing the entity's ID.
 
@@ -49,7 +49,7 @@ Once you have an entity, you can get any entities related to it through its prop
 
     var cards = board.Cards;
 
-##Minimizing API calls
+## Minimizing API calls
 
 Manatee.Trello holds requests to the API until data is actually requested.  This means that with the above code, no calls have yet been made, even though we have created a board and a collection of cards.
 
@@ -88,7 +88,7 @@ Of course, all of this functionality is configurable and completely abstracted f
 
 See the wiki pages for more information on how to use this wonderful library!
 
-##Contributing
+## Contributing
 
 If you like this library and would like to contribute, feel free to fork it and create a pull request.
 
