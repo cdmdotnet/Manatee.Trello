@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
@@ -95,7 +94,7 @@ namespace Manatee.Trello.WebApi
 					StatusCode = response.StatusCode
 				};
 			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-											  $"Content: {restResponse.Content}");
+			                              $"Content: {restResponse.Content}");
 			return restResponse;
 		}
 		private static async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<HttpClient, Task<HttpResponseMessage>> call) where T : class

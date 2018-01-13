@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{29C1914C-949C-4B23-BC09-94D0843D0B1B}"
 EndProject
@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.CustomFields", "Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj", "{096DBFFD-F298-407B-9909-44B05ABAFB5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manatee.Trello.CustomFields", "Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj", "{096DBFFD-F298-407B-9909-44B05ABAFB5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

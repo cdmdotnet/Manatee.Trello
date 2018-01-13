@@ -24,7 +24,7 @@ Updated to NetStandard1.3</PackageReleaseNotes>
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Manatee.Json" Version="9.0.1" />
+    <PackageReference Include="Manatee.Json" Version="9.6.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj" />
