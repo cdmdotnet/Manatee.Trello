@@ -9,7 +9,7 @@ namespace Manatee.Trello.WebApi
 {
 	internal class WebApiClient : IRestClient
 	{
-		private const string TrelloApiBaseUrl = @"https://api.trello.com/1";
+		private const string _trelloApiBaseUrl = @"https://trello.com/1";
 
 		public IRestResponse Execute(IRestRequest request)
 		{
@@ -155,8 +155,8 @@ namespace Manatee.Trello.WebApi
 		private static string GetFullResource(WebApiRestRequest request)
 		{
 			if (request.File != null)
-				return $"{TrelloApiBaseUrl}/{request.Resource}";
-			return $"{TrelloApiBaseUrl}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
+				return $"{_trelloApiBaseUrl}/{request.Resource}";
+			return $"{_trelloApiBaseUrl}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
 		}
 	}
 }
