@@ -19,7 +19,7 @@ namespace Manatee.Trello.IntegrationTests
 					var card = new Card(TrelloIds.CardId);
 					Console.WriteLine(card);
 
-					//OutputCollection("fields", card.CustomFields());
+					OutputCollection("fields", card.CustomFields());
 				});
 		}
 
