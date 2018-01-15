@@ -27,10 +27,6 @@ if exist "%programfiles(x86)%\Microsoft Visual Studio\2017\Enterprise\MSBuild\15
 REM Run build
 call "%msbuild%" Manatee.Trello.sln /p:Configuration="%config%" /m:1 /v:m /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 if not "%errorlevel%"=="0" goto failure
-call "%msbuild%" Manatee.Trello.ManateeJson.sln /p:Configuration="%config%" /m:1 /v:m /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
-if not "%errorlevel%"=="0" goto failure
-call "%msbuild%" Manatee.Trello.WebApi.sln /p:Configuration="%config%" /m:1 /v:m /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
-if not "%errorlevel%"=="0" goto failure
 
 REM package
 call "%msbuild%" Manatee.Trello\Manatee.Trello.csproj /t:pack /p:Configuration="%config%"
