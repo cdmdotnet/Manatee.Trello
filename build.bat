@@ -12,6 +12,7 @@ set PackageVersion=
 
 REM Restore packages
 call powershell "& .\nuget-restore.ps1"
+dotnet restore
 
 REM Detect MSBuild 15.0 path
 if exist "%programfiles(x86)%\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe" (
