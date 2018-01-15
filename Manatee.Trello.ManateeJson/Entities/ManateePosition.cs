@@ -23,7 +23,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return Named.IsNullOrWhiteSpace()
+			return string.IsNullOrWhiteSpace(Named)
 				       ? (Explicit ?? JsonValue.Null)
 				       : Named;
 		}

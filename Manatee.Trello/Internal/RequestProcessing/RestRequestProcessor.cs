@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
-using System.Web;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
@@ -20,10 +18,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		static RestRequestProcessor()
 		{
 			_semaphore = new Semaphore(0, TrelloProcessor.ConcurrentCallCount);
-			if (NetworkMonitor.IsConnected)
-				_semaphore.Release(TrelloProcessor.ConcurrentCallCount);
-			else
-				NetworkMonitor.ConnectionStatusChanged += () => _semaphore.Release(TrelloProcessor.ConcurrentCallCount);
+			_semaphore.Release(TrelloProcessor.ConcurrentCallCount);
 		}
 
 		public static void AddRequest(IRestRequest request, object hold)
@@ -37,8 +32,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		}
 		public static void Flush()
 		{
-			var handler = LastCall;
-			handler?.Invoke();
+			LastCall?.Invoke();
 		}
 		public static void CancelPendingRequests()
 		{
@@ -56,6 +50,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			}
 			catch (Exception e)
 			{
+				request.Response = new NullRestResponse {Exception = e};
 				TrelloConfiguration.Log.Error(e);
 			}
 			finally
@@ -70,7 +65,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		}
 		private static void Execute(Action<IRestClient> ask, IRestRequest request)
 		{
-			if (NetworkMonitor.IsConnected && !_cancelPendingRequests)
+			if (!_cancelPendingRequests)
 			{
 				var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 				LogRequest(request, "Sending");

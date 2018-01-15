@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
+using System.Threading;
 using Manatee.Trello.Internal.RequestProcessing;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -18,34 +18,19 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected virtual bool IsDataComplete => true;
 		protected bool ManagesSubmissions { get; }
 
-#if IOS
-		private Action<IEnumerable<string>> _synchronizedInvoker;
-
-		public event Action<IEnumerable<string>> Synchronized
-		{
-			add { _synchronizedInvoker += value; }
-			remove { _synchronizedInvoker -= value; }
-		}
-#else
 		public event Action<IEnumerable<string>> Synchronized;
-#endif
 
 		protected SynchronizationContext(bool useTimer)
 		{
 			ManagesSubmissions = useTimer;
 			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
 			{
-				_timer = new Timer
-					{
-						AutoReset = false,
-						Interval = TrelloConfiguration.ChangeSubmissionTime.Milliseconds
-					};
-				_timer.Elapsed += TimerElapsed;
+				_timer = new Timer(TimerElapsed, null, TimeSpan.Zero, TrelloConfiguration.ChangeSubmissionTime);
 			}
 
 			_lastUpdate = DateTime.MinValue;
 			_lock = new object();
-			RestRequestProcessor.LastCall += () => TimerElapsed(null, null);
+			RestRequestProcessor.LastCall += () => TimerElapsed(null);
 		}
 		~SynchronizationContext()
 		{
@@ -62,11 +47,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				if (!force && IsDataComplete && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
 				var properties = Merge().ToList();
 				if (!properties.Any()) return;
-#if IOS
-				var handler = _synchronizedInvoker;
-#else
 				var handler = Synchronized;
-#endif
 				handler?.Invoke(properties);
 			}
 		}
@@ -93,12 +74,11 @@ namespace Manatee.Trello.Internal.Synchronization
 				SubmitChanges();
 				return;
 			}
-			if (_timer.Enabled)
-				_timer.Stop();
-			_timer.Start();
+			_timer.Stop();
+			_timer.Start(TrelloConfiguration.ChangeSubmissionTime);
 		}
 
-		private void TimerElapsed(object sender, ElapsedEventArgs e)
+		private void TimerElapsed(object state)
 		{
 			_timer?.Stop();
 			if (!_cancelUpdate && HasChanges)
@@ -113,13 +93,14 @@ namespace Manatee.Trello.Internal.Synchronization
 	}
 
 	internal abstract class SynchronizationContext<TJson> : SynchronizationContext
+		where TJson : class
 	{
 		protected static Dictionary<string, Property<TJson>> _properties;
 
 		private readonly List<string> _localChanges;
 		private readonly object _mergeLock;
 
-		public override bool HasChanges => _localChanges.Any();
+		public override bool HasChanges => _localChanges?.Any() ?? false;
 
 		protected TrelloAuthorization Auth { get; }
 		protected bool IsInitialized { get; private set; }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -25,14 +24,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Bytes = (int?) obj.TryGetNumber("bytes");
-#if IOS
-			var dateString = obj.TryGetString("date");
-			DateTime date;
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
-				Date = date.ToLocalTime();
-#else
 			Date = obj.Deserialize<DateTime?>(serializer, "date");
-#endif
 			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
 			IsUpload = obj.TryGetBoolean("isUpload");
 			MimeType = obj.TryGetString("mimeType");

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -10,12 +10,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Filters to only normal members.
 		/// </summary>
-		[Description("normal")]
+		[Display(Description="normal")]
 		Normal,
 		/// <summary>
 		/// Filters to only admins.
 		/// </summary>
-		[Description("admins")]
+		[Display(Description="admins")]
 		Admins,
 		/// <summary>
 		/// Filters to only owners.
@@ -23,7 +23,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Per @doug at Trello regarding <see cref="Admins"/> == <see cref="Owners"/>: "Turns out owners was once used by the iOS app and we only have it there for backwards compatibility. They are the same."
 		/// </remarks>
-		[Description("owners")]
+		[Display(Description="owners")]
 		Owners,
 	}
 }

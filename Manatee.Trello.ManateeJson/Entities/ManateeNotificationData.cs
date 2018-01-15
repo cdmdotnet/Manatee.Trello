@@ -24,8 +24,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type != JsonValueType.Object)
-				return;
+			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Attachment = obj.Deserialize<IJsonAttachment>(serializer, "attachment");
 			Board = obj.Deserialize<IJsonBoard>(serializer, "board");

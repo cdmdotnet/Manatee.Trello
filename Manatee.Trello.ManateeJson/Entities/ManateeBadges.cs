@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
@@ -28,14 +27,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			ViewingMemberVoted = obj.TryGetBoolean("viewingMemberVoted");
 			Subscribed = obj.TryGetBoolean("subscribed");
 			Fogbugz = obj.TryGetString("fogbugz");
-#if IOS
-			var dateString = obj.TryGetString("due");
-			DateTime date;
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddThh:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
-				Due = date.ToLocalTime();
-#else
 			Due = obj.Deserialize<DateTime?>(serializer, "due");
-#endif
 			DueComplete = obj.TryGetBoolean("dueComplete");
 			Description = obj.TryGetBoolean("description");
 			Comments = (int?)obj.TryGetNumber("comments");

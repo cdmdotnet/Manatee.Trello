@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,17 +14,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates there is no avatar.
 		/// </summary>
-		[Description("none")]
+		[Display(Description="none")]
 		None,
 		/// <summary>
 		/// Indicates the avatar has been uploaded by the user.
 		/// </summary>
-		[Description("upload")]
+		[Display(Description="upload")]
 		Upload,
 		/// <summary>
 		/// Indicates the avatar is supplied by Gravatar.
 		/// </summary>
-		[Description("gravatar")]
+		[Display(Description="gravatar")]
 		Gravatar
 	}
 }

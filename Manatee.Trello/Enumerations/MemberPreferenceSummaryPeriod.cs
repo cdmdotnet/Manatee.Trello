@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -11,19 +11,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that summary emails are disabled.
 		/// </summary>
-		[Description("disabled")]
+		[Display(Description="disabled")]
 		Disabled = -1,
 		/// <summary>
 		/// Indicates that summary emails should be sent every minute, when notifications
 		/// are present.
 		/// </summary>
-		[Description("oneMinute")]
+		[Display(Description="oneMinute")]
 		OneMinute = 1,
 		/// <summary>
 		/// Indicates that summary emails should be sent every hour, when notifications
 		/// are present.
 		/// </summary>
-		[Description("oneHour")]
+		[Display(Description="oneHour")]
 		OneHour = 60
 	}
 }

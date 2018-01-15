@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -17,15 +17,15 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
-			[Description("idMemberCreator")]
+			[Display(Description="idMemberCreator")]
 			Creator = 1,
-			[Description("data")]
+			[Display(Description="data")]
 			Data = 1 << 1,
-			[Description("unread")]
+			[Display(Description="unread")]
 			IsUnread = 1 << 2,
-			[Description("type")]
+			[Display(Description="type")]
 			Type = 1 << 3,
-			[Description("date")]
+			[Display(Description="date")]
 			Date = 1 << 4
 		}
 

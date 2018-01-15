@@ -1,204 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB07603F-BD9B-4CBB-8142-47666C5D88CF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Manatee.Trello.ManateeJson</RootNamespace>
-    <AssemblyName>Manatee.Trello.ManateeJson</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET4, JETBRAINS_ANNOTATIONS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5|AnyCPU' ">
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release-3.5\</OutputPath>
-    <DefineConstants>TRACE;NET35, JETBRAINS_ANNOTATIONS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release-3.5\Manatee.Trello.ManateeJson.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5C|AnyCPU' ">
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release-3.5C\</OutputPath>
-    <DefineConstants>TRACE;NET35C, JETBRAINS_ANNOTATIONS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release-3.5C\Manatee.Trello.ManateeJson.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0|AnyCPU' ">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release-4.0\</OutputPath>
-    <DefineConstants>TRACE;NET4, JETBRAINS_ANNOTATIONS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release-4.0\Manatee.Trello.ManateeJson.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0C|AnyCPU' ">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release-4.0C\</OutputPath>
-    <DefineConstants>TRACE;NET4C, JETBRAINS_ANNOTATIONS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release-4.0C\Manatee.Trello.ManateeJson.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.5|AnyCPU' ">
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release-4.5\</OutputPath>
-    <DefineConstants>TRACE;NET45, JETBRAINS_ANNOTATIONS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release-4.5\Manatee.Trello.ManateeJson.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mono|AnyCPU'">
-    <OutputPath>bin\Release-Mono\</OutputPath>
-    <DefineConstants>TRACE;NET35, IOS, JETBRAINS_ANNOTATIONS</DefineConstants>
-    <DocumentationFile>bin\Release-Mono\Manatee.Trello.ManateeJson.XML</DocumentationFile>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>netstandard1.3</TargetFrameworks>
+    <Version>2.0.0</Version>
+    <Description>JSON serialization implementation supported by Manatee.Json.</Description>
+    <Copyright>Copyright © 2017 Little Crab Solutions</Copyright>
+    <Company>Little Crab Solutions</Company>
+    <Authors>gregsdennis</Authors>
+    <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
+
+v2.0.0
+BREAKING CHANGE: Frameworks below 4.6 are no longer supported.
+Updated to NetStandard1.3</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/gregsdennis/Manatee.Trello</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageIconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-ManateeJson-Icon.png</PackageIconUrl>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.ManateeJson.snk</AssemblyOriginatorKeyFile>
+    <PackageTags>trello json manatee</PackageTags>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Release-Mono|AnyCPU'">
-    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net35-client\Manatee.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-3.5C|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net35-client\Manatee.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net40-client\Manatee.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0C|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net40-client\Manatee.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.5|AnyCPU' ">
-    <Reference Include="Manatee.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.6.0.0\lib\net45\Manatee.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-4.0|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Release-4.0C|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Release-4.5|AnyCPU' ">
-    <Reference Include="Microsoft.CSharp" />
+
+  <PropertyGroup>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Manatee.Json" Version="9.6.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Entities\ManateeAction.cs" />
-    <Compile Include="Entities\ManateeActionData.cs" />
-    <Compile Include="Entities\ManateeBoardBackground.cs" />
-    <Compile Include="Entities\ManateeNotificationOldData.cs" />
-    <Compile Include="Entities\ManateeActionOldData.cs" />
-    <Compile Include="Entities\ManateeAttachment.cs" />
-    <Compile Include="Entities\ManateeImagePreview.cs" />
-    <Compile Include="Entities\ManateeBadges.cs" />
-    <Compile Include="Entities\ManateeBoard.cs" />
-    <Compile Include="Entities\ManateeBoardMembership.cs" />
-    <Compile Include="Entities\ManateeBoardPersonalPreferences.cs" />
-    <Compile Include="Entities\ManateeBoardPreferences.cs" />
-    <Compile Include="Entities\ManateeBoardVisibilityRestrict.cs" />
-    <Compile Include="Entities\ManateeCard.cs" />
-    <Compile Include="Entities\ManateeCheckItem.cs" />
-    <Compile Include="Entities\ManateeCheckList.cs" />
-    <Compile Include="Entities\ManateeLabel.cs" />
-    <Compile Include="Entities\ManateeList.cs" />
-    <Compile Include="Entities\ManateeMember.cs" />
-    <Compile Include="Entities\ManateeMemberPreferences.cs" />
-    <Compile Include="Entities\ManateeMemberSearch.cs" />
-    <Compile Include="Entities\ManateeMemberSession.cs" />
-    <Compile Include="Entities\ManateeNotification.cs" />
-    <Compile Include="Entities\ManateeNotificationData.cs" />
-    <Compile Include="Entities\ManateeOrganization.cs" />
-    <Compile Include="Entities\ManateeOrganizationMembership.cs" />
-    <Compile Include="Entities\ManateeOrganizationPreferences.cs" />
-    <Compile Include="Entities\ManateeParameter.cs" />
-    <Compile Include="Entities\ManateePosition.cs" />
-    <Compile Include="Entities\ManateePowerUp.cs" />
-    <Compile Include="Entities\ManateePowerUpData.cs" />
-    <Compile Include="Entities\ManateeSearch.cs" />
-    <Compile Include="Entities\ManateeSticker.cs" />
-    <Compile Include="Entities\ManateeToken.cs" />
-    <Compile Include="Entities\ManateeTokenPermission.cs" />
-    <Compile Include="Entities\ManateeWebhook.cs" />
-    <Compile Include="Entities\ManateeWebhookNotification.cs" />
-    <Compile Include="GeneralExtensions.cs" />
-    <Compile Include="ManateeFactory.cs" />
-    <Compile Include="ManateeSerializer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
-      <Project>{e11bd6ae-0373-40cf-a4f3-6b156096ddb0}</Project>
-      <Name>Manatee.Trello</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Manatee.Trello.ManateeJson.snk" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

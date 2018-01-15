@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,17 +14,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the model is one or more Members.
 		/// </summary>
-		[Description("Member")]
+		[Display(Description="Member")]
 		Member,
 		/// <summary>
 		/// Indicates the model is one or more Boards.
 		/// </summary>
-		[Description("Board")]
+		[Display(Description="Board")]
 		Board,
 		/// <summary>
 		/// Indicates the model is one or more Organizations.
 		/// </summary>
-		[Description("Organization")]
+		[Display(Description="Organization")]
 		Organization
 	}
 }

@@ -43,7 +43,7 @@ namespace Manatee.Trello
 		{
 			IncorporateLimit(_additionalParameters);
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Lists, new Dictionary<string, object> { { "_id", OwnerId } });
+			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Lists, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = JsonRepository.Execute<List<IJsonList>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();

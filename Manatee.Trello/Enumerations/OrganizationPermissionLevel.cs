@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -14,12 +14,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that the organization can only be viewed by its members.
 		/// </summary>
-		[Description("private")]
+		[Display(Description="private")]
 		Private,
 		/// <summary>
 		/// Indicates that anyone (even non-Trello users) may view the organization.
 		/// </summary>
-		[Description("public")]
+		[Display(Description="public")]
 		Public
 	}
 }

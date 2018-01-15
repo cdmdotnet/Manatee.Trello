@@ -1,5 +1,5 @@
 using System;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -12,32 +12,32 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the search should return actions.
 		/// </summary>
-		[Description("actions")]
+		[Display(Description="actions")]
 		Actions = 0x01,
 		/// <summary>
 		/// Indicates the search should return boards.
 		/// </summary>
-		[Description("boards")]
+		[Display(Description="boards")]
 		Boards = 0x02,
 		/// <summary>
 		/// Indicates the search should return cards.
 		/// </summary>
-		[Description("cards")]
+		[Display(Description="cards")]
 		Cards = 0x04,
 		/// <summary>
 		/// Indicates the search should return members.
 		/// </summary>
-		[Description("members")]
+		[Display(Description="members")]
 		Members = 0x08,
 		/// <summary>
 		/// Indicates the search should return organizations.
 		/// </summary>
-		[Description("orgainzations")]
+		[Display(Description="orgainzations")]
 		Organizations = 0x10,
 		/// <summary>
 		/// Indicates the search should return all model types.
 		/// </summary>
-		[Description("all")]
+		[Display(Description="all")]
 		All = 0x1F
 	}
 }

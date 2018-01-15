@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -10,12 +10,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Filters to organizations that only members can access.
 		/// </summary>
-		[Description("members")]
+		[Display(Description="members")]
 		Members,
 		/// <summary>
 		/// Filters to organizations that are publicly accessible.
 		/// </summary>
-		[Description("public")]
+		[Display(Description="public")]
 		Public,
 	}
 }

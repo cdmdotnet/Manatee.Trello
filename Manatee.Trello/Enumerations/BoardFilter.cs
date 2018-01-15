@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Manatee.Trello
 {
@@ -12,47 +12,47 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Filters to boards that only members can access.
 		/// </summary>
-		[Description("members")]
+		[Display(Description="members")]
 		Members = 1 << 0,
 		/// <summary>
 		/// Filters to boards that only organization members can access.
 		/// </summary>
-		[Description("organization")]
+		[Display(Description="organization")]
 		Organization = 1 << 1,
 		/// <summary>
 		/// Filters to boards that are publicly accessible.
 		/// </summary>
-		[Description("public")]
+		[Display(Description="public")]
 		Public = 1 << 2,
 		/// <summary>
 		/// Filters to open boards.
 		/// </summary>
-		[Description("open")]
+		[Display(Description="open")]
 		Open = 1 << 3,
 		/// <summary>
 		/// Filters to closed boards.
 		/// </summary>
-		[Description("closed")]
+		[Display(Description="closed")]
 		Closed = 1 << 4,
 		/// <summary>
 		/// Filters to pinned boards.
 		/// </summary>
-		[Description("pinned")]
+		[Display(Description="pinned")]
 		Pinned = 1 << 5,
 		/// <summary>
 		/// Filters to unpinned boards.
 		/// </summary>
-		[Description("unpinned")]
+		[Display(Description="unpinned")]
 		Unpinned = 1 << 6,
 		/// <summary>
 		/// Filters to starred boards.
 		/// </summary>
-		[Description("starred")]
+		[Display(Description="starred")]
 		Starred = 1 << 7,
 		/// <summary>
 		/// Indicates that all boards should be returned.
 		/// </summary>
-		[Description("all")]
+		[Display(Description="all")]
 		All = 1 << 8 - 1,
 	}
 }

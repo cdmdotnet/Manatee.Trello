@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
@@ -17,13 +17,13 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
-			[Description("idBoard")]
+			[Display(Description="idBoard")]
 			Board = 1,
-			[Description("color")]
+			[Display(Description="color")]
 			Color = 1 << 1,
-			[Description("name")]
+			[Display(Description="name")]
 			Name = 1 << 2,
-			[Description("uses")]
+			[Display(Description="uses")]
 			Uses = 1 << 3
 		}
 
