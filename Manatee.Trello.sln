@@ -19,6 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.IntegrationT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{3F48F63B-536E-40D8-AB87-E602B3D3A1B0}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		build.bat = build.bat
+		nuget-restore.ps1 = nuget-restore.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject

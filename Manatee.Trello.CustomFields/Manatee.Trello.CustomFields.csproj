@@ -2,6 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.0.0</Version>
+    <Authors>gregsdennis</Authors>
+    <Company>Little Crab Solutions</Company>
+    <Description>Custom Fields powerup implementation for Manatee.Trello</Description>
+    <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
+    <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/gregsdennis/Manatee.Trello</PackageProjectUrl>
+    <PackageIconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
+    <PackageTags>manatee trello power-ups</PackageTags>
+    <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
+
+v2.0.0
+BREAKING CHANGE: Frameworks below 4.6.1 are no longer supported.
+Updated to NetStandard2.0</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
