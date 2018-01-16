@@ -36,7 +36,18 @@ namespace Manatee.Trello.Moq
 			: base(string.Empty, null)
 		{
 			SetupGet(c => c.Actions).Returns(() => Actions.Object);
+			SetupGet(c => c.Attachments).Returns(() => Attachments.Object);
+			SetupGet(c => c.Badges).Returns(() => Badges.Object);
 			SetupGet(c => c.Board).Returns(() => Board.Object);
+			SetupGet(c => c.CheckLists).Returns(() => CheckLists.Object);
+			SetupGet(c => c.Comments).Returns(() => Comments.Object);
+			SetupGet(c => c.Labels).Returns(() => Labels.Object);
+			SetupGet(c => c.List).Returns(() => List.Object);
+			SetupGet(c => c.Members).Returns(() => Members.Object);
+			SetupGet(c => c.Position).Returns(() => Position.Object);
+			SetupGet(c => c.PowerUpData).Returns(() => PowerUpData.Object);
+			SetupGet(c => c.Stickers).Returns(() => Stickers.Object);
+			SetupGet(c => c.VotingMembers).Returns(() => VotingMembers.Object);
 		}
 	}
 }
