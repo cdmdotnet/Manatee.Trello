@@ -55,23 +55,23 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member who performed the action which created the notification.
 		/// </summary>
-		public Member Creator => _creator.Value;
+		public virtual Member Creator => _creator.Value;
 		/// <summary>
 		/// Gets any data associated with the notification.
 		/// </summary>
-		public NotificationData Data { get; }
+		public virtual NotificationData Data { get; }
 		/// <summary>
 		/// Gets the date and teim at which the notification was issued.
 		/// </summary>
-		public DateTime? Date => _date.Value;
+		public virtual DateTime? Date => _date.Value;
 		/// <summary>
 		/// Gets the notification's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public virtual string Id { get; private set; }
 		/// <summary>
 		/// Gets or sets whether the notification has been read.
 		/// </summary>
-		public bool? IsUnread
+		public virtual bool? IsUnread
 		{
 			get { return _isUnread.Value; }
 			set { _isUnread.Value = value; }
@@ -79,7 +79,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the type of notification.
 		/// </summary>
-		public NotificationType? Type => _type.Value;
+		public virtual NotificationType? Type => _type.Value;
 
 		internal IJsonNotification Json
 		{
@@ -90,7 +90,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the notification is updated.
 		/// </summary>
-		public event Action<Notification, IEnumerable<string>> Updated;
+		public virtual event Action<Notification, IEnumerable<string>> Updated;
 
 		static Notification()
 		{

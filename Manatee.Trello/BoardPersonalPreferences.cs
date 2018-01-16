@@ -23,7 +23,7 @@ namespace Manatee.Trello
 		/// Gets or sets the <see cref="List"/> which will be used to post new cards
 		/// submitted by email.
 		/// </summary>
-		public List EmailList
+		public virtual List EmailList
 		{
 			get { return _emailList.Value; }
 			set { _emailList.Value = value; }
@@ -32,7 +32,7 @@ namespace Manatee.Trello
 		/// Gets or sets the <see cref="Position"/> within a <see cref="List"/> which
 		/// will be used to post new cards submitted by email.
 		/// </summary>
-		public Position EmailPosition
+		public virtual Position EmailPosition
 		{
 			get { return _emailPosition.Value; }
 			set { _emailPosition.Value = value; }
@@ -43,7 +43,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// It appears that this may be deprecated by Trello.
 		/// </remarks>
-		public bool? ShowListGuide
+		public virtual bool? ShowListGuide
 		{
 			get { return _showListGuide.Value; }
 			set { _showListGuide.Value = value; }
@@ -51,7 +51,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether to show the side bar.
 		/// </summary>
-		public bool? ShowSidebar
+		public virtual bool? ShowSidebar
 		{
 			get { return _showSidebar.Value; }
 			set { _showSidebar.Value = value; }
@@ -62,7 +62,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// It appears that this may be deprecated by Trello.
 		/// </remarks>
-		public bool? ShowSidebarActivity
+		public virtual bool? ShowSidebarActivity
 		{
 			get { return _showSidebarActivity.Value; }
 			set { _showSidebarActivity.Value = value; }
@@ -73,7 +73,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// It appears that this may be deprecated by Trello.
 		/// </remarks>
-		public bool? ShowSidebarBoardActions
+		public virtual bool? ShowSidebarBoardActions
 		{
 			get { return _showSidebarBoardActions.Value; }
 			set { _showSidebarBoardActions.Value = value; }
@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// It appears that this may be deprecated by Trello.
 		/// </remarks>
-		public bool? ShowSidebarMembers
+		public virtual bool? ShowSidebarMembers
 		{
 			get { return _showSidebarMembers.Value; }
 			set { _showSidebarMembers.Value = value; }

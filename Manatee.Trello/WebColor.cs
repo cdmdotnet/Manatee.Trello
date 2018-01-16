@@ -14,15 +14,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the red component.
 		/// </summary>
-		public ushort Red { get; }
+		public virtual ushort Red { get; }
 		/// <summary>
 		/// Gets the green component.
 		/// </summary>
-		public ushort Green { get; }
+		public virtual ushort Green { get; }
 		/// <summary>
 		/// Gets the blue component.
 		/// </summary>
-		public ushort Blue { get; }
+		public virtual ushort Blue { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="WebColor"/> class.

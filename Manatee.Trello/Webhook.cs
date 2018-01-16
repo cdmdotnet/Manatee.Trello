@@ -50,7 +50,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets a callback URL for the webhook.
 		/// </summary>
-		public string CallBackUrl
+		public virtual string CallBackUrl
 		{
 			get { return _callBackUrl.Value; }
 			set { _callBackUrl.Value = value; }
@@ -58,7 +58,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the creation date of the webhook.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -70,7 +70,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets a description for the webhook.
 		/// </summary>
-		public string Description
+		public virtual string Description
 		{
 			get { return _description.Value; }
 			set { _description.Value = value; }
@@ -78,11 +78,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the webhook's ID>
 		/// </summary>
-		public string Id { get; private set; }
+		public virtual string Id { get; private set; }
 		/// <summary>
 		/// Gets or sets whether the webhook is active.
 		/// </summary>
-		public bool? IsActive
+		public virtual bool? IsActive
 		{
 			get { return _isActive.Value; }
 			set { _isActive.Value = value; }
@@ -90,7 +90,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the webhook's target.
 		/// </summary>
-		public T Target
+		public virtual T Target
 		{
 			get { return _target.Value; }
 			set { _target.Value = value; }
@@ -99,7 +99,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the webhook is updated.
 		/// </summary>
-		public event Action<Webhook, IEnumerable<string>> Updated;
+		public virtual event Action<Webhook, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.
@@ -159,7 +159,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the card from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
@@ -167,7 +167,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the webhook to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

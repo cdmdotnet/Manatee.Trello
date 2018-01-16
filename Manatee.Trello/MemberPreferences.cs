@@ -16,7 +16,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether color-blind mode is enabled.
 		/// </summary>
-		public bool? EnableColorBlindMode
+		public virtual bool? EnableColorBlindMode
 		{
 			get { return _enableColorBlindMode.Value; }
 			set { _enableColorBlindMode.Value = value; }
@@ -24,7 +24,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the time between email summaries.
 		/// </summary>
-		public int? MinutesBetweenSummaries
+		public virtual int? MinutesBetweenSummaries
 		{
 			get { return _minutesBetweenSummaries.Value; }
 			set { _minutesBetweenSummaries.Value = value; }

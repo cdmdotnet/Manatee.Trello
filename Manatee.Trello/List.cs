@@ -45,11 +45,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public virtual ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets or sets the board on which the list belongs.
 		/// </summary>
-		public Board Board
+		public virtual Board Board
 		{
 			get { return _board.Value; }
 			set { _board.Value = value; }
@@ -57,11 +57,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of cards contained in the list.
 		/// </summary>
-		public CardCollection Cards { get; }
+		public virtual CardCollection Cards { get; }
 		/// <summary>
 		/// Gets the creation date of the list.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -73,7 +73,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the list's ID.
 		/// </summary>
-		public string Id
+		public virtual string Id
 		{
 			get
 			{
@@ -86,7 +86,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether the list is archived.
 		/// </summary>
-		public bool? IsArchived
+		public virtual bool? IsArchived
 		{
 			get { return _isArchived.Value; }
 			set { _isArchived.Value = value; }
@@ -94,7 +94,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to the list.
 		/// </summary>
-		public bool? IsSubscribed
+		public virtual bool? IsSubscribed
 		{
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
@@ -102,7 +102,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the list's name.
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
@@ -110,7 +110,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the list's position.
 		/// </summary>
-		public Position Position
+		public virtual Position Position
 		{
 			get { return _position.Value; }
 			set { _position.Value = value; }
@@ -124,7 +124,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public Card this[string key] => Cards[key];
+		public virtual Card this[string key] => Cards[key];
 		/// <summary>
 		/// Retrieves the card at the specified index.
 		/// </summary>
@@ -133,7 +133,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public Card this[int index] => Cards[index];
+		public virtual Card this[int index] => Cards[index];
 
 		internal IJsonList Json
 		{
@@ -144,7 +144,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the list is updated.
 		/// </summary>
-		public event Action<List, IEnumerable<string>> Updated;
+		public virtual event Action<List, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="List"/> object.
@@ -184,7 +184,7 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public virtual void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;
 			_context.Merge(action.Data.List.Json);
@@ -192,7 +192,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the list to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

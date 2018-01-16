@@ -17,19 +17,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets a URI that provides JSON-formatted data about the plugin.
 		/// </summary>
-		public string AdditionalInfo => _additionalInfo.Value;
+		public virtual string AdditionalInfo => _additionalInfo.Value;
 		/// <summary>
 		/// Gets the power-up's ID.
 		/// </summary>
-		public string Id { get; }
+		public virtual string Id { get; }
 		/// <summary>
 		/// Gets the name of the power-up.
 		/// </summary>
-		public string Name => _name.Value;
+		public virtual string Name => _name.Value;
 		/// <summary>
 		/// Gets or sets whether this power-up is closed.
 		/// </summary>
-		public bool? Public => _public.Value;
+		public virtual bool? Public => _public.Value;
 
 		internal IJsonPowerUp Json
 		{

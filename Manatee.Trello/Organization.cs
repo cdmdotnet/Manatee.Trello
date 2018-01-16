@@ -54,15 +54,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public virtual ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
-		public BoardCollection Boards { get; }
+		public virtual BoardCollection Boards { get; }
 		/// <summary>
 		/// Gets the creation date of the organization.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -74,7 +74,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the organization's description.
 		/// </summary>
-		public string Description
+		public virtual string Description
 		{
 			get { return _description.Value; }
 			set { _description.Value = value; }
@@ -82,7 +82,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the organization's display name.
 		/// </summary>
-		public string DisplayName
+		public virtual string DisplayName
 		{
 			get { return _displayName.Value; }
 			set { _displayName.Value = value; }
@@ -90,7 +90,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the organization's ID.
 		/// </summary>
-		public string Id
+		public virtual string Id
 		{
 			get
 			{
@@ -103,19 +103,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the organization has business class status.
 		/// </summary>
-		public bool IsBusinessClass => _isBusinessClass.Value;
+		public virtual bool IsBusinessClass => _isBusinessClass.Value;
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		public ReadOnlyMemberCollection Members { get; }
+		public virtual ReadOnlyMemberCollection Members { get; }
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>
-		public OrganizationMembershipCollection Memberships { get; }
+		public virtual OrganizationMembershipCollection Memberships { get; }
 		/// <summary>
 		/// Gets the organization's name.
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
@@ -123,19 +123,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets specific data regarding power-ups.
 		/// </summary>
-		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		public virtual ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		/// <summary>
 		/// Gets the set of preferences for the organization.
 		/// </summary>
-		public OrganizationPreferences Preferences { get; }
+		public virtual OrganizationPreferences Preferences { get; }
 		/// <summary>
 		/// Gets the organization's URL.
 		/// </summary>
-		public string Url => _url.Value;
+		public virtual string Url => _url.Value;
 		/// <summary>
 		/// Gets or sets the organization's website.
 		/// </summary>
-		public string Website
+		public virtual string Website
 		{
 			get { return _website.Value; }
 			set { _website.Value = value; }
@@ -150,7 +150,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the organization is updated.
 		/// </summary>
-		public event Action<Organization, IEnumerable<string>> Updated;
+		public virtual event Action<Organization, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Organization"/> object.
@@ -194,7 +194,7 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public virtual void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateOrganization || action.Data.Organization == null || action.Data.Organization.Id != Id)
 				return;
@@ -207,7 +207,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the organization from Trello's server, however, this
 		/// object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
@@ -215,7 +215,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the organization to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

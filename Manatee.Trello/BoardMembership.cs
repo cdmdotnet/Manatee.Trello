@@ -22,7 +22,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the creation date of the membership.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -34,19 +34,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the membership definition's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public virtual string Id { get; private set; }
 		/// <summary>
 		/// Gets whether the member has accepted the invitation to join Trello.
 		/// </summary>
-		public bool? IsDeactivated => _isDeactivated.Value;
+		public virtual bool? IsDeactivated => _isDeactivated.Value;
 		/// <summary>
 		/// Gets the member.
 		/// </summary>
-		public Member Member => _member.Value;
+		public virtual Member Member => _member.Value;
 		/// <summary>
 		/// Gets the membership's permission level.
 		/// </summary>
-		public BoardMembershipType? MemberType
+		public virtual BoardMembershipType? MemberType
 		{
 			get { return _memberType.Value; }
 			set { _memberType.Value = value; }
@@ -61,7 +61,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the membership is updated.
 		/// </summary>
-		public event Action<BoardMembership, IEnumerable<string>> Updated;
+		public virtual event Action<BoardMembership, IEnumerable<string>> Updated;
 
 		internal BoardMembership(IJsonBoardMembership json, string ownerId, TrelloAuthorization auth)
 		{
@@ -83,7 +83,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the board membership to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

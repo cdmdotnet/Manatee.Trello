@@ -8,11 +8,11 @@
 		/// <summary>
 		/// Gets the returned member.
 		/// </summary>
-		public Member Member { get; private set; }
+		public virtual Member Member { get; }
 		/// <summary>
 		/// Gets a value indicating the similarity of the member to the search query.
 		/// </summary>
-		public int? Similarity { get; private set; }
+		public virtual int? Similarity { get; }
 
 		internal MemberSearchResult(Member member, int? similarity)
 		{

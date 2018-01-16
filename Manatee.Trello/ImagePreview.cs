@@ -15,7 +15,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the creation date of the image preview.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -27,23 +27,23 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the preview's height in pixels.
 		/// </summary>
-		public int? Height { get; }
+		public virtual int? Height { get; }
 		/// <summary>
 		/// Gets the preview's ID.
 		/// </summary>
-		public string Id { get; }
+		public virtual string Id { get; }
 		/// <summary>
 		/// Gets whether the attachment was scaled to generate the preview.
 		/// </summary>
-		public bool? IsScaled { get; set; }
+		public virtual bool? IsScaled { get; set; }
 		/// <summary>
 		/// Gets the URI where the preview data is stored.
 		/// </summary>
-		public string Url { get; }
+		public virtual string Url { get; }
 		/// <summary>
 		/// Gets the preview's width in pixels.
 		/// </summary>
-		public int? Width { get; }
+		public virtual int? Width { get; }
 
 		internal ImagePreview(IJsonImagePreview json)
 		{

@@ -22,7 +22,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of results returned by the search.
 		/// </summary>
-		public IEnumerable<MemberSearchResult> Results => _results.Value;
+		public virtual IEnumerable<MemberSearchResult> Results => _results.Value;
 
 		private Board Board
 		{
