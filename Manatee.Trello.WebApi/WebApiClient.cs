@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
@@ -94,7 +95,7 @@ namespace Manatee.Trello.WebApi
 					StatusCode = response.StatusCode
 				};
 			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-			                              $"Content: {restResponse.Content}");
+										  $"Content: {restResponse.Content}");
 			return restResponse;
 		}
 		private static async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<HttpClient, Task<HttpResponseMessage>> call) where T : class
@@ -151,9 +152,9 @@ namespace Manatee.Trello.WebApi
 			}
 			var body = TrelloConfiguration.Serializer.Serialize(request.Body);
 			var jsonContent = new StringContent(body);
-            jsonContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+			jsonContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return jsonContent;
+			return jsonContent;
 		}
 		private static string GetFullResource(WebApiRestRequest request)
 		{
