@@ -97,7 +97,7 @@ namespace Manatee.Trello
 		/// Adds a member to the collection.
 		/// </summary>
 		/// <param name="member">The member to add.</param>
-		public void Add(Member member)
+		public virtual void Add(Member member)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)
@@ -115,7 +115,7 @@ namespace Manatee.Trello
 		/// Removes a member from the collection.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(Member member)
+		public virtual void Remove(Member member)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)

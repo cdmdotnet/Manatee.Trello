@@ -23,7 +23,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public T this[int index] => GetByIndex(index);
+		public virtual T this[int index] => GetByIndex(index);
 
 		internal string OwnerId => _ownerId ?? (_ownerId = _getOwnerId());
 		internal List<T> Items { get; }

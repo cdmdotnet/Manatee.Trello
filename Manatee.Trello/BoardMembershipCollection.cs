@@ -43,7 +43,7 @@ namespace Manatee.Trello
 		/// BoardMembership.Member.Name, and BoardMembership.Usernamee.
 		/// Comparison is case-sensitive.
 		/// </remarks>
-		public BoardMembership this[string key] => GetByKey(key);
+		public virtual BoardMembership this[string key] => GetByKey(key);
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -96,7 +96,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to add.</param>
 		/// <param name="membership">The membership type.</param>
-		public BoardMembership Add(Member member, BoardMembershipType membership)
+		public virtual BoardMembership Add(Member member, BoardMembershipType membership)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)
@@ -115,7 +115,7 @@ namespace Manatee.Trello
 		/// Removes a member from a board.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(Member member)
+		public virtual void Remove(Member member)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)

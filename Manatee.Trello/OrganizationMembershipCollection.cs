@@ -38,7 +38,7 @@ namespace Manatee.Trello
 		/// OrganizationMembership.Member.FullName, and OrganizationMembership.Member.Username.
 		/// Comparison is case-sensitive.
 		/// </remarks>
-		public OrganizationMembership this[string key] => GetByKey(key);
+		public virtual OrganizationMembership this[string key] => GetByKey(key);
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -87,7 +87,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to add.</param>
 		/// <param name="membership">The membership type.</param>
-		public void Add(Member member, OrganizationMembershipType membership)
+		public virtual void Add(Member member, OrganizationMembershipType membership)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)
@@ -104,7 +104,7 @@ namespace Manatee.Trello
 		/// Removes a member from an organization.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(Member member)
+		public virtual void Remove(Member member)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)
