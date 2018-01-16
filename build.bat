@@ -35,6 +35,8 @@ call "%msbuild%" Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj /t
 if not "%errorlevel%"=="0" goto failure
 call "%msbuild%" Manatee.Trello.WebApi\Manatee.Trello.WebApi.csproj /t:pack /p:Configuration="%config%"
 if not "%errorlevel%"=="0" goto failure
+call "%msbuild%" Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj /t:pack /p:Configuration="%config%"
+if not "%errorlevel%"=="0" goto failure
 
 :success
 exit 0
