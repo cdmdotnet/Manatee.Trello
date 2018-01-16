@@ -63,6 +63,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual event Action<OrganizationMembership, IEnumerable<string>> Updated;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public OrganizationMembership(OrganizationMembership doNotUse)
+		{
+		}
 		internal OrganizationMembership(IJsonOrganizationMembership json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;

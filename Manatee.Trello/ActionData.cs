@@ -139,6 +139,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual string Value => _value.Value;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ActionData(ActionData doNotUse)
+		{
+		}
 		internal ActionData(ActionDataContext context)
 		{
 			_context = context;

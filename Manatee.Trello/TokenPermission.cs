@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
@@ -21,6 +22,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual bool? CanWrite => _canWrite.Value;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public TokenPermission(TokenPermission doNotUse)
+		{
+		}
 		internal TokenPermission(TokenPermissionContext context)
 		{
 			_context = context;

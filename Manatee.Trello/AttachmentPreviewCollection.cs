@@ -12,7 +12,7 @@ namespace Manatee.Trello
 		private readonly AttachmentContext _context;
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyAttachmentPreviewCollection()
+		public ReadOnlyAttachmentPreviewCollection(ReadOnlyAttachmentPreviewCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}

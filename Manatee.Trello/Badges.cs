@@ -67,6 +67,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual int? Votes => _votes.Value;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public Badges(Badges doNotUse)
+		{
+		}
 		internal Badges(BadgesContext context)
 		{
 			_context = context;

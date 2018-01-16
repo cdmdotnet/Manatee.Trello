@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 
@@ -96,6 +97,10 @@ namespace Manatee.Trello
 			set { _background.Value = value; }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public BoardPreferences(BoardPreferences doNotUse)
+		{
+		}
 		internal BoardPreferences(BoardPreferencesContext context)
 		{
 			_context = context;

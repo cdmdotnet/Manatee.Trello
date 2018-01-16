@@ -28,7 +28,7 @@ namespace Manatee.Trello
 		public virtual List this[string key] => GetByKey(key);
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyListCollection()
+		public ReadOnlyListCollection(ReadOnlyListCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}
@@ -79,7 +79,8 @@ namespace Manatee.Trello
 	public class ListCollection : ReadOnlyListCollection
 	{
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ListCollection()
+		public ListCollection(ListCollection doNotUse)
+			: base(doNotUse)
 		{
 		}
 		internal ListCollection(Func<string> getOwnerId, TrelloAuthorization auth)

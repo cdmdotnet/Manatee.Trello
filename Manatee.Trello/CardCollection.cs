@@ -30,7 +30,7 @@ namespace Manatee.Trello
 		public virtual Card this[string key] => GetByKey(key);
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyCardCollection()
+		public ReadOnlyCardCollection(ReadOnlyCardCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}
@@ -113,7 +113,8 @@ namespace Manatee.Trello
 	public class CardCollection : ReadOnlyCardCollection
 	{
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public CardCollection()
+		public CardCollection(CardCollection doNotUse)
+			: base(doNotUse)
 		{
 		}
 		internal CardCollection(Func<string> getOwnerId, TrelloAuthorization auth)

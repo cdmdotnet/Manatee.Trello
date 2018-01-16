@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Contracts;
+﻿using System;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -81,6 +82,10 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public BoardBackground(BoardBackground doNotUse)
+		{
+		}
 		internal BoardBackground(IJsonBoardBackground json, TrelloAuthorization auth)
 		{
 			Id = json.Id;

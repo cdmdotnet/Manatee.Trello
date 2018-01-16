@@ -16,7 +16,7 @@ namespace Manatee.Trello
 		private Dictionary<string, object> _additionalParameters;
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyNotificationCollection()
+		public ReadOnlyNotificationCollection(ReadOnlyNotificationCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}

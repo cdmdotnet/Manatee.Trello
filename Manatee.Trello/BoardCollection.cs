@@ -29,7 +29,7 @@ namespace Manatee.Trello
 		public virtual Board this[string key] => GetByKey(key);
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyBoardCollection()
+		public ReadOnlyBoardCollection(ReadOnlyBoardCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}
@@ -88,7 +88,8 @@ namespace Manatee.Trello
 		private readonly EntityRequestType _addRequestType;
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public BoardCollection()
+		public BoardCollection(BoardCollection doNotUse)
+			: base(doNotUse)
 		{
 		}
 		internal BoardCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)

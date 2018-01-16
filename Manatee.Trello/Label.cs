@@ -83,6 +83,10 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public Label(Label doNotUse)
+		{
+		}
 		internal Label(IJsonLabel json, TrelloAuthorization auth)
 		{
 			Id = json.Id;

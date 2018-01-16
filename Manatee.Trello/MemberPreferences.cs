@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 
@@ -30,6 +31,10 @@ namespace Manatee.Trello
 			set { _minutesBetweenSummaries.Value = value; }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public MemberPreferences(MemberPreferences doNotUse)
+		{
+		}
 		internal MemberPreferences(MemberPreferencesContext context)
 		{
 			_context = context;

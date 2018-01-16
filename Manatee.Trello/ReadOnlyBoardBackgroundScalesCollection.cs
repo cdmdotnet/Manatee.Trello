@@ -12,7 +12,7 @@ namespace Manatee.Trello
 		private readonly BoardBackgroundContext _context;
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyBoardBackgroundScalesCollection()
+		public ReadOnlyBoardBackgroundScalesCollection(ReadOnlyBoardBackgroundScalesCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}

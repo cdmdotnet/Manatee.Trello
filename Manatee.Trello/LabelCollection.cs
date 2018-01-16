@@ -19,7 +19,7 @@ namespace Manatee.Trello
 		private readonly CardContext _context;
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public CardLabelCollection()
+		public CardLabelCollection(CardLabelCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}
@@ -91,7 +91,7 @@ namespace Manatee.Trello
 		private Dictionary<string, object> _additionalParameters;
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public BoardLabelCollection()
+		public BoardLabelCollection(BoardLabelCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}

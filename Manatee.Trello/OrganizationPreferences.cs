@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 
@@ -74,6 +75,10 @@ namespace Manatee.Trello
 			set { _privateBoardVisibility.Value = value; }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public OrganizationPreferences(OrganizationPreferences doNotUse)
+		{
+		}
 		internal OrganizationPreferences(OrganizationPreferencesContext context)
 		{
 			_context = context;

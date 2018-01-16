@@ -156,6 +156,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual event Action<Sticker, IEnumerable<string>> Updated;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public Sticker(Sticker doNotUse)
+		{
+		}
 		internal Sticker(IJsonSticker json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;

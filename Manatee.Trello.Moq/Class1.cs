@@ -41,6 +41,7 @@ namespace Manatee.Trello.Moq
 	public class ActionCollectionMock : Mock<ReadOnlyActionCollection>
 	{
 		public ActionCollectionMock()
+			: base(null)
 		{
 
 		}

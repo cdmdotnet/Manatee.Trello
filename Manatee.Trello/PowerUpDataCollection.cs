@@ -15,7 +15,7 @@ namespace Manatee.Trello
 		private readonly EntityRequestType _requestType;
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyPowerUpDataCollection()
+		public ReadOnlyPowerUpDataCollection(ReadOnlyPowerUpDataCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}

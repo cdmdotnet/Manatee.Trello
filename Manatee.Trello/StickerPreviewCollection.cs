@@ -12,7 +12,7 @@ namespace Manatee.Trello
 		private readonly StickerContext _context;
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyStickerPreviewCollection()
+		public ReadOnlyStickerPreviewCollection(ReadOnlyStickerPreviewCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}

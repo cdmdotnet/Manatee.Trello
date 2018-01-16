@@ -90,6 +90,10 @@ namespace Manatee.Trello
 			set { _showSidebarMembers.Value = value; }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public BoardPersonalPreferences(BoardPersonalPreferences doNotUse)
+		{
+		}
 		internal BoardPersonalPreferences(Func<string> getOwnerId, TrelloAuthorization auth)
 		{
 			_context = new BoardPersonalPreferencesContext(getOwnerId, auth);

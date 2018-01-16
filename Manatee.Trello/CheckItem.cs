@@ -95,6 +95,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual event Action<CheckItem, IEnumerable<string>> Updated;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public CheckItem(CheckItem doNotUse)
+		{
+		}
 		internal CheckItem(IJsonCheckItem json, string checkListId, TrelloAuthorization auth = null)
 		{
 			Id = json.Id;

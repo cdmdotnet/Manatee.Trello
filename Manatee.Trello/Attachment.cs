@@ -107,6 +107,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual event Action<Attachment, IEnumerable<string>> Updated;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public Attachment(Attachment doNotUse)
+		{
+		}
 		internal Attachment(IJsonAttachment json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;

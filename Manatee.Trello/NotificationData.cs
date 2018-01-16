@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 
@@ -123,6 +124,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual bool? WasArchived => _wasArchived.Value;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public NotificationData(NotificationData doNotUse)
+		{
+		}
 		internal NotificationData(NotificationDataContext context)
 		{
 			_context = context;

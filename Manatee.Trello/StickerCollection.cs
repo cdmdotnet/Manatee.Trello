@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	public class ReadOnlyStickerCollection : ReadOnlyCollection<Sticker>
 	{
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyStickerCollection()
+		public ReadOnlyStickerCollection(ReadOnlyStickerCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}
@@ -48,7 +48,8 @@ namespace Manatee.Trello
 		private static readonly NumericRule<int> _rotationRule = new NumericRule<int>{Min = 0, Max = 359};
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public CardStickerCollection()
+		public CardStickerCollection(CardStickerCollection doNotUse)
+			: base(doNotUse)
 		{
 		}
 		internal CardStickerCollection(Func<string> getOwnerId, TrelloAuthorization auth)
@@ -94,6 +95,11 @@ namespace Manatee.Trello
 	/// </summary>
 	public class MemberStickerCollection : ReadOnlyStickerCollection
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public MemberStickerCollection(MemberStickerCollection doNotUse)
+			: base(doNotUse)
+		{
+		}
 		internal MemberStickerCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) { }
 

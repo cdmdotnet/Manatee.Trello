@@ -45,6 +45,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public virtual int? Width { get; }
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ImagePreview(ImagePreview doNotUse)
+		{
+		}
 		internal ImagePreview(IJsonImagePreview json)
 		{
 			Id = json.Id;

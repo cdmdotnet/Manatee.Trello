@@ -16,7 +16,7 @@ namespace Manatee.Trello
 	public class ReadOnlyCheckListCollection : ReadOnlyCollection<CheckList>
 	{
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyCheckListCollection()
+		public ReadOnlyCheckListCollection(ReadOnlyCheckListCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}
@@ -62,7 +62,8 @@ namespace Manatee.Trello
 	public class CheckListCollection : ReadOnlyCheckListCollection
 	{
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public CheckListCollection()
+		public CheckListCollection(CheckListCollection doNotUse)
+			: base(doNotUse)
 		{
 		}
 		internal CheckListCollection(Card card, TrelloAuthorization auth)

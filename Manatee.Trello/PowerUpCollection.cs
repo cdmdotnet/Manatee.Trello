@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	public class ReadOnlyPowerUpCollection : ReadOnlyCollection<IPowerUp>
 	{
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyPowerUpCollection()
+		public ReadOnlyPowerUpCollection(ReadOnlyPowerUpCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}

@@ -32,7 +32,7 @@ namespace Manatee.Trello
 		}
 
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public ReadOnlyActionCollection()
+		public ReadOnlyActionCollection(ReadOnlyActionCollection doNotUse)
 			: base(() => string.Empty, null)
 		{
 		}
@@ -99,7 +99,8 @@ namespace Manatee.Trello
 	public class CommentCollection : ReadOnlyActionCollection
 	{
 		[Obsolete("This constructor is only for mocking purposes.")]
-		public CommentCollection()
+		public CommentCollection(CommentCollection doNotUse)
+			: base(doNotUse)
 		{
 		}
 
