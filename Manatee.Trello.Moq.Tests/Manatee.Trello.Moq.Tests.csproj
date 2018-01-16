@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BA5FC15F-255E-45D4-9C70-A7BB7046AFD5}</ProjectGuid>
+    <ProjectGuid>{EA69FEB0-1C89-4DC2-A153-1F1A9C9F1C75}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Manatee.Trello.UnitTests</RootNamespace>
-    <AssemblyName>Manatee.Trello.UnitTests</AssemblyName>
+    <RootNamespace>Manatee.Trello.Moq.Tests</RootNamespace>
+    <AssemblyName>Manatee.Trello.Moq.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,17 +62,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello.Moq\Manatee.Trello.Moq.csproj">
-      <Project>{f8a3a16f-94f9-4c07-a18a-54084f3e6759}</Project>
+      <Project>{F8A3A16F-94F9-4C07-A18A-54084F3E6759}</Project>
       <Name>Manatee.Trello.Moq</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
-      <Project>{EC61FB1F-B27D-41C8-85B8-B56B1863819D}</Project>
+      <Project>{ec61fb1f-b27d-41c8-85b8-b56b1863819d}</Project>
       <Name>Manatee.Trello</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

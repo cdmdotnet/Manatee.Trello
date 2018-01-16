@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Manatee.Trello.Moq;
-using Moq;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace Manatee.Trello.UnitTests
+namespace Manatee.Trello.Moq.Tests
 {
 	[TestFixture]
 	public class Class1
