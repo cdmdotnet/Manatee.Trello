@@ -150,7 +150,10 @@ namespace Manatee.Trello.WebApi
 				return formData;
 			}
 			var body = TrelloConfiguration.Serializer.Serialize(request.Body);
-			return new StringContent(body);
+			var jsonContent = new StringContent(body);
+            jsonContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            return jsonContent;
 		}
 		private static string GetFullResource(WebApiRestRequest request)
 		{
