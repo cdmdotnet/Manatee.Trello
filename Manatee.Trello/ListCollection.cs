@@ -27,6 +27,11 @@ namespace Manatee.Trello
 		/// </remarks>
 		public List this[string key] => GetByKey(key);
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyListCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 		internal ReadOnlyListCollection(ReadOnlyListCollection source, TrelloAuthorization auth)
@@ -73,6 +78,10 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ListCollection : ReadOnlyListCollection
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ListCollection()
+		{
+		}
 		internal ListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) { }
 

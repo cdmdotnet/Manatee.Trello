@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
@@ -26,6 +27,11 @@ namespace Manatee.Trello
 		/// </remarks>
 		public CheckItem this[string key] => GetByKey(key);
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyCheckItemCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyCheckItemCollection(CheckListContext context, TrelloAuthorization auth)
 			: base(() => context.Data.Id, auth)
 		{
@@ -65,6 +71,10 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckItemCollection : ReadOnlyCheckItemCollection
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public CheckItemCollection()
+		{
+		}
 		internal CheckItemCollection(CheckListContext context, TrelloAuthorization auth)
 			: base(context, auth) {}
 

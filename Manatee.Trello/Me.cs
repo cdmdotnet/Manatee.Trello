@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 

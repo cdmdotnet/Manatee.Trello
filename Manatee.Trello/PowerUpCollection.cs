@@ -12,6 +12,11 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyPowerUpCollection : ReadOnlyCollection<IPowerUp>
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyPowerUpCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyPowerUpCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 		internal ReadOnlyPowerUpCollection(ReadOnlyPowerUpCollection source, TrelloAuthorization auth)

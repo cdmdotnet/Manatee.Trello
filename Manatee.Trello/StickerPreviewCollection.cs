@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal.Caching;
+﻿using System;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
@@ -10,6 +11,11 @@ namespace Manatee.Trello
 	{
 		private readonly StickerContext _context;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyStickerPreviewCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyStickerPreviewCollection(StickerContext context, TrelloAuthorization auth)
 			: base(() => context.Data.Id, auth)
 		{

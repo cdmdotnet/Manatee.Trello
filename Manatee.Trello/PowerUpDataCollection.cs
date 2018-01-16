@@ -14,6 +14,11 @@ namespace Manatee.Trello
 	{
 		private readonly EntityRequestType _requestType;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyPowerUpDataCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyPowerUpDataCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{

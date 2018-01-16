@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal.Caching;
+﻿using System;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
@@ -10,6 +11,11 @@ namespace Manatee.Trello
 	{
 		private readonly AttachmentContext _context;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyAttachmentPreviewCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyAttachmentPreviewCollection(AttachmentContext context, TrelloAuthorization auth)
 			: base(() => context.Data.Id, auth)
 		{

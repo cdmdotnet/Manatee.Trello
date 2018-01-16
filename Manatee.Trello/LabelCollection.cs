@@ -18,6 +18,11 @@ namespace Manatee.Trello
 	{
 		private readonly CardContext _context;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public CardLabelCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal CardLabelCollection(CardContext context, TrelloAuthorization auth)
 			: base(() => context.Data.Id, auth)
 		{
@@ -85,6 +90,11 @@ namespace Manatee.Trello
 	{
 		private Dictionary<string, object> _additionalParameters;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public BoardLabelCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal BoardLabelCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 		internal BoardLabelCollection(BoardLabelCollection source, TrelloAuthorization auth)

@@ -16,6 +16,11 @@ namespace Manatee.Trello
 	{
 		private Dictionary<string, object> _additionalParameters;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyBoardMembershipCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyBoardMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
@@ -79,6 +84,10 @@ namespace Manatee.Trello
 	/// </summary>
 	public class BoardMembershipCollection : ReadOnlyBoardMembershipCollection
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public BoardMembershipCollection()
+		{
+		}
 		internal BoardMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) { }
 

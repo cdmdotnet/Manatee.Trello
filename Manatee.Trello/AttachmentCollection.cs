@@ -15,6 +15,11 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyAttachmentCollection : ReadOnlyCollection<Attachment>
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyAttachmentCollection()
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyAttachmentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 
@@ -41,6 +46,10 @@ namespace Manatee.Trello
 	/// </summary>
 	public class AttachmentCollection : ReadOnlyAttachmentCollection
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public AttachmentCollection()
+		{
+		}
 		internal AttachmentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 
