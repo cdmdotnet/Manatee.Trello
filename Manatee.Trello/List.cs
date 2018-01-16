@@ -141,23 +141,10 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
-#if IOS
-		private Action<List, IEnumerable<string>> _updatedInvoker;
-
-		/// <summary>
-		/// Raised when data on the list is updated.
-		/// </summary>
-		public event Action<List, IEnumerable<string>> Updated
-		{
-			add { _updatedInvoker += value; }
-			remove { _updatedInvoker -= value; }
-		}
-#else
 		/// <summary>
 		/// Raised when data on the list is updated.
 		/// </summary>
 		public event Action<List, IEnumerable<string>> Updated;
-#endif
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="List"/> object.
@@ -224,11 +211,7 @@ namespace Manatee.Trello
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
-#if IOS
-			var handler = _updatedInvoker;
-#else
 			var handler = Updated;
-#endif
 			handler?.Invoke(this, properties);
 		}
 	}

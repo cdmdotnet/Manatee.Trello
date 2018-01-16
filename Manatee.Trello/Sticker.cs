@@ -151,23 +151,10 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
-#if IOS
-		private Action<Sticker, IEnumerable<string>> _updatedInvoker;
-
-		/// <summary>
-		/// Raised when data on the attachment is updated.
-		/// </summary>
-		public event Action<Sticker, IEnumerable<string>> Updated
-		{
-			add { _updatedInvoker += value; }
-			remove { _updatedInvoker -= value; }
-		}
-#else
 		/// <summary>
 		/// Raised when data on the attachment is updated.
 		/// </summary>
 		public event Action<Sticker, IEnumerable<string>> Updated;
-#endif
 
 		internal Sticker(IJsonSticker json, string ownerId, TrelloAuthorization auth)
 		{
@@ -225,11 +212,7 @@ namespace Manatee.Trello
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
-#if IOS
-			var handler = _updatedInvoker;
-#else
 			var handler = Updated;
-#endif
 			handler?.Invoke(this, properties);
 		}
 	}

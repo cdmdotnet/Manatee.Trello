@@ -58,23 +58,10 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
-#if IOS
-		private Action<BoardMembership, IEnumerable<string>> _updatedInvoker;
-
-		/// <summary>
-		/// Raised when data on the membership is updated.
-		/// </summary>
-		public event Action<BoardMembership, IEnumerable<string>> Updated
-		{
-			add { _updatedInvoker += value; }
-			remove { _updatedInvoker -= value; }
-		}
-#else
 		/// <summary>
 		/// Raised when data on the membership is updated.
 		/// </summary>
 		public event Action<BoardMembership, IEnumerable<string>> Updated;
-#endif
 
 		internal BoardMembership(IJsonBoardMembership json, string ownerId, TrelloAuthorization auth)
 		{
@@ -104,11 +91,7 @@ namespace Manatee.Trello
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
-#if IOS
-			var handler = _updatedInvoker;
-#else
 			var handler = Updated;
-#endif
 			handler?.Invoke(this, properties);
 		}
 	}

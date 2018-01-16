@@ -194,23 +194,10 @@ namespace Manatee.Trello
 		}
 		internal TrelloAuthorization Auth { get; }
 
-#if IOS
-		private Action<Board, IEnumerable<string>> _updatedInvoker;
-
-		/// <summary>
-		/// Raised when data on the board is updated.
-		/// </summary>
-		public event Action<Board, IEnumerable<string>> Updated
-		{
-			add { _updatedInvoker += value; }
-			remove { _updatedInvoker -= value; }
-		}
-#else
 		/// <summary>
 		/// Raised when data on the board is updated.
 		/// </summary>
 		public event Action<Board, IEnumerable<string>> Updated;
-#endif
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Board"/> object.
@@ -284,11 +271,7 @@ namespace Manatee.Trello
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
-#if IOS
-			var handler = _updatedInvoker;
-#else
 			var handler = Updated;
-#endif
 			handler?.Invoke(this, properties);
 		}
 	}
