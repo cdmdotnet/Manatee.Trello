@@ -16,7 +16,7 @@ namespace Manatee.Trello.Moq
 	public class ActionDataMock : Mock<ActionData>
 	{
 		public ActionDataMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 
 		}
@@ -25,7 +25,7 @@ namespace Manatee.Trello.Moq
 	public class AttachmentMock : Mock<Attachment>
 	{
 		public AttachmentMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 
 		}
@@ -34,7 +34,7 @@ namespace Manatee.Trello.Moq
 	public class AttachmentCollectionMock : Mock<AttachmentCollection>
 	{
 		public AttachmentCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 
 		}
@@ -43,7 +43,7 @@ namespace Manatee.Trello.Moq
 	public class BadgesMock : Mock<Badges>
 	{
 		public BadgesMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 
 		}
@@ -60,7 +60,7 @@ namespace Manatee.Trello.Moq
 	public class BoardBackgroundMock : Mock<BoardBackground>
 	{
 		public BoardBackgroundMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -68,7 +68,7 @@ namespace Manatee.Trello.Moq
 	public class BoardCollectionMock : Mock<BoardCollection>
 	{
 		public BoardCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -76,7 +76,7 @@ namespace Manatee.Trello.Moq
 	public class BoardLabelCollectionMock : Mock<BoardLabelCollection>
 	{
 		public BoardLabelCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -84,7 +84,7 @@ namespace Manatee.Trello.Moq
 	public class BoardMembershipMock : Mock<BoardMembership>
 	{
 		public BoardMembershipMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -92,7 +92,7 @@ namespace Manatee.Trello.Moq
 	public class BoardMembershipCollectionMock : Mock<BoardMembershipCollection>
 	{
 		public BoardMembershipCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -100,7 +100,7 @@ namespace Manatee.Trello.Moq
 	public class BoardPersonalPreferencesMock : Mock<BoardPersonalPreferences>
 	{
 		public BoardPersonalPreferencesMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -108,7 +108,7 @@ namespace Manatee.Trello.Moq
 	public class BoardPreferencesMock : Mock<BoardPreferences>
 	{
 		public BoardPreferencesMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -134,7 +134,7 @@ namespace Manatee.Trello.Moq
 	public class CardCollectionMock : Mock<CardCollection>
 	{
 		public CardCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -142,7 +142,7 @@ namespace Manatee.Trello.Moq
 	public class CardLabelCollectionMock : Mock<CardLabelCollection>
 	{
 		public CardLabelCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -150,7 +150,7 @@ namespace Manatee.Trello.Moq
 	public class CardStickerCollectionMock : Mock<CardStickerCollection>
 	{
 		public CardStickerCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -158,7 +158,7 @@ namespace Manatee.Trello.Moq
 	public class CheckItemMock : Mock<CheckItem>
 	{
 		public CheckItemMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -166,7 +166,7 @@ namespace Manatee.Trello.Moq
 	public class CheckItemCollectionMock : Mock<CheckItemCollection>
 	{
 		public CheckItemCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -182,7 +182,7 @@ namespace Manatee.Trello.Moq
 	public class CheckListCollectionMock : Mock<CheckListCollection>
 	{
 		public CheckListCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -190,7 +190,7 @@ namespace Manatee.Trello.Moq
 	public class CommentCollectionMock : Mock<CommentCollection>
 	{
 		public CommentCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -198,7 +198,7 @@ namespace Manatee.Trello.Moq
 	public class ImagePreviewMock : Mock<ImagePreview>
 	{
 		public ImagePreviewMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -206,7 +206,7 @@ namespace Manatee.Trello.Moq
 	public class LabelMock : Mock<Label>
 	{
 		public LabelMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -222,7 +222,7 @@ namespace Manatee.Trello.Moq
 	public class ListCollectionMock : Mock<ListCollection>
 	{
 		public ListCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -238,7 +238,7 @@ namespace Manatee.Trello.Moq
 	public class MemberCollectionMock : Mock<MemberCollection>
 	{
 		public MemberCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -246,7 +246,7 @@ namespace Manatee.Trello.Moq
 	public class MemberPreferencesMock : Mock<MemberPreferences>
 	{
 		public MemberPreferencesMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -262,7 +262,7 @@ namespace Manatee.Trello.Moq
 	public class MemberSearchResultMock : Mock<MemberSearchResult>
 	{
 		public MemberSearchResultMock()
-			: base(string.Empty, null)
+			: base(string.Empty, null, null, null, null, null)
 		{
 		}
 	}
@@ -270,7 +270,7 @@ namespace Manatee.Trello.Moq
 	public class MemberStickerCollectionMock : Mock<MemberStickerCollection>
 	{
 		public MemberStickerCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -286,7 +286,7 @@ namespace Manatee.Trello.Moq
 	public class NotificationDataMock : Mock<NotificationData>
 	{
 		public NotificationDataMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -302,7 +302,7 @@ namespace Manatee.Trello.Moq
 	public class OrganizationCollectionMock : Mock<OrganizationCollection>
 	{
 		public OrganizationCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -310,7 +310,7 @@ namespace Manatee.Trello.Moq
 	public class OrganizationMembershipMock : Mock<OrganizationMembership>
 	{
 		public OrganizationMembershipMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -318,7 +318,7 @@ namespace Manatee.Trello.Moq
 	public class OrganizationMembershipCollectionMock : Mock<OrganizationMembershipCollection>
 	{
 		public OrganizationMembershipCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -326,7 +326,7 @@ namespace Manatee.Trello.Moq
 	public class OrganizationPreferencesMock : Mock<OrganizationPreferences>
 	{
 		public OrganizationPreferencesMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -334,15 +334,15 @@ namespace Manatee.Trello.Moq
 	public class PositionMock : Mock<Position>
 	{
 		public PositionMock()
-			: base(string.Empty, null)
+			: base(0.0)
 		{
 		}
 	}
 
-	public class PowerUpBaseMock : Mock<PowerUpBase>
+	public class PowerUpMock : Mock<UnknownPowerUp>
 	{
-		public PowerUpBaseMock()
-			: base(string.Empty, null)
+		public PowerUpMock()
+			: base(null)
 		{
 		}
 	}
@@ -350,7 +350,7 @@ namespace Manatee.Trello.Moq
 	public class PowerUpDataMock : Mock<PowerUpData>
 	{
 		public PowerUpDataMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -358,7 +358,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyActionCollectionMock : Mock<ReadOnlyActionCollection>
 	{
 		public ReadOnlyActionCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -366,7 +366,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyAttachmentCollectionMock : Mock<ReadOnlyAttachmentCollection>
 	{
 		public ReadOnlyAttachmentCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -374,7 +374,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyAttachmentPreviewCollectionMock : Mock<ReadOnlyAttachmentPreviewCollection>
 	{
 		public ReadOnlyAttachmentPreviewCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -382,7 +382,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyBoardBackgroundScalesCollectionMock : Mock<ReadOnlyBoardBackgroundScalesCollection>
 	{
 		public ReadOnlyBoardBackgroundScalesCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -390,7 +390,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyBoardCollectionMock : Mock<ReadOnlyBoardCollection>
 	{
 		public ReadOnlyBoardCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -398,7 +398,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyBoardMembershipCollectionMock : Mock<ReadOnlyBoardMembershipCollection>
 	{
 		public ReadOnlyBoardMembershipCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -406,7 +406,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyCardCollectionMock : Mock<ReadOnlyCardCollection>
 	{
 		public ReadOnlyCardCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -414,7 +414,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyCheckItemCollectionMock : Mock<ReadOnlyCheckItemCollection>
 	{
 		public ReadOnlyCheckItemCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -422,7 +422,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyCheckListCollectionMock : Mock<ReadOnlyCheckListCollection>
 	{
 		public ReadOnlyCheckListCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -430,7 +430,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyListCollectionMock : Mock<ReadOnlyListCollection>
 	{
 		public ReadOnlyListCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -438,7 +438,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyMemberCollectionMock : Mock<ReadOnlyMemberCollection>
 	{
 		public ReadOnlyMemberCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -446,7 +446,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyNotificationCollectionMock : Mock<ReadOnlyNotificationCollection>
 	{
 		public ReadOnlyNotificationCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -454,7 +454,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyOrganizationCollectionMock : Mock<ReadOnlyOrganizationCollection>
 	{
 		public ReadOnlyOrganizationCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -462,7 +462,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyOrganizationMembershipCollectionMock : Mock<ReadOnlyOrganizationMembershipCollection>
 	{
 		public ReadOnlyOrganizationMembershipCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -470,7 +470,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyPowerUpCollectionMock : Mock<ReadOnlyPowerUpCollection>
 	{
 		public ReadOnlyPowerUpCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -478,7 +478,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyPowerUpDataCollectionMock : Mock<ReadOnlyPowerUpDataCollection>
 	{
 		public ReadOnlyPowerUpDataCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -486,7 +486,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyStickerCollectionMock : Mock<ReadOnlyStickerCollection>
 	{
 		public ReadOnlyStickerCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -494,7 +494,7 @@ namespace Manatee.Trello.Moq
 	public class ReadOnlyStickerPreviewCollectionMock : Mock<ReadOnlyStickerPreviewCollection>
 	{
 		public ReadOnlyStickerPreviewCollectionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -502,7 +502,7 @@ namespace Manatee.Trello.Moq
 	public class SearchMock : Mock<Search>
 	{
 		public SearchMock()
-			: base(string.Empty, null)
+			: base((string)null, null,SearchModelType.All, null, null, false)
 		{
 		}
 	}
@@ -510,7 +510,7 @@ namespace Manatee.Trello.Moq
 	public class StickerMock : Mock<Sticker>
 	{
 		public StickerMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -526,7 +526,7 @@ namespace Manatee.Trello.Moq
 	public class TokenPermissionMock : Mock<TokenPermission>
 	{
 		public TokenPermissionMock()
-			: base(string.Empty, null)
+			: base(null)
 		{
 		}
 	}
@@ -534,7 +534,7 @@ namespace Manatee.Trello.Moq
 	public class WebColorMock : Mock<WebColor>
 	{
 		public WebColorMock()
-			: base(string.Empty, null)
+			: base(string.Empty)
 		{
 		}
 	}
