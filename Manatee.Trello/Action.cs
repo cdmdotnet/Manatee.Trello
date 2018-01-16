@@ -78,7 +78,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the type of action.
 		/// </summary>
-		public ActionType? Type => _type.Value;
+		public virtual ActionType? Type => _type.Value;
 
 		internal IJsonAction Json
 		{

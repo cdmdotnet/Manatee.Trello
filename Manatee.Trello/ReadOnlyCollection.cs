@@ -51,7 +51,7 @@ namespace Manatee.Trello
 		/// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
 		/// </returns>
 		/// <filterpriority>1</filterpriority>
-		public IEnumerator<T> GetEnumerator()
+		public virtual IEnumerator<T> GetEnumerator()
 		{
 			if (DateTime.Now >= _lastUpdate.Add(TrelloConfiguration.ExpiryTime))
 			{

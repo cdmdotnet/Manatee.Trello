@@ -1,4 +1,5 @@
 ﻿// Source licensed by Jetbrains as part of their Resharper software.
+// ReSharper disable CheckNamespace
 
 using System;
 
