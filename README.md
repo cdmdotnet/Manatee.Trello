@@ -1,6 +1,6 @@
 # Manatee.Trello
 
-[![Join the chat at https://gitter.im/gregsdennis/Manatee.Trello](https://badges.gitter.im/gregsdennis/Manatee.Trello.svg)](https://gitter.im/gregsdennis/Manatee.Trello?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build status](https://ci.appveyor.com/api/projects/status/qdlvb960nc7eik2w/branch/master?svg=true)](https://ci.appveyor.com/project/gregsdennis/manatee-trello/branch/master) <a href="http://www.jetbrains.com/resharper"><img src="http://i61.tinypic.com/15qvwj7.jpg" alt="ReSharper" title="ReSharper"></a>
+[![Join the chat at https://gitter.im/gregsdennis/Manatee.Trello](https://badges.gitter.im/gregsdennis/Manatee.Trello.svg)](https://gitter.im/gregsdennis/Manatee.Trello?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build status](https://ci.appveyor.com/api/projects/status/qdlvb960nc7eik2w/branch/master?svg=true)](https://ci.appveyor.com/project/gregsdennis/manatee-trello/branch/master) [![MyGet Build Status](https://www.myget.org/BuildSource/Badge/littlecrabsolutions?identifier=b70114b6-4cba-4624-97a9-be505a253c12)](https://www.myget.org/) <a href="http://www.jetbrains.com/resharper"><img src="http://i61.tinypic.com/15qvwj7.jpg" alt="ReSharper" title="ReSharper"></a>
 
 The primary goal of Manatee.Trello is to provide an intuitive, object-oriented representation of Trello entities.  Other API wrappers that I encounter contain service objects with functions that return little more than non-functional DTOs (data transfer objects) to represent the entities.
 
