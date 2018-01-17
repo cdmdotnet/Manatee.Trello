@@ -9,10 +9,28 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	public interface IReadOnlyBoardMembershipCollection : IReadOnlyCollection<IBoardMembership>
+	{
+		/// <summary>
+		/// Retrieves a membership which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching membership, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on BoardMembership.Id, BoardMembership.Member.Id,
+		/// BoardMembership.Member.Name, and BoardMembership.Usernamee.
+		/// Comparison is case-sensitive.
+		/// </remarks>
+		IBoardMembership this[string key] { get; }
+
+		void Filter(MembershipFilter membership);
+		void Filter(IEnumerable<MembershipFilter> memberships);
+	}
+
 	/// <summary>
 	/// A read-only collection of board memberships.
 	/// </summary>
-	public class ReadOnlyBoardMembershipCollection : ReadOnlyCollection<BoardMembership>
+	public class ReadOnlyBoardMembershipCollection : ReadOnlyCollection<IBoardMembership>, IReadOnlyBoardMembershipCollection
 	{
 		private Dictionary<string, object> _additionalParameters;
 
@@ -38,7 +56,7 @@ namespace Manatee.Trello
 		/// BoardMembership.Member.Name, and BoardMembership.Usernamee.
 		/// Comparison is case-sensitive.
 		/// </remarks>
-		public BoardMembership this[string key] => GetByKey(key);
+		public IBoardMembership this[string key] => GetByKey(key);
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -57,27 +75,49 @@ namespace Manatee.Trello
 				}));
 		}
 
-		private BoardMembership GetByKey(string key)
+		private IBoardMembership GetByKey(string key)
 		{
 			return this.FirstOrDefault(bm => key.In(bm.Id, bm.Member.Id, bm.Member.FullName, bm.Member.UserName));
 		}
 
-		internal void AddFilter(IEnumerable<MembershipFilter> actionTypes)
+		public void Filter(MembershipFilter membership)
+		{
+			var memberships = membership.GetFlags().Cast<MembershipFilter>();
+			Filter(memberships);
+		}
+
+		public void Filter(IEnumerable<MembershipFilter> memberships)
 		{
 			if (_additionalParameters == null)
 				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
 			var filter = ((string) _additionalParameters["filter"]);
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
-			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
+			filter += memberships.Select(a => a.GetDescription()).Join(",");
 			_additionalParameters["filter"] = filter;
 		}
+	}
+
+	public interface IBoardMembershipCollection : IReadOnlyBoardMembershipCollection
+	{
+		/// <summary>
+		/// Adds a member to a board with specified privileges.
+		/// </summary>
+		/// <param name="member">The member to add.</param>
+		/// <param name="membership">The membership type.</param>
+		IBoardMembership Add(IMember member, BoardMembershipType membership);
+
+		/// <summary>
+		/// Removes a member from a board.
+		/// </summary>
+		/// <param name="member">The member to remove.</param>
+		void Remove(IMember member);
 	}
 
 	/// <summary>
 	/// A collection of board memberships.
 	/// </summary>
-	public class BoardMembershipCollection : ReadOnlyBoardMembershipCollection
+	public class BoardMembershipCollection : ReadOnlyBoardMembershipCollection, IBoardMembershipCollection
 	{
 		internal BoardMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) { }
@@ -87,14 +127,14 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to add.</param>
 		/// <param name="membership">The membership type.</param>
-		public BoardMembership Add(Member member, BoardMembershipType membership)
+		public IBoardMembership Add(IMember member, BoardMembershipType membership)
 		{
-			var error = NotNullRule<Member>.Instance.Validate(null, member);
+			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<Member>(member, new[] { error });
+				throw new ValidationException<IMember>(member, new[] { error });
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonBoardMembership>();
-			json.Member = member.Json;
+			json.Member = ((Member)member).Json;
 			json.MemberType = membership;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
@@ -106,11 +146,11 @@ namespace Manatee.Trello
 		/// Removes a member from a board.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(Member member)
+		public void Remove(IMember member)
 		{
-			var error = NotNullRule<Member>.Instance.Validate(null, member);
+			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<Member>(member, new[] { error });
+				throw new ValidationException<IMember>(member, new[] { error });
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_RemoveMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
 			JsonRepository.Execute(Auth, endpoint);

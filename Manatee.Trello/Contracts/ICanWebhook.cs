@@ -9,6 +9,6 @@ namespace Manatee.Trello.Contracts
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		void ApplyAction(Action action);
+		void ApplyAction(IAction action);
 	}
 }

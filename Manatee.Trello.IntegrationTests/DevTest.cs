@@ -12,7 +12,7 @@ namespace Manatee.Trello.IntegrationTests
 	public class DevTest
 	{
 		[Test]
-		[Ignore("This test fixture for development purposes only.")]
+		//[Ignore("This test fixture for development purposes only.")]
 		public void TestMethod1()
 		{
 			Run(() =>
@@ -20,7 +20,9 @@ namespace Manatee.Trello.IntegrationTests
 					var card = new Card(TrelloIds.CardId);
 					Console.WriteLine(card);
 
-					OutputCollection("fields", card.CustomFields());
+					OutputCollection("checklists", card.CheckLists);
+
+					OutputCollection("checkitems", card.CheckLists[0].CheckItems);
 				});
 		}
 

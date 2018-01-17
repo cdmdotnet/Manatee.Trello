@@ -8,10 +8,43 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	public interface IOrganizationMembership : ICacheable
+	{
+		/// <summary>
+		/// Gets the creation date of the membership.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets whether the member has accepted the invitation to join Trello.
+		/// </summary>
+		bool? IsDeactivated { get; }
+
+		/// <summary>
+		/// Gets the member.
+		/// </summary>
+		IMember Member { get; }
+
+		/// <summary>
+		/// Gets the membership's permission level.
+		/// </summary>
+		OrganizationMembershipType? MemberType { get; set; }
+
+		/// <summary>
+		/// Raised when data on the membership is updated.
+		/// </summary>
+		event Action<IOrganizationMembership, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Marks the organization membership to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
 	/// <summary>
 	/// Represents the permission level a member has on an organization.
 	/// </summary>
-	public class OrganizationMembership : ICacheable
+	public class OrganizationMembership : IOrganizationMembership
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<OrganizationMembershipType?> _memberType;
@@ -42,7 +75,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member.
 		/// </summary>
-		public Member Member => _member.Value;
+		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the membership's permission level.
 		/// </summary>
@@ -61,7 +94,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the membership is updated.
 		/// </summary>
-		public event Action<OrganizationMembership, IEnumerable<string>> Updated;
+		public event Action<IOrganizationMembership, IEnumerable<string>> Updated;
 
 		internal OrganizationMembership(IJsonOrganizationMembership json, string ownerId, TrelloAuthorization auth)
 		{

@@ -10,10 +10,17 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	public interface IReadOnlyActionCollection : IReadOnlyCollection<IAction>
+	{
+		void Filter(ActionType actionType);
+		void Filter(IEnumerable<ActionType> actionTypes);
+		void Filter(DateTime? start, DateTime? end);
+	}
+
 	/// <summary>
 	/// A read-only collection of actions.
 	/// </summary>
-	public class ReadOnlyActionCollection : ReadOnlyCollection<Action>
+	public class ReadOnlyActionCollection : ReadOnlyCollection<IAction>, IReadOnlyActionCollection
 	{
 		private static readonly Dictionary<Type, EntityRequestType> _requestTypes;
 		private readonly EntityRequestType _updateRequestType;
@@ -44,6 +51,33 @@ namespace Manatee.Trello
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
+		public void Filter(ActionType actionType)
+		{
+			var actionTypes = actionType.GetFlags().Cast<ActionType>();
+			Filter(actionTypes);
+		}
+
+		public void Filter(IEnumerable<ActionType> actionTypes)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>{{"filter", string.Empty}};
+			var filter = _additionalParameters.ContainsKey("filter") ? ((string)_additionalParameters["filter"]) : string.Empty;
+			if (!filter.IsNullOrWhiteSpace())
+				filter += ",";
+			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
+			_additionalParameters["filter"] = filter;
+		}
+
+		public void Filter(DateTime? start, DateTime? end)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object>();
+			if (start.HasValue)
+				_additionalParameters["since"] = start.Value.ToUniversalTime().ToString("O");
+			if (end.HasValue)
+				_additionalParameters["before"] = end.Value.ToUniversalTime().ToString("O");
+		}
+
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
@@ -62,38 +96,27 @@ namespace Manatee.Trello
 					return action;
 				}));
 		}
+	}
 
-		internal void AddFilter(IEnumerable<ActionType> actionTypes)
-		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>{{"filter", string.Empty}};
-			var filter = _additionalParameters.ContainsKey("filter") ? ((string)_additionalParameters["filter"]) : string.Empty;
-			if (!filter.IsNullOrWhiteSpace())
-				filter += ",";
-			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
-			_additionalParameters["filter"] = filter;
-		}
-
-		internal void AddFilter(DateTime? start, DateTime? end)
-		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>();
-			if (start.HasValue)
-				_additionalParameters["since"] = start.Value.ToUniversalTime().ToString("O");
-			if (end.HasValue)
-				_additionalParameters["before"] = end.Value.ToUniversalTime().ToString("O");
-		}
+	public interface ICommentCollection : IReadOnlyActionCollection
+	{
+		/// <summary>
+		/// Posts a new comment to a card.
+		/// </summary>
+		/// <param name="text">The content of the comment.</param>
+		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
+		IAction Add(string text);
 	}
 
 	/// <summary>
 	/// A collection of comment actions.
 	/// </summary>
-	public class CommentCollection : ReadOnlyActionCollection
+	public class CommentCollection : ReadOnlyActionCollection, ICommentCollection
 	{
 		internal CommentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(typeof (Card), getOwnerId, auth)
 		{
-			AddFilter(new[] {ActionType.CommentCard, ActionType.CopyCommentCard});
+			Filter(ActionType.CommentCard | ActionType.CopyCommentCard);
 		}
 
 		/// <summary>
@@ -101,7 +124,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="text">The content of the comment.</param>
 		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
-		public Action Add(string text)
+		public IAction Add(string text)
 		{
 			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, text);
 			if (error != null)

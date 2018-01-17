@@ -6,10 +6,23 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	public interface IMemberSearch
+	{
+		/// <summary>
+		/// Gets the collection of results returned by the search.
+		/// </summary>
+		IEnumerable<MemberSearchResult> Results { get; }
+
+		/// <summary>
+		/// Marks the member search to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
 	/// <summary>
 	/// Performs a search for members.
 	/// </summary>
-	public class MemberSearch
+	public class MemberSearch : IMemberSearch
 	{
 		private readonly Field<Board> _board;
 		private readonly Field<int?> _limit;

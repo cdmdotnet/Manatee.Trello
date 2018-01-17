@@ -4,33 +4,46 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	public interface IPosition : IComparable, IComparable<Position>, IEquatable<IPosition>
+	{
+		/// <summary>
+		/// Gets whether the position is valid.
+		/// </summary>
+		bool IsValid { get; }
+
+		/// <summary>
+		/// Gets the internal numeric position value.
+		/// </summary>
+		double Value { get; }
+	}
+
 	/// <summary>
 	/// Represents the position of a checklist in a card, a card in a list,
 	/// or list in a board
 	/// </summary>
-	public class Position : IComparable, IComparable<Position>
+	public class Position : IPosition
 	{
-		private const double TopValue = double.NegativeInfinity;
-		private const double BottomValue = double.PositiveInfinity;
-		private const double UnknownValue = double.NaN;
+		private const double _topValue = double.NegativeInfinity;
+		private const double _bottomValue = double.PositiveInfinity;
+		private const double _unknownValue = double.NaN;
 
 		/// <summary>
 		/// Represents the top position.
 		/// </summary>
-		public static Position Top { get; } = new Position(TopValue);
+		public static Position Top { get; } = new Position(_topValue);
 		/// <summary>
 		/// Represents the bottom position.
 		/// </summary>
-		public static Position Bottom { get; } = new Position(BottomValue);
+		public static Position Bottom { get; } = new Position(_bottomValue);
 		/// <summary>
 		/// Represents an invalid position.
 		/// </summary>
-		public static Position Unknown { get; } = new Position(UnknownValue);
+		public static Position Unknown { get; } = new Position(_unknownValue);
 
 		/// <summary>
 		/// Gets whether the position is valid.
 		/// </summary>
-		public bool IsValid => Equals(Value, TopValue) || (!Equals(Value, UnknownValue) && !Equals(Value, TopValue) && Value > 0);
+		public bool IsValid => Equals(Value, _topValue) || (!Equals(Value, _unknownValue) && !Equals(Value, _topValue) && Value > 0);
 		/// <summary>
 		/// Gets the internal numeric position value.
 		/// </summary>
@@ -238,6 +251,15 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="other">A <see cref="Position"/> object.</param>
 		/// <returns>True if equivalent, false otherwise.</returns>
+		public bool Equals(IPosition other)
+		{
+			return Equals(other as Position);
+		}
+		/// <summary>
+		/// Compares two <see cref="Position"/> object by examining their content.
+		/// </summary>
+		/// <param name="other">A <see cref="Position"/> object.</param>
+		/// <returns>True if equivalent, false otherwise.</returns>
 		public bool Equals(Position other)
 		{
 			if (ReferenceEquals(null, other)) return false;
@@ -253,10 +275,7 @@ namespace Manatee.Trello
 		/// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
 		public override bool Equals(object obj)
 		{
-			if (ReferenceEquals(null, obj)) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			if (obj.GetType() != typeof (Position)) return false;
-			return Equals((Position) obj);
+			return Equals(obj as Position);
 		}
 		/// <summary>
 		/// Serves as a hash function for a particular type. 

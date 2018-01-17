@@ -5,10 +5,62 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	public interface IBoardPersonalPreferences
+	{
+		/// <summary>
+		/// Gets or sets the <see cref="List"/> which will be used to post new cards
+		/// submitted by email.
+		/// </summary>
+		IList EmailList { get; set; }
+
+		/// <summary>
+		/// Gets or sets the <see cref="Position"/> within a <see cref="List"/> which
+		/// will be used to post new cards submitted by email.
+		/// </summary>
+		IPosition EmailPosition { get; set; }
+
+		/// <summary>
+		/// Gets or sets whether to show the list guide.
+		/// </summary>
+		/// <remarks>
+		/// It appears that this may be deprecated by Trello.
+		/// </remarks>
+		bool? ShowListGuide { get; set; }
+
+		/// <summary>
+		/// Gets or sets whether to show the side bar.
+		/// </summary>
+		bool? ShowSidebar { get; set; }
+
+		/// <summary>
+		/// Gets or sets whether to show the activity list in the side bar.
+		/// </summary>
+		/// <remarks>
+		/// It appears that this may be deprecated by Trello.
+		/// </remarks>
+		bool? ShowSidebarActivity { get; set; }
+
+		/// <summary>
+		/// Gets or sets whether to show the board action list in the side bar.
+		/// </summary>
+		/// <remarks>
+		/// It appears that this may be deprecated by Trello.
+		/// </remarks>
+		bool? ShowSidebarBoardActions { get; set; }
+
+		/// <summary>
+		/// Gets or sets whether to show the board members in the side bar.
+		/// </summary>
+		/// <remarks>
+		/// It appears that this may be deprecated by Trello.
+		/// </remarks>
+		bool? ShowSidebarMembers { get; set; }
+	}
+
 	/// <summary>
 	/// Represents the user-specific preferences for a board.
 	/// </summary>
-	public class BoardPersonalPreferences
+	public class BoardPersonalPreferences : IBoardPersonalPreferences
 	{
 		private readonly Field<List> _emailList;
 		private readonly Field<Position> _emailPosition;
@@ -23,19 +75,19 @@ namespace Manatee.Trello
 		/// Gets or sets the <see cref="List"/> which will be used to post new cards
 		/// submitted by email.
 		/// </summary>
-		public List EmailList
+		public IList EmailList
 		{
 			get { return _emailList.Value; }
-			set { _emailList.Value = value; }
+			set { _emailList.Value = (List) value; }
 		}
 		/// <summary>
 		/// Gets or sets the <see cref="Position"/> within a <see cref="List"/> which
 		/// will be used to post new cards submitted by email.
 		/// </summary>
-		public Position EmailPosition
+		public IPosition EmailPosition
 		{
 			get { return _emailPosition.Value; }
-			set { _emailPosition.Value = value; }
+			set { _emailPosition.Value = (Position) value; }
 		}
 		/// <summary>
 		/// Gets or sets whether to show the list guide.

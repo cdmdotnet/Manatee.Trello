@@ -10,10 +10,104 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	public interface IMember : ICanWebhook
+	{
+		/// <summary>
+		/// Gets the collection of actions performed by the member.
+		/// </summary>
+		IReadOnlyCollection<IAction> Actions { get; }
+
+		/// <summary>
+		/// Gets the source type for the member's avatar.
+		/// </summary>
+		AvatarSource? AvatarSource { get; }
+
+		/// <summary>
+		/// Gets the URL to the member's avatar.
+		/// </summary>
+		string AvatarUrl { get; }
+
+		/// <summary>
+		/// Gets the member's bio.
+		/// </summary>
+		string Bio { get; }
+
+		/// <summary>
+		/// Gets the collection of boards owned by the member.
+		/// </summary>
+		IReadOnlyCollection<IBoard> Boards { get; }
+
+		/// <summary>
+		/// Gets the creation date of the member.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets the member's full name.
+		/// </summary>
+		string FullName { get; }
+
+		/// <summary>
+		/// Gets the member's ID.
+		/// </summary>
+		string Id { get; }
+
+		/// <summary>
+		/// Gets or sets the member's initials.
+		/// </summary>
+		string Initials { get; }
+
+		/// <summary>
+		/// Gets whether the member has actually join or has merely been invited (ghost).
+		/// </summary>
+		bool? IsConfirmed { get; }
+
+		/// <summary>
+		/// Gets a string which can be used in comments or descriptions to mention another
+		/// user.  The user will receive notification that they've been mentioned.
+		/// </summary>
+		string Mention { get; }
+
+		/// <summary>
+		/// Gets the collection of organizations to which the member belongs.
+		/// </summary>
+		IReadOnlyCollection<IOrganization> Organizations { get; }
+
+		/// <summary>
+		/// Gets the member's online status.
+		/// </summary>
+		MemberStatus? Status { get; }
+
+		/// <summary>
+		/// Gets the collection of trophies earned by the member.
+		/// </summary>
+		IEnumerable<string> Trophies { get; }
+
+		/// <summary>
+		/// Gets the member's URL.
+		/// </summary>
+		string Url { get; }
+
+		/// <summary>
+		/// Gets the member's username.
+		/// </summary>
+		string UserName { get; }
+
+		/// <summary>
+		/// Raised when data on the member is updated.
+		/// </summary>
+		event Action<IMember, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Marks the member to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
 	/// <summary>
 	/// Represents a member.
 	/// </summary>
-	public class Member : ICanWebhook
+	public class Member : IMember
 	{
 		[Flags]
 		public enum Fields
@@ -56,7 +150,7 @@ namespace Manatee.Trello
 			Username = 1 << 17
 		}
 
-		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
+		private const string _avatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
 		private static Me _me;
 
 		private readonly Field<AvatarSource?> _avatarSource;
@@ -84,7 +178,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public IReadOnlyCollection<IAction> Actions { get; }
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
@@ -108,7 +202,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public ReadOnlyBoardCollection Boards { get; }
+		public IReadOnlyCollection<IBoard> Boards { get; }
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
@@ -162,7 +256,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public ReadOnlyOrganizationCollection Organizations { get; }
+		public IReadOnlyCollection<IOrganization> Organizations { get; }
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
@@ -194,7 +288,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the member is updated.
 		/// </summary>
-		public event Action<Member, IEnumerable<string>> Updated;
+		public event Action<IMember, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Member"/> object.
@@ -245,10 +339,10 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public void ApplyAction(IAction action)
 		{
 			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
-			_context.Merge(action.Data.Member.Json);
+			_context.Merge(((Member) action.Data.Member).Json);
 		}
 		/// <summary>
 		/// Marks the member to be refreshed the next time data is accessed.
@@ -278,7 +372,7 @@ namespace Manatee.Trello
 		private string GetAvatar()
 		{
 			var hash = _avatarUrl.Value;
-			return hash.IsNullOrWhiteSpace() ? null : string.Format(AvatarUrlFormat, hash);
+			return hash.IsNullOrWhiteSpace() ? null : string.Format(_avatarUrlFormat, hash);
 		}
 	}
 }

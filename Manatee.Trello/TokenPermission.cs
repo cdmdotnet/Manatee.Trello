@@ -3,10 +3,23 @@ using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
+	public interface ITokenPermission
+	{
+		/// <summary>
+		/// Gets whether a token can read values.
+		/// </summary>
+		bool? CanRead { get; }
+
+		/// <summary>
+		/// Gets whether a token can write values.
+		/// </summary>
+		bool? CanWrite { get; }
+	}
+
 	/// <summary>
 	/// Represents permissions granted by a token.
 	/// </summary>
-	public class TokenPermission
+	public class TokenPermission : ITokenPermission
 	{
 		private readonly Field<bool?> _canRead;
 		private readonly Field<bool?> _canWrite; 

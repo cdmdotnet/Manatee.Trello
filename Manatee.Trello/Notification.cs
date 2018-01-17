@@ -9,10 +9,48 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	public interface INotification : ICacheable
+	{
+		/// <summary>
+		/// Gets the creation date of the notification.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets the member who performed the action which created the notification.
+		/// </summary>
+		IMember Creator { get; }
+
+		/// <summary>
+		/// Gets any data associated with the notification.
+		/// </summary>
+		INotificationData Data { get; }
+
+		/// <summary>
+		/// Gets the date and teim at which the notification was issued.
+		/// </summary>
+		DateTime? Date { get; }
+
+		/// <summary>
+		/// Gets or sets whether the notification has been read.
+		/// </summary>
+		bool? IsUnread { get; set; }
+
+		/// <summary>
+		/// Gets the type of notification.
+		/// </summary>
+		NotificationType? Type { get; }
+
+		/// <summary>
+		/// Raised when data on the notification is updated.
+		/// </summary>
+		event Action<INotification, IEnumerable<string>> Updated;
+	}
+
 	/// <summary>
 	/// Represents a notification.
 	/// </summary>
-	public class Notification : ICacheable
+	public class Notification : INotification
 	{
 		[Flags]
 		public enum Fields
@@ -55,11 +93,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member who performed the action which created the notification.
 		/// </summary>
-		public Member Creator => _creator.Value;
+		public IMember Creator => _creator.Value;
 		/// <summary>
 		/// Gets any data associated with the notification.
 		/// </summary>
-		public NotificationData Data { get; }
+		public INotificationData Data { get; }
 		/// <summary>
 		/// Gets the date and teim at which the notification was issued.
 		/// </summary>
@@ -90,7 +128,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the notification is updated.
 		/// </summary>
-		public event Action<Notification, IEnumerable<string>> Updated;
+		public event Action<INotification, IEnumerable<string>> Updated;
 
 		static Notification()
 		{

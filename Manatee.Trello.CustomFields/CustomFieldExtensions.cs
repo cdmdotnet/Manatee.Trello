@@ -17,7 +17,7 @@ namespace Manatee.Trello.CustomFields
 		/// </summary>
 		/// <param name="board">The board that defines the fields.</param>
 		/// <returns>The custom field settings.</returns>
-		public static CustomFieldsSettings CustomFieldsSettings(this Board board)
+		public static CustomFieldsSettings CustomFieldsSettings(this IBoard board)
 		{
 			CustomFieldsPowerUp.Register();
 			var data = board.PowerUpData.FirstOrDefault(d => d.PluginId == CustomFieldsPowerUp.PluginId);
