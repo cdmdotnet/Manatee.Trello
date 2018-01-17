@@ -128,6 +128,7 @@ namespace Manatee.Trello.IntegrationTests
 			Assert.AreEqual(0, names.Count(n => n != null));
 		}
 
+#pragma warning disable 1998
 		[Test]
 		public async Task Issue33_CardsNotDownloading()
 		{
@@ -155,6 +156,7 @@ namespace Manatee.Trello.IntegrationTests
 				Console.WriteLine(card);
 			}
 		}
+#pragma warning restore 1998
 
 		[Test]
 		public void Issue35_DatesReturningAs1DayBefore()

@@ -4,6 +4,9 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the preferences for an organization.
+	/// </summary>
 	public interface IOrganizationPreferences
 	{
 		/// <summary>

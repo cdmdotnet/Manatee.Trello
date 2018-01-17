@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a user token.
+	/// </summary>
 	public interface IToken : ICacheable
 	{
 		/// <summary>
@@ -77,14 +80,29 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Token.Id"/> should be fetched.
+			/// </summary>
 			[Display(Description="identifier")]
 			Id,
+			/// <summary>
+			/// Indicates that <see cref="Token.Member"/> should be fetched.
+			/// </summary>
 			[Display(Description="idMember")]
 			Member,
+			/// <summary>
+			/// Indicates that <see cref="Token.DateCreated"/> should be fetched.
+			/// </summary>
 			[Display(Description="dateCreated")]
 			DateCreated,
+			/// <summary>
+			/// Indicates that <see cref="Token.DateExpires"/> should be fetched.
+			/// </summary>
 			[Display(Description="dateExpires")]
 			DateExpires,
+			/// <summary>
+			/// Indicates that <see cref="Token.BoardPermissions"/>, <see cref="Token.MemberPermissions"/>, and <see cref="Token.OrganizationPermissions"/> should be fetched.
+			/// </summary>
 			[Display(Description="permissions")]
 			Permissions
 		}
@@ -98,6 +116,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

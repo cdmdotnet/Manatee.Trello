@@ -7,6 +7,9 @@ using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Performs a search.
+	/// </summary>
 	public interface ISearch
 	{
 		/// <summary>

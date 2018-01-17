@@ -91,12 +91,20 @@ namespace Manatee.Trello
 			return this.FirstOrDefault(bm => key.In(bm.Id, bm.Member.Id, bm.Member.FullName, bm.Member.UserName));
 		}
 
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="membership">The filter value.</param>
 		public void Filter(MembershipFilter membership)
 		{
 			var memberships = membership.GetFlags().Cast<MembershipFilter>();
 			Filter(memberships);
 		}
 
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="memberships">The filter values.</param>
 		public void Filter(IEnumerable<MembershipFilter> memberships)
 		{
 			if (_additionalParameters == null)

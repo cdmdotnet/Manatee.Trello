@@ -5,6 +5,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the data associated with a plugin.
+	/// </summary>
 	public interface IPowerUpData : ICacheable
 	{
 		/// <summary>

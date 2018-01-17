@@ -76,6 +76,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of checklist items.
+	/// </summary>
 	public interface ICheckItemCollection : IReadOnlyCheckItemCollection
 	{
 		/// <summary>

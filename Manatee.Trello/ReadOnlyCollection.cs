@@ -5,8 +5,15 @@ using System.Linq;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Provides base functionality for a read-only collection.
+	/// </summary>
+	/// <typeparam name="T">The type of object contained by the collection.</typeparam>
 	public interface IReadOnlyCollection<out T> : IEnumerable<T>
 	{
+		/// <summary>
+		/// Indicates the maximum number of items to return.
+		/// </summary>
 		int? Limit { get; set; }
 		/// <summary>
 		/// Retrieves the item at the specified index.
@@ -29,6 +36,9 @@ namespace Manatee.Trello
 		private string _ownerId;
 		private readonly Func<string> _getOwnerId;
 
+		/// <summary>
+		/// Indicates the maximum number of items to return.
+		/// </summary>
 		public int? Limit { get; set; }
 		/// <summary>
 		/// Retrieves the item at the specified index.

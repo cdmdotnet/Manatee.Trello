@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -9,6 +8,10 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a webhook.
+	/// </summary>
+	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
 	public interface IWebhook<T> where T : class, ICanWebhook
 	{
 		/// <summary>

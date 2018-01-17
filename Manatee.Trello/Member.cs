@@ -51,11 +51,6 @@ namespace Manatee.Trello
 		string FullName { get; }
 
 		/// <summary>
-		/// Gets the member's ID.
-		/// </summary>
-		string Id { get; }
-
-		/// <summary>
 		/// Gets or sets the member's initials.
 		/// </summary>
 		string Initials { get; }

@@ -10,6 +10,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a sticker on a card.
+	/// </summary>
 	public interface ISticker : ICacheable
 	{
 		/// <summary>
@@ -81,18 +84,39 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Left"/> should be fetched.
+			/// </summary>
 			[Display(Description="left")]
 			Left = 1,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="image")]
 			Name = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Previews"/> should be fetched.
+			/// </summary>
 			[Display(Description="imageScaled")]
 			Previews = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Rotation"/> should be fetched.
+			/// </summary>
 			[Display(Description="rotate")]
 			Rotation = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Top"/> should be fetched.
+			/// </summary>
 			[Display(Description="top")]
 			Top = 1 << 4,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.ImageUrl"/> should be fetched.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 5,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.ZIndex"/> should be fetched.
+			/// </summary>
 			[Display(Description="zIndex")]
 			ZIndex = 1 << 6
 		}
@@ -154,6 +178,9 @@ namespace Manatee.Trello
 		private readonly Field<int?> _zIndex;
 		private readonly StickerContext _context;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

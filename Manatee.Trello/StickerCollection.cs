@@ -35,6 +35,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of <see cref="ISticker"/>s.
+	/// </summary>
 	public interface ICardStickerCollection
 	{
 		/// <summary>
@@ -96,6 +99,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of <see cref="ISticker"/>s.
+	/// </summary>
 	public interface IMemberStickerCollection
 	{
 		/// <summary>

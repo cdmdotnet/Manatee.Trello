@@ -3,6 +3,9 @@ using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents permissions granted by a token.
+	/// </summary>
 	public interface ITokenPermission
 	{
 		/// <summary>
