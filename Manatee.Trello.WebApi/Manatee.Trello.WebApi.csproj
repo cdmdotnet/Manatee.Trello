@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0/TargetFrameworks>
+    <TargetFrameworks>netstandard1.3/TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.WebApi.snk</AssemblyOriginatorKeyFile>
     <Authors>gregsdennis</Authors>
@@ -17,7 +17,7 @@ BUG FIX: Content format not specified.
       
 v2.0.0
 BREAKING CHANGE: Frameworks below 4.6.1 are no longer supported.
-Updated to NetStandard2.0</PackageReleaseNotes>
+Updated to NetStandard1.3</PackageReleaseNotes>
     <PackageTags>trello rest manatee</PackageTags>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.1.0</FileVersion>
