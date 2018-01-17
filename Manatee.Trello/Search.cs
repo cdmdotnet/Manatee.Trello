@@ -27,27 +27,27 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions returned by the search.
 		/// </summary>
-		public IEnumerable<Action> Actions => _actions.Value;
+		public virtual IEnumerable<Action> Actions => _actions.Value;
 		/// <summary>
 		/// Gets the collection of boards returned by the search.
 		/// </summary>
-		public IEnumerable<Board> Boards => _boards.Value;
+		public virtual IEnumerable<Board> Boards => _boards.Value;
 		/// <summary>
 		/// Gets the collection of cards returned by the search.
 		/// </summary>
-		public IEnumerable<Card> Cards => _cards.Value;
+		public virtual IEnumerable<Card> Cards => _cards.Value;
 		/// <summary>
 		/// Gets the collection of members returned by the search.
 		/// </summary>
-		public IEnumerable<Member> Members => _members.Value;
+		public virtual IEnumerable<Member> Members => _members.Value;
 		/// <summary>
 		/// Gets the collection of organizations returned by the search.
 		/// </summary>
-		public IEnumerable<Organization> Organizations => _organizations.Value;
+		public virtual IEnumerable<Organization> Organizations => _organizations.Value;
 		/// <summary>
 		/// Gets the query.
 		/// </summary>
-		public string Query
+		public virtual string Query
 		{
 			get { return _query.Value; }
 			private set { _query.Value = value; }
@@ -127,7 +127,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the search to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

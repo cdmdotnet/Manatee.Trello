@@ -28,6 +28,11 @@ namespace Manatee.Trello
 		/// </remarks>
 		public Member this[string key] => GetByKey(key);
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyMemberCollection(ReadOnlyMemberCollection doNotUse)
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyMemberCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
@@ -81,6 +86,11 @@ namespace Manatee.Trello
 	/// </summary>
 	public class MemberCollection : ReadOnlyMemberCollection
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public MemberCollection(MemberCollection doNotUse)
+			: base(doNotUse)
+		{
+		}
 		internal MemberCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(requestType, getOwnerId, auth) {}
 
@@ -88,7 +98,7 @@ namespace Manatee.Trello
 		/// Adds a member to the collection.
 		/// </summary>
 		/// <param name="member">The member to add.</param>
-		public void Add(Member member)
+		public virtual void Add(Member member)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)
@@ -106,7 +116,7 @@ namespace Manatee.Trello
 		/// Removes a member from the collection.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(Member member)
+		public virtual void Remove(Member member)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)

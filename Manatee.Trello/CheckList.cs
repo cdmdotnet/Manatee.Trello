@@ -42,11 +42,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the board on which the checklist belongs.
 		/// </summary>
-		public Board Board => _board.Value;
+		public virtual Board Board => _board.Value;
 		/// <summary>
 		/// Gets or sets the card on which the checklist belongs.
 		/// </summary>
-		public Card Card
+		public virtual Card Card
 		{
 			get { return _card.Value; }
 			set { _card.Value = value; }
@@ -54,11 +54,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of items in the checklist.
 		/// </summary>
-		public CheckItemCollection CheckItems { get; }
+		public virtual CheckItemCollection CheckItems { get; }
 		/// <summary>
 		/// Gets the creation date of the checklist.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -70,11 +70,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the checklist's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public virtual string Id { get; private set; }
 		/// <summary>
 		/// Gets the checklist's name.
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
@@ -82,7 +82,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the checklist's position.
 		/// </summary>
-		public Position Position
+		public virtual Position Position
 		{
 			get { return _position.Value; }
 			set { _position.Value = value; }
@@ -96,7 +96,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public CheckItem this[string key] => CheckItems[key];
+		public virtual CheckItem this[string key] => CheckItems[key];
 		/// <summary>
 		/// Retrieves the check list item at the specified index.
 		/// </summary>
@@ -105,7 +105,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public CheckItem this[int index] => CheckItems[index];
+		public virtual CheckItem this[int index] => CheckItems[index];
 
 		internal IJsonCheckList Json
 		{
@@ -116,7 +116,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the check list is updated.
 		/// </summary>
-		public event Action<CheckList, IEnumerable<string>> Updated;
+		public virtual event Action<CheckList, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="CheckList"/> object.
@@ -155,7 +155,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the checklist from Trello's server, however, this object
 		/// will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
@@ -163,7 +163,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the checklist to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

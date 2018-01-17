@@ -22,7 +22,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of results returned by the search.
 		/// </summary>
-		public IEnumerable<MemberSearchResult> Results => _results.Value;
+		public virtual IEnumerable<MemberSearchResult> Results => _results.Value;
 
 		private Board Board
 		{
@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the member search to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

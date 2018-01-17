@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 
@@ -20,7 +21,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the general visibility of the organization.
 		/// </summary>
-		public OrganizationPermissionLevel? PermissionLevel
+		public virtual OrganizationPermissionLevel? PermissionLevel
 		{
 			get { return _permissionLevel.Value; }
 			set { _permissionLevel.Value = value; }
@@ -32,7 +33,7 @@ namespace Manatee.Trello
 		/// Still researching what this means.
 		/// </remarks>
 		// TODO: What does ExternalMembersDisabled do?
-		public bool? ExternalMembersDisabled
+		public virtual bool? ExternalMembersDisabled
 		{
 			get { return _externalMembersDisabled.Value; }
 			set { _externalMembersDisabled.Value = value; }
@@ -44,7 +45,7 @@ namespace Manatee.Trello
 		/// Still researching what this means.
 		/// </remarks>
 		// TODO: What does AssociatedDomain do?
-		public string AssociatedDomain
+		public virtual string AssociatedDomain
 		{
 			get { return _assocatedDomain.Value; }
 			set { _assocatedDomain.Value = value; }
@@ -52,7 +53,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the visibility of public-viewable boards owned by the organizations.
 		/// </summary>
-		public OrganizationBoardVisibility? PublicBoardVisibility
+		public virtual OrganizationBoardVisibility? PublicBoardVisibility
 		{
 			get { return _publicBoardVisibility.Value; }
 			set { _publicBoardVisibility.Value = value; }
@@ -60,7 +61,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the visibility of organization-viewable boards owned by the organization.
 		/// </summary>
-		public OrganizationBoardVisibility? OrganizationBoardVisibility
+		public virtual OrganizationBoardVisibility? OrganizationBoardVisibility
 		{
 			get { return _organizationBoardVisibility.Value; }
 			set { _organizationBoardVisibility.Value = value; }
@@ -68,12 +69,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the visibility of private-viewable boards owned by the organization.
 		/// </summary>
-		public OrganizationBoardVisibility? PrivateBoardVisibility
+		public virtual OrganizationBoardVisibility? PrivateBoardVisibility
 		{
 			get { return _privateBoardVisibility.Value; }
 			set { _privateBoardVisibility.Value = value; }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public OrganizationPreferences(OrganizationPreferences doNotUse)
+		{
+		}
 		internal OrganizationPreferences(OrganizationPreferencesContext context)
 		{
 			_context = context;

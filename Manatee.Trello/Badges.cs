@@ -25,48 +25,52 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the number of attachments on this card.
 		/// </summary>
-		public int? Attachments => _attachments.Value;
+		public virtual int? Attachments => _attachments.Value;
 		/// <summary>
 		/// Gets the number of check items on this card.
 		/// </summary>
-		public int? CheckItems => _checkItems.Value;
+		public virtual int? CheckItems => _checkItems.Value;
 		/// <summary>
 		/// Gets the number of check items on this card which are checked.
 		/// </summary>
-		public int? CheckItemsChecked => _checkItemsChecked.Value;
+		public virtual int? CheckItemsChecked => _checkItemsChecked.Value;
 		/// <summary>
 		/// Gets the number of comments on this card.
 		/// </summary>
-		public int? Comments => _comments.Value;
+		public virtual int? Comments => _comments.Value;
 		/// <summary>
 		/// Gets the due date for this card.
 		/// </summary>
-		public DateTime? DueDate => _dueDate.Value;
+		public virtual DateTime? DueDate => _dueDate.Value;
 		/// <summary>
 		/// Gets some FogBugz information.
 		/// </summary>
-		public string FogBugz => _fogBugz.Value;
+		public virtual string FogBugz => _fogBugz.Value;
 		/// <summary>
 		/// Gets whether this card has a description.
 		/// </summary>
-		public bool? HasDescription => _hasDescription.Value;
+		public virtual bool? HasDescription => _hasDescription.Value;
 		/// <summary>
 		/// Gets whether the current member has voted for this card.
 		/// </summary>
-		public bool? HasVoted => _hasVoted.Value;
+		public virtual bool? HasVoted => _hasVoted.Value;
 		/// <summary>
 		/// Gets wheterh this card has been marked complete.
 		/// </summary>
-		public bool? IsComplete => _isComplete.Value;
+		public virtual bool? IsComplete => _isComplete.Value;
 		/// <summary>
 		/// Gets whether the current member is subscribed to this card.
 		/// </summary>
-		public bool? IsSubscribed => _isSubscribed.Value;
+		public virtual bool? IsSubscribed => _isSubscribed.Value;
 		/// <summary>
 		/// Gets the number of votes for this card.
 		/// </summary>
-		public int? Votes => _votes.Value;
+		public virtual int? Votes => _votes.Value;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public Badges(Badges doNotUse)
+		{
+		}
 		internal Badges(BadgesContext context)
 		{
 			_context = context;

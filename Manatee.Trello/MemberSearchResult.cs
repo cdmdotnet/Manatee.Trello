@@ -1,4 +1,6 @@
-﻿namespace Manatee.Trello
+﻿using System;
+
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Represents a result from a member search.
@@ -8,12 +10,16 @@
 		/// <summary>
 		/// Gets the returned member.
 		/// </summary>
-		public Member Member { get; private set; }
+		public virtual Member Member { get; }
 		/// <summary>
 		/// Gets a value indicating the similarity of the member to the search query.
 		/// </summary>
-		public int? Similarity { get; private set; }
+		public virtual int? Similarity { get; }
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public MemberSearchResult(MemberSearchResult doNotUse)
+		{
+		}
 		internal MemberSearchResult(Member member, int? similarity)
 		{
 			Member = member;

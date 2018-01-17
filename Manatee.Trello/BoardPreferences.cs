@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 
@@ -23,7 +24,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the general visibility of the board.
 		/// </summary>
-		public BoardPermissionLevel? PermissionLevel
+		public virtual BoardPermissionLevel? PermissionLevel
 		{
 			get { return _permissionLevel.Value; }
 			set { _permissionLevel.Value = value; }
@@ -32,7 +33,7 @@ namespace Manatee.Trello
 		/// Gets or sets whether voting is enabled and which members are allowed
 		/// to vote. 
 		/// </summary>
-		public BoardVotingPermission? Voting
+		public virtual BoardVotingPermission? Voting
 		{
 			get { return _voting.Value; }
 			set { _voting.Value = value; }
@@ -41,7 +42,7 @@ namespace Manatee.Trello
 		/// Gets or sets whether commenting is enabled and which members are
 		/// allowed to add comments.
 		/// </summary>
-		public BoardCommentPermission? Commenting
+		public virtual BoardCommentPermission? Commenting
 		{
 			get { return _commenting.Value; }
 			set { _commenting.Value = value; }
@@ -49,7 +50,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets which members may invite others to the board.
 		/// </summary>
-		public BoardInvitationPermission? Invitations
+		public virtual BoardInvitationPermission? Invitations
 		{
 			get { return _invitations.Value; }
 			set { _invitations.Value = value; }
@@ -58,7 +59,7 @@ namespace Manatee.Trello
 		/// Gets or sets whether any Trello member may join the board themselves
 		/// or if an invitation must be sent.
 		/// </summary>
-		public bool? AllowSelfJoin
+		public virtual bool? AllowSelfJoin
 		{
 			get { return _allowSelfJoin.Value; }
 			set { _allowSelfJoin.Value = value; }
@@ -66,7 +67,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether card covers are shown.
 		/// </summary>
-		public bool? ShowCardCovers
+		public virtual bool? ShowCardCovers
 		{
 			get { return _showCardCovers.Value; }
 			set { _showCardCovers.Value = value; }
@@ -74,7 +75,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether the calendar feed is enabled.
 		/// </summary>
-		public bool? IsCalendarFeedEnabled
+		public virtual bool? IsCalendarFeedEnabled
 		{
 			get { return _isCalendarFeedEnabled.Value; }
 			set { _isCalendarFeedEnabled.Value = value; }
@@ -82,7 +83,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the card aging style for the Card Aging power up.
 		/// </summary>
-		public CardAgingStyle? CardAgingStyle
+		public virtual CardAgingStyle? CardAgingStyle
 		{
 			get { return _cardAgingStyle.Value; }
 			set { _cardAgingStyle.Value = value; }
@@ -90,12 +91,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the background of the board.
 		/// </summary>
-		public BoardBackground Background
+		public virtual BoardBackground Background
 		{
 			get { return _background.Value; }
 			set { _background.Value = value; }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public BoardPreferences(BoardPreferences doNotUse)
+		{
+		}
 		internal BoardPreferences(BoardPreferencesContext context)
 		{
 			_context = context;

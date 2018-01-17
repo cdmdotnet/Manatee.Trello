@@ -105,7 +105,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected TrelloAuthorization Auth { get; }
 		protected bool IsInitialized { get; private set; }
 
-		internal TJson Data { get; private set; }
+		internal TJson Data { get; }
 
 		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer = true)
 			: base(useTimer)

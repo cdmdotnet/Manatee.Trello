@@ -52,18 +52,18 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on and within this board.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public virtual ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the collection of cards contained within this board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived cards.
 		/// </remarks>
-		public ReadOnlyCardCollection Cards { get; }
+		public virtual ReadOnlyCardCollection Cards { get; }
 		/// <summary>
 		/// Gets the creation date of the board.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -75,7 +75,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the board's description.
 		/// </summary>
-		public string Description
+		public virtual string Description
 		{
 			get { return _description.Value; }
 			set { _description.Value = value; }
@@ -83,7 +83,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the board's ID.
 		/// </summary>
-		public string Id
+		public virtual string Id
 		{
 			get
 			{
@@ -96,7 +96,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether this board is closed.
 		/// </summary>
-		public bool? IsClosed
+		public virtual bool? IsClosed
 		{
 			get { return _isClosed.Value; }
 			set { _isClosed.Value = value; }
@@ -104,7 +104,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to this board.
 		/// </summary>
-		public bool? IsSubscribed
+		public virtual bool? IsSubscribed
 		{
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
@@ -112,26 +112,26 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of labels for this board.
 		/// </summary>
-		public BoardLabelCollection Labels { get; }
+		public virtual BoardLabelCollection Labels { get; }
 		/// <summary>
 		/// Gets the collection of lists on this board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived lists.
 		/// </remarks>
-		public ListCollection Lists { get; }
+		public virtual ListCollection Lists { get; }
 		/// <summary>
 		/// Gets the collection of members on this board.
 		/// </summary>
-		public ReadOnlyMemberCollection Members { get; }
+		public virtual ReadOnlyMemberCollection Members { get; }
 		/// <summary>
 		/// Gets the collection of members and their privileges on this board.
 		/// </summary>
-		public BoardMembershipCollection Memberships { get; }
+		public virtual BoardMembershipCollection Memberships { get; }
 		/// <summary>
 		/// Gets or sets the board's name.
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
@@ -142,7 +142,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Setting null makes the board's first admin the owner.
 		/// </remarks>
-		public Organization Organization
+		public virtual Organization Organization
 		{
 			get { return _organization.Value; }
 			set { _organization.Value = value; }
@@ -150,23 +150,23 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets metadata about any active power-ups.
 		/// </summary>
-		public ReadOnlyPowerUpCollection PowerUps { get; }
+		public virtual ReadOnlyPowerUpCollection PowerUps { get; }
 		/// <summary>
 		/// Gets specific data regarding power-ups.
 		/// </summary>
-		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		public virtual ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		/// <summary>
 		/// Gets the set of preferences for the board.
 		/// </summary>
-		public BoardPreferences Preferences { get; }
+		public virtual BoardPreferences Preferences { get; }
 		/// <summary>
 		/// Gets the set of preferences for the board.
 		/// </summary>
-		public BoardPersonalPreferences PersonalPreferences { get; }
+		public virtual BoardPersonalPreferences PersonalPreferences { get; }
 		/// <summary>
 		/// Gets the board's URI.
 		/// </summary>
-		public string Url => _url.Value;
+		public virtual string Url => _url.Value;
 
 		/// <summary>
 		/// Retrieves a list which matches the supplied key.
@@ -176,7 +176,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on List.Id and List.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public List this[string key] => Lists[key];
+		public virtual List this[string key] => Lists[key];
 		/// <summary>
 		/// Retrieves the list at the specified index.
 		/// </summary>
@@ -185,7 +185,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public List this[int index] => Lists[index];
+		public virtual List this[int index] => Lists[index];
 
 		internal IJsonBoard Json
 		{
@@ -197,7 +197,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the board is updated.
 		/// </summary>
-		public event Action<Board, IEnumerable<string>> Updated;
+		public virtual event Action<Board, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Board"/> object.
@@ -244,7 +244,7 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public virtual void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateBoard || action.Data.Board == null || action.Data.Board.Id != Id) return;
 			_context.Merge(action.Data.Board.Json);
@@ -252,7 +252,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the board to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

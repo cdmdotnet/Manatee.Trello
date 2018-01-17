@@ -16,6 +16,11 @@ namespace Manatee.Trello
 	{
 		private Dictionary<string, object> _additionalParameters;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyBoardMembershipCollection(ReadOnlyBoardMembershipCollection doNotUse)
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyBoardMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
@@ -38,7 +43,7 @@ namespace Manatee.Trello
 		/// BoardMembership.Member.Name, and BoardMembership.Usernamee.
 		/// Comparison is case-sensitive.
 		/// </remarks>
-		public BoardMembership this[string key] => GetByKey(key);
+		public virtual BoardMembership this[string key] => GetByKey(key);
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -79,6 +84,11 @@ namespace Manatee.Trello
 	/// </summary>
 	public class BoardMembershipCollection : ReadOnlyBoardMembershipCollection
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public BoardMembershipCollection(BoardMembershipCollection doNotUse)
+			: base(doNotUse)
+		{
+		}
 		internal BoardMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) { }
 
@@ -87,7 +97,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to add.</param>
 		/// <param name="membership">The membership type.</param>
-		public BoardMembership Add(Member member, BoardMembershipType membership)
+		public virtual BoardMembership Add(Member member, BoardMembershipType membership)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)
@@ -106,7 +116,7 @@ namespace Manatee.Trello
 		/// Removes a member from a board.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(Member member)
+		public virtual void Remove(Member member)
 		{
 			var error = NotNullRule<Member>.Instance.Validate(null, member);
 			if (error != null)

@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Contracts;
+﻿using System;
+using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -57,23 +58,23 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the color of a stock solid-color background.
 		/// </summary>
-		public WebColor Color => _color.Value;
+		public virtual WebColor Color => _color.Value;
 		/// <summary>
 		/// Gets the background's ID.
 		/// </summary>
-		public string Id { get; }
+		public virtual string Id { get; }
 		/// <summary>
 		/// Gets the image of a background.
 		/// </summary>
-		public string Image => _image.Value;
+		public virtual string Image => _image.Value;
 		/// <summary>
 		/// Gets whether the image is tiled when displayed.
 		/// </summary>
-		public bool? IsTiled => _isTiled.Value;
+		public virtual bool? IsTiled => _isTiled.Value;
 		/// <summary>
 		/// Gets a collections of scaled background images.
 		/// </summary>
-		public ReadOnlyBoardBackgroundScalesCollection ScaledImages { get; }
+		public virtual ReadOnlyBoardBackgroundScalesCollection ScaledImages { get; }
 
 		internal IJsonBoardBackground Json
 		{
@@ -81,6 +82,10 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public BoardBackground(BoardBackground doNotUse)
+		{
+		}
 		internal BoardBackground(IJsonBoardBackground json, TrelloAuthorization auth)
 		{
 			Id = json.Id;

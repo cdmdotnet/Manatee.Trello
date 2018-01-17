@@ -43,15 +43,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the name of the application associated with the token.
 		/// </summary>
-		public string AppName => _appName.Value;
+		public virtual string AppName => _appName.Value;
 		/// <summary>
 		/// Gets the permissions on boards granted by the token.
 		/// </summary>
-		public TokenPermission BoardPermissions { get; }
+		public virtual TokenPermission BoardPermissions { get; }
 		/// <summary>
 		/// Gets the creation date of the token.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -63,15 +63,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the date and time the token was created.
 		/// </summary>
-		public DateTime? DateCreated => _dateCreated.Value;
+		public virtual DateTime? DateCreated => _dateCreated.Value;
 		/// <summary>
 		/// Gets the date and time the token expires, if any.
 		/// </summary>
-		public DateTime? DateExpires => _dateExpires.Value;
+		public virtual DateTime? DateExpires => _dateExpires.Value;
 		/// <summary>
 		/// Gets the token's ID.
 		/// </summary>
-		public string Id
+		public virtual string Id
 		{
 			get
 			{
@@ -84,15 +84,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member for which the token was issued.
 		/// </summary>
-		public Member Member => _member.Value;
+		public virtual Member Member => _member.Value;
 		/// <summary>
 		/// Gets the permissions on members granted by the token.
 		/// </summary>
-		public TokenPermission MemberPermissions { get; }
+		public virtual TokenPermission MemberPermissions { get; }
 		/// <summary>
 		/// Gets the permissions on organizations granted by the token.
 		/// </summary>
-		public TokenPermission OrganizationPermissions { get; }
+		public virtual TokenPermission OrganizationPermissions { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Token"/> object.
@@ -132,7 +132,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the token from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
@@ -140,7 +140,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the token to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

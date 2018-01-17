@@ -84,11 +84,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public virtual ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
-		public AvatarSource? AvatarSource
+		public virtual AvatarSource? AvatarSource
 		{
 			get { return _avatarSource.Value; }
 			internal set { _avatarSource.Value = value; }
@@ -96,11 +96,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the URL to the member's avatar.
 		/// </summary>
-		public string AvatarUrl => GetAvatar();
+		public virtual string AvatarUrl => GetAvatar();
 		/// <summary>
 		/// Gets the member's bio.
 		/// </summary>
-		public string Bio
+		public virtual string Bio
 		{
 			get { return _bio.Value; }
 			internal set { _bio.Value = value; }
@@ -108,11 +108,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public ReadOnlyBoardCollection Boards { get; }
+		public virtual ReadOnlyBoardCollection Boards { get; }
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -124,7 +124,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member's full name.
 		/// </summary>
-		public string FullName
+		public virtual string FullName
 		{
 			get { return _fullName.Value; }
 			internal set { _fullName.Value = value; }
@@ -132,7 +132,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member's ID.
 		/// </summary>
-		public string Id
+		public virtual string Id
 		{
 			get
 			{
@@ -145,7 +145,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the member's initials.
 		/// </summary>
-		public string Initials
+		public virtual string Initials
 		{
 			get { return _initials.Value; }
 			internal set { _initials.Value = value; }
@@ -153,32 +153,32 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the member has actually join or has merely been invited (ghost).
 		/// </summary>
-		public bool? IsConfirmed => _isConfirmed.Value;
+		public virtual bool? IsConfirmed => _isConfirmed.Value;
 		/// <summary>
 		/// Gets a string which can be used in comments or descriptions to mention another
 		/// user.  The user will receive notification that they've been mentioned.
 		/// </summary>
-		public string Mention => $"@{UserName}";
+		public virtual string Mention => $"@{UserName}";
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public ReadOnlyOrganizationCollection Organizations { get; }
+		public virtual ReadOnlyOrganizationCollection Organizations { get; }
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
-		public MemberStatus? Status => _status.Value;
+		public virtual MemberStatus? Status => _status.Value;
 		/// <summary>
 		/// Gets the collection of trophies earned by the member.
 		/// </summary>
-		public IEnumerable<string> Trophies => _trophies.Value;
+		public virtual IEnumerable<string> Trophies => _trophies.Value;
 		/// <summary>
 		/// Gets the member's URL.
 		/// </summary>
-		public string Url => _url.Value;
+		public virtual string Url => _url.Value;
 		/// <summary>
 		/// Gets the member's username.
 		/// </summary>
-		public string UserName
+		public virtual string UserName
 		{
 			get { return _userName.Value; }
 			internal set { _userName.Value = value; }
@@ -194,7 +194,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the member is updated.
 		/// </summary>
-		public event Action<Member, IEnumerable<string>> Updated;
+		public virtual event Action<Member, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Member"/> object.
@@ -245,7 +245,7 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public virtual void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
 			_context.Merge(action.Data.Member.Json);
@@ -253,7 +253,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the member to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

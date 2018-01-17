@@ -41,7 +41,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the creation date of the action.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -53,19 +53,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member who performed the action.
 		/// </summary>
-		public Member Creator => _creator.Value;
+		public virtual Member Creator => _creator.Value;
 		/// <summary>
 		/// Gets any data associated with the action.
 		/// </summary>
-		public ActionData Data { get; }
+		public virtual ActionData Data { get; }
 		/// <summary>
 		/// Gets the date and time at which the action was performed.
 		/// </summary>
-		public DateTime? Date => _date.Value;
+		public virtual DateTime? Date => _date.Value;
 		/// <summary>
 		/// Gets the action's ID.
 		/// </summary>
-		public string Id
+		public virtual string Id
 		{
 			get
 			{
@@ -78,7 +78,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the type of action.
 		/// </summary>
-		public ActionType? Type => _type.Value;
+		public virtual ActionType? Type => _type.Value;
 
 		internal IJsonAction Json
 		{
@@ -89,7 +89,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the action is updated.
 		/// </summary>
-		public event Action<Action, IEnumerable<string>> Updated;
+		public virtual event Action<Action, IEnumerable<string>> Updated;
 
 		static Action()
 		{
@@ -180,7 +180,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the card from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);

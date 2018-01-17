@@ -39,11 +39,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the <see cref="Board"/> on which the label is defined.
 		/// </summary>
-		public Board Board => _board.Value;
+		public virtual Board Board => _board.Value;
 		/// <summary>
 		/// Gets and sets the color.  Use null for no color.
 		/// </summary>
-		public LabelColor? Color
+		public virtual LabelColor? Color
 		{
 			get { return _color.Value; }
 			set { _color.Value = value; }
@@ -51,7 +51,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the creation date of the label.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -63,11 +63,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the label's ID.
 		/// </summary>
-		public string Id { get; }
+		public virtual string Id { get; }
 		/// <summary>
 		/// Gets and sets the label's name.
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
@@ -75,7 +75,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the number of cards which use this label.
 		/// </summary>
-		public int? Uses => _uses.Value;
+		public virtual int? Uses => _uses.Value;
 
 		internal IJsonLabel Json
 		{
@@ -83,6 +83,10 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public Label(Label doNotUse)
+		{
+		}
 		internal Label(IJsonLabel json, TrelloAuthorization auth)
 		{
 			Id = json.Id;
@@ -105,7 +109,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the label from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
@@ -113,7 +117,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the label to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

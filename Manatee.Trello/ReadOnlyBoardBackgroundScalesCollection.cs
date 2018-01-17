@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal.Caching;
+﻿using System;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
@@ -10,6 +11,11 @@ namespace Manatee.Trello
 	{
 		private readonly BoardBackgroundContext _context;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyBoardBackgroundScalesCollection(ReadOnlyBoardBackgroundScalesCollection doNotUse)
+			: base(() => string.Empty, null)
+		{
+		}
 		internal ReadOnlyBoardBackgroundScalesCollection(BoardBackgroundContext context, TrelloAuthorization auth)
 			: base(() => context.Data.Id, auth)
 		{

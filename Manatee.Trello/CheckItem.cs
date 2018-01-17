@@ -38,7 +38,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.
 		/// </summary>
-		public CheckList CheckList
+		public virtual CheckList CheckList
 		{
 			get { return _checkList.Value; }
 			set { _checkList.Value = value; }
@@ -46,7 +46,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the creation date of the checklist item.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -58,11 +58,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist item's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public virtual string Id { get; private set; }
 		/// <summary>
 		/// Gets or sets the checklist item's name.
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
@@ -70,7 +70,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist item's position.
 		/// </summary>
-		public Position Position
+		public virtual Position Position
 		{
 			get { return _position.Value; }
 			set { _position.Value = value; }
@@ -78,7 +78,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist item's state.
 		/// </summary>
-		public CheckItemState? State
+		public virtual CheckItemState? State
 		{
 			get { return _state.Value; }
 			set { _state.Value = value; }
@@ -93,8 +93,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the checklist item is updated.
 		/// </summary>
-		public event Action<CheckItem, IEnumerable<string>> Updated;
+		public virtual event Action<CheckItem, IEnumerable<string>> Updated;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public CheckItem(CheckItem doNotUse)
+		{
+		}
 		internal CheckItem(IJsonCheckItem json, string checkListId, TrelloAuthorization auth = null)
 		{
 			Id = json.Id;
@@ -124,7 +128,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the checklist item from Trello's server, however, this
 		/// object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
@@ -132,7 +136,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the checklist item to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

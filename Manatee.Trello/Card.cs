@@ -80,31 +80,31 @@ namespace Manatee.Trello
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
 		/// <remarks>By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.</remarks>
-		public ReadOnlyActionCollection Actions { get; }
+		public virtual ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the collection of attachments contained in the card.
 		/// </summary>
-		public AttachmentCollection Attachments { get; }
+		public virtual AttachmentCollection Attachments { get; }
 		/// <summary>
 		/// Gets the badges summarizing the content of the card.
 		/// </summary>
-		public Badges Badges { get; }
+		public virtual Badges Badges { get; }
 		/// <summary>
 		/// Gets the board to which the card belongs.
 		/// </summary>
-		public Board Board => _board.Value;
+		public virtual Board Board => _board.Value;
 		/// <summary>
 		/// Gets the collection of checklists contained in the card.
 		/// </summary>
-		public CheckListCollection CheckLists { get; }
+		public virtual CheckListCollection CheckLists { get; }
 		/// <summary>
 		/// Gets the collection of comments made on the card.
 		/// </summary>
-		public CommentCollection Comments { get; }
+		public virtual CommentCollection Comments { get; }
 		/// <summary>
 		/// Gets the creation date of the card.
 		/// </summary>
-		public DateTime CreationDate
+		public virtual DateTime CreationDate
 		{
 			get
 			{
@@ -116,7 +116,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
-		public string Description
+		public virtual string Description
 		{
 			get { return _description.Value; }
 			set { _description.Value = value; }
@@ -124,7 +124,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the card's due date.
 		/// </summary>
-		public DateTime? DueDate
+		public virtual DateTime? DueDate
 		{
 			get { return _dueDate.Value; }
 			set { _dueDate.Value = value; }
@@ -132,7 +132,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the card's ID.
 		/// </summary>
-		public string Id
+		public virtual string Id
 		{
 			get
 			{
@@ -145,7 +145,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether the card is archived.
 		/// </summary>
-		public bool? IsArchived
+		public virtual bool? IsArchived
 		{
 			get { return _isArchived.Value; }
 			set { _isArchived.Value = value; }
@@ -153,7 +153,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether the card is complete.  Associated with <see cref="DueDate"/>.
 		/// </summary>
-		public bool? IsComplete
+		public virtual bool? IsComplete
 		{
 			get { return _isComplete.Value; }
 			set { _isComplete.Value = value; }
@@ -161,7 +161,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to the card.
 		/// </summary>
-		public bool? IsSubscribed
+		public virtual bool? IsSubscribed
 		{
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
@@ -169,15 +169,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of labels on the card.
 		/// </summary>
-		public CardLabelCollection Labels { get; }
+		public virtual CardLabelCollection Labels { get; }
 		/// <summary>
 		/// Gets the most recent date of activity on the card.
 		/// </summary>
-		public DateTime? LastActivity => _lastActivity.Value;
+		public virtual DateTime? LastActivity => _lastActivity.Value;
 		/// <summary>
 		/// Gets or sets the list to the card belongs.
 		/// </summary>
-		public List List
+		public virtual List List
 		{
 			get { return _list.Value; }
 			set
@@ -189,11 +189,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members who are assigned to the card.
 		/// </summary>
-		public MemberCollection Members { get; }
+		public virtual MemberCollection Members { get; }
 		/// <summary>
 		/// Gets or sets the card's name.
 		/// </summary>
-		public string Name
+		public virtual string Name
 		{
 			get { return _name.Value; }
 			set { _name.Value = value; }
@@ -201,7 +201,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the card's position.
 		/// </summary>
-		public Position Position
+		public virtual Position Position
 		{
 			get { return _position.Value; }
 			set { _position.Value = value; }
@@ -209,33 +209,33 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets specific data regarding power-ups.
 		/// </summary>
-		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		public virtual ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		/// <summary>
 		/// Gets the card's short ID.
 		/// </summary>
-		public int? ShortId => _shortId.Value;
+		public virtual int? ShortId => _shortId.Value;
 		/// <summary>
 		/// Gets the card's short URL.
 		/// </summary>
 		/// <remarks>
 		/// Because this value does not change, it can be used as a permalink.
 		/// </remarks>
-		public string ShortUrl => _shortUrl.Value;
+		public virtual string ShortUrl => _shortUrl.Value;
 		/// <summary>
 		/// Gets the collection of stickers which appear on the card.
 		/// </summary>
-		public CardStickerCollection Stickers { get; }
+		public virtual CardStickerCollection Stickers { get; }
 		/// <summary>
 		/// Gets the card's full URL.
 		/// </summary>
 		/// <remarks>
 		/// Trello will likely change this value as the name changes.  You can use <see cref="ShortUrl"/> for permalinks.
 		/// </remarks>
-		public string Url => _url.Value;
+		public virtual string Url => _url.Value;
 		/// <summary>
 		/// Gets all members who have voted for this card.
 		/// </summary>
-		public ReadOnlyMemberCollection VotingMembers { get; }
+		public virtual ReadOnlyMemberCollection VotingMembers { get; }
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.
@@ -245,7 +245,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on CheckList.Id and CheckList.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public CheckList this[string key] => CheckLists[key];
+		public virtual CheckList this[string key] => CheckLists[key];
 		/// <summary>
 		/// Retrieves the check list at the specified index.
 		/// </summary>
@@ -254,7 +254,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public CheckList this[int index] => CheckLists[index];
+		public virtual CheckList this[int index] => CheckLists[index];
 
 		internal IJsonCard Json
 		{
@@ -265,7 +265,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the card is updated.
 		/// </summary>
-		public event Action<Card, IEnumerable<string>> Updated;
+		public virtual event Action<Card, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Card"/> object.
@@ -324,7 +324,7 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public virtual void ApplyAction(Action action)
 		{
 			if (action.Type != ActionType.UpdateCard || action.Data.Card == null || action.Data.Card.Id != Id) return;
 			_context.Merge(action.Data.Card.Json);
@@ -336,7 +336,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the card from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
@@ -344,7 +344,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the card to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

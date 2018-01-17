@@ -30,11 +30,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the position is valid.
 		/// </summary>
-		public bool IsValid => Equals(Value, TopValue) || (!Equals(Value, UnknownValue) && !Equals(Value, TopValue) && Value > 0);
+		public virtual bool IsValid => Equals(Value, TopValue) || (!Equals(Value, UnknownValue) && !Equals(Value, TopValue) && Value > 0);
 		/// <summary>
 		/// Gets the internal numeric position value.
 		/// </summary>
-		public double Value { get; }
+		public virtual double Value { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Position"/> class.

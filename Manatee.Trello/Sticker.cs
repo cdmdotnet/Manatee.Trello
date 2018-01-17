@@ -96,11 +96,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the checklist's ID.
 		/// </summary>
-		public string Id { get; private set; }
+		public virtual string Id { get; private set; }
 		/// <summary>
 		/// Gets or sets the position of the left edge.
 		/// </summary>
-		public double? Left
+		public virtual double? Left
 		{
 			get { return _left.Value; }
 			set { _left.Value = value; }
@@ -108,18 +108,18 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the name of the sticker.
 		/// </summary>
-		public string Name => _name.Value;
+		public virtual string Name => _name.Value;
 		/// <summary>
 		/// Gets the collection of previews.
 		/// </summary>
-		public ReadOnlyStickerPreviewCollection Previews { get; }
+		public virtual ReadOnlyStickerPreviewCollection Previews { get; }
 		/// <summary>
 		/// Gets or sets the rotation.
 		/// </summary>
 		/// <remarks>
 		/// Rotation is clockwise and in degrees.
 		/// </remarks>
-		public int? Rotation
+		public virtual int? Rotation
 		{
 			get { return _rotation.Value; }
 			set { _rotation.Value = value; }
@@ -127,7 +127,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the position of the top edge.
 		/// </summary>
-		public double? Top
+		public virtual double? Top
 		{
 			get { return _top.Value; }
 			set { _top.Value = value; }
@@ -135,11 +135,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the URL for the sticker's image.
 		/// </summary>
-		public string ImageUrl => _url.Value;
+		public virtual string ImageUrl => _url.Value;
 		/// <summary>
 		/// Gets or sets the z-index.
 		/// </summary>
-		public int? ZIndex
+		public virtual int? ZIndex
 		{
 			get { return _zIndex.Value; }
 			set { _zIndex.Value = value; }
@@ -154,8 +154,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the attachment is updated.
 		/// </summary>
-		public event Action<Sticker, IEnumerable<string>> Updated;
+		public virtual event Action<Sticker, IEnumerable<string>> Updated;
 
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public Sticker(Sticker doNotUse)
+		{
+		}
 		internal Sticker(IJsonSticker json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;
@@ -185,7 +189,7 @@ namespace Manatee.Trello
 		/// This permanently deletes the card from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public virtual void Delete()
 		{
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
@@ -193,7 +197,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the card to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public virtual void Refresh()
 		{
 			_context.Expire();
 		}

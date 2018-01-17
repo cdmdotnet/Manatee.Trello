@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of actions.
 	/// </summary>
-	public class ReadOnlyActionCollection : ReadOnlyCollection<Action>
+	public partial class ReadOnlyActionCollection : ReadOnlyCollection<Action>
 	{
 		private static readonly Dictionary<Type, EntityRequestType> _requestTypes;
 		private readonly EntityRequestType _updateRequestType;
@@ -30,12 +30,20 @@ namespace Manatee.Trello
 					{typeof(Organization), EntityRequestType.Organization_Read_Actions},
 				};
 		}
+
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public ReadOnlyActionCollection(ReadOnlyActionCollection doNotUse)
+			: base(() => string.Empty, null)
+		{
+		}
+
 		internal ReadOnlyActionCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
 			_updateRequestType = _requestTypes[type];
 			_additionalParameters = new Dictionary<string, object>();
 		}
+
 		internal ReadOnlyActionCollection(ReadOnlyActionCollection source, TrelloAuthorization auth)
 			: base(() => source.OwnerId, auth)
 		{
@@ -90,6 +98,12 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CommentCollection : ReadOnlyActionCollection
 	{
+		[Obsolete("This constructor is only for mocking purposes.")]
+		public CommentCollection(CommentCollection doNotUse)
+			: base(doNotUse)
+		{
+		}
+
 		internal CommentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(typeof (Card), getOwnerId, auth)
 		{
@@ -101,7 +115,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="text">The content of the comment.</param>
 		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
-		public Action Add(string text)
+		public virtual Action Add(string text)
 		{
 			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, text);
 			if (error != null)

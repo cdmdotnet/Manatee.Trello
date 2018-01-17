@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
@@ -16,7 +17,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the source type for the member's avatar.
 		/// </summary>
-		public new AvatarSource? AvatarSource
+		public new virtual AvatarSource? AvatarSource
 		{
 			get { return base.AvatarSource; }
 			set { base.AvatarSource = value; }
@@ -24,7 +25,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the member's bio.
 		/// </summary>
-		public new string Bio
+		public new virtual string Bio
 		{
 			get { return base.Bio; }
 			set { base.Bio = value; }
@@ -32,11 +33,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public new BoardCollection Boards => base.Boards as BoardCollection;
+		public new virtual BoardCollection Boards => base.Boards as BoardCollection;
 		/// <summary>
 		/// Gets or sets the member's email.
 		/// </summary>
-		public string Email
+		public virtual string Email
 		{
 			get { return _email.Value; }
 			set { _email.Value = value; }
@@ -44,7 +45,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the member's full name.
 		/// </summary>
-		public new string FullName
+		public new virtual string FullName
 		{
 			get { return base.FullName; }
 			set { base.FullName = value; }
@@ -52,7 +53,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the member's initials.
 		/// </summary>
-		public new string Initials
+		public new virtual string Initials
 		{
 			get { return base.Initials; }
 			set { base.Initials = value; }
@@ -60,19 +61,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of notificaitons for the member.
 		/// </summary>
-		public ReadOnlyNotificationCollection Notifications { get; }
+		public virtual ReadOnlyNotificationCollection Notifications { get; }
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public new OrganizationCollection Organizations => base.Organizations as OrganizationCollection;
+		public new virtual OrganizationCollection Organizations => base.Organizations as OrganizationCollection;
 		/// <summary>
 		/// Gets the set of preferences for the member.
 		/// </summary>
-		public MemberPreferences Preferences { get; }
+		public virtual MemberPreferences Preferences { get; }
 		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>
-		public new string UserName
+		public new virtual string UserName
 		{
 			get { return base.UserName; }
 			set { base.UserName = value; }

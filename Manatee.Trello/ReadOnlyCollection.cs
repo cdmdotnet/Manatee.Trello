@@ -23,7 +23,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public T this[int index] => GetByIndex(index);
+		public virtual T this[int index] => GetByIndex(index);
 
 		internal string OwnerId => _ownerId ?? (_ownerId = _getOwnerId());
 		internal List<T> Items { get; }
@@ -51,7 +51,7 @@ namespace Manatee.Trello
 		/// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
 		/// </returns>
 		/// <filterpriority>1</filterpriority>
-		public IEnumerator<T> GetEnumerator()
+		public virtual IEnumerator<T> GetEnumerator()
 		{
 			if (DateTime.Now >= _lastUpdate.Add(TrelloConfiguration.ExpiryTime))
 			{
