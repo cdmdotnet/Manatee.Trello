@@ -75,6 +75,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Sticker : ISticker
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Sticker"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

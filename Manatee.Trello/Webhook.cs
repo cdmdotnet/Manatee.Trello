@@ -9,34 +9,6 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public interface IWebhook
-	{
-	}
-
-	/// <summary>
-	/// Provides a common base class for the generic Webhook classes.
-	/// </summary>
-	public abstract class Webhook : IWebhook
-	{
-		internal Webhook() {}
-
-		/// <summary>
-		/// Processes webhook notification content.
-		/// </summary>
-		/// <param name="content">The string content of the notification.</param>
-		/// <param name="auth">The <see cref="TrelloAuthorization"/> under which the notification should be processed</param>
-		public static void ProcessNotification(string content, TrelloAuthorization auth = null)
-		{
-			var notification = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhookNotification>(content);
-			var action = new Action(notification.Action, auth);
-
-			foreach (var obj in TrelloConfiguration.Cache.OfType<ICanWebhook>())
-			{
-				obj.ApplyAction(action);
-			}
-		}
-	}
-
 	public interface IWebhook<T> where T : class, ICanWebhook
 	{
 		/// <summary>
@@ -72,7 +44,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the webhook is updated.
 		/// </summary>
-		event Action<IWebhook, IEnumerable<string>> Updated;
+		event Action<IWebhook<T>, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Deletes the webhook.
@@ -93,7 +65,7 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : Webhook, IWebhook<T>
+	public class Webhook<T> : IWebhook<T>
 		where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
@@ -155,7 +127,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the webhook is updated.
 		/// </summary>
-		public event Action<IWebhook, IEnumerable<string>> Updated;
+		public event Action<IWebhook<T>, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.

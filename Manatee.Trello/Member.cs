@@ -109,6 +109,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Member : IMember
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Member"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

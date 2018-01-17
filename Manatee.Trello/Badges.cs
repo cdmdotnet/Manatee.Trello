@@ -4,6 +4,9 @@ using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a collection of badges which summarize the contents of a card.
+	/// </summary>
 	public interface IBadges
 	{
 		/// <summary>

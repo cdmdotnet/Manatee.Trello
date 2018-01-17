@@ -59,15 +59,30 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Action : IAction
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Action"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Action.Data"/> should be fetched.
+			/// </summary>
 			[Display(Description="data")]
 			Data = 1,
+			/// <summary>
+			/// Indicates that <see cref="Action.Date"/> should be fetched.
+			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Action.Creator"/> should be fetched.
+			/// </summary>
 			[Display(Description="idMemberCreator")]
 			Creator = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Action.Type"/> should be fetched.
+			/// </summary>
 			[Display(Description="type")]
 			Type = 1 << 3
 		}
@@ -81,6 +96,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

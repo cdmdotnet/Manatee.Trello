@@ -5,6 +5,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a background image for a board.
+	/// </summary>
 	public interface IBoardBackground : ICacheable
 	{
 		/// <summary>

@@ -36,6 +36,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of attachments.
+	/// </summary>
 	public interface IAttachmentCollection : IReadOnlyCollection<IAttachment>
 	{
 		/// <summary>

@@ -12,6 +12,9 @@ using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a board.
+	/// </summary>
 	public interface IBoard : ICanWebhook, IQueryable
 	{
 		/// <summary>
@@ -144,21 +147,45 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Board : IBoard
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Board"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Board.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
+			/// <summary>
+			/// Indicates that <see cref="Board.Description"/> should be fetched.
+			/// </summary>
 			[Display(Description="desc")]
 			Description = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Board.IsClosed"/> should be fetched.
+			/// </summary>
 			[Display(Description="closed")]
 			Closed = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Board.Organization"/> should be fetched.
+			/// </summary>
 			[Display(Description="idOrganization")]
 			Organization = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Board.Preferences"/> should be fetched.
+			/// </summary>
 			[Display(Description="prefs")]
 			Preferencess = 1 << 4,
+			/// <summary>
+			/// Indicates that <see cref="Board.Url"/> should be fetched.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 5,
+			/// <summary>
+			/// Indicates that <see cref="Board.IsSubscribed"/> should be fetched.
+			/// </summary>
 			[Display(Description="subscribed")]
 			Subscribed = 1 << 6
 		}
@@ -174,6 +201,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

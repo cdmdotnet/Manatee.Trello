@@ -10,10 +10,26 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of actions.
+	/// </summary>
 	public interface IReadOnlyActionCollection : IReadOnlyCollection<IAction>
 	{
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="actionType">The action type.</param>
 		void Filter(ActionType actionType);
+		/// <summary>
+		/// Adds a number of filters to the collection.
+		/// </summary>
+		/// <param name="actionTypes">A collection of action types.</param>
 		void Filter(IEnumerable<ActionType> actionTypes);
+		/// <summary>
+		/// Adds a date-based filter to the collection.
+		/// </summary>
+		/// <param name="start">The start date.</param>
+		/// <param name="end">The end date.</param>
 		void Filter(DateTime? start, DateTime? end);
 	}
 
@@ -51,12 +67,20 @@ namespace Manatee.Trello
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="actionType">The action type.</param>
 		public void Filter(ActionType actionType)
 		{
 			var actionTypes = actionType.GetFlags().Cast<ActionType>();
 			Filter(actionTypes);
 		}
 
+		/// <summary>
+		/// Adds a number of filters to the collection.
+		/// </summary>
+		/// <param name="actionTypes">A collection of action types.</param>
 		public void Filter(IEnumerable<ActionType> actionTypes)
 		{
 			if (_additionalParameters == null)
@@ -68,6 +92,11 @@ namespace Manatee.Trello
 			_additionalParameters["filter"] = filter;
 		}
 
+		/// <summary>
+		/// Adds a date-based filter to the collection.
+		/// </summary>
+		/// <param name="start">The start date.</param>
+		/// <param name="end">The end date.</param>
 		public void Filter(DateTime? start, DateTime? end)
 		{
 			if (_additionalParameters == null)
@@ -98,6 +127,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of comment actions.
+	/// </summary>
 	public interface ICommentCollection : IReadOnlyActionCollection
 	{
 		/// <summary>

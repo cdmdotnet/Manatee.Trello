@@ -56,6 +56,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Label : ILabel
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Label"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

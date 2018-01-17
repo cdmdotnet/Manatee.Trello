@@ -186,6 +186,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Card : ICard
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Card"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents an attachment to a card.
+	/// </summary>
 	public interface IAttachment : ICacheable
 	{
 		/// <summary>
@@ -75,23 +78,50 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Attachment : IAttachment
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Attachment"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Attachment.Bytes"/> should be fetched.
+			/// </summary>
 			[Display(Description="bytes")]
 			Bytes = 1,
+			/// <summary>
+			/// Indicates that <see cref="Attachment.Bytes"/> should be fetched.
+			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Attachment.IsUpload"/> should be fetched.
+			/// </summary>
 			[Display(Description="isUpload")]
 			IsUpload = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Attachment.Member"/> should be fetched.
+			/// </summary>
 			[Display(Description="idMember")]
 			Member = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Attachment.MimeType"/> should be fetched.
+			/// </summary>
 			[Display(Description="mimeType")]
 			MimeType = 1 << 4,
+			/// <summary>
+			/// Indicates that <see cref="Attachment.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 5,
+			/// <summary>
+			/// Indicates that <see cref="Attachment.Previews"/> should be fetched.
+			/// </summary>
 			[Display(Description="previews")]
 			Previews = 1 << 6,
+			/// <summary>
+			/// Indicates that <see cref="Attachment.Url"/> should be fetched.
+			/// </summary>
 			[Display(Description="uri")]
 			Url = 1 << 7
 		}
@@ -106,6 +136,9 @@ namespace Manatee.Trello
 		private readonly AttachmentContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

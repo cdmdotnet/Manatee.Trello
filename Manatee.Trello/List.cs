@@ -88,6 +88,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class List : IList
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="List"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

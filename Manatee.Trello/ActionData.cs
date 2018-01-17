@@ -5,6 +5,9 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Exposes any data associated with an action.
+	/// </summary>
 	public interface IActionData
 	{
 		/// <summary>

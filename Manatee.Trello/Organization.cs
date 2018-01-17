@@ -104,6 +104,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Organization : IOrganization
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Organization"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

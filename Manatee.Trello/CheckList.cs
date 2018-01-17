@@ -87,6 +87,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckList : ICheckList
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="CheckList"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

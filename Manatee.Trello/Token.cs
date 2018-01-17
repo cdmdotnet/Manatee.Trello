@@ -71,6 +71,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Token : IToken
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Token"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

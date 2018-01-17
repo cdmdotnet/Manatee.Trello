@@ -62,6 +62,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckItem : ICheckItem
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="CheckItem"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{

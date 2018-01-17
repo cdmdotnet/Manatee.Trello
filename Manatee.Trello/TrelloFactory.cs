@@ -22,6 +22,9 @@ namespace Manatee.Trello
 
 		IToken Token(string id, TrelloAuthorization auth = null);
 
+		IWebhook<T> Webhook<T>(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
+			where T : class, ICanWebhook;
+
 		IWebhook<T> Webhook<T>(string id, TrelloAuthorization auth = null)
 			where T : class, ICanWebhook;
 	}
@@ -83,6 +86,12 @@ namespace Manatee.Trello
 		public IToken Token(string id, TrelloAuthorization auth = null)
 		{
 			return new Token(id, auth);
+		}
+
+		public IWebhook<T> Webhook<T>(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
+			where T : class, ICanWebhook
+		{
+			return new Webhook<T>(target, callBackUrl, description, auth);
 		}
 
 		public IWebhook<T> Webhook<T>(string id, TrelloAuthorization auth = null)

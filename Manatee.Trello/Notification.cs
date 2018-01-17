@@ -52,6 +52,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Notification : INotification
 	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Notification"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
