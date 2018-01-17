@@ -103,7 +103,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the card's position.
 		/// </summary>
-		IPosition Position { get; set; }
+		Position Position { get; set; }
 
 		/// <summary>
 		/// Gets specific data regarding power-ups.
@@ -370,7 +370,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the card's position.
 		/// </summary>
-		public IPosition Position
+		public Position Position
 		{
 			get { return _position.Value; }
 			set { _position.Value = (Position) value; }

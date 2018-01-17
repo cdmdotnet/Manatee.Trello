@@ -30,7 +30,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist item's position.
 		/// </summary>
-		IPosition Position { get; set; }
+		Position Position { get; set; }
 
 		/// <summary>
 		/// Gets or sets the checklist item's state.
@@ -117,7 +117,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist item's position.
 		/// </summary>
-		public IPosition Position
+		public Position Position
 		{
 			get { return _position.Value; }
 			set { _position.Value = (Position) value; }

@@ -10,7 +10,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the color of a stock solid-color background.
 		/// </summary>
-		IWebColor Color { get; }
+		WebColor Color { get; }
 
 		/// <summary>
 		/// Gets the image of a background.
@@ -80,7 +80,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the color of a stock solid-color background.
 		/// </summary>
-		public IWebColor Color => _color.Value;
+		public WebColor Color => _color.Value;
 		/// <summary>
 		/// Gets the background's ID.
 		/// </summary>

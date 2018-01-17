@@ -97,7 +97,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the previous position.
 		/// </summary>
-		IPosition OldPosition { get; }
+		Position OldPosition { get; }
 
 		/// <summary>
 		/// Gets the previous text value. 
@@ -234,7 +234,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the previous position.
 		/// </summary>
-		public IPosition OldPosition => _oldPosition.Value;
+		public Position OldPosition => _oldPosition.Value;
 		/// <summary>
 		/// Gets the previous text value. 
 		/// </summary>

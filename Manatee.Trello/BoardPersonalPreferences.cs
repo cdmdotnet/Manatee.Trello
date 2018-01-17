@@ -17,7 +17,7 @@ namespace Manatee.Trello
 		/// Gets or sets the <see cref="Position"/> within a <see cref="List"/> which
 		/// will be used to post new cards submitted by email.
 		/// </summary>
-		IPosition EmailPosition { get; set; }
+		Position EmailPosition { get; set; }
 
 		/// <summary>
 		/// Gets or sets whether to show the list guide.
@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// Gets or sets the <see cref="Position"/> within a <see cref="List"/> which
 		/// will be used to post new cards submitted by email.
 		/// </summary>
-		public IPosition EmailPosition
+		public Position EmailPosition
 		{
 			get { return _emailPosition.Value; }
 			set { _emailPosition.Value = (Position) value; }

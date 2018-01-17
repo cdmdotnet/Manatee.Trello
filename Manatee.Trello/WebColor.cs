@@ -4,28 +4,10 @@ using System.Text.RegularExpressions;
 
 namespace Manatee.Trello
 {
-	public interface IWebColor
-	{
-		/// <summary>
-		/// Gets the red component.
-		/// </summary>
-		ushort Red { get; }
-
-		/// <summary>
-		/// Gets the green component.
-		/// </summary>
-		ushort Green { get; }
-
-		/// <summary>
-		/// Gets the blue component.
-		/// </summary>
-		ushort Blue { get; }
-	}
-
 	/// <summary>
 	/// Defines a color in the RGB space.
 	/// </summary>
-	public class WebColor : IWebColor
+	public class WebColor
 	{
 		private static readonly Regex _pattern = new Regex(@"^#(?<Red>[0-9a-fA-F]{2})(?<Green>[0-9a-fA-F]{2})(?<Blue>[0-9a-fA-F]{2})$");
 

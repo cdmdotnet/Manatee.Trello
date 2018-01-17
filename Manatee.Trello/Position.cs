@@ -4,24 +4,11 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public interface IPosition : IComparable, IComparable<Position>, IEquatable<IPosition>
-	{
-		/// <summary>
-		/// Gets whether the position is valid.
-		/// </summary>
-		bool IsValid { get; }
-
-		/// <summary>
-		/// Gets the internal numeric position value.
-		/// </summary>
-		double Value { get; }
-	}
-
 	/// <summary>
 	/// Represents the position of a checklist in a card, a card in a list,
 	/// or list in a board
 	/// </summary>
-	public class Position : IPosition
+	public class Position
 	{
 		private const double _topValue = double.NegativeInfinity;
 		private const double _bottomValue = double.PositiveInfinity;
@@ -245,15 +232,6 @@ namespace Manatee.Trello
 		public static bool operator >=(Position a, Position b)
 		{
 			return a.Value >= b.Value;
-		}
-		/// <summary>
-		/// Compares two <see cref="Position"/> object by examining their content.
-		/// </summary>
-		/// <param name="other">A <see cref="Position"/> object.</param>
-		/// <returns>True if equivalent, false otherwise.</returns>
-		public bool Equals(IPosition other)
-		{
-			return Equals(other as Position);
 		}
 		/// <summary>
 		/// Compares two <see cref="Position"/> object by examining their content.

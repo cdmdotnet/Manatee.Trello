@@ -50,7 +50,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the list's position.
 		/// </summary>
-		IPosition Position { get; set; }
+		Position Position { get; set; }
 
 		/// <summary>
 		/// Retrieves a card which matches the supplied key.
@@ -183,7 +183,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the list's position.
 		/// </summary>
-		public IPosition Position
+		public Position Position
 		{
 			get { return _position.Value; }
 			set { _position.Value = (Position) value; }
