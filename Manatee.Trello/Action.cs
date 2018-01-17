@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents an action performed on Trello objects.
+	/// </summary>
 	public interface IAction : ICacheable
 	{
 		/// <summary>

@@ -25,6 +25,10 @@ Updated to NetStandard2.0</PackageReleaseNotes>
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Manatee.Trello.WebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj" />
   </ItemGroup>
