@@ -4,6 +4,9 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Exposes any data associated with a notification.
+	/// </summary>
 	public interface INotificationData
 	{
 		/// <summary>

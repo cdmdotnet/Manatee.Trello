@@ -10,6 +10,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collectin of boards.
+	/// </summary>
 	public interface IReadOnlyBoardCollection : IReadOnlyCollection<IBoard>
 	{
 		/// <summary>
@@ -21,7 +24,10 @@ namespace Manatee.Trello
 		/// Matches on Board.Id and Board.Name.  Comparison is case-sensitive.
 		/// </remarks>
 		IBoard this[string key] { get; }
-
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
 		void Filter(BoardFilter filter);
 	}
 
@@ -58,6 +64,10 @@ namespace Manatee.Trello
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
 		public void Filter(BoardFilter filter)
 		{
 			if (_additionalParameters == null)
@@ -90,6 +100,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of boards.
+	/// </summary>
 	public interface IBoardCollection : IReadOnlyBoardCollection
 	{
 		/// <summary>

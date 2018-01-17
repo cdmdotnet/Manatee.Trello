@@ -4,6 +4,9 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the preferences for a board.
+	/// </summary>
 	public interface IBoardPreferences
 	{
 		/// <summary>

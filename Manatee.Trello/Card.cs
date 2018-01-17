@@ -12,6 +12,9 @@ using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a card.
+	/// </summary>
 	public interface ICard : ICanWebhook, IQueryable
 	{
 		/// <summary>
@@ -192,38 +195,89 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Card.Badges"/> should be fetched.
+			/// </summary>
 			[Display(Description="badges")]
 			Badges = 1,
+			/// <summary>
+			/// Indicates that <see cref="Card.Board"/> should be fetched.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Card.CheckLists"/> should be fetched.
+			/// </summary>
 			[Display(Description="idCheckLists")]
 			Checklists = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Card.LastActivity"/> should be fetched.
+			/// </summary>
 			[Display(Description="dateLastActivity")]
 			DateLastActivity = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Card.Description"/> should be fetched.
+			/// </summary>
 			[Display(Description="desc")]
 			Description = 1 << 4,
+			/// <summary>
+			/// Indicates that <see cref="Card.DueDate"/> should be fetched.
+			/// </summary>
 			[Display(Description="due")]
 			Due = 1 << 5,
+			/// <summary>
+			/// Indicates that <see cref="Card.IsArchived"/> should be fetched.
+			/// </summary>
 			[Display(Description="closed")]
 			IsArchived = 1 << 6,
+			/// <summary>
+			/// Indicates that <see cref="Card.IsComplete"/> should be fetched.
+			/// </summary>
 			[Display(Description="dueComplete")]
 			IsComplete = 1 << 7,
+			/// <summary>
+			/// Indicates that <see cref="Card.IsSubscribed"/> should be fetched.
+			/// </summary>
 			[Display(Description="subscribed")]
 			IsSubscribed = 1 << 8,
+			/// <summary>
+			/// Indicates that <see cref="Card.Labels"/> should be fetched.
+			/// </summary>
 			[Display(Description="idLabels")]
 			Labels = 1 << 9,
+			/// <summary>
+			/// Indicates that <see cref="Card.List"/> should be fetched.
+			/// </summary>
 			[Display(Description="idList")]
 			List = 1 << 10,
+			/// <summary>
+			/// Not Implemented
+			/// </summary>
 			[Display(Description="manualCoverAttachment")]
 			ManualCoverAttachment = 1 << 11,
+			/// <summary>
+			/// Indicates that <see cref="Card.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 12,
+			/// <summary>
+			/// Indicates that <see cref="Card.Position"/> should be fetched.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 13,
+			/// <summary>
+			/// Indicates that <see cref="Card.ShortId"/> should be fetched.
+			/// </summary>
 			[Display(Description="idShort")]
 			ShortId = 1 << 14,
+			/// <summary>
+			/// Indicates that <see cref="Card.ShortUrl"/> should be fetched.
+			/// </summary>
 			[Display(Description="shortUrl")]
 			ShortUrl = 1 << 15,
+			/// <summary>
+			/// Indicates that <see cref="Card.Url"/> should be fetched.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 16,
 		}
@@ -246,6 +300,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

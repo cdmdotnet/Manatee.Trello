@@ -1,5 +1,8 @@
 ﻿namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a result from a member search.
+	/// </summary>
 	public interface IMemberSearchResult
 	{
 		/// <summary>

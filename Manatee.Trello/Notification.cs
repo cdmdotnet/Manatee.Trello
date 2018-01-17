@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a notification.
+	/// </summary>
 	public interface INotification : ICacheable
 	{
 		/// <summary>
@@ -58,14 +61,29 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Notification.Creator"/> should be fetched.
+			/// </summary>
 			[Display(Description="idMemberCreator")]
 			Creator = 1,
+			/// <summary>
+			/// Indicates that <see cref="Notification.Data"/> should be fetched.
+			/// </summary>
 			[Display(Description="data")]
 			Data = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Notification.IsUnread"/> should be fetched.
+			/// </summary>
 			[Display(Description="unread")]
 			IsUnread = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Notification.Type"/> should be fetched.
+			/// </summary>
 			[Display(Description="type")]
 			Type = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Notification.Date"/> should be fetched.
+			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 4
 		}
@@ -79,6 +97,9 @@ namespace Manatee.Trello
 		private readonly NotificationContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

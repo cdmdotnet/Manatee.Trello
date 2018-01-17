@@ -10,6 +10,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a member.
+	/// </summary>
 	public interface IMember : ICanWebhook
 	{
 		/// <summary>
@@ -115,40 +118,94 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Member.AvatarUrl"/> should be fetched.
+			/// </summary>
 			[Display(Description="avatarHash")]
 			AvatarHash = 1,
+			/// <summary>
+			/// Indicates that <see cref="Member.AvatarSource"/> should be fetched.
+			/// </summary>
 			[Display(Description="avatarSource")]
 			AvatarSource = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Member.Bio"/> should be fetched.
+			/// </summary>
 			[Display(Description="bio")]
 			Bio = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Member.IsConfirmed"/> should be fetched.
+			/// </summary>
 			[Display(Description="confirmed")]
 			IsConfirmed = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Me.Email"/> should be fetched.
+			/// </summary>
 			[Display(Description="email")]
 			Email = 1 << 4,
+			/// <summary>
+			/// Indicates that <see cref="Member.FullName"/> should be fetched.
+			/// </summary>
 			[Display(Description="fullName")]
 			FullName = 1 << 5,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="gravatarHash")]
 			GravatarHash = 1 << 6,
+			/// <summary>
+			/// Indicates that <see cref="Member.Initials"/> should be fetched.
+			/// </summary>
 			[Display(Description="intials")]
 			Initials = 1 << 7,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="loginTypes")]
 			LoginTypes = 1 << 8,
+			/// <summary>
+			/// Not Implemented
+			/// </summary>
 			[Display(Description="memberType")]
 			MemberType = 1 << 9,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="oneTimeMessagesReceived")]
 			OneTimeMessagesDismissed = 1 << 10,
+			/// <summary>
+			/// Indicates that <see cref="Me.Preferences"/> should be fetched.
+			/// </summary>
 			[Display(Description="prefs")]
-			Preferencess = 1 << 11,
+			Preferences = 1 << 11,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="similarity")]
 			Similarity = 1 << 12,
+			/// <summary>
+			/// Indicates that <see cref="Member.Status"/> should be fetched.
+			/// </summary>
 			[Display(Description="status")]
 			Status = 1 << 13,
+			/// <summary>
+			/// Indicates that <see cref="Member.Trophies"/> should be fetched.
+			/// </summary>
 			[Display(Description="trophies")]
 			Trophies = 1 << 14,
+			/// <summary>
+			/// Not Implemented
+			/// </summary>
 			[Display(Description="uploadedAvatarHash")]
 			UploadedAvatarHash = 1 << 15,
+			/// <summary>
+			/// Indicates that <see cref="Member.Url"/> should be fetched.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 16,
+			/// <summary>
+			/// Indicates that <see cref="Member.UserName"/> should be fetched.
+			/// </summary>
 			[Display(Description="username")]
 			Username = 1 << 17
 		}
@@ -171,6 +228,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

@@ -8,9 +8,20 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of actions.
+	/// </summary>
 	public interface IReadOnlyNotificationCollection : IReadOnlyCollection<INotification>
 	{
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter type.</param>
 		void Filter(NotificationType filter);
+		/// <summary>
+		/// Adds a set of filters to the collection.
+		/// </summary>
+		/// <param name="filters">A collection of filters.</param>
 		void Filter(IEnumerable<NotificationType> filters);
 	}
 
@@ -30,12 +41,20 @@ namespace Manatee.Trello
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter type.</param>
 		public void Filter(NotificationType filter)
 		{
 			var filters = filter.GetFlags().Cast<NotificationType>();
 			Filter(filters);
 		}
 
+		/// <summary>
+		/// Adds a set of filters to the collection.
+		/// </summary>
+		/// <param name="filters">A collection of filters.</param>
 		public void Filter(IEnumerable<NotificationType> filters)
 		{
 			if (_additionalParameters == null)

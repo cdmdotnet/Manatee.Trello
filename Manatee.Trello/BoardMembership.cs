@@ -8,6 +8,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the permission level a member has on a board.
+	/// </summary>
 	public interface IBoardMembership : ICacheable
 	{
 		/// <summary>

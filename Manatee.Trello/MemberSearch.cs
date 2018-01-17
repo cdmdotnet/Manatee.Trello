@@ -6,6 +6,9 @@ using Manatee.Trello.Internal.Validation;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Performs a search for members.
+	/// </summary>
 	public interface IMemberSearch
 	{
 		/// <summary>

@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A label.
+	/// </summary>
 	public interface ILabel : ICacheable
 	{
 		/// <summary>
@@ -62,12 +65,24 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Label.Board"/> should be fetched.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1,
+			/// <summary>
+			/// Indicates that <see cref="Label.Color"/> should be fetched.
+			/// </summary>
 			[Display(Description="color")]
 			Color = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Label.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Label.Uses"/> should be fetched.
+			/// </summary>
 			[Display(Description="uses")]
 			Uses = 1 << 3
 		}
@@ -79,6 +94,9 @@ namespace Manatee.Trello
 		private readonly LabelContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

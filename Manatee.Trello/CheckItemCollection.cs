@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of checklist items.
+	/// </summary>
 	public interface IReadOnlyCheckItemCollection : IReadOnlyCollection<ICheckItem>
 	{
 		/// <summary>

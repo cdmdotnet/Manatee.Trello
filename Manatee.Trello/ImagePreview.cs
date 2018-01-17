@@ -5,6 +5,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a preview for an attachment on a card.
+	/// </summary>
 	public interface IImagePreview : ICacheable
 	{
 		/// <summary>

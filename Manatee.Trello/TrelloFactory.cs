@@ -10,6 +10,7 @@ namespace Manatee.Trello
 		ICard Card(string id, TrelloAuthorization auth = null);
 		ICheckList CheckList(string id, TrelloAuthorization auth = null);
 		IList List(string id, TrelloAuthorization auth = null);
+		IMe Me();
 		IMember Member(string id, TrelloAuthorization auth = null);
 		INotification Notification(string id, TrelloAuthorization auth = null);
 		IOrganization Organization(string id, TrelloAuthorization auth = null);
@@ -54,6 +55,11 @@ namespace Manatee.Trello
 		public IList List(string id, TrelloAuthorization auth = null)
 		{
 			return new List(id, auth);
+		}
+
+		public IMe Me()
+		{
+			return Trello.Member.Me;
 		}
 
 		public IMember Member(string id, TrelloAuthorization auth = null)

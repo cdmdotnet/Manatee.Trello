@@ -10,6 +10,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a checklist.
+	/// </summary>
 	public interface ICheckList : ICacheable
 	{
 		/// <summary>
@@ -93,14 +96,29 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="CheckList.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
+			/// <summary>
+			/// Indicates that <see cref="CheckList.Board"/> should be fetched.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="CheckList.Card"/> should be fetched.
+			/// </summary>
 			[Display(Description="idCard")]
 			Card = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="CheckList.CheckItems"/> should be fetched.
+			/// </summary>
 			[Display(Description="checkItems")]
 			CheckItems = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="CheckList.Position"/> should be fetched.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 4
 		}
@@ -112,6 +130,9 @@ namespace Manatee.Trello
 		private readonly CheckListContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

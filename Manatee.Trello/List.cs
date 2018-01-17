@@ -10,6 +10,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a list.
+	/// </summary>
 	public interface IList : ICanWebhook
 	{
 		/// <summary>
@@ -94,16 +97,31 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="List.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
+			/// <summary>
+			/// Indicates that <see cref="List.IsArchived"/> should be fetched.
+			/// </summary>
 			[Display(Description="closed")]
-			IsClosed = 1 << 1, 
+			IsClosed = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="List.Board"/> should be fetched.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="List.Position"/> should be fetched.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="List.IsSubscribed"/> should be fetched.
+			/// </summary>
 			[Display(Description="subscribed")]
-			Susbcribed = 1 << 4
+			Subscribed = 1 << 4
 		}
 
 		private readonly Field<Board> _board;
@@ -116,6 +134,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

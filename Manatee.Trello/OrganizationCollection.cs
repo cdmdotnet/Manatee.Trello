@@ -10,6 +10,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of organizations.
+	/// </summary>
 	public interface IReadOnlyOrganizationCollection : IReadOnlyCollection<IOrganization>
 	{
 		/// <summary>
@@ -22,7 +25,11 @@ namespace Manatee.Trello
 		/// </remarks>
 		IOrganization this[string key] { get; }
 
-		void Filter(OrganizationFilter cardStatus);
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
+		void Filter(OrganizationFilter filter);
 	}
 
 	/// <summary>
@@ -51,11 +58,15 @@ namespace Manatee.Trello
 		/// </remarks>
 		public IOrganization this[string key] => GetByKey(key);
 
-		public void Filter(OrganizationFilter cardStatus)
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
+		public void Filter(OrganizationFilter filter)
 		{
 			if (_additionalParameters == null)
 				_additionalParameters = new Dictionary<string, object>();
-			_additionalParameters["filter"] = cardStatus.GetDescription();
+			_additionalParameters["filter"] = filter.GetDescription();
 		}
 
 		/// <summary>
@@ -83,6 +94,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of organizations.
+	/// </summary>
 	public interface IOrganizationCollection : IReadOnlyOrganizationCollection
 	{
 		/// <summary>

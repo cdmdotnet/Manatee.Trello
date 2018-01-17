@@ -12,6 +12,9 @@ using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents an organization.
+	/// </summary>
 	public interface IOrganization : ICanWebhook, IQueryable
 	{
 		/// <summary>
@@ -110,20 +113,44 @@ namespace Manatee.Trello
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Organization.Description"/> should be fetched.
+			/// </summary>
 			[Display(Description="desc")]
 			Description = 1,
+			/// <summary>
+			/// Indicates that <see cref="Organization.DisplayName"/> should be fetched.
+			/// </summary>
 			[Display(Description="displayName")]
 			DisplayName = 1 << 1,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="logoHash")]
 			LogoHash = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Organization.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Organization.PowerUpData"/> should be fetched.
+			/// </summary>
 			[Display(Description="powerUps")]
 			PowerUps = 1 << 5,
+			/// <summary>
+			/// Indicates that <see cref="Organization.Preferences"/> should be fetched.
+			/// </summary>
 			[Display(Description="prefs")]
 			Preferences = 1 << 6,
+			/// <summary>
+			/// Indicates that <see cref="Organization.Url"/> should be fetched.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 7,
+			/// <summary>
+			/// Indicates that <see cref="Organization.Website"/> should be fetched.
+			/// </summary>
 			[Display(Description="website")]
 			Website = 1 << 8
 		}
@@ -139,6 +166,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of board memberships.
+	/// </summary>
 	public interface IReadOnlyBoardMembershipCollection : IReadOnlyCollection<IBoardMembership>
 	{
 		/// <summary>
@@ -23,7 +26,15 @@ namespace Manatee.Trello
 		/// </remarks>
 		IBoardMembership this[string key] { get; }
 
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="membership">The filter value.</param>
 		void Filter(MembershipFilter membership);
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="memberships">The filter values.</param>
 		void Filter(IEnumerable<MembershipFilter> memberships);
 	}
 
@@ -98,6 +109,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of board memberships.
+	/// </summary>
 	public interface IBoardMembershipCollection : IReadOnlyBoardMembershipCollection
 	{
 		/// <summary>

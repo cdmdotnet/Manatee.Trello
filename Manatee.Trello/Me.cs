@@ -4,6 +4,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents the current member.
+	/// </summary>
 	public interface IMe : IMember
 	{
 		/// <summary>

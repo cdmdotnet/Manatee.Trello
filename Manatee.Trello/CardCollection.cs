@@ -10,6 +10,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of cards.
+	/// </summary>
 	public interface IReadOnlyCardCollection : IReadOnlyCollection<ICard>
 	{
 		/// <summary>
@@ -22,7 +25,16 @@ namespace Manatee.Trello
 		/// </remarks>
 		ICard this[string key] { get; }
 
-		void Filter(CardFilter cardStatus);
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
+		void Filter(CardFilter filter);
+		/// <summary>
+		/// Adds a filter to the collection based on start and end date.
+		/// </summary>
+		/// <param name="start">The start date.</param>
+		/// <param name="end">The end date.</param>
 		void Filter(DateTime? start, DateTime? end);
 	}
 
@@ -69,10 +81,14 @@ namespace Manatee.Trello
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
-		public void Filter(CardFilter cardStatus)
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
+		public void Filter(CardFilter filter)
 		{
 			// NOTE: See issue 109.  /1/lists/{listId}/cards does not support filter=visible
-			if (_updateRequestType == EntityRequestType.List_Read_Cards && cardStatus == CardFilter.Visible)
+			if (_updateRequestType == EntityRequestType.List_Read_Cards && filter == CardFilter.Visible)
 			{
 				_additionalParameters?.Remove("filter");
 				return;
@@ -80,8 +96,14 @@ namespace Manatee.Trello
 
 			if (_additionalParameters == null)
 				_additionalParameters = new Dictionary<string, object>();
-			_additionalParameters["filter"] = cardStatus.GetDescription();
+			_additionalParameters["filter"] = filter.GetDescription();
 		}
+
+		/// <summary>
+		/// Adds a filter to the collection based on start and end date.
+		/// </summary>
+		/// <param name="start">The start date.</param>
+		/// <param name="end">The end date.</param>
 		public void Filter(DateTime? start, DateTime? end)
 		{
 			if (_additionalParameters == null)
@@ -118,6 +140,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of cards.
+	/// </summary>
 	public interface ICardCollection : IReadOnlyCardCollection
 	{
 		/// <summary>

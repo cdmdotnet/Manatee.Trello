@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of organization memberships.
+	/// </summary>
 	public interface IReadOnlyOrganizationMembershipCollection : IReadOnlyCollection<IOrganizationMembership>
 	{
 		/// <summary>
@@ -23,7 +26,15 @@ namespace Manatee.Trello
 		/// </remarks>
 		IOrganizationMembership this[string key] { get; }
 
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
 		void Filter(MembershipFilter filter);
+		/// <summary>
+		/// Adds a set of filters to the collection.
+		/// </summary>
+		/// <param name="filters">The filter values.</param>
 		void Filter(IEnumerable<MembershipFilter> filters);
 	}
 
@@ -58,12 +69,20 @@ namespace Manatee.Trello
 		/// </remarks>
 		public IOrganizationMembership this[string key] => GetByKey(key);
 
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
 		public void Filter(MembershipFilter filter)
 		{
 			var filters = filter.GetFlags().Cast<MembershipFilter>();
 			Filter(filters);
 		}
 
+		/// <summary>
+		/// Adds a set of filters to the collection.
+		/// </summary>
+		/// <param name="filters">The filter values.</param>
 		public void Filter(IEnumerable<MembershipFilter> filters)
 		{
 			if (_additionalParameters == null)
@@ -98,6 +117,9 @@ namespace Manatee.Trello
 		}
 	}
 
+	/// <summary>
+	/// A collection of organization memberships.
+	/// </summary>
 	public interface IOrganizationMembershipCollection : IReadOnlyOrganizationMembershipCollection
 	{
 		/// <summary>
