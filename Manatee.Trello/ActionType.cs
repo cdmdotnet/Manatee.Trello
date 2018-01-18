@@ -24,16 +24,40 @@ namespace Manatee.Trello
 		public static readonly ActionType Unknown;
 
 		/// <summary>
+		/// Indicates a <see cref="Member"/> was added to a <see cref="Board"/>.
+		/// </summary>
+		[Display(Description = "addAdminToBoard")]
+		public static readonly ActionType AddAdminToBoard;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was added to a <see cref="Organization"/>.
+		/// </summary>
+		[Display(Description = "addAdminToOrganization")]
+		public static readonly ActionType AddAdminToOrganization;
+
+		/// <summary>
 		/// Indicates an <see cref="Attachment"/> was added to a <see cref="Card"/>.
 		/// </summary>
 		[Display(Description = "addAttachmentToCard")]
 		public static readonly ActionType AddAttachmentToCard;
 
 		/// <summary>
+		/// Indicates a <see cref="Member"/> pinned a <see cref="Board"/>.
+		/// </summary>
+		[Display(Description = "addBoardsPinnedToMember")]
+		public static readonly ActionType AddBoardsPinnedToMember;
+
+		/// <summary>
 		/// Indicates a <see cref="CheckList"/> was added to a <see cref="Card"/>.
 		/// </summary>
 		[Display(Description = "addChecklistToCard")]
 		public static readonly ActionType AddChecklistToCard;
+
+		/// <summary>
+		/// Indicates a <see cref="Label"/> was added to a <see cref="Card"/>.
+		/// </summary>
+		[Display(Description = "addLabelToCard")]
+		public static readonly ActionType AddLabelToCard;
 
 		/// <summary>
 		/// Indicates a <see cref="Member"/> was added to a <see cref="Board"/>.
@@ -84,6 +108,12 @@ namespace Manatee.Trello
 		public static readonly ActionType CopyCard;
 
 		/// <summary>
+		/// Indicates a <see cref="CheckList"/> was copied.
+		/// </summary>
+		[Display(Description = "copyChecklist")]
+		public static readonly ActionType CopyChecklist;
+
+		/// <summary>
 		/// Indicates a comment was copied from one <see cref="Card"/> to another.
 		/// </summary>
 		[Display(Description = "copyCommentCard")]
@@ -96,10 +126,34 @@ namespace Manatee.Trello
 		public static readonly ActionType CreateBoard;
 
 		/// <summary>
+		/// Indicates a <see cref="Member"/> was invided to a <see cref="Board"/>.
+		/// </summary>
+		[Display(Description = "createBoardInvitation")]
+		public static readonly ActionType CreateBoardInvitation;
+
+		/// <summary>
+		/// Indicates a <see cref="Board"/> preference was created.
+		/// </summary>
+		[Display(Description = "createBoardPreference")]
+		public static readonly ActionType CreateBoardPreference;
+
+		/// <summary>
 		/// Indicates a <see cref="Card"/> was created.
 		/// </summary>
 		[Display(Description = "createCard")]
 		public static readonly ActionType CreateCard;
+
+		/// <summary>
+		/// Indicates a <see cref="CheckList"/> was created.
+		/// </summary>
+		[Display(Description = "createChecklist")]
+		public static readonly ActionType CreateChecklist;
+
+		/// <summary>
+		/// Indicates a <see cref="Label"/> was created.
+		/// </summary>
+		[Display(Description = "createLabel")]
+		public static readonly ActionType CreateLabel;
 
 		/// <summary>
 		/// Indicates a <see cref="List"/> was created.
@@ -112,6 +166,12 @@ namespace Manatee.Trello
 		/// </summary>
 		[Display(Description = "createOrganization")]
 		public static readonly ActionType CreateOrganization;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was invided to an <see cref="Organization"/>.
+		/// </summary>
+		[Display(Description = "createOrganizationInvitation")]
+		public static readonly ActionType CreateOrganizationInvitation;
 
 		/// <summary>
 		/// Indicates an <see cref="Attachment"/> was deleted from a <see cref="Card"/>.
@@ -130,11 +190,30 @@ namespace Manatee.Trello
 		/// </summary>
 		[Display(Description = "deleteCard")]
 		public static readonly ActionType DeleteCard;
+
+		/// <summary>
+		/// Indicates a <see cref="CheckItem"/> was deleted.
+		/// </summary>
+		[Display(Description = "deleteCheckItem")]
+		public static readonly ActionType DeleteCheckItem;
+
+		/// <summary>
+		/// Indicates a <see cref="Label"/> was deleted.
+		/// </summary>
+		[Display(Description = "deleteLabel")]
+		public static readonly ActionType DeleteLabel;
+
 		/// <summary>
 		/// Indicates an invitation to an <see cref="Organization"/> was rescinded.
 		/// </summary>
 		[Display(Description = "deleteOrganizationInvitation")]
 		public static readonly ActionType DeleteOrganizationInvitation;
+
+		/// <summary>
+		/// Indicates a power-up was disabled.
+		/// </summary>
+		[Display(Description = "disablePlugin")]
+		public static readonly ActionType DisablePlugin;
 
 		/// <summary>
 		/// Indicates a power-up was disabled.
@@ -151,6 +230,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates a power-up was enabled.
 		/// </summary>
+		[Display(Description = "enablePlugin")]
+		public static readonly ActionType EnablePlugin;
+
+		/// <summary>
+		/// Indicates a power-up was enabled.
+		/// </summary>
 		[Display(Description = "enablePowerUp")]
 		public static readonly ActionType EnablePowerUp;
 
@@ -159,6 +244,12 @@ namespace Manatee.Trello
 		/// </summary>
 		[Display(Description = "makeAdminOfBoard")]
 		public static readonly ActionType MakeAdminOfBoard;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was made an admin of an <see cref="Organization"/>.
+		/// </summary>
+		[Display(Description = "makeAdminOfOrganization")]
+		public static readonly ActionType MakeAdminOfOrganization;
 
 		/// <summary>
 		/// Indicates a <see cref="Member"/> was made a normal <see cref="Member"/> of a <see cref="Board"/>.
@@ -209,6 +300,24 @@ namespace Manatee.Trello
 		public static readonly ActionType MoveListToBoard;
 
 		/// <summary>
+		/// Indicates a <see cref="Member"/> was removed as an admin from a <see cref="Board"/>.
+		/// </summary>
+		[Display(Description = "removeAdminFromBoard")]
+		public static readonly ActionType RemoveAdminFromBoard;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was removed as an admin from an <see cref="Organization"/>.
+		/// </summary>
+		[Display(Description = "removeAdminFromOrganization")]
+		public static readonly ActionType RemoveAdminFromOrganization;
+
+		/// <summary>
+		/// Indicates an <see cref="Member"/> unpinnned a <see cref="Board"/>.
+		/// </summary>
+		[Display(Description = "removeBoardsPinnedFromMember")]
+		public static readonly ActionType RemoveBoardsPinnedFromMember;
+
+		/// <summary>
 		/// Indicates a <see cref="CheckList"/> was removed from a <see cref="Card"/>.
 		/// </summary>
 		[Display(Description = "removeChecklistFromCard")]
@@ -221,10 +330,28 @@ namespace Manatee.Trello
 		public static readonly ActionType RemoveFromOrganizationBoard;
 
 		/// <summary>
+		/// Indicates a <see cref="Label"/> was removed from a <see cref="Card"/>.
+		/// </summary>
+		[Display(Description = "removeLabelFromCard")]
+		public static readonly ActionType RemoveLabelFromCard;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was removed from a <see cref="Board"/>.
+		/// </summary>
+		[Display(Description = "removeMemberFromBoard")]
+		public static readonly ActionType RemoveMemberFromBoard;
+
+		/// <summary>
 		/// Indicates a <see cref="Member"/> was removed from a <see cref="Card"/>.
 		/// </summary>
 		[Display(Description = "removeMemberFromCard")]
 		public static readonly ActionType RemoveMemberFromCard;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was removed from an <see cref="Organization"/>.
+		/// </summary>
+		[Display(Description = "removeMemberFromOrganization")]
+		public static readonly ActionType RemoveMemberFromOrganization;
 
 		/// <summary>
 		/// Indicates an invitation to a <see cref="Board"/> was created.
@@ -251,31 +378,13 @@ namespace Manatee.Trello
 		public static readonly ActionType UpdateCard;
 
 		/// <summary>
-		/// Indicates a <see cref="Card"/> was archived or unarchived.
+		/// Indicates a <see cref="CheckItem"/> was updated.
 		/// </summary>
-		[Display(Description = "updateCard:closed")]
-		public static readonly ActionType UpdateCardClosed;
+		[Display(Description = "updateCheckItem")]
+		public static readonly ActionType UpdateCheckItem;
 
 		/// <summary>
-		/// Indicates a <see cref="Card"/> description was updated.
-		/// </summary>
-		[Display(Description = "updateCard:desc")]
-		public static readonly ActionType UpdateCardDesc;
-
-		/// <summary>
-		/// Indicates a <see cref="Card"/> was moved to a new <see cref="List"/>.
-		/// </summary>
-		[Display(Description = "updateCard:idList")]
-		public static readonly ActionType UpdateCardIdList;
-
-		/// <summary>
-		/// Indicates a <see cref="Card"/> name was updated.
-		/// </summary>
-		[Display(Description = "updateCard:name")]
-		public static readonly ActionType UpdateCardName;
-
-		/// <summary>
-		/// Indicates a <see cref="CheckItem"/> was checked or unchecked.
+		/// Indicates a <see cref="CheckList"/> was updated.
 		/// </summary>
 		[Display(Description = "updateCheckItemStateOnCard")]
 		public static readonly ActionType UpdateCheckItemStateOnCard;
@@ -287,22 +396,16 @@ namespace Manatee.Trello
 		public static readonly ActionType UpdateChecklist;
 
 		/// <summary>
-		/// Indicates a <see cref="Member"/> updated a <see cref="List"/>.
+		/// Indicates a <see cref="Label"/> was updated.
+		/// </summary>
+		[Display(Description = "updateLabel")]
+		public static readonly ActionType UpdateLabel;
+
+		/// <summary>
+		/// Indicates a <see cref="List"/> was updated.
 		/// </summary>
 		[Display(Description = "updateList")]
 		public static readonly ActionType UpdateList;
-
-		/// <summary>
-		/// Indicates a <see cref="Member"/> archived a <see cref="List"/>.
-		/// </summary>
-		[Display(Description = "updateList:closed")]
-		public static readonly ActionType UpdateListClosed;
-
-		/// <summary>
-		/// Indicates a <see cref="Member"/> updated the name of a <see cref="List"/>.
-		/// </summary>
-		[Display(Description = "updateList:name")]
-		public static readonly ActionType UpdateListName;
 
 		/// <summary>
 		/// Indicates a <see cref="Member"/> was updated.
@@ -317,21 +420,15 @@ namespace Manatee.Trello
 		public static readonly ActionType UpdateOrganization;
 
 		/// <summary>
-		/// Indicates a plugin was enabled.
+		/// Indicates a <see cref="Member"/> voted for a <see cref="Card"/>.
 		/// </summary>
-		[Display(Description = "enablePlugin")]
-		public static readonly ActionType EnablePlugin;
-
-		/// <summary>
-		/// Indicates a plugin was disabled.
-		/// </summary>
-		[Display(Description = "disablePlugin")]
-		public static readonly ActionType DisablePlugin;
+		[Display(Description = "voteOnCard")]
+		public static readonly ActionType VoteOnCard;
 
 		/// <summary>
 		/// Indictes the default set of values returned by <see cref="Card.Actions"/>.
 		/// </summary>
-		public static ActionType DefaultForCardActions { get; } = CommentCard | UpdateCardIdList;
+		public static ActionType DefaultForCardActions { get; } = CommentCard | UpdateCard;
 		/// <summary>
 		/// Indicates all action types
 		/// </summary>
