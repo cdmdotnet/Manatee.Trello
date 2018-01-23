@@ -15,6 +15,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public IJsonCard CardSource { get; set; }
 		public IJsonCheckItem CheckItem { get; set; }
 		public IJsonCheckList CheckList { get; set; }
+		public IJsonLabel Label { get; set; }
 		public DateTime? DateLastEdited { get; set; }
 		public IJsonList List { get; set; }
 		public IJsonList ListAfter { get; set; }
@@ -37,6 +38,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Card = obj.Deserialize<IJsonCard>(serializer, "card");
 			CheckItem = obj.Deserialize<IJsonCheckItem>(serializer, "checkItem");
 			CheckList = obj.Deserialize<IJsonCheckList>(serializer, "checklist");
+			Label = obj.Deserialize<IJsonLabel>(serializer, "label");
 			DateLastEdited = obj.Deserialize<DateTime?>(serializer, "dateLastEdited");
 			List = obj.Deserialize<IJsonList>(serializer, "list");
 			ListAfter = obj.Deserialize<IJsonList>(serializer, "listAfter");
