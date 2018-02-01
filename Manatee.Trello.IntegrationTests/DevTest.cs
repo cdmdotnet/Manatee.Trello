@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.CustomFields;
+using System.Linq;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Tests.Common;
 using Manatee.Trello.WebApi;
@@ -17,10 +17,13 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			Run(() =>
 				{
-					var card = new Card(TrelloIds.CardId);
-					Console.WriteLine(card);
+					var list = new List(TrelloIds.ListId);
+					var card = list.Cards[0];
+					Console.WriteLine(card.Id);
 
-					OutputCollection("fields", card.CustomFields());
+					Console.WriteLine(card.Attachments[0].Url);
+
+					//OutputCollection("attachments", card.Attachments);
 				});
 		}
 

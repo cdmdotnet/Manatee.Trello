@@ -31,7 +31,7 @@ namespace Manatee.Trello
 			Name = 1 << 5,
 			[Display(Description="previews")]
 			Previews = 1 << 6,
-			[Display(Description="uri")]
+			[Display(Description="url")]
 			Url = 1 << 7
 		}
 
