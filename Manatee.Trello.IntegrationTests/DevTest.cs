@@ -12,16 +12,17 @@ namespace Manatee.Trello.IntegrationTests
 	public class DevTest
 	{
 		[Test]
-		[Ignore("This test fixture for development purposes only.")]
+		//[Ignore("This test fixture for development purposes only.")]
 		public void TestMethod1()
 		{
 			Run(() =>
 				{
 					var list = new List(TrelloIds.ListId);
 					var card = list.Cards[0];
-					Console.WriteLine(card.Id);
 
-					Console.WriteLine(card.Attachments[0].Url);
+					var attachment = card.Attachments.Add("https://somethingmassive.com/wp-content/themes/somethingmassive16/assets/images/logo-full.svg", "test");
+
+					Console.WriteLine(attachment.Id);
 
 					//OutputCollection("attachments", card.Attachments);
 				});
