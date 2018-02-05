@@ -252,6 +252,18 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the board to be refreshed the next time data is accessed.
 		/// </summary>
+		/// <summary>
+		/// Deletes the card.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		public void Delete()
+		{
+			_context.Delete();
+			TrelloConfiguration.Cache.Remove(this);
+		}
 		public void Refresh()
 		{
 			_context.Expire();
