@@ -23,6 +23,7 @@
 		Board_Write_AddLabel,
 		Board_Write_AddList,
 		Board_Write_AddOrUpdateMember,
+		Board_Write_Delete,
 		Board_Write_PersonalPrefs,
 		Board_Write_RemoveLabel,
 		Board_Write_RemoveMember,
