@@ -250,9 +250,6 @@ namespace Manatee.Trello
 			_context.Merge(action.Data.Board.Json);
 		}
 		/// <summary>
-		/// Marks the board to be refreshed the next time data is accessed.
-		/// </summary>
-		/// <summary>
 		/// Deletes the card.
 		/// </summary>
 		/// <remarks>
@@ -264,6 +261,9 @@ namespace Manatee.Trello
 			_context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
 		}
+		/// <summary>
+		/// Marks the board to be refreshed the next time data is accessed.
+		/// </summary>
 		public void Refresh()
 		{
 			_context.Expire();
