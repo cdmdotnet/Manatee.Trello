@@ -100,3 +100,7 @@ See the wiki pages for more information on how to use this wonderful library!
 If you like this library and would like to contribute, feel free to fork it and create a pull request.
 
 If you experience any problems or just have an idea to improve, please create an issue.
+
+If you've enjoyed using this library and you'd like to contribute financially, please use the button below.
+
+[![Donate](https://i.imgur.com/Fkk2ET1.png)](https://gogetfunding.com/campaign_funds/?pre=5486922)
