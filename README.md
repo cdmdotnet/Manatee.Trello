@@ -97,9 +97,25 @@ See the wiki pages for more information on how to use this wonderful library!
 
 ## Contributing
 
-If you like this library and would like to contribute, feel free to fork it and create a pull request.
+If you have questions, experience problems, or feature ideas, please create an issue.
 
-If you experience any problems or just have an idea to improve, please create an issue.
+If you'd like to help out with the code, please feel free to fork and create a pull request.
+
+### The Project
+
+This code uses C# 7 features, so a compiler/IDE that supports these features is required.
+
+The project is a single project that targets both .Net Framework 4.6 and .Net Standard 1.3.
+
+### Building
+
+During development, building within Visual Studio should be fine.  There is a build script in the root directory, but I use that for CI and to generate Nuget packages.
+
+### Code style and maintenance
+
+I use [Jetbrains Resharper](https://www.jetbrains.com/resharper/) in Visual Studio to maintain the code style (and for many of the other things that it does).  The solution is set up with team style settings, so if you're using Resharper the settings should automatically load.  Please follow the suggestions.
+
+### Appreciation
 
 If you've enjoyed using this library and you'd like to contribute financially, please use the button below.
 
