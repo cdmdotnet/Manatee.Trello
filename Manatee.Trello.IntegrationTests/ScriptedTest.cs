@@ -7,6 +7,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
+	[Ignore("This is not ready")]
 	public class ScriptedTest
 	{
 		[OneTimeSetUp]
