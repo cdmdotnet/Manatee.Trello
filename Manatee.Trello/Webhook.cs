@@ -26,7 +26,7 @@ namespace Manatee.Trello
 			var notification = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhookNotification>(content);
 			var action = new Action(notification.Action, auth);
 
-			foreach (var obj in TrelloConfiguration.Cache.OfType<ICanWebhook>())
+			foreach (var obj in TrelloConfiguration.Cache.OfType<ICanWebhook>().ToList())
 			{
 				obj.ApplyAction(action);
 			}
