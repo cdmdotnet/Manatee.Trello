@@ -16,8 +16,8 @@ namespace Manatee.Trello.Exceptions
 		/// <summary>
 		/// Creates a new instance of the <see cref="ValidationException{T}"/> object.
 		/// </summary>
-		/// <param name="value"></param>
-		/// <param name="errors"></param>
+		/// <param name="value">The value that was passed.</param>
+		/// <param name="errors">The reasons the value did not pass validation.</param>
 		public ValidationException(T value, IEnumerable<string> errors)
 			: base($"'{value}' is not a valid value.")
 		{

@@ -46,7 +46,7 @@ namespace Manatee.Trello
 			return collection;
 		}
 		/// <summary>
-		/// 
+		/// Filters a <see cref="ReadOnlyActionCollection"/> for a given date range.
 		/// </summary>
 		/// <param name="actions">The <see cref="ReadOnlyActionCollection"/></param>
 		/// <param name="start">The desired start date.</param>

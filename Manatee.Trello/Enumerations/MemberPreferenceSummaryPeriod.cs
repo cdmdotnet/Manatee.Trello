@@ -14,14 +14,12 @@ namespace Manatee.Trello
 		[Display(Description="disabled")]
 		Disabled = -1,
 		/// <summary>
-		/// Indicates that summary emails should be sent every minute, when notifications
-		/// are present.
+		/// Indicates that summary emails should be sent every minute, when notifications are present.
 		/// </summary>
 		[Display(Description="oneMinute")]
 		OneMinute = 1,
 		/// <summary>
-		/// Indicates that summary emails should be sent every hour, when notifications
-		/// are present.
+		/// Indicates that summary emails should be sent every hour, when notifications are present.
 		/// </summary>
 		[Display(Description="oneHour")]
 		OneHour = 60

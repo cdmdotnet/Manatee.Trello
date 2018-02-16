@@ -38,8 +38,7 @@ namespace Manatee.Trello.Json
 		[JsonSerialize(IsRequired = true)]
 		string Query { get; set; }
 		/// <summary>
-		/// Gets or sets a collection of boards, cards, and organizations within
-		/// which the search should run.
+		/// Gets or sets a collection of boards, cards, and organizations within which the search should run.
 		/// </summary>
 		[JsonSerialize]
 		List<IJsonCacheable> Context { get; set; }

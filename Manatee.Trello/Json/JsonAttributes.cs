@@ -9,8 +9,7 @@ namespace Manatee.Trello.Json
 	public class JsonDeserializeAttribute : Attribute {}
 
 	/// <summary>
-	/// Declares that the JSON property should be serialized and whether it
-	/// is optional or required.
+	/// Declares that the JSON property should be serialized and whether it is optional or required.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
 	public class JsonSerializeAttribute : Attribute

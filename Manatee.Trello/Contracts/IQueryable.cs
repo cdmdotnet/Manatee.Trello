@@ -1,7 +1,7 @@
 ﻿namespace Manatee.Trello.Contracts
 {
 	/// <summary>
-	/// Defines properties which are required to perform a search within an object.
+	/// Provides a marker to identify searchable types.
 	/// </summary>
 	public interface IQueryable : ICacheable {}
 }
