@@ -8,7 +8,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// A read-only collection of actions.
+	/// A read-only collection of power-up data.
 	/// </summary>
 	public class ReadOnlyPowerUpDataCollection : ReadOnlyCollection<PowerUpData>
 	{

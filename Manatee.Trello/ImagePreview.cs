@@ -9,7 +9,7 @@ namespace Manatee.Trello
 	/// Represents a preview for an image.
 	/// </summary>
 	/// <remarks>
-	/// Used for card <see cref="Attachment"/>s and <see cref="BoardBackground"/>s.
+	/// Used for card <see cref="Attachment"/>s, <see cref="BoardBackground"/>s, and <see cref="Sticker"/>s.
 	/// </remarks>
 	public class ImagePreview : ICacheable
 	{

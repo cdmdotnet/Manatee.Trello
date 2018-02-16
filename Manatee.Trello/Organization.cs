@@ -156,8 +156,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Organization"/> object.
 		/// </summary>
 		/// <param name="id">The organization's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full ID or the organization's name.
 		/// </remarks>
@@ -201,11 +200,10 @@ namespace Manatee.Trello
 			_context.Merge(action.Data.Organization.Json);
 		}
 		/// <summary>
-		/// Deletes the organization.
+		/// Permanently deletes the organization from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the organization from Trello's server, however, this
-		/// object will remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -220,12 +218,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="DisplayName"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return DisplayName;

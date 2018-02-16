@@ -64,9 +64,8 @@ namespace Manatee.Trello
 		/// Returns an enumerator that iterates through a collection.
 		/// </summary>
 		/// <returns>
-		/// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+		/// An <see cref="IEnumerator"/> object that can be used to iterate through the collection.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();

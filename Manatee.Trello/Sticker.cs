@@ -179,11 +179,10 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Add(this);
 		}
 		/// <summary>
-		/// Deletes the card.
+		/// Permanently deletes the sticker from Trello.  To remove a sticker from a card, use <see cref="CardStickerCollection.Remove"/>
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{

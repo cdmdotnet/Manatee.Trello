@@ -4,7 +4,7 @@ using Manatee.Trello.Internal;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Contains authorization tokens needed to connect to trello.com.
+	/// Contains authorization tokens needed to connect to Trello's API.
 	/// </summary>
 	public class TrelloAuthorization
 	{

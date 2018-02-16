@@ -107,8 +107,7 @@ namespace Manatee.Trello
 		/// <param name="target"></param>
 		/// <param name="description"></param>
 		/// <param name="callBackUrl"></param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Webhook(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
 		{
 			_context = new WebhookContext<T>(auth);
@@ -128,8 +127,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object for a webhook which has already been registered with Trello.
 		/// </summary>
 		/// <param name="id">The id.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Webhook(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
@@ -153,11 +151,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the webhook.
+		/// Permanently deletes the webhook from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{

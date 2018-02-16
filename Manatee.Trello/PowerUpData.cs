@@ -6,7 +6,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Represents the data associated with a plugin.
+	/// Represents the data associated with a power-up.
 	/// </summary>
 	public class PowerUpData : ICacheable
 	{
@@ -19,7 +19,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Id { get; }
 		/// <summary>
-		/// Gets the ID for the plugin with which this data is associated.
+		/// Gets the ID for the power-up with which this data is associated.
 		/// </summary>
 		public string PluginId => _pluginId.Value;
 		/// <summary>

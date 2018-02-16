@@ -5,8 +5,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Represents the position of a checklist in a card, a card in a list,
-	/// or list in a board
+	/// Represents the position of a checklist in a card, a card in a list, or list in a board
 	/// </summary>
 	public class Position : IComparable, IComparable<Position>
 	{
@@ -89,8 +88,8 @@ namespace Manatee.Trello
 		/// Compares the current object with another object of the same type.
 		/// </summary>
 		/// <returns>
-		/// A value that indicates the relative order of the objects being compared. The return
-		/// value has the following meanings:
+		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings:
+		/// 
 		///     Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.
 		///     Zero This object is equal to <paramref name="other"/>.
 		///     Greater than zero This object is greater than <paramref name="other"/>. 
@@ -101,22 +100,19 @@ namespace Manatee.Trello
 			return Value.CompareTo(other.Value);
 		}
 		/// <summary>
-		/// Compares the current instance with another object of the same type and returns an integer that
-		/// indicates whether the current instance precedes, follows, or occurs in the same position in the
-		/// sort order as the other object.
+		/// Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
 		/// </summary>
 		/// <returns>
-		/// A value that indicates the relative order of the objects being compared. The return
-		/// value has these meanings:
+		/// A value that indicates the relative order of the objects being compared. The return value has these meanings:
+		/// 
 		///     Value Meaning Less than zero This instance precedes <paramref name="obj"/> in the sort order.
 		///     Zero This instance occurs in the same position in the sort order as <paramref name="obj"/>.
 		///     Greater than zero This instance follows <paramref name="obj"/> in the sort order. 
 		/// </returns>
 		/// <param name="obj">An object to compare with this instance. </param>
-		/// <exception cref="T:System.ArgumentException">
+		/// <exception cref="ArgumentException">
 		/// <paramref name="obj"/> is not the same type as this instance.
 		/// </exception>
-		/// <filterpriority>2</filterpriority>
 		public int CompareTo(object obj)
 		{
 			return ((IComparable) Value).CompareTo(obj);
@@ -127,7 +123,6 @@ namespace Manatee.Trello
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			if (Equals(Unknown)) return "unknown";
@@ -264,7 +259,6 @@ namespace Manatee.Trello
 		/// <returns>
 		/// A hash code for the current <see cref="T:System.Object"/>.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override int GetHashCode()
 		{
 			return Value.GetHashCode();

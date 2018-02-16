@@ -52,12 +52,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns an HTML-compatible color code.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return $"#{Red:X2}{Green:X2}{Blue:X2}";
