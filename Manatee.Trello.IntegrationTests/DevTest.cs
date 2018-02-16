@@ -20,11 +20,13 @@ namespace Manatee.Trello.IntegrationTests
 					var list = new List(TrelloIds.ListId);
 					var card = list.Cards[0];
 
-					var attachment = card.Attachments.Add("https://somethingmassive.com/wp-content/themes/somethingmassive16/assets/images/logo-full.svg", "test");
+					var comment = card.Comments.Add("this is only a test.");
 
-					Console.WriteLine(attachment.Id);
+					//Console.WriteLine(attachment.Id);
 
 					//OutputCollection("attachments", card.Attachments);
+
+					comment.Delete();
 				});
 		}
 

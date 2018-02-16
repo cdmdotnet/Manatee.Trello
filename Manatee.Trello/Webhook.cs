@@ -76,7 +76,7 @@ namespace Manatee.Trello
 			set { _description.Value = value; }
 		}
 		/// <summary>
-		/// Gets the webhook's ID>
+		/// Gets the webhook's ID.
 		/// </summary>
 		public string Id { get; private set; }
 		/// <summary>
@@ -127,7 +127,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object for a webhook which has already been registered with Trello.
 		/// </summary>
-		/// <param name="id"></param>
+		/// <param name="id">The id.</param>
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Webhook(string id, TrelloAuthorization auth = null)

@@ -37,18 +37,40 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets an assocated attachment.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddAttachmentToCard
+		///	- DeleteAttachmentFromCard
+		/// </associated-action-types>
 		public Attachment Attachment => _attachment.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddMemberToBoard
+		/// - AddToOrganizationBoard
+		/// - CreateBoard
+		/// - DeleteBoardInvitation
+		/// - MakeAdminOfBoard
+		/// - MakeNormalMemberOfBoard
+		/// - MakeObserverOfBoard
+		/// - RemoveFromOrganizationBoard
+		/// - UnconfirmedBoardInvitation
+		/// - UpdateBoard
+		/// </associated-action-types>
 		public Board Board => _board.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CopyBoard
+		/// </associated-action-types>
 		public Board BoardSource => _boardSource.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CopyBoard
+		/// </associated-action-types>
 		public Board BoardTarget => _boardTarget.Value;
 		/// <summary>
 		/// Gets an assocated card.
@@ -77,18 +99,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the current list.
 		/// </summary>
-		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
-		/// </remarks>
 		public List ListAfter => _listAfter.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
-		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
-		/// </remarks>
 		public List ListBefore => _listBefore.Value;
 		/// <summary>
 		/// Gets an assocated member.
@@ -101,10 +115,6 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
-		/// <remarks>
-		/// For some action types, this information may be in the <see cref="ListAfter"/>
-		/// or <see cref="ListBefore"/> properties.
-		/// </remarks>
 		public List OldList => _oldList.Value;
 		/// <summary>
 		/// Gets the previous position.

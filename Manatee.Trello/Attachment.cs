@@ -128,10 +128,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the attachment.
+		/// Permanently deletes the attachment from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This cannot be undone.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -139,12 +139,11 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>.
 		/// </summary>
 		/// <returns>
-		/// A string that represents the current object.
+		/// A string that represents the attachment.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;
