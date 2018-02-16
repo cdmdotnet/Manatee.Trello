@@ -6,8 +6,11 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Represents a preview for an attachment on a card.
+	/// Represents a preview for an image.
 	/// </summary>
+	/// <remarks>
+	/// Used for card <see cref="Attachment"/>s and <see cref="BoardBackground"/>s.
+	/// </remarks>
 	public class ImagePreview : ICacheable
 	{
 		private DateTime? _creation;

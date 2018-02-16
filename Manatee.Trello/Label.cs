@@ -37,7 +37,7 @@ namespace Manatee.Trello
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
-		/// Gets the <see cref="Board"/> on which the label is defined.
+		/// Gets the board on which the label is defined.
 		/// </summary>
 		public Board Board => _board.Value;
 		/// <summary>
@@ -99,11 +99,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the label.  All usages of the label will also be removed.
+		/// Permanently deletes the label and all of its usages from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the label from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.  Any cards that have the label assigned will update as normal.
 		/// </remarks>
 		public void Delete()
 		{
@@ -118,12 +117,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/> and <see cref="Color"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			if (Name.IsNullOrWhiteSpace() && !Color.HasValue)

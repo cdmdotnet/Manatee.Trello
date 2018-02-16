@@ -77,7 +77,7 @@ namespace Manatee.Trello
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
-		/// Returns the <see cref="Member"/> associated with the current User Token.
+		/// Returns the <see cref="Member"/> associated with the default <see cref="TrelloAuthorization.UserToken"/>.
 		/// </summary>
 		public static Me Me => _me ?? (_me = new Me());
 
@@ -155,8 +155,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public bool? IsConfirmed => _isConfirmed.Value;
 		/// <summary>
-		/// Gets a string which can be used in comments or descriptions to mention another
-		/// user.  The user will receive notification that they've been mentioned.
+		/// Gets a string which can be used in comments or descriptions to mention another user.  The user will receive notification that they've been mentioned.
 		/// </summary>
 		public string Mention => $"@{UserName}";
 		/// <summary>
@@ -200,8 +199,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Member"/> object.
 		/// </summary>
 		/// <param name="id">The member's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full ID or the username.
 		/// </remarks>
@@ -258,12 +256,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="FullName"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return FullName;

@@ -347,7 +347,7 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>, or <see cref="ShortId"/> if the card has been deleted.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.

@@ -24,7 +24,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching board, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on Board.Id and Board.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="Board.Id"/> and <see cref="Board.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public Board this[string key] => GetByKey(key);
 

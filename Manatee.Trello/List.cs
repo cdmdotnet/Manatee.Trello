@@ -122,7 +122,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching card, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="Card.Id"/> and <see cref="Card.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public Card this[string key] => Cards[key];
 		/// <summary>
@@ -150,8 +150,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="List"/> object.
 		/// </summary>
 		/// <param name="id">The list's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public List(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;

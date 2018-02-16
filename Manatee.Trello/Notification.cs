@@ -57,11 +57,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public Member Creator => _creator.Value;
 		/// <summary>
-		/// Gets any data associated with the notification.
+		/// Gets any data associated.
 		/// </summary>
 		public NotificationData Data { get; }
 		/// <summary>
-		/// Gets the date and teim at which the notification was issued.
+		/// Gets the date and time at which the notification was issued.
 		/// </summary>
 		public DateTime? Date => _date.Value;
 		/// <summary>
@@ -145,12 +145,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns a string that represents the notification.  The content will vary based on the value of <see cref="Type"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Notification type could not be determined.";
