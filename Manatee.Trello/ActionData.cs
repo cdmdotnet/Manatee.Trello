@@ -69,24 +69,58 @@ namespace Manatee.Trello
 		/// Gets an assocated board.
 		/// </summary>
 		/// <associated-action-types>
-		/// - CopyBoard
+		/// - CopyBoardx
 		/// </associated-action-types>
 		public Board BoardTarget => _boardTarget.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddAttachmentToCard
+		/// - AddChecklistToCard
+		/// - AddMemberToCard
+		/// - CommentCard
+		/// - ConvertToCardFromCheckItem
+		/// - CopyCommentCard
+		/// - CreateCard
+		/// - DeleteAttachmentFromCard
+		/// - DeleteCard
+		/// - EmailCard
+		/// - MoveCardFromBoard
+		/// - MoveCardToBoard
+		/// - RemoveChecklistFromCard
+		/// - RemoveMemberFromCard
+		/// - UpdateCard
+		/// - UpdateCardClosed
+		/// - UpdateCardDesc
+		/// - UpdateCardIdList
+		/// - UpdateCardName
+		/// - UpdateCheckItemStateOnCard
+		/// </associated-action-types>
 		public Card Card => _card.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CopyCard
+		/// </associated-action-types>
 		public Card CardSource => _cardSource.Value;
 		/// <summary>
 		/// Gets an assocated checklist item.
 		/// </summary>
+		/// <associated-action-types>
+		/// - ConvertToCardFromCheckItem
+		/// - UpdateCheckItemStateOnCard
+		/// </associated-action-types>
 		public CheckItem CheckItem => _checkItem.Value;
 		/// <summary>
 		/// Gets an assocated checklist.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddChecklistToCard
+		/// - RemoveChecklistFromCard
+		/// - UpdateChecklist
+		/// </associated-action-types>
 		public CheckList CheckList => _checkList.Value;
 		/// <summary>
 		/// Gets the date/time a comment was last edited.
@@ -95,46 +129,103 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets an assocated list.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CreateList
+		/// - MoveListFromBoard
+		/// - MoveListToBoard
+		/// - UpdateList
+		/// - UpdateListClosed
+		/// - UpdateListName
+		/// </associated-action-types>
 		public List List => _list.Value;
 		/// <summary>
 		/// Gets the current list.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCardIdList
+		/// </associated-action-types>
 		public List ListAfter => _listAfter.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCardIdList
+		/// </associated-action-types>
 		public List ListBefore => _listBefore.Value;
 		/// <summary>
 		/// Gets an assocated member.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddMemberToBoard
+		/// - AddMemberToCard
+		/// - AddMemberToOrganization
+		/// - MakeNormalMemberOfBoard
+		/// - MakeNormalMemberOfOrganization
+		/// - MemberJoinedTrello
+		/// - RemoveMemberFromCard
+		/// - UpdateMember
+		/// </associated-action-types>
 		public Member Member => _member.Value;
 		/// <summary>
 		/// Gets the previous description.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCard
+		/// - UpdateCardDesc
+		/// </associated-action-types>
 		public string OldDescription => _oldDescription.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCard
+		/// - UpdateCardIdList
+		/// </associated-action-types>
 		public List OldList => _oldList.Value;
 		/// <summary>
 		/// Gets the previous position.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCard
+		/// - UpdateList
+		/// </associated-action-types>
 		public Position OldPosition => _oldPosition.Value;
 		/// <summary>
 		/// Gets the previous text value. 
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCard
+		/// - CommentCard
+		/// </associated-action-types>
 		public string OldText => _oldText.Value;
 		/// <summary>
 		/// Gets an associated organization.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddMemberToOrganization
+		/// - AddToOrganizationBoard
+		/// - CreateOrganization
+		/// - DeleteOrganizationInvitation
+		/// - MakeNormalMemberOfOrganization
+		/// - RemoveFromOrganizationBoard
+		/// - UnconfirmedOrganizationInvitation
+		/// - UpdateOrganization
+		/// </associated-action-types>
 		public Organization Organization => _organization.Value;
 		/// <summary>
 		/// Gets an associated power-up.
 		/// </summary>
+		/// <associated-action-types>
+		/// - DisablePowerUp
+		/// - EnablePowerUp
+		/// </associated-action-types>
 		public PowerUpBase PowerUp => _powerUp.Value;
 		/// <summary>
 		/// Gets assocated text.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CommentCard
+		/// </associated-action-types>
 		public string Text
 		{
 			get { return _text.Value; }
@@ -143,6 +234,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the object was previously archived.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCardClosed
+		/// - UpdateListClosed
+		/// </associated-action-types>
 		public bool? WasArchived => _wasArchived.Value;
 		/// <summary>
 		/// Gets a custom value associate with the action if any.

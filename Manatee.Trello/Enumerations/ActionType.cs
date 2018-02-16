@@ -50,7 +50,7 @@ namespace Manatee.Trello
 		[Display(Description="commentCard")]
 		CommentCard = 1L << 6,
 		/// <summary>
-		/// Indicates a <see cref="CheckList"/> item was converted to <see cref="Card"/>.
+		/// Indicates a <see cref="CheckItem"/> item was converted to <see cref="Card"/>.
 		/// </summary>
 		[Display(Description="convertToCardFromCheckItem")]
 		ConvertToCardFromCheckItem = 1L << 7,
@@ -235,17 +235,17 @@ namespace Manatee.Trello
 		[Display(Description="updateChecklist")]
 		UpdateChecklist = 1L << 43,
 		/// <summary>
-		/// Indicates a <see cref="Member"/> updated a <see cref="List"/>.
+		/// Indicates a<see cref="List"/> was updated.
 		/// </summary>
 		[Display(Description="updateList")]
 		UpdateList = 1L << 44,
 		/// <summary>
-		/// Indicates a <see cref="Member"/> archived a <see cref="List"/>.
+		/// Indicates a <see cref="List"/> was archived.
 		/// </summary>
 		[Display(Description="updateList:closed")]
 		UpdateListClosed = 1L << 45,
 		/// <summary>
-		/// Indicates a <see cref="Member"/> updated the name of a <see cref="List"/>.
+		/// Indicates the name of a <see cref="List"/> was updated.
 		/// </summary>
 		[Display(Description="updateList:name")]
 		UpdateListName = 1L << 46,

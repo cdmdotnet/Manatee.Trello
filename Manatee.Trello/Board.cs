@@ -50,11 +50,11 @@ namespace Manatee.Trello
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
-		/// Gets the collection of actions performed on and within this board.
+		/// Gets the collection of actions performed on and within the board.
 		/// </summary>
 		public ReadOnlyActionCollection Actions { get; }
 		/// <summary>
-		/// Gets the collection of cards contained within this board.
+		/// Gets the collection of cards contained within the board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived cards.
@@ -94,7 +94,7 @@ namespace Manatee.Trello
 			private set { _id = value; }
 		}
 		/// <summary>
-		/// Gets or sets whether this board is closed.
+		/// Gets or sets whether the board is closed.
 		/// </summary>
 		public bool? IsClosed
 		{
@@ -102,7 +102,7 @@ namespace Manatee.Trello
 			set { _isClosed.Value = value; }
 		}
 		/// <summary>
-		/// Gets or sets whether the current member is subscribed to this board.
+		/// Gets or sets whether the current member is subscribed to the board.
 		/// </summary>
 		public bool? IsSubscribed
 		{
@@ -110,22 +110,22 @@ namespace Manatee.Trello
 			set { _isSubscribed.Value = value; }
 		}
 		/// <summary>
-		/// Gets the collection of labels for this board.
+		/// Gets the collection of labels for the board.
 		/// </summary>
 		public BoardLabelCollection Labels { get; }
 		/// <summary>
-		/// Gets the collection of lists on this board.
+		/// Gets the collection of lists on the board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived lists.
 		/// </remarks>
 		public ListCollection Lists { get; }
 		/// <summary>
-		/// Gets the collection of members on this board.
+		/// Gets the collection of members on the board.
 		/// </summary>
 		public ReadOnlyMemberCollection Members { get; }
 		/// <summary>
-		/// Gets the collection of members and their privileges on this board.
+		/// Gets the collection of members and their privileges on the board.
 		/// </summary>
 		public BoardMembershipCollection Memberships { get; }
 		/// <summary>
@@ -137,7 +137,7 @@ namespace Manatee.Trello
 			set { _name.Value = value; }
 		}
 		/// <summary>
-		/// Gets or sets the organization to which this board belongs.
+		/// Gets or sets the organization to which the board belongs.
 		/// </summary>
 		/// <remarks>
 		/// Setting null makes the board's first admin the owner.
@@ -250,11 +250,10 @@ namespace Manatee.Trello
 			_context.Merge(action.Data.Board.Json);
 		}
 		/// <summary>
-		/// Deletes the card.
+		/// Permanently deletes the board from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -269,12 +268,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>.
 		/// </summary>
 		/// <returns>
-		/// A string that represents the current object.
+		/// A string that represents the attachment.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;
