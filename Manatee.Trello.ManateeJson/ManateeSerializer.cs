@@ -96,7 +96,6 @@ namespace Manatee.Trello.ManateeJson
 			serializer.AbstractionMap.Map<IJsonList, ManateeList>();
 			serializer.AbstractionMap.Map<IJsonMember, ManateeMember>();
 			serializer.AbstractionMap.Map<IJsonMemberSearch, ManateeMemberSearch>();
-			serializer.AbstractionMap.Map<IJsonMemberSession, ManateeMemberSession>();
 			serializer.AbstractionMap.Map<IJsonMemberPreferences, ManateeMemberPreferences>();
 			serializer.AbstractionMap.Map<IJsonNotification, ManateeNotification>();
 			serializer.AbstractionMap.Map<IJsonNotificationData, ManateeNotificationData>();
