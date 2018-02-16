@@ -94,7 +94,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching check list item, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="CheckItem.Id"/> and <see cref="CheckItem.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public CheckItem this[string key] => CheckItems[key];
 		/// <summary>
@@ -122,8 +122,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="CheckList"/> object.
 		/// </summary>
 		/// <param name="id">The check list's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public CheckList(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
@@ -149,11 +148,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the checklist.
+		/// Permanently deletes the check list from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the checklist from Trello's server, however, this object
-		/// will remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -161,7 +159,7 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
-		/// Marks the checklist to be refreshed the next time data is accessed.
+		/// Marks the check list to be refreshed the next time data is accessed.
 		/// </summary>
 		public void Refresh()
 		{
@@ -173,7 +171,6 @@ namespace Manatee.Trello
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

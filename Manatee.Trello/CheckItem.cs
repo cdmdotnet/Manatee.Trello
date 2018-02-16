@@ -121,8 +121,7 @@ namespace Manatee.Trello
 		/// Deletes the checklist item.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the checklist item from Trello's server, however, this
-		/// object will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the checklist item from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -142,7 +141,6 @@ namespace Manatee.Trello
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

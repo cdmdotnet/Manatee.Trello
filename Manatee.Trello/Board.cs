@@ -203,8 +203,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Board"/> object.
 		/// </summary>
 		/// <param name="id">The board's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Board(string id, TrelloAuthorization auth = null)
 		{
 			Auth = auth;

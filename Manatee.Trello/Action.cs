@@ -152,8 +152,7 @@ namespace Manatee.Trello
 		/// Creates a new <see cref="Action"/> instance.
 		/// </summary>
 		/// <param name="id">The action's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Action(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;

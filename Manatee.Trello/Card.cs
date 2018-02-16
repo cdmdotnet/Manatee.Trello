@@ -86,7 +86,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public AttachmentCollection Attachments { get; }
 		/// <summary>
-		/// Gets the badges summarizing the content of the card.
+		/// Gets the badges summarizing the card's content.
 		/// </summary>
 		public Badges Badges { get; }
 		/// <summary>
@@ -207,7 +207,7 @@ namespace Manatee.Trello
 			set { _position.Value = value; }
 		}
 		/// <summary>
-		/// Gets specific data regarding power-ups.
+		/// Gets card-specific power-up data.
 		/// </summary>
 		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		/// <summary>
@@ -243,7 +243,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching check list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on CheckList.Id and CheckList.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="CheckList.Id"/> and <see cref="CheckList.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public CheckList this[string key] => CheckLists[key];
 		/// <summary>
@@ -271,8 +271,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Card"/> object.
 		/// </summary>
 		/// <param name="id">The card's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full or short ID.
 		/// </remarks>
@@ -330,11 +329,10 @@ namespace Manatee.Trello
 			_context.Merge(action.Data.Card.Json);
 		}
 		/// <summary>
-		/// Deletes the card.
+		/// Permanently deletes the card from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -354,7 +352,6 @@ namespace Manatee.Trello
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name ?? $"#{ShortId}";
