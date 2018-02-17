@@ -39,12 +39,14 @@ call "%msbuild%" Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj 
 if not "%errorlevel%"=="0" goto failure
 
 REM update wiki
-git clone https://github.com/gregsdennis/AutoWiki.git
-cd AutoWiki\AutoWiki
-dotnet run -p AutoWiki.csproj "..\..\Wiki"
-cd "..\..\Wiki"
+cd Wiki
 git checkout master
 git pull
+cd ..
+git clone https://github.com/gregsdennis/AutoWiki.git
+cd AutoWiki\AutoWiki
+dotnet run -p AutoWiki.csproj ..\..\Wiki
+cd ..\..\Wiki
 git add -A
 git commit -m "updated via build"
 git push
