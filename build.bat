@@ -38,19 +38,6 @@ if not "%errorlevel%"=="0" goto failure
 call "%msbuild%" Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj /t:pack /p:Configuration="%config%"
 if not "%errorlevel%"=="0" goto failure
 
-REM update wiki
-cd Wiki
-git checkout master
-git pull
-cd ..
-git clone https://github.com/gregsdennis/AutoWiki.git
-cd AutoWiki\AutoWiki
-dotnet run -p AutoWiki.csproj ..\..\Wiki
-cd ..\..\Wiki
-git add -A
-git commit -m "updated via build"
-git push
-
 :success
 exit 0
 
