@@ -4,6 +4,7 @@ cd ..
 
 git clone https://github.com/gregsdennis/AutoWiki.git
 cd AutoWiki\AutoWiki
+git pull
 
 dotnet run -p AutoWiki.csproj ..\..\Wiki
 
@@ -13,3 +14,5 @@ git commit -m "updated after build"
 git push
 
 cd ..
+
+rd /s /q AutoWiki
