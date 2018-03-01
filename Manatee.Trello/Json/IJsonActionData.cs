@@ -48,6 +48,11 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		IJsonCheckList CheckList { get; set; }
 		/// <summary>
+		/// Gets or sets a label associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonLabel Label { get; set; }
+		/// <summary>
 		/// Gets or sets the last date/time that a comment was edited.
 		/// </summary>
 		[JsonDeserialize]

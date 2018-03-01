@@ -9,6 +9,18 @@
     <PackageTags>wrapper trello manatee</PackageTags>
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
+v2.2.0
+Updated ActionTypes.
+Added ActionData.Label.
+
+Requires Manatee.Trello.ManateeJson 2.1.0
+
+v2.1.2
+Fixed assembly version
+
+v2.1.1
+BUG FIX: InvalidOperationException when processing webhooks.
+
 v2.1.2
 Fixed assembly version
 
@@ -24,7 +36,7 @@ BUG FIX: Attachment URLs not popluating.
 v2.0.0
 BREAKING CHANGE: Frameworks below 4.6.1 are no longer supported.
 Updated to NetStandard2.0</PackageReleaseNotes>
-    <Version>2.1.2</Version>
+    <Version>2.2.0</Version>
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <Company>Little Crab Solutions</Company>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
@@ -37,10 +49,11 @@ Updated to NetStandard2.0</PackageReleaseNotes>
   <PropertyGroup>
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.1.2.0</FileVersion>
+    <FileVersion>2.2.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
 
