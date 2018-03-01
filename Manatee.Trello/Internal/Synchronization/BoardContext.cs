@@ -8,6 +8,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class BoardContext : SynchronizationContext<IJsonBoard>
 	{
+		private bool _deleted;
+
 		public BoardPreferencesContext BoardPreferencesContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
@@ -36,6 +38,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			BoardPreferencesContext.SynchronizeRequested += () => Synchronize();
 			BoardPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
 			Data.Prefs = BoardPreferencesContext.Data;
+		}
+
+		public void Delete()
+		{
+			if (_deleted) return;
+			CancelUpdate();
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
+			JsonRepository.Execute(Auth, endpoint);
+
+			_deleted = true;
 		}
 
 		protected override IJsonBoard GetData()

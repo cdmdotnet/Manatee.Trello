@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.CustomFields;
+using System.Linq;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Tests.Common;
 using Manatee.Trello.WebApi;
@@ -12,7 +12,7 @@ namespace Manatee.Trello.IntegrationTests
 	public class DevTest
 	{
 		[Test]
-		//[Ignore("This test fixture for development purposes only.")]
+		[Ignore("This test fixture for development purposes only.")]
 		public void TestMethod1()
 		{
 			Run(() =>

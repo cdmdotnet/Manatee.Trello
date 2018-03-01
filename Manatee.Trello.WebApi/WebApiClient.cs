@@ -150,6 +150,9 @@ namespace Manatee.Trello.WebApi
 				formData.Add(byteContent, "\"file\"", $"\"{request.FileName}\"");
 				return formData;
 			}
+
+			if (request.Body == null) return null;
+
 			var body = TrelloConfiguration.Serializer.Serialize(request.Body);
 			var jsonContent = new StringContent(body);
 			jsonContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
