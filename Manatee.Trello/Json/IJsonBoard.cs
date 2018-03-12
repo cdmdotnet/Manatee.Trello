@@ -1,3 +1,5 @@
+using System;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
@@ -65,5 +67,25 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Starred { get; set; }
+		/// <summary>
+		/// Gets or sets the date the board last had activity.
+		/// </summary>
+		[JsonDeserialize]
+		DateTime? DateLastActivity { get; set; }
+		/// <summary>
+		/// Gets or sets the date the board was last viewed.
+		/// </summary>
+		[JsonDeserialize]
+		DateTime? DateLastView { get; set; }
+		/// <summary>
+		/// Gets or sets the short link (ID).
+		/// </summary>
+		[JsonDeserialize]
+		string ShortLink { get; set; }
+		/// <summary>
+		/// Gets or sets the short URL.
+		/// </summary>
+		[JsonDeserialize]
+		string ShortUrl { get; set; }
 	}
 }

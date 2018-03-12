@@ -37,7 +37,15 @@ namespace Manatee.Trello
 			[Display(Description="url")]
 			Url = 1 << 7,
 			[Display(Description="subscribed")]
-			Subscribed = 1 << 8
+			Subscribed = 1 << 8,
+			[Display(Description="dateLastActivity")]
+			LastActivityDate = 1 << 9,
+			[Display(Description="dateLastView")]
+			LastViewDate = 1 << 10,
+			[Display(Description="shortLink")]
+			ShortLink = 1 << 11,
+			[Display(Description="shortUrl")]
+			ShortUrl = 1 << 12,
 		}
 
 		private readonly Field<string> _description;
@@ -48,6 +56,10 @@ namespace Manatee.Trello
 		private readonly Field<string> _name;
 		private readonly Field<Organization> _organization;
 		private readonly Field<string> _url;
+		private readonly Field<DateTime?> _lastActivity;
+		private readonly Field<DateTime?> _lastViewed;
+		private readonly Field<string> _shortLink;
+		private readonly Field<string> _shortUrl;
 		private readonly BoardContext _context;
 
 		private string _id;
@@ -136,6 +148,14 @@ namespace Manatee.Trello
 		/// </summary>
 		public BoardLabelCollection Labels { get; }
 		/// <summary>
+		/// Gets the date of the board's most recent activity.
+		/// </summary>
+		public DateTime? LastActivity => _lastActivity.Value;
+		/// <summary>
+		/// Gets the date when the board was most recently viewed.
+		/// </summary>
+		public DateTime? LastViewed => _lastViewed.Value;
+		/// <summary>
 		/// Gets the collection of lists on this board.
 		/// </summary>
 		/// <remarks>
@@ -185,6 +205,14 @@ namespace Manatee.Trello
 		/// Gets the set of preferences for the board.
 		/// </summary>
 		public BoardPersonalPreferences PersonalPreferences { get; }
+		/// <summary>
+		/// Gets the board's short URI.
+		/// </summary>
+		public string ShortLink => _shortLink.Value;
+		/// <summary>
+		/// Gets the board's short link (ID).
+		/// </summary>
+		public string ShortUrl => _shortUrl.Value;
 		/// <summary>
 		/// Gets the board's URI.
 		/// </summary>
@@ -257,6 +285,10 @@ namespace Manatee.Trello
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			PersonalPreferences = new BoardPersonalPreferences(() => Id, auth);
 			_url = new Field<string>(_context, nameof(Url));
+			_shortUrl = new Field<string>(_context, nameof(ShortUrl));
+			_shortLink = new Field<string>(_context, nameof(ShortLink));
+			_lastActivity = new Field<DateTime?>(_context, nameof(LastActivity));
+			_lastViewed = new Field<DateTime?>(_context, nameof(LastViewed));
 
 			TrelloConfiguration.Cache.Add(this);
 		}

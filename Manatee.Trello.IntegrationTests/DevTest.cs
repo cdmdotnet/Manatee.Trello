@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Tests.Common;
 using Manatee.Trello.WebApi;
@@ -18,7 +17,12 @@ namespace Manatee.Trello.IntegrationTests
 			Run(() =>
 				{
 					var board = new Board(TrelloIds.BoardId);
+					Console.WriteLine(board.IsPinned);
 					Console.WriteLine(board.IsStarred);
+					Console.WriteLine(board.ShortUrl);
+					Console.WriteLine(board.ShortLink);
+					Console.WriteLine(board.LastViewed);
+					Console.WriteLine(board.LastActivity);
 				});
 		}
 

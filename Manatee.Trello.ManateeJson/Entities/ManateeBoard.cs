@@ -1,4 +1,5 @@
-﻿using Manatee.Json;
+﻿using System;
+using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
 
@@ -17,6 +18,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public bool? Subscribed { get; set; }
 		public IJsonBoard BoardSource { get; set; }
 		public bool? Starred { get; set; }
+		public DateTime? DateLastActivity { get; set; }
+		public DateTime? DateLastView { get; set; }
+		public string ShortLink { get; set; }
+		public string ShortUrl { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -34,6 +39,10 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Url = obj.TryGetString("url");
 					Subscribed = obj.TryGetBoolean("subscribed");
 					Starred = obj.TryGetBoolean("starred");
+					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
+					DateLastView = obj.Deserialize<DateTime?>(serializer, "dateLastView");
+					ShortLink = obj.TryGetString("shortLink");
+					ShortUrl = obj.TryGetString("shortUrl");
 					break;
 				case JsonValueType.String:
 					Id = json.String;
