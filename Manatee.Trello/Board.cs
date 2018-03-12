@@ -28,17 +28,22 @@ namespace Manatee.Trello
 			Closed = 1 << 2,
 			[Display(Description="idOrganization")]
 			Organization = 1 << 3,
+			[Display(Description="pinned")]
+			Pinned = 1 << 4,
+			[Display(Description="starred")]
+			Starred = 1 << 5,
 			[Display(Description="prefs")]
-			Preferencess = 1 << 4,
+			Preferencess = 1 << 6,
 			[Display(Description="url")]
-			Url = 1 << 5,
+			Url = 1 << 7,
 			[Display(Description="subscribed")]
-			Subscribed = 1 << 6
+			Subscribed = 1 << 8
 		}
 
 		private readonly Field<string> _description;
 		private readonly Field<bool?> _isClosed;
 		private readonly Field<bool?> _isPinned;
+		private readonly Field<bool?> _isStarred;
 		private readonly Field<bool?> _isSubscribed;
 		private readonly Field<string> _name;
 		private readonly Field<Organization> _organization;
@@ -102,11 +107,21 @@ namespace Manatee.Trello
 			get { return _isClosed.Value; }
 			set { _isClosed.Value = value; }
 		}
-
+		/// <summary>
+		/// Gets or sets wheterh this board is pinned.
+		/// </summary>
 		public bool? IsPinned
 		{
 			get { return _isPinned.Value; }
 			set { _isPinned.Value = value; }
+		}
+		/// <summary>
+		/// Gets or sets wheterh this board is pinned.
+		/// </summary>
+		public bool? IsStarred
+		{
+			get { return _isStarred.Value; }
+			set { _isStarred.Value = value; }
 		}
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to this board.
@@ -226,6 +241,8 @@ namespace Manatee.Trello
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
 			_isPinned = new Field<bool?>(_context, nameof(IsPinned));
 			_isPinned.AddRule(NullableHasValueRule<bool>.Instance);
+			_isStarred = new Field<bool?>(_context, nameof(IsStarred));
+			_isStarred.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
 			Labels = new BoardLabelCollection(() => Id, auth);

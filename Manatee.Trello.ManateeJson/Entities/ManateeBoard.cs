@@ -16,6 +16,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Url { get; set; }
 		public bool? Subscribed { get; set; }
 		public IJsonBoard BoardSource { get; set; }
+		public bool? Starred { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -32,6 +33,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Prefs = obj.Deserialize<IJsonBoardPreferences>(serializer, "prefs");
 					Url = obj.TryGetString("url");
 					Subscribed = obj.TryGetBoolean("subscribed");
+					Starred = obj.TryGetBoolean("starred");
 					break;
 				case JsonValueType.String:
 					Id = json.String;
@@ -46,6 +48,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Desc.Serialize(json, serializer, "desc");
 			Closed.Serialize(json, serializer, "closed");
 			Pinned.Serialize(json, serializer, "pinned");
+			Starred.Serialize(json, serializer, "starred");
 			Subscribed.Serialize(json, serializer, "subscribed");
 			Organization.SerializeId(json, "idOrganization");
 			BoardSource.SerializeId(json, "idBoardSource");

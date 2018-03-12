@@ -18,7 +18,7 @@ namespace Manatee.Trello.IntegrationTests
 			Run(() =>
 				{
 					var board = new Board(TrelloIds.BoardId);
-					Console.WriteLine(board.IsPinned);
+					Console.WriteLine(board.IsStarred);
 				});
 		}
 

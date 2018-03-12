@@ -30,7 +30,7 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		IJsonOrganization Organization { get; set; }
 		/// <summary>
-		/// Gets or sets whether the board is pinned on the member's dashboard.
+		/// Gets or sets whether the board is pinned.
 		/// </summary>
 		[JsonDeserialize]
 		[JsonSerialize]
@@ -59,5 +59,11 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonSerialize]
 		IJsonBoard BoardSource { get; set; }
+		/// <summary>
+		/// Gets or sets whether the board is starred on the member's dashboard.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		bool? Starred { get; set; }
 	}
 }

@@ -26,7 +26,8 @@ namespace Manatee.Trello.Internal.Synchronization
 						"Organization", new Property<IJsonBoard, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
 																			   (d, o) => d.Organization = o?.Json)
 					},
-					{"Pinned", new Property<IJsonBoard, bool?>((d, a) => d.Pinned, (d, o) => d.Pinned = o)},
+					{nameof(Board.IsPinned), new Property<IJsonBoard, bool?>((d, a) => d.Pinned, (d, o) => d.Pinned = o)},
+					{nameof(Board.IsStarred), new Property<IJsonBoard, bool?>((d, a) => d.Starred, (d, o) => d.Starred = o)},
 					{"Preferences", new Property<IJsonBoard, IJsonBoardPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
 					{"Url", new Property<IJsonBoard, string>((d, a) => d.Url, (d, o) => d.Url = o)},
 				};
