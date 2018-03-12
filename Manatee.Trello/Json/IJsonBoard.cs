@@ -30,6 +30,12 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		IJsonOrganization Organization { get; set; }
 		/// <summary>
+		/// Gets or sets whether the board is pinned on the member's dashboard.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		bool? Pinned { get; set; }
+		/// <summary>
 		/// Gets or sets a set of preferences for the board.
 		/// </summary>
 		[JsonDeserialize]

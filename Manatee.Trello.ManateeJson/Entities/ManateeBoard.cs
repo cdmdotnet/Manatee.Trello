@@ -11,6 +11,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Desc { get; set; }
 		public bool? Closed { get; set; }
 		public IJsonOrganization Organization { get; set; }
+		public bool? Pinned { get; set; }
 		public IJsonBoardPreferences Prefs { get; set; }
 		public string Url { get; set; }
 		public bool? Subscribed { get; set; }
@@ -27,6 +28,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Desc = obj.TryGetString("desc");
 					Closed = obj.TryGetBoolean("closed");
 					Organization = obj.Deserialize<IJsonOrganization>(serializer, "idOrganization");
+					Pinned = obj.TryGetBoolean("pinned");
 					Prefs = obj.Deserialize<IJsonBoardPreferences>(serializer, "prefs");
 					Url = obj.TryGetString("url");
 					Subscribed = obj.TryGetBoolean("subscribed");
@@ -43,6 +45,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Name.Serialize(json, serializer, "name");
 			Desc.Serialize(json, serializer, "desc");
 			Closed.Serialize(json, serializer, "closed");
+			Pinned.Serialize(json, serializer, "pinned");
 			Subscribed.Serialize(json, serializer, "subscribed");
 			Organization.SerializeId(json, "idOrganization");
 			BoardSource.SerializeId(json, "idBoardSource");

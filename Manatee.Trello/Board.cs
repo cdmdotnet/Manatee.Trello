@@ -38,6 +38,7 @@ namespace Manatee.Trello
 
 		private readonly Field<string> _description;
 		private readonly Field<bool?> _isClosed;
+		private readonly Field<bool?> _isPinned;
 		private readonly Field<bool?> _isSubscribed;
 		private readonly Field<string> _name;
 		private readonly Field<Organization> _organization;
@@ -100,6 +101,12 @@ namespace Manatee.Trello
 		{
 			get { return _isClosed.Value; }
 			set { _isClosed.Value = value; }
+		}
+
+		public bool? IsPinned
+		{
+			get { return _isPinned.Value; }
+			set { _isPinned.Value = value; }
 		}
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to this board.
@@ -217,6 +224,8 @@ namespace Manatee.Trello
 			_description = new Field<string>(_context, nameof(Description));
 			_isClosed = new Field<bool?>(_context, nameof(IsClosed));
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
+			_isPinned = new Field<bool?>(_context, nameof(IsPinned));
+			_isPinned.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
 			Labels = new BoardLabelCollection(() => Id, auth);

@@ -12,15 +12,13 @@ namespace Manatee.Trello.IntegrationTests
 	public class DevTest
 	{
 		[Test]
-		[Ignore("This test fixture for development purposes only.")]
+		//[Ignore("This test fixture for development purposes only.")]
 		public void TestMethod1()
 		{
 			Run(() =>
 				{
-					var card = new Card("mQzi1iJB");
-					Console.WriteLine(card);
-
-					OutputCollection("actions", card.Actions.Filter(ActionType.All));
+					var board = new Board(TrelloIds.BoardId);
+					Console.WriteLine(board.IsPinned);
 				});
 		}
 
