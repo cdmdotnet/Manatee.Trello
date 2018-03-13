@@ -28,7 +28,10 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{"Image", new Property<IJsonBoardBackground, string>((d, a) => d.Image, (d, o) => d.Image = o)},
 					{"IsTiled", new Property<IJsonBoardBackground, bool?>((d, a) => d.Tile, (d, o) => d.Tile = o)},
-					{"IsTiled", new Property<IJsonBoardBackground, BoardBackgroundBrightness?>((d, a) => d.Brightness, (d, o) => d.Brightness = o)},
+					{
+						nameof(BoardBackground.Brightness),
+						new Property<IJsonBoardBackground, BoardBackgroundBrightness?>((d, a) => d.Brightness, (d, o) => d.Brightness = o)
+					},
 				};
 		}
 		public BoardBackgroundContext(TrelloAuthorization auth)
