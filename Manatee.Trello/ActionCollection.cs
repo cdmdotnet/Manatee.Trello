@@ -73,7 +73,7 @@ namespace Manatee.Trello
 		/// <param name="actionType">The action type.</param>
 		public void Filter(ActionType actionType)
 		{
-			var actionTypes = actionType.GetFlags().Cast<ActionType>();
+			var actionTypes = actionType.GetFlags();
 			Filter(actionTypes);
 		}
 
@@ -85,10 +85,11 @@ namespace Manatee.Trello
 		{
 			if (_additionalParameters == null)
 				_additionalParameters = new Dictionary<string, object>{{"filter", string.Empty}};
-			var filter = _additionalParameters.ContainsKey("filter") ? ((string)_additionalParameters["filter"]) : string.Empty;
+			var filter = _additionalParameters.ContainsKey("filter") ? (string)_additionalParameters["filter"] : string.Empty;
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
-			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
+			var actionType = actionTypes.Aggregate(ActionType.Unknown, (c, a) => c | a);
+			filter += actionType.ToString();
 			_additionalParameters["filter"] = filter;
 		}
 

@@ -131,6 +131,7 @@
     <Compile Include="ClientTests.cs" />
     <Compile Include="DevTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptedTest.cs" />
     <Compile Include="StackOverflowTests.cs" />
     <Compile Include="TheGodComparer.cs" />
   </ItemGroup>

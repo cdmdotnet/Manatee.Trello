@@ -122,7 +122,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates that <see cref="Attachment.Url"/> should be fetched.
 			/// </summary>
-			[Display(Description="uri")]
+			[Display(Description="url")]
 			Url = 1 << 7
 		}
 

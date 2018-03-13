@@ -43,6 +43,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						"CheckList", new Property<IJsonActionData, CheckList>((d, a) => d.CheckList == null ? null : new CheckList(d.CheckList, a),
 						                                                      (d, o) => { if (o != null) d.CheckList = o.Json; })
 					},
+					{
+						"Label", new Property<IJsonActionData, Label>((d, a) => d.Label == null ? null : new Label(d.Label, a),
+						                                              (d, o) => { if (o != null) d.Label = o.Json; })
+					},
 					{"LastEdited", new Property<IJsonActionData, DateTime?>((d, a) => d.DateLastEdited, (d, o) => { if (o != null) d.DateLastEdited = o; })},
 					{
 						"List", new Property<IJsonActionData, List>((d, a) => d.List == null ? null : new List(d.List, a),

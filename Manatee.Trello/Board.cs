@@ -140,6 +140,15 @@ namespace Manatee.Trello
 		/// Marks the board to be refreshed the next time data is accessed.
 		/// </summary>
 		void Refresh();
+
+		/// <summary>
+		/// Deletes the card.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		void Delete();
 	}
 
 	/// <summary>
@@ -405,6 +414,18 @@ namespace Manatee.Trello
 		{
 			if (action.Type != ActionType.UpdateBoard || action.Data.Board == null || action.Data.Board.Id != Id) return;
 			_context.Merge(((Board) action.Data.Board).Json);
+		}
+		/// <summary>
+		/// Deletes the card.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		public void Delete()
+		{
+			_context.Delete();
+			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the board to be refreshed the next time data is accessed.
