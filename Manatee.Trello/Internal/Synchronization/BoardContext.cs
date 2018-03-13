@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -28,6 +29,12 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{"Preferences", new Property<IJsonBoard, IJsonBoardPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
 					{"Url", new Property<IJsonBoard, string>((d, a) => d.Url, (d, o) => d.Url = o)},
+					{nameof(Board.IsPinned), new Property<IJsonBoard, bool?>((d, a) => d.Pinned, (d, o) => d.Pinned = o)},
+					{nameof(Board.IsStarred), new Property<IJsonBoard, bool?>((d, a) => d.Starred, (d, o) => d.Starred = o)},
+					{nameof(Board.LastViewed), new Property<IJsonBoard, DateTime?>((d, a) => d.DateLastView, (d, o) => d.DateLastView = o)},
+					{nameof(Board.LastActivity), new Property<IJsonBoard, DateTime?>((d, a) => d.DateLastActivity, (d, o) => d.DateLastActivity = o)},
+					{nameof(Board.ShortUrl), new Property<IJsonBoard, string>((d, a) => d.ShortUrl, (d, o) => d.ShortUrl = o)},
+					{nameof(Board.ShortLink), new Property<IJsonBoard, string>((d, a) => d.ShortLink, (d, o) => d.ShortLink = o)},
 				};
 		}
 		public BoardContext(string id, TrelloAuthorization auth)

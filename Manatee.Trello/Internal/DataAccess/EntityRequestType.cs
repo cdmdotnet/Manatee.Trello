@@ -1,4 +1,5 @@
-﻿namespace Manatee.Trello.Internal.DataAccess
+﻿// ReSharper disable InconsistentNaming
+namespace Manatee.Trello.Internal.DataAccess
 {
 	internal enum EntityRequestType
 	{
@@ -8,6 +9,7 @@
 		Action_Write_Delete,
 		Action_Write_Update,
 		Attachment_Write_Delete,
+		Attachment_Write_Update,
 		Board_Read_Actions,
 		Board_Read_Cards,
 		Board_Read_CardsForMember,
@@ -48,6 +50,7 @@
 		Card_Write_Delete,
 		Card_Write_RemoveLabel,
 		Card_Write_RemoveMember,
+		Card_Write_RemoveSticker,
 		//Card_Write_WarnWhenUpcoming,
 		CheckItem_Read_Refresh,
 		CheckItem_Write_Delete,

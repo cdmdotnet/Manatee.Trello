@@ -17,10 +17,11 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			Run(() =>
 				{
-					var card = new Card("mQzi1iJB");
-					Console.WriteLine(card);
+					var card = new Card("3rm0AZg5");
+					var attachment = card.Attachments.FirstOrDefault();
 
-					OutputCollection("actions", card.Actions.Filter(ActionType.All));
+					Console.WriteLine(attachment.Position);
+					Console.WriteLine(attachment.EdgeColor);
 				});
 		}
 
