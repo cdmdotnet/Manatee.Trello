@@ -10,6 +10,7 @@
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
 v2.2.0
+Updated for changes in Manatee.Trello v2.3.0.
 
 v2.1.2
 BUG FIX: ActionTypes cannot deserialize.
