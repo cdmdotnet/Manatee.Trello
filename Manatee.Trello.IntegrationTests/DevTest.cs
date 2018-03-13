@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Tests.Common;
 using Manatee.Trello.WebApi;
@@ -12,16 +11,18 @@ namespace Manatee.Trello.IntegrationTests
 	public class DevTest
 	{
 		[Test]
-		//[Ignore("This test fixture for development purposes only.")]
+		[Ignore("This test fixture for development purposes only.")]
 		public void TestMethod1()
 		{
 			Run(() =>
 				{
-					var card = new Card("3rm0AZg5");
-					Console.WriteLine(card.Id);
-					var sticker = card.Stickers.Add(Sticker.Laugh, 20, 20);
-					card.Stickers.Remove(sticker);
-					Console.WriteLine(card);
+					var board = new Board(TrelloIds.BoardId);
+					Console.WriteLine(board.IsPinned);
+					Console.WriteLine(board.IsStarred);
+					Console.WriteLine(board.ShortUrl);
+					Console.WriteLine(board.ShortLink);
+					Console.WriteLine(board.LastViewed);
+					Console.WriteLine(board.LastActivity);
 				});
 		}
 
