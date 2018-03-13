@@ -2,12 +2,14 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3</TargetFrameworks>
-    <Version>2.1.2</Version>
+    <Version>2.2.0</Version>
     <Description>JSON serialization implementation supported by Manatee.Json.</Description>
     <Copyright>Copyright © 2017 Little Crab Solutions</Copyright>
     <Company>Little Crab Solutions</Company>
     <Authors>gregsdennis</Authors>
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
+
+v2.2.0
 
 v2.1.2
 BUG FIX: ActionTypes cannot deserialize.
@@ -32,7 +34,7 @@ Updated to NetStandard2.0</PackageReleaseNotes>
   <PropertyGroup>
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.1.2.0</FileVersion>
+    <FileVersion>2.2.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Manatee.Json" Version="9.6.0" />
