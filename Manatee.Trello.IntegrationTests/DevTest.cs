@@ -12,7 +12,7 @@ namespace Manatee.Trello.IntegrationTests
 	public class DevTest
 	{
 		[Test]
-		//[Ignore("This test fixture for development purposes only.")]
+		[Ignore("This test fixture for development purposes only.")]
 		public void TestMethod1()
 		{
 			Run(() =>
@@ -22,8 +22,6 @@ namespace Manatee.Trello.IntegrationTests
 
 					Console.WriteLine(attachment.Position);
 					Console.WriteLine(attachment.EdgeColor);
-
-					//attachment.EdgeColor = new WebColor("#00FFFF");
 				});
 		}
 
