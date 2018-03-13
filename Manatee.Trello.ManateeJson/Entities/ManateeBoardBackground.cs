@@ -8,10 +8,13 @@ namespace Manatee.Trello.ManateeJson.Entities
 	internal class ManateeBoardBackground : IJsonBoardBackground, IJsonSerializable
 	{
 		public string Id { get; set; }
+		public string BottomColor { get; set; }
+		public BoardBackgroundBrightness? Brightness { get; set; }
 		public string Color { get; set; }
 		public string Image { get; set; }
 		public List<IJsonImagePreview> ImageScaled { get; set; }
 		public bool? Tile { get; set; }
+		public string TopColor { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -20,10 +23,13 @@ namespace Manatee.Trello.ManateeJson.Entities
 				case JsonValueType.Object:
 					var obj = json.Object;
 					Id = obj.TryGetString("background");
+					BottomColor = obj.TryGetString("backgroundBottomColor");
+					Brightness = obj.Deserialize<BoardBackgroundBrightness?>(serializer, "backgroundBrightness");
 					Color = obj.TryGetString("backgroundColor");
 					Image = obj.TryGetString("backgroundImage");
 					ImageScaled = obj.Deserialize<List<IJsonImagePreview>>(serializer, "backgroundImageScaled");
 					Tile = obj.TryGetBoolean("backgroundTile");
+					TopColor = obj.TryGetString("backgroundTopColor");
 					break;
 				case JsonValueType.String:
 					Id = json.String;

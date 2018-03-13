@@ -140,7 +140,6 @@ namespace Manatee.Trello
 					{ActionType.UpdateOrganization, a => $"{a.Creator} updated organization {a.Data.Organization}."},
 					{ActionType.EnablePlugin, a => $"{a.Creator} enabled plugin {a.Data.PowerUp}."},
 					{ActionType.DisablePlugin, a => $"{a.Creator} disabled plugin {a.Data.PowerUp}."},
-
 					{ActionType.AddAdminToBoard, a => $"{a.Creator} added {a.Data.Member} to board {a.Data.Board} as an admin."},
 					{ActionType.AddAdminToOrganization, a => $"{a.Creator} added {a.Data.Member} to organization {a.Data.Organization} as an admin."},
 					{ActionType.AddBoardsPinnedToMember, a => $"{a.Creator} pinned board {a.Data.Board}."},

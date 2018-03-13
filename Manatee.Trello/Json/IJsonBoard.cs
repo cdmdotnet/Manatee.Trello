@@ -1,3 +1,5 @@
+using System;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
@@ -30,6 +32,12 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		IJsonOrganization Organization { get; set; }
 		/// <summary>
+		/// Gets or sets whether the board is pinned.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		bool? Pinned { get; set; }
+		/// <summary>
 		/// Gets or sets a set of preferences for the board.
 		/// </summary>
 		[JsonDeserialize]
@@ -53,5 +61,31 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonSerialize]
 		IJsonBoard BoardSource { get; set; }
+		/// <summary>
+		/// Gets or sets whether the board is starred on the member's dashboard.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		bool? Starred { get; set; }
+		/// <summary>
+		/// Gets or sets the date the board last had activity.
+		/// </summary>
+		[JsonDeserialize]
+		DateTime? DateLastActivity { get; set; }
+		/// <summary>
+		/// Gets or sets the date the board was last viewed.
+		/// </summary>
+		[JsonDeserialize]
+		DateTime? DateLastView { get; set; }
+		/// <summary>
+		/// Gets or sets the short link (ID).
+		/// </summary>
+		[JsonDeserialize]
+		string ShortLink { get; set; }
+		/// <summary>
+		/// Gets or sets the short URL.
+		/// </summary>
+		[JsonDeserialize]
+		string ShortUrl { get; set; }
 	}
 }
