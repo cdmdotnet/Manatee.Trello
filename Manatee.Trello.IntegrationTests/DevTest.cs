@@ -20,7 +20,10 @@ namespace Manatee.Trello.IntegrationTests
 					var card = new Card("3rm0AZg5");
 					var attachment = card.Attachments.FirstOrDefault();
 
-					attachment.Name = "something else";
+					Console.WriteLine(attachment.Position);
+					Console.WriteLine(attachment.EdgeColor);
+
+					//attachment.EdgeColor = new WebColor("#00FFFF");
 				});
 		}
 

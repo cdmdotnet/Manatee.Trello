@@ -26,6 +26,17 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"MimeType", new Property<IJsonAttachment, string>((d, a) => d.MimeType, (d, o) => d.MimeType = o)},
 					{"Name", new Property<IJsonAttachment, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{"Url", new Property<IJsonAttachment, string>((d, a) => d.Url, (d, o) => d.Url = o)},
+					{
+						nameof(Attachment.Position),
+						new Property<IJsonAttachment, Position>((d, a) => Position.GetPosition(d.Pos),
+						                                        (d, o) => d.Pos = Position.GetJson(o))
+					},
+					{
+						nameof(Attachment.EdgeColor),
+						new Property<IJsonAttachment, WebColor>(
+							(d, a) => d.EdgeColor.IsNullOrWhiteSpace() ? null : new WebColor(d.EdgeColor),
+							(d, o) => d.EdgeColor = o?.ToString())
+					},
 				};
 		}
 

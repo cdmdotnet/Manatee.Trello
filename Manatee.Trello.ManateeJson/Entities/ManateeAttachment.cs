@@ -11,10 +11,12 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Id { get; set; }
 		public int? Bytes { get; set; }
 		public DateTime? Date { get; set; }
+		public string EdgeColor { get; set; }
 		public IJsonMember Member { get; set; }
 		public bool? IsUpload { get; set; }
 		public string MimeType { get; set; }
 		public string Name { get; set; }
+		public IJsonPosition Pos { get; set; }
 		public List<IJsonImagePreview> Previews { get; set; }
 		public string Url { get; set; }
 
@@ -31,13 +33,15 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Name = obj.TryGetString("name");
 			Previews = obj.Deserialize<List<IJsonImagePreview>>(serializer, "previews");
 			Url = obj.TryGetString("url");
+			Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
+			EdgeColor = obj.TryGetString("edgeColor");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var obj = new JsonObject
-				{
-					["name"] = Name
-				};
+			var obj = new JsonObject();
+			Name.Serialize(obj, serializer, "name");
+			EdgeColor.Serialize(obj, serializer, "edgeColor");
+			Pos.Serialize(obj, serializer, "pos");
 			return obj;
 		}
 	}
