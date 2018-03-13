@@ -18,6 +18,14 @@ Added new fields to Board.
 - IsStarred
 - ShortLink
 - ShortUrl
+Added new fields to BoardBackground.
+- BottomColor
+- TopColor
+- Brightness
+Added new fields to Attachment.
+- Position
+- EdgeColor
+- Name (now writable)
 
 v2.2.0
 Updated ActionTypes.
