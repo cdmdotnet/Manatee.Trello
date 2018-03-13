@@ -18,6 +18,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Action_Write_Delete, () => new Endpoint(RestMethod.Delete, "actions", "_id")},
 					{EntityRequestType.Action_Write_Update, () => new Endpoint(RestMethod.Put, "actions", "_id")},
 					{EntityRequestType.Attachment_Write_Delete, () => new Endpoint(RestMethod.Delete, "cards", "_cardId", "attachments", "_id")},
+					{EntityRequestType.Attachment_Write_Update, () => new Endpoint(RestMethod.Put, "cards", "_cardId", "attachments", "_id")},
 					{EntityRequestType.Board_Read_Actions, () => new Endpoint(RestMethod.Get, "boards", "_id", "actions")},
 					{EntityRequestType.Board_Read_Cards, () => new Endpoint(RestMethod.Get, "boards", "_id", "cards")},
 					{EntityRequestType.Board_Read_CardsForMember, () => new Endpoint(RestMethod.Get, "boards", "_id", "members", "_idMember", "cards")},

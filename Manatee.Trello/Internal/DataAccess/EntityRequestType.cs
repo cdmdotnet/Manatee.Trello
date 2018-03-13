@@ -9,6 +9,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Action_Write_Delete,
 		Action_Write_Update,
 		Attachment_Write_Delete,
+		Attachment_Write_Update,
 		Board_Read_Actions,
 		Board_Read_Cards,
 		Board_Read_CardsForMember,
