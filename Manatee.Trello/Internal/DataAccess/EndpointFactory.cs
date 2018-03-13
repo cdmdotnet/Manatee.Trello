@@ -56,6 +56,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Card_Write_Delete, () => new Endpoint(RestMethod.Delete, "cards", "_id")},
 					{EntityRequestType.Card_Write_RemoveLabel, () => new Endpoint(RestMethod.Delete, "cards", "_id", "idlabels", "_labelId")},
 					{EntityRequestType.Card_Write_RemoveMember, () => new Endpoint(RestMethod.Delete, "cards", "_id", "members", "_memberId")},
+					{EntityRequestType.Card_Write_RemoveSticker, () => new Endpoint(RestMethod.Delete, "cards", "_id", "stickers", "_stickerId")},
 					{EntityRequestType.Card_Write_Update, () => new Endpoint(RestMethod.Put, "cards", "_id")},
 					{EntityRequestType.CheckItem_Read_Refresh, () => new Endpoint(RestMethod.Get, "checklists", "_checklistId", "checkItems", "_id")},
 					{EntityRequestType.CheckItem_Write_Delete, () => new Endpoint(RestMethod.Delete, "checklists", "_checklistId", "checkItems", "_id")},
