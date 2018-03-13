@@ -34,7 +34,11 @@ namespace Manatee.Trello.ManateeJson.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			return null;
+			var obj = new JsonObject
+				{
+					["name"] = Name
+				};
+			return obj;
 		}
 	}
 }
