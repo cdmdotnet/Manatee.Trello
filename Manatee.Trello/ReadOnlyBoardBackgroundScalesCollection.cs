@@ -6,7 +6,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of scaled versions of board backgrounds.
 	/// </summary>
-	public class ReadOnlyBoardBackgroundScalesCollection : ReadOnlyCollection<ImagePreview>
+	public class ReadOnlyBoardBackgroundScalesCollection : ReadOnlyCollection<IImagePreview>
 	{
 		private readonly BoardBackgroundContext _context;
 

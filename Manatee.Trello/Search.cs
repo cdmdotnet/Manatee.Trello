@@ -10,7 +10,48 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Performs a search.
 	/// </summary>
-	public class Search
+	public interface ISearch
+	{
+		/// <summary>
+		/// Gets the collection of actions returned by the search.
+		/// </summary>
+		IEnumerable<IAction> Actions { get; }
+
+		/// <summary>
+		/// Gets the collection of boards returned by the search.
+		/// </summary>
+		IEnumerable<IBoard> Boards { get; }
+
+		/// <summary>
+		/// Gets the collection of cards returned by the search.
+		/// </summary>
+		IEnumerable<ICard> Cards { get; }
+
+		/// <summary>
+		/// Gets the collection of members returned by the search.
+		/// </summary>
+		IEnumerable<IMember> Members { get; }
+
+		/// <summary>
+		/// Gets the collection of organizations returned by the search.
+		/// </summary>
+		IEnumerable<IOrganization> Organizations { get; }
+
+		/// <summary>
+		/// Gets the query.
+		/// </summary>
+		string Query { get; }
+
+		/// <summary>
+		/// Marks the search to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
+	/// <summary>
+	/// Performs a search.
+	/// </summary>
+	public class Search : ISearch
 	{
 		private readonly Field<IEnumerable<Action>> _actions;
 		private readonly Field<IEnumerable<Board>> _boards;
@@ -27,23 +68,23 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions returned by the search.
 		/// </summary>
-		public IEnumerable<Action> Actions => _actions.Value;
+		public IEnumerable<IAction> Actions => _actions.Value;
 		/// <summary>
 		/// Gets the collection of boards returned by the search.
 		/// </summary>
-		public IEnumerable<Board> Boards => _boards.Value;
+		public IEnumerable<IBoard> Boards => _boards.Value;
 		/// <summary>
 		/// Gets the collection of cards returned by the search.
 		/// </summary>
-		public IEnumerable<Card> Cards => _cards.Value;
+		public IEnumerable<ICard> Cards => _cards.Value;
 		/// <summary>
 		/// Gets the collection of members returned by the search.
 		/// </summary>
-		public IEnumerable<Member> Members => _members.Value;
+		public IEnumerable<IMember> Members => _members.Value;
 		/// <summary>
 		/// Gets the collection of organizations returned by the search.
 		/// </summary>
-		public IEnumerable<Organization> Organizations => _organizations.Value;
+		public IEnumerable<IOrganization> Organizations => _organizations.Value;
 		/// <summary>
 		/// Gets the query.
 		/// </summary>

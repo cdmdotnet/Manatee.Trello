@@ -13,21 +13,115 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public class List : ICanWebhook
+	public interface IList : ICanWebhook
 	{
+		/// <summary>
+		/// Gets the collection of actions performed on the list.
+		/// </summary>
+		IReadOnlyCollection<IAction> Actions { get; }
+
+		/// <summary>
+		/// Gets or sets the board on which the list belongs.
+		/// </summary>
+		IBoard Board { get; set; }
+
+		/// <summary>
+		/// Gets the collection of cards contained in the list.
+		/// </summary>
+		ICardCollection Cards { get; }
+
+		/// <summary>
+		/// Gets the creation date of the list.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets or sets whether the list is archived.
+		/// </summary>
+		bool? IsArchived { get; set; }
+
+		/// <summary>
+		/// Gets or sets whether the current member is subscribed to the list.
+		/// </summary>
+		bool? IsSubscribed { get; set; }
+
+		/// <summary>
+		/// Gets the list's name.
+		/// </summary>
+		string Name { get; set; }
+
+		/// <summary>
+		/// Gets the list's position.
+		/// </summary>
+		Position Position { get; set; }
+
+		/// <summary>
+		/// Retrieves a card which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching card, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		ICard this[string key] { get; }
+
+		/// <summary>
+		/// Retrieves the card at the specified index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <returns>The card.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
+		/// </exception>
+		ICard this[int index] { get; }
+
+		/// <summary>
+		/// Raised when data on the list is updated.
+		/// </summary>
+		event Action<IList, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Marks the list to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
+	/// <summary>
+	/// Represents a list.
+	/// </summary>
+	public class List : IList
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="List"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="List.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
+			/// <summary>
+			/// Indicates that <see cref="List.IsArchived"/> should be fetched.
+			/// </summary>
 			[Display(Description="closed")]
-			IsClosed = 1 << 1, 
+			IsClosed = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="List.Board"/> should be fetched.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="List.Position"/> should be fetched.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="List.IsSubscribed"/> should be fetched.
+			/// </summary>
 			[Display(Description="subscribed")]
-			Susbcribed = 1 << 4
+			Subscribed = 1 << 4
 		}
 
 		private readonly Field<Board> _board;
@@ -40,24 +134,27 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public IReadOnlyCollection<IAction> Actions { get; }
 		/// <summary>
 		/// Gets or sets the board on which the list belongs.
 		/// </summary>
-		public Board Board
+		public IBoard Board
 		{
 			get { return _board.Value; }
-			set { _board.Value = value; }
+			set { _board.Value = (Board) value; }
 		}
 		/// <summary>
 		/// Gets the collection of cards contained in the list.
 		/// </summary>
-		public CardCollection Cards { get; }
+		public ICardCollection Cards { get; }
 		/// <summary>
 		/// Gets the creation date of the list.
 		/// </summary>
@@ -113,7 +210,7 @@ namespace Manatee.Trello
 		public Position Position
 		{
 			get { return _position.Value; }
-			set { _position.Value = value; }
+			set { _position.Value = (Position) value; }
 		}
 
 		/// <summary>
@@ -124,7 +221,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public Card this[string key] => Cards[key];
+		public ICard this[string key] => Cards[key];
 		/// <summary>
 		/// Retrieves the card at the specified index.
 		/// </summary>
@@ -133,7 +230,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public Card this[int index] => Cards[index];
+		public ICard this[int index] => Cards[index];
 
 		internal IJsonList Json
 		{
@@ -144,7 +241,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the list is updated.
 		/// </summary>
-		public event Action<List, IEnumerable<string>> Updated;
+		public event Action<IList, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="List"/> object.
@@ -184,10 +281,10 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public void ApplyAction(IAction action)
 		{
 			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;
-			_context.Merge(action.Data.List.Json);
+			_context.Merge(((List) action.Data.List).Json);
 		}
 		/// <summary>
 		/// Marks the list to be refreshed the next time data is accessed.

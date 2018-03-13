@@ -665,14 +665,22 @@ namespace Manatee.Trello
 		#region Public Interface...
 
 		/// <summary>
-		/// Checks <paramref name="flags"/> to see if all the bits set in
-		/// that flags are also set in this flags.
+		/// Checks <paramref name="flags"/> to see if all the bits set in that flags are also set in this flags.
 		/// </summary>
 		/// <param name="flags"></param>
 		/// <returns></returns>
 		public bool HasFlag(ActionType flags)
 		{
 			return (this & flags) == flags;
+		}
+
+		/// <summary>
+		/// Gets all of the flags that are active in this instance.
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerable<ActionType> GetFlags()
+		{
+			return FieldValues.Where(HasFlag).ToList();
 		}
 
 		/// <summary>

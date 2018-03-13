@@ -14,6 +14,9 @@ namespace Manatee.Trello.CustomFields
 		private CustomFieldsPowerUp(IJsonPowerUp json, TrelloAuthorization auth)
 			: base(json, auth) {}
 
+		/// <summary>
+		/// Registers the custom fields power up for deserialization.
+		/// </summary>
 		public static void Register()
 		{
 			if (!_isRegistered)

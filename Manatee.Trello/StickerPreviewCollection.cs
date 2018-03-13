@@ -6,7 +6,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of image previews for attachments.
 	/// </summary>
-	public class ReadOnlyStickerPreviewCollection : ReadOnlyCollection<ImagePreview>
+	public class ReadOnlyStickerPreviewCollection : ReadOnlyCollection<IImagePreview>
 	{
 		private readonly StickerContext _context;
 

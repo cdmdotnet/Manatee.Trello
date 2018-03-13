@@ -8,7 +8,33 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a background image for a board.
 	/// </summary>
-	public class BoardBackground : ICacheable
+	public interface IBoardBackground : ICacheable
+	{
+		/// <summary>
+		/// Gets the color of a stock solid-color background.
+		/// </summary>
+		WebColor Color { get; }
+
+		/// <summary>
+		/// Gets the image of a background.
+		/// </summary>
+		string Image { get; }
+
+		/// <summary>
+		/// Gets whether the image is tiled when displayed.
+		/// </summary>
+		bool? IsTiled { get; }
+
+		/// <summary>
+		/// Gets a collections of scaled background images.
+		/// </summary>
+		IReadOnlyCollection<IImagePreview> ScaledImages { get; }
+	}
+
+	/// <summary>
+	/// Represents a background image for a board.
+	/// </summary>
+	public class BoardBackground : IBoardBackground
 	{
 		private static BoardBackground _blue, _orange, _green, _red, _purple, _pink, _lime, _sky, _grey;
 
@@ -73,7 +99,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets a collections of scaled background images.
 		/// </summary>
-		public ReadOnlyBoardBackgroundScalesCollection ScaledImages { get; }
+		public IReadOnlyCollection<IImagePreview> ScaledImages { get; }
 
 		internal IJsonBoardBackground Json
 		{

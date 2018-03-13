@@ -13,23 +13,110 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a sticker on a card.
 	/// </summary>
-	public class Sticker : ICacheable
+	public interface ISticker : ICacheable
 	{
+		/// <summary>
+		/// Gets or sets the position of the left edge.
+		/// </summary>
+		double? Left { get; set; }
+
+		/// <summary>
+		/// Gets the name of the sticker.
+		/// </summary>
+		string Name { get; }
+
+		/// <summary>
+		/// Gets the collection of previews.
+		/// </summary>
+		IReadOnlyCollection<IImagePreview> Previews { get; }
+
+		/// <summary>
+		/// Gets or sets the rotation.
+		/// </summary>
+		/// <remarks>
+		/// Rotation is clockwise and in degrees.
+		/// </remarks>
+		int? Rotation { get; set; }
+
+		/// <summary>
+		/// Gets or sets the position of the top edge.
+		/// </summary>
+		double? Top { get; set; }
+
+		/// <summary>
+		/// Gets the URL for the sticker's image.
+		/// </summary>
+		string ImageUrl { get; }
+
+		/// <summary>
+		/// Gets or sets the z-index.
+		/// </summary>
+		int? ZIndex { get; set; }
+
+		/// <summary>
+		/// Raised when data on the attachment is updated.
+		/// </summary>
+		event Action<ISticker, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Deletes the card.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		void Delete();
+
+		/// <summary>
+		/// Marks the card to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
+	/// <summary>
+	/// Represents a sticker on a card.
+	/// </summary>
+	public class Sticker : ISticker
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Sticker"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Left"/> should be fetched.
+			/// </summary>
 			[Display(Description="left")]
 			Left = 1,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="image")]
 			Name = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Previews"/> should be fetched.
+			/// </summary>
 			[Display(Description="imageScaled")]
 			Previews = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Rotation"/> should be fetched.
+			/// </summary>
 			[Display(Description="rotate")]
 			Rotation = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.Top"/> should be fetched.
+			/// </summary>
 			[Display(Description="top")]
 			Top = 1 << 4,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.ImageUrl"/> should be fetched.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 5,
+			/// <summary>
+			/// Indicates that <see cref="Sticker.ZIndex"/> should be fetched.
+			/// </summary>
 			[Display(Description="zIndex")]
 			ZIndex = 1 << 6
 		}
@@ -91,6 +178,9 @@ namespace Manatee.Trello
 		private readonly Field<int?> _zIndex;
 		private readonly StickerContext _context;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -112,7 +202,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of previews.
 		/// </summary>
-		public ReadOnlyStickerPreviewCollection Previews { get; }
+		public IReadOnlyCollection<IImagePreview> Previews { get; }
 		/// <summary>
 		/// Gets or sets the rotation.
 		/// </summary>
@@ -154,7 +244,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the attachment is updated.
 		/// </summary>
-		public event Action<Sticker, IEnumerable<string>> Updated;
+		public event Action<ISticker, IEnumerable<string>> Updated;
 
 		internal Sticker(IJsonSticker json, string ownerId, TrelloAuthorization auth)
 		{

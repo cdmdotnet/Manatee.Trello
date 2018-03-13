@@ -8,7 +8,23 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the data associated with a plugin.
 	/// </summary>
-	public class PowerUpData : ICacheable
+	public interface IPowerUpData : ICacheable
+	{
+		/// <summary>
+		/// Gets the ID for the plugin with which this data is associated.
+		/// </summary>
+		string PluginId { get; }
+
+		/// <summary>
+		/// Gets the data as a string.  This data will be JSON-encoded.
+		/// </summary>
+		string Value { get; }
+	}
+
+	/// <summary>
+	/// Represents the data associated with a plugin.
+	/// </summary>
+	public class PowerUpData : IPowerUpData
 	{
 		private readonly Field<string> _pluginId;
 		private readonly Field<string> _value;

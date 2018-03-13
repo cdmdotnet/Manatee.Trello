@@ -13,50 +13,199 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member.
 	/// </summary>
-	public class Member : ICanWebhook
+	public interface IMember : ICanWebhook
 	{
+		/// <summary>
+		/// Gets the collection of actions performed by the member.
+		/// </summary>
+		IReadOnlyCollection<IAction> Actions { get; }
+
+		/// <summary>
+		/// Gets the source type for the member's avatar.
+		/// </summary>
+		AvatarSource? AvatarSource { get; }
+
+		/// <summary>
+		/// Gets the URL to the member's avatar.
+		/// </summary>
+		string AvatarUrl { get; }
+
+		/// <summary>
+		/// Gets the member's bio.
+		/// </summary>
+		string Bio { get; }
+
+		/// <summary>
+		/// Gets the collection of boards owned by the member.
+		/// </summary>
+		IReadOnlyCollection<IBoard> Boards { get; }
+
+		/// <summary>
+		/// Gets the creation date of the member.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets the member's full name.
+		/// </summary>
+		string FullName { get; }
+
+		/// <summary>
+		/// Gets or sets the member's initials.
+		/// </summary>
+		string Initials { get; }
+
+		/// <summary>
+		/// Gets whether the member has actually join or has merely been invited (ghost).
+		/// </summary>
+		bool? IsConfirmed { get; }
+
+		/// <summary>
+		/// Gets a string which can be used in comments or descriptions to mention another
+		/// user.  The user will receive notification that they've been mentioned.
+		/// </summary>
+		string Mention { get; }
+
+		/// <summary>
+		/// Gets the collection of organizations to which the member belongs.
+		/// </summary>
+		IReadOnlyCollection<IOrganization> Organizations { get; }
+
+		/// <summary>
+		/// Gets the member's online status.
+		/// </summary>
+		MemberStatus? Status { get; }
+
+		/// <summary>
+		/// Gets the collection of trophies earned by the member.
+		/// </summary>
+		IEnumerable<string> Trophies { get; }
+
+		/// <summary>
+		/// Gets the member's URL.
+		/// </summary>
+		string Url { get; }
+
+		/// <summary>
+		/// Gets the member's username.
+		/// </summary>
+		string UserName { get; }
+
+		/// <summary>
+		/// Raised when data on the member is updated.
+		/// </summary>
+		event Action<IMember, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Marks the member to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
+	/// <summary>
+	/// Represents a member.
+	/// </summary>
+	public class Member : IMember
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Member"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Member.AvatarUrl"/> should be fetched.
+			/// </summary>
 			[Display(Description="avatarHash")]
 			AvatarHash = 1,
+			/// <summary>
+			/// Indicates that <see cref="Member.AvatarSource"/> should be fetched.
+			/// </summary>
 			[Display(Description="avatarSource")]
 			AvatarSource = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Member.Bio"/> should be fetched.
+			/// </summary>
 			[Display(Description="bio")]
 			Bio = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Member.IsConfirmed"/> should be fetched.
+			/// </summary>
 			[Display(Description="confirmed")]
 			IsConfirmed = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Me.Email"/> should be fetched.
+			/// </summary>
 			[Display(Description="email")]
 			Email = 1 << 4,
+			/// <summary>
+			/// Indicates that <see cref="Member.FullName"/> should be fetched.
+			/// </summary>
 			[Display(Description="fullName")]
 			FullName = 1 << 5,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="gravatarHash")]
 			GravatarHash = 1 << 6,
+			/// <summary>
+			/// Indicates that <see cref="Member.Initials"/> should be fetched.
+			/// </summary>
 			[Display(Description="intials")]
 			Initials = 1 << 7,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="loginTypes")]
 			LoginTypes = 1 << 8,
+			/// <summary>
+			/// Not Implemented
+			/// </summary>
 			[Display(Description="memberType")]
 			MemberType = 1 << 9,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="oneTimeMessagesReceived")]
 			OneTimeMessagesDismissed = 1 << 10,
+			/// <summary>
+			/// Indicates that <see cref="Me.Preferences"/> should be fetched.
+			/// </summary>
 			[Display(Description="prefs")]
-			Preferencess = 1 << 11,
+			Preferences = 1 << 11,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="similarity")]
 			Similarity = 1 << 12,
+			/// <summary>
+			/// Indicates that <see cref="Member.Status"/> should be fetched.
+			/// </summary>
 			[Display(Description="status")]
 			Status = 1 << 13,
+			/// <summary>
+			/// Indicates that <see cref="Member.Trophies"/> should be fetched.
+			/// </summary>
 			[Display(Description="trophies")]
 			Trophies = 1 << 14,
+			/// <summary>
+			/// Not Implemented
+			/// </summary>
 			[Display(Description="uploadedAvatarHash")]
 			UploadedAvatarHash = 1 << 15,
+			/// <summary>
+			/// Indicates that <see cref="Member.Url"/> should be fetched.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 16,
+			/// <summary>
+			/// Indicates that <see cref="Member.UserName"/> should be fetched.
+			/// </summary>
 			[Display(Description="username")]
 			Username = 1 << 17
 		}
 
-		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
+		private const string _avatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
 		private static Me _me;
 
 		private readonly Field<AvatarSource?> _avatarSource;
@@ -74,6 +223,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -84,7 +236,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public IReadOnlyCollection<IAction> Actions { get; }
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
@@ -108,7 +260,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public ReadOnlyBoardCollection Boards { get; }
+		public IReadOnlyCollection<IBoard> Boards { get; }
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
@@ -162,7 +314,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public ReadOnlyOrganizationCollection Organizations { get; }
+		public IReadOnlyCollection<IOrganization> Organizations { get; }
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
@@ -194,7 +346,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the member is updated.
 		/// </summary>
-		public event Action<Member, IEnumerable<string>> Updated;
+		public event Action<IMember, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Member"/> object.
@@ -245,10 +397,10 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public void ApplyAction(IAction action)
 		{
 			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
-			_context.Merge(action.Data.Member.Json);
+			_context.Merge(((Member) action.Data.Member).Json);
 		}
 		/// <summary>
 		/// Marks the member to be refreshed the next time data is accessed.
@@ -278,7 +430,7 @@ namespace Manatee.Trello
 		private string GetAvatar()
 		{
 			var hash = _avatarUrl.Value;
-			return hash.IsNullOrWhiteSpace() ? null : string.Format(AvatarUrlFormat, hash);
+			return hash.IsNullOrWhiteSpace() ? null : string.Format(_avatarUrlFormat, hash);
 		}
 	}
 }

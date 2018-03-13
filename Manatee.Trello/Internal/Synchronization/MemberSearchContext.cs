@@ -19,7 +19,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"Limit", new Property<IJsonMemberSearch, int?>((d, a) => d.Limit, (d, o) => d.Limit = o)},
 					{
 						"Results", new Property<IJsonMemberSearch, IEnumerable<MemberSearchResult>>((d, a) => d.Members?.Select(m => GetResult(m, a)).ToList() ?? Enumerable.Empty<MemberSearchResult>(),
-						                                                                            (d, o) => d.Members = o?.Select(a => a.Member.Json).ToList())
+						                                                                            (d, o) => d.Members = o?.Select(a => ((Member) a.Member).Json).ToList())
 					},
 					{
 						"Organization", new Property<IJsonMemberSearch, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),

@@ -15,25 +15,142 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an organization.
 	/// </summary>
-	public class Organization : ICanWebhook, IQueryable
+	public interface IOrganization : ICanWebhook, IQueryable
 	{
+		/// <summary>
+		/// Gets the collection of actions performed on the organization.
+		/// </summary>
+		IReadOnlyCollection<IAction> Actions { get; }
+
+		/// <summary>
+		/// Gets the collection of boards owned by the organization.
+		/// </summary>
+		IBoardCollection Boards { get; }
+
+		/// <summary>
+		/// Gets the creation date of the organization.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets or sets the organization's description.
+		/// </summary>
+		string Description { get; set; }
+
+		/// <summary>
+		/// Gets or sets the organization's display name.
+		/// </summary>
+		string DisplayName { get; set; }
+
+		/// <summary>
+		/// Gets whether the organization has business class status.
+		/// </summary>
+		bool IsBusinessClass { get; }
+
+		/// <summary>
+		/// Gets the collection of members who belong to the organization.
+		/// </summary>
+		IReadOnlyCollection<IMember> Members { get; }
+
+		/// <summary>
+		/// Gets the collection of members and their priveledges on this organization.
+		/// </summary>
+		IOrganizationMembershipCollection Memberships { get; }
+
+		/// <summary>
+		/// Gets the organization's name.
+		/// </summary>
+		string Name { get; set; }
+
+		/// <summary>
+		/// Gets specific data regarding power-ups.
+		/// </summary>
+		IReadOnlyCollection<IPowerUpData> PowerUpData { get; }
+
+		/// <summary>
+		/// Gets the set of preferences for the organization.
+		/// </summary>
+		IOrganizationPreferences Preferences { get; }
+
+		/// <summary>
+		/// Gets the organization's URL.
+		/// </summary>
+		string Url { get; }
+
+		/// <summary>
+		/// Gets or sets the organization's website.
+		/// </summary>
+		string Website { get; set; }
+
+		/// <summary>
+		/// Raised when data on the organization is updated.
+		/// </summary>
+		event Action<IOrganization, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Deletes the organization.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the organization from Trello's server, however, this
+		/// object will remain in memory and all properties will remain accessible.
+		/// </remarks>
+		void Delete();
+
+		/// <summary>
+		/// Marks the organization to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
+	/// <summary>
+	/// Represents an organization.
+	/// </summary>
+	public class Organization : IOrganization
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Organization"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Organization.Description"/> should be fetched.
+			/// </summary>
 			[Display(Description="desc")]
 			Description = 1,
+			/// <summary>
+			/// Indicates that <see cref="Organization.DisplayName"/> should be fetched.
+			/// </summary>
 			[Display(Description="displayName")]
 			DisplayName = 1 << 1,
+			/// <summary>
+			/// Not Implemented.
+			/// </summary>
 			[Display(Description="logoHash")]
 			LogoHash = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Organization.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Organization.PowerUpData"/> should be fetched.
+			/// </summary>
 			[Display(Description="powerUps")]
 			PowerUps = 1 << 5,
+			/// <summary>
+			/// Indicates that <see cref="Organization.Preferences"/> should be fetched.
+			/// </summary>
 			[Display(Description="prefs")]
 			Preferences = 1 << 6,
+			/// <summary>
+			/// Indicates that <see cref="Organization.Url"/> should be fetched.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 7,
+			/// <summary>
+			/// Indicates that <see cref="Organization.Website"/> should be fetched.
+			/// </summary>
 			[Display(Description="website")]
 			Website = 1 << 8
 		}
@@ -49,16 +166,19 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public IReadOnlyCollection<IAction> Actions { get; }
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
-		public BoardCollection Boards { get; }
+		public IBoardCollection Boards { get; }
 		/// <summary>
 		/// Gets the creation date of the organization.
 		/// </summary>
@@ -107,11 +227,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		public ReadOnlyMemberCollection Members { get; }
+		public IReadOnlyCollection<IMember> Members { get; }
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>
-		public OrganizationMembershipCollection Memberships { get; }
+		public IOrganizationMembershipCollection Memberships { get; }
 		/// <summary>
 		/// Gets the organization's name.
 		/// </summary>
@@ -123,11 +243,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets specific data regarding power-ups.
 		/// </summary>
-		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		public IReadOnlyCollection<IPowerUpData> PowerUpData { get; }
 		/// <summary>
 		/// Gets the set of preferences for the organization.
 		/// </summary>
-		public OrganizationPreferences Preferences { get; }
+		public IOrganizationPreferences Preferences { get; }
 		/// <summary>
 		/// Gets the organization's URL.
 		/// </summary>
@@ -150,7 +270,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the organization is updated.
 		/// </summary>
-		public event Action<Organization, IEnumerable<string>> Updated;
+		public event Action<IOrganization, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Organization"/> object.
@@ -194,11 +314,11 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public void ApplyAction(IAction action)
 		{
 			if (action.Type != ActionType.UpdateOrganization || action.Data.Organization == null || action.Data.Organization.Id != Id)
 				return;
-			_context.Merge(action.Data.Organization.Json);
+			_context.Merge(((Organization) action.Data.Organization).Json);
 		}
 		/// <summary>
 		/// Deletes the organization.

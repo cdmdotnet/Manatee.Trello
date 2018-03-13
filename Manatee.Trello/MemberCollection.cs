@@ -13,7 +13,34 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of members.
 	/// </summary>
-	public class ReadOnlyMemberCollection : ReadOnlyCollection<Member>
+	public interface IReadOnlyMemberCollection : IReadOnlyCollection<IMember>
+	{
+		/// <summary>
+		/// Retrieves a member which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching member, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on Member.Id, Member.FullName, and Member.Username.  Comparison is case-sensitive.
+		/// </remarks>
+		IMember this[string key] { get; }
+
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
+		void Filter(MemberFilter filter);
+		/// <summary>
+		/// Adds a set of filters to the collection.
+		/// </summary>
+		/// <param name="filters">The filter values.</param>
+		void Filter(IEnumerable<MemberFilter> filters);
+	}
+
+	/// <summary>
+	/// A read-only collection of members.
+	/// </summary>
+	public class ReadOnlyMemberCollection : ReadOnlyCollection<IMember>, IReadOnlyMemberCollection
 	{
 		private readonly EntityRequestType _updateRequestType;
 		private Dictionary<string, object> _additionalParameters; 
@@ -26,7 +53,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on Member.Id, Member.FullName, and Member.Username.  Comparison is case-sensitive.
 		/// </remarks>
-		public Member this[string key] => GetByKey(key);
+		public IMember this[string key] => GetByKey(key);
 
 		internal ReadOnlyMemberCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
@@ -40,6 +67,31 @@ namespace Manatee.Trello
 			_updateRequestType = source._updateRequestType;
 			if (source._additionalParameters != null)
 				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
+		}
+
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
+		public void Filter(MemberFilter filter)
+		{
+			var filters = filter.GetFlags().Cast<MemberFilter>();
+			Filter(filters);
+		}
+
+		/// <summary>
+		/// Adds a set of filters to the collection.
+		/// </summary>
+		/// <param name="filters">The filter values.</param>
+		public void Filter(IEnumerable<MemberFilter> filters)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
+			var filter = _additionalParameters.ContainsKey("filter") ? (string)_additionalParameters["filter"] : string.Empty;
+			if (!filter.IsNullOrWhiteSpace())
+				filter += ",";
+			filter += filters.Select(a => a.GetDescription()).Join(",");
+			_additionalParameters["filter"] = filter;
 		}
 
 		/// <summary>
@@ -59,18 +111,7 @@ namespace Manatee.Trello
 				}));
 		}
 
-		internal void AddFilter(IEnumerable<MemberFilter> actionTypes)
-		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
-			var filter = _additionalParameters.ContainsKey("filter") ? (string)_additionalParameters["filter"] : string.Empty;
-			if (!filter.IsNullOrWhiteSpace())
-				filter += ",";
-			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
-			_additionalParameters["filter"] = filter;
-		}
-
-		private Member GetByKey(string key)
+		private IMember GetByKey(string key)
 		{
 			return this.FirstOrDefault(m => key.In(m.Id, m.FullName, m.UserName));
 		}
@@ -79,7 +120,25 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A collection of members.
 	/// </summary>
-	public class MemberCollection : ReadOnlyMemberCollection
+	public interface IMemberCollection : IReadOnlyMemberCollection
+	{
+		/// <summary>
+		/// Adds a member to the collection.
+		/// </summary>
+		/// <param name="member">The member to add.</param>
+		void Add(IMember member);
+
+		/// <summary>
+		/// Removes a member from the collection.
+		/// </summary>
+		/// <param name="member">The member to remove.</param>
+		void Remove(IMember member);
+	}
+
+	/// <summary>
+	/// A collection of members.
+	/// </summary>
+	public class MemberCollection : ReadOnlyMemberCollection, IMemberCollection
 	{
 		internal MemberCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(requestType, getOwnerId, auth) {}
@@ -88,11 +147,11 @@ namespace Manatee.Trello
 		/// Adds a member to the collection.
 		/// </summary>
 		/// <param name="member">The member to add.</param>
-		public void Add(Member member)
+		public void Add(IMember member)
 		{
-			var error = NotNullRule<Member>.Instance.Validate(null, member);
+			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<Member>(member, new[] {error});
+				throw new ValidationException<IMember>(member, new[] {error});
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
 			json.String = member.Id;
@@ -106,11 +165,11 @@ namespace Manatee.Trello
 		/// Removes a member from the collection.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(Member member)
+		public void Remove(IMember member)
 		{
-			var error = NotNullRule<Member>.Instance.Validate(null, member);
+			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<Member>(member, new[] {error});
+				throw new ValidationException<IMember>(member, new[] {error});
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_RemoveMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
 			JsonRepository.Execute(Auth, endpoint);

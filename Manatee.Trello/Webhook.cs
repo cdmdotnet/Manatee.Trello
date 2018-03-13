@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -10,34 +9,66 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Provides a common base class for the generic Webhook classes.
+	/// Represents a webhook.
 	/// </summary>
-	public abstract class Webhook
+	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
+	public interface IWebhook<T> where T : class, ICanWebhook
 	{
-		internal Webhook() {}
+		/// <summary>
+		/// Gets or sets a callback URL for the webhook.
+		/// </summary>
+		string CallBackUrl { get; set; }
 
 		/// <summary>
-		/// Processes webhook notification content.
+		/// Gets the creation date of the webhook.
 		/// </summary>
-		/// <param name="content">The string content of the notification.</param>
-		/// <param name="auth">The <see cref="TrelloAuthorization"/> under which the notification should be processed</param>
-		public static void ProcessNotification(string content, TrelloAuthorization auth = null)
-		{
-			var notification = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhookNotification>(content);
-			var action = new Action(notification.Action, auth);
+		DateTime CreationDate { get; }
 
-			foreach (var obj in TrelloConfiguration.Cache.OfType<ICanWebhook>().ToList())
-			{
-				obj.ApplyAction(action);
-			}
-		}
+		/// <summary>
+		/// Gets or sets a description for the webhook.
+		/// </summary>
+		string Description { get; set; }
+
+		/// <summary>
+		/// Gets the webhook's ID>
+		/// </summary>
+		string Id { get; }
+
+		/// <summary>
+		/// Gets or sets whether the webhook is active.
+		/// </summary>
+		bool? IsActive { get; set; }
+
+		/// <summary>
+		/// Gets or sets the webhook's target.
+		/// </summary>
+		T Target { get; set; }
+
+		/// <summary>
+		/// Raised when data on the webhook is updated.
+		/// </summary>
+		event Action<IWebhook<T>, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Deletes the webhook.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		void Delete();
+
+		/// <summary>
+		/// Marks the webhook to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
 	}
 
 	/// <summary>
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : Webhook
+	public class Webhook<T> : IWebhook<T>
 		where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
@@ -99,7 +130,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the webhook is updated.
 		/// </summary>
-		public event Action<Webhook, IEnumerable<string>> Updated;
+		public event Action<IWebhook<T>, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.

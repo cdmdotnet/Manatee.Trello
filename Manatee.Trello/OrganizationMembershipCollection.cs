@@ -12,7 +12,36 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of organization memberships.
 	/// </summary>
-	public class ReadOnlyOrganizationMembershipCollection : ReadOnlyCollection<OrganizationMembership>
+	public interface IReadOnlyOrganizationMembershipCollection : IReadOnlyCollection<IOrganizationMembership>
+	{
+		/// <summary>
+		/// Retrieves a membership which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching list, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on OrganizationMembership.Id, OrganizationMembership.Member.Id,
+		/// OrganizationMembership.Member.FullName, and OrganizationMembership.Member.Username.
+		/// Comparison is case-sensitive.
+		/// </remarks>
+		IOrganizationMembership this[string key] { get; }
+
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
+		void Filter(MembershipFilter filter);
+		/// <summary>
+		/// Adds a set of filters to the collection.
+		/// </summary>
+		/// <param name="filters">The filter values.</param>
+		void Filter(IEnumerable<MembershipFilter> filters);
+	}
+
+	/// <summary>
+	/// A read-only collection of organization memberships.
+	/// </summary>
+	public class ReadOnlyOrganizationMembershipCollection : ReadOnlyCollection<IOrganizationMembership>, IReadOnlyOrganizationMembershipCollection
 	{
 		private Dictionary<string, object> _additionalParameters;
 
@@ -38,7 +67,32 @@ namespace Manatee.Trello
 		/// OrganizationMembership.Member.FullName, and OrganizationMembership.Member.Username.
 		/// Comparison is case-sensitive.
 		/// </remarks>
-		public OrganizationMembership this[string key] => GetByKey(key);
+		public IOrganizationMembership this[string key] => GetByKey(key);
+
+		/// <summary>
+		/// Adds a filter to the collection.
+		/// </summary>
+		/// <param name="filter">The filter value.</param>
+		public void Filter(MembershipFilter filter)
+		{
+			var filters = filter.GetFlags().Cast<MembershipFilter>();
+			Filter(filters);
+		}
+
+		/// <summary>
+		/// Adds a set of filters to the collection.
+		/// </summary>
+		/// <param name="filters">The filter values.</param>
+		public void Filter(IEnumerable<MembershipFilter> filters)
+		{
+			if (_additionalParameters == null)
+				_additionalParameters = new Dictionary<string, object> { { "filter", string.Empty } };
+			var filter = ((string)_additionalParameters["filter"]);
+			if (!filter.IsNullOrWhiteSpace())
+				filter += ",";
+			filter += filters.Select(a => a.GetDescription()).Join(",");
+			_additionalParameters["filter"] = filter;
+		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
@@ -57,18 +111,7 @@ namespace Manatee.Trello
 				}));
 		}
 
-		internal void AddFilter(IEnumerable<MembershipFilter> actionTypes)
-		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object> { { "filter", string.Empty } };
-			var filter = ((string)_additionalParameters["filter"]);
-			if (!filter.IsNullOrWhiteSpace())
-				filter += ",";
-			filter += actionTypes.Select(a => a.GetDescription()).Join(",");
-			_additionalParameters["filter"] = filter;
-		}
-
-		private OrganizationMembership GetByKey(string key)
+		private IOrganizationMembership GetByKey(string key)
 		{
 			return this.FirstOrDefault(bm => key.In(bm.Id, bm.Member.Id, bm.Member.FullName, bm.Member.UserName));
 		}
@@ -77,7 +120,26 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A collection of organization memberships.
 	/// </summary>
-	public class OrganizationMembershipCollection : ReadOnlyOrganizationMembershipCollection
+	public interface IOrganizationMembershipCollection : IReadOnlyOrganizationMembershipCollection
+	{
+		/// <summary>
+		/// Adds a member to an organization with specified privileges.
+		/// </summary>
+		/// <param name="member">The member to add.</param>
+		/// <param name="membership">The membership type.</param>
+		void Add(IMember member, OrganizationMembershipType membership);
+
+		/// <summary>
+		/// Removes a member from an organization.
+		/// </summary>
+		/// <param name="member">The member to remove.</param>
+		void Remove(IMember member);
+	}
+
+	/// <summary>
+	/// A collection of organization memberships.
+	/// </summary>
+	public class OrganizationMembershipCollection : ReadOnlyOrganizationMembershipCollection, IOrganizationMembershipCollection
 	{
 		internal OrganizationMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
@@ -87,14 +149,14 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to add.</param>
 		/// <param name="membership">The membership type.</param>
-		public void Add(Member member, OrganizationMembershipType membership)
+		public void Add(IMember member, OrganizationMembershipType membership)
 		{
-			var error = NotNullRule<Member>.Instance.Validate(null, member);
+			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<Member>(member, new[] {error});
+				throw new ValidationException<IMember>(member, new[] {error});
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonOrganizationMembership>();
-			json.Member = member.Json;
+			json.Member = ((Member) member).Json;
 			json.MemberType = membership;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
@@ -104,11 +166,11 @@ namespace Manatee.Trello
 		/// Removes a member from an organization.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(Member member)
+		public void Remove(IMember member)
 		{
-			var error = NotNullRule<Member>.Instance.Validate(null, member);
+			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<Member>(member, new[] {error});
+				throw new ValidationException<IMember>(member, new[] {error});
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
 			json.String = member.Id;
