@@ -18,6 +18,12 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		DateTime? Date { get; set; }
+		/// <summary>
+		/// Gets or sets the border color of the attachment preview on the card.
+		/// </summary>
+		[JsonSerialize]
+		[JsonDeserialize]
+		string EdgeColor { get; set; }
 		///<summary>
 		/// Gets or sets the ID of the member who created the attachment.
 		///</summary>
@@ -38,6 +44,12 @@ namespace Manatee.Trello.Json
 		///</summary>
 		[JsonDeserialize]
 		string Name { get; set; }
+		/// <summary>
+		/// Gets or sets the attachment's position.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		IJsonPosition Pos { get; set; }
 		///<summary>
 		/// Gets or sets a collection of previews for the attachment.
 		///</summary>

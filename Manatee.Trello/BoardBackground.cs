@@ -29,6 +29,21 @@ namespace Manatee.Trello
 		/// Gets a collections of scaled background images.
 		/// </summary>
 		IReadOnlyCollection<IImagePreview> ScaledImages { get; }
+
+		/// <summary>
+		/// Gets the bottom color of a gradient background.
+		/// </summary>
+		WebColor BottomColor { get; }
+
+		/// <summary>
+		/// Gets the brightness of the background.
+		/// </summary>
+		BoardBackgroundBrightness? Brightness { get; }
+
+		/// <summary>
+		/// Gets the top color of a gradient background.
+		/// </summary>
+		WebColor TopColor { get; }
 	}
 
 	/// <summary>
@@ -39,8 +54,11 @@ namespace Manatee.Trello
 		private static BoardBackground _blue, _orange, _green, _red, _purple, _pink, _lime, _sky, _grey;
 
 		private readonly Field<WebColor> _color;
+		private readonly Field<WebColor> _bottomColor;
+		private readonly Field<WebColor> _topColor;
 		private readonly Field<string> _image;
 		private readonly Field<bool?> _isTiled;
+		private readonly Field<BoardBackgroundBrightness?> _brightness;
 		private readonly BoardBackgroundContext _context;
 
 		/// <summary>
@@ -81,6 +99,14 @@ namespace Manatee.Trello
 		public static BoardBackground Grey => _grey ?? (_grey = new BoardBackground("grey"));
 
 		/// <summary>
+		/// Gets the bottom color of a gradient background.
+		/// </summary>
+		public WebColor BottomColor => _bottomColor.Value;
+		/// <summary>
+		/// Gets the brightness of the background.
+		/// </summary>
+		public BoardBackgroundBrightness? Brightness => _brightness.Value;
+		/// <summary>
 		/// Gets the color of a stock solid-color background.
 		/// </summary>
 		public WebColor Color => _color.Value;
@@ -100,6 +126,10 @@ namespace Manatee.Trello
 		/// Gets a collections of scaled background images.
 		/// </summary>
 		public IReadOnlyCollection<IImagePreview> ScaledImages { get; }
+		/// <summary>
+		/// Gets the top color of a gradient background.
+		/// </summary>
+		public WebColor TopColor => _topColor.Value;
 
 		internal IJsonBoardBackground Json
 		{
@@ -113,7 +143,10 @@ namespace Manatee.Trello
 			_context = new BoardBackgroundContext(auth);
 			_context.Merge(json);
 
+			_brightness = new Field<BoardBackgroundBrightness?>(_context, nameof(Brightness));
 			_color = new Field<WebColor>(_context, nameof(Color));
+			_topColor = new Field<WebColor>(_context, nameof(TopColor));
+			_bottomColor = new Field<WebColor>(_context, nameof(BottomColor));
 			_image = new Field<string>(_context, nameof(Image));
 			_isTiled = new Field<bool?>(_context, nameof(IsTiled));
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, auth);
@@ -126,7 +159,10 @@ namespace Manatee.Trello
 			_context = new BoardBackgroundContext(TrelloAuthorization.Default);
 			Json.Id = id;
 
+			_brightness = new Field<BoardBackgroundBrightness?>(_context, nameof(Brightness));
 			_color = new Field<WebColor>(_context, nameof(Color));
+			_topColor = new Field<WebColor>(_context, nameof(TopColor));
+			_bottomColor = new Field<WebColor>(_context, nameof(BottomColor));
 			_image = new Field<string>(_context, nameof(Image));
 			_isTiled = new Field<bool?>(_context, nameof(IsTiled));
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, TrelloAuthorization.Default);

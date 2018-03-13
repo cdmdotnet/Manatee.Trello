@@ -8,6 +8,14 @@ namespace Manatee.Trello.Json
 	public interface IJsonBoardBackground : IJsonCacheable
 	{
 		/// <summary>
+		/// The bottom color of a gradient background.
+		/// </summary>
+		string BottomColor { get; set; }
+		/// <summary>
+		/// Gets the overall brightness of the background.
+		/// </summary>
+		BoardBackgroundBrightness? Brightness { get; set; }
+		/// <summary>
 		/// Gets or sets the color.
 		/// </summary>
 		[JsonDeserialize]
@@ -31,6 +39,9 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Tile { get; set; }
-		//string Brightness // What are the possible values?  Have only seen "unknown" and "dark".
+		/// <summary>
+		/// The top color of a gradient background.
+		/// </summary>
+		string TopColor { get; set; }
 	}
 }
