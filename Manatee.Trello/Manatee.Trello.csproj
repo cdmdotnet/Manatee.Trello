@@ -11,6 +11,13 @@
 
 v2.3.0
 Added removing stickers from cards.
+Added new fields to Board.
+- LastActivity
+- LastViewed
+- IsPinned
+- IsStarred
+- ShortLink
+- ShortUrl
 
 v2.2.0
 Updated ActionTypes.
