@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manatee.Trello.CustomFields;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Tests.Common;
 using Manatee.Trello.WebApi;
@@ -12,16 +13,20 @@ namespace Manatee.Trello.IntegrationTests
 	public class DevTest
 	{
 		[Test]
-		[Ignore("This test fixture for development purposes only.")]
+		//[Ignore("This test fixture for development purposes only.")]
 		public void TestMethod1()
 		{
 			Run(() =>
 				{
 					var card = new Card("3rm0AZg5");
-					var attachment = card.Attachments.FirstOrDefault();
+					Console.WriteLine(card.Id);
 
-					Console.WriteLine(attachment.Position);
-					Console.WriteLine(attachment.EdgeColor);
+					var fields = card.CustomFields();
+
+					foreach (var field in fields)
+					{
+						Console.WriteLine($"{field.Name} = {field.Value}");
+					}
 				});
 		}
 
