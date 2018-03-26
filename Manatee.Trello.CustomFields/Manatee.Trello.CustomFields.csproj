@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <Authors>gregsdennis</Authors>
     <Company>Little Crab Solutions</Company>
     <Description>Custom Fields powerup implementation for Manatee.Trello</Description>
@@ -13,6 +13,9 @@
     <PackageTags>manatee trello power-ups</PackageTags>
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
+v2.0.2
+Repackaged to fix versioning issue.
+
 v2.0.1
 Corrected framework to .Net Standard 1.3 to match Manatee.Trello.
 Signed assembly.
@@ -22,6 +25,8 @@ BREAKING CHANGE: Frameworks below 4.6.1 are no longer supported.
 Updated to NetStandard2.0</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
+    <FileVersion>2.0.2.0</FileVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
