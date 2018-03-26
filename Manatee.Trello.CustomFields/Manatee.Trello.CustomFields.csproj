@@ -22,8 +22,6 @@ BREAKING CHANGE: Frameworks below 4.6.1 are no longer supported.
 Updated to NetStandard2.0</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
-    <FileVersion>2.0.2.0</FileVersion>
-    <AssemblyVersion>2.0.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
