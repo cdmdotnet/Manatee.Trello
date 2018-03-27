@@ -15,13 +15,25 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckItem : ICacheable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for check items.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the State property should be populated.
+			/// </summary>
 			[Display(Description="state")]
 			State = 1,
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 1,
+			/// <summary>
+			/// Indicates the Position property should be populated.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 2
 		}
@@ -33,6 +45,9 @@ namespace Manatee.Trello
 		private readonly CheckItemContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

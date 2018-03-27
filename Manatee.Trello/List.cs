@@ -15,17 +15,35 @@ namespace Manatee.Trello
 	/// </summary>
 	public class List : ICanWebhook
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for lists.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
+			/// <summary>
+			/// Indicates the IsClosed property should be populated.
+			/// </summary>
 			[Display(Description="closed")]
-			IsClosed = 1 << 1, 
+			IsClosed = 1 << 1,
+			/// <summary>
+			/// Indicates the Board property should be populated.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 2,
+			/// <summary>
+			/// Indicates the Position property should be populated.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 3,
+			/// <summary>
+			/// Indicates the Susbcribed property should be populated.
+			/// </summary>
 			[Display(Description="subscribed")]
 			Susbcribed = 1 << 4
 		}
@@ -40,6 +58,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

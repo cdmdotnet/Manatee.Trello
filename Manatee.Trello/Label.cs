@@ -14,15 +14,30 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Label : ICacheable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for labels.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Board property should be populated.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1,
+			/// <summary>
+			/// Indicates the Color property should be populated.
+			/// </summary>
 			[Display(Description="color")]
 			Color = 1 << 1,
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 2,
+			/// <summary>
+			/// Indicates the Uses property should be populated.
+			/// </summary>
 			[Display(Description="uses")]
 			Uses = 1 << 3
 		}
@@ -34,6 +49,9 @@ namespace Manatee.Trello
 		private readonly LabelContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

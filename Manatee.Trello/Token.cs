@@ -14,17 +14,35 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Token : ICacheable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for tokens.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Id property should be populated.
+			/// </summary>
 			[Display(Description="identifier")]
 			Id,
+			/// <summary>
+			/// Indicates the Member property should be populated.
+			/// </summary>
 			[Display(Description="idMember")]
 			Member,
+			/// <summary>
+			/// Indicates the DateCreated property should be populated.
+			/// </summary>
 			[Display(Description="dateCreated")]
 			DateCreated,
+			/// <summary>
+			/// Indicates the DateExpires property should be populated.
+			/// </summary>
 			[Display(Description="dateExpires")]
 			DateExpires,
+			/// <summary>
+			/// Indicates the Permissions property should be populated.
+			/// </summary>
 			[Display(Description="permissions")]
 			Permissions
 		}
@@ -38,6 +56,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

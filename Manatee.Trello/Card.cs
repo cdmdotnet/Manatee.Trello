@@ -17,41 +17,95 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Card : ICanWebhook, IQueryable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for cards.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Badges property should be populated.
+			/// </summary>
 			[Display(Description="badges")]
 			Badges = 1,
+			/// <summary>
+			/// Indicates the Board property should be populated.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 1,
+			/// <summary>
+			/// Indicates the Checklists property should be populated.
+			/// </summary>
 			[Display(Description="idCheckLists")]
 			Checklists = 1 << 2,
+			/// <summary>
+			/// Indicates the DateLastActivity property should be populated.
+			/// </summary>
 			[Display(Description="dateLastActivity")]
 			DateLastActivity = 1 << 3,
+			/// <summary>
+			/// Indicates the Description property should be populated.
+			/// </summary>
 			[Display(Description="desc")]
 			Description = 1 << 4,
+			/// <summary>
+			/// Indicates the Due property should be populated.
+			/// </summary>
 			[Display(Description="due")]
 			Due = 1 << 5,
+			/// <summary>
+			/// Indicates the IsArchived property should be populated.
+			/// </summary>
 			[Display(Description="closed")]
 			IsArchived = 1 << 6,
+			/// <summary>
+			/// Indicates the IsComplete property should be populated.
+			/// </summary>
 			[Display(Description="dueComplete")]
 			IsComplete = 1 << 7,
+			/// <summary>
+			/// Indicates the IsSubscribed property should be populated.
+			/// </summary>
 			[Display(Description="subscribed")]
 			IsSubscribed = 1 << 8,
+			/// <summary>
+			/// Indicates the Labels property should be populated.
+			/// </summary>
 			[Display(Description="idLabels")]
 			Labels = 1 << 9,
+			/// <summary>
+			/// Indicates the List property should be populated.
+			/// </summary>
 			[Display(Description="idList")]
 			List = 1 << 10,
+			/// <summary>
+			/// Indicates the ManualCoverAttachment property should be populated.
+			/// </summary>
 			[Display(Description="manualCoverAttachment")]
 			ManualCoverAttachment = 1 << 11,
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 12,
+			/// <summary>
+			/// Indicates the Position property should be populated.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 13,
+			/// <summary>
+			/// Indicates the ShortId property should be populated.
+			/// </summary>
 			[Display(Description="idShort")]
 			ShortId = 1 << 14,
+			/// <summary>
+			/// Indicates the ShortUrl property should be populated.
+			/// </summary>
 			[Display(Description="shortUrl")]
 			ShortUrl = 1 << 15,
+			/// <summary>
+			/// Indicates the Url property should be populated.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 16,
 		}
@@ -74,12 +128,15 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
-		/// <remarks>By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.</remarks>
+		/// <remarks>By default imposed by Trello, this contains actions of type <see cref="ActionType.CommentCard"/>.</remarks>
 		public ReadOnlyActionCollection Actions { get; }
 		/// <summary>
 		/// Gets the collection of attachments contained in the card.

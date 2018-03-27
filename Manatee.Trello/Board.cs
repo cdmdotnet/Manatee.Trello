@@ -17,33 +17,75 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Board : ICanWebhook, IQueryable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for boards.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
+			/// <summary>
+			/// Indicates the Description property should be populated.
+			/// </summary>
 			[Display(Description="desc")]
 			Description = 1 << 1,
+			/// <summary>
+			/// Indicates the Closed property should be populated.
+			/// </summary>
 			[Display(Description="closed")]
 			Closed = 1 << 2,
+			/// <summary>
+			/// Indicates the Organization property should be populated.
+			/// </summary>
 			[Display(Description="idOrganization")]
 			Organization = 1 << 3,
+			/// <summary>
+			/// Indicates the Pinned property should be populated.
+			/// </summary>
 			[Display(Description="pinned")]
 			Pinned = 1 << 4,
+			/// <summary>
+			/// Indicates the Starred property should be populated.
+			/// </summary>
 			[Display(Description="starred")]
 			Starred = 1 << 5,
+			/// <summary>
+			/// Indicates the Preferencess property should be populated.
+			/// </summary>
 			[Display(Description="prefs")]
 			Preferencess = 1 << 6,
+			/// <summary>
+			/// Indicates the Url property should be populated.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 7,
+			/// <summary>
+			/// Indicates the Subscribed property should be populated.
+			/// </summary>
 			[Display(Description="subscribed")]
 			Subscribed = 1 << 8,
+			/// <summary>
+			/// Indicates the LastActivityDate property should be populated.
+			/// </summary>
 			[Display(Description="dateLastActivity")]
 			LastActivityDate = 1 << 9,
+			/// <summary>
+			/// Indicates the LastViewDate property should be populated.
+			/// </summary>
 			[Display(Description="dateLastView")]
 			LastViewDate = 1 << 10,
+			/// <summary>
+			/// Indicates the ShortLink property should be populated.
+			/// </summary>
 			[Display(Description="shortLink")]
 			ShortLink = 1 << 11,
+			/// <summary>
+			/// Indicates the ShortUrl property should be populated.
+			/// </summary>
 			[Display(Description="shortUrl")]
 			ShortUrl = 1 << 12,
 		}
@@ -65,6 +107,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

@@ -15,17 +15,35 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckList : ICacheable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for check lists.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
+			/// <summary>
+			/// Indicates the Board property should be populated.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 1,
+			/// <summary>
+			/// Indicates the Card property should be populated.
+			/// </summary>
 			[Display(Description="idCard")]
 			Card = 1 << 2,
+			/// <summary>
+			/// Indicates the CheckItems property should be populated.
+			/// </summary>
 			[Display(Description="checkItems")]
 			CheckItems = 1 << 3,
+			/// <summary>
+			/// Indicates the Position property should be populated.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 4
 		}
@@ -37,6 +55,9 @@ namespace Manatee.Trello
 		private readonly CheckListContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>

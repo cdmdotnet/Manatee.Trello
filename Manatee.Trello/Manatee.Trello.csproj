@@ -64,7 +64,7 @@ Added board delete.
   <PropertyGroup>
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
+    <FileVersion>2.3.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">

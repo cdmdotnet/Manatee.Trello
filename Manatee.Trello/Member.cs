@@ -15,43 +15,100 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Member : ICanWebhook
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for members.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the AvatarHash property should be populated.
+			/// </summary>
 			[Display(Description="avatarHash")]
 			AvatarHash = 1,
+			/// <summary>
+			/// Indicates the AvatarSource property should be populated.
+			/// </summary>
 			[Display(Description="avatarSource")]
 			AvatarSource = 1 << 1,
+			/// <summary>
+			/// Indicates the Bio property should be populated.
+			/// </summary>
 			[Display(Description="bio")]
 			Bio = 1 << 2,
+			/// <summary>
+			/// Indicates the IsConfirmed property should be populated.
+			/// </summary>
 			[Display(Description="confirmed")]
 			IsConfirmed = 1 << 3,
+			/// <summary>
+			/// Indicates the Email property should be populated.
+			/// </summary>
 			[Display(Description="email")]
 			Email = 1 << 4,
+			/// <summary>
+			/// Indicates the FullName property should be populated.
+			/// </summary>
 			[Display(Description="fullName")]
 			FullName = 1 << 5,
+			/// <summary>
+			/// Indicates the GravatarHash property should be populated.
+			/// </summary>
 			[Display(Description="gravatarHash")]
 			GravatarHash = 1 << 6,
+			/// <summary>
+			/// Indicates the Initials property should be populated.
+			/// </summary>
 			[Display(Description="intials")]
 			Initials = 1 << 7,
+			/// <summary>
+			/// Indicates the LoginTypes property should be populated.
+			/// </summary>
 			[Display(Description="loginTypes")]
 			LoginTypes = 1 << 8,
+			/// <summary>
+			/// Indicates the MemberType property should be populated.
+			/// </summary>
 			[Display(Description="memberType")]
 			MemberType = 1 << 9,
+			/// <summary>
+			/// Indicates the OneTimeMessagesDismissed property should be populated.
+			/// </summary>
 			[Display(Description="oneTimeMessagesReceived")]
 			OneTimeMessagesDismissed = 1 << 10,
+			/// <summary>
+			/// Indicates the Preferencess property should be populated.
+			/// </summary>
 			[Display(Description="prefs")]
 			Preferencess = 1 << 11,
+			/// <summary>
+			/// Indicates the Similarity property should be populated.
+			/// </summary>
 			[Display(Description="similarity")]
 			Similarity = 1 << 12,
+			/// <summary>
+			/// Indicates the Status property should be populated.
+			/// </summary>
 			[Display(Description="status")]
 			Status = 1 << 13,
+			/// <summary>
+			/// Indicates the Trophies property should be populated.
+			/// </summary>
 			[Display(Description="trophies")]
 			Trophies = 1 << 14,
+			/// <summary>
+			/// Indicates the UploadedAvatarHash property should be populated.
+			/// </summary>
 			[Display(Description="uploadedAvatarHash")]
 			UploadedAvatarHash = 1 << 15,
+			/// <summary>
+			/// Indicates the Url property should be populated.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 16,
+			/// <summary>
+			/// Indicates the Username property should be populated.
+			/// </summary>
 			[Display(Description="username")]
 			Username = 1 << 17
 		}
@@ -74,6 +131,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
