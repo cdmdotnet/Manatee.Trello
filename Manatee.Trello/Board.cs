@@ -28,20 +28,38 @@ namespace Manatee.Trello
 			Closed = 1 << 2,
 			[Display(Description="idOrganization")]
 			Organization = 1 << 3,
+			[Display(Description="pinned")]
+			Pinned = 1 << 4,
+			[Display(Description="starred")]
+			Starred = 1 << 5,
 			[Display(Description="prefs")]
-			Preferencess = 1 << 4,
+			Preferencess = 1 << 6,
 			[Display(Description="url")]
-			Url = 1 << 5,
+			Url = 1 << 7,
 			[Display(Description="subscribed")]
-			Subscribed = 1 << 6
+			Subscribed = 1 << 8,
+			[Display(Description="dateLastActivity")]
+			LastActivityDate = 1 << 9,
+			[Display(Description="dateLastView")]
+			LastViewDate = 1 << 10,
+			[Display(Description="shortLink")]
+			ShortLink = 1 << 11,
+			[Display(Description="shortUrl")]
+			ShortUrl = 1 << 12,
 		}
 
 		private readonly Field<string> _description;
 		private readonly Field<bool?> _isClosed;
+		private readonly Field<bool?> _isPinned;
+		private readonly Field<bool?> _isStarred;
 		private readonly Field<bool?> _isSubscribed;
 		private readonly Field<string> _name;
 		private readonly Field<Organization> _organization;
 		private readonly Field<string> _url;
+		private readonly Field<DateTime?> _lastActivity;
+		private readonly Field<DateTime?> _lastViewed;
+		private readonly Field<string> _shortLink;
+		private readonly Field<string> _shortUrl;
 		private readonly BoardContext _context;
 
 		private string _id;
@@ -102,7 +120,23 @@ namespace Manatee.Trello
 			set { _isClosed.Value = value; }
 		}
 		/// <summary>
-		/// Gets or sets whether the current member is subscribed to the board.
+		/// Gets or sets wheterh this board is pinned.
+		/// </summary>
+		public bool? IsPinned
+		{
+			get { return _isPinned.Value; }
+			set { _isPinned.Value = value; }
+		}
+		/// <summary>
+		/// Gets or sets wheterh this board is pinned.
+		/// </summary>
+		public bool? IsStarred
+		{
+			get { return _isStarred.Value; }
+			set { _isStarred.Value = value; }
+		}
+		/// <summary>
+		/// Gets or sets whether the current member is subscribed to this board.
 		/// </summary>
 		public bool? IsSubscribed
 		{
@@ -114,7 +148,15 @@ namespace Manatee.Trello
 		/// </summary>
 		public BoardLabelCollection Labels { get; }
 		/// <summary>
-		/// Gets the collection of lists on the board.
+		/// Gets the date of the board's most recent activity.
+		/// </summary>
+		public DateTime? LastActivity => _lastActivity.Value;
+		/// <summary>
+		/// Gets the date when the board was most recently viewed.
+		/// </summary>
+		public DateTime? LastViewed => _lastViewed.Value;
+		/// <summary>
+		/// Gets the collection of lists on this board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived lists.
@@ -163,6 +205,14 @@ namespace Manatee.Trello
 		/// Gets the set of preferences for the board.
 		/// </summary>
 		public BoardPersonalPreferences PersonalPreferences { get; }
+		/// <summary>
+		/// Gets the board's short URI.
+		/// </summary>
+		public string ShortLink => _shortLink.Value;
+		/// <summary>
+		/// Gets the board's short link (ID).
+		/// </summary>
+		public string ShortUrl => _shortUrl.Value;
 		/// <summary>
 		/// Gets the board's URI.
 		/// </summary>
@@ -216,6 +266,10 @@ namespace Manatee.Trello
 			_description = new Field<string>(_context, nameof(Description));
 			_isClosed = new Field<bool?>(_context, nameof(IsClosed));
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
+			_isPinned = new Field<bool?>(_context, nameof(IsPinned));
+			_isPinned.AddRule(NullableHasValueRule<bool>.Instance);
+			_isStarred = new Field<bool?>(_context, nameof(IsStarred));
+			_isStarred.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
 			Labels = new BoardLabelCollection(() => Id, auth);
@@ -230,6 +284,10 @@ namespace Manatee.Trello
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			PersonalPreferences = new BoardPersonalPreferences(() => Id, auth);
 			_url = new Field<string>(_context, nameof(Url));
+			_shortUrl = new Field<string>(_context, nameof(ShortUrl));
+			_shortLink = new Field<string>(_context, nameof(ShortLink));
+			_lastActivity = new Field<DateTime?>(_context, nameof(LastActivity));
+			_lastViewed = new Field<DateTime?>(_context, nameof(LastViewed));
 
 			TrelloConfiguration.Cache.Add(this);
 		}

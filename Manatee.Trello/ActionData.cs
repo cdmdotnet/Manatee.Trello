@@ -18,6 +18,7 @@ namespace Manatee.Trello
 		private readonly Field<Card> _cardSource;
 		private readonly Field<CheckItem> _checkItem;
 		private readonly Field<CheckList> _checkList;
+		private readonly Field<Label> _label;
 		private readonly Field<DateTime?> _lastEdited;
 		private readonly Field<List> _list;
 		private readonly Field<List> _listAfter;
@@ -122,6 +123,10 @@ namespace Manatee.Trello
 		/// - UpdateChecklist
 		/// </associated-action-types>
 		public CheckList CheckList => _checkList.Value;
+		/// <summary>
+		/// Gets the associated label.
+		/// </summary>
+		public Label Label => _label.Value;
 		/// <summary>
 		/// Gets the date/time a comment was last edited.
 		/// </summary>
@@ -256,6 +261,7 @@ namespace Manatee.Trello
 			_cardSource = new Field<Card>(_context, nameof(CardSource));
 			_checkItem = new Field<CheckItem>(_context, nameof(CheckItem));
 			_checkList = new Field<CheckList>(_context, nameof(CheckList));
+			_label = new Field<Label>(_context, nameof(Label));
 			_lastEdited = new Field<DateTime?>(_context, nameof(LastEdited));
 			_list = new Field<List>(_context, nameof(List));
 			_listAfter = new Field<List>(_context, nameof(ListAfter));

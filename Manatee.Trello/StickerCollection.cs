@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
@@ -77,6 +78,21 @@ namespace Manatee.Trello
 			var newData = JsonRepository.Execute<IJsonSticker>(Auth, endpoint, parameters);
 
 			return new Sticker(newData, OwnerId, Auth);
+		}
+
+		public void Remove(Sticker sticker)
+		{
+			var error = NotNullRule<Sticker>.Instance.Validate(null, sticker);
+			if (error != null)
+				throw new ValidationException<Sticker>(sticker, new[] {error});
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_RemoveSticker,
+			                                     new Dictionary<string, object>
+				                                     {
+					                                     {"_id", OwnerId},
+					                                     {"_stickerId", sticker.Id}
+				                                     });
+			JsonRepository.Execute(Auth, endpoint);
 		}
 	}
 

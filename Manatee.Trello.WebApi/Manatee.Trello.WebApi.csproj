@@ -12,6 +12,10 @@
     <PackageIconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-WebApi-Icon.png</PackageIconUrl>
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
+v2.0.3
+Rebuilt for correct versioning in Manatee.Trello v2.2.0.
+
+
 v2.0.2
 BUG FIX: POST with no content throws exception.
 v2.0.1
@@ -23,7 +27,7 @@ Updated to NetStandard1.3</PackageReleaseNotes>
     <PackageTags>trello rest manatee</PackageTags>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.2.0</FileVersion>
-    <Version>2.0.2</Version>
+    <Version>2.0.3</Version>
   </PropertyGroup>
 
   <PropertyGroup>

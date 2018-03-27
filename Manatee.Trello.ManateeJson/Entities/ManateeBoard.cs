@@ -1,4 +1,5 @@
-﻿using Manatee.Json;
+﻿using System;
+using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json;
 
@@ -11,10 +12,16 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Desc { get; set; }
 		public bool? Closed { get; set; }
 		public IJsonOrganization Organization { get; set; }
+		public bool? Pinned { get; set; }
 		public IJsonBoardPreferences Prefs { get; set; }
 		public string Url { get; set; }
 		public bool? Subscribed { get; set; }
 		public IJsonBoard BoardSource { get; set; }
+		public bool? Starred { get; set; }
+		public DateTime? DateLastActivity { get; set; }
+		public DateTime? DateLastView { get; set; }
+		public string ShortLink { get; set; }
+		public string ShortUrl { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -27,9 +34,15 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Desc = obj.TryGetString("desc");
 					Closed = obj.TryGetBoolean("closed");
 					Organization = obj.Deserialize<IJsonOrganization>(serializer, "idOrganization");
+					Pinned = obj.TryGetBoolean("pinned");
 					Prefs = obj.Deserialize<IJsonBoardPreferences>(serializer, "prefs");
 					Url = obj.TryGetString("url");
 					Subscribed = obj.TryGetBoolean("subscribed");
+					Starred = obj.TryGetBoolean("starred");
+					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
+					DateLastView = obj.Deserialize<DateTime?>(serializer, "dateLastView");
+					ShortLink = obj.TryGetString("shortLink");
+					ShortUrl = obj.TryGetString("shortUrl");
 					break;
 				case JsonValueType.String:
 					Id = json.String;
@@ -43,6 +56,8 @@ namespace Manatee.Trello.ManateeJson.Entities
 			Name.Serialize(json, serializer, "name");
 			Desc.Serialize(json, serializer, "desc");
 			Closed.Serialize(json, serializer, "closed");
+			Pinned.Serialize(json, serializer, "pinned");
+			Starred.Serialize(json, serializer, "starred");
 			Subscribed.Serialize(json, serializer, "subscribed");
 			Organization.SerializeId(json, "idOrganization");
 			BoardSource.SerializeId(json, "idBoardSource");

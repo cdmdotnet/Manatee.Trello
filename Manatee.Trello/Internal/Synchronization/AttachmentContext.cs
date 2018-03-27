@@ -26,8 +26,20 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"MimeType", new Property<IJsonAttachment, string>((d, a) => d.MimeType, (d, o) => d.MimeType = o)},
 					{"Name", new Property<IJsonAttachment, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{"Url", new Property<IJsonAttachment, string>((d, a) => d.Url, (d, o) => d.Url = o)},
+					{
+						nameof(Attachment.Position),
+						new Property<IJsonAttachment, Position>((d, a) => Position.GetPosition(d.Pos),
+						                                        (d, o) => d.Pos = Position.GetJson(o))
+					},
+					{
+						nameof(Attachment.EdgeColor),
+						new Property<IJsonAttachment, WebColor>(
+							(d, a) => d.EdgeColor.IsNullOrWhiteSpace() ? null : new WebColor(d.EdgeColor),
+							(d, o) => d.EdgeColor = o?.ToString())
+					},
 				};
 		}
+
 		public AttachmentContext(string id, string ownerId, TrelloAuthorization auth)
 			: base(auth)
 		{
@@ -35,16 +47,35 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 		}
 
+		protected override void SubmitData(IJsonAttachment json)
+		{
+			// This may make a call to get the card, but it can't be avoided.  We need its ID.
+			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Update,
+			                                     new Dictionary<string, object>
+				                                     {
+					                                     {"_cardId", _ownerId},
+					                                     {"_id", Data.Id},
+				                                     });
+			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			Merge(newData);
+		}
+
 		public void Delete()
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete, new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete,
+			                                     new Dictionary<string, object>
+				                                     {
+					                                     {"_cardId", _ownerId},
+					                                     {"_id", Data.Id}
+				                                     });
 			JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
+
 		protected override bool CanUpdate()
 		{
 			return !_deleted;

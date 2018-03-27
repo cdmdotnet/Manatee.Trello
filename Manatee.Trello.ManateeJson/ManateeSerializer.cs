@@ -32,6 +32,7 @@ namespace Manatee.Trello.ManateeJson
 						}
 				};
 			_serializer.CustomSerializations.RegisterType(DateTimeToJson, JsonToDateTime);
+			_serializer.CustomSerializations.RegisterType(ActionTypeToJson, JsonToActionType);
 			InitializeAbstractionMap(_serializer);
 			_method = _serializer.GetType().GetTypeInfo().DeclaredMethods
 			                     .First(m => m.Name == "Serialize")
@@ -128,6 +129,16 @@ namespace Manatee.Trello.ManateeJson
 				return date.ToLocalTime();
 
 			return null;
+		}
+
+		private static JsonValue ActionTypeToJson(ActionType? actionType, JsonSerializer serializer)
+		{
+			return actionType?.ToString();
+		}
+
+		private static ActionType? JsonToActionType(JsonValue json, JsonSerializer serializer)
+		{
+			return ActionType.TryParse(json.String, out var actionType) ? actionType : (ActionType?) null;
 		}
 	}
 }
