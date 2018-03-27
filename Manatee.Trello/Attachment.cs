@@ -15,27 +15,60 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Attachment : ICacheable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for attachments.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Data property should be populated.
+			/// </summary>
 			[Display(Description="bytes")]
 			Bytes = 1,
+			/// <summary>
+			/// Indicates the Date property should be populated.
+			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 1,
+			/// <summary>
+			/// Indicates the IsUpload property should be populated.
+			/// </summary>
 			[Display(Description="isUpload")]
 			IsUpload = 1 << 2,
+			/// <summary>
+			/// Indicates the Member property should be populated.
+			/// </summary>
 			[Display(Description="idMember")]
 			Member = 1 << 3,
+			/// <summary>
+			/// Indicates the MimeType property should be populated.
+			/// </summary>
 			[Display(Description="mimeType")]
 			MimeType = 1 << 4,
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 5,
+			/// <summary>
+			/// Indicates the Previews property should be populated.
+			/// </summary>
 			[Display(Description="previews")]
 			Previews = 1 << 6,
+			/// <summary>
+			/// Indicates the Url property should be populated.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 7,
+			/// <summary>
+			/// Indicates the EdgeColor property should be populated.
+			/// </summary>
 			[Display(Description = "edgeColor")]
 			EdgeColor = 1 << 8,
+			/// <summary>
+			/// Indicates the Position property should be populated.
+			/// </summary>
 			[Display(Description = "pos")]
 			Position = 1 << 9,
 		}
@@ -52,6 +85,9 @@ namespace Manatee.Trello
 		private readonly AttachmentContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -156,10 +192,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the attachment.
+		/// Permanently deletes the attachment from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This cannot be undone.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -167,12 +203,11 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>.
 		/// </summary>
 		/// <returns>
-		/// A string that represents the current object.
+		/// A string that represents the attachment.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

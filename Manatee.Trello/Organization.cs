@@ -17,23 +17,50 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Organization : ICanWebhook, IQueryable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for organizations (teams).
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Description property should be populated.
+			/// </summary>
 			[Display(Description="desc")]
 			Description = 1,
+			/// <summary>
+			/// Indicates the DisplayName property should be populated.
+			/// </summary>
 			[Display(Description="displayName")]
 			DisplayName = 1 << 1,
+			/// <summary>
+			/// Indicates the LogoHash property should be populated.
+			/// </summary>
 			[Display(Description="logoHash")]
 			LogoHash = 1 << 2,
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 3,
+			/// <summary>
+			/// Indicates the PowerUps property should be populated.
+			/// </summary>
 			[Display(Description="powerUps")]
 			PowerUps = 1 << 5,
+			/// <summary>
+			/// Indicates the Preferences property should be populated.
+			/// </summary>
 			[Display(Description="prefs")]
 			Preferences = 1 << 6,
+			/// <summary>
+			/// Indicates the Url property should be populated.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 7,
+			/// <summary>
+			/// Indicates the Website property should be populated.
+			/// </summary>
 			[Display(Description="website")]
 			Website = 1 << 8
 		}
@@ -49,6 +76,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -156,8 +186,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Organization"/> object.
 		/// </summary>
 		/// <param name="id">The organization's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full ID or the organization's name.
 		/// </remarks>
@@ -201,11 +230,10 @@ namespace Manatee.Trello
 			_context.Merge(action.Data.Organization.Json);
 		}
 		/// <summary>
-		/// Deletes the organization.
+		/// Permanently deletes the organization from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the organization from Trello's server, however, this
-		/// object will remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -220,12 +248,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="DisplayName"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return DisplayName;

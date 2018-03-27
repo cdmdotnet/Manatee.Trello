@@ -25,7 +25,7 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Adds a label to the collection.
+		/// Adds an existing label to the card.
 		/// </summary>
 		/// <param name="label">The label to add.</param>
 		public void Add(Label label)
@@ -95,7 +95,7 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Adds a label to the collection.
+		/// Creates a new label on the board.
 		/// </summary>
 		/// <param name="name">The name of the label.</param>
 		/// <param name="color">The color of the label to add.</param>

@@ -9,7 +9,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Represents the permission level a member has on a board.
+	/// Associates a <see cref="Member"/> to a <see cref="Board"/> and indicates any permissions the member has on the board.
 	/// </summary>
 	public class BoardMembership : ICacheable
 	{

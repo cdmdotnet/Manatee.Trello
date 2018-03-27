@@ -3,8 +3,7 @@
 namespace Manatee.Trello.Json
 {
 	/// <summary>
-	/// Defines methods required by the IRestClient to deserialize a response
-	/// from JSON to an object.
+	/// Defines methods required by the IRestClient to deserialize a response from JSON to an object.
 	/// </summary>
 	public interface IDeserializer
 	{

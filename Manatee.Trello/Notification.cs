@@ -14,17 +14,35 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Notification : ICacheable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for notifications.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Creator property should be populated.
+			/// </summary>
 			[Display(Description="idMemberCreator")]
 			Creator = 1,
+			/// <summary>
+			/// Indicates the Data property should be populated.
+			/// </summary>
 			[Display(Description="data")]
 			Data = 1 << 1,
+			/// <summary>
+			/// Indicates the IsUnread property should be populated.
+			/// </summary>
 			[Display(Description="unread")]
 			IsUnread = 1 << 2,
+			/// <summary>
+			/// Indicates the Type property should be populated.
+			/// </summary>
 			[Display(Description="type")]
 			Type = 1 << 3,
+			/// <summary>
+			/// Indicates the Date property should be populated.
+			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 4
 		}
@@ -38,6 +56,9 @@ namespace Manatee.Trello
 		private readonly NotificationContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -57,11 +78,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public Member Creator => _creator.Value;
 		/// <summary>
-		/// Gets any data associated with the notification.
+		/// Gets any data associated.
 		/// </summary>
 		public NotificationData Data { get; }
 		/// <summary>
-		/// Gets the date and teim at which the notification was issued.
+		/// Gets the date and time at which the notification was issued.
 		/// </summary>
 		public DateTime? Date => _date.Value;
 		/// <summary>
@@ -145,12 +166,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns a string that represents the notification.  The content will vary based on the value of <see cref="Type"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Notification type could not be determined.";

@@ -15,21 +15,45 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Sticker : ICacheable
 	{
+		/// <summary>
+		/// Enumerates the data which can be pulled for stickers.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates the Left property should be populated.
+			/// </summary>
 			[Display(Description="left")]
 			Left = 1,
+			/// <summary>
+			/// Indicates the Name property should be populated.
+			/// </summary>
 			[Display(Description="image")]
 			Name = 1 << 1,
+			/// <summary>
+			/// Indicates the Previews property should be populated.
+			/// </summary>
 			[Display(Description="imageScaled")]
 			Previews = 1 << 2,
+			/// <summary>
+			/// Indicates the Rotation property should be populated.
+			/// </summary>
 			[Display(Description="rotate")]
 			Rotation = 1 << 3,
+			/// <summary>
+			/// Indicates the Top property should be populated.
+			/// </summary>
 			[Display(Description="top")]
 			Top = 1 << 4,
+			/// <summary>
+			/// Indicates the Url property should be populated.
+			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 5,
+			/// <summary>
+			/// Indicates the ZIndex property should be populated.
+			/// </summary>
 			[Display(Description="zIndex")]
 			ZIndex = 1 << 6
 		}
@@ -91,6 +115,9 @@ namespace Manatee.Trello
 		private readonly Field<int?> _zIndex;
 		private readonly StickerContext _context;
 
+		/// <summary>
+		/// Specifies which fields should be downloaded.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -179,11 +206,10 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Add(this);
 		}
 		/// <summary>
-		/// Deletes the card.
+		/// Permanently deletes the sticker from Trello.  To remove a sticker from a card, use <see cref="CardStickerCollection.Remove"/>
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{

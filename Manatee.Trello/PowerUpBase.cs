@@ -50,9 +50,8 @@ namespace Manatee.Trello
 			_public = new Field<bool?>(_context, nameof(Public));
 		}
 
-		/// <summary>Returns a string that represents the current object.</summary>
+		/// <summary>Returns the <see cref="Name"/></summary>
 		/// <returns>A string that represents the current object.</returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

@@ -9,7 +9,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// A read-only collection of actions.
+	/// A read-only collection of notifications.
 	/// </summary>
 	public class ReadOnlyNotificationCollection : ReadOnlyCollection<Notification>
 	{
@@ -27,7 +27,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected override void Update()
+		protected sealed override void Update()
 		{
 			IncorporateLimit(_additionalParameters);
 
