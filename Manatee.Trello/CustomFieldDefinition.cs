@@ -26,6 +26,10 @@ namespace Manatee.Trello
 			Json = json;
 
 			TrelloConfiguration.Cache.Add(this);
+
+			// we need to enumerate the collection to cache all of the values
+			// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+			Options?.ToList();
 		}
 
 		public override string ToString()
