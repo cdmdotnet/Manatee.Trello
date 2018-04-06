@@ -6,7 +6,12 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class ReadOnlyCustomFieldDefinitionCollection : ReadOnlyCollection<CustomFieldDefinition>
+	public interface IReadOnlyCustomFieldDefinitionCollection : IReadOnlyCollection<CustomFieldDefinition>
+	{
+
+	}
+
+	public class ReadOnlyCustomFieldDefinitionCollection : ReadOnlyCollection<CustomFieldDefinition>, IReadOnlyCustomFieldDefinitionCollection
 	{
 		public ReadOnlyCustomFieldDefinitionCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)

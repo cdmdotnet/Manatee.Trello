@@ -1,38 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	/// <summary>
-	/// A read-only collection of actions.
-	/// </summary>
-	public interface IReadOnlyActionCollection : IReadOnlyCollection<IAction>
-	{
-		/// <summary>
-		/// Adds a filter to the collection.
-		/// </summary>
-		/// <param name="actionType">The action type.</param>
-		void Filter(ActionType actionType);
-		/// <summary>
-		/// Adds a number of filters to the collection.
-		/// </summary>
-		/// <param name="actionTypes">A collection of action types.</param>
-		void Filter(IEnumerable<ActionType> actionTypes);
-		/// <summary>
-		/// Adds a date-based filter to the collection.
-		/// </summary>
-		/// <param name="start">The start date.</param>
-		/// <param name="end">The end date.</param>
-		void Filter(DateTime? start, DateTime? end);
-	}
-
 	/// <summary>
 	/// A read-only collection of actions.
 	/// </summary>
@@ -125,51 +100,6 @@ namespace Manatee.Trello
 					action.Json = ja;
 					return action;
 				}));
-		}
-	}
-
-	/// <summary>
-	/// A collection of comment actions.
-	/// </summary>
-	public interface ICommentCollection : IReadOnlyActionCollection
-	{
-		/// <summary>
-		/// Posts a new comment to a card.
-		/// </summary>
-		/// <param name="text">The content of the comment.</param>
-		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
-		IAction Add(string text);
-	}
-
-	/// <summary>
-	/// A collection of <see cref="Action"/>s of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.CopyCommentCard"/>.
-	/// </summary>
-	public class CommentCollection : ReadOnlyActionCollection, ICommentCollection
-	{
-		internal CommentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(typeof (Card), getOwnerId, auth)
-		{
-			Filter(ActionType.CommentCard | ActionType.CopyCommentCard);
-		}
-
-		/// <summary>
-		/// Posts a new comment to a card.
-		/// </summary>
-		/// <param name="text">The content of the comment.</param>
-		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
-		public IAction Add(string text)
-		{
-			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, text);
-			if (error != null)
-				throw new ValidationException<string>(text, new[] {error});
-
-			var json = TrelloConfiguration.JsonFactory.Create<IJsonAction>();
-			json.Text = text;
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddComment, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
-
-			return new Action(newData, Auth);
 		}
 	}
 }
