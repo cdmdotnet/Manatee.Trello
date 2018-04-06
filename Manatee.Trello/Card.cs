@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -17,6 +18,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Card : ICanWebhook, IQueryable
 	{
+		private readonly TrelloAuthorization _auth;
+
 		/// <summary>
 		/// Enumerates the data which can be pulled for cards.
 		/// </summary>
@@ -170,6 +173,7 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
+		public IEnumerable<CustomField> CustomFields => Json.CustomFields?.Select(f => f.GetFromCache<CustomField>(_auth));
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
@@ -337,6 +341,7 @@ namespace Manatee.Trello
 			Id = id;
 			_context = new CardContext(id, auth);
 			_context.Synchronized += Synchronized;
+			_auth = auth;
 
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => id, auth);
 			Attachments = new AttachmentCollection(() => Id, auth);

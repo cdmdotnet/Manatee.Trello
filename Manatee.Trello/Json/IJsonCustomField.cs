@@ -9,5 +9,7 @@ namespace Manatee.Trello.Json
 		double? Number { get; set; }
 		DateTime? Date { get; set; }
 		bool? Checked { get; set; }
+		IJsonCustomDropDownOption Selected { get; set; }
+		CustomFieldType Type { get; set; }
 	}
 }

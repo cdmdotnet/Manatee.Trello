@@ -21,7 +21,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
 					Field = obj.Deserialize<IJsonCustomField>(serializer, "idCustomField");
-					Text = obj.TryGetObject("value")?.TryGetString("name");
+					Text = obj.TryGetObject("value")?.TryGetString("text");
 					Color = obj.Deserialize<LabelColor?>(serializer, "color");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 					break;

@@ -1,67 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Manatee.Trello.Contracts;
+using Manatee.Trello.Internal.Caching;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class CustomFieldDefinition
+	public class CustomFieldDefinition : ICacheable
 	{
-		public string Id { get; set; }
-		public Board Board { get; set; }
-		public string FieldGroup { get; set; }
-		public string Name { get; set; }
-		public Position Position { get; set; }
-		public CustomFieldType Type { get; set; }
-		public IEnumerable<DropDownOption> Options { get; set; }
-	}
+		private readonly TrelloAuthorization _auth;
 
-	public class DropDownOption
-	{
-		public string Id { get; set; }
-		public DropDownField Field { get; set; }
-		public string Text { get; set; }
-		public LabelColor? Color { get; set; }
-		public Position Position { get; set; }
-	}
+		public string Id => Json.Id;
+		public Board Board => Json.Board.GetFromCache<Board>(_auth);
+		public string FieldGroup => Json.FieldGroup;
+		public string Name => Json.Name;
+		public Position Position => Position.GetPosition(Json.Pos);
+		public CustomFieldType? Type => Json.Type;
+		public IEnumerable<DropDownOption> Options => Json.Options?.Select(o => o.GetFromCache<DropDownOption>(_auth));
 
-	public enum CustomFieldType
-	{
-		Unknown,
-		Text,
-		DropDown,
-		CheckBox,
-		DateTime,
-		Number
-	}
+		internal IJsonCustomFieldDefinition Json { get; set; }
 
-	public abstract class CustomField
-	{
-		public string Id { get; set; }
-		public CustomFieldDefinition Definition { get; set; }
-	}
+		internal CustomFieldDefinition(IJsonCustomFieldDefinition json, TrelloAuthorization auth)
+		{
+			_auth = auth;
+			Json = json;
 
-	public abstract class CustomField<T> : CustomField
-	{
-		public T Value { get; set; }
-	}
+			TrelloConfiguration.Cache.Add(this);
+		}
 
-	public class TextField : CustomField<string>
-	{
-	}
-
-	public class DropDownField : CustomField<DropDownOption>
-	{
-	}
-
-	public class CheckBoxField : CustomField<bool?>
-	{
-	}
-
-	public class DateTimeCustomField : CustomField<DateTime?>
-	{
-	}
-
-	public class NumberCustomField : CustomField<double?>
-	{
+		public override string ToString()
+		{
+			return Name;
+		}
 	}
 }
