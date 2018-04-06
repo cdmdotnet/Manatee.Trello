@@ -131,31 +131,4 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		string IdLabels { get; set; }
 	}
-
-	public interface IJsonCustomField : IJsonCacheable
-	{
-		ICustomFieldDefinition Definition { get; set; }
-		string Text { get; set; }
-		double? Number { get; set; }
-		DateTime? Date { get; set; }
-		bool Checked { get; set; }
-	}
-
-	public interface ICustomFieldDefinition : IJsonCacheable
-	{
-		IJsonBoard Board { get; set; }
-		string FieldGroup { get; set; }
-		string Name { get; set; }
-		IJsonPosition Pos { get; set; }
-		CustomFieldType Type { get; set; }
-		IEnumerable<IJsonCustomDropDownOption> Options { get; set; }
-	}
-
-	public interface IJsonCustomDropDownOption : IJsonCacheable
-	{
-		IJsonCustomField Field { get; set; }
-		string Text { get; set; }
-		LabelColor? Color { get; set; }
-		IJsonPosition Pos { get; set; }
-	}
 }
