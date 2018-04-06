@@ -32,7 +32,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="OrganizationMembership.Id"/>, OrganizationMembership.<see cref="Member.Id"/>, OrganizationMembership.<see cref="Member.FullName"/>, and OrganizationMembership.<see cref="Member.UserName"/>. Comparison is case-sensitive.
+		/// Matches on <see cref="IOrganizationMembership.Id"/>, OrganizationMembership.<see cref="IMember.Id"/>, OrganizationMembership.<see cref="IMember.FullName"/>, and OrganizationMembership.<see cref="IMember.UserName"/>. Comparison is case-sensitive.
 		/// </remarks>
 		public IOrganizationMembership this[string key] => GetByKey(key);
 

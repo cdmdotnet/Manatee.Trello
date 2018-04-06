@@ -26,7 +26,7 @@ namespace Manatee.Trello
 		/// </summary>
 		DateTime CreationDate { get; }
 
-		IReadOnlyCustomFieldDefinitionCollection CustomFields { get; }
+		IReadOnlyCollection<CustomFieldDefinition> CustomFields { get; }
 
 		/// <summary>
 		/// Gets or sets the board's description.

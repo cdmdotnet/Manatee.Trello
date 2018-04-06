@@ -24,20 +24,20 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<MemberSearchResult> Results => _results.Value;
 
-		private Board Board
+		private IBoard Board
 		{
 			get { return _board.Value; }
-			set { _board.Value = value; }
+			set { _board.Value = (Board) value; }
 		}
 		private int? Limit
 		{
 			get { return _limit.Value; }
 			set { _limit.Value = value; }
 		}
-		private Organization Organization
+		private IOrganization Organization
 		{
 			get { return _organization.Value; }
-			set { _organization.Value = value; }
+			set { _organization.Value = (Organization) value; }
 		}
 		private string Query
 		{
@@ -60,7 +60,7 @@ namespace Manatee.Trello
 		/// <param name="restrictToOrganization">Optional - Restricts the search to only organization members.</param>
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
-		public MemberSearch(string query, int? limit = null, Board board = null, Organization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)
+		public MemberSearch(string query, int? limit = null, IBoard board = null, IOrganization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)
 		{
 			_context = new MemberSearchContext(auth);
 

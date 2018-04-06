@@ -136,9 +136,9 @@ namespace Manatee.Trello
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
-		/// Returns the <see cref="Member"/> associated with the default <see cref="TrelloAuthorization.UserToken"/>.
+		/// Returns the <see cref="IMember"/> associated with the default <see cref="TrelloAuthorization.UserToken"/>.
 		/// </summary>
-		public static Me Me => _me ?? (_me = new Me());
+		public static IMe Me => _me ?? (_me = new Me());
 
 		/// <summary>
 		/// Gets the collection of actions performed by the member.

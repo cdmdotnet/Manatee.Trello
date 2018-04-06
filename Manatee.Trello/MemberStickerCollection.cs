@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;

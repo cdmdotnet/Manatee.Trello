@@ -285,7 +285,7 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
-				var members = new Member[] {Member.Me};
+				var members = new IMember[] {Member.Me};
 				var board = new Board(TrelloIds.BoardId);
 				var labels = new[] {board.Labels.FirstOrDefault(l => l.Color == LabelColor.Blue)};
 

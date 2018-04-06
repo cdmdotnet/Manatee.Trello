@@ -133,7 +133,7 @@ namespace Manatee.Trello
 		public Position Position
 		{
 			get { return _position.Value; }
-			set { _position.Value = (Position) value; }
+			set { _position.Value = value; }
 		}
 
 		/// <summary>
@@ -142,7 +142,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching card, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="Card.Id"/> and <see cref="Card.Name"/>.  Comparison is case-sensitive.
+		/// Matches on <see cref="ICard.Id"/> and <see cref="ICard.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICard this[string key] => Cards[key];
 		/// <summary>

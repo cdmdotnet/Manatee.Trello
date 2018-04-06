@@ -13,8 +13,8 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="board">The board.</param>
 		/// <param name="member">The member.</param>
-		/// <returns>A <see cref="ReadOnlyCardCollection"/> containing the member's cards.</returns>
-		public static ReadOnlyCardCollection CardsForMember(this IBoard board, IMember member)
+		/// <returns>A <see cref="IReadOnlyCardCollection"/> containing the member's cards.</returns>
+		public static IReadOnlyCardCollection CardsForMember(this IBoard board, IMember member)
 		{
 			return new ReadOnlyCardCollection(EntityRequestType.Board_Read_CardsForMember, () => board.Id, ((Board) board).Auth, new Dictionary<string, object> {{"_idMember", member.Id}});
 		}

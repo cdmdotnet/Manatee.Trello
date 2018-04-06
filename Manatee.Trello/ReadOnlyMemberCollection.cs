@@ -22,7 +22,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching member, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="Member.Id"/>, <see cref="Member.FullName"/>, and <see cref="Member.UserName"/>.  Comparison is case-sensitive.
+		/// Matches on <see cref="IMember.Id"/>, <see cref="IMember.FullName"/>, and <see cref="IMember.UserName"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public IMember this[string key] => GetByKey(key);
 

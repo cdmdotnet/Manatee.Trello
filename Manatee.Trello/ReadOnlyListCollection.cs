@@ -21,7 +21,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="List.Id"/> and <see cref="List.Name"/>.  Comparison is case-sensitive.
+		/// Matches on <see cref="IList.Id"/> and <see cref="IList.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public IList this[string key] => GetByKey(key);
 
