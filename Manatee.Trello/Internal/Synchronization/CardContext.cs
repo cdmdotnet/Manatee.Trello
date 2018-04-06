@@ -24,6 +24,7 @@ namespace Manatee.Trello.Internal.Synchronization
 						"Board", new Property<IJsonCard, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
 						                                        (d, o) => d.Board = o?.Json)
 					},
+					{"CustomFields", new Property<IJsonCard, List<IJsonCustomField>>((d, a) => d.CustomFields, (d, o) => d.CustomFields = o) },
 					{"Description", new Property<IJsonCard, string>((d, a) => d.Desc, (d, o) => d.Desc = o)},
 					{"DueDate", new Property<IJsonCard, DateTime?>((d, a) => d.Due?.Decode(), (d, o) =>
 						{

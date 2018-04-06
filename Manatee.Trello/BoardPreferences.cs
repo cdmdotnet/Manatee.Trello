@@ -83,8 +83,7 @@ namespace Manatee.Trello
 			set { _permissionLevel.Value = value; }
 		}
 		/// <summary>
-		/// Gets or sets whether voting is enabled and which members are allowed
-		/// to vote. 
+		/// Gets or sets whether voting is enabled and which members are allowed to vote. 
 		/// </summary>
 		public BoardVotingPermission? Voting
 		{
@@ -92,8 +91,7 @@ namespace Manatee.Trello
 			set { _voting.Value = value; }
 		}
 		/// <summary>
-		/// Gets or sets whether commenting is enabled and which members are
-		/// allowed to add comments.
+		/// Gets or sets whether commenting is enabled and which members are allowed to add comments.
 		/// </summary>
 		public BoardCommentPermission? Commenting
 		{
@@ -109,8 +107,7 @@ namespace Manatee.Trello
 			set { _invitations.Value = value; }
 		}
 		/// <summary>
-		/// Gets or sets whether any Trello member may join the board themselves
-		/// or if an invitation must be sent.
+		/// Gets or sets whether any Trello member may join the board themselves or if an invitation is required.
 		/// </summary>
 		public bool? AllowSelfJoin
 		{

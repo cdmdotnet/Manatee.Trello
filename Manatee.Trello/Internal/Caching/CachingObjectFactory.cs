@@ -36,6 +36,9 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof(BoardBackground), (j, a) => new BoardBackground((IJsonBoardBackground) j, a)},
 					{typeof(Card), (j, a) => new Card((IJsonCard) j, a)},
 					{typeof(CheckList), (j, a) => new CheckList((IJsonCheckList) j, a)},
+					{typeof(CustomField), (j, a) => _BuildCustomField((IJsonCustomField) j, a)},
+					{typeof(CustomFieldDefinition), (j, a) => new CustomFieldDefinition((IJsonCustomFieldDefinition) j, a)},
+					{typeof(DropDownOption), (j, a) => new DropDownOption((IJsonCustomDropDownOption) j, a)},
 					{typeof(Label), (j, a) => new Label((IJsonLabel) j, a)},
 					{typeof(List), (j, a) => new List((IJsonList) j, a)},
 					{typeof(Member), (j, a) => new Member((IJsonMember) j, a)},
@@ -63,6 +66,25 @@ namespace Manatee.Trello.Internal.Caching
 			if (!TrelloConfiguration.RegisteredPowerUps.TryGetValue(json.Id, out factory)) return null;
 
 			return factory(json, auth);
+		}
+
+		private static CustomField _BuildCustomField(IJsonCustomField json, TrelloAuthorization auth)
+		{
+			switch (json.Type)
+			{
+				case CustomFieldType.Text:
+					return new TextField(json, auth);
+				case CustomFieldType.DropDown:
+					return new DropDownField(json, auth);
+				case CustomFieldType.CheckBox:
+					return new CheckBoxField(json, auth);
+				case CustomFieldType.DateTime:
+					return new DateTimeField(json, auth);
+				case CustomFieldType.Number:
+					return new NumberField(json, auth);
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 	}
 }

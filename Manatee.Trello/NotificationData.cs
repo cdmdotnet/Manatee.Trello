@@ -146,10 +146,20 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets an assocated attachment.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - AddedAttachmentToCard
+		/// </associated-notification-types>
 		public IAttachment Attachment => _attachment.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - AddedToBoard
+		/// - AddAdminToBoard
+		/// - CloseBoard
+		/// - RemovedFromBoard
+		/// - MakeAdminOfBoard
+		/// </associated-notification-types>
 		public IBoard Board => _board.Value;
 		/// <summary>
 		/// Gets an assocated board.
@@ -162,6 +172,19 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - AddedAttachmentToCard
+		/// - AddedToCard
+		/// - AddedMemberToCard
+		/// - ChangeCard
+		/// - CommentCard
+		/// - CreatedCard
+		/// - RemovedFromCard
+		/// - RemovedMemberFromCard
+		/// - MentionedOnCard
+		/// - UpdateCheckItemStateOnCard
+		/// - CardDueSoon
+		/// </associated-notification-types>
 		public ICard Card => _card.Value;
 		/// <summary>
 		/// Gets an assocated card.
@@ -170,6 +193,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets an assocated checklist item.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - UpdateCheckItemStateOnCard
+		/// </associated-notification-types>
 		public ICheckItem CheckItem => _checkItem.Value;
 		/// <summary>
 		/// Gets an assocated checklist.
@@ -183,49 +209,69 @@ namespace Manatee.Trello
 		/// Gets the current list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
 		/// </remarks>
 		public IList ListAfter => _listAfter.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
 		/// </remarks>
 		public IList ListBefore => _listBefore.Value;
 		/// <summary>
 		/// Gets an assocated member.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - AddedMemberToCard
+		/// - RemovedMemberFromCard
+		/// - MentionedOnCard
+		/// </associated-notification-types>
 		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the previous description.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - ChangeCard
+		/// </associated-notification-types>
 		public string OldDescription => _oldDescription.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="ListAfter"/>
-		/// or <see cref="ListBefore"/> properties.
+		/// For some action types, this information may be in the <see cref="ListAfter"/> or <see cref="ListBefore"/> properties.
 		/// </remarks>
 		public IList OldList => _oldList.Value;
 		/// <summary>
 		/// Gets the previous position.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - ChangeCard
+		/// </associated-notification-types>
 		public Position OldPosition => _oldPosition.Value;
 		/// <summary>
 		/// Gets the previous text value. 
 		/// </summary>
+		/// <associated-notification-types>
+		/// - CommentCard
+		/// </associated-notification-types>
 		public string OldText => _oldText.Value;
 		/// <summary>
 		/// Gets an assocated organization.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - AddedToOrganization
+		/// - AddAdminToOrganization
+		/// - RemovedFromOrganization
+		/// - MakeAdminOfOrganization
+		/// </associated-notification-types>
 		public IOrganization Organization => _organization.Value;
 		/// <summary>
 		/// Gets assocated text.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - CommentCard
+		/// </associated-notification-types>
 		public string Text
 		{
 			get { return _text.Value; }
@@ -234,6 +280,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the object was previously archived.
 		/// </summary>
+		/// <associated-notification-types>
+		/// - ChangeCard
+		/// - CloseBoard
+		/// </associated-notification-types>
 		public bool? WasArchived => _wasArchived.Value;
 
 		internal NotificationData(NotificationDataContext context)

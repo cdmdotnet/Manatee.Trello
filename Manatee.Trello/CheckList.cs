@@ -91,33 +91,33 @@ namespace Manatee.Trello
 	public class CheckList : ICheckList
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="CheckList"/>s.
+		/// Enumerates the data which can be pulled for check lists.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="CheckList.Name"/> should be fetched.
+			/// Indicates the Name property should be populated.
 			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
 			/// <summary>
-			/// Indicates that <see cref="CheckList.Board"/> should be fetched.
+			/// Indicates the Board property should be populated.
 			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="CheckList.Card"/> should be fetched.
+			/// Indicates the Card property should be populated.
 			/// </summary>
 			[Display(Description="idCard")]
 			Card = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="CheckList.CheckItems"/> should be fetched.
+			/// Indicates the CheckItems property should be populated.
 			/// </summary>
 			[Display(Description="checkItems")]
 			CheckItems = 1 << 3,
 			/// <summary>
-			/// Indicates that <see cref="CheckList.Position"/> should be fetched.
+			/// Indicates the Position property should be populated.
 			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 4
@@ -131,7 +131,7 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
@@ -190,7 +190,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching check list item, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="ICheckItem.Id"/> and <see cref="ICheckItem.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICheckItem this[string key] => CheckItems[key];
 		/// <summary>
@@ -218,8 +218,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="CheckList"/> object.
 		/// </summary>
 		/// <param name="id">The check list's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public CheckList(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
@@ -245,11 +244,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the checklist.
+		/// Permanently deletes the check list from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the checklist from Trello's server, however, this object
-		/// will remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -257,19 +255,18 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
-		/// Marks the checklist to be refreshed the next time data is accessed.
+		/// Marks the check list to be refreshed the next time data is accessed.
 		/// </summary>
 		public void Refresh()
 		{
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

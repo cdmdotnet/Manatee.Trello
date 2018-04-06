@@ -75,8 +75,7 @@ namespace Manatee.Trello
 		private readonly BoardPersonalPreferencesContext _context;
 
 		/// <summary>
-		/// Gets or sets the <see cref="List"/> which will be used to post new cards
-		/// submitted by email.
+		/// Gets or sets the <see cref="IList"/> which will be used to post new cards submitted by email.
 		/// </summary>
 		public IList EmailList
 		{
@@ -84,8 +83,7 @@ namespace Manatee.Trello
 			set { _emailList.Value = (List) value; }
 		}
 		/// <summary>
-		/// Gets or sets the <see cref="Position"/> within a <see cref="List"/> which
-		/// will be used to post new cards submitted by email.
+		/// Gets or sets the <see cref="Position"/> within a <see cref="IList"/> which will be used to post new cards submitted by email.
 		/// </summary>
 		public Position EmailPosition
 		{

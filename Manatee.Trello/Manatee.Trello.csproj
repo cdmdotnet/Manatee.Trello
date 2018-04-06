@@ -9,6 +9,12 @@
     <PackageTags>wrapper trello manatee</PackageTags>
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
+v2.4.0
+Integrated custom fields per Trello API change.
+
+v2.3.1
+Added BoardBackgroundBrightness.Light.
+
 v2.3.0
 Added removing stickers from cards.
 Added new fields to Board.
@@ -47,14 +53,8 @@ BUG FIX: InvalidOperationException when processing webhooks.
 
 v2.1.0
 Added board delete.
-
-v2.0.1
-BUG FIX: Attachment URLs not popluating.
-
-v2.0.0
-BREAKING CHANGE: Frameworks below 4.6.1 are no longer supported.
-Updated to NetStandard2.0</PackageReleaseNotes>
-    <Version>2.3.0</Version>
+</PackageReleaseNotes>
+    <Version>2.4.0</Version>
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <Company>Little Crab Solutions</Company>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
@@ -67,7 +67,15 @@ Updated to NetStandard2.0</PackageReleaseNotes>
   <PropertyGroup>
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
+    <FileVersion>2.3.1.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.3\Manatee.Trello.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.3|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.3\Manatee.Trello.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">

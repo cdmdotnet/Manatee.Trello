@@ -92,33 +92,33 @@ namespace Manatee.Trello
 	public class List : IList
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="List"/>s.
+		/// Enumerates the data which can be pulled for lists.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="List.Name"/> should be fetched.
+			/// Indicates the Name property should be populated.
 			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
 			/// <summary>
-			/// Indicates that <see cref="List.IsArchived"/> should be fetched.
+			/// Indicates the IsClosed property should be populated.
 			/// </summary>
 			[Display(Description="closed")]
 			IsClosed = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="List.Board"/> should be fetched.
+			/// Indicates the Board property should be populated.
 			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="List.Position"/> should be fetched.
+			/// Indicates the Position property should be populated.
 			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 3,
 			/// <summary>
-			/// Indicates that <see cref="List.IsSubscribed"/> should be fetched.
+			/// Indicates the Susbcribed property should be populated.
 			/// </summary>
 			[Display(Description="subscribed")]
 			Subscribed = 1 << 4
@@ -135,7 +135,7 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
@@ -219,7 +219,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching card, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="Card.Id"/> and <see cref="Card.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICard this[string key] => Cards[key];
 		/// <summary>
@@ -247,8 +247,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="List"/> object.
 		/// </summary>
 		/// <param name="id">The list's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public List(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;

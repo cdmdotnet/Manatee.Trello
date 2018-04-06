@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
@@ -8,6 +9,7 @@ namespace Manatee.Trello.CustomFields
 	/// <summary>
 	/// Extensions to retrieve Custom Fields data.
 	/// </summary>
+	[Obsolete("Custom fields have been integrated into the main Manatee.Trello library as of version 2.4.")]
 	public static class CustomFieldExtensions
 	{
 		private static readonly JsonSerializer Serializer = new JsonSerializer();

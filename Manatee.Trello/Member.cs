@@ -108,98 +108,98 @@ namespace Manatee.Trello
 	public class Member : IMember
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="Member"/>s.
+		/// Enumerates the data which can be pulled for members.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="Member.AvatarUrl"/> should be fetched.
+			/// Indicates the AvatarHash property should be populated.
 			/// </summary>
 			[Display(Description="avatarHash")]
 			AvatarHash = 1,
 			/// <summary>
-			/// Indicates that <see cref="Member.AvatarSource"/> should be fetched.
+			/// Indicates the AvatarSource property should be populated.
 			/// </summary>
 			[Display(Description="avatarSource")]
 			AvatarSource = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="Member.Bio"/> should be fetched.
+			/// Indicates the Bio property should be populated.
 			/// </summary>
 			[Display(Description="bio")]
 			Bio = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="Member.IsConfirmed"/> should be fetched.
+			/// Indicates the IsConfirmed property should be populated.
 			/// </summary>
 			[Display(Description="confirmed")]
 			IsConfirmed = 1 << 3,
 			/// <summary>
-			/// Indicates that <see cref="Me.Email"/> should be fetched.
+			/// Indicates the Email property should be populated.
 			/// </summary>
 			[Display(Description="email")]
 			Email = 1 << 4,
 			/// <summary>
-			/// Indicates that <see cref="Member.FullName"/> should be fetched.
+			/// Indicates the FullName property should be populated.
 			/// </summary>
 			[Display(Description="fullName")]
 			FullName = 1 << 5,
 			/// <summary>
-			/// Not Implemented.
+			/// Indicates the GravatarHash property should be populated.
 			/// </summary>
 			[Display(Description="gravatarHash")]
 			GravatarHash = 1 << 6,
 			/// <summary>
-			/// Indicates that <see cref="Member.Initials"/> should be fetched.
+			/// Indicates the Initials property should be populated.
 			/// </summary>
 			[Display(Description="intials")]
 			Initials = 1 << 7,
 			/// <summary>
-			/// Not Implemented.
+			/// Indicates the LoginTypes property should be populated.
 			/// </summary>
 			[Display(Description="loginTypes")]
 			LoginTypes = 1 << 8,
 			/// <summary>
-			/// Not Implemented
+			/// Indicates the MemberType property should be populated.
 			/// </summary>
 			[Display(Description="memberType")]
 			MemberType = 1 << 9,
 			/// <summary>
-			/// Not Implemented.
+			/// Indicates the OneTimeMessagesDismissed property should be populated.
 			/// </summary>
 			[Display(Description="oneTimeMessagesReceived")]
 			OneTimeMessagesDismissed = 1 << 10,
 			/// <summary>
-			/// Indicates that <see cref="Me.Preferences"/> should be fetched.
+			/// Indicates the Preferencess property should be populated.
 			/// </summary>
 			[Display(Description="prefs")]
-			Preferences = 1 << 11,
+			Preferencess = 1 << 11,
 			/// <summary>
-			/// Not Implemented.
+			/// Indicates the Similarity property should be populated.
 			/// </summary>
 			[Display(Description="similarity")]
 			Similarity = 1 << 12,
 			/// <summary>
-			/// Indicates that <see cref="Member.Status"/> should be fetched.
+			/// Indicates the Status property should be populated.
 			/// </summary>
 			[Display(Description="status")]
 			Status = 1 << 13,
 			/// <summary>
-			/// Indicates that <see cref="Member.Trophies"/> should be fetched.
+			/// Indicates the Trophies property should be populated.
 			/// </summary>
 			[Display(Description="trophies")]
 			Trophies = 1 << 14,
 			/// <summary>
-			/// Not Implemented
+			/// Indicates the UploadedAvatarHash property should be populated.
 			/// </summary>
 			[Display(Description="uploadedAvatarHash")]
 			UploadedAvatarHash = 1 << 15,
 			/// <summary>
-			/// Indicates that <see cref="Member.Url"/> should be fetched.
+			/// Indicates the Url property should be populated.
 			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 16,
 			/// <summary>
-			/// Indicates that <see cref="Member.UserName"/> should be fetched.
+			/// Indicates the Username property should be populated.
 			/// </summary>
 			[Display(Description="username")]
 			Username = 1 << 17
@@ -224,12 +224,12 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
-		/// Returns the <see cref="Member"/> associated with the current User Token.
+		/// Returns the <see cref="Member"/> associated with the default <see cref="TrelloAuthorization.UserToken"/>.
 		/// </summary>
 		public static Me Me => _me ?? (_me = new Me());
 
@@ -307,8 +307,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public bool? IsConfirmed => _isConfirmed.Value;
 		/// <summary>
-		/// Gets a string which can be used in comments or descriptions to mention another
-		/// user.  The user will receive notification that they've been mentioned.
+		/// Gets a string which can be used in comments or descriptions to mention another user.  The user will receive notification that they've been mentioned.
 		/// </summary>
 		public string Mention => $"@{UserName}";
 		/// <summary>
@@ -352,8 +351,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Member"/> object.
 		/// </summary>
 		/// <param name="id">The member's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full ID or the username.
 		/// </remarks>
@@ -410,12 +408,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="FullName"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return FullName;

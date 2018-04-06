@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 
@@ -7,6 +8,7 @@ namespace Manatee.Trello.CustomFields
 	/// <summary>
 	/// Models meta data for Custom Fields defined on a board.
 	/// </summary>
+	[Obsolete("Custom fields have been integrated into the main Manatee.Trello library as of version 2.4.")]
 	public class CustomFieldsSettings : IJsonSerializable
 	{
 		/// <summary>

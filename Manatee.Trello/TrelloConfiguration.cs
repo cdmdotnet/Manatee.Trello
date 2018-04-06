@@ -134,14 +134,17 @@ namespace Manatee.Trello
 		/// </summary>
 		public static TimeSpan DelayBetweenRetries { get; set; }
 		/// <summary>
-		/// Specifies a predicate to execute to determine if a retry should be attempted.
+		/// Specifies a predicate to execute to determine if a retry should be attempted.  The default simply uses <see cref="MaxRetryCount"/> and <see cref="DelayBetweenRetries"/>.
 		/// </summary>
 		/// <remarks>
-		/// Arguments are:
-		/// <see cref="IRestResponse"/> - The response object from the REST provider.  Will need to be cast to the appropriate type.
-		/// <see cref="int"/> - The number of retries attempted.
+		/// Parameters:
+		/// 
+		/// - <see cref="IRestResponse"/> - The response object from the REST provider.  Will need to be cast to the appropriate type.
+		/// - <see cref="int"/> - The number of retries attempted.
+		///
 		/// Return value:
-		/// <see cref="bool"/> - True if the call should be retried; false otherwise.
+		///
+		/// - <see cref="bool"/> - True if the call should be retried; false otherwise.
 		/// </remarks>
 		public static Func<IRestResponse, int, bool> RetryPredicate
 		{

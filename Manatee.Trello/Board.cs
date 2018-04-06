@@ -187,73 +187,73 @@ namespace Manatee.Trello
 	public class Board : IBoard
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="Board"/>s.
+		/// Enumerates the data which can be pulled for boards.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="Board.Name"/> should be fetched.
+			/// Indicates the Name property should be populated.
 			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
 			/// <summary>
-			/// Indicates that <see cref="Board.Description"/> should be fetched.
+			/// Indicates the Description property should be populated.
 			/// </summary>
 			[Display(Description="desc")]
 			Description = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="Board.IsClosed"/> should be fetched.
+			/// Indicates the Closed property should be populated.
 			/// </summary>
 			[Display(Description="closed")]
 			Closed = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="Board.Organization"/> should be fetched.
+			/// Indicates the Organization property should be populated.
 			/// </summary>
 			[Display(Description="idOrganization")]
 			Organization = 1 << 3,
 			/// <summary>
-			/// Indicates that <see cref="Board.IsPinned"/> should be fetched.
+			/// Indicates the Pinned property should be populated.
 			/// </summary>
 			[Display(Description="pinned")]
 			Pinned = 1 << 4,
 			/// <summary>
-			/// Indicates that <see cref="Board.IsStarred"/> should be fetched.
+			/// Indicates the Starred property should be populated.
 			/// </summary>
 			[Display(Description="starred")]
 			Starred = 1 << 5,
 			/// <summary>
-			/// Indicates that <see cref="Board.Preferences"/> should be fetched.
+			/// Indicates the Preferencess property should be populated.
 			/// </summary>
 			[Display(Description="prefs")]
 			Preferencess = 1 << 6,
 			/// <summary>
-			/// Indicates that <see cref="Board.Url"/> should be fetched.
+			/// Indicates the Url property should be populated.
 			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 7,
 			/// <summary>
-			/// Indicates that <see cref="Board.IsSubscribed"/> should be fetched.
+			/// Indicates the Subscribed property should be populated.
 			/// </summary>
 			[Display(Description="subscribed")]
 			Subscribed = 1 << 8,
 			/// <summary>
-			/// Indicates that <see cref="Board.LastActivity"/> should be fetched.
+			/// Indicates the LastActivityDate property should be populated.
 			/// </summary>
 			[Display(Description="dateLastActivity")]
 			LastActivityDate = 1 << 9,
 			/// <summary>
-			/// Indicates that <see cref="Board.LastViewed"/> should be fetched.
+			/// Indicates the LastViewDate property should be populated.
 			/// </summary>
 			[Display(Description="dateLastView")]
 			LastViewDate = 1 << 10,
 			/// <summary>
-			/// Indicates that <see cref="Board.ShortLink"/> should be fetched.
+			/// Indicates the ShortLink property should be populated.
 			/// </summary>
 			[Display(Description="shortLink")]
 			ShortLink = 1 << 11,
 			/// <summary>
-			/// Indicates that <see cref="Board.ShortUrl"/> should be fetched.
+			/// Indicates the ShortUrl property should be populated.
 			/// </summary>
 			[Display(Description="shortUrl")]
 			ShortUrl = 1 << 12,
@@ -277,16 +277,16 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
-		/// Gets the collection of actions performed on and within this board.
+		/// Gets the collection of actions performed on and within the board.
 		/// </summary>
 		public IReadOnlyCollection<IAction> Actions { get; }
 		/// <summary>
-		/// Gets the collection of cards contained within this board.
+		/// Gets the collection of cards contained within the board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived cards.
@@ -304,6 +304,7 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
+		public ReadOnlyCustomFieldDefinitionCollection CustomFields { get; }
 		/// <summary>
 		/// Gets or sets the board's description.
 		/// </summary>
@@ -326,7 +327,7 @@ namespace Manatee.Trello
 			private set { _id = value; }
 		}
 		/// <summary>
-		/// Gets or sets whether this board is closed.
+		/// Gets or sets whether the board is closed.
 		/// </summary>
 		public bool? IsClosed
 		{
@@ -358,7 +359,7 @@ namespace Manatee.Trello
 			set { _isSubscribed.Value = value; }
 		}
 		/// <summary>
-		/// Gets the collection of labels for this board.
+		/// Gets the collection of labels for the board.
 		/// </summary>
 		public IBoardLabelCollection Labels { get; }
 		/// <summary>
@@ -377,11 +378,11 @@ namespace Manatee.Trello
 		/// </remarks>
 		public IListCollection Lists { get; }
 		/// <summary>
-		/// Gets the collection of members on this board.
+		/// Gets the collection of members on the board.
 		/// </summary>
 		public IReadOnlyCollection<IMember> Members { get; }
 		/// <summary>
-		/// Gets the collection of members and their privileges on this board.
+		/// Gets the collection of members and their privileges on the board.
 		/// </summary>
 		public IBoardMembershipCollection Memberships { get; }
 		/// <summary>
@@ -393,7 +394,7 @@ namespace Manatee.Trello
 			set { _name.Value = value; }
 		}
 		/// <summary>
-		/// Gets or sets the organization to which this board belongs.
+		/// Gets or sets the organization to which the board belongs.
 		/// </summary>
 		/// <remarks>
 		/// Setting null makes the board's first admin the owner.
@@ -467,8 +468,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Board"/> object.
 		/// </summary>
 		/// <param name="id">The board's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Board(string id, TrelloAuthorization auth = null)
 		{
 			Auth = auth;
@@ -478,6 +478,7 @@ namespace Manatee.Trello
 
 			Actions = new ReadOnlyActionCollection(typeof(Board), () => Id, auth);
 			Cards = new ReadOnlyCardCollection(typeof(Board), () => Id, auth);
+			CustomFields = new ReadOnlyCustomFieldDefinitionCollection(() => Id, auth);
 			_description = new Field<string>(_context, nameof(Description));
 			_isClosed = new Field<bool?>(_context, nameof(IsClosed));
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
@@ -522,11 +523,10 @@ namespace Manatee.Trello
 			_context.Merge(((Board) action.Data.Board).Json);
 		}
 		/// <summary>
-		/// Deletes the card.
+		/// Permanently deletes the board from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -541,12 +541,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>.
 		/// </summary>
 		/// <returns>
-		/// A string that represents the current object.
+		/// A string that represents the attachment.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

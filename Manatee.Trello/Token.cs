@@ -75,33 +75,33 @@ namespace Manatee.Trello
 	public class Token : IToken
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="Token"/>s.
+		/// Enumerates the data which can be pulled for tokens.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="Token.Id"/> should be fetched.
+			/// Indicates the Id property should be populated.
 			/// </summary>
 			[Display(Description="identifier")]
 			Id,
 			/// <summary>
-			/// Indicates that <see cref="Token.Member"/> should be fetched.
+			/// Indicates the Member property should be populated.
 			/// </summary>
 			[Display(Description="idMember")]
 			Member,
 			/// <summary>
-			/// Indicates that <see cref="Token.DateCreated"/> should be fetched.
+			/// Indicates the DateCreated property should be populated.
 			/// </summary>
 			[Display(Description="dateCreated")]
 			DateCreated,
 			/// <summary>
-			/// Indicates that <see cref="Token.DateExpires"/> should be fetched.
+			/// Indicates the DateExpires property should be populated.
 			/// </summary>
 			[Display(Description="dateExpires")]
 			DateExpires,
 			/// <summary>
-			/// Indicates that <see cref="Token.BoardPermissions"/>, <see cref="Token.MemberPermissions"/>, and <see cref="Token.OrganizationPermissions"/> should be fetched.
+			/// Indicates the Permissions property should be populated.
 			/// </summary>
 			[Display(Description="permissions")]
 			Permissions
@@ -117,7 +117,7 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
@@ -179,8 +179,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Token"/> object.
 		/// </summary>
 		/// <param name="id">The token's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full ID or the token itself.
 		/// </remarks>
@@ -207,11 +206,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the token.
+		/// Permanently deletes the token from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the token from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -226,12 +224,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="AppName"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return AppName;

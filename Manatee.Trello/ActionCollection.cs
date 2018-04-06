@@ -142,7 +142,7 @@ namespace Manatee.Trello
 	}
 
 	/// <summary>
-	/// A collection of comment actions.
+	/// A collection of <see cref="Action"/>s of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.CopyCommentCard"/>.
 	/// </summary>
 	public class CommentCollection : ReadOnlyActionCollection, ICommentCollection
 	{

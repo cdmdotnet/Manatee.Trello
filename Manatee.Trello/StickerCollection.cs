@@ -99,6 +99,10 @@ namespace Manatee.Trello
 			return new Sticker(newData, OwnerId, Auth);
 		}
 
+		/// <summary>
+		/// Removes a sticker from a card.
+		/// </summary>
+		/// <param name="sticker">The sticker to remove.</param>
 		public void Remove(Sticker sticker)
 		{
 			var error = NotNullRule<Sticker>.Instance.Validate(null, sticker);

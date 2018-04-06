@@ -9,7 +9,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Represents the permission level a member has on an organization.
+	/// Associates a <see cref="Member"/> to an <see cref="Organization"/> and indicates any permissions the member has in the organization.
 	/// </summary>
 	public interface IOrganizationMembership : ICacheable
 	{

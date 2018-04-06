@@ -79,43 +79,43 @@ namespace Manatee.Trello
 	public class Sticker : ISticker
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="Sticker"/>s.
+		/// Enumerates the data which can be pulled for stickers.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="Sticker.Left"/> should be fetched.
+			/// Indicates the Left property should be populated.
 			/// </summary>
 			[Display(Description="left")]
 			Left = 1,
 			/// <summary>
-			/// Indicates that <see cref="Sticker.Name"/> should be fetched.
+			/// Indicates the Name property should be populated.
 			/// </summary>
 			[Display(Description="image")]
 			Name = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="Sticker.Previews"/> should be fetched.
+			/// Indicates the Previews property should be populated.
 			/// </summary>
 			[Display(Description="imageScaled")]
 			Previews = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="Sticker.Rotation"/> should be fetched.
+			/// Indicates the Rotation property should be populated.
 			/// </summary>
 			[Display(Description="rotate")]
 			Rotation = 1 << 3,
 			/// <summary>
-			/// Indicates that <see cref="Sticker.Top"/> should be fetched.
+			/// Indicates the Top property should be populated.
 			/// </summary>
 			[Display(Description="top")]
 			Top = 1 << 4,
 			/// <summary>
-			/// Indicates that <see cref="Sticker.ImageUrl"/> should be fetched.
+			/// Indicates the Url property should be populated.
 			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 5,
 			/// <summary>
-			/// Indicates that <see cref="Sticker.ZIndex"/> should be fetched.
+			/// Indicates the ZIndex property should be populated.
 			/// </summary>
 			[Display(Description="zIndex")]
 			ZIndex = 1 << 6
@@ -179,7 +179,7 @@ namespace Manatee.Trello
 		private readonly StickerContext _context;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
@@ -269,11 +269,10 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Add(this);
 		}
 		/// <summary>
-		/// Deletes the card.
+		/// Permanently deletes the sticker from Trello.  To remove a sticker from a card, use <see cref="CardStickerCollection.Remove"/>
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{

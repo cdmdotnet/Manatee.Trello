@@ -45,7 +45,7 @@ namespace Manatee.Trello
 	{
 		private readonly EntityRequestType _updateRequestType;
 		private readonly Dictionary<string, object> _requestParameters;
-		private Dictionary<string, object> _additionalParameters; 
+		private Dictionary<string, object> _additionalParameters;
 
 		/// <summary>
 		/// Retrieves a card which matches the supplied key.
@@ -53,7 +53,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching card, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on Card.Id and Card.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="ICard.Id"/> and <see cref="ICard.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICard this[string key] => GetByKey(key);
 

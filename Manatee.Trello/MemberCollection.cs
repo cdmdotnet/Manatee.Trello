@@ -43,7 +43,7 @@ namespace Manatee.Trello
 	public class ReadOnlyMemberCollection : ReadOnlyCollection<IMember>, IReadOnlyMemberCollection
 	{
 		private readonly EntityRequestType _updateRequestType;
-		private Dictionary<string, object> _additionalParameters; 
+		private Dictionary<string, object> _additionalParameters;
 
 		/// <summary>
 		/// Retrieves a member which matches the supplied key.
@@ -51,7 +51,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching member, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on Member.Id, Member.FullName, and Member.Username.  Comparison is case-sensitive.
+		/// Matches on <see cref="Member.Id"/>, <see cref="Member.FullName"/>, and <see cref="Member.UserName"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public IMember this[string key] => GetByKey(key);
 

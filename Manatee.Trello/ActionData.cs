@@ -171,34 +171,90 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets an assocated attachment.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddAttachmentToCard
+		///	- DeleteAttachmentFromCard
+		/// </associated-action-types>
 		public IAttachment Attachment => _attachment.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddMemberToBoard
+		/// - AddToOrganizationBoard
+		/// - CreateBoard
+		/// - DeleteBoardInvitation
+		/// - MakeAdminOfBoard
+		/// - MakeNormalMemberOfBoard
+		/// - MakeObserverOfBoard
+		/// - RemoveFromOrganizationBoard
+		/// - UnconfirmedBoardInvitation
+		/// - UpdateBoard
+		/// </associated-action-types>
 		public IBoard Board => _board.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CopyBoard
+		/// </associated-action-types>
 		public IBoard BoardSource => _boardSource.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CopyBoardx
+		/// </associated-action-types>
 		public IBoard BoardTarget => _boardTarget.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddAttachmentToCard
+		/// - AddChecklistToCard
+		/// - AddMemberToCard
+		/// - CommentCard
+		/// - ConvertToCardFromCheckItem
+		/// - CopyCommentCard
+		/// - CreateCard
+		/// - DeleteAttachmentFromCard
+		/// - DeleteCard
+		/// - EmailCard
+		/// - MoveCardFromBoard
+		/// - MoveCardToBoard
+		/// - RemoveChecklistFromCard
+		/// - RemoveMemberFromCard
+		/// - UpdateCard
+		/// - UpdateCardClosed
+		/// - UpdateCardDesc
+		/// - UpdateCardIdList
+		/// - UpdateCardName
+		/// - UpdateCheckItemStateOnCard
+		/// </associated-action-types>
 		public ICard Card => _card.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CopyCard
+		/// </associated-action-types>
 		public ICard CardSource => _cardSource.Value;
 		/// <summary>
 		/// Gets an assocated checklist item.
 		/// </summary>
+		/// <associated-action-types>
+		/// - ConvertToCardFromCheckItem
+		/// - UpdateCheckItemStateOnCard
+		/// </associated-action-types>
 		public ICheckItem CheckItem => _checkItem.Value;
 		/// <summary>
 		/// Gets an assocated checklist.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddChecklistToCard
+		/// - RemoveChecklistFromCard
+		/// - UpdateChecklist
+		/// </associated-action-types>
 		public ICheckList CheckList => _checkList.Value;
 		/// <summary>
 		/// Gets the associated label.
@@ -211,58 +267,103 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets an assocated list.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CreateList
+		/// - MoveListFromBoard
+		/// - MoveListToBoard
+		/// - UpdateList
+		/// - UpdateListClosed
+		/// - UpdateListName
+		/// </associated-action-types>
 		public IList List => _list.Value;
 		/// <summary>
 		/// Gets the current list.
 		/// </summary>
-		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
-		/// </remarks>
+		/// <associated-action-types>
+		/// - UpdateCardIdList
+		/// </associated-action-types>
 		public IList ListAfter => _listAfter.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
-		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
-		/// </remarks>
+		/// <associated-action-types>
+		/// - UpdateCardIdList
+		/// </associated-action-types>
 		public IList ListBefore => _listBefore.Value;
 		/// <summary>
 		/// Gets an assocated member.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddMemberToBoard
+		/// - AddMemberToCard
+		/// - AddMemberToOrganization
+		/// - MakeNormalMemberOfBoard
+		/// - MakeNormalMemberOfOrganization
+		/// - MemberJoinedTrello
+		/// - RemoveMemberFromCard
+		/// - UpdateMember
+		/// </associated-action-types>
 		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the previous description.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCard
+		/// - UpdateCardDesc
+		/// </associated-action-types>
 		public string OldDescription => _oldDescription.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
-		/// <remarks>
-		/// For some action types, this information may be in the <see cref="ListAfter"/>
-		/// or <see cref="ListBefore"/> properties.
-		/// </remarks>
+		/// <associated-action-types>
+		/// - UpdateCard
+		/// - UpdateCardIdList
+		/// </associated-action-types>
 		public IList OldList => _oldList.Value;
 		/// <summary>
 		/// Gets the previous position.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCard
+		/// - UpdateList
+		/// </associated-action-types>
 		public Position OldPosition => _oldPosition.Value;
 		/// <summary>
 		/// Gets the previous text value. 
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCard
+		/// - CommentCard
+		/// </associated-action-types>
 		public string OldText => _oldText.Value;
 		/// <summary>
 		/// Gets an associated organization.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddMemberToOrganization
+		/// - AddToOrganizationBoard
+		/// - CreateOrganization
+		/// - DeleteOrganizationInvitation
+		/// - MakeNormalMemberOfOrganization
+		/// - RemoveFromOrganizationBoard
+		/// - UnconfirmedOrganizationInvitation
+		/// - UpdateOrganization
+		/// </associated-action-types>
 		public IOrganization Organization => _organization.Value;
 		/// <summary>
 		/// Gets an associated power-up.
 		/// </summary>
+		/// <associated-action-types>
+		/// - DisablePowerUp
+		/// - EnablePowerUp
+		/// </associated-action-types>
 		public IPowerUp PowerUp => _powerUp.Value;
 		/// <summary>
 		/// Gets assocated text.
 		/// </summary>
+		/// <associated-action-types>
+		/// - CommentCard
+		/// </associated-action-types>
 		public string Text
 		{
 			get { return _text.Value; }
@@ -271,6 +372,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the object was previously archived.
 		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCardClosed
+		/// - UpdateListClosed
+		/// </associated-action-types>
 		public bool? WasArchived => _wasArchived.Value;
 		/// <summary>
 		/// Gets a custom value associate with the action if any.

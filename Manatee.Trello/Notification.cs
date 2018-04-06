@@ -56,33 +56,33 @@ namespace Manatee.Trello
 	public class Notification : INotification
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="Notification"/>s.
+		/// Enumerates the data which can be pulled for notifications.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="Notification.Creator"/> should be fetched.
+			/// Indicates the Creator property should be populated.
 			/// </summary>
 			[Display(Description="idMemberCreator")]
 			Creator = 1,
 			/// <summary>
-			/// Indicates that <see cref="Notification.Data"/> should be fetched.
+			/// Indicates the Data property should be populated.
 			/// </summary>
 			[Display(Description="data")]
 			Data = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="Notification.IsUnread"/> should be fetched.
+			/// Indicates the IsUnread property should be populated.
 			/// </summary>
 			[Display(Description="unread")]
 			IsUnread = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="Notification.Type"/> should be fetched.
+			/// Indicates the Type property should be populated.
 			/// </summary>
 			[Display(Description="type")]
 			Type = 1 << 3,
 			/// <summary>
-			/// Indicates that <see cref="Notification.Date"/> should be fetched.
+			/// Indicates the Date property should be populated.
 			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 4
@@ -98,7 +98,7 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
@@ -119,11 +119,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public IMember Creator => _creator.Value;
 		/// <summary>
-		/// Gets any data associated with the notification.
+		/// Gets any data associated.
 		/// </summary>
 		public INotificationData Data { get; }
 		/// <summary>
-		/// Gets the date and teim at which the notification was issued.
+		/// Gets the date and time at which the notification was issued.
 		/// </summary>
 		public DateTime? Date => _date.Value;
 		/// <summary>
@@ -207,12 +207,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns a string that represents the notification.  The content will vary based on the value of <see cref="Type"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Notification type could not be determined.";

@@ -8,8 +8,7 @@ namespace Manatee.Trello.Rest
 	public interface IRestRequestProvider
 	{
 		/// <summary>
-		/// Creates a general request using a collection of objects and an additional parameter to
-		/// generate the resource string and an object to supply additional parameters.
+		/// Creates a general request using a collection of objects and an additional parameter to generate the resource string and an object to supply additional parameters.
 		/// </summary>
 		/// <param name="endpoint">The method endpoint the request calls.</param>
 		/// <param name="parameters">A list of paramaters to include in the request.</param>

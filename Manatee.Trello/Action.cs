@@ -10,7 +10,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Represents an action performed on Trello objects.
+	/// Documents all of the activities in Trello.
 	/// </summary>
 	public interface IAction : ICacheable
 	{
@@ -60,28 +60,28 @@ namespace Manatee.Trello
 	public class Action : IAction
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="Action"/>s.
+		/// Enumerates the data which can be pulled for actions.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="Action.Data"/> should be fetched.
+			/// Indicates the Data property should be populated.
 			/// </summary>
 			[Display(Description="data")]
 			Data = 1,
 			/// <summary>
-			/// Indicates that <see cref="Action.Date"/> should be fetched.
+			/// Indicates the Date property should be populated.
 			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="Action.Creator"/> should be fetched.
+			/// Indicates the Creator property should be populated.
 			/// </summary>
 			[Display(Description="idMemberCreator")]
 			Creator = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="Action.Type"/> should be fetched.
+			/// Indicates the Type property should be populated.
 			/// </summary>
 			[Display(Description="type")]
 			Type = 1 << 3
@@ -97,12 +97,12 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
-		/// Gets the creation date of the action.
+		/// Gets the creation date.
 		/// </summary>
 		public DateTime CreationDate
 		{
@@ -118,7 +118,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public IMember Creator => _creator.Value;
 		/// <summary>
-		/// Gets any data associated with the action.
+		/// Gets any associated data.
 		/// </summary>
 		public IActionData Data { get; }
 		/// <summary>
@@ -150,7 +150,7 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Raised when data on the action is updated.
+		/// Raised when any data on the <see cref="Action"/> instance is updated.
 		/// </summary>
 		public event Action<IAction, IEnumerable<string>> Updated;
 
@@ -228,11 +228,10 @@ namespace Manatee.Trello
 				};
 		}
 		/// <summary>
-		/// Creates a new <see cref="Action"/> object.
+		/// Creates a new <see cref="Action"/> instance.
 		/// </summary>
 		/// <param name="id">The action's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Action(string id, TrelloAuthorization auth = null)
 		{
 			Id = id;
@@ -253,11 +252,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the card.
+		/// Permanently deletes the action from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -265,12 +263,11 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns a string that represents the action.  The content will vary based on the value of <see cref="Type"/>.
 		/// </summary>
 		/// <returns>
-		/// A string that represents the current object.
+		/// A string that represents the action.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Type.HasValue && Type != ActionType.Unknown ? _stringDefinitions[Type.Value](this) : "Action type could not be determined.";

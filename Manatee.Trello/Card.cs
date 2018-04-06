@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -189,94 +190,96 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Card : ICard
 	{
+		private readonly TrelloAuthorization _auth;
+
 		/// <summary>
-		/// Defines fetchable fields for <see cref="Card"/>s.
+		/// Enumerates the data which can be pulled for cards.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="Card.Badges"/> should be fetched.
+			/// Indicates the Badges property should be populated.
 			/// </summary>
 			[Display(Description="badges")]
 			Badges = 1,
 			/// <summary>
-			/// Indicates that <see cref="Card.Board"/> should be fetched.
+			/// Indicates the Board property should be populated.
 			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="Card.CheckLists"/> should be fetched.
+			/// Indicates the Checklists property should be populated.
 			/// </summary>
 			[Display(Description="idCheckLists")]
 			Checklists = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="Card.LastActivity"/> should be fetched.
+			/// Indicates the DateLastActivity property should be populated.
 			/// </summary>
 			[Display(Description="dateLastActivity")]
 			DateLastActivity = 1 << 3,
 			/// <summary>
-			/// Indicates that <see cref="Card.Description"/> should be fetched.
+			/// Indicates the Description property should be populated.
 			/// </summary>
 			[Display(Description="desc")]
 			Description = 1 << 4,
 			/// <summary>
-			/// Indicates that <see cref="Card.DueDate"/> should be fetched.
+			/// Indicates the Due property should be populated.
 			/// </summary>
 			[Display(Description="due")]
 			Due = 1 << 5,
 			/// <summary>
-			/// Indicates that <see cref="Card.IsArchived"/> should be fetched.
+			/// Indicates the IsArchived property should be populated.
 			/// </summary>
 			[Display(Description="closed")]
 			IsArchived = 1 << 6,
 			/// <summary>
-			/// Indicates that <see cref="Card.IsComplete"/> should be fetched.
+			/// Indicates the IsComplete property should be populated.
 			/// </summary>
 			[Display(Description="dueComplete")]
 			IsComplete = 1 << 7,
 			/// <summary>
-			/// Indicates that <see cref="Card.IsSubscribed"/> should be fetched.
+			/// Indicates the IsSubscribed property should be populated.
 			/// </summary>
 			[Display(Description="subscribed")]
 			IsSubscribed = 1 << 8,
 			/// <summary>
-			/// Indicates that <see cref="Card.Labels"/> should be fetched.
+			/// Indicates the Labels property should be populated.
 			/// </summary>
 			[Display(Description="idLabels")]
 			Labels = 1 << 9,
 			/// <summary>
-			/// Indicates that <see cref="Card.List"/> should be fetched.
+			/// Indicates the List property should be populated.
 			/// </summary>
 			[Display(Description="idList")]
 			List = 1 << 10,
 			/// <summary>
-			/// Not Implemented
+			/// Indicates the ManualCoverAttachment property should be populated.
 			/// </summary>
 			[Display(Description="manualCoverAttachment")]
 			ManualCoverAttachment = 1 << 11,
 			/// <summary>
-			/// Indicates that <see cref="Card.Name"/> should be fetched.
+			/// Indicates the Name property should be populated.
 			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 12,
 			/// <summary>
-			/// Indicates that <see cref="Card.Position"/> should be fetched.
+			/// Indicates the Position property should be populated.
 			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 13,
 			/// <summary>
-			/// Indicates that <see cref="Card.ShortId"/> should be fetched.
+			/// Indicates the ShortId property should be populated.
 			/// </summary>
 			[Display(Description="idShort")]
 			ShortId = 1 << 14,
 			/// <summary>
-			/// Indicates that <see cref="Card.ShortUrl"/> should be fetched.
+			/// Indicates the ShortUrl property should be populated.
 			/// </summary>
 			[Display(Description="shortUrl")]
 			ShortUrl = 1 << 15,
 			/// <summary>
-			/// Indicates that <see cref="Card.Url"/> should be fetched.
+			/// Indicates the Url property should be populated.
 			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 16,
@@ -301,7 +304,7 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
@@ -315,7 +318,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public IAttachmentCollection Attachments { get; }
 		/// <summary>
-		/// Gets the badges summarizing the content of the card.
+		/// Gets the badges summarizing the card's content.
 		/// </summary>
 		public IBadges Badges { get; }
 		/// <summary>
@@ -342,6 +345,7 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
+		public IEnumerable<CustomField> CustomFields => Json.CustomFields?.Select(f => f.GetFromCache<CustomField>(_auth));
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
@@ -436,7 +440,7 @@ namespace Manatee.Trello
 			set { _position.Value = (Position) value; }
 		}
 		/// <summary>
-		/// Gets specific data regarding power-ups.
+		/// Gets card-specific power-up data.
 		/// </summary>
 		public IReadOnlyCollection<IPowerUpData> PowerUpData { get; }
 		/// <summary>
@@ -472,7 +476,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching check list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on CheckList.Id and CheckList.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="ICheckList.Id"/> and <see cref="ICheckList.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICheckList this[string key] => CheckLists[key];
 		/// <summary>
@@ -500,8 +504,7 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="Card"/> object.
 		/// </summary>
 		/// <param name="id">The card's ID.</param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
-		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <remarks>
 		/// The supplied ID can be either the full or short ID.
 		/// </remarks>
@@ -510,6 +513,7 @@ namespace Manatee.Trello
 			Id = id;
 			_context = new CardContext(id, auth);
 			_context.Synchronized += Synchronized;
+			_auth = auth;
 
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => id, auth);
 			Attachments = new AttachmentCollection(() => Id, auth);
@@ -559,11 +563,10 @@ namespace Manatee.Trello
 			_context.Merge(((Card)action.Data.Card).Json);
 		}
 		/// <summary>
-		/// Deletes the card.
+		/// Permanently deletes the card from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -578,12 +581,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>, or <see cref="ShortId"/> if the card has been deleted.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name ?? $"#{ShortId}";

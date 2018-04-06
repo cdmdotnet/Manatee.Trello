@@ -1,10 +1,12 @@
-﻿using Manatee.Trello.Json;
+﻿using System;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello.CustomFields
 {
 	/// <summary>
 	/// Models the Custom Fields plugin.
 	/// </summary>
+	[Obsolete("Custom fields have been integrated into the main Manatee.Trello library as of version 2.4.")]
 	public class CustomFieldsPowerUp : PowerUpBase
 	{
 		internal const string PluginId = "56d5e249a98895a9797bebb9";
@@ -15,7 +17,7 @@ namespace Manatee.Trello.CustomFields
 			: base(json, auth) {}
 
 		/// <summary>
-		/// Registers the custom fields power up for deserialization.
+		/// Registers a power-up implementation.
 		/// </summary>
 		public static void Register()
 		{

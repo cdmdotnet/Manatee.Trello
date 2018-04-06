@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.CustomFields;
+using System.Linq;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Tests.Common;
 using Manatee.Trello.WebApi;
@@ -12,18 +12,19 @@ namespace Manatee.Trello.IntegrationTests
 	public class DevTest
 	{
 		[Test]
-		[Ignore("This test fixture for development purposes only.")]
+		//[Ignore("This test fixture for development purposes only.")]
 		public void TestMethod1()
 		{
 			Run(() =>
 				{
-					var card = new Card("3rm0AZg5");
-					Console.WriteLine(card);
+					var board = new Board(TrelloIds.BoardId);
+					var definitions = board.CustomFields.ToList();
+					var card = new Card(TrelloIds.CardId);
+					
 					Console.WriteLine(card.Id);
+					Console.WriteLine(card);
 
-					OutputCollection("checklists", card.CheckLists);
-
-					OutputCollection("checkitems", card.CheckLists[0].CheckItems);
+					OutputCollection("custom fields", card.CustomFields);
 				});
 		}
 

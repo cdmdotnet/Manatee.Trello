@@ -90,58 +90,58 @@ namespace Manatee.Trello
 	public class Attachment : IAttachment
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="Attachment"/>s.
+		/// Enumerates the data which can be pulled for attachments.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="Attachment.Bytes"/> should be fetched.
+			/// Indicates the Data property should be populated.
 			/// </summary>
 			[Display(Description="bytes")]
 			Bytes = 1,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.Bytes"/> should be fetched.
+			/// Indicates the Date property should be populated.
 			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.IsUpload"/> should be fetched.
+			/// Indicates the IsUpload property should be populated.
 			/// </summary>
 			[Display(Description="isUpload")]
 			IsUpload = 1 << 2,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.Member"/> should be fetched.
+			/// Indicates the Member property should be populated.
 			/// </summary>
 			[Display(Description="idMember")]
 			Member = 1 << 3,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.MimeType"/> should be fetched.
+			/// Indicates the MimeType property should be populated.
 			/// </summary>
 			[Display(Description="mimeType")]
 			MimeType = 1 << 4,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.Name"/> should be fetched.
+			/// Indicates the Name property should be populated.
 			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 5,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.Previews"/> should be fetched.
+			/// Indicates the Previews property should be populated.
 			/// </summary>
 			[Display(Description="previews")]
 			Previews = 1 << 6,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.Url"/> should be fetched.
+			/// Indicates the Url property should be populated.
 			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 7,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.EdgeColor"/> should be fetched.
+			/// Indicates the EdgeColor property should be populated.
 			/// </summary>
 			[Display(Description = "edgeColor")]
 			EdgeColor = 1 << 8,
 			/// <summary>
-			/// Indicates that <see cref="Attachment.Position"/> should be fetched.
+			/// Indicates the Position property should be populated.
 			/// </summary>
 			[Display(Description = "pos")]
 			Position = 1 << 9,
@@ -160,7 +160,7 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
@@ -266,10 +266,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Deletes the attachment.
+		/// Permanently deletes the attachment from Trello.
 		/// </summary>
 		/// <remarks>
-		/// This cannot be undone.
+		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -277,12 +277,11 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>.
 		/// </summary>
 		/// <returns>
-		/// A string that represents the current object.
+		/// A string that represents the attachment.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

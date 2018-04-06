@@ -19,6 +19,8 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Closed { get; set; }
+		[JsonDeserialize]
+		List<IJsonCustomField> CustomFields { get; set; }
 		/// <summary>
 		/// Gets or sets the date of last activity for a card.
 		/// </summary>

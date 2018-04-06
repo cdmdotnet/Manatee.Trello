@@ -66,23 +66,23 @@ namespace Manatee.Trello
 	public class CheckItem : ICheckItem
 	{
 		/// <summary>
-		/// Defines fetchable fields for <see cref="CheckItem"/>s.
+		/// Enumerates the data which can be pulled for check items.
 		/// </summary>
 		[Flags]
 		public enum Fields
 		{
 			/// <summary>
-			/// Indicates that <see cref="CheckItem.State"/> should be fetched.
+			/// Indicates the State property should be populated.
 			/// </summary>
 			[Display(Description="state")]
 			State = 1,
 			/// <summary>
-			/// Indicates that <see cref="CheckItem.Name"/> should be fetched.
+			/// Indicates the Name property should be populated.
 			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 1,
 			/// <summary>
-			/// Indicates that <see cref="CheckItem.Position"/> should be fetched.
+			/// Indicates the Position property should be populated.
 			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 2
@@ -96,7 +96,7 @@ namespace Manatee.Trello
 		private DateTime? _creation;
 
 		/// <summary>
-		/// Gets and sets the fields to fetch.
+		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
@@ -186,8 +186,7 @@ namespace Manatee.Trello
 		/// Deletes the checklist item.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the checklist item from Trello's server, however, this
-		/// object will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the checklist item from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public void Delete()
 		{
@@ -202,12 +201,11 @@ namespace Manatee.Trello
 			_context.Expire();
 		}
 		/// <summary>
-		/// Returns a string that represents the current object.
+		/// Returns the <see cref="Name"/>.
 		/// </summary>
 		/// <returns>
 		/// A string that represents the current object.
 		/// </returns>
-		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

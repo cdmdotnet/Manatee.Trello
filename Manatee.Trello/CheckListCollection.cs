@@ -39,7 +39,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching check list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on CheckList.Id and CheckList.Name.  Comparison is case-sensitive.
+		/// Matches on <see cref="ICheckList.Id"/> and <see cref="ICheckList.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICheckList this[string key] => GetByKey(key);
 

@@ -17,7 +17,7 @@ namespace Manatee.Trello.Exceptions
 		/// <summary>
 		/// Creates a new instance of the TrelloInteractionException class.
 		/// </summary>
-		/// <param name="message">A message.</param>
+		/// <param name="message">A custom message.</param>
 		/// <param name="innerException">The exception which occurred during the call.</param>
 		public TrelloInteractionException(string message, Exception innerException = null)
 			: base($"Trello has reported an error with the request: {message}", innerException) {}
