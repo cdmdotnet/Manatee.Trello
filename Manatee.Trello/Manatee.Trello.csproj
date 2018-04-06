@@ -82,6 +82,7 @@ Added board delete.
     <DocumentationFile>bin\Debug\netstandard2.0\Manatee.Trello.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Manatee.Json" Version="9.6.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
     <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />

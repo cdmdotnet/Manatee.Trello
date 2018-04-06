@@ -27,37 +27,19 @@ namespace Manatee.Trello
 		/// </summary>
 		public static ISerializer Serializer
 		{
-			get
-			{
-				if (_serializer == null)
-					throw new InvalidOperationException("TrelloConfiguration.Serializer must be set before creating Trello objects.");
-				return _serializer;
-			}
-			set
-			{
-				if (value == null)
-					Log.Error(new ArgumentNullException(nameof(value)));
-				_serializer = value;
-			}
+			get { return _serializer ?? (_serializer = DefaultJsonSerializer.Instance); }
+			set { _serializer = value; }
 		}
+
 		/// <summary>
 		/// Specifies the deserializer for the REST client.
 		/// </summary>
 		public static IDeserializer Deserializer
 		{
-			get
-			{
-				if (_deserializer == null)
-					throw new InvalidOperationException("TrelloConfiguration.Deserializer must be set before creating Trello objects.");
-				return _deserializer;
-			}
-			set
-			{
-				if (value == null)
-					Log.Error(new ArgumentNullException(nameof(value)));
-				_deserializer = value;
-			}
+			get { return _deserializer ?? (_deserializer = DefaultJsonSerializer.Instance); }
+			set { _deserializer = value; }
 		}
+
 		/// <summary>
 		/// Specifies the REST client provider.
 		/// </summary>
@@ -97,12 +79,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public static IJsonFactory JsonFactory
 		{
-			get
-			{
-				if (_jsonFactory == null)
-					throw new InvalidOperationException("TrelloConfiguration.JsonFactory must be set before creating Trello objects.");
-				return _jsonFactory;
-			}
+			get { return _jsonFactory ?? (_jsonFactory = DefaultJsonFactory.Instance); }
 			set { _jsonFactory = value; }
 		}
 		/// <summary>

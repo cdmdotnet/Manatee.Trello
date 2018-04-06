@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Json;
-using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Tests.Common;
 using Manatee.Trello.WebApi;
 using NUnit.Framework;
@@ -20,7 +19,7 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			var text =
 				"{\"id\":\"571ca99c1aa4fb7e9e30bb0b\",\"unread\":false,\"type\":\"cardDueSoon\",\"date\":\"2016-04-24T11:10:19.997Z\",\"data\":{\"board\":{\"name\":\"Team\",\"id\":\"5718d772857c2a4b2a2befb8\"},\"card\":{\"due\":\"2016-04-25T11:00:00.000Z\",\"shortLink\":\"f5sdWFLT\",\"idShort\":19,\"name\":\"AS MRC Training\",\"id\":\"570e55eb131202e342f205ad\"}},\"idMemberCreator\":null}";
-			var serializer = new ManateeSerializer();
+			var serializer = DefaultJsonSerializer.Instance;
 			//var expected = new ManateeNotification
 			//	{
 			//		Id = "571ca99c1aa4fb7e9e30bb0b",
@@ -54,10 +53,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue30_PartialSearch_True()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
@@ -76,10 +71,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue30_PartialSearch_False()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
@@ -97,10 +88,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task Issue32_CancelPendingRequests()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
@@ -133,10 +120,6 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task Issue33_CardsNotDownloading()
 		{
 			//json, REST and trello setup
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			//TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
 
 			//app key and token, user required to enter token
@@ -164,10 +147,6 @@ namespace Manatee.Trello.IntegrationTests
 			ICard card = null;
 			try
 			{
-				var serializer = new ManateeSerializer();
-				TrelloConfiguration.Serializer = serializer;
-				TrelloConfiguration.Deserializer = serializer;
-				TrelloConfiguration.JsonFactory = new ManateeFactory();
 				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -195,10 +174,6 @@ namespace Manatee.Trello.IntegrationTests
 			ICard card = null;
 			try
 			{
-				var serializer = new ManateeSerializer();
-				TrelloConfiguration.Serializer = serializer;
-				TrelloConfiguration.Deserializer = serializer;
-				TrelloConfiguration.JsonFactory = new ManateeFactory();
 				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -219,10 +194,6 @@ namespace Manatee.Trello.IntegrationTests
 			ICard card = null;
 			try
 			{
-				var serializer = new ManateeSerializer();
-				TrelloConfiguration.Serializer = serializer;
-				TrelloConfiguration.Deserializer = serializer;
-				TrelloConfiguration.JsonFactory = new ManateeFactory();
 				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -247,10 +218,6 @@ namespace Manatee.Trello.IntegrationTests
 			ICard card = null;
 			try
 			{
-				var serializer = new ManateeSerializer();
-				TrelloConfiguration.Serializer = serializer;
-				TrelloConfiguration.Deserializer = serializer;
-				TrelloConfiguration.JsonFactory = new ManateeFactory();
 				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -278,10 +245,6 @@ namespace Manatee.Trello.IntegrationTests
 			var dueDate = new DateTime(2014, 1, 1);
 			try
 			{
-				var serializer = new ManateeSerializer();
-				TrelloConfiguration.Serializer = serializer;
-				TrelloConfiguration.Deserializer = serializer;
-				TrelloConfiguration.JsonFactory = new ManateeFactory();
 				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -320,10 +283,6 @@ namespace Manatee.Trello.IntegrationTests
 			var dueDate = new DateTime(2014, 1, 1);
 			try
 			{
-				var serializer = new ManateeSerializer();
-				TrelloConfiguration.Serializer = serializer;
-				TrelloConfiguration.Deserializer = serializer;
-				TrelloConfiguration.JsonFactory = new ManateeFactory();
 				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -356,10 +315,6 @@ namespace Manatee.Trello.IntegrationTests
 			var name = "edit comment test";
 			try
 			{
-				var serializer = new ManateeSerializer();
-				TrelloConfiguration.Serializer = serializer;
-				TrelloConfiguration.Deserializer = serializer;
-				TrelloConfiguration.JsonFactory = new ManateeFactory();
 				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -383,10 +338,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue60_BoardPreferencesFromSearch()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -401,10 +352,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue84_ListNameNotDownloading()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
@@ -418,10 +365,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Email_BoardDownloadHangsOnNameAfterFetchingFromCollection()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
 			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
