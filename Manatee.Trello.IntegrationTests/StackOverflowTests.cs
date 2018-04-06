@@ -29,14 +29,14 @@ namespace Manatee.Trello.IntegrationTests
 
 		#region http://stackoverflow.com/q/39926431/878701
 
-		private static void Move(Card card, int position, List list = null)
+		private static void Move(ICard card, int position, IList list = null)
 		{
 			if (list != null && list != card.List)
 			{
 				card.List = list;
 			}
 
-			card.Position = position;
+			card.Position = (Position) position;
 		}
 
 		[Test]
@@ -44,8 +44,8 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			Run(() =>
 				    {
-						var list = new List(TrelloIds.ListId);
-					    var cards = new List<Card>();
+						IList list = new List(TrelloIds.ListId);
+					    var cards = new List<ICard>();
 					    for (int i = 0; i < 10; i++)
 					    {
 						    cards.Add(list.Cards.Add("test card " + i));

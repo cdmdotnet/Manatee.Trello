@@ -71,18 +71,18 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to search for.</param>
 		/// <returns>A new <see cref="SearchFor"/> parameter list.</returns>
-		public static SearchFor Member(Member member)
+		public static SearchFor Member(IMember member)
 		{
-			return new SearchFor(new MemberSearchParameter(member));
+			return new SearchFor(new MemberSearchParameter((Member) member));
 		}
 		/// <summary>
 		/// Creates a new <see cref="SearchFor"/> specifying a label search parameter.
 		/// </summary>
 		/// <param name="label">The label to search for.</param>
 		/// <returns>A new <see cref="SearchFor"/> parameter list.</returns>
-		public static SearchFor Label(Label label)
+		public static SearchFor Label(ILabel label)
 		{
-			return new SearchFor(new LabelSearchParameter(label));
+			return new SearchFor(new LabelSearchParameter((Label) label));
 		}
 		/// <summary>
 		/// Creates a new <see cref="SearchFor"/> specifying a label color search parameter.

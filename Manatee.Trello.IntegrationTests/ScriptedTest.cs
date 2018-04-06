@@ -26,7 +26,7 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Run()
 		{
-			Board board = null;
+			IBoard board = null;
 			try
 			{
 				board = Member.Me.Boards.Add($"TestBoard{Guid.NewGuid()}");

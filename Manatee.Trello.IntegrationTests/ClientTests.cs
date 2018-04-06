@@ -128,6 +128,7 @@ namespace Manatee.Trello.IntegrationTests
 			Assert.AreEqual(0, names.Count(n => n != null));
 		}
 
+#pragma warning disable 1998
 		[Test]
 		public async Task Issue33_CardsNotDownloading()
 		{
@@ -155,11 +156,12 @@ namespace Manatee.Trello.IntegrationTests
 				Console.WriteLine(card);
 			}
 		}
+#pragma warning restore 1998
 
 		[Test]
 		public void Issue35_DatesReturningAs1DayBefore()
 		{
-			Card card = null;
+			ICard card = null;
 			try
 			{
 				var serializer = new ManateeSerializer();
@@ -190,7 +192,7 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue36_CardAttachmentByUrlThrows()
 		{
-			Card card = null;
+			ICard card = null;
 			try
 			{
 				var serializer = new ManateeSerializer();
@@ -214,7 +216,7 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue37_InconsistentDateEncoding()
 		{
-			Card card = null;
+			ICard card = null;
 			try
 			{
 				var serializer = new ManateeSerializer();
@@ -242,7 +244,7 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue45_DueDateAsMinValue()
 		{
-			Card card = null;
+			ICard card = null;
 			try
 			{
 				var serializer = new ManateeSerializer();
@@ -269,7 +271,7 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue47_AddCardWithDetails()
 		{
-			Card card = null;
+			ICard card = null;
 			var name = "card detailed creation test";
 			var description = "this is a description";
 			var position = Position.Top;
@@ -311,7 +313,7 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue46_DueComplete()
 		{
-			Card card = null;
+			ICard card = null;
 			var name = "due complete test";
 			var description = "this is a description";
 			var position = Position.Top;
@@ -350,7 +352,7 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue59_EditComments()
 		{
-			Card card = null;
+			ICard card = null;
 			var name = "edit comment test";
 			try
 			{

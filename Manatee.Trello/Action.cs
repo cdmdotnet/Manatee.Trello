@@ -12,17 +12,77 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an action performed on Trello objects.
 	/// </summary>
-	public class Action : ICacheable
+	public interface IAction : ICacheable
 	{
+		/// <summary>
+		/// Gets the creation date of the action.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets the member who performed the action.
+		/// </summary>
+		IMember Creator { get; }
+
+		/// <summary>
+		/// Gets any data associated with the action.
+		/// </summary>
+		IActionData Data { get; }
+
+		/// <summary>
+		/// Gets the date and time at which the action was performed.
+		/// </summary>
+		DateTime? Date { get; }
+
+		/// <summary>
+		/// Gets the type of action.
+		/// </summary>
+		ActionType? Type { get; }
+
+		/// <summary>
+		/// Raised when data on the action is updated.
+		/// </summary>
+		event Action<IAction, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Deletes the card.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the card from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		void Delete();
+	}
+
+	/// <summary>
+	/// Represents an action performed on Trello objects.
+	/// </summary>
+	public class Action : IAction
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Action"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Action.Data"/> should be fetched.
+			/// </summary>
 			[Display(Description="data")]
 			Data = 1,
+			/// <summary>
+			/// Indicates that <see cref="Action.Date"/> should be fetched.
+			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Action.Creator"/> should be fetched.
+			/// </summary>
 			[Display(Description="idMemberCreator")]
 			Creator = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Action.Type"/> should be fetched.
+			/// </summary>
 			[Display(Description="type")]
 			Type = 1 << 3
 		}
@@ -36,6 +96,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -53,11 +116,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member who performed the action.
 		/// </summary>
-		public Member Creator => _creator.Value;
+		public IMember Creator => _creator.Value;
 		/// <summary>
 		/// Gets any data associated with the action.
 		/// </summary>
-		public ActionData Data { get; }
+		public IActionData Data { get; }
 		/// <summary>
 		/// Gets the date and time at which the action was performed.
 		/// </summary>
@@ -89,7 +152,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the action is updated.
 		/// </summary>
-		public event Action<Action, IEnumerable<string>> Updated;
+		public event Action<IAction, IEnumerable<string>> Updated;
 
 		static Action()
 		{
@@ -112,7 +175,7 @@ namespace Manatee.Trello
 					{ActionType.CreateOrganization, a => $"{a.Creator} created organization {a.Data.Organization}."},
 					{ActionType.DeleteAttachmentFromCard, a => $"{a.Creator} removed attachment {a.Data.Attachment} from card {a.Data.Card}."},
 					{ActionType.DeleteBoardInvitation, a => $"{a.Creator} rescinded an invitation."},
-					{ActionType.DeleteCard, a => $"{a.Creator} deleted card #{a.Data.Card.Json.IdShort} from {a.Data.Board}."},
+					{ActionType.DeleteCard, a => $"{a.Creator} deleted card #{((Card) a.Data.Card).Json.IdShort} from {a.Data.Board}."},
 					{ActionType.DeleteOrganizationInvitation, a => $"{a.Creator} rescinded an invitation."},
 					{ActionType.DisablePowerUp, a => $"{a.Creator} disabled power-up {a.Data.Value}."},
 					{ActionType.EmailCard, a => $"{a.Creator} added card {a.Data.Card} by email."},

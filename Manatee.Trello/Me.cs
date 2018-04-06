@@ -7,7 +7,63 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the current member.
 	/// </summary>
-	public class Me : Member
+	public interface IMe : IMember
+	{
+		/// <summary>
+		/// Gets or sets the source type for the member's avatar.
+		/// </summary>
+		new AvatarSource? AvatarSource { get; set; }
+
+		/// <summary>
+		/// Gets or sets the member's bio.
+		/// </summary>
+		new string Bio { get; set; }
+
+		/// <summary>
+		/// Gets the collection of boards owned by the member.
+		/// </summary>
+		new IBoardCollection Boards { get; }
+
+		/// <summary>
+		/// Gets or sets the member's email.
+		/// </summary>
+		string Email { get; set; }
+
+		/// <summary>
+		/// Gets or sets the member's full name.
+		/// </summary>
+		new string FullName { get; set; }
+
+		/// <summary>
+		/// Gets or sets the member's initials.
+		/// </summary>
+		new string Initials { get; set; }
+
+		/// <summary>
+		/// Gets the collection of notificaitons for the member.
+		/// </summary>
+		IReadOnlyNotificationCollection Notifications { get; }
+
+		/// <summary>
+		/// Gets the collection of organizations to which the member belongs.
+		/// </summary>
+		new IOrganizationCollection Organizations { get; }
+
+		/// <summary>
+		/// Gets the set of preferences for the member.
+		/// </summary>
+		IMemberPreferences Preferences { get; }
+
+		/// <summary>
+		/// Gets or sets the member's username.
+		/// </summary>
+		new string UserName { get; set; }
+	}
+
+	/// <summary>
+	/// Represents the current member.
+	/// </summary>
+	public class Me : Member, IMe
 	{
 		private static IJsonMember _myJson;
 
@@ -32,7 +88,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public new BoardCollection Boards => base.Boards as BoardCollection;
+		public new IBoardCollection Boards => base.Boards as BoardCollection;
 		/// <summary>
 		/// Gets or sets the member's email.
 		/// </summary>
@@ -60,15 +116,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of notificaitons for the member.
 		/// </summary>
-		public ReadOnlyNotificationCollection Notifications { get; }
+		public IReadOnlyNotificationCollection Notifications { get; }
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public new OrganizationCollection Organizations => base.Organizations as OrganizationCollection;
+		public new IOrganizationCollection Organizations => (OrganizationCollection) base.Organizations;
 		/// <summary>
 		/// Gets the set of preferences for the member.
 		/// </summary>
-		public MemberPreferences Preferences { get; }
+		public IMemberPreferences Preferences { get; }
 		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>

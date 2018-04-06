@@ -7,10 +7,9 @@ namespace Manatee.Trello.CustomFields
 	{
 		private static readonly Dictionary<string, CustomFieldsPowerUp> Cache = new Dictionary<string, CustomFieldsPowerUp>();
 
-		public static CustomFieldsPowerUp TryGetPowerUp(this Board board)
+		public static CustomFieldsPowerUp TryGetPowerUp(this IBoard board)
 		{
-			CustomFieldsPowerUp powerUp;
-			if (!Cache.TryGetValue(board.Id, out powerUp))
+			if (!Cache.TryGetValue(board.Id, out var powerUp))
 			{
 				powerUp = board.PowerUps.OfType<CustomFieldsPowerUp>().FirstOrDefault();
 				if (powerUp == null) return null;

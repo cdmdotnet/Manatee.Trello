@@ -13,19 +13,112 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a checklist.
 	/// </summary>
-	public class CheckList : ICacheable
+	public interface ICheckList : ICacheable
 	{
+		/// <summary>
+		/// Gets the board on which the checklist belongs.
+		/// </summary>
+		IBoard Board { get; }
+
+		/// <summary>
+		/// Gets or sets the card on which the checklist belongs.
+		/// </summary>
+		ICard Card { get; set; }
+
+		/// <summary>
+		/// Gets the collection of items in the checklist.
+		/// </summary>
+		ICheckItemCollection CheckItems { get; }
+
+		/// <summary>
+		/// Gets the creation date of the checklist.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets the checklist's name.
+		/// </summary>
+		string Name { get; set; }
+
+		/// <summary>
+		/// Gets the checklist's position.
+		/// </summary>
+		Position Position { get; set; }
+
+		/// <summary>
+		/// Retrieves a check list item which matches the supplied key.
+		/// </summary>
+		/// <param name="key">The key to match.</param>
+		/// <returns>The matching check list item, or null if none found.</returns>
+		/// <remarks>
+		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
+		/// </remarks>
+		ICheckItem this[string key] { get; }
+
+		/// <summary>
+		/// Retrieves the check list item at the specified index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		/// <returns>The check list item.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
+		/// </exception>
+		ICheckItem this[int index] { get; }
+
+		/// <summary>
+		/// Raised when data on the check list is updated.
+		/// </summary>
+		event Action<ICheckList, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Deletes the checklist.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the checklist from Trello's server, however, this object
+		/// will remain in memory and all properties will remain accessible.
+		/// </remarks>
+		void Delete();
+
+		/// <summary>
+		/// Marks the checklist to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
+	/// <summary>
+	/// Represents a checklist.
+	/// </summary>
+	public class CheckList : ICheckList
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="CheckList"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="CheckList.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1,
+			/// <summary>
+			/// Indicates that <see cref="CheckList.Board"/> should be fetched.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="CheckList.Card"/> should be fetched.
+			/// </summary>
 			[Display(Description="idCard")]
 			Card = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="CheckList.CheckItems"/> should be fetched.
+			/// </summary>
 			[Display(Description="checkItems")]
 			CheckItems = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="CheckList.Position"/> should be fetched.
+			/// </summary>
 			[Display(Description="pos")]
 			Position = 1 << 4
 		}
@@ -37,24 +130,27 @@ namespace Manatee.Trello
 		private readonly CheckListContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the board on which the checklist belongs.
 		/// </summary>
-		public Board Board => _board.Value;
+		public IBoard Board => _board.Value;
 		/// <summary>
 		/// Gets or sets the card on which the checklist belongs.
 		/// </summary>
-		public Card Card
+		public ICard Card
 		{
 			get { return _card.Value; }
-			set { _card.Value = value; }
+			set { _card.Value = (Card) value; }
 		}
 		/// <summary>
 		/// Gets the collection of items in the checklist.
 		/// </summary>
-		public CheckItemCollection CheckItems { get; }
+		public ICheckItemCollection CheckItems { get; }
 		/// <summary>
 		/// Gets the creation date of the checklist.
 		/// </summary>
@@ -85,7 +181,7 @@ namespace Manatee.Trello
 		public Position Position
 		{
 			get { return _position.Value; }
-			set { _position.Value = value; }
+			set { _position.Value = (Position) value; }
 		}
 
 		/// <summary>
@@ -96,7 +192,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// Matches on CheckItem.Id and CheckItem.Name.  Comparison is case-sensitive.
 		/// </remarks>
-		public CheckItem this[string key] => CheckItems[key];
+		public ICheckItem this[string key] => CheckItems[key];
 		/// <summary>
 		/// Retrieves the check list item at the specified index.
 		/// </summary>
@@ -105,7 +201,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public CheckItem this[int index] => CheckItems[index];
+		public ICheckItem this[int index] => CheckItems[index];
 
 		internal IJsonCheckList Json
 		{
@@ -116,7 +212,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the check list is updated.
 		/// </summary>
-		public event Action<CheckList, IEnumerable<string>> Updated;
+		public event Action<ICheckList, IEnumerable<string>> Updated;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="CheckList"/> object.

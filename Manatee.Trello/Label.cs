@@ -12,17 +12,77 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A label.
 	/// </summary>
-	public class Label : ICacheable
+	public interface ILabel : ICacheable
 	{
+		/// <summary>
+		/// Gets the <see cref="Board"/> on which the label is defined.
+		/// </summary>
+		IBoard Board { get; }
+
+		/// <summary>
+		/// Gets and sets the color.  Use null for no color.
+		/// </summary>
+		LabelColor? Color { get; set; }
+
+		/// <summary>
+		/// Gets the creation date of the label.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets and sets the label's name.
+		/// </summary>
+		string Name { get; set; }
+
+		/// <summary>
+		/// Gets the number of cards which use this label.
+		/// </summary>
+		int? Uses { get; }
+
+		/// <summary>
+		/// Deletes the label.  All usages of the label will also be removed.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the label from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		void Delete();
+
+		/// <summary>
+		/// Marks the label to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
+	/// <summary>
+	/// A label.
+	/// </summary>
+	public class Label : ILabel
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Label"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Label.Board"/> should be fetched.
+			/// </summary>
 			[Display(Description="idBoard")]
 			Board = 1,
+			/// <summary>
+			/// Indicates that <see cref="Label.Color"/> should be fetched.
+			/// </summary>
 			[Display(Description="color")]
 			Color = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Label.Name"/> should be fetched.
+			/// </summary>
 			[Display(Description="name")]
 			Name = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Label.Uses"/> should be fetched.
+			/// </summary>
 			[Display(Description="uses")]
 			Uses = 1 << 3
 		}
@@ -34,12 +94,15 @@ namespace Manatee.Trello
 		private readonly LabelContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
 		/// Gets the <see cref="Board"/> on which the label is defined.
 		/// </summary>
-		public Board Board => _board.Value;
+		public IBoard Board => _board.Value;
 		/// <summary>
 		/// Gets and sets the color.  Use null for no color.
 		/// </summary>

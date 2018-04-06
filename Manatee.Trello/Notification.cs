@@ -12,19 +12,78 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a notification.
 	/// </summary>
-	public class Notification : ICacheable
+	public interface INotification : ICacheable
 	{
+		/// <summary>
+		/// Gets the creation date of the notification.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets the member who performed the action which created the notification.
+		/// </summary>
+		IMember Creator { get; }
+
+		/// <summary>
+		/// Gets any data associated with the notification.
+		/// </summary>
+		INotificationData Data { get; }
+
+		/// <summary>
+		/// Gets the date and teim at which the notification was issued.
+		/// </summary>
+		DateTime? Date { get; }
+
+		/// <summary>
+		/// Gets or sets whether the notification has been read.
+		/// </summary>
+		bool? IsUnread { get; set; }
+
+		/// <summary>
+		/// Gets the type of notification.
+		/// </summary>
+		NotificationType? Type { get; }
+
+		/// <summary>
+		/// Raised when data on the notification is updated.
+		/// </summary>
+		event Action<INotification, IEnumerable<string>> Updated;
+	}
+
+	/// <summary>
+	/// Represents a notification.
+	/// </summary>
+	public class Notification : INotification
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Notification"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Notification.Creator"/> should be fetched.
+			/// </summary>
 			[Display(Description="idMemberCreator")]
 			Creator = 1,
+			/// <summary>
+			/// Indicates that <see cref="Notification.Data"/> should be fetched.
+			/// </summary>
 			[Display(Description="data")]
 			Data = 1 << 1,
+			/// <summary>
+			/// Indicates that <see cref="Notification.IsUnread"/> should be fetched.
+			/// </summary>
 			[Display(Description="unread")]
 			IsUnread = 1 << 2,
+			/// <summary>
+			/// Indicates that <see cref="Notification.Type"/> should be fetched.
+			/// </summary>
 			[Display(Description="type")]
 			Type = 1 << 3,
+			/// <summary>
+			/// Indicates that <see cref="Notification.Date"/> should be fetched.
+			/// </summary>
 			[Display(Description="date")]
 			Date = 1 << 4
 		}
@@ -38,6 +97,9 @@ namespace Manatee.Trello
 		private readonly NotificationContext _context;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -55,11 +117,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member who performed the action which created the notification.
 		/// </summary>
-		public Member Creator => _creator.Value;
+		public IMember Creator => _creator.Value;
 		/// <summary>
 		/// Gets any data associated with the notification.
 		/// </summary>
-		public NotificationData Data { get; }
+		public INotificationData Data { get; }
 		/// <summary>
 		/// Gets the date and teim at which the notification was issued.
 		/// </summary>
@@ -90,7 +152,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the notification is updated.
 		/// </summary>
-		public event Action<Notification, IEnumerable<string>> Updated;
+		public event Action<INotification, IEnumerable<string>> Updated;
 
 		static Notification()
 		{

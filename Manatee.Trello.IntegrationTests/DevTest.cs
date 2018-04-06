@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Manatee.Trello.CustomFields;
 using Manatee.Trello.ManateeJson;
 using Manatee.Trello.Tests.Common;
 using Manatee.Trello.WebApi;
@@ -18,10 +18,12 @@ namespace Manatee.Trello.IntegrationTests
 			Run(() =>
 				{
 					var card = new Card("3rm0AZg5");
-					var attachment = card.Attachments.FirstOrDefault();
+					Console.WriteLine(card);
+					Console.WriteLine(card.Id);
 
-					Console.WriteLine(attachment.Position);
-					Console.WriteLine(attachment.EdgeColor);
+					OutputCollection("checklists", card.CheckLists);
+
+					OutputCollection("checkitems", card.CheckLists[0].CheckItems);
 				});
 		}
 

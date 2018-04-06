@@ -10,7 +10,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of actions.
 	/// </summary>
-	public class ReadOnlyPowerUpDataCollection : ReadOnlyCollection<PowerUpData>
+	public class ReadOnlyPowerUpDataCollection : ReadOnlyCollection<IPowerUpData>
 	{
 		private readonly EntityRequestType _requestType;
 

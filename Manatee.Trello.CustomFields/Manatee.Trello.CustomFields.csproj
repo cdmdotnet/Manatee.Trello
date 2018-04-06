@@ -32,6 +32,10 @@ Updated to NetStandard2.0</PackageReleaseNotes>
     <DocumentationFile>bin\Release\netstandard1.3\Manatee.Trello.CustomFields.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Manatee.Trello.CustomFields.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Manatee.Json" Version="9.6.0" />
   </ItemGroup>

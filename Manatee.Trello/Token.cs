@@ -12,19 +12,97 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a user token.
 	/// </summary>
-	public class Token : ICacheable
+	public interface IToken : ICacheable
 	{
+		/// <summary>
+		/// Gets the name of the application associated with the token.
+		/// </summary>
+		string AppName { get; }
+
+		/// <summary>
+		/// Gets the permissions on boards granted by the token.
+		/// </summary>
+		ITokenPermission BoardPermissions { get; }
+
+		/// <summary>
+		/// Gets the creation date of the token.
+		/// </summary>
+		DateTime CreationDate { get; }
+
+		/// <summary>
+		/// Gets the date and time the token was created.
+		/// </summary>
+		DateTime? DateCreated { get; }
+
+		/// <summary>
+		/// Gets the date and time the token expires, if any.
+		/// </summary>
+		DateTime? DateExpires { get; }
+
+		/// <summary>
+		/// Gets the member for which the token was issued.
+		/// </summary>
+		IMember Member { get; }
+
+		/// <summary>
+		/// Gets the permissions on members granted by the token.
+		/// </summary>
+		ITokenPermission MemberPermissions { get; }
+
+		/// <summary>
+		/// Gets the permissions on organizations granted by the token.
+		/// </summary>
+		ITokenPermission OrganizationPermissions { get; }
+
+		/// <summary>
+		/// Deletes the token.
+		/// </summary>
+		/// <remarks>
+		/// This permanently deletes the token from Trello's server, however, this object will
+		/// remain in memory and all properties will remain accessible.
+		/// </remarks>
+		void Delete();
+
+		/// <summary>
+		/// Marks the token to be refreshed the next time data is accessed.
+		/// </summary>
+		void Refresh();
+	}
+
+	/// <summary>
+	/// Represents a user token.
+	/// </summary>
+	public class Token : IToken
+	{
+		/// <summary>
+		/// Defines fetchable fields for <see cref="Token"/>s.
+		/// </summary>
 		[Flags]
 		public enum Fields
 		{
+			/// <summary>
+			/// Indicates that <see cref="Token.Id"/> should be fetched.
+			/// </summary>
 			[Display(Description="identifier")]
 			Id,
+			/// <summary>
+			/// Indicates that <see cref="Token.Member"/> should be fetched.
+			/// </summary>
 			[Display(Description="idMember")]
 			Member,
+			/// <summary>
+			/// Indicates that <see cref="Token.DateCreated"/> should be fetched.
+			/// </summary>
 			[Display(Description="dateCreated")]
 			DateCreated,
+			/// <summary>
+			/// Indicates that <see cref="Token.DateExpires"/> should be fetched.
+			/// </summary>
 			[Display(Description="dateExpires")]
 			DateExpires,
+			/// <summary>
+			/// Indicates that <see cref="Token.BoardPermissions"/>, <see cref="Token.MemberPermissions"/>, and <see cref="Token.OrganizationPermissions"/> should be fetched.
+			/// </summary>
 			[Display(Description="permissions")]
 			Permissions
 		}
@@ -38,6 +116,9 @@ namespace Manatee.Trello
 		private string _id;
 		private DateTime? _creation;
 
+		/// <summary>
+		/// Gets and sets the fields to fetch.
+		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 
 		/// <summary>
@@ -47,7 +128,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the permissions on boards granted by the token.
 		/// </summary>
-		public TokenPermission BoardPermissions { get; }
+		public ITokenPermission BoardPermissions { get; }
 		/// <summary>
 		/// Gets the creation date of the token.
 		/// </summary>
@@ -84,15 +165,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member for which the token was issued.
 		/// </summary>
-		public Member Member => _member.Value;
+		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the permissions on members granted by the token.
 		/// </summary>
-		public TokenPermission MemberPermissions { get; }
+		public ITokenPermission MemberPermissions { get; }
 		/// <summary>
 		/// Gets the permissions on organizations granted by the token.
 		/// </summary>
-		public TokenPermission OrganizationPermissions { get; }
+		public ITokenPermission OrganizationPermissions { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Token"/> object.
