@@ -1,5 +1,4 @@
-﻿using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal.Caching;
+﻿using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello

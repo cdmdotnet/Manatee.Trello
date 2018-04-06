@@ -1,5 +1,4 @@
-﻿using Manatee.Trello.Exceptions;
-using Manatee.Trello.Internal.DataAccess;
+﻿using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 

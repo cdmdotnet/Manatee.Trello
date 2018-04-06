@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.Contracts;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 

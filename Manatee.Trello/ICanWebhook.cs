@@ -1,4 +1,4 @@
-namespace Manatee.Trello.Contracts
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Definines properties and methods required to support webhooks.

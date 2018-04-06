@@ -3,7 +3,7 @@ using System.Linq;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
-using IQueryable = Manatee.Trello.Contracts.IQueryable;
+using IQueryable = Manatee.Trello.IQueryable;
 
 namespace Manatee.Trello
 {

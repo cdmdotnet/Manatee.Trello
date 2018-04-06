@@ -1,6 +1,4 @@
-﻿using Manatee.Trello.Contracts;
-
-namespace Manatee.Trello
+﻿namespace Manatee.Trello
 {
 	/// <summary>
 	/// Defines the basis of a power-up.

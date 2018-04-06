@@ -1,5 +1,4 @@
 ﻿using System;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 

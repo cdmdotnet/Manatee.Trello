@@ -1,4 +1,4 @@
-﻿namespace Manatee.Trello.Contracts
+﻿namespace Manatee.Trello
 {
 	/// <summary>
 	/// Defines properties which are required to cache an object.

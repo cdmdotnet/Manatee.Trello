@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.ExceptionHandling;
 using Manatee.Trello.Json;

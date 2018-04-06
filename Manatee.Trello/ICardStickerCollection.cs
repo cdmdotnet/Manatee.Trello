@@ -1,6 +1,4 @@
-﻿using Manatee.Trello.Exceptions;
-
-namespace Manatee.Trello
+﻿namespace Manatee.Trello
 {
 	/// <summary>
 	/// A collection of <see cref="ISticker"/>s.

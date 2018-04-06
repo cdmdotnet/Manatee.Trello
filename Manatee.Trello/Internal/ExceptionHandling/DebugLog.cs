@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.ExceptionHandling
 {

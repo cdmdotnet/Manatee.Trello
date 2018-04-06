@@ -1,7 +1,6 @@
 ﻿using System;
-using JetBrains.Annotations;
 
-namespace Manatee.Trello.Contracts
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Defines methods required to log information, events, and errors generated throughout Manatee.Trello.

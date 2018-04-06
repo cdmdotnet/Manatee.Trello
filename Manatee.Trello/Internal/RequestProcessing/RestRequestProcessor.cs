@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing

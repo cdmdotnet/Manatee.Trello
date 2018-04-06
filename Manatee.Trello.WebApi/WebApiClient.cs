@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Manatee.Trello.Exceptions;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.WebApi

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;

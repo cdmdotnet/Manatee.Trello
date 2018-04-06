@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 

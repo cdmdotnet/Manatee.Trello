@@ -2,7 +2,7 @@
 
 using System;
 
-namespace JetBrains.Annotations
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Describes dependency between method input and output.

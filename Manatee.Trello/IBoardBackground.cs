@@ -1,6 +1,4 @@
-﻿using Manatee.Trello.Contracts;
-
-namespace Manatee.Trello
+﻿namespace Manatee.Trello
 {
 	/// <summary>
 	/// Represents a background image for a board.
