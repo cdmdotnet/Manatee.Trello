@@ -135,6 +135,7 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
+		public ReadOnlyCustomFieldDefinitionCollection CustomFields { get; }
 		/// <summary>
 		/// Gets or sets the board's description.
 		/// </summary>
@@ -308,6 +309,7 @@ namespace Manatee.Trello
 
 			Actions = new ReadOnlyActionCollection(typeof(Board), () => Id, auth);
 			Cards = new ReadOnlyCardCollection(typeof(Board), () => Id, auth);
+			CustomFields = new ReadOnlyCustomFieldDefinitionCollection(() => Id, auth);
 			_description = new Field<string>(_context, nameof(Description));
 			_isClosed = new Field<bool?>(_context, nameof(IsClosed));
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);

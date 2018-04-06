@@ -9,6 +9,9 @@
     <PackageTags>wrapper trello manatee</PackageTags>
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
+v2.4.0
+Integrated custom fields per Trello API change.
+
 v2.3.1
 Added BoardBackgroundBrightness.Light.
 
@@ -51,7 +54,7 @@ BUG FIX: InvalidOperationException when processing webhooks.
 v2.1.0
 Added board delete.
 </PackageReleaseNotes>
-    <Version>2.3.1</Version>
+    <Version>2.4.0</Version>
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <Company>Little Crab Solutions</Company>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>

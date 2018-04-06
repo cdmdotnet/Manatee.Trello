@@ -1,8 +1,11 @@
-﻿namespace Manatee.Trello.CustomFields
+﻿using System;
+
+namespace Manatee.Trello.CustomFields
 {
 	/// <summary>
 	/// Defines intended data types for custom fields.  Custom field data is always string-encoded.
 	/// </summary>
+	[Obsolete("Custom fields have been integrated into the main Manatee.Trello library as of version 2.4.")]
 	public enum FieldType
 	{
 		/// <summary>

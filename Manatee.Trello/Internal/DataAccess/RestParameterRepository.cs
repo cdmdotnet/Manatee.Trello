@@ -35,9 +35,12 @@ namespace Manatee.Trello.Internal.DataAccess
 		public static Dictionary<string, string> GetParameters<T>()
 		{
 			var fieldList = _TryGetFields<T>();
-			return fieldList != null
-				? new Dictionary<string, string> {["fields"] = fieldList}
-				: new Dictionary<string, string>();
+			var parameters = new Dictionary<string, string>();
+			if (fieldList != null)
+				parameters["fields"] = fieldList;
+			if (typeof(T) == typeof(IJsonCard))
+				parameters["customFieldItems"] = "true";
+			return parameters;
 		}
 
 		private static string _TryGetFields<T>()
@@ -49,8 +52,8 @@ namespace Manatee.Trello.Internal.DataAccess
 				if (generic == typeof(List<>))
 					type = type.GetTypeInfo().GenericTypeArguments.First();
 			}
-			Func<string> getKey;
-			if (!_fieldFuncs.TryGetValue(type, out getKey)) return null;
+
+			if (!_fieldFuncs.TryGetValue(type, out var getKey)) return null;
 			var key = getKey();
 			return key;
 		}

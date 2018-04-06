@@ -11,6 +11,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 		public string Id { get; set; }
 		public IJsonBadges Badges { get; set; }
 		public bool? Closed { get; set; }
+		public List<IJsonCustomField> CustomFields { get; set; }
 		public DateTime? DateLastActivity { get; set; }
 		public string Desc { get; set; }
 		public DateTime? Due { get; set; }
@@ -41,6 +42,7 @@ namespace Manatee.Trello.ManateeJson.Entities
 					Id = obj.TryGetString("id");
 					Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
 					Closed = obj.TryGetBoolean("closed");
+					CustomFields = obj.Deserialize<List<IJsonCustomField>>(serializer, "customFieldItems");
 					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 					Due = obj.Deserialize<DateTime?>(serializer, "due");
 					DueComplete = obj.TryGetBoolean("dueComplete");

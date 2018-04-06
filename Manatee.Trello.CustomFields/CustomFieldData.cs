@@ -1,8 +1,11 @@
-﻿namespace Manatee.Trello.CustomFields
+﻿using System;
+
+namespace Manatee.Trello.CustomFields
 {
 	/// <summary>
 	/// Models a single custom field on a card.
 	/// </summary>
+	[Obsolete("Custom fields have been integrated into the main Manatee.Trello library as of version 2.4.")]
 	public class CustomFieldData
 	{
 		internal string Id { get; set; }
