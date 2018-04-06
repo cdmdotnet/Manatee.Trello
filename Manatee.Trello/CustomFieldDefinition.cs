@@ -19,7 +19,7 @@ namespace Manatee.Trello
 	{
 		public string Id { get; set; }
 		public DropDownField Field { get; set; }
-		public string Value { get; set; }
+		public string Text { get; set; }
 		public LabelColor? Color { get; set; }
 		public Position Position { get; set; }
 	}

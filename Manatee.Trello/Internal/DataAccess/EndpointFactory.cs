@@ -22,6 +22,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Board_Read_Actions, () => new Endpoint(RestMethod.Get, "boards", "_id", "actions")},
 					{EntityRequestType.Board_Read_Cards, () => new Endpoint(RestMethod.Get, "boards", "_id", "cards")},
 					{EntityRequestType.Board_Read_CardsForMember, () => new Endpoint(RestMethod.Get, "boards", "_id", "members", "_idMember", "cards")},
+					{EntityRequestType.Board_Read_CustomFields, () => new Endpoint(RestMethod.Get, "boards", "_id", "customFields")},
 					{EntityRequestType.Board_Read_Labels, () => new Endpoint(RestMethod.Get, "boards", "_id", "labels")},
 					{EntityRequestType.Board_Read_Lists, () => new Endpoint(RestMethod.Get, "boards", "_id", "lists")},
 					{EntityRequestType.Board_Read_Members, () => new Endpoint(RestMethod.Get, "boards", "_id", "members")},
