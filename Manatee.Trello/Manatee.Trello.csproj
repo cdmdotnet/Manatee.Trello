@@ -9,52 +9,10 @@
     <PackageTags>wrapper trello manatee</PackageTags>
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
-v2.4.0
-Integrated custom fields per Trello API change.
-
-v2.3.1
-Added BoardBackgroundBrightness.Light.
-
-v2.3.0
-Added removing stickers from cards.
-Added new fields to Board.
-- LastActivity
-- LastViewed
-- IsPinned
-- IsStarred
-- ShortLink
-- ShortUrl
-Added new fields to BoardBackground.
-- BottomColor
-- TopColor
-- Brightness
-Added new fields to Attachment.
-- Position
-- EdgeColor
-- Name (now writable)
-
-v2.2.0
-Updated ActionTypes.
-Added ActionData.Label.
-
-Requires Manatee.Trello.ManateeJson 2.1.0
-
-v2.1.2
-Fixed assembly version
-
-v2.1.1
-BUG FIX: InvalidOperationException when processing webhooks.
-
-v2.1.2
-Fixed assembly version
-
-v2.1.1
-BUG FIX: InvalidOperationException when processing webhooks.
-
-v2.1.0
-Added board delete.
-</PackageReleaseNotes>
-    <Version>2.4.0</Version>
+v3.0.0
+Less configuration: integrated JSON and REST libraries.
+Support for unit testing: extracted interfaces for all types.</PackageReleaseNotes>
+    <Version>3.0.0</Version>
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <Company>Little Crab Solutions</Company>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
@@ -66,8 +24,8 @@ Added board delete.
 
   <PropertyGroup>
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.3.1.0</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">
