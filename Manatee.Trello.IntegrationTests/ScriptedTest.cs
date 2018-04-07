@@ -1,6 +1,5 @@
 ﻿using System;
 using Manatee.Trello.Tests.Common;
-using Manatee.Trello.WebApi;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -12,8 +11,6 @@ namespace Manatee.Trello.IntegrationTests
 		[OneTimeSetUp]
 		public void Setup()
 		{
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = "0f3f5a4039c992dabcf82fd1daa4ed12590eeb6407635c0f8da7518af1721498";
 		}

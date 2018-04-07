@@ -45,19 +45,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public static IRestClientProvider RestClientProvider
 		{
-			get
-			{
-				if (_restClientProvider == null)
-					throw new InvalidOperationException("TrelloConfiguration.RestClientProvider must be set before creating Trello objects.");
-				return _restClientProvider;
-			}
-			set
-			{
-				if (value == null)
-					Log.Error(new ArgumentNullException(nameof(value)));
-				_restClientProvider = value;
-			}
+			get { return _restClientProvider ?? (_restClientProvider = DefaultRestClientProvider.Instance); }
+			set { _restClientProvider = value; }
 		}
+
 		/// <summary>
 		/// Provides a cache to manage all Trello objects.
 		/// </summary>

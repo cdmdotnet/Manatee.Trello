@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Json;
 using Manatee.Trello.Tests.Common;
-using Manatee.Trello.WebApi;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -53,8 +52,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue30_PartialSearch_True()
 		{
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
@@ -71,8 +68,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue30_PartialSearch_False()
 		{
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
@@ -88,8 +83,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task Issue32_CancelPendingRequests()
 		{
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
@@ -147,7 +140,6 @@ namespace Manatee.Trello.IntegrationTests
 			ICard card = null;
 			try
 			{
-				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 				var learningBoard = new Board(TrelloIds.BoardId);
@@ -174,7 +166,6 @@ namespace Manatee.Trello.IntegrationTests
 			ICard card = null;
 			try
 			{
-				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
@@ -194,7 +185,6 @@ namespace Manatee.Trello.IntegrationTests
 			ICard card = null;
 			try
 			{
-				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
@@ -218,7 +208,6 @@ namespace Manatee.Trello.IntegrationTests
 			ICard card = null;
 			try
 			{
-				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
@@ -245,7 +234,6 @@ namespace Manatee.Trello.IntegrationTests
 			var dueDate = new DateTime(2014, 1, 1);
 			try
 			{
-				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 				var members = new IMember[] {Member.Me};
@@ -283,7 +271,6 @@ namespace Manatee.Trello.IntegrationTests
 			var dueDate = new DateTime(2014, 1, 1);
 			try
 			{
-				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
@@ -315,7 +302,6 @@ namespace Manatee.Trello.IntegrationTests
 			var name = "edit comment test";
 			try
 			{
-				TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 				TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
@@ -338,7 +324,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue60_BoardPreferencesFromSearch()
 		{
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
@@ -352,7 +337,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Issue84_ListNameNotDownloading()
 		{
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
@@ -365,7 +349,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public void Email_BoardDownloadHangsOnNameAfterFetchingFromCollection()
 		{
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);

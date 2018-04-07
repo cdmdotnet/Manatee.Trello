@@ -154,10 +154,6 @@
       <Project>{598234BA-460F-44C4-A3DB-E5257B572998}</Project>
       <Name>Manatee.Trello.Tests.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Manatee.Trello.WebApi\Manatee.Trello.WebApi.csproj">
-      <Project>{a37bc601-b5b7-41ae-ae80-2a5f82068d19}</Project>
-      <Name>Manatee.Trello.WebApi</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello\Manatee.Trello.csproj">
       <Project>{ec61fb1f-b27d-41c8-85b8-b56b1863819d}</Project>
       <Name>Manatee.Trello</Name>

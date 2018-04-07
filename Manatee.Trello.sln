@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manatee.Trello", "Manatee.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.Tests.Common", "Manatee.Trello.Tests.Common\Manatee.Trello.Tests.Common.csproj", "{598234BA-460F-44C4-A3DB-E5257B572998}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manatee.Trello.WebApi", "Manatee.Trello.WebApi\Manatee.Trello.WebApi.csproj", "{A37BC601-B5B7-41AE-AE80-2A5F82068D19}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.IntegrationTests", "Manatee.Trello.IntegrationTests\Manatee.Trello.IntegrationTests.csproj", "{F6AA1620-3117-4140-A82B-03BF9C854836}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{3F48F63B-536E-40D8-AB87-E602B3D3A1B0}"
@@ -69,22 +67,6 @@ Global
 		{598234BA-460F-44C4-A3DB-E5257B572998}.Release-4.5|Any CPU.Build.0 = Release|Any CPU
 		{598234BA-460F-44C4-A3DB-E5257B572998}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
 		{598234BA-460F-44C4-A3DB-E5257B572998}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-3.5|Any CPU.ActiveCfg = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-3.5|Any CPU.Build.0 = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-3.5C|Any CPU.ActiveCfg = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-3.5C|Any CPU.Build.0 = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-4.0|Any CPU.ActiveCfg = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-4.0|Any CPU.Build.0 = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-4.0C|Any CPU.ActiveCfg = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-4.0C|Any CPU.Build.0 = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-4.5|Any CPU.ActiveCfg = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-4.5|Any CPU.Build.0 = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
-		{A37BC601-B5B7-41AE-AE80-2A5F82068D19}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
 		{F6AA1620-3117-4140-A82B-03BF9C854836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6AA1620-3117-4140-A82B-03BF9C854836}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6AA1620-3117-4140-A82B-03BF9C854836}.Release|Any CPU.ActiveCfg = Release|Any CPU

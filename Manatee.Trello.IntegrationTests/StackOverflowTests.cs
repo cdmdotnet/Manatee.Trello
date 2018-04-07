@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Tests.Common;
-using Manatee.Trello.WebApi;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -12,8 +11,6 @@ namespace Manatee.Trello.IntegrationTests
 	{
 		private static void Run(System.Action action)
 		{
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
@@ -31,7 +28,7 @@ namespace Manatee.Trello.IntegrationTests
 				card.List = list;
 			}
 
-			card.Position = (Position) position;
+			card.Position = position;
 		}
 
 		[Test]
