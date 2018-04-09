@@ -86,8 +86,6 @@ namespace Manatee.Trello.IntegrationTests
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			TrelloProcessor.ConcurrentCallCount = 1;
-
 			var cards = new List<Card>
 				{
 					new Card("KHKms82H"),
@@ -99,7 +97,11 @@ namespace Manatee.Trello.IntegrationTests
 					new Card("hBoTLb9V"),
 				};
 
-			var nameTasks = cards.Select(c => Task.Run(() => c.Name)).ToList();
+			var nameTasks = cards.Select(c => Task.Run(() =>
+				{
+					Thread.Sleep(100);
+					return c.Name;
+				})).ToList();
 
 			TrelloProcessor.CancelPendingRequests();
 
@@ -112,9 +114,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task Issue33_CardsNotDownloading()
 		{
-			//json, REST and trello setup
-			//TrelloConfiguration.RestClientProvider = new RestSharpClientProvider();
-
 			//app key and token, user required to enter token
 			TrelloAuthorization.Default.AppKey = "440a184b181002cf00f63713a7f51191";
 			TrelloAuthorization.Default.UserToken = "dfd8dd877fa1775db502f891370fb26882a4d8bad41a1cc8cf1a58874b21322b";

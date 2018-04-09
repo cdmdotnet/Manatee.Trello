@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Manatee.Trello.Internal
@@ -56,22 +55,7 @@ namespace Manatee.Trello.Internal
 				? _descriptions[typeof(T)].First(d => Equals(d.Value, enumerationValue)).String
 				: BuildFlagsValues(enumerationValue, ",");
 		}
-		public static string GetName<T>(this Expression<Func<T>> property)
-		{
-			var lambda = (LambdaExpression)property;
 
-			MemberExpression memberExpression;
-			var body = lambda.Body as UnaryExpression;
-			if (body != null)
-			{
-				var unaryExpression = body;
-				memberExpression = (MemberExpression)unaryExpression.Operand;
-			}
-			else
-				memberExpression = (MemberExpression)lambda.Body;
-
-			return memberExpression.Member.Name;
-		}
 		public static bool IsNotFoundError(this TrelloInteractionException e)
 		{
 			return e.InnerException != null && e.InnerException.Message.ToLower().Contains("not found");

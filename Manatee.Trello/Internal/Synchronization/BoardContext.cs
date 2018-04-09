@@ -43,7 +43,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			BoardPreferencesContext = new BoardPreferencesContext(Auth);
-			BoardPreferencesContext.SynchronizeRequested += () => Synchronize();
+			BoardPreferencesContext.SynchronizeRequested += async () => await Synchronize();
 			BoardPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
 			Data.Prefs = BoardPreferencesContext.Data;
 		}

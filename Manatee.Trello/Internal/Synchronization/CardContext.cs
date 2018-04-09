@@ -56,7 +56,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			BadgesContext = new BadgesContext(Auth);
-			BadgesContext.SynchronizeRequested += () => Synchronize();
+			BadgesContext.SynchronizeRequested += async () => await Synchronize();
 			Data.Badges = BadgesContext.Data;
 		}
 

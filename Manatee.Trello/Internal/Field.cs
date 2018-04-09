@@ -15,7 +15,8 @@ namespace Manatee.Trello.Internal
 		{
 			get
 			{
-				_context.Synchronize();
+				if (TrelloConfiguration.AutoUpdate)
+					_context.Synchronize().Wait();
 				return CurrentValue;
 			}
 			set

@@ -20,7 +20,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_properties = new Dictionary<string, Property<IJsonAction>>
 				{
 					{
-						"Creator", new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
+						nameof(Action.Creator), new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
 						                                             (d, o) => { if (o != null) d.MemberCreator = o.Json; })
 					},
 					{"Date", new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
@@ -34,7 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			ActionDataContext = new ActionDataContext(Auth);
-			ActionDataContext.SynchronizeRequested += () => Synchronize();
+			ActionDataContext.SynchronizeRequested += async () => await Synchronize();
 			ActionDataContext.SubmitRequested += () => HandleSubmitRequested("Text");
 			Data.Data = ActionDataContext.Data;
 		}

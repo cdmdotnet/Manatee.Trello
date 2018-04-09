@@ -2,7 +2,7 @@
 {
 	internal class NotNullOrWhiteSpaceRule : IValidationRule<string>
 	{
-		public static NotNullOrWhiteSpaceRule Instance { get; private set; }
+		public static NotNullOrWhiteSpaceRule Instance { get; }
 
 		static NotNullOrWhiteSpaceRule()
 		{

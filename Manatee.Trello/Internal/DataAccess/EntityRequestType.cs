@@ -49,6 +49,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Card_Write_AddLabel,
 		Card_Write_AddSticker,
 		Card_Write_AssignMember,
+		Card_Write_CustomField,
 		Card_Write_Delete,
 		Card_Write_RemoveLabel,
 		Card_Write_RemoveMember,

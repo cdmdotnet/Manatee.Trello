@@ -191,7 +191,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize().Wait();
 				return _id;
 			}
 			private set { _id = value; }

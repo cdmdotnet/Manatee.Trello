@@ -28,6 +28,6 @@ namespace Manatee.Trello
 		/// Manatee.Trello relies on the logger to throw any exceptions.  Not implmenting this functionality may result in undesired behavior.
 		/// </remarks>
 		[ContractAnnotation("shouldThrow:true => halt")]
-		void Error(Exception e, bool shouldThrow = true);
+		void Error(Exception e);
 	}
 }

@@ -8,7 +8,12 @@ namespace Manatee.Trello.Rest
 {
 	internal class WebApiClient : IRestClient
 	{
-		private const string _trelloApiBaseUrl = @"https://trello.com/1";
+		private readonly string _baseUri;
+
+		public WebApiClient(string baseUri)
+		{
+			_baseUri = baseUri;
+		}
 
 		public Task<IRestResponse> Execute(IRestRequest request)
 		{
@@ -19,7 +24,7 @@ namespace Manatee.Trello.Rest
 			return ExecuteAsync<T>(request);
 		}
 
-		private static async Task<IRestResponse> ExecuteAsync(IRestRequest request)
+		private async Task<IRestResponse> ExecuteAsync(IRestRequest request)
 		{
 			IRestResponse response;
 			var webRequest = (WebApiRestRequest)request;
@@ -42,7 +47,7 @@ namespace Manatee.Trello.Rest
 			}
 			return response;
 		}
-		private static async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request) where T : class
+		private async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request) where T : class
 		{
 			IRestResponse<T> response;
 			var webRequest = (WebApiRestRequest) request;
@@ -157,11 +162,11 @@ namespace Manatee.Trello.Rest
 
 			return jsonContent;
 		}
-		private static string GetFullResource(WebApiRestRequest request)
+		private string GetFullResource(WebApiRestRequest request)
 		{
 			if (request.File != null)
-				return $"{_trelloApiBaseUrl}/{request.Resource}";
-			return $"{_trelloApiBaseUrl}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
+				return $"{_baseUri}/{request.Resource}";
+			return $"{_baseUri}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
 		}
 	}
 }

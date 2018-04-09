@@ -5,9 +5,9 @@ namespace Manatee.Trello.Internal.Validation
 {
 	internal class OrganizationNameRule : IValidationRule<string>
 	{
-		private static readonly Regex _regex = new Regex("^[a-z0-9_]{3,}$");
+		private static readonly Regex Regex = new Regex("^[a-z0-9_]{3,}$");
 
-		public static OrganizationNameRule Instance { get; private set; }
+		public static OrganizationNameRule Instance { get; }
 
 		static OrganizationNameRule()
 		{
@@ -17,7 +17,7 @@ namespace Manatee.Trello.Internal.Validation
 
 		public string Validate(string oldValue, string newValue)
 		{
-			var isValid = _regex.IsMatch(newValue);
+			var isValid = Regex.IsMatch(newValue);
 			if (isValid)
 			{
 				var search = new Search(newValue, 10, SearchModelType.Organizations);

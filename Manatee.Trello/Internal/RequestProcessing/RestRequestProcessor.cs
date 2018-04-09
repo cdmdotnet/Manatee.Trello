@@ -6,7 +6,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 {
 	internal static class RestRequestProcessor
 	{
-		private const string BaseUrl = "https://trello.com/1";
+		private const string BaseUrl = @"https://trello.com/1";
 
 		private static int _pendingRequestCount;
 		private static bool _cancelPendingRequests;
@@ -66,7 +66,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				{
 					var tie = new TrelloInteractionException(e);
 					request.Response = new NullRestResponse {Exception = e};
-					TrelloConfiguration.Log.Error(tie, false);
+					TrelloConfiguration.Log.Error(tie);
 				}
 			}
 			else

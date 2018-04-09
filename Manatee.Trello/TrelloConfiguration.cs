@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using Manatee.Trello.Internal.Caching;
-using Manatee.Trello.Internal.ExceptionHandling;
+using Manatee.Trello.Internal.Logging;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 
@@ -63,7 +63,7 @@ namespace Manatee.Trello
 		public static ILog Log
 		{
 			get { return _log ?? (_log = new DebugLog()); }
-			set { _log = value ?? new DebugLog(); }
+			set { _log = value; }
 		}
 		/// <summary>
 		/// Provides a factory which is used to create instances of JSON objects.

@@ -50,7 +50,13 @@ namespace Manatee.Trello.Internal.DataAccess
 		private static void ValidateResponse(IRestRequest request)
 		{
 			if (request.Response.Exception != null)
-				TrelloConfiguration.Log.Error(request.Response.Exception, TrelloConfiguration.ThrowOnTrelloError);
+			{
+				TrelloConfiguration.Log.Error(request.Response.Exception);
+				if (TrelloConfiguration.ThrowOnTrelloError)
+				{
+					throw request.Response.Exception;
+				}
+			}
 		}
 		private static void AddDefaultParameters<T>(IRestRequest request)
 		{
