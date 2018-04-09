@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -211,9 +212,9 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete()
 		{
-			_context.Delete();
+			await _context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
@@ -224,7 +225,9 @@ namespace Manatee.Trello
 		/// </returns>
 		public override string ToString()
 		{
-			return Type.HasValue && Type != ActionType.Unknown ? _stringDefinitions[Type.Value](this) : "Action type could not be determined.";
+			return Type.HasValue && Type != ActionType.Unknown
+				       ? _stringDefinitions[Type.Value](this)
+				       : "Action type could not be determined.";
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

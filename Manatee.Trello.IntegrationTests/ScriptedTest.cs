@@ -22,7 +22,8 @@ namespace Manatee.Trello.IntegrationTests
 			IBoard board = null;
 			try
 			{
-				board = await Member.Me.Boards.Add($"TestBoard{Guid.NewGuid()}");
+				var me = await new TrelloFactory().Me();
+				board = await me.Boards.Add($"TestBoard{Guid.NewGuid()}");
 			}
 			finally
 			{

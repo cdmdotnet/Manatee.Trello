@@ -121,7 +121,7 @@ namespace Manatee.Trello.IntegrationTests
 
 			TrelloConfiguration.ThrowOnTrelloError = true;
 
-			Console.WriteLine(Member.Me);
+			Console.WriteLine(await new TrelloFactory().Me());
 			var boardID = "574e95edd8a4fc16207f7079";
 			var board = new Board(boardID);
 			Console.WriteLine(board);
@@ -142,6 +142,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
 				var learningBoard = new Board(TrelloIds.BoardId);
 				string listId = learningBoard.Lists.First().Id;
 				var list = new List(listId);
@@ -236,7 +237,9 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
-				var members = new IMember[] {Member.Me};
+
+				var me = await new TrelloFactory().Me();
+				var members = new IMember[] {me};
 				var board = new Board(TrelloIds.BoardId);
 				var labels = new[] {board.Labels.FirstOrDefault(l => l.Color == LabelColor.Blue)};
 
@@ -250,7 +253,7 @@ namespace Manatee.Trello.IntegrationTests
 				Assert.AreEqual(card.Id, list.Cards.First().Id);
 				Assert.AreEqual(dueDate, recard.DueDate);
 				Assert.IsTrue(recard.IsComplete.Value, "card not complete");
-				Assert.IsTrue(recard.Members.Contains(Member.Me), "member not found");
+				Assert.IsTrue(recard.Members.Contains(me), "member not found");
 				Assert.IsTrue(recard.Labels.Contains(labels[0]), "label not found");
 
 				TrelloProcessor.Flush();
@@ -304,6 +307,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
 				TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
 
 				var list = new List(TrelloIds.ListId);
@@ -326,6 +330,7 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
 			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
 
 			var search = new Search(SearchFor.TextInName("Sandbox"), 1, SearchModelType.Boards);
@@ -339,6 +344,7 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
 			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
 
 			var list = new List(TrelloIds.ListId);
@@ -347,18 +353,20 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Email_BoardDownloadHangsOnNameAfterFetchingFromCollection()
+		public async Task Email_BoardDownloadHangsOnNameAfterFetchingFromCollection()
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
 			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
 
-			var board = Member.Me.Boards.FirstOrDefault(b => b.Name == "Sandbox");
+			var me = await new TrelloFactory().Me();
+			var board = me.Boards.FirstOrDefault(b => b.Name == "Sandbox");
 
 			Assert.IsNotNull(board);
 			Assert.AreEqual("Sandbox", board.Name);
 
-			board = Member.Me.Boards.FirstOrDefault(b => b.Name.Equals("Sandbox"));
+			board = me.Boards.FirstOrDefault(b => b.Name.Equals("Sandbox"));
 
 			Assert.IsNotNull(board);
 			Assert.AreEqual("Sandbox", board.Name);

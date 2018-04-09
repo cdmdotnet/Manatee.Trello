@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
-using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -112,11 +111,6 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Webhook(IJsonWebhook json, TrelloAuthorization auth)
-			: this(json.Id, auth)
-		{
-			_context.Merge(json);
-		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.
@@ -138,17 +132,17 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete()
 		{
-			_context.Delete();
+			await _context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the webhook to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh()
 		{
-			_context.Expire();
+			await _context.Expire();
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

@@ -33,7 +33,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public sealed override async Task Refresh()
 		{
-			_context.Synchronize();
+			await _context.Synchronize();
 			if (_context.Data.CheckItems == null) return;
 			foreach (var jsonCheckItem in _context.Data.CheckItems)
 			{

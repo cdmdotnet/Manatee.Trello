@@ -67,9 +67,10 @@ namespace Manatee.Trello
 		/// Creates an <see cref="IMe"/>.
 		/// </summary>
 		/// <returns>An <see cref="IMe"/></returns>
-		public IMe Me()
+		public async Task<IMe> Me()
 		{
-			return Trello.Member.Me;
+			var id = await Trello.Me.GetId();
+			return new Me(id);
 		}
 
 		/// <summary>

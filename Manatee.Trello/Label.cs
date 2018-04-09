@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -121,17 +122,17 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.  Any cards that have the label assigned will update as normal.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete()
 		{
-			_context.Delete();
+			await _context.Delete();
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the label to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh()
 		{
-			_context.Expire();
+			await _context.Expire();
 		}
 		/// <summary>
 		/// Returns the <see cref="Name"/> and <see cref="Color"/>.

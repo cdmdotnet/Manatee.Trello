@@ -47,7 +47,7 @@ namespace Manatee.Trello
 		/// Creates an <see cref="IMe"/>.
 		/// </summary>
 		/// <returns>An <see cref="IMe"/></returns>
-		IMe Me();
+		Task<IMe> Me();
 		/// <summary>
 		/// Creates an <see cref="IMember"/>.
 		/// </summary>

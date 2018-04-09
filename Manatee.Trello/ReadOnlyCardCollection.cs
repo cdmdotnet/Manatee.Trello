@@ -42,15 +42,6 @@ namespace Manatee.Trello
 			_updateRequestType = requestType;
 			_requestParameters = requestParameters ?? new Dictionary<string, object>();
 		}
-		internal ReadOnlyCardCollection(ReadOnlyCardCollection source, TrelloAuthorization auth)
-			: base(() => source.OwnerId, auth)
-		{
-			_updateRequestType = source._updateRequestType;
-			if (source._requestParameters != null)
-				_requestParameters = new Dictionary<string, object>(source._requestParameters);
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
-		}
 
 		/// <summary>
 		/// Adds a filter to the collection.

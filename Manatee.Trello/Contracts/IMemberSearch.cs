@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -15,6 +16,6 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the member search to be refreshed the next time data is accessed.
 		/// </summary>
-		void Refresh();
+		Task Refresh();
 	}
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -162,6 +163,14 @@ namespace Manatee.Trello
 			: this(json.Id, auth)
 		{
 			_context.Merge(json);
+		}
+
+		/// <summary>
+		/// Marks the member to be refreshed the next time data is accessed.
+		/// </summary>
+		public async Task Refresh()
+		{
+			await _context.Expire();
 		}
 
 		/// <summary>

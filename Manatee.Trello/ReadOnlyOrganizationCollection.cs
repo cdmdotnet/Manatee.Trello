@@ -18,12 +18,6 @@ namespace Manatee.Trello
 
 		internal ReadOnlyOrganizationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
-		internal ReadOnlyOrganizationCollection(ReadOnlyOrganizationCollection source, TrelloAuthorization auth)
-			: this(() => source.OwnerId, auth)
-		{
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
-		}
 
 		/// <summary>
 		/// Retrieves a organization which matches the supplied key.

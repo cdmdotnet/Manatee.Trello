@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -82,9 +83,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the organization membership to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh()
 		{
-			_context.Expire();
+			await _context.Expire();
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -74,6 +75,6 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This cannot be undone.
 		/// </remarks>
-		void Delete();
+		Task Delete();
 	}
 }

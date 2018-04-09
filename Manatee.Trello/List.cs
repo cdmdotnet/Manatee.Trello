@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -211,9 +212,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the list to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh()
 		{
-			_context.Expire();
+			await _context.Expire();
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

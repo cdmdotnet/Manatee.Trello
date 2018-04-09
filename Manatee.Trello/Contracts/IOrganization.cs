@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -85,11 +86,11 @@ namespace Manatee.Trello
 		/// This permanently deletes the organization from Trello's server, however, this
 		/// object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		void Delete();
+		Task Delete();
 
 		/// <summary>
 		/// Marks the organization to be refreshed the next time data is accessed.
 		/// </summary>
-		void Refresh();
+		Task Refresh();
 	}
 }

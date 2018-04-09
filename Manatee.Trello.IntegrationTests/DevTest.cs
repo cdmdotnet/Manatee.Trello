@@ -16,27 +16,32 @@ namespace Manatee.Trello.IntegrationTests
 		//[Ignore("This test fixture for development purposes only.")]
 		public async Task TestMethod1()
 		{
-			Run(() =>
+			await Run(async () =>
 				{
 					var board = Factory.Board(TrelloIds.BoardId);
-					var definitions = board.CustomFields.ToList();
+
+					await board.Refresh();
+
+					var definitions = board.CustomFields.Refresh();
 					var card = Factory.Card(TrelloIds.CardId);
-					
+
 					Console.WriteLine(card.Id);
 					Console.WriteLine(card);
+
+					await card.Refresh();
 
 					OutputCollection("custom fields", card.CustomFields);
 				});
 		}
 
-		private static void Run(System.Action action)
+		private static async Task Run(Func<Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			TrelloConfiguration.AutoUpdate = false;
 
-			action();
+			await action();
 
 			TrelloProcessor.Flush();
 		}

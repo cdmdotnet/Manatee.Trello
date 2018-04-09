@@ -48,13 +48,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Permissions.Add(OrganizationPermissions.Data);
 		}
 
-		public void Delete()
+		public async Task Delete()
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}

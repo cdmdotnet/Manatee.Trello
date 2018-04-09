@@ -33,13 +33,6 @@ namespace Manatee.Trello
 			_updateRequestType = requestType;
 			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
 		}
-		internal ReadOnlyMemberCollection(ReadOnlyMemberCollection source, TrelloAuthorization auth)
-			: base(() => source.OwnerId, auth)
-		{
-			_updateRequestType = source._updateRequestType;
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
-		}
 
 		/// <summary>
 		/// Adds a filter to the collection.

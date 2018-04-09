@@ -28,12 +28,6 @@ namespace Manatee.Trello
 
 		internal ReadOnlyListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
-		internal ReadOnlyListCollection(ReadOnlyListCollection source, TrelloAuthorization auth)
-			: this(() => source.OwnerId, auth)
-		{
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
-		}
 
 		/// <summary>
 		/// Adds a filter to the collection.

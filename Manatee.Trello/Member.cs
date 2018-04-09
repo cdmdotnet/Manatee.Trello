@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -113,7 +114,6 @@ namespace Manatee.Trello
 		}
 
 		private const string _avatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
-		private static Me _me;
 
 		private readonly Field<AvatarSource?> _avatarSource;
 		private readonly Field<string> _avatarUrl;
@@ -134,11 +134,6 @@ namespace Manatee.Trello
 		/// Specifies which fields should be downloaded.
 		/// </summary>
 		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
-
-		/// <summary>
-		/// Returns the <see cref="IMember"/> associated with the default <see cref="TrelloAuthorization.UserToken"/>.
-		/// </summary>
-		public static IMe Me => _me ?? (_me = new Me());
 
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
@@ -310,9 +305,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the member to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh()
 		{
-			_context.Expire();
+			await _context.Expire();
 		}
 		/// <summary>
 		/// Returns the <see cref="FullName"/>.

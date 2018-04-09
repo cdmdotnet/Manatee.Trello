@@ -20,12 +20,6 @@ namespace Manatee.Trello
 		{
 			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
 		}
-		internal ReadOnlyOrganizationMembershipCollection(ReadOnlyOrganizationMembershipCollection source, TrelloAuthorization auth)
-			: this(() => source.OwnerId, auth)
-		{
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
-		}
 
 		/// <summary>
 		/// Retrieves a membership which matches the supplied key.

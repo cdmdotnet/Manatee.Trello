@@ -39,12 +39,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Data = ActionDataContext.Data;
 		}
 
-		public void Delete()
+		public async Task Delete()
 		{
 			if (_deleted) return;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}

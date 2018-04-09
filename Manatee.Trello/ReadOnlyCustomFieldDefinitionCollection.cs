@@ -7,14 +7,26 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of custom field definitions.
+	/// </summary>
 	public class ReadOnlyCustomFieldDefinitionCollection : ReadOnlyCollection<CustomFieldDefinition>
 	{
+		/// <summary>
+		/// Creates a new instance of the <see cref="ReadOnlyCustomFieldDefinitionCollection"/> class.
+		/// </summary>
+		/// <param name="getOwnerId"></param>
+		/// <param name="auth"></param>
 		public ReadOnlyCustomFieldDefinitionCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
 		}
 
-		public override async Task Refresh()
+		/// <summary>
+		/// Refreshes the collection.
+		/// </summary>
+		/// <returns>A task.</returns>
+		public sealed override async Task Refresh()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_CustomFields,
 			                                     new Dictionary<string, object> {{"_id", OwnerId}});

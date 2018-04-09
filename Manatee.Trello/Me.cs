@@ -79,8 +79,8 @@ namespace Manatee.Trello
 			set { base.UserName = value; }
 		}
 
-		internal Me()
-			: base(GetId().Result, true, TrelloAuthorization.Default)
+		internal Me(string id)
+			: base(id, true, TrelloAuthorization.Default)
 		{
 			_email = new Field<string>(_context, nameof(Email));
 			Notifications = new ReadOnlyNotificationCollection(() => Id, TrelloAuthorization.Default);
@@ -89,7 +89,7 @@ namespace Manatee.Trello
 			_context.Merge(_myJson);
 		}
 
-		private static async Task<string> GetId()
+		internal static async Task<string> GetId()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_Me);
 			_myJson = await JsonRepository.Execute<IJsonMember>(TrelloAuthorization.Default, endpoint);

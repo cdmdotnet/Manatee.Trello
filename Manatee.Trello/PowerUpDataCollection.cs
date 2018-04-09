@@ -26,7 +26,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		public override async Task Refresh()
+		public sealed override async Task Refresh()
 		{
 			var endpoint = EndpointFactory.Build(_requestType, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonPowerUpData>>(Auth, endpoint);

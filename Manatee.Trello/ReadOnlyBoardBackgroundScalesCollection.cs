@@ -22,7 +22,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public sealed override async Task Refresh()
 		{
-			_context.Synchronize();
+			await _context.Synchronize();
 			if (_context.Data.ImageScaled == null) return;
 			Items.Clear();
 			foreach (var jsonPreview in _context.Data.ImageScaled)
