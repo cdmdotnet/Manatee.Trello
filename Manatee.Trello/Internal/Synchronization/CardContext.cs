@@ -73,7 +73,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public override async Task Expire(CancellationToken ct)
 		{
-			await BadgesContext.Expire(ct);
+			if (TrelloConfiguration.AutoUpdate)
+				await BadgesContext.Expire(ct);
 			await base.Expire(ct);
 		}
 

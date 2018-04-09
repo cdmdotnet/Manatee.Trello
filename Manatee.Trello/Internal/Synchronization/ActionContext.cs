@@ -22,12 +22,12 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(Action.Creator), new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
-						                                             (d, o) => { if (o != null) d.MemberCreator = o.Json; })
+																				  (d, o) => { if (o != null) d.MemberCreator = o.Json; })
 					},
-					{"Date", new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
-					{"Id", new Property<IJsonAction, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{nameof(Action.Date), new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
+					{nameof(Action.Id), new Property<IJsonAction, string>((d, a) => d.Id, (d, o) => d.Id = o)},
 					{"Text", new Property<IJsonAction, string>((d, a) => d.Data.Text, (d, o) => d.Text = o)},
-					{"Type", new Property<IJsonAction, ActionType?>((d, a) => d.Type, (d, o) => d.Type = o)},
+					{nameof(Action.Type), new Property<IJsonAction, ActionType?>((d, a) => d.Type, (d, o) => d.Type = o)},
 				};
 		}
 		public ActionContext(string id, TrelloAuthorization auth)
@@ -51,7 +51,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public override async Task Expire(CancellationToken ct)
 		{
-			await ActionDataContext.Expire(ct);
+			if (TrelloConfiguration.AutoUpdate)
+				await ActionDataContext.Expire(ct);
 			await base.Expire(ct);
 		}
 

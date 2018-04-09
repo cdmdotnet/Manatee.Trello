@@ -78,12 +78,18 @@ namespace Manatee.Trello
 		/// </summary>
 		public static bool ThrowOnTrelloError { get; set; }
 		/// <summary>
-		/// Specifies whether entities should update their data automatically or manually via the Refresh method.  Default is true.
+		/// Specifies whether entities should update their data automatically or manually via the Refresh method.  Default is false.
 		/// </summary>
+		/// <remarks>
+		/// This should be disabled for an asynchronous workflow.
+		/// </remarks>
 		public static bool AutoUpdate { get; set; }
 		/// <summary>
 		/// Specifies a length of time after which each Trello object will be marked as expired. Default is 30 seconds.
 		/// </summary>
+		/// <remarks>
+		/// This setting has no effect unless <see cref="AutoUpdate"/> is true.
+		/// </remarks>
 		public static TimeSpan ExpiryTime { get; set; }
 		/// <summary>
 		/// Specifies a length of time an object holds changes before it submits them.  The timer is reset with every change.  Default is 100 ms.
@@ -129,7 +135,6 @@ namespace Manatee.Trello
 		{
 			ThrowOnTrelloError = true;
 			ExpiryTime = TimeSpan.FromSeconds(30);
-			AutoUpdate = true;
 			ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
 			RegisteredPowerUps = new Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>>();
 			RetryStatusCodes = new List<HttpStatusCode>();

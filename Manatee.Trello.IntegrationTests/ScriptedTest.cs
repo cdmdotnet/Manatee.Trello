@@ -9,6 +9,8 @@ namespace Manatee.Trello.IntegrationTests
 	[Ignore("This is not ready")]
 	public class ScriptedTest
 	{
+		private readonly TrelloFactory _factory = new TrelloFactory();
+
 		[OneTimeSetUp]
 		public void Setup()
 		{
@@ -22,7 +24,7 @@ namespace Manatee.Trello.IntegrationTests
 			IBoard board = null;
 			try
 			{
-				var me = await new TrelloFactory().Me();
+				var me = await _factory.Me();
 				board = await me.Boards.Add($"TestBoard{Guid.NewGuid()}");
 			}
 			finally

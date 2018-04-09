@@ -37,7 +37,8 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public override async Task Expire(CancellationToken ct)
 		{
-			await NotificationDataContext.Expire(ct);
+			if (TrelloConfiguration.AutoUpdate)
+				await NotificationDataContext.Expire(ct);
 			await base.Expire(ct);
 		}
 

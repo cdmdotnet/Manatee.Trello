@@ -12,7 +12,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private static int _pendingRequestCount;
 		private static bool _cancelPendingRequests;
 
-		public static event System.Action LastCall;
+		public static event Func<Task> LastCall;
 
 		public static Task AddRequest(IRestRequest request, CancellationToken ct)
 		{
@@ -23,14 +23,15 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		{
 			return Process(async c => request.Response = await c.Execute<T>(request, ct), request);
 		}
-		public static void Flush()
+		public static async Task Flush()
 		{
-			LastCall?.Invoke();
+			if (LastCall != null)
+				await LastCall();
 		}
-		public static void CancelPendingRequests()
+		public static async Task CancelPendingRequests()
 		{
 			_cancelPendingRequests = true;
-			Flush();
+			await Flush();
 		}
 
 		private static async Task Process(Func<IRestClient, Task> ask, IRestRequest request)

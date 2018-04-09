@@ -26,12 +26,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			ManagesSubmissions = useTimer;
 			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
 			{
-				_timer = new Timer(state => TimerElapsed(), null, TimeSpan.Zero, TrelloConfiguration.ChangeSubmissionTime);
+				_timer = new Timer(state => TimerElapsed().Wait(), null, TimeSpan.Zero, TrelloConfiguration.ChangeSubmissionTime);
 			}
 
 			_lastUpdate = DateTime.MinValue;
 			_lock = new object();
-			RestRequestProcessor.LastCall += () => TimerElapsed();
+			RestRequestProcessor.LastCall += TimerElapsed;
 		}
 		~SynchronizationContext()
 		{
@@ -56,9 +56,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		public virtual Task Expire(CancellationToken ct)
 		{
 			_lastUpdate = DateTime.MinValue;
-			return TrelloConfiguration.AutoUpdate
-				       ? Task.CompletedTask
-				       : Synchronize(ct, true);
+			var task = Synchronize(ct, true);
+			if (TrelloConfiguration.AutoUpdate)
+			{
+				task.Wait(ct);
+			}
+
+			return task;
 		}
 
 		protected abstract Task<object> GetBasicData(CancellationToken ct);
@@ -84,7 +88,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_timer.Start(TrelloConfiguration.ChangeSubmissionTime);
 		}
 
-		private async void TimerElapsed()
+		private async Task TimerElapsed()
 		{
 			_timer?.Stop();
 			if (!_cancelUpdate && HasChanges)
