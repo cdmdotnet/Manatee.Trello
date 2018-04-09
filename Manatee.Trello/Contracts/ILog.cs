@@ -23,7 +23,6 @@ namespace Manatee.Trello
 		/// Writes an error level log entry.
 		/// </summary>
 		/// <param name="e">The exception that will be or was thrown.</param>
-		/// <param name="shouldThrow">true if the exception should be thrown; false otherwise.</param>
 		/// <remarks>
 		/// Manatee.Trello relies on the logger to throw any exceptions.  Not implmenting this functionality may result in undesired behavior.
 		/// </remarks>

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -35,17 +36,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 		}
 
-		protected override async Task<IJsonList> GetData()
+		protected override async Task<IJsonList> GetData(CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonList>(Auth, endpoint);
+			var newData = await JsonRepository.Execute<IJsonList>(Auth, endpoint, ct);
 
 			return newData;
 		}
-		protected override async Task SubmitData(IJsonList json)
+		protected override async Task SubmitData(IJsonList json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
 		}
 	}

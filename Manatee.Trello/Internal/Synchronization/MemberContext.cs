@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -38,28 +39,28 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
-			MemberPreferencesContext.SynchronizeRequested += async () => await Synchronize();
-			MemberPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
+			MemberPreferencesContext.SynchronizeRequested += ct => Synchronize(ct);
+			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
 			Data.Prefs = MemberPreferencesContext.Data;
 		}
 
-		public override async Task Expire()
+		public override async Task Expire(CancellationToken ct)
 		{
-			await MemberPreferencesContext.Expire();
-			await base.Expire();
+			await MemberPreferencesContext.Expire(ct);
+			await base.Expire(ct);
 		}
 
-		protected override async Task<IJsonMember> GetData()
+		protected override async Task<IJsonMember> GetData(CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint);
+			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint, ct);
 
 			return newData;
 		}
-		protected override async Task SubmitData(IJsonMember json)
+		protected override async Task SubmitData(IJsonMember json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(newData);
 		}

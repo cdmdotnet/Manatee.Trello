@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -119,10 +120,11 @@ namespace Manatee.Trello
 		/// <param name="description"></param>
 		/// <param name="callBackUrl"></param>
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
-		public static async Task<Webhook<T>> Create(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
+		public static async Task<Webhook<T>> Create(T target, string callBackUrl, string description = null,
+		                                            TrelloAuthorization auth = null, CancellationToken ct = default(CancellationToken))
 		{
 			var context = new WebhookContext<T>(auth);
-			var id = await context.Create(target, description, callBackUrl);
+			var id = await context.Create(target, description, callBackUrl, ct);
 			return new Webhook<T>(id, context);
 		}
 
@@ -132,17 +134,17 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Delete();
+			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the webhook to be refreshed the next time data is accessed.
 		/// </summary>
-		public async Task Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Expire();
+			await _context.Expire(ct);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

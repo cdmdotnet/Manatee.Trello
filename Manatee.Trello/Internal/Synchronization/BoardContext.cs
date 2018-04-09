@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -43,38 +44,41 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			BoardPreferencesContext = new BoardPreferencesContext(Auth);
-			BoardPreferencesContext.SynchronizeRequested += async () => await Synchronize();
-			BoardPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
+			BoardPreferencesContext.SynchronizeRequested += ct => Synchronize(ct);
+			BoardPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
 			Data.Prefs = BoardPreferencesContext.Data;
 		}
 
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
-			await JsonRepository.Execute(Auth, endpoint);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Delete,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
 		}
-		public override async Task Expire()
+		public override async Task Expire(CancellationToken ct)
 		{
-			await BoardPreferencesContext.Expire();
-			await base.Expire();
+			await BoardPreferencesContext.Expire(ct);
+			await base.Expire(ct);
 		}
 
-		protected override async Task<IJsonBoard> GetData()
+		protected override async Task<IJsonBoard> GetData(CancellationToken ct)
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonBoard>(Auth, endpoint);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Refresh,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
+			var newData = await JsonRepository.Execute<IJsonBoard>(Auth, endpoint, ct);
 
 			return newData;
 		}
-		protected override async Task SubmitData(IJsonBoard json)
+		protected override async Task SubmitData(IJsonBoard json, CancellationToken ct)
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(newData);
 			Data.Prefs = BoardPreferencesContext.Data;

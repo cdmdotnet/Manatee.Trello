@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Manatee.Trello
@@ -28,6 +29,6 @@ namespace Manatee.Trello
 		/// Manually updates the collection's data.
 		/// </summary>
 		/// <returns>A task.</returns>
-		Task Refresh();
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

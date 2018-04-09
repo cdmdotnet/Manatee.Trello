@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -33,33 +34,33 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			OrganizationPreferencesContext = new OrganizationPreferencesContext(Auth);
-			OrganizationPreferencesContext.SynchronizeRequested += async () => await Synchronize();
-			OrganizationPreferencesContext.SubmitRequested += () => HandleSubmitRequested("Preferences");
+			OrganizationPreferencesContext.SynchronizeRequested += ct => Synchronize(ct);
+			OrganizationPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
 			Data.Prefs = OrganizationPreferencesContext.Data;
 		}
 
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
 		}
-		public override async Task Expire()
+		public override async Task Expire(CancellationToken ct)
 		{
-			await OrganizationPreferencesContext.Expire();
-			await base.Expire();
+			await OrganizationPreferencesContext.Expire(ct);
+			await base.Expire(ct);
 		}
 
-		protected override async Task<IJsonOrganization> GetData()
+		protected override async Task<IJsonOrganization> GetData(CancellationToken ct)
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonOrganization>(Auth, endpoint);
+				var newData = await JsonRepository.Execute<IJsonOrganization>(Auth, endpoint, ct);
 
 				MarkInitialized();
 				return newData;
@@ -71,10 +72,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override async Task SubmitData(IJsonOrganization json)
+		protected override async Task SubmitData(IJsonOrganization json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
 		}
 		protected override void ApplyDependentChanges(IJsonOrganization json)

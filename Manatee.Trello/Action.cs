@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -88,7 +89,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize().Wait();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -212,9 +213,9 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Delete();
+			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>

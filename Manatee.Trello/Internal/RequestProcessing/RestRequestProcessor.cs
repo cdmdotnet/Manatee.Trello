@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Rest;
 
@@ -13,14 +14,14 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 		public static event System.Action LastCall;
 
-		public static Task AddRequest(IRestRequest request)
+		public static Task AddRequest(IRestRequest request, CancellationToken ct)
 		{
-			return Process(async c => request.Response = await c.Execute(request), request);
+			return Process(async c => request.Response = await c.Execute(request, ct), request);
 		}
-		public static Task AddRequest<T>(IRestRequest request)
+		public static Task AddRequest<T>(IRestRequest request, CancellationToken ct)
 			where T : class
 		{
-			return Process(async c => request.Response = await c.Execute<T>(request), request);
+			return Process(async c => request.Response = await c.Execute<T>(request, ct), request);
 		}
 		public static void Flush()
 		{

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -34,32 +35,32 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			ActionDataContext = new ActionDataContext(Auth);
-			ActionDataContext.SynchronizeRequested += async () => await Synchronize();
-			ActionDataContext.SubmitRequested += () => HandleSubmitRequested("Text");
+			ActionDataContext.SynchronizeRequested += ct => Synchronize(ct);
+			ActionDataContext.SubmitRequested += ct => HandleSubmitRequested("Text", ct);
 			Data.Data = ActionDataContext.Data;
 		}
 
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
 		}
-		public override async Task Expire()
+		public override async Task Expire(CancellationToken ct)
 		{
-			await ActionDataContext.Expire();
-			await base.Expire();
+			await ActionDataContext.Expire(ct);
+			await base.Expire(ct);
 		}
 
-		protected override async Task<IJsonAction> GetData()
+		protected override async Task<IJsonAction> GetData(CancellationToken ct)
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonAction>(Auth, endpoint);
+				var newData = await JsonRepository.Execute<IJsonAction>(Auth, endpoint, ct);
 				MarkInitialized();
 
 				return newData;
@@ -71,10 +72,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override async Task SubmitData(IJsonAction json)
+		protected override async Task SubmitData(IJsonAction json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(newData);
 			Data.Data = ActionDataContext.Data;

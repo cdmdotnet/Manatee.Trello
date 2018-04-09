@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Manatee.Trello
@@ -37,6 +38,6 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the board membership to be refreshed the next time data is accessed.
 		/// </summary>
-		Task Refresh();
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

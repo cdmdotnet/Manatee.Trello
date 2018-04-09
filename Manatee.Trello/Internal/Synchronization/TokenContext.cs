@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -38,33 +39,40 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 			Data.Permissions = new List<IJsonTokenPermission>();
 			MemberPermissions = new TokenPermissionContext(Auth);
-			MemberPermissions.SynchronizeRequested += async () => await Synchronize();
+			MemberPermissions.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Permissions.Add(MemberPermissions.Data);
 			BoardPermissions = new TokenPermissionContext(Auth);
-			BoardPermissions.SynchronizeRequested += async () => await Synchronize();
+			BoardPermissions.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Permissions.Add(BoardPermissions.Data);
 			OrganizationPermissions = new TokenPermissionContext(Auth);
-			OrganizationPermissions.SynchronizeRequested += async () => await Synchronize();
+			OrganizationPermissions.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Permissions.Add(OrganizationPermissions.Data);
 		}
 
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
 		}
+		public override async Task Expire(CancellationToken ct)
+		{
+			await MemberPermissions.Expire(ct);
+			await BoardPermissions.Expire(ct);
+			await OrganizationPermissions.Expire(ct);
+			await base.Expire(ct);
+		}
 
-		protected override async Task<IJsonToken> GetData()
+		protected override async Task<IJsonToken> GetData(CancellationToken ct)
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> {{"_token", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonToken>(Auth, endpoint);
+				var newData = await JsonRepository.Execute<IJsonToken>(Auth, endpoint, ct);
 				MarkInitialized();
 
 				return newData;
@@ -85,13 +93,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override bool CanUpdate()
 		{
 			return !_deleted;
-		}
-		public override async Task Expire()
-		{
-			await MemberPermissions.Expire();
-			await BoardPermissions.Expire();
-			await OrganizationPermissions.Expire();
-			await base.Expire();
 		}
 	}
 }

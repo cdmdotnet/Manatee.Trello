@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
@@ -34,13 +35,6 @@ namespace Manatee.Trello
 				                     ? EntityRequestType.Organization_Read_Boards
 				                     : EntityRequestType.Member_Read_Boards;
 		}
-		internal ReadOnlyBoardCollection(ReadOnlyBoardCollection source, TrelloAuthorization auth)
-			: base(() => source.OwnerId, auth)
-		{
-			_updateRequestType = source._updateRequestType;
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
-		}
 
 		/// <summary>
 		/// Adds a filter to the collection.
@@ -57,12 +51,12 @@ namespace Manatee.Trello
 		/// Refreshes the collection.
 		/// </summary>
 		/// <returns>A task.</returns>
-		public sealed override async Task Refresh()
+		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			IncorporateLimit(_additionalParameters);
 
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> { { "_id", OwnerId } });
-			var newData = await JsonRepository.Execute<List<IJsonBoard>>(Auth, endpoint, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonBoard>>(Auth, endpoint, ct, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jb =>

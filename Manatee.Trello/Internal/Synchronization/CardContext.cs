@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -56,32 +57,32 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			BadgesContext = new BadgesContext(Auth);
-			BadgesContext.SynchronizeRequested += async () => await Synchronize();
+			BadgesContext.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Badges = BadgesContext.Data;
 		}
 
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
 		}
-		public override async Task Expire()
+		public override async Task Expire(CancellationToken ct)
 		{
-			await BadgesContext.Expire();
-			await base.Expire();
+			await BadgesContext.Expire(ct);
+			await base.Expire(ct);
 		}
 
-		protected override async Task<IJsonCard> GetData()
+		protected override async Task<IJsonCard> GetData(CancellationToken ct)
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint);
+				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint, ct);
 
 				MarkInitialized();
 				return newData;
@@ -93,10 +94,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override async Task SubmitData(IJsonCard json)
+		protected override async Task SubmitData(IJsonCard json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(newData);
 		}

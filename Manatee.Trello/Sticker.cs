@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -211,17 +212,17 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Delete();
+			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the card to be refreshed the next time data is accessed.
 		/// </summary>
-		public async Task Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Expire();
+			await _context.Expire(ct);
 		}
 		/// <summary>
 		/// Returns a string that represents the current object.

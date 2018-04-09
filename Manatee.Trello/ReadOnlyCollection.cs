@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Manatee.Trello
@@ -69,7 +70,7 @@ namespace Manatee.Trello
 		/// Refreshes the collection.
 		/// </summary>
 		/// <returns>A task.</returns>
-		public abstract Task Refresh();
+		public abstract Task Refresh(CancellationToken ct = default(CancellationToken));
 		/// <summary>
 		/// Returns an enumerator that iterates through a collection.
 		/// </summary>

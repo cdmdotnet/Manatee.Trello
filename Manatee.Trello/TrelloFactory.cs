@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Manatee.Trello
@@ -67,9 +68,9 @@ namespace Manatee.Trello
 		/// Creates an <see cref="IMe"/>.
 		/// </summary>
 		/// <returns>An <see cref="IMe"/></returns>
-		public async Task<IMe> Me()
+		public async Task<IMe> Me(CancellationToken ct = default(CancellationToken))
 		{
-			var id = await Trello.Me.GetId();
+			var id = await Trello.Me.GetId(ct);
 			return new Me(id);
 		}
 
@@ -158,10 +159,11 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) - The authorization.</param>
 		/// <returns>An <see cref="IWebhook{T}"/></returns>
 		public async Task<IWebhook<T>> Webhook<T>(T target, string callBackUrl, string description = null,
-		                                          TrelloAuthorization auth = null)
+		                                          TrelloAuthorization auth = null,
+		                                          CancellationToken ct = default(CancellationToken))
 			where T : class, ICanWebhook
 		{
-			return await Trello.Webhook<T>.Create(target, callBackUrl, description, auth);
+			return await Trello.Webhook<T>.Create(target, callBackUrl, description, auth, ct);
 		}
 
 		/// <summary>

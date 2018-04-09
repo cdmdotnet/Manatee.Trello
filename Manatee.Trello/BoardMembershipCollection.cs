@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -20,7 +21,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to add.</param>
 		/// <param name="membership">The membership type.</param>
-		public async Task<IBoardMembership> Add(IMember member, BoardMembershipType membership)
+		public async Task<IBoardMembership> Add(IMember member, BoardMembershipType membership, CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
@@ -31,7 +32,7 @@ namespace Manatee.Trello
 			json.MemberType = membership;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			return new BoardMembership(newData, OwnerId, Auth);
 		}
@@ -40,14 +41,14 @@ namespace Manatee.Trello
 		/// Removes a member from a board.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public async Task Remove(IMember member)
+		public async Task Remove(IMember member, CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
 				throw new ValidationException<IMember>(member, new[] { error });
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_RemoveMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
-			await JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint, ct);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -128,9 +129,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the search to be refreshed the next time data is accessed.
 		/// </summary>
-		public async Task Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Expire();
+			await _context.Expire(ct);
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -191,7 +192,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize().Wait();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -305,9 +306,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the member to be refreshed the next time data is accessed.
 		/// </summary>
-		public async Task Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Expire();
+			await _context.Expire(ct);
 		}
 		/// <summary>
 		/// Returns the <see cref="FullName"/>.

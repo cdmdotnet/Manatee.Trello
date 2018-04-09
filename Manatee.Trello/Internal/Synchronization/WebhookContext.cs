@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -35,7 +36,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 		}
 
-		public async Task<string> Create(ICanWebhook target, string description, string callBackUrl)
+		public async Task<string> Create(ICanWebhook target, string description, string callBackUrl, CancellationToken ct)
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonWebhook>();
 			json.IdModel = target.Id;
@@ -43,28 +44,28 @@ namespace Manatee.Trello.Internal.Synchronization
 			json.CallbackUrl = callBackUrl;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Entity);
-			var data = await JsonRepository.Execute(Auth, endpoint, json);
+			var data = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(data);
 			return data.Id;
 		}
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
 		}
 
-		protected override async Task<IJsonWebhook> GetData()
+		protected override async Task<IJsonWebhook> GetData(CancellationToken ct)
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonWebhook>(Auth, endpoint);
+				var newData = await JsonRepository.Execute<IJsonWebhook>(Auth, endpoint, ct);
 				MarkInitialized();
 
 				return newData;
@@ -76,10 +77,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override async Task SubmitData(IJsonWebhook json)
+		protected override async Task SubmitData(IJsonWebhook json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
 		}
 		protected override bool CanUpdate()

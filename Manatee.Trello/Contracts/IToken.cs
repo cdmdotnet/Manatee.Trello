@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Manatee.Trello
@@ -55,11 +56,11 @@ namespace Manatee.Trello
 		/// This permanently deletes the token from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
 		/// </remarks>
-		Task Delete();
+		Task Delete(CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Marks the token to be refreshed the next time data is accessed.
 		/// </summary>
-		Task Refresh();
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

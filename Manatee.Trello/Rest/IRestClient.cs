@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello.Rest
 {
@@ -11,15 +12,17 @@ namespace Manatee.Trello.Rest
 		/// Makes a RESTful call and ignores any return data.
 		/// </summary>
 		/// <param name="request">The request.</param>
-		Task<IRestResponse> Execute(IRestRequest request);
+		/// <param name="ct"></param>
+		Task<IRestResponse> Execute(IRestRequest request, CancellationToken ct);
 
 		/// <summary>
 		/// Makes a RESTful call and expects a single object to be returned.
 		/// </summary>
 		/// <typeparam name="T">The expected type of object to receive in response.</typeparam>
 		/// <param name="request">The request.</param>
+		/// <param name="ct"></param>
 		/// <returns>The response.</returns>
-		Task<IRestResponse<T>> Execute<T>(IRestRequest request)
+		Task<IRestResponse<T>> Execute<T>(IRestRequest request, CancellationToken ct)
 			where T : class;
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -11,12 +12,12 @@ namespace Manatee.Trello
 		/// Adds a member to the collection.
 		/// </summary>
 		/// <param name="member">The member to add.</param>
-		Task Add(IMember member);
+		Task Add(IMember member, CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Removes a member from the collection.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		Task Remove(IMember member);
+		Task Remove(IMember member, CancellationToken ct = default(CancellationToken));
 	}
 }
