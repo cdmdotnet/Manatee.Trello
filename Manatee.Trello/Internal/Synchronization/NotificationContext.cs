@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -33,27 +34,28 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Data = NotificationDataContext.Data;
 		}
 
-		protected override IJsonNotification GetData()
+		public override async Task Expire()
+		{
+			await NotificationDataContext.Expire();
+			await base.Expire();
+		}
+
+		protected override async Task<IJsonNotification> GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Notification_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonNotification>(Auth, endpoint);
+			var newData = await JsonRepository.Execute<IJsonNotification>(Auth, endpoint);
 
 			return newData;
 		}
-		protected override void SubmitData(IJsonNotification json)
+		protected override async Task SubmitData(IJsonNotification json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Notification_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonNotification json)
 		{
 			return NotificationDataContext.Merge(json.Data);
-		}
-		public override void Expire()
-		{
-			NotificationDataContext.Expire();
-			base.Expire();
 		}
 	}
 }

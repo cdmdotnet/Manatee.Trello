@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -32,7 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public MemberSearchContext(TrelloAuthorization auth)
 			: base(auth) {}
 
-		protected override IJsonMemberSearch GetData()
+		protected override async Task<IJsonMemberSearch> GetData()
 		{
 			// NOTE: Cannot place these parameters in a JSON object because it's a GET operation.
 			var parameters = new Dictionary<string, object> {{"query", Data.Query}};
@@ -46,7 +47,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (Data.Limit.HasValue)
 				parameters.Add("limit", Data.Limit);
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_SearchMembers);
-			var newData = JsonRepository.Execute<IJsonMemberSearch>(Auth, endpoint, parameters);
+			var newData = await JsonRepository.Execute<IJsonMemberSearch>(Auth, endpoint, parameters);
 
 			return newData;
 		}

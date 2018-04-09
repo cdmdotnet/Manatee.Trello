@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -48,17 +49,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected sealed override void Update()
+		public sealed override async Task Refresh()
 		{
 			IncorporateLimit(_additionalParameters);
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Lists, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonList>>(Auth, endpoint, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonList>>(Auth, endpoint, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jl =>
 				{
-					var list = CachingObjectFactory.GetFromCache<List>(jl, Auth);
+					var list = jl.GetFromCache<List>(Auth);
 					list.Json = jl;
 					return list;
 				}));

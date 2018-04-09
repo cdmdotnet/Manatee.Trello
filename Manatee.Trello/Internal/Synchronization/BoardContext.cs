@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -47,28 +48,34 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Prefs = BoardPreferencesContext.Data;
 		}
 
-		public void Delete()
+		public async Task Delete()
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Delete, new Dictionary<string, object> { { "_id", Data.Id } });
-			JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
+		public override async Task Expire()
+		{
+			await BoardPreferencesContext.Expire();
+			await base.Expire();
+		}
 
-		protected override IJsonBoard GetData()
+		protected override async Task<IJsonBoard> GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonBoard>(Auth, endpoint);
+			var newData = await JsonRepository.Execute<IJsonBoard>(Auth, endpoint);
 
 			return newData;
 		}
-		protected override void SubmitData(IJsonBoard json)
+		protected override async Task SubmitData(IJsonBoard json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+
 			Merge(newData);
 			Data.Prefs = BoardPreferencesContext.Data;
 		}
@@ -86,10 +93,5 @@ namespace Manatee.Trello.Internal.Synchronization
 			return BoardPreferencesContext.Merge(json.Prefs);
 		}
 		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
-		public override void Expire()
-		{
-			BoardPreferencesContext.Expire();
-			base.Expire();
-		}
 	}
 }

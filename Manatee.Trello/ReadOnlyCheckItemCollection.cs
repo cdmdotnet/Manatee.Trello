@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 
@@ -30,7 +31,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected sealed override void Update()
+		public sealed override async Task Refresh()
 		{
 			_context.Synchronize();
 			if (_context.Data.CheckItems == null) return;

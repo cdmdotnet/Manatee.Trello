@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
 
@@ -16,12 +17,12 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Run()
+		public async Task Run()
 		{
 			IBoard board = null;
 			try
 			{
-				board = Member.Me.Boards.Add($"TestBoard{Guid.NewGuid()}");
+				board = await Member.Me.Boards.Add($"TestBoard{Guid.NewGuid()}");
 			}
 			finally
 			{

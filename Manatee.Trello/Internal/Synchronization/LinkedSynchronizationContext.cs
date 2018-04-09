@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace Manatee.Trello.Internal.Synchronization
 {
 	internal abstract class LinkedSynchronizationContext<TJson> : SynchronizationContext<TJson>
@@ -8,7 +10,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected LinkedSynchronizationContext(TrelloAuthorization auth) : base(auth, false) {}
 
-		protected override TJson GetData()
+		protected override async Task<TJson> GetData()
 		{
 			RaiseEvent(SynchronizeRequested);
 			return Data;

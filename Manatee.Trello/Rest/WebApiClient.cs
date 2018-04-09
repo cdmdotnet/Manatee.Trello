@@ -10,13 +10,13 @@ namespace Manatee.Trello.Rest
 	{
 		private const string _trelloApiBaseUrl = @"https://trello.com/1";
 
-		public IRestResponse Execute(IRestRequest request)
+		public Task<IRestResponse> Execute(IRestRequest request)
 		{
-			return Task.Run(() => ExecuteAsync(request)).Result;
+			return ExecuteAsync(request);
 		}
-		public IRestResponse<T> Execute<T>(IRestRequest request) where T : class
+		public Task<IRestResponse<T>> Execute<T>(IRestRequest request) where T : class
 		{
-			return Task.Run(() => ExecuteAsync<T>(request)).Result;
+			return ExecuteAsync<T>(request);
 		}
 
 		private static async Task<IRestResponse> ExecuteAsync(IRestRequest request)

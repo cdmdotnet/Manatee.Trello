@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -47,13 +48,18 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			_deleted = true;
 		}
+		public override async Task Expire()
+		{
+			await ActionDataContext.Expire();
+			await base.Expire();
+		}
 
-		protected override IJsonAction GetData()
+		protected override async Task<IJsonAction> GetData()
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonAction>(Auth, endpoint);
+				var newData = await JsonRepository.Execute<IJsonAction>(Auth, endpoint);
 				MarkInitialized();
 
 				return newData;
@@ -65,10 +71,11 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override void SubmitData(IJsonAction json)
+		protected override async Task SubmitData(IJsonAction json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+
 			Merge(newData);
 			Data.Data = ActionDataContext.Data;
 		}
@@ -88,11 +95,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override bool CanUpdate()
 		{
 			return !_deleted;
-		}
-		public override void Expire()
-		{
-			ActionDataContext.Expire();
-			base.Expire();
 		}
 	}
 }

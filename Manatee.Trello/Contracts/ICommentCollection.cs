@@ -1,4 +1,6 @@
-﻿namespace Manatee.Trello
+﻿using System.Threading.Tasks;
+
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// A collection of comment actions.
@@ -10,6 +12,6 @@
 		/// </summary>
 		/// <param name="text">The content of the comment.</param>
 		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
-		IAction Add(string text);
+		Task<IAction> Add(string text);
 	}
 }

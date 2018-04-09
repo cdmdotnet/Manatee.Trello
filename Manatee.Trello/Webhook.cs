@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -76,28 +77,6 @@ namespace Manatee.Trello
 		public event Action<IWebhook<T>, IEnumerable<string>> Updated;
 
 		/// <summary>
-		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.
-		/// </summary>
-		/// <param name="target"></param>
-		/// <param name="description"></param>
-		/// <param name="callBackUrl"></param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
-		public Webhook(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
-		{
-			_context = new WebhookContext<T>(auth);
-			Id = _context.Create(target, description, callBackUrl);
-
-			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
-			_callBackUrl.AddRule(UriRule.Instance);
-			_description = new Field<string>(_context, nameof(Description));
-			_isActive = new Field<bool?>(_context, nameof(IsActive));
-			_isActive.AddRule(NullableHasValueRule<bool>.Instance);
-			_target = new Field<T>(_context, nameof(Target));
-			_target.AddRule(NotNullRule<T>.Instance);
-
-			TrelloConfiguration.Cache.Add(this);
-		}
-		/// <summary>
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object for a webhook which has already been registered with Trello.
 		/// </summary>
 		/// <param name="id">The id.</param>
@@ -118,10 +97,39 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
+		internal Webhook(string id, WebhookContext<T> context)
+		{
+			Id = id;
+			_context.Synchronized += Synchronized;
+
+			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
+			_callBackUrl.AddRule(UriRule.Instance);
+			_description = new Field<string>(_context, nameof(Description));
+			_isActive = new Field<bool?>(_context, nameof(IsActive));
+			_isActive.AddRule(NullableHasValueRule<bool>.Instance);
+			_target = new Field<T>(_context, nameof(Target));
+			_target.AddRule(NotNullRule<T>.Instance);
+
+			TrelloConfiguration.Cache.Add(this);
+		}
 		internal Webhook(IJsonWebhook json, TrelloAuthorization auth)
 			: this(json.Id, auth)
 		{
 			_context.Merge(json);
+		}
+
+		/// <summary>
+		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.
+		/// </summary>
+		/// <param name="target"></param>
+		/// <param name="description"></param>
+		/// <param name="callBackUrl"></param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		public static async Task<Webhook<T>> Create(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
+		{
+			var context = new WebhookContext<T>(auth);
+			var id = await context.Create(target, description, callBackUrl);
+			return new Webhook<T>(id, context);
 		}
 
 		/// <summary>

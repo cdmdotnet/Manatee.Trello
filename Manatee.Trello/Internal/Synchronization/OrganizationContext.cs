@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -37,25 +38,30 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Prefs = OrganizationPreferencesContext.Data;
 		}
 
-		public void Delete()
+		public async Task Delete()
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
+		public override async Task Expire()
+		{
+			await OrganizationPreferencesContext.Expire();
+			await base.Expire();
+		}
 
-		protected override IJsonOrganization GetData()
+		protected override async Task<IJsonOrganization> GetData()
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonOrganization>(Auth, endpoint);
-				MarkInitialized();
+				var newData = await JsonRepository.Execute<IJsonOrganization>(Auth, endpoint);
 
+				MarkInitialized();
 				return newData;
 			}
 			catch (TrelloInteractionException e)
@@ -65,10 +71,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override void SubmitData(IJsonOrganization json)
+		protected override async Task SubmitData(IJsonOrganization json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override void ApplyDependentChanges(IJsonOrganization json)
@@ -86,11 +92,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override bool CanUpdate()
 		{
 			return !_deleted;
-		}
-		public override void Expire()
-		{
-			OrganizationPreferencesContext.Expire();
-			base.Expire();
 		}
 	}
 }

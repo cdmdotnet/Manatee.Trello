@@ -6,12 +6,12 @@ namespace Manatee.Trello.Internal.Caching
 {
 	internal static class CachingObjectFactory
 	{
-		private static readonly Dictionary<Type, Type> _jsonTypeMap;
-		private static readonly Dictionary<Type, Func<IJsonCacheable, TrelloAuthorization, ICacheable>> _jsonFactory;
+		private static readonly Dictionary<Type, Type> JsonTypeMap;
+		private static readonly Dictionary<Type, Func<IJsonCacheable, TrelloAuthorization, ICacheable>> JsonFactory;
 
 		static CachingObjectFactory()
 		{
-			_jsonTypeMap = new Dictionary<Type, Type>
+			JsonTypeMap = new Dictionary<Type, Type>
 				{
 					{typeof (IJsonAction), typeof (Action)},
 					{typeof (IJsonAttachment), typeof (Attachment)},
@@ -27,7 +27,7 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof (IJsonNotification), typeof (Notification)},
 					{typeof (IJsonToken), typeof (Token)},
 				};
-			_jsonFactory = new Dictionary<Type, Func<IJsonCacheable, TrelloAuthorization, ICacheable>>
+			JsonFactory = new Dictionary<Type, Func<IJsonCacheable, TrelloAuthorization, ICacheable>>
 				{
 					{typeof(Action), (j, a) => new Action((IJsonAction) j, a)},
 					{typeof(ImagePreview), (j, a) => new ImagePreview((IJsonImagePreview) j)},
@@ -51,18 +51,23 @@ namespace Manatee.Trello.Internal.Caching
 
 		public static ICacheable GetFromCache(this IJsonCacheable json, TrelloAuthorization auth)
 		{
-			return json == null ? null : TrelloConfiguration.Cache.Find<ICacheable>(o => o.Id == json.Id) ?? _jsonFactory[_jsonTypeMap[json.GetType()]](json, auth);
+			if (json == null) return null;
+
+			return TrelloConfiguration.Cache.Find<ICacheable>(o => o.Id == json.Id) ??
+			       JsonFactory[JsonTypeMap[json.GetType()]](json, auth);
 		}
 		public static T GetFromCache<T>(this IJsonCacheable json, TrelloAuthorization auth)
 			where T : class, ICacheable
 		{
-			return json == null ? null : TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id) ?? (T) _jsonFactory[typeof (T)](json, auth);
+			if (json == null) return null;
+
+			return TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id) ??
+			       (T) JsonFactory[typeof(T)](json, auth);
 		}
 
 		private static IPowerUp BuildConfiguredPowerUp(IJsonPowerUp json, TrelloAuthorization auth)
 		{
-			Func<IJsonPowerUp, TrelloAuthorization, IPowerUp> factory;
-			if (!TrelloConfiguration.RegisteredPowerUps.TryGetValue(json.Id, out factory)) return null;
+			if (!TrelloConfiguration.RegisteredPowerUps.TryGetValue(json.Id, out var factory)) return null;
 
 			return factory(json, auth);
 		}

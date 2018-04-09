@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -22,7 +23,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="text">The content of the comment.</param>
 		/// <returns>The <see cref="Action"/> associated with the comment.</returns>
-		public IAction Add(string text)
+		public async Task<IAction> Add(string text)
 		{
 			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, text);
 			if (error != null)
@@ -32,7 +33,7 @@ namespace Manatee.Trello
 			json.Text = text;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddComment, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
 
 			return new Action(newData, Auth);
 		}

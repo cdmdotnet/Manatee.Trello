@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal;
+﻿using System.Threading.Tasks;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
@@ -79,7 +80,7 @@ namespace Manatee.Trello
 		}
 
 		internal Me()
-			: base(GetId(), true, TrelloAuthorization.Default)
+			: base(GetId().Result, true, TrelloAuthorization.Default)
 		{
 			_email = new Field<string>(_context, nameof(Email));
 			Notifications = new ReadOnlyNotificationCollection(() => Id, TrelloAuthorization.Default);
@@ -88,10 +89,10 @@ namespace Manatee.Trello
 			_context.Merge(_myJson);
 		}
 
-		private static string GetId()
+		private static async Task<string> GetId()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_Me);
-			_myJson = JsonRepository.Execute<IJsonMember>(TrelloAuthorization.Default, endpoint);
+			_myJson = await JsonRepository.Execute<IJsonMember>(TrelloAuthorization.Default, endpoint);
 
 			// If this object exists in the cache already as a regular Member, it needs to be replaced.
 			var meAsMember = TrelloConfiguration.Cache.Find<Member>(m => m.Id == _myJson.Id);

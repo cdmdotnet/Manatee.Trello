@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
@@ -37,14 +38,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			_deleted = true;
 		}
 
-		protected override IJsonCheckItem GetData()
+		protected override async Task<IJsonCheckItem> GetData()
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh, new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonCheckItem>(Auth, endpoint);
-				MarkInitialized();
+				var newData = await JsonRepository.Execute<IJsonCheckItem>(Auth, endpoint);
 
+				MarkInitialized();
 				return newData;
 			}
 			catch (TrelloInteractionException e)
@@ -54,7 +55,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override void SubmitData(IJsonCheckItem json)
+		protected override async Task SubmitData(IJsonCheckItem json)
 		{
 			// Checklist should be downloaded already since CheckItem ctor is internal,
 			// but allow for the case where it has not been anyway.
@@ -66,7 +67,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"_checklistId", _ownerId},
 					{"_id", Data.Id},
 				});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 		protected override bool CanUpdate()

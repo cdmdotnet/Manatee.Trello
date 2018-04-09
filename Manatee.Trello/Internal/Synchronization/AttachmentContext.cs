@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -47,7 +48,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 		}
 
-		protected override void SubmitData(IJsonAttachment json)
+		protected override async Task SubmitData(IJsonAttachment json)
 		{
 			// This may make a call to get the card, but it can't be avoided.  We need its ID.
 			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Update,
@@ -56,11 +57,11 @@ namespace Manatee.Trello.Internal.Synchronization
 					                                     {"_cardId", _ownerId},
 					                                     {"_id", Data.Id},
 				                                     });
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
 			Merge(newData);
 		}
 
-		public void Delete()
+		public async Task Delete()
 		{
 			if (_deleted) return;
 			CancelUpdate();
@@ -71,7 +72,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					                                     {"_cardId", _ownerId},
 					                                     {"_id", Data.Id}
 				                                     });
-			JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}

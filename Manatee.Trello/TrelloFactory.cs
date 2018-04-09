@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -155,10 +156,11 @@ namespace Manatee.Trello
 		/// <param name="description">A description.</param>
 		/// <param name="auth">(Optional) - The authorization.</param>
 		/// <returns>An <see cref="IWebhook{T}"/></returns>
-		public IWebhook<T> Webhook<T>(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
+		public async Task<IWebhook<T>> Webhook<T>(T target, string callBackUrl, string description = null,
+		                                          TrelloAuthorization auth = null)
 			where T : class, ICanWebhook
 		{
-			return new Webhook<T>(target, callBackUrl, description, auth);
+			return await Trello.Webhook<T>.Create(target, callBackUrl, description, auth);
 		}
 
 		/// <summary>

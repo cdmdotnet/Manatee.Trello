@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
@@ -60,7 +61,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected sealed override void Update()
+		public sealed override async Task Refresh()
 		{
 			_context.Synchronize();
 			if (_context.Data.Labels == null) return;
@@ -68,7 +69,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(_context.Data.Labels.Select(jl =>
 				{
-					var label = CachingObjectFactory.GetFromCache<Label>(jl, Auth);
+					var label = jl.GetFromCache<Label>(Auth);
 					label.Json = jl;
 					return label;
 				}));

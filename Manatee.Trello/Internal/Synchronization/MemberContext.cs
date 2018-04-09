@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -42,17 +43,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Prefs = MemberPreferencesContext.Data;
 		}
 
-		protected override IJsonMember GetData()
+		public override async Task Expire()
+		{
+			await MemberPreferencesContext.Expire();
+			await base.Expire();
+		}
+
+		protected override async Task<IJsonMember> GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute<IJsonMember>(Auth, endpoint);
+			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint);
 
 			return newData;
 		}
-		protected override void SubmitData(IJsonMember json)
+		protected override async Task SubmitData(IJsonMember json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
 
 			Merge(newData);
 		}
@@ -63,11 +70,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				json.Prefs = MemberPreferencesContext.GetChanges();
 				MemberPreferencesContext.ClearChanges();
 			}
-		}
-		public override void Expire()
-		{
-			MemberPreferencesContext.Expire();
-			base.Expire();
 		}
 	}
 }

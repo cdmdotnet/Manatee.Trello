@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -59,25 +60,30 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Badges = BadgesContext.Data;
 		}
 
-		public void Delete()
+		public async Task Delete()
 		{
 			if (_deleted) return;
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint);
 
 			_deleted = true;
 		}
+		public override async Task Expire()
+		{
+			await BadgesContext.Expire();
+			await base.Expire();
+		}
 
-		protected override IJsonCard GetData()
+		protected override async Task<IJsonCard> GetData()
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonCard>(Auth, endpoint);
-				MarkInitialized();
+				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint);
 
+				MarkInitialized();
 				return newData;
 			}
 			catch (TrelloInteractionException e)
@@ -87,10 +93,11 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override void SubmitData(IJsonCard json)
+		protected override async Task SubmitData(IJsonCard json)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json);
+
 			Merge(newData);
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonCard json)
@@ -100,11 +107,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override bool CanUpdate()
 		{
 			return !_deleted;
-		}
-		public override void Expire()
-		{
-			BadgesContext.Expire();
-			base.Expire();
 		}
 	}
 }

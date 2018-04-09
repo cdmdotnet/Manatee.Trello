@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
@@ -13,11 +14,11 @@ namespace Manatee.Trello
 		{
 		}
 
-		protected override void Update()
+		public override async Task Refresh()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_CustomFields,
 			                                     new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonCustomFieldDefinition>>(Auth, endpoint);
+			var newData = await JsonRepository.Execute<List<IJsonCustomFieldDefinition>>(Auth, endpoint);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -38,26 +39,28 @@ namespace Manatee.Trello.Internal.Synchronization
 			_getOwnerId = getOwnerId;
 		}
 
-		protected override IJsonBoardPersonalPreferences GetData()
+		protected override async Task<IJsonBoardPersonalPreferences> GetData()
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_PersonalPrefs, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<IJsonBoardPersonalPreferences>(TrelloAuthorization.Default, endpoint);
+			var newData = await JsonRepository.Execute<IJsonBoardPersonalPreferences>(TrelloAuthorization.Default, endpoint);
 
 			return newData;
 		}
-		protected override void SubmitData(IJsonBoardPersonalPreferences json)
+		protected override Task SubmitData(IJsonBoardPersonalPreferences json)
 		{
-			if (json.EmailList != null)
-				SubmitDataPoint(json.EmailList.Id, "emailList");
-			SubmitDataPoint(json.EmailPosition, "emailPosition");
-			SubmitDataPoint(json.ShowListGuide, "showListGuide");
-			SubmitDataPoint(json.ShowSidebar, "showSidebar");
-			SubmitDataPoint(json.ShowSidebarActivity, "showSidebarActivity");
-			SubmitDataPoint(json.ShowSidebarBoardActions, "showSidebarBoardActions");
-			SubmitDataPoint(json.ShowSidebarMembers, "showSidebarMembers");
+			return Task.WhenAll(
+				json.EmailList == null
+					? Task.CompletedTask
+					: SubmitDataPoint(json.EmailList.Id, "emailList"),
+				SubmitDataPoint(json.EmailPosition, "emailPosition"),
+				SubmitDataPoint(json.ShowListGuide, "showListGuide"),
+				SubmitDataPoint(json.ShowSidebar, "showSidebar"),
+				SubmitDataPoint(json.ShowSidebarActivity, "showSidebarActivity"),
+				SubmitDataPoint(json.ShowSidebarBoardActions, "showSidebarBoardActions"),
+				SubmitDataPoint(json.ShowSidebarMembers, "showSidebarMembers"));
 		}
 
-		private void SubmitDataPoint<T>(T value, string segment)
+		private async Task SubmitDataPoint<T>(T value, string segment)
 		{
 			if (Equals(value, default(T))) return;
 
@@ -69,7 +72,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_PersonalPrefs, new Dictionary<string, object> {{"_id", _ownerId}});
 			endpoint.AddSegment(segment);
-			JsonRepository.Execute(Auth, endpoint, json);
+			await JsonRepository.Execute(Auth, endpoint, json);
 		}
 	}
 }

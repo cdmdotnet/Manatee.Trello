@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -58,12 +59,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			_deleted = true;
 		}
 
-		protected override IJsonToken GetData()
+		protected override async Task<IJsonToken> GetData()
 		{
 			try
 			{
 				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> {{"_token", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonToken>(Auth, endpoint);
+				var newData = await JsonRepository.Execute<IJsonToken>(Auth, endpoint);
 				MarkInitialized();
 
 				return newData;
@@ -85,12 +86,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return !_deleted;
 		}
-		public override void Expire()
+		public override async Task Expire()
 		{
-			MemberPermissions.Expire();
-			BoardPermissions.Expire();
-			OrganizationPermissions.Expire();
-			base.Expire();
+			await MemberPermissions.Expire();
+			await BoardPermissions.Expire();
+			await OrganizationPermissions.Expire();
+			await base.Expire();
 		}
 	}
 }

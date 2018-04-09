@@ -135,7 +135,7 @@ namespace Manatee.Trello.IntegrationTests
 #pragma warning restore 1998
 
 		[Test]
-		public void Issue35_DatesReturningAs1DayBefore()
+		public async Task Issue35_DatesReturningAs1DayBefore()
 		{
 			ICard card = null;
 			try
@@ -146,7 +146,7 @@ namespace Manatee.Trello.IntegrationTests
 				string listId = learningBoard.Lists.First().Id;
 				var list = new List(listId);
 				var member = list.Board.Members.First();
-				card = list.Cards.Add("test card 2");
+				card = await list.Cards.Add("test card 2");
 				card.DueDate = new DateTime(2016, 07, 21);
 
 				TrelloProcessor.Flush();
@@ -161,7 +161,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Issue36_CardAttachmentByUrlThrows()
+		public async Task Issue36_CardAttachmentByUrlThrows()
 		{
 			ICard card = null;
 			try
@@ -170,8 +170,8 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
-				card = list.Cards.Add("attachment test");
-				card.Attachments.Add("http://i.imgur.com/eKgKEOn.jpg", "me");
+				card = await list.Cards.Add("attachment test");
+				await card.Attachments.Add("http://i.imgur.com/eKgKEOn.jpg", "me");
 			}
 			finally
 			{
@@ -180,7 +180,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Issue37_InconsistentDateEncoding()
+		public async Task Issue37_InconsistentDateEncoding()
 		{
 			ICard card = null;
 			try
@@ -189,7 +189,7 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
-				card = list.Cards.Add("date encoding test");
+				card = await list.Cards.Add("date encoding test");
 				// 2016-12-08T04:45:00.000Z
 				var date = Convert.ToDateTime("8/12/2016 5:45:00PM");
 				card.DueDate = date;
@@ -203,7 +203,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Issue45_DueDateAsMinValue()
+		public async Task Issue45_DueDateAsMinValue()
 		{
 			ICard card = null;
 			try
@@ -212,7 +212,7 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
-				card = list.Cards.Add("min date test");
+				card = await list.Cards.Add("min date test");
 				card.Description = "a description";
 				card.DueDate = DateTime.MinValue;
 
@@ -225,7 +225,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Issue47_AddCardWithDetails()
+		public async Task Issue47_AddCardWithDetails()
 		{
 			ICard card = null;
 			var name = "card detailed creation test";
@@ -241,7 +241,7 @@ namespace Manatee.Trello.IntegrationTests
 				var labels = new[] {board.Labels.FirstOrDefault(l => l.Color == LabelColor.Blue)};
 
 				var list = new List(TrelloIds.ListId);
-				card = list.Cards.Add(name, description, position, dueDate, true, members, labels);
+				card = await list.Cards.Add(name, description, position, dueDate, true, members, labels);
 
 				var recard = new Card(card.Id);
 
@@ -262,7 +262,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Issue46_DueComplete()
+		public async Task Issue46_DueComplete()
 		{
 			ICard card = null;
 			var name = "due complete test";
@@ -275,7 +275,7 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
-				card = list.Cards.Add(name, description, position, dueDate);
+				card = await list.Cards.Add(name, description, position, dueDate);
 
 				Assert.AreEqual(false, card.IsComplete);
 
@@ -296,7 +296,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Issue59_EditComments()
+		public async Task Issue59_EditComments()
 		{
 			ICard card = null;
 			var name = "edit comment test";
@@ -307,8 +307,8 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
 
 				var list = new List(TrelloIds.ListId);
-				card = list.Cards.Add(name);
-				var comment = card.Comments.Add("This is a comment");
+				card = await list.Cards.Add(name);
+				var comment = await card.Comments.Add("This is a comment");
 				comment.Data.Text = "This comment was changed.";
 
 				Thread.Sleep(5);
@@ -353,12 +353,12 @@ namespace Manatee.Trello.IntegrationTests
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
 
-			var board = Member.Me.Boards.Where(b => b.Name == "Sandbox").FirstOrDefault();
+			var board = Member.Me.Boards.FirstOrDefault(b => b.Name == "Sandbox");
 
 			Assert.IsNotNull(board);
 			Assert.AreEqual("Sandbox", board.Name);
 
-			board = Member.Me.Boards.Where(b => b.Name.Equals("Sandbox")).FirstOrDefault();
+			board = Member.Me.Boards.FirstOrDefault(b => b.Name.Equals("Sandbox"));
 
 			Assert.IsNotNull(board);
 			Assert.AreEqual("Sandbox", board.Name);

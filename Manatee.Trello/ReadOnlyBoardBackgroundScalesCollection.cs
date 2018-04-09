@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Internal.Caching;
+﻿using System.Threading.Tasks;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
@@ -19,7 +20,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected sealed override void Update()
+		public sealed override async Task Refresh()
 		{
 			_context.Synchronize();
 			if (_context.Data.ImageScaled == null) return;

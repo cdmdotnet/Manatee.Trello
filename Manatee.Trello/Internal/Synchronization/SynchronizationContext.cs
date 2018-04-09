@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.RequestProcessing;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -40,23 +41,28 @@ namespace Manatee.Trello.Internal.Synchronization
 		public abstract T GetValue<T>(string property);
 		public abstract void SetValue<T>(string property, T value);
 
-		public void Synchronize(bool force = false)
+		public async Task Synchronize(bool force = false)
 		{
+			var data = await GetBasicData();
 			lock (_lock)
 			{
 				if (!force && IsDataComplete && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
-				var properties = Merge().ToList();
+				var properties = (Merge(data)).ToList();
 				if (!properties.Any()) return;
 				var handler = Synchronized;
 				handler?.Invoke(properties);
 			}
 		}
-		public virtual void Expire()
+		public virtual Task Expire()
 		{
 			_lastUpdate = DateTime.MinValue;
+			return TrelloConfiguration.AutoUpdate
+				       ? Task.CompletedTask
+				       : Synchronize(true);
 		}
 
-		protected abstract IEnumerable<string> Merge();
+		protected abstract Task<object> GetBasicData();
+		protected abstract IEnumerable<string> Merge(object newData);
 		protected abstract void Submit();
 
 		protected void MarkAsUpdated()
@@ -83,7 +89,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			_timer?.Stop();
 			if (!_cancelUpdate && HasChanges)
 				SubmitChanges();
-			//_cancelUpdate = false;
 		}
 		private void SubmitChanges()
 		{
@@ -129,17 +134,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			ResetTimer();
 		}
 
-		protected virtual TJson GetData()
+		protected virtual Task<TJson> GetData()
 		{
-			return Data;
+			return Task.FromResult(Data);
 		}
-		protected virtual void SubmitData(TJson json) {}
+		protected virtual Task SubmitData(TJson json)
+		{
+			return Task.CompletedTask;
+		}
 		protected virtual void ApplyDependentChanges(TJson json) {}
 
-		protected sealed override IEnumerable<string> Merge()
+		protected sealed override async Task<object> GetBasicData()
 		{
-			var newData = GetData();
-			return Merge(newData);
+			return await GetData();
+		}
+		protected sealed override IEnumerable<string> Merge(object newData)
+		{
+			return Merge((TJson) newData);
 		}
 		protected sealed override void Submit()
 		{
