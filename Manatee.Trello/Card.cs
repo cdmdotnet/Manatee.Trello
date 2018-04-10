@@ -111,6 +111,10 @@ namespace Manatee.Trello
 			/// </summary>
 			[Display(Description="url")]
 			Url = 1 << 16,
+			[Display(Description="url")]
+			Attachments = 1 << 17,
+			[Display(Description="url")]
+			CustomFields = 1 << 18
 		}
 
 		private readonly Field<Board> _board;
@@ -130,21 +134,31 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				CardContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
 		/// <remarks>By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.</remarks>
 		public IReadOnlyCollection<IAction> Actions { get; }
+
 		/// <summary>
 		/// Gets the collection of attachments contained in the card.
 		/// </summary>
-		public IAttachmentCollection Attachments { get; }
+		public IAttachmentCollection Attachments => _context.Attachments;
 		/// <summary>
 		/// Gets the badges summarizing the card's content.
 		/// </summary>
@@ -265,7 +279,7 @@ namespace Manatee.Trello
 		public Position Position
 		{
 			get { return _position.Value; }
-			set { _position.Value = (Position) value; }
+			set { _position.Value = value; }
 		}
 		/// <summary>
 		/// Gets card-specific power-up data.
@@ -328,6 +342,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<ICard, IEnumerable<string>> Updated;
 
+		static Card()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 		/// <summary>
 		/// Creates a new instance of the <see cref="Card"/> object.
 		/// </summary>
@@ -344,7 +362,6 @@ namespace Manatee.Trello
 			_auth = auth;
 
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => id, auth);
-			Attachments = new AttachmentCollection(() => Id, auth);
 			Badges = new Badges(_context.BadgesContext);
 			_board = new Field<Board>(_context, nameof(Board));
 			_board.AddRule(NotNullRule<Board>.Instance);

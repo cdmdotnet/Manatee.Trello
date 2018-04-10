@@ -8,6 +8,7 @@ namespace Manatee.Trello.Json.Entities
 	internal class ManateeCard : IJsonCard, IJsonSerializable
 	{
 		public string Id { get; set; }
+		public List<IJsonAttachment> Attachments { get; set; }
 		public IJsonBadges Badges { get; set; }
 		public bool? Closed { get; set; }
 		public List<IJsonCustomField> CustomFields { get; set; }
@@ -39,6 +40,7 @@ namespace Manatee.Trello.Json.Entities
 				case JsonValueType.Object:
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
+					Attachments = obj.Deserialize<List<IJsonAttachment>>(serializer, "attachments");
 					Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
 					Closed = obj.TryGetBoolean("closed");
 					CustomFields = obj.Deserialize<List<IJsonCustomField>>(serializer, "customFieldItems");

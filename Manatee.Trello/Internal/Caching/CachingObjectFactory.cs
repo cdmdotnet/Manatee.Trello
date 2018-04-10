@@ -30,7 +30,6 @@ namespace Manatee.Trello.Internal.Caching
 			JsonFactory = new Dictionary<Type, Func<IJsonCacheable, TrelloAuthorization, ICacheable>>
 				{
 					{typeof(Action), (j, a) => new Action((IJsonAction) j, a)},
-					{typeof(ImagePreview), (j, a) => new ImagePreview((IJsonImagePreview) j)},
 					{typeof(Board), (j, a) => new Board((IJsonBoard) j, a)},
 					{typeof(BoardBackground), (j, a) => new BoardBackground((IJsonBoardBackground) j, a)},
 					{typeof(Card), (j, a) => new Card((IJsonCard) j, a)},
@@ -38,6 +37,7 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof(CustomField), (j, a) => _BuildCustomField((IJsonCustomField) j, a)},
 					{typeof(CustomFieldDefinition), (j, a) => new CustomFieldDefinition((IJsonCustomFieldDefinition) j, a)},
 					{typeof(DropDownOption), (j, a) => new DropDownOption((IJsonCustomDropDownOption) j, a)},
+					{typeof(ImagePreview), (j, a) => new ImagePreview((IJsonImagePreview) j)},
 					{typeof(Label), (j, a) => new Label((IJsonLabel) j, a)},
 					{typeof(List), (j, a) => new List((IJsonList) j, a)},
 					{typeof(Member), (j, a) => new Member((IJsonMember) j, a)},
@@ -61,8 +61,13 @@ namespace Manatee.Trello.Internal.Caching
 		{
 			if (json == null) return null;
 
-			return TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id) ??
-			       (T) JsonFactory[typeof(T)](json, auth);
+			return TryGetFromCache<T>(json) ?? (T) JsonFactory[typeof(T)](json, auth);
+		}
+
+		public static T TryGetFromCache<T>(this IJsonCacheable json)
+			where T : class, ICacheable
+		{
+			return TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id);
 		}
 
 		private static IPowerUp BuildConfiguredPowerUp(IJsonPowerUp json, TrelloAuthorization auth)

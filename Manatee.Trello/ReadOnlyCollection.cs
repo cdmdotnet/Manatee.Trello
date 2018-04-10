@@ -85,6 +85,12 @@ namespace Manatee.Trello
 			additionalParameters["limit"] = Limit.Value;
 		}
 
+		internal void Update(IEnumerable<T> items)
+		{
+			Items.Clear();
+			Items.AddRange(items);
+		}
+
 		private T GetByIndex(int index)
 		{
 			return this.ElementAt(index);

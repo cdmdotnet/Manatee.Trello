@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
@@ -11,14 +12,42 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class CardContext : SynchronizationContext<IJsonCard>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly Card.Fields MemberFields;
+
 		private bool _deleted;
 
+		public AttachmentCollection Attachments { get; }
 		public BadgesContext BadgesContext { get; }
-		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+		public CheckListCollection CheckLists { get; }
+		public CommentCollection Comments { get; }
+		public CardLabelCollection Labels { get; }
+		public MemberCollection Members { get; }
+		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		public CardStickerCollection Stickers { get; }
+		public ReadOnlyMemberCollection VotingMembers { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
+
+		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 
 		static CardContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = Card.Fields.Badges |
+			               Card.Fields.Board |
+			               Card.Fields.DateLastActivity |
+			               Card.Fields.Description |
+			               Card.Fields.Due |
+			               Card.Fields.IsArchived |
+			               Card.Fields.IsComplete |
+			               Card.Fields.IsSubscribed |
+			               Card.Fields.List |
+			               Card.Fields.ManualCoverAttachment |
+			               Card.Fields.Name |
+			               Card.Fields.Position |
+			               Card.Fields.ShortId |
+			               Card.Fields.ShortUrl |
+			               Card.Fields.Url;
 			Properties = new Dictionary<string, Property<IJsonCard>>
 				{
 					{
@@ -98,9 +127,29 @@ namespace Manatee.Trello.Internal.Synchronization
 			: base(auth)
 		{
 			Data.Id = id;
+			Attachments = new AttachmentCollection(() => Data.Id, auth);
 			BadgesContext = new BadgesContext(Auth);
 			BadgesContext.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Badges = BadgesContext.Data;
+		}
+
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(Card.Fields)).Cast<Card.Fields>().ToList();
+				var availableFields = (Card.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields;
+				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & (~MemberFields);
+				if (parameterFields.HasFlag(Card.Fields.Attachments))
+					Parameters["attachments"] = "true";
+				if (parameterFields.HasFlag(Card.Fields.CustomFields))
+					Parameters["customFieldItems"] = "true";
+			}
 		}
 
 		public async Task Delete(CancellationToken ct)
@@ -123,13 +172,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = new Dictionary<string, object>(Parameters);
+				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, 
 				                                     new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint, ct,
-				                                                      new Dictionary<string, object>
-					                                                      {
-						                                                      {"customFieldItems", "true"}
-					                                                      });
+				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint, ct, parameters);
 
 				MarkInitialized();
 				return newData;
@@ -151,6 +201,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonCard json)
 		{
+			if (json.Attachments != null)
+				Attachments.Update(json.Attachments.Select(a => a.TryGetFromCache<Attachment>() ?? new Attachment(a, Data.Id, Auth)));
+
 			return BadgesContext.Merge(json.Badges);
 		}
 		protected override bool CanUpdate()

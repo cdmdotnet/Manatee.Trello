@@ -18,7 +18,6 @@ namespace Manatee.Trello.Internal.DataAccess
 			where T : class
 		{
 			var request = BuildRequest(auth, endpoint, parameters);
-			AddDefaultParameters<T>(request);
 			await ProcessRequest<T>(request, ct);
 		    var response = request.Response as IRestResponse<T>;
 			return response?.Data;
@@ -29,7 +28,6 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			var request = BuildRequest(auth, endpoint);
 			request.AddBody(body);
-			AddDefaultParameters<T>(request);
 		    await ProcessRequest<T>(request, ct);
 			var response = request.Response as IRestResponse<T>;
 			return response?.Data;
@@ -57,15 +55,6 @@ namespace Manatee.Trello.Internal.DataAccess
 				{
 					throw request.Response.Exception;
 				}
-			}
-		}
-		private static void AddDefaultParameters<T>(IRestRequest request)
-		{
-			if (request.Method != RestMethod.Get) return;
-			var defaultParameters = RestParameterRepository.GetParameters<T>();
-			foreach (var parameter in defaultParameters)
-			{
-				request.AddParameter(parameter.Key, parameter.Value);
 			}
 		}
 	    private static async Task ProcessRequest<T>(IRestRequest request, CancellationToken ct) where T : class

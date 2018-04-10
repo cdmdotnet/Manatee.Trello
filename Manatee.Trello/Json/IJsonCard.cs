@@ -8,6 +8,7 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonCard : IJsonCacheable
 	{
+		List<IJsonAttachment> Attachments { get; set; }
 		/// <summary>
 		/// Gets or set the badges displayed on the card cover.
 		/// </summary>
