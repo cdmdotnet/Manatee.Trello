@@ -7,11 +7,20 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		static TokenPermissionContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonTokenPermission>>
+			Properties = new Dictionary<string, Property<IJsonTokenPermission>>
 				{
-					{"ModelType", new Property<IJsonTokenPermission, TokenModelType?>((d, a) => d.ModelType, (d, o) => d.ModelType = o)},
-					{"CanRead", new Property<IJsonTokenPermission, bool?>((d, a) => d.Read, (d, o) => d.Read = o)},
-					{"CanWrite", new Property<IJsonTokenPermission, bool?>((d, a) => d.Write, (d, o) => d.Write = o)},
+					{
+						"ModelType",
+						new Property<IJsonTokenPermission, TokenModelType?>((d, a) => d.ModelType, (d, o) => d.ModelType = o)
+					},
+					{
+						nameof(TokenPermission.CanRead),
+						new Property<IJsonTokenPermission, bool?>((d, a) => d.Read, (d, o) => d.Read = o)
+					},
+					{
+						nameof(TokenPermission.CanWrite),
+						new Property<IJsonTokenPermission, bool?>((d, a) => d.Write, (d, o) => d.Write = o)
+					},
 				};
 		}
 		public TokenPermissionContext(TrelloAuthorization auth)

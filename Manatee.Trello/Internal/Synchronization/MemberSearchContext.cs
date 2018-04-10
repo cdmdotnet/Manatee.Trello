@@ -12,23 +12,42 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		static MemberSearchContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonMemberSearch>>
+			Properties = new Dictionary<string, Property<IJsonMemberSearch>>
 				{
 					{
-						"Board", new Property<IJsonMemberSearch, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
-						                                                (d, o) => { if (o != null) d.Board = o.Json; })
+						nameof(MemberSearch.Board),
+						new Property<IJsonMemberSearch, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+						                                       (d, o) =>
+							                                       {
+								                                       if (o != null) d.Board = o.Json;
+							                                       })
 					},
-					{"Limit", new Property<IJsonMemberSearch, int?>((d, a) => d.Limit, (d, o) => d.Limit = o)},
 					{
-						"Results", new Property<IJsonMemberSearch, IEnumerable<MemberSearchResult>>((d, a) => d.Members?.Select(m => GetResult(m, a)).ToList() ?? Enumerable.Empty<MemberSearchResult>(),
-						                                                                            (d, o) => d.Members = o?.Select(a => ((Member) a.Member).Json).ToList())
+						nameof(MemberSearch.Limit),
+						new Property<IJsonMemberSearch, int?>((d, a) => d.Limit, (d, o) => d.Limit = o)
 					},
 					{
-						"Organization", new Property<IJsonMemberSearch, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
-						                                                              (d, o) => d.Organization = o?.Json)
+						nameof(MemberSearch.Results),
+						new Property<IJsonMemberSearch, IEnumerable<MemberSearchResult>>(
+							(d, a) => d.Members?.Select(m => GetResult(m, a)).ToList() ?? Enumerable.Empty<MemberSearchResult>(),
+							(d, o) => d.Members = o?.Select(a => ((Member) a.Member).Json).ToList())
 					},
-					{"Query", new Property<IJsonMemberSearch, string>((d, a) => d.Query, (d, o) => { if (!o.IsNullOrWhiteSpace()) d.Query = o; })},
-					{"RestrictToOrganization", new Property<IJsonMemberSearch, bool?>((d, a) => d.OnlyOrgMembers, (d, o) => d.OnlyOrgMembers = o)},
+					{
+						nameof(MemberSearch.Organization),
+						new Property<IJsonMemberSearch, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
+						                                              (d, o) => d.Organization = o?.Json)
+					},
+					{
+						nameof(MemberSearch.Query),
+						new Property<IJsonMemberSearch, string>((d, a) => d.Query, (d, o) =>
+							{
+								if (!o.IsNullOrWhiteSpace()) d.Query = o;
+							})
+					},
+					{
+						nameof(MemberSearch.RestrictToOrganization),
+						new Property<IJsonMemberSearch, bool?>((d, a) => d.OnlyOrgMembers, (d, o) => d.OnlyOrgMembers = o)
+					},
 				};
 		}
 		public MemberSearchContext(TrelloAuthorization auth)

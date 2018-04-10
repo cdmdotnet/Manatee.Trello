@@ -16,7 +16,7 @@ namespace Manatee.Trello
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<OrganizationMembershipType?> _memberType;
-		private readonly Field<bool?> _isDeactivated;
+		private readonly Field<bool?> _isUnconfirmed;
 		private readonly OrganizationMembershipContext _context;
 		private DateTime? _creation;
 
@@ -39,7 +39,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the member has accepted the invitation to join Trello.
 		/// </summary>
-		public bool? IsDeactivated => _isDeactivated.Value;
+		public bool? IsUnconfirmed => _isUnconfirmed.Value;
 		/// <summary>
 		/// Gets the member.
 		/// </summary>
@@ -74,7 +74,7 @@ namespace Manatee.Trello
 			_memberType = new Field<OrganizationMembershipType?>(_context, nameof(MemberType));
 			_memberType.AddRule(NullableHasValueRule<OrganizationMembershipType>.Instance);
 			_memberType.AddRule(EnumerationRule<OrganizationMembershipType?>.Instance);
-			_isDeactivated = new Field<bool?>(_context, nameof(IsDeactivated));
+			_isUnconfirmed = new Field<bool?>(_context, nameof(IsUnconfirmed));
 
 			TrelloConfiguration.Cache.Add(this);
 

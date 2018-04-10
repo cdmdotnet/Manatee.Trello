@@ -18,16 +18,29 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static ActionContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonAction>>
+			Properties = new Dictionary<string, Property<IJsonAction>>
 				{
 					{
-						nameof(Action.Creator), new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
-																				  (d, o) => { if (o != null) d.MemberCreator = o.Json; })
+						nameof(Action.Creator),
+						new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
+						                                  (d, o) => { if (o != null) d.MemberCreator = o.Json; })
 					},
-					{nameof(Action.Date), new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
-					{nameof(Action.Id), new Property<IJsonAction, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"Text", new Property<IJsonAction, string>((d, a) => d.Data.Text, (d, o) => d.Text = o)},
-					{nameof(Action.Type), new Property<IJsonAction, ActionType?>((d, a) => d.Type, (d, o) => d.Type = o)},
+					{
+						nameof(Action.Date),
+						new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)
+					},
+					{
+						nameof(Action.Id),
+						new Property<IJsonAction, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						"Text",
+						new Property<IJsonAction, string>((d, a) => d.Data.Text, (d, o) => d.Text = o)
+					},
+					{
+						nameof(Action.Type),
+						new Property<IJsonAction, ActionType?>((d, a) => d.Type, (d, o) => d.Type = o)
+					},
 				};
 		}
 		public ActionContext(string id, TrelloAuthorization auth)
@@ -44,15 +57,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			if (_deleted) return;
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
 		}
 		public override async Task Expire(CancellationToken ct)
 		{
-			if (TrelloConfiguration.AutoUpdate)
-				await ActionDataContext.Expire(ct);
 			await base.Expire(ct);
 		}
 
@@ -60,7 +72,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
+				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh,
+				                                     new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = await JsonRepository.Execute<IJsonAction>(Auth, endpoint, ct);
 				MarkInitialized();
 
@@ -75,7 +88,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override async Task SubmitData(IJsonAction json, CancellationToken ct)
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Update,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(newData);

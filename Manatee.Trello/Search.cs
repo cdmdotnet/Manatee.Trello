@@ -55,25 +55,25 @@ namespace Manatee.Trello
 			private set { _query.Value = value; }
 		}
 
-		private List<IQueryable> Context
+		internal List<IQueryable> Context
 		{
 			get { return _queryContext.Value; }
-			set { _queryContext.Value = value; }
+			private set { _queryContext.Value = value; }
 		}
-		private SearchModelType? Types
+		internal SearchModelType? Types
 		{
 			get { return _modelTypes.Value; }
-			set { _modelTypes.Value = value; }
+			private set { _modelTypes.Value = value; }
 		}
-		private int? Limit
+		internal int? Limit
 		{
 			get { return _limit.Value; }
-			set { _limit.Value = value; }
+			private set { _limit.Value = value; }
 		}
-		private bool? IsPartial
+		internal bool? IsPartial
 		{
 			get { return _isPartial.Value; }
-			set { _isPartial.Value = value; }
+			private set { _isPartial.Value = value; }
 		}
 
 		/// <summary>

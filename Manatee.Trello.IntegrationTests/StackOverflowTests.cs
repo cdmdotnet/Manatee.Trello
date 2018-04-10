@@ -16,8 +16,6 @@ namespace Manatee.Trello.IntegrationTests
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			TrelloConfiguration.AutoUpdate = false;
-
 			await action();
 
 			TrelloProcessor.Flush();

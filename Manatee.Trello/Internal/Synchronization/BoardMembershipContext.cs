@@ -13,15 +13,25 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static BoardMembershipContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonBoardMembership>>
+			Properties = new Dictionary<string, Property<IJsonBoardMembership>>
 				{
-					{"Id", new Property<IJsonBoardMembership, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"IsDeactivated", new Property<IJsonBoardMembership, bool?>((d, a) => d.Deactivated, (d, o) => d.Deactivated = o)},
 					{
-						"Member", new Property<IJsonBoardMembership, Member>((d, a) => d.Member.GetFromCache<Member>(a),
-						                                                     (d, o) => d.Member = o?.Json)
+						nameof(BoardMembership.Id),
+						new Property<IJsonBoardMembership, string>((d, a) => d.Id, (d, o) => d.Id = o)
 					},
-					{"MemberType", new Property<IJsonBoardMembership, BoardMembershipType?>((d, a) => d.MemberType, (d, o) => d.MemberType = o)},
+					{
+						nameof(BoardMembership.IsDeactivated),
+						new Property<IJsonBoardMembership, bool?>((d, a) => d.Deactivated, (d, o) => d.Deactivated = o)
+					},
+					{
+						nameof(BoardMembership.Member),
+						new Property<IJsonBoardMembership, Member>((d, a) => d.Member.GetFromCache<Member>(a),
+						                                           (d, o) => d.Member = o?.Json)
+					},
+					{
+						nameof(BoardMembership.MemberType),
+						new Property<IJsonBoardMembership, BoardMembershipType?>((d, a) => d.MemberType, (d, o) => d.MemberType = o)
+					},
 				};
 		}
 		public BoardMembershipContext(string id, string ownerId, TrelloAuthorization auth)

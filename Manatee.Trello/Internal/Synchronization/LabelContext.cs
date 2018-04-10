@@ -13,16 +13,29 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static LabelContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonLabel>>
+			Properties = new Dictionary<string, Property<IJsonLabel>>
 				{
 					{
-						"Board", new Property<IJsonLabel, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
-																 (d, o) => d.Board = o?.Json)
+						nameof(Label.Board),
+						new Property<IJsonLabel, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+						                                (d, o) => d.Board = o?.Json)
 					},
-					{"Color", new Property<IJsonLabel, LabelColor?>((d, a) => d.Color, (d, o) => d.Color = o)},
-					{"Id", new Property<IJsonLabel, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"Name", new Property<IJsonLabel, string>((d, a) => d.Name, (d, o) => d.Name = o)},
-					{"Uses", new Property<IJsonLabel, int?>((d, a) => d.Uses, (d, o) => d.Uses = o)},
+					{
+						nameof(Label.Color),
+						new Property<IJsonLabel, LabelColor?>((d, a) => d.Color, (d, o) => d.Color = o)
+					},
+					{
+						nameof(Label.Id),
+						new Property<IJsonLabel, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(Label.Name),
+						new Property<IJsonLabel, string>((d, a) => d.Name, (d, o) => d.Name = o)
+					},
+					{
+						nameof(Label.Uses),
+						new Property<IJsonLabel, int?>((d, a) => d.Uses, (d, o) => d.Uses = o)
+					},
 				};
 		}
 		public LabelContext(string id, TrelloAuthorization auth)

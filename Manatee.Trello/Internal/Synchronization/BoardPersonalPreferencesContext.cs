@@ -17,20 +17,40 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static BoardPersonalPreferencesContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonBoardPersonalPreferences>>
+			Properties = new Dictionary<string, Property<IJsonBoardPersonalPreferences>>
 				{
-					{"ShowSidebar", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebar, (d, o) => d.ShowSidebar = o)},
-					{"ShowSidebarMembers", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarMembers, (d, o) => d.ShowSidebarMembers = o)},
-					{"ShowSidebarBoardActions", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarBoardActions, (d, o) => d.ShowSidebarBoardActions = o)},
-					{"ShowSidebarActivity", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarActivity, (d, o) => d.ShowSidebarActivity = o)},
-					{"ShowListGuide", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowListGuide, (d, o) => d.ShowListGuide = o)},
 					{
-						"EmailPosition", new Property<IJsonBoardPersonalPreferences, Position>((d, a) => Position.GetPosition(d.EmailPosition),
-																							   (d, o) => d.EmailPosition = Position.GetJson(o))
+						nameof(BoardPersonalPreferences.ShowSidebar),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebar, (d, o) => d.ShowSidebar = o)
 					},
 					{
-						"EmailListId", new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList?.GetFromCache<List>(a),
-																						 (d, o) => d.EmailList = o?.Json)
+						nameof(BoardPersonalPreferences.ShowSidebarMembers),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarMembers,
+						                                                   (d, o) => d.ShowSidebarMembers = o)
+					},
+					{
+						nameof(BoardPersonalPreferences.ShowSidebarBoardActions),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarBoardActions,
+						                                                   (d, o) => d.ShowSidebarBoardActions = o)
+					},
+					{
+						nameof(BoardPersonalPreferences.ShowSidebarActivity),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarActivity,
+						                                                   (d, o) => d.ShowSidebarActivity = o)
+					},
+					{
+						nameof(BoardPersonalPreferences.ShowListGuide),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowListGuide, (d, o) => d.ShowListGuide = o)
+					},
+					{
+						nameof(BoardPersonalPreferences.EmailPosition),
+						new Property<IJsonBoardPersonalPreferences, Position>((d, a) => Position.GetPosition(d.EmailPosition),
+						                                                      (d, o) => d.EmailPosition = Position.GetJson(o))
+					},
+					{
+						nameof(BoardPersonalPreferences.EmailList),
+						new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList?.GetFromCache<List>(a),
+						                                                  (d, o) => d.EmailList = o?.Json)
 					},
 				};
 		}

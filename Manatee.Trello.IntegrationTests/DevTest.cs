@@ -19,23 +19,6 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					TrelloConfiguration.AutoUpdate = true;
-
-					var board = _factory.Board(TrelloIds.BoardId);
-					await board.CustomFields.Refresh();
-					var card = _factory.Card(TrelloIds.CardId);
-
-					Console.WriteLine(card);
-
-					OutputCollection("custom fields", card.CustomFields);
-				});
-		}
-
-		[Test]
-		public async Task TestMethod1Async()
-		{
-			await Run(async () =>
-				{
 					var board = _factory.Board(TrelloIds.BoardId);
 					await board.CustomFields.Refresh();
 					var card = _factory.Card(TrelloIds.CardId);

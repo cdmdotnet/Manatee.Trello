@@ -14,15 +14,31 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static WebhookContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonWebhook>>
+			Properties = new Dictionary<string, Property<IJsonWebhook>>
 				{
-					{"CallbackUrl", new Property<IJsonWebhook, string>((d, a) => d.CallbackUrl, (d, o) => d.CallbackUrl = o)},
-					{"Description", new Property<IJsonWebhook, string>((d, a) => d.Description, (d, o) => d.Description = o)},
-					{"Id", new Property<IJsonWebhook, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"IsActive", new Property<IJsonWebhook, bool?>((d, a) => d.Active, (d, o) => d.Active = o)},
 					{
-						"Target", new Property<IJsonWebhook, T>((d, a) => d.IdModel == null ? null : TrelloConfiguration.Cache.Find<T>(b => b.Id == d.IdModel) ?? BuildModel(d.IdModel),
-						                                        (d, o) => d.IdModel = o?.Id)
+						nameof(Webhook<T>.CallBackUrl),
+						new Property<IJsonWebhook, string>((d, a) => d.CallbackUrl, (d, o) => d.CallbackUrl = o)
+					},
+					{
+						nameof(Webhook<T>.Description),
+						new Property<IJsonWebhook, string>((d, a) => d.Description, (d, o) => d.Description = o)
+					},
+					{
+						nameof(Webhook<T>.Id),
+						new Property<IJsonWebhook, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(Webhook<T>.IsActive),
+						new Property<IJsonWebhook, bool?>((d, a) => d.Active, (d, o) => d.Active = o)
+					},
+					{
+						nameof(Webhook<T>.Target),
+						new Property<IJsonWebhook, T>(
+							(d, a) => d.IdModel == null
+								          ? null
+								          : TrelloConfiguration.Cache.Find<T>(b => b.Id == d.IdModel) ?? BuildModel(d.IdModel),
+							(d, o) => d.IdModel = o?.Id)
 					},
 				};
 		}
@@ -54,7 +70,8 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (_deleted) return;
 			CancelUpdate();
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Delete, 
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
@@ -64,7 +81,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
+				var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh,
+				                                     new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = await JsonRepository.Execute<IJsonWebhook>(Auth, endpoint, ct);
 				MarkInitialized();
 
@@ -79,7 +97,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override async Task SubmitData(IJsonWebhook json, CancellationToken ct)
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
+			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Update,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
 		}

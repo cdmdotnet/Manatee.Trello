@@ -21,16 +21,29 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static TokenContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonToken>>
+			Properties = new Dictionary<string, Property<IJsonToken>>
 				{
-					{"AppName", new Property<IJsonToken, string>((d, a) => d.Identifier, (d, o) => d.Identifier = o)},
 					{
-						"Member", new Property<IJsonToken, Member>((d, a) => d.Member?.GetFromCache<Member>(a),
-						                                           (d, o) => d.Member = o?.Json)
+						nameof(Token.AppName),
+						new Property<IJsonToken, string>((d, a) => d.Identifier, (d, o) => d.Identifier = o)
 					},
-					{"DateCreated", new Property<IJsonToken, DateTime?>((d, a) => d.DateCreated, (d, o) => d.DateCreated = o)},
-					{"DateExpires", new Property<IJsonToken, DateTime?>((d, a) => d.DateExpires, (d, o) => d.DateExpires = o)},
-					{"Id", new Property<IJsonToken, string>((d, a) => d.Id, (d, o) => d.Id = o)},
+					{
+						nameof(Token.Member),
+						new Property<IJsonToken, Member>((d, a) => d.Member?.GetFromCache<Member>(a),
+						                                 (d, o) => d.Member = o?.Json)
+					},
+					{
+						nameof(Token.DateCreated),
+						new Property<IJsonToken, DateTime?>((d, a) => d.DateCreated, (d, o) => d.DateCreated = o)
+					},
+					{
+						nameof(Token.DateExpires),
+						new Property<IJsonToken, DateTime?>((d, a) => d.DateExpires, (d, o) => d.DateExpires = o)
+					},
+					{
+						nameof(Token.Id),
+						new Property<IJsonToken, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
 				};
 		}
 		public TokenContext(string id, TrelloAuthorization auth)
@@ -61,12 +74,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public override async Task Expire(CancellationToken ct)
 		{
-			if (TrelloConfiguration.AutoUpdate)
-			{
-				await MemberPermissions.Expire(ct);
-				await BoardPermissions.Expire(ct);
-				await OrganizationPermissions.Expire(ct);
-			}
 			await base.Expire(ct);
 		}
 

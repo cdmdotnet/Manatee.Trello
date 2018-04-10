@@ -18,7 +18,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the member has accepted the invitation to join Trello.
 		/// </summary>
-		bool? IsDeactivated { get; }
+		bool? IsUnconfirmed { get; }
 
 		/// <summary>
 		/// Gets the member.

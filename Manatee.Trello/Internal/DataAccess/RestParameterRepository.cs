@@ -38,8 +38,6 @@ namespace Manatee.Trello.Internal.DataAccess
 			var parameters = new Dictionary<string, string>();
 			if (fieldList != null)
 				parameters["fields"] = fieldList;
-			if (typeof(T) == typeof(IJsonCard))
-				parameters["customFieldItems"] = "true";
 			return parameters;
 		}
 

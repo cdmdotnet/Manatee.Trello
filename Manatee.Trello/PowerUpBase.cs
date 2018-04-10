@@ -10,7 +10,7 @@ namespace Manatee.Trello
 	public abstract class PowerUpBase : IPowerUp
 	{
 		private readonly Field<string> _name;
-		private readonly Field<bool?> _public;
+		private readonly Field<bool?> _isPublic;
 		private readonly Field<string> _additionalInfo;
 		private readonly PowerUpContext _context;
 
@@ -23,13 +23,13 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Id { get; }
 		/// <summary>
+		/// Gets or sets whether this power-up is closed.
+		/// </summary>
+		public bool? IsPublic => _isPublic.Value;
+		/// <summary>
 		/// Gets the name of the power-up.
 		/// </summary>
 		public string Name => _name.Value;
-		/// <summary>
-		/// Gets or sets whether this power-up is closed.
-		/// </summary>
-		public bool? Public => _public.Value;
 
 		internal IJsonPowerUp Json
 		{
@@ -47,7 +47,7 @@ namespace Manatee.Trello
 
 			_additionalInfo = new Field<string>(_context, nameof(AdditionalInfo));
 			_name = new Field<string>(_context, nameof(Name));
-			_public = new Field<bool?>(_context, nameof(Public));
+			_isPublic = new Field<bool?>(_context, nameof(IsPublic));
 		}
 
 		/// <summary>Returns the <see cref="Name"/></summary>

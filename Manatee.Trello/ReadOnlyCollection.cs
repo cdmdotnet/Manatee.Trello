@@ -13,7 +13,6 @@ namespace Manatee.Trello
 	/// <typeparam name="T">The type of object contained by the collection.</typeparam>
 	public abstract class ReadOnlyCollection<T> : IReadOnlyCollection<T>
 	{
-		private DateTime _lastUpdate;
 		private string _ownerId;
 		private readonly Func<string> _getOwnerId;
 
@@ -46,7 +45,6 @@ namespace Manatee.Trello
 			Auth = auth ?? TrelloAuthorization.Default;
 
 			Items = new List<T>();
-			_lastUpdate = DateTime.MinValue;
 		}
 
 		/// <summary>
@@ -58,12 +56,6 @@ namespace Manatee.Trello
 		/// <filterpriority>1</filterpriority>
 		public IEnumerator<T> GetEnumerator()
 		{
-			if (TrelloConfiguration.AutoUpdate && DateTime.Now >= _lastUpdate.Add(TrelloConfiguration.ExpiryTime))
-			{
-				Refresh().Wait();
-				_lastUpdate = DateTime.Now;
-			}
-
 			return Items.GetEnumerator();
 		}
 		/// <summary>

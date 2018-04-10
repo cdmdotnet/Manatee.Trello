@@ -15,18 +15,35 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static ListContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonList>>
+			Properties = new Dictionary<string, Property<IJsonList>>
 				{
 					{
-						"Board", new Property<IJsonList, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
-						                                        (d, o) => { if (o != null) d.Board = o.Json; })
+						nameof(List.Board),
+						new Property<IJsonList, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+						                               (d, o) =>
+							                               {
+								                               if (o != null) d.Board = o.Json;
+							                               })
 					},
-					{"Id", new Property<IJsonList, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"IsArchived", new Property<IJsonList, bool?>((d, a) => d.Closed, (d, o) => d.Closed = o)},
-					{"IsSubscribed", new Property<IJsonList, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)},
-					{"Name", new Property<IJsonList, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{
-						"Position", new Property<IJsonList, Position>((d, a) => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))
+						nameof(List.Id),
+						new Property<IJsonList, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(List.IsArchived),
+						new Property<IJsonList, bool?>((d, a) => d.Closed, (d, o) => d.Closed = o)
+					},
+					{
+						nameof(List.IsSubscribed),
+						new Property<IJsonList, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)
+					},
+					{
+						nameof(List.Name),
+						new Property<IJsonList, string>((d, a) => d.Name, (d, o) => d.Name = o)
+					},
+					{
+						nameof(List.Position),
+						new Property<IJsonList, Position>((d, a) => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))
 					},
 				};
 		}

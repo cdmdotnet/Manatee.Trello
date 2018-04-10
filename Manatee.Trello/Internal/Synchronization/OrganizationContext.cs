@@ -17,16 +17,40 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static OrganizationContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonOrganization>>
+			Properties = new Dictionary<string, Property<IJsonOrganization>>
 				{
-					{"Description", new Property<IJsonOrganization, string>((d, a) => d.Desc, (d, o) => d.Desc = o)},
-					{"DisplayName", new Property<IJsonOrganization, string>((d, a) => d.DisplayName, (d, o) => d.DisplayName = o)},
-					{"Id", new Property<IJsonOrganization, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"IsBusinessClass", new Property<IJsonOrganization, bool?>((d, a) => d.PaidAccount, (d, o) => d.PaidAccount = o)},
-					{"Name", new Property<IJsonOrganization, string>((d, a) => d.Name, (d, o) => d.Name = o)},
-					{"Preferences", new Property<IJsonOrganization, IJsonOrganizationPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
-					{"Url", new Property<IJsonOrganization, string>((d, a) => d.Url, (d, o) => d.Url = o)},
-					{"Website", new Property<IJsonOrganization, string>((d, a) => d.Website, (d, o) => d.Website = o)},
+					{
+						nameof(Organization.Description),
+						new Property<IJsonOrganization, string>((d, a) => d.Desc, (d, o) => d.Desc = o)
+					},
+					{
+						nameof(Organization.DisplayName),
+						new Property<IJsonOrganization, string>((d, a) => d.DisplayName, (d, o) => d.DisplayName = o)
+					},
+					{
+						nameof(Organization.Id),
+						new Property<IJsonOrganization, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(Organization.IsBusinessClass),
+						new Property<IJsonOrganization, bool?>((d, a) => d.PaidAccount, (d, o) => d.PaidAccount = o)
+					},
+					{
+						nameof(Organization.Name),
+						new Property<IJsonOrganization, string>((d, a) => d.Name, (d, o) => d.Name = o)
+					},
+					{
+						nameof(Organization.Preferences),
+						new Property<IJsonOrganization, IJsonOrganizationPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)
+					},
+					{
+						nameof(Organization.Url),
+						new Property<IJsonOrganization, string>((d, a) => d.Url, (d, o) => d.Url = o)
+					},
+					{
+						nameof(Organization.Website),
+						new Property<IJsonOrganization, string>((d, a) => d.Website, (d, o) => d.Website = o)
+					},
 				};
 		}
 		public OrganizationContext(string id, TrelloAuthorization auth)
@@ -51,8 +75,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public override async Task Expire(CancellationToken ct)
 		{
-			if (TrelloConfiguration.AutoUpdate)
-				await OrganizationPreferencesContext.Expire(ct);
 			await base.Expire(ct);
 		}
 

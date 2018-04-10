@@ -78,13 +78,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public static bool ThrowOnTrelloError { get; set; }
 		/// <summary>
-		/// Specifies whether entities should update their data automatically or manually via the Refresh method.  Default is false.
-		/// </summary>
-		/// <remarks>
-		/// This should be disabled for an asynchronous workflow.
-		/// </remarks>
-		public static bool AutoUpdate { get; set; }
-		/// <summary>
 		/// Specifies a length of time after which each Trello object will be marked as expired. Default is 30 seconds.
 		/// </summary>
 		/// <remarks>

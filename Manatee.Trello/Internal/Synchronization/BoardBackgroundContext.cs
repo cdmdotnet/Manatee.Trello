@@ -7,11 +7,15 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		static BoardBackgroundContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonBoardBackground>>
+			Properties = new Dictionary<string, Property<IJsonBoardBackground>>
 				{
-					{"Id", new Property<IJsonBoardBackground, string>((d, a) => d.Id, (d, o) => d.Id = o)},
 					{
-						"Color", new Property<IJsonBoardBackground, WebColor>(
+						nameof(BoardBackground.Id),
+						new Property<IJsonBoardBackground, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(BoardBackground.Color),
+						new Property<IJsonBoardBackground, WebColor>(
 							(d, a) => d.Color.IsNullOrWhiteSpace() ? null : new WebColor(d.Color),
 							(d, o) => d.Color = o?.ToString())
 					},
@@ -22,12 +26,19 @@ namespace Manatee.Trello.Internal.Synchronization
 							(d, o) => d.BottomColor = o?.ToString())
 					},
 					{
-						nameof(BoardBackground.TopColor), new Property<IJsonBoardBackground, WebColor>(
+						nameof(BoardBackground.TopColor),
+						new Property<IJsonBoardBackground, WebColor>(
 							(d, a) => d.TopColor.IsNullOrWhiteSpace() ? null : new WebColor(d.TopColor),
 							(d, o) => d.TopColor = o?.ToString())
 					},
-					{"Image", new Property<IJsonBoardBackground, string>((d, a) => d.Image, (d, o) => d.Image = o)},
-					{"IsTiled", new Property<IJsonBoardBackground, bool?>((d, a) => d.Tile, (d, o) => d.Tile = o)},
+					{
+						nameof(BoardBackground.Image),
+						new Property<IJsonBoardBackground, string>((d, a) => d.Image, (d, o) => d.Image = o)
+					},
+					{
+						nameof(BoardBackground.IsTiled),
+						new Property<IJsonBoardBackground, bool?>((d, a) => d.Tile, (d, o) => d.Tile = o)
+					},
 					{
 						nameof(BoardBackground.Brightness),
 						new Property<IJsonBoardBackground, BoardBackgroundBrightness?>((d, a) => d.Brightness, (d, o) => d.Brightness = o)

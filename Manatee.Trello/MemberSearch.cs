@@ -26,30 +26,30 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<MemberSearchResult> Results => _results.Value;
 
-		private IBoard Board
+		internal IBoard Board
 		{
 			get { return _board.Value; }
-			set { _board.Value = (Board) value; }
+			private set { _board.Value = (Board) value; }
 		}
-		private int? Limit
+		internal int? Limit
 		{
 			get { return _limit.Value; }
-			set { _limit.Value = value; }
+			private set { _limit.Value = value; }
 		}
-		private IOrganization Organization
+		internal IOrganization Organization
 		{
 			get { return _organization.Value; }
-			set { _organization.Value = (Organization) value; }
+			private set { _organization.Value = (Organization) value; }
 		}
-		private string Query
+		internal string Query
 		{
 			get { return _query.Value; }
-			set { _query.Value = value; }
+			private set { _query.Value = value; }
 		}
-		private bool? RestrictToOrganization
+		internal bool? RestrictToOrganization
 		{
 			get { return _restrictToOrganization.Value; }
-			set { _restrictToOrganization.Value = value; }
+			private set { _restrictToOrganization.Value = value; }
 		}
 
 		/// <summary>

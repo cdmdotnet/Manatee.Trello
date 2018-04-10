@@ -14,12 +14,7 @@ namespace Manatee.Trello.Internal
 
 		public T Value
 		{
-			get
-			{
-				if (TrelloConfiguration.AutoUpdate)
-					_context.Synchronize(CancellationToken.None).Wait();
-				return CurrentValue;
-			}
+			get { return CurrentValue; }
 			set
 			{
 				if (Equals(CurrentValue, value)) return;

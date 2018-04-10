@@ -13,12 +13,25 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static CheckItemContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonCheckItem>>
+			Properties = new Dictionary<string, Property<IJsonCheckItem>>
 				{
-					{"Id", new Property<IJsonCheckItem, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"Name", new Property<IJsonCheckItem, string>((d, a) => d.Name, (d, o) => d.Name = o)},
-					{"Position", new Property<IJsonCheckItem, Position>((d, a) => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))},
-					{"State", new Property<IJsonCheckItem, CheckItemState?>((d, a) => d.State, (d, o) => d.State = o)},
+					{
+						nameof(CheckItem.Id),
+						new Property<IJsonCheckItem, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(CheckItem.Name),
+						new Property<IJsonCheckItem, string>((d, a) => d.Name, (d, o) => d.Name = o)
+					},
+					{
+						nameof(CheckItem.Position),
+						new Property<IJsonCheckItem, Position>((d, a) => Position.GetPosition(d.Pos),
+						                                       (d, o) => d.Pos = Position.GetJson(o))
+					},
+					{
+						nameof(CheckItem.State),
+						new Property<IJsonCheckItem, CheckItemState?>((d, a) => d.State, (d, o) => d.State = o)
+					},
 				};
 		}
 		public CheckItemContext(string id, string ownerId, TrelloAuthorization auth)

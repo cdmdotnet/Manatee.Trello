@@ -16,22 +16,64 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static MemberContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonMember>>
+			Properties = new Dictionary<string, Property<IJsonMember>>
 				{
-					{"AvatarSource", new Property<IJsonMember, AvatarSource?>((d, a) => d.AvatarSource, (d, o) => d.AvatarSource = o)},
-					{"AvatarUrl", new Property<IJsonMember, string>((d, a) => d.AvatarHash, (d, o) => d.AvatarHash = o)},
-					{"Bio", new Property<IJsonMember, string>((d, a) => d.Bio, (d, o) => d.Bio = o)},
-					{"Email", new Property<IJsonMember, string>((d, a) => d.Email, (d, o) => d.Email = o)},
-					{"FullName", new Property<IJsonMember, string>((d, a) => d.FullName, (d, o) => d.FullName = o)},
-					{"Id", new Property<IJsonMember, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"Initials", new Property<IJsonMember, string>((d, a) => d.Initials, (d, o) => d.Initials = o)},
-					{"IsConfirmed", new Property<IJsonMember, bool?>((d, a) => d.Confirmed, (d, o) => d.Confirmed = o)},
-					{"Preferences", new Property<IJsonMember, IJsonMemberPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
-					{"Similarity", new Property<IJsonMember, int?>((d, a) => d.Similarity, (d, o) => d.Similarity = o)},
-					{"Status", new Property<IJsonMember, MemberStatus?>((d, a) => d.Status, (d, o) => d.Status = o)},
-					{"Trophies", new Property<IJsonMember, List<string>>((d, a) => d.Trophies, (d, o) => d.Trophies = o?.ToList())},
-					{"Url", new Property<IJsonMember, string>((d, a) => d.Url, (d, o) => d.Url = o)},
-					{"UserName", new Property<IJsonMember, string>((d, a) => d.Username, (d, o) => d.Username = o)},
+					{
+						nameof(Member.AvatarSource),
+						new Property<IJsonMember, AvatarSource?>((d, a) => d.AvatarSource, (d, o) => d.AvatarSource = o)
+					},
+					{
+						nameof(Member.AvatarUrl),
+						new Property<IJsonMember, string>((d, a) => d.AvatarHash, (d, o) => d.AvatarHash = o)
+					},
+					{
+						nameof(Member.Bio),
+						new Property<IJsonMember, string>((d, a) => d.Bio, (d, o) => d.Bio = o)
+					},
+					{
+						nameof(Me.Email),
+						new Property<IJsonMember, string>((d, a) => d.Email, (d, o) => d.Email = o)
+					},
+					{
+						nameof(Member.FullName),
+						new Property<IJsonMember, string>((d, a) => d.FullName, (d, o) => d.FullName = o)
+					},
+					{
+						nameof(Member.Id),
+						new Property<IJsonMember, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(Member.Initials),
+						new Property<IJsonMember, string>((d, a) => d.Initials, (d, o) => d.Initials = o)
+					},
+					{
+						nameof(Member.IsConfirmed),
+						new Property<IJsonMember, bool?>((d, a) => d.Confirmed, (d, o) => d.Confirmed = o)
+					},
+					{
+						nameof(Me.Preferences),
+						new Property<IJsonMember, IJsonMemberPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)
+					},
+					{
+						nameof(MemberSearchResult.Similarity),
+						new Property<IJsonMember, int?>((d, a) => d.Similarity, (d, o) => d.Similarity = o)
+					},
+					{
+						nameof(Member.Status),
+						new Property<IJsonMember, MemberStatus?>((d, a) => d.Status, (d, o) => d.Status = o)
+					},
+					{
+						nameof(Member.Trophies),
+						new Property<IJsonMember, List<string>>((d, a) => d.Trophies, (d, o) => d.Trophies = o?.ToList())
+					},
+					{
+						nameof(Member.Url),
+						new Property<IJsonMember, string>((d, a) => d.Url, (d, o) => d.Url = o)
+					},
+					{
+						nameof(Member.UserName),
+						new Property<IJsonMember, string>((d, a) => d.Username, (d, o) => d.Username = o)
+					},
 				};
 		}
 		public MemberContext(string id, TrelloAuthorization auth)
@@ -46,8 +88,6 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public override async Task Expire(CancellationToken ct)
 		{
-			if (TrelloConfiguration.AutoUpdate)
-				await MemberPreferencesContext.Expire(ct);
 			await base.Expire(ct);
 		}
 

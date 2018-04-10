@@ -18,25 +18,65 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static BoardContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonBoard>>
+			Properties = new Dictionary<string, Property<IJsonBoard>>
 				{
-					{"Description", new Property<IJsonBoard, string>((d, a) => d.Desc, (d, o) => d.Desc = o)},
-					{"Id", new Property<IJsonBoard, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"IsClosed", new Property<IJsonBoard, bool?>((d, a) => d.Closed, (d, o) => d.Closed = o)},
-					{"IsSubscribed", new Property<IJsonBoard, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)},
-					{"Name", new Property<IJsonBoard, string>((d, a) => d.Name, (d, o) => d.Name = o)},
 					{
-						"Organization", new Property<IJsonBoard, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
-																			   (d, o) => d.Organization = o?.Json)
+						nameof(Board.Description),
+						new Property<IJsonBoard, string>((d, a) => d.Desc, (d, o) => d.Desc = o)
 					},
-					{"Preferences", new Property<IJsonBoard, IJsonBoardPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)},
-					{"Url", new Property<IJsonBoard, string>((d, a) => d.Url, (d, o) => d.Url = o)},
-					{nameof(Board.IsPinned), new Property<IJsonBoard, bool?>((d, a) => d.Pinned, (d, o) => d.Pinned = o)},
-					{nameof(Board.IsStarred), new Property<IJsonBoard, bool?>((d, a) => d.Starred, (d, o) => d.Starred = o)},
-					{nameof(Board.LastViewed), new Property<IJsonBoard, DateTime?>((d, a) => d.DateLastView, (d, o) => d.DateLastView = o)},
-					{nameof(Board.LastActivity), new Property<IJsonBoard, DateTime?>((d, a) => d.DateLastActivity, (d, o) => d.DateLastActivity = o)},
-					{nameof(Board.ShortUrl), new Property<IJsonBoard, string>((d, a) => d.ShortUrl, (d, o) => d.ShortUrl = o)},
-					{nameof(Board.ShortLink), new Property<IJsonBoard, string>((d, a) => d.ShortLink, (d, o) => d.ShortLink = o)},
+					{
+						nameof(Board.Id),
+						new Property<IJsonBoard, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(Board.IsClosed),
+						new Property<IJsonBoard, bool?>((d, a) => d.Closed, (d, o) => d.Closed = o)
+					},
+					{
+						nameof(Board.IsSubscribed),
+						new Property<IJsonBoard, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)
+					},
+					{
+						nameof(Board.Name),
+						new Property<IJsonBoard, string>((d, a) => d.Name, (d, o) => d.Name = o)
+					},
+					{
+						nameof(Board.Organization),
+						new Property<IJsonBoard, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
+						                                       (d, o) => d.Organization = o?.Json)
+					},
+					{
+						nameof(Board.Preferences),
+						new Property<IJsonBoard, IJsonBoardPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)
+					},
+					{
+						nameof(Board.Url),
+						new Property<IJsonBoard, string>((d, a) => d.Url, (d, o) => d.Url = o)
+					},
+					{
+						nameof(Board.IsPinned),
+						new Property<IJsonBoard, bool?>((d, a) => d.Pinned, (d, o) => d.Pinned = o)
+					},
+					{
+						nameof(Board.IsStarred),
+						new Property<IJsonBoard, bool?>((d, a) => d.Starred, (d, o) => d.Starred = o)
+					},
+					{
+						nameof(Board.LastViewed),
+						new Property<IJsonBoard, DateTime?>((d, a) => d.DateLastView, (d, o) => d.DateLastView = o)
+					},
+					{
+						nameof(Board.LastActivity),
+						new Property<IJsonBoard, DateTime?>((d, a) => d.DateLastActivity, (d, o) => d.DateLastActivity = o)
+					},
+					{
+						nameof(Board.ShortUrl),
+						new Property<IJsonBoard, string>((d, a) => d.ShortUrl, (d, o) => d.ShortUrl = o)
+					},
+					{
+						nameof(Board.ShortLink),
+						new Property<IJsonBoard, string>((d, a) => d.ShortLink, (d, o) => d.ShortLink = o)
+					},
 				};
 		}
 		public BoardContext(string id, TrelloAuthorization auth)
@@ -62,8 +102,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public override async Task Expire(CancellationToken ct)
 		{
-			if (TrelloConfiguration.AutoUpdate)
-				await BoardPreferencesContext.Expire(ct);
 			await base.Expire(ct);
 		}
 

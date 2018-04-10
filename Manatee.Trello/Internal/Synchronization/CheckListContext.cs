@@ -13,20 +13,35 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static CheckListContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonCheckList>>
+			Properties = new Dictionary<string, Property<IJsonCheckList>>
 				{
 					{
-						"Board", new Property<IJsonCheckList, Board>((d, a) => d.Board.GetFromCache<Board>(a),
-						                                             (d, o) => d.Board = o?.Json)
+						nameof(CheckList.Board),
+						new Property<IJsonCheckList, Board>((d, a) => d.Board.GetFromCache<Board>(a),
+						                                    (d, o) => d.Board = o?.Json)
 					},
 					{
-						"Card", new Property<IJsonCheckList, Card>((d, a) => d.Card.GetFromCache<Card>(a),
-						                                           (d, o) => d.Card = o?.Json)
+						nameof(CheckList.Card),
+						new Property<IJsonCheckList, Card>((d, a) => d.Card.GetFromCache<Card>(a),
+						                                   (d, o) => d.Card = o?.Json)
 					},
-					{"CheckItems", new Property<IJsonCheckList, List<IJsonCheckItem>>((d, a) => d.CheckItems, (d, o) => d.CheckItems = o)},
-					{"Id", new Property<IJsonCheckList, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"Name", new Property<IJsonCheckList, string>((d, a) => d.Name, (d, o) => d.Name = o)},
-					{"Position", new Property<IJsonCheckList, Position>((d, a) => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))},
+					{
+						nameof(CheckList.CheckItems),
+						new Property<IJsonCheckList, List<IJsonCheckItem>>((d, a) => d.CheckItems, (d, o) => d.CheckItems = o)
+					},
+					{
+						nameof(CheckList.Id),
+						new Property<IJsonCheckList, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(CheckList.Name),
+						new Property<IJsonCheckList, string>((d, a) => d.Name, (d, o) => d.Name = o)
+					},
+					{
+						nameof(CheckList.Position),
+						new Property<IJsonCheckList, Position>((d, a) => Position.GetPosition(d.Pos),
+						                                       (d, o) => d.Pos = Position.GetJson(o))
+					},
 				};
 		}
 		public CheckListContext(string id, TrelloAuthorization auth)
