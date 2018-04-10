@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the data associated with a plugin.
 	/// </summary>
-	public class PowerUpData : IPowerUpData
+	public class PowerUpData : IPowerUpData, IMergeJson<IJsonPowerUpData>
 	{
 		private readonly Field<string> _pluginId;
 		private readonly Field<string> _value;
@@ -39,6 +39,11 @@ namespace Manatee.Trello
 
 			_pluginId = new Field<string>(_context, nameof(PluginId));
 			_value = new Field<string>(_context, nameof(Value));
+		}
+
+		void IMergeJson<IJsonPowerUpData>.Merge(IJsonPowerUpData json)
+		{
+			_context.Merge(json);
 		}
 	}
 }

@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public class List : IList
+	public class List : IList, IMergeJson<IJsonList>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for lists.
@@ -217,6 +217,12 @@ namespace Manatee.Trello
 		{
 			await _context.Expire(ct);
 		}
+
+		void IMergeJson<IJsonList>.Merge(IJsonList json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns a string that represents the current object.
 		/// </summary>

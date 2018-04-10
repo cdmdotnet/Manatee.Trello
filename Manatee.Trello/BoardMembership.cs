@@ -12,7 +12,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the permission level a member has on a board.
 	/// </summary>
-	public class BoardMembership : IBoardMembership
+	public class BoardMembership : IBoardMembership, IMergeJson<IJsonBoardMembership>
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<BoardMembershipType?> _memberType;
@@ -87,6 +87,18 @@ namespace Manatee.Trello
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Expire(ct);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return $"{Member} ({MemberType})";
+		}
+
+		void IMergeJson<IJsonBoardMembership>.Merge(IJsonBoardMembership json)
+		{
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

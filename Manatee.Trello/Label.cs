@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A label.
 	/// </summary>
-	public class Label : ILabel
+	public class Label : ILabel, IMergeJson<IJsonLabel>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for labels.
@@ -135,6 +135,12 @@ namespace Manatee.Trello
 		{
 			await _context.Expire(ct);
 		}
+
+		void IMergeJson<IJsonLabel>.Merge(IJsonLabel json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="Name"/> and <see cref="Color"/>.
 		/// </summary>
@@ -143,9 +149,9 @@ namespace Manatee.Trello
 		/// </returns>
 		public override string ToString()
 		{
-			if (Name.IsNullOrWhiteSpace() && !Color.HasValue)
-				return string.Empty;
-			return $"{Name} ({Color?.ToString() ?? "No color"})";
+			return Name.IsNullOrWhiteSpace()
+				       ? $"({Color?.ToString() ?? "No color"})"
+				       : $"{Name} ({Color?.ToString() ?? "No color"})";
 		}
 	}
 }

@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a checklist.
 	/// </summary>
-	public class CheckList : ICheckList
+	public class CheckList : ICheckList, IMergeJson<IJsonCheckList>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for check lists.
@@ -187,6 +187,12 @@ namespace Manatee.Trello
 		{
 			await _context.Expire(ct);
 		}
+
+		void IMergeJson<IJsonCheckList>.Merge(IJsonCheckList json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="Name"/>.
 		/// </summary>

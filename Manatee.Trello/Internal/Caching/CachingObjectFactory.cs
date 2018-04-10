@@ -56,12 +56,22 @@ namespace Manatee.Trello.Internal.Caching
 			return TrelloConfiguration.Cache.Find<ICacheable>(o => o.Id == json.Id) ??
 			       JsonFactory[JsonTypeMap[json.GetType()]](json, auth);
 		}
+
 		public static T GetFromCache<T>(this IJsonCacheable json, TrelloAuthorization auth)
 			where T : class, ICacheable
 		{
 			if (json == null) return null;
 
-			return TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id) ??
+			return TryGetFromCache<T>(json) ??
+			       (T) JsonFactory[typeof(T)](json, auth);
+		}
+		public static T GetFromCache<T, TJson>(this TJson json, TrelloAuthorization auth)
+			where T : class, ICacheable, IMergeJson<TJson>
+			where TJson : IJsonCacheable
+		{
+			if (json == null) return null;
+
+			return TryGetFromCache<T, TJson>(json) ??
 			       (T) JsonFactory[typeof(T)](json, auth);
 		}
 

@@ -88,5 +88,14 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		string ShortUrl { get; set; }
+		List<IJsonAction> Actions { get; set; }
+		List<IJsonCard> Cards { get; set; }
+		List<IJsonCustomFieldDefinition> CustomFields { get; set; }
+		List<IJsonLabel> Labels { get; set; }
+		List<IJsonList> Lists { get; set; }
+		List<IJsonMember> Members { get; set; }
+		List<IJsonBoardMembership> Memberships { get; set; }
+		List<IJsonPowerUp> PowerUps { get; set; }
+		List<IJsonPowerUpData> PowerUpData { get; set; }
 	}
 }

@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a card.
 	/// </summary>
-	public class Card : ICard
+	public class Card : ICard, IMergeJson<IJsonCard>
 	{
 		private readonly TrelloAuthorization _auth;
 
@@ -466,6 +466,11 @@ namespace Manatee.Trello
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Expire(ct);
+		}
+
+		void IMergeJson<IJsonCard>.Merge(IJsonCard json)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>

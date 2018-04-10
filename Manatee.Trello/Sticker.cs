@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a sticker on a card.
 	/// </summary>
-	public class Sticker : ISticker
+	public class Sticker : ISticker, IMergeJson<IJsonSticker>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for stickers.
@@ -224,6 +224,12 @@ namespace Manatee.Trello
 		{
 			await _context.Expire(ct);
 		}
+
+		void IMergeJson<IJsonSticker>.Merge(IJsonSticker json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns a string that represents the current object.
 		/// </summary>

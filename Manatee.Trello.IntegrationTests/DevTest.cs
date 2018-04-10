@@ -19,19 +19,21 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					var card = _factory.Card(TrelloIds.CardId);
+					var board = _factory.Board(TrelloIds.BoardId);
 
-					await card.Refresh();
+					await board.Refresh();
 
-					Console.WriteLine(card);
+					Console.WriteLine(board);
 
-					OutputCollection("attachments", card.Attachments);
-					OutputCollection("checklists", card.CheckLists);
-					//OutputCollection("comments", card.Comments);
-					OutputCollection("labels", card.Labels);
-					OutputCollection("members", card.Members);
-					OutputCollection("stickers", card.Stickers);
-					OutputCollection("voting members", card.VotingMembers);
+					OutputCollection("actions", board.Actions);
+					OutputCollection("cards", board.Cards);
+					OutputCollection("custom fields", board.CustomFields);
+					OutputCollection("labels", board.Labels);
+					OutputCollection("lists", board.Lists);
+					OutputCollection("members", board.Members);
+					OutputCollection("memberships", board.Memberships);
+					OutputCollection("powerups", board.PowerUps);
+					OutputCollection("powerup data", board.PowerUpData);
 				});
 		}
 
