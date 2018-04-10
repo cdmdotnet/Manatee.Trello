@@ -8,18 +8,27 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonCard : IJsonCacheable
 	{
+		List<IJsonAction> Actions { get; set; }
 		List<IJsonAttachment> Attachments { get; set; }
+		/// <summary>
+		/// Gets or sets the ID of the board which contains the card.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		IJsonBoard Board { get; set; }
 		/// <summary>
 		/// Gets or set the badges displayed on the card cover.
 		/// </summary>
 		[JsonDeserialize]
 		IJsonBadges Badges { get; set; }
+		List<IJsonCheckList> CheckLists { get; set; }
 		/// <summary>
 		/// Gets or sets whether a card has been archived.
 		/// </summary>
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Closed { get; set; }
+		List<IJsonAction> Comments { get; set; }
 		[JsonDeserialize]
 		List<IJsonCustomField> CustomFields { get; set; }
 		/// <summary>
@@ -46,18 +55,6 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		bool? DueComplete { get; set; }
 		/// <summary>
-		/// Gets or sets the ID of the board which contains the card.
-		/// </summary>
-		[JsonDeserialize]
-		[JsonSerialize]
-		IJsonBoard Board { get; set; }
-		/// <summary>
-		/// Gets or sets the ID of the list which contains the card.
-		/// </summary>
-		[JsonDeserialize]
-		[JsonSerialize]
-		IJsonList List { get; set; }
-		/// <summary>
 		/// Gets or sets the card's short ID.
 		/// </summary>
 		[JsonDeserialize]
@@ -75,10 +72,17 @@ namespace Manatee.Trello.Json
 		[JsonSpecialSerialization]
 		List<IJsonLabel> Labels { get; set; }
 		/// <summary>
+		/// Gets or sets the ID of the list which contains the card.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		IJsonList List { get; set; }
+		/// <summary>
 		/// Gets or sets whether the cover attachment was manually selected
 		/// </summary>
 		[JsonDeserialize]
 		bool? ManualCoverAttachment { get; set; }
+		List<IJsonMember> Members { get; set; }
 		/// <summary>
 		/// Gets or sets the card's name
 		/// </summary>
@@ -91,6 +95,7 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		IJsonPosition Pos { get; set; }
+		List<IJsonPowerUpData> PowerUpData { get; set; }
 		/// <summary>
 		/// Gets or sets the URL for this card.
 		/// </summary>
@@ -131,5 +136,7 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonSerialize]
 		string IdLabels { get; set; }
+		List<IJsonSticker> Stickers { get; set; }
+		List<IJsonMember> MembersVoted { get; set; }
 	}
 }

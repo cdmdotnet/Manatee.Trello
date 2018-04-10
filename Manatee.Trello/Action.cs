@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an action performed on Trello objects.
 	/// </summary>
-	public class Action : IAction
+	public class Action : IAction, IMergeJson<IJsonAction>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for actions.
@@ -218,6 +218,12 @@ namespace Manatee.Trello
 			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
+
+		void IMergeJson<IJsonAction>.Merge(IJsonAction json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns a string that represents the action.  The content will vary based on the value of <see cref="Type"/>.
 		/// </summary>

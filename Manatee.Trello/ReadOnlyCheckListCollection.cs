@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,8 +15,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCheckListCollection : ReadOnlyCollection<ICheckList>, IReadOnlyCheckListCollection
 	{
-		internal ReadOnlyCheckListCollection(Card card, TrelloAuthorization auth)
-			: base(() => card.Id, auth) {}
+		internal ReadOnlyCheckListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.

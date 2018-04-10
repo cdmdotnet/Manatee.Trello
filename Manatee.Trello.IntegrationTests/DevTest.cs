@@ -26,6 +26,12 @@ namespace Manatee.Trello.IntegrationTests
 					Console.WriteLine(card);
 
 					OutputCollection("attachments", card.Attachments);
+					OutputCollection("checklists", card.CheckLists);
+					//OutputCollection("comments", card.Comments);
+					OutputCollection("labels", card.Labels);
+					OutputCollection("members", card.Members);
+					OutputCollection("stickers", card.Stickers);
+					OutputCollection("voting members", card.VotingMembers);
 				});
 		}
 

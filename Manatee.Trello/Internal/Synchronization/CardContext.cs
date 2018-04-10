@@ -17,6 +17,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		private bool _deleted;
 
+		public ReadOnlyActionCollection Actions { get; }
 		public AttachmentCollection Attachments { get; }
 		public BadgesContext BadgesContext { get; }
 		public CheckListCollection CheckLists { get; }
@@ -127,9 +128,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			: base(auth)
 		{
 			Data.Id = id;
+			Actions = new ReadOnlyActionCollection(typeof(Card), () => Data.Id, auth);
 			Attachments = new AttachmentCollection(() => Data.Id, auth);
 			BadgesContext = new BadgesContext(Auth);
 			BadgesContext.SynchronizeRequested += ct => Synchronize(ct);
+			CheckLists = new CheckListCollection(() => Data.Id, auth);
+			Comments = new CommentCollection(() => Data.Id, auth);
+			Labels = new CardLabelCollection(this, auth);
+			Members = new MemberCollection(EntityRequestType.Card_Read_Members, () => Data.Id, auth);
+			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Card_Read_PowerUpData, () => Data.Id, auth);
+			Stickers = new CardStickerCollection(() => Data.Id, auth);
+			VotingMembers = new ReadOnlyMemberCollection(EntityRequestType.Card_Read_MembersVoted, () => Data.Id, auth);
 			Data.Badges = BadgesContext.Data;
 		}
 
@@ -149,6 +158,19 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["attachments"] = "true";
 				if (parameterFields.HasFlag(Card.Fields.CustomFields))
 					Parameters["customFieldItems"] = "true";
+				if (parameterFields.HasFlag(Card.Fields.CheckLists))
+					Parameters["checklists"] = "all";
+				if (parameterFields.HasFlag(Card.Fields.Comments))
+				{
+					Parameters["actions"] = "commentCard";
+					Parameters["actions_format"] = "list";
+				}
+				if (parameterFields.HasFlag(Card.Fields.Members))
+					Parameters["members"] = "true";
+				if (parameterFields.HasFlag(Card.Fields.Stickers))
+					Parameters["stickers"] = "true";
+				if (parameterFields.HasFlag(Card.Fields.VotingMembers))
+					Parameters["membersVoted"] = "true";
 			}
 		}
 
@@ -201,10 +223,55 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonCard json)
 		{
-			if (json.Attachments != null)
-				Attachments.Update(json.Attachments.Select(a => a.TryGetFromCache<Attachment>() ?? new Attachment(a, Data.Id, Auth)));
+			var properties = BadgesContext.Merge(json.Badges).ToList();
 
-			return BadgesContext.Merge(json.Badges);
+			if (json.Actions != null)
+			{
+				Actions.Update(json.Actions.Select(a => a.TryGetFromCache<Action, IJsonAction>() ?? new Action(a, Auth)));
+				properties.Add(nameof(Card.Actions));
+			}
+			if (json.Attachments != null)
+			{
+				Attachments.Update(json.Attachments.Select(a => a.TryGetFromCache<Attachment, IJsonAttachment>() ?? new Attachment(a, Data.Id, Auth)));
+				properties.Add(nameof(Card.Attachments));
+			}
+			if (json.CheckLists != null)
+			{
+				CheckLists.Update(json.CheckLists.Select(a => a.TryGetFromCache<CheckList>() ?? new CheckList(a, Auth)));
+				properties.Add(nameof(Card.CheckLists));
+			}
+			if (json.Comments != null)
+			{
+				Comments.Update(json.Comments.Select(a => a.TryGetFromCache<Action>() ?? new Action(a, Auth)));
+				properties.Add(nameof(Card.Comments));
+			}
+			if (json.Labels != null)
+			{
+				Labels.Update(json.Labels.Select(a => a.TryGetFromCache<Label>() ?? new Label(a, Auth)));
+				properties.Add(nameof(Card.Labels));
+			}
+			if (json.Members != null)
+			{
+				Members.Update(json.Members.Select(a => a.TryGetFromCache<Member, IJsonMember>() ?? new Member(a, Auth)));
+				properties.Add(nameof(Card.Members));
+			}
+			if (json.PowerUpData != null)
+			{
+				PowerUpData.Update(json.PowerUpData.Select(a => a.TryGetFromCache<PowerUpData>() ?? new PowerUpData(a, Auth)));
+				properties.Add(nameof(Card.PowerUpData));
+			}
+			if (json.Stickers != null)
+			{
+				Stickers.Update(json.Stickers.Select(a => a.TryGetFromCache<Sticker>() ?? new Sticker(a, Data.Id, Auth)));
+				properties.Add(nameof(Card.Stickers));
+			}
+			if (json.MembersVoted != null)
+			{
+				VotingMembers.Update(json.MembersVoted.Select(a => a.TryGetFromCache<Member>() ?? new Member(a, Auth)));
+				properties.Add(nameof(Card.VotingMembers));
+			}
+
+			return properties;
 		}
 		protected override bool CanUpdate()
 		{

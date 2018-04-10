@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an attachment to a card.
 	/// </summary>
-	public class Attachment : IAttachment
+	public class Attachment : IAttachment, IMergeJson<IJsonAttachment>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for attachments.
@@ -212,6 +212,11 @@ namespace Manatee.Trello
 		public override string ToString()
 		{
 			return Name;
+		}
+
+		void IMergeJson<IJsonAttachment>.Merge(IJsonAttachment json)
+		{
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

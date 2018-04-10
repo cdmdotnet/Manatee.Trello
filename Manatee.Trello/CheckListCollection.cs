@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -11,8 +12,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CheckListCollection : ReadOnlyCheckListCollection, ICheckListCollection
 	{
-		internal CheckListCollection(Card card, TrelloAuthorization auth)
-			: base(card, auth) {}
+		internal CheckListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 
 		/// <summary>
 		/// Creates a new checklist, optionally by copying a checklist.

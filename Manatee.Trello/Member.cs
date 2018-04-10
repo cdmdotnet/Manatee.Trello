@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member.
 	/// </summary>
-	public class Member : IMember
+	public class Member : IMember, IMergeJson<IJsonMember>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for members.
@@ -319,6 +319,11 @@ namespace Manatee.Trello
 		public override string ToString()
 		{
 			return FullName;
+		}
+
+		void IMergeJson<IJsonMember>.Merge(IJsonMember json)
+		{
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

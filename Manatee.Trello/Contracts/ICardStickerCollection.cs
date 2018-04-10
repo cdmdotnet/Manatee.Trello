@@ -6,7 +6,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A collection of <see cref="ISticker"/>s.
 	/// </summary>
-	public interface ICardStickerCollection
+	public interface ICardStickerCollection : IReadOnlyCollection<ISticker>
 	{
 		/// <summary>
 		/// Adds a <see cref="ISticker"/> to a <see cref="Card"/>.

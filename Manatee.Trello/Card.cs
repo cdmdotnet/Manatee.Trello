@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
-using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -29,92 +28,112 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Badges property should be populated.
 			/// </summary>
-			[Display(Description="badges")]
+			[Display(Description = "badges")]
 			Badges = 1,
+
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="idBoard")]
+			[Display(Description = "idBoard")]
 			Board = 1 << 1,
+
 			/// <summary>
 			/// Indicates the Checklists property should be populated.
 			/// </summary>
-			[Display(Description="idCheckLists")]
+			[Display(Description = "idCheckLists")]
 			Checklists = 1 << 2,
+
 			/// <summary>
 			/// Indicates the DateLastActivity property should be populated.
 			/// </summary>
-			[Display(Description="dateLastActivity")]
+			[Display(Description = "dateLastActivity")]
 			DateLastActivity = 1 << 3,
+
 			/// <summary>
 			/// Indicates the Description property should be populated.
 			/// </summary>
-			[Display(Description="desc")]
+			[Display(Description = "desc")]
 			Description = 1 << 4,
+
 			/// <summary>
 			/// Indicates the Due property should be populated.
 			/// </summary>
-			[Display(Description="due")]
+			[Display(Description = "due")]
 			Due = 1 << 5,
+
 			/// <summary>
 			/// Indicates the IsArchived property should be populated.
 			/// </summary>
-			[Display(Description="closed")]
+			[Display(Description = "closed")]
 			IsArchived = 1 << 6,
+
 			/// <summary>
 			/// Indicates the IsComplete property should be populated.
 			/// </summary>
-			[Display(Description="dueComplete")]
+			[Display(Description = "dueComplete")]
 			IsComplete = 1 << 7,
+
 			/// <summary>
 			/// Indicates the IsSubscribed property should be populated.
 			/// </summary>
-			[Display(Description="subscribed")]
+			[Display(Description = "subscribed")]
 			IsSubscribed = 1 << 8,
+
 			/// <summary>
 			/// Indicates the Labels property should be populated.
 			/// </summary>
-			[Display(Description="idLabels")]
+			[Display(Description = "idLabels")]
 			Labels = 1 << 9,
+
 			/// <summary>
 			/// Indicates the List property should be populated.
 			/// </summary>
-			[Display(Description="idList")]
+			[Display(Description = "idList")]
 			List = 1 << 10,
+
 			/// <summary>
 			/// Indicates the ManualCoverAttachment property should be populated.
 			/// </summary>
-			[Display(Description="manualCoverAttachment")]
+			[Display(Description = "manualCoverAttachment")]
 			ManualCoverAttachment = 1 << 11,
+
 			/// <summary>
 			/// Indicates the Name property should be populated.
 			/// </summary>
-			[Display(Description="name")]
+			[Display(Description = "name")]
 			Name = 1 << 12,
+
 			/// <summary>
 			/// Indicates the Position property should be populated.
 			/// </summary>
-			[Display(Description="pos")]
+			[Display(Description = "pos")]
 			Position = 1 << 13,
+
 			/// <summary>
 			/// Indicates the ShortId property should be populated.
 			/// </summary>
-			[Display(Description="idShort")]
+			[Display(Description = "idShort")]
 			ShortId = 1 << 14,
+
 			/// <summary>
 			/// Indicates the ShortUrl property should be populated.
 			/// </summary>
-			[Display(Description="shortUrl")]
+			[Display(Description = "shortUrl")]
 			ShortUrl = 1 << 15,
+
 			/// <summary>
 			/// Indicates the Url property should be populated.
 			/// </summary>
-			[Display(Description="url")]
+			[Display(Description = "url")]
 			Url = 1 << 16,
-			[Display(Description="url")]
-			Attachments = 1 << 17,
-			[Display(Description="url")]
-			CustomFields = 1 << 18
+			//Actions = 1 << 17,
+			Attachments = 1 << 18,
+			CustomFields = 1 << 19,
+			CheckLists = 1 << 20,
+			Comments = 1 << 21,
+			Members = 1 << 22,
+			Stickers = 1 << 23,
+			VotingMembers = 1 << 24,
 		}
 
 		private readonly Field<Board> _board;
@@ -159,22 +178,27 @@ namespace Manatee.Trello
 		/// Gets the collection of attachments contained in the card.
 		/// </summary>
 		public IAttachmentCollection Attachments => _context.Attachments;
+
 		/// <summary>
 		/// Gets the badges summarizing the card's content.
 		/// </summary>
 		public IBadges Badges { get; }
+
 		/// <summary>
 		/// Gets the board to which the card belongs.
 		/// </summary>
 		public IBoard Board => _board.Value;
+
 		/// <summary>
 		/// Gets the collection of checklists contained in the card.
 		/// </summary>
-		public ICheckListCollection CheckLists { get; }
+		public ICheckListCollection CheckLists => _context.CheckLists;
+
 		/// <summary>
 		/// Gets the collection of comments made on the card.
 		/// </summary>
-		public ICommentCollection Comments { get; }
+		public ICommentCollection Comments => _context.Comments;
+
 		/// <summary>
 		/// Gets the creation date of the card.
 		/// </summary>
@@ -187,7 +211,9 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
+
 		public IEnumerable<CustomField> CustomFields => Json.CustomFields?.Select(f => f.GetFromCache<CustomField>(_auth));
+
 		/// <summary>
 		/// Gets or sets the card's description.
 		/// </summary>
@@ -196,6 +222,7 @@ namespace Manatee.Trello
 			get { return _description.Value; }
 			set { _description.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets the card's due date.
 		/// </summary>
@@ -204,6 +231,7 @@ namespace Manatee.Trello
 			get { return _dueDate.Value; }
 			set { _dueDate.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets the card's ID.
 		/// </summary>
@@ -217,6 +245,7 @@ namespace Manatee.Trello
 			}
 			private set { _id = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets whether the card is archived.
 		/// </summary>
@@ -225,6 +254,7 @@ namespace Manatee.Trello
 			get { return _isArchived.Value; }
 			set { _isArchived.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets whether the card is complete.  Associated with <see cref="DueDate"/>.
 		/// </summary>
@@ -233,6 +263,7 @@ namespace Manatee.Trello
 			get { return _isComplete.Value; }
 			set { _isComplete.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to the card.
 		/// </summary>
@@ -241,14 +272,17 @@ namespace Manatee.Trello
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets the collection of labels on the card.
 		/// </summary>
-		public ICardLabelCollection Labels { get; }
+		public ICardLabelCollection Labels => _context.Labels;
+
 		/// <summary>
 		/// Gets the most recent date of activity on the card.
 		/// </summary>
 		public DateTime? LastActivity => _lastActivity.Value;
+
 		/// <summary>
 		/// Gets or sets the list to the card belongs.
 		/// </summary>
@@ -261,10 +295,12 @@ namespace Manatee.Trello
 				_board.Value = (Board) value.Board;
 			}
 		}
+
 		/// <summary>
 		/// Gets the collection of members who are assigned to the card.
 		/// </summary>
-		public IMemberCollection Members { get; }
+		public IMemberCollection Members => _context.Members;
+
 		/// <summary>
 		/// Gets or sets the card's name.
 		/// </summary>
@@ -273,6 +309,7 @@ namespace Manatee.Trello
 			get { return _name.Value; }
 			set { _name.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets the card's position.
 		/// </summary>
@@ -281,14 +318,17 @@ namespace Manatee.Trello
 			get { return _position.Value; }
 			set { _position.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets card-specific power-up data.
 		/// </summary>
-		public IReadOnlyCollection<IPowerUpData> PowerUpData { get; }
+		public IReadOnlyCollection<IPowerUpData> PowerUpData => _context.PowerUpData;
+
 		/// <summary>
 		/// Gets the card's short ID.
 		/// </summary>
 		public int? ShortId => _shortId.Value;
+
 		/// <summary>
 		/// Gets the card's short URL.
 		/// </summary>
@@ -296,10 +336,12 @@ namespace Manatee.Trello
 		/// Because this value does not change, it can be used as a permalink.
 		/// </remarks>
 		public string ShortUrl => _shortUrl.Value;
+
 		/// <summary>
 		/// Gets the collection of stickers which appear on the card.
 		/// </summary>
-		public ICardStickerCollection Stickers { get; }
+		public ICardStickerCollection Stickers => _context.Stickers;
+
 		/// <summary>
 		/// Gets the card's full URL.
 		/// </summary>
@@ -307,10 +349,11 @@ namespace Manatee.Trello
 		/// Trello will likely change this value as the name changes.  You can use <see cref="ShortUrl"/> for permalinks.
 		/// </remarks>
 		public string Url => _url.Value;
+
 		/// <summary>
 		/// Gets all members who have voted for this card.
 		/// </summary>
-		public IReadOnlyCollection<IMember> VotingMembers { get; }
+		public IReadOnlyCollection<IMember> VotingMembers => _context.VotingMembers;
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.
@@ -321,6 +364,7 @@ namespace Manatee.Trello
 		/// Matches on <see cref="ICheckList.Id"/> and <see cref="ICheckList.Name"/>.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICheckList this[string key] => CheckLists[key];
+
 		/// <summary>
 		/// Retrieves the check list at the specified index.
 		/// </summary>
@@ -344,8 +388,9 @@ namespace Manatee.Trello
 
 		static Card()
 		{
-			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+			DownloadedFields = (Fields) Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="Card"/> object.
 		/// </summary>
@@ -365,8 +410,6 @@ namespace Manatee.Trello
 			Badges = new Badges(_context.BadgesContext);
 			_board = new Field<Board>(_context, nameof(Board));
 			_board.AddRule(NotNullRule<Board>.Instance);
-			CheckLists = new CheckListCollection(this, auth);
-			Comments = new CommentCollection(() => Id, auth);
 			_description = new Field<string>(_context, nameof(Description));
 			_dueDate = new Field<DateTime?>(_context, nameof(DueDate));
 			_isComplete = new Field<bool?>(_context, nameof(IsComplete));
@@ -374,24 +417,20 @@ namespace Manatee.Trello
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
-			Labels = new CardLabelCollection(_context, auth);
 			_lastActivity = new Field<DateTime?>(_context, nameof(LastActivity));
 			_list = new Field<List>(_context, nameof(List));
 			_list.AddRule(NotNullRule<IList>.Instance);
-			Members = new MemberCollection(EntityRequestType.Card_Read_Members, () => Id, auth);
 			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, nameof(Position));
 			_position.AddRule(PositionRule.Instance);
-			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Card_Read_PowerUpData, () => Id, auth);
 			_shortId = new Field<int?>(_context, nameof(ShortId));
 			_shortUrl = new Field<string>(_context, nameof(ShortUrl));
-			Stickers = new CardStickerCollection(() => Id, auth);
 			_url = new Field<string>(_context, nameof(Url));
-			VotingMembers = new ReadOnlyMemberCollection(EntityRequestType.Card_Read_MembersVoted, () => Id, auth);
 
 			TrelloConfiguration.Cache.Add(this);
 		}
+
 		internal Card(IJsonCard json, TrelloAuthorization auth)
 			: this(json.Id, auth)
 		{
@@ -406,8 +445,9 @@ namespace Manatee.Trello
 		{
 			if (action.Type != ActionType.UpdateCard || action.Data.Card == null || action.Data.Card.Id != Id) return;
 
-			_context.Merge(((Card)action.Data.Card).Json);
+			_context.Merge(((Card) action.Data.Card).Json);
 		}
+
 		/// <summary>
 		/// Permanently deletes the card from Trello.
 		/// </summary>
@@ -419,6 +459,7 @@ namespace Manatee.Trello
 			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
 		/// Marks the card to be refreshed the next time data is accessed.
 		/// </summary>
@@ -426,6 +467,7 @@ namespace Manatee.Trello
 		{
 			await _context.Expire(ct);
 		}
+
 		/// <summary>
 		/// Returns the <see cref="Name"/>, or <see cref="ShortId"/> if the card has been deleted.
 		/// </summary>
