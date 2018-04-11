@@ -11,6 +11,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Properties = new Dictionary<string, Property<IJsonActionData>>
 				{
+					// todo: update these to retrieve from cache
 					{
 						nameof(ActionData.Attachment),
 						new Property<IJsonActionData, Attachment>((d, a) => d.Attachment == null
@@ -77,6 +78,16 @@ namespace Manatee.Trello.Internal.Synchronization
 						                                         (d, o) =>
 							                                         {
 								                                         if (o != null) d.CheckList = o.Json;
+							                                         })
+					},
+					{
+						nameof(ActionData.CustomField),
+						new Property<IJsonActionData, CustomField>((d, a) => d.CustomField == null
+							                                                     ? null
+							                                                     : d.CustomField.GetFromCache<CustomField>(a),
+						                                         (d, o) =>
+							                                         {
+								                                         if (o != null) d.CustomField = o.Json;
 							                                         })
 					},
 					{

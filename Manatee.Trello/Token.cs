@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a user token.
 	/// </summary>
-	public class Token : IToken
+	public class Token : IToken, IMergeJson<IJsonToken>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for tokens.
@@ -164,6 +164,12 @@ namespace Manatee.Trello
 		{
 			await _context.Expire(ct);
 		}
+
+		void IMergeJson<IJsonToken>.Merge(IJsonToken json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="AppName"/>.
 		/// </summary>

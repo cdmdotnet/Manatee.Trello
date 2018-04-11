@@ -11,55 +11,68 @@ namespace Manatee.Trello
 		/// Not recognized.  May have been created since the current version of this API.
 		/// </summary>
 		Unknown,
+
+		[Display(Description = "none")]
+		None,
+
 		/// <summary>
 		/// Indicates a green label.
 		/// </summary>
-		[Display(Description="green")]
+		[Display(Description = "green")]
 		Green,
+
 		/// <summary>
 		/// Indicates a yellow label.
 		/// </summary>
-		[Display(Description="yellow")]
+		[Display(Description = "yellow")]
 		Yellow,
+
 		/// <summary>
 		/// Indicates an orange label.
 		/// </summary>
-		[Display(Description="orange")]
+		[Display(Description = "orange")]
 		Orange,
+
 		/// <summary>
 		/// Indicates a red label.
 		/// </summary>
-		[Display(Description="red")]
+		[Display(Description = "red")]
 		Red,
+
 		/// <summary>
 		/// Indicates a purple label.
 		/// </summary>
-		[Display(Description="purple")]
+		[Display(Description = "purple")]
 		Purple,
+
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Display(Description="blue")]
+		[Display(Description = "blue")]
 		Blue,
+
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Display(Description="pink")]
+		[Display(Description = "pink")]
 		Pink,
+
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Display(Description="sky")]
+		[Display(Description = "sky")]
 		Sky,
+
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Display(Description="lime")]
+		[Display(Description = "lime")]
 		Lime,
+
 		/// <summary>
 		/// Indicates a blue label.
 		/// </summary>
-		[Display(Description="black")]
+		[Display(Description = "black")]
 		Black,
 	}
 }

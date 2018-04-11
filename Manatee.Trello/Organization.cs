@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an organization.
 	/// </summary>
-	public class Organization : IOrganization
+	public class Organization : IOrganization, IMergeJson<IJsonOrganization>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for organizations (teams).
@@ -247,6 +247,12 @@ namespace Manatee.Trello
 		{
 			await _context.Expire(ct);
 		}
+
+		void IMergeJson<IJsonOrganization>.Merge(IJsonOrganization json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="DisplayName"/>.
 		/// </summary>

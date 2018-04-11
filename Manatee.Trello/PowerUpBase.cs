@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Provides a base implementation for Trello Power-Ups.
 	/// </summary>
-	public abstract class PowerUpBase : IPowerUp
+	public abstract class PowerUpBase : IPowerUp, IMergeJson<IJsonPowerUp>
 	{
 		private readonly Field<string> _name;
 		private readonly Field<bool?> _isPublic;
@@ -48,6 +48,11 @@ namespace Manatee.Trello
 			_additionalInfo = new Field<string>(_context, nameof(AdditionalInfo));
 			_name = new Field<string>(_context, nameof(Name));
 			_isPublic = new Field<bool?>(_context, nameof(IsPublic));
+		}
+
+		void IMergeJson<IJsonPowerUp>.Merge(IJsonPowerUp json)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>Returns the <see cref="Name"/></summary>

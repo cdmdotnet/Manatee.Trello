@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
@@ -10,11 +12,23 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class ListContext : SynchronizationContext<IJsonList>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly List.Fields MemberFields;
+
 		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+
+		public ReadOnlyActionCollection Actions { get; }
+		public CardCollection Cards { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static ListContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = List.Fields.Name |
+			               List.Fields.IsClosed |
+			               List.Fields.Board |
+			               List.Fields.Position |
+			               List.Fields.IsSubscribed;
 			Properties = new Dictionary<string, Property<IJsonList>>
 				{
 					{
@@ -51,12 +65,42 @@ namespace Manatee.Trello.Internal.Synchronization
 			: base(auth)
 		{
 			Data.Id = id;
+
+			Actions = new ReadOnlyActionCollection(typeof(List), () => Data.Id, auth);
+			Cards = new CardCollection(() => Data.Id, auth);
+		}
+
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(List.Fields)).Cast<List.Fields>().ToList();
+				var availableFields = (List.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields;
+				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & (~MemberFields);
+				if (parameterFields.HasFlag(List.Fields.Actions))
+				{
+					Parameters["actions"] = "all";
+					Parameters["actions_format"] = "list";
+				}
+				if (parameterFields.HasFlag(List.Fields.Cards))
+					Parameters["cards"] = "visible";
+			}
 		}
 
 		protected override async Task<IJsonList> GetData(CancellationToken ct)
 		{
+			Dictionary<string, object> parameters;
+			lock (Parameters)
+			{
+				parameters = new Dictionary<string, object>(Parameters);
+			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonList>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<IJsonList>(Auth, endpoint, ct, parameters);
 
 			return newData;
 		}
@@ -65,6 +109,24 @@ namespace Manatee.Trello.Internal.Synchronization
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
+		}
+
+		protected override IEnumerable<string> MergeDependencies(IJsonList json)
+		{
+			var properties = base.MergeDependencies(json).ToList();
+
+			if (json.Actions != null)
+			{
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				properties.Add(nameof(List.Actions));
+			}
+			if (json.Cards != null)
+			{
+				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth)));
+				properties.Add(nameof(List.Cards));
+			}
+
+			return properties;
 		}
 	}
 }

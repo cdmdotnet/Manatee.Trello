@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
@@ -35,5 +37,7 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Subscribed { get; set; }
+		List<IJsonAction> Actions { get; set; }
+		List<IJsonCard> Cards { get; set; }
 	}
 }

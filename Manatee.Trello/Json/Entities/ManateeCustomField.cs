@@ -22,8 +22,9 @@ namespace Manatee.Trello.Json.Entities
 				case JsonValueType.Object:
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
-					Definition = obj.Deserialize<IJsonCustomFieldDefinition>(serializer, "idCustomField");
+					Definition = serializer.Deserialize<IJsonCustomFieldDefinition>(obj);
 					Selected = obj.Deserialize<IJsonCustomDropDownOption>(serializer, "idValue");
+					Type = obj.Deserialize<CustomFieldType?>(serializer, "type") ?? CustomFieldType.Unknown;
 					if (Selected != null)
 					{
 						Type = CustomFieldType.DropDown;

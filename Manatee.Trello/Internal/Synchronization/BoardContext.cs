@@ -158,7 +158,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["memberships"] = "all";
 				if (parameterFields.HasFlag(Board.Fields.PowerUps))
 					Parameters["plugins"] = "true";
-				if (parameterFields.HasFlag(Board.Fields.Members))
+				if (parameterFields.HasFlag(Board.Fields.PowerUpData))
 					Parameters["pluginData"] = "true";
 			}
 		}

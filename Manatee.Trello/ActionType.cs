@@ -390,6 +390,12 @@ namespace Manatee.Trello
 		public static readonly ActionType UpdateCheckItemStateOnCard;
 
 		/// <summary>
+		/// Indicates that a <see cref="CustomField"/> was updated.
+		/// </summary>
+		[Display(Description = "updateCustomField")]
+		public static readonly ActionType UpdateCustomField;
+
+		/// <summary>
 		/// Indicates a <see cref="CheckList"/> was updated.
 		/// </summary>
 		[Display(Description = "updateChecklist")]

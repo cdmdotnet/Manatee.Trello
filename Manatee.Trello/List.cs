@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
@@ -46,7 +45,9 @@ namespace Manatee.Trello
 			/// Indicates the Susbcribed property should be populated.
 			/// </summary>
 			[Display(Description="subscribed")]
-			Subscribed = 1 << 4
+			IsSubscribed = 1 << 4,
+			Actions = 1 << 5,
+			Cards = 1 << 6
 		}
 
 		private readonly Field<Board> _board;
@@ -58,16 +59,25 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				ListContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions { get; }
+		public IReadOnlyCollection<IAction> Actions => _context.Actions;
 		/// <summary>
 		/// Gets or sets the board on which the list belongs.
 		/// </summary>
@@ -79,7 +89,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of cards contained in the list.
 		/// </summary>
-		public ICardCollection Cards { get; }
+		public ICardCollection Cards => _context.Cards;
 		/// <summary>
 		/// Gets the creation date of the list.
 		/// </summary>
@@ -179,10 +189,8 @@ namespace Manatee.Trello
 			_context = new ListContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(List), () => Id, auth);
 			_board = new Field<Board>(_context, nameof(Board));
 			_board.AddRule(NotNullRule<Board>.Instance);
-			Cards = new CardCollection(() => Id, auth);
 			_isArchived = new Field<bool?>(_context, nameof(IsArchived));
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));

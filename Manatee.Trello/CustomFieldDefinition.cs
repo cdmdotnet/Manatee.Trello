@@ -5,7 +5,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class CustomFieldDefinition : ICacheable
+	public class CustomFieldDefinition : ICustomFieldDefinition
 	{
 		private readonly TrelloAuthorization _auth;
 

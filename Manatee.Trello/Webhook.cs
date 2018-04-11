@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
@@ -12,7 +13,7 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : IWebhook<T>
+	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>
 		where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
@@ -97,7 +98,8 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Webhook(string id, WebhookContext<T> context)
+
+		private Webhook(string id, WebhookContext<T> context)
 		{
 			Id = id;
 			_context.Synchronized += Synchronized;
@@ -145,6 +147,11 @@ namespace Manatee.Trello
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Expire(ct);
+		}
+
+		void IMergeJson<IJsonWebhook>.Merge(IJsonWebhook json)
+		{
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

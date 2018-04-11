@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a notification.
 	/// </summary>
-	public class Notification : INotification
+	public class Notification : INotification, IMergeJson<IJsonNotification>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for notifications.
@@ -172,6 +172,11 @@ namespace Manatee.Trello
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Expire(ct);
+		}
+
+		void IMergeJson<IJsonNotification>.Merge(IJsonNotification json)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>

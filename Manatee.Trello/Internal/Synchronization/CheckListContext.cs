@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
@@ -9,10 +11,20 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class CheckListContext : SynchronizationContext<IJsonCheckList>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly CheckList.Fields MemberFields;
+
 		private bool _deleted;
+
+		public CheckItemCollection CheckItems { get; }
 
 		static CheckListContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = CheckList.Fields.Name |
+			               CheckList.Fields.Board |
+			               CheckList.Fields.Card |
+						   CheckList.Fields.Position;
 			Properties = new Dictionary<string, Property<IJsonCheckList>>
 				{
 					{
@@ -24,10 +36,6 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(CheckList.Card),
 						new Property<IJsonCheckList, Card>((d, a) => d.Card.GetFromCache<Card>(a),
 						                                   (d, o) => d.Card = o?.Json)
-					},
-					{
-						nameof(CheckList.CheckItems),
-						new Property<IJsonCheckList, List<IJsonCheckItem>>((d, a) => d.CheckItems, (d, o) => d.CheckItems = o)
 					},
 					{
 						nameof(CheckList.Id),
@@ -48,6 +56,25 @@ namespace Manatee.Trello.Internal.Synchronization
 			: base(auth)
 		{
 			Data.Id = id;
+
+			CheckItems = new CheckItemCollection(this, auth);
+		}
+
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(CheckList.Fields)).Cast<CheckList.Fields>().ToList();
+				var availableFields = (CheckList.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields;
+				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & (~MemberFields);
+				if (parameterFields.HasFlag(CheckList.Fields.CheckItems))
+					Parameters["cards"] = "all";
+			}
 		}
 
 		public async Task Delete(CancellationToken ct)
@@ -65,8 +92,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = new Dictionary<string, object>(Parameters);
+				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.CheckList_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCheckList>(Auth, endpoint, ct);
+				var newData = await JsonRepository.Execute<IJsonCheckList>(Auth, endpoint, ct, parameters);
 
 				MarkInitialized();
 				return newData;
@@ -84,6 +116,20 @@ namespace Manatee.Trello.Internal.Synchronization
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
 		}
+
+		protected override IEnumerable<string> MergeDependencies(IJsonCheckList json)
+		{
+			var properties = base.MergeDependencies(json).ToList();
+
+			if (json.CheckItems != null)
+			{
+				CheckItems.Update(json.CheckItems.Select(a => a.GetFromCache<CheckItem, IJsonCheckItem>(Auth)));
+				properties.Add(nameof(CheckList.CheckItems));
+			}
+
+			return properties;
+		}
+
 		protected override bool CanUpdate()
 		{
 			return !_deleted;

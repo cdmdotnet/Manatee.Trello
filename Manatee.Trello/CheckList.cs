@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
@@ -55,11 +54,20 @@ namespace Manatee.Trello
 		private readonly Field<Position> _position;
 		private readonly CheckListContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				CheckListContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the board on which the checklist belongs.
@@ -73,10 +81,11 @@ namespace Manatee.Trello
 			get { return _card.Value; }
 			set { _card.Value = (Card) value; }
 		}
+
 		/// <summary>
 		/// Gets the collection of items in the checklist.
 		/// </summary>
-		public ICheckItemCollection CheckItems { get; }
+		public ICheckItemCollection CheckItems => _context.CheckItems;
 		/// <summary>
 		/// Gets the creation date of the checklist.
 		/// </summary>
@@ -154,7 +163,6 @@ namespace Manatee.Trello
 			_board = new Field<Board>(_context, nameof(Board));
 			_card = new Field<Card>(_context, nameof(Card));
 			_card.AddRule(NotNullRule<Card>.Instance);
-			CheckItems = new CheckItemCollection(_context, auth);
 			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, nameof(Position));

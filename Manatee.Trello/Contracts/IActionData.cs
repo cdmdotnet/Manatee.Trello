@@ -47,6 +47,8 @@ namespace Manatee.Trello
 		/// </summary>
 		ICheckList CheckList { get; }
 
+		ICustomField CustomField { get; }
+
 		/// <summary>
 		/// Gets the associated label.
 		/// </summary>
