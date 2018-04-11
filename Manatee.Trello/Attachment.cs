@@ -178,6 +178,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<IAttachment, IEnumerable<string>> Updated;
 
+		static Attachment()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
+
 		internal Attachment(IJsonAttachment json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;

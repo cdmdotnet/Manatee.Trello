@@ -43,7 +43,7 @@ namespace Manatee.Trello.Json.Entities
 					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
 					Boards = obj.Deserialize<List<IJsonBoard>>(serializer, "boards");
 					Members = obj.Deserialize<List<IJsonMember>>(serializer, "members");
-					Memberships = obj.Deserialize<List<IJsonOrganizationMembership>>(serializer, "membership");
+					Memberships = obj.Deserialize<List<IJsonOrganizationMembership>>(serializer, "memberships");
 					PowerUpData = obj.Deserialize<List<IJsonPowerUpData>>(serializer, "pluginData");
 					break;
 				case JsonValueType.String:

@@ -89,6 +89,13 @@ namespace Manatee.Trello
 			await _context.Expire(ct);
 		}
 
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return $"{Member} ({MemberType})";
+		}
+
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;

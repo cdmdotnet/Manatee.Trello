@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
@@ -8,11 +10,18 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class CheckItemContext : SynchronizationContext<IJsonCheckItem>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly CheckItem.Fields MemberFields;
+
 		private readonly string _ownerId;
 		private bool _deleted;
 
 		static CheckItemContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = CheckItem.Fields.Name |
+			               CheckItem.Fields.Position |
+			               CheckItem.Fields.State;
 			Properties = new Dictionary<string, Property<IJsonCheckItem>>
 				{
 					{
@@ -41,6 +50,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 		}
 
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(CheckItem.Fields)).Cast<CheckItem.Fields>().ToList();
+				var availableFields = (CheckItem.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields & CheckItem.DownloadedFields;
+				Parameters["fields"] = memberFields.GetDescription();
+			}
+		}
+
 		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
@@ -57,9 +79,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = new Dictionary<string, object>(Parameters);
+				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh,
 				                                     new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCheckItem>(Auth, endpoint, ct);
+				var newData = await JsonRepository.Execute<IJsonCheckItem>(Auth, endpoint, ct, parameters);
 
 				MarkInitialized();
 				return newData;

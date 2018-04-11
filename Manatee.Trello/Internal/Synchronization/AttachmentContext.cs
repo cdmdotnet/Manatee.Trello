@@ -106,6 +106,30 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
+		protected override async Task<IJsonAttachment> GetData(CancellationToken ct)
+		{
+			try
+			{
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = new Dictionary<string, object>(Parameters);
+				}
+				var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Read_Refresh,
+				                                     new Dictionary<string, object> { { "_cardId", _ownerId }, { "_id", Data.Id } });
+				var newData = await JsonRepository.Execute<IJsonAttachment>(Auth, endpoint, ct, parameters);
+
+				MarkInitialized();
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!e.IsNotFoundError() || !IsInitialized) throw;
+				_deleted = true;
+				return Data;
+			}
+		}
+
 		protected override async Task SubmitData(IJsonAttachment json, CancellationToken ct)
 		{
 			// This may make a call to get the card, but it can't be avoided.  We need its ID.

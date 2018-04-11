@@ -136,8 +136,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = new Dictionary<string, object>(Parameters);
+				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonOrganization>(Auth, endpoint, ct);
+				var newData = await JsonRepository.Execute<IJsonOrganization>(Auth, endpoint, ct, parameters);
 
 				MarkInitialized();
 				return newData;
@@ -184,7 +189,8 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 			if (json.Memberships != null)
 			{
-				Memberships.Update(json.Memberships.Select(a => a.GetFromCache<OrganizationMembership, IJsonOrganizationMembership>(Auth)));
+				Memberships.Update(json.Memberships.Select(a => a.TryGetFromCache<OrganizationMembership, IJsonOrganizationMembership>() ??
+				                                                new OrganizationMembership(a, Data.Id, Auth)));
 				properties.Add(nameof(Organization.Memberships));
 			}
 			if (json.PowerUpData != null)

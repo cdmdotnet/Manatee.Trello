@@ -45,11 +45,20 @@ namespace Manatee.Trello
 		private readonly Field<CheckItemState?> _state;
 		private readonly CheckItemContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				CheckItemContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.
@@ -110,6 +119,11 @@ namespace Manatee.Trello
 		/// Raised when data on the checklist item is updated.
 		/// </summary>
 		public event Action<ICheckItem, IEnumerable<string>> Updated;
+
+		static CheckItem()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		internal CheckItem(IJsonCheckItem json, string checkListId, TrelloAuthorization auth = null)
 		{

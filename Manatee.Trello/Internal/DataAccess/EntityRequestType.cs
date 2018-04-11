@@ -8,6 +8,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Action_Read_Refresh,
 		Action_Write_Delete,
 		Action_Write_Update,
+		Attachment_Read_Refresh,
 		Attachment_Write_Delete,
 		Attachment_Write_Update,
 		Board_Read_Actions,
