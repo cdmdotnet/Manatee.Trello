@@ -12,11 +12,11 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class SearchContext : SynchronizationContext<IJsonSearch>
 	{
-		private static readonly Dictionary<Type, Func<ICacheable, IJsonCacheable>> _jsonExtraction;
+		private static readonly Dictionary<Type, Func<ICacheable, IJsonCacheable>> JsonExtraction;
 
 		static SearchContext()
 		{
-			_jsonExtraction = new Dictionary<Type, Func<ICacheable, IJsonCacheable>>
+			JsonExtraction = new Dictionary<Type, Func<ICacheable, IJsonCacheable>>
 				{
 					{typeof (Action), o => ((Action) o).Json},
 					{typeof (Board), o => ((Board) o).Json},
@@ -29,45 +29,47 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(Search.Actions),
-						new Property<IJsonSearch, IEnumerable<Action>>((d, a) => d.Actions?.Select(j => j.GetFromCache<Action>(a))
-						                                                          .ToList() ?? Enumerable.Empty<Action>(),
-						                                               (d, o) => d.Actions = o?.Select(a => a.Json).ToList())
+						new Property<IJsonSearch, IEnumerable<Action>>(
+							(d, a) => d.Actions?.Select(j => j.GetFromCache<Action>(a)).ToList() ??
+							          Enumerable.Empty<Action>(),
+							(d, o) => d.Actions = o?.Select(a => a.Json).ToList())
 					},
 					{
 						nameof(Search.Boards),
-						new Property<IJsonSearch, IEnumerable<Board>>((d, a) => d.Boards?.Select(j => j.GetFromCache<Board>(a))
-						                                                         .ForEach(b => b.Refresh())
-						                                                         .ToList() ?? Enumerable.Empty<Board>(),
-						                                              (d, o) => d.Boards = o?.Select(a => a.Json).ToList())
+						new Property<IJsonSearch, IEnumerable<Board>>(
+							(d, a) => d.Boards?.Select(j => j.GetFromCache<Board>(a)).ToList() ??
+							          Enumerable.Empty<Board>(),
+							(d, o) => d.Boards = o?.Select(a => a.Json).ToList())
 					},
 					{
 						nameof(Search.Cards),
-						new Property<IJsonSearch, IEnumerable<Card>>((d, a) => d.Cards?.Select(j => j.GetFromCache<Card>(a))
-						                                                        .ForEach(c => c.Refresh())
-						                                                        .ToList() ?? Enumerable.Empty<Card>(),
-						                                             (d, o) => d.Cards = o?.Select(a => a.Json).ToList())
+						new Property<IJsonSearch, IEnumerable<Card>>(
+							(d, a) => d.Cards?.Select(j => j.GetFromCache<Card>(a)).ToList() ??
+							          Enumerable.Empty<Card>(),
+							(d, o) => d.Cards = o?.Select(a => a.Json).ToList())
 					},
 					{
 						nameof(Search.Members),
-						new Property<IJsonSearch, IEnumerable<Member>>((d, a) => d.Members?.Select(j => j.GetFromCache<Member>(a))
-						                                                          .ForEach(m => m.Refresh())
-						                                                          .ToList() ?? Enumerable.Empty<Member>(),
-						                                               (d, o) => d.Members = o?.Select(a => a.Json).ToList())
+						new Property<IJsonSearch, IEnumerable<Member>>(
+							(d, a) => d.Members?.Select(j => j.GetFromCache<Member>(a)).ToList() ??
+							          Enumerable.Empty<Member>(),
+							(d, o) => d.Members = o?.Select(a => a.Json).ToList())
 					},
 					{
 						nameof(Search.Organizations),
-						new Property<IJsonSearch, IEnumerable<Organization>>((d, a) => d.Organizations
-						                                                                ?.Select(j => j.GetFromCache<Organization>(a))
-						                                                                .ForEach(o => o.Refresh())
-						                                                                .ToList() ?? Enumerable.Empty<Organization>(),
-						                                                     (d, o) => d.Organizations = o?.Select(a => a.Json).ToList())
+						new Property<IJsonSearch, IEnumerable<Organization>>(
+							(d, a) => d.Organizations
+							           ?.Select(j => j.GetFromCache<Organization>(a)).ToList() ??
+							          Enumerable.Empty<Organization>(),
+							(d, o) => d.Organizations = o?.Select(a => a.Json).ToList())
 					},
 					{
 						nameof(Search.Query),
-						new Property<IJsonSearch, string>((d, a) => d.Query, (d, o) =>
-							{
-								if (!o.IsNullOrWhiteSpace()) d.Query = o;
-							})
+						new Property<IJsonSearch, string>((d, a) => d.Query,
+						                                  (d, o) =>
+							                                  {
+								                                  if (!o.IsNullOrWhiteSpace()) d.Query = o;
+							                                  })
 					},
 					{
 						nameof(Search.Context),
@@ -80,24 +82,27 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(Search.Types),
-						new Property<IJsonSearch, SearchModelType?>((d, a) => d.Types, (d, o) =>
-							{
-								if (o != 0) d.Types = o;
-							})
+						new Property<IJsonSearch, SearchModelType?>((d, a) => d.Types,
+						                                            (d, o) =>
+							                                            {
+								                                            if (o != 0) d.Types = o;
+							                                            })
 					},
 					{
 						nameof(Search.Limit),
-						new Property<IJsonSearch, int?>((d, a) => d.Limit, (d, o) =>
-							{
-								if (o != 0) d.Limit = o;
-							})
+						new Property<IJsonSearch, int?>((d, a) => d.Limit,
+						                                (d, o) =>
+							                                {
+								                                if (o != 0) d.Limit = o;
+							                                })
 					},
 					{
 						nameof(Search.IsPartial),
-						new Property<IJsonSearch, bool?>((d, a) => d.Partial, (d, o) =>
-							{
-								if (o.HasValue) d.Partial = o.Value;
-							})
+						new Property<IJsonSearch, bool?>((d, a) => d.Partial,
+						                                 (d, o) =>
+							                                 {
+								                                 if (o.HasValue) d.Partial = o.Value;
+							                                 })
 					},
 				};
 		}
@@ -137,7 +142,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		private static IJsonCacheable ExtractData(ICacheable obj)
 		{
-			return _jsonExtraction[obj.GetType()](obj);
+			return JsonExtraction[obj.GetType()](obj);
 		}
 
 		private void TryAddContext<T>(Dictionary<string, object> json, string key)

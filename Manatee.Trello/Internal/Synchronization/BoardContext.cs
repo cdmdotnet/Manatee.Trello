@@ -253,12 +253,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (json.PowerUps != null)
 			{
 				PowerUps.Update(json.PowerUps.Select(a => a.GetFromCache<IPowerUp>(Auth)));
-				properties.Add(nameof(Card.Actions));
+				properties.Add(nameof(Board.PowerUps));
 			}
 			if (json.PowerUpData != null)
 			{
 				PowerUpData.Update(json.PowerUpData.Select(a => a.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth)));
-				properties.Add(nameof(Card.Actions));
+				properties.Add(nameof(Board.PowerUpData));
 			}
 
 			return properties;

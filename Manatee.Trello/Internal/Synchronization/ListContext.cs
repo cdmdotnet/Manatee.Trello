@@ -113,7 +113,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IEnumerable<string> MergeDependencies(IJsonList json)
 		{
-			var properties = base.MergeDependencies(json).ToList();
+			var properties = new List<string>();
 
 			if (json.Actions != null)
 			{

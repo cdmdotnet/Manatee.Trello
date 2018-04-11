@@ -5,6 +5,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class BoardBackgroundContext : LinkedSynchronizationContext<IJsonBoardBackground>
 	{
+		// todo: do I need to move scaled images here?
+
 		static BoardBackgroundContext()
 		{
 			Properties = new Dictionary<string, Property<IJsonBoardBackground>>
