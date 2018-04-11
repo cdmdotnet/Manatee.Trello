@@ -16,6 +16,11 @@ namespace Manatee.Trello.Json.Entities
 		public List<int> PowerUps { get; set; }
 		public bool? PaidAccount { get; set; }
 		public List<string> PremiumFeatures { get; set; }
+		public List<IJsonAction> Actions { get; set; }
+		public List<IJsonBoard> Boards { get; set; }
+		public List<IJsonMember> Members { get; set; }
+		public List<IJsonOrganizationMembership> Memberships { get; set; }
+		public List<IJsonPowerUpData> PowerUpData { get; set; }
 		public IJsonOrganizationPreferences Prefs { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -35,6 +40,11 @@ namespace Manatee.Trello.Json.Entities
 					PaidAccount = obj.TryGetBoolean("paid_account");
 					PremiumFeatures = obj.Deserialize<List<string>>(serializer, "premiumFeatures");
 					Prefs = obj.Deserialize<IJsonOrganizationPreferences>(serializer, "prefs");
+					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
+					Boards = obj.Deserialize<List<IJsonBoard>>(serializer, "boards");
+					Members = obj.Deserialize<List<IJsonMember>>(serializer, "members");
+					Memberships = obj.Deserialize<List<IJsonOrganizationMembership>>(serializer, "membership");
+					PowerUpData = obj.Deserialize<List<IJsonPowerUpData>>(serializer, "pluginData");
 					break;
 				case JsonValueType.String:
 					Id = json.String;

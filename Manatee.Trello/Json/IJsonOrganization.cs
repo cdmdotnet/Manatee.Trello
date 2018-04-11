@@ -63,5 +63,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		List<string> PremiumFeatures { get; set; }
+		List<IJsonAction> Actions { get; set; }
+		List<IJsonBoard> Boards { get; set; }
+		List<IJsonMember> Members { get; set; }
+		List<IJsonOrganizationMembership> Memberships { get; set; }
+		List<IJsonPowerUpData> PowerUpData { get; set; }
 	}
 }

@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -9,14 +12,30 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class OrganizationContext : SynchronizationContext<IJsonOrganization>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly Organization.Fields MemberFields;
+
 		private bool _deleted;
 
+		public ReadOnlyActionCollection Actions { get; }
+		public BoardCollection Boards { get; }
+		public ReadOnlyMemberCollection Members { get; }
+		public OrganizationMembershipCollection Memberships { get; }
+		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; }
 		protected override bool IsDataComplete => !Data.DisplayName.IsNullOrWhiteSpace();
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static OrganizationContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = Organization.Fields.Description |
+			               Organization.Fields.DisplayName |
+			               Organization.Fields.LogoHash |
+			               Organization.Fields.Name |
+			               Organization.Fields.Preferences |
+			               Organization.Fields.Url |
+			               Organization.Fields.Website;
 			Properties = new Dictionary<string, Property<IJsonOrganization>>
 				{
 					{
@@ -57,10 +76,45 @@ namespace Manatee.Trello.Internal.Synchronization
 			: base(auth)
 		{
 			Data.Id = id;
+
+			Actions = new ReadOnlyActionCollection(typeof(Organization), () => Data.Id, auth);
+			Boards = new BoardCollection(typeof(Organization), () => Data.Id, auth);
+			Members = new ReadOnlyMemberCollection(EntityRequestType.Organization_Read_Members, () => Data.Id, auth);
+			Memberships = new OrganizationMembershipCollection(() => Data.Id, auth);
+			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Organization_Read_PowerUpData, () => Data.Id, auth);
+
 			OrganizationPreferencesContext = new OrganizationPreferencesContext(Auth);
 			OrganizationPreferencesContext.SynchronizeRequested += ct => Synchronize(ct);
 			OrganizationPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
 			Data.Prefs = OrganizationPreferencesContext.Data;
+		}
+
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(Organization.Fields)).Cast<Organization.Fields>().ToList();
+				var availableFields = (Organization.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields & Organization.DownloadedFields;
+				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & Organization.DownloadedFields & (~MemberFields);
+				if (parameterFields.HasFlag(Organization.Fields.Actions))
+				{
+					Parameters["actions"] = "all";
+					Parameters["actions_format"] = "list";
+				}
+				if (parameterFields.HasFlag(Organization.Fields.Boards))
+					Parameters["boards"] = "open";
+				if (parameterFields.HasFlag(Organization.Fields.Members))
+					Parameters["members"] = "all";
+				if (parameterFields.HasFlag(Organization.Fields.Memberships))
+					Parameters["memberships"] = "all";
+				if (parameterFields.HasFlag(Organization.Fields.PowerUpData))
+					Parameters["pluginData"] = "true";
+			}
 		}
 
 		public async Task Delete(CancellationToken ct)
@@ -111,7 +165,35 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override IEnumerable<string> MergeDependencies(IJsonOrganization json)
 		{
-			return OrganizationPreferencesContext.Merge(json.Prefs);
+			var properties = OrganizationPreferencesContext.Merge(json.Prefs).ToList();
+
+			if (json.Actions != null)
+			{
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				properties.Add(nameof(Organization.Actions));
+			}
+			if (json.Boards != null)
+			{
+				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth)));
+				properties.Add(nameof(Organization.Boards));
+			}
+			if (json.Members != null)
+			{
+				Members.Update(json.Members.Select(a => a.GetFromCache<Member, IJsonMember>(Auth)));
+				properties.Add(nameof(Organization.Members));
+			}
+			if (json.Memberships != null)
+			{
+				Memberships.Update(json.Memberships.Select(a => a.GetFromCache<OrganizationMembership, IJsonOrganizationMembership>(Auth)));
+				properties.Add(nameof(Organization.Memberships));
+			}
+			if (json.PowerUpData != null)
+			{
+				PowerUpData.Update(json.PowerUpData.Select(a => a.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth)));
+				properties.Add(nameof(Organization.PowerUpData));
+			}
+
+			return properties;
 		}
 		protected override bool CanUpdate()
 		{

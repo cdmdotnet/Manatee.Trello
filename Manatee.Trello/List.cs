@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
@@ -177,6 +178,11 @@ namespace Manatee.Trello
 		/// Raised when data on the list is updated.
 		/// </summary>
 		public event Action<IList, IEnumerable<string>> Updated;
+
+		static List()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="List"/> object.

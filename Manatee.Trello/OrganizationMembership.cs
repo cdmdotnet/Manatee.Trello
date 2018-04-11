@@ -12,7 +12,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the permission level a member has on an organization.
 	/// </summary>
-	public class OrganizationMembership : IOrganizationMembership
+	public class OrganizationMembership : IOrganizationMembership, IMergeJson<IJsonOrganizationMembership>
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<OrganizationMembershipType?> _memberType;
@@ -94,6 +94,11 @@ namespace Manatee.Trello
 			Id = _context.Data.Id;
 			var handler = Updated;
 			handler?.Invoke(this, properties);
+		}
+
+		void IMergeJson<IJsonOrganizationMembership>.Merge(IJsonOrganizationMembership json)
+		{
+			_context.Merge(json);
 		}
 	}
 }

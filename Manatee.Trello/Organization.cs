@@ -44,11 +44,6 @@ namespace Manatee.Trello
 			[Display(Description="name")]
 			Name = 1 << 3,
 			/// <summary>
-			/// Indicates the PowerUps property should be populated.
-			/// </summary>
-			[Display(Description="powerUps")]
-			PowerUps = 1 << 5,
-			/// <summary>
 			/// Indicates the Preferences property should be populated.
 			/// </summary>
 			[Display(Description="prefs")]
@@ -62,7 +57,12 @@ namespace Manatee.Trello
 			/// Indicates the Website property should be populated.
 			/// </summary>
 			[Display(Description="website")]
-			Website = 1 << 8
+			Website = 1 << 8,
+			Actions = 1 << 9,
+			Boards = 1 << 10,
+			Members = 1 << 11,
+			Memberships = 1 << 12,
+			PowerUpData = 1 << 13
 		}
 
 		private readonly Field<string> _description;
@@ -75,20 +75,29 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				OrganizationContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions { get; }
+		public IReadOnlyCollection<IAction> Actions => _context.Actions;
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
-		public IBoardCollection Boards { get; }
+		public IBoardCollection Boards => _context.Boards;
 		/// <summary>
 		/// Gets the creation date of the organization.
 		/// </summary>
@@ -134,14 +143,15 @@ namespace Manatee.Trello
 		/// Gets whether the organization has business class status.
 		/// </summary>
 		public bool IsBusinessClass => _isBusinessClass.Value;
+
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		public IReadOnlyCollection<IMember> Members { get; }
+		public IReadOnlyCollection<IMember> Members => _context.Members;
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>
-		public IOrganizationMembershipCollection Memberships { get; }
+		public IOrganizationMembershipCollection Memberships => _context.Memberships;
 		/// <summary>
 		/// Gets the organization's name.
 		/// </summary>
@@ -153,7 +163,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets specific data regarding power-ups.
 		/// </summary>
-		public IReadOnlyCollection<IPowerUpData> PowerUpData { get; }
+		public IReadOnlyCollection<IPowerUpData> PowerUpData => _context.PowerUpData;
 		/// <summary>
 		/// Gets the set of preferences for the organization.
 		/// </summary>
@@ -182,6 +192,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<IOrganization, IEnumerable<string>> Updated;
 
+		static Organization()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="Organization"/> object.
 		/// </summary>
@@ -196,16 +211,11 @@ namespace Manatee.Trello
 			_context = new OrganizationContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Organization), () => Id, auth);
-			Boards = new BoardCollection(typeof(Organization), () => Id, auth);
 			_description = new Field<string>(_context, nameof(Description));
 			_displayName = new Field<string>(_context, nameof(DisplayName));
 			_isBusinessClass = new Field<bool>(_context, nameof(IsBusinessClass));
-			Members = new ReadOnlyMemberCollection(EntityRequestType.Organization_Read_Members, () => Id, auth);
-			Memberships = new OrganizationMembershipCollection(() => Id, auth);
 			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(OrganizationNameRule.Instance);
-			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Organization_Read_PowerUpData, () => Id, auth);
 			Preferences = new OrganizationPreferences(_context.OrganizationPreferencesContext);
 			_url = new Field<string>(_context, nameof(Url));
 			_website = new Field<string>(_context, nameof(Website));

@@ -68,10 +68,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				var flags = Enum.GetValues(typeof(CheckList.Fields)).Cast<CheckList.Fields>().ToList();
 				var availableFields = (CheckList.Fields)flags.Cast<int>().Sum();
 
-				var memberFields = availableFields & MemberFields;
+				var memberFields = availableFields & MemberFields & CheckList.DownloadedFields;
 				Parameters["fields"] = memberFields.GetDescription();
 
-				var parameterFields = availableFields & (~MemberFields);
+				var parameterFields = availableFields & CheckList.DownloadedFields & (~MemberFields);
 				if (parameterFields.HasFlag(CheckList.Fields.CheckItems))
 					Parameters["cards"] = "all";
 			}
