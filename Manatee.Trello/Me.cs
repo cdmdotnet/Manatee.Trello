@@ -34,7 +34,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public new IBoardCollection Boards => base.Boards as BoardCollection;
+		public new IBoardCollection Boards => (BoardCollection) base.Boards;
 		/// <summary>
 		/// Gets or sets the member's email.
 		/// </summary>

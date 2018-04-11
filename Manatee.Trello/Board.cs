@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a board.
 	/// </summary>
-	public class Board : IBoard
+	public class Board : IBoard, IMergeJson<IJsonBoard>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for boards.
@@ -385,6 +385,12 @@ namespace Manatee.Trello
 		{
 			await _context.Expire(ct);
 		}
+
+		void IMergeJson<IJsonBoard>.Merge(IJsonBoard json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="Name"/>.
 		/// </summary>

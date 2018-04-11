@@ -181,7 +181,8 @@ namespace Manatee.Trello
 					{ActionType.UpdateCheckItem, a => $"{a.Creator} updated check item {a.Data.CheckItem}."},
 					{ActionType.UpdateLabel, a => $"{a.Creator} updated label {a.Data.Label}."},
 					{ActionType.VoteOnCard, a => $"{a.Creator} voted for card {a.Data.Card}."},
-					{ActionType.UpdateCustomField, a => $"{a.Creator} updated custom field {a.Data.CustomField}."},
+					{ActionType.UpdateCustomField, a => $"{a.Creator} updated the definition of custom field {a.Data.CustomField} on board {a.Data.Board}."},
+					{ActionType.UpdateCustomFieldItem, a => $"{a.Creator} updated custom field {a.Data.CustomField} on card {a.Data.Card}."},
 				};
 		}
 		/// <summary>

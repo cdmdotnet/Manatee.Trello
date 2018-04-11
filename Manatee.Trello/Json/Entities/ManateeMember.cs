@@ -25,6 +25,9 @@ namespace Manatee.Trello.Json.Entities
 		public List<string> OneTimeMessagesDismissed { get; set; }
 		public int? Similarity { get; set; }
 		public IJsonMemberPreferences Prefs { get; set; }
+		public List<IJsonAction> Actions { get; set; }
+		public List<IJsonBoard> Boards { get; set; }
+		public List<IJsonOrganization> Organizations { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -51,6 +54,9 @@ namespace Manatee.Trello.Json.Entities
 					OneTimeMessagesDismissed = obj.Deserialize<List<string>>(serializer, "oneTimeMessagesDismissed");
 					Similarity = (int?) obj.TryGetNumber("similarity");
 					Prefs = obj.Deserialize<IJsonMemberPreferences>(serializer, "prefs");
+					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
+					Boards = obj.Deserialize<List<IJsonBoard>>(serializer, "boards");
+					Organizations = obj.Deserialize<List<IJsonOrganization>>(serializer, "organizations");
 					break;
 				case JsonValueType.String:
 					Id = json.String;

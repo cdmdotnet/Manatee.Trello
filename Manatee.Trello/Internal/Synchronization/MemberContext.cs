@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -10,12 +12,36 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class MemberContext : SynchronizationContext<IJsonMember>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly Member.Fields MemberFields;
+
+		public ReadOnlyActionCollection Actions { get; }
+		public ReadOnlyBoardCollection Boards { get; }
+		public ReadOnlyOrganizationCollection Organizations { get; }
 		public MemberPreferencesContext MemberPreferencesContext { get; }
 		protected override bool IsDataComplete => !Data.FullName.IsNullOrWhiteSpace();
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static MemberContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = Member.Fields.AvatarHash |
+			               Member.Fields.AvatarSource |
+			               Member.Fields.Bio |
+			               Member.Fields.IsConfirmed |
+			               Member.Fields.Email |
+			               Member.Fields.FullName |
+			               Member.Fields.GravatarHash |
+			               Member.Fields.Initials |
+			               Member.Fields.LoginTypes |
+			               Member.Fields.MemberType |
+			               Member.Fields.OneTimeMessagesDismissed |
+			               Member.Fields.Preferencess |
+			               Member.Fields.Status |
+			               Member.Fields.Trophies |
+			               Member.Fields.UploadedAvatarHash |
+			               Member.Fields.Url |
+			               Member.Fields.Username;
 			Properties = new Dictionary<string, Property<IJsonMember>>
 				{
 					{
@@ -55,10 +81,6 @@ namespace Manatee.Trello.Internal.Synchronization
 						new Property<IJsonMember, IJsonMemberPreferences>((d, a) => d.Prefs, (d, o) => d.Prefs = o)
 					},
 					{
-						nameof(MemberSearchResult.Similarity),
-						new Property<IJsonMember, int?>((d, a) => d.Similarity, (d, o) => d.Similarity = o)
-					},
-					{
 						nameof(Member.Status),
 						new Property<IJsonMember, MemberStatus?>((d, a) => d.Status, (d, o) => d.Status = o)
 					},
@@ -76,14 +98,47 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
-		public MemberContext(string id, TrelloAuthorization auth)
+		public MemberContext(string id, bool isMe, TrelloAuthorization auth)
 			: base(auth)
 		{
 			Data.Id = id;
+
+			Actions = new ReadOnlyActionCollection(typeof(Member), () => Data.Id, auth);
+			Boards = isMe
+				         ? new BoardCollection(typeof(Member), () => Data.Id, auth) 
+				         : new ReadOnlyBoardCollection(typeof(Member), () => Data.Id, auth);
+			Organizations = isMe 
+				                ? new OrganizationCollection(() => Data.Id, auth)
+				                : new ReadOnlyOrganizationCollection(() => Data.Id, auth);
+
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SynchronizeRequested += ct => Synchronize(ct);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
 			Data.Prefs = MemberPreferencesContext.Data;
+		}
+
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(Member.Fields)).Cast<Member.Fields>().ToList();
+				var availableFields = (Member.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields;
+				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & (~MemberFields);
+				if (parameterFields.HasFlag(Member.Fields.Actions))
+				{
+					Parameters["actions"] = "all";
+					Parameters["actions_format"] = "list";
+				}
+				if (parameterFields.HasFlag(Member.Fields.Boards))
+					Parameters["boards"] = "all";
+				if (parameterFields.HasFlag(Member.Fields.Organizations))
+					Parameters["organizations"] = "all";
+			}
 		}
 
 		public override async Task Expire(CancellationToken ct)
@@ -112,6 +167,29 @@ namespace Manatee.Trello.Internal.Synchronization
 				json.Prefs = MemberPreferencesContext.GetChanges();
 				MemberPreferencesContext.ClearChanges();
 			}
+		}
+
+		protected override IEnumerable<string> MergeDependencies(IJsonMember json)
+		{
+			var properties = base.MergeDependencies(json).ToList();
+
+			if (json.Actions != null)
+			{
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				properties.Add(nameof(Member.Actions));
+			}
+			if (json.Boards != null)
+			{
+				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth)));
+				properties.Add(nameof(Member.Boards));
+			}
+			if (json.Organizations != null)
+			{
+				Organizations.Update(json.Organizations.Select(a => a.GetFromCache<Organization, IJsonOrganization>(Auth)));
+				properties.Add(nameof(Member.Organizations));
+			}
+
+			return properties;
 		}
 	}
 }
