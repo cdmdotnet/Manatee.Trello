@@ -14,9 +14,10 @@ namespace Manatee.Trello.Internal.Synchronization
 					// todo: update these to retrieve from cache
 					{
 						nameof(ActionData.Attachment),
-						new Property<IJsonActionData, Attachment>((d, a) => d.Attachment == null
-							                                                    ? null
-							                                                    : new Attachment(d.Attachment, d.Card.Id, a),
+						new Property<IJsonActionData, Attachment>((d, a) => d.Attachment != null
+							                                                    ? (d.Attachment.TryGetFromCache<Attachment>() ??
+							                                                       new Attachment(d.Attachment, d.Card.Id, a)) 
+							                                                    : null,
 						                                          (d, o) =>
 							                                          {
 								                                          if (o != null) d.Attachment = o.Json;
@@ -24,7 +25,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.Board),
-						new Property<IJsonActionData, Board>((d, a) => d.Board == null ? null : new Board(d.Board, a),
+						new Property<IJsonActionData, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
 						                                     (d, o) =>
 							                                     {
 								                                     if (o != null) d.Board = o.Json;
@@ -32,7 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.BoardSource),
-						new Property<IJsonActionData, Board>((d, a) => d.BoardSource == null ? null : new Board(d.BoardSource, a),
+						new Property<IJsonActionData, Board>((d, a) => d.BoardSource?.GetFromCache<Board>(a),
 						                                     (d, o) =>
 							                                     {
 								                                     if (o != null) d.BoardSource = o.Json;
@@ -40,7 +41,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.BoardTarget),
-						new Property<IJsonActionData, Board>((d, a) => d.BoardTarget == null ? null : new Board(d.BoardTarget, a),
+						new Property<IJsonActionData, Board>((d, a) => d.BoardTarget?.GetFromCache<Board>(a),
 						                                     (d, o) =>
 							                                     {
 								                                     if (o != null) d.BoardTarget = o.Json;
@@ -48,7 +49,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.Card),
-						new Property<IJsonActionData, Card>((d, a) => d.Card == null ? null : new Card(d.Card, a),
+						new Property<IJsonActionData, Card>((d, a) => d.Card?.GetFromCache<Card>(a),
 						                                    (d, o) =>
 							                                    {
 								                                    if (o != null) d.Card = o.Json;
@@ -56,7 +57,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.CardSource),
-						new Property<IJsonActionData, Card>((d, a) => d.CardSource == null ? null : new Card(d.CardSource, a),
+						new Property<IJsonActionData, Card>((d, a) => d.CardSource?.GetFromCache<Card>(a),
 						                                    (d, o) =>
 							                                    {
 								                                    if (o != null) d.CardSource = o.Json;
@@ -64,9 +65,10 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.CheckItem),
-						new Property<IJsonActionData, CheckItem>((d, a) => d.CheckItem == null || d.CheckList == null
-							                                                   ? null
-							                                                   : new CheckItem(d.CheckItem, d.CheckList.Id),
+						new Property<IJsonActionData, CheckItem>((d, a) => d.CheckItem != null 
+							                                                   ? (d.CheckItem.TryGetFromCache<CheckItem>() ??
+							                                                      new CheckItem(d.CheckItem, d.CheckList.Id, a))
+							                                                   : null,
 						                                         (d, o) =>
 							                                         {
 								                                         if (o != null) d.CheckItem = o.Json;
@@ -74,7 +76,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.CheckList),
-						new Property<IJsonActionData, CheckList>((d, a) => d.CheckList == null ? null : new CheckList(d.CheckList, a),
+						new Property<IJsonActionData, CheckList>((d, a) => d.CheckList.GetFromCache<CheckList>(a),
 						                                         (d, o) =>
 							                                         {
 								                                         if (o != null) d.CheckList = o.Json;
@@ -82,9 +84,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.CustomField),
-						new Property<IJsonActionData, CustomField>((d, a) => d.CustomField == null
-							                                                     ? null
-							                                                     : d.CustomField.GetFromCache<CustomField>(a),
+						new Property<IJsonActionData, CustomField>((d, a) => d.CustomField?.GetFromCache<CustomField>(a),
 						                                         (d, o) =>
 							                                         {
 								                                         if (o != null) d.CustomField = o.Json;
@@ -92,7 +92,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.Label),
-						new Property<IJsonActionData, Label>((d, a) => d.Label == null ? null : new Label(d.Label, a),
+						new Property<IJsonActionData, Label>((d, a) => d.Label?.GetFromCache<Label>(a),
 						                                     (d, o) =>
 							                                     {
 								                                     if (o != null) d.Label = o.Json;
@@ -107,7 +107,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.List),
-						new Property<IJsonActionData, List>((d, a) => d.List == null ? null : new List(d.List, a),
+						new Property<IJsonActionData, List>((d, a) => d.List?.GetFromCache<List>(a),
 						                                    (d, o) =>
 							                                    {
 								                                    if (o != null) d.List = o.Json;
@@ -115,7 +115,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.ListAfter),
-						new Property<IJsonActionData, List>((d, a) => d.ListAfter == null ? null : new List(d.ListAfter, a),
+						new Property<IJsonActionData, List>((d, a) => d.ListAfter?.GetFromCache<List>(a),
 						                                    (d, o) =>
 							                                    {
 								                                    if (o != null) d.ListAfter = o.Json;
@@ -123,7 +123,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.ListBefore),
-						new Property<IJsonActionData, List>((d, a) => d.ListBefore == null ? null : new List(d.ListBefore, a),
+						new Property<IJsonActionData, List>((d, a) => d.ListBefore?.GetFromCache<List>(a),
 						                                    (d, o) =>
 							                                    {
 								                                    if (o != null) d.ListBefore = o.Json;
@@ -153,7 +153,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.OldList),
-						new Property<IJsonActionData, List>((d, a) => d.Old?.List == null ? null : new List(d.Old.List, a),
+						new Property<IJsonActionData, List>((d, a) => d.Old?.List?.GetFromCache<List>(a),
 						                                    (d, o) =>
 							                                    {
 								                                    if (d.Old != null) d.Old.List = o.Json;
@@ -175,8 +175,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.Organization),
-						new Property<IJsonActionData, Organization>(
-							(d, a) => d.Org == null ? null : new Organization(d.Org, a),
+						new Property<IJsonActionData, Organization>((d, a) => d.Org?.GetFromCache<Organization>(a),
 							(d, o) =>
 								{
 									if (o != null) d.Org = o.Json;
@@ -184,7 +183,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.PowerUp),
-						new Property<IJsonActionData, PowerUpBase>((d, a) => (PowerUpBase) d.Plugin?.GetFromCache<IPowerUp>(a),
+						new Property<IJsonActionData, PowerUpBase>((d, a) => d.Plugin?.GetFromCache<IPowerUp>(a) as PowerUpBase,
 						                                           (d, o) =>
 							                                           {
 								                                           if (o != null) d.Plugin = o.Json;
