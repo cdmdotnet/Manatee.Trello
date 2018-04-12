@@ -36,6 +36,11 @@ namespace Manatee.Trello
 		IReadOnlyCollection<IBoard> Boards { get; }
 
 		/// <summary>
+		/// Gets the collection of cards assigned to the member.
+		/// </summary>
+		IReadOnlyCollection<ICard> Cards { get; }
+
+		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
 		DateTime CreationDate { get; }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Manatee.Json;
+﻿using Manatee.Json;
 using Manatee.Json.Serialization;
 
 namespace Manatee.Trello.Json.Entities
 {
-	internal static class GeneralExtensions
+	internal static class JsonExtensions
 	{
 		public static T Deserialize<T>(this JsonObject obj, JsonSerializer serializer, string key)
 		{
@@ -26,12 +23,6 @@ namespace Manatee.Trello.Json.Entities
 		{
 			if (!Equals(obj, default(T)))
 				json[key] = obj.Id;
-		}
-		public static T Combine<T>(this IEnumerable<T> values)
-			where T : struct
-		{
-			return (T) Enum.ToObject(typeof (T), values.Select(value => Convert.ToInt32(value))
-													   .Aggregate(0, (current, longValue) => current + longValue));
 		}
 	}
 }
