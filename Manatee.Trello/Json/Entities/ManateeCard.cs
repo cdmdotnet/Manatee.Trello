@@ -61,7 +61,7 @@ namespace Manatee.Trello.Json.Entities
 					List = obj.Deserialize<IJsonList>(serializer, "idList");
 					IdShort = (int?) obj.TryGetNumber("idShort");
 					IdAttachmentCover = obj.TryGetString("idAttachmentCover");
-					Labels = obj.Deserialize<List<IJsonLabel>>(serializer, "idLabels");
+					Labels = obj.Deserialize<List<IJsonLabel>>(serializer, "labels");
 					ManualCoverAttachment = obj.TryGetBoolean("manualAttachmentCover");
 					Members = obj.Deserialize<List<IJsonMember>>(serializer, "members");
 					Name = obj.TryGetString("name");

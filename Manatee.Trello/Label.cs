@@ -113,7 +113,8 @@ namespace Manatee.Trello
 
 		static Label()
 		{
-			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+			DownloadedFields = (Fields) Enum.GetValues(typeof(Fields)).Cast<int>().Sum() &
+			                   ~Fields.Board;
 		}
 
 		internal Label(IJsonLabel json, TrelloAuthorization auth)

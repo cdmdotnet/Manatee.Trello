@@ -9,7 +9,9 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		public Func<CancellationToken, Task> SubmitRequested;
 
-		protected LinkedSynchronizationContext(TrelloAuthorization auth) : base(auth, false) {}
+		protected LinkedSynchronizationContext(TrelloAuthorization auth)
+			: base(auth, false) {}
+
 		public override async Task SetValue<T>(string property, T value, CancellationToken ct)
 		{
 			await base.SetValue(property, value, ct);

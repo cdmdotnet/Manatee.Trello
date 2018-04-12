@@ -194,7 +194,8 @@ namespace Manatee.Trello
 
 		static Organization()
 		{
-			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum() &
+				~Fields.Members;
 		}
 
 		/// <summary>

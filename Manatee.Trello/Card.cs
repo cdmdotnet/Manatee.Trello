@@ -40,7 +40,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Checklists property should be populated.
 			/// </summary>
-			[Display(Description = "idCheckLists")]
+			[Display(Description = "checkLists")]
 			Checklists = 1 << 2,
 
 			/// <summary>
@@ -82,7 +82,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Labels property should be populated.
 			/// </summary>
-			[Display(Description = "idLabels")]
+			[Display(Description = "labels")]
 			Labels = 1 << 9,
 
 			/// <summary>
@@ -129,11 +129,10 @@ namespace Manatee.Trello
 			//Actions = 1 << 17,
 			Attachments = 1 << 18,
 			CustomFields = 1 << 19,
-			CheckLists = 1 << 20,
-			Comments = 1 << 21,
-			Members = 1 << 22,
-			Stickers = 1 << 23,
-			VotingMembers = 1 << 24,
+			Comments = 1 << 20,
+			Members = 1 << 21,
+			Stickers = 1 << 22,
+			VotingMembers = 1 << 23,
 		}
 
 		private readonly Field<Board> _board;
@@ -171,7 +170,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
-		/// <remarks>By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.</remarks>
+		/// <remarks>By default imposed by Trello, this contains actions of type <see cref="ActionType.CommentCard"/>.</remarks>
 		public IReadOnlyCollection<IAction> Actions { get; }
 
 		/// <summary>

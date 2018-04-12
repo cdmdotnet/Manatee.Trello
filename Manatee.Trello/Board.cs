@@ -315,7 +315,9 @@ namespace Manatee.Trello
 
 		static Board()
 		{
-			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum() &
+			                   ~Fields.Members &
+			                   ~Fields.Cards;
 		}
 
 		/// <summary>
