@@ -14,6 +14,20 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Attachment.Fields MemberFields;
 
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		private readonly string _ownerId;
 		private bool _deleted;
 
@@ -94,6 +108,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (Parameters)
 			{
 				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(Attachment.Fields)).Cast<Attachment.Fields>().ToList();
 				var availableFields = (Attachment.Fields)flags.Cast<int>().Sum();
 
@@ -110,14 +132,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				Dictionary<string, object> parameters;
-				lock (Parameters)
-				{
-					parameters = new Dictionary<string, object>(Parameters);
-				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Read_Refresh,
 				                                     new Dictionary<string, object> { { "_cardId", _ownerId }, { "_id", Data.Id } });
-				var newData = await JsonRepository.Execute<IJsonAttachment>(Auth, endpoint, ct, parameters);
+				var newData = await JsonRepository.Execute<IJsonAttachment>(Auth, endpoint, ct, CurrentParameters);
 
 				MarkInitialized();
 				return newData;

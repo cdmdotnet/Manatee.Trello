@@ -13,6 +13,20 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly CheckItem.Fields MemberFields;
 
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		private readonly string _ownerId;
 		private bool _deleted;
 
@@ -55,6 +69,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (Parameters)
 			{
 				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(CheckItem.Fields)).Cast<CheckItem.Fields>().ToList();
 				var availableFields = (CheckItem.Fields)flags.Cast<int>().Sum();
 
@@ -79,14 +101,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				Dictionary<string, object> parameters;
-				lock (Parameters)
-				{
-					parameters = new Dictionary<string, object>(Parameters);
-				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh,
 				                                     new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCheckItem>(Auth, endpoint, ct, parameters);
+				var newData = await JsonRepository.Execute<IJsonCheckItem>(Auth, endpoint, ct, CurrentParameters);
 
 				MarkInitialized();
 				return newData;

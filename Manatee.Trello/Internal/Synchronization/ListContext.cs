@@ -15,6 +15,20 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly List.Fields MemberFields;
 
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		public ReadOnlyActionCollection Actions { get; }
 		public CardCollection Cards { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
@@ -73,6 +87,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (Parameters)
 			{
 				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(List.Fields)).Cast<List.Fields>().ToList();
 				var availableFields = (List.Fields)flags.Cast<int>().Sum();
 
@@ -93,13 +115,8 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override async Task<IJsonList> GetData(CancellationToken ct)
 		{
-			Dictionary<string, object> parameters;
-			lock (Parameters)
-			{
-				parameters = new Dictionary<string, object>(Parameters);
-			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonList>(Auth, endpoint, ct, parameters);
+			var newData = await JsonRepository.Execute<IJsonList>(Auth, endpoint, ct, CurrentParameters);
 
 			return newData;
 		}

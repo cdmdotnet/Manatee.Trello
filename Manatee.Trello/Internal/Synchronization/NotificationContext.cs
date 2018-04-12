@@ -14,6 +14,20 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Notification.Fields MemberFields;
 
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		public NotificationDataContext NotificationDataContext { get; }
 
 		static NotificationContext()
@@ -65,6 +79,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (Parameters)
 			{
 				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(Notification.Fields)).Cast<Notification.Fields>().ToList();
 				var availableFields = (Notification.Fields) flags.Cast<int>().Sum();
 
@@ -75,14 +97,9 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override async Task<IJsonNotification> GetData(CancellationToken ct)
 		{
-			Dictionary<string, object> parameters;
-			lock (Parameters)
-			{
-				parameters = new Dictionary<string, object>(Parameters);
-			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.Notification_Read_Refresh,
 			                                     new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonNotification>(Auth, endpoint, ct, parameters);
+			var newData = await JsonRepository.Execute<IJsonNotification>(Auth, endpoint, ct, CurrentParameters);
 
 			return newData;
 		}

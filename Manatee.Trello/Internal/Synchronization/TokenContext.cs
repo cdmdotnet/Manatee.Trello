@@ -15,6 +15,20 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Token.Fields MemberFields;
 
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		private bool _deleted;
 
 		public TokenPermissionContext MemberPermissions { get; }
@@ -73,6 +87,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (Parameters)
 			{
 				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(Token.Fields)).Cast<Token.Fields>().ToList();
 				var availableFields = (Token.Fields)flags.Cast<int>().Sum();
 
@@ -96,13 +118,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				Dictionary<string, object> parameters;
-				lock (Parameters)
-				{
-					parameters = new Dictionary<string, object>(Parameters);
-				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> {{"_token", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonToken>(Auth, endpoint, ct, parameters);
+				var newData = await JsonRepository.Execute<IJsonToken>(Auth, endpoint, ct, CurrentParameters);
 				MarkInitialized();
 
 				return newData;

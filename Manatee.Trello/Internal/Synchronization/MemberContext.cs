@@ -15,6 +15,20 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Member.Fields MemberFields;
 
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		public ReadOnlyActionCollection Actions { get; }
 		public ReadOnlyBoardCollection Boards { get; }
 		public ReadOnlyCardCollection Cards { get; }
@@ -124,6 +138,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (Parameters)
 			{
 				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(Member.Fields)).Cast<Member.Fields>().ToList();
 				var availableFields = (Member.Fields)flags.Cast<int>().Sum();
 
@@ -149,13 +171,8 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override async Task<IJsonMember> GetData(CancellationToken ct)
 		{
-			Dictionary<string, object> parameters;
-			lock (Parameters)
-			{
-				parameters = new Dictionary<string, object>(Parameters);
-			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint, ct, parameters);
+			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint, ct, CurrentParameters);
 
 			return newData;
 		}

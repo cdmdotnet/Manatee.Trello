@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
@@ -19,6 +17,8 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
+					CheckList.DownloadedFields &= ~CheckList.Fields.CheckItems;
+
 					var entity = _factory.Card(TrelloIds.CardId);
 
 					await entity.Refresh();
@@ -26,9 +26,9 @@ namespace Manatee.Trello.IntegrationTests
 					Console.WriteLine(entity);
 
 					OutputCollection("actions", entity.Actions);
+					OutputCollection("attachments", entity.Attachments);
 					OutputCollection("checkLists", entity.CheckLists);
 					OutputCollection("members", entity.Members);
-					//OutputCollection("memberships", entity.Memberships);
 					OutputCollection("powerup data", entity.PowerUpData);
 					OutputCollection("stickers", entity.Stickers);
 				});

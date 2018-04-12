@@ -15,6 +15,20 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Card.Fields MemberFields;
 
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		private bool _deleted;
 
 		public ReadOnlyActionCollection Actions { get; }
@@ -147,6 +161,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (Parameters)
 			{
 				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(Card.Fields)).Cast<Card.Fields>().ToList();
 				var availableFields = (Card.Fields)flags.Cast<int>().Sum();
 
@@ -161,13 +183,16 @@ namespace Manatee.Trello.Internal.Synchronization
 				//	Parameters["actions_format"] = "list";
 				//}
 				if (parameterFields.HasFlag(Card.Fields.Attachments))
+				{
 					Parameters["attachments"] = "true";
+					Parameters["attachments_fields"] = AttachmentContext.CurrentParameters["fields"];
+				}
 				if (parameterFields.HasFlag(Card.Fields.CustomFields))
 					Parameters["customFieldItems"] = "true";
 				if (parameterFields.HasFlag(Card.Fields.Checklists))
 				{
 					Parameters["checklists"] = "all";
-					Parameters["checklists_checkItems"] = "all";
+					Parameters["checklist_fields"] = CheckListContext.CurrentParameters["fields"];
 				}
 				if (parameterFields.HasFlag(Card.Fields.Comments))
 				{
@@ -199,14 +224,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				Dictionary<string, object> parameters;
-				lock (Parameters)
-				{
-					parameters = new Dictionary<string, object>(Parameters);
-				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, 
 				                                     new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint, ct, parameters);
+				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint, ct, CurrentParameters);
 
 				MarkInitialized();
 				return newData;

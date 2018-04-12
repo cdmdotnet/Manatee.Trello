@@ -14,6 +14,20 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Label.Fields MemberFields;
 
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		private bool _deleted;
 
 		static LabelContext()
@@ -59,6 +73,14 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (Parameters)
 			{
 				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(Label.Fields)).Cast<Label.Fields>().ToList();
 				var availableFields = (Label.Fields)flags.Cast<int>().Sum();
 
@@ -82,13 +104,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				Dictionary<string, object> parameters;
-				lock (Parameters)
-				{
-					parameters = new Dictionary<string, object>(Parameters);
-				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonLabel>(Auth, endpoint, ct, parameters);
+				var newData = await JsonRepository.Execute<IJsonLabel>(Auth, endpoint, ct, CurrentParameters);
 
 				MarkInitialized();
 				return newData;
