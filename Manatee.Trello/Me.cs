@@ -59,10 +59,11 @@ namespace Manatee.Trello
 			get { return base.Initials; }
 			set { base.Initials = value; }
 		}
+
 		/// <summary>
 		/// Gets the collection of notificaitons for the member.
 		/// </summary>
-		public IReadOnlyNotificationCollection Notifications { get; }
+		public IReadOnlyNotificationCollection Notifications => _context.Notifications;
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
@@ -84,7 +85,6 @@ namespace Manatee.Trello
 			: base(id, true, TrelloAuthorization.Default)
 		{
 			_email = new Field<string>(_context, nameof(Email));
-			Notifications = new ReadOnlyNotificationCollection(() => Id, TrelloAuthorization.Default);
 			Preferences = new MemberPreferences(_context.MemberPreferencesContext);
 
 			_context.Merge(_myJson);

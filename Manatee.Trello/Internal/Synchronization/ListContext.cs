@@ -86,7 +86,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["actions_format"] = "list";
 				}
 				if (parameterFields.HasFlag(List.Fields.Cards))
-					Parameters["cards"] = "visible";
+					// TODO: may need to extend this somehow to support other options here
+					Parameters["cards"] = "open";
 			}
 		}
 

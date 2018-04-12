@@ -45,7 +45,9 @@ namespace Manatee.Trello
 			/// Indicates the Permissions property should be populated.
 			/// </summary>
 			[Display(Description="permissions")]
-			Permissions
+			Permissions,
+			// TODO: add
+			//Webhooks
 		}
 
 		private readonly Field<string> _appName;

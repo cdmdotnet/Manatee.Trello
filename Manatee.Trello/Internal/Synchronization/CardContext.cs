@@ -165,7 +165,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				if (parameterFields.HasFlag(Card.Fields.CustomFields))
 					Parameters["customFieldItems"] = "true";
 				if (parameterFields.HasFlag(Card.Fields.Checklists))
+				{
 					Parameters["checklists"] = "all";
+					Parameters["checklists_checkItems"] = "all";
+				}
 				if (parameterFields.HasFlag(Card.Fields.Comments))
 				{
 					Parameters["actions"] = "commentCard";

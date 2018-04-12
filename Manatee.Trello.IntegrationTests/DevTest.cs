@@ -19,16 +19,18 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					var entity = _factory.Board(TrelloIds.BoardId);
+					var entity = _factory.Card(TrelloIds.CardId);
 
 					await entity.Refresh();
 
 					Console.WriteLine(entity);
 
-					//OutputCollection("actions", entity.Actions);
-					//OutputCollection("members", entity.Members);
+					OutputCollection("actions", entity.Actions);
+					OutputCollection("checkLists", entity.CheckLists);
+					OutputCollection("members", entity.Members);
 					//OutputCollection("memberships", entity.Memberships);
-					//OutputCollection("powerup data", entity.PowerUpData);
+					OutputCollection("powerup data", entity.PowerUpData);
+					OutputCollection("stickers", entity.Stickers);
 				});
 		}
 

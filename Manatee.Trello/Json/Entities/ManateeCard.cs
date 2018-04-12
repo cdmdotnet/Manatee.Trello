@@ -50,7 +50,7 @@ namespace Manatee.Trello.Json.Entities
 					Id = obj.TryGetString("id");
 					Attachments = obj.Deserialize<List<IJsonAttachment>>(serializer, "attachments");
 					Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
-					CheckLists = obj.Deserialize<List<IJsonCheckList>>(serializer, "checkLists");
+					CheckLists = obj.Deserialize<List<IJsonCheckList>>(serializer, "checklists");
 					Closed = obj.TryGetBoolean("closed");
 					Comments = obj.Deserialize<List<IJsonAction>>(serializer, "comments");
 					CustomFields = obj.Deserialize<List<IJsonCustomField>>(serializer, "customFieldItems");

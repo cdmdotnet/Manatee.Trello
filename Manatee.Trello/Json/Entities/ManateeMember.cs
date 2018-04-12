@@ -27,6 +27,8 @@ namespace Manatee.Trello.Json.Entities
 		public IJsonMemberPreferences Prefs { get; set; }
 		public List<IJsonAction> Actions { get; set; }
 		public List<IJsonBoard> Boards { get; set; }
+		public List<IJsonCard> Cards { get; set; }
+		public List<IJsonNotification> Notifications { get; set; }
 		public List<IJsonOrganization> Organizations { get; set; }
 		public bool ValidForMerge { get; set; }
 
@@ -57,6 +59,8 @@ namespace Manatee.Trello.Json.Entities
 					Prefs = obj.Deserialize<IJsonMemberPreferences>(serializer, "prefs");
 					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
 					Boards = obj.Deserialize<List<IJsonBoard>>(serializer, "boards");
+					Cards = obj.Deserialize<List<IJsonCard>>(serializer, "cards");
+					Notifications = obj.Deserialize<List<IJsonNotification>>(serializer, "notifications");
 					Organizations = obj.Deserialize<List<IJsonOrganization>>(serializer, "organizations");
 					ValidForMerge = true;
 					break;

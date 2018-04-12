@@ -109,7 +109,10 @@ namespace Manatee.Trello
 			Username = 1 << 17,
 			Actions = 1 << 18,
 			Boards = 1 << 19,
-			Organizations = 1 << 20
+			Organizations = 1 << 20,
+			// TODO: add
+			Cards = 1 << 21,
+			Notifications = 1 << 22,
 		}
 
 		private const string _avatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
@@ -171,6 +174,10 @@ namespace Manatee.Trello
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
 		public IReadOnlyCollection<IBoard> Boards => _context.Boards;
+		/// <summary>
+		/// Gets the collection of cards assigned to the member.
+		/// </summary>
+		public IReadOnlyCollection<ICard> Cards => _context.Cards;
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>

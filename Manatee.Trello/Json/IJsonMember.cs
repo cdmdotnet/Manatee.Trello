@@ -112,6 +112,8 @@ namespace Manatee.Trello.Json
 		IJsonMemberPreferences Prefs { get; set; }
 		List<IJsonAction> Actions { get; set; }
 		List<IJsonBoard> Boards { get; set; }
+		List<IJsonCard> Cards { get; set; }
+		List<IJsonNotification> Notifications { get; set; }
 		List<IJsonOrganization> Organizations { get; set; }
 	}
 }

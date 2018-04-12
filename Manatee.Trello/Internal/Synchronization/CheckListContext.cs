@@ -73,7 +73,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var parameterFields = availableFields & CheckList.DownloadedFields & (~MemberFields);
 				if (parameterFields.HasFlag(CheckList.Fields.CheckItems))
-					Parameters["cards"] = "all";
+					Parameters["checkItems"] = "all";
 			}
 		}
 
@@ -123,7 +123,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			if (json.CheckItems != null)
 			{
-				CheckItems.Update(json.CheckItems.Select(a => a.GetFromCache<CheckItem, IJsonCheckItem>(Auth)));
+				CheckItems.Update(json.CheckItems.Select(a => a.TryGetFromCache<CheckItem>() ?? new CheckItem(a, Data.Id, Auth)));
 				properties.Add(nameof(CheckList.CheckItems));
 			}
 

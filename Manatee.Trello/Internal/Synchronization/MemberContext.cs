@@ -17,6 +17,8 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public ReadOnlyActionCollection Actions { get; }
 		public ReadOnlyBoardCollection Boards { get; }
+		public ReadOnlyCardCollection Cards { get; }
+		public ReadOnlyNotificationCollection Notifications { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
 		public MemberPreferencesContext MemberPreferencesContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
@@ -106,9 +108,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			Boards = isMe
 				         ? new BoardCollection(typeof(Member), () => Data.Id, auth) 
 				         : new ReadOnlyBoardCollection(typeof(Member), () => Data.Id, auth);
+			Cards = new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, () => Data.Id, auth);
 			Organizations = isMe 
 				                ? new OrganizationCollection(() => Data.Id, auth)
 				                : new ReadOnlyOrganizationCollection(() => Data.Id, auth);
+			Notifications = new ReadOnlyNotificationCollection(() => Data.Id, auth);
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
@@ -134,6 +138,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				}
 				if (parameterFields.HasFlag(Member.Fields.Boards))
 					Parameters["boards"] = "all";
+				if (parameterFields.HasFlag(Member.Fields.Cards))
+					Parameters["cards"] = "all";
+				if (parameterFields.HasFlag(Member.Fields.Notifications))
+					Parameters["notifications"] = "all";
 				if (parameterFields.HasFlag(Member.Fields.Organizations))
 					Parameters["organizations"] = "all";
 			}
@@ -141,8 +149,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override async Task<IJsonMember> GetData(CancellationToken ct)
 		{
+			Dictionary<string, object> parameters;
+			lock (Parameters)
+			{
+				parameters = new Dictionary<string, object>(Parameters);
+			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint, ct, parameters);
 
 			return newData;
 		}
@@ -175,6 +188,16 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth)));
 				properties.Add(nameof(Member.Boards));
+			}
+			if (json.Cards != null)
+			{
+				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth)));
+				properties.Add(nameof(Member.Cards));
+			}
+			if (json.Notifications != null)
+			{
+				Notifications.Update(json.Notifications.Select(a => a.GetFromCache<Notification, IJsonNotification>(Auth)));
+				properties.Add(nameof(Me.Notifications));
 			}
 			if (json.Organizations != null)
 			{

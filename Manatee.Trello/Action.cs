@@ -40,7 +40,7 @@ namespace Manatee.Trello
 			/// Indicates the Type property should be populated.
 			/// </summary>
 			[Display(Description="type")]
-			Type = 1 << 3
+			Type = 1 << 3,
 		}
 
 		private static readonly Dictionary<ActionType, Func<Action, string>> StringDefinitions;
