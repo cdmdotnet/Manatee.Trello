@@ -34,7 +34,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Creator property should be populated.
 			/// </summary>
-			[Display(Description="idMemberCreator")]
+			[Display(Description="memberCreator")]
 			Creator = 1 << 2,
 			/// <summary>
 			/// Indicates the Type property should be populated.

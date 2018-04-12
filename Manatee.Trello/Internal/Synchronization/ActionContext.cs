@@ -39,7 +39,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Action.Fields.Data |
 			               Action.Fields.Date |
-			               Action.Fields.Creator |
 						   Action.Fields.Type;
 			Properties = new Dictionary<string, Property<IJsonAction>>
 				{
@@ -93,6 +92,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var memberFields = availableFields & MemberFields & Action.DownloadedFields;
 				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & Action.DownloadedFields & (~MemberFields);
+				if (parameterFields.HasFlag(Action.Fields.Creator))
+				{
+					Parameters["memberCreator"] = "true";
+					Parameters["memberCreator_fields"] = MemberContext.CurrentParameters["fields"];
+				}
 			}
 		}
 

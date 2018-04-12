@@ -29,7 +29,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Member property should be populated.
 			/// </summary>
-			[Display(Description="idMember")]
+			[Display(Description="member")]
 			Member,
 			/// <summary>
 			/// Indicates the DateCreated property should be populated.

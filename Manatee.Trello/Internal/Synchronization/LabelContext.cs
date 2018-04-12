@@ -33,8 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		static LabelContext()
 		{
 			Parameters = new Dictionary<string, object>();
-			MemberFields = Label.Fields.Board |
-			               Label.Fields.Color |
+			MemberFields = Label.Fields.Color |
 			               Label.Fields.Name |
 						   Label.Fields.Uses;
 			Properties = new Dictionary<string, Property<IJsonLabel>>
@@ -86,6 +85,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var memberFields = availableFields & MemberFields & Label.DownloadedFields;
 				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & Label.DownloadedFields & (~MemberFields);
+				if (parameterFields.HasFlag(Label.Fields.Board))
+				{
+					Parameters["board"] = "true";
+					Parameters["board_fields"] = BoardContext.CurrentParameters["fields"];
+				}
 			}
 		}
 

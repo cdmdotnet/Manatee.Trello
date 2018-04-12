@@ -24,7 +24,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="idBoard")]
+			[Display(Description="board")]
 			Board = 1,
 			/// <summary>
 			/// Indicates the Color property should be populated.

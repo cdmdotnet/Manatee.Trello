@@ -33,8 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		static NotificationContext()
 		{
 			Parameters = new Dictionary<string, object>();
-			MemberFields = Notification.Fields.Creator |
-			               Notification.Fields.Data |
+			MemberFields = Notification.Fields.Data |
 			               Notification.Fields.IsUnread |
 			               Notification.Fields.Type |
 						   Notification.Fields.Date;
@@ -92,6 +91,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var memberFields = availableFields & MemberFields & Notification.DownloadedFields;
 				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & Notification.DownloadedFields & (~MemberFields);
+				if (parameterFields.HasFlag(Notification.Fields.Creator))
+				{
+					Parameters["memberCreator"] = "true";
+					Parameters["memberCreator_fields"] = MemberContext.CurrentParameters["fields"];
+				}
 			}
 		}
 

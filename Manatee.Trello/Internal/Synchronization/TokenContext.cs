@@ -100,6 +100,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var memberFields = availableFields & MemberFields & Token.DownloadedFields;
 				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & Token.DownloadedFields & (~MemberFields);
+				if (parameterFields.HasFlag(Token.Fields.Member))
+				{
+					Parameters["member"] = "true";
+					Parameters["member_fields"] = MemberContext.CurrentParameters["fields"];
+				}
 			}
 		}
 

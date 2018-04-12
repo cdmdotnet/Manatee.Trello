@@ -38,7 +38,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			Parameters = new Dictionary<string, object>();
 			MemberFields = List.Fields.Name |
 			               List.Fields.IsClosed |
-			               List.Fields.Board |
 			               List.Fields.Position |
 			               List.Fields.IsSubscribed;
 			Properties = new Dictionary<string, Property<IJsonList>>
@@ -112,6 +111,11 @@ namespace Manatee.Trello.Internal.Synchronization
 					// TODO: may need to extend this somehow to support other options here
 					Parameters["cards"] = "open";
 					Parameters["card_fields"] = CardContext.CurrentParameters["fields"];
+				}
+				if (parameterFields.HasFlag(List.Fields.Board))
+				{
+					Parameters["board"] = "true";
+					Parameters["board_fields"] = BoardContext.CurrentParameters["fields"];
 				}
 			}
 		}

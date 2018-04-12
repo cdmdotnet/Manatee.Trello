@@ -34,7 +34,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description = "idBoard")]
+			[Display(Description = "board")]
 			Board = 1 << 1,
 
 			/// <summary>
@@ -88,7 +88,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the List property should be populated.
 			/// </summary>
-			[Display(Description = "idList")]
+			[Display(Description = "list")]
 			List = 1 << 10,
 
 			/// <summary>

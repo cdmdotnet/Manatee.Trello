@@ -40,7 +40,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Member property should be populated.
 			/// </summary>
-			[Display(Description="idMember")]
+			[Display(Description="member")]
 			Member = 1 << 3,
 			/// <summary>
 			/// Indicates the MimeType property should be populated.

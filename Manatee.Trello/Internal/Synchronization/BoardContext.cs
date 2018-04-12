@@ -47,7 +47,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Board.Fields.Closed |
-						   Board.Fields.Organization |
 						   Board.Fields.Pinned |
 						   Board.Fields.Description |
 						   Board.Fields.Starred |
@@ -197,6 +196,11 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["plugins"] = "true";
 				if (parameterFields.HasFlag(Board.Fields.PowerUpData))
 					Parameters["pluginData"] = "true";
+				if (parameterFields.HasFlag(Board.Fields.Organization))
+				{
+					Parameters["organization"] = "true";
+					Parameters["organization_fields"] = OrganizationContext.CurrentParameters["fields"];
+				}
 			}
 		}
 

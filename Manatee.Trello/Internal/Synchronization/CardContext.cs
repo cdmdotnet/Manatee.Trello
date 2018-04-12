@@ -47,14 +47,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Card.Fields.Badges |
-			               Card.Fields.Board |
 			               Card.Fields.DateLastActivity |
 			               Card.Fields.Description |
 			               Card.Fields.Due |
 			               Card.Fields.IsArchived |
 			               Card.Fields.IsComplete |
 			               Card.Fields.IsSubscribed |
-			               Card.Fields.List |
 			               Card.Fields.ManualCoverAttachment |
 			               Card.Fields.Name |
 			               Card.Fields.Position |
@@ -185,7 +183,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				if (parameterFields.HasFlag(Card.Fields.Attachments))
 				{
 					Parameters["attachments"] = "true";
-					Parameters["attachments_fields"] = AttachmentContext.CurrentParameters["fields"];
+					Parameters["attachment_fields"] = AttachmentContext.CurrentParameters["fields"];
 				}
 				if (parameterFields.HasFlag(Card.Fields.CustomFields))
 					Parameters["customFieldItems"] = "true";
@@ -210,6 +208,16 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					Parameters["membersVoted"] = "true";
 					Parameters["membersVoted_fields"] = MemberContext.CurrentParameters["fields"];
+				}
+				if (parameterFields.HasFlag(Card.Fields.Board))
+				{
+					Parameters["board"] = "true";
+					Parameters["board_fields"] = BoardContext.CurrentParameters["fields"];
+				}
+				if (parameterFields.HasFlag(Card.Fields.List))
+				{
+					Parameters["list"] = "true";
+					Parameters["list_fields"] = ListContext.CurrentParameters["fields"];
 				}
 			}
 		}

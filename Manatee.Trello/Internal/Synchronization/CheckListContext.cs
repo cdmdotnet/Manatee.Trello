@@ -36,8 +36,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Parameters = new Dictionary<string, object>();
 			MemberFields = CheckList.Fields.Name |
-			               CheckList.Fields.Board |
-			               CheckList.Fields.Card |
 						   CheckList.Fields.Position;
 			Properties = new Dictionary<string, Property<IJsonCheckList>>
 				{
@@ -98,6 +96,16 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					Parameters["checkItems"] = "all";
 					Parameters["checkItem_fields"] = CheckItemContext.CurrentParameters["fields"];
+				}
+				if (parameterFields.HasFlag(CheckList.Fields.Board))
+				{
+					Parameters["board"] = "true";
+					Parameters["board_fields"] = BoardContext.CurrentParameters["fields"];
+				}
+				if (parameterFields.HasFlag(CheckList.Fields.Card))
+				{
+					Parameters["card"] = "true";
+					Parameters["card_fields"] = CardContext.CurrentParameters["fields"];
 				}
 			}
 		}

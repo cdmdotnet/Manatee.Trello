@@ -39,7 +39,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			MemberFields = Attachment.Fields.Bytes |
 			               Attachment.Fields.Date |
 			               Attachment.Fields.IsUpload |
-			               Attachment.Fields.Member |
 			               Attachment.Fields.MimeType |
 			               Attachment.Fields.Name |
 			               Attachment.Fields.Url |
@@ -125,6 +124,11 @@ namespace Manatee.Trello.Internal.Synchronization
 				var parameterFields = availableFields & Attachment.DownloadedFields & (~MemberFields);
 				if (parameterFields.HasFlag(Attachment.Fields.Previews))
 					Parameters["previews"] = "true";
+				if (parameterFields.HasFlag(Attachment.Fields.Member))
+				{
+					Parameters["member"] = "true";
+					Parameters["member_fields"] = MemberContext.CurrentParameters["fields"];
+				}
 			}
 		}
 
