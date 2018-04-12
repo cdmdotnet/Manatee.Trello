@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
@@ -9,10 +11,18 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class LabelContext : SynchronizationContext<IJsonLabel>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly Label.Fields MemberFields;
+
 		private bool _deleted;
 
 		static LabelContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = Label.Fields.Board |
+			               Label.Fields.Color |
+			               Label.Fields.Name |
+						   Label.Fields.Uses;
 			Properties = new Dictionary<string, Property<IJsonLabel>>
 				{
 					{
@@ -44,6 +54,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 		}
 
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(Label.Fields)).Cast<Label.Fields>().ToList();
+				var availableFields = (Label.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields & Label.DownloadedFields;
+				Parameters["fields"] = memberFields.GetDescription();
+			}
+		}
+
 		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
@@ -59,8 +82,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = new Dictionary<string, object>(Parameters);
+				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonLabel>(Auth, endpoint, ct);
+				var newData = await JsonRepository.Execute<IJsonLabel>(Auth, endpoint, ct, parameters);
 
 				MarkInitialized();
 				return newData;

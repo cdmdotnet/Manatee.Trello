@@ -49,11 +49,20 @@ namespace Manatee.Trello
 		private readonly Field<int?> _uses;
 		private readonly LabelContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				LabelContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the board on which the label is defined.
@@ -100,6 +109,11 @@ namespace Manatee.Trello
 		{
 			get { return _context.Data; }
 			set { _context.Merge(value); }
+		}
+
+		static Label()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
 
 		internal Label(IJsonLabel json, TrelloAuthorization auth)

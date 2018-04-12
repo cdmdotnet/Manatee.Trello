@@ -56,11 +56,20 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				TokenContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the name of the application associated with the token.
@@ -115,6 +124,11 @@ namespace Manatee.Trello
 		/// Gets the permissions on organizations granted by the token.
 		/// </summary>
 		public ITokenPermission OrganizationPermissions { get; }
+
+		static Token()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Token"/> object.

@@ -12,6 +12,9 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class TokenContext : SynchronizationContext<IJsonToken>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly Token.Fields MemberFields;
+
 		private bool _deleted;
 
 		public TokenPermissionContext MemberPermissions { get; }
@@ -21,6 +24,12 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static TokenContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = Token.Fields.Id |
+			               Token.Fields.Member |
+			               Token.Fields.DateCreated |
+			               Token.Fields.DateExpires |
+			               Token.Fields.Permissions;
 			Properties = new Dictionary<string, Property<IJsonToken>>
 				{
 					{
@@ -62,6 +71,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Permissions.Add(OrganizationPermissions.Data);
 		}
 
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(Token.Fields)).Cast<Token.Fields>().ToList();
+				var availableFields = (Token.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields & Token.DownloadedFields;
+				Parameters["fields"] = memberFields.GetDescription();
+			}
+		}
+
 		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
@@ -81,8 +103,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = new Dictionary<string, object>(Parameters);
+				}
 				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> {{"_token", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonToken>(Auth, endpoint, ct);
+				var newData = await JsonRepository.Execute<IJsonToken>(Auth, endpoint, ct, parameters);
 				MarkInitialized();
 
 				return newData;

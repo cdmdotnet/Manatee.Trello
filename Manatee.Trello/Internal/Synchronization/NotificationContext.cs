@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
@@ -10,10 +11,19 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class NotificationContext : SynchronizationContext<IJsonNotification>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly Notification.Fields MemberFields;
+
 		public NotificationDataContext NotificationDataContext { get; }
 
 		static NotificationContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = Notification.Fields.Creator |
+			               Notification.Fields.Data |
+			               Notification.Fields.IsUnread |
+			               Notification.Fields.Type |
+						   Notification.Fields.Date;
 			Properties = new Dictionary<string, Property<IJsonNotification>>
 				{
 					{
@@ -51,6 +61,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Data = NotificationDataContext.Data;
 		}
 
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(Notification.Fields)).Cast<Notification.Fields>().ToList();
+				var availableFields = (Notification.Fields) flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields & Notification.DownloadedFields;
+				Parameters["fields"] = memberFields.GetDescription();
+			}
+		}
+
 		public override async Task Expire(CancellationToken ct)
 		{
 			await base.Expire(ct);
@@ -58,9 +81,14 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override async Task<IJsonNotification> GetData(CancellationToken ct)
 		{
+			Dictionary<string, object> parameters;
+			lock (Parameters)
+			{
+				parameters = new Dictionary<string, object>(Parameters);
+			}
 			var endpoint = EndpointFactory.Build(EntityRequestType.Notification_Read_Refresh,
 			                                     new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonNotification>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<IJsonNotification>(Auth, endpoint, ct, parameters);
 
 			return newData;
 		}

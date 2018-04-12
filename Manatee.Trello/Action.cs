@@ -43,7 +43,7 @@ namespace Manatee.Trello
 			Type = 1 << 3
 		}
 
-		private static readonly Dictionary<ActionType, Func<Action, string>> _stringDefinitions;
+		private static readonly Dictionary<ActionType, Func<Action, string>> StringDefinitions;
 
 		private readonly Field<Member> _creator;
 		private readonly Field<DateTime?> _date;
@@ -51,11 +51,20 @@ namespace Manatee.Trello
 		private readonly ActionContext _context;
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				ActionContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the creation date.
@@ -112,7 +121,7 @@ namespace Manatee.Trello
 
 		static Action()
 		{
-			_stringDefinitions = new Dictionary<ActionType, Func<Action, string>>
+			StringDefinitions = new Dictionary<ActionType, Func<Action, string>>
 				{
 					{ActionType.AddAttachmentToCard, a => $"{a.Creator} attached {a.Data.Attachment} to card {a.Data.Card}."},
 					{ActionType.AddChecklistToCard, a => $"{a.Creator} added checklist {a.Data.CheckList} to card {a.Data.Card}."},
@@ -184,6 +193,7 @@ namespace Manatee.Trello
 					{ActionType.UpdateCustomField, a => $"{a.Creator} updated the definition of custom field {a.Data.CustomField} on board {a.Data.Board}."},
 					{ActionType.UpdateCustomFieldItem, a => $"{a.Creator} updated custom field {a.Data.CustomField} on card {a.Data.Card}."},
 				};
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
 		/// <summary>
 		/// Creates a new <see cref="Action"/> instance.
@@ -235,7 +245,7 @@ namespace Manatee.Trello
 		public override string ToString()
 		{
 			return Type.HasValue && Type != ActionType.Unknown
-				       ? _stringDefinitions[Type.Value](this)
+				       ? StringDefinitions[Type.Value](this)
 				       : "Action type could not be determined.";
 		}
 

@@ -33,18 +33,18 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Board.Fields.Closed |
-			               Board.Fields.Organization |
-			               Board.Fields.Pinned |
-			               Board.Fields.Description |
-			               Board.Fields.Starred |
-			               Board.Fields.Preferencess |
-			               Board.Fields.IsSubscribed |
-			               Board.Fields.LastActivityDate |
-			               Board.Fields.LastViewDate |
-			               Board.Fields.Name |
-			               Board.Fields.ShortLink |
-			               Board.Fields.ShortUrl |
-			               Board.Fields.Url;
+						   Board.Fields.Organization |
+						   Board.Fields.Pinned |
+						   Board.Fields.Description |
+						   Board.Fields.Starred |
+						   Board.Fields.Preferencess |
+						   Board.Fields.IsSubscribed |
+						   Board.Fields.LastActivityDate |
+						   Board.Fields.LastViewDate |
+						   Board.Fields.Name |
+						   Board.Fields.ShortLink |
+						   Board.Fields.ShortUrl |
+						   Board.Fields.Url;
 			Properties = new Dictionary<string, Property<IJsonBoard>>
 				{
 					{
@@ -70,7 +70,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						nameof(Board.Organization),
 						new Property<IJsonBoard, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
-						                                       (d, o) => d.Organization = o?.Json)
+															   (d, o) => d.Organization = o?.Json)
 					},
 					{
 						nameof(Board.Preferences),
@@ -169,7 +169,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Delete,
-			                                     new Dictionary<string, object> {{"_id", Data.Id}});
+												 new Dictionary<string, object> {{"_id", Data.Id}});
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
@@ -181,21 +181,30 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override async Task<IJsonBoard> GetData(CancellationToken ct)
 		{
-			Dictionary<string, object> parameters;
-			lock (Parameters)
+			try
 			{
-				parameters = new Dictionary<string, object>(Parameters);
-			}
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Refresh,
-			                                     new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonBoard>(Auth, endpoint, ct, parameters);
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = new Dictionary<string, object>(Parameters);
+				}
+				var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Refresh,
+													 new Dictionary<string, object> {{"_id", Data.Id}});
+				var newData = await JsonRepository.Execute<IJsonBoard>(Auth, endpoint, ct, parameters);
 
-			return newData;
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!e.IsNotFoundError() || !IsInitialized) throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override async Task SubmitData(IJsonBoard json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update,
-			                                     new Dictionary<string, object> {{"_id", Data.Id}});
+												 new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(newData);
@@ -247,7 +256,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (json.Memberships != null)
 			{
 				Memberships.Update(json.Memberships.Select(a => a.TryGetFromCache<BoardMembership, IJsonBoardMembership>() ??
-				                                                new BoardMembership(a, Data.Id, Auth)));
+																new BoardMembership(a, Data.Id, Auth)));
 				properties.Add(nameof(Board.Memberships));
 			}
 			if (json.PowerUps != null)
