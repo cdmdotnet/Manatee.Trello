@@ -249,7 +249,8 @@ namespace Manatee.Trello
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Delete(ct);
-			TrelloConfiguration.Cache.Remove(this);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the organization to be refreshed the next time data is accessed.

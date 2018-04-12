@@ -58,6 +58,10 @@ namespace Manatee.Trello
 			set { _cache = value; }
 		}
 		/// <summary>
+		/// Specifies whether deleted items should be removed from the cache.  The default is true.
+		/// </summary>
+		public static bool RemoveDeletedItemsFromCache { get; set; }
+		/// <summary>
 		/// Provides logging for Manatee.Trello.  The default log writes to the Console window.
 		/// </summary>
 		public static ILog Log
@@ -123,6 +127,7 @@ namespace Manatee.Trello
 			ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
 			RegisteredPowerUps = new Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>>();
 			RetryStatusCodes = new List<HttpStatusCode>();
+			RemoveDeletedItemsFromCache = true;
 		}
 
 		/// <summary>
