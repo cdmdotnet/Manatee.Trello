@@ -108,8 +108,11 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["actions_format"] = "list";
 				}
 				if (parameterFields.HasFlag(List.Fields.Cards))
+				{
 					// TODO: may need to extend this somehow to support other options here
 					Parameters["cards"] = "open";
+					Parameters["card_fields"] = CardContext.CurrentParameters["fields"];
+				}
 			}
 		}
 

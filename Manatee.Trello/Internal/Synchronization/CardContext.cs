@@ -200,11 +200,17 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["actions_format"] = "list";
 				}
 				if (parameterFields.HasFlag(Card.Fields.Members))
+				{
 					Parameters["members"] = "true";
+					Parameters["member_fields"] = MemberContext.CurrentParameters["fields"];
+				}
 				if (parameterFields.HasFlag(Card.Fields.Stickers))
 					Parameters["stickers"] = "true";
 				if (parameterFields.HasFlag(Card.Fields.VotingMembers))
+				{
 					Parameters["membersVoted"] = "true";
+					Parameters["membersVoted_fields"] = MemberContext.CurrentParameters["fields"];
+				}
 			}
 		}
 

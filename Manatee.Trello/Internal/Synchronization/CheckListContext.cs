@@ -95,7 +95,10 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var parameterFields = availableFields & CheckList.DownloadedFields & (~MemberFields);
 				if (parameterFields.HasFlag(CheckList.Fields.CheckItems))
+				{
 					Parameters["checkItems"] = "all";
+					Parameters["checkItem_fields"] = CheckItemContext.CurrentParameters["fields"];
+				}
 			}
 		}
 

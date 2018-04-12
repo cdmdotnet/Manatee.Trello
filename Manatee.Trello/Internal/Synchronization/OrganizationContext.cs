@@ -126,12 +126,23 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["actions"] = "all";
 					Parameters["actions_format"] = "list";
 				}
+
 				if (parameterFields.HasFlag(Organization.Fields.Boards))
+				{
 					Parameters["boards"] = "open";
+					Parameters["board_fields"] = BoardContext.CurrentParameters["fields"];
+				}
 				if (parameterFields.HasFlag(Organization.Fields.Members))
+				{
 					Parameters["members"] = "all";
+					Parameters["member_fields"] = MemberContext.CurrentParameters["fields"];
+				}
 				if (parameterFields.HasFlag(Organization.Fields.Memberships))
+				{
 					Parameters["memberships"] = "all";
+					Parameters["memberships_member"] = "true";
+					Parameters["membership_member_fields"] = MemberContext.CurrentParameters["fields"];
+				}
 				if (parameterFields.HasFlag(Organization.Fields.PowerUpData))
 					Parameters["pluginData"] = "true";
 			}
