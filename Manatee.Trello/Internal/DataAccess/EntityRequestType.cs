@@ -37,6 +37,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Card_Read_Attachments,
 		Card_Read_CheckLists,
 		Card_Read_CustomFields,
+		Card_Read_Labels,
 		Card_Read_Members,
 		Card_Read_MembersVoted,
 		Card_Read_PowerUpData,

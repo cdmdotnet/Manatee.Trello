@@ -23,7 +23,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public OrganizationMembershipCollection Memberships { get; }
 		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; }
-		protected override bool IsDataComplete => !Data.DisplayName.IsNullOrWhiteSpace();
+		protected virtual bool IsDataComplete => !Data.DisplayName.IsNullOrWhiteSpace();
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static OrganizationContext()
@@ -84,7 +84,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Organization_Read_PowerUpData, () => Data.Id, auth);
 
 			OrganizationPreferencesContext = new OrganizationPreferencesContext(Auth);
-			OrganizationPreferencesContext.SynchronizeRequested += ct => Synchronize(ct);
 			OrganizationPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
 			Data.Prefs = OrganizationPreferencesContext.Data;
 		}

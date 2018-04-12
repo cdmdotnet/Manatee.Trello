@@ -61,13 +61,10 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 			Data.Permissions = new List<IJsonTokenPermission>();
 			MemberPermissions = new TokenPermissionContext(Auth);
-			MemberPermissions.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Permissions.Add(MemberPermissions.Data);
 			BoardPermissions = new TokenPermissionContext(Auth);
-			BoardPermissions.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Permissions.Add(BoardPermissions.Data);
 			OrganizationPermissions = new TokenPermissionContext(Auth);
-			OrganizationPermissions.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Permissions.Add(OrganizationPermissions.Data);
 		}
 

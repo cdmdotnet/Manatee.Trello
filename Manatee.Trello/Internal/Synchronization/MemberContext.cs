@@ -19,7 +19,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public ReadOnlyBoardCollection Boards { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
 		public MemberPreferencesContext MemberPreferencesContext { get; }
-		protected override bool IsDataComplete => !Data.FullName.IsNullOrWhiteSpace();
+		protected virtual bool IsDataComplete => !Data.FullName.IsNullOrWhiteSpace();
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static MemberContext()
@@ -112,7 +112,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				                : new ReadOnlyOrganizationCollection(() => Data.Id, auth);
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
-			MemberPreferencesContext.SynchronizeRequested += ct => Synchronize(ct);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
 			Data.Prefs = MemberPreferencesContext.Data;
 		}

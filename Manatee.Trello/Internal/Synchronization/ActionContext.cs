@@ -57,7 +57,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			ActionDataContext = new ActionDataContext(Auth);
-			ActionDataContext.SynchronizeRequested += ct => Synchronize(ct);
 			ActionDataContext.SubmitRequested += ct => HandleSubmitRequested("Text", ct);
 			Data.Data = ActionDataContext.Data;
 		}

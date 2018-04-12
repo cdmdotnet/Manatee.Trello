@@ -107,6 +107,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			Merge(newData);
 		}
 
-		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+		protected virtual bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 	}
 }

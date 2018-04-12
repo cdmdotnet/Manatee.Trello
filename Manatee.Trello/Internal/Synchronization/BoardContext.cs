@@ -122,7 +122,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Board_Read_PowerUpData, () => Data.Id, auth);
 
 			BoardPreferencesContext = new BoardPreferencesContext(Auth);
-			BoardPreferencesContext.SynchronizeRequested += ct => Synchronize(ct);
 			BoardPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
 			Data.Prefs = BoardPreferencesContext.Data;
 		}
@@ -272,6 +271,6 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			return properties;
 		}
-		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+		protected virtual bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 	}
 }

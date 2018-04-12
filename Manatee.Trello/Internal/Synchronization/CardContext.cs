@@ -29,7 +29,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public ReadOnlyMemberCollection VotingMembers { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
-		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+		protected virtual bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 
 		static CardContext()
 		{
@@ -131,8 +131,6 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => Data.Id, auth);
 			Attachments = new AttachmentCollection(() => Data.Id, auth);
-			BadgesContext = new BadgesContext(Auth);
-			BadgesContext.SynchronizeRequested += ct => Synchronize(ct);
 			CheckLists = new CheckListCollection(() => Data.Id, auth);
 			Comments = new CommentCollection(() => Data.Id, auth);
 			Labels = new CardLabelCollection(this, auth);
@@ -140,6 +138,8 @@ namespace Manatee.Trello.Internal.Synchronization
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Card_Read_PowerUpData, () => Data.Id, auth);
 			Stickers = new CardStickerCollection(() => Data.Id, auth);
 			VotingMembers = new ReadOnlyMemberCollection(EntityRequestType.Card_Read_MembersVoted, () => Data.Id, auth);
+
+			BadgesContext = new BadgesContext(Auth);
 
 			Data.Badges = BadgesContext.Data;
 		}

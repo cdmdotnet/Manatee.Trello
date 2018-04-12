@@ -15,7 +15,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly List.Fields MemberFields;
 
-		protected override bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
+		protected virtual bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 
 		public ReadOnlyActionCollection Actions { get; }
 		public CardCollection Cards { get; }

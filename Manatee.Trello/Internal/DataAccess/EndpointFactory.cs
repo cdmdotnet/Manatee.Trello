@@ -45,6 +45,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Card_Read_Actions, () => new Endpoint(RestMethod.Get, "cards", "_id", "actions")},
 					{EntityRequestType.Card_Read_Attachments, () => new Endpoint(RestMethod.Get, "cards", "_id", "attachments")},
 					{EntityRequestType.Card_Read_CheckLists, () => new Endpoint(RestMethod.Get, "cards", "_id", "checklists")},
+					{EntityRequestType.Card_Read_Labels, () => new Endpoint(RestMethod.Get, "cards", "_id", "labels")},
 					{EntityRequestType.Card_Read_Members, () => new Endpoint(RestMethod.Get, "cards", "_id", "members")},
 					{EntityRequestType.Card_Read_MembersVoted, () => new Endpoint(RestMethod.Get, "cards", "_id", "membersVoted")},
 					{EntityRequestType.Card_Read_PowerUpData, () => new Endpoint(RestMethod.Get, "cards", "_id", "plugindata")},

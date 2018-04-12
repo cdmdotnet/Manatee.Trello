@@ -7,17 +7,9 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal abstract class LinkedSynchronizationContext<TJson> : SynchronizationContext<TJson>
 		where TJson : class
 	{
-		public Func<CancellationToken, Task> SynchronizeRequested;
 		public Func<CancellationToken, Task> SubmitRequested;
 
 		protected LinkedSynchronizationContext(TrelloAuthorization auth) : base(auth, false) {}
-
-		protected override async Task<TJson> GetData(CancellationToken ct)
-		{
-			await _RequestSync(SynchronizeRequested, ct);
-			return Data;
-
-		}
 		public override async Task SetValue<T>(string property, T value, CancellationToken ct)
 		{
 			await base.SetValue(property, value, ct);

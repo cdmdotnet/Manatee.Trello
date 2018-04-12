@@ -11,12 +11,10 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private readonly Timer _timer;
 		private readonly object _lock;
-		private DateTime _lastUpdate;
 		private bool _cancelUpdate;
 
 		public abstract bool HasChanges { get; }
 
-		protected virtual bool IsDataComplete => true;
 		protected bool ManagesSubmissions { get; }
 
 		public event Action<IEnumerable<string>> Synchronized;
@@ -29,7 +27,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				_timer = new Timer(async state => await _TimerElapsed(), null, TimeSpan.Zero, TrelloConfiguration.ChangeSubmissionTime);
 			}
 
-			_lastUpdate = DateTime.MinValue;
 			_lock = new object();
 			RestRequestProcessor.LastCall += _TimerElapsed;
 		}
@@ -41,13 +38,11 @@ namespace Manatee.Trello.Internal.Synchronization
 		public abstract T GetValue<T>(string property);
 		public abstract Task SetValue<T>(string property, T value, CancellationToken ct);
 
-		public async Task Synchronize(CancellationToken ct, bool force = false)
+		public async Task Synchronize(CancellationToken ct)
 		{
 			var data = await GetBasicData(ct);
 			lock (_lock)
 			{
-				if (!force && IsDataComplete && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
-
 				var properties = Merge(data).ToList();
 				if (!properties.Any()) return;
 
@@ -57,18 +52,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public virtual Task Expire(CancellationToken ct)
 		{
-			_lastUpdate = DateTime.MinValue;
-			return Synchronize(ct, true);
+			return Synchronize(ct);
 		}
 
 		protected abstract Task<object> GetBasicData(CancellationToken ct);
 		protected abstract IEnumerable<string> Merge(object newData);
 		protected abstract Task Submit(CancellationToken ct);
 
-		protected void MarkAsUpdated()
-		{
-			_lastUpdate = DateTime.Now;
-		}
 		protected void CancelUpdate()
 		{
 			_cancelUpdate = true;
@@ -94,7 +84,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		private async Task _SubmitChanges(CancellationToken ct)
 		{
 			await Submit(ct);
-			_lastUpdate = DateTime.Now;
 		}
 	}
 
@@ -185,7 +174,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			lock (_mergeLock)
 			{
-				MarkAsUpdated();
 				MarkInitialized();
 				if (!CanUpdate()) return Enumerable.Empty<string>();
 				if (Equals(json, default(TJson)) || ReferenceEquals(json, Data))

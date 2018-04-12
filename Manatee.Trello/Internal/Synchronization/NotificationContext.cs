@@ -57,7 +57,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			NotificationDataContext = new NotificationDataContext(Auth);
-			NotificationDataContext.SynchronizeRequested += ct => Synchronize(ct);
 			Data.Data = NotificationDataContext.Data;
 		}
 
