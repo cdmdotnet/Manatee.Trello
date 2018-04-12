@@ -78,13 +78,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public static bool ThrowOnTrelloError { get; set; }
 		/// <summary>
-		/// Specifies a length of time after which each Trello object will be marked as expired. Default is 30 seconds.
-		/// </summary>
-		/// <remarks>
-		/// This setting has no effect unless <see cref="AutoUpdate"/> is true.
-		/// </remarks>
-		public static TimeSpan ExpiryTime { get; set; }
-		/// <summary>
 		/// Specifies a length of time an object holds changes before it submits them.  The timer is reset with every change.  Default is 100 ms.
 		/// </summary>
 		/// <remarks>
@@ -96,7 +89,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public static IList<HttpStatusCode> RetryStatusCodes { get; }
 		/// <summary>
-		/// Specifies a maximum number of retries allowed before an error is thrown.  
+		/// Specifies a maximum number of retries allowed before an error is thrown.
 		/// </summary>
 		public static int MaxRetryCount { get; set; }
 		/// <summary>
@@ -127,7 +120,6 @@ namespace Manatee.Trello
 		static TrelloConfiguration()
 		{
 			ThrowOnTrelloError = true;
-			ExpiryTime = TimeSpan.FromSeconds(30);
 			ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
 			RegisteredPowerUps = new Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>>();
 			RetryStatusCodes = new List<HttpStatusCode>();

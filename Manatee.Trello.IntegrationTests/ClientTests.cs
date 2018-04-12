@@ -316,8 +316,6 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-				TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
-
 				var list = new List(TrelloIds.ListId);
 				card = await list.Cards.Add(name);
 				var comment = await card.Comments.Add("This is a comment");
@@ -338,8 +336,6 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
-
-			TrelloConfiguration.ExpiryTime = TimeSpan.FromSeconds(1);
 
 			var search = new Search(SearchFor.TextInName("Sandbox"), 1, SearchModelType.Boards);
 			await search.Refresh();
