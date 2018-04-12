@@ -39,6 +39,7 @@ namespace Manatee.Trello.Json.Entities
 		public string IdLabels { get; set; }
 		public List<IJsonSticker> Stickers { get; set; }
 		public List<IJsonMember> MembersVoted { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -71,6 +72,7 @@ namespace Manatee.Trello.Json.Entities
 					Subscribed = obj.TryGetBoolean("subscribed");
 					Stickers = obj.Deserialize<List<IJsonSticker>>(serializer, "stickers");
 					MembersVoted = obj.Deserialize<List<IJsonMember>>(serializer, "membersVoted");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

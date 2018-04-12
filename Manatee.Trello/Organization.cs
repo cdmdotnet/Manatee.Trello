@@ -256,7 +256,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Expire(ct);
+			await _context.Synchronize(ct);
 		}
 
 		void IMergeJson<IJsonOrganization>.Merge(IJsonOrganization json)

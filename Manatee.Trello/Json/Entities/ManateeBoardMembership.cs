@@ -15,7 +15,8 @@ namespace Manatee.Trello.Json.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
+			Member = obj.Deserialize<IJsonMember>(serializer, "member") ??
+			         obj.Deserialize<IJsonMember>(serializer, "idMember");
 			MemberType = obj.Deserialize<BoardMembershipType?>(serializer, "memberType");
 			Deactivated = obj.TryGetBoolean("deactivated");
 		}

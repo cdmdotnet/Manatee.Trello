@@ -19,7 +19,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		public ReadOnlyBoardCollection Boards { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
 		public MemberPreferencesContext MemberPreferencesContext { get; }
-		protected virtual bool IsDataComplete => !Data.FullName.IsNullOrWhiteSpace();
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static MemberContext()
@@ -138,11 +137,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				if (parameterFields.HasFlag(Member.Fields.Organizations))
 					Parameters["organizations"] = "all";
 			}
-		}
-
-		public override async Task Expire(CancellationToken ct)
-		{
-			await base.Expire(ct);
 		}
 
 		protected override async Task<IJsonMember> GetData(CancellationToken ct)

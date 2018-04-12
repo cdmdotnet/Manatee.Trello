@@ -39,7 +39,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(jc =>
 				{
-					var checkList = jc.GetFromCache<CheckList>(Auth);
+					var checkList = jc.GetFromCache<CheckList, IJsonCheckList>(Auth);
 					checkList.Json = jc;
 					return checkList;
 				}));

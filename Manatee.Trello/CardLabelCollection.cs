@@ -41,7 +41,7 @@ namespace Manatee.Trello
 			await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Items.Add(label);
-			await _context.Expire(ct);
+			await _context.Synchronize(ct);
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace Manatee.Trello
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			Items.Remove(label);
-			await _context.Expire(ct);
+			await _context.Synchronize(ct);
 		}
 
 		/// <summary>

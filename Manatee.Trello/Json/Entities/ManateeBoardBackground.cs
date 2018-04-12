@@ -14,6 +14,7 @@ namespace Manatee.Trello.Json.Entities
 		public List<IJsonImagePreview> ImageScaled { get; set; }
 		public bool? Tile { get; set; }
 		public string TopColor { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -29,6 +30,7 @@ namespace Manatee.Trello.Json.Entities
 					ImageScaled = obj.Deserialize<List<IJsonImagePreview>>(serializer, "backgroundImageScaled");
 					Tile = obj.TryGetBoolean("backgroundTile");
 					TopColor = obj.TryGetString("backgroundTopColor");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

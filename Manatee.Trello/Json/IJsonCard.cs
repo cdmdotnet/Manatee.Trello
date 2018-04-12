@@ -6,7 +6,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Card object.
 	/// </summary>
-	public interface IJsonCard : IJsonCacheable
+	public interface IJsonCard : IJsonCacheable, IAcceptId
 	{
 		List<IJsonAction> Actions { get; set; }
 		List<IJsonAttachment> Attachments { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Manatee.Trello.Json
 {
-	public interface IJsonCustomFieldDefinition : IJsonCacheable
+	public interface IJsonCustomFieldDefinition : IJsonCacheable, IAcceptId
 	{
 		IJsonBoard Board { get; set; }
 		string FieldGroup { get; set; }

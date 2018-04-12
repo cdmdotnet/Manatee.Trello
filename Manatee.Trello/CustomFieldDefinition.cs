@@ -10,7 +10,7 @@ namespace Manatee.Trello
 		private readonly TrelloAuthorization _auth;
 
 		public string Id => Json.Id;
-		public Board Board => Json.Board.GetFromCache<Board>(_auth);
+		public Board Board => Json.Board.GetFromCache<Board, IJsonBoard>(_auth);
 		public string FieldGroup => Json.FieldGroup;
 		public string Name => Json.Name;
 		public Position Position => Position.GetPosition(Json.Pos);

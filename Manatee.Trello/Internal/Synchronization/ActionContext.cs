@@ -31,7 +31,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(Action.Creator),
-						new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
+						new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member, IJsonMember>(a),
 						                                  (d, o) => { if (o != null) d.MemberCreator = o.Json; })
 					},
 					{
@@ -83,10 +83,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
-		}
-		public override async Task Expire(CancellationToken ct)
-		{
-			await base.Expire(ct);
 		}
 
 		protected override async Task<IJsonAction> GetData(CancellationToken ct)

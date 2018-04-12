@@ -6,7 +6,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Board object.
 	/// </summary>
-	public interface IJsonBoard : IJsonCacheable
+	public interface IJsonBoard : IJsonCacheable, IAcceptId
 	{
 		///<summary>
 		/// Gets or sets the board's name.

@@ -30,28 +30,28 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						nameof(Search.Actions),
 						new Property<IJsonSearch, IEnumerable<Action>>(
-							(d, a) => d.Actions?.Select(j => j.GetFromCache<Action>(a)).ToList() ??
+							(d, a) => d.Actions?.Select(j => j.GetFromCache<Action, IJsonAction>(a)).ToList() ??
 							          Enumerable.Empty<Action>(),
 							(d, o) => d.Actions = o?.Select(a => a.Json).ToList())
 					},
 					{
 						nameof(Search.Boards),
 						new Property<IJsonSearch, IEnumerable<Board>>(
-							(d, a) => d.Boards?.Select(j => j.GetFromCache<Board>(a)).ToList() ??
+							(d, a) => d.Boards?.Select(j => j.GetFromCache<Board, IJsonBoard>(a)).ToList() ??
 							          Enumerable.Empty<Board>(),
 							(d, o) => d.Boards = o?.Select(a => a.Json).ToList())
 					},
 					{
 						nameof(Search.Cards),
 						new Property<IJsonSearch, IEnumerable<Card>>(
-							(d, a) => d.Cards?.Select(j => j.GetFromCache<Card>(a)).ToList() ??
+							(d, a) => d.Cards?.Select(j => j.GetFromCache<Card, IJsonCard>(a)).ToList() ??
 							          Enumerable.Empty<Card>(),
 							(d, o) => d.Cards = o?.Select(a => a.Json).ToList())
 					},
 					{
 						nameof(Search.Members),
 						new Property<IJsonSearch, IEnumerable<Member>>(
-							(d, a) => d.Members?.Select(j => j.GetFromCache<Member>(a)).ToList() ??
+							(d, a) => d.Members?.Select(j => j.GetFromCache<Member, IJsonMember>(a)).ToList() ??
 							          Enumerable.Empty<Member>(),
 							(d, o) => d.Members = o?.Select(a => a.Json).ToList())
 					},
@@ -59,7 +59,7 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(Search.Organizations),
 						new Property<IJsonSearch, IEnumerable<Organization>>(
 							(d, a) => d.Organizations
-							           ?.Select(j => j.GetFromCache<Organization>(a)).ToList() ??
+							           ?.Select(j => j.GetFromCache<Organization, IJsonOrganization>(a)).ToList() ??
 							          Enumerable.Empty<Organization>(),
 							(d, o) => d.Organizations = o?.Select(a => a.Json).ToList())
 					},

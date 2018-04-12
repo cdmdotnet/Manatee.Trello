@@ -15,8 +15,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly List.Fields MemberFields;
 
-		protected virtual bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
-
 		public ReadOnlyActionCollection Actions { get; }
 		public CardCollection Cards { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
@@ -33,7 +31,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(List.Board),
-						new Property<IJsonList, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+						new Property<IJsonList, Board>((d, a) => d.Board?.GetFromCache<Board, IJsonBoard>(a),
 						                               (d, o) =>
 							                               {
 								                               if (o != null) d.Board = o.Json;

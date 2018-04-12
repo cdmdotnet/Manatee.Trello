@@ -14,6 +14,7 @@ namespace Manatee.Trello.Json.Entities
 		public double? Top { get; set; }
 		public string Url { get; set; }
 		public int? ZIndex { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -29,6 +30,7 @@ namespace Manatee.Trello.Json.Entities
 					Top = obj.TryGetNumber("top");
 					Url = obj.TryGetString("imageUrl");
 					ZIndex = (int?) obj.TryGetNumber("zIndex");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

@@ -27,7 +27,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(Label.Board),
-						new Property<IJsonLabel, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+						new Property<IJsonLabel, Board>((d, a) => d.Board?.GetFromCache<Board, IJsonBoard>(a),
 						                                (d, o) => d.Board = o?.Json)
 					},
 					{
@@ -106,7 +106,5 @@ namespace Manatee.Trello.Internal.Synchronization
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
 		}
-
-		protected virtual bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 	}
 }

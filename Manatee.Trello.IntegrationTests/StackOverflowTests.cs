@@ -18,7 +18,7 @@ namespace Manatee.Trello.IntegrationTests
 
 			await action();
 
-			TrelloProcessor.Flush();
+			await TrelloProcessor.Flush();
 		}
 
 		#region http://stackoverflow.com/q/39926431/878701

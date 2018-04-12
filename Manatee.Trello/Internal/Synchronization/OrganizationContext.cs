@@ -23,7 +23,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		public OrganizationMembershipCollection Memberships { get; }
 		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; }
-		protected virtual bool IsDataComplete => !Data.DisplayName.IsNullOrWhiteSpace();
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static OrganizationContext()
@@ -125,10 +124,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
-		}
-		public override async Task Expire(CancellationToken ct)
-		{
-			await base.Expire(ct);
 		}
 
 		protected override async Task<IJsonOrganization> GetData(CancellationToken ct)

@@ -16,7 +16,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(MemberSearch.Board),
-						new Property<IJsonMemberSearch, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+						new Property<IJsonMemberSearch, Board>((d, a) => d.Board?.GetFromCache<Board, IJsonBoard>(a),
 						                                       (d, o) =>
 							                                       {
 								                                       if (o != null) d.Board = o.Json;
@@ -34,7 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(MemberSearch.Organization),
-						new Property<IJsonMemberSearch, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
+						new Property<IJsonMemberSearch, Organization>((d, a) => d.Organization?.GetFromCache<Organization, IJsonOrganization>(a),
 						                                              (d, o) => d.Organization = o?.Json)
 					},
 					{
@@ -74,7 +74,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		private static MemberSearchResult GetResult(IJsonMember json, TrelloAuthorization auth)
 		{
-			return new MemberSearchResult(json.GetFromCache<Member>(auth), json.Similarity);
+			return new MemberSearchResult(json.GetFromCache<Member, IJsonMember>(auth), json.Similarity);
 		}
 	}
 }

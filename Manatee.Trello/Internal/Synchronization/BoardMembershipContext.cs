@@ -25,7 +25,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(BoardMembership.Member),
-						new Property<IJsonBoardMembership, Member>((d, a) => d.Member.GetFromCache<Member>(a),
+						new Property<IJsonBoardMembership, Member>((d, a) => d.Member.GetFromCache<Member, IJsonMember>(a),
 						                                           (d, o) => d.Member = o?.Json)
 					},
 					{

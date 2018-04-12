@@ -35,7 +35,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(jn =>
 				{
-					var powerUp = jn.GetFromCache<PowerUpData>(Auth);
+					var powerUp = jn.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth);
 					powerUp.Json = jn;
 					return powerUp;
 				}));

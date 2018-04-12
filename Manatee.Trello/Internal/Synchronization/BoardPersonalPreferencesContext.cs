@@ -49,7 +49,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(BoardPersonalPreferences.EmailList),
-						new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList?.GetFromCache<List>(a),
+						new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList?.GetFromCache<List, IJsonList>(a),
 						                                                  (d, o) => d.EmailList = o?.Json)
 					},
 				};

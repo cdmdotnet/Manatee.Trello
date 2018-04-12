@@ -14,6 +14,7 @@ namespace Manatee.Trello.Json.Entities
 		public bool? Subscribed { get; set; }
 		public List<IJsonAction> Actions { get; set; }
 		public List<IJsonCard> Cards { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -29,6 +30,7 @@ namespace Manatee.Trello.Json.Entities
 					Subscribed = obj.TryGetBoolean("subscribed");
 					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
 					Cards = obj.Deserialize<List<IJsonCard>>(serializer, "cards");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

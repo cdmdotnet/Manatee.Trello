@@ -98,7 +98,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
 				{
-					var action = ja.GetFromCache<Action>(Auth);
+					var action = ja.GetFromCache<Action, IJsonAction>(Auth);
 					action.Json = ja;
 					return action;
 				}));

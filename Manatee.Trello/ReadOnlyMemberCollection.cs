@@ -71,7 +71,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(jm =>
 				{
-					var member = jm.GetFromCache<Member>(Auth);
+					var member = jm.GetFromCache<Member, IJsonMember>(Auth);
 					member.Json = jm;
 					return member;
 				}));

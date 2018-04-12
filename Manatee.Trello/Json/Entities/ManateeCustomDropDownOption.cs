@@ -11,6 +11,7 @@ namespace Manatee.Trello.Json.Entities
 		public string Text { get; set; }
 		public LabelColor? Color { get; set; }
 		public IJsonPosition Pos { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -23,6 +24,7 @@ namespace Manatee.Trello.Json.Entities
 					Text = obj.TryGetObject("value")?.TryGetString("text");
 					Color = obj.Deserialize<LabelColor?>(serializer, "color");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

@@ -29,8 +29,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		public ReadOnlyMemberCollection VotingMembers { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
-		protected virtual bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
-
 		static CardContext()
 		{
 			Parameters = new Dictionary<string, object>();
@@ -53,7 +51,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(Card.Board),
-						new Property<IJsonCard, Board>((d, a) => d.Board?.GetFromCache<Board>(a),
+						new Property<IJsonCard, Board>((d, a) => d.Board?.GetFromCache<Board, IJsonBoard>(a),
 						                               (d, o) => d.Board = o?.Json)
 					},
 					{
@@ -98,7 +96,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(Card.List),
-						new Property<IJsonCard, List>((d, a) => d.List?.GetFromCache<List>(a),
+						new Property<IJsonCard, List>((d, a) => d.List?.GetFromCache<List, IJsonList>(a),
 						                              (d, o) => d.List = o?.Json)
 					},
 					{
@@ -192,10 +190,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
-		}
-		public override async Task Expire(CancellationToken ct)
-		{
-			await base.Expire(ct);
 		}
 
 		protected override async Task<IJsonCard> GetData(CancellationToken ct)

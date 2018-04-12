@@ -66,7 +66,7 @@ namespace Manatee.Trello.IntegrationTests
 			// search will include archived cards as well as matches in card descriptions.
 			Assert.AreEqual(6, search.Cards.Count());
 
-			TrelloProcessor.Flush();
+			await TrelloProcessor.Flush();
 		}
 
 		[Test]
@@ -83,7 +83,7 @@ namespace Manatee.Trello.IntegrationTests
 
 			Assert.AreEqual(0, search.Cards.Count());
 
-			TrelloProcessor.Flush();
+			await TrelloProcessor.Flush();
 		}
 
 		[Test]
@@ -109,7 +109,7 @@ namespace Manatee.Trello.IntegrationTests
 					return c.Name;
 				}).ToList();
 
-			TrelloProcessor.CancelPendingRequests();
+			await TrelloProcessor.CancelPendingRequests();
 
 			var names = await Task.WhenAll(nameTasks);
 
@@ -155,7 +155,7 @@ namespace Manatee.Trello.IntegrationTests
 				card = await list.Cards.Add("test card 2");
 				card.DueDate = new DateTime(2016, 07, 21);
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 
 				var cardCopy = new Card(card.Id);
 				Assert.AreEqual(new DateTime(2016, 07, 21), cardCopy.DueDate);
@@ -200,7 +200,7 @@ namespace Manatee.Trello.IntegrationTests
 				var date = Convert.ToDateTime("8/12/2016 5:45:00PM");
 				card.DueDate = date;
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 			}
 			finally
 			{
@@ -222,7 +222,7 @@ namespace Manatee.Trello.IntegrationTests
 				card.Description = "a description";
 				card.DueDate = DateTime.MinValue;
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 			}
 			finally
 			{
@@ -263,7 +263,7 @@ namespace Manatee.Trello.IntegrationTests
 				Assert.IsTrue(recard.Members.Contains(me), "member not found");
 				Assert.IsTrue(recard.Labels.Contains(labels[0]), "label not found");
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 			}
 			finally
 			{
@@ -291,14 +291,14 @@ namespace Manatee.Trello.IntegrationTests
 
 				card.IsComplete = true;
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 
 				var recard = new Card(card.Id);
 				await recard.Refresh();
 
 				Assert.AreEqual(true, recard.IsComplete);
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 			}
 			finally
 			{
@@ -323,7 +323,7 @@ namespace Manatee.Trello.IntegrationTests
 
 				Thread.Sleep(5);
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 			}
 			finally
 			{

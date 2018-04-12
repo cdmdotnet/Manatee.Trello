@@ -19,17 +19,16 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					var entity = _factory.Organization(TrelloIds.OrganizationId);
+					var entity = _factory.Board(TrelloIds.BoardId);
 
 					await entity.Refresh();
 
 					Console.WriteLine(entity);
 
-					OutputCollection("actions", entity.Actions);
-					OutputCollection("boards", entity.Boards);
-					OutputCollection("members", entity.Members);
-					OutputCollection("memberships", entity.Memberships);
-					OutputCollection("powerup data", entity.PowerUpData);
+					//OutputCollection("actions", entity.Actions);
+					//OutputCollection("members", entity.Members);
+					//OutputCollection("memberships", entity.Memberships);
+					//OutputCollection("powerup data", entity.PowerUpData);
 				});
 		}
 
@@ -40,7 +39,7 @@ namespace Manatee.Trello.IntegrationTests
 
 			await action();
 
-			TrelloProcessor.Flush();
+			await TrelloProcessor.Flush();
 		}
 
 		private static void OutputCollection<T>(string section, IEnumerable<T> collection)

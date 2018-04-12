@@ -31,7 +31,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				board?.Delete();
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 			}
 		}
 	}

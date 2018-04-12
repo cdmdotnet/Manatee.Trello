@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.RequestProcessing;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
@@ -49,10 +50,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				var handler = Synchronized;
 				handler?.Invoke(properties);
 			}
-		}
-		public virtual Task Expire(CancellationToken ct)
-		{
-			return Synchronize(ct);
 		}
 
 		protected abstract Task<object> GetBasicData(CancellationToken ct);
@@ -172,6 +169,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		internal IEnumerable<string> Merge(TJson json)
 		{
+			if (json is IAcceptId mergable && !mergable.ValidForMerge) return Enumerable.Empty<string>();
 			lock (_mergeLock)
 			{
 				MarkInitialized();

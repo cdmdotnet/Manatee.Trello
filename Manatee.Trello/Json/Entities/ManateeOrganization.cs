@@ -22,6 +22,7 @@ namespace Manatee.Trello.Json.Entities
 		public List<IJsonOrganizationMembership> Memberships { get; set; }
 		public List<IJsonPowerUpData> PowerUpData { get; set; }
 		public IJsonOrganizationPreferences Prefs { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -45,6 +46,7 @@ namespace Manatee.Trello.Json.Entities
 					Members = obj.Deserialize<List<IJsonMember>>(serializer, "members");
 					Memberships = obj.Deserialize<List<IJsonOrganizationMembership>>(serializer, "memberships");
 					PowerUpData = obj.Deserialize<List<IJsonPowerUpData>>(serializer, "pluginData");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

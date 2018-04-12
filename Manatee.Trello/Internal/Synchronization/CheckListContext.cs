@@ -29,12 +29,12 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(CheckList.Board),
-						new Property<IJsonCheckList, Board>((d, a) => d.Board.GetFromCache<Board>(a),
+						new Property<IJsonCheckList, Board>((d, a) => d.Board.GetFromCache<Board, IJsonBoard>(a),
 						                                    (d, o) => d.Board = o?.Json)
 					},
 					{
 						nameof(CheckList.Card),
-						new Property<IJsonCheckList, Card>((d, a) => d.Card.GetFromCache<Card>(a),
+						new Property<IJsonCheckList, Card>((d, a) => d.Card.GetFromCache<Card, IJsonCard>(a),
 						                                   (d, o) => d.Card = o?.Json)
 					},
 					{

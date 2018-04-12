@@ -28,7 +28,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(Notification.Creator),
-						new Property<IJsonNotification, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
+						new Property<IJsonNotification, Member>((d, a) => d.MemberCreator.GetFromCache<Member, IJsonMember>(a),
 						                                        (d, o) =>
 							                                        {
 								                                        if (o != null) d.MemberCreator = o.Json;
@@ -71,11 +71,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				var memberFields = availableFields & MemberFields & Notification.DownloadedFields;
 				Parameters["fields"] = memberFields.GetDescription();
 			}
-		}
-
-		public override async Task Expire(CancellationToken ct)
-		{
-			await base.Expire(ct);
 		}
 
 		protected override async Task<IJsonNotification> GetData(CancellationToken ct)

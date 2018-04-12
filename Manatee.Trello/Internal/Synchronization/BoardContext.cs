@@ -69,7 +69,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(Board.Organization),
-						new Property<IJsonBoard, Organization>((d, a) => d.Organization?.GetFromCache<Organization>(a),
+						new Property<IJsonBoard, Organization>((d, a) => d.Organization?.GetFromCache<Organization, IJsonOrganization>(a),
 															   (d, o) => d.Organization = o?.Json)
 					},
 					{
@@ -154,7 +154,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				if (parameterFields.HasFlag(Board.Fields.Members))
 					Parameters["members"] = "all";
 				if (parameterFields.HasFlag(Board.Fields.Memberships))
+				{
 					Parameters["memberships"] = "all";
+					Parameters["memberships_member"] = "true";
+				}
 				if (parameterFields.HasFlag(Board.Fields.PowerUps))
 					Parameters["plugins"] = "true";
 				if (parameterFields.HasFlag(Board.Fields.PowerUpData))
@@ -172,10 +175,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
-		}
-		public override async Task Expire(CancellationToken ct)
-		{
-			await base.Expire(ct);
 		}
 
 		protected override async Task<IJsonBoard> GetData(CancellationToken ct)
@@ -271,6 +270,5 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			return properties;
 		}
-		protected virtual bool IsDataComplete => !Data.Name.IsNullOrWhiteSpace();
 	}
 }
