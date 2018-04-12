@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
@@ -25,7 +27,7 @@ namespace Manatee.Trello
 		/// Adds an existing label to the card.
 		/// </summary>
 		/// <param name="label">The label to add.</param>
-		public void Add(ILabel label)
+		public async Task Add(ILabel label, CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<ILabel>.Instance.Validate(null, label);
 			if (error != null)
@@ -34,42 +36,46 @@ namespace Manatee.Trello
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
 			json.String = label.Id;
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddLabel, new Dictionary<string, object> {{"_id", OwnerId}});
-			JsonRepository.Execute(Auth, endpoint, json);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AddLabel,
+			                                     new Dictionary<string, object> {{"_id", OwnerId}});
+			await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Items.Add(label);
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
+
 		/// <summary>
 		/// Removes a label from the collection.
 		/// </summary>
 		/// <param name="label">The label to add.</param>
-		public void Remove(ILabel label)
+		public async Task Remove(ILabel label, CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<ILabel>.Instance.Validate(null, label);
 			if (error != null)
 				throw new ValidationException<ILabel>(label, new[] {error});
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_RemoveLabel, new Dictionary<string, object> {{"_id", OwnerId}, {"_labelId", label.Id}});
-			JsonRepository.Execute(Auth, endpoint);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_RemoveLabel,
+			                                     new Dictionary<string, object> {{"_id", OwnerId}, {"_labelId", label.Id}});
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			Items.Remove(label);
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
 
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected sealed override void Update()
+		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Synchronize();
-			if (_context.Data.Labels == null) return;
+			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Labels,
+			                                     new Dictionary<string, object> {{"_id", OwnerId}});
+			var newData = await JsonRepository.Execute<List<IJsonLabel>>(Auth, endpoint, ct);
 
 			Items.Clear();
-			Items.AddRange(_context.Data.Labels.Select(jl =>
+			Items.AddRange(newData.Select(ja =>
 				{
-					var label = CachingObjectFactory.GetFromCache<Label>(jl, Auth);
-					label.Json = jl;
+					var label = ja.GetFromCache<Label, IJsonLabel>(Auth);
+					label.Json = ja;
 					return label;
 				}));
 		}

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -16,7 +18,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the member has accepted the invitation to join Trello.
 		/// </summary>
-		bool? IsDeactivated { get; }
+		bool? IsUnconfirmed { get; }
 
 		/// <summary>
 		/// Gets the member.
@@ -36,6 +38,6 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the organization membership to be refreshed the next time data is accessed.
 		/// </summary>
-		void Refresh();
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

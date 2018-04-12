@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using Manatee.Trello.Internal.Caching;
-using Manatee.Trello.Internal.ExceptionHandling;
+using Manatee.Trello.Internal.Logging;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 
@@ -63,7 +63,7 @@ namespace Manatee.Trello
 		public static ILog Log
 		{
 			get { return _log ?? (_log = new DebugLog()); }
-			set { _log = value ?? new DebugLog(); }
+			set { _log = value; }
 		}
 		/// <summary>
 		/// Provides a factory which is used to create instances of JSON objects.
@@ -78,10 +78,6 @@ namespace Manatee.Trello
 		/// </summary>
 		public static bool ThrowOnTrelloError { get; set; }
 		/// <summary>
-		/// Specifies a length of time after which each Trello object will be marked as expired. Default is 30 seconds.
-		/// </summary>
-		public static TimeSpan ExpiryTime { get; set; }
-		/// <summary>
 		/// Specifies a length of time an object holds changes before it submits them.  The timer is reset with every change.  Default is 100 ms.
 		/// </summary>
 		/// <remarks>
@@ -93,7 +89,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public static IList<HttpStatusCode> RetryStatusCodes { get; }
 		/// <summary>
-		/// Specifies a maximum number of retries allowed before an error is thrown.  
+		/// Specifies a maximum number of retries allowed before an error is thrown.
 		/// </summary>
 		public static int MaxRetryCount { get; set; }
 		/// <summary>
@@ -124,7 +120,6 @@ namespace Manatee.Trello
 		static TrelloConfiguration()
 		{
 			ThrowOnTrelloError = true;
-			ExpiryTime = TimeSpan.FromSeconds(30);
 			ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
 			RegisteredPowerUps = new Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>>();
 			RetryStatusCodes = new List<HttpStatusCode>();

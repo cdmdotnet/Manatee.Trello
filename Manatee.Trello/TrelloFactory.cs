@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -15,7 +17,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="IAction"/></returns>
 		public IAction Action(string id, TrelloAuthorization auth = null)
 		{
-			return new Action(id, auth);
+			return TrelloConfiguration.Cache.Find<Action>(a => a.Id == id) ?? new Action(id, auth);
 		}
 
 		/// <summary>
@@ -26,7 +28,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="IBoard"/></returns>
 		public IBoard Board(string id, TrelloAuthorization auth = null)
 		{
-			return new Board(id, auth);
+			return TrelloConfiguration.Cache.Find<Board>(a => a.Id == id) ?? new Board(id, auth);
 		}
 
 		/// <summary>
@@ -37,7 +39,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="ICard"/></returns>
 		public ICard Card(string id, TrelloAuthorization auth = null)
 		{
-			return new Card(id, auth);
+			return TrelloConfiguration.Cache.Find<Card>(a => a.Id == id) ?? new Card(id, auth);
 		}
 
 		/// <summary>
@@ -48,7 +50,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="ICheckList"/></returns>
 		public ICheckList CheckList(string id, TrelloAuthorization auth = null)
 		{
-			return new CheckList(id, auth);
+			return TrelloConfiguration.Cache.Find<CheckList>(a => a.Id == id) ?? new CheckList(id, auth);
 		}
 
 		/// <summary>
@@ -59,16 +61,17 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="IList"/></returns>
 		public IList List(string id, TrelloAuthorization auth = null)
 		{
-			return new List(id, auth);
+			return TrelloConfiguration.Cache.Find<List>(a => a.Id == id) ?? new List(id, auth);
 		}
 
 		/// <summary>
 		/// Creates an <see cref="IMe"/>.
 		/// </summary>
 		/// <returns>An <see cref="IMe"/></returns>
-		public IMe Me()
+		public async Task<IMe> Me(CancellationToken ct = default(CancellationToken))
 		{
-			return Trello.Member.Me;
+			var id = await Trello.Me.GetId(ct);
+			return TrelloConfiguration.Cache.Find<Me>(a => a.Id == id) ?? new Me(id);
 		}
 
 		/// <summary>
@@ -79,7 +82,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="IMember"/></returns>
 		public IMember Member(string id, TrelloAuthorization auth = null)
 		{
-			return new Member(id, auth);
+			return TrelloConfiguration.Cache.Find<Member>(a => a.Id == id) ?? new Member(id, auth);
 		}
 
 		/// <summary>
@@ -90,7 +93,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="INotification"/></returns>
 		public INotification Notification(string id, TrelloAuthorization auth = null)
 		{
-			return new Notification(id, auth);
+			return TrelloConfiguration.Cache.Find<Notification>(a => a.Id == id) ?? new Notification(id, auth);
 		}
 
 		/// <summary>
@@ -101,7 +104,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="IOrganization"/></returns>
 		public IOrganization Organization(string id, TrelloAuthorization auth = null)
 		{
-			return new Organization(id, auth);
+			return TrelloConfiguration.Cache.Find<Organization>(a => a.Id == id) ?? new Organization(id, auth);
 		}
 
 		/// <summary>
@@ -144,7 +147,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="IToken"/></returns>
 		public IToken Token(string id, TrelloAuthorization auth = null)
 		{
-			return new Token(id, auth);
+			return TrelloConfiguration.Cache.Find<Token>(a => a.Id == id) ?? new Token(id, auth);
 		}
 
 		/// <summary>
@@ -155,10 +158,12 @@ namespace Manatee.Trello
 		/// <param name="description">A description.</param>
 		/// <param name="auth">(Optional) - The authorization.</param>
 		/// <returns>An <see cref="IWebhook{T}"/></returns>
-		public IWebhook<T> Webhook<T>(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
+		public async Task<IWebhook<T>> Webhook<T>(T target, string callBackUrl, string description = null,
+		                                          TrelloAuthorization auth = null,
+		                                          CancellationToken ct = default(CancellationToken))
 			where T : class, ICanWebhook
 		{
-			return new Webhook<T>(target, callBackUrl, description, auth);
+			return await Trello.Webhook<T>.Create(target, callBackUrl, description, auth, ct);
 		}
 
 		/// <summary>
@@ -170,7 +175,7 @@ namespace Manatee.Trello
 		public IWebhook<T> Webhook<T>(string id, TrelloAuthorization auth = null)
 			where T : class, ICanWebhook
 		{
-			return new Webhook<T>(id, auth);
+			return TrelloConfiguration.Cache.Find<Webhook<T>>(a => a.Id == id) ?? new Webhook<T>(id, auth);
 		}
 	}
 }

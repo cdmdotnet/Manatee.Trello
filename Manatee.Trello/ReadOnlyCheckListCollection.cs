@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -12,8 +15,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCheckListCollection : ReadOnlyCollection<ICheckList>, IReadOnlyCheckListCollection
 	{
-		internal ReadOnlyCheckListCollection(Card card, TrelloAuthorization auth)
-			: base(() => card.Id, auth) {}
+		internal ReadOnlyCheckListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(getOwnerId, auth) {}
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.
@@ -28,15 +31,15 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected sealed override void Update()
+		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CheckLists, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonCheckList>>(Auth, endpoint);
+			var newData = await JsonRepository.Execute<List<IJsonCheckList>>(Auth, endpoint, ct);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jc =>
 				{
-					var checkList = jc.GetFromCache<CheckList>(Auth);
+					var checkList = jc.GetFromCache<CheckList, IJsonCheckList>(Auth);
 					checkList.Json = jc;
 					return checkList;
 				}));

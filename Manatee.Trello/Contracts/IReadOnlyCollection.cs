@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -22,5 +24,11 @@ namespace Manatee.Trello
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
 		T this[int index] { get; }
+
+		/// <summary>
+		/// Manually updates the collection's data.
+		/// </summary>
+		/// <returns>A task.</returns>
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 
@@ -10,28 +11,18 @@ namespace Manatee.Trello
 	public static class TrelloProcessor
 	{
 		/// <summary>
-		/// Specifies the number of concurrent calls to the Trello API that the processor can make.  Default is 1.
-		/// </summary>
-		public static int ConcurrentCallCount { get; set; }
-
-		static TrelloProcessor()
-		{
-			ConcurrentCallCount = 1;
-		}
-
-		/// <summary>
 		/// Signals the processor that the application is shutting down.  The processor will perform a "last call" for pending requests.
 		/// </summary>
-		public static void Flush()
+		public static Task Flush()
 		{
-			RestRequestProcessor.Flush();
+			return RestRequestProcessor.Flush();
 		}
 		/// <summary>
 		/// Cancels any requests that are still pending.  This applies to both downloads and uploads.
 		/// </summary>
-		public static void CancelPendingRequests()
+		public static Task CancelPendingRequests()
 		{
-			RestRequestProcessor.CancelPendingRequests();
+			return RestRequestProcessor.CancelPendingRequests();
 		}
 
 		/// <summary>

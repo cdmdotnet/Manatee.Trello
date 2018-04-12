@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 
@@ -21,6 +22,16 @@ namespace Manatee.Trello.Json.Entities
 		public DateTime? DateLastView { get; set; }
 		public string ShortLink { get; set; }
 		public string ShortUrl { get; set; }
+		public List<IJsonAction> Actions { get; set; }
+		public List<IJsonCard> Cards { get; set; }
+		public List<IJsonCustomFieldDefinition> CustomFields { get; set; }
+		public List<IJsonLabel> Labels { get; set; }
+		public List<IJsonList> Lists { get; set; }
+		public List<IJsonMember> Members { get; set; }
+		public List<IJsonBoardMembership> Memberships { get; set; }
+		public List<IJsonPowerUp> PowerUps { get; set; }
+		public List<IJsonPowerUpData> PowerUpData { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -32,7 +43,7 @@ namespace Manatee.Trello.Json.Entities
 					Name = obj.TryGetString("name");
 					Desc = obj.TryGetString("desc");
 					Closed = obj.TryGetBoolean("closed");
-					Organization = obj.Deserialize<IJsonOrganization>(serializer, "idOrganization");
+					Organization = obj.Deserialize<IJsonOrganization>(serializer, "organization");
 					Pinned = obj.TryGetBoolean("pinned");
 					Prefs = obj.Deserialize<IJsonBoardPreferences>(serializer, "prefs");
 					Url = obj.TryGetString("url");
@@ -42,6 +53,16 @@ namespace Manatee.Trello.Json.Entities
 					DateLastView = obj.Deserialize<DateTime?>(serializer, "dateLastView");
 					ShortLink = obj.TryGetString("shortLink");
 					ShortUrl = obj.TryGetString("shortUrl");
+					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
+					Cards = obj.Deserialize<List<IJsonCard>>(serializer, "cards");
+					CustomFields = obj.Deserialize<List<IJsonCustomFieldDefinition>>(serializer, "customFields");
+					Labels = obj.Deserialize<List<IJsonLabel>>(serializer, "labels");
+					Lists = obj.Deserialize<List<IJsonList>>(serializer, "lists");
+					Members = obj.Deserialize<List<IJsonMember>>(serializer, "members");
+					Memberships = obj.Deserialize<List<IJsonBoardMembership>>(serializer, "memberships");
+					PowerUps = obj.Deserialize<List<IJsonPowerUp>>(serializer, "plugins");
+					PowerUpData = obj.Deserialize<List<IJsonPowerUpData>>(serializer, "pluginData");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

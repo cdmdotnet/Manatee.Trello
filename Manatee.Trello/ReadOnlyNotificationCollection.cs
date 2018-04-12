@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -17,12 +19,6 @@ namespace Manatee.Trello
 
 		internal ReadOnlyNotificationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
-		internal ReadOnlyNotificationCollection(ReadOnlyNotificationCollection source, TrelloAuthorization auth)
-			: this(() => source.OwnerId, auth)
-		{
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
-		}
 
 		/// <summary>
 		/// Adds a filter to the collection.
@@ -52,17 +48,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected sealed override void Update()
+		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			IncorporateLimit(_additionalParameters);
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Notifications, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<List<IJsonNotification>>(Auth, endpoint, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonNotification>>(Auth, endpoint, ct, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jn =>
 				{
-					var notification = jn.GetFromCache<Notification>(Auth);
+					var notification = jn.GetFromCache<Notification, IJsonNotification>(Auth);
 					notification.Json = jn;
 					return notification;
 				}));

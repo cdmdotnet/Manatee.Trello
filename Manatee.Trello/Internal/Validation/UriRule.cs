@@ -4,7 +4,7 @@ namespace Manatee.Trello.Internal.Validation
 {
 	internal class UriRule : IValidationRule<string>
 	{
-		public static UriRule Instance { get; private set; }
+		public static UriRule Instance { get; }
 
 		static UriRule()
 		{

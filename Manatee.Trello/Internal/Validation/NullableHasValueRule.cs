@@ -3,7 +3,7 @@
 	internal class NullableHasValueRule<T> : IValidationRule<T?>
 		where T : struct
 	{
-		public static NullableHasValueRule<T> Instance { get; private set; }
+		public static NullableHasValueRule<T> Instance { get; }
 
 		static NullableHasValueRule()
 		{

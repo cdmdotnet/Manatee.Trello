@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -11,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A label.
 	/// </summary>
-	public class Label : ILabel
+	public class Label : ILabel, IMergeJson<IJsonLabel>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for labels.
@@ -22,7 +24,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="idBoard")]
+			[Display(Description="board")]
 			Board = 1,
 			/// <summary>
 			/// Indicates the Color property should be populated.
@@ -47,11 +49,20 @@ namespace Manatee.Trello
 		private readonly Field<int?> _uses;
 		private readonly LabelContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				LabelContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the board on which the label is defined.
@@ -100,6 +111,12 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+		static Label()
+		{
+			DownloadedFields = (Fields) Enum.GetValues(typeof(Fields)).Cast<int>().Sum() &
+			                   ~Fields.Board;
+		}
+
 		internal Label(IJsonLabel json, TrelloAuthorization auth)
 		{
 			Id = json.Id;
@@ -121,18 +138,24 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.  Any cards that have the label assigned will update as normal.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
+			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the label to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
+
+		void IMergeJson<IJsonLabel>.Merge(IJsonLabel json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="Name"/> and <see cref="Color"/>.
 		/// </summary>
@@ -141,9 +164,9 @@ namespace Manatee.Trello
 		/// </returns>
 		public override string ToString()
 		{
-			if (Name.IsNullOrWhiteSpace() && !Color.HasValue)
-				return string.Empty;
-			return $"{Name} ({Color?.ToString() ?? "No color"})";
+			return Name.IsNullOrWhiteSpace()
+				       ? $"({Color?.ToString() ?? "No color"})"
+				       : $"{Name} ({Color?.ToString() ?? "No color"})";
 		}
 	}
 }

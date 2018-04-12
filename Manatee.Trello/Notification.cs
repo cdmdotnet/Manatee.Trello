@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -11,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a notification.
 	/// </summary>
-	public class Notification : INotification
+	public class Notification : INotification, IMergeJson<IJsonNotification>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for notifications.
@@ -54,11 +56,20 @@ namespace Manatee.Trello
 		private readonly Field<NotificationType?> _type;
 		private readonly NotificationContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				NotificationContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the creation date of the notification.
@@ -137,6 +148,7 @@ namespace Manatee.Trello
 					{NotificationType.MakeAdminOfOrganization, n => $"{n.Creator} made member {n.Data.Member} an admin of organization {n.Data.Organization}."},
 					{NotificationType.CardDueSoon, n => $"Card {n.Data.Card} is due soon."},
 				};
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
 		/// <summary>
 		/// Creates a new <see cref="Notification"/> object.
@@ -160,6 +172,19 @@ namespace Manatee.Trello
 		}
 		internal Notification(IJsonNotification json, TrelloAuthorization auth)
 			: this(json.Id, auth)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>
+		/// Marks the member to be refreshed the next time data is accessed.
+		/// </summary>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
+		}
+
+		void IMergeJson<IJsonNotification>.Merge(IJsonNotification json)
 		{
 			_context.Merge(json);
 		}

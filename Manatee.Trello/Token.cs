@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -11,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a user token.
 	/// </summary>
-	public class Token : IToken
+	public class Token : IToken, IMergeJson<IJsonToken>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for tokens.
@@ -27,7 +29,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Member property should be populated.
 			/// </summary>
-			[Display(Description="idMember")]
+			[Display(Description="member")]
 			Member,
 			/// <summary>
 			/// Indicates the DateCreated property should be populated.
@@ -43,7 +45,9 @@ namespace Manatee.Trello
 			/// Indicates the Permissions property should be populated.
 			/// </summary>
 			[Display(Description="permissions")]
-			Permissions
+			Permissions,
+			// TODO: add
+			//Webhooks
 		}
 
 		private readonly Field<string> _appName;
@@ -54,11 +58,20 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				TokenContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the name of the application associated with the token.
@@ -96,7 +109,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -113,6 +126,11 @@ namespace Manatee.Trello
 		/// Gets the permissions on organizations granted by the token.
 		/// </summary>
 		public ITokenPermission OrganizationPermissions { get; }
+
+		static Token()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Token"/> object.
@@ -150,18 +168,24 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
+			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the token to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
+
+		void IMergeJson<IJsonToken>.Merge(IJsonToken json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="AppName"/>.
 		/// </summary>

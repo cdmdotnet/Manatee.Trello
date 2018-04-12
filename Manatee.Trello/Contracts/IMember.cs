@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -32,6 +34,11 @@ namespace Manatee.Trello
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
 		IReadOnlyCollection<IBoard> Boards { get; }
+
+		/// <summary>
+		/// Gets the collection of cards assigned to the member.
+		/// </summary>
+		IReadOnlyCollection<ICard> Cards { get; }
 
 		/// <summary>
 		/// Gets the creation date of the member.
@@ -92,6 +99,6 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the member to be refreshed the next time data is accessed.
 		/// </summary>
-		void Refresh();
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

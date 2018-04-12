@@ -3,12 +3,12 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public abstract class CustomField : ICacheable
+	public abstract class CustomField : ICustomField
 	{
 		protected readonly TrelloAuthorization _auth;
 
 		public string Id => Json.Id;
-		public CustomFieldDefinition Definition => Json.Definition.GetFromCache<CustomFieldDefinition>(_auth);
+		public ICustomFieldDefinition Definition => Json.Definition.GetFromCache<CustomFieldDefinition>(_auth);
 
 		internal IJsonCustomField Json { get; }
 
@@ -21,7 +21,7 @@ namespace Manatee.Trello
 		}
 	}
 
-	public abstract class CustomField<T> : CustomField
+	public abstract class CustomField<T> : CustomField, ICustomField<T>
 	{
 		public abstract T Value { get; }
 
@@ -32,6 +32,7 @@ namespace Manatee.Trello
 
 		public override string ToString()
 		{
+			if (Value == null) return Definition.ToString();
 			return $"{Definition} - {Value}";
 		}
 	}

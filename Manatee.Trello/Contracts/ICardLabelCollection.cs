@@ -1,4 +1,7 @@
-﻿namespace Manatee.Trello
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// A collection of labels for cards.
@@ -9,12 +12,12 @@
 		/// Adds a label to the collection.
 		/// </summary>
 		/// <param name="label">The label to add.</param>
-		void Add(ILabel label);
+		Task Add(ILabel label, CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Removes a label from the collection.
 		/// </summary>
 		/// <param name="label">The label to add.</param>
-		void Remove(ILabel label);
+		Task Remove(ILabel label, CancellationToken ct = default(CancellationToken));
 	}
 }

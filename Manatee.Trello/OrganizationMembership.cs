@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -10,11 +12,11 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the permission level a member has on an organization.
 	/// </summary>
-	public class OrganizationMembership : IOrganizationMembership
+	public class OrganizationMembership : IOrganizationMembership, IMergeJson<IJsonOrganizationMembership>
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<OrganizationMembershipType?> _memberType;
-		private readonly Field<bool?> _isDeactivated;
+		private readonly Field<bool?> _isUnconfirmed;
 		private readonly OrganizationMembershipContext _context;
 		private DateTime? _creation;
 
@@ -37,7 +39,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the member has accepted the invitation to join Trello.
 		/// </summary>
-		public bool? IsDeactivated => _isDeactivated.Value;
+		public bool? IsUnconfirmed => _isUnconfirmed.Value;
 		/// <summary>
 		/// Gets the member.
 		/// </summary>
@@ -72,7 +74,7 @@ namespace Manatee.Trello
 			_memberType = new Field<OrganizationMembershipType?>(_context, nameof(MemberType));
 			_memberType.AddRule(NullableHasValueRule<OrganizationMembershipType>.Instance);
 			_memberType.AddRule(EnumerationRule<OrganizationMembershipType?>.Instance);
-			_isDeactivated = new Field<bool?>(_context, nameof(IsDeactivated));
+			_isUnconfirmed = new Field<bool?>(_context, nameof(IsUnconfirmed));
 
 			TrelloConfiguration.Cache.Add(this);
 
@@ -82,9 +84,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the organization membership to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return $"{Member} ({MemberType})";
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
@@ -92,6 +101,11 @@ namespace Manatee.Trello
 			Id = _context.Data.Id;
 			var handler = Updated;
 			handler?.Invoke(this, properties);
+		}
+
+		void IMergeJson<IJsonOrganizationMembership>.Merge(IJsonOrganizationMembership json)
+		{
+			_context.Merge(json);
 		}
 	}
 }

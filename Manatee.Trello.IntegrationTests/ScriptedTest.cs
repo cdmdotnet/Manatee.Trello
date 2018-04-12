@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
 
@@ -8,6 +9,8 @@ namespace Manatee.Trello.IntegrationTests
 	[Ignore("This is not ready")]
 	public class ScriptedTest
 	{
+		private readonly TrelloFactory _factory = new TrelloFactory();
+
 		[OneTimeSetUp]
 		public void Setup()
 		{
@@ -16,18 +19,19 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void Run()
+		public async Task Run()
 		{
 			IBoard board = null;
 			try
 			{
-				board = Member.Me.Boards.Add($"TestBoard{Guid.NewGuid()}");
+				var me = await _factory.Me();
+				board = await me.Boards.Add($"TestBoard{Guid.NewGuid()}");
 			}
 			finally
 			{
 				board?.Delete();
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 			}
 		}
 	}

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Manatee.Trello.Internal.Synchronization;
+using System.Threading;
 using Manatee.Trello.Internal.Validation;
+using SynchronizationContext = Manatee.Trello.Internal.Synchronization.SynchronizationContext;
 
 namespace Manatee.Trello.Internal
 {
@@ -13,16 +14,12 @@ namespace Manatee.Trello.Internal
 
 		public T Value
 		{
-			get
-			{
-				_context.Synchronize();
-				return CurrentValue;
-			}
+			get { return CurrentValue; }
 			set
 			{
 				if (Equals(CurrentValue, value)) return;
 				Validate(value);
-				_context.SetValue(_property, value);
+				_context.SetValue(_property, value, CancellationToken.None);
 			}
 		}
 		private T CurrentValue => _context.GetValue<T>(_property);

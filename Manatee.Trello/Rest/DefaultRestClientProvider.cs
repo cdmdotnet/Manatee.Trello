@@ -27,7 +27,7 @@ namespace Manatee.Trello.Rest
 		/// <returns>An instance of IRestClient.</returns>
 		public IRestClient CreateRestClient(string apiBaseUrl)
 		{
-			return new WebApiClient();
+			return new WebApiClient(apiBaseUrl);
 		}
 	}
 }

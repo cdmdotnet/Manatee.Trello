@@ -3,7 +3,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Label object.
 	/// </summary>
-	public interface IJsonLabel : IJsonCacheable
+	public interface IJsonLabel : IJsonCacheable, IAcceptId
 	{
 		/// <summary>
 		/// Gets and sets the board on which the label is defined.

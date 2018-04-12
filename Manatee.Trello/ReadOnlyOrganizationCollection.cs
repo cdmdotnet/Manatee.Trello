@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
@@ -17,12 +19,6 @@ namespace Manatee.Trello
 
 		internal ReadOnlyOrganizationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
-		internal ReadOnlyOrganizationCollection(ReadOnlyOrganizationCollection source, TrelloAuthorization auth)
-			: this(() => source.OwnerId, auth)
-		{
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
-		}
 
 		/// <summary>
 		/// Retrieves a organization which matches the supplied key.
@@ -48,17 +44,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Implement to provide data to the collection.
 		/// </summary>
-		protected sealed override void Update()
+		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			IncorporateLimit(_additionalParameters);
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Organizations, new Dictionary<string, object> { { "_id", OwnerId } });
-			var newData = JsonRepository.Execute<List<IJsonOrganization>>(Auth, endpoint, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonOrganization>>(Auth, endpoint, ct, _additionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jo =>
 				{
-					var org = CachingObjectFactory.GetFromCache<Organization>(jo, Auth);
+					var org = jo.GetFromCache<Organization, IJsonOrganization>(Auth);
 					org.Json = jo;
 					return org;
 				}));

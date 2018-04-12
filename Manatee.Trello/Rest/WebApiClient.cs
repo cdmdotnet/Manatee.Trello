@@ -2,63 +2,71 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Manatee.Trello.Rest
 {
 	internal class WebApiClient : IRestClient
 	{
-		private const string _trelloApiBaseUrl = @"https://trello.com/1";
+		private readonly string _baseUri;
 
-		public IRestResponse Execute(IRestRequest request)
+		public WebApiClient(string baseUri)
 		{
-			return Task.Run(() => ExecuteAsync(request)).Result;
-		}
-		public IRestResponse<T> Execute<T>(IRestRequest request) where T : class
-		{
-			return Task.Run(() => ExecuteAsync<T>(request)).Result;
+			_baseUri = baseUri;
 		}
 
-		private static async Task<IRestResponse> ExecuteAsync(IRestRequest request)
+		public Task<IRestResponse> Execute(IRestRequest request, CancellationToken ct)
+		{
+			return ExecuteAsync(request, ct);
+		}
+		public Task<IRestResponse<T>> Execute<T>(IRestRequest request, CancellationToken ct)
+			where T : class
+		{
+			return ExecuteAsync<T>(request, ct);
+		}
+
+		private async Task<IRestResponse> ExecuteAsync(IRestRequest request, CancellationToken ct)
 		{
 			IRestResponse response;
 			var webRequest = (WebApiRestRequest)request;
 			switch (request.Method)
 			{
 				case RestMethod.Get:
-					response = await ExecuteWithRetry(c => c.GetAsync(GetFullResource(webRequest)));
+					response = await ExecuteWithRetry(c => c.GetAsync(GetFullResource(webRequest), ct));
 					break;
 				case RestMethod.Put:
-					response = await ExecuteWithRetry(c => c.PutAsync(GetFullResource(webRequest), GetContent(webRequest)));
+					response = await ExecuteWithRetry(c => c.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Post:
-					response = await ExecuteWithRetry(c => c.PostAsync(GetFullResource(webRequest), GetContent(webRequest)));
+					response = await ExecuteWithRetry(c => c.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Delete:
-					response = await ExecuteWithRetry(c => c.DeleteAsync(GetFullResource(webRequest)));
+					response = await ExecuteWithRetry(c => c.DeleteAsync(GetFullResource(webRequest), ct));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 			return response;
 		}
-		private static async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request) where T : class
+		private async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request, CancellationToken ct)
+			where T : class
 		{
 			IRestResponse<T> response;
 			var webRequest = (WebApiRestRequest) request;
 			switch (request.Method)
 			{
 				case RestMethod.Get:
-					response = await ExecuteWithRetry<T>(c => c.GetAsync(GetFullResource(webRequest)));
+					response = await ExecuteWithRetry<T>(c => c.GetAsync(GetFullResource(webRequest), ct));
 					break;
 				case RestMethod.Put:
-					response = await ExecuteWithRetry<T>(c => c.PutAsync(GetFullResource(webRequest), GetContent(webRequest)));
+					response = await ExecuteWithRetry<T>(c => c.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Post:
-					response = await ExecuteWithRetry<T>(c => c.PostAsync(GetFullResource(webRequest), GetContent(webRequest)));
+					response = await ExecuteWithRetry<T>(c => c.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Delete:
-					response = await ExecuteWithRetry<T>(c => c.DeleteAsync(GetFullResource(webRequest)));
+					response = await ExecuteWithRetry<T>(c => c.DeleteAsync(GetFullResource(webRequest), ct));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -157,11 +165,11 @@ namespace Manatee.Trello.Rest
 
 			return jsonContent;
 		}
-		private static string GetFullResource(WebApiRestRequest request)
+		private string GetFullResource(WebApiRestRequest request)
 		{
 			if (request.File != null)
-				return $"{_trelloApiBaseUrl}/{request.Resource}";
-			return $"{_trelloApiBaseUrl}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
+				return $"{_baseUri}/{request.Resource}";
+			return $"{_baseUri}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
 		}
 	}
 }

@@ -12,4 +12,9 @@ namespace Manatee.Trello.Json
 		[JsonSerialize(IsRequired = true)]
 		string Id { get; set; }
 	}
+
+	public interface IAcceptId
+	{
+		bool ValidForMerge { get; set; }
+	}
 }

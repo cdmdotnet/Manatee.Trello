@@ -14,6 +14,7 @@ namespace Manatee.Trello.Json.Entities
 		public bool? Checked { get; set; }
 		public IJsonCustomDropDownOption Selected { get; set; }
 		public CustomFieldType Type { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -22,8 +23,10 @@ namespace Manatee.Trello.Json.Entities
 				case JsonValueType.Object:
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
-					Definition = obj.Deserialize<IJsonCustomFieldDefinition>(serializer, "idCustomField");
+					Definition = serializer.Deserialize<IJsonCustomFieldDefinition>(obj);
 					Selected = obj.Deserialize<IJsonCustomDropDownOption>(serializer, "idValue");
+					Type = obj.Deserialize<CustomFieldType?>(serializer, "type") ?? CustomFieldType.Unknown;
+					ValidForMerge = true;
 					if (Selected != null)
 					{
 						Type = CustomFieldType.DropDown;

@@ -11,6 +11,7 @@ namespace Manatee.Trello.Json.Entities
 		public string Id { get; set; }
 		public string Name { get; set; }
 		public int? Uses { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -23,6 +24,7 @@ namespace Manatee.Trello.Json.Entities
 					Id = obj.TryGetString("id");
 					Name = obj.TryGetString("name");
 					Uses = (int?) obj.TryGetNumber("uses");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

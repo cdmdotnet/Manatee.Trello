@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -10,7 +12,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the permission level a member has on a board.
 	/// </summary>
-	public class BoardMembership : IBoardMembership
+	public class BoardMembership : IBoardMembership, IMergeJson<IJsonBoardMembership>
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<BoardMembershipType?> _memberType;
@@ -82,9 +84,21 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the board membership to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return $"{Member} ({MemberType})";
+		}
+
+		void IMergeJson<IJsonBoardMembership>.Merge(IJsonBoardMembership json)
+		{
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

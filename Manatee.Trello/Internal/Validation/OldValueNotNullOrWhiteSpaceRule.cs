@@ -2,7 +2,7 @@
 {
 	internal class OldValueNotNullOrWhiteSpaceRule : IValidationRule<string>
 	{
-		public static OldValueNotNullOrWhiteSpaceRule Instance { get; private set; }
+		public static OldValueNotNullOrWhiteSpaceRule Instance { get; }
 
 		static OldValueNotNullOrWhiteSpaceRule()
 		{

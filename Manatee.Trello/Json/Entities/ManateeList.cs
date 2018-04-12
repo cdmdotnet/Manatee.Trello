@@ -1,4 +1,5 @@
-﻿using Manatee.Json;
+﻿using System.Collections.Generic;
+using Manatee.Json;
 using Manatee.Json.Serialization;
 
 namespace Manatee.Trello.Json.Entities
@@ -11,6 +12,9 @@ namespace Manatee.Trello.Json.Entities
 		public IJsonBoard Board { get; set; }
 		public IJsonPosition Pos { get; set; }
 		public bool? Subscribed { get; set; }
+		public List<IJsonAction> Actions { get; set; }
+		public List<IJsonCard> Cards { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -24,6 +28,9 @@ namespace Manatee.Trello.Json.Entities
 					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 					Subscribed = obj.TryGetBoolean("subscribed");
+					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
+					Cards = obj.Deserialize<List<IJsonCard>>(serializer, "cards");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

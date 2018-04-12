@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
 
@@ -9,14 +11,14 @@ namespace Manatee.Trello.IntegrationTests
 	[Ignore("These tests need to work.")]
 	public class StackOverflowTests
 	{
-		private static void Run(System.Action action)
+		private static async Task Run(Func<Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			action();
+			await action();
 
-			TrelloProcessor.Flush();
+			await TrelloProcessor.Flush();
 		}
 
 		#region http://stackoverflow.com/q/39926431/878701
@@ -32,26 +34,26 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public void MovingCards()
+		public async Task MovingCards()
 		{
-			Run(() =>
-				    {
-						IList list = new List(TrelloIds.ListId);
-					    var cards = new List<ICard>();
-					    for (int i = 0; i < 10; i++)
-					    {
-						    cards.Add(list.Cards.Add("test card " + i));
-					    }
+			await Run(async () =>
+				{
+					IList list = new List(TrelloIds.ListId);
+					var cards = new List<ICard>();
+					for (int i = 0; i < 10; i++)
+					{
+						cards.Add(await list.Cards.Add("test card " + i));
+					}
 
-					    var otherList = list.Board.Lists.Last();
+					var otherList = list.Board.Lists.Last();
 
-						cards.AsParallel().ForAll(c => Move(c, 1, otherList));
+					cards.AsParallel().ForAll(c => Move(c, 1, otherList));
 
-					    foreach (var card in cards)
-					    {
-						    card.Delete();
-					    }
-					});
+					foreach (var card in cards)
+					{
+						await card.Delete();
+					}
+				});
 		}
 
 		#endregion
@@ -59,11 +61,12 @@ namespace Manatee.Trello.IntegrationTests
 		#region http://stackoverflow.com/q/43667744/878701
 
 		[Test]
-		public void LabelNamesAndCards()
+		public async Task LabelNamesAndCards()
 		{
-			Run(() =>
+			await Run(async () =>
 				{
 					var card = new Card(TrelloIds.CardId);
+					await card.Refresh();
 
 					foreach (var label in card.Labels)
 					{

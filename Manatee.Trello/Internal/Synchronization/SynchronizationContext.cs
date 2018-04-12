@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.RequestProcessing;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
@@ -10,12 +12,10 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private readonly Timer _timer;
 		private readonly object _lock;
-		private DateTime _lastUpdate;
 		private bool _cancelUpdate;
 
 		public abstract bool HasChanges { get; }
 
-		protected virtual bool IsDataComplete => true;
 		protected bool ManagesSubmissions { get; }
 
 		public event Action<IEnumerable<string>> Synchronized;
@@ -25,12 +25,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			ManagesSubmissions = useTimer;
 			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
 			{
-				_timer = new Timer(TimerElapsed, null, TimeSpan.Zero, TrelloConfiguration.ChangeSubmissionTime);
+				_timer = new Timer(async state => await _TimerElapsed(), null, TimeSpan.Zero, TrelloConfiguration.ChangeSubmissionTime);
 			}
 
-			_lastUpdate = DateTime.MinValue;
 			_lock = new object();
-			RestRequestProcessor.LastCall += () => TimerElapsed(null);
+			RestRequestProcessor.LastCall += _TimerElapsed;
 		}
 		~SynchronizationContext()
 		{
@@ -38,64 +37,57 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 
 		public abstract T GetValue<T>(string property);
-		public abstract void SetValue<T>(string property, T value);
+		public abstract Task SetValue<T>(string property, T value, CancellationToken ct);
 
-		public void Synchronize(bool force = false)
+		public async Task Synchronize(CancellationToken ct)
 		{
+			var data = await GetBasicData(ct);
 			lock (_lock)
 			{
-				if (!force && IsDataComplete && DateTime.Now < _lastUpdate.Add(TrelloConfiguration.ExpiryTime)) return;
-				var properties = Merge().ToList();
+				var properties = Merge(data).ToList();
 				if (!properties.Any()) return;
+
 				var handler = Synchronized;
 				handler?.Invoke(properties);
 			}
 		}
-		public virtual void Expire()
-		{
-			_lastUpdate = DateTime.MinValue;
-		}
 
-		protected abstract IEnumerable<string> Merge();
-		protected abstract void Submit();
+		protected abstract Task<object> GetBasicData(CancellationToken ct);
+		protected abstract IEnumerable<string> Merge(object newData);
+		protected abstract Task Submit(CancellationToken ct);
 
-		protected void MarkAsUpdated()
-		{
-			_lastUpdate = DateTime.Now;
-		}
 		protected void CancelUpdate()
 		{
 			_cancelUpdate = true;
 		}
-		protected void ResetTimer()
+		protected async Task ResetTimer(CancellationToken ct)
 		{
 			if (_timer == null)
 			{
-				SubmitChanges();
+				await _SubmitChanges(ct);
 				return;
 			}
+
 			_timer.Stop();
 			_timer.Start(TrelloConfiguration.ChangeSubmissionTime);
 		}
 
-		private void TimerElapsed(object state)
+		private async Task _TimerElapsed()
 		{
 			_timer?.Stop();
 			if (!_cancelUpdate && HasChanges)
-				SubmitChanges();
-			//_cancelUpdate = false;
+				await _SubmitChanges(CancellationToken.None);
 		}
-		private void SubmitChanges()
+		private async Task _SubmitChanges(CancellationToken ct)
 		{
-			Submit();
-			_lastUpdate = DateTime.Now;
+			await Submit(ct);
 		}
 	}
 
 	internal abstract class SynchronizationContext<TJson> : SynchronizationContext
 		where TJson : class
 	{
-		protected static Dictionary<string, Property<TJson>> _properties;
+		protected static Dictionary<string, Property<TJson>> Properties;
 
 		private readonly List<string> _localChanges;
 		private readonly object _mergeLock;
@@ -105,7 +97,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected TrelloAuthorization Auth { get; }
 		protected bool IsInitialized { get; private set; }
 
-		internal TJson Data { get; private set; }
+		internal TJson Data { get; }
 
 		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer = true)
 			: base(useTimer)
@@ -118,35 +110,43 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public sealed override T GetValue<T>(string property)
 		{
-			var value = (T)_properties[property].Get(Data, Auth);
+			var value = (T)Properties[property].Get(Data, Auth);
 			return value;
 		}
-		public override void SetValue<T>(string property, T value)
+		public override async Task SetValue<T>(string property, T value, CancellationToken ct)
 		{
 			if (!CanUpdate()) return;
-			_properties[property].Set(Data, value);
+
+			Properties[property].Set(Data, value);
 			_localChanges.Add(property);
-			ResetTimer();
+			await ResetTimer(ct);
 		}
 
-		protected virtual TJson GetData()
+		protected virtual Task<TJson> GetData(CancellationToken ct)
 		{
-			return Data;
+			return Task.FromResult(Data);
 		}
-		protected virtual void SubmitData(TJson json) {}
+		protected virtual Task SubmitData(TJson json, CancellationToken ct)
+		{
+			return Task.CompletedTask;
+		}
 		protected virtual void ApplyDependentChanges(TJson json) {}
 
-		protected sealed override IEnumerable<string> Merge()
+		protected sealed override async Task<object> GetBasicData(CancellationToken ct)
 		{
-			var newData = GetData();
-			return Merge(newData);
+			return await GetData(ct);
 		}
-		protected sealed override void Submit()
+		protected sealed override IEnumerable<string> Merge(object newData)
+		{
+			return Merge((TJson) newData);
+		}
+		protected sealed override async Task Submit(CancellationToken ct)
 		{
 			var json = GetChanges();
 			if (!ManagesSubmissions) return;
+
 			ApplyDependentChanges(json);
-			SubmitData(json);
+			await SubmitData(json, ct);
 			ClearChanges();
 		}
 		protected virtual IEnumerable<string> MergeDependencies(TJson json)
@@ -157,10 +157,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return true;
 		}
-		protected void HandleSubmitRequested(string propertyName)
+		protected async Task HandleSubmitRequested(string propertyName, CancellationToken ct)
 		{
-			AddLocalChange(propertyName);
-			ResetTimer();
+			_AddLocalChange(propertyName);
+			await ResetTimer(ct);
 		}
 		protected void MarkInitialized()
 		{
@@ -169,17 +169,17 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		internal IEnumerable<string> Merge(TJson json)
 		{
+			if (json is IAcceptId mergable && !mergable.ValidForMerge) return Enumerable.Empty<string>();
 			lock (_mergeLock)
 			{
-				MarkAsUpdated();
 				MarkInitialized();
 				if (!CanUpdate()) return Enumerable.Empty<string>();
 				if (Equals(json, default(TJson)) || ReferenceEquals(json, Data))
 					return Enumerable.Empty<string>();
 				var propertyNames = new List<string>();
-				foreach (var propertyName in _properties.Keys.Except(_localChanges))
+				foreach (var propertyName in Properties.Keys.Except(_localChanges))
 				{
-					var property = _properties[propertyName];
+					var property = Properties[propertyName];
 					var newValue = property.Get(json, Auth);
 					property.Set(Data, newValue);
 					propertyNames.Add(propertyName);
@@ -196,17 +196,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			var json = TrelloConfiguration.JsonFactory.Create<TJson>();
 			foreach (var propertyName in _localChanges)
 			{
-				var property = _properties[propertyName];
+				var property = Properties[propertyName];
 				var newValue = property.Get(Data, Auth);
 				property.Set(json, newValue);
 			}
 			return json;
 		}
 
-		private void AddLocalChange(string property)
+		private void _AddLocalChange(string property)
 		{
-			if (_localChanges.Contains(property))
-				return;
+			if (_localChanges.Contains(property)) return;
+
 			_localChanges.Add(property);
 		}
 	}

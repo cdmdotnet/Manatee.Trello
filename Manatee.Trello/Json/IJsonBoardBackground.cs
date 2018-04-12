@@ -5,7 +5,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the BoardBackground object.
 	/// </summary>
-	public interface IJsonBoardBackground : IJsonCacheable
+	public interface IJsonBoardBackground : IJsonCacheable, IAcceptId
 	{
 		/// <summary>
 		/// The bottom color of a gradient background.

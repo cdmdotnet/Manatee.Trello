@@ -5,7 +5,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Sticker object.
 	/// </summary>
-	public interface IJsonSticker : IJsonCacheable
+	public interface IJsonSticker : IJsonCacheable, IAcceptId
 	{
 		/// <summary>
 		/// Gets or sets the position of the left edge of the sticker.

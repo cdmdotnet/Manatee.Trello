@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -12,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a checklist item.
 	/// </summary>
-	public class CheckItem : ICheckItem
+	public class CheckItem : ICheckItem, IMergeJson<IJsonCheckItem>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for check items.
@@ -43,11 +45,20 @@ namespace Manatee.Trello
 		private readonly Field<CheckItemState?> _state;
 		private readonly CheckItemContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				CheckItemContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.
@@ -109,6 +120,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<ICheckItem, IEnumerable<string>> Updated;
 
+		static CheckItem()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
+
 		internal CheckItem(IJsonCheckItem json, string checkListId, TrelloAuthorization auth = null)
 		{
 			Id = json.Id;
@@ -137,18 +153,24 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This permanently deletes the checklist item from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
+			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the checklist item to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
+
+		void IMergeJson<IJsonCheckItem>.Merge(IJsonCheckItem json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="Name"/>.
 		/// </summary>

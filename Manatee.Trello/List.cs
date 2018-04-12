@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -12,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public class List : IList
+	public class List : IList, IMergeJson<IJsonList>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for lists.
@@ -33,7 +35,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="idBoard")]
+			[Display(Description="board")]
 			Board = 1 << 2,
 			/// <summary>
 			/// Indicates the Position property should be populated.
@@ -44,7 +46,9 @@ namespace Manatee.Trello
 			/// Indicates the Susbcribed property should be populated.
 			/// </summary>
 			[Display(Description="subscribed")]
-			Subscribed = 1 << 4
+			IsSubscribed = 1 << 4,
+			Actions = 1 << 5,
+			Cards = 1 << 6
 		}
 
 		private readonly Field<Board> _board;
@@ -56,16 +60,25 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				ListContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions { get; }
+		public IReadOnlyCollection<IAction> Actions => _context.Actions;
 		/// <summary>
 		/// Gets or sets the board on which the list belongs.
 		/// </summary>
@@ -77,7 +90,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of cards contained in the list.
 		/// </summary>
-		public ICardCollection Cards { get; }
+		public ICardCollection Cards => _context.Cards;
 		/// <summary>
 		/// Gets the creation date of the list.
 		/// </summary>
@@ -98,7 +111,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -166,6 +179,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<IList, IEnumerable<string>> Updated;
 
+		static List()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="List"/> object.
 		/// </summary>
@@ -177,10 +195,8 @@ namespace Manatee.Trello
 			_context = new ListContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(List), () => Id, auth);
 			_board = new Field<Board>(_context, nameof(Board));
 			_board.AddRule(NotNullRule<Board>.Instance);
-			Cards = new CardCollection(() => Id, auth);
 			_isArchived = new Field<bool?>(_context, nameof(IsArchived));
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
@@ -211,10 +227,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the list to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
+
+		void IMergeJson<IJsonList>.Merge(IJsonList json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns a string that represents the current object.
 		/// </summary>

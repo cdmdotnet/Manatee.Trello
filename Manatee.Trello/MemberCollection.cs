@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -18,7 +20,7 @@ namespace Manatee.Trello
 		/// Adds a member to the collection.
 		/// </summary>
 		/// <param name="member">The member to add.</param>
-		public void Add(IMember member)
+		public async Task Add(IMember member, CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
@@ -28,22 +30,23 @@ namespace Manatee.Trello
 			json.String = member.Id;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_AssignMember, new Dictionary<string, object> {{"_id", OwnerId}});
-			JsonRepository.Execute(Auth, endpoint, json);
+			await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Items.Add(member);
 		}
+
 		/// <summary>
 		/// Removes a member from the collection.
 		/// </summary>
 		/// <param name="member">The member to remove.</param>
-		public void Remove(IMember member)
+		public async Task Remove(IMember member, CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
 				throw new ValidationException<IMember>(member, new[] {error});
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_RemoveMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
-			JsonRepository.Execute(Auth, endpoint);
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			Items.Remove(member);
 		}

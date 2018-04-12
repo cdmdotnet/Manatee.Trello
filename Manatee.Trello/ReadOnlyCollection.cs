@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -11,7 +13,6 @@ namespace Manatee.Trello
 	/// <typeparam name="T">The type of object contained by the collection.</typeparam>
 	public abstract class ReadOnlyCollection<T> : IReadOnlyCollection<T>
 	{
-		private DateTime _lastUpdate;
 		private string _ownerId;
 		private readonly Func<string> _getOwnerId;
 
@@ -44,7 +45,6 @@ namespace Manatee.Trello
 			Auth = auth ?? TrelloAuthorization.Default;
 
 			Items = new List<T>();
-			_lastUpdate = DateTime.MinValue;
 		}
 
 		/// <summary>
@@ -56,13 +56,13 @@ namespace Manatee.Trello
 		/// <filterpriority>1</filterpriority>
 		public IEnumerator<T> GetEnumerator()
 		{
-			if (DateTime.Now >= _lastUpdate.Add(TrelloConfiguration.ExpiryTime))
-			{
-				Update();
-				_lastUpdate = DateTime.Now;
-			}
 			return Items.GetEnumerator();
 		}
+		/// <summary>
+		/// Refreshes the collection.
+		/// </summary>
+		/// <returns>A task.</returns>
+		public abstract Task Refresh(CancellationToken ct = default(CancellationToken));
 		/// <summary>
 		/// Returns an enumerator that iterates through a collection.
 		/// </summary>
@@ -75,11 +75,6 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Implement to provide data to the collection.
-		/// </summary>
-		protected abstract void Update();
-
-		/// <summary>
 		/// Adds <see cref="Limit"/> to a list of additional parameters.
 		/// </summary>
 		/// <param name="additionalParameters">The list of additional parameters.</param>
@@ -88,6 +83,12 @@ namespace Manatee.Trello
 			if (!Limit.HasValue) return;
 
 			additionalParameters["limit"] = Limit.Value;
+		}
+
+		internal void Update(IEnumerable<T> items)
+		{
+			Items.Clear();
+			Items.AddRange(items);
 		}
 
 		private T GetByIndex(int index)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Manatee.Trello.Internal
@@ -16,9 +15,9 @@ namespace Manatee.Trello.Internal
 			public string String { get; set; }
 		}
 
-		private static readonly Dictionary<Type, List<Description>> _descriptions = new Dictionary<Type, List<Description>>();
-		private static readonly DateTime _unixEpoch = new DateTime(1970, 1, 1);
-		private static readonly DateTime _trelloMinDate = DateTime.MinValue.ToUniversalTime().AddHours(12);
+		private static readonly Dictionary<Type, List<Description>> Descriptions = new Dictionary<Type, List<Description>>();
+		private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1);
+		private static readonly DateTime TrelloMinDate = DateTime.MinValue.ToUniversalTime().AddHours(12);
 
 		public static string ToLowerString<T>(this T item)
 		{
@@ -53,25 +52,10 @@ namespace Manatee.Trello.Internal
 
 			var attributes = typeof(T).GetTypeInfo().GetCustomAttributes(typeof(FlagsAttribute), false);
 			return !attributes.Any()
-				? _descriptions[typeof(T)].First(d => Equals(d.Value, enumerationValue)).String
+				? Descriptions[typeof(T)].First(d => Equals(d.Value, enumerationValue)).String
 				: BuildFlagsValues(enumerationValue, ",");
 		}
-		public static string GetName<T>(this Expression<Func<T>> property)
-		{
-			var lambda = (LambdaExpression)property;
 
-			MemberExpression memberExpression;
-			var body = lambda.Body as UnaryExpression;
-			if (body != null)
-			{
-				var unaryExpression = body;
-				memberExpression = (MemberExpression)unaryExpression.Operand;
-			}
-			else
-				memberExpression = (MemberExpression)lambda.Body;
-
-			return memberExpression.Member.Name;
-		}
 		public static bool IsNotFoundError(this TrelloInteractionException e)
 		{
 			return e.InnerException != null && e.InnerException.Message.ToLower().Contains("not found");
@@ -90,35 +74,27 @@ namespace Manatee.Trello.Internal
 				throw new InvalidOperationException("Cannot extract creation date until ID is downloaded.");
 			var asHex = id.Substring(0, 8);
 			var timeStamp = int.Parse(asHex, NumberStyles.HexNumber);
-			return _unixEpoch.AddSeconds(timeStamp);
+			return UnixEpoch.AddSeconds(timeStamp);
 		}
 		public static DateTime Encode(this DateTime date)
 		{
-			return date <= _trelloMinDate ? _trelloMinDate : date;
+			return date <= TrelloMinDate ? TrelloMinDate : date;
 		}
 		public static DateTime Decode(this DateTime date)
 		{
-			return date == _trelloMinDate ? DateTime.MinValue : date;
-		}
-		public static IEnumerable<T> ForEach<T>(this IEnumerable<T> collection, Action<T> action)
-		{
-			foreach (var item in collection)
-			{
-				action(item);
-				yield return item;
-			}
+			return date == TrelloMinDate ? DateTime.MinValue : date;
 		}
 
 		private static void EnsureDescriptions<T>()
 		{
 			var type = typeof(T);
-			if (_descriptions.ContainsKey(type)) return;
-			lock (_descriptions)
+			if (Descriptions.ContainsKey(type)) return;
+			lock (Descriptions)
 			{
-				if (_descriptions.ContainsKey(type)) return;
+				if (Descriptions.ContainsKey(type)) return;
 				var names = Enum.GetValues(type).Cast<T>();
 				var descriptions = names.Select(n => new Description {Value = n, String = GetDescription<T>(n.ToString())}).ToList();
-				_descriptions.Add(type, descriptions);
+				Descriptions.Add(type, descriptions);
 			}
 		}
 		private static string GetDescription<T>(string name)
@@ -130,7 +106,7 @@ namespace Manatee.Trello.Internal
 		}
 		private static string BuildFlagsValues<T>(T obj, string separator)
 		{
-			var descriptions = _descriptions[typeof(T)];
+			var descriptions = Descriptions[typeof(T)];
 			var value = Convert.ToInt64(obj);
 			var index = descriptions.Count - 1;
 			var names = new List<string>();

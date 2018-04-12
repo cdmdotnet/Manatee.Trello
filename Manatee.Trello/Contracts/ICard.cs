@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -169,11 +171,11 @@ namespace Manatee.Trello
 		/// This permanently deletes the card from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
 		/// </remarks>
-		void Delete();
+		Task Delete(CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Marks the card to be refreshed the next time data is accessed.
 		/// </summary>
-		void Refresh();
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

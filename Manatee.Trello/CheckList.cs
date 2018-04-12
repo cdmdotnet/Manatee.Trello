@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -12,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a checklist.
 	/// </summary>
-	public class CheckList : ICheckList
+	public class CheckList : ICheckList, IMergeJson<IJsonCheckList>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for check lists.
@@ -28,12 +30,12 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="idBoard")]
+			[Display(Description="board")]
 			Board = 1 << 1,
 			/// <summary>
 			/// Indicates the Card property should be populated.
 			/// </summary>
-			[Display(Description="idCard")]
+			[Display(Description="card")]
 			Card = 1 << 2,
 			/// <summary>
 			/// Indicates the CheckItems property should be populated.
@@ -53,11 +55,20 @@ namespace Manatee.Trello
 		private readonly Field<Position> _position;
 		private readonly CheckListContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				CheckListContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the board on which the checklist belongs.
@@ -71,10 +82,11 @@ namespace Manatee.Trello
 			get { return _card.Value; }
 			set { _card.Value = (Card) value; }
 		}
+
 		/// <summary>
 		/// Gets the collection of items in the checklist.
 		/// </summary>
-		public ICheckItemCollection CheckItems { get; }
+		public ICheckItemCollection CheckItems => _context.CheckItems;
 		/// <summary>
 		/// Gets the creation date of the checklist.
 		/// </summary>
@@ -138,6 +150,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<ICheckList, IEnumerable<string>> Updated;
 
+		static CheckList()
+		{
+			DownloadedFields = (Fields) Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="CheckList"/> object.
 		/// </summary>
@@ -152,7 +169,6 @@ namespace Manatee.Trello
 			_board = new Field<Board>(_context, nameof(Board));
 			_card = new Field<Card>(_context, nameof(Card));
 			_card.AddRule(NotNullRule<Card>.Instance);
-			CheckItems = new CheckItemCollection(_context, auth);
 			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_position = new Field<Position>(_context, nameof(Position));
@@ -173,18 +189,24 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This instance will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
+			await _context.Delete(ct);
 			TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
 		/// Marks the check list to be refreshed the next time data is accessed.
 		/// </summary>
-		public void Refresh()
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
+
+		void IMergeJson<IJsonCheckList>.Merge(IJsonCheckList json)
+		{
+			_context.Merge(json);
+		}
+
 		/// <summary>
 		/// Returns the <see cref="Name"/>.
 		/// </summary>

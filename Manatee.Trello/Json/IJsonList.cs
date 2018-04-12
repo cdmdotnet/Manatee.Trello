@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
 	/// Defines the JSON structure for the List object.
 	/// </summary>
-	public interface IJsonList : IJsonCacheable
+	public interface IJsonList : IJsonCacheable, IAcceptId
 	{
 		/// <summary>
 		/// Gets or sets the name of the list.
@@ -35,5 +37,7 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Subscribed { get; set; }
+		List<IJsonAction> Actions { get; set; }
+		List<IJsonCard> Cards { get; set; }
 	}
 }

@@ -1,39 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
-		[Test]
-		[Ignore("This test fixture for development purposes only.")]
-		public void TestMethod1()
-		{
-			Run(() =>
-				{
-					var board = new Board(TrelloIds.BoardId);
-					var definitions = board.CustomFields.ToList();
-					var card = new Card(TrelloIds.CardId);
-					
-					Console.WriteLine(card.Id);
-					Console.WriteLine(card);
+		private readonly TrelloFactory _factory = new TrelloFactory();
 
-					OutputCollection("custom fields", card.CustomFields);
+		[Test]
+		public async Task TestMethod1()
+		{
+			await Run(async () =>
+				{
+					CheckList.DownloadedFields &= ~CheckList.Fields.CheckItems;
+
+					var entity = _factory.Card(TrelloIds.CardId);
+
+					await entity.Refresh();
+
+					Console.WriteLine(entity);
+
+					OutputCollection("actions", entity.Actions);
+					OutputCollection("attachments", entity.Attachments);
+					OutputCollection("checkLists", entity.CheckLists);
+					OutputCollection("members", entity.Members);
+					OutputCollection("powerup data", entity.PowerUpData);
+					OutputCollection("stickers", entity.Stickers);
 				});
 		}
 
-		private static void Run(System.Action action)
+		private static async Task Run(Func<Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			//TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			action();
+			await action();
 
-			TrelloProcessor.Flush();
+			await TrelloProcessor.Flush();
 		}
 
 		private static void OutputCollection<T>(string section, IEnumerable<T> collection)
