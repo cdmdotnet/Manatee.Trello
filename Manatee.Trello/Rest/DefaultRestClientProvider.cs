@@ -5,6 +5,9 @@ namespace Manatee.Trello.Rest
 	/// </summary>
 	public class DefaultRestClientProvider : IRestClientProvider
 	{
+		/// <summary>
+		/// Singleton instance of <see cref="DefaultRestClientProvider"/>.
+		/// </summary>
 		public static DefaultRestClientProvider Instance { get; } = new DefaultRestClientProvider();
 
 		/// <summary>
