@@ -55,7 +55,6 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task Issue30_PartialSearch_True()
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			var board = new Board(TrelloIds.BoardId);
 			var searchText = "car";
@@ -73,7 +72,6 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task Issue30_PartialSearch_False()
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			var board = new Board(TrelloIds.BoardId);
 			var searchText = "car";
@@ -87,10 +85,10 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
+		[Ignore("The new async operation throws exceptions when tasks are cancelled (normal for .Net tasks).")]
 		public async Task Issue32_CancelPendingRequests()
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			var cards = new List<Card>
 				{
@@ -103,22 +101,23 @@ namespace Manatee.Trello.IntegrationTests
 					new Card("hBoTLb9V"),
 				};
 
+			var tokenSource = new CancellationTokenSource();
+
 			var nameTasks = cards.Select(async c =>
 				{
-					await c.Refresh();
+					await c.Refresh(tokenSource.Token);
 					return c.Name;
 				}).ToList();
 
-			await TrelloProcessor.CancelPendingRequests();
+			tokenSource.Cancel();
 
-			var names = await Task.WhenAll(nameTasks);
-
+			var names = await Task.WhenAll(nameTasks.Where(t => !t.IsCanceled));
 			Assert.AreEqual(0, names.Count(n => n != null));
 		}
 
 #pragma warning disable 1998
 		[Test]
-		public async Task Issue33_CardsNotDownloading()
+		public async Task Issue34_CardsNotDownloading()
 		{
 			//app key and token, user required to enter token
 			TrelloAuthorization.Default.AppKey = "440a184b181002cf00f63713a7f51191";
@@ -146,7 +145,6 @@ namespace Manatee.Trello.IntegrationTests
 			try
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var learningBoard = new Board(TrelloIds.BoardId);
 				await learningBoard.Lists.Refresh();
@@ -173,7 +171,6 @@ namespace Manatee.Trello.IntegrationTests
 			try
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
 				card = await list.Cards.Add("attachment test");
@@ -192,7 +189,6 @@ namespace Manatee.Trello.IntegrationTests
 			try
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
 				card = await list.Cards.Add("date encoding test");
@@ -215,7 +211,6 @@ namespace Manatee.Trello.IntegrationTests
 			try
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
 				card = await list.Cards.Add("min date test");
@@ -241,7 +236,6 @@ namespace Manatee.Trello.IntegrationTests
 			try
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var me = await _factory.Me();
 				var members = new IMember[] {me};
@@ -282,7 +276,6 @@ namespace Manatee.Trello.IntegrationTests
 			try
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
 				card = await list.Cards.Add(name, description, position, dueDate);
@@ -314,7 +307,6 @@ namespace Manatee.Trello.IntegrationTests
 			try
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-				TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 				var list = new List(TrelloIds.ListId);
 				card = await list.Cards.Add(name);
@@ -335,7 +327,6 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task Issue60_BoardPreferencesFromSearch()
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			var search = new Search(SearchFor.TextInName("Sandbox"), 1, SearchModelType.Boards);
 			await search.Refresh();
@@ -348,7 +339,6 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task Issue84_ListNameNotDownloading()
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			var list = new List(TrelloIds.ListId);
 			await list.Refresh();
@@ -360,7 +350,6 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task Email_BoardDownloadHangsOnNameAfterFetchingFromCollection()
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			var me = await _factory.Me();
 			await me.Refresh();

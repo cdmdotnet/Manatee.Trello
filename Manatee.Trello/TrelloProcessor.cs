@@ -17,13 +17,6 @@ namespace Manatee.Trello
 		{
 			return RestRequestProcessor.Flush();
 		}
-		/// <summary>
-		/// Cancels any requests that are still pending.  This applies to both downloads and uploads.
-		/// </summary>
-		public static Task CancelPendingRequests()
-		{
-			return RestRequestProcessor.CancelPendingRequests();
-		}
 
 		/// <summary>
 		/// Processes webhook notification content.

@@ -11,15 +11,14 @@ namespace Manatee.Trello.Internal.DataAccess
 		public static async Task Execute(TrelloAuthorization auth, Endpoint endpoint, CancellationToken ct, IDictionary<string, object> parameters = null)
 		{
 			var request = BuildRequest(auth, endpoint, parameters);
-			await RestRequestProcessor.AddRequest(request, ct);
-			ValidateResponse(request);
+			var response = await RestRequestProcessor.AddRequest(request, ct);
+			ValidateResponse(response);
 		}
 		public static async Task<T> Execute<T>(TrelloAuthorization auth, Endpoint endpoint, CancellationToken ct, IDictionary<string, object> parameters = null)
 			where T : class
 		{
 			var request = BuildRequest(auth, endpoint, parameters);
-			await ProcessRequest<T>(request, ct);
-		    var response = request.Response as IRestResponse<T>;
+			var response = await ProcessRequest<T>(request, ct);
 			return response?.Data;
 		}
 
@@ -28,8 +27,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		{
 			var request = BuildRequest(auth, endpoint);
 			request.AddBody(body);
-		    await ProcessRequest<T>(request, ct);
-			var response = request.Response as IRestResponse<T>;
+			var response = await ProcessRequest<T>(request, ct);
 			return response?.Data;
 		}
 
@@ -46,21 +44,23 @@ namespace Manatee.Trello.Internal.DataAccess
 			if (auth.UserToken != null)
 				request.AddParameter("token", auth.UserToken);
 		}
-		private static void ValidateResponse(IRestRequest request)
+		private static void ValidateResponse(IRestResponse response)
 		{
-			if (request.Response.Exception != null)
+			if (response.Exception != null)
 			{
-				TrelloConfiguration.Log.Error(request.Response.Exception);
+				TrelloConfiguration.Log.Error(response.Exception);
 				if (TrelloConfiguration.ThrowOnTrelloError)
 				{
-					throw request.Response.Exception;
+					throw response.Exception;
 				}
 			}
 		}
-	    private static async Task ProcessRequest<T>(IRestRequest request, CancellationToken ct) where T : class
+	    private static async Task<IRestResponse<T>> ProcessRequest<T>(IRestRequest request, CancellationToken ct)
+		    where T : class
 	    {
-	        await RestRequestProcessor.AddRequest<T>(request, ct);
-	        ValidateResponse(request);
+			var response = await RestRequestProcessor.AddRequest<T>(request, ct);
+	        ValidateResponse(response);
+		    return response as IRestResponse<T>;
 	    }
 	}
 }

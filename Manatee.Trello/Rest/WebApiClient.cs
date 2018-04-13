@@ -7,13 +7,26 @@ using System.Threading.Tasks;
 
 namespace Manatee.Trello.Rest
 {
-	internal class WebApiClient : IRestClient
+	internal class WebApiClient : IRestClient, IDisposable
 	{
 		private readonly string _baseUri;
+		private readonly HttpClient _client;
 
 		public WebApiClient(string baseUri)
 		{
+			_client = new HttpClient();
 			_baseUri = baseUri;
+		}
+
+		~WebApiClient()
+		{
+			Dispose(false);
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
 
 		public Task<IRestResponse> Execute(IRestRequest request, CancellationToken ct)
@@ -33,16 +46,16 @@ namespace Manatee.Trello.Rest
 			switch (request.Method)
 			{
 				case RestMethod.Get:
-					response = await ExecuteWithRetry(c => c.GetAsync(GetFullResource(webRequest), ct));
+					response = await ExecuteWithRetry(() => _client.GetAsync(GetFullResource(webRequest), ct));
 					break;
 				case RestMethod.Put:
-					response = await ExecuteWithRetry(c => c.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
+					response = await ExecuteWithRetry(() => _client.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Post:
-					response = await ExecuteWithRetry(c => c.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
+					response = await ExecuteWithRetry(() => _client.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Delete:
-					response = await ExecuteWithRetry(c => c.DeleteAsync(GetFullResource(webRequest), ct));
+					response = await ExecuteWithRetry(() => _client.DeleteAsync(GetFullResource(webRequest), ct));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -57,36 +70,33 @@ namespace Manatee.Trello.Rest
 			switch (request.Method)
 			{
 				case RestMethod.Get:
-					response = await ExecuteWithRetry<T>(c => c.GetAsync(GetFullResource(webRequest), ct));
+					response = await ExecuteWithRetry<T>(() => _client.GetAsync(GetFullResource(webRequest), ct));
 					break;
 				case RestMethod.Put:
-					response = await ExecuteWithRetry<T>(c => c.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
+					response = await ExecuteWithRetry<T>(() => _client.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Post:
-					response = await ExecuteWithRetry<T>(c => c.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
+					response = await ExecuteWithRetry<T>(() => _client.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Delete:
-					response = await ExecuteWithRetry<T>(c => c.DeleteAsync(GetFullResource(webRequest), ct));
+					response = await ExecuteWithRetry<T>(() => _client.DeleteAsync(GetFullResource(webRequest), ct));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 			return response;
 		}
-		private static async Task<IRestResponse> ExecuteWithRetry(Func<HttpClient, Task<HttpResponseMessage>> call)
+		private static async Task<IRestResponse> ExecuteWithRetry(Func<Task<HttpResponseMessage>> call)
 		{
 			IRestResponse restResponse;
 			HttpResponseMessage response;
-			using (var client = new HttpClient())
+			var count = 0;
+			do
 			{
-				var count = 0;
-				do
-				{
-					count++;
-					response = await call(client);
-					restResponse = await MapResponse(response);
-				} while (TrelloConfiguration.RetryPredicate(restResponse, count));
-			}
+				count++;
+				response = await call();
+				restResponse = await MapResponse(response);
+			} while (TrelloConfiguration.RetryPredicate(restResponse, count));
 			if (!response.IsSuccessStatusCode)
 				throw new HttpRequestException("Received a failure from Trello.\n" +
 											   $"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
@@ -104,19 +114,16 @@ namespace Manatee.Trello.Rest
 										  $"Content: {restResponse.Content}");
 			return restResponse;
 		}
-		private static async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<HttpClient, Task<HttpResponseMessage>> call) where T : class
+		private static async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<Task<HttpResponseMessage>> call) where T : class
 		{
 			IRestResponse<T> restResponse;
-			using (var client = new HttpClient())
+			var count = 0;
+			do
 			{
-				var count = 0;
-				do
-				{
-					count++;
-					var response = await call(client);
-					restResponse = await MapResponse<T>(response);
-				} while (TrelloConfiguration.RetryPredicate(restResponse, count));
-			}
+				count++;
+				var response = await call();
+				restResponse = await MapResponse<T>(response);
+			} while (TrelloConfiguration.RetryPredicate(restResponse, count));
 			return restResponse;
 		}
 		private static async Task<IRestResponse<T>> MapResponse<T>(HttpResponseMessage response) where T : class
@@ -127,7 +134,7 @@ namespace Manatee.Trello.Rest
 					StatusCode = response.StatusCode
 				};
 			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-											$"Content: {restResponse.Content}");
+			                              $"Content: {restResponse.Content}");
 			try
 			{
 				var body = await response.Content.ReadAsStringAsync();
@@ -170,6 +177,14 @@ namespace Manatee.Trello.Rest
 			if (request.File != null)
 				return $"{_baseUri}/{request.Resource}";
 			return $"{_baseUri}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				_client?.Dispose();
+			}
 		}
 	}
 }

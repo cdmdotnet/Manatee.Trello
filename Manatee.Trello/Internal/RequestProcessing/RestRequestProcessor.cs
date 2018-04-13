@@ -9,73 +9,67 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	{
 		private const string BaseUrl = @"https://trello.com/1";
 
-		private static int _pendingRequestCount;
-		private static bool _cancelPendingRequests;
+		private static IRestClient _client;
+
+		private static IRestClient Client => _client ?? (_client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl));
 
 		public static event Func<Task> LastCall;
 
-		public static Task AddRequest(IRestRequest request, CancellationToken ct)
+		public static Task<IRestResponse> AddRequest(IRestRequest request, CancellationToken ct)
 		{
-			return Process(async c => request.Response = await c.Execute(request, ct), request);
+			return Process(() => Client.Execute(request, ct), request, ct);
 		}
-		public static Task AddRequest<T>(IRestRequest request, CancellationToken ct)
+		public static Task<IRestResponse> AddRequest<T>(IRestRequest request, CancellationToken ct)
 			where T : class
 		{
-			return Process(async c => request.Response = await c.Execute<T>(request, ct), request);
+			return Process(async () => await Client.Execute<T>(request, ct), request, ct);
 		}
 		public static async Task Flush()
 		{
 			if (LastCall != null)
 				await LastCall();
 		}
-		public static async Task CancelPendingRequests()
-		{
-			_cancelPendingRequests = true;
-			await Flush();
-		}
 
-		private static async Task Process(Func<IRestClient, Task> ask, IRestRequest request)
+		private static async Task<IRestResponse> Process(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)
 		{
+			IRestResponse response;
 			try
 			{
-				_pendingRequestCount++;
-				await Execute(ask, request);
+				response = await Execute(ask, request, ct);
 			}
 			catch (Exception e)
 			{
-				request.Response = new NullRestResponse {Exception = e};
+				response = new NullRestResponse {Exception = e};
 				TrelloConfiguration.Log.Error(e);
 			}
-			finally
-			{
-				_pendingRequestCount--;
-				if (_pendingRequestCount == 0)
-					_cancelPendingRequests = false;
-			}
+
+			return response;
 		}
-		private static async Task Execute(Func<IRestClient, Task> ask, IRestRequest request)
+		private static async Task<IRestResponse> Execute(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)
 		{
-			if (!_cancelPendingRequests)
+			IRestResponse response;
+			if (!ct.IsCancellationRequested)
 			{
-				var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 				LogRequest(request, "Sending");
 				try
 				{
-					await ask(client);
-					LogResponse(request.Response, "Received");
+					response = await ask();
+					LogResponse(response, "Received");
 				}
 				catch (Exception e)
 				{
 					var tie = new TrelloInteractionException(e);
-					request.Response = new NullRestResponse {Exception = e};
+					response = new NullRestResponse {Exception = e};
 					TrelloConfiguration.Log.Error(tie);
 				}
 			}
 			else
 			{
 				LogRequest(request, "Stubbing");
-				request.Response = new NullRestResponse();
+				response = new NullRestResponse();
 			}
+
+			return response;
 		}
 		private static void LogRequest(IRestRequest request, string action)
 		{
