@@ -134,7 +134,7 @@ namespace Manatee.Trello.Rest
 					StatusCode = response.StatusCode
 				};
 			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-											$"Content: {restResponse.Content}");
+			                              $"Content: {restResponse.Content}");
 			try
 			{
 				var body = await response.Content.ReadAsStringAsync();

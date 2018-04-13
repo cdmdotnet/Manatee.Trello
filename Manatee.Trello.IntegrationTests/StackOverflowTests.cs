@@ -14,7 +14,6 @@ namespace Manatee.Trello.IntegrationTests
 		private static async Task Run(Func<Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			await action();
 
@@ -71,8 +70,7 @@ namespace Manatee.Trello.IntegrationTests
 					foreach (var label in card.Labels)
 					{
 						Assert.IsNotNull(label.Name);
-						// I can't always ensure Color isn't null.  Colorless labels are a thing.
-						//Assert.IsNotNull(label.Color);
+						Assert.IsNotNull(label.Color);
 					}
 				});
 		}

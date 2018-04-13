@@ -14,10 +14,6 @@
 		/// </summary>
 		string Resource { get; }
 		/// <summary>
-		/// Stores the response returned by the server.
-		/// </summary>
-		IRestResponse Response { get; set; }
-		/// <summary>
 		/// Explicitly adds a parameter to the request.
 		/// </summary>
 		/// <param name="name">The name.</param>
