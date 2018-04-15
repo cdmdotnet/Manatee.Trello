@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.Licensing;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
@@ -35,6 +36,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			IRestResponse response;
 			try
 			{
+				ManageLicenseCounts(request.Method);
 				response = await Execute(ask, request, ct);
 			}
 			catch (Exception e)
@@ -78,6 +80,23 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private static void LogResponse(IRestResponse response, string action)
 		{
 			TrelloConfiguration.Log.Info("{0}: {1}", action, response.Content);
+		}
+
+		private static void ManageLicenseCounts(RestMethod method)
+		{
+			switch (method)
+			{
+				case RestMethod.Get:
+					LicenseHelpers.IncrementAndCheckRetrieveCount();
+					break;
+				case RestMethod.Put:
+				case RestMethod.Post:
+				case RestMethod.Delete:
+					LicenseHelpers.IncrementAndCheckSubmissionCount();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(method), method, null);
+			}
 		}
 	}
 }

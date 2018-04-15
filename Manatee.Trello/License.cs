@@ -4,7 +4,6 @@
 // Modified for use in Manatee.Trello
 #endregion
 
-using System;
 using Manatee.Trello.Internal.Licensing;
 
 namespace Manatee.Trello
@@ -35,21 +34,6 @@ namespace Manatee.Trello
 		public static void RegisterLicense(string license)
 		{
 			LicenseHelpers.RegisterLicense(license);
-		}
-	}
-
-	public class LicenseException : Exception
-	{
-		public LicenseException()
-		{
-		}
-
-		public LicenseException(string message) : base(message)
-		{
-		}
-
-		public LicenseException(string message, Exception innerException) : base(message, innerException)
-		{
 		}
 	}
 }

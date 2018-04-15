@@ -45,5 +45,8 @@ Support for unit testing: extracted interfaces for all types.</PackageReleaseNot
     <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Internal\Licensing\" />
+  </ItemGroup>
 
 </Project>

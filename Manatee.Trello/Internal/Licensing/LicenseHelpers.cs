@@ -31,13 +31,15 @@ namespace Manatee.Trello.Internal.Licensing
 			Lock = new object();
 		}
 
-		internal static void ResetCounts(object state)
+		// This is used for testing.
+		// ReSharper disable once MemberCanBePrivate.Global
+		public static void ResetCounts(object state)
 		{
 			_validationCount = 0;
 			_generationCount = 0;
 		}
 
-		public static void IncrementAndCheckValidationCount()
+		public static void IncrementAndCheckRetrieveCount()
 		{
 			if (_registeredLicense != null) return;
 
@@ -49,11 +51,11 @@ namespace Manatee.Trello.Internal.Licensing
 			if (_validationCount > maxOperationCount)
 			{
 				throw new LicenseException(
-					$"The free-quota limit of {maxOperationCount} schema validations per hour has been reached. Please visit http://please.buy/my/library to upgrade to a commercial license.");
+					$"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. Please visit http://please.buy/my/library to upgrade to a commercial license.");
 			}
 		}
 
-		public static void IncrementAndCheckGenerationCount()
+		public static void IncrementAndCheckSubmissionCount()
 		{
 			if (_registeredLicense != null) return;
 
@@ -65,7 +67,7 @@ namespace Manatee.Trello.Internal.Licensing
 			if (_generationCount > maxOperationCount)
 			{
 				throw new LicenseException(
-					$"The free-quota limit of {maxOperationCount} schema generations per hour has been reached. Please visit http://please.buy/my/library to upgrade to a commercial license.");
+					$"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. Please visit http://please.buy/my/library to upgrade to a commercial license.");
 			}
 		}
 
