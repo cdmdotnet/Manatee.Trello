@@ -17,20 +17,9 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					CheckList.DownloadedFields &= ~CheckList.Fields.CheckItems;
+					var licenseText = "";
 
-					var entity = _factory.Card(TrelloIds.CardId);
-
-					await entity.Refresh();
-
-					Console.WriteLine(entity);
-
-					OutputCollection("actions", entity.Actions);
-					OutputCollection("attachments", entity.Attachments);
-					OutputCollection("checkLists", entity.CheckLists);
-					OutputCollection("members", entity.Members);
-					OutputCollection("powerup data", entity.PowerUpData);
-					OutputCollection("stickers", entity.Stickers);
+					License.RegisterLicense(licenseText);
 				});
 		}
 

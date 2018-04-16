@@ -6,11 +6,11 @@
 
 namespace Manatee.Trello.Internal.Licensing
 {
-    internal static class LicenseType
+    internal enum LicenseType
     {
-        public const string Test = nameof(Test);
-        public const string TrelloIndie = nameof(TrelloIndie);
-        public const string TrelloBusiness = nameof(TrelloBusiness);
-        public const string TrelloSite = nameof(TrelloSite);
+        Test,
+        TrelloIndie,
+        TrelloBusiness,
+        TrelloSite,
     }
 }

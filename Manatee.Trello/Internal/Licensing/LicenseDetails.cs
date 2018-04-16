@@ -10,22 +10,20 @@ using System.Text;
 
 namespace Manatee.Trello.Internal.Licensing
 {
-    internal class LicenseDetails
-    {
-        public int Id { get; set; }
-        public DateTime ExpiryDate { get; set; }
-        public string Type { get; set; }
+	internal class LicenseDetails
+	{
+		public int Id { get; set; }
+		public DateTime ExpiryDate { get; set; }
+		public LicenseType Type { get; set; }
 
-        internal byte[] GetSignificateData()
-        {
-            string s = string.Join(":", new[]
-            {
-                Id.ToString(CultureInfo.InvariantCulture),
-                ExpiryDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-                Type
-            });
+		internal byte[] GetSignificateData()
+		{
+			var s = string.Join(":",
+								Id.ToString(CultureInfo.InvariantCulture),
+								ExpiryDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+								Type.ToString());
 
-            return Encoding.UTF8.GetBytes(s);
-        }
-    }
+			return Encoding.UTF8.GetBytes(s);
+		}
+	}
 }
