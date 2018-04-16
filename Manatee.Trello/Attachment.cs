@@ -219,6 +219,13 @@ namespace Manatee.Trello
 				TrelloConfiguration.Cache.Remove(this);
 		}
 		/// <summary>
+		/// Marks the attachment to be refreshed the next time data is accessed.
+		/// </summary>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
+		}
+		/// <summary>
 		/// Returns the <see cref="Name"/>.
 		/// </summary>
 		/// <returns>
