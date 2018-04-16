@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
-	[Ignore("This test fixture for development purposes only.")]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
@@ -17,11 +17,13 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					var entity = _factory.Board(TrelloIds.BoardId);
+					var board = _factory.Board(TrelloIds.BoardId);
+					var card = _factory.Card(TrelloIds.CardId);
 
-					await entity.Refresh();
+					await Task.WhenAll(board.CustomFields.Refresh(), card.Refresh());
 
-					OutputCollection("lists", entity.Lists);
+					OutputCollection("from board", board.CustomFields);
+					OutputCollection("from card", card.CustomFields);
 				});
 		}
 

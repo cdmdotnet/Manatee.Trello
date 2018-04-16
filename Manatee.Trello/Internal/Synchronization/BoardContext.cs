@@ -47,17 +47,18 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Board.Fields.Closed |
-						   Board.Fields.Pinned |
-						   Board.Fields.Description |
-						   Board.Fields.Starred |
-						   Board.Fields.Preferencess |
-						   Board.Fields.IsSubscribed |
-						   Board.Fields.LastActivityDate |
-						   Board.Fields.LastViewDate |
-						   Board.Fields.Name |
-						   Board.Fields.ShortLink |
-						   Board.Fields.ShortUrl |
-						   Board.Fields.Url;
+			               Board.Fields.Pinned |
+			               Board.Fields.Description |
+			               Board.Fields.Starred |
+			               Board.Fields.Preferencess |
+			               Board.Fields.IsSubscribed |
+			               Board.Fields.LastActivityDate |
+			               Board.Fields.LastViewDate |
+			               Board.Fields.Name |
+			               Board.Fields.ShortLink |
+			               Board.Fields.ShortUrl |
+			               Board.Fields.Url |
+			               Board.Fields.CustomFields;
 			Properties = new Dictionary<string, Property<IJsonBoard>>
 				{
 					{

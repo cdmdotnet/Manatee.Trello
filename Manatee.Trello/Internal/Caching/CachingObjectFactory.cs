@@ -113,7 +113,7 @@ namespace Manatee.Trello.Internal.Caching
 				case CustomFieldType.Number:
 					return new NumberField(json, auth);
 				default:
-					throw new ArgumentOutOfRangeException();
+					return null;
 			}
 		}
 	}

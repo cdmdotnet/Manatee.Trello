@@ -211,7 +211,7 @@ namespace Manatee.Trello
 			}
 		}
 
-		public IEnumerable<CustomField> CustomFields => Json.CustomFields?.Select(f => f.GetFromCache<CustomField>(_auth));
+		public IReadOnlyCollection<ICustomField> CustomFields => _context.CustomFields;
 
 		/// <summary>
 		/// Gets or sets the card's description.

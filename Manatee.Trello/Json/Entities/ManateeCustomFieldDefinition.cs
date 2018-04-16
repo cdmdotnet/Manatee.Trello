@@ -27,7 +27,7 @@ namespace Manatee.Trello.Json.Entities
 					FieldGroup = obj.TryGetString("fieldGroup");
 					Name = obj.TryGetString("name");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
-					Type = obj.Deserialize<CustomFieldType?>(serializer, "idBoard");
+					Type = obj.Deserialize<CustomFieldType?>(serializer, "type");
 					Options = obj.Deserialize<List<IJsonCustomDropDownOption>>(serializer, "options");
 					ValidForMerge = true;
 					break;

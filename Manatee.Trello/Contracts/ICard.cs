@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
 {
@@ -46,7 +47,7 @@ namespace Manatee.Trello
 		/// </summary>
 		DateTime CreationDate { get; }
 
-		IEnumerable<CustomField> CustomFields { get; }
+		IReadOnlyCollection<ICustomField> CustomFields { get; }
 
 		/// <summary>
 		/// Gets or sets the card's description.

@@ -1,28 +1,43 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Manatee.Trello.Internal.Caching;
+﻿using System.Linq;
+using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class CustomFieldDefinition : ICustomFieldDefinition
+	public class CustomFieldDefinition : ICustomFieldDefinition, IMergeJson<IJsonCustomFieldDefinition>
 	{
-		private readonly TrelloAuthorization _auth;
+		private readonly Field<IBoard> _board;
+		private readonly Field<string> _fieldGroup;
+		private readonly Field<string> _name;
+		private readonly Field<Position> _position;
+		private readonly Field<CustomFieldType?> _type;
+		private readonly CustomFieldDefinitionContext _context;
 
+		public IBoard Board => _board.Value;
+		public string FieldGroup => _fieldGroup.Value;
 		public string Id => Json.Id;
-		public Board Board => Json.Board.GetFromCache<Board, IJsonBoard>(_auth);
-		public string FieldGroup => Json.FieldGroup;
-		public string Name => Json.Name;
-		public Position Position => Position.GetPosition(Json.Pos);
-		public CustomFieldType? Type => Json.Type;
-		public IEnumerable<DropDownOption> Options => Json.Options?.Select(o => o.GetFromCache<DropDownOption>(_auth));
+		public string Name => _name.Value;
+		public IReadOnlyCollection<DropDownOption> Options => _context.DropDownOptions;
+		public Position Position => _position.Value;
+		public CustomFieldType? Type => _type.Value;
 
-		internal IJsonCustomFieldDefinition Json { get; set; }
+		internal IJsonCustomFieldDefinition Json
+		{
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
 
 		internal CustomFieldDefinition(IJsonCustomFieldDefinition json, TrelloAuthorization auth)
 		{
-			_auth = auth;
-			Json = json;
+			_context = new CustomFieldDefinitionContext(auth);
+			_context.Merge(json);
+
+			_board = new Field<IBoard>(_context, nameof(Board));
+			_fieldGroup = new Field<string>(_context, nameof(FieldGroup));
+			_name = new Field<string>(_context, nameof(Name));
+			_position = new Field<Position>(_context, nameof(Position));
+			_type = new Field<CustomFieldType?>(_context, nameof(Type));
 
 			TrelloConfiguration.Cache.Add(this);
 
@@ -33,7 +48,12 @@ namespace Manatee.Trello
 
 		public override string ToString()
 		{
-			return Name;
+			return $"{Name} ({Type})";
+		}
+
+		void IMergeJson<IJsonCustomFieldDefinition>.Merge(IJsonCustomFieldDefinition json)
+		{
+			_context.Merge(json);
 		}
 	}
 }

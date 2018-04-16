@@ -1,23 +1,38 @@
-﻿using Manatee.Trello.Internal.Caching;
+﻿using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public abstract class CustomField : ICustomField
+	public abstract class CustomField : ICustomField, IMergeJson<IJsonCustomField>
 	{
-		protected readonly TrelloAuthorization _auth;
+		private readonly Field<ICustomFieldDefinition> _definition;
+		private readonly CustomFieldContext _context;
+
+		internal CustomFieldContext Context => _context;
 
 		public string Id => Json.Id;
-		public ICustomFieldDefinition Definition => Json.Definition.GetFromCache<CustomFieldDefinition>(_auth);
+		public ICustomFieldDefinition Definition => _definition.Value;
 
-		internal IJsonCustomField Json { get; }
-
-		protected CustomField(IJsonCustomField json, TrelloAuthorization auth)
+		internal IJsonCustomField Json
 		{
-			_auth = auth;
-			Json = json;
+			get { return _context.Data; }
+			set { _context.Merge(value); }
+		}
+
+		internal CustomField(IJsonCustomField json, TrelloAuthorization auth)
+		{
+			_context = new CustomFieldContext(auth);
+			_context.Merge(json);
+
+			_definition = new Field<ICustomFieldDefinition>(_context, nameof(Definition));
 
 			TrelloConfiguration.Cache.Add(this);
+		}
+
+		void IMergeJson<IJsonCustomField>.Merge(IJsonCustomField json)
+		{
+			_context.Merge(json);
 		}
 	}
 
@@ -25,7 +40,7 @@ namespace Manatee.Trello
 	{
 		public abstract T Value { get; }
 
-		protected CustomField(IJsonCustomField json, TrelloAuthorization auth)
+		internal CustomField(IJsonCustomField json, TrelloAuthorization auth)
 			: base(json, auth)
 		{
 		}
@@ -33,7 +48,7 @@ namespace Manatee.Trello
 		public override string ToString()
 		{
 			if (Value == null) return Definition.ToString();
-			return $"{Definition} - {Value}";
+			return $"{Definition.Name} - {Value}";
 		}
 	}
 }

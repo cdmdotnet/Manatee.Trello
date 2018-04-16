@@ -15,8 +15,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						nameof(ActionData.Attachment),
 						new Property<IJsonActionData, Attachment>((d, a) => d.Attachment != null
-							                                                    ? (d.Attachment.TryGetFromCache<Attachment, IJsonAttachment>() ??
-							                                                       new Attachment(d.Attachment, d.Card.Id, a)) 
+							                                                    ? (d.Attachment
+							                                                        .TryGetFromCache<Attachment, IJsonAttachment>() ??
+							                                                       new Attachment(d.Attachment, d.Card.Id, a))
 							                                                    : null,
 						                                          (d, o) =>
 							                                          {
@@ -65,7 +66,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.CheckItem),
-						new Property<IJsonActionData, CheckItem>((d, a) => d.CheckItem != null 
+						new Property<IJsonActionData, CheckItem>((d, a) => d.CheckItem != null
 							                                                   ? (d.CheckItem.TryGetFromCache<CheckItem, IJsonCheckItem>() ??
 							                                                      new CheckItem(d.CheckItem, d.CheckList.Id, a))
 							                                                   : null,
@@ -85,10 +86,10 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						nameof(ActionData.CustomField),
 						new Property<IJsonActionData, CustomField>((d, a) => d.CustomField?.GetFromCache<CustomField>(a),
-						                                         (d, o) =>
-							                                         {
-								                                         if (o != null) d.CustomField = o.Json;
-							                                         })
+						                                           (d, o) =>
+							                                           {
+								                                           if (o != null) d.CustomField = o.Json;
+							                                           })
 					},
 					{
 						nameof(ActionData.Label),
@@ -103,8 +104,8 @@ namespace Manatee.Trello.Internal.Synchronization
 						new Property<IJsonActionData, DateTime?>((d, a) => d.DateLastEdited,
 						                                         (d, o) =>
 							                                         {
-								if (o != null) d.DateLastEdited = o;
-							})
+								                                         if (o != null) d.DateLastEdited = o;
+							                                         })
 					},
 					{
 						nameof(ActionData.List),
@@ -140,19 +141,19 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.WasArchived),
-						new Property<IJsonActionData, bool?>((d, a) => d.Old?.Closed, 
+						new Property<IJsonActionData, bool?>((d, a) => d.Old?.Closed,
 						                                     (d, o) =>
-							{
-								if (d.Old != null && o != null) d.Old.Closed = o;
-							})
+							                                     {
+								                                     if (d.Old != null && o != null) d.Old.Closed = o;
+							                                     })
 					},
 					{
 						nameof(ActionData.OldDescription),
 						new Property<IJsonActionData, string>((d, a) => d.Old?.Desc,
 						                                      (d, o) =>
-							{
-								if (d.Old != null && o != null) d.Old.Desc = o;
-							})
+							                                      {
+								                                      if (d.Old != null && o != null) d.Old.Desc = o;
+							                                      })
 					},
 					{
 						nameof(ActionData.OldList),
@@ -164,25 +165,27 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.OldPosition),
-						new Property<IJsonActionData, Position>((d, a) => d.Old?.Pos, (d, o) =>
-							{
-								if (d.Old != null) d.Old.Pos = o.Value;
-							})
+						new Property<IJsonActionData, Position>((d, a) => d.Old?.Pos,
+						                                        (d, o) =>
+							                                        {
+								                                        if (d.Old != null) d.Old.Pos = o.Value;
+							                                        })
 					},
 					{
 						nameof(ActionData.OldText),
-						new Property<IJsonActionData, string>((d, a) => d.Old?.Text, (d, o) =>
-							{
-								if (d.Old != null) d.Old.Text = o;
-							})
+						new Property<IJsonActionData, string>((d, a) => d.Old?.Text,
+						                                      (d, o) =>
+							                                      {
+								                                      if (d.Old != null) d.Old.Text = o;
+							                                      })
 					},
 					{
 						nameof(ActionData.Organization),
 						new Property<IJsonActionData, Organization>((d, a) => d.Org?.GetFromCache<Organization, IJsonOrganization>(a),
-							(d, o) =>
-								{
-									if (o != null) d.Org = o.Json;
-								})
+						                                            (d, o) =>
+							                                            {
+								                                            if (o != null) d.Org = o.Json;
+							                                            })
 					},
 					{
 						nameof(ActionData.PowerUp),
