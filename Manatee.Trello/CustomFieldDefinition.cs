@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -52,9 +53,9 @@ namespace Manatee.Trello
 			Options?.ToList();
 		}
 
-		public async Task Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Delete();
+			await _context.Delete(ct);
 		}
 
 		public override string ToString()
