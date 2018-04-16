@@ -1,4 +1,6 @@
-﻿using Manatee.Trello.Internal;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -39,6 +41,13 @@ namespace Manatee.Trello
 
 			_pluginId = new Field<string>(_context, nameof(PluginId));
 			_value = new Field<string>(_context, nameof(Value));
+		}
+		/// <summary>
+		/// Marks the attachment to be refreshed the next time data is accessed.
+		/// </summary>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
 		}
 
 		void IMergeJson<IJsonPowerUpData>.Merge(IJsonPowerUpData json)

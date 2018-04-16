@@ -231,6 +231,13 @@ namespace Manatee.Trello
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
 				TrelloConfiguration.Cache.Remove(this);
 		}
+		/// <summary>
+		/// Marks the action to be refreshed the next time data is accessed.
+		/// </summary>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
+		}
 
 		void IMergeJson<IJsonAction>.Merge(IJsonAction json)
 		{

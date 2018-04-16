@@ -1,4 +1,6 @@
-﻿using Manatee.Trello.Internal;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -48,6 +50,13 @@ namespace Manatee.Trello
 			_additionalInfo = new Field<string>(_context, nameof(AdditionalInfo));
 			_name = new Field<string>(_context, nameof(Name));
 			_isPublic = new Field<bool?>(_context, nameof(IsPublic));
+		}
+		/// <summary>
+		/// Marks the attachment to be refreshed the next time data is accessed.
+		/// </summary>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
 		}
 
 		void IMergeJson<IJsonPowerUp>.Merge(IJsonPowerUp json)
