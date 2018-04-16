@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
-	//[Ignore("This test fixture for development purposes only.")]
+	[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
@@ -17,9 +17,11 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					var licenseText = "";
+					var entity = _factory.Board(TrelloIds.BoardId);
 
-					License.RegisterLicense(licenseText);
+					await entity.Refresh();
+
+					OutputCollection("lists", entity.Lists);
 				});
 		}
 
