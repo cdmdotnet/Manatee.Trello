@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class CustomFieldDefinitionContext : SynchronizationContext<IJsonCustomFieldDefinition>
 	{
+		private bool _deleted;
+
 		public ReadOnlyDropDownOptionCollection DropDownOptions { get; }
 
 		static CustomFieldDefinitionContext()
@@ -61,6 +66,18 @@ namespace Manatee.Trello.Internal.Synchronization
 			: base(auth)
 		{
 			DropDownOptions = new ReadOnlyDropDownOptionCollection(() => Data.Id, auth);
+		}
+
+		public async Task Delete(CancellationToken ct)
+		{
+			if (_deleted) return;
+			CancelUpdate();
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.CustomField_Write_Delete,
+			                                     new Dictionary<string, object> { { "_id", Data.Id } });
+			await JsonRepository.Execute(Auth, endpoint, ct);
+
+			_deleted = true;
 		}
 
 		protected override IEnumerable<string> MergeDependencies(IJsonCustomFieldDefinition json)

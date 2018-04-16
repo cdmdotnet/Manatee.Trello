@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -17,7 +18,12 @@ namespace Manatee.Trello
 		public IBoard Board => _board.Value;
 		public string FieldGroup => _fieldGroup.Value;
 		public string Id => Json.Id;
-		public string Name => _name.Value;
+		public string Name
+		{
+			get { return _name.Value; }
+			set { _name.Value = value; }
+		}
+
 		public IReadOnlyCollection<DropDownOption> Options => _context.DropDownOptions;
 		public Position Position => _position.Value;
 		public CustomFieldType? Type => _type.Value;
@@ -44,6 +50,11 @@ namespace Manatee.Trello
 			// we need to enumerate the collection to cache all of the values
 			// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
 			Options?.ToList();
+		}
+
+		public async Task Delete()
+		{
+			await _context.Delete();
 		}
 
 		public override string ToString()

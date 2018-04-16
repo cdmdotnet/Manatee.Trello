@@ -65,6 +65,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		CheckList_Write_AddCheckItem,
 		CheckList_Write_Delete,
 		CheckList_Write_Update,
+		CustomField_Write_Delete,
 		Label_Read_Refresh,
 		Label_Write_Delete,
 		Label_Write_Update,
