@@ -56,10 +56,10 @@ namespace Manatee.Trello
 		/// Creates a new instance of the <see cref="MemberSearch"/> object and performs the search.
 		/// </summary>
 		/// <param name="query">The query.</param>
-		/// <param name="limit">Optional - The result limit.  Can be a value from 1 to 20. The default is 8.</param>
-		/// <param name="board">Optional - A board to which the search should be limited.</param>
-		/// <param name="organization">Optional - An organization to which the search should be limited.</param>
-		/// <param name="restrictToOrganization">Optional - Restricts the search to only organization members.</param>
+		/// <param name="limit">(Optional) The result limit.  Can be a value from 1 to 20. The default is 8.</param>
+		/// <param name="board">(Optional) A board to which the search should be limited.</param>
+		/// <param name="organization">(Optional) An organization to which the search should be limited.</param>
+		/// <param name="restrictToOrganization">(Optional) Restricts the search to only organization members.</param>
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public MemberSearch(string query, int? limit = null, IBoard board = null, IOrganization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)
