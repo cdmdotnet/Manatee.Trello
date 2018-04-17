@@ -86,7 +86,7 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <param name="isPartial">(Optional) Indicates whether to include matches that <em>start with</em> the query text.  Default is false.</param>
-		public Search(SearchFor query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
+		public Search(ISearchQuery query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
 			IEnumerable<IQueryable> context = null, TrelloAuthorization auth = null, bool isPartial = false)
 			: this(query.ToString(), limit, modelTypes, context, auth, isPartial) { }
 		/// <summary>
