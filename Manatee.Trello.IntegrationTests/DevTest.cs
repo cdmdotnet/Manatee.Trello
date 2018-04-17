@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
@@ -7,7 +8,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
-	[Ignore("This test fixture for development purposes only.")]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
@@ -17,18 +18,20 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					var entity = _factory.Board(TrelloIds.BoardId);
+					var query = _factory.SearchQuery()
+					                    .Text("library");
+					var search = _factory.Search(query);
 
-					await entity.Refresh();
+					await search.Refresh();
 
-					OutputCollection("lists", entity.Lists);
+					OutputCollection("cards", search.Cards);
 				});
 		}
 
 		private static async Task Run(Func<Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			//TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			await action();
 
