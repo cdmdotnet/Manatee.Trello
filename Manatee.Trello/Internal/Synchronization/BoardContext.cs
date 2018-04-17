@@ -57,8 +57,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			               Board.Fields.Name |
 			               Board.Fields.ShortLink |
 			               Board.Fields.ShortUrl |
-			               Board.Fields.Url |
-			               Board.Fields.CustomFields;
+			               Board.Fields.Url;
 			Properties = new Dictionary<string, Property<IJsonBoard>>
 				{
 					{
@@ -171,7 +170,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["card_fields"] = CardContext.CurrentParameters["fields"];
 				}
 				if (parameterFields.HasFlag(Board.Fields.CustomFields))
-					Parameters["customFieldItems"] = "true";
+					Parameters["customFields"] = "true";
 				if (parameterFields.HasFlag(Board.Fields.Labels))
 				{
 					Parameters["labels"] = "all";

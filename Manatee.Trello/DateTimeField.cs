@@ -8,10 +8,14 @@ namespace Manatee.Trello
 	{
 		private readonly Field<DateTime?> _value;
 
-		public override DateTime? Value => _value.Value;
+		public override DateTime? Value
+		{
+			get { return _value.Value; }
+			set { _value.Value = value; }
+		}
 
-		internal DateTimeField(IJsonCustomField json, TrelloAuthorization auth)
-			: base(json, auth)
+		internal DateTimeField(IJsonCustomField json, string cardId, TrelloAuthorization auth)
+			: base(json, cardId, auth)
 		{
 			_value = new Field<DateTime?>(Context, nameof(IJsonCustomField.Date));
 		}

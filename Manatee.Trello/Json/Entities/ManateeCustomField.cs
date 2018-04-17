@@ -1,6 +1,7 @@
 ﻿using System;
 using Manatee.Json;
 using Manatee.Json.Serialization;
+using Manatee.Trello.Internal;
 
 namespace Manatee.Trello.Json.Entities
 {
@@ -15,11 +16,6 @@ namespace Manatee.Trello.Json.Entities
 		public IJsonCustomDropDownOption Selected { get; set; }
 		public CustomFieldType Type { get; set; }
 		public bool ValidForMerge { get; set; }
-
-		public ManateeCustomField()
-		{
-
-		}
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -83,7 +79,15 @@ namespace Manatee.Trello.Json.Entities
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			var obj = new JsonObject();
+
+			Text.Serialize(obj, serializer, "text");
+			Number?.ToString().Serialize(obj, serializer, "number");
+			Date.Serialize(obj, serializer, "date");
+			Checked?.ToLowerString().Serialize(obj, serializer, "checked");
+			Selected?.Field?.Id.Serialize(obj, serializer, "idValue");
+
+			return obj;
 		}
 	}
 }

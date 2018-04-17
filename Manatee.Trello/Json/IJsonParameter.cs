@@ -15,5 +15,7 @@
 		/// </summary>
 		[JsonSerialize]
 		bool? Boolean { get; set; }
+		[JsonSerialize]
+		object Object { get; set; }
 	}
 }

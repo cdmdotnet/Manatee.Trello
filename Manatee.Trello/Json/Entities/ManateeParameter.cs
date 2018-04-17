@@ -7,6 +7,7 @@ namespace Manatee.Trello.Json.Entities
 	{
 		public string String { get; set; }
 		public bool? Boolean { get; set; }
+		public object Object { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -19,6 +20,8 @@ namespace Manatee.Trello.Json.Entities
 
 			if (Boolean.HasValue)
 				json.Add("value", Boolean);
+			else if (Object != null)
+				json.Add("value", serializer.Serialize(Object));
 			else
 				json.Add("value", String);
 

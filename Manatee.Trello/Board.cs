@@ -89,7 +89,6 @@ namespace Manatee.Trello
 			ShortUrl = 1 << 12,
 			Lists = 1 << 13,
 			Members = 1 << 14,
-			[Display(Description = "customFields")]
 			CustomFields = 1 << 15,
 			Labels = 1 << 16,
 			Memberships = 1 << 17,

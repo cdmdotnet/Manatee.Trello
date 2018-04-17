@@ -129,7 +129,6 @@ namespace Manatee.Trello
 		{
 			Id = json.Id;
 			_context = new CheckItemContext(Id, checkListId, auth);
-			_context.Synchronized += Synchronized;
 
 			_checkList = new Field<CheckList>(_context, nameof(CheckList));
 			_checkList.AddRule(NotNullRule<CheckList>.Instance);
@@ -145,6 +144,7 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
+			_context.Synchronized += Synchronized;
 		}
 
 		/// <summary>

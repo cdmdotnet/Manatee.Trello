@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
@@ -18,7 +20,7 @@ namespace Manatee.Trello
 
 		public IBoard Board => _board.Value;
 		public string FieldGroup => _fieldGroup.Value;
-		public string Id => Json.Id;
+		public string Id { get; private set; }
 		public string Name
 		{
 			get { return _name.Value; }
@@ -34,10 +36,15 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+		/// <summary>
+		/// Raised when data on the custom field definition is updated.
+		/// </summary>
+		public event Action<ICustomFieldDefinition, IEnumerable<string>> Updated;
+
 		internal CustomFieldDefinition(IJsonCustomFieldDefinition json, TrelloAuthorization auth)
 		{
-			_context = new CustomFieldDefinitionContext(auth);
-			_context.Merge(json);
+			Id = json.Id;
+			_context = new CustomFieldDefinitionContext(Id, auth);
 
 			_board = new Field<IBoard>(_context, nameof(Board));
 			_fieldGroup = new Field<string>(_context, nameof(FieldGroup));
@@ -49,7 +56,10 @@ namespace Manatee.Trello
 
 			// we need to enumerate the collection to cache all of the values
 			// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-			Options?.ToList();
+			//Options?.ToList();
+
+			_context.Merge(json);
+			_context.Synchronized += Synchronized;
 		}
 
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
@@ -60,6 +70,13 @@ namespace Manatee.Trello
 		public override string ToString()
 		{
 			return $"{Name} ({Type})";
+		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+			var handler = Updated;
+			handler?.Invoke(this, properties);
 		}
 
 		void IMergeJson<IJsonCustomFieldDefinition>.Merge(IJsonCustomFieldDefinition json)

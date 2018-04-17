@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class CustomFieldContext : SynchronizationContext<IJsonCustomField>
 	{
+		private readonly string _ownerId;
+
 		static CustomFieldContext()
 		{
 			Properties = new Dictionary<string, Property<IJsonCustomField>>
@@ -67,9 +72,24 @@ namespace Manatee.Trello.Internal.Synchronization
 				};
 		}
 
-		public CustomFieldContext(TrelloAuthorization auth)
+		public CustomFieldContext(string id, string ownerId, TrelloAuthorization auth)
 			: base(auth)
 		{
+			_ownerId = ownerId;
+			Data.Id = id;
+		}
+
+		protected override async Task SubmitData(IJsonCustomField json, CancellationToken ct)
+		{
+			var parameter = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
+			parameter.Object = json;
+			var endpoint = EndpointFactory.Build(EntityRequestType.CustomField_Write_Update, new Dictionary<string, object>
+				{
+					{"_cardId", _ownerId},
+					{"_id", Data.Definition.Id},
+				});
+			var newData = await JsonRepository.Execute(Auth, endpoint, parameter, ct);
+			Merge(newData);
 		}
 	}
 }

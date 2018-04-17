@@ -63,9 +63,11 @@ namespace Manatee.Trello.Internal.Synchronization
 				};
 		}
 
-		public CustomFieldDefinitionContext(TrelloAuthorization auth)
+		public CustomFieldDefinitionContext(string id, TrelloAuthorization auth)
 			: base(auth)
 		{
+			Data.Id = id;
+
 			DropDownOptions = new ReadOnlyDropDownOptionCollection(() => Data.Id, auth);
 		}
 
@@ -73,7 +75,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			try
 			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.CustomField_Read_Refresh,
+				var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Read_Refresh,
 				                                     new Dictionary<string, object> {{"_id", Data.Id}});
 				var newData = await JsonRepository.Execute<IJsonCustomFieldDefinition>(Auth, endpoint, ct);
 
@@ -88,7 +90,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override async Task SubmitData(IJsonCustomFieldDefinition json, CancellationToken ct)
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.CustomField_Write_Update,
+			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Write_Update,
 			                                     new Dictionary<string, object> {{"_id", Data.Id}});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
@@ -99,7 +101,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (_deleted) return;
 			CancelUpdate();
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.CustomField_Write_Delete,
+			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Write_Delete,
 			                                     new Dictionary<string, object> { { "_id", Data.Id } });
 			await JsonRepository.Execute(Auth, endpoint, ct);
 

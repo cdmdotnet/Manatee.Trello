@@ -7,10 +7,14 @@ namespace Manatee.Trello
 	{
 		private readonly Field<string> _value;
 
-		public override string Value => _value.Value;
+		public override string Value
+		{
+			get { return _value.Value; }
+			set { _value.Value = value; }
+		}
 
-		internal TextField(IJsonCustomField json, TrelloAuthorization auth)
-			: base(json, auth)
+		internal TextField(IJsonCustomField json, string cardId, TrelloAuthorization auth)
+			: base(json, cardId, auth)
 		{
 			_value = new Field<string>(Context, nameof(IJsonCustomField.Text));
 		}

@@ -1,4 +1,6 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using System.Collections.Generic;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -11,7 +13,7 @@ namespace Manatee.Trello
 
 		internal CustomFieldContext Context => _context;
 
-		public string Id => Json.Id;
+		public string Id { get; private set; }
 		public ICustomFieldDefinition Definition => _definition.Value;
 
 		internal IJsonCustomField Json
@@ -20,28 +22,43 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
-		internal CustomField(IJsonCustomField json, TrelloAuthorization auth)
+		/// <summary>
+		/// Raised when data on the custom field is updated.
+		/// </summary>
+		public event Action<ICustomField, IEnumerable<string>> Updated;
+
+		internal CustomField(IJsonCustomField json, string cardId, TrelloAuthorization auth)
 		{
-			_context = new CustomFieldContext(auth);
-			_context.Merge(json);
+			Id = json.Id;
+			_context = new CustomFieldContext(Id, cardId, auth);
 
 			_definition = new Field<ICustomFieldDefinition>(_context, nameof(Definition));
 
 			TrelloConfiguration.Cache.Add(this);
+
+			_context.Merge(json);
+			_context.Synchronized += Synchronized;
 		}
 
 		void IMergeJson<IJsonCustomField>.Merge(IJsonCustomField json)
 		{
 			_context.Merge(json);
 		}
+
+		private void Synchronized(IEnumerable<string> properties)
+		{
+			Id = _context.Data.Id;
+			var handler = Updated;
+			handler?.Invoke(this, properties);
+		}
 	}
 
 	public abstract class CustomField<T> : CustomField, ICustomField<T>
 	{
-		public abstract T Value { get; }
+		public abstract T Value { get; set; }
 
-		internal CustomField(IJsonCustomField json, TrelloAuthorization auth)
-			: base(json, auth)
+		internal CustomField(IJsonCustomField json, string cardId, TrelloAuthorization auth)
+			: base(json, cardId, auth)
 		{
 		}
 
