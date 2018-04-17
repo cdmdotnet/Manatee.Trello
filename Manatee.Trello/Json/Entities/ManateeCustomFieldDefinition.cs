@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 
@@ -39,7 +38,12 @@ namespace Manatee.Trello.Json.Entities
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			var obj = new JsonObject();
+
+			Name.Serialize(obj, serializer, "name");
+			Pos.Serialize(obj, serializer, "pos");
+
+			return obj;
 		}
 	}
 }

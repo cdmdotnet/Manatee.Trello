@@ -18,19 +18,17 @@ namespace Manatee.Trello.IntegrationTests
 			await Run(async () =>
 				{
 					var board = _factory.Board(TrelloIds.BoardId);
-					var card = _factory.Card(TrelloIds.CardId);
 
-					await Task.WhenAll(board.CustomFields.Refresh(), card.Refresh());
+					await board.CustomFields.Refresh();
 
-					OutputCollection("from board", board.CustomFields);
-					OutputCollection("from card", card.CustomFields);
+					board.CustomFields[0].Name = "field #1";
 				});
 		}
 
 		private static async Task Run(Func<Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			//TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			await action();
 

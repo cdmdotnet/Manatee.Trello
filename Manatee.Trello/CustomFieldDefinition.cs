@@ -24,7 +24,6 @@ namespace Manatee.Trello
 			get { return _name.Value; }
 			set { _name.Value = value; }
 		}
-
 		public IReadOnlyCollection<DropDownOption> Options => _context.DropDownOptions;
 		public Position Position => _position.Value;
 		public CustomFieldType? Type => _type.Value;

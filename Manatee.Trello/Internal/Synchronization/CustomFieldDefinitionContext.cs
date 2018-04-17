@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -68,6 +69,31 @@ namespace Manatee.Trello.Internal.Synchronization
 			DropDownOptions = new ReadOnlyDropDownOptionCollection(() => Data.Id, auth);
 		}
 
+		protected override async Task<IJsonCustomFieldDefinition> GetData(CancellationToken ct)
+		{
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.CustomField_Read_Refresh,
+				                                     new Dictionary<string, object> {{"_id", Data.Id}});
+				var newData = await JsonRepository.Execute<IJsonCustomFieldDefinition>(Auth, endpoint, ct);
+
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!e.IsNotFoundError() || !IsInitialized) throw;
+				_deleted = true;
+				return Data;
+			}
+		}
+		protected override async Task SubmitData(IJsonCustomFieldDefinition json, CancellationToken ct)
+		{
+			var endpoint = EndpointFactory.Build(EntityRequestType.CustomField_Write_Update,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
+
+			Merge(newData);
+		}
 		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
