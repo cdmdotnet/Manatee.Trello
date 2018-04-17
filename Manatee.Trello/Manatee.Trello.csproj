@@ -13,6 +13,8 @@ v3.0.0
 Supports async/await model.
 Significant performance enhancements.
 Improved request batching, yielding fewer API calls.
+Integrated custom fields.
+Custom fields now writable.
 Less configuration: integrated JSON and REST libraries.
 Support for unit testing: extracted interfaces for all types.
 Optionally retain entities in the cache on delete.</PackageReleaseNotes>
