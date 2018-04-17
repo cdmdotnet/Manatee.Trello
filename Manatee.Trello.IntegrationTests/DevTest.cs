@@ -17,11 +17,12 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					var board = _factory.Board(TrelloIds.BoardId);
+					var list = _factory.List(TrelloIds.ListId);
+					var card = await list.Cards.Add("initial name");
 
-					await board.CustomFields.Refresh();
-
-					board.CustomFields[0].Name = "field #1";
+					card.Description = "a new description";
+					card.Name = "a new name";
+					card.Position = Position.Top;
 				});
 		}
 
