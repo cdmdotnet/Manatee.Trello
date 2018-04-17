@@ -65,10 +65,7 @@ namespace Manatee.Trello.Json.Entities
 							       ? date
 							       : (DateTime?) null;
 						if (Date != null)
-						{
 							Type = CustomFieldType.DateTime;
-							break;
-						}
 					}
 					break;
 				case JsonValueType.String:
@@ -79,13 +76,14 @@ namespace Manatee.Trello.Json.Entities
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var obj = new JsonObject();
-
-			Text.Serialize(obj, serializer, "text");
-			Number?.ToString().Serialize(obj, serializer, "number");
-			Date.Serialize(obj, serializer, "date");
-			Checked?.ToLowerString().Serialize(obj, serializer, "checked");
-			Selected?.Field?.Id.Serialize(obj, serializer, "idValue");
+			var obj = new JsonObject
+				{
+					["text"] = Text ?? string.Empty,
+					["number"] = Number?.ToString() ?? string.Empty,
+					["date"] = Date == null ? string.Empty : serializer.Serialize(Date),
+					["checked"] = Checked?.ToLowerString() ?? string.Empty,
+					["idValue"] = Selected?.Field?.Id ?? string.Empty
+				};
 
 			return obj;
 		}

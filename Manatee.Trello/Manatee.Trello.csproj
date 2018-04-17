@@ -10,8 +10,12 @@
     <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Gitter, or on StackOverflow.
 
 v3.0.0
+Supports async/await model.
+Significant performance enhancements.
+Improved request batching, yielding fewer API calls.
 Less configuration: integrated JSON and REST libraries.
-Support for unit testing: extracted interfaces for all types.</PackageReleaseNotes>
+Support for unit testing: extracted interfaces for all types.
+Optionally retain entities in the cache on delete.</PackageReleaseNotes>
     <Version>3.0.0</Version>
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <Company>Little Crab Solutions</Company>

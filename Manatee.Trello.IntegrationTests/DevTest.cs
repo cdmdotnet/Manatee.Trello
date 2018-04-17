@@ -25,7 +25,7 @@ namespace Manatee.Trello.IntegrationTests
 
 					OutputCollection("fields", card.CustomFields);
 
-					var firstField = card.CustomFields.OfType<NumberField>().FirstOrDefault();
+					var firstField = card.CustomFields.OfType<NumberField>().First();
 
 					firstField.Value = Math.PI;
 				});
