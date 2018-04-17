@@ -72,6 +72,12 @@ namespace Manatee.Trello
 		IOrganization Organization(string id, TrelloAuthorization auth = null);
 
 		/// <summary>
+		/// Creates a new empty <see cref="ISearchQuery"/>.
+		/// </summary>
+		/// <returns>An <see cref="ISearchQuery"/></returns>
+		ISearchQuery SearchQuery();
+
+		/// <summary>
 		/// Creates an <see cref="ISearch"/>.
 		/// </summary>
 		/// <param name="query">The search query.</param>
@@ -81,7 +87,7 @@ namespace Manatee.Trello
 		/// <param name="isPartial">(Optional) - Allow "starts with" matches.</param>
 		/// <param name="auth">(Optional) - The authorization.</param>
 		/// <returns>An <see cref="ISearch"/></returns>
-		ISearch Search(SearchFor query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
+		ISearch Search(ISearchQuery query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
 		               IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null);
 
 		/// <summary>

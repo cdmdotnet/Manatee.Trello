@@ -56,9 +56,9 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-			var board = new Board(TrelloIds.BoardId);
+			var board = _factory.Board(TrelloIds.BoardId);
 			var searchText = "car";
-			var search = new Search(SearchFor.Text(searchText), modelTypes: SearchModelType.Cards, context: new[] {board}, isPartial: true);
+			var search = _factory.Search(_factory.SearchQuery().Text(searchText), modelTypes: SearchModelType.Cards, context: new[] {board}, isPartial: true);
 
 			await search.Refresh();
 
@@ -73,9 +73,9 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-			var board = new Board(TrelloIds.BoardId);
+			var board = _factory.Board(TrelloIds.BoardId);
 			var searchText = "car";
-			var search = new Search(SearchFor.Text(searchText), modelTypes: SearchModelType.Cards, context: new[] {board});
+			var search = _factory.Search(_factory.SearchQuery().Text(searchText), modelTypes: SearchModelType.Cards, context: new[] {board});
 
 			await search.Refresh();
 
@@ -127,7 +127,7 @@ namespace Manatee.Trello.IntegrationTests
 
 			Console.WriteLine(await _factory.Me());
 			var boardID = "574e95edd8a4fc16207f7079";
-			var board = new Board(boardID);
+			var board = _factory.Board(boardID);
 			Console.WriteLine(board);
 
 			//here is where it calls the exception with 'invalid id'
@@ -146,7 +146,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-				var learningBoard = new Board(TrelloIds.BoardId);
+				var learningBoard = _factory.Board(TrelloIds.BoardId);
 				await learningBoard.Lists.Refresh();
 				var list = learningBoard.Lists.First();
 				var member = list.Board.Members.First();
@@ -155,7 +155,7 @@ namespace Manatee.Trello.IntegrationTests
 
 				await TrelloProcessor.Flush();
 
-				var cardCopy = new Card(card.Id);
+				var cardCopy = _factory.Card(card.Id);
 				Assert.AreEqual(new DateTime(2016, 07, 21), cardCopy.DueDate);
 			}
 			finally
@@ -172,7 +172,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-				var list = new List(TrelloIds.ListId);
+				var list = _factory.List(TrelloIds.ListId);
 				card = await list.Cards.Add("attachment test");
 				await card.Attachments.Add("http://i.imgur.com/eKgKEOn.jpg", "me");
 			}
@@ -190,7 +190,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-				var list = new List(TrelloIds.ListId);
+				var list = _factory.List(TrelloIds.ListId);
 				card = await list.Cards.Add("date encoding test");
 				// 2016-12-08T04:45:00.000Z
 				var date = Convert.ToDateTime("8/12/2016 5:45:00PM");
@@ -212,7 +212,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-				var list = new List(TrelloIds.ListId);
+				var list = _factory.List(TrelloIds.ListId);
 				card = await list.Cards.Add("min date test");
 				card.Description = "a description";
 				card.DueDate = DateTime.MinValue;
@@ -239,14 +239,14 @@ namespace Manatee.Trello.IntegrationTests
 
 				var me = await _factory.Me();
 				var members = new IMember[] {me};
-				var board = new Board(TrelloIds.BoardId);
+				var board = _factory.Board(TrelloIds.BoardId);
 				await board.Refresh();
 				var labels = new[] {board.Labels.FirstOrDefault(l => l.Color == LabelColor.Blue)};
 
-				var list = new List(TrelloIds.ListId);
+				var list = _factory.List(TrelloIds.ListId);
 				card = await list.Cards.Add(name, description, position, dueDate, true, members, labels);
 
-				var recard = new Card(card.Id);
+				var recard = _factory.Card(card.Id);
 				await recard.Refresh();
 
 				Assert.AreEqual(name, recard.Name);
@@ -277,7 +277,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-				var list = new List(TrelloIds.ListId);
+				var list = _factory.List(TrelloIds.ListId);
 				card = await list.Cards.Add(name, description, position, dueDate);
 
 				Assert.AreEqual(false, card.IsComplete);
@@ -286,7 +286,7 @@ namespace Manatee.Trello.IntegrationTests
 
 				await TrelloProcessor.Flush();
 
-				var recard = new Card(card.Id);
+				var recard = _factory.Card(card.Id);
 				await recard.Refresh();
 
 				Assert.AreEqual(true, recard.IsComplete);
@@ -308,7 +308,7 @@ namespace Manatee.Trello.IntegrationTests
 			{
 				TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-				var list = new List(TrelloIds.ListId);
+				var list = _factory.List(TrelloIds.ListId);
 				card = await list.Cards.Add(name);
 				var comment = await card.Comments.Add("This is a comment");
 				comment.Data.Text = "This comment was changed.";
@@ -328,7 +328,7 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-			var search = new Search(SearchFor.TextInName("Sandbox"), 1, SearchModelType.Boards);
+			var search = _factory.Search(_factory.SearchQuery().TextInName("Sandbox"), 1, SearchModelType.Boards);
 			await search.Refresh();
 			var board = search.Boards.FirstOrDefault();
 
@@ -340,7 +340,7 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 
-			var list = new List(TrelloIds.ListId);
+			var list = _factory.List(TrelloIds.ListId);
 			await list.Refresh();
 
 			Assert.IsNotNull(list.Name);
