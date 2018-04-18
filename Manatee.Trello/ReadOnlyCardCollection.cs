@@ -25,7 +25,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching card, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="ICard.Id"/> and <see cref="ICard.Name"/>.  Comparison is case-sensitive.
+		/// Matches on card ID and name.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICard this[string key] => GetByKey(key);
 

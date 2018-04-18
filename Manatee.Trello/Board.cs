@@ -341,7 +341,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on List.Id and List.Name.  Comparison is case-sensitive.
+		/// Matches on list ID and name.  Comparison is case-sensitive.
 		/// </remarks>
 		public IList this[string key] => Lists[key];
 

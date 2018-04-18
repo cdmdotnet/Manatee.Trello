@@ -126,7 +126,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching check list item, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="ICheckItem.Id"/> and <see cref="ICheckItem.Name"/>.  Comparison is case-sensitive.
+		/// Matches on checkitem ID and name.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICheckItem this[string key] => CheckItems[key];
 		/// <summary>

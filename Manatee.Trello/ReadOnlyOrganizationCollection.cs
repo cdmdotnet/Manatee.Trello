@@ -26,7 +26,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching organization, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on Organization.Id, Organization.Name, and Organization.DisplayName.  Comparison is case-sensitive.
+		/// Matches on organization ID, name, and display name.  Comparison is case-sensitive.
 		/// </remarks>
 		public IOrganization this[string key] => GetByKey(key);
 
