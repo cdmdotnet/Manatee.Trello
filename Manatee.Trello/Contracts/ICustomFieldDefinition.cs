@@ -38,8 +38,9 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Delete(CancellationToken ct = default(CancellationToken));
+
 		/// <summary>
-		/// Refreshes the field definition data.
+		/// Refreshes the custom field definition data.
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));

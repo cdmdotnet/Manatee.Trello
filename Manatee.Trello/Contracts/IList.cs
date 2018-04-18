@@ -76,8 +76,9 @@ namespace Manatee.Trello
 		event Action<IList, IEnumerable<string>> Updated;
 
 		/// <summary>
-		/// Marks the list to be refreshed the next time data is accessed.
+		/// Refreshes the label data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

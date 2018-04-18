@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -80,7 +79,7 @@ namespace Manatee.Trello
 			IsSubscribed = 1 << 8,
 
 			/// <summary>
-			/// Indicates the Labels property should be populated.
+			/// Indicates that the labels should downloaded.
 			/// </summary>
 			[Display(Description = "labels")]
 			Labels = 1 << 9,
@@ -126,12 +125,33 @@ namespace Manatee.Trello
 			/// </summary>
 			[Display(Description = "url")]
 			Url = 1 << 16,
-			//Actions = 1 << 17,
+			/// <summary>
+			/// Indicates that the actions should downloaded.
+			/// </summary>
+			Actions = 1 << 17,
+			/// <summary>
+			/// Indicates that the attachments should downloaded.
+			/// </summary>
 			Attachments = 1 << 18,
+			/// <summary>
+			/// Indicates that the custom field instances should downloaded.
+			/// </summary>
 			CustomFields = 1 << 19,
+			/// <summary>
+			/// Indicates that the comments should downloaded. Overrides Actions. Not included by default.
+			/// </summary>
 			Comments = 1 << 20,
+			/// <summary>
+			/// Indicates that the members should downloaded.
+			/// </summary>
 			Members = 1 << 21,
+			/// <summary>
+			/// Indicates that the stickers should downloaded.
+			/// </summary>
 			Stickers = 1 << 22,
+			/// <summary>
+			/// Indicates that the voting members should downloaded.
+			/// </summary>
 			VotingMembers = 1 << 23,
 		}
 
@@ -387,7 +407,8 @@ namespace Manatee.Trello
 
 		static Card()
 		{
-			DownloadedFields = (Fields) Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+			DownloadedFields = (Fields) Enum.GetValues(typeof(Fields)).Cast<int>().Sum() &
+			                   ~Fields.Comments;
 		}
 
 		/// <summary>
@@ -448,10 +469,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Permanently deletes the card from Trello.
+		/// Deletes the card.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the card from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
@@ -461,8 +483,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the card to be refreshed the next time data is accessed.
+		/// Refreshes the card data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
@@ -473,12 +496,8 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Returns the <see cref="Name"/>, or <see cref="ShortId"/> if the card has been deleted.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return Name ?? $"#{ShortId}";

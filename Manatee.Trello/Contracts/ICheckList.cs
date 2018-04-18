@@ -75,7 +75,7 @@ namespace Manatee.Trello
 		Task Delete(CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
-		/// Marks the checklist to be refreshed the next time data is accessed.
+		/// Refreshes the checklist data.
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));

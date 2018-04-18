@@ -34,6 +34,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _text;
 		private readonly Field<string> _value;
 		private readonly Field<CustomFieldDefinition> _customField;
+		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly ActionDataContext _context;
 
 		/// <summary>
@@ -124,10 +125,24 @@ namespace Manatee.Trello
 		/// - UpdateChecklist
 		/// </associated-action-types>
 		public ICheckList CheckList => _checkList.Value;
+		/// <summary>
+		/// Gets an associated custom field definition.
+		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCustomField
+		/// - UpdateCustomFieldItem
+		/// </associated-action-types>
 		public ICustomFieldDefinition CustomField => _customField.Value;
 		/// <summary>
 		/// Gets the associated label.
 		/// </summary>
+		/// <associated-action-types>
+		/// - AddLabelToCard
+		/// - CreateLabel
+		/// - DeleteLabel
+		/// - RemoveLabelFromCard
+		/// - UpdateLabel
+		/// </associated-action-types>
 		public ILabel Label => _label.Value;
 		/// <summary>
 		/// Gets the date/time a comment was last edited.
@@ -151,6 +166,9 @@ namespace Manatee.Trello
 		/// <associated-action-types>
 		/// - UpdateCardIdList
 		/// </associated-action-types>
+		/// <remarks>
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
+		/// </remarks>
 		public IList ListAfter => _listAfter.Value;
 		/// <summary>
 		/// Gets the previous list.
@@ -158,6 +176,9 @@ namespace Manatee.Trello
 		/// <associated-action-types>
 		/// - UpdateCardIdList
 		/// </associated-action-types>
+		/// <remarks>
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
+		/// </remarks>
 		public IList ListBefore => _listBefore.Value;
 		/// <summary>
 		/// Gets an assocated member.
@@ -188,6 +209,9 @@ namespace Manatee.Trello
 		/// - UpdateCard
 		/// - UpdateCardIdList
 		/// </associated-action-types>
+		/// <remarks>
+		/// For some action types, this information may be in the <see cref="ListAfter"/> or <see cref="ListBefore"/> properties.
+		/// </remarks>
 		public IList OldList => _oldList.Value;
 		/// <summary>
 		/// Gets the previous position.
@@ -195,6 +219,7 @@ namespace Manatee.Trello
 		/// <associated-action-types>
 		/// - UpdateCard
 		/// - UpdateList
+		/// - UpdateCustomField
 		/// </associated-action-types>
 		public Position OldPosition => _oldPosition.Value;
 		/// <summary>

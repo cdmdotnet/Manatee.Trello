@@ -36,7 +36,7 @@ namespace Manatee.Trello
 		event Action<IBoardMembership, IEnumerable<string>> Updated;
 
 		/// <summary>
-		/// Marks the board membership to be refreshed the next time data is accessed.
+		/// Refreshes the board membership data.
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));

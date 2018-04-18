@@ -67,7 +67,7 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Gets the creation date.
+		/// Gets the creation date of the action.
 		/// </summary>
 		public DateTime CreationDate
 		{
@@ -78,20 +78,24 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
+
 		/// <summary>
 		/// Gets the member who performed the action.
 		/// </summary>
 		public IMember Creator => _creator.Value;
+
 		/// <summary>
-		/// Gets any associated data.
+		/// Gets any data associated with the action.
 		/// </summary>
 		public IActionData Data { get; }
+
 		/// <summary>
 		/// Gets the date and time at which the action was performed.
 		/// </summary>
 		public DateTime? Date => _date.Value;
+
 		/// <summary>
-		/// Gets the action's ID.
+		/// Gets an ID on which matching can be performed.
 		/// </summary>
 		public string Id
 		{
@@ -103,6 +107,7 @@ namespace Manatee.Trello
 			}
 			private set { _id = value; }
 		}
+
 		/// <summary>
 		/// Gets the type of action.
 		/// </summary>
@@ -115,7 +120,7 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Raised when any data on the <see cref="Action"/> instance is updated.
+		/// Raised when data on the action is updated.
 		/// </summary>
 		public event Action<IAction, IEnumerable<string>> Updated;
 
@@ -220,10 +225,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Permanently deletes the action from Trello.
+		/// Deletes the action.
 		/// </summary>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the action from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
@@ -231,9 +236,11 @@ namespace Manatee.Trello
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
 				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the action to be refreshed the next time data is accessed.
+		/// Refreshes the action data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
@@ -244,12 +251,8 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Returns a string that represents the action.  The content will vary based on the value of <see cref="Type"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the action.
-		/// </returns>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return Type.HasValue && Type != ActionType.Unknown

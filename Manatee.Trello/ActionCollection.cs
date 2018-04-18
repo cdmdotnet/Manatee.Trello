@@ -15,13 +15,13 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyActionCollection : ReadOnlyCollection<IAction>, IReadOnlyActionCollection
 	{
-		private static readonly Dictionary<Type, EntityRequestType> _requestTypes;
+		private static readonly Dictionary<Type, EntityRequestType> RequestTypes;
 		private readonly EntityRequestType _updateRequestType;
 		private Dictionary<string, object> _additionalParameters;
 
 		static ReadOnlyActionCollection()
 		{
-			_requestTypes = new Dictionary<Type, EntityRequestType>
+			RequestTypes = new Dictionary<Type, EntityRequestType>
 				{
 					{typeof(Board), EntityRequestType.Board_Read_Actions},
 					{typeof(Card), EntityRequestType.Card_Read_Actions},
@@ -33,15 +33,8 @@ namespace Manatee.Trello
 		internal ReadOnlyActionCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
-			_updateRequestType = _requestTypes[type];
+			_updateRequestType = RequestTypes[type];
 			_additionalParameters = new Dictionary<string, object>();
-		}
-		internal ReadOnlyActionCollection(ReadOnlyActionCollection source, TrelloAuthorization auth)
-			: base(() => source.OwnerId, auth)
-		{
-			_updateRequestType = source._updateRequestType;
-			if (source._additionalParameters != null)
-				_additionalParameters = new Dictionary<string, object>(source._additionalParameters);
 		}
 
 		/// <summary>
@@ -86,8 +79,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Refreshes the collection.
 		/// </summary>
+		/// <returns>A task.</returns>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			IncorporateLimit(_additionalParameters);

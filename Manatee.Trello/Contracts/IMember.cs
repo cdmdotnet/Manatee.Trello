@@ -96,7 +96,7 @@ namespace Manatee.Trello
 		event Action<IMember, IEnumerable<string>> Updated;
 
 		/// <summary>
-		/// Marks the member to be refreshed the next time data is accessed.
+		/// Refreshes the member data.
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));

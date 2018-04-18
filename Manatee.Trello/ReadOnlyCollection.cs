@@ -53,14 +53,15 @@ namespace Manatee.Trello
 		/// <returns>
 		/// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
 		/// </returns>
-		/// <filterpriority>1</filterpriority>
 		public IEnumerator<T> GetEnumerator()
 		{
 			return Items.GetEnumerator();
 		}
+
 		/// <summary>
-		/// Refreshes the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>A task.</returns>
 		public abstract Task Refresh(CancellationToken ct = default(CancellationToken));
 		/// <summary>

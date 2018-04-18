@@ -179,7 +179,7 @@ namespace Manatee.Trello
 		Task Delete(CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
-		/// Marks the card to be refreshed the next time data is accessed.
+		/// Refreshes the card data.
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));

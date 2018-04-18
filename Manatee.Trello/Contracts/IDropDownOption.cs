@@ -34,7 +34,7 @@ namespace Manatee.Trello
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
 		/// <summary>
-		/// Refreshes the drop down option.
+		/// Refreshes the drop down option data.
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
