@@ -18,8 +18,8 @@ namespace Manatee.Trello
 
 		public override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_CustomFields,
-			                                     new Dictionary<string, object> { { "_id", OwnerId } });
+			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Read_Options,
+			                                     new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonCustomDropDownOption>>(Auth, endpoint, ct);
 
 			Items.Clear();
