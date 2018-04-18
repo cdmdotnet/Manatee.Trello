@@ -40,8 +40,14 @@ namespace Manatee.Trello.Json.Entities
 		{
 			var obj = new JsonObject();
 
+			if (Board != null)
+			{
+				obj["idModel"] = Board.Id;
+				obj["modelType"] = "board";
+			}
 			Name.Serialize(obj, serializer, "name");
 			Pos.Serialize(obj, serializer, "pos");
+			Type.Serialize(obj, serializer, "type");
 
 			return obj;
 		}

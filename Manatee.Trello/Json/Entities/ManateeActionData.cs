@@ -14,7 +14,7 @@ namespace Manatee.Trello.Json.Entities
 		public IJsonCard CardSource { get; set; }
 		public IJsonCheckItem CheckItem { get; set; }
 		public IJsonCheckList CheckList { get; set; }
-		public IJsonCustomField CustomField { get; set; }
+		public IJsonCustomFieldDefinition CustomField { get; set; }
 		public IJsonLabel Label { get; set; }
 		public DateTime? DateLastEdited { get; set; }
 		public IJsonList List { get; set; }
@@ -38,7 +38,7 @@ namespace Manatee.Trello.Json.Entities
 			Card = obj.Deserialize<IJsonCard>(serializer, "card");
 			CheckItem = obj.Deserialize<IJsonCheckItem>(serializer, "checkItem");
 			CheckList = obj.Deserialize<IJsonCheckList>(serializer, "checklist");
-			CustomField = obj.Deserialize<IJsonCustomField>(serializer, "customField");
+			CustomField = obj.Deserialize<IJsonCustomFieldDefinition>(serializer, "customField");
 			Label = obj.Deserialize<IJsonLabel>(serializer, "label");
 			DateLastEdited = obj.Deserialize<DateTime?>(serializer, "dateLastEdited");
 			List = obj.Deserialize<IJsonList>(serializer, "list");

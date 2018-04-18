@@ -153,7 +153,7 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
-		public IReadOnlyCollection<CustomFieldDefinition> CustomFields => _context.CustomFields;
+		public ICustomFieldDefinitionCollection CustomFields => _context.CustomFields;
 		/// <summary>
 		/// Gets or sets the board's description.
 		/// </summary>

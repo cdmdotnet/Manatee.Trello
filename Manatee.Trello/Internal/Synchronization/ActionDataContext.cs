@@ -85,7 +85,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.CustomField),
-						new Property<IJsonActionData, CustomField>((d, a) => d.CustomField?.GetFromCache<CustomField>(a),
+						new Property<IJsonActionData, CustomFieldDefinition>((d, a) => d.CustomField?.GetFromCache<CustomFieldDefinition, IJsonCustomFieldDefinition>(a),
 						                                           (d, o) =>
 							                                           {
 								                                           if (o != null) d.CustomField = o.Json;

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -10,5 +12,7 @@ namespace Manatee.Trello
 		Position Position { get; }
 		CustomFieldType? Type { get; }
 		IReadOnlyCollection<DropDownOption> Options { get; }
+
+		Task Delete(CancellationToken ct = default(CancellationToken));
 	}
 }

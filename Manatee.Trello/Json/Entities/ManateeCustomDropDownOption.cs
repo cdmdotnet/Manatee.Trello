@@ -7,7 +7,7 @@ namespace Manatee.Trello.Json.Entities
 	internal class ManateeCustomDropDownOption : IJsonCustomDropDownOption, IJsonSerializable
 	{
 		public string Id { get; set; }
-		public IJsonCustomField Field { get; set; }
+		public IJsonCustomFieldDefinition Field { get; set; }
 		public string Text { get; set; }
 		public LabelColor? Color { get; set; }
 		public IJsonPosition Pos { get; set; }
@@ -20,7 +20,7 @@ namespace Manatee.Trello.Json.Entities
 				case JsonValueType.Object:
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
-					Field = obj.Deserialize<IJsonCustomField>(serializer, "idCustomField");
+					Field = obj.Deserialize<IJsonCustomFieldDefinition>(serializer, "idCustomField");
 					Text = obj.TryGetObject("value")?.TryGetString("text");
 					Color = obj.Deserialize<LabelColor?>(serializer, "color");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");

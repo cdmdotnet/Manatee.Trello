@@ -72,6 +72,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.CheckList_Write_Update, () => new Endpoint(RestMethod.Put, "checklists", "_id")},
 					{EntityRequestType.CustomField_Write_Update, () => new Endpoint(RestMethod.Put, "cards", "_cardId", "customFields", "_id", "item")},
 					{EntityRequestType.CustomFieldDefinition_Read_Refresh, () => new Endpoint(RestMethod.Get, "customFields", "_id")},
+					{EntityRequestType.CustomFieldDefinition_Write_Create, () => new Endpoint(RestMethod.Post, "customFields")},
 					{EntityRequestType.CustomFieldDefinition_Write_Delete, () => new Endpoint(RestMethod.Delete, "customFields", "_id")},
 					{EntityRequestType.CustomFieldDefinition_Write_Update, () => new Endpoint(RestMethod.Put, "customFields", "_id")},
 					{EntityRequestType.Label_Read_Refresh, () => new Endpoint(RestMethod.Get, "labels", "_id")},

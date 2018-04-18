@@ -31,6 +31,29 @@ namespace Manatee.Trello.IntegrationTests
 				});
 		}
 
+		[Test]
+		public async Task TestMethod2()
+		{
+			await Run(async ct =>
+				{
+					ICustomFieldDefinition field = null;
+					try
+					{
+						var board = _factory.Board(TrelloIds.BoardId);
+
+						field = await board.CustomFields.Add("new field", CustomFieldType.Number, ct);
+
+						await board.Refresh(ct);
+
+						OutputCollection("fields", board.CustomFields);
+					}
+					finally
+					{
+						field?.Delete(ct);
+					}
+				});
+		}
+
 		private static async Task Run(Func<CancellationToken, Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;

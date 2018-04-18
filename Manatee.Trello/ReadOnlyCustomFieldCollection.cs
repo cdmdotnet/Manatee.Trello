@@ -19,7 +19,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="getOwnerId"></param>
 		/// <param name="auth"></param>
-		public ReadOnlyCustomFieldCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+		internal ReadOnlyCustomFieldCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
 		}

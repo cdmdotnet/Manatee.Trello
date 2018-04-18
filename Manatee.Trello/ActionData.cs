@@ -33,7 +33,7 @@ namespace Manatee.Trello
 		private readonly Field<PowerUpBase> _powerUp;
 		private readonly Field<string> _text;
 		private readonly Field<string> _value;
-		private readonly Field<CustomField> _customField;
+		private readonly Field<CustomFieldDefinition> _customField;
 		private readonly ActionDataContext _context;
 
 		/// <summary>
@@ -124,7 +124,7 @@ namespace Manatee.Trello
 		/// - UpdateChecklist
 		/// </associated-action-types>
 		public ICheckList CheckList => _checkList.Value;
-		public ICustomField CustomField => _customField.Value;
+		public ICustomFieldDefinition CustomField => _customField.Value;
 		/// <summary>
 		/// Gets the associated label.
 		/// </summary>
@@ -263,7 +263,7 @@ namespace Manatee.Trello
 			_cardSource = new Field<Card>(_context, nameof(CardSource));
 			_checkItem = new Field<CheckItem>(_context, nameof(CheckItem));
 			_checkList = new Field<CheckList>(_context, nameof(CheckList));
-			_customField = new Field<CustomField>(_context, nameof(CustomField));
+			_customField = new Field<CustomFieldDefinition>(_context, nameof(CustomField));
 			_label = new Field<Label>(_context, nameof(Label));
 			_lastEdited = new Field<DateTime?>(_context, nameof(LastEdited));
 			_list = new Field<List>(_context, nameof(List));

@@ -12,11 +12,12 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(DropDownOption.Field),
-						new Property<IJsonCustomDropDownOption, CustomField>((d, a) => d.Field.GetFromCache<CustomField, IJsonCustomField>(a),
-						                                               (d, o) =>
-							                                               {
-								                                               if (o != null) d.Field = o.Json;
-							                                               })
+						new Property<IJsonCustomDropDownOption, CustomFieldDefinition>(
+							(d, a) => d.Field.GetFromCache<CustomFieldDefinition, IJsonCustomFieldDefinition>(a),
+							(d, o) =>
+								{
+									if (o != null) d.Field = o.Json;
+								})
 					},
 					{
 						nameof(DropDownOption.Id),
@@ -33,10 +34,10 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						nameof(DropDownOption.Color),
 						new Property<IJsonCustomDropDownOption, LabelColor?>((d, a) => d.Color,
-						                                                (d, o) =>
-							                                                {
-								                                                if (o != null) d.Color = o;
-							                                                })
+						                                                     (d, o) =>
+							                                                     {
+								                                                     if (o != null) d.Color = o;
+							                                                     })
 					},
 					{
 						nameof(DropDownOption.Position),

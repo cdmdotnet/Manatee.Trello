@@ -33,7 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public ReadOnlyActionCollection Actions { get; }
 		public ReadOnlyCardCollection Cards { get; }
-		public ReadOnlyCustomFieldDefinitionCollection CustomFields { get; }
+		public CustomFieldDefinitionCollection CustomFields { get; }
 		public BoardLabelCollection Labels { get; }
 		public ListCollection Lists { get; }
 		public ReadOnlyMemberCollection Members { get; }
@@ -126,7 +126,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			Actions = new ReadOnlyActionCollection(typeof(Board), () => Data.Id, auth);
 			Cards = new ReadOnlyCardCollection(typeof(Board), () => Data.Id, auth);
-			CustomFields = new ReadOnlyCustomFieldDefinitionCollection(() => Data.Id, auth);
+			CustomFields = new CustomFieldDefinitionCollection(() => Data.Id, auth);
 			Labels = new BoardLabelCollection(() => Data.Id, auth);
 			Lists = new ListCollection(() => Data.Id, auth);
 			Members = new ReadOnlyMemberCollection(EntityRequestType.Board_Read_Members, () => Data.Id, auth);
