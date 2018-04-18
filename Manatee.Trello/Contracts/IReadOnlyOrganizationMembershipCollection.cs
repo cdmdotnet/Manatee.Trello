@@ -13,9 +13,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on OrganizationMembership.Id, OrganizationMembership.Member.Id,
-		/// OrganizationMembership.Member.FullName, and OrganizationMembership.Member.Username.
-		/// Comparison is case-sensitive.
+		/// Matches on OrganizationMembership.Id, OrganizationMembership.Member.Id, OrganizationMembership.Member.FullName, and OrganizationMembership.Member.Username. Comparison is case-sensitive.
 		/// </remarks>
 		IOrganizationMembership this[string key] { get; }
 

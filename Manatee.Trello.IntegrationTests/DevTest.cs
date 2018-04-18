@@ -31,29 +31,6 @@ namespace Manatee.Trello.IntegrationTests
 				});
 		}
 
-		[Test]
-		public async Task TestMethod2()
-		{
-			await Run(async ct =>
-				{
-					IDropDownOption option = null;
-					try
-					{
-						var board = _factory.Board(TrelloIds.BoardId);
-						await board.Refresh(ct);
-
-						var field = board.CustomFields.FirstOrDefault(f => f.Type == CustomFieldType.DropDown);
-						option = await field.Options.Add("new option", Position.Bottom, LabelColor.Pink, ct);
-
-						OutputCollection("fields", board.CustomFields);
-					}
-					finally
-					{
-						option?.Delete(ct);
-					}
-				});
-		}
-
 		private static async Task Run(Func<CancellationToken, Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;

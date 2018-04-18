@@ -38,6 +38,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the board membership to be refreshed the next time data is accessed.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

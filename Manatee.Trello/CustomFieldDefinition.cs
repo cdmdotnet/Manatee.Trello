@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
@@ -27,7 +26,12 @@ namespace Manatee.Trello
 			set { _name.Value = value; }
 		}
 		public IDropDownOptionCollection Options => _context.DropDownOptions;
-		public Position Position => _position.Value;
+		public Position Position
+		{
+			get { return _position.Value; }
+			set { _position.Value = value; }
+		}
+
 		public CustomFieldType? Type => _type.Value;
 
 		internal IJsonCustomFieldDefinition Json

@@ -46,7 +46,9 @@ namespace Manatee.Trello
 		/// Gets an assocated checklist.
 		/// </summary>
 		ICheckList CheckList { get; }
-
+		/// <summary>
+		/// Gets the associated custom field definition.
+		/// </summary>
 		ICustomFieldDefinition CustomField { get; }
 
 		/// <summary>
@@ -68,8 +70,7 @@ namespace Manatee.Trello
 		/// Gets the current list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
 		/// </remarks>
 		IList ListAfter { get; }
 
@@ -77,8 +78,7 @@ namespace Manatee.Trello
 		/// Gets the previous list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
 		/// </remarks>
 		IList ListBefore { get; }
 
@@ -96,8 +96,7 @@ namespace Manatee.Trello
 		/// Gets the previous list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="ListAfter"/>
-		/// or <see cref="ListBefore"/> properties.
+		/// For some action types, this information may be in the <see cref="ListAfter"/> or <see cref="ListBefore"/> properties.
 		/// </remarks>
 		IList OldList { get; }
 

@@ -47,7 +47,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates an <see cref="IMe"/>.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>An <see cref="IMe"/></returns>
+		/// <remarks>
+		/// This performs a call to the API to get the member authorized by <see cref="TrelloAuthorization.Default"/>.
+		/// </remarks>
 		Task<IMe> Me(CancellationToken ct = default(CancellationToken));
 		/// <summary>
 		/// Creates an <see cref="IMember"/>.

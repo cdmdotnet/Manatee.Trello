@@ -21,7 +21,9 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="member">The member to add.</param>
 		/// <param name="membership">The membership type.</param>
-		public async Task Add(IMember member, OrganizationMembershipType membership, CancellationToken ct = default(CancellationToken))
+		/// <param name="ct"></param>
+		public async Task<IOrganizationMembership> Add(IMember member, OrganizationMembershipType membership,
+		                                               CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
@@ -32,7 +34,9 @@ namespace Manatee.Trello
 			json.MemberType = membership;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
-			await JsonRepository.Execute(Auth, endpoint, json, ct);
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
+
+			return new OrganizationMembership(newData, OwnerId, Auth);
 		}
 
 		/// <summary>

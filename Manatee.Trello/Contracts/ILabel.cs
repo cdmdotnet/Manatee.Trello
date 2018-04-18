@@ -38,8 +38,7 @@ namespace Manatee.Trello
 		/// Deletes the label.  All usages of the label will also be removed.
 		/// </summary>
 		/// <remarks>
-		/// This permanently deletes the label from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This permanently deletes the label from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
 

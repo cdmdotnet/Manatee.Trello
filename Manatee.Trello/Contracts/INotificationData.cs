@@ -54,8 +54,7 @@
 		/// Gets the current list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
 		/// </remarks>
 		IList ListAfter { get; }
 
@@ -63,8 +62,7 @@
 		/// Gets the previous list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="List"/>
-		/// or <see cref="OldList"/> properties.
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
 		/// </remarks>
 		IList ListBefore { get; }
 
@@ -82,8 +80,7 @@
 		/// Gets the previous list.
 		/// </summary>
 		/// <remarks>
-		/// For some action types, this information may be in the <see cref="ListAfter"/>
-		/// or <see cref="ListBefore"/> properties.
+		/// For some action types, this information may be in the <see cref="ListAfter"/> or <see cref="ListBefore"/> properties.
 		/// </remarks>
 		IList OldList { get; }
 

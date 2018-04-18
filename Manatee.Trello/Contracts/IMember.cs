@@ -61,8 +61,7 @@ namespace Manatee.Trello
 		bool? IsConfirmed { get; }
 
 		/// <summary>
-		/// Gets a string which can be used in comments or descriptions to mention another
-		/// user.  The user will receive notification that they've been mentioned.
+		/// Gets a string which can be used in comments or descriptions to mention this user.  The user will receive notification that they've been mentioned.
 		/// </summary>
 		string Mention { get; }
 
@@ -99,6 +98,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the member to be refreshed the next time data is accessed.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

@@ -74,7 +74,7 @@ namespace Manatee.Trello
 		/// Deletes the attachment.
 		/// </summary>
 		/// <remarks>
-		/// This cannot be undone.
+		/// This permanently deletes the attachment from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
 	}

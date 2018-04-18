@@ -49,6 +49,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Deletes the webhook.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
 		/// This permanently deletes the card from Trello's server, however, this object will
 		/// remain in memory and all properties will remain accessible.
@@ -58,6 +59,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Marks the webhook to be refreshed the next time data is accessed.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }
