@@ -13,7 +13,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private bool _deleted;
 
-		public ReadOnlyDropDownOptionCollection DropDownOptions { get; }
+		public DropDownOptionCollection DropDownOptions { get; }
 
 		static CustomFieldDefinitionContext()
 		{
@@ -68,7 +68,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 
-			DropDownOptions = new ReadOnlyDropDownOptionCollection(() => Data.Id, auth);
+			DropDownOptions = new DropDownOptionCollection(() => Data.Id, auth);
 		}
 
 		public async Task Delete(CancellationToken ct)

@@ -68,6 +68,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		CustomField_Write_Update,
 		CustomFieldDefinition_Read_Refresh,
 		CustomFieldDefinition_Write_Create,
+		CustomFieldDefinition_Write_AddOption,
 		CustomFieldDefinition_Write_Delete,
 		CustomFieldDefinition_Write_Update,
 		CustomFieldDropDownOption_Read_Refresh,

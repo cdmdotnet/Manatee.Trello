@@ -1,5 +1,4 @@
-﻿using System;
-using Manatee.Json;
+﻿using Manatee.Json;
 using Manatee.Json.Serialization;
 
 namespace Manatee.Trello.Json.Entities
@@ -34,7 +33,15 @@ namespace Manatee.Trello.Json.Entities
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			var obj = new JsonObject
+				{
+					["value"] = new JsonObject{["text"] = Text},
+				};
+			
+			Color.Serialize(obj, serializer, "color");
+			Pos.Serialize(obj, serializer, "pos");
+
+			return obj;
 		}
 	}
 }

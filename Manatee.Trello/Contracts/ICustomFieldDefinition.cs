@@ -11,8 +11,9 @@ namespace Manatee.Trello
 		string Name { get; }
 		Position Position { get; }
 		CustomFieldType? Type { get; }
-		IReadOnlyCollection<DropDownOption> Options { get; }
+		IDropDownOptionCollection Options { get; }
 
 		Task Delete(CancellationToken ct = default(CancellationToken));
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

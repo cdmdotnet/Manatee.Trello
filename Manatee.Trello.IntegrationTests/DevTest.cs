@@ -36,20 +36,20 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async ct =>
 				{
-					ICustomFieldDefinition field = null;
+					IDropDownOption option = null;
 					try
 					{
 						var board = _factory.Board(TrelloIds.BoardId);
-
-						field = await board.CustomFields.Add("new field", CustomFieldType.Number, ct);
-
 						await board.Refresh(ct);
+
+						var field = board.CustomFields.FirstOrDefault(f => f.Type == CustomFieldType.DropDown);
+						option = await field.Options.Add("new option", Position.Bottom, LabelColor.Pink, ct);
 
 						OutputCollection("fields", board.CustomFields);
 					}
 					finally
 					{
-						field?.Delete(ct);
+						option?.Delete(ct);
 					}
 				});
 		}
