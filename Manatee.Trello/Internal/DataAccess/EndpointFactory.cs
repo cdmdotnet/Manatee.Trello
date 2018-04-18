@@ -75,6 +75,8 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.CustomFieldDefinition_Write_Create, () => new Endpoint(RestMethod.Post, "customFields")},
 					{EntityRequestType.CustomFieldDefinition_Write_Delete, () => new Endpoint(RestMethod.Delete, "customFields", "_id")},
 					{EntityRequestType.CustomFieldDefinition_Write_Update, () => new Endpoint(RestMethod.Put, "customFields", "_id")},
+					{EntityRequestType.CustomFieldDropDownOption_Read_Refresh, () => new Endpoint(RestMethod.Get, "customFields", "_idField", "options", "_id")},
+					{EntityRequestType.CustomFieldDropDownOption_Write_Delete, () => new Endpoint(RestMethod.Delete, "customFields", "_idField", "options", "_id")},
 					{EntityRequestType.Label_Read_Refresh, () => new Endpoint(RestMethod.Get, "labels", "_id")},
 					{EntityRequestType.Label_Write_Delete, () => new Endpoint(RestMethod.Delete, "labels", "_id")},
 					{EntityRequestType.Label_Write_Update, () => new Endpoint(RestMethod.Put, "labels", "_id")},

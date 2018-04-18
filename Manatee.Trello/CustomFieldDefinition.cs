@@ -65,6 +65,13 @@ namespace Manatee.Trello
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
+		}
+
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
 		}
 
 		public override string ToString()

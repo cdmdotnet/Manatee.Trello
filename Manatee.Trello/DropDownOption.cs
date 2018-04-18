@@ -1,4 +1,6 @@
-﻿using Manatee.Trello.Internal;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -35,6 +37,18 @@ namespace Manatee.Trello
 			_position = new Field<Position>(_context, nameof(Position));
 
 			TrelloConfiguration.Cache.Add(this);
+		}
+
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
+		}
+
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
 		}
 
 		public override string ToString()

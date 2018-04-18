@@ -71,6 +71,18 @@ namespace Manatee.Trello.Internal.Synchronization
 			DropDownOptions = new ReadOnlyDropDownOptionCollection(() => Data.Id, auth);
 		}
 
+		public async Task Delete(CancellationToken ct)
+		{
+			if (_deleted) return;
+			CancelUpdate();
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Write_Delete,
+			                                     new Dictionary<string, object> { { "_id", Data.Id } });
+			await JsonRepository.Execute(Auth, endpoint, ct);
+
+			_deleted = true;
+		}
+
 		protected override async Task<IJsonCustomFieldDefinition> GetData(CancellationToken ct)
 		{
 			try
@@ -95,17 +107,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(newData);
-		}
-		public async Task Delete(CancellationToken ct)
-		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Write_Delete,
-			                                     new Dictionary<string, object> { { "_id", Data.Id } });
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
 		}
 
 		protected override IEnumerable<string> MergeDependencies(IJsonCustomFieldDefinition json)
