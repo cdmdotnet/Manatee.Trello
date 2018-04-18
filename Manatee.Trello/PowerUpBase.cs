@@ -52,8 +52,9 @@ namespace Manatee.Trello
 			_isPublic = new Field<bool?>(_context, nameof(IsPublic));
 		}
 		/// <summary>
-		/// Marks the attachment to be refreshed the next time data is accessed.
+		/// Refreshes the power-up data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);

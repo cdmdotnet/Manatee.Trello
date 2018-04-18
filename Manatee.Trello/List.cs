@@ -47,7 +47,13 @@ namespace Manatee.Trello
 			/// </summary>
 			[Display(Description="subscribed")]
 			IsSubscribed = 1 << 4,
+			/// <summary>
+			/// Indicates the actions will be downloaded.
+			/// </summary>
 			Actions = 1 << 5,
+			/// <summary>
+			/// Indicates the cards will be downloaded.
+			/// </summary>
 			Cards = 1 << 6
 		}
 
@@ -224,9 +230,11 @@ namespace Manatee.Trello
 			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;
 			_context.Merge(((List) action.Data.List).Json);
 		}
+
 		/// <summary>
-		/// Marks the list to be refreshed the next time data is accessed.
+		/// Refreshes the label data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
@@ -237,13 +245,8 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Returns a string that represents the current object.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return Name;

@@ -4,10 +4,16 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a custom date/time field instance.
+	/// </summary>
 	public class DateTimeField : CustomField<DateTime?>
 	{
 		private readonly Field<DateTime?> _value;
 
+		/// <summary>
+		/// Gets or sets the value.
+		/// </summary>
 		public override DateTime? Value
 		{
 			get { return _value.Value; }

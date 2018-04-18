@@ -116,6 +116,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Service_Read_Search, () => new Endpoint(RestMethod.Get, "search")},
 					{EntityRequestType.Service_Read_SearchMembers, () => new Endpoint(RestMethod.Get, "search", "members")},
 					{EntityRequestType.Serivce_Read_TypeQuery, () => new Endpoint(RestMethod.Get, "type", "_id")},
+					{EntityRequestType.Sticker_Read_Refresh, () => new Endpoint(RestMethod.Get, "cards", "_cardId", "stickers", "_id")},
 					{EntityRequestType.Sticker_Write_Delete, () => new Endpoint(RestMethod.Delete, "cards", "_cardId", "stickers", "_id")},
 					{EntityRequestType.Sticker_Write_Update, () => new Endpoint(RestMethod.Put, "cards", "_cardId", "stickers", "_id")},
 					{EntityRequestType.Token_Read_Refresh, () => new Endpoint(RestMethod.Get, "tokens", "_token")},

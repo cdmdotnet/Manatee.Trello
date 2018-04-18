@@ -57,10 +57,25 @@ namespace Manatee.Trello
 			/// </summary>
 			[Display(Description="website")]
 			Website = 1 << 8,
+			/// <summary>
+			/// Indicates the actions will be downloaded.
+			/// </summary>
 			Actions = 1 << 9,
+			/// <summary>
+			/// Indicates the boards will be downloaded.
+			/// </summary>
 			Boards = 1 << 10,
+			/// <summary>
+			/// Indicates the members will be downloaded. Not included by default.
+			/// </summary>
 			Members = 1 << 11,
+			/// <summary>
+			/// Indicates the memberships will be downloaded.
+			/// </summary>
 			Memberships = 1 << 12,
+			/// <summary>
+			/// Indicates the power-up data will be downloaded.
+			/// </summary>
 			PowerUpData = 1 << 13
 		}
 
@@ -239,11 +254,13 @@ namespace Manatee.Trello
 				return;
 			_context.Merge(((Organization) action.Data.Organization).Json);
 		}
+
 		/// <summary>
-		/// Permanently deletes the organization from Trello.
+		/// Deletes the organization.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the organization from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
@@ -251,9 +268,11 @@ namespace Manatee.Trello
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
 				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the organization to be refreshed the next time data is accessed.
+		/// Refreshes the organization data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
@@ -264,12 +283,8 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Returns the <see cref="DisplayName"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return DisplayName;

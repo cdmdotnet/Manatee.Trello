@@ -29,8 +29,9 @@ namespace Manatee.Trello
 		public ICheckList this[string key] => GetByKey(key);
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CheckLists, new Dictionary<string, object> {{"_id", OwnerId}});

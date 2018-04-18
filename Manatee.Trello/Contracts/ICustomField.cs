@@ -1,4 +1,9 @@
-﻿namespace Manatee.Trello
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Provides a base for <see cref="ICustomField{T}"/>.
@@ -9,6 +14,17 @@
 		/// Gets the custom field definition.
 		/// </summary>
 		ICustomFieldDefinition Definition { get; }
+
+		/// <summary>
+		/// Raised when data on the custom field is updated.
+		/// </summary>
+		event Action<ICustomField, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Refreshes the custom field instance data.
+		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 
 	/// <summary>

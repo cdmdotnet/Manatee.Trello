@@ -3,10 +3,16 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a custom selection field instance.
+	/// </summary>
 	public class DropDownField : CustomField<IDropDownOption>
 	{
 		private readonly Field<DropDownOption> _value;
 
+		/// <summary>
+		/// Gets or sets the value.
+		/// </summary>
 		public override IDropDownOption Value
 		{
 			get { return _value.Value; }

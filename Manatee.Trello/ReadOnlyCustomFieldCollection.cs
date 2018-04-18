@@ -25,9 +25,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Refreshes the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
-		/// <returns>A task.</returns>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CustomFields,

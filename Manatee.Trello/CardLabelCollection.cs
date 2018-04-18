@@ -24,9 +24,10 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Adds an existing label to the card.
+		/// Adds a label to the collection.
 		/// </summary>
 		/// <param name="label">The label to add.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Add(ILabel label, CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<ILabel>.Instance.Validate(null, label);
@@ -48,6 +49,7 @@ namespace Manatee.Trello
 		/// Removes a label from the collection.
 		/// </summary>
 		/// <param name="label">The label to add.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Remove(ILabel label, CancellationToken ct = default(CancellationToken))
 		{
 			var error = NotNullRule<ILabel>.Instance.Validate(null, label);
@@ -63,8 +65,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Labels,

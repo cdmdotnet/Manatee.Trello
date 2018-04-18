@@ -19,8 +19,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);

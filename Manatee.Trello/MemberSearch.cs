@@ -84,8 +84,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the member search to be refreshed the next time data is accessed.
+		/// Refreshes the search results.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);

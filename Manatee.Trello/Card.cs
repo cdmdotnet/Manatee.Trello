@@ -16,8 +16,6 @@ namespace Manatee.Trello
 	/// </summary>
 	public class Card : ICard, IMergeJson<IJsonCard>
 	{
-		private readonly TrelloAuthorization _auth;
-
 		/// <summary>
 		/// Enumerates the data which can be pulled for cards.
 		/// </summary>
@@ -231,6 +229,9 @@ namespace Manatee.Trello
 			}
 		}
 
+		/// <summary>
+		/// Gets the collection of custom field values for the card.
+		/// </summary>
 		public IReadOnlyCollection<ICustomField> CustomFields => _context.CustomFields;
 
 		/// <summary>
@@ -424,7 +425,6 @@ namespace Manatee.Trello
 			Id = id;
 			_context = new CardContext(id, auth);
 			_context.Synchronized += Synchronized;
-			_auth = auth;
 
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => id, auth);
 			Badges = new Badges(_context.BadgesContext);

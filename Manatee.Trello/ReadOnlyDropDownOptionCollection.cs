@@ -9,6 +9,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// A read-only collection of custom drop down options.
+	/// </summary>
 	public class ReadOnlyDropDownOptionCollection : ReadOnlyCollection<DropDownOption>
 	{
 		internal ReadOnlyDropDownOptionCollection(Func<string> getOwnerId, TrelloAuthorization auth)
@@ -16,7 +19,11 @@ namespace Manatee.Trello
 		{
 		}
 
-		public override async Task Refresh(CancellationToken ct = default(CancellationToken))
+		/// <summary>
+		/// Manually updates the collection's data.
+		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Read_Options,
 			                                     new Dictionary<string, object> {{"_id", OwnerId}});

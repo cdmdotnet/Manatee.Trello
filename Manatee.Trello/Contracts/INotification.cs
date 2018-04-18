@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -42,5 +44,11 @@ namespace Manatee.Trello
 		/// Raised when data on the notification is updated.
 		/// </summary>
 		event Action<INotification, IEnumerable<string>> Updated;
+
+		/// <summary>
+		/// Refreshes the notification data.
+		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

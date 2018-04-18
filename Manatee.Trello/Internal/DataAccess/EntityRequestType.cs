@@ -115,6 +115,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Service_Read_Search,
 		Service_Read_SearchMembers,
 		Serivce_Read_TypeQuery,
+		Sticker_Read_Refresh,
 		Sticker_Write_Delete,
 		Sticker_Write_Update,
 		Token_Read_Refresh,

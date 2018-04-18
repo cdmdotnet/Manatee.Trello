@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
-using IQueryable = Manatee.Trello.IQueryable;
 
 namespace Manatee.Trello
 {
@@ -127,8 +126,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the search to be refreshed the next time data is accessed.
+		/// Refreshes the search results.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);

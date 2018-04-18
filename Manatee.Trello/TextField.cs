@@ -3,10 +3,16 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Represents a custom text field instance.
+	/// </summary>
 	public class TextField : CustomField<string>
 	{
 		private readonly Field<string> _value;
 
+		/// <summary>
+		/// Gets or sets the value.
+		/// </summary>
 		public override string Value
 		{
 			get { return _value.Value; }

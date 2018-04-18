@@ -47,12 +47,8 @@ namespace Manatee.Trello
 			Items = new List<T>();
 		}
 
-		/// <summary>
-		/// Returns an enumerator that iterates through the collection.
-		/// </summary>
-		/// <returns>
-		/// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
-		/// </returns>
+		/// <summary>Returns an enumerator that iterates through the collection.</summary>
+		/// <returns>An enumerator that can be used to iterate through the collection.</returns>
 		public IEnumerator<T> GetEnumerator()
 		{
 			return Items.GetEnumerator();
@@ -62,14 +58,10 @@ namespace Manatee.Trello
 		/// Manually updates the collection's data.
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		/// <returns>A task.</returns>
 		public abstract Task Refresh(CancellationToken ct = default(CancellationToken));
-		/// <summary>
-		/// Returns an enumerator that iterates through a collection.
-		/// </summary>
-		/// <returns>
-		/// An <see cref="IEnumerator"/> object that can be used to iterate through the collection.
-		/// </returns>
+
+		/// <summary>Returns an enumerator that iterates through a collection.</summary>
+		/// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();

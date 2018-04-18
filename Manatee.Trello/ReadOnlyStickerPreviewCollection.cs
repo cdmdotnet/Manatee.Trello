@@ -8,11 +8,11 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of image previews for attachments.
 	/// </summary>
-	public class ReadOnlyAttachmentPreviewCollection : ReadOnlyCollection<IImagePreview>
+	public class ReadOnlyStickerPreviewCollection : ReadOnlyCollection<IImagePreview>
 	{
-		private readonly AttachmentContext _context;
+		private readonly StickerContext _context;
 
-		internal ReadOnlyAttachmentPreviewCollection(AttachmentContext context, TrelloAuthorization auth)
+		internal ReadOnlyStickerPreviewCollection(StickerContext context, TrelloAuthorization auth)
 			: base(() => context.Data.Id, auth)
 		{
 			_context = context;

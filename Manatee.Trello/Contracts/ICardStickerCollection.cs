@@ -22,5 +22,12 @@ namespace Manatee.Trello
 		/// <exception cref="ValidationException{Int32}">Thrown when <paramref name="rotation"/> is less than 0 or greater than 359.</exception>
 		Task<ISticker> Add(string name, double left, double top, int zIndex = 0, int rotation = 0,
 		                   CancellationToken ct = default(CancellationToken));
+
+		/// <summary>
+		/// Removes a <see cref="ISticker"/> from a <see cref="ICard"/>.
+		/// </summary>
+		/// <param name="sticker">The sticker to remove.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		Task Remove(Sticker sticker, CancellationToken ct = default(CancellationToken));
 	}
 }

@@ -150,6 +150,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Deletes the checklist item.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
 		/// This permanently deletes the checklist item from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
@@ -159,9 +160,11 @@ namespace Manatee.Trello
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
 				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the checklist item to be refreshed the next time data is accessed.
+		/// Refreshes the checklist item data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
@@ -172,12 +175,9 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Returns the <see cref="Name"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;
