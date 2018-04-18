@@ -37,7 +37,15 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Subscribed { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of actions.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonAction> Actions { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of cards.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonCard> Cards { get; set; }
 	}
 }
