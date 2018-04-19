@@ -34,7 +34,7 @@ Marked all classes obsolete.  Custom Fields are integrated into Manatee.Trello a
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Manatee.Json" Version="9.6.0" />
+    <PackageReference Include="Manatee.Json" Version="9.8.0" />
   </ItemGroup>
 
   <ItemGroup>
