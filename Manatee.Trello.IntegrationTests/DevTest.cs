@@ -20,14 +20,13 @@ namespace Manatee.Trello.IntegrationTests
 			await Run(async ct =>
 				{
 					var card = _factory.Card(TrelloIds.CardId);
+					var board = _factory.Board(TrelloIds.BoardId);
 
-					await card.Refresh(ct);
+					await board.Refresh(ct);
 
-					OutputCollection("fields", card.CustomFields);
+					var field = board.CustomFields.FirstOrDefault(f => f.Type == CustomFieldType.Number);
 
-					var firstField = card.CustomFields.OfType<NumberField>().First();
-
-					firstField.Value = 9;
+					await field.SetValueForCard(card, Math.PI, ct);
 				});
 		}
 

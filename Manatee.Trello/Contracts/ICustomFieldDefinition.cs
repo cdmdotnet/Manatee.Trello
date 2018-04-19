@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Manatee.Trello
@@ -44,5 +45,55 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
+
+		/// <summary>
+		/// Sets a value for a custom field on a card.
+		/// </summary>
+		/// <param name="card">The card on which to set the value.</param>
+		/// <param name="value">The vaue to set.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		/// <returns>The custom field instance.</returns>
+		Task<ICustomField<double?>> SetValueForCard(ICard card, double? value,
+		                                                                  CancellationToken ct = default(CancellationToken));
+
+		/// <summary>
+		/// Sets a value for a custom field on a card.
+		/// </summary>
+		/// <param name="card">The card on which to set the value.</param>
+		/// <param name="value">The vaue to set.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		/// <returns>The custom field instance.</returns>
+		Task<ICustomField<bool?>> SetValueForCard(ICard card, bool? value,
+		                                                                CancellationToken ct = default(CancellationToken));
+
+		/// <summary>
+		/// Sets a value for a custom field on a card.
+		/// </summary>
+		/// <param name="card">The card on which to set the value.</param>
+		/// <param name="value">The vaue to set.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		/// <returns>The custom field instance.</returns>
+		Task<ICustomField<string>> SetValueForCard(ICard card, string value,
+		                                                                 CancellationToken ct = default(CancellationToken));
+
+		/// <summary>
+		/// Sets a value for a custom field on a card.
+		/// </summary>
+		/// <param name="card">The card on which to set the value.</param>
+		/// <param name="value">The vaue to set.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		/// <returns>The custom field instance.</returns>
+		Task<ICustomField<IDropDownOption>> SetValueForCard(ICard card, IDropDownOption value,
+		                                                                          CancellationToken ct = default(CancellationToken));
+
+		/// <summary>
+		/// Sets a value for a custom field on a card.
+		/// </summary>
+		/// <param name="card">The card on which to set the value.</param>
+		/// <param name="value">The vaue to set.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		/// <returns>The custom field instance.</returns>
+		Task<ICustomField<DateTime?>> SetValueForCard(ICard card, DateTime? value,
+		                                                                    CancellationToken ct = default(CancellationToken));
 	}
 }
