@@ -153,7 +153,11 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected virtual Task SubmitData(TJson json, CancellationToken ct)
 		{
+#if NET45
+			return Task.Run(() => { }, ct);
+#else
 			return Task.CompletedTask;
+#endif
 		}
 		protected virtual void ApplyDependentChanges(TJson json) {}
 

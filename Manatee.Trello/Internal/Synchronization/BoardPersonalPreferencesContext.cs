@@ -71,7 +71,11 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return Task.WhenAll(
 				json.EmailList == null
+#if NET45
+					? Task.Run(() => {}, ct)
+#else
 					? Task.CompletedTask
+#endif
 					: SubmitDataPoint(json.EmailList.Id, "emailList", ct),
 				SubmitDataPoint(json.EmailPosition, "emailPosition", ct),
 				SubmitDataPoint(json.ShowListGuide, "showListGuide", ct),
