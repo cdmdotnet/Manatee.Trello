@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Licensing;
@@ -27,8 +28,11 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		}
 		public static async Task Flush()
 		{
-			if (LastCall != null)
-				await LastCall();
+			if (LastCall == null) return;
+
+			var handlers = LastCall.GetInvocationList().Cast<Func<Task>>();
+
+			await Task.WhenAll(handlers.Select(h => h()));
 		}
 
 		private static async Task<IRestResponse> Process(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)

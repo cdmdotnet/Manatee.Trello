@@ -28,7 +28,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Manually updates the collection's data.
 		/// </summary>
-		/// <returns>A task.</returns>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

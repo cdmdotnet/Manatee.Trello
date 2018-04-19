@@ -9,7 +9,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class WebColor
 	{
-		private static readonly Regex _pattern = new Regex(@"^#(?<Red>[0-9a-fA-F]{2})(?<Green>[0-9a-fA-F]{2})(?<Blue>[0-9a-fA-F]{2})$");
+		private static readonly Regex Pattern = new Regex(@"^#(?<Red>[0-9a-fA-F]{2})(?<Green>[0-9a-fA-F]{2})(?<Blue>[0-9a-fA-F]{2})$");
 
 		/// <summary>
 		/// Gets the red component.
@@ -42,7 +42,7 @@ namespace Manatee.Trello
 		/// <param name="serialized">A string representation of RGB values in the format "#RRGGBB".</param>
 		public WebColor(string serialized)
 		{
-			var matches = _pattern.Matches(serialized);
+			var matches = Pattern.Matches(serialized);
 			if (matches.Count == 0)
 				throw new ArgumentException($"'{serialized}' is not a valid web color", nameof(serialized));
 

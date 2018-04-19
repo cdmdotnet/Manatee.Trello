@@ -49,22 +49,23 @@ namespace Manatee.Trello
 		int? ZIndex { get; set; }
 
 		/// <summary>
-		/// Raised when data on the attachment is updated.
+		/// Raised when data on the sticker is updated.
 		/// </summary>
 		event Action<ISticker, IEnumerable<string>> Updated;
 
 		/// <summary>
-		/// Deletes the card.
+		/// Deletes the sticker.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This permanently deletes the sticker from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
-		/// Marks the card to be refreshed the next time data is accessed.
+		/// Refreshes the sticker data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

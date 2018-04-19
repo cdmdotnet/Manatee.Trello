@@ -40,8 +40,9 @@ namespace Manatee.Trello
 		string Query { get; }
 
 		/// <summary>
-		/// Marks the search to be refreshed the next time data is accessed.
+		/// Refreshes the search results.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

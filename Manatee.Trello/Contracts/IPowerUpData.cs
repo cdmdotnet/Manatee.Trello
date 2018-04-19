@@ -1,4 +1,7 @@
-﻿namespace Manatee.Trello
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Represents the data associated with a power-up.
@@ -14,5 +17,11 @@
 		/// Gets the data as a string.  This data will be JSON-encoded.
 		/// </summary>
 		string Value { get; }
+
+		/// <summary>
+		/// Refreshes the power-up data... data.
+		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

@@ -47,7 +47,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates an <see cref="IMe"/>.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>An <see cref="IMe"/></returns>
+		/// <remarks>
+		/// This performs a call to the API to get the member authorized by <see cref="TrelloAuthorization.Default"/>.
+		/// </remarks>
 		Task<IMe> Me(CancellationToken ct = default(CancellationToken));
 		/// <summary>
 		/// Creates an <see cref="IMember"/>.
@@ -131,6 +135,7 @@ namespace Manatee.Trello
 		/// <param name="callBackUrl">A URL that Trello can POST to.</param>
 		/// <param name="description">A description.</param>
 		/// <param name="auth">(Optional) The authorization.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>An <see cref="IWebhook{T}"/></returns>
 		Task<IWebhook<T>> Webhook<T>(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null,
 		                             CancellationToken ct = default(CancellationToken))

@@ -33,7 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public ReadOnlyActionCollection Actions { get; }
 		public ReadOnlyCardCollection Cards { get; }
-		public ReadOnlyCustomFieldDefinitionCollection CustomFields { get; }
+		public CustomFieldDefinitionCollection CustomFields { get; }
 		public BoardLabelCollection Labels { get; }
 		public ListCollection Lists { get; }
 		public ReadOnlyMemberCollection Members { get; }
@@ -47,17 +47,17 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Board.Fields.Closed |
-						   Board.Fields.Pinned |
-						   Board.Fields.Description |
-						   Board.Fields.Starred |
-						   Board.Fields.Preferencess |
-						   Board.Fields.IsSubscribed |
-						   Board.Fields.LastActivityDate |
-						   Board.Fields.LastViewDate |
-						   Board.Fields.Name |
-						   Board.Fields.ShortLink |
-						   Board.Fields.ShortUrl |
-						   Board.Fields.Url;
+			               Board.Fields.Pinned |
+			               Board.Fields.Description |
+			               Board.Fields.Starred |
+			               Board.Fields.Preferencess |
+			               Board.Fields.IsSubscribed |
+			               Board.Fields.LastActivityDate |
+			               Board.Fields.LastViewDate |
+			               Board.Fields.Name |
+			               Board.Fields.ShortLink |
+			               Board.Fields.ShortUrl |
+			               Board.Fields.Url;
 			Properties = new Dictionary<string, Property<IJsonBoard>>
 				{
 					{
@@ -126,7 +126,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			Actions = new ReadOnlyActionCollection(typeof(Board), () => Data.Id, auth);
 			Cards = new ReadOnlyCardCollection(typeof(Board), () => Data.Id, auth);
-			CustomFields = new ReadOnlyCustomFieldDefinitionCollection(() => Data.Id, auth);
+			CustomFields = new CustomFieldDefinitionCollection(() => Data.Id, auth);
 			Labels = new BoardLabelCollection(() => Data.Id, auth);
 			Lists = new ListCollection(() => Data.Id, auth);
 			Members = new ReadOnlyMemberCollection(EntityRequestType.Board_Read_Members, () => Data.Id, auth);
@@ -170,7 +170,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["card_fields"] = CardContext.CurrentParameters["fields"];
 				}
 				if (parameterFields.HasFlag(Board.Fields.CustomFields))
-					Parameters["customFieldItems"] = "true";
+					Parameters["customFields"] = "true";
 				if (parameterFields.HasFlag(Board.Fields.Labels))
 				{
 					Parameters["labels"] = "all";

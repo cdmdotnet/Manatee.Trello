@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 
@@ -27,7 +26,7 @@ namespace Manatee.Trello.Json.Entities
 					FieldGroup = obj.TryGetString("fieldGroup");
 					Name = obj.TryGetString("name");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
-					Type = obj.Deserialize<CustomFieldType?>(serializer, "idBoard");
+					Type = obj.Deserialize<CustomFieldType?>(serializer, "type");
 					Options = obj.Deserialize<List<IJsonCustomDropDownOption>>(serializer, "options");
 					ValidForMerge = true;
 					break;
@@ -39,7 +38,18 @@ namespace Manatee.Trello.Json.Entities
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			var obj = new JsonObject();
+
+			if (Board != null)
+			{
+				obj["idModel"] = Board.Id;
+				obj["modelType"] = "board";
+			}
+			Name.Serialize(obj, serializer, "name");
+			Pos.Serialize(obj, serializer, "pos");
+			Type.Serialize(obj, serializer, "type");
+
+			return obj;
 		}
 	}
 }

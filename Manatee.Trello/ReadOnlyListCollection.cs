@@ -23,7 +23,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="IList.Id"/> and <see cref="IList.Name"/>.  Comparison is case-sensitive.
+		/// Matches on list ID and name.  Comparison is case-sensitive.
 		/// </remarks>
 		public IList this[string key] => GetByKey(key);
 
@@ -42,8 +42,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			IncorporateLimit(_additionalParameters);

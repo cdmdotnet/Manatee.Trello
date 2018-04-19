@@ -25,7 +25,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching card, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="ICard.Id"/> and <see cref="ICard.Name"/>.  Comparison is case-sensitive.
+		/// Matches on card ID and name.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICard this[string key] => GetByKey(key);
 
@@ -78,8 +78,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			IncorporateLimit(_additionalParameters);

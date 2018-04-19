@@ -177,8 +177,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the member to be refreshed the next time data is accessed.
+		/// Refreshes the notification data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
@@ -189,12 +190,9 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Returns a string that represents the notification.  The content will vary based on the value of <see cref="Type"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Notification type could not be determined.";

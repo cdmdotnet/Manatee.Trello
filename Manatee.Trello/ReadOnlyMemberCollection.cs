@@ -24,7 +24,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching member, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="IMember.Id"/>, <see cref="IMember.FullName"/>, and <see cref="IMember.UserName"/>.  Comparison is case-sensitive.
+		/// Matches on member ID, full name, and username.  Comparison is case-sensitive.
 		/// </remarks>
 		public IMember this[string key] => GetByKey(key);
 
@@ -61,8 +61,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});

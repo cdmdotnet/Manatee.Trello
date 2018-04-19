@@ -8,13 +8,13 @@
 		/// <summary>
 		/// Gets the returned member.
 		/// </summary>
-		public IMember Member { get; private set; }
+		public IMember Member { get; }
 		/// <summary>
 		/// Gets a value indicating the similarity of the member to the search query.
 		/// </summary>
-		public int? Similarity { get; private set; }
+		public int? Similarity { get; }
 
-		internal MemberSearchResult(Member member, int? similarity)
+		internal MemberSearchResult(IMember member, int? similarity)
 		{
 			Member = member;
 			Similarity = similarity;

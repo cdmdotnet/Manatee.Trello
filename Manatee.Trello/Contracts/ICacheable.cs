@@ -12,9 +12,4 @@ namespace Manatee.Trello
 		/// </summary>
 		string Id { get; }
 	}
-
-	internal interface IMergeJson<in T>
-	{
-		void Merge(T json);
-	}
 }

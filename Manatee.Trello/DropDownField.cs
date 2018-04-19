@@ -1,15 +1,28 @@
-﻿using Manatee.Trello.Internal.Caching;
+﻿using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public class DropDownField : CustomField<DropDownOption>
+	/// <summary>
+	/// Represents a custom selection field instance.
+	/// </summary>
+	public class DropDownField : CustomField<IDropDownOption>
 	{
-		public override DropDownOption Value => Json.Selected.GetFromCache<DropDownOption>(_auth);
+		private readonly Field<DropDownOption> _value;
 
-		internal DropDownField(IJsonCustomField json, TrelloAuthorization auth)
-			: base(json, auth)
+		/// <summary>
+		/// Gets or sets the value.
+		/// </summary>
+		public override IDropDownOption Value
 		{
+			get { return _value.Value; }
+			set { _value.Value = (DropDownOption) value; }
+		}
+
+		internal DropDownField(IJsonCustomField json, string cardId, TrelloAuthorization auth)
+			: base(json, cardId, auth)
+		{
+			_value = new Field<DropDownOption>(Context, nameof(IJsonCustomField.Selected));
 		}
 	}
 }

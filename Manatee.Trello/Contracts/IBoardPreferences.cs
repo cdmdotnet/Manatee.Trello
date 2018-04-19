@@ -11,14 +11,12 @@
 		BoardPermissionLevel? PermissionLevel { get; set; }
 
 		/// <summary>
-		/// Gets or sets whether voting is enabled and which members are allowed
-		/// to vote. 
+		/// Gets or sets whether voting is enabled and which members are allowed to vote. 
 		/// </summary>
 		BoardVotingPermission? Voting { get; set; }
 
 		/// <summary>
-		/// Gets or sets whether commenting is enabled and which members are
-		/// allowed to add comments.
+		/// Gets or sets whether commenting is enabled and which members are allowed to add comments.
 		/// </summary>
 		BoardCommentPermission? Commenting { get; set; }
 
@@ -28,8 +26,7 @@
 		BoardInvitationPermission? Invitations { get; set; }
 
 		/// <summary>
-		/// Gets or sets whether any Trello member may join the board themselves
-		/// or if an invitation must be sent.
+		/// Gets or sets whether any Trello member may join the board themselves or if an invitation must be sent.
 		/// </summary>
 		bool? AllowSelfJoin { get; set; }
 

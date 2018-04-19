@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
@@ -8,11 +10,38 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class StickerContext : SynchronizationContext<IJsonSticker>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly Sticker.Fields MemberFields;
+
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		private readonly string _ownerId;
 		private bool _deleted;
 
+		public ReadOnlyStickerPreviewCollection Previews { get; }
+
 		static StickerContext()
 		{
+			Parameters = new Dictionary<string, object>();
+			MemberFields = Sticker.Fields.Left |
+			               Sticker.Fields.Name |
+			               Sticker.Fields.Previews |
+			               Sticker.Fields.Rotation |
+			               Sticker.Fields.Top |
+			               Sticker.Fields.Url |
+			               Sticker.Fields.ZIndex;
 			Properties = new Dictionary<string, Property<IJsonSticker>>
 				{
 					{
@@ -54,6 +83,29 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			_ownerId = ownerId;
 			Data.Id = id;
+
+			Previews = new ReadOnlyStickerPreviewCollection(this, auth);
+		}
+
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(Sticker.Fields)).Cast<Sticker.Fields>().ToList();
+				var availableFields = (Sticker.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields & Sticker.DownloadedFields;
+				Parameters["fields"] = memberFields.GetDescription();
+			}
 		}
 
 		public async Task Delete(CancellationToken ct)
@@ -66,6 +118,25 @@ namespace Manatee.Trello.Internal.Synchronization
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
+		}
+
+		protected override async Task<IJsonSticker> GetData(CancellationToken ct)
+		{
+			try
+			{
+				var endpoint = EndpointFactory.Build(EntityRequestType.Sticker_Read_Refresh,
+				                                     new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
+				var newData = await JsonRepository.Execute<IJsonSticker>(Auth, endpoint, ct, CurrentParameters);
+
+				MarkInitialized();
+				return newData;
+			}
+			catch (TrelloInteractionException e)
+			{
+				if (!e.IsNotFoundError() || !IsInitialized) throw;
+				_deleted = true;
+				return Data;
+			}
 		}
 		protected override async Task SubmitData(IJsonSticker json, CancellationToken ct)
 		{

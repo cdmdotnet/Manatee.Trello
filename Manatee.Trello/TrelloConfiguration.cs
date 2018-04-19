@@ -82,7 +82,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public static bool ThrowOnTrelloError { get; set; }
 		/// <summary>
-		/// Specifies a length of time an object holds changes before it submits them.  The timer is reset with every change.  Default is 100 ms.
+		/// Specifies a length of time an object holds changes before it submits them.  The timer is reset with every change.  Default is 200 ms.
 		/// </summary>
 		/// <remarks>
 		/// Setting a value of 0 ms will result in instant upload of changes, dramatically increasing call volume and slowing performance.

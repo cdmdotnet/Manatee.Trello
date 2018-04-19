@@ -8,7 +8,15 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public interface IJsonCard : IJsonCacheable, IAcceptId
 	{
+		/// <summary>
+		/// Gets or sets a collection of actions.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonAction> Actions { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of attachments.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonAttachment> Attachments { get; set; }
 		/// <summary>
 		/// Gets or sets the ID of the board which contains the card.
@@ -21,6 +29,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		IJsonBadges Badges { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of checklists.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonCheckList> CheckLists { get; set; }
 		/// <summary>
 		/// Gets or sets whether a card has been archived.
@@ -28,7 +40,14 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Closed { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of comments.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonAction> Comments { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of custom field instances.
+		/// </summary>
 		[JsonDeserialize]
 		List<IJsonCustomField> CustomFields { get; set; }
 		/// <summary>
@@ -82,6 +101,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		bool? ManualCoverAttachment { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of members.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonMember> Members { get; set; }
 		/// <summary>
 		/// Gets or sets the card's name
@@ -95,6 +118,10 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		IJsonPosition Pos { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of power-up data.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonPowerUpData> PowerUpData { get; set; }
 		/// <summary>
 		/// Gets or sets the URL for this card.
@@ -136,7 +163,15 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonSerialize]
 		string IdLabels { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of stickers.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonSticker> Stickers { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of members who have voted for the card.
+		/// </summary>
+		[JsonDeserialize]
 		List<IJsonMember> MembersVoted { get; set; }
 	}
 }

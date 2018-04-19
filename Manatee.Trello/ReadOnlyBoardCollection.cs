@@ -24,7 +24,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching board, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="Board.Id"/> and <see cref="Board.Name"/>.  Comparison is case-sensitive.
+		/// Matches on board ID and name.  Comparison is case-sensitive.
 		/// </remarks>
 		public IBoard this[string key] => GetByKey(key);
 
@@ -48,9 +48,9 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Refreshes the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
-		/// <returns>A task.</returns>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			IncorporateLimit(_additionalParameters);

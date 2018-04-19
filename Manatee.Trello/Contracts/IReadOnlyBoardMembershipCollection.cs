@@ -13,9 +13,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching membership, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on BoardMembership.Id, BoardMembership.Member.Id,
-		/// BoardMembership.Member.Name, and BoardMembership.Usernamee.
-		/// Comparison is case-sensitive.
+		/// Matches on BoardMembership.Id, BoardMembership.Member.Id, BoardMembership.Member.Name, and BoardMembership.Usernamee. Comparison is case-sensitive.
 		/// </remarks>
 		IBoardMembership this[string key] { get; }
 

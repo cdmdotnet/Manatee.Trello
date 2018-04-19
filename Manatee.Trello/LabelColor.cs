@@ -12,6 +12,9 @@ namespace Manatee.Trello
 		/// </summary>
 		Unknown,
 
+		/// <summary>
+		/// Indicates a colorless label.
+		/// </summary>
 		[Display(Description = "none")]
 		None,
 

@@ -7,29 +7,29 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the position of a checklist in a card, a card in a list, or list in a board
 	/// </summary>
-	public class Position
+	public class Position : IComparable, IComparable<Position>
 	{
-		private const double _topValue = double.NegativeInfinity;
-		private const double _bottomValue = double.PositiveInfinity;
-		private const double _unknownValue = double.NaN;
+		private const double TopValue = double.NegativeInfinity;
+		private const double BottomValue = double.PositiveInfinity;
+		private const double UnknownValue = double.NaN;
 
 		/// <summary>
 		/// Represents the top position.
 		/// </summary>
-		public static Position Top { get; } = new Position(_topValue);
+		public static Position Top { get; } = new Position(TopValue);
 		/// <summary>
 		/// Represents the bottom position.
 		/// </summary>
-		public static Position Bottom { get; } = new Position(_bottomValue);
+		public static Position Bottom { get; } = new Position(BottomValue);
 		/// <summary>
 		/// Represents an invalid position.
 		/// </summary>
-		public static Position Unknown { get; } = new Position(_unknownValue);
+		public static Position Unknown { get; } = new Position(UnknownValue);
 
 		/// <summary>
 		/// Gets whether the position is valid.
 		/// </summary>
-		public bool IsValid => Equals(Value, _topValue) || (!Equals(Value, _unknownValue) && !Equals(Value, _topValue) && Value > 0);
+		public bool IsValid => Equals(Value, TopValue) || (!Equals(Value, UnknownValue) && !Equals(Value, TopValue) && Value > 0);
 		/// <summary>
 		/// Gets the internal numeric position value.
 		/// </summary>
@@ -84,45 +84,26 @@ namespace Manatee.Trello
 			return json;
 		}
 
-		/// <summary>
-		/// Compares the current object with another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings:
-		/// 
-		///     Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.
-		///     Zero This object is equal to <paramref name="other"/>.
-		///     Greater than zero This object is greater than <paramref name="other"/>. 
-		/// </returns>
-		/// <param name="other">An object to compare with this object.</param>
+		/// <summary>Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object. </summary>
+		/// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes <paramref name="other" /> in the sort order.  Zero This instance occurs in the same position in the sort order as <paramref name="other" />. Greater than zero This instance follows <paramref name="other" /> in the sort order. </returns>
+		/// <param name="other">An object to compare with this instance. </param>
 		public int CompareTo(Position other)
 		{
 			return Value.CompareTo(other.Value);
 		}
-		/// <summary>
-		/// Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
-		/// </summary>
-		/// <returns>
-		/// A value that indicates the relative order of the objects being compared. The return value has these meanings:
-		/// 
-		///     Value Meaning Less than zero This instance precedes <paramref name="obj"/> in the sort order.
-		///     Zero This instance occurs in the same position in the sort order as <paramref name="obj"/>.
-		///     Greater than zero This instance follows <paramref name="obj"/> in the sort order. 
-		/// </returns>
+
+		/// <summary>Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.</summary>
+		/// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes <paramref name="obj" /> in the sort order. Zero This instance occurs in the same position in the sort order as <paramref name="obj" />. Greater than zero This instance follows <paramref name="obj" /> in the sort order. </returns>
 		/// <param name="obj">An object to compare with this instance. </param>
-		/// <exception cref="ArgumentException">
-		/// <paramref name="obj"/> is not the same type as this instance.
-		/// </exception>
+		/// <exception cref="T:System.ArgumentException">
+		/// <paramref name="obj" /> is not the same type as this instance. </exception>
 		public int CompareTo(object obj)
 		{
 			return ((IComparable) Value).CompareTo(obj);
 		}
-		/// <summary>
-		/// Returns a string that represents the current object.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			if (Equals(Unknown)) return "unknown";

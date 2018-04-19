@@ -28,13 +28,14 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching membership, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="IBoardMembership.Id"/>, BoardMembership.<see cref="IMember.Id"/>, BoardMembership.<see cref="IMember.FullName"/>, and BoardMembership.<see cref="IMember.UserName"/>. Comparison is case-sensitive.
+		/// Matches on membership ID, member ID, BoardMembership. member full name, and member username. Comparison is case-sensitive.
 		/// </remarks>
 		public IBoardMembership this[string key] => GetByKey(key);
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});

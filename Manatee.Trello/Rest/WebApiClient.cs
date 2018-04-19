@@ -100,7 +100,7 @@ namespace Manatee.Trello.Rest
 			if (!response.IsSuccessStatusCode)
 				throw new HttpRequestException("Received a failure from Trello.\n" +
 											   $"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-											   $"Content: {response.Content.ReadAsStringAsync().Result}");
+											   $"Content: {await response.Content.ReadAsStringAsync()}");
 			return restResponse;
 		}
 		private static async Task<IRestResponse> MapResponse(HttpResponseMessage response)

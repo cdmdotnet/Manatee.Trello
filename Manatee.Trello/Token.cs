@@ -163,10 +163,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Permanently deletes the token from Trello.
+		/// Deletes the token.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the token from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
@@ -174,9 +175,11 @@ namespace Manatee.Trello
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
 				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the token to be refreshed the next time data is accessed.
+		/// Refreshes the token data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
@@ -187,12 +190,8 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Returns the <see cref="AppName"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return AppName;

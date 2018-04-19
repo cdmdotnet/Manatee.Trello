@@ -36,6 +36,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public BadgesContext BadgesContext { get; }
 		public CheckListCollection CheckLists { get; }
 		public CommentCollection Comments { get; }
+		public ReadOnlyCustomFieldCollection CustomFields { get; }
 		public CardLabelCollection Labels { get; }
 		public MemberCollection Members { get; }
 		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
@@ -143,6 +144,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Attachments = new AttachmentCollection(() => Data.Id, auth);
 			CheckLists = new CheckListCollection(() => Data.Id, auth);
 			Comments = new CommentCollection(() => Data.Id, auth);
+			CustomFields = new ReadOnlyCustomFieldCollection(() => Data.Id, auth);
 			Labels = new CardLabelCollection(this, auth);
 			Members = new MemberCollection(EntityRequestType.Card_Read_Members, () => Data.Id, auth);
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Card_Read_PowerUpData, () => Data.Id, auth);
@@ -283,6 +285,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				Comments.Update(json.Comments.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
 				properties.Add(nameof(Card.Comments));
+			}
+			if (json.CustomFields != null)
+			{
+				CustomFields.Update(json.CustomFields.Select(a => a.GetFromCache<CustomField, IJsonCustomField>(Auth, Data.Id)));
+				properties.Add(nameof(Card.CustomFields));
 			}
 			if (json.Labels != null)
 			{

@@ -43,8 +43,9 @@ namespace Manatee.Trello
 			_value = new Field<string>(_context, nameof(Value));
 		}
 		/// <summary>
-		/// Marks the attachment to be refreshed the next time data is accessed.
+		/// Refreshes the power-up data... data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);

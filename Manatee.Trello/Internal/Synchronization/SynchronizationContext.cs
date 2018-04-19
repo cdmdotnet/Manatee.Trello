@@ -11,6 +11,7 @@ namespace Manatee.Trello.Internal.Synchronization
 	internal abstract class SynchronizationContext
 	{
 		private readonly Timer _timer;
+		private readonly SemaphoreSlim _semaphore;
 		private readonly object _lock;
 		private bool _cancelUpdate;
 
@@ -25,10 +26,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			ManagesSubmissions = useTimer;
 			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
 			{
-				_timer = new Timer(async state => await _TimerElapsed(), null, TimeSpan.Zero, TrelloConfiguration.ChangeSubmissionTime);
+				_timer = new Timer(async state => await _TimerElapsed(), null,
+				                   TrelloConfiguration.ChangeSubmissionTime,
+				                   TrelloConfiguration.ChangeSubmissionTime);
 			}
 
 			_lock = new object();
+			_semaphore = new SemaphoreSlim(1, 1);
 			RestRequestProcessor.LastCall += _TimerElapsed;
 		}
 		~SynchronizationContext()
@@ -49,6 +53,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var handler = Synchronized;
 				handler?.Invoke(properties);
+				
 			}
 		}
 
@@ -72,14 +77,31 @@ namespace Manatee.Trello.Internal.Synchronization
 			_timer.Start(TrelloConfiguration.ChangeSubmissionTime);
 		}
 
+		protected async Task DoLocked(Func<CancellationToken, Task> action, CancellationToken ct)
+		{
+			await _semaphore.WaitAsync(ct);
+			try
+			{
+				await action(ct);
+			}
+			finally
+			{
+				_semaphore.Release();
+			}
+		}
+
 		private async Task _TimerElapsed()
 		{
 			_timer?.Stop();
-			if (!_cancelUpdate && HasChanges)
-				await _SubmitChanges(CancellationToken.None);
+			if (!_cancelUpdate)
+			{
+				await DoLocked(async t => await _SubmitChanges(t), CancellationToken.None);
+			}
 		}
 		private async Task _SubmitChanges(CancellationToken ct)
 		{
+			if (!HasChanges) return;
+
 			await Submit(ct);
 		}
 	}
@@ -113,13 +135,16 @@ namespace Manatee.Trello.Internal.Synchronization
 			var value = (T)Properties[property].Get(Data, Auth);
 			return value;
 		}
-		public override async Task SetValue<T>(string property, T value, CancellationToken ct)
+		public override Task SetValue<T>(string property, T value, CancellationToken ct)
 		{
-			if (!CanUpdate()) return;
+			return DoLocked(async t =>
+				{
+					if (!CanUpdate()) return;
 
-			Properties[property].Set(Data, value);
-			_localChanges.Add(property);
-			await ResetTimer(ct);
+					Properties[property].Set(Data, value);
+					_localChanges.Add(property);
+					await ResetTimer(t);
+				}, ct);
 		}
 
 		protected virtual Task<TJson> GetData(CancellationToken ct)

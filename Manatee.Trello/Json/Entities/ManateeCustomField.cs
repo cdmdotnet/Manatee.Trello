@@ -1,6 +1,7 @@
 ﻿using System;
 using Manatee.Json;
 using Manatee.Json.Serialization;
+using Manatee.Trello.Internal;
 
 namespace Manatee.Trello.Json.Entities
 {
@@ -14,6 +15,7 @@ namespace Manatee.Trello.Json.Entities
 		public bool? Checked { get; set; }
 		public IJsonCustomDropDownOption Selected { get; set; }
 		public CustomFieldType Type { get; set; }
+		public bool UseForClear { get; set; }
 		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -23,7 +25,7 @@ namespace Manatee.Trello.Json.Entities
 				case JsonValueType.Object:
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
-					Definition = serializer.Deserialize<IJsonCustomFieldDefinition>(obj);
+					Definition = obj.Deserialize<IJsonCustomFieldDefinition>(serializer, "idCustomField");
 					Selected = obj.Deserialize<IJsonCustomDropDownOption>(serializer, "idValue");
 					Type = obj.Deserialize<CustomFieldType?>(serializer, "type") ?? CustomFieldType.Unknown;
 					ValidForMerge = true;
@@ -64,10 +66,7 @@ namespace Manatee.Trello.Json.Entities
 							       ? date
 							       : (DateTime?) null;
 						if (Date != null)
-						{
 							Type = CustomFieldType.DateTime;
-							break;
-						}
 					}
 					break;
 				case JsonValueType.String:
@@ -78,7 +77,55 @@ namespace Manatee.Trello.Json.Entities
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			var obj = new JsonObject();
+			switch (Type)
+			{
+				case CustomFieldType.Text:
+					if (Text == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["text"] = Text;
+					break;
+				case CustomFieldType.DropDown:
+					if (Selected == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["idValue"] = Selected.Field.Id;
+					break;
+				case CustomFieldType.CheckBox:
+					if (Checked == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["checked"] = Checked.ToLowerString();
+					break;
+				case CustomFieldType.DateTime:
+					if (Date == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["date"] = serializer.Serialize(Date);
+					break;
+				case CustomFieldType.Number:
+					if (Number == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["number"] = Number.ToString();
+					break;
+				case CustomFieldType.Unknown:
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			return UseForClear ? (JsonValue) string.Empty : obj;
 		}
 	}
 }

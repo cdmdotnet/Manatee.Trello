@@ -102,6 +102,7 @@ namespace Manatee.Trello
 		private Webhook(string id, WebhookContext<T> context)
 		{
 			Id = id;
+			_context = context;
 			_context.Synchronized += Synchronized;
 
 			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
@@ -122,8 +123,10 @@ namespace Manatee.Trello
 		/// <param name="description"></param>
 		/// <param name="callBackUrl"></param>
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public static async Task<Webhook<T>> Create(T target, string callBackUrl, string description = null,
-		                                            TrelloAuthorization auth = null, CancellationToken ct = default(CancellationToken))
+		                                            TrelloAuthorization auth = null, 
+		                                            CancellationToken ct = default(CancellationToken))
 		{
 			var context = new WebhookContext<T>(auth);
 			var id = await context.Create(target, description, callBackUrl, ct);
@@ -131,10 +134,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Permanently deletes the webhook from Trello.
+		/// Deletes the webhook.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the webhook from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
@@ -142,9 +146,11 @@ namespace Manatee.Trello
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
 				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the webhook to be refreshed the next time data is accessed.
+		/// Refreshes the webhook data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);

@@ -24,13 +24,14 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching check list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="ICheckList.Id"/> and <see cref="ICheckList.Name"/>.  Comparison is case-sensitive.
+		/// Matches on checklist ID and name.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICheckList this[string key] => GetByKey(key);
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CheckLists, new Dictionary<string, object> {{"_id", OwnerId}});

@@ -2,17 +2,13 @@
 
 namespace Manatee.Trello
 {
+	/// <summary>
+	/// Thrown when an invalid license is registered.
+	/// </summary>
 	public class LicenseException : Exception
 	{
-		public LicenseException()
-		{
-		}
-
-		public LicenseException(string message) : base(message)
-		{
-		}
-
-		public LicenseException(string message, Exception innerException) : base(message, innerException)
+		internal LicenseException(string message)
+			: base(message)
 		{
 		}
 	}

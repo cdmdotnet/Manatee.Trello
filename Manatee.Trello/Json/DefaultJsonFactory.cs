@@ -9,13 +9,16 @@ namespace Manatee.Trello.Json
 	/// </summary>
 	public class DefaultJsonFactory : IJsonFactory
 	{
-		private static readonly Dictionary<Type, Func<object>> _factory;
+		private static readonly Dictionary<Type, Func<object>> Factory;
 
+		/// <summary>
+		/// Provides a singleton instance.
+		/// </summary>
 		public static DefaultJsonFactory Instance { get; } = new DefaultJsonFactory();
 
 		static DefaultJsonFactory()
 		{
-			_factory = new Dictionary<Type, Func<object>>
+			Factory = new Dictionary<Type, Func<object>>
 				{
 					{typeof (IJsonAction), () => new ManateeAction()},
 					{typeof (IJsonActionData), () => new ManateeActionData()},
@@ -68,7 +71,7 @@ namespace Manatee.Trello.Json
 		public T Create<T>()
 			where T : class
 		{
-			return (T) _factory[typeof (T)]();
+			return (T) Factory[typeof (T)]();
 		}
 	}
 }

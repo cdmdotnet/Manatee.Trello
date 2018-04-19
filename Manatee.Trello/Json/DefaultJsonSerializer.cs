@@ -17,6 +17,9 @@ namespace Manatee.Trello.Json
 		private readonly JsonSerializer _serializer;
 		private readonly MethodInfo _method;
 
+		/// <summary>
+		/// Provides a singleton instance.
+		/// </summary>
 		public static DefaultJsonSerializer Instance { get; } = new DefaultJsonSerializer();
 
 		/// <summary>

@@ -83,14 +83,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Deletes the organization.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
 		/// This permanently deletes the organization from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
-		/// Marks the organization to be refreshed the next time data is accessed.
+		/// Refreshes the organization data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

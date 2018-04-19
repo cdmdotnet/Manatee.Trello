@@ -11,7 +11,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets a collection of errors that occurred while validating the value.
 		/// </summary>
-		public IEnumerable<string> Errors { get; private set; }
+		public IEnumerable<string> Errors { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ValidationException{T}"/> object.

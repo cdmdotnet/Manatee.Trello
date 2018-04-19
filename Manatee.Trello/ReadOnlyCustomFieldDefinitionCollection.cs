@@ -11,22 +11,22 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of custom field definitions.
 	/// </summary>
-	public class ReadOnlyCustomFieldDefinitionCollection : ReadOnlyCollection<CustomFieldDefinition>
+	public class ReadOnlyCustomFieldDefinitionCollection : ReadOnlyCollection<ICustomFieldDefinition>
 	{
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCustomFieldDefinitionCollection"/> class.
 		/// </summary>
 		/// <param name="getOwnerId"></param>
 		/// <param name="auth"></param>
-		public ReadOnlyCustomFieldDefinitionCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+		internal ReadOnlyCustomFieldDefinitionCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
 		}
 
 		/// <summary>
-		/// Refreshes the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
-		/// <returns>A task.</returns>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_CustomFields,

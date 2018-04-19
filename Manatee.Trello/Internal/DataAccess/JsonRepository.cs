@@ -31,6 +31,15 @@ namespace Manatee.Trello.Internal.DataAccess
 			return response?.Data;
 		}
 
+	    public static async Task<TResponse> Execute<TRequest, TResponse>(TrelloAuthorization auth, Endpoint endpoint, TRequest body, CancellationToken ct)
+			where TResponse : class
+		{
+			var request = BuildRequest(auth, endpoint);
+			request.AddBody(body);
+			var response = await ProcessRequest<TResponse>(request, ct);
+			return response?.Data;
+		}
+
 		private static IRestRequest BuildRequest(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters = null)
 		{
 			var request = TrelloConfiguration.RestClientProvider.RequestProvider.Create(endpoint.ToString(), parameters);

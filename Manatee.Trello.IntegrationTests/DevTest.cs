@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
@@ -16,21 +17,25 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task TestMethod1()
 		{
-			await Run(async () =>
+			await Run(async ct =>
 				{
-					var list = _factory.List(TrelloIds.ListId);
-					await list.Refresh();
+					var card = _factory.Card(TrelloIds.CardId);
+					var board = _factory.Board(TrelloIds.BoardId);
 
-					OutputCollection("lists", list.Cards);
+					await board.Refresh(ct);
+
+					var field = board.CustomFields.FirstOrDefault(f => f.Type == CustomFieldType.Number);
+
+					await field.SetValueForCard(card, Math.PI, ct);
 				});
 		}
 
-		private static async Task Run(Func<Task> action)
+		private static async Task Run(Func<CancellationToken, Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			//TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			await action();
+			await action(CancellationToken.None);
 
 			await TrelloProcessor.Flush();
 		}

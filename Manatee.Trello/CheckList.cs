@@ -38,7 +38,7 @@ namespace Manatee.Trello
 			[Display(Description="card")]
 			Card = 1 << 2,
 			/// <summary>
-			/// Indicates the CheckItems property should be populated.
+			/// Indicates the checklist items will be downloaded.
 			/// </summary>
 			[Display(Description="checkItems")]
 			CheckItems = 1 << 3,
@@ -126,7 +126,7 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching check list item, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="ICheckItem.Id"/> and <see cref="ICheckItem.Name"/>.  Comparison is case-sensitive.
+		/// Matches on checkitem ID and name.  Comparison is case-sensitive.
 		/// </remarks>
 		public ICheckItem this[string key] => CheckItems[key];
 		/// <summary>
@@ -184,10 +184,11 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Permanently deletes the check list from Trello.
+		/// Deletes the checklist.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the checklist from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
@@ -195,9 +196,11 @@ namespace Manatee.Trello
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
 				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the check list to be refreshed the next time data is accessed.
+		/// Refreshes the checklist data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
@@ -208,12 +211,8 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		/// <summary>
-		/// Returns the <see cref="Name"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return Name;

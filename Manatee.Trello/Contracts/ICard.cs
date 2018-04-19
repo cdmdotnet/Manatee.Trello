@@ -13,7 +13,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
-		/// <remarks>By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.</remarks>
+		/// <remarks>
+		/// By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.
+		/// </remarks>
 		IReadOnlyCollection<IAction> Actions { get; }
 
 		/// <summary>
@@ -46,7 +48,10 @@ namespace Manatee.Trello
 		/// </summary>
 		DateTime CreationDate { get; }
 
-		IEnumerable<CustomField> CustomFields { get; }
+		/// <summary>
+		/// Gets the collection of custom field values for the card.
+		/// </summary>
+		IReadOnlyCollection<ICustomField> CustomFields { get; }
 
 		/// <summary>
 		/// Gets or sets the card's description.
@@ -167,15 +172,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Deletes the card.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This permanently deletes the card from Trello's server, however, this object will
-		/// remain in memory and all properties will remain accessible.
+		/// This permanently deletes the card from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
-		/// Marks the card to be refreshed the next time data is accessed.
+		/// Refreshes the card data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Refresh(CancellationToken ct = default(CancellationToken));
 	}
 }

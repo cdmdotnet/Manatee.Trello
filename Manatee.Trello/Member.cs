@@ -107,15 +107,29 @@ namespace Manatee.Trello
 			/// </summary>
 			[Display(Description="username")]
 			Username = 1 << 17,
+			/// <summary>
+			/// Indicates the actions will be downloaded.
+			/// </summary>
 			Actions = 1 << 18,
+			/// <summary>
+			/// Indicates the boards will be downloaded.
+			/// </summary>
 			Boards = 1 << 19,
+			/// <summary>
+			/// Indicates the organizations will be downloaded.
+			/// </summary>
 			Organizations = 1 << 20,
-			// TODO: add
+			/// <summary>
+			/// Indicates the cards will be downloaded.
+			/// </summary>
 			Cards = 1 << 21,
+			/// <summary>
+			/// Indicates the notifications will be downloaded.
+			/// </summary>
 			Notifications = 1 << 22,
 		}
 
-		private const string _avatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
+		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
 
 		private readonly Field<AvatarSource?> _avatarSource;
 		private readonly Field<string> _avatarUrl;
@@ -264,6 +278,11 @@ namespace Manatee.Trello
 		/// </summary>
 		public event Action<IMember, IEnumerable<string>> Updated;
 
+		static Member()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="Member"/> object.
 		/// </summary>
@@ -314,19 +333,19 @@ namespace Manatee.Trello
 			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
 			_context.Merge(((Member) action.Data.Member).Json);
 		}
+
 		/// <summary>
-		/// Marks the member to be refreshed the next time data is accessed.
+		/// Refreshes the member data.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns the <see cref="FullName"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return FullName;
@@ -346,7 +365,7 @@ namespace Manatee.Trello
 		private string GetAvatar()
 		{
 			var hash = _avatarUrl.Value;
-			return hash.IsNullOrWhiteSpace() ? null : string.Format(_avatarUrlFormat, hash);
+			return hash.IsNullOrWhiteSpace() ? null : string.Format(AvatarUrlFormat, hash);
 		}
 	}
 }
