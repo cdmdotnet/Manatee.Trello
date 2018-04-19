@@ -53,5 +53,9 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		CustomFieldType Type { get; set; }
+		/// <summary>
+		/// Used to signal the value should be cleared.
+		/// </summary>
+		bool UseForClear { get; set; }
 	}
 }

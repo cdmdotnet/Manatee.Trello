@@ -15,6 +15,7 @@ namespace Manatee.Trello.Json.Entities
 		public bool? Checked { get; set; }
 		public IJsonCustomDropDownOption Selected { get; set; }
 		public CustomFieldType Type { get; set; }
+		public bool UseForClear { get; set; }
 		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -76,16 +77,55 @@ namespace Manatee.Trello.Json.Entities
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			var obj = new JsonObject
-				{
-					["text"] = Text ?? string.Empty,
-					["number"] = Number?.ToString() ?? string.Empty,
-					["date"] = Date == null ? string.Empty : serializer.Serialize(Date),
-					["checked"] = Checked?.ToLowerString() ?? string.Empty,
-					["idValue"] = Selected?.Field?.Id ?? string.Empty
-				};
+			var obj = new JsonObject();
+			switch (Type)
+			{
+				case CustomFieldType.Text:
+					if (Text == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["text"] = Text;
+					break;
+				case CustomFieldType.DropDown:
+					if (Selected == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["idValue"] = Selected.Field.Id;
+					break;
+				case CustomFieldType.CheckBox:
+					if (Checked == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["checked"] = Checked.ToLowerString();
+					break;
+				case CustomFieldType.DateTime:
+					if (Date == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["date"] = serializer.Serialize(Date);
+					break;
+				case CustomFieldType.Number:
+					if (Number == null)
+					{
+						UseForClear = true;
+						break;
+					}
+					obj["number"] = Number.ToString();
+					break;
+				case CustomFieldType.Unknown:
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 
-			return obj;
+			return UseForClear ? (JsonValue) string.Empty : obj;
 		}
 	}
 }

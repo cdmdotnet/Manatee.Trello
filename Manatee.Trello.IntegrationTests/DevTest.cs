@@ -27,7 +27,7 @@ namespace Manatee.Trello.IntegrationTests
 
 					var firstField = card.CustomFields.OfType<NumberField>().First();
 
-					firstField.Value = Math.PI;
+					firstField.Value = 9;
 				});
 		}
 
