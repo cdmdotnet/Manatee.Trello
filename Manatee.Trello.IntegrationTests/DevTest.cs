@@ -18,20 +18,17 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async () =>
 				{
-					var query = _factory.SearchQuery()
-					                    .Text("library");
-					var search = _factory.Search(query);
+					var list = _factory.List(TrelloIds.ListId);
+					await list.Refresh();
 
-					await search.Refresh();
-
-					OutputCollection("cards", search.Cards);
+					OutputCollection("lists", list.Cards);
 				});
 		}
 
 		private static async Task Run(Func<Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			//TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
 			await action();
 

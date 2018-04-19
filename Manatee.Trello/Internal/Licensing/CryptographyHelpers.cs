@@ -31,12 +31,22 @@ namespace Manatee.Trello.Internal.Licensing
 			serializer.CustomSerializations.RegisterType(ToBase64String, FromBase64String);
 			var parameters = serializer.Deserialize<RSAParameters>(publicKeyJson);
 
+#if NET45
+			using (var rsaCryptoServiceProvider = new RSACryptoServiceProvider())
+			using (var sha1CryptoServiceProvider = new SHA1CryptoServiceProvider())
+			{
+				rsaCryptoServiceProvider.ImportParameters(parameters);
+
+				valid = rsaCryptoServiceProvider.VerifyData(data, sha1CryptoServiceProvider, signature);
+			}
+#else
 			using (var rsa = RSA.Create())
 			{
 				rsa.ImportParameters(parameters);
 
 				valid = rsa.VerifyData(data, signature, HashAlgorithmName.SHA1, RSASignaturePadding.Pkcs1);
 			}
+#endif
 
 			return valid;
 		}

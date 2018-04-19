@@ -38,7 +38,7 @@
       <HintPath>..\packages\FluentAssertions.5.0.0-rc0002\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="Manatee.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=c267f67a39449c62, processorArchitecture=MSIL">
-      <HintPath>..\packages\Manatee.Json.9.6.0\lib\netstandard1.3\Manatee.Json.dll</HintPath>
+      <HintPath>..\packages\Manatee.Json.9.8.0\lib\net45\Manatee.Json.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
