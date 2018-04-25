@@ -1,3 +1,5 @@
+set arg1=%1
+
 cd Wiki
 git pull
 cd ..
@@ -8,11 +10,15 @@ git pull
 
 dotnet run -p AutoWiki.csproj ..\..\Wiki
 
-cd ..\..\Wiki
-git add -A
-git commit -m "updated after build"
-git push
+if "%1" NEQ "-local" (
+    echo "-local not found"
+    exit /B
+    cd ..\..\Wiki
+    git add -A
+    git commit -m "updated after build"
+    git push
+)
 
-cd ..
+cd ..\..
 
 rd /s /q AutoWiki
