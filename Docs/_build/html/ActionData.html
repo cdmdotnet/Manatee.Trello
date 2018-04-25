@@ -1,0 +1,504 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ActionData &#8212; Manatee.Trello 3.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="actiondata">
+<span id="actiondata"></span><h1>ActionData<a class="headerlink" href="#actiondata" title="Permalink to this headline">¶</a></h1>
+<p>Exposes any data associated with an action.</p>
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+<p><strong>Namespace:</strong> Manatee.Trello</p>
+<p><strong>Inheritance hierarchy:</strong></p>
+<ul class="simple">
+<li>Object</li>
+<li>ActionData</li>
+</ul>
+<div class="section" id="properties">
+<span id="properties"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="iattachment-attachment-get">
+<span id="iattachment-attachment-get"></span><h3><a class="reference external" href="IAttachment#iattachment">IAttachment</a> Attachment { get; }<a class="headerlink" href="#iattachment-attachment-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated attachment.</p>
+<div class="section" id="associated-action-types">
+<span id="associated-action-types"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddAttachmentToCard</li>
+<li>DeleteAttachmentFromCard</li>
+</ul>
+</div>
+</div>
+<div class="section" id="iboard-board-get">
+<span id="iboard-board-get"></span><h3><a class="reference external" href="IBoard#iboard">IBoard</a> Board { get; }<a class="headerlink" href="#iboard-board-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated board.</p>
+<div class="section" id="associated-action-types">
+<span id="id1"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddMemberToBoard</li>
+<li>AddToOrganizationBoard</li>
+<li>CreateBoard</li>
+<li>DeleteBoardInvitation</li>
+<li>MakeAdminOfBoard</li>
+<li>MakeNormalMemberOfBoard</li>
+<li>MakeObserverOfBoard</li>
+<li>RemoveFromOrganizationBoard</li>
+<li>UnconfirmedBoardInvitation</li>
+<li>UpdateBoard</li>
+</ul>
+</div>
+</div>
+<div class="section" id="iboard-boardsource-get">
+<span id="iboard-boardsource-get"></span><h3><a class="reference external" href="IBoard#iboard">IBoard</a> BoardSource { get; }<a class="headerlink" href="#iboard-boardsource-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated board.</p>
+<div class="section" id="associated-action-types">
+<span id="id2"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CopyBoard</li>
+</ul>
+</div>
+</div>
+<div class="section" id="iboard-boardtarget-get">
+<span id="iboard-boardtarget-get"></span><h3><a class="reference external" href="IBoard#iboard">IBoard</a> BoardTarget { get; }<a class="headerlink" href="#iboard-boardtarget-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated board.</p>
+<div class="section" id="associated-action-types">
+<span id="id3"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CopyBoardx</li>
+</ul>
+</div>
+</div>
+<div class="section" id="icard-card-get">
+<span id="icard-card-get"></span><h3><a class="reference external" href="ICard#icard">ICard</a> Card { get; }<a class="headerlink" href="#icard-card-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated card.</p>
+<div class="section" id="associated-action-types">
+<span id="id4"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddAttachmentToCard</li>
+<li>AddChecklistToCard</li>
+<li>AddMemberToCard</li>
+<li>CommentCard</li>
+<li>ConvertToCardFromCheckItem</li>
+<li>CopyCommentCard</li>
+<li>CreateCard</li>
+<li>DeleteAttachmentFromCard</li>
+<li>DeleteCard</li>
+<li>EmailCard</li>
+<li>MoveCardFromBoard</li>
+<li>MoveCardToBoard</li>
+<li>RemoveChecklistFromCard</li>
+<li>RemoveMemberFromCard</li>
+<li>UpdateCard</li>
+<li>UpdateCardClosed</li>
+<li>UpdateCardDesc</li>
+<li>UpdateCardIdList</li>
+<li>UpdateCardName</li>
+<li>UpdateCheckItemStateOnCard</li>
+</ul>
+</div>
+</div>
+<div class="section" id="icard-cardsource-get">
+<span id="icard-cardsource-get"></span><h3><a class="reference external" href="ICard#icard">ICard</a> CardSource { get; }<a class="headerlink" href="#icard-cardsource-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated card.</p>
+<div class="section" id="associated-action-types">
+<span id="id5"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CopyCard</li>
+</ul>
+</div>
+</div>
+<div class="section" id="icheckitem-checkitem-get">
+<span id="icheckitem-checkitem-get"></span><h3><a class="reference external" href="ICheckItem#icheckitem">ICheckItem</a> CheckItem { get; }<a class="headerlink" href="#icheckitem-checkitem-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated checklist item.</p>
+<div class="section" id="associated-action-types">
+<span id="id6"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ConvertToCardFromCheckItem</li>
+<li>UpdateCheckItemStateOnCard</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ichecklist-checklist-get">
+<span id="ichecklist-checklist-get"></span><h3><a class="reference external" href="ICheckList#ichecklist">ICheckList</a> CheckList { get; }<a class="headerlink" href="#ichecklist-checklist-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated checklist.</p>
+<div class="section" id="associated-action-types">
+<span id="id7"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddChecklistToCard</li>
+<li>RemoveChecklistFromCard</li>
+<li>UpdateChecklist</li>
+</ul>
+</div>
+</div>
+<div class="section" id="icustomfielddefinition-customfield-get">
+<span id="icustomfielddefinition-customfield-get"></span><h3><a class="reference external" href="ICustomFieldDefinition#icustomfielddefinition">ICustomFieldDefinition</a> CustomField { get; }<a class="headerlink" href="#icustomfielddefinition-customfield-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an associated custom field definition.</p>
+<div class="section" id="associated-action-types">
+<span id="id8"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UpdateCustomField</li>
+<li>UpdateCustomFieldItem</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ilabel-label-get">
+<span id="ilabel-label-get"></span><h3><a class="reference external" href="ILabel#ilabel">ILabel</a> Label { get; }<a class="headerlink" href="#ilabel-label-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the associated label.</p>
+<div class="section" id="associated-action-types">
+<span id="id9"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddLabelToCard</li>
+<li>CreateLabel</li>
+<li>DeleteLabel</li>
+<li>RemoveLabelFromCard</li>
+<li>UpdateLabel</li>
+</ul>
+</div>
+</div>
+<div class="section" id="datetime-lastedited-get">
+<span id="datetime-lastedited-get"></span><h3>DateTime? LastEdited { get; }<a class="headerlink" href="#datetime-lastedited-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the date/time a comment was last edited.</p>
+</div>
+<div class="section" id="ilist-list-get">
+<span id="ilist-list-get"></span><h3><a class="reference external" href="IList#ilist">IList</a> List { get; }<a class="headerlink" href="#ilist-list-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated list.</p>
+<div class="section" id="associated-action-types">
+<span id="id10"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CreateList</li>
+<li>MoveListFromBoard</li>
+<li>MoveListToBoard</li>
+<li>UpdateList</li>
+<li>UpdateListClosed</li>
+<li>UpdateListName</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ilist-listafter-get">
+<span id="ilist-listafter-get"></span><h3><a class="reference external" href="IList#ilist">IList</a> ListAfter { get; }<a class="headerlink" href="#ilist-listafter-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the current list.</p>
+<div class="section" id="associated-action-types">
+<span id="id11"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UpdateCardIdList</li>
+</ul>
+</div>
+<div class="section" id="remarks">
+<span id="remarks"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>For some action types, this information may be in the <a class="reference external" href="ActionData#ilist-list--get-">List</a> or <a class="reference external" href="ActionData#ilist-oldlist--get-">OldList</a> properties.</p>
+</div>
+</div>
+<div class="section" id="ilist-listbefore-get">
+<span id="ilist-listbefore-get"></span><h3><a class="reference external" href="IList#ilist">IList</a> ListBefore { get; }<a class="headerlink" href="#ilist-listbefore-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the previous list.</p>
+<div class="section" id="associated-action-types">
+<span id="id12"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UpdateCardIdList</li>
+</ul>
+</div>
+<div class="section" id="remarks">
+<span id="id13"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>For some action types, this information may be in the <a class="reference external" href="ActionData#ilist-list--get-">List</a> or <a class="reference external" href="ActionData#ilist-oldlist--get-">OldList</a> properties.</p>
+</div>
+</div>
+<div class="section" id="imember-member-get">
+<span id="imember-member-get"></span><h3><a class="reference external" href="IMember#imember">IMember</a> Member { get; }<a class="headerlink" href="#imember-member-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an assocated member.</p>
+<div class="section" id="associated-action-types">
+<span id="id14"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddMemberToBoard</li>
+<li>AddMemberToCard</li>
+<li>AddMemberToOrganization</li>
+<li>MakeNormalMemberOfBoard</li>
+<li>MakeNormalMemberOfOrganization</li>
+<li>MemberJoinedTrello</li>
+<li>RemoveMemberFromCard</li>
+<li>UpdateMember</li>
+</ul>
+</div>
+</div>
+<div class="section" id="string-olddescription-get">
+<span id="string-olddescription-get"></span><h3>string OldDescription { get; }<a class="headerlink" href="#string-olddescription-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the previous description.</p>
+<div class="section" id="associated-action-types">
+<span id="id15"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UpdateCard</li>
+<li>UpdateCardDesc</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ilist-oldlist-get">
+<span id="ilist-oldlist-get"></span><h3><a class="reference external" href="IList#ilist">IList</a> OldList { get; }<a class="headerlink" href="#ilist-oldlist-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the previous list.</p>
+<div class="section" id="associated-action-types">
+<span id="id16"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UpdateCard</li>
+<li>UpdateCardIdList</li>
+</ul>
+</div>
+<div class="section" id="remarks">
+<span id="id17"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>For some action types, this information may be in the <a class="reference external" href="ActionData#ilist-listafter--get-">ListAfter</a> or <a class="reference external" href="ActionData#ilist-listbefore--get-">ListBefore</a> properties.</p>
+</div>
+</div>
+<div class="section" id="position-oldposition-get">
+<span id="position-oldposition-get"></span><h3><a class="reference external" href="Position#position">Position</a> OldPosition { get; }<a class="headerlink" href="#position-oldposition-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the previous position.</p>
+<div class="section" id="associated-action-types">
+<span id="id18"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UpdateCard</li>
+<li>UpdateList</li>
+<li>UpdateCustomField</li>
+</ul>
+</div>
+</div>
+<div class="section" id="string-oldtext-get">
+<span id="string-oldtext-get"></span><h3>string OldText { get; }<a class="headerlink" href="#string-oldtext-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the previous text value.</p>
+<div class="section" id="associated-action-types">
+<span id="id19"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UpdateCard</li>
+<li>CommentCard</li>
+</ul>
+</div>
+</div>
+<div class="section" id="iorganization-organization-get">
+<span id="iorganization-organization-get"></span><h3><a class="reference external" href="IOrganization#iorganization">IOrganization</a> Organization { get; }<a class="headerlink" href="#iorganization-organization-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an associated organization.</p>
+<div class="section" id="associated-action-types">
+<span id="id20"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>AddMemberToOrganization</li>
+<li>AddToOrganizationBoard</li>
+<li>CreateOrganization</li>
+<li>DeleteOrganizationInvitation</li>
+<li>MakeNormalMemberOfOrganization</li>
+<li>RemoveFromOrganizationBoard</li>
+<li>UnconfirmedOrganizationInvitation</li>
+<li>UpdateOrganization</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ipowerup-powerup-get">
+<span id="ipowerup-powerup-get"></span><h3><a class="reference external" href="IPowerUp#ipowerup">IPowerUp</a> PowerUp { get; }<a class="headerlink" href="#ipowerup-powerup-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets an associated power-up.</p>
+<div class="section" id="associated-action-types">
+<span id="id21"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>DisablePowerUp</li>
+<li>EnablePowerUp</li>
+</ul>
+</div>
+</div>
+<div class="section" id="string-text-get-set">
+<span id="string-text-get-set"></span><h3>string Text { get; set; }<a class="headerlink" href="#string-text-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets assocated text.</p>
+<div class="section" id="associated-action-types">
+<span id="id22"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>CommentCard</li>
+</ul>
+</div>
+</div>
+<div class="section" id="string-value-get">
+<span id="string-value-get"></span><h3>string Value { get; }<a class="headerlink" href="#string-value-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets a custom value associate with the action if any.</p>
+</div>
+<div class="section" id="bool-wasarchived-get">
+<span id="bool-wasarchived-get"></span><h3>bool? WasArchived { get; }<a class="headerlink" href="#bool-wasarchived-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets whether the object was previously archived.</p>
+<div class="section" id="associated-action-types">
+<span id="id23"></span><h4>Associated Action Types<a class="headerlink" href="#associated-action-types" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>UpdateCardClosed</li>
+<li>UpdateListClosed</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ActionData</a><ul>
+<li><a class="reference internal" href="#properties">Properties</a><ul>
+<li><a class="reference internal" href="#iattachment-attachment-get">IAttachment Attachment { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iboard-board-get">IBoard Board { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iboard-boardsource-get">IBoard BoardSource { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iboard-boardtarget-get">IBoard BoardTarget { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#icard-card-get">ICard Card { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#icard-cardsource-get">ICard CardSource { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#icheckitem-checkitem-get">ICheckItem CheckItem { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ichecklist-checklist-get">ICheckList CheckList { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#icustomfielddefinition-customfield-get">ICustomFieldDefinition CustomField { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ilabel-label-get">ILabel Label { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#datetime-lastedited-get">DateTime? LastEdited { get; }</a></li>
+<li><a class="reference internal" href="#ilist-list-get">IList List { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ilist-listafter-get">IList ListAfter { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ilist-listbefore-get">IList ListBefore { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#imember-member-get">IMember Member { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-olddescription-get">string OldDescription { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ilist-oldlist-get">IList OldList { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#position-oldposition-get">Position OldPosition { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-oldtext-get">string OldText { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iorganization-organization-get">IOrganization Organization { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ipowerup-powerup-get">IPowerUp PowerUp { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-text-get-set">string Text { get; set; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-value-get">string Value { get; }</a></li>
+<li><a class="reference internal" href="#bool-wasarchived-get">bool? WasArchived { get; }</a><ul>
+<li><a class="reference internal" href="#associated-action-types">Associated Action Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ActionData.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Greg Dennis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/ActionData.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

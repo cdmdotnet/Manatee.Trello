@@ -1,0 +1,258 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ITrelloFactory &#8212; Manatee.Trello 3.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="itrellofactory">
+<span id="itrellofactory"></span><h1>ITrelloFactory<a class="headerlink" href="#itrellofactory" title="Permalink to this headline">¶</a></h1>
+<p>Supports entity creation for dependency-injected applications.</p>
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+<p><strong>Namespace:</strong> Manatee.Trello</p>
+<p><strong>Inheritance hierarchy:</strong></p>
+<ul class="simple">
+<li>ITrelloFactory</li>
+</ul>
+<div class="section" id="methods">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="iaction-action-string-id-trelloauthorization-auth">
+<span id="iaction-action-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="IAction#iaction">IAction</a> Action(string id, TrelloAuthorization auth)<a class="headerlink" href="#iaction-action-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="IAction#iaction">IAction</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The action ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="IAction#iaction">IAction</a></p>
+</div>
+<div class="section" id="iboard-board-string-id-trelloauthorization-auth">
+<span id="iboard-board-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="IBoard#iboard">IBoard</a> Board(string id, TrelloAuthorization auth)<a class="headerlink" href="#iboard-board-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="IBoard#iboard">IBoard</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The board ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="IBoard#iboard">IBoard</a></p>
+</div>
+<div class="section" id="icard-card-string-id-trelloauthorization-auth">
+<span id="icard-card-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="ICard#icard">ICard</a> Card(string id, TrelloAuthorization auth)<a class="headerlink" href="#icard-card-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="ICard#icard">ICard</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The board ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="ICard#icard">ICard</a></p>
+</div>
+<div class="section" id="ichecklist-checklist-string-id-trelloauthorization-auth">
+<span id="ichecklist-checklist-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="ICheckList#ichecklist">ICheckList</a> CheckList(string id, TrelloAuthorization auth)<a class="headerlink" href="#ichecklist-checklist-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="ICheckList#ichecklist">ICheckList</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The checklist ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="ICheckList#ichecklist">ICheckList</a></p>
+</div>
+<div class="section" id="ilist-list-string-id-trelloauthorization-auth">
+<span id="ilist-list-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="IList#ilist">IList</a> List(string id, TrelloAuthorization auth)<a class="headerlink" href="#ilist-list-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="IList#ilist">IList</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The list ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="IList#ilist">IList</a></p>
+</div>
+<div class="section" id="task-lt-ime-gt-me-cancellationtoken-ct">
+<span id="task-lt-ime-gt-me-cancellationtoken-ct"></span><h3>Task<p>&amp;lt;</p>
+IMe<p>&amp;gt;</p>
+ Me(CancellationToken ct)<a class="headerlink" href="#task-lt-ime-gt-me-cancellationtoken-ct" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="IMe#ime">IMe</a>.</p>
+<p><strong>Parameter:</strong> ct</p>
+<p>(Optional) A cancellation token for async processing.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="IMe#ime">IMe</a></p>
+<div class="section" id="remarks">
+<span id="remarks"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>This performs a call to the API to get the member authorized by <a class="reference external" href="TrelloAuthorization#static-trelloauthorization-default--get-">TrelloAuthorization.Default</a>.</p>
+</div>
+</div>
+<div class="section" id="imember-member-string-id-trelloauthorization-auth">
+<span id="imember-member-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="IMember#imember">IMember</a> Member(string id, TrelloAuthorization auth)<a class="headerlink" href="#imember-member-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="IMember#imember">IMember</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The member ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="IMember#imember">IMember</a></p>
+</div>
+<div class="section" id="inotification-notification-string-id-trelloauthorization-auth">
+<span id="inotification-notification-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="INotification#inotification">INotification</a> Notification(string id, TrelloAuthorization auth)<a class="headerlink" href="#inotification-notification-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="INotification#inotification">INotification</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The notification ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="INotification#inotification">INotification</a></p>
+</div>
+<div class="section" id="iorganization-organization-string-id-trelloauthorization-auth">
+<span id="iorganization-organization-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="IOrganization#iorganization">IOrganization</a> Organization(string id, TrelloAuthorization auth)<a class="headerlink" href="#iorganization-organization-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="IOrganization#iorganization">IOrganization</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The action ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="IOrganization#iorganization">IOrganization</a></p>
+</div>
+<div class="section" id="isearchquery-searchquery">
+<span id="isearchquery-searchquery"></span><h3><a class="reference external" href="ISearchQuery#isearchquery">ISearchQuery</a> SearchQuery()<a class="headerlink" href="#isearchquery-searchquery" title="Permalink to this headline">¶</a></h3>
+<p>Creates a new empty <a class="reference external" href="ISearchQuery#isearchquery">ISearchQuery</a>.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="ISearchQuery#isearchquery">ISearchQuery</a></p>
+</div>
+<div class="section" id="itoken-token-string-id-trelloauthorization-auth">
+<span id="itoken-token-string-id-trelloauthorization-auth"></span><h3><a class="reference external" href="IToken#itoken">IToken</a> Token(string id, TrelloAuthorization auth)<a class="headerlink" href="#itoken-token-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an <a class="reference external" href="IToken#itoken">IToken</a>.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The action ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An <a class="reference external" href="IToken#itoken">IToken</a></p>
+</div>
+<div class="section" id="task-1-webhook-lt-t-gt-t-target-string-callbackurl-string-description-trelloauthorization-auth-cancellationtoken-ct">
+<span id="task-1-webhook-lt-t-gt-t-target-string-callbackurl-string-description-trelloauthorization-auth-cancellationtoken-ct"></span><h3>Task`1 Webhook<p>&amp;lt;</p>
+T<p>&amp;gt;</p>
+(T target, string callBackUrl, string description, TrelloAuthorization auth, CancellationToken ct)<a class="headerlink" href="#task-1-webhook-lt-t-gt-t-target-string-callbackurl-string-description-trelloauthorization-auth-cancellationtoken-ct" title="Permalink to this headline">¶</a></h3>
+<p>Creates an [IWebhook<code class="docutils literal notranslate"><span class="pre">1](IWebhook</span></code>1#iwebhook1) and registers a new webhook with Trello.</p>
+<p><strong>Type Parameter:</strong> T : <a class="reference external" href="ICanWebhook#icanwebhook">ICanWebhook</a></p>
+<p><strong>Parameter:</strong> target</p>
+<p>The action ID.</p>
+<p><strong>Parameter:</strong> callBackUrl</p>
+<p>A URL that Trello can POST to.</p>
+<p><strong>Parameter:</strong> description</p>
+<p>A description.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Parameter:</strong> ct</p>
+<p>(Optional) A cancellation token for async processing.</p>
+<p><strong>Returns:</strong> An [IWebhook<code class="docutils literal notranslate"><span class="pre">1](IWebhook</span></code>1#iwebhook1)</p>
+</div>
+<div class="section" id="iwebhook-1-webhook-lt-t-gt-string-id-trelloauthorization-auth">
+<span id="iwebhook-1-webhook-lt-t-gt-string-id-trelloauthorization-auth"></span><h3>IWebhook`1 Webhook<p>&amp;lt;</p>
+T<p>&amp;gt;</p>
+(string id, TrelloAuthorization auth)<a class="headerlink" href="#iwebhook-1-webhook-lt-t-gt-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates an [IWebhook<code class="docutils literal notranslate"><span class="pre">1](IWebhook</span></code>1#iwebhook1) for and existing webhook.</p>
+<p><strong>Type Parameter:</strong> T : <a class="reference external" href="ICanWebhook#icanwebhook">ICanWebhook</a></p>
+<p><strong>Parameter:</strong> id</p>
+<p>The action ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) The authorization.</p>
+<p><strong>Returns:</strong> An [IWebhook<code class="docutils literal notranslate"><span class="pre">1](IWebhook</span></code>1#iwebhook1)</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ITrelloFactory</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
+<li><a class="reference internal" href="#iaction-action-string-id-trelloauthorization-auth">IAction Action(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#iboard-board-string-id-trelloauthorization-auth">IBoard Board(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#icard-card-string-id-trelloauthorization-auth">ICard Card(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#ichecklist-checklist-string-id-trelloauthorization-auth">ICheckList CheckList(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#ilist-list-string-id-trelloauthorization-auth">IList List(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#task-lt-ime-gt-me-cancellationtoken-ct">Task<p>&amp;lt;</p>
+IMe<p>&amp;gt;</p>
+ Me(CancellationToken ct)</a><ul>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#imember-member-string-id-trelloauthorization-auth">IMember Member(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#inotification-notification-string-id-trelloauthorization-auth">INotification Notification(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#iorganization-organization-string-id-trelloauthorization-auth">IOrganization Organization(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#isearchquery-searchquery">ISearchQuery SearchQuery()</a></li>
+<li><a class="reference internal" href="#itoken-token-string-id-trelloauthorization-auth">IToken Token(string id, TrelloAuthorization auth)</a></li>
+<li><a class="reference internal" href="#task-1-webhook-lt-t-gt-t-target-string-callbackurl-string-description-trelloauthorization-auth-cancellationtoken-ct">Task`1 Webhook<p>&amp;lt;</p>
+T<p>&amp;gt;</p>
+(T target, string callBackUrl, string description, TrelloAuthorization auth, CancellationToken ct)</a></li>
+<li><a class="reference internal" href="#iwebhook-1-webhook-lt-t-gt-string-id-trelloauthorization-auth">IWebhook`1 Webhook<p>&amp;lt;</p>
+T<p>&amp;gt;</p>
+(string id, TrelloAuthorization auth)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ITrelloFactory.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Greg Dennis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/ITrelloFactory.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

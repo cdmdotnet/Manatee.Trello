@@ -1,0 +1,391 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Card &#8212; Manatee.Trello 3.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="card">
+<span id="card"></span><h1>Card<a class="headerlink" href="#card" title="Permalink to this headline">¶</a></h1>
+<p>Represents a card.</p>
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+<p><strong>Namespace:</strong> Manatee.Trello</p>
+<p><strong>Inheritance hierarchy:</strong></p>
+<ul class="simple">
+<li>Object</li>
+<li>Card</li>
+</ul>
+<div class="section" id="constructors">
+<span id="constructors"></span><h2>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="card-string-id-trelloauthorization-auth">
+<span id="card-string-id-trelloauthorization-auth"></span><h3>Card(string id, TrelloAuthorization auth)<a class="headerlink" href="#card-string-id-trelloauthorization-auth" title="Permalink to this headline">¶</a></h3>
+<p>Creates a new instance of the <a class="reference external" href="Card#card">Card</a> object.</p>
+<p><strong>Parameter:</strong> id</p>
+<p>The card<p>’</p>
+s ID.</p>
+<p><strong>Parameter:</strong> auth</p>
+<p>(Optional) Custom authorization parameters. When not provided, <a class="reference external" href="TrelloAuthorization#static-trelloauthorization-default--get-">TrelloAuthorization.Default</a> will be used.</p>
+<div class="section" id="remarks">
+<span id="remarks"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>The supplied ID can be either the full or short ID.</p>
+</div>
+</div>
+</div>
+<div class="section" id="properties">
+<span id="properties"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="static-manatee-trello-card-fields-downloadedfields-get-set">
+<span id="static-manatee-trello-card-fields-downloadedfields-get-set"></span><h3>static Manatee.Trello.Card+Fields DownloadedFields { get; set; }<a class="headerlink" href="#static-manatee-trello-card-fields-downloadedfields-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Specifies which fields should be downloaded.</p>
+</div>
+<div class="section" id="manatee-trello-ireadonlycollection-1-manatee-trello-iaction-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-actions-get">
+<span id="manatee-trello-ireadonlycollection-1-manatee-trello-iaction-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-actions-get"></span><h3>Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }<a class="headerlink" href="#manatee-trello-ireadonlycollection-1-manatee-trello-iaction-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-actions-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the collection of actions performed on this card.</p>
+<div class="section" id="remarks">
+<span id="id1"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>By default imposed by Trello, this contains actions of type <a class="reference external" href="ActionType#static-actiontype-commentcard">ActionType.CommentCard</a>.</p>
+</div>
+</div>
+<div class="section" id="iattachmentcollection-attachments-get">
+<span id="iattachmentcollection-attachments-get"></span><h3><a class="reference external" href="IAttachmentCollection#iattachmentcollection">IAttachmentCollection</a> Attachments { get; }<a class="headerlink" href="#iattachmentcollection-attachments-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the collection of attachments contained in the card.</p>
+</div>
+<div class="section" id="ibadges-badges-get">
+<span id="ibadges-badges-get"></span><h3><a class="reference external" href="IBadges#ibadges">IBadges</a> Badges { get; }<a class="headerlink" href="#ibadges-badges-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the badges summarizing the card<p>’</p>
+s content.</p>
+</div>
+<div class="section" id="iboard-board-get">
+<span id="iboard-board-get"></span><h3><a class="reference external" href="IBoard#iboard">IBoard</a> Board { get; }<a class="headerlink" href="#iboard-board-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the board to which the card belongs.</p>
+</div>
+<div class="section" id="ichecklistcollection-checklists-get">
+<span id="ichecklistcollection-checklists-get"></span><h3><a class="reference external" href="ICheckListCollection#ichecklistcollection">ICheckListCollection</a> CheckLists { get; }<a class="headerlink" href="#ichecklistcollection-checklists-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the collection of checklists contained in the card.</p>
+</div>
+<div class="section" id="icommentcollection-comments-get">
+<span id="icommentcollection-comments-get"></span><h3><a class="reference external" href="ICommentCollection#icommentcollection">ICommentCollection</a> Comments { get; }<a class="headerlink" href="#icommentcollection-comments-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the collection of comments made on the card.</p>
+</div>
+<div class="section" id="datetime-creationdate-get">
+<span id="datetime-creationdate-get"></span><h3>DateTime CreationDate { get; }<a class="headerlink" href="#datetime-creationdate-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the creation date of the card.</p>
+</div>
+<div class="section" id="manatee-trello-ireadonlycollection-1-manatee-trello-icustomfield-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-customfields-get">
+<span id="manatee-trello-ireadonlycollection-1-manatee-trello-icustomfield-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-customfields-get"></span><h3>Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.ICustomField, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] CustomFields { get; }<a class="headerlink" href="#manatee-trello-ireadonlycollection-1-manatee-trello-icustomfield-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-customfields-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the collection of custom field values for the card.</p>
+</div>
+<div class="section" id="string-description-get-set">
+<span id="string-description-get-set"></span><h3>string Description { get; set; }<a class="headerlink" href="#string-description-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets or sets the card<p>’</p>
+s description.</p>
+</div>
+<div class="section" id="datetime-duedate-get-set">
+<span id="datetime-duedate-get-set"></span><h3>DateTime? DueDate { get; set; }<a class="headerlink" href="#datetime-duedate-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets or sets the card<p>’</p>
+s due date.</p>
+</div>
+<div class="section" id="string-id-get">
+<span id="string-id-get"></span><h3>string Id { get; }<a class="headerlink" href="#string-id-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the card<p>’</p>
+s ID.</p>
+</div>
+<div class="section" id="bool-isarchived-get-set">
+<span id="bool-isarchived-get-set"></span><h3>bool? IsArchived { get; set; }<a class="headerlink" href="#bool-isarchived-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets or sets whether the card is archived.</p>
+</div>
+<div class="section" id="bool-iscomplete-get-set">
+<span id="bool-iscomplete-get-set"></span><h3>bool? IsComplete { get; set; }<a class="headerlink" href="#bool-iscomplete-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets or sets whether the card is complete. Associated with <a class="reference external" href="Card#datetime-duedate--get-set-">DueDate</a>.</p>
+</div>
+<div class="section" id="bool-issubscribed-get-set">
+<span id="bool-issubscribed-get-set"></span><h3>bool? IsSubscribed { get; set; }<a class="headerlink" href="#bool-issubscribed-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets or sets whether the current member is subscribed to the card.</p>
+</div>
+<div class="section" id="ichecklist-this-string-key-get">
+<span id="ichecklist-this-string-key-get"></span><h3><a class="reference external" href="ICheckList#ichecklist">ICheckList</a> this[string key] { get; }<a class="headerlink" href="#ichecklist-this-string-key-get" title="Permalink to this headline">¶</a></h3>
+<p>Retrieves a check list which matches the supplied key.</p>
+<p><strong>Parameter:</strong> key</p>
+<p>The key to match.</p>
+<div class="section" id="returns">
+<span id="returns"></span><h4>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h4>
+<p>The matching check list, or null if none found.</p>
+</div>
+<div class="section" id="remarks">
+<span id="id2"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>Matches on checklist ID and name. Comparison is case-sensitive.</p>
+</div>
+</div>
+<div class="section" id="ichecklist-this-int-index-get">
+<span id="ichecklist-this-int-index-get"></span><h3><a class="reference external" href="ICheckList#ichecklist">ICheckList</a> this[int index] { get; }<a class="headerlink" href="#ichecklist-this-int-index-get" title="Permalink to this headline">¶</a></h3>
+<p>Retrieves the check list at the specified index.</p>
+<p><strong>Parameter:</strong> index</p>
+<p>The index.</p>
+<p><strong>Exception:</strong> System.ArgumentOutOfRangeException</p>
+<p><em>index</em> is less than 0 or greater than or equal to the number of elements in the collection.</p>
+<div class="section" id="returns">
+<span id="id3"></span><h4>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h4>
+<p>The check list.</p>
+</div>
+</div>
+<div class="section" id="icardlabelcollection-labels-get">
+<span id="icardlabelcollection-labels-get"></span><h3><a class="reference external" href="ICardLabelCollection#icardlabelcollection">ICardLabelCollection</a> Labels { get; }<a class="headerlink" href="#icardlabelcollection-labels-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the collection of labels on the card.</p>
+</div>
+<div class="section" id="datetime-lastactivity-get">
+<span id="datetime-lastactivity-get"></span><h3>DateTime? LastActivity { get; }<a class="headerlink" href="#datetime-lastactivity-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the most recent date of activity on the card.</p>
+</div>
+<div class="section" id="ilist-list-get-set">
+<span id="ilist-list-get-set"></span><h3><a class="reference external" href="IList#ilist">IList</a> List { get; set; }<a class="headerlink" href="#ilist-list-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets or sets the list to the card belongs.</p>
+</div>
+<div class="section" id="imembercollection-members-get">
+<span id="imembercollection-members-get"></span><h3><a class="reference external" href="IMemberCollection#imembercollection">IMemberCollection</a> Members { get; }<a class="headerlink" href="#imembercollection-members-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the collection of members who are assigned to the card.</p>
+</div>
+<div class="section" id="string-name-get-set">
+<span id="string-name-get-set"></span><h3>string Name { get; set; }<a class="headerlink" href="#string-name-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets or sets the card<p>’</p>
+s name.</p>
+</div>
+<div class="section" id="position-position-get-set">
+<span id="position-position-get-set"></span><h3><a class="reference external" href="Position#position">Position</a> Position { get; set; }<a class="headerlink" href="#position-position-get-set" title="Permalink to this headline">¶</a></h3>
+<p>Gets or sets the card<p>’</p>
+s position.</p>
+</div>
+<div class="section" id="manatee-trello-ireadonlycollection-1-manatee-trello-ipowerupdata-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-powerupdata-get">
+<span id="manatee-trello-ireadonlycollection-1-manatee-trello-ipowerupdata-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-powerupdata-get"></span><h3>Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IPowerUpData, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] PowerUpData { get; }<a class="headerlink" href="#manatee-trello-ireadonlycollection-1-manatee-trello-ipowerupdata-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-powerupdata-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets card-specific power-up data.</p>
+</div>
+<div class="section" id="int-shortid-get">
+<span id="int-shortid-get"></span><h3>int? ShortId { get; }<a class="headerlink" href="#int-shortid-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the card<p>’</p>
+s short ID.</p>
+</div>
+<div class="section" id="string-shorturl-get">
+<span id="string-shorturl-get"></span><h3>string ShortUrl { get; }<a class="headerlink" href="#string-shorturl-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the card<p>’</p>
+s short URL.</p>
+<div class="section" id="remarks">
+<span id="id4"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>Because this value does not change, it can be used as a permalink.</p>
+</div>
+</div>
+<div class="section" id="icardstickercollection-stickers-get">
+<span id="icardstickercollection-stickers-get"></span><h3><a class="reference external" href="ICardStickerCollection#icardstickercollection">ICardStickerCollection</a> Stickers { get; }<a class="headerlink" href="#icardstickercollection-stickers-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the collection of stickers which appear on the card.</p>
+</div>
+<div class="section" id="string-url-get">
+<span id="string-url-get"></span><h3>string Url { get; }<a class="headerlink" href="#string-url-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets the card<p>’</p>
+s full URL.</p>
+<div class="section" id="remarks">
+<span id="id5"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>Trello will likely change this value as the name changes. You can use <a class="reference external" href="Card#string-shorturl--get-">ShortUrl</a> for permalinks.</p>
+</div>
+</div>
+<div class="section" id="manatee-trello-ireadonlycollection-1-manatee-trello-imember-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-votingmembers-get">
+<span id="manatee-trello-ireadonlycollection-1-manatee-trello-imember-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-votingmembers-get"></span><h3>Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IMember, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] VotingMembers { get; }<a class="headerlink" href="#manatee-trello-ireadonlycollection-1-manatee-trello-imember-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-votingmembers-get" title="Permalink to this headline">¶</a></h3>
+<p>Gets all members who have voted for this card.</p>
+</div>
+</div>
+<div class="section" id="events">
+<span id="events"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="action-lt-icard-ienumerable-lt-string-gt-gt-updated">
+<span id="action-lt-icard-ienumerable-lt-string-gt-gt-updated"></span><h3>Action<p>&amp;lt;</p>
+ICard, IEnumerable<p>&amp;lt;</p>
+string<p>&amp;gt;</p>
+<p>&amp;gt;</p>
+ Updated<a class="headerlink" href="#action-lt-icard-ienumerable-lt-string-gt-gt-updated" title="Permalink to this headline">¶</a></h3>
+<p>Raised when data on the card is updated.</p>
+</div>
+</div>
+<div class="section" id="methods">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="void-applyaction-iaction-action">
+<span id="void-applyaction-iaction-action"></span><h3>void ApplyAction(IAction action)<a class="headerlink" href="#void-applyaction-iaction-action" title="Permalink to this headline">¶</a></h3>
+<p>Applies the changes an action represents.</p>
+<p><strong>Parameter:</strong> action</p>
+<p>The action.</p>
+</div>
+<div class="section" id="task-delete-cancellationtoken-ct">
+<span id="task-delete-cancellationtoken-ct"></span><h3>Task Delete(CancellationToken ct)<a class="headerlink" href="#task-delete-cancellationtoken-ct" title="Permalink to this headline">¶</a></h3>
+<p>Deletes the card.</p>
+<p><strong>Parameter:</strong> ct</p>
+<p>(Optional) A cancellation token for async processing.</p>
+<div class="section" id="remarks">
+<span id="id6"></span><h4>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h4>
+<p>This permanently deletes the card from Trello<p>’</p>
+s server, however, this object will remain in memory and all properties will remain accessible.</p>
+</div>
+</div>
+<div class="section" id="task-refresh-cancellationtoken-ct">
+<span id="task-refresh-cancellationtoken-ct"></span><h3>Task Refresh(CancellationToken ct)<a class="headerlink" href="#task-refresh-cancellationtoken-ct" title="Permalink to this headline">¶</a></h3>
+<p>Refreshes the card data.</p>
+<p><strong>Parameter:</strong> ct</p>
+<p>(Optional) A cancellation token for async processing.</p>
+</div>
+<div class="section" id="string-tostring">
+<span id="string-tostring"></span><h3>string ToString()<a class="headerlink" href="#string-tostring" title="Permalink to this headline">¶</a></h3>
+<p>Returns a string that represents the current object.</p>
+<p><strong>Returns:</strong> A string that represents the current object.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Card</a><ul>
+<li><a class="reference internal" href="#constructors">Constructors</a><ul>
+<li><a class="reference internal" href="#card-string-id-trelloauthorization-auth">Card(string id, TrelloAuthorization auth)</a><ul>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#properties">Properties</a><ul>
+<li><a class="reference internal" href="#static-manatee-trello-card-fields-downloadedfields-get-set">static Manatee.Trello.Card+Fields DownloadedFields { get; set; }</a></li>
+<li><a class="reference internal" href="#manatee-trello-ireadonlycollection-1-manatee-trello-iaction-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-actions-get">Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }</a><ul>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iattachmentcollection-attachments-get">IAttachmentCollection Attachments { get; }</a></li>
+<li><a class="reference internal" href="#ibadges-badges-get">IBadges Badges { get; }</a></li>
+<li><a class="reference internal" href="#iboard-board-get">IBoard Board { get; }</a></li>
+<li><a class="reference internal" href="#ichecklistcollection-checklists-get">ICheckListCollection CheckLists { get; }</a></li>
+<li><a class="reference internal" href="#icommentcollection-comments-get">ICommentCollection Comments { get; }</a></li>
+<li><a class="reference internal" href="#datetime-creationdate-get">DateTime CreationDate { get; }</a></li>
+<li><a class="reference internal" href="#manatee-trello-ireadonlycollection-1-manatee-trello-icustomfield-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-customfields-get">Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.ICustomField, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] CustomFields { get; }</a></li>
+<li><a class="reference internal" href="#string-description-get-set">string Description { get; set; }</a></li>
+<li><a class="reference internal" href="#datetime-duedate-get-set">DateTime? DueDate { get; set; }</a></li>
+<li><a class="reference internal" href="#string-id-get">string Id { get; }</a></li>
+<li><a class="reference internal" href="#bool-isarchived-get-set">bool? IsArchived { get; set; }</a></li>
+<li><a class="reference internal" href="#bool-iscomplete-get-set">bool? IsComplete { get; set; }</a></li>
+<li><a class="reference internal" href="#bool-issubscribed-get-set">bool? IsSubscribed { get; set; }</a></li>
+<li><a class="reference internal" href="#ichecklist-this-string-key-get">ICheckList this[string key] { get; }</a><ul>
+<li><a class="reference internal" href="#returns">Returns</a></li>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ichecklist-this-int-index-get">ICheckList this[int index] { get; }</a><ul>
+<li><a class="reference internal" href="#returns">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#icardlabelcollection-labels-get">ICardLabelCollection Labels { get; }</a></li>
+<li><a class="reference internal" href="#datetime-lastactivity-get">DateTime? LastActivity { get; }</a></li>
+<li><a class="reference internal" href="#ilist-list-get-set">IList List { get; set; }</a></li>
+<li><a class="reference internal" href="#imembercollection-members-get">IMemberCollection Members { get; }</a></li>
+<li><a class="reference internal" href="#string-name-get-set">string Name { get; set; }</a></li>
+<li><a class="reference internal" href="#position-position-get-set">Position Position { get; set; }</a></li>
+<li><a class="reference internal" href="#manatee-trello-ireadonlycollection-1-manatee-trello-ipowerupdata-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-powerupdata-get">Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IPowerUpData, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] PowerUpData { get; }</a></li>
+<li><a class="reference internal" href="#int-shortid-get">int? ShortId { get; }</a></li>
+<li><a class="reference internal" href="#string-shorturl-get">string ShortUrl { get; }</a><ul>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#icardstickercollection-stickers-get">ICardStickerCollection Stickers { get; }</a></li>
+<li><a class="reference internal" href="#string-url-get">string Url { get; }</a><ul>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#manatee-trello-ireadonlycollection-1-manatee-trello-imember-manatee-trello-version-3-0-0-0-culture-neutral-publickeytoken-f502fcc17fc907d6-votingmembers-get">Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IMember, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] VotingMembers { get; }</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#events">Events</a><ul>
+<li><a class="reference internal" href="#action-lt-icard-ienumerable-lt-string-gt-gt-updated">Action<p>&amp;lt;</p>
+ICard, IEnumerable<p>&amp;lt;</p>
+string<p>&amp;gt;</p>
+<p>&amp;gt;</p>
+ Updated</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
+<li><a class="reference internal" href="#void-applyaction-iaction-action">void ApplyAction(IAction action)</a></li>
+<li><a class="reference internal" href="#task-delete-cancellationtoken-ct">Task Delete(CancellationToken ct)</a><ul>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#task-refresh-cancellationtoken-ct">Task Refresh(CancellationToken ct)</a></li>
+<li><a class="reference internal" href="#string-tostring">string ToString()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Card.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Greg Dennis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/Card.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
