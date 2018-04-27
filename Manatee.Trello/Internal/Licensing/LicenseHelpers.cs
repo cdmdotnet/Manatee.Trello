@@ -19,24 +19,64 @@ namespace Manatee.Trello.Internal.Licensing
 {
 	internal static class LicenseHelpers
 	{
-		private static readonly object Lock;
+		private class RunDetails
+		{
+			public long Retrievals { get; set; }
+			public long Submissions { get; set; }
+			public DateTime SessionExpiry { get; set; }
+		}
 
-		private static long _validationCount;
-		private static long _generationCount;
+		private const string DetailsPath = "Manatee.Trello.run";
+
+		private static readonly object Lock;
+		private static readonly JsonSerializer Serializer;
+
+		private static long _retrievalCount;
+		private static long _submissionCount;
 		private static LicenseDetails _registeredLicense;
 		private static Timer _resetTimer;
 
 		static LicenseHelpers()
 		{
 			Lock = new object();
+			Serializer = new JsonSerializer();
+
+			LoadCurrentState();
 		}
 
 		// This is used for testing.
 		// ReSharper disable once MemberCanBePrivate.Global
 		public static void ResetCounts(object state)
 		{
-			_validationCount = 0;
-			_generationCount = 0;
+			_retrievalCount = 0;
+			_submissionCount = 0;
+		}
+
+		public static void SaveCurrentState()
+		{
+			var newDetails = new RunDetails
+				{
+					Retrievals = _retrievalCount,
+					Submissions = _submissionCount,
+					SessionExpiry = DateTime.Now.AddHours(1)
+				};
+
+			var json = Serializer.Serialize(newDetails);
+			File.WriteAllText(DetailsPath, json.ToString());
+		}
+
+		private static void LoadCurrentState()
+		{
+			if (!File.Exists(DetailsPath)) return;
+
+			var text = File.ReadAllText(DetailsPath);
+			var json = JsonValue.Parse(text);
+			var details = Serializer.Deserialize<RunDetails>(json);
+
+			if (DateTime.Now >= details.SessionExpiry) return;
+
+			_retrievalCount = details.Retrievals;
+			_submissionCount = details.Submissions;
 		}
 
 		public static void IncrementAndCheckRetrieveCount()
@@ -45,13 +85,13 @@ namespace Manatee.Trello.Internal.Licensing
 
 			EnsureResetTimer();
 
-			const int maxOperationCount = 1000;
-			Interlocked.Increment(ref _validationCount);
+			const int maxOperationCount = 300;
+			Interlocked.Increment(ref _retrievalCount);
 
-			if (_validationCount > maxOperationCount)
+			if (_retrievalCount > maxOperationCount)
 			{
-				throw new LicenseException(
-					$"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. Please visit http://please.buy/my/library to upgrade to a commercial license.");
+				throw new LicenseException($"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. " +
+				                           $"Please visit http://please.buy/my/library to upgrade to a commercial license.");
 			}
 		}
 
@@ -61,13 +101,13 @@ namespace Manatee.Trello.Internal.Licensing
 
 			EnsureResetTimer();
 
-			const int maxOperationCount = 10;
-			Interlocked.Increment(ref _generationCount);
+			const int maxOperationCount = 150;
+			Interlocked.Increment(ref _submissionCount);
 
-			if (_generationCount > maxOperationCount)
+			if (_submissionCount > maxOperationCount)
 			{
-				throw new LicenseException(
-					$"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. Please visit http://please.buy/my/library to upgrade to a commercial license.");
+				throw new LicenseException($"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. " +
+				                           $"Please visit http://please.buy/my/library to upgrade to a commercial license.");
 			}
 		}
 
@@ -150,10 +190,9 @@ namespace Manatee.Trello.Internal.Licensing
 
 			if (deserializedLicense.ExpiryDate < releaseDate)
 			{
-				var message = string.Format(
-					"License is not valid for this version of Manatee.Trello. License free upgrade date expired on {0}. This version of Manatee.Trello was released on {1}.",
-					deserializedLicense.ExpiryDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-					releaseDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+				var message = $"License is not valid for this version of Manatee.Trello. License free upgrade date " +
+				              $"expired on {deserializedLicense.ExpiryDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}. " +
+				              $"This version of Manatee.Trello was released on {releaseDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}.";
 
 				throw new LicenseException(message);
 			}
