@@ -31,12 +31,6 @@ if not "%errorlevel%"=="0" goto failure
 REM package
 call "%msbuild%" Manatee.Trello\Manatee.Trello.csproj /t:pack /p:Configuration="%config%"
 if not "%errorlevel%"=="0" goto failure
-call "%msbuild%" Manatee.Trello.ManateeJson\Manatee.Trello.ManateeJson.csproj /t:pack /p:Configuration="%config%"
-if not "%errorlevel%"=="0" goto failure
-call "%msbuild%" Manatee.Trello.WebApi\Manatee.Trello.WebApi.csproj /t:pack /p:Configuration="%config%"
-if not "%errorlevel%"=="0" goto failure
-call "%msbuild%" Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj /t:pack /p:Configuration="%config%"
-if not "%errorlevel%"=="0" goto failure
 
 REM update wiki
 git clone https://github.com/gregsdennis/AutoWiki.git
