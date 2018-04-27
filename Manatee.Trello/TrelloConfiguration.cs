@@ -91,6 +91,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Specifies a length of time during which a single entity can only be refreshed once.  Default is 5 seconds.
 		/// </summary>
+		/// <remarks>
+		/// Setting a value of 0 will result in immediately consecutive or parallel calls both going through to Trello.
+		/// </remarks>
 		public static TimeSpan RefreshThrottle { get; set; }
 		/// <summary>
 		/// Specifies which HTTP response status codes should trigger an automatic retry.

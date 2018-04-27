@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manatee.Trello.CustomFields", "Manatee.Trello.CustomFields\Manatee.Trello.CustomFields.csproj", "{096DBFFD-F298-407B-9909-44B05ABAFB5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manatee.Trello.UnitTests", "Manatee.Trello.UnitTests\Manatee.Trello.UnitTests.csproj", "{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,22 @@ Global
 		{096DBFFD-F298-407B-9909-44B05ABAFB5C}.Release-4.5|Any CPU.Build.0 = Release|Any CPU
 		{096DBFFD-F298-407B-9909-44B05ABAFB5C}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
 		{096DBFFD-F298-407B-9909-44B05ABAFB5C}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-3.5|Any CPU.ActiveCfg = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-3.5|Any CPU.Build.0 = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-3.5C|Any CPU.ActiveCfg = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-3.5C|Any CPU.Build.0 = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-4.0|Any CPU.ActiveCfg = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-4.0|Any CPU.Build.0 = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-4.0C|Any CPU.ActiveCfg = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-4.0C|Any CPU.Build.0 = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-4.5|Any CPU.ActiveCfg = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-4.5|Any CPU.Build.0 = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +125,7 @@ Global
 		{598234BA-460F-44C4-A3DB-E5257B572998} = {29C1914C-949C-4B23-BC09-94D0843D0B1B}
 		{F6AA1620-3117-4140-A82B-03BF9C854836} = {29C1914C-949C-4B23-BC09-94D0843D0B1B}
 		{096DBFFD-F298-407B-9909-44B05ABAFB5C} = {1A311328-1FF7-421E-95D9-05B3984AD683}
+		{7842959C-F2CE-4DDC-9A42-C11EDAB548E6} = {29C1914C-949C-4B23-BC09-94D0843D0B1B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2904F187-70FC-4F80-8DDC-88B4F3FFE7CF}
