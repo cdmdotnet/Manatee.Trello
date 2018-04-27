@@ -165,7 +165,7 @@ If you'd like to help out with the code, please feel free to fork and create a p
 
 This code uses C# 7 features, so a compiler/IDE that supports these features is required.
 
-The solution consists of multiple projects that target .Net Standard 1.3.
+The solution consists of a multi-targeted project and .Net Framework 4.6.2 test projects.
 
 ### Building
 
@@ -174,9 +174,3 @@ During development, building within Visual Studio should be fine.  There is a bu
 ### Code style and maintenance
 
 I use [Jetbrains Resharper](https://www.jetbrains.com/resharper/) in Visual Studio to maintain the code style (and for many of the other things that it does).  The solution is set up with team style settings, so if you're using Resharper the settings should automatically load.  Please follow the suggestions.
-
-### Appreciation
-
-If you've enjoyed using this library and you'd like to contribute financially, please use the button below.
-
-[![Donate](https://i.imgur.com/Fkk2ET1.png)](https://gogetfunding.com/campaign_funds/?pre=5486922)
