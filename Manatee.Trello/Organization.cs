@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
-using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// Represents an organization.
 	/// </summary>
-	public class Organization : ICanWebhook, IQueryable
+	public class Organization : IOrganization, IMergeJson<IJsonOrganization>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for organizations (teams).
@@ -44,11 +43,6 @@ namespace Manatee.Trello
 			[Display(Description="name")]
 			Name = 1 << 3,
 			/// <summary>
-			/// Indicates the PowerUps property should be populated.
-			/// </summary>
-			[Display(Description="powerUps")]
-			PowerUps = 1 << 5,
-			/// <summary>
 			/// Indicates the Preferences property should be populated.
 			/// </summary>
 			[Display(Description="prefs")]
@@ -62,7 +56,27 @@ namespace Manatee.Trello
 			/// Indicates the Website property should be populated.
 			/// </summary>
 			[Display(Description="website")]
-			Website = 1 << 8
+			Website = 1 << 8,
+			/// <summary>
+			/// Indicates the actions will be downloaded.
+			/// </summary>
+			Actions = 1 << 9,
+			/// <summary>
+			/// Indicates the boards will be downloaded.
+			/// </summary>
+			Boards = 1 << 10,
+			/// <summary>
+			/// Indicates the members will be downloaded. Not included by default.
+			/// </summary>
+			Members = 1 << 11,
+			/// <summary>
+			/// Indicates the memberships will be downloaded.
+			/// </summary>
+			Memberships = 1 << 12,
+			/// <summary>
+			/// Indicates the power-up data will be downloaded.
+			/// </summary>
+			PowerUpData = 1 << 13
 		}
 
 		private readonly Field<string> _description;
@@ -75,20 +89,29 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				OrganizationContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public IReadOnlyCollection<IAction> Actions => _context.Actions;
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
-		public BoardCollection Boards { get; }
+		public IBoardCollection Boards => _context.Boards;
 		/// <summary>
 		/// Gets the creation date of the organization.
 		/// </summary>
@@ -125,7 +148,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -134,14 +157,15 @@ namespace Manatee.Trello
 		/// Gets whether the organization has business class status.
 		/// </summary>
 		public bool IsBusinessClass => _isBusinessClass.Value;
+
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		public ReadOnlyMemberCollection Members { get; }
+		public IReadOnlyCollection<IMember> Members => _context.Members;
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>
-		public OrganizationMembershipCollection Memberships { get; }
+		public IOrganizationMembershipCollection Memberships => _context.Memberships;
 		/// <summary>
 		/// Gets the organization's name.
 		/// </summary>
@@ -153,11 +177,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets specific data regarding power-ups.
 		/// </summary>
-		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		public IReadOnlyCollection<IPowerUpData> PowerUpData => _context.PowerUpData;
 		/// <summary>
 		/// Gets the set of preferences for the organization.
 		/// </summary>
-		public OrganizationPreferences Preferences { get; }
+		public IOrganizationPreferences Preferences { get; }
 		/// <summary>
 		/// Gets the organization's URL.
 		/// </summary>
@@ -180,7 +204,13 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the organization is updated.
 		/// </summary>
-		public event Action<Organization, IEnumerable<string>> Updated;
+		public event Action<IOrganization, IEnumerable<string>> Updated;
+
+		static Organization()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum() &
+				~Fields.Members;
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Organization"/> object.
@@ -196,16 +226,11 @@ namespace Manatee.Trello
 			_context = new OrganizationContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Organization), () => Id, auth);
-			Boards = new BoardCollection(typeof(Organization), () => Id, auth);
 			_description = new Field<string>(_context, nameof(Description));
 			_displayName = new Field<string>(_context, nameof(DisplayName));
 			_isBusinessClass = new Field<bool>(_context, nameof(IsBusinessClass));
-			Members = new ReadOnlyMemberCollection(EntityRequestType.Organization_Read_Members, () => Id, auth);
-			Memberships = new OrganizationMembershipCollection(() => Id, auth);
 			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(OrganizationNameRule.Instance);
-			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Organization_Read_PowerUpData, () => Id, auth);
 			Preferences = new OrganizationPreferences(_context.OrganizationPreferencesContext);
 			_url = new Field<string>(_context, nameof(Url));
 			_website = new Field<string>(_context, nameof(Website));
@@ -223,36 +248,43 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public void ApplyAction(IAction action)
 		{
 			if (action.Type != ActionType.UpdateOrganization || action.Data.Organization == null || action.Data.Organization.Id != Id)
 				return;
-			_context.Merge(action.Data.Organization.Json);
+			_context.Merge(((Organization) action.Data.Organization).Json);
 		}
+
 		/// <summary>
-		/// Permanently deletes the organization from Trello.
+		/// Deletes the organization.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the organization from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
-			TrelloConfiguration.Cache.Remove(this);
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the organization to be refreshed the next time data is accessed.
+		/// Refreshes the organization data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns the <see cref="DisplayName"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+
+		void IMergeJson<IJsonOrganization>.Merge(IJsonOrganization json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return DisplayName;

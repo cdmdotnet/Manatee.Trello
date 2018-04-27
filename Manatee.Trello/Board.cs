@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
-using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
-using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// Represents a board.
 	/// </summary>
-	public class Board : ICanWebhook, IQueryable
+	public class Board : IBoard, IMergeJson<IJsonBoard>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for boards.
@@ -41,7 +40,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Organization property should be populated.
 			/// </summary>
-			[Display(Description="idOrganization")]
+			[Display(Description="organization")]
 			Organization = 1 << 3,
 			/// <summary>
 			/// Indicates the Pinned property should be populated.
@@ -67,7 +66,7 @@ namespace Manatee.Trello
 			/// Indicates the Subscribed property should be populated.
 			/// </summary>
 			[Display(Description="subscribed")]
-			Subscribed = 1 << 8,
+			IsSubscribed = 1 << 8,
 			/// <summary>
 			/// Indicates the LastActivityDate property should be populated.
 			/// </summary>
@@ -88,6 +87,42 @@ namespace Manatee.Trello
 			/// </summary>
 			[Display(Description="shortUrl")]
 			ShortUrl = 1 << 12,
+			/// <summary>
+			/// Indicates that the lists should downloaded.
+			/// </summary>
+			Lists = 1 << 13,
+			/// <summary>
+			/// Indicates that the members should downloaded. Not included by default.
+			/// </summary>
+			Members = 1 << 14,
+			/// <summary>
+			/// Indicates that the custom field definitions should downloaded.
+			/// </summary>
+			CustomFields = 1 << 15,
+			/// <summary>
+			/// Indicates that the labels should downloaded.
+			/// </summary>
+			Labels = 1 << 16,
+			/// <summary>
+			/// Indicates that the memberships should downloaded.
+			/// </summary>
+			Memberships = 1 << 17,
+			/// <summary>
+			/// Indicates that the actions should downloaded.
+			/// </summary>
+			Actions = 1 << 18,
+			/// <summary>
+			/// Indicates that the cards should downloaded. Not included by default.
+			/// </summary>
+			Cards = 1 << 19,
+			/// <summary>
+			/// Indicates that the power-ups should downloaded.
+			/// </summary>
+			PowerUps = 1 << 20,
+			/// <summary>
+			/// Indicates that the Lists should downloaded.
+			/// </summary>
+			PowerUpData = 1 << 21
 		}
 
 		private readonly Field<string> _description;
@@ -106,23 +141,34 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				BoardContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
-		/// Gets the collection of actions performed on and within the board.
+		/// Gets the collection of actions performed on and within this board.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+
 		/// <summary>
-		/// Gets the collection of cards contained within the board.
+		/// Gets the collection of cards contained within this board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived cards.
 		/// </remarks>
-		public ReadOnlyCardCollection Cards { get; }
+		public IReadOnlyCollection<ICard> Cards => _context.Cards;
+
 		/// <summary>
 		/// Gets the creation date of the board.
 		/// </summary>
@@ -135,7 +181,12 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
-		public ReadOnlyCustomFieldDefinitionCollection CustomFields { get; }
+
+		/// <summary>
+		/// Gets the collection of custom fields defined on the board.
+		/// </summary>
+		public ICustomFieldDefinitionCollection CustomFields => _context.CustomFields;
+
 		/// <summary>
 		/// Gets or sets the board's description.
 		/// </summary>
@@ -144,27 +195,30 @@ namespace Manatee.Trello
 			get { return _description.Value; }
 			set { _description.Value = value; }
 		}
+
 		/// <summary>
-		/// Gets the board's ID.
+		/// Gets an ID on which matching can be performed.
 		/// </summary>
 		public string Id
 		{
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
 		}
+
 		/// <summary>
-		/// Gets or sets whether the board is closed.
+		/// Gets or sets whether this board is closed.
 		/// </summary>
 		public bool? IsClosed
 		{
 			get { return _isClosed.Value; }
 			set { _isClosed.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets wheterh this board is pinned.
 		/// </summary>
@@ -173,6 +227,7 @@ namespace Manatee.Trello
 			get { return _isPinned.Value; }
 			set { _isPinned.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets wheterh this board is pinned.
 		/// </summary>
@@ -181,6 +236,7 @@ namespace Manatee.Trello
 			get { return _isStarred.Value; }
 			set { _isStarred.Value = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to this board.
 		/// </summary>
@@ -189,33 +245,40 @@ namespace Manatee.Trello
 			get { return _isSubscribed.Value; }
 			set { _isSubscribed.Value = value; }
 		}
+
 		/// <summary>
-		/// Gets the collection of labels for the board.
+		/// Gets the collection of labels for this board.
 		/// </summary>
-		public BoardLabelCollection Labels { get; }
+		public IBoardLabelCollection Labels => _context.Labels;
+
 		/// <summary>
 		/// Gets the date of the board's most recent activity.
 		/// </summary>
 		public DateTime? LastActivity => _lastActivity.Value;
+
 		/// <summary>
 		/// Gets the date when the board was most recently viewed.
 		/// </summary>
 		public DateTime? LastViewed => _lastViewed.Value;
+
 		/// <summary>
 		/// Gets the collection of lists on this board.
 		/// </summary>
 		/// <remarks>
 		/// This property only exposes unarchived lists.
 		/// </remarks>
-		public ListCollection Lists { get; }
+		public IListCollection Lists => _context.Lists;
+
 		/// <summary>
-		/// Gets the collection of members on the board.
+		/// Gets the collection of members on this board.
 		/// </summary>
-		public ReadOnlyMemberCollection Members { get; }
+		public IReadOnlyCollection<IMember> Members => _context.Members;
+
 		/// <summary>
-		/// Gets the collection of members and their privileges on the board.
+		/// Gets the collection of members and their privileges on this board.
 		/// </summary>
-		public BoardMembershipCollection Memberships { get; }
+		public IBoardMembershipCollection Memberships => _context.Memberships;
+
 		/// <summary>
 		/// Gets or sets the board's name.
 		/// </summary>
@@ -224,41 +287,49 @@ namespace Manatee.Trello
 			get { return _name.Value; }
 			set { _name.Value = value; }
 		}
+
 		/// <summary>
-		/// Gets or sets the organization to which the board belongs.
+		/// Gets or sets the organization to which this board belongs.
 		/// </summary>
 		/// <remarks>
 		/// Setting null makes the board's first admin the owner.
 		/// </remarks>
-		public Organization Organization
+		public IOrganization Organization
 		{
 			get { return _organization.Value; }
-			set { _organization.Value = value; }
+			set { _organization.Value = (Organization) value; }
 		}
+
 		/// <summary>
 		/// Gets metadata about any active power-ups.
 		/// </summary>
-		public ReadOnlyPowerUpCollection PowerUps { get; }
+		public IReadOnlyCollection<IPowerUp> PowerUps => _context.PowerUps;
+
 		/// <summary>
 		/// Gets specific data regarding power-ups.
 		/// </summary>
-		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
+		public IReadOnlyCollection<IPowerUpData> PowerUpData => _context.PowerUpData;
+
 		/// <summary>
 		/// Gets the set of preferences for the board.
 		/// </summary>
-		public BoardPreferences Preferences { get; }
+		public IBoardPreferences Preferences { get; }
+
 		/// <summary>
 		/// Gets the set of preferences for the board.
 		/// </summary>
-		public BoardPersonalPreferences PersonalPreferences { get; }
+		public IBoardPersonalPreferences PersonalPreferences { get; }
+
 		/// <summary>
 		/// Gets the board's short URI.
 		/// </summary>
 		public string ShortLink => _shortLink.Value;
+
 		/// <summary>
 		/// Gets the board's short link (ID).
 		/// </summary>
 		public string ShortUrl => _shortUrl.Value;
+
 		/// <summary>
 		/// Gets the board's URI.
 		/// </summary>
@@ -270,9 +341,10 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching list, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on List.Id and List.Name.  Comparison is case-sensitive.
+		/// Matches on list ID and name.  Comparison is case-sensitive.
 		/// </remarks>
-		public List this[string key] => Lists[key];
+		public IList this[string key] => Lists[key];
+
 		/// <summary>
 		/// Retrieves the list at the specified index.
 		/// </summary>
@@ -281,7 +353,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public List this[int index] => Lists[index];
+		public IList this[int index] => Lists[index];
 
 		internal IJsonBoard Json
 		{
@@ -293,7 +365,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the board is updated.
 		/// </summary>
-		public event Action<Board, IEnumerable<string>> Updated;
+		public event Action<IBoard, IEnumerable<string>> Updated;
+
+		static Board()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum() &
+			                   ~Fields.Members &
+			                   ~Fields.Cards;
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Board"/> object.
@@ -307,9 +386,6 @@ namespace Manatee.Trello
 			_context.Synchronized += Synchronized;
 			Id = id;
 
-			Actions = new ReadOnlyActionCollection(typeof(Board), () => Id, auth);
-			Cards = new ReadOnlyCardCollection(typeof(Board), () => Id, auth);
-			CustomFields = new ReadOnlyCustomFieldDefinitionCollection(() => Id, auth);
 			_description = new Field<string>(_context, nameof(Description));
 			_isClosed = new Field<bool?>(_context, nameof(IsClosed));
 			_isClosed.AddRule(NullableHasValueRule<bool>.Instance);
@@ -319,15 +395,9 @@ namespace Manatee.Trello
 			_isStarred.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
 			_isSubscribed.AddRule(NullableHasValueRule<bool>.Instance);
-			Labels = new BoardLabelCollection(() => Id, auth);
-			Lists = new ListCollection(() => Id, auth);
-			Members = new ReadOnlyMemberCollection(EntityRequestType.Board_Read_Members, () => Id, auth);
-			Memberships = new BoardMembershipCollection(() => Id, auth);
 			_name = new Field<string>(_context, nameof(Name));
 			_name.AddRule(NotNullOrWhiteSpaceRule.Instance);
 			_organization = new Field<Organization>(_context, nameof(Organization));
-			PowerUps = new ReadOnlyPowerUpCollection(() => Id, auth);
-			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Board_Read_PowerUpData, () => Id, auth);
 			Preferences = new BoardPreferences(_context.BoardPreferencesContext);
 			PersonalPreferences = new BoardPersonalPreferences(() => Id, auth);
 			_url = new Field<string>(_context, nameof(Url));
@@ -348,35 +418,42 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public void ApplyAction(IAction action)
 		{
 			if (action.Type != ActionType.UpdateBoard || action.Data.Board == null || action.Data.Board.Id != Id) return;
-			_context.Merge(action.Data.Board.Json);
+			_context.Merge(((Board) action.Data.Board).Json);
 		}
+
 		/// <summary>
-		/// Permanently deletes the board from Trello.
+		/// Deletes the board.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the board from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
-			TrelloConfiguration.Cache.Remove(this);
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the board to be refreshed the next time data is accessed.
+		/// Refreshes the board data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns the <see cref="Name"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the attachment.
-		/// </returns>
+
+		void IMergeJson<IJsonBoard>.Merge(IJsonBoard json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return Name;

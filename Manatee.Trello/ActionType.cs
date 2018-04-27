@@ -390,6 +390,18 @@ namespace Manatee.Trello
 		public static readonly ActionType UpdateCheckItemStateOnCard;
 
 		/// <summary>
+		/// Indicates that a <see cref="CustomField"/> was updated.
+		/// </summary>
+		[Display(Description = "updateCustomField")]
+		public static readonly ActionType UpdateCustomField;
+
+		/// <summary>
+		/// Indicates that a <see cref="CustomField"/> was updated.
+		/// </summary>
+		[Display(Description = "updateCustomFieldItem")]
+		public static readonly ActionType UpdateCustomFieldItem;
+
+		/// <summary>
 		/// Indicates a <see cref="CheckList"/> was updated.
 		/// </summary>
 		[Display(Description = "updateChecklist")]
@@ -665,14 +677,22 @@ namespace Manatee.Trello
 		#region Public Interface...
 
 		/// <summary>
-		/// Checks <paramref name="flags"/> to see if all the bits set in
-		/// that flags are also set in this flags.
+		/// Checks <paramref name="flags"/> to see if all the bits set in that flags are also set in this flags.
 		/// </summary>
 		/// <param name="flags"></param>
 		/// <returns></returns>
 		public bool HasFlag(ActionType flags)
 		{
 			return (this & flags) == flags;
+		}
+
+		/// <summary>
+		/// Gets all of the flags that are active in this instance.
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerable<ActionType> GetFlags()
+		{
+			return FieldValues.Where(HasFlag).ToList();
 		}
 
 		/// <summary>

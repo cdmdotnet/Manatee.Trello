@@ -5,7 +5,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Organization object.
 	/// </summary>
-	public interface IJsonOrganization : IJsonCacheable
+	public interface IJsonOrganization : IJsonCacheable, IAcceptId
 	{
 		/// <summary>
 		/// Gets or sets the name of the organization.
@@ -63,5 +63,30 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		List<string> PremiumFeatures { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of actions.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonAction> Actions { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of boards.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonBoard> Boards { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of members.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonMember> Members { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of memberships.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonOrganizationMembership> Memberships { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of power-up data.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonPowerUpData> PowerUpData { get; set; }
 	}
 }

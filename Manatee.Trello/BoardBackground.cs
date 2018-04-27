@@ -1,5 +1,4 @@
-﻿using Manatee.Trello.Contracts;
-using Manatee.Trello.Internal;
+﻿using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -8,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a background image for a board.
 	/// </summary>
-	public class BoardBackground : ICacheable
+	public class BoardBackground : IBoardBackground
 	{
 		private static BoardBackground _blue, _orange, _green, _red, _purple, _pink, _lime, _sky, _grey;
 
@@ -84,7 +83,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets a collections of scaled background images.
 		/// </summary>
-		public ReadOnlyBoardBackgroundScalesCollection ScaledImages { get; }
+		public IReadOnlyCollection<IImagePreview> ScaledImages { get; }
 		/// <summary>
 		/// Gets the top color of a gradient background.
 		/// </summary>

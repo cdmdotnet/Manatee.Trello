@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a collection of badges which summarize the contents of a card.
 	/// </summary>
-	public class Badges
+	public class Badges : IBadges
 	{
 		private readonly Field<int?> _attachments;
 		private readonly Field<int?> _checkItems;

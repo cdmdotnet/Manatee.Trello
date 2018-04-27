@@ -6,19 +6,48 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the Card object.
 	/// </summary>
-	public interface IJsonCard : IJsonCacheable
+	public interface IJsonCard : IJsonCacheable, IAcceptId
 	{
+		/// <summary>
+		/// Gets or sets a collection of actions.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonAction> Actions { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of attachments.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonAttachment> Attachments { get; set; }
+		/// <summary>
+		/// Gets or sets the ID of the board which contains the card.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		IJsonBoard Board { get; set; }
 		/// <summary>
 		/// Gets or set the badges displayed on the card cover.
 		/// </summary>
 		[JsonDeserialize]
 		IJsonBadges Badges { get; set; }
 		/// <summary>
+		/// Gets or sets a collection of checklists.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonCheckList> CheckLists { get; set; }
+		/// <summary>
 		/// Gets or sets whether a card has been archived.
 		/// </summary>
 		[JsonDeserialize]
 		[JsonSerialize]
 		bool? Closed { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of comments.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonAction> Comments { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of custom field instances.
+		/// </summary>
 		[JsonDeserialize]
 		List<IJsonCustomField> CustomFields { get; set; }
 		/// <summary>
@@ -45,18 +74,6 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		bool? DueComplete { get; set; }
 		/// <summary>
-		/// Gets or sets the ID of the board which contains the card.
-		/// </summary>
-		[JsonDeserialize]
-		[JsonSerialize]
-		IJsonBoard Board { get; set; }
-		/// <summary>
-		/// Gets or sets the ID of the list which contains the card.
-		/// </summary>
-		[JsonDeserialize]
-		[JsonSerialize]
-		IJsonList List { get; set; }
-		/// <summary>
 		/// Gets or sets the card's short ID.
 		/// </summary>
 		[JsonDeserialize]
@@ -74,10 +91,21 @@ namespace Manatee.Trello.Json
 		[JsonSpecialSerialization]
 		List<IJsonLabel> Labels { get; set; }
 		/// <summary>
+		/// Gets or sets the ID of the list which contains the card.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		IJsonList List { get; set; }
+		/// <summary>
 		/// Gets or sets whether the cover attachment was manually selected
 		/// </summary>
 		[JsonDeserialize]
 		bool? ManualCoverAttachment { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of members.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonMember> Members { get; set; }
 		/// <summary>
 		/// Gets or sets the card's name
 		/// </summary>
@@ -90,6 +118,11 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		IJsonPosition Pos { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of power-up data.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonPowerUpData> PowerUpData { get; set; }
 		/// <summary>
 		/// Gets or sets the URL for this card.
 		/// </summary>
@@ -130,5 +163,15 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonSerialize]
 		string IdLabels { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of stickers.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonSticker> Stickers { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of members who have voted for the card.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonMember> MembersVoted { get; set; }
 	}
 }

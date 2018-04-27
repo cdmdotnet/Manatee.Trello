@@ -1,47 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Manatee.Trello.ManateeJson;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
-using Manatee.Trello.WebApi;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
-		[Test]
-		//[Ignore("This test fixture for development purposes only.")]
-		public void TestMethod1()
-		{
-			Run(() =>
-				{
-					var board = new Board(TrelloIds.BoardId);
-					var definitions = board.CustomFields.ToList();
-					var card = new Card(TrelloIds.CardId);
-					
-					Console.WriteLine(card.Id);
-					Console.WriteLine(card);
+		private readonly TrelloFactory _factory = new TrelloFactory();
 
-					OutputCollection("custom fields", card.CustomFields);
+		[Test]
+		public async Task TestMethod1()
+		{
+			await Run(async ct =>
+				{
+					var card = _factory.Card(TrelloIds.CardId);
+
+					await card.Refresh(ct);
+					await card.Refresh(ct);
+
+					Console.WriteLine(card);
 				});
 		}
 
-		private static void Run(System.Action action)
+		private static async Task Run(Func<CancellationToken, Task> action)
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			//TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
 
-			action();
+			await action(CancellationToken.None);
 
-			TrelloProcessor.Flush();
+			await TrelloProcessor.Flush();
 		}
 
 		private static void OutputCollection<T>(string section, IEnumerable<T> collection)

@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Exposes any data associated with an action.
 	/// </summary>
-	public class ActionData
+	public class ActionData : IActionData
 	{
 		private readonly Field<Attachment> _attachment;
 		private readonly Field<Board> _board;
@@ -33,6 +33,8 @@ namespace Manatee.Trello
 		private readonly Field<PowerUpBase> _powerUp;
 		private readonly Field<string> _text;
 		private readonly Field<string> _value;
+		private readonly Field<CustomFieldDefinition> _customField;
+		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly ActionDataContext _context;
 
 		/// <summary>
@@ -42,7 +44,7 @@ namespace Manatee.Trello
 		/// - AddAttachmentToCard
 		///	- DeleteAttachmentFromCard
 		/// </associated-action-types>
-		public Attachment Attachment => _attachment.Value;
+		public IAttachment Attachment => _attachment.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
@@ -58,21 +60,21 @@ namespace Manatee.Trello
 		/// - UnconfirmedBoardInvitation
 		/// - UpdateBoard
 		/// </associated-action-types>
-		public Board Board => _board.Value;
+		public IBoard Board => _board.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
 		/// <associated-action-types>
 		/// - CopyBoard
 		/// </associated-action-types>
-		public Board BoardSource => _boardSource.Value;
+		public IBoard BoardSource => _boardSource.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
 		/// <associated-action-types>
 		/// - CopyBoardx
 		/// </associated-action-types>
-		public Board BoardTarget => _boardTarget.Value;
+		public IBoard BoardTarget => _boardTarget.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
@@ -98,14 +100,14 @@ namespace Manatee.Trello
 		/// - UpdateCardName
 		/// - UpdateCheckItemStateOnCard
 		/// </associated-action-types>
-		public Card Card => _card.Value;
+		public ICard Card => _card.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
 		/// <associated-action-types>
 		/// - CopyCard
 		/// </associated-action-types>
-		public Card CardSource => _cardSource.Value;
+		public ICard CardSource => _cardSource.Value;
 		/// <summary>
 		/// Gets an assocated checklist item.
 		/// </summary>
@@ -113,7 +115,7 @@ namespace Manatee.Trello
 		/// - ConvertToCardFromCheckItem
 		/// - UpdateCheckItemStateOnCard
 		/// </associated-action-types>
-		public CheckItem CheckItem => _checkItem.Value;
+		public ICheckItem CheckItem => _checkItem.Value;
 		/// <summary>
 		/// Gets an assocated checklist.
 		/// </summary>
@@ -122,11 +124,26 @@ namespace Manatee.Trello
 		/// - RemoveChecklistFromCard
 		/// - UpdateChecklist
 		/// </associated-action-types>
-		public CheckList CheckList => _checkList.Value;
+		public ICheckList CheckList => _checkList.Value;
+		/// <summary>
+		/// Gets an associated custom field definition.
+		/// </summary>
+		/// <associated-action-types>
+		/// - UpdateCustomField
+		/// - UpdateCustomFieldItem
+		/// </associated-action-types>
+		public ICustomFieldDefinition CustomField => _customField.Value;
 		/// <summary>
 		/// Gets the associated label.
 		/// </summary>
-		public Label Label => _label.Value;
+		/// <associated-action-types>
+		/// - AddLabelToCard
+		/// - CreateLabel
+		/// - DeleteLabel
+		/// - RemoveLabelFromCard
+		/// - UpdateLabel
+		/// </associated-action-types>
+		public ILabel Label => _label.Value;
 		/// <summary>
 		/// Gets the date/time a comment was last edited.
 		/// </summary>
@@ -142,21 +159,27 @@ namespace Manatee.Trello
 		/// - UpdateListClosed
 		/// - UpdateListName
 		/// </associated-action-types>
-		public List List => _list.Value;
+		public IList List => _list.Value;
 		/// <summary>
 		/// Gets the current list.
 		/// </summary>
 		/// <associated-action-types>
 		/// - UpdateCardIdList
 		/// </associated-action-types>
-		public List ListAfter => _listAfter.Value;
+		/// <remarks>
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
+		/// </remarks>
+		public IList ListAfter => _listAfter.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
 		/// <associated-action-types>
 		/// - UpdateCardIdList
 		/// </associated-action-types>
-		public List ListBefore => _listBefore.Value;
+		/// <remarks>
+		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
+		/// </remarks>
+		public IList ListBefore => _listBefore.Value;
 		/// <summary>
 		/// Gets an assocated member.
 		/// </summary>
@@ -170,7 +193,7 @@ namespace Manatee.Trello
 		/// - RemoveMemberFromCard
 		/// - UpdateMember
 		/// </associated-action-types>
-		public Member Member => _member.Value;
+		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the previous description.
 		/// </summary>
@@ -186,13 +209,17 @@ namespace Manatee.Trello
 		/// - UpdateCard
 		/// - UpdateCardIdList
 		/// </associated-action-types>
-		public List OldList => _oldList.Value;
+		/// <remarks>
+		/// For some action types, this information may be in the <see cref="ListAfter"/> or <see cref="ListBefore"/> properties.
+		/// </remarks>
+		public IList OldList => _oldList.Value;
 		/// <summary>
 		/// Gets the previous position.
 		/// </summary>
 		/// <associated-action-types>
 		/// - UpdateCard
 		/// - UpdateList
+		/// - UpdateCustomField
 		/// </associated-action-types>
 		public Position OldPosition => _oldPosition.Value;
 		/// <summary>
@@ -216,7 +243,7 @@ namespace Manatee.Trello
 		/// - UnconfirmedOrganizationInvitation
 		/// - UpdateOrganization
 		/// </associated-action-types>
-		public Organization Organization => _organization.Value;
+		public IOrganization Organization => _organization.Value;
 		/// <summary>
 		/// Gets an associated power-up.
 		/// </summary>
@@ -224,7 +251,7 @@ namespace Manatee.Trello
 		/// - DisablePowerUp
 		/// - EnablePowerUp
 		/// </associated-action-types>
-		public PowerUpBase PowerUp => _powerUp.Value;
+		public IPowerUp PowerUp => _powerUp.Value;
 		/// <summary>
 		/// Gets assocated text.
 		/// </summary>
@@ -261,6 +288,7 @@ namespace Manatee.Trello
 			_cardSource = new Field<Card>(_context, nameof(CardSource));
 			_checkItem = new Field<CheckItem>(_context, nameof(CheckItem));
 			_checkList = new Field<CheckList>(_context, nameof(CheckList));
+			_customField = new Field<CustomFieldDefinition>(_context, nameof(CustomField));
 			_label = new Field<Label>(_context, nameof(Label));
 			_lastEdited = new Field<DateTime?>(_context, nameof(LastEdited));
 			_list = new Field<List>(_context, nameof(List));

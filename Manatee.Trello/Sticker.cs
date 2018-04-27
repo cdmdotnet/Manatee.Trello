@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -13,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a sticker on a card.
 	/// </summary>
-	public class Sticker : ICacheable
+	public class Sticker : ISticker, IMergeJson<IJsonSticker>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for stickers.
@@ -32,7 +33,7 @@ namespace Manatee.Trello
 			[Display(Description="image")]
 			Name = 1 << 1,
 			/// <summary>
-			/// Indicates the Previews property should be populated.
+			/// Indicates the previews will be downloaded.
 			/// </summary>
 			[Display(Description="imageScaled")]
 			Previews = 1 << 2,
@@ -114,11 +115,20 @@ namespace Manatee.Trello
 		private readonly Field<string> _url;
 		private readonly Field<int?> _zIndex;
 		private readonly StickerContext _context;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				StickerContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the checklist's ID.
@@ -136,10 +146,11 @@ namespace Manatee.Trello
 		/// Gets the name of the sticker.
 		/// </summary>
 		public string Name => _name.Value;
+
 		/// <summary>
 		/// Gets the collection of previews.
 		/// </summary>
-		public ReadOnlyStickerPreviewCollection Previews { get; }
+		public IReadOnlyCollection<IImagePreview> Previews => _context.Previews;
 		/// <summary>
 		/// Gets or sets the rotation.
 		/// </summary>
@@ -181,7 +192,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the attachment is updated.
 		/// </summary>
-		public event Action<Sticker, IEnumerable<string>> Updated;
+		public event Action<ISticker, IEnumerable<string>> Updated;
+
+		static Sticker()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		internal Sticker(IJsonSticker json, string ownerId, TrelloAuthorization auth)
 		{
@@ -192,7 +208,6 @@ namespace Manatee.Trello
 			_left = new Field<double?>(_context, nameof(Left));
 			_left.AddRule(NullableHasValueRule<double>.Instance);
 			_name = new Field<string>(_context, nameof(Name));
-			Previews = new ReadOnlyStickerPreviewCollection(_context, auth);
 			_rotation = new Field<int?>(_context, nameof(Rotation));
 			_rotation.AddRule(NullableHasValueRule<int>.Instance);
 			_rotation.AddRule(new NumericRule<int> {Min = 0, Max = 359});
@@ -205,31 +220,37 @@ namespace Manatee.Trello
 			_context.Merge(json);
 			TrelloConfiguration.Cache.Add(this);
 		}
+
 		/// <summary>
-		/// Permanently deletes the sticker from Trello.  To remove a sticker from a card, use <see cref="CardStickerCollection.Remove"/>
+		/// Deletes the sticker.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the sticker from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
-			TrelloConfiguration.Cache.Remove(this);
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the card to be refreshed the next time data is accessed.
+		/// Refreshes the sticker data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns a string that represents the current object.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
+
+		void IMergeJson<IJsonSticker>.Merge(IJsonSticker json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return Name;

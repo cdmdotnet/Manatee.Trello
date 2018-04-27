@@ -1,7 +1,6 @@
 ﻿using System;
-using Manatee.Trello.ManateeJson;
+using System.Threading.Tasks;
 using Manatee.Trello.Tests.Common;
-using Manatee.Trello.WebApi;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -10,32 +9,29 @@ namespace Manatee.Trello.IntegrationTests
 	[Ignore("This is not ready")]
 	public class ScriptedTest
 	{
+		private readonly TrelloFactory _factory = new TrelloFactory();
+
 		[OneTimeSetUp]
 		public void Setup()
 		{
-			var serializer = new ManateeSerializer();
-			TrelloConfiguration.Serializer = serializer;
-			TrelloConfiguration.Deserializer = serializer;
-			TrelloConfiguration.JsonFactory = new ManateeFactory();
-			TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
-
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = "0f3f5a4039c992dabcf82fd1daa4ed12590eeb6407635c0f8da7518af1721498";
 		}
 
 		[Test]
-		public void Run()
+		public async Task Run()
 		{
-			Board board = null;
+			IBoard board = null;
 			try
 			{
-				board = Member.Me.Boards.Add($"TestBoard{Guid.NewGuid()}");
+				var me = await _factory.Me();
+				board = await me.Boards.Add($"TestBoard{Guid.NewGuid()}");
 			}
 			finally
 			{
 				board?.Delete();
 
-				TrelloProcessor.Flush();
+				await TrelloProcessor.Flush();
 			}
 		}
 	}

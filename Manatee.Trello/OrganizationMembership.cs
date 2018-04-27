@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -9,13 +10,13 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Associates a <see cref="Member"/> to an <see cref="Organization"/> and indicates any permissions the member has in the organization.
+	/// Represents the permission level a member has on an organization.
 	/// </summary>
-	public class OrganizationMembership : ICacheable
+	public class OrganizationMembership : IOrganizationMembership, IMergeJson<IJsonOrganizationMembership>
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<OrganizationMembershipType?> _memberType;
-		private readonly Field<bool?> _isDeactivated;
+		private readonly Field<bool?> _isUnconfirmed;
 		private readonly OrganizationMembershipContext _context;
 		private DateTime? _creation;
 
@@ -38,11 +39,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets whether the member has accepted the invitation to join Trello.
 		/// </summary>
-		public bool? IsDeactivated => _isDeactivated.Value;
+		public bool? IsUnconfirmed => _isUnconfirmed.Value;
 		/// <summary>
 		/// Gets the member.
 		/// </summary>
-		public Member Member => _member.Value;
+		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the membership's permission level.
 		/// </summary>
@@ -61,7 +62,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the membership is updated.
 		/// </summary>
-		public event Action<OrganizationMembership, IEnumerable<string>> Updated;
+		public event Action<IOrganizationMembership, IEnumerable<string>> Updated;
 
 		internal OrganizationMembership(IJsonOrganizationMembership json, string ownerId, TrelloAuthorization auth)
 		{
@@ -73,7 +74,7 @@ namespace Manatee.Trello
 			_memberType = new Field<OrganizationMembershipType?>(_context, nameof(MemberType));
 			_memberType.AddRule(NullableHasValueRule<OrganizationMembershipType>.Instance);
 			_memberType.AddRule(EnumerationRule<OrganizationMembershipType?>.Instance);
-			_isDeactivated = new Field<bool?>(_context, nameof(IsDeactivated));
+			_isUnconfirmed = new Field<bool?>(_context, nameof(IsUnconfirmed));
 
 			TrelloConfiguration.Cache.Add(this);
 
@@ -81,11 +82,19 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the organization membership to be refreshed the next time data is accessed.
+		/// Refreshes the organization membership data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return $"{Member} ({MemberType})";
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
@@ -93,6 +102,11 @@ namespace Manatee.Trello
 			Id = _context.Data.Id;
 			var handler = Updated;
 			handler?.Invoke(this, properties);
+		}
+
+		void IMergeJson<IJsonOrganizationMembership>.Merge(IJsonOrganizationMembership json)
+		{
+			_context.Merge(json);
 		}
 	}
 }

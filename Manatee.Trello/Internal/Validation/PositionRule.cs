@@ -2,7 +2,7 @@
 {
 	internal class PositionRule : IValidationRule<Position>
 	{
-		public static PositionRule Instance { get; private set; }
+		public static PositionRule Instance { get; }
 
 		static PositionRule()
 		{

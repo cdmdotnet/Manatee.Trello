@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -13,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a checklist item.
 	/// </summary>
-	public class CheckItem : ICacheable
+	public class CheckItem : ICheckItem, IMergeJson<IJsonCheckItem>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for check items.
@@ -44,19 +45,28 @@ namespace Manatee.Trello
 		private readonly Field<CheckItemState?> _state;
 		private readonly CheckItemContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				CheckItemContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.
 		/// </summary>
-		public CheckList CheckList
+		public ICheckList CheckList
 		{
 			get { return _checkList.Value; }
-			set { _checkList.Value = value; }
+			set { _checkList.Value = (CheckList) value; }
 		}
 		/// <summary>
 		/// Gets the creation date of the checklist item.
@@ -88,7 +98,7 @@ namespace Manatee.Trello
 		public Position Position
 		{
 			get { return _position.Value; }
-			set { _position.Value = value; }
+			set { _position.Value = (Position) value; }
 		}
 		/// <summary>
 		/// Gets or sets the checklist item's state.
@@ -108,13 +118,17 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the checklist item is updated.
 		/// </summary>
-		public event Action<CheckItem, IEnumerable<string>> Updated;
+		public event Action<ICheckItem, IEnumerable<string>> Updated;
+
+		static CheckItem()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		internal CheckItem(IJsonCheckItem json, string checkListId, TrelloAuthorization auth = null)
 		{
 			Id = json.Id;
 			_context = new CheckItemContext(Id, checkListId, auth);
-			_context.Synchronized += Synchronized;
 
 			_checkList = new Field<CheckList>(_context, nameof(CheckList));
 			_checkList.AddRule(NotNullRule<CheckList>.Instance);
@@ -130,32 +144,40 @@ namespace Manatee.Trello
 			TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
+			_context.Synchronized += Synchronized;
 		}
 
 		/// <summary>
 		/// Deletes the checklist item.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
 		/// This permanently deletes the checklist item from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
-			TrelloConfiguration.Cache.Remove(this);
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the checklist item to be refreshed the next time data is accessed.
+		/// Refreshes the checklist item data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns the <see cref="Name"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+
+		void IMergeJson<IJsonCheckItem>.Merge(IJsonCheckItem json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Name;

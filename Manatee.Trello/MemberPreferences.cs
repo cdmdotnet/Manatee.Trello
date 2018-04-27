@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents preferences for a member.
 	/// </summary>
-	public class MemberPreferences
+	public class MemberPreferences : IMemberPreferences
 	{
 		private readonly Field<bool?> _enableColorBlindMode;
 		private readonly Field<int?> _minutesBetweenSummaries;

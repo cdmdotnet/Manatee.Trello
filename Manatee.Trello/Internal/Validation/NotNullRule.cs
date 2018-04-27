@@ -3,7 +3,7 @@
 	internal class NotNullRule<T> : IValidationRule<T>
 		where T : class
 	{
-		public static NotNullRule<T> Instance { get; private set; }
+		public static NotNullRule<T> Instance { get; }
 
 		static NotNullRule()
 		{

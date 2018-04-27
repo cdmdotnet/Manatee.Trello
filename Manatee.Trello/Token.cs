@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -12,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a user token.
 	/// </summary>
-	public class Token : ICacheable
+	public class Token : IToken, IMergeJson<IJsonToken>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for tokens.
@@ -28,7 +29,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Member property should be populated.
 			/// </summary>
-			[Display(Description="idMember")]
+			[Display(Description="member")]
 			Member,
 			/// <summary>
 			/// Indicates the DateCreated property should be populated.
@@ -44,7 +45,9 @@ namespace Manatee.Trello
 			/// Indicates the Permissions property should be populated.
 			/// </summary>
 			[Display(Description="permissions")]
-			Permissions
+			Permissions,
+			// TODO: add
+			//Webhooks
 		}
 
 		private readonly Field<string> _appName;
@@ -55,11 +58,20 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				TokenContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the name of the application associated with the token.
@@ -68,7 +80,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the permissions on boards granted by the token.
 		/// </summary>
-		public TokenPermission BoardPermissions { get; }
+		public ITokenPermission BoardPermissions { get; }
 		/// <summary>
 		/// Gets the creation date of the token.
 		/// </summary>
@@ -97,7 +109,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -105,15 +117,20 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member for which the token was issued.
 		/// </summary>
-		public Member Member => _member.Value;
+		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the permissions on members granted by the token.
 		/// </summary>
-		public TokenPermission MemberPermissions { get; }
+		public ITokenPermission MemberPermissions { get; }
 		/// <summary>
 		/// Gets the permissions on organizations granted by the token.
 		/// </summary>
-		public TokenPermission OrganizationPermissions { get; }
+		public ITokenPermission OrganizationPermissions { get; }
+
+		static Token()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Token"/> object.
@@ -146,29 +163,35 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Permanently deletes the token from Trello.
+		/// Deletes the token.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the token from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
-			TrelloConfiguration.Cache.Remove(this);
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the token to be refreshed the next time data is accessed.
+		/// Refreshes the token data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns the <see cref="AppName"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+
+		void IMergeJson<IJsonToken>.Merge(IJsonToken json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return AppName;

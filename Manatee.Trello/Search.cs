@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
-using IQueryable = Manatee.Trello.Contracts.IQueryable;
 
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// Performs a search.
 	/// </summary>
-	public class Search
+	public class Search : ISearch
 	{
 		private readonly Field<IEnumerable<Action>> _actions;
 		private readonly Field<IEnumerable<Board>> _boards;
@@ -27,23 +28,23 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions returned by the search.
 		/// </summary>
-		public IEnumerable<Action> Actions => _actions.Value;
+		public IEnumerable<IAction> Actions => _actions.Value;
 		/// <summary>
 		/// Gets the collection of boards returned by the search.
 		/// </summary>
-		public IEnumerable<Board> Boards => _boards.Value;
+		public IEnumerable<IBoard> Boards => _boards.Value;
 		/// <summary>
 		/// Gets the collection of cards returned by the search.
 		/// </summary>
-		public IEnumerable<Card> Cards => _cards.Value;
+		public IEnumerable<ICard> Cards => _cards.Value;
 		/// <summary>
 		/// Gets the collection of members returned by the search.
 		/// </summary>
-		public IEnumerable<Member> Members => _members.Value;
+		public IEnumerable<IMember> Members => _members.Value;
 		/// <summary>
 		/// Gets the collection of organizations returned by the search.
 		/// </summary>
-		public IEnumerable<Organization> Organizations => _organizations.Value;
+		public IEnumerable<IOrganization> Organizations => _organizations.Value;
 		/// <summary>
 		/// Gets the query.
 		/// </summary>
@@ -53,25 +54,25 @@ namespace Manatee.Trello
 			private set { _query.Value = value; }
 		}
 
-		private List<IQueryable> Context
+		internal List<IQueryable> Context
 		{
 			get { return _queryContext.Value; }
-			set { _queryContext.Value = value; }
+			private set { _queryContext.Value = value; }
 		}
-		private SearchModelType? Types
+		internal SearchModelType? Types
 		{
 			get { return _modelTypes.Value; }
-			set { _modelTypes.Value = value; }
+			private set { _modelTypes.Value = value; }
 		}
-		private int? Limit
+		internal int? Limit
 		{
 			get { return _limit.Value; }
-			set { _limit.Value = value; }
+			private set { _limit.Value = value; }
 		}
-		private bool? IsPartial
+		internal bool? IsPartial
 		{
 			get { return _isPartial.Value; }
-			set { _isPartial.Value = value; }
+			private set { _isPartial.Value = value; }
 		}
 
 		/// <summary>
@@ -84,7 +85,7 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		/// <param name="isPartial">(Optional) Indicates whether to include matches that <em>start with</em> the query text.  Default is false.</param>
-		public Search(SearchFor query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
+		public Search(ISearchQuery query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
 			IEnumerable<IQueryable> context = null, TrelloAuthorization auth = null, bool isPartial = false)
 			: this(query.ToString(), limit, modelTypes, context, auth, isPartial) { }
 		/// <summary>
@@ -125,11 +126,12 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the search to be refreshed the next time data is accessed.
+		/// Refreshes the search results.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
 	}
 }

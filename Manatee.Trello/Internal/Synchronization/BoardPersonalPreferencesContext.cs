@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
@@ -15,20 +17,40 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static BoardPersonalPreferencesContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonBoardPersonalPreferences>>
+			Properties = new Dictionary<string, Property<IJsonBoardPersonalPreferences>>
 				{
-					{"ShowSidebar", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebar, (d, o) => d.ShowSidebar = o)},
-					{"ShowSidebarMembers", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarMembers, (d, o) => d.ShowSidebarMembers = o)},
-					{"ShowSidebarBoardActions", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarBoardActions, (d, o) => d.ShowSidebarBoardActions = o)},
-					{"ShowSidebarActivity", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarActivity, (d, o) => d.ShowSidebarActivity = o)},
-					{"ShowListGuide", new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowListGuide, (d, o) => d.ShowListGuide = o)},
 					{
-						"EmailPosition", new Property<IJsonBoardPersonalPreferences, Position>((d, a) => Position.GetPosition(d.EmailPosition),
-																							   (d, o) => d.EmailPosition = Position.GetJson(o))
+						nameof(BoardPersonalPreferences.ShowSidebar),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebar, (d, o) => d.ShowSidebar = o)
 					},
 					{
-						"EmailListId", new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList?.GetFromCache<List>(a),
-																						 (d, o) => d.EmailList = o?.Json)
+						nameof(BoardPersonalPreferences.ShowSidebarMembers),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarMembers,
+						                                                   (d, o) => d.ShowSidebarMembers = o)
+					},
+					{
+						nameof(BoardPersonalPreferences.ShowSidebarBoardActions),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarBoardActions,
+						                                                   (d, o) => d.ShowSidebarBoardActions = o)
+					},
+					{
+						nameof(BoardPersonalPreferences.ShowSidebarActivity),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowSidebarActivity,
+						                                                   (d, o) => d.ShowSidebarActivity = o)
+					},
+					{
+						nameof(BoardPersonalPreferences.ShowListGuide),
+						new Property<IJsonBoardPersonalPreferences, bool?>((d, a) => d.ShowListGuide, (d, o) => d.ShowListGuide = o)
+					},
+					{
+						nameof(BoardPersonalPreferences.EmailPosition),
+						new Property<IJsonBoardPersonalPreferences, Position>((d, a) => Position.GetPosition(d.EmailPosition),
+						                                                      (d, o) => d.EmailPosition = Position.GetJson(o))
+					},
+					{
+						nameof(BoardPersonalPreferences.EmailList),
+						new Property<IJsonBoardPersonalPreferences, List>((d, a) => d.EmailList?.GetFromCache<List, IJsonList>(a),
+						                                                  (d, o) => d.EmailList = o?.Json)
 					},
 				};
 		}
@@ -38,26 +60,32 @@ namespace Manatee.Trello.Internal.Synchronization
 			_getOwnerId = getOwnerId;
 		}
 
-		protected override IJsonBoardPersonalPreferences GetData()
+		protected override async Task<IJsonBoardPersonalPreferences> GetData(CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_PersonalPrefs, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = JsonRepository.Execute<IJsonBoardPersonalPreferences>(TrelloAuthorization.Default, endpoint);
+			var newData = await JsonRepository.Execute<IJsonBoardPersonalPreferences>(TrelloAuthorization.Default, endpoint, ct);
 
 			return newData;
 		}
-		protected override void SubmitData(IJsonBoardPersonalPreferences json)
+		protected override Task SubmitData(IJsonBoardPersonalPreferences json, CancellationToken ct)
 		{
-			if (json.EmailList != null)
-				SubmitDataPoint(json.EmailList.Id, "emailList");
-			SubmitDataPoint(json.EmailPosition, "emailPosition");
-			SubmitDataPoint(json.ShowListGuide, "showListGuide");
-			SubmitDataPoint(json.ShowSidebar, "showSidebar");
-			SubmitDataPoint(json.ShowSidebarActivity, "showSidebarActivity");
-			SubmitDataPoint(json.ShowSidebarBoardActions, "showSidebarBoardActions");
-			SubmitDataPoint(json.ShowSidebarMembers, "showSidebarMembers");
+			return Task.WhenAll(
+				json.EmailList == null
+#if NET45
+					? Task.Run(() => {}, ct)
+#else
+					? Task.CompletedTask
+#endif
+					: SubmitDataPoint(json.EmailList.Id, "emailList", ct),
+				SubmitDataPoint(json.EmailPosition, "emailPosition", ct),
+				SubmitDataPoint(json.ShowListGuide, "showListGuide", ct),
+				SubmitDataPoint(json.ShowSidebar, "showSidebar", ct),
+				SubmitDataPoint(json.ShowSidebarActivity, "showSidebarActivity", ct),
+				SubmitDataPoint(json.ShowSidebarBoardActions, "showSidebarBoardActions", ct),
+				SubmitDataPoint(json.ShowSidebarMembers, "showSidebarMembers", ct));
 		}
 
-		private void SubmitDataPoint<T>(T value, string segment)
+		private async Task SubmitDataPoint<T>(T value, string segment, CancellationToken ct)
 		{
 			if (Equals(value, default(T))) return;
 
@@ -69,7 +97,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_PersonalPrefs, new Dictionary<string, object> {{"_id", _ownerId}});
 			endpoint.AddSegment(segment);
-			JsonRepository.Execute(Auth, endpoint, json);
+			await JsonRepository.Execute(Auth, endpoint, json, ct);
 		}
 	}
 }

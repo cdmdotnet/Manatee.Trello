@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Exposes any data associated with a notification.
 	/// </summary>
-	public class NotificationData
+	public class NotificationData : INotificationData
 	{
 		private readonly Field<Attachment> _attachment;
 		private readonly Field<Board> _board;
@@ -36,7 +36,7 @@ namespace Manatee.Trello
 		/// <associated-notification-types>
 		/// - AddedAttachmentToCard
 		/// </associated-notification-types>
-		public Attachment Attachment => _attachment.Value;
+		public IAttachment Attachment => _attachment.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
@@ -47,15 +47,15 @@ namespace Manatee.Trello
 		/// - RemovedFromBoard
 		/// - MakeAdminOfBoard
 		/// </associated-notification-types>
-		public Board Board => _board.Value;
+		public IBoard Board => _board.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
-		public Board BoardSource => _boardSource.Value;
+		public IBoard BoardSource => _boardSource.Value;
 		/// <summary>
 		/// Gets an assocated board.
 		/// </summary>
-		public Board BoardTarget => _boardTarget.Value;
+		public IBoard BoardTarget => _boardTarget.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
@@ -72,40 +72,40 @@ namespace Manatee.Trello
 		/// - UpdateCheckItemStateOnCard
 		/// - CardDueSoon
 		/// </associated-notification-types>
-		public Card Card => _card.Value;
+		public ICard Card => _card.Value;
 		/// <summary>
 		/// Gets an assocated card.
 		/// </summary>
-		public Card CardSource => _cardSource.Value;
+		public ICard CardSource => _cardSource.Value;
 		/// <summary>
 		/// Gets an assocated checklist item.
 		/// </summary>
 		/// <associated-notification-types>
 		/// - UpdateCheckItemStateOnCard
 		/// </associated-notification-types>
-		public CheckItem CheckItem => _checkItem.Value;
+		public ICheckItem CheckItem => _checkItem.Value;
 		/// <summary>
 		/// Gets an assocated checklist.
 		/// </summary>
-		public CheckList CheckList => _checkList.Value;
+		public ICheckList CheckList => _checkList.Value;
 		/// <summary>
 		/// Gets an assocated list.
 		/// </summary>
-		public List List => _list.Value;
+		public IList List => _list.Value;
 		/// <summary>
 		/// Gets the current list.
 		/// </summary>
 		/// <remarks>
 		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
 		/// </remarks>
-		public List ListAfter => _listAfter.Value;
+		public IList ListAfter => _listAfter.Value;
 		/// <summary>
 		/// Gets the previous list.
 		/// </summary>
 		/// <remarks>
 		/// For some action types, this information may be in the <see cref="List"/> or <see cref="OldList"/> properties.
 		/// </remarks>
-		public List ListBefore => _listBefore.Value;
+		public IList ListBefore => _listBefore.Value;
 		/// <summary>
 		/// Gets an assocated member.
 		/// </summary>
@@ -114,7 +114,7 @@ namespace Manatee.Trello
 		/// - RemovedMemberFromCard
 		/// - MentionedOnCard
 		/// </associated-notification-types>
-		public Member Member => _member.Value;
+		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the previous description.
 		/// </summary>
@@ -128,7 +128,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// For some action types, this information may be in the <see cref="ListAfter"/> or <see cref="ListBefore"/> properties.
 		/// </remarks>
-		public List OldList => _oldList.Value;
+		public IList OldList => _oldList.Value;
 		/// <summary>
 		/// Gets the previous position.
 		/// </summary>
@@ -152,7 +152,7 @@ namespace Manatee.Trello
 		/// - RemovedFromOrganization
 		/// - MakeAdminOfOrganization
 		/// </associated-notification-types>
-		public Organization Organization => _organization.Value;
+		public IOrganization Organization => _organization.Value;
 		/// <summary>
 		/// Gets assocated text.
 		/// </summary>

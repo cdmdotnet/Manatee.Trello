@@ -7,10 +7,17 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		static MemberPreferencesContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonMemberPreferences>>
+			Properties = new Dictionary<string, Property<IJsonMemberPreferences>>
 				{
-					{"EnableColorBlindMode", new Property<IJsonMemberPreferences, bool?>((d, a) => d.ColorBlind, (d, o) => d.ColorBlind = o)},
-					{"MinutesBetweenSummaries", new Property<IJsonMemberPreferences, int?>((d, a) => d.MinutesBetweenSummaries, (d, o) => d.MinutesBetweenSummaries = o)},
+					{
+						nameof(MemberPreferences.EnableColorBlindMode),
+						new Property<IJsonMemberPreferences, bool?>((d, a) => d.ColorBlind, (d, o) => d.ColorBlind = o)
+					},
+					{
+						nameof(MemberPreferences.MinutesBetweenSummaries),
+						new Property<IJsonMemberPreferences, int?>((d, a) => d.MinutesBetweenSummaries,
+						                                           (d, o) => d.MinutesBetweenSummaries = o)
+					},
 				};
 		}
 		public MemberPreferencesContext(TrelloAuthorization auth)

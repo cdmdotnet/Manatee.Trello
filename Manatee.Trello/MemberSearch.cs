@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -9,7 +11,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Performs a search for members.
 	/// </summary>
-	public class MemberSearch
+	public class MemberSearch : IMemberSearch
 	{
 		private readonly Field<Board> _board;
 		private readonly Field<int?> _limit;
@@ -24,43 +26,43 @@ namespace Manatee.Trello
 		/// </summary>
 		public IEnumerable<MemberSearchResult> Results => _results.Value;
 
-		private Board Board
+		internal IBoard Board
 		{
 			get { return _board.Value; }
-			set { _board.Value = value; }
+			private set { _board.Value = (Board) value; }
 		}
-		private int? Limit
+		internal int? Limit
 		{
 			get { return _limit.Value; }
-			set { _limit.Value = value; }
+			private set { _limit.Value = value; }
 		}
-		private Organization Organization
+		internal IOrganization Organization
 		{
 			get { return _organization.Value; }
-			set { _organization.Value = value; }
+			private set { _organization.Value = (Organization) value; }
 		}
-		private string Query
+		internal string Query
 		{
 			get { return _query.Value; }
-			set { _query.Value = value; }
+			private set { _query.Value = value; }
 		}
-		private bool? RestrictToOrganization
+		internal bool? RestrictToOrganization
 		{
 			get { return _restrictToOrganization.Value; }
-			set { _restrictToOrganization.Value = value; }
+			private set { _restrictToOrganization.Value = value; }
 		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="MemberSearch"/> object and performs the search.
 		/// </summary>
 		/// <param name="query">The query.</param>
-		/// <param name="limit">Optional - The result limit.  Can be a value from 1 to 20. The default is 8.</param>
-		/// <param name="board">Optional - A board to which the search should be limited.</param>
-		/// <param name="organization">Optional - An organization to which the search should be limited.</param>
-		/// <param name="restrictToOrganization">Optional - Restricts the search to only organization members.</param>
+		/// <param name="limit">(Optional) The result limit.  Can be a value from 1 to 20. The default is 8.</param>
+		/// <param name="board">(Optional) A board to which the search should be limited.</param>
+		/// <param name="organization">(Optional) An organization to which the search should be limited.</param>
+		/// <param name="restrictToOrganization">(Optional) Restricts the search to only organization members.</param>
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
-		public MemberSearch(string query, int? limit = null, Board board = null, Organization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)
+		public MemberSearch(string query, int? limit = null, IBoard board = null, IOrganization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)
 		{
 			_context = new MemberSearchContext(auth);
 
@@ -82,11 +84,12 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the member search to be refreshed the next time data is accessed.
+		/// Refreshes the search results.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
 	}
 }

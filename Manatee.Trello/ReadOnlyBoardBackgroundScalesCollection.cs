@@ -1,4 +1,6 @@
-﻿using Manatee.Trello.Internal.Caching;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.Synchronization;
 
 namespace Manatee.Trello
@@ -6,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of scaled versions of board backgrounds.
 	/// </summary>
-	public class ReadOnlyBoardBackgroundScalesCollection : ReadOnlyCollection<ImagePreview>
+	public class ReadOnlyBoardBackgroundScalesCollection : ReadOnlyCollection<IImagePreview>
 	{
 		private readonly BoardBackgroundContext _context;
 
@@ -17,11 +19,12 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Implement to provide data to the collection.
+		/// Manually updates the collection's data.
 		/// </summary>
-		protected sealed override void Update()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Synchronize();
+			await _context.Synchronize(ct);
 			if (_context.Data.ImageScaled == null) return;
 			Items.Clear();
 			foreach (var jsonPreview in _context.Data.ImageScaled)

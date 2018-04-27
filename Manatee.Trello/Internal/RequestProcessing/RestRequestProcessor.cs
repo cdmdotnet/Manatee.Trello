@@ -1,91 +1,81 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
-using Manatee.Trello.Exceptions;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal.Licensing;
 using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.Internal.RequestProcessing
 {
 	internal static class RestRequestProcessor
 	{
-		private const string BaseUrl = "https://api.trello.com/1";
+		private const string BaseUrl = @"https://trello.com/1";
 
-		private static readonly Semaphore _semaphore;
-		private static int _pendingRequestCount;
-		private static bool _cancelPendingRequests;
+		private static IRestClient _client;
 
-		public static event System.Action LastCall;
+		private static IRestClient Client => _client ?? (_client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl));
 
-		static RestRequestProcessor()
+		public static event Func<Task> LastCall;
+
+		public static Task<IRestResponse> AddRequest(IRestRequest request, CancellationToken ct)
 		{
-			_semaphore = new Semaphore(0, TrelloProcessor.ConcurrentCallCount);
-			_semaphore.Release(TrelloProcessor.ConcurrentCallCount);
+			return Process(() => Client.Execute(request, ct), request, ct);
 		}
-
-		public static void AddRequest(IRestRequest request, object hold)
-		{
-			new Thread(() => Process(c => request.Response = c.Execute(request), request, hold)).Start();
-		}
-		public static void AddRequest<T>(IRestRequest request, object hold)
+		public static Task<IRestResponse> AddRequest<T>(IRestRequest request, CancellationToken ct)
 			where T : class
 		{
-			new Thread(() => Process(c => request.Response = c.Execute<T>(request), request, hold)).Start();
+			return Process(async () => await Client.Execute<T>(request, ct), request, ct);
 		}
-		public static void Flush()
+		public static async Task Flush()
 		{
-			LastCall?.Invoke();
-		}
-		public static void CancelPendingRequests()
-		{
-			_cancelPendingRequests = true;
-			Flush();
+			if (LastCall == null) return;
+
+			var handlers = LastCall.GetInvocationList().Cast<Func<Task>>();
+
+			await Task.WhenAll(handlers.Select(h => h()));
 		}
 
-		private static void Process(Action<IRestClient> ask, IRestRequest request, object hold)
+		private static async Task<IRestResponse> Process(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)
 		{
+			IRestResponse response;
 			try
 			{
-				_pendingRequestCount++;
-				_semaphore.WaitOne();
-				Execute(ask, request);
+				ManageLicenseCounts(request.Method);
+				response = await Execute(ask, request, ct);
 			}
 			catch (Exception e)
 			{
-				request.Response = new NullRestResponse {Exception = e};
+				response = new NullRestResponse {Exception = e};
 				TrelloConfiguration.Log.Error(e);
 			}
-			finally
-			{
-				lock (hold)
-					Monitor.Pulse(hold);
-				_pendingRequestCount--;
-				if (_pendingRequestCount == 0)
-					_cancelPendingRequests = false;
-				_semaphore.Release();
-			}
+
+			return response;
 		}
-		private static void Execute(Action<IRestClient> ask, IRestRequest request)
+		private static async Task<IRestResponse> Execute(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)
 		{
-			if (!_cancelPendingRequests)
+			IRestResponse response;
+			if (!ct.IsCancellationRequested)
 			{
-				var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 				LogRequest(request, "Sending");
 				try
 				{
-					ask(client);
-					LogResponse(request.Response, "Received");
+					response = await ask();
+					LogResponse(response, "Received");
 				}
 				catch (Exception e)
 				{
 					var tie = new TrelloInteractionException(e);
-					request.Response = new NullRestResponse {Exception = e};
-					TrelloConfiguration.Log.Error(tie, false);
+					response = new NullRestResponse {Exception = e};
+					TrelloConfiguration.Log.Error(tie);
 				}
 			}
 			else
 			{
 				LogRequest(request, "Stubbing");
-				request.Response = new NullRestResponse();
+				response = new NullRestResponse();
 			}
+
+			return response;
 		}
 		private static void LogRequest(IRestRequest request, string action)
 		{
@@ -94,6 +84,23 @@ namespace Manatee.Trello.Internal.RequestProcessing
 		private static void LogResponse(IRestResponse response, string action)
 		{
 			TrelloConfiguration.Log.Info("{0}: {1}", action, response.Content);
+		}
+
+		private static void ManageLicenseCounts(RestMethod method)
+		{
+			switch (method)
+			{
+				case RestMethod.Get:
+					LicenseHelpers.IncrementAndCheckRetrieveCount();
+					break;
+				case RestMethod.Put:
+				case RestMethod.Post:
+				case RestMethod.Delete:
+					LicenseHelpers.IncrementAndCheckSubmissionCount();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(method), method, null);
+			}
 		}
 	}
 }

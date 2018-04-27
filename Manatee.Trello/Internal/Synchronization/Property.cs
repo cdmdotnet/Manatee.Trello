@@ -4,8 +4,8 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class Property<T>
 	{
-		public Func<T, TrelloAuthorization, object> Get { get; private set; }
-		public Action<T, object> Set { get; private set; }
+		public Func<T, TrelloAuthorization, object> Get { get; }
+		public Action<T, object> Set { get; }
 
 		protected Property(Func<T, TrelloAuthorization, object> get, Action<T, object> set)
 		{

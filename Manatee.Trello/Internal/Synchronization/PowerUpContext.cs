@@ -7,12 +7,24 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		static PowerUpContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonPowerUp>>
+			Properties = new Dictionary<string, Property<IJsonPowerUp>>
 				{
-					{"Id", new Property<IJsonPowerUp, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"Name", new Property<IJsonPowerUp, string>((d, a) => d.Name, (d, o) => d.Name = o)},
-					{"Public", new Property<IJsonPowerUp, bool?>((d, a) => d.Public, (d, o) => d.Public = o)},
-					{"AdditionalInfo", new Property<IJsonPowerUp, string>((d, a) => d.Url, (d, o) => d.Url = o)},
+					{
+						nameof(PowerUpBase.Id),
+						new Property<IJsonPowerUp, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						nameof(PowerUpBase.Name),
+						new Property<IJsonPowerUp, string>((d, a) => d.Name, (d, o) => d.Name = o)
+					},
+					{
+						nameof(PowerUpBase.IsPublic),
+						new Property<IJsonPowerUp, bool?>((d, a) => d.Public, (d, o) => d.Public = o)
+					},
+					{
+						nameof(PowerUpBase.AdditionalInfo),
+						new Property<IJsonPowerUp, string>((d, a) => d.Url, (d, o) => d.Url = o)
+					},
 				};
 		}
 		public PowerUpContext(IJsonPowerUp json, TrelloAuthorization auth)

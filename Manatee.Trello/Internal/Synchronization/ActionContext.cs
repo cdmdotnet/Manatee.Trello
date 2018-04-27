@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Manatee.Trello.Exceptions;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -10,6 +12,23 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class ActionContext : SynchronizationContext<IJsonAction>
 	{
+		private static readonly Dictionary<string, object> Parameters;
+		private static readonly Action.Fields MemberFields;
+
+		public static Dictionary<string, object> CurrentParameters
+		{
+			get
+			{
+				lock (Parameters)
+				{
+					if (!Parameters.Any())
+						GenerateParameters();
+
+					return new Dictionary<string, object>(Parameters);
+				}
+			}
+		}
+
 		private bool _deleted;
 
 		public ActionDataContext ActionDataContext { get; }
@@ -17,16 +36,33 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		static ActionContext()
 		{
-			_properties = new Dictionary<string, Property<IJsonAction>>
+			Parameters = new Dictionary<string, object>();
+			MemberFields = Action.Fields.Data |
+			               Action.Fields.Date |
+						   Action.Fields.Type;
+			Properties = new Dictionary<string, Property<IJsonAction>>
 				{
 					{
-						"Creator", new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member>(a),
-						                                             (d, o) => { if (o != null) d.MemberCreator = o.Json; })
+						nameof(Action.Creator),
+						new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member, IJsonMember>(a),
+						                                  (d, o) => { if (o != null) d.MemberCreator = o.Json; })
 					},
-					{"Date", new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)},
-					{"Id", new Property<IJsonAction, string>((d, a) => d.Id, (d, o) => d.Id = o)},
-					{"Text", new Property<IJsonAction, string>((d, a) => d.Data.Text, (d, o) => d.Text = o)},
-					{"Type", new Property<IJsonAction, ActionType?>((d, a) => d.Type, (d, o) => d.Type = o)},
+					{
+						nameof(Action.Date),
+						new Property<IJsonAction, DateTime?>((d, a) => d.Date, (d, o) => d.Date = o)
+					},
+					{
+						nameof(Action.Id),
+						new Property<IJsonAction, string>((d, a) => d.Id, (d, o) => d.Id = o)
+					},
+					{
+						"Text",
+						new Property<IJsonAction, string>((d, a) => d.Data.Text, (d, o) => d.Text = o)
+					},
+					{
+						nameof(Action.Type),
+						new Property<IJsonAction, ActionType?>((d, a) => d.Type, (d, o) => d.Type = o)
+					},
 				};
 		}
 		public ActionContext(string id, TrelloAuthorization auth)
@@ -34,27 +70,56 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Data.Id = id;
 			ActionDataContext = new ActionDataContext(Auth);
-			ActionDataContext.SynchronizeRequested += () => Synchronize();
-			ActionDataContext.SubmitRequested += () => HandleSubmitRequested("Text");
+			ActionDataContext.SubmitRequested += ct => HandleSubmitRequested("Text", ct);
 			Data.Data = ActionDataContext.Data;
 		}
 
-		public void Delete()
+		public static void UpdateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+			}
+		}
+
+		private static void GenerateParameters()
+		{
+			lock (Parameters)
+			{
+				Parameters.Clear();
+				var flags = Enum.GetValues(typeof(Action.Fields)).Cast<Action.Fields>().ToList();
+				var availableFields = (Action.Fields)flags.Cast<int>().Sum();
+
+				var memberFields = availableFields & MemberFields & Action.DownloadedFields;
+				Parameters["fields"] = memberFields.GetDescription();
+
+				var parameterFields = availableFields & Action.DownloadedFields & (~MemberFields);
+				if (parameterFields.HasFlag(Action.Fields.Creator))
+				{
+					Parameters["memberCreator"] = "true";
+					Parameters["memberCreator_fields"] = MemberContext.CurrentParameters["fields"];
+				}
+			}
+		}
+
+		public async Task Delete(CancellationToken ct)
 		{
 			if (_deleted) return;
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			JsonRepository.Execute(Auth, endpoint);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
+			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
 		}
 
-		protected override IJsonAction GetData()
+		protected override async Task<IJsonAction> GetData(CancellationToken ct)
 		{
 			try
 			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = JsonRepository.Execute<IJsonAction>(Auth, endpoint);
+				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh,
+				                                     new Dictionary<string, object> {{"_id", Data.Id}});
+				var newData = await JsonRepository.Execute<IJsonAction>(Auth, endpoint, ct, CurrentParameters);
 				MarkInitialized();
 
 				return newData;
@@ -66,10 +131,12 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override void SubmitData(IJsonAction json)
+		protected override async Task SubmitData(IJsonAction json, CancellationToken ct)
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = JsonRepository.Execute(Auth, endpoint, json);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Update,
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
+			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
+
 			Merge(newData);
 			Data.Data = ActionDataContext.Data;
 		}
@@ -89,11 +156,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override bool CanUpdate()
 		{
 			return !_deleted;
-		}
-		public override void Expire()
-		{
-			ActionDataContext.Expire();
-			base.Expire();
 		}
 	}
 }

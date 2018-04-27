@@ -6,7 +6,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents permissions granted by a token.
 	/// </summary>
-	public class TokenPermission
+	public class TokenPermission : ITokenPermission
 	{
 		private readonly Field<bool?> _canRead;
 		private readonly Field<bool?> _canWrite; 

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -12,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a notification.
 	/// </summary>
-	public class Notification : ICacheable
+	public class Notification : INotification, IMergeJson<IJsonNotification>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for notifications.
@@ -55,11 +56,20 @@ namespace Manatee.Trello
 		private readonly Field<NotificationType?> _type;
 		private readonly NotificationContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				NotificationContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the creation date of the notification.
@@ -76,11 +86,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member who performed the action which created the notification.
 		/// </summary>
-		public Member Creator => _creator.Value;
+		public IMember Creator => _creator.Value;
 		/// <summary>
 		/// Gets any data associated.
 		/// </summary>
-		public NotificationData Data { get; }
+		public INotificationData Data { get; }
 		/// <summary>
 		/// Gets the date and time at which the notification was issued.
 		/// </summary>
@@ -111,7 +121,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the notification is updated.
 		/// </summary>
-		public event Action<Notification, IEnumerable<string>> Updated;
+		public event Action<INotification, IEnumerable<string>> Updated;
 
 		static Notification()
 		{
@@ -138,6 +148,7 @@ namespace Manatee.Trello
 					{NotificationType.MakeAdminOfOrganization, n => $"{n.Creator} made member {n.Data.Member} an admin of organization {n.Data.Organization}."},
 					{NotificationType.CardDueSoon, n => $"Card {n.Data.Card} is due soon."},
 				};
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
 		/// <summary>
 		/// Creates a new <see cref="Notification"/> object.
@@ -166,11 +177,22 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Returns a string that represents the notification.  The content will vary based on the value of <see cref="Type"/>.
+		/// Refreshes the notification data.
 		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
+		}
+
+		void IMergeJson<IJsonNotification>.Merge(IJsonNotification json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Notification type could not be determined.";

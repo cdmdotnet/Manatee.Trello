@@ -4,7 +4,7 @@ namespace Manatee.Trello.Internal.Validation
 {
 	internal class IdRule : IValidationRule<string>
 	{
-		private static readonly Regex _regex = new Regex("^[a-z0-9]{24}$", RegexOptions.IgnoreCase);
+		private static readonly Regex Regex = new Regex("^[a-z0-9]{24}$", RegexOptions.IgnoreCase);
 
 		public static IdRule Instance { get; }
 
@@ -16,7 +16,7 @@ namespace Manatee.Trello.Internal.Validation
 
 		public string Validate(string oldValue, string newValue)
 		{
-			return oldValue != null && _regex.IsMatch(oldValue) ? null : string.Empty;
+			return oldValue != null && Regex.IsMatch(oldValue) ? null : string.Empty;
 		}
 	}
 }

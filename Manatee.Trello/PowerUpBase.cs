@@ -1,4 +1,6 @@
-﻿using Manatee.Trello.Internal;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -7,10 +9,10 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Provides a base implementation for Trello Power-Ups.
 	/// </summary>
-	public abstract class PowerUpBase : IPowerUp
+	public abstract class PowerUpBase : IPowerUp, IMergeJson<IJsonPowerUp>
 	{
 		private readonly Field<string> _name;
-		private readonly Field<bool?> _public;
+		private readonly Field<bool?> _isPublic;
 		private readonly Field<string> _additionalInfo;
 		private readonly PowerUpContext _context;
 
@@ -23,13 +25,13 @@ namespace Manatee.Trello
 		/// </summary>
 		public string Id { get; }
 		/// <summary>
+		/// Gets or sets whether this power-up is closed.
+		/// </summary>
+		public bool? IsPublic => _isPublic.Value;
+		/// <summary>
 		/// Gets the name of the power-up.
 		/// </summary>
 		public string Name => _name.Value;
-		/// <summary>
-		/// Gets or sets whether this power-up is closed.
-		/// </summary>
-		public bool? Public => _public.Value;
 
 		internal IJsonPowerUp Json
 		{
@@ -47,7 +49,20 @@ namespace Manatee.Trello
 
 			_additionalInfo = new Field<string>(_context, nameof(AdditionalInfo));
 			_name = new Field<string>(_context, nameof(Name));
-			_public = new Field<bool?>(_context, nameof(Public));
+			_isPublic = new Field<bool?>(_context, nameof(IsPublic));
+		}
+		/// <summary>
+		/// Refreshes the power-up data.
+		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
+		}
+
+		void IMergeJson<IJsonPowerUp>.Merge(IJsonPowerUp json)
+		{
+			_context.Merge(json);
 		}
 
 		/// <summary>Returns the <see cref="Name"/></summary>

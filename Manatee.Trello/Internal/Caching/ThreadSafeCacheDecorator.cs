@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Manatee.Trello.Contracts;
 
 namespace Manatee.Trello.Internal.Caching
 {

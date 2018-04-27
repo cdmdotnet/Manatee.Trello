@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -10,9 +11,9 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Documents all of the activities in Trello.
+	/// Represents an action performed on Trello objects.
 	/// </summary>
-	public class Action : ICacheable
+	public class Action : IAction, IMergeJson<IJsonAction>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for actions.
@@ -33,16 +34,16 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Creator property should be populated.
 			/// </summary>
-			[Display(Description="idMemberCreator")]
+			[Display(Description="memberCreator")]
 			Creator = 1 << 2,
 			/// <summary>
 			/// Indicates the Type property should be populated.
 			/// </summary>
 			[Display(Description="type")]
-			Type = 1 << 3
+			Type = 1 << 3,
 		}
 
-		private static readonly Dictionary<ActionType, Func<Action, string>> _stringDefinitions;
+		private static readonly Dictionary<ActionType, Func<Action, string>> StringDefinitions;
 
 		private readonly Field<Member> _creator;
 		private readonly Field<DateTime?> _date;
@@ -50,14 +51,23 @@ namespace Manatee.Trello
 		private readonly ActionContext _context;
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				ActionContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
-		/// Gets the creation date.
+		/// Gets the creation date of the action.
 		/// </summary>
 		public DateTime CreationDate
 		{
@@ -68,31 +78,36 @@ namespace Manatee.Trello
 				return _creation.Value;
 			}
 		}
+
 		/// <summary>
 		/// Gets the member who performed the action.
 		/// </summary>
-		public Member Creator => _creator.Value;
+		public IMember Creator => _creator.Value;
+
 		/// <summary>
-		/// Gets any associated data.
+		/// Gets any data associated with the action.
 		/// </summary>
-		public ActionData Data { get; }
+		public IActionData Data { get; }
+
 		/// <summary>
 		/// Gets the date and time at which the action was performed.
 		/// </summary>
 		public DateTime? Date => _date.Value;
+
 		/// <summary>
-		/// Gets the action's ID.
+		/// Gets an ID on which matching can be performed.
 		/// </summary>
 		public string Id
 		{
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
 		}
+
 		/// <summary>
 		/// Gets the type of action.
 		/// </summary>
@@ -105,13 +120,13 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Raised when any data on the <see cref="Action"/> instance is updated.
+		/// Raised when data on the action is updated.
 		/// </summary>
-		public event Action<Action, IEnumerable<string>> Updated;
+		public event Action<IAction, IEnumerable<string>> Updated;
 
 		static Action()
 		{
-			_stringDefinitions = new Dictionary<ActionType, Func<Action, string>>
+			StringDefinitions = new Dictionary<ActionType, Func<Action, string>>
 				{
 					{ActionType.AddAttachmentToCard, a => $"{a.Creator} attached {a.Data.Attachment} to card {a.Data.Card}."},
 					{ActionType.AddChecklistToCard, a => $"{a.Creator} added checklist {a.Data.CheckList} to card {a.Data.Card}."},
@@ -130,7 +145,7 @@ namespace Manatee.Trello
 					{ActionType.CreateOrganization, a => $"{a.Creator} created organization {a.Data.Organization}."},
 					{ActionType.DeleteAttachmentFromCard, a => $"{a.Creator} removed attachment {a.Data.Attachment} from card {a.Data.Card}."},
 					{ActionType.DeleteBoardInvitation, a => $"{a.Creator} rescinded an invitation."},
-					{ActionType.DeleteCard, a => $"{a.Creator} deleted card #{a.Data.Card.Json.IdShort} from {a.Data.Board}."},
+					{ActionType.DeleteCard, a => $"{a.Creator} deleted card #{((Card) a.Data.Card).Json.IdShort} from {a.Data.Board}."},
 					{ActionType.DeleteOrganizationInvitation, a => $"{a.Creator} rescinded an invitation."},
 					{ActionType.DisablePowerUp, a => $"{a.Creator} disabled power-up {a.Data.Value}."},
 					{ActionType.EmailCard, a => $"{a.Creator} added card {a.Data.Card} by email."},
@@ -180,7 +195,10 @@ namespace Manatee.Trello
 					{ActionType.UpdateCheckItem, a => $"{a.Creator} updated check item {a.Data.CheckItem}."},
 					{ActionType.UpdateLabel, a => $"{a.Creator} updated label {a.Data.Label}."},
 					{ActionType.VoteOnCard, a => $"{a.Creator} voted for card {a.Data.Card}."},
+					{ActionType.UpdateCustomField, a => $"{a.Creator} updated the definition of custom field {a.Data.CustomField} on board {a.Data.Board}."},
+					{ActionType.UpdateCustomFieldItem, a => $"{a.Creator} updated custom field {a.Data.CustomField} on card {a.Data.Card}."},
 				};
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
 		/// <summary>
 		/// Creates a new <see cref="Action"/> instance.
@@ -207,25 +225,39 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Permanently deletes the action from Trello.
+		/// Deletes the action.
 		/// </summary>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
+		/// This permanently deletes the action from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
-			TrelloConfiguration.Cache.Remove(this);
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Returns a string that represents the action.  The content will vary based on the value of <see cref="Type"/>.
+		/// Refreshes the action data.
 		/// </summary>
-		/// <returns>
-		/// A string that represents the action.
-		/// </returns>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
+		}
+
+		void IMergeJson<IJsonAction>.Merge(IJsonAction json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
-			return Type.HasValue && Type != ActionType.Unknown ? _stringDefinitions[Type.Value](this) : "Action type could not be determined.";
+			return Type.HasValue && Type != ActionType.Unknown
+				       ? StringDefinitions[Type.Value](this)
+				       : "Action type could not be determined.";
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

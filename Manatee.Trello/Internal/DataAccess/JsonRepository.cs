@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Rest;
 
@@ -7,35 +8,35 @@ namespace Manatee.Trello.Internal.DataAccess
 {
 	internal static class JsonRepository
 	{
-		public static void Execute(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters = null)
+		public static async Task Execute(TrelloAuthorization auth, Endpoint endpoint, CancellationToken ct, IDictionary<string, object> parameters = null)
 		{
-			var obj = new object();
 			var request = BuildRequest(auth, endpoint, parameters);
-			RestRequestProcessor.AddRequest(request, obj);
-			lock (obj)
-				Monitor.Wait(obj);
-			ValidateResponse(request);
+			var response = await RestRequestProcessor.AddRequest(request, ct);
+			ValidateResponse(response);
 		}
-		public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, IDictionary<string, object> parameters = null)
+		public static async Task<T> Execute<T>(TrelloAuthorization auth, Endpoint endpoint, CancellationToken ct, IDictionary<string, object> parameters = null)
 			where T : class
 		{
-			var obj = new object();
 			var request = BuildRequest(auth, endpoint, parameters);
-			AddDefaultParameters<T>(request);
-			ProcessRequest<T>(request, obj);
-		    var response = request.Response as IRestResponse<T>;
+			var response = await ProcessRequest<T>(request, ct);
 			return response?.Data;
 		}
 
-	    public static T Execute<T>(TrelloAuthorization auth, Endpoint endpoint, T body)
+	    public static async Task<T> Execute<T>(TrelloAuthorization auth, Endpoint endpoint, T body, CancellationToken ct)
 			where T : class
 		{
-			var obj = new object();
 			var request = BuildRequest(auth, endpoint);
 			request.AddBody(body);
-			AddDefaultParameters<T>(request);
-		    ProcessRequest<T>(request, obj);
-			var response = request.Response as IRestResponse<T>;
+			var response = await ProcessRequest<T>(request, ct);
+			return response?.Data;
+		}
+
+	    public static async Task<TResponse> Execute<TRequest, TResponse>(TrelloAuthorization auth, Endpoint endpoint, TRequest body, CancellationToken ct)
+			where TResponse : class
+		{
+			var request = BuildRequest(auth, endpoint);
+			request.AddBody(body);
+			var response = await ProcessRequest<TResponse>(request, ct);
 			return response?.Data;
 		}
 
@@ -52,26 +53,23 @@ namespace Manatee.Trello.Internal.DataAccess
 			if (auth.UserToken != null)
 				request.AddParameter("token", auth.UserToken);
 		}
-		private static void ValidateResponse(IRestRequest request)
+		private static void ValidateResponse(IRestResponse response)
 		{
-			if (request.Response.Exception != null)
-				TrelloConfiguration.Log.Error(request.Response.Exception, TrelloConfiguration.ThrowOnTrelloError);
-		}
-		private static void AddDefaultParameters<T>(IRestRequest request)
-		{
-			if (request.Method != RestMethod.Get) return;
-			var defaultParameters = RestParameterRepository.GetParameters<T>();
-			foreach (var parameter in defaultParameters)
+			if (response.Exception != null)
 			{
-				request.AddParameter(parameter.Key, parameter.Value);
+				TrelloConfiguration.Log.Error(response.Exception);
+				if (TrelloConfiguration.ThrowOnTrelloError)
+				{
+					throw response.Exception;
+				}
 			}
 		}
-	    private static void ProcessRequest<T>(IRestRequest request, object obj) where T : class
+	    private static async Task<IRestResponse<T>> ProcessRequest<T>(IRestRequest request, CancellationToken ct)
+		    where T : class
 	    {
-	        RestRequestProcessor.AddRequest<T>(request, obj);
-	        lock (obj)
-	            Monitor.Wait(obj);
-	        ValidateResponse(request);
+			var response = await RestRequestProcessor.AddRequest<T>(request, ct);
+	        ValidateResponse(response);
+		    return response as IRestResponse<T>;
 	    }
 	}
 }

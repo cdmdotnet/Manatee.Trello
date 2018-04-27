@@ -110,5 +110,30 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		[JsonSpecialSerialization]
 		IJsonMemberPreferences Prefs { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of actions.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonAction> Actions { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of boards.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonBoard> Boards { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of cards.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonCard> Cards { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of notifications.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonNotification> Notifications { get; set; }
+		/// <summary>
+		/// Gets or sets a collection of organizations.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonOrganization> Organizations { get; set; }
 	}
 }

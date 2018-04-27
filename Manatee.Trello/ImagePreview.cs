@@ -1,5 +1,4 @@
 ﻿using System;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Json;
 
@@ -8,10 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a preview for an image.
 	/// </summary>
-	/// <remarks>
-	/// Used for card <see cref="Attachment"/>s, <see cref="BoardBackground"/>s, and <see cref="Sticker"/>s.
-	/// </remarks>
-	public class ImagePreview : ICacheable
+	public class ImagePreview : IImagePreview
 	{
 		private DateTime? _creation;
 

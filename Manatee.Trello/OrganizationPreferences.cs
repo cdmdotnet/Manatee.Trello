@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the preferences for an organization.
 	/// </summary>
-	public class OrganizationPreferences
+	public class OrganizationPreferences : IOrganizationPreferences
 	{
 		private readonly Field<OrganizationPermissionLevel?> _permissionLevel;
 		private readonly Field<bool?> _externalMembersDisabled;

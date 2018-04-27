@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the user-specific preferences for a board.
 	/// </summary>
-	public class BoardPersonalPreferences
+	public class BoardPersonalPreferences : IBoardPersonalPreferences
 	{
 		private readonly Field<List> _emailList;
 		private readonly Field<Position> _emailPosition;
@@ -20,20 +20,20 @@ namespace Manatee.Trello
 		private readonly BoardPersonalPreferencesContext _context;
 
 		/// <summary>
-		/// Gets or sets the <see cref="List"/> which will be used to post new cards submitted by email.
+		/// Gets or sets the <see cref="IList"/> which will be used to post new cards submitted by email.
 		/// </summary>
-		public List EmailList
+		public IList EmailList
 		{
 			get { return _emailList.Value; }
-			set { _emailList.Value = value; }
+			set { _emailList.Value = (List) value; }
 		}
 		/// <summary>
-		/// Gets or sets the <see cref="Position"/> within a <see cref="List"/> which will be used to post new cards submitted by email.
+		/// Gets or sets the <see cref="Position"/> within a <see cref="IList"/> which will be used to post new cards submitted by email.
 		/// </summary>
 		public Position EmailPosition
 		{
 			get { return _emailPosition.Value; }
-			set { _emailPosition.Value = value; }
+			set { _emailPosition.Value = (Position) value; }
 		}
 		/// <summary>
 		/// Gets or sets whether to show the list guide.

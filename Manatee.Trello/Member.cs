@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -13,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member.
 	/// </summary>
-	public class Member : ICanWebhook
+	public class Member : IMember, IMergeJson<IJsonMember>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for members.
@@ -82,11 +83,6 @@ namespace Manatee.Trello
 			[Display(Description="prefs")]
 			Preferencess = 1 << 11,
 			/// <summary>
-			/// Indicates the Similarity property should be populated.
-			/// </summary>
-			[Display(Description="similarity")]
-			Similarity = 1 << 12,
-			/// <summary>
 			/// Indicates the Status property should be populated.
 			/// </summary>
 			[Display(Description="status")]
@@ -110,11 +106,30 @@ namespace Manatee.Trello
 			/// Indicates the Username property should be populated.
 			/// </summary>
 			[Display(Description="username")]
-			Username = 1 << 17
+			Username = 1 << 17,
+			/// <summary>
+			/// Indicates the actions will be downloaded.
+			/// </summary>
+			Actions = 1 << 18,
+			/// <summary>
+			/// Indicates the boards will be downloaded.
+			/// </summary>
+			Boards = 1 << 19,
+			/// <summary>
+			/// Indicates the organizations will be downloaded.
+			/// </summary>
+			Organizations = 1 << 20,
+			/// <summary>
+			/// Indicates the cards will be downloaded.
+			/// </summary>
+			Cards = 1 << 21,
+			/// <summary>
+			/// Indicates the notifications will be downloaded.
+			/// </summary>
+			Notifications = 1 << 22,
 		}
 
 		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
-		private static Me _me;
 
 		private readonly Field<AvatarSource?> _avatarSource;
 		private readonly Field<string> _avatarUrl;
@@ -130,21 +145,25 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
-
-		/// <summary>
-		/// Returns the <see cref="Member"/> associated with the default <see cref="TrelloAuthorization.UserToken"/>.
-		/// </summary>
-		public static Me Me => _me ?? (_me = new Me());
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				MemberContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public IReadOnlyCollection<IAction> Actions => _context.Actions;
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
@@ -168,7 +187,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public ReadOnlyBoardCollection Boards { get; }
+		public IReadOnlyCollection<IBoard> Boards => _context.Boards;
+		/// <summary>
+		/// Gets the collection of cards assigned to the member.
+		/// </summary>
+		public IReadOnlyCollection<ICard> Cards => _context.Cards;
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
@@ -197,7 +220,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -221,7 +244,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public ReadOnlyOrganizationCollection Organizations { get; }
+		public IReadOnlyCollection<IOrganization> Organizations => _context.Organizations;
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
@@ -253,7 +276,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the member is updated.
 		/// </summary>
-		public event Action<Member, IEnumerable<string>> Updated;
+		public event Action<IMember, IEnumerable<string>> Updated;
+
+		static Member()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="Member"/> object.
@@ -269,22 +297,19 @@ namespace Manatee.Trello
 		{
 			Auth = auth;
 			Id = id;
-			_context = new MemberContext(id, auth);
+			_context = new MemberContext(id, isMe, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Member), () => Id, auth);
 			_avatarSource = new Field<AvatarSource?>(_context, nameof(AvatarSource));
 			_avatarSource.AddRule(NullableHasValueRule<AvatarSource>.Instance);
 			_avatarSource.AddRule(EnumerationRule<AvatarSource?>.Instance);
 			_avatarUrl = new Field<string>(_context, nameof(AvatarUrl));
 			_bio = new Field<string>(_context, nameof(Bio));
-			Boards = isMe ? new BoardCollection(typeof(Member), () => Id, auth) : new ReadOnlyBoardCollection(typeof(Member), () => Id, auth);
 			_fullName = new Field<string>(_context, nameof(FullName));
 			_fullName.AddRule(MemberFullNameRule.Instance);
 			_initials = new Field<string>(_context, nameof(Initials));
 			_initials.AddRule(MemberInitialsRule.Instance);
 			_isConfirmed = new Field<bool?>(_context, nameof(IsConfirmed));
-			Organizations = isMe ? new OrganizationCollection(() => Id, auth) : new ReadOnlyOrganizationCollection(() => Id, auth);
 			_status = new Field<MemberStatus?>(_context, nameof(Status));
 			_trophies = new Field<IEnumerable<string>>(_context, nameof(Trophies));
 			_url = new Field<string>(_context, nameof(Url));
@@ -303,27 +328,32 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public void ApplyAction(IAction action)
 		{
 			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
-			_context.Merge(action.Data.Member.Json);
+			_context.Merge(((Member) action.Data.Member).Json);
 		}
+
 		/// <summary>
-		/// Marks the member to be refreshed the next time data is accessed.
+		/// Refreshes the member data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns the <see cref="FullName"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
 			return FullName;
+		}
+
+		void IMergeJson<IJsonMember>.Merge(IJsonMember json)
+		{
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

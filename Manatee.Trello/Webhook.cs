@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -10,34 +10,10 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Provides a common base class for the generic Webhook classes.
-	/// </summary>
-	public abstract class Webhook
-	{
-		internal Webhook() {}
-
-		/// <summary>
-		/// Processes webhook notification content.
-		/// </summary>
-		/// <param name="content">The string content of the notification.</param>
-		/// <param name="auth">The <see cref="TrelloAuthorization"/> under which the notification should be processed</param>
-		public static void ProcessNotification(string content, TrelloAuthorization auth = null)
-		{
-			var notification = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhookNotification>(content);
-			var action = new Action(notification.Action, auth);
-
-			foreach (var obj in TrelloConfiguration.Cache.OfType<ICanWebhook>().ToList())
-			{
-				obj.ApplyAction(action);
-			}
-		}
-	}
-
-	/// <summary>
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : Webhook
+	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>
 		where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
@@ -99,30 +75,8 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the webhook is updated.
 		/// </summary>
-		public event Action<Webhook, IEnumerable<string>> Updated;
+		public event Action<IWebhook<T>, IEnumerable<string>> Updated;
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.
-		/// </summary>
-		/// <param name="target"></param>
-		/// <param name="description"></param>
-		/// <param name="callBackUrl"></param>
-		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
-		public Webhook(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null)
-		{
-			_context = new WebhookContext<T>(auth);
-			Id = _context.Create(target, description, callBackUrl);
-
-			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
-			_callBackUrl.AddRule(UriRule.Instance);
-			_description = new Field<string>(_context, nameof(Description));
-			_isActive = new Field<bool?>(_context, nameof(IsActive));
-			_isActive.AddRule(NullableHasValueRule<bool>.Instance);
-			_target = new Field<T>(_context, nameof(Target));
-			_target.AddRule(NotNullRule<T>.Instance);
-
-			TrelloConfiguration.Cache.Add(this);
-		}
 		/// <summary>
 		/// Creates a new instance of the <see cref="Webhook{T}"/> object for a webhook which has already been registered with Trello.
 		/// </summary>
@@ -144,29 +98,67 @@ namespace Manatee.Trello
 
 			TrelloConfiguration.Cache.Add(this);
 		}
-		internal Webhook(IJsonWebhook json, TrelloAuthorization auth)
-			: this(json.Id, auth)
+
+		private Webhook(string id, WebhookContext<T> context)
 		{
-			_context.Merge(json);
+			Id = id;
+			_context = context;
+			_context.Synchronized += Synchronized;
+
+			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
+			_callBackUrl.AddRule(UriRule.Instance);
+			_description = new Field<string>(_context, nameof(Description));
+			_isActive = new Field<bool?>(_context, nameof(IsActive));
+			_isActive.AddRule(NullableHasValueRule<bool>.Instance);
+			_target = new Field<T>(_context, nameof(Target));
+			_target.AddRule(NotNullRule<T>.Instance);
+
+			TrelloConfiguration.Cache.Add(this);
 		}
 
 		/// <summary>
-		/// Permanently deletes the webhook from Trello.
+		/// Creates a new instance of the <see cref="Webhook{T}"/> object and registers a webhook with Trello.
 		/// </summary>
-		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.
-		/// </remarks>
-		public void Delete()
+		/// <param name="target"></param>
+		/// <param name="description"></param>
+		/// <param name="callBackUrl"></param>
+		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public static async Task<Webhook<T>> Create(T target, string callBackUrl, string description = null,
+		                                            TrelloAuthorization auth = null, 
+		                                            CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
-			TrelloConfiguration.Cache.Remove(this);
+			var context = new WebhookContext<T>(auth);
+			var id = await context.Create(target, description, callBackUrl, ct);
+			return new Webhook<T>(id, context);
 		}
+
 		/// <summary>
-		/// Marks the webhook to be refreshed the next time data is accessed.
+		/// Deletes the webhook.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		/// <remarks>
+		/// This permanently deletes the webhook from Trello's server, however, this object will remain in memory and all properties will remain accessible.
+		/// </remarks>
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
+		}
+
+		/// <summary>
+		/// Refreshes the webhook data.
+		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
+		}
+
+		void IMergeJson<IJsonWebhook>.Merge(IJsonWebhook json)
+		{
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

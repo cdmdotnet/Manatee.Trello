@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Manatee.Trello.Contracts
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Defines operations for a cache.

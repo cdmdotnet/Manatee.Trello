@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the preferences for a board.
 	/// </summary>
-	public class BoardPreferences
+	public class BoardPreferences : IBoardPreferences
 	{
 		private readonly Field<BoardPermissionLevel?> _permissionLevel;
 		private readonly Field<BoardVotingPermission?> _voting;
@@ -87,10 +87,10 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the background of the board.
 		/// </summary>
-		public BoardBackground Background
+		public IBoardBackground Background
 		{
 			get { return _background.Value; }
-			set { _background.Value = value; }
+			set { _background.Value = (BoardBackground) value; }
 		}
 
 		internal BoardPreferences(BoardPreferencesContext context)

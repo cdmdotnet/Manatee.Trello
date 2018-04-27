@@ -1,4 +1,5 @@
-﻿using Manatee.Trello.Contracts;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
@@ -6,9 +7,9 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Represents the data associated with a power-up.
+	/// Represents the data associated with a plugin.
 	/// </summary>
-	public class PowerUpData : ICacheable
+	public class PowerUpData : IPowerUpData, IMergeJson<IJsonPowerUpData>
 	{
 		private readonly Field<string> _pluginId;
 		private readonly Field<string> _value;
@@ -40,6 +41,19 @@ namespace Manatee.Trello
 
 			_pluginId = new Field<string>(_context, nameof(PluginId));
 			_value = new Field<string>(_context, nameof(Value));
+		}
+		/// <summary>
+		/// Refreshes the power-up data... data.
+		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		{
+			await _context.Synchronize(ct);
+		}
+
+		void IMergeJson<IJsonPowerUpData>.Merge(IJsonPowerUpData json)
+		{
+			_context.Merge(json);
 		}
 	}
 }

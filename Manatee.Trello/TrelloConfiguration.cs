@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
-using Manatee.Trello.Contracts;
 using Manatee.Trello.Internal.Caching;
-using Manatee.Trello.Internal.ExceptionHandling;
+using Manatee.Trello.Internal.Logging;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 
@@ -28,55 +27,28 @@ namespace Manatee.Trello
 		/// </summary>
 		public static ISerializer Serializer
 		{
-			get
-			{
-				if (_serializer == null)
-					throw new InvalidOperationException("TrelloConfiguration.Serializer must be set before creating Trello objects.");
-				return _serializer;
-			}
-			set
-			{
-				if (value == null)
-					Log.Error(new ArgumentNullException(nameof(value)));
-				_serializer = value;
-			}
+			get { return _serializer ?? (_serializer = DefaultJsonSerializer.Instance); }
+			set { _serializer = value; }
 		}
+
 		/// <summary>
 		/// Specifies the deserializer for the REST client.
 		/// </summary>
 		public static IDeserializer Deserializer
 		{
-			get
-			{
-				if (_deserializer == null)
-					throw new InvalidOperationException("TrelloConfiguration.Deserializer must be set before creating Trello objects.");
-				return _deserializer;
-			}
-			set
-			{
-				if (value == null)
-					Log.Error(new ArgumentNullException(nameof(value)));
-				_deserializer = value;
-			}
+			get { return _deserializer ?? (_deserializer = DefaultJsonSerializer.Instance); }
+			set { _deserializer = value; }
 		}
+
 		/// <summary>
 		/// Specifies the REST client provider.
 		/// </summary>
 		public static IRestClientProvider RestClientProvider
 		{
-			get
-			{
-				if (_restClientProvider == null)
-					throw new InvalidOperationException("TrelloConfiguration.RestClientProvider must be set before creating Trello objects.");
-				return _restClientProvider;
-			}
-			set
-			{
-				if (value == null)
-					Log.Error(new ArgumentNullException(nameof(value)));
-				_restClientProvider = value;
-			}
+			get { return _restClientProvider ?? (_restClientProvider = DefaultRestClientProvider.Instance); }
+			set { _restClientProvider = value; }
 		}
+
 		/// <summary>
 		/// Provides a cache to manage all Trello objects.
 		/// </summary>
@@ -86,34 +58,29 @@ namespace Manatee.Trello
 			set { _cache = value; }
 		}
 		/// <summary>
+		/// Specifies whether deleted items should be removed from the cache.  The default is true.
+		/// </summary>
+		public static bool RemoveDeletedItemsFromCache { get; set; }
+		/// <summary>
 		/// Provides logging for Manatee.Trello.  The default log writes to the Console window.
 		/// </summary>
 		public static ILog Log
 		{
 			get { return _log ?? (_log = new DebugLog()); }
-			set { _log = value ?? new DebugLog(); }
+			set { _log = value; }
 		}
 		/// <summary>
 		/// Provides a factory which is used to create instances of JSON objects.
 		/// </summary>
 		public static IJsonFactory JsonFactory
 		{
-			get
-			{
-				if (_jsonFactory == null)
-					throw new InvalidOperationException("TrelloConfiguration.JsonFactory must be set before creating Trello objects.");
-				return _jsonFactory;
-			}
+			get { return _jsonFactory ?? (_jsonFactory = DefaultJsonFactory.Instance); }
 			set { _jsonFactory = value; }
 		}
 		/// <summary>
 		/// Specifies whether the service should throw an exception when an error is received from Trello.  Default is true.
 		/// </summary>
 		public static bool ThrowOnTrelloError { get; set; }
-		/// <summary>
-		/// Specifies a length of time after which each Trello object will be marked as expired. Default is 30 seconds.
-		/// </summary>
-		public static TimeSpan ExpiryTime { get; set; }
 		/// <summary>
 		/// Specifies a length of time an object holds changes before it submits them.  The timer is reset with every change.  Default is 100 ms.
 		/// </summary>
@@ -122,11 +89,18 @@ namespace Manatee.Trello
 		/// </remarks>
 		public static TimeSpan ChangeSubmissionTime { get; set; }
 		/// <summary>
+		/// Specifies a length of time during which a single entity can only be refreshed once.  Default is 5 seconds.
+		/// </summary>
+		/// <remarks>
+		/// Setting a value of 0 will result in immediately consecutive or parallel calls both going through to Trello.
+		/// </remarks>
+		public static TimeSpan RefreshThrottle { get; set; }
+		/// <summary>
 		/// Specifies which HTTP response status codes should trigger an automatic retry.
 		/// </summary>
 		public static IList<HttpStatusCode> RetryStatusCodes { get; }
 		/// <summary>
-		/// Specifies a maximum number of retries allowed before an error is thrown.  
+		/// Specifies a maximum number of retries allowed before an error is thrown.
 		/// </summary>
 		public static int MaxRetryCount { get; set; }
 		/// <summary>
@@ -157,10 +131,11 @@ namespace Manatee.Trello
 		static TrelloConfiguration()
 		{
 			ThrowOnTrelloError = true;
-			ExpiryTime = TimeSpan.FromSeconds(30);
 			ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
 			RegisteredPowerUps = new Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>>();
 			RetryStatusCodes = new List<HttpStatusCode>();
+			RemoveDeletedItemsFromCache = true;
+			RefreshThrottle = TimeSpan.FromSeconds(5);
 		}
 
 		/// <summary>

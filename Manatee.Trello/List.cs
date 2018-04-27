@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -13,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public class List : ICanWebhook
+	public class List : IList, IMergeJson<IJsonList>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for lists.
@@ -34,7 +35,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="idBoard")]
+			[Display(Description="board")]
 			Board = 1 << 2,
 			/// <summary>
 			/// Indicates the Position property should be populated.
@@ -45,7 +46,15 @@ namespace Manatee.Trello
 			/// Indicates the Susbcribed property should be populated.
 			/// </summary>
 			[Display(Description="subscribed")]
-			Susbcribed = 1 << 4
+			IsSubscribed = 1 << 4,
+			/// <summary>
+			/// Indicates the actions will be downloaded.
+			/// </summary>
+			Actions = 1 << 5,
+			/// <summary>
+			/// Indicates the cards will be downloaded.
+			/// </summary>
+			Cards = 1 << 6
 		}
 
 		private readonly Field<Board> _board;
@@ -57,28 +66,37 @@ namespace Manatee.Trello
 
 		private string _id;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				ListContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
-		public ReadOnlyActionCollection Actions { get; }
+		public IReadOnlyCollection<IAction> Actions => _context.Actions;
 		/// <summary>
 		/// Gets or sets the board on which the list belongs.
 		/// </summary>
-		public Board Board
+		public IBoard Board
 		{
 			get { return _board.Value; }
-			set { _board.Value = value; }
+			set { _board.Value = (Board) value; }
 		}
 		/// <summary>
 		/// Gets the collection of cards contained in the list.
 		/// </summary>
-		public CardCollection Cards { get; }
+		public ICardCollection Cards => _context.Cards;
 		/// <summary>
 		/// Gets the creation date of the list.
 		/// </summary>
@@ -99,7 +117,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize();
+					_context.Synchronize(CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -143,9 +161,9 @@ namespace Manatee.Trello
 		/// <param name="key">The key to match.</param>
 		/// <returns>The matching card, or null if none found.</returns>
 		/// <remarks>
-		/// Matches on <see cref="Card.Id"/> and <see cref="Card.Name"/>.  Comparison is case-sensitive.
+		/// Matches on card ID and name.  Comparison is case-sensitive.
 		/// </remarks>
-		public Card this[string key] => Cards[key];
+		public ICard this[string key] => Cards[key];
 		/// <summary>
 		/// Retrieves the card at the specified index.
 		/// </summary>
@@ -154,7 +172,7 @@ namespace Manatee.Trello
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
-		public Card this[int index] => Cards[index];
+		public ICard this[int index] => Cards[index];
 
 		internal IJsonList Json
 		{
@@ -165,7 +183,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the list is updated.
 		/// </summary>
-		public event Action<List, IEnumerable<string>> Updated;
+		public event Action<IList, IEnumerable<string>> Updated;
+
+		static List()
+		{
+			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		}
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="List"/> object.
@@ -178,10 +201,8 @@ namespace Manatee.Trello
 			_context = new ListContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(List), () => Id, auth);
 			_board = new Field<Board>(_context, nameof(Board));
 			_board.AddRule(NotNullRule<Board>.Instance);
-			Cards = new CardCollection(() => Id, auth);
 			_isArchived = new Field<bool?>(_context, nameof(IsArchived));
 			_isArchived.AddRule(NullableHasValueRule<bool>.Instance);
 			_isSubscribed = new Field<bool?>(_context, nameof(IsSubscribed));
@@ -204,25 +225,28 @@ namespace Manatee.Trello
 		/// Applies the changes an action represents.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public void ApplyAction(Action action)
+		public void ApplyAction(IAction action)
 		{
 			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;
-			_context.Merge(action.Data.List.Json);
+			_context.Merge(((List) action.Data.List).Json);
 		}
+
 		/// <summary>
-		/// Marks the list to be refreshed the next time data is accessed.
+		/// Refreshes the label data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns a string that represents the current object.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
+
+		void IMergeJson<IJsonList>.Merge(IJsonList json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return Name;

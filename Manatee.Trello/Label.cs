@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -12,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A label.
 	/// </summary>
-	public class Label : ICacheable
+	public class Label : ILabel, IMergeJson<IJsonLabel>
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for labels.
@@ -23,7 +24,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="idBoard")]
+			[Display(Description="board")]
 			Board = 1,
 			/// <summary>
 			/// Indicates the Color property should be populated.
@@ -48,16 +49,25 @@ namespace Manatee.Trello
 		private readonly Field<int?> _uses;
 		private readonly LabelContext _context;
 		private DateTime? _creation;
+		private static Fields _downloadedFields;
 
 		/// <summary>
 		/// Specifies which fields should be downloaded.
 		/// </summary>
-		public static Fields DownloadedFields { get; set; } = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+		public static Fields DownloadedFields
+		{
+			get { return _downloadedFields; }
+			set
+			{
+				_downloadedFields = value;
+				LabelContext.UpdateParameters();
+			}
+		}
 
 		/// <summary>
 		/// Gets the board on which the label is defined.
 		/// </summary>
-		public Board Board => _board.Value;
+		public IBoard Board => _board.Value;
 		/// <summary>
 		/// Gets and sets the color.  Use null for no color.
 		/// </summary>
@@ -101,6 +111,12 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
+		static Label()
+		{
+			DownloadedFields = (Fields) Enum.GetValues(typeof(Fields)).Cast<int>().Sum() &
+			                   ~Fields.Board;
+		}
+
 		internal Label(IJsonLabel json, TrelloAuthorization auth)
 		{
 			Id = json.Id;
@@ -117,34 +133,40 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Permanently deletes the label and all of its usages from Trello.
+		/// Deletes the label.  All usages of the label will also be removed.
 		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <remarks>
-		/// This instance will remain in memory and all properties will remain accessible.  Any cards that have the label assigned will update as normal.
+		/// This permanently deletes the label from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public void Delete()
+		public async Task Delete(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Delete();
-			TrelloConfiguration.Cache.Remove(this);
+			await _context.Delete(ct);
+			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
+				TrelloConfiguration.Cache.Remove(this);
 		}
+
 		/// <summary>
-		/// Marks the label to be refreshed the next time data is accessed.
+		/// Refreshes the label data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
 		}
-		/// <summary>
-		/// Returns the <see cref="Name"/> and <see cref="Color"/>.
-		/// </summary>
-		/// <returns>
-		/// A string that represents the current object.
-		/// </returns>
+
+		void IMergeJson<IJsonLabel>.Merge(IJsonLabel json)
+		{
+			_context.Merge(json);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
-			if (Name.IsNullOrWhiteSpace() && !Color.HasValue)
-				return string.Empty;
-			return $"{Name} ({Color?.ToString() ?? "No color"})";
+			return Name.IsNullOrWhiteSpace()
+				       ? $"({Color?.ToString() ?? "No color"})"
+				       : $"{Name} ({Color?.ToString() ?? "No color"})";
 		}
 	}
 }

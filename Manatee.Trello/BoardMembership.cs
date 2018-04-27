@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee.Trello.Contracts;
+using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
@@ -9,9 +10,9 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// Associates a <see cref="Member"/> to a <see cref="Board"/> and indicates any permissions the member has on the board.
+	/// Represents the permission level a member has on a board.
 	/// </summary>
-	public class BoardMembership : ICacheable
+	public class BoardMembership : IBoardMembership, IMergeJson<IJsonBoardMembership>
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<BoardMembershipType?> _memberType;
@@ -42,7 +43,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the member.
 		/// </summary>
-		public Member Member => _member.Value;
+		public IMember Member => _member.Value;
 		/// <summary>
 		/// Gets the membership's permission level.
 		/// </summary>
@@ -61,7 +62,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Raised when data on the membership is updated.
 		/// </summary>
-		public event Action<BoardMembership, IEnumerable<string>> Updated;
+		public event Action<IBoardMembership, IEnumerable<string>> Updated;
 
 		internal BoardMembership(IJsonBoardMembership json, string ownerId, TrelloAuthorization auth)
 		{
@@ -81,11 +82,24 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Marks the board membership to be refreshed the next time data is accessed.
+		/// Refreshes the board membership data.
 		/// </summary>
-		public void Refresh()
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			_context.Expire();
+			await _context.Synchronize(ct);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return $"{Member} ({MemberType})";
+		}
+
+		void IMergeJson<IJsonBoardMembership>.Merge(IJsonBoardMembership json)
+		{
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

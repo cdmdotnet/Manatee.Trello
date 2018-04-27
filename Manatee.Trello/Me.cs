@@ -1,4 +1,6 @@
-﻿using Manatee.Trello.Internal;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
@@ -7,7 +9,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the current member.
 	/// </summary>
-	public class Me : Member
+	public class Me : Member, IMe
 	{
 		private static IJsonMember _myJson;
 
@@ -32,7 +34,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public new BoardCollection Boards => base.Boards as BoardCollection;
+		public new IBoardCollection Boards => (BoardCollection) base.Boards;
 		/// <summary>
 		/// Gets or sets the member's email.
 		/// </summary>
@@ -57,18 +59,19 @@ namespace Manatee.Trello
 			get { return base.Initials; }
 			set { base.Initials = value; }
 		}
+
 		/// <summary>
 		/// Gets the collection of notificaitons for the member.
 		/// </summary>
-		public ReadOnlyNotificationCollection Notifications { get; }
+		public IReadOnlyNotificationCollection Notifications => _context.Notifications;
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public new OrganizationCollection Organizations => base.Organizations as OrganizationCollection;
+		public new IOrganizationCollection Organizations => (OrganizationCollection) base.Organizations;
 		/// <summary>
 		/// Gets the set of preferences for the member.
 		/// </summary>
-		public MemberPreferences Preferences { get; }
+		public IMemberPreferences Preferences { get; }
 		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>
@@ -78,20 +81,19 @@ namespace Manatee.Trello
 			set { base.UserName = value; }
 		}
 
-		internal Me()
-			: base(GetId(), true, TrelloAuthorization.Default)
+		internal Me(string id)
+			: base(id, true, TrelloAuthorization.Default)
 		{
 			_email = new Field<string>(_context, nameof(Email));
-			Notifications = new ReadOnlyNotificationCollection(() => Id, TrelloAuthorization.Default);
 			Preferences = new MemberPreferences(_context.MemberPreferencesContext);
 
 			_context.Merge(_myJson);
 		}
 
-		private static string GetId()
+		internal static async Task<string> GetId(CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_Me);
-			_myJson = JsonRepository.Execute<IJsonMember>(TrelloAuthorization.Default, endpoint);
+			_myJson = await JsonRepository.Execute<IJsonMember>(TrelloAuthorization.Default, endpoint, ct);
 
 			// If this object exists in the cache already as a regular Member, it needs to be replaced.
 			var meAsMember = TrelloConfiguration.Cache.Find<Member>(m => m.Id == _myJson.Id);
