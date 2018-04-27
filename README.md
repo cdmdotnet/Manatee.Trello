@@ -41,7 +41,7 @@ Most entities can be accessed directly simply by:
     var board = factory.Board("[your board id]");
     ```
 
-> **NOTE** The entity contructors and the factory methods can work with both a long and short ID.  The short IDs for boards and cards are pretty easy to find, too: they're in the URL!  For example, the Trello API Dev board (https://trello.com/b/cI66RoQS/trello-public-api) has a short ID of `cI66RoQS`.  The long IDs can be found in the `Id` property of any of the entities; they're not exposed through the website in any way.
+> **NOTE** The entity contructors and the factory methods can work with both a long and short ID.  The short IDs for boards and cards are pretty easy to find, too: they're in the URL!  For example, the Trello API Changelog board (https://trello.com/b/dQHqCohZ/trello-platform-changelog) has a short ID of `dQHqCohZ`.  The long IDs can be found in the `Id` property of any of the entities; they're not exposed through the website in any way.
 
 Once you have an entity, you can get any entities related to it through its properties or extension methods.
 
