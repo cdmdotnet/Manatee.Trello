@@ -89,6 +89,10 @@ namespace Manatee.Trello
 		/// </remarks>
 		public static TimeSpan ChangeSubmissionTime { get; set; }
 		/// <summary>
+		/// Specifies a length of time during which a single entity can only be refreshed once.  Default is 5 seconds.
+		/// </summary>
+		public static TimeSpan RefreshThrottle { get; set; }
+		/// <summary>
 		/// Specifies which HTTP response status codes should trigger an automatic retry.
 		/// </summary>
 		public static IList<HttpStatusCode> RetryStatusCodes { get; }
@@ -128,6 +132,7 @@ namespace Manatee.Trello
 			RegisteredPowerUps = new Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>>();
 			RetryStatusCodes = new List<HttpStatusCode>();
 			RemoveDeletedItemsFromCache = true;
+			RefreshThrottle = TimeSpan.FromSeconds(5);
 		}
 
 		/// <summary>

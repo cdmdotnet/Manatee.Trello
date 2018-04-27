@@ -103,7 +103,7 @@ namespace Manatee.Trello.Internal.Licensing
 
 			EnsureResetTimer();
 
-			const int maxOperationCount = 150;
+			const int maxOperationCount = 300;
 			Interlocked.Increment(ref _submissionCount);
 
 			if (_submissionCount > maxOperationCount)

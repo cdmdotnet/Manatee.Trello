@@ -12,8 +12,9 @@ namespace Manatee.Trello.Internal.Synchronization
 	{
 		private readonly Timer _timer;
 		private readonly SemaphoreSlim _semaphore;
-		private readonly object _lock;
+		private readonly object _updateLock, _expireLock;
 		private bool _cancelUpdate;
+		private DateTime _expires;
 
 		public abstract bool HasChanges { get; }
 
@@ -31,8 +32,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				                   TrelloConfiguration.ChangeSubmissionTime);
 			}
 
-			_lock = new object();
+			_updateLock = new object();
+			_expireLock = new object();
 			_semaphore = new SemaphoreSlim(1, 1);
+			_expires = DateTime.MinValue;
 			RestRequestProcessor.LastCall += _TimerElapsed;
 		}
 		~SynchronizationContext()
@@ -45,15 +48,24 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public async Task Synchronize(CancellationToken ct)
 		{
+			var now = DateTime.Now;
+			if (_expires > now) return;
+
+			lock (_expireLock)
+			{
+				if (_expires > now) return;
+
+				_expires = now + TrelloConfiguration.RefreshThrottle;
+			}
+
 			var data = await GetBasicData(ct);
-			lock (_lock)
+			lock (_updateLock)
 			{
 				var properties = Merge(data).ToList();
 				if (!properties.Any()) return;
 
 				var handler = Synchronized;
 				handler?.Invoke(properties);
-				
 			}
 		}
 
