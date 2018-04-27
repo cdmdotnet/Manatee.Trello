@@ -26,6 +26,8 @@ namespace Manatee.Trello.Internal.Licensing
 			public DateTime SessionExpiry { get; set; }
 		}
 
+		public const string BuyMeText = "Please see https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3 for information on purchasing a license.";
+
 		private const string DetailsPath = "Manatee.Trello.run";
 
 		private static readonly object Lock;
@@ -33,6 +35,7 @@ namespace Manatee.Trello.Internal.Licensing
 
 		private static long _retrievalCount;
 		private static long _submissionCount;
+		private static long _sessionExpiry;
 		private static LicenseDetails _registeredLicense;
 		private static Timer _resetTimer;
 
@@ -50,6 +53,7 @@ namespace Manatee.Trello.Internal.Licensing
 		{
 			_retrievalCount = 0;
 			_submissionCount = 0;
+			_sessionExpiry = 0;
 		}
 
 		public static void SaveCurrentState()
@@ -77,6 +81,7 @@ namespace Manatee.Trello.Internal.Licensing
 
 			_retrievalCount = details.Retrievals;
 			_submissionCount = details.Submissions;
+			_sessionExpiry = Math.Max(0, (long) (details.SessionExpiry - DateTime.Now).TotalMilliseconds);
 		}
 
 		public static void IncrementAndCheckRetrieveCount()
@@ -89,10 +94,7 @@ namespace Manatee.Trello.Internal.Licensing
 			Interlocked.Increment(ref _retrievalCount);
 
 			if (_retrievalCount > maxOperationCount)
-			{
-				throw new LicenseException($"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. " +
-				                           $"Please visit http://please.buy/my/library to upgrade to a commercial license.");
-			}
+				throw new LicenseException($"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. " + BuyMeText);
 		}
 
 		public static void IncrementAndCheckSubmissionCount()
@@ -105,10 +107,7 @@ namespace Manatee.Trello.Internal.Licensing
 			Interlocked.Increment(ref _submissionCount);
 
 			if (_submissionCount > maxOperationCount)
-			{
-				throw new LicenseException($"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. " +
-				                           $"Please visit http://please.buy/my/library to upgrade to a commercial license.");
-			}
+				throw new LicenseException($"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. " + BuyMeText);
 		}
 
 		private static void EnsureResetTimer()
@@ -119,7 +118,7 @@ namespace Manatee.Trello.Internal.Licensing
 			{
 				if (_resetTimer != null) return;
 
-				var timer = new Timer(ResetCounts, null, 0, Convert.ToInt32(TimeSpan.FromHours(1).TotalMilliseconds));
+				var timer = new Timer(ResetCounts, null, TimeSpan.FromMilliseconds(_sessionExpiry), TimeSpan.FromHours(1));
 
 				Interlocked.MemoryBarrier();
 

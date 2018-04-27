@@ -8,15 +8,14 @@ using Manatee.Trello.Internal.Licensing;
 
 namespace Manatee.Trello
 
-//Please visit http://please.buy/my/library to upgrade to a commercial license.
 {
 	/// <summary>
-	/// Manages the license used with Manatee.Trello. A license can be purchased at <see href="http://please.buy/my/library">http://please.buy/my/library</see>.
+	/// Manages the license used with Manatee.Trello. Please see https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3 for information on purchasing a license.
 	/// </summary>
 	public static class License
 	{
 		/// <summary>
-		/// Register the specified license with Manatee.Trello. A license can be purchased at <see href="http://please.buy/my/library">http://please.buy/my/library</see>.
+		/// Register the specified license with Manatee.Trello. Please see https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3 for information on purchasing a license.
 		/// </summary>
 		/// <param name="license">The license text to register.</param>
 		/// <remarks> 
