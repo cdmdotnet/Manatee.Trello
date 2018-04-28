@@ -211,6 +211,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		internal IEnumerable<string> Merge(TJson json)
 		{
 			if (json is IAcceptId mergable && !mergable.ValidForMerge) return Enumerable.Empty<string>();
+
 			lock (_mergeLock)
 			{
 				MarkInitialized();

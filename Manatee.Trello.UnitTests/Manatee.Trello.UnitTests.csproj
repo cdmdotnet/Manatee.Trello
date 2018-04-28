@@ -32,6 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
@@ -62,9 +68,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internal\Synchronization\SynchronizedContextTests.cs" />
+    <Compile Include="Internal\Synchronization\SynchronizedData.cs" />
+    <Compile Include="Internal\Synchronization\SynchronizedObject.cs" />
     <Compile Include="MockHost.cs" />
     <Compile Include="SafeRunner.cs" />
-    <Compile Include="SynchronizedContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +86,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Manatee.Trello.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

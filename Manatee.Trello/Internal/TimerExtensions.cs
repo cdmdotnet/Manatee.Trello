@@ -12,7 +12,7 @@ namespace Manatee.Trello.Internal
 
 		public static void Start(this Timer timer, TimeSpan period)
 		{
-			timer?.Change(TimeSpan.Zero, period);
+			timer?.Change(period, period);
 		}
 	}
 }

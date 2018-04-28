@@ -11,9 +11,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	{
 		private const string BaseUrl = @"https://trello.com/1";
 
-		private static IRestClient _client;
-
-		private static IRestClient Client => _client ?? (_client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl));
+		private static IRestClient Client => TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 
 		public static event Func<Task> LastCall;
 
