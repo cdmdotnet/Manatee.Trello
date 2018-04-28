@@ -71,6 +71,7 @@
     <Compile Include="Internal\Synchronization\SynchronizedContextTests.cs" />
     <Compile Include="Internal\Synchronization\SynchronizedData.cs" />
     <Compile Include="Internal\Synchronization\SynchronizedObject.cs" />
+    <Compile Include="Json\JsonFactoryTests.cs" />
     <Compile Include="MockHost.cs" />
     <Compile Include="SafeRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
