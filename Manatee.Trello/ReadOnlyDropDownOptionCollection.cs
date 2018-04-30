@@ -12,7 +12,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of custom drop down options.
 	/// </summary>
-	public class ReadOnlyDropDownOptionCollection : ReadOnlyCollection<DropDownOption>
+	public class ReadOnlyDropDownOptionCollection : ReadOnlyCollection<IDropDownOption>
 	{
 		internal ReadOnlyDropDownOptionCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)

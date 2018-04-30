@@ -58,8 +58,8 @@ namespace Manatee.Trello.Json.Entities
 					Due = obj.Deserialize<DateTime?>(serializer, "due");
 					DueComplete = obj.TryGetBoolean("dueComplete");
 					Desc = obj.TryGetString("desc");
-					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
-					List = obj.Deserialize<IJsonList>(serializer, "idList");
+					Board = obj.Deserialize<IJsonBoard>(serializer, "board") ?? obj.Deserialize<IJsonBoard>(serializer, "idBoard");
+					List = obj.Deserialize<IJsonList>(serializer, "list") ?? obj.Deserialize<IJsonList>(serializer, "idList");
 					IdShort = (int?) obj.TryGetNumber("idShort");
 					IdAttachmentCover = obj.TryGetString("idAttachmentCover");
 					Labels = obj.Deserialize<List<IJsonLabel>>(serializer, "labels");

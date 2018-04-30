@@ -11,9 +11,6 @@ using System.Reflection;
 using System.Threading;
 using Manatee.Json;
 using Manatee.Json.Serialization;
-using Manatee.Trello.Internal.Licensing;
-
-[assembly:ReleaseDate("2018-04-13")]
 
 namespace Manatee.Trello.Internal.Licensing
 {

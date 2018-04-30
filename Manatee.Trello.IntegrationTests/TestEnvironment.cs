@@ -52,10 +52,19 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			var ct = CancellationToken.None;
 
-			if (Organization != null)
-				await Organization.Delete(ct);
 			if (Board != null)
 				await Board.Delete(ct);
+			if (Organization != null)
+				await Organization.Delete(ct);
+		}
+
+		public async Task<IList> BuildList([CallerMemberName] string name = null)
+		{
+			name = $"{name}_List_{DateTime.Now:yyMMddHHmmss}";
+
+			var list = await Board.Lists.Add(name);
+
+			return list;
 		}
 
 		public async Task<ICard> BuildCard([CallerMemberName] string name = null)
