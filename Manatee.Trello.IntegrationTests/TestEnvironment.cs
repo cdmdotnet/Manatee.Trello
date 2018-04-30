@@ -3,13 +3,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Rest;
 using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
 {
 	[SetUpFixture]
-	public class TestEnvironment : IDisposable
+	public class TestEnvironment
 	{
 		public static TestEnvironment Current { get; private set; }
 
@@ -17,17 +18,19 @@ namespace Manatee.Trello.IntegrationTests
 		public IOrganization Organization { get; private set; }
 		public IBoard Board { get; private set; }
 
-		public TestEnvironment()
+		public IRestRequest LastRequest { get; private set; }
+		public IRestResponse LastResponse { get; private set; }
+
+		private static bool CheckForSkipSetup()
 		{
-			Task.Run(BuildEnvironment).Wait();
+			var categories = TestContext.CurrentContext.Test?.Properties["Category"];
+
+			var skipSetup = categories != null && categories.Contains("Manual");
+			return skipSetup;
 		}
 
-		public void Dispose()
-		{
-			Task.Run(DestroyEnvironment).Wait();
-		}
-
-		private async Task BuildEnvironment()
+		[OneTimeSetUp]
+		public async Task BuildEnvironment()
 		{
 			if (Current != null) throw new InvalidOperationException("Test setup occurring twice...");
 
@@ -35,6 +38,11 @@ namespace Manatee.Trello.IntegrationTests
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+
+			TrelloConfiguration.RestClientProvider =
+				new CapturingClientProvider(TrelloConfiguration.RestClientProvider,
+				                            r => LastRequest = r,
+				                            r => LastResponse = r);
 
 			var testTimeStamp = $"{DateTime.Now:yyMMddHHmmss}";
 
@@ -48,7 +56,8 @@ namespace Manatee.Trello.IntegrationTests
 			await Board.Refresh();
 		}
 
-		private async Task DestroyEnvironment()
+		[OneTimeTearDown]
+		public async Task DestroyEnvironment()
 		{
 			var ct = CancellationToken.None;
 

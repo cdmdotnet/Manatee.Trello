@@ -18,7 +18,7 @@ namespace Manatee.Trello.IntegrationTests
 			var date = DateTime.Now;
 
 			card.Name = "changed";
-			card.Description = "changed";
+			card.Description = "changed also";
 			card.DueDate = date;
 			card.IsArchived = true;
 			card.IsComplete = true;
@@ -27,19 +27,16 @@ namespace Manatee.Trello.IntegrationTests
 			await TrelloProcessor.Flush();
 
 			TrelloConfiguration.Cache.Remove(card);
-
 			var reCard = TestEnvironment.Current.Factory.Card(card.Id);
-
-			Assert.AreNotSame(card, reCard);
 
 			await reCard.Refresh();
 
-			reCard.Name.Should().Be(card.Name);
-			reCard.Description.Should().Be(card.Description);
-			reCard.DueDate.Should().Be(card.DueDate?.Truncate(TimeSpan.FromMilliseconds(1)));
-			reCard.IsArchived.Should().Be(card.IsArchived);
-			reCard.IsComplete.Should().Be(card.IsComplete);
-			reCard.Position.Should().Be(card.Position);
+			reCard.Name.Should().Be("changed");
+			reCard.Description.Should().Be("changed also");
+			reCard.DueDate.Should().Be(date.Truncate(TimeSpan.FromMilliseconds(1)));
+			reCard.IsArchived.Should().Be(true);
+			reCard.IsComplete.Should().Be(true);
+			reCard.Position.Should().Be(157);
 		}
 
 		[Test]
@@ -55,14 +52,11 @@ namespace Manatee.Trello.IntegrationTests
 			await TrelloProcessor.Flush();
 
 			TrelloConfiguration.Cache.Remove(card);
-
 			var reCard = TestEnvironment.Current.Factory.Card(card.Id);
-
-			Assert.AreNotSame(card, reCard);
 
 			await reCard.Refresh();
 
-			reCard.List.Id.Should().Be(card.List.Id);
+			reCard.List.Id.Should().Be(list.Id);
 		}
 
 		[Test]
@@ -95,6 +89,47 @@ namespace Manatee.Trello.IntegrationTests
 			card.CustomFields.OfType<DateTimeField>().First().Value.Should().Be(today);
 			card.CustomFields.OfType<DropDownField>().First().Value.Text.Should().Be("two");
 			card.CustomFields.OfType<CheckBoxField>().First().Value.Should().Be(true);
+		}
+
+		[Test]
+		public async Task CardCanBeDeleted()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			var id = card.Id;
+
+			await card.Refresh();
+
+			await card.Delete();
+
+			TrelloConfiguration.Cache.Remove(card);
+
+			var reCard = TestEnvironment.Current.Factory.Card(id);
+
+			Assert.ThrowsAsync<TrelloInteractionException>(async () => await reCard.Refresh());
+		}
+
+		[Test]
+		public async Task RemovingAllFieldsDownloadsNothing()
+		{
+			try
+			{
+				Card.DownloadedFields = 0;
+
+				var card = await TestEnvironment.Current.BuildCard();
+
+				card.Description = "something new";
+
+				await TrelloProcessor.Flush();
+
+				await card.Refresh();
+
+				TestEnvironment.Current.LastResponse.Content.Should().MatchRegex(@"^\{""id"":""[a-f0-9]{24}""\}$");
+			}
+			finally
+			{
+				Card.DownloadedFields = (Card.Fields) Enum.GetValues(typeof(Card.Fields)).Cast<int>().Sum() &
+				                        ~Card.Fields.Comments;
+			}
 		}
 	}
 }
