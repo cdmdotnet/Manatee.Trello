@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace Manatee.Trello.IntegrationTests
 {
@@ -137,7 +136,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public async Task MemberCanBeAdded()
+		public async Task MemberCanBeAddedAndRemoved()
 		{
 			var card = await TestEnvironment.Current.BuildCard();
 
@@ -147,6 +146,12 @@ namespace Manatee.Trello.IntegrationTests
 
 			card.Members.Count().Should().Be(1);
 			card.Members[0].Should().Be(TestEnvironment.Current.Me);
+
+			await card.Members.Remove(TestEnvironment.Current.Me);
+
+			await card.Refresh();
+
+			card.Members.Count().Should().Be(0);
 		}
 	}
 }
