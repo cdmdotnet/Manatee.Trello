@@ -13,17 +13,25 @@ namespace Manatee.Trello.Json.Entities
 		public List<IJsonCheckItem> CheckItems { get; set; }
 		public IJsonPosition Pos { get; set; }
 		public IJsonCheckList CheckListSource { get; set; }
+		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
-			if (json.Type != JsonValueType.Object) return;
-			var obj = json.Object;
-			Id = obj.TryGetString("id");
-			Name = obj.TryGetString("name");
-			Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
-			Card = obj.Deserialize<IJsonCard>(serializer, "idCard");
-			CheckItems = obj.Deserialize<List<IJsonCheckItem>>(serializer, "checkItems");
-			Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
+			switch (json.Type)
+			{
+				case JsonValueType.Object:
+					var obj = json.Object;
+					Id = obj.TryGetString("id");
+					Name = obj.TryGetString("name");
+					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
+					Card = obj.Deserialize<IJsonCard>(serializer, "idCard");
+					CheckItems = obj.Deserialize<List<IJsonCheckItem>>(serializer, "checkItems");
+					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
+					break;
+				case JsonValueType.String:
+					Id = json.String;
+					break;
+			}
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
@@ -35,5 +43,6 @@ namespace Manatee.Trello.Json.Entities
 			CheckListSource.SerializeId(json, "idChecklistSource");
 			return json;
 		}
+
 	}
 }
