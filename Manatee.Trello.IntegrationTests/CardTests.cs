@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace Manatee.Trello.IntegrationTests
 {
@@ -37,6 +38,9 @@ namespace Manatee.Trello.IntegrationTests
 			reCard.IsArchived.Should().Be(true);
 			reCard.IsComplete.Should().Be(true);
 			reCard.Position.Should().Be(157);
+			reCard.ShortId.Should().NotBeNull();
+			reCard.Url.Should().NotBeNullOrEmpty();
+			reCard.ShortUrl.Should().NotBeNullOrEmpty();
 		}
 
 		[Test]
@@ -130,6 +134,19 @@ namespace Manatee.Trello.IntegrationTests
 				Card.DownloadedFields = (Card.Fields) Enum.GetValues(typeof(Card.Fields)).Cast<int>().Sum() &
 				                        ~Card.Fields.Comments;
 			}
+		}
+
+		[Test]
+		public async Task MemberCanBeAdded()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+
+			await card.Members.Add(TestEnvironment.Current.Me);
+
+			await card.Refresh();
+
+			card.Members.Count().Should().Be(1);
+			card.Members[0].Should().Be(TestEnvironment.Current.Me);
 		}
 	}
 }

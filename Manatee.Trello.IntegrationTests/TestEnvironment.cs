@@ -15,19 +15,12 @@ namespace Manatee.Trello.IntegrationTests
 		public static TestEnvironment Current { get; private set; }
 
 		public ITrelloFactory Factory { get; private set; }
+		public IMe Me { get; private set; }
 		public IOrganization Organization { get; private set; }
 		public IBoard Board { get; private set; }
 
 		public IRestRequest LastRequest { get; private set; }
 		public IRestResponse LastResponse { get; private set; }
-
-		private static bool CheckForSkipSetup()
-		{
-			var categories = TestContext.CurrentContext.Test?.Properties["Category"];
-
-			var skipSetup = categories != null && categories.Contains("Manual");
-			return skipSetup;
-		}
 
 		[OneTimeSetUp]
 		public async Task BuildEnvironment()
@@ -47,9 +40,9 @@ namespace Manatee.Trello.IntegrationTests
 			var testTimeStamp = $"{DateTime.Now:yyMMddHHmmss}";
 
 			Factory = new TrelloFactory();
-			var me = await Factory.Me();
+			Me = await Factory.Me();
 
-			Organization = await me.Organizations.Add($"TestOrg_{testTimeStamp}");
+			Organization = await Me.Organizations.Add($"TestOrg_{testTimeStamp}");
 			Board = await Organization.Boards.Add($"TestBoard_{testTimeStamp}");
 
 			await Organization.Refresh();
