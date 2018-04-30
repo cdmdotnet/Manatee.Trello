@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Tests.Common;
@@ -25,6 +23,8 @@ namespace Manatee.Trello.IntegrationTests
 		[OneTimeSetUp]
 		public async Task BuildEnvironment()
 		{
+			if (TestContext.Parameters["Category"].Contains("Manual")) return;
+
 			if (Current != null) throw new InvalidOperationException("Test setup occurring twice...");
 
 			Current = this;
@@ -59,12 +59,10 @@ namespace Manatee.Trello.IntegrationTests
 		[OneTimeTearDown]
 		public async Task DestroyEnvironment()
 		{
-			var ct = CancellationToken.None;
-
 			if (Board != null)
-				await Board.Delete(ct);
+				await Board.Delete();
 			if (Organization != null)
-				await Organization.Delete(ct);
+				await Organization.Delete();
 		}
 
 		public async Task<IList> BuildList([CallerMemberName] string name = null)

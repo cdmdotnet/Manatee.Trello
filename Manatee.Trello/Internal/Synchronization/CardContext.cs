@@ -177,11 +177,11 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var parameterFields = availableFields & Card.DownloadedFields & (~MemberFields);
 
-				//if (parameterFields.HasFlag(Card.Fields.Actions))
-				//{
-				//	Parameters["actions"] = "all";
-				//	Parameters["actions_format"] = "list";
-				//}
+				if (parameterFields.HasFlag(Card.Fields.Actions))
+				{
+					Parameters["actions"] = "all";
+					Parameters["actions_format"] = "list";
+				}
 				if (parameterFields.HasFlag(Card.Fields.Attachments))
 				{
 					Parameters["attachments"] = "true";

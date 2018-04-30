@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -11,7 +13,7 @@ namespace Manatee.Trello.IntegrationTests
 	public class CardTests
 	{
 		[Test]
-		public async Task UpdateCardData()
+		public async Task BasicCardData()
 		{
 			var card = await TestEnvironment.Current.BuildCard();
 
@@ -23,6 +25,7 @@ namespace Manatee.Trello.IntegrationTests
 			card.IsArchived = true;
 			card.IsComplete = true;
 			card.Position = 157;
+			card.IsSubscribed = true;
 
 			await TrelloProcessor.Flush();
 
@@ -37,9 +40,12 @@ namespace Manatee.Trello.IntegrationTests
 			reCard.IsArchived.Should().Be(true);
 			reCard.IsComplete.Should().Be(true);
 			reCard.Position.Should().Be(157);
+			reCard.IsSubscribed.Should().Be(true);
 			reCard.ShortId.Should().NotBeNull();
 			reCard.Url.Should().NotBeNullOrEmpty();
 			reCard.ShortUrl.Should().NotBeNullOrEmpty();
+			reCard.LastActivity.Should().NotBeNull();
+			reCard.Board.Should().Be(TestEnvironment.Current.Board);
 		}
 
 		[Test]
@@ -152,6 +158,69 @@ namespace Manatee.Trello.IntegrationTests
 			await card.Refresh();
 
 			card.Members.Count().Should().Be(0);
+		}
+
+		[Test]
+		public async Task LabelCanBeAddedAndRemoved()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			await TestEnvironment.Current.Board.Refresh();
+			var label = TestEnvironment.Current.Board.Labels.FirstOrDefault();
+
+			await card.Labels.Add(label);
+			await card.Refresh();
+
+			card.Labels.Count().Should().Be(1);
+			card.Labels[0].Should().Be(label);
+
+			await card.Labels.Remove(label);
+
+			await card.Refresh();
+
+			card.Labels.Count().Should().Be(0);
+		}
+
+		[Test]
+		public async Task AutoDownloadOnIdAccess()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+
+			TrelloConfiguration.Cache.Remove(card);
+
+			var shortUrlId = card.ShortUrl.Split('/').Last();
+			var reCard = new Card(shortUrlId);
+
+			await TestEnvironment.Current.Board.Refresh();
+
+			reCard.Id.Should().NotBeNullOrEmpty();
+
+			TestEnvironment.Current.LastResponse.Should().BeAssignableTo<IRestResponse<IJsonCard>>();
+		}
+
+		[Test]
+		public async Task CanComment()
+		{
+			try
+			{
+				Card.DownloadedFields |= Card.Fields.Comments;
+
+				var card = await TestEnvironment.Current.BuildCard();
+
+				var comment = await card.Comments.Add("a comment");
+				await card.Refresh();
+
+				card.Actions.Should().Contain(a => a.Type == ActionType.CommentCard);
+
+				await comment.Delete();
+				await card.Refresh();
+
+				card.Actions.Should().NotContain(a => a.Type == ActionType.CommentCard);
+
+			}
+			finally
+			{
+				Card.DownloadedFields &= ~Card.Fields.Comments;
+			}
 		}
 	}
 }
