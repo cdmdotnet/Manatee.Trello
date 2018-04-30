@@ -8,7 +8,8 @@
 		// https://trello.com/1/authorize?key=062109670e7f56b88783721892f8f66f&name=Manatee.Trello&expiration=1day&response_type=token&scope=read,write,account
 
 		public const string AppKey = "062109670e7f56b88783721892f8f66f";
-		public const string UserToken = "2344af8c861fe21c487895db50fb8d29f37794e5d6f64623ce8b56b8b1de4ee8";
+		public const string UserToken = "bad_token";
+		//public const string UserToken = "2344af8c861fe21c487895db50fb8d29f37794e5d6f64623ce8b56b8b1de4ee8";
 		public const string UserName = "s_littlecrabsolutions";
 		public const string MemberId = "514464db3fa062da6e00254f";
 		public const string BoardId = "51478f6469fd3d9341001dae";

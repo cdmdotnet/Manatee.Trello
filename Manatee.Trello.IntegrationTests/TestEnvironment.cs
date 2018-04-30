@@ -37,7 +37,7 @@ namespace Manatee.Trello.IntegrationTests
 			Current = this;
 
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloAuthorization.Default.UserToken = _GetUserToken();
 
 			TrelloConfiguration.RestClientProvider =
 				new CapturingClientProvider(TrelloConfiguration.RestClientProvider,
@@ -54,6 +54,13 @@ namespace Manatee.Trello.IntegrationTests
 
 			await Organization.Refresh();
 			await Board.Refresh();
+		}
+
+		private static string _GetUserToken()
+		{
+			var envVar = Environment.GetEnvironmentVariable("TRELLO_USER_TOKEN");
+
+			return envVar ?? TrelloIds.UserToken;
 		}
 
 		[OneTimeTearDown]
