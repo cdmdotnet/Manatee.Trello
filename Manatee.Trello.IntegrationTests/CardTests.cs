@@ -202,6 +202,7 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			try
 			{
+				TrelloConfiguration.RefreshThrottle = TimeSpan.Zero;
 				Card.DownloadedFields |= Card.Fields.Comments;
 
 				var card = await TestEnvironment.Current.BuildCard();
@@ -219,6 +220,7 @@ namespace Manatee.Trello.IntegrationTests
 			finally
 			{
 				Card.DownloadedFields &= ~Card.Fields.Comments;
+				TrelloConfiguration.RefreshThrottle = TimeSpan.FromSeconds(5);
 			}
 		}
 	}
