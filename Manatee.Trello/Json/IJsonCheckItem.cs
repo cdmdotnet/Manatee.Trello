@@ -6,6 +6,12 @@ namespace Manatee.Trello.Json
 	public interface IJsonCheckItem : IJsonCacheable
 	{
 		/// <summary>
+		/// Gets or sets the check list for the check item.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		IJsonCheckList CheckList { get; set; }
+		/// <summary>
 		/// Gets or sets the check state of the checklist item.
 		/// </summary>
 		[JsonDeserialize]

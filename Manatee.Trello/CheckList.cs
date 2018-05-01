@@ -30,12 +30,12 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="board")]
+			[Display(Description="idBoard")]
 			Board = 1 << 1,
 			/// <summary>
 			/// Indicates the Card property should be populated.
 			/// </summary>
-			[Display(Description="card")]
+			[Display(Description="idCard")]
 			Card = 1 << 2,
 			/// <summary>
 			/// Indicates the checklist items will be downloaded.
@@ -117,7 +117,7 @@ namespace Manatee.Trello
 		public Position Position
 		{
 			get { return _position.Value; }
-			set { _position.Value = (Position) value; }
+			set { _position.Value = value; }
 		}
 
 		/// <summary>
@@ -206,9 +206,9 @@ namespace Manatee.Trello
 			await _context.Synchronize(ct);
 		}
 
-		void IMergeJson<IJsonCheckList>.Merge(IJsonCheckList json)
+		void IMergeJson<IJsonCheckList>.Merge(IJsonCheckList json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>

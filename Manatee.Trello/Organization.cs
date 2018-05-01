@@ -278,9 +278,9 @@ namespace Manatee.Trello
 			await _context.Synchronize(ct);
 		}
 
-		void IMergeJson<IJsonOrganization>.Merge(IJsonOrganization json)
+		void IMergeJson<IJsonOrganization>.Merge(IJsonOrganization json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>

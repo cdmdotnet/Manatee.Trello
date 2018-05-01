@@ -100,7 +100,7 @@ namespace Manatee.Trello.Rest
 			if (!response.IsSuccessStatusCode)
 				throw new HttpRequestException("Received a failure from Trello.\n" +
 											   $"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-											   $"Content: {await response.Content.ReadAsStringAsync()}");
+											   $"Content: {restResponse.Content}");
 			return restResponse;
 		}
 		private static async Task<IRestResponse> MapResponse(HttpResponseMessage response)
@@ -137,7 +137,7 @@ namespace Manatee.Trello.Rest
 			                              $"Content: {restResponse.Content}");
 			try
 			{
-				var body = await response.Content.ReadAsStringAsync();
+				var body = restResponse.Content;
 				if (response.Content.Headers.ContentType.MediaType == "text/plain")
 					restResponse.Exception = new TrelloInteractionException(body);
 				else

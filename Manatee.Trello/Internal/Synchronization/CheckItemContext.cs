@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
+using Manatee.Trello.Json.Entities;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
@@ -27,7 +29,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		private readonly string _ownerId;
+		private string _ownerId;
 		private bool _deleted;
 
 		static CheckItemContext()
@@ -38,6 +40,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			               CheckItem.Fields.State;
 			Properties = new Dictionary<string, Property<IJsonCheckItem>>
 				{
+					{
+						nameof(CheckItem.CheckList),
+						new Property<IJsonCheckItem, CheckList>((d, a) => d.CheckList?.GetFromCache<CheckList, IJsonCheckList>(a),
+						                                        (d, o) => d.CheckList = o?.Json)
+					},
 					{
 						nameof(CheckItem.Id),
 						new Property<IJsonCheckItem, string>((d, a) => d.Id, (d, o) => d.Id = o)
@@ -119,7 +126,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			// Checklist should be downloaded already since CheckItem ctor is internal,
 			// but allow for the case where it has not been anyway.
-			var checkList = TrelloConfiguration.Cache.Find<CheckList>(cl => cl.Id == _ownerId) ?? new CheckList(_ownerId);
+			var checkListJson = TrelloConfiguration.JsonFactory.Create<IJsonCheckList>();
+			checkListJson.Id = _ownerId;
+			var checkList = checkListJson.GetFromCache<CheckList, IJsonCheckList>(Auth);
+			if (string.IsNullOrEmpty(checkList.Json.Card?.Id))
+				await checkList.Refresh(ct);
+
 			// This may make a call to get the card, but it can't be avoided.  We need its ID.
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Write_Update, new Dictionary<string, object>
 				{
@@ -128,6 +140,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					{"_id", Data.Id},
 				});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
+			if (!string.IsNullOrEmpty(newData.CheckList?.Id))
+				_ownerId = newData.CheckList.Id;
 			Merge(newData);
 		}
 		protected override bool CanUpdate()

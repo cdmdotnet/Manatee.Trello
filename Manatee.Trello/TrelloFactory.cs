@@ -54,6 +54,17 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
+		/// Creates a <see cref="ITrelloFactory.DropDownOption"/>.
+		/// </summary>
+		/// <param name="text">The drop down text.</param>
+		/// <param name="color">(Optional) The drop down color.</param>
+		/// <returns>An <see cref="IDropDownOption"/></returns>
+		public IDropDownOption DropDownOption(string text, LabelColor color = LabelColor.None)
+		{
+			return Trello.DropDownOption.Create(text, color);
+		}
+
+		/// <summary>
 		/// Creates an <see cref="IList"/>.
 		/// </summary>
 		/// <param name="id">The list ID.</param>

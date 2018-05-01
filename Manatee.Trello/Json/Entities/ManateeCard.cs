@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 
@@ -52,14 +53,24 @@ namespace Manatee.Trello.Json.Entities
 					Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
 					CheckLists = obj.Deserialize<List<IJsonCheckList>>(serializer, "checklists");
 					Closed = obj.TryGetBoolean("closed");
-					Comments = obj.Deserialize<List<IJsonAction>>(serializer, "comments");
+					if (Card.DownloadedFields.HasFlag(Card.Fields.Comments))
+					{
+						var comments = obj.TryGetArray("actions")
+										  ?.Where(jv => jv.Type == JsonValueType.Object &&
+														jv.Object.TryGetString("type") == "commentCard")
+										  .ToJson();
+						if (comments != null)
+							Comments = serializer.Deserialize<List<IJsonAction>>(comments);
+					}
+					else
+						Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
 					CustomFields = obj.Deserialize<List<IJsonCustomField>>(serializer, "customFieldItems");
 					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 					Due = obj.Deserialize<DateTime?>(serializer, "due");
 					DueComplete = obj.TryGetBoolean("dueComplete");
 					Desc = obj.TryGetString("desc");
-					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
-					List = obj.Deserialize<IJsonList>(serializer, "idList");
+					Board = obj.Deserialize<IJsonBoard>(serializer, "board") ?? obj.Deserialize<IJsonBoard>(serializer, "idBoard");
+					List = obj.Deserialize<IJsonList>(serializer, "list") ?? obj.Deserialize<IJsonList>(serializer, "idList");
 					IdShort = (int?) obj.TryGetNumber("idShort");
 					IdAttachmentCover = obj.TryGetString("idAttachmentCover");
 					Labels = obj.Deserialize<List<IJsonLabel>>(serializer, "labels");

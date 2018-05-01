@@ -9,26 +9,24 @@ namespace Manatee.Trello.UnitTests
 {
 	public static class MockHost
 	{
-		private static bool _isInitialized;
+
 
 		public static Mock<IRestClient> Client { get; private set; } 
-		public static Mock<IRestResponse<IJsonCard>> CardResponse { get; private set; }
+		public static Mock Response { get; private set; }
 
-		public static void Initialize()
+		public static void MockRest<T>()
+			where T : class
 		{
-			if (_isInitialized) return;
-
-			_isInitialized = true;
-
-			CardResponse = new Mock<IRestResponse<IJsonCard>>();
-			CardResponse.SetupGet(r => r.StatusCode)
+			var response = new Mock<IRestResponse<T>>();
+			Response = response;
+			response.SetupGet(r => r.StatusCode)
 			            .Returns(HttpStatusCode.OK);
-			CardResponse.SetupGet(r => r.Content)
+			response.SetupGet(r => r.Content)
 			            .Returns("{}");
 
 			Client = new Mock<IRestClient>();
-			Client.Setup(c => c.Execute<IJsonCard>(It.IsAny<IRestRequest>(), It.IsAny<CancellationToken>()))
-			      .ReturnsAsync(CardResponse.Object);
+			Client.Setup(c => c.Execute<T>(It.IsAny<IRestRequest>(), It.IsAny<CancellationToken>()))
+			      .ReturnsAsync(response.Object);
 
 			var requestProvider = new Mock<IRestRequestProvider>();
 			requestProvider.Setup(p => p.Create(It.IsAny<string>(), It.IsAny<Dictionary<string, object>>()))
@@ -41,6 +39,20 @@ namespace Manatee.Trello.UnitTests
 			              .Returns(requestProvider.Object);
 
 			TrelloConfiguration.RestClientProvider = clientProvider.Object;
+		}
+
+		public static void ResetRest()
+		{
+			TrelloConfiguration.RestClientProvider = null;
+		}
+
+		public static Mock<IJsonFactory> JsonFactory { get; private set; }
+
+		public static void MockJson()
+		{
+			JsonFactory = new Mock<IJsonFactory>();
+
+			TrelloConfiguration.JsonFactory = JsonFactory.Object;
 		}
 	}
 }

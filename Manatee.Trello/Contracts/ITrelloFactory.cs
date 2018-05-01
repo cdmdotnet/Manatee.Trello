@@ -142,12 +142,20 @@ namespace Manatee.Trello
 			where T : class, ICanWebhook;
 
 		/// <summary>
-		/// Creates an <see cref="IWebhook{T}"/> for and existing webhook.
+		/// Creates an <see cref="IWebhook{T}"/> for an existing webhook.
 		/// </summary>
 		/// <param name="id">The action ID.</param>
 		/// <param name="auth">(Optional) The authorization.</param>
 		/// <returns>An <see cref="IWebhook{T}"/></returns>
 		IWebhook<T> Webhook<T>(string id, TrelloAuthorization auth = null)
 			where T : class, ICanWebhook;
+
+		/// <summary>
+		/// Creates a <see cref="DropDownOption"/>.
+		/// </summary>
+		/// <param name="text">The drop down text.</param>
+		/// <param name="color">(Optional) The drop down color.</param>
+		/// <returns>An <see cref="IDropDownOption"/></returns>
+		IDropDownOption DropDownOption(string text, LabelColor color = LabelColor.None);
 	}
 }

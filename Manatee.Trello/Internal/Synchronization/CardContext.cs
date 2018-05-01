@@ -177,11 +177,11 @@ namespace Manatee.Trello.Internal.Synchronization
 
 				var parameterFields = availableFields & Card.DownloadedFields & (~MemberFields);
 
-				//if (parameterFields.HasFlag(Card.Fields.Actions))
-				//{
-				//	Parameters["actions"] = "all";
-				//	Parameters["actions_format"] = "list";
-				//}
+				if (parameterFields.HasFlag(Card.Fields.Actions))
+				{
+					Parameters["actions"] = "all";
+					Parameters["actions_format"] = "list";
+				}
 				if (parameterFields.HasFlag(Card.Fields.Attachments))
 				{
 					Parameters["attachments"] = "true";
@@ -288,7 +288,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 			if (json.CustomFields != null)
 			{
-				CustomFields.Update(json.CustomFields.Select(a => a.GetFromCache<CustomField, IJsonCustomField>(Auth, Data.Id)));
+				CustomFields.Update(json.CustomFields.Select(a => a.GetFromCache<CustomField, IJsonCustomField>(Auth, true, Data.Id)));
 				properties.Add(nameof(Card.CustomFields));
 			}
 			if (json.Labels != null)

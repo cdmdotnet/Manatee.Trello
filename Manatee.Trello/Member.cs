@@ -351,9 +351,9 @@ namespace Manatee.Trello
 			return FullName;
 		}
 
-		void IMergeJson<IJsonMember>.Merge(IJsonMember json)
+		void IMergeJson<IJsonMember>.Merge(IJsonMember json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
