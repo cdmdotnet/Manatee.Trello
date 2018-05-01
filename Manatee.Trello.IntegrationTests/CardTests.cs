@@ -209,13 +209,12 @@ namespace Manatee.Trello.IntegrationTests
 				var comment = await card.Comments.Add("a comment");
 				await card.Refresh();
 
-				card.Actions.Should().Contain(a => a.Type == ActionType.CommentCard);
+				card.Comments.Count().Should().Be(1);
 
 				await comment.Delete();
 				await card.Refresh();
 
-				card.Actions.Should().NotContain(a => a.Type == ActionType.CommentCard);
-
+				card.Comments.Count().Should().Be(0);
 			}
 			finally
 			{

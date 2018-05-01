@@ -104,9 +104,9 @@ namespace Manatee.Trello
 			handler?.Invoke(this, properties);
 		}
 
-		void IMergeJson<IJsonOrganizationMembership>.Merge(IJsonOrganizationMembership json)
+		void IMergeJson<IJsonOrganizationMembership>.Merge(IJsonOrganizationMembership json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 	}
 }

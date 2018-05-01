@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 
@@ -52,7 +53,17 @@ namespace Manatee.Trello.Json.Entities
 					Badges = obj.Deserialize<IJsonBadges>(serializer, "badges");
 					CheckLists = obj.Deserialize<List<IJsonCheckList>>(serializer, "checklists");
 					Closed = obj.TryGetBoolean("closed");
-					Comments = obj.Deserialize<List<IJsonAction>>(serializer, "comments");
+					if (Card.DownloadedFields.HasFlag(Card.Fields.Comments))
+					{
+						var comments = obj.TryGetArray("actions")
+										  ?.Where(jv => jv.Type == JsonValueType.Object &&
+														jv.Object.TryGetString("type") == "commentCard")
+										  .ToJson();
+						if (comments != null)
+							Comments = serializer.Deserialize<List<IJsonAction>>(comments);
+					}
+					else
+						Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
 					CustomFields = obj.Deserialize<List<IJsonCustomField>>(serializer, "customFieldItems");
 					DateLastActivity = obj.Deserialize<DateTime?>(serializer, "dateLastActivity");
 					Due = obj.Deserialize<DateTime?>(serializer, "due");

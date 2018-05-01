@@ -23,7 +23,7 @@ namespace Manatee.Trello.IntegrationTests
 		[OneTimeSetUp]
 		public async Task BuildEnvironment()
 		{
-			if (TestContext.Parameters["Category"].Contains("Manual")) return;
+			if (TestContext.Parameters["Category"]?.Contains("Manual") ?? false) return;
 
 			if (Current != null) throw new InvalidOperationException("Test setup occurring twice...");
 

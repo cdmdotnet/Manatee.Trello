@@ -37,7 +37,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
 				{
-					var field = ja.GetFromCache<CustomField, IJsonCustomField>(Auth, OwnerId);
+					var field = ja.GetFromCache<CustomField, IJsonCustomField>(Auth, true, OwnerId);
 					field.Json = ja;
 					return field;
 				}));

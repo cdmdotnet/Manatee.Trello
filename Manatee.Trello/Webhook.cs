@@ -156,9 +156,9 @@ namespace Manatee.Trello
 			await _context.Synchronize(ct);
 		}
 
-		void IMergeJson<IJsonWebhook>.Merge(IJsonWebhook json)
+		void IMergeJson<IJsonWebhook>.Merge(IJsonWebhook json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

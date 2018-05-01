@@ -208,7 +208,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			IsInitialized = true;
 		}
 
-		internal IEnumerable<string> Merge(TJson json)
+		internal IEnumerable<string> Merge(TJson json, bool overwrite = true)
 		{
 			if (json is IAcceptId mergable && !mergable.ValidForMerge) return Enumerable.Empty<string>();
 
@@ -222,6 +222,9 @@ namespace Manatee.Trello.Internal.Synchronization
 				foreach (var propertyName in Properties.Keys.Except(_localChanges))
 				{
 					var property = Properties[propertyName];
+					var oldValue = property.Get(Data, Auth);
+					if (!overwrite && oldValue != null) continue;
+
 					var newValue = property.Get(json, Auth);
 					property.Set(Data, newValue);
 					propertyNames.Add(propertyName);

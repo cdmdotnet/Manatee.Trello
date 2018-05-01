@@ -108,9 +108,9 @@ namespace Manatee.Trello
 			return Text;
 		}
 
-		void IMergeJson<IJsonCustomDropDownOption>.Merge(IJsonCustomDropDownOption json)
+		void IMergeJson<IJsonCustomDropDownOption>.Merge(IJsonCustomDropDownOption json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 	}
 }
