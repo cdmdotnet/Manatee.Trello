@@ -58,6 +58,7 @@
     <Compile Include="CapturingClientProvider.cs" />
     <Compile Include="CardTests.cs" />
     <Compile Include="CheckItemTests.cs" />
+    <Compile Include="CheckListTests.cs" />
     <Compile Include="ClientTests.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DevTest.cs" />

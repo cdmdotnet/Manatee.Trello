@@ -101,16 +101,13 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public async Task CardCanBeDeleted()
+		public async Task CanDelete()
 		{
 			var card = await TestEnvironment.Current.BuildCard();
 			var id = card.Id;
 
 			await card.Refresh();
-
 			await card.Delete();
-
-			TrelloConfiguration.Cache.Remove(card);
 
 			var reCard = TestEnvironment.Current.Factory.Card(id);
 

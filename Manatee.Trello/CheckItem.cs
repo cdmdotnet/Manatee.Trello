@@ -98,7 +98,7 @@ namespace Manatee.Trello
 		public Position Position
 		{
 			get { return _position.Value; }
-			set { _position.Value = (Position) value; }
+			set { _position.Value = value; }
 		}
 		/// <summary>
 		/// Gets or sets the checklist item's state.

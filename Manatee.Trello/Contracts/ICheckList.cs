@@ -16,9 +16,9 @@ namespace Manatee.Trello
 		IBoard Board { get; }
 
 		/// <summary>
-		/// Gets or sets the card on which the checklist belongs.
+		/// Gets the card on which the checklist belongs.
 		/// </summary>
-		ICard Card { get; set; }
+		ICard Card { get; }
 
 		/// <summary>
 		/// Gets the collection of items in the checklist.

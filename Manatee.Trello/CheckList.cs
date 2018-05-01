@@ -75,12 +75,12 @@ namespace Manatee.Trello
 		/// </summary>
 		public IBoard Board => _board.Value;
 		/// <summary>
-		/// Gets or sets the card on which the checklist belongs.
+		/// Gets the card on which the checklist belongs.
 		/// </summary>
 		public ICard Card
 		{
 			get { return _card.Value; }
-			set { _card.Value = (Card) value; }
+			private set { _card.Value = (Card) value; }
 		}
 
 		/// <summary>
