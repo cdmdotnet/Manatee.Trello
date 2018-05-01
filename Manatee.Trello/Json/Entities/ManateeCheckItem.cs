@@ -16,7 +16,7 @@ namespace Manatee.Trello.Json.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			CheckList = obj.Deserialize<IJsonCheckList>(serializer, "idCheckList");
+			CheckList = obj.Deserialize<IJsonCheckList>(serializer, "checklist") ?? obj.Deserialize<IJsonCheckList>(serializer, "idChecklist");
 			State = obj.Deserialize<CheckItemState?>(serializer, "state");
 			Name = obj.TryGetString("name");
 			Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
@@ -24,7 +24,7 @@ namespace Manatee.Trello.Json.Entities
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
 			var json = new JsonObject();
-			CheckList?.Id.Serialize(json, serializer, "idCheckList");
+			CheckList?.Id.Serialize(json, serializer, "idChecklist");
 			Id.Serialize(json, serializer, "id");
 			Name.Serialize(json, serializer, "name");
 			Pos.Serialize(json, serializer, "pos");

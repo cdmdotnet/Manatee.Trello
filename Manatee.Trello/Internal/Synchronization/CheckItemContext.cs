@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
+using Manatee.Trello.Json.Entities;
 
 namespace Manatee.Trello.Internal.Synchronization
 {

@@ -18,19 +18,16 @@ namespace Manatee.Trello.IntegrationTests
 			var me = await factory.Me();
 
 			await me.Refresh();
-			await Task.WhenAll(me.Organizations.Where(o => o.Name.StartsWith("TestOrg_")).Select(async o =>
-				{
-					Console.WriteLine($"Deleting org {o}");
-					await o.Delete();
-				}));
-
-			// need to refresh again because boards have moved from orgs to me
-			await me.Refresh();
 
 			await Task.WhenAll(me.Boards.Where(b => b.Name.StartsWith("TestBoard_")).Select(async b =>
 				{
 					Console.WriteLine($"Deleting board {b}");
 					await b.Delete();
+				}));
+			await Task.WhenAll(me.Organizations.Where(o => o.Name.StartsWith("TestOrg_")).Select(async o =>
+				{
+					Console.WriteLine($"Deleting org {o}");
+					await o.Delete();
 				}));
 		}
 	}

@@ -30,12 +30,12 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Board property should be populated.
 			/// </summary>
-			[Display(Description="board")]
+			[Display(Description="idBoard")]
 			Board = 1 << 1,
 			/// <summary>
 			/// Indicates the Card property should be populated.
 			/// </summary>
-			[Display(Description="card")]
+			[Display(Description="idCard")]
 			Card = 1 << 2,
 			/// <summary>
 			/// Indicates the checklist items will be downloaded.

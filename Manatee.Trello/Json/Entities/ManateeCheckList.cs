@@ -23,10 +23,11 @@ namespace Manatee.Trello.Json.Entities
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
 					Name = obj.TryGetString("name");
-					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
-					Card = obj.Deserialize<IJsonCard>(serializer, "idCard");
+					Board = obj.Deserialize<IJsonBoard>(serializer, "board") ?? obj.Deserialize<IJsonBoard>(serializer, "idBoard");
+					Card = obj.Deserialize<IJsonCard>(serializer, "card") ?? obj.Deserialize<IJsonCard>(serializer, "idCard");
 					CheckItems = obj.Deserialize<List<IJsonCheckItem>>(serializer, "checkItems");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
+					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
 					Id = json.String;

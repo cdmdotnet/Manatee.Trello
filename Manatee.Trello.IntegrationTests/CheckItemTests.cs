@@ -15,17 +15,18 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task MoveCheckItem()
 		{
 			var checkItem = await TestEnvironment.Current.BuildCheckItem();
-			var destination = await TestEnvironment.Current.BuildCheckList();
-
-			await checkItem.Refresh();
+			var source = checkItem.CheckList;
+			var destination = await checkItem.CheckList.Card.CheckLists.Add("other checklist");
 
 			checkItem.CheckList = destination;
 
 			await TrelloProcessor.Flush();
 
-			await checkItem.Refresh();
+			await source.Refresh();
+			await destination.Refresh();
 
-			checkItem.CheckList.Id.Should().Be(destination.Id);
+			source.CheckItems.Should().NotContain(checkItem);
+			destination.CheckItems.Should().Contain(checkItem);
 		}
 	}
 }
