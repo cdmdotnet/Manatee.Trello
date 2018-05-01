@@ -61,9 +61,9 @@ namespace Manatee.Trello
 			await _context.Synchronize(ct);
 		}
 
-		void IMergeJson<IJsonCustomField>.Merge(IJsonCustomField json)
+		void IMergeJson<IJsonCustomField>.Merge(IJsonCustomField json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

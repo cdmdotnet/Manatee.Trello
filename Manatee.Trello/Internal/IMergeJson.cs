@@ -2,6 +2,6 @@
 {
 	internal interface IMergeJson<in T>
 	{
-		void Merge(T json);
+		void Merge(T json, bool overwrite);
 	}
 }

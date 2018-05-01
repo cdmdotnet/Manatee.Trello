@@ -11,15 +11,13 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	{
 		private const string BaseUrl = @"https://trello.com/1";
 
-		private static IRestClient _client;
-
-		private static IRestClient Client => _client ?? (_client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl));
+		private static IRestClient Client => TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
 
 		public static event Func<Task> LastCall;
 
 		public static Task<IRestResponse> AddRequest(IRestRequest request, CancellationToken ct)
 		{
-			return Process(() => Client.Execute(request, ct), request, ct);
+			return Process(async () => await Client.Execute(request, ct), request, ct);
 		}
 		public static Task<IRestResponse> AddRequest<T>(IRestRequest request, CancellationToken ct)
 			where T : class

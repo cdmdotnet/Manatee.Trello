@@ -48,9 +48,9 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
-		internal DropDownOption(IJsonCustomDropDownOption json, TrelloAuthorization auth)
+		internal DropDownOption(IJsonCustomDropDownOption json, TrelloAuthorization auth, bool created = false)
 		{
-			_context = new DropDownOptionContext(auth);
+			_context = new DropDownOptionContext(auth, created);
 			_context.Merge(json);
 
 			_field = new Field<CustomFieldDefinition>(_context, nameof(Field));
@@ -58,7 +58,24 @@ namespace Manatee.Trello
 			_labelColor = new Field<LabelColor?>(_context, nameof(LabelColor));
 			_position = new Field<Position>(_context, nameof(Position));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (!created)
+				TrelloConfiguration.Cache.Add(this);
+		}
+
+		/// <summary>
+		/// Creates a new drop down option.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <param name="color">(Optional) The label color.</param>
+		/// <returns>A new drop down option.</returns>
+		/// <remarks>This object will not update.  It is intended for adding new options to custom drop down fields.</remarks>
+		public static IDropDownOption Create(string text, LabelColor color = LabelColor.None)
+		{
+			var json = TrelloConfiguration.JsonFactory.Create<IJsonCustomDropDownOption>();
+			json.Text = text;
+			json.Color = color;
+
+			return new DropDownOption(json, null, true);
 		}
 
 		/// <summary>
@@ -91,9 +108,9 @@ namespace Manatee.Trello
 			return Text;
 		}
 
-		void IMergeJson<IJsonCustomDropDownOption>.Merge(IJsonCustomDropDownOption json)
+		void IMergeJson<IJsonCustomDropDownOption>.Merge(IJsonCustomDropDownOption json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 	}
 }

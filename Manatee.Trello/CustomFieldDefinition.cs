@@ -194,9 +194,9 @@ namespace Manatee.Trello
 			handler?.Invoke(this, properties);
 		}
 
-		void IMergeJson<IJsonCustomFieldDefinition>.Merge(IJsonCustomFieldDefinition json)
+		void IMergeJson<IJsonCustomFieldDefinition>.Merge(IJsonCustomFieldDefinition json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 	}
 }

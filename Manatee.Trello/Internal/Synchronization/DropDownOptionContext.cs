@@ -52,9 +52,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				};
 		}
 
-		public DropDownOptionContext(TrelloAuthorization auth)
+		public DropDownOptionContext(TrelloAuthorization auth, bool created)
 			: base(auth)
 		{
+			_deleted = created;
 		}
 
 		public async Task Delete(CancellationToken ct)

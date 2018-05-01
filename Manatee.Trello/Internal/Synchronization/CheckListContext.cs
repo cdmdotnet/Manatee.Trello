@@ -36,6 +36,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Parameters = new Dictionary<string, object>();
 			MemberFields = CheckList.Fields.Name |
+						   CheckList.Fields.Card |
+						   CheckList.Fields.Board |
 						   CheckList.Fields.Position;
 			Properties = new Dictionary<string, Property<IJsonCheckList>>
 				{

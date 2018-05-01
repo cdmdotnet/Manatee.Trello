@@ -97,9 +97,9 @@ namespace Manatee.Trello
 			return $"{Member} ({MemberType})";
 		}
 
-		void IMergeJson<IJsonBoardMembership>.Merge(IJsonBoardMembership json)
+		void IMergeJson<IJsonBoardMembership>.Merge(IJsonBoardMembership json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

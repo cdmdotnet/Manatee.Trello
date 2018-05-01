@@ -51,9 +51,9 @@ namespace Manatee.Trello
 			await _context.Synchronize(ct);
 		}
 
-		void IMergeJson<IJsonPowerUpData>.Merge(IJsonPowerUpData json)
+		void IMergeJson<IJsonPowerUpData>.Merge(IJsonPowerUpData json, bool overwrite)
 		{
-			_context.Merge(json);
+			_context.Merge(json, overwrite);
 		}
 	}
 }

@@ -5,7 +5,7 @@ namespace Manatee.Trello.Json
 	/// <summary>
 	/// Defines the JSON structure for the CheckList object.
 	/// </summary>
-	public interface IJsonCheckList : IJsonCacheable
+	public interface IJsonCheckList : IJsonCacheable, IAcceptId
 	{
 		/// <summary>
 		/// Gets or sets the name of this checklist.

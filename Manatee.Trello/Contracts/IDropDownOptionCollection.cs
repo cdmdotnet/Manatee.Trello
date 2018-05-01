@@ -6,7 +6,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A collection of custom field drop down options.
 	/// </summary>
-	public interface IDropDownOptionCollection
+	public interface IDropDownOptionCollection : IReadOnlyCollection<IDropDownOption>
 	{
 		/// <summary>
 		/// Adds a new drop down option.

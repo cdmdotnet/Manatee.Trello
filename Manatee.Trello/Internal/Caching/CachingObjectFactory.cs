@@ -65,13 +65,13 @@ namespace Manatee.Trello.Internal.Caching
 			return TryGetFromCache<T>(json) ??
 			       (T) JsonFactory[typeof(T)](json, auth, null);
 		}
-		public static T GetFromCache<T, TJson>(this TJson json, TrelloAuthorization auth, params object[] parameters)
+		public static T GetFromCache<T, TJson>(this TJson json, TrelloAuthorization auth, bool overwrite = true, params object[] parameters)
 			where T : class, ICacheable, IMergeJson<TJson>
 			where TJson : IJsonCacheable
 		{
 			if (json == null) return null;
 
-			return TryGetFromCache<T, TJson>(json) ??
+			return TryGetFromCache<T, TJson>(json, overwrite) ??
 			       (T) JsonFactory[typeof(T)](json, auth, parameters);
 		}
 
@@ -81,12 +81,12 @@ namespace Manatee.Trello.Internal.Caching
 			return TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id);
 		}
 
-		public static T TryGetFromCache<T, TJson>(this TJson json)
+		public static T TryGetFromCache<T, TJson>(this TJson json, bool overwrite = true)
 			where T : class, ICacheable, IMergeJson<TJson>
 			where TJson : IJsonCacheable
 		{
 			var obj = TrelloConfiguration.Cache.Find<T>(o => o.Id == json.Id);
-			obj?.Merge(json);
+			obj?.Merge(json, overwrite);
 
 			return obj;
 		}

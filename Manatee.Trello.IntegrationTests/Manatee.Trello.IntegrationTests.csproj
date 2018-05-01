@@ -54,12 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CapturingClient.cs" />
+    <Compile Include="CapturingClientProvider.cs" />
+    <Compile Include="CardTests.cs" />
+    <Compile Include="CheckItemTests.cs" />
     <Compile Include="ClientTests.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DevTest.cs" />
+    <Compile Include="ManualTests.cs" />
+    <Compile Include="TestEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScriptedTest.cs" />
     <Compile Include="StackOverflowTests.cs" />
-    <Compile Include="TheGodComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

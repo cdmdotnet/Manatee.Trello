@@ -36,6 +36,7 @@ namespace Manatee.Trello.Json
 						}
 				};
 			_serializer.CustomSerializations.RegisterType(DateTimeToJson, JsonToDateTime);
+			_serializer.CustomSerializations.RegisterType(DateTimeToJson2, JsonToDateTime2);
 			_serializer.CustomSerializations.RegisterType(ActionTypeToJson, JsonToActionType);
 			InitializeAbstractionMap(_serializer);
 			_method = _serializer.GetType().GetTypeInfo().DeclaredMethods
@@ -125,17 +126,44 @@ namespace Manatee.Trello.Json
 
 		private static JsonValue DateTimeToJson(DateTime? date, JsonSerializer serializer)
 		{
-			return date?.ToUniversalTime()
-			            .ToString("yyyy-MM-ddTHH:mm:ss.fffZ") ?? JsonValue.Null;
+			var dateString = date?.ToUniversalTime()
+			                     .ToString("yyyy-MM-ddTHH:mm:ss.fffZ") ?? JsonValue.Null;
+
+			return dateString;
 		}
 
 		private static DateTime? JsonToDateTime(JsonValue json, JsonSerializer serializer)
 		{
 			var dateString = json.String;
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime date))
-				return date.ToLocalTime();
+			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var date))
+			{
+				var localDate = date.ToLocalTime();
+
+				return localDate;
+			}
 
 			return null;
+		}
+
+		private static JsonValue DateTimeToJson2(DateTime date, JsonSerializer serializer)
+		{
+			var dateString = date.ToUniversalTime()
+			                     .ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+
+			return dateString;
+		}
+
+		private static DateTime JsonToDateTime2(JsonValue json, JsonSerializer serializer)
+		{
+			var dateString = json.String;
+			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var date))
+			{
+				var localDate = date.ToLocalTime();
+
+				return localDate;
+			}
+
+			return DateTime.MinValue;
 		}
 
 		private static JsonValue ActionTypeToJson(ActionType? actionType, JsonSerializer serializer)
