@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DevTest.cs" />
     <Compile Include="Internal\Synchronization\SynchronizedContextTests.cs" />
     <Compile Include="Internal\Synchronization\SynchronizedData.cs" />
     <Compile Include="Internal\Synchronization\SynchronizedObject.cs" />
@@ -82,6 +83,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Manatee.Trello.CardRepeater\Manatee.Trello.CardRepeater.csproj">
+      <Project>{FA232CCF-7967-4119-B398-34E26D1D18CC}</Project>
+      <Name>Manatee.Trello.CardRepeater</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Manatee.Trello.Tests.Common\Manatee.Trello.Tests.Common.csproj">
       <Project>{598234BA-460F-44C4-A3DB-E5257B572998}</Project>
       <Name>Manatee.Trello.Tests.Common</Name>

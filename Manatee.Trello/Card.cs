@@ -151,6 +151,10 @@ namespace Manatee.Trello
 			/// Indicates that the voting members should downloaded.
 			/// </summary>
 			VotingMembers = 1 << 23,
+			/// <summary>
+			/// Indicates that power-up data should be downloaded.
+			/// </summary>
+			PowerUpData = 1 << 24
 		}
 
 		private readonly Field<Board> _board;

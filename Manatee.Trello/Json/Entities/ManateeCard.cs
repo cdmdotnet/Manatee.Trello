@@ -83,6 +83,7 @@ namespace Manatee.Trello.Json.Entities
 					Subscribed = obj.TryGetBoolean("subscribed");
 					Stickers = obj.Deserialize<List<IJsonSticker>>(serializer, "stickers");
 					MembersVoted = obj.Deserialize<List<IJsonMember>>(serializer, "membersVoted");
+					PowerUpData = obj.Deserialize<List<IJsonPowerUpData>>(serializer, "pluginData");
 					ValidForMerge = true;
 					break;
 				case JsonValueType.String:

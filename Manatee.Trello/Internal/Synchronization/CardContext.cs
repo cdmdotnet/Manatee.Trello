@@ -221,6 +221,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["list"] = "true";
 					Parameters["list_fields"] = ListContext.CurrentParameters["fields"];
 				}
+				if (parameterFields.HasFlag(Card.Fields.PowerUpData))
+					Parameters["pluginData"] = "true";
 			}
 		}
 
