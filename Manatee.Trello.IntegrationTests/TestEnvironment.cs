@@ -23,8 +23,6 @@ namespace Manatee.Trello.IntegrationTests
 		[OneTimeSetUp]
 		public async Task BuildEnvironment()
 		{
-			if (TestContext.Parameters["Category"]?.Contains("Manual") ?? false) return;
-
 			if (Current != null) throw new InvalidOperationException("Test setup occurring twice...");
 
 			Current = this;
@@ -59,10 +57,23 @@ namespace Manatee.Trello.IntegrationTests
 		[OneTimeTearDown]
 		public async Task DestroyEnvironment()
 		{
-			if (Board != null)
-				await Board.Delete();
-			if (Organization != null)
-				await Organization.Delete();
+			try
+			{
+				if (Board != null)
+					await Board.Delete();
+			}
+			catch
+			{
+			}
+
+			try
+			{
+				if (Organization != null)
+					await Organization.Delete();
+			}
+			catch
+			{
+			}
 		}
 
 		public async Task<IList> BuildList([CallerMemberName] string name = null)

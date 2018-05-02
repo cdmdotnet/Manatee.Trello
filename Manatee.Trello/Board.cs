@@ -222,20 +222,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets wheterh this board is pinned.
 		/// </summary>
-		public bool? IsPinned
-		{
-			get { return _isPinned.Value; }
-			set { _isPinned.Value = value; }
-		}
+		public bool? IsPinned => _isPinned.Value;
 
 		/// <summary>
 		/// Gets or sets wheterh this board is pinned.
 		/// </summary>
-		public bool? IsStarred
-		{
-			get { return _isStarred.Value; }
-			set { _isStarred.Value = value; }
-		}
+		public bool? IsStarred => _isStarred.Value;
 
 		/// <summary>
 		/// Gets or sets whether the current member is subscribed to this board.
