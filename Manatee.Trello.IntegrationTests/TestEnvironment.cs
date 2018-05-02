@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Manatee.Trello.Rest;
@@ -23,9 +24,10 @@ namespace Manatee.Trello.IntegrationTests
 		[OneTimeSetUp]
 		public async Task BuildEnvironment()
 		{
-			if (TestContext.Parameters["Category"]?.Contains("Manual") ?? false) return;
-
 			if (Current != null) throw new InvalidOperationException("Test setup occurring twice...");
+
+			if (File.Exists("Manatee.Trello.run"))
+				File.Delete("Manatee.Trello.run");
 
 			Current = this;
 
@@ -36,6 +38,7 @@ namespace Manatee.Trello.IntegrationTests
 				new CapturingClientProvider(TrelloConfiguration.RestClientProvider,
 				                            r => LastRequest = r,
 				                            r => LastResponse = r);
+			TrelloConfiguration.Log = new ConsoleLog();
 
 			var testTimeStamp = $"{DateTime.Now:yyMMddHHmmss}";
 
@@ -59,10 +62,32 @@ namespace Manatee.Trello.IntegrationTests
 		[OneTimeTearDown]
 		public async Task DestroyEnvironment()
 		{
-			if (Board != null)
-				await Board.Delete();
-			if (Organization != null)
-				await Organization.Delete();
+			try
+			{
+				if (Board != null)
+					await Board.Delete();
+			}
+			catch
+			{
+			}
+
+			try
+			{
+				if (Organization != null)
+					await Organization.Delete();
+			}
+			catch
+			{
+			}
+
+			try
+			{
+				var licenseCounts = File.ReadAllText("Manatee.Trello.run");
+				Console.WriteLine(licenseCounts);
+			}
+			catch
+			{
+			}
 		}
 
 		public async Task<IList> BuildList([CallerMemberName] string name = null)

@@ -63,6 +63,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.
 		/// </summary>
+		/// <remarks>
+		/// Trello only supports moving a check item between lists on the same card.
+		/// </remarks>
 		public ICheckList CheckList
 		{
 			get { return _checkList.Value; }
@@ -98,7 +101,7 @@ namespace Manatee.Trello
 		public Position Position
 		{
 			get { return _position.Value; }
-			set { _position.Value = (Position) value; }
+			set { _position.Value = value; }
 		}
 		/// <summary>
 		/// Gets or sets the checklist item's state.

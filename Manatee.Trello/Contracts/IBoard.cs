@@ -111,12 +111,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets wheterh this board is pinned.
 		/// </summary>
-		bool? IsPinned { get; set; }
+		bool? IsPinned { get; }
 
 		/// <summary>
 		/// Gets or sets wheterh this board is pinned.
 		/// </summary>
-		bool? IsStarred { get; set; }
+		bool? IsStarred { get; }
 
 		/// <summary>
 		/// Gets the date of the board's most recent activity.

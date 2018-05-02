@@ -101,16 +101,13 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public async Task CardCanBeDeleted()
+		public async Task CanDelete()
 		{
 			var card = await TestEnvironment.Current.BuildCard();
 			var id = card.Id;
 
 			await card.Refresh();
-
 			await card.Delete();
-
-			TrelloConfiguration.Cache.Remove(card);
 
 			var reCard = TestEnvironment.Current.Factory.Card(id);
 
@@ -178,23 +175,6 @@ namespace Manatee.Trello.IntegrationTests
 			await card.Refresh();
 
 			card.Labels.Count().Should().Be(0);
-		}
-
-		[Test]
-		public async Task AutoDownloadOnIdAccess()
-		{
-			var card = await TestEnvironment.Current.BuildCard();
-
-			TrelloConfiguration.Cache.Remove(card);
-
-			var shortUrlId = card.ShortUrl.Split('/').Last();
-			var reCard = new Card(shortUrlId);
-
-			await TestEnvironment.Current.Board.Refresh();
-
-			reCard.Id.Should().NotBeNullOrEmpty();
-
-			TestEnvironment.Current.LastResponse.Should().BeAssignableTo<IRestResponse<IJsonCard>>();
 		}
 
 		[Test]

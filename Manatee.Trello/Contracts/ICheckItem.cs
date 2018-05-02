@@ -13,6 +13,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the checklist to which the item belongs.
 		/// </summary>
+		/// <remarks>
+		/// Trello only supports moving a check item between lists on the same card.
+		/// </remarks>
 		ICheckList CheckList { get; set; }
 
 		/// <summary>

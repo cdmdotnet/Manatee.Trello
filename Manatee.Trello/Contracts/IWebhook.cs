@@ -9,7 +9,7 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public interface IWebhook<T> where T : class, ICanWebhook
+	public interface IWebhook<T> : ICacheable where T : class, ICanWebhook
 	{
 		/// <summary>
 		/// Gets or sets a callback URL for the webhook.
@@ -25,11 +25,6 @@ namespace Manatee.Trello
 		/// Gets or sets a description for the webhook.
 		/// </summary>
 		string Description { get; set; }
-
-		/// <summary>
-		/// Gets the webhook's ID>
-		/// </summary>
-		string Id { get; }
 
 		/// <summary>
 		/// Gets or sets whether the webhook is active.

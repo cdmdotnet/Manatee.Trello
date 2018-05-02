@@ -36,7 +36,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
 				{
-					var field = TrelloConfiguration.Cache.Find<CustomFieldDefinition>(a => a.Id == ja.Id) ?? new CustomFieldDefinition(ja, Auth);
+					var field = TrelloConfiguration.Cache.Find<CustomFieldDefinition>(ja.Id) ?? new CustomFieldDefinition(ja, Auth);
 					field.Json = ja;
 					return field;
 				}));

@@ -96,7 +96,7 @@ namespace Manatee.Trello
 			_myJson = await JsonRepository.Execute<IJsonMember>(TrelloAuthorization.Default, endpoint, ct);
 
 			// If this object exists in the cache already as a regular Member, it needs to be replaced.
-			var meAsMember = TrelloConfiguration.Cache.Find<Member>(m => m.Id == _myJson.Id);
+			var meAsMember = TrelloConfiguration.Cache.Find<Member>(_myJson.Id);
 			if (meAsMember != null)
 				TrelloConfiguration.Cache.Remove(meAsMember);
 

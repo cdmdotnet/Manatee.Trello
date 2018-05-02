@@ -6,7 +6,6 @@ using NUnit.Framework;
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
-	[Category("Manual")]
 	[Ignore("This should only be run manually to clean up after halted tests (occurs if debugging a test and debugger is halted).")]
 	public class ManualTests
 	{
@@ -24,7 +23,7 @@ namespace Manatee.Trello.IntegrationTests
 					Console.WriteLine($"Deleting board {b}");
 					await b.Delete();
 				}));
-			await Task.WhenAll(me.Organizations.Where(o => o.Name.StartsWith("TestOrg_")).Select(async o =>
+			await Task.WhenAll(me.Organizations.Where(o => o.DisplayName.StartsWith("TestOrg_")).Select(async o =>
 				{
 					Console.WriteLine($"Deleting org {o}");
 					await o.Delete();

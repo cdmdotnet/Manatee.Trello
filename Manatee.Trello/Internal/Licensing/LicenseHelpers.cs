@@ -53,6 +53,11 @@ namespace Manatee.Trello.Internal.Licensing
 			_sessionExpiry = 0;
 		}
 
+		public static (long, long) GetCounts()
+		{
+			return (_retrievalCount, _submissionCount);
+		}
+
 		public static void SaveCurrentState()
 		{
 			var newDetails = new RunDetails
