@@ -28,7 +28,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
 				{
-					var attachment = TrelloConfiguration.Cache.Find<Sticker>(a => a.Id == ja.Id) ?? new Sticker(ja, OwnerId, Auth);
+					var attachment = TrelloConfiguration.Cache.Find<Sticker>(ja.Id) ?? new Sticker(ja, OwnerId, Auth);
 					attachment.Json = ja;
 					return attachment;
 				}));

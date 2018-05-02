@@ -54,7 +54,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public static ICache Cache
 		{
-			get { return _cache ?? (_cache = new ThreadSafeCacheDecorator(new SimpleCache())); }
+			get { return _cache ?? (_cache = new ConcurrentCache()); }
 			set { _cache = value; }
 		}
 		/// <summary>

@@ -178,23 +178,6 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public async Task AutoDownloadOnIdAccess()
-		{
-			var card = await TestEnvironment.Current.BuildCard();
-
-			TrelloConfiguration.Cache.Remove(card);
-
-			var shortUrlId = card.ShortUrl.Split('/').Last();
-			var reCard = new Card(shortUrlId);
-
-			await TestEnvironment.Current.Board.Refresh();
-
-			reCard.Id.Should().NotBeNullOrEmpty();
-
-			TestEnvironment.Current.LastResponse.Should().BeAssignableTo<IRestResponse<IJsonCard>>();
-		}
-
-		[Test]
 		public async Task CanComment()
 		{
 			try

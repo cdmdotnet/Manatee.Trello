@@ -44,7 +44,7 @@ namespace Manatee.Trello
 			Items.Clear();
 			Items.AddRange(newData.Select(jbm =>
 				{
-					var membership = TrelloConfiguration.Cache.Find<BoardMembership>(c => c.Id == jbm.Id) ?? new BoardMembership(jbm, OwnerId, Auth);
+					var membership = TrelloConfiguration.Cache.Find<BoardMembership>(jbm.Id) ?? new BoardMembership(jbm, OwnerId, Auth);
 					membership.Json = jbm;
 					return membership;
 				}));

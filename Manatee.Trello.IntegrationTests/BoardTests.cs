@@ -31,7 +31,7 @@ namespace Manatee.Trello.IntegrationTests
 
 				await reBoard.Refresh();
 
-				TrelloConfiguration.Cache.Remove(board);
+				TrelloConfiguration.Cache.Remove(reBoard);
 
 				reBoard.Description.Should().Be("changed");
 				reBoard.Name.Should().Be("changed also");
@@ -68,7 +68,7 @@ namespace Manatee.Trello.IntegrationTests
 
 				await reBoard.Refresh();
 
-				TrelloConfiguration.Cache.Remove(board);
+				TrelloConfiguration.Cache.Remove(reBoard);
 
 				reBoard.Organization.Should().Be(org);
 			}

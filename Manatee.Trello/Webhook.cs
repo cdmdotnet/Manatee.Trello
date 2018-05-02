@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>
+	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>, ICacheable
 		where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;

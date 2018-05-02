@@ -61,6 +61,7 @@
     <Compile Include="CheckItemTests.cs" />
     <Compile Include="CheckListTests.cs" />
     <Compile Include="ClientTests.cs" />
+    <Compile Include="ConsoleLog.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DevTest.cs" />
     <Compile Include="ManualTests.cs" />
