@@ -50,8 +50,7 @@ namespace Manatee.Trello
 
 		internal DropDownOption(IJsonCustomDropDownOption json, TrelloAuthorization auth, bool created = false)
 		{
-			_context = new DropDownOptionContext(auth, created);
-			_context.Merge(json);
+			_context = new DropDownOptionContext(json, auth, created);
 
 			_field = new Field<CustomFieldDefinition>(_context, nameof(Field));
 			_text = new Field<string>(_context, nameof(Text));

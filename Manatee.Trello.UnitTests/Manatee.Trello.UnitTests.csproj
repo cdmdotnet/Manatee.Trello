@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DevTest.cs" />
     <Compile Include="Internal\Synchronization\SynchronizedContextTests.cs" />
     <Compile Include="Internal\Synchronization\SynchronizedData.cs" />
     <Compile Include="Internal\Synchronization\SynchronizedObject.cs" />
