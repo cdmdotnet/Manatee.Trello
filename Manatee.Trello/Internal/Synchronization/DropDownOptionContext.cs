@@ -52,9 +52,12 @@ namespace Manatee.Trello.Internal.Synchronization
 				};
 		}
 
-		public DropDownOptionContext(TrelloAuthorization auth, bool created)
+		public DropDownOptionContext(IJsonCustomDropDownOption data, TrelloAuthorization auth, bool created)
 			: base(auth)
 		{
+			Data.Id = data.Id;
+			Merge(data);
+
 			_deleted = created;
 		}
 

@@ -63,7 +63,6 @@
     <Compile Include="ClientTests.cs" />
     <Compile Include="ConsoleLog.cs" />
     <Compile Include="DateTimeExtensions.cs" />
-    <Compile Include="DevTest.cs" />
     <Compile Include="ManualTests.cs" />
     <Compile Include="TestEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
