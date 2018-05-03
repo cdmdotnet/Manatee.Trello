@@ -23,7 +23,9 @@ namespace Manatee.Trello.UnitTests
 
 					var card = _factory.Card("R1Kc5KHd");
 
-					var repitition = card.Repitition();
+					var repetition = card.Repetition();
+
+					await repetition.ChangeToWeekly(9, 0, 3, new[] {DayOfWeek.Monday});
 				});
 		}
 

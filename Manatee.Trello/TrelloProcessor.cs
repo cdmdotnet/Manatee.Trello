@@ -1,8 +1,11 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Licensing;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello
 {
@@ -37,5 +40,11 @@ namespace Manatee.Trello
 			}
 		}
 
+		public static async Task CustomRequest(RestMethod method, string path, object content, TrelloAuthorization auth, CancellationToken ct = default(CancellationToken))
+		{
+			var endpoint = new Endpoint(method, path);
+
+			await JsonRepository.Execute(auth, endpoint, content, ct);
+		}
 	}
 }

@@ -1,15 +1,28 @@
 ﻿using System.Linq;
+using Manatee.Json;
 
 namespace Manatee.Trello.CardRepeater
 {
 	public static class CardRepeaterExtensions
 	{
-		public static CardRepitition Repitition(this ICard card, TrelloAuthorization auth = null)
+		public static CardRepetition Repetition(this ICard card, TrelloAuthorization auth = null)
 		{
 			var powerUpData = card.PowerUpData.FirstOrDefault(p => p.PluginId == CardRepeaterPowerUp.PluginId);
 			if (powerUpData == null) return null;
 
-			return new CardRepitition(powerUpData.Value, auth);
+			var content = JsonValue.Parse(powerUpData.Value);
+			if (content.Type != JsonValueType.Object || !content.Object.Any()) return null;
+
+			var data = content.Object.TryGetObject("recurrence");
+			var cached = TrelloConfiguration.Cache.Find<CardRepetition>(powerUpData.Id);
+
+			if (cached != null)
+			{
+				cached.Update(data);
+				return cached;
+			}
+
+			return new CardRepetition(data, auth);
 		}
 	}
 }
