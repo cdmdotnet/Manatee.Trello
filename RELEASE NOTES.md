@@ -1,3 +1,12 @@
+## 3.0.5
+
+Fixed further issues with deserialization.
+
+- `IJsonBoard`
+- `IJsonList`
+- `IJsonOrganizationMembership`
+- `IJsonToken`
+
 ## 3.0.4
 
 Fixed issue with `IJsonBoardBackground` deserialization.
