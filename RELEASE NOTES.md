@@ -1,3 +1,7 @@
+## 3.0.4
+
+Fixed issue with `IJsonBoardBackground` deserialization.
+
 ## 3.0.3
 
 Fixed issue with `DropDownOption` that caused `ArgumentNullException` when attempting to add the entity to the cache.

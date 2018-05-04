@@ -27,7 +27,9 @@ namespace Manatee.Trello.Json.Entities
 			CardCovers = obj.TryGetBoolean("cardCovers");
 			CalendarFeed = obj.TryGetBoolean("calendarFeed");
 			CardAging = obj.Deserialize<CardAgingStyle?>(serializer, "cardAging");
-			Background = serializer.Deserialize<IJsonBoardBackground>(obj);
+			var background = serializer.Deserialize<IJsonBoardBackground>(obj);
+			if (background.Id != null)
+				Background = background;
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
