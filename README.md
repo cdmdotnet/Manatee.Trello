@@ -175,7 +175,9 @@ The solution consists of a multi-targeted project and .Net Framework 4.6.2 test 
 
 ### Building
 
-During development, building within Visual Studio should be fine.  There is a build script in the root directory, but I use that for CI and to generate Nuget packages.
+During development, building within Visual Studio should be fine.
+
+To run the tests, you'll need to store your user token in an environment variable called `TRELLO_USER_TOKEN`.
 
 ### Code style and maintenance
 
