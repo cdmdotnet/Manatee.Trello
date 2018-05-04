@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Json;
+using Manatee.Trello.Rest;
 using Manatee.Trello.Tests.Common;
+using Manatee.Trello.UnitTests;
+using Moq;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -18,6 +24,23 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			await Run(async ct =>
 				{
+					var json = File.ReadAllText("C:\\Users\\gregs\\Downloads\\Board_JSON.json");
+
+					var response = new Mock<IRestResponse<IJsonBoard>>();
+					response.SetupGet(r => r.StatusCode)
+					        .Returns(HttpStatusCode.OK);
+					response.SetupGet(r => r.Content)
+					        .Returns(json);
+
+					var jsonBoard = TrelloConfiguration.Deserializer.Deserialize(response.Object);
+
+					response.SetupGet(r => r.Data)
+					        .Returns(jsonBoard);
+
+					MockHost.MockRest<IJsonBoard>();
+					MockHost.Client.Setup(c => c.Execute<IJsonBoard>(It.IsAny<IRestRequest>(), It.IsAny<CancellationToken>()))
+					        .ReturnsAsync(() => response.Object);
+
 					var board = new Board(TrelloIds.BoardId);
 
 					await board.Refresh(ct);
