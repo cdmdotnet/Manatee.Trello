@@ -25,7 +25,7 @@ namespace Manatee.Trello.Json.Entities
 					Id = obj.TryGetString("id");
 					Name = obj.TryGetString("name");
 					Closed = obj.TryGetBoolean("closed");
-					Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
+					Board = obj.Deserialize<IJsonBoard>(serializer, "board") ?? obj.Deserialize<IJsonBoard>(serializer, "idBoard");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 					Subscribed = obj.TryGetBoolean("subscribed");
 					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
