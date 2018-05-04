@@ -1,7 +1,7 @@
 # Manatee.Trello
 
 [![NuGet version (Manatee.Trello)](https://img.shields.io/nuget/v/Manatee.Trello.svg?style=flat-square)](https://www.nuget.org/packages/Manatee.Trello/)
-[![Join the chat at on Slack](https://github.com/gregsdennis/Manatee.Trello/blob/master/Resources/btn-sign-in-with-slack.png)](https://join.slack.com/t/manateeopensource/shared_invite/enQtMzU4MjgzMjgyNzU3LWQ0ODM5ZTVhMTVhODY1Mjk5MTIxMjgxZjI2NWRiZWZkYmExMDM0MDRjNGE4OWRkMjYxMTc1M2ViMTZiYzM0OTI)
+[![Join the chat at on Slack](https://raw.githubusercontent.com/gregsdennis/Manatee.Trello/master/Resources/btn-sign-in-with-slack.svg)](https://join.slack.com/t/manateeopensource/shared_invite/enQtMzU4MjgzMjgyNzU3LWQ0ODM5ZTVhMTVhODY1Mjk5MTIxMjgxZjI2NWRiZWZkYmExMDM0MDRjNGE4OWRkMjYxMTc1M2ViMTZiYzM0OTI)
 [![Build status](https://ci.appveyor.com/api/projects/status/qdlvb960nc7eik2w/branch/master?svg=true)](https://ci.appveyor.com/project/gregsdennis/manatee-trello/branch/master)
 [![MyGet Build Status](https://www.myget.org/BuildSource/Badge/littlecrabsolutions?identifier=b70114b6-4cba-4624-97a9-be505a253c12)](https://www.myget.org/)
 <a href="http://www.jetbrains.com/resharper"><img src="http://i61.tinypic.com/15qvwj7.jpg" alt="ReSharper" title="ReSharper"></a>
