@@ -1,9 +1,9 @@
 # Manatee.Trello
 
-[![NuGet version (Manatee.Trello)](https://img.shields.io/nuget/v/Manatee.Trello.svg?style=flat-square)](https://www.nuget.org/packages/Manatee.Trello/)
-[![Join the chat at on Slack](/Resources/Slack_RGB.png)](https://join.slack.com/t/manateeopensource/shared_invite/enQtMzU4MjgzMjgyNzU3LWQ0ODM5ZTVhMTVhODY1Mjk5MTIxMjgxZjI2NWRiZWZkYmExMDM0MDRjNGE4OWRkMjYxMTc1M2ViMTZiYzM0OTI)
 [![Build status](https://ci.appveyor.com/api/projects/status/qdlvb960nc7eik2w/branch/master?svg=true)](https://ci.appveyor.com/project/gregsdennis/manatee-trello/branch/master)
-[![MyGet Build Status](https://www.myget.org/BuildSource/Badge/littlecrabsolutions?identifier=b70114b6-4cba-4624-97a9-be505a253c12)](https://www.myget.org/)
+[![MyGet Build Status](https://www.myget.org/BuildSource/Badge/littlecrabsolutions?identifier=b70114b6-4cba-4624-97a9-be505a253c12)](https://www.myget.org/)<br>
+[![NuGet version (Manatee.Trello)](https://img.shields.io/nuget/v/Manatee.Trello.svg?style=flat-square)](https://www.nuget.org/packages/Manatee.Trello/)
+[![Discuss on Slack](/Resources/Slack_RGB.png)](https://join.slack.com/t/manateeopensource/shared_invite/enQtMzU4MjgzMjgyNzU3LWQ0ODM5ZTVhMTVhODY1Mjk5MTIxMjgxZjI2NWRiZWZkYmExMDM0MDRjNGE4OWRkMjYxMTc1M2ViMTZiYzM0OTI)<br>
 <a href="http://www.jetbrains.com/resharper"><img src="http://i61.tinypic.com/15qvwj7.jpg" alt="ReSharper" title="ReSharper"></a>
 
 The primary goal of Manatee.Trello is to provide an intuitive, object-oriented representation of Trello entities.  Other API wrappers that I encounter contain service objects with functions that return little more than non-functional DTOs (data transfer objects) to represent the entities.
