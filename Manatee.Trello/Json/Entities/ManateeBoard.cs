@@ -43,7 +43,7 @@ namespace Manatee.Trello.Json.Entities
 					Name = obj.TryGetString("name");
 					Desc = obj.TryGetString("desc");
 					Closed = obj.TryGetBoolean("closed");
-					Organization = obj.Deserialize<IJsonOrganization>(serializer, "organization");
+					Organization = obj.Deserialize<IJsonOrganization>(serializer, "organization") ?? obj.Deserialize<IJsonOrganization>(serializer, "idOrganization");
 					Pinned = obj.TryGetBoolean("pinned");
 					Prefs = obj.Deserialize<IJsonBoardPreferences>(serializer, "prefs");
 					Url = obj.TryGetString("url");

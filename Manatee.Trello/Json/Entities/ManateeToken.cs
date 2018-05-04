@@ -20,7 +20,7 @@ namespace Manatee.Trello.Json.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Identifier = obj.TryGetString("identifier");
-			Member = obj.Deserialize<IJsonMember>(serializer, "idMember");
+			Member = obj.Deserialize<IJsonMember>(serializer, "member") ?? obj.Deserialize<IJsonMember>(serializer, "idMember");
 			DateCreated = obj.Deserialize<DateTime?>(serializer, "dateCreated");
 			DateExpires = obj.Deserialize<DateTime?>(serializer, "dateExpires");
 			Permissions = obj.Deserialize<List<IJsonTokenPermission>>(serializer, "permissions");
