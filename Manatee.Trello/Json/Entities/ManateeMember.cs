@@ -8,6 +8,7 @@ namespace Manatee.Trello.Json.Entities
 	{
 		public string Id { get; set; }
 		public string AvatarHash { get; set; }
+		public string AvatarUrl { get; set; }
 		public string Bio { get; set; }
 		public string FullName { get; set; }
 		public string Initials { get; set; }
@@ -39,7 +40,7 @@ namespace Manatee.Trello.Json.Entities
 				case JsonValueType.Object:
 					var obj = json.Object;
 					Id = obj.TryGetString("id");
-					AvatarHash = obj.TryGetString("avatarHash");
+					AvatarUrl = obj.TryGetString("avatarUrl");
 					Bio = obj.TryGetString("bio");
 					FullName = obj.TryGetString("fullName");
 					Initials = obj.TryGetString("initials");
@@ -47,13 +48,10 @@ namespace Manatee.Trello.Json.Entities
 					Status = obj.Deserialize<MemberStatus?>(serializer, "status");
 					Url = obj.TryGetString("url");
 					Username = obj.TryGetString("username");
-					AvatarSource = obj.Deserialize<AvatarSource?>(serializer, "avatarSource");
 					Confirmed = obj.TryGetBoolean("confirmed");
 					Email = obj.TryGetString("email");
-					GravatarHash = obj.TryGetString("gravatarHash");
 					LoginTypes = obj.Deserialize<List<string>>(serializer, "loginTypes");
 					Trophies = obj.Deserialize<List<string>>(serializer, "trophies");
-					UploadedAvatarHash = obj.TryGetString("uploadedAvatarHash");
 					OneTimeMessagesDismissed = obj.Deserialize<List<string>>(serializer, "oneTimeMessagesDismissed");
 					Similarity = (int?) obj.TryGetNumber("similarity");
 					Prefs = obj.Deserialize<IJsonMemberPreferences>(serializer, "prefs");

@@ -26,11 +26,13 @@ namespace Manatee.Trello
 			/// Indicates the AvatarHash property should be populated.
 			/// </summary>
 			[Display(Description="avatarHash")]
+			[Obsolete("Trello has depricated this property.")]
 			AvatarHash = 1,
 			/// <summary>
 			/// Indicates the AvatarSource property should be populated.
 			/// </summary>
 			[Display(Description="avatarSource")]
+			[Obsolete("Trello has depricated this property.")]
 			AvatarSource = 1 << 1,
 			/// <summary>
 			/// Indicates the Bio property should be populated.
@@ -56,11 +58,12 @@ namespace Manatee.Trello
 			/// Indicates the GravatarHash property should be populated.
 			/// </summary>
 			[Display(Description="gravatarHash")]
+			[Obsolete("Trello has depricated this property.")]
 			GravatarHash = 1 << 6,
 			/// <summary>
 			/// Indicates the Initials property should be populated.
 			/// </summary>
-			[Display(Description="intials")]
+			[Display(Description="initials")]
 			Initials = 1 << 7,
 			/// <summary>
 			/// Indicates the LoginTypes property should be populated.
@@ -96,6 +99,7 @@ namespace Manatee.Trello
 			/// Indicates the UploadedAvatarHash property should be populated.
 			/// </summary>
 			[Display(Description="uploadedAvatarHash")]
+			[Obsolete("Trello has depricated this property.")]
 			UploadedAvatarHash = 1 << 15,
 			/// <summary>
 			/// Indicates the Url property should be populated.
@@ -127,11 +131,10 @@ namespace Manatee.Trello
 			/// Indicates the notifications will be downloaded.
 			/// </summary>
 			Notifications = 1 << 22,
+			[Display(Description = "avatarUrl")]
+			AvatarUrl = 1 << 23
 		}
 
-		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
-
-		private readonly Field<AvatarSource?> _avatarSource;
 		private readonly Field<string> _avatarUrl;
 		private readonly Field<string> _bio;
 		private readonly Field<string> _fullName;
@@ -159,6 +162,10 @@ namespace Manatee.Trello
 				MemberContext.UpdateParameters();
 			}
 		}
+		/// <summary>
+		/// Specifies the desired size for avatars.
+		/// </summary>
+		public static AvatarSize AvatarSize { get; set; }
 
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
@@ -167,11 +174,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
-		public AvatarSource? AvatarSource
-		{
-			get { return _avatarSource.Value; }
-			internal set { _avatarSource.Value = value; }
-		}
+		[Obsolete("Trello has depricated this property.")]
+		public AvatarSource? AvatarSource => null;
+
 		/// <summary>
 		/// Gets the URL to the member's avatar.
 		/// </summary>
@@ -281,6 +286,7 @@ namespace Manatee.Trello
 		static Member()
 		{
 			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+			AvatarSize = AvatarSize.Large;
 		}
 
 		/// <summary>
@@ -300,9 +306,6 @@ namespace Manatee.Trello
 			_context = new MemberContext(id, isMe, auth);
 			_context.Synchronized += Synchronized;
 
-			_avatarSource = new Field<AvatarSource?>(_context, nameof(AvatarSource));
-			_avatarSource.AddRule(NullableHasValueRule<AvatarSource>.Instance);
-			_avatarSource.AddRule(EnumerationRule<AvatarSource?>.Instance);
 			_avatarUrl = new Field<string>(_context, nameof(AvatarUrl));
 			_bio = new Field<string>(_context, nameof(Bio));
 			_fullName = new Field<string>(_context, nameof(FullName));
@@ -364,8 +367,27 @@ namespace Manatee.Trello
 		}
 		private string GetAvatar()
 		{
-			var hash = _avatarUrl.Value;
-			return hash.IsNullOrWhiteSpace() ? null : string.Format(AvatarUrlFormat, hash);
+			var url = _avatarUrl.Value;
+			return url.IsNullOrWhiteSpace() ? null : $"{url}/{(int) AvatarSize}.png";
 		}
+	}
+
+	/// <summary>
+	/// Enumerates supported sizes for member avatars.
+	/// </summary>
+	public enum AvatarSize
+	{
+		/// <summary>
+		/// Specifies an avatar size of 30 pixels.
+		/// </summary>
+		Small = 30,
+		/// <summary>
+		/// Specifies an avatar size of 50 pixels.
+		/// </summary>
+		Medium = 50,
+		/// <summary>
+		/// Specifies an avatar size of 170 pixels.
+		/// </summary>
+		Large = 170
 	}
 }

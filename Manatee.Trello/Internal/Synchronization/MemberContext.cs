@@ -40,13 +40,11 @@ namespace Manatee.Trello.Internal.Synchronization
 		static MemberContext()
 		{
 			Parameters = new Dictionary<string, object>();
-			MemberFields = Member.Fields.AvatarHash |
-			               Member.Fields.AvatarSource |
+			MemberFields = Member.Fields.AvatarUrl |
 			               Member.Fields.Bio |
 			               Member.Fields.IsConfirmed |
 			               Member.Fields.Email |
 			               Member.Fields.FullName |
-			               Member.Fields.GravatarHash |
 			               Member.Fields.Initials |
 			               Member.Fields.LoginTypes |
 			               Member.Fields.MemberType |
@@ -54,18 +52,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			               Member.Fields.Preferencess |
 			               Member.Fields.Status |
 			               Member.Fields.Trophies |
-			               Member.Fields.UploadedAvatarHash |
 			               Member.Fields.Url |
 			               Member.Fields.Username;
 			Properties = new Dictionary<string, Property<IJsonMember>>
 				{
 					{
-						nameof(Member.AvatarSource),
-						new Property<IJsonMember, AvatarSource?>((d, a) => d.AvatarSource, (d, o) => d.AvatarSource = o)
-					},
-					{
 						nameof(Member.AvatarUrl),
-						new Property<IJsonMember, string>((d, a) => d.AvatarHash, (d, o) => d.AvatarHash = o)
+						new Property<IJsonMember, string>((d, a) => d.AvatarUrl, (d, o) => d.AvatarUrl = o)
 					},
 					{
 						nameof(Member.Bio),

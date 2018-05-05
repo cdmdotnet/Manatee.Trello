@@ -64,6 +64,7 @@
     <Compile Include="ConsoleLog.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="ManualTests.cs" />
+    <Compile Include="MemberTests.cs" />
     <Compile Include="TestEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StackOverflowTests.cs" />
