@@ -131,6 +131,9 @@ namespace Manatee.Trello
 			/// Indicates the notifications will be downloaded.
 			/// </summary>
 			Notifications = 1 << 22,
+			/// <summary>
+			/// Indicates the avatar URL should be downloaded.
+			/// </summary>
 			[Display(Description = "avatarUrl")]
 			AvatarUrl = 1 << 23
 		}
@@ -163,7 +166,7 @@ namespace Manatee.Trello
 			}
 		}
 		/// <summary>
-		/// Specifies the desired size for avatars.
+		/// Specifies the desired size for avatars.  The default is <see cref="AvatarSize.Large"/>
 		/// </summary>
 		public static AvatarSize AvatarSize { get; set; }
 
@@ -370,24 +373,5 @@ namespace Manatee.Trello
 			var url = _avatarUrl.Value;
 			return url.IsNullOrWhiteSpace() ? null : $"{url}/{(int) AvatarSize}.png";
 		}
-	}
-
-	/// <summary>
-	/// Enumerates supported sizes for member avatars.
-	/// </summary>
-	public enum AvatarSize
-	{
-		/// <summary>
-		/// Specifies an avatar size of 30 pixels.
-		/// </summary>
-		Small = 30,
-		/// <summary>
-		/// Specifies an avatar size of 50 pixels.
-		/// </summary>
-		Medium = 50,
-		/// <summary>
-		/// Specifies an avatar size of 170 pixels.
-		/// </summary>
-		Large = 170
 	}
 }

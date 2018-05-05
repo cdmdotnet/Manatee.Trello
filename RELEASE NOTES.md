@@ -1,3 +1,31 @@
+## 3.1.0
+
+New members:
+
+- `static Meember.AvatarSize`
+- `Member.Fields.AvatarUrl`
+
+New types:
+
+- `AvatarSize`
+
+Functional changes:
+
+- `Member.AvatarUrl` now returns sized image assigned by `static Member.AvatarSize`
+
+Obsoleted the following:
+
+- `Member.Fields.AvatarHash`
+- `Member.Fields.AvatarSource`
+- `Member.Fields.GravatarHash`
+- `Member.Fields.UploadedAvatarHash`
+- `Member.AvatarSource` (now just returns null)
+
+
+GitHub issues:
+
+- #178
+
 ## 3.0.5
 
 Fixed further issues with deserialization.
