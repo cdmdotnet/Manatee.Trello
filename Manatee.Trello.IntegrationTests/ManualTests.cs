@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
-	[Ignore("This should only be run manually to clean up after halted tests (occurs if debugging a test and debugger is halted).")]
+	//[Ignore("This should only be run manually to clean up after halted tests (occurs if debugging a test and debugger is halted).")]
 	public class ManualTests
 	{
 

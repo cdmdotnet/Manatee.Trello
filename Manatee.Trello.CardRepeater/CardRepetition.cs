@@ -135,7 +135,7 @@ namespace Manatee.Trello.CardRepeater
 
 		private async Task _Submit()
 		{
-			await TrelloProcessor.CustomRequest(RestMethod.Put, $"board/{Board.Id}/pluginData/{Id}", this, _auth);
+			await TrelloProcessor.CustomRequest(RestMethod.Put, $"card/{SourceCard.Id}/pluginData/{Id}", this, _auth);
 		}
 
 		internal string ToJson()
@@ -161,6 +161,8 @@ namespace Manatee.Trello.CardRepeater
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
+			json = new JsonObject {["value"] = json};
 
 			return json.ToString();
 		}
