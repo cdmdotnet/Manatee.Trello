@@ -24,7 +24,7 @@ Obsoleted the following:
 
 GitHub issues:
 
-- #178
+- [#178](/../../issues/178)
 
 ## 3.0.5
 
