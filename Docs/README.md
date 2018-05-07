@@ -63,7 +63,7 @@ Features:
     - Webhooks
         - Add/Edit/Delete
 
-The free version will permit 500 downloads and 500 uploads per hour.  If you need more than this, please consider [purchasing a license](Licensing.md).
+The free version will permit 300 downloads and 300 uploads per hour.  If you need more than this, please consider [purchasing a license](Licensing.md).
 
 # How it all started
 
