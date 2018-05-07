@@ -1,0 +1,1 @@
+Because Manatee.Trello has no way of keeping the application alive if there are pending requests (threads will be terminated when the application closes), `TrelloProcessor` also exposes the `Flush()` static method.  This should be used at the end of the appliation to ensure that all requests are fulfilled.  This method may also be called at any time if the client sees a need.
