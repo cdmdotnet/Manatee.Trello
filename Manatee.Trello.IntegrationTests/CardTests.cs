@@ -203,5 +203,20 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloConfiguration.RefreshThrottle = TimeSpan.FromSeconds(5);
 			}
 		}
+
+		[Test]
+		public async Task CreatingWithShortId()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			var shortId = card.ShortUrl.Split('/').Last();
+
+			TrelloConfiguration.Cache.Remove(card);
+
+			var otherCard = TestEnvironment.Current.Factory.Card(shortId);
+
+			await card.Refresh();
+
+			Assert.AreEqual(card.Id, otherCard.Id);
+		}
 	}
 }
