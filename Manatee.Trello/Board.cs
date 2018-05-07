@@ -398,7 +398,8 @@ namespace Manatee.Trello
 			_lastActivity = new Field<DateTime?>(_context, nameof(LastActivity));
 			_lastViewed = new Field<DateTime?>(_context, nameof(LastViewed));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (_context.HasValidId)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Board(IJsonBoard json, TrelloAuthorization auth)
 			: this(json.Id, auth)
@@ -453,7 +454,12 @@ namespace Manatee.Trello
 
 		private void Synchronized(IEnumerable<string> properties)
 		{
-			Id = _context.Data.Id;
+			if (Id != _context.Data.Id)
+			{
+				TrelloConfiguration.Cache.Add(this);
+				Id = _context.Data.Id;
+			}
+
 			var handler = Updated;
 			handler?.Invoke(this, properties);
 		}

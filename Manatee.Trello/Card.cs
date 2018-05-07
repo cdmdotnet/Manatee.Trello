@@ -448,7 +448,8 @@ namespace Manatee.Trello
 			_shortUrl = new Field<string>(_context, nameof(ShortUrl));
 			_url = new Field<string>(_context, nameof(Url));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (_context.HasValidId)
+				TrelloConfiguration.Cache.Add(this);
 		}
 
 		internal Card(IJsonCard json, TrelloAuthorization auth)
@@ -505,7 +506,12 @@ namespace Manatee.Trello
 
 		private void Synchronized(IEnumerable<string> properties)
 		{
-			Id = _context.Data.Id;
+			if (Id != _context.Data.Id)
+			{
+				TrelloConfiguration.Cache.Add(this);
+				Id = _context.Data.Id;
+			}
+
 			var handler = Updated;
 			handler?.Invoke(this, properties);
 		}
