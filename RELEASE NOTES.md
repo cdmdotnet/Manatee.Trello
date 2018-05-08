@@ -31,7 +31,8 @@ Obsoleted the following:
 - `Member.Fields.GravatarHash`
 - `Member.Fields.UploadedAvatarHash`
 - `Member.AvatarSource` (now just returns null)
-- `Label.Uses` (see https://trello.com/c/qlIE6fkg/8-remove-labels-resource-uses-field)
+- `Label.Uses` (now just returns null)
+- `IJsonLabel.Uses`
 
 GitHub issues:
 
