@@ -14,6 +14,7 @@
 
 v3.1.0
 Updated member avatar access per Trello's changes.
+Obsoleted Label.Uses.
 
 v3.0.6
 BUG FIX: Boards and cards hang when using short ID.
