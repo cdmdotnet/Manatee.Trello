@@ -1,5 +1,16 @@
 ## 3.1.0
 
+### Summary
+
+In line with changes in the Trello API:
+
+- Getting member avatar images have been augmented. Now the client must specify an image size.  The default is 170x170 which was previously the only option.  Now 30x30 and 50x50 are available as well.
+    - https://trello.com/c/VX8B4ndj
+- Label uses have been removed from the API.
+    - https://trello.com/c/qlIE6fkg
+
+### Changes
+
 New members:
 
 - `static Meember.AvatarSize`
@@ -20,7 +31,8 @@ Obsoleted the following:
 - `Member.Fields.GravatarHash`
 - `Member.Fields.UploadedAvatarHash`
 - `Member.AvatarSource` (now just returns null)
-
+- `Label.Uses` (now just returns null)
+- `IJsonLabel.Uses`
 
 GitHub issues:
 

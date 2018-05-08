@@ -23,7 +23,6 @@ namespace Manatee.Trello.Json.Entities
 					Color = obj.Deserialize<LabelColor?>(serializer, "color");
 					Id = obj.TryGetString("id");
 					Name = obj.TryGetString("name");
-					Uses = (int?) obj.TryGetNumber("uses");
 					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
