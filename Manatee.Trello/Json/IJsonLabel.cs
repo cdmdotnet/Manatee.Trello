@@ -1,3 +1,5 @@
+using System;
+
 namespace Manatee.Trello.Json
 {
 	/// <summary>
@@ -33,6 +35,7 @@ namespace Manatee.Trello.Json
 		/// Gets and sets how many cards use this label.
 		/// </summary>
 		[JsonDeserialize]
+		[Obsolete("Trello no longer supports this feature.")]
 		int? Uses { get; set; }
 	}
 }
