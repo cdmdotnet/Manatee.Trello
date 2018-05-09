@@ -15,8 +15,6 @@ namespace Manatee.Trello
 	/// </summary>
 	public class BoardLabelCollection : ReadOnlyCollection<ILabel>, IBoardLabelCollection
 	{
-		private Dictionary<string, object> _additionalParameters;
-
 		internal BoardLabelCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 
@@ -48,9 +46,7 @@ namespace Manatee.Trello
 		/// <param name="labelColor">The filter value.</param>
 		public void Filter(LabelColor labelColor)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>();
-			_additionalParameters["filter"] = labelColor.GetDescription();
+			AdditionalParameters["filter"] = labelColor.GetDescription();
 		}
 
 		/// <summary>
@@ -59,10 +55,10 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			IncorporateLimit(_additionalParameters);
+			IncorporateLimit();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Labels, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonLabel>>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<List<IJsonLabel>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jb =>

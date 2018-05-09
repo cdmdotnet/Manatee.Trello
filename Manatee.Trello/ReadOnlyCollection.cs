@@ -33,6 +33,7 @@ namespace Manatee.Trello
 		internal string OwnerId => _ownerId ?? (_ownerId = _getOwnerId());
 		internal List<T> Items { get; }
 		internal TrelloAuthorization Auth { get; }
+		internal Dictionary<string, object> AdditionalParameters { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCollection{T}"/> object.
@@ -45,6 +46,7 @@ namespace Manatee.Trello
 			Auth = auth ?? TrelloAuthorization.Default;
 
 			Items = new List<T>();
+			AdditionalParameters = new Dictionary<string, object>();
 		}
 
 		/// <summary>Returns an enumerator that iterates through the collection.</summary>
@@ -70,12 +72,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Adds <see cref="Limit"/> to a list of additional parameters.
 		/// </summary>
-		/// <param name="additionalParameters">The list of additional parameters.</param>
-		protected void IncorporateLimit(Dictionary<string, object> additionalParameters)
+		protected void IncorporateLimit()
 		{
 			if (!Limit.HasValue) return;
 
-			additionalParameters["limit"] = Limit.Value;
+			AdditionalParameters["limit"] = Limit.Value;
 		}
 
 		internal void Update(IEnumerable<T> items)

@@ -19,8 +19,6 @@ namespace Manatee.Trello
 	{
 		internal ReadOnlyPowerUpCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
-		internal ReadOnlyPowerUpCollection(ReadOnlyPowerUpCollection source, TrelloAuthorization auth)
-			: this(() => source.OwnerId, auth) {}
 
 		/// <summary>
 		/// Manually updates the collection's data.
@@ -29,7 +27,7 @@ namespace Manatee.Trello
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_PowerUps, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonPowerUp>>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<List<IJsonPowerUp>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jn =>

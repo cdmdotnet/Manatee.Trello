@@ -15,8 +15,6 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyOrganizationCollection : ReadOnlyCollection<IOrganization>, IReadOnlyOrganizationCollection
 	{
-		private Dictionary<string, object> _additionalParameters;
-
 		internal ReadOnlyOrganizationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 
@@ -36,9 +34,7 @@ namespace Manatee.Trello
 		/// <param name="filter">The filter value.</param>
 		public void Filter(OrganizationFilter filter)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>();
-			_additionalParameters["filter"] = filter.GetDescription();
+			AdditionalParameters["filter"] = filter.GetDescription();
 		}
 
 		/// <summary>
@@ -47,10 +43,10 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			IncorporateLimit(_additionalParameters);
+			IncorporateLimit();
 
-			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Organizations, new Dictionary<string, object> { { "_id", OwnerId } });
-			var newData = await JsonRepository.Execute<List<IJsonOrganization>>(Auth, endpoint, ct, _additionalParameters);
+			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Organizations, new Dictionary<string, object> {{"_id", OwnerId}});
+			var newData = await JsonRepository.Execute<List<IJsonOrganization>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jo =>

@@ -81,5 +81,23 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloConfiguration.Cache.Add(TestEnvironment.Current.Board);
 			}
 		}
+
+		[Test]
+		public async Task CanLimitBoardResults()
+		{
+			try
+			{
+				var board = TestEnvironment.Current.Board;
+				board.Lists.Limit = 1;
+
+				await board.Lists.Refresh();
+
+				board.Lists.Count().Should().Be(1);
+			}
+			finally
+			{
+				TestEnvironment.Current.Board.Lists.Limit = 100;
+			}
+		}
 	}
 }

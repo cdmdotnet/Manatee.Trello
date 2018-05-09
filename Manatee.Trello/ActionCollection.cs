@@ -17,7 +17,6 @@ namespace Manatee.Trello
 	{
 		private static readonly Dictionary<Type, EntityRequestType> RequestTypes;
 		private readonly EntityRequestType _updateRequestType;
-		private Dictionary<string, object> _additionalParameters;
 
 		static ReadOnlyActionCollection()
 		{
@@ -34,7 +33,6 @@ namespace Manatee.Trello
 			: base(getOwnerId, auth)
 		{
 			_updateRequestType = RequestTypes[type];
-			_additionalParameters = new Dictionary<string, object>();
 		}
 
 		/// <summary>
@@ -53,14 +51,12 @@ namespace Manatee.Trello
 		/// <param name="actionTypes">A collection of action types.</param>
 		public void Filter(IEnumerable<ActionType> actionTypes)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>{{"filter", string.Empty}};
-			var filter = _additionalParameters.ContainsKey("filter") ? (string)_additionalParameters["filter"] : string.Empty;
+			var filter = AdditionalParameters.ContainsKey("filter") ? (string)AdditionalParameters["filter"] : string.Empty;
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			var actionType = actionTypes.Aggregate(ActionType.Unknown, (c, a) => c | a);
 			filter += actionType.ToString();
-			_additionalParameters["filter"] = filter;
+			AdditionalParameters["filter"] = filter;
 		}
 
 		/// <summary>
@@ -70,12 +66,10 @@ namespace Manatee.Trello
 		/// <param name="end">The end date.</param>
 		public void Filter(DateTime? start, DateTime? end)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>();
 			if (start.HasValue)
-				_additionalParameters["since"] = start.Value.ToUniversalTime().ToString("O");
+				AdditionalParameters["since"] = start.Value.ToUniversalTime().ToString("O");
 			if (end.HasValue)
-				_additionalParameters["before"] = end.Value.ToUniversalTime().ToString("O");
+				AdditionalParameters["before"] = end.Value.ToUniversalTime().ToString("O");
 		}
 
 		/// <summary>
@@ -84,10 +78,10 @@ namespace Manatee.Trello
 		/// <returns>A task.</returns>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			IncorporateLimit(_additionalParameters);
+			IncorporateLimit();
 
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonAction>>(Auth, endpoint, ct, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonAction>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>
