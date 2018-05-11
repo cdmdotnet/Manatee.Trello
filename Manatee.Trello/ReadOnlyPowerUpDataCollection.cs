@@ -29,7 +29,7 @@ namespace Manatee.Trello
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(_requestType, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonPowerUpData>>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<List<IJsonPowerUpData>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jn =>

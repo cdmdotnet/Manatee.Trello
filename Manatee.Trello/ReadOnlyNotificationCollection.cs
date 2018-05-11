@@ -15,8 +15,6 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyNotificationCollection : ReadOnlyCollection<INotification>, IReadOnlyNotificationCollection
 	{
-		private Dictionary<string, object> _additionalParameters;
-
 		internal ReadOnlyNotificationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 
@@ -36,13 +34,11 @@ namespace Manatee.Trello
 		/// <param name="filters">A collection of filters.</param>
 		public void Filter(IEnumerable<NotificationType> filters)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
-			var filter = (string)_additionalParameters["filter"];
+			var filter = (string)AdditionalParameters["filter"];
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += filters.Select(a => a.GetDescription()).Join(",");
-			_additionalParameters["filter"] = filter;
+			AdditionalParameters["filter"] = filter;
 		}
 
 		/// <summary>
@@ -51,10 +47,10 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			IncorporateLimit(_additionalParameters);
+			IncorporateLimit();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Notifications, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonNotification>>(Auth, endpoint, ct, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonNotification>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jn =>

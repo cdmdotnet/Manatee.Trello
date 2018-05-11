@@ -31,7 +31,7 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_CustomFields,
 			                                     new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonCustomFieldDefinition>>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<List<IJsonCustomFieldDefinition>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>

@@ -12,6 +12,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ListCollection : ReadOnlyListCollection, IListCollection
 	{
+		[Obsolete("Trello does not support limiting lists.")]
+		public override int? Limit { get; set; }
+
 		internal ListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) { }
 

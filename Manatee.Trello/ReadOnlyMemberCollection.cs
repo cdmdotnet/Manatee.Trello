@@ -16,7 +16,6 @@ namespace Manatee.Trello
 	public class ReadOnlyMemberCollection : ReadOnlyCollection<IMember>, IReadOnlyMemberCollection
 	{
 		private readonly EntityRequestType _updateRequestType;
-		private Dictionary<string, object> _additionalParameters;
 
 		/// <summary>
 		/// Retrieves a member which matches the supplied key.
@@ -32,7 +31,7 @@ namespace Manatee.Trello
 			: base(getOwnerId, auth)
 		{
 			_updateRequestType = requestType;
-			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
+			AdditionalParameters["fields"] = "all";
 		}
 
 		/// <summary>
@@ -51,13 +50,11 @@ namespace Manatee.Trello
 		/// <param name="filters">The filter values.</param>
 		public void Filter(IEnumerable<MemberFilter> filters)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
-			var filter = _additionalParameters.ContainsKey("filter") ? (string)_additionalParameters["filter"] : string.Empty;
+			var filter = AdditionalParameters.ContainsKey("filter") ? (string)AdditionalParameters["filter"] : string.Empty;
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += filters.Select(a => a.GetDescription()).Join(",");
-			_additionalParameters["filter"] = filter;
+			AdditionalParameters["filter"] = filter;
 		}
 
 		/// <summary>
@@ -67,7 +64,7 @@ namespace Manatee.Trello
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonMember>>(Auth, endpoint, ct, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonMember>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jm =>
