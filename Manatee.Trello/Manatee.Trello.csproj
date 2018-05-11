@@ -10,10 +10,9 @@
     <PackageIconUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/gregsdennis/Manatee.Trello</PackageProjectUrl>
     <PackageTags>api wrapper trello manatee</PackageTags>
-    <PackageReleaseNotes>Please be sure to read the wiki pages at https://github.com/gregsdennis/Manatee.Trello/wiki.  Feedback and questions are welcome through GitHub, Slack, or on StackOverflow.
-
-v3.0.7
-General bug fixes
+    <PackageReleaseNotes>v3.0.7
+BUG FIX: Custom fields not saving for some types.
+Other internal fixes and enhancements.
 
 v3.0.6
 BUG FIX: Boards and cards hang when using short ID.

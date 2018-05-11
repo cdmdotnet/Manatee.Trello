@@ -146,13 +146,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 			else if (typeof(T) == typeof(IDropDownOption))
 			{
-				json.Type = CustomFieldType.Number;
+				json.Type = CustomFieldType.DropDown;
 				json.Selected = ((DropDownOption) (object) value).Json;
 				createField = j => (ICustomField<T>) new DropDownField(j, card.Id, Auth);
 			}
 			else if (typeof(T) == typeof(string))
 			{
-				json.Type = CustomFieldType.Number;
+				json.Type = CustomFieldType.Text;
 				json.Text = (string) (object) value;
 				createField = j => (ICustomField<T>) new TextField(j, card.Id, Auth);
 			}

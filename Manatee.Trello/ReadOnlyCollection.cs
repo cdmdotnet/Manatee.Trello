@@ -19,7 +19,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the maximum number of items to return.
 		/// </summary>
-		public int? Limit { get; set; }
+		public virtual int? Limit { get; set; }
 		/// <summary>
 		/// Retrieves the item at the specified index.
 		/// </summary>

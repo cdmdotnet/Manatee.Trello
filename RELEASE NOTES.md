@@ -2,6 +2,8 @@ This file is used to list specific public-facing changes for each version.  The 
 
 ## 3.0.7
 
+Bug fix for setting dropdown and text custom fields on cards without values.
+
 Internal updates to collection classes.
 
 ## 3.0.6
