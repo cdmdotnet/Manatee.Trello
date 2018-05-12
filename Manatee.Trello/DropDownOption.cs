@@ -54,7 +54,7 @@ namespace Manatee.Trello
 
 			_field = new Field<CustomFieldDefinition>(_context, nameof(Field));
 			_text = new Field<string>(_context, nameof(Text));
-			_labelColor = new Field<LabelColor?>(_context, nameof(LabelColor));
+			_labelColor = new Field<LabelColor?>(_context, nameof(Color));
 			_position = new Field<Position>(_context, nameof(Position));
 
 			if (!created)
@@ -73,6 +73,7 @@ namespace Manatee.Trello
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonCustomDropDownOption>();
 			json.Text = text;
 			json.Color = color;
+			json.ValidForMerge = true;
 
 			return new DropDownOption(json, null, true);
 		}

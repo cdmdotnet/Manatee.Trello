@@ -86,7 +86,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets metadata about any active power-ups.
 		/// </summary>
-		IReadOnlyCollection<IPowerUp> PowerUps { get; }
+		IPowerUpCollection PowerUps { get; }
 
 		/// <summary>
 		/// Gets specific data regarding power-ups.

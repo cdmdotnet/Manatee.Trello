@@ -16,7 +16,6 @@ namespace Manatee.Trello
 	public class ReadOnlyBoardCollection : ReadOnlyCollection<IBoard>, IReadOnlyBoardCollection
 	{
 		private readonly EntityRequestType _updateRequestType;
-		private Dictionary<string, object> _additionalParameters;
 
 		/// <summary>
 		/// Retrieves a board which matches the supplied key.
@@ -42,9 +41,7 @@ namespace Manatee.Trello
 		/// <param name="filter">The filter value.</param>
 		public void Filter(BoardFilter filter)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>();
-			_additionalParameters["filter"] = filter.GetDescription();
+			AdditionalParameters["filter"] = filter.GetDescription();
 		}
 
 		/// <summary>
@@ -53,10 +50,10 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			IncorporateLimit(_additionalParameters);
+			IncorporateLimit();
 
 			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> { { "_id", OwnerId } });
-			var newData = await JsonRepository.Execute<List<IJsonBoard>>(Auth, endpoint, ct, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonBoard>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jb =>

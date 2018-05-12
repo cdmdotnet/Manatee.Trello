@@ -1,3 +1,25 @@
+This file is used to list specific public-facing changes for each version.  The notes on the Nuget package are a summary of these.
+
+## 3.0.8
+
+Updated file location for license usage details to local app data for the current user.
+
+Updated power-up implementation:
+
+- `IBoard.PowerUps` is now `IPowerUpCollection` (was `IReadOnlyCollection<IPowerUp>`)
+    - Adds `EnablePowerUp()` and `DisablePowerUp()`
+- Fixed issues with setting number, string, and drop-down custom fields
+
+## 3.0.7
+
+Bug fix for setting dropdown and text custom fields on cards without values.
+
+Internal updates to collection classes.
+
+## 3.0.6
+
+Updated boards and cards to only cache themselves once the full ID has been downloaded.
+
 ## 3.1.0
 
 ### Summary

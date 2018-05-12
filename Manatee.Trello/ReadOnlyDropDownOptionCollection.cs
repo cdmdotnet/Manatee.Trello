@@ -27,7 +27,7 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Read_Options,
 			                                     new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonCustomDropDownOption>>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<List<IJsonCustomDropDownOption>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jb =>

@@ -126,39 +126,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonCustomField>();
 			Func<IJsonCustomField, ICustomField<T>> createField = null;
-			if (typeof(T) == typeof(double?))
-			{
-				json.Type = CustomFieldType.Number;
-				json.Number = (double?) (object) value;
-				createField = j => (ICustomField<T>) new NumberField(j, card.Id, Auth);
-			}
-			else if (typeof(T) == typeof(bool?))
-			{
-				json.Type = CustomFieldType.CheckBox;
-				json.Checked = (bool?)(object)value;
-				createField = j => (ICustomField<T>) new CheckBoxField(j, card.Id, Auth);
-			}
-			else if(typeof(T) == typeof(DateTime?))
-			{
-				json.Type = CustomFieldType.DateTime;
-				json.Date = (DateTime?)(object)value;
-				createField = j => (ICustomField<T>) new DateTimeField(j, card.Id, Auth);
-			}
-			else if (typeof(T) == typeof(IDropDownOption))
-			{
-				json.Type = CustomFieldType.Number;
-				json.Selected = ((DropDownOption) (object) value).Json;
-				createField = j => (ICustomField<T>) new DropDownField(j, card.Id, Auth);
-			}
-			else if (typeof(T) == typeof(string))
-			{
-				json.Type = CustomFieldType.Number;
-				json.Text = (string) (object) value;
-				createField = j => (ICustomField<T>) new TextField(j, card.Id, Auth);
-			}
-
-			var parameter = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
-			parameter.Object = json;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.CustomField_Write_Update,
 			                                     new Dictionary<string, object>
@@ -166,7 +133,49 @@ namespace Manatee.Trello.Internal.Synchronization
 					                                     {"_cardId", card.Id},
 					                                     {"_id", Data.Id}
 				                                     });
-			var newData = await JsonRepository.Execute<IJsonParameter, IJsonCustomField>(Auth, endpoint, parameter, ct);
+
+			IJsonCustomField newData;
+			if (typeof(T) == typeof(IDropDownOption))
+			{
+				json.Type = CustomFieldType.DropDown;
+				json.Selected = ((DropDownOption) (object) value).Json;
+				createField = j => (ICustomField<T>) new DropDownField(j, card.Id, Auth);
+
+				newData = await JsonRepository.Execute<IJsonCustomField, IJsonCustomField>(Auth, endpoint, json, ct);
+			}
+			else
+			{
+				if (typeof(T) == typeof(double?))
+				{
+					json.Type = CustomFieldType.Number;
+					json.Number = (double?) (object) value;
+					createField = j => (ICustomField<T>) new NumberField(j, card.Id, Auth);
+				}
+				else if (typeof(T) == typeof(bool?))
+				{
+					json.Type = CustomFieldType.CheckBox;
+					json.Checked = (bool?) (object) value;
+					createField = j => (ICustomField<T>) new CheckBoxField(j, card.Id, Auth);
+				}
+				else if (typeof(T) == typeof(DateTime?))
+				{
+					json.Type = CustomFieldType.DateTime;
+					json.Date = (DateTime?) (object) value;
+					createField = j => (ICustomField<T>) new DateTimeField(j, card.Id, Auth);
+				}
+				else if (typeof(T) == typeof(string))
+				{
+					json.Type = CustomFieldType.Text;
+					json.Text = (string) (object) value;
+					createField = j => (ICustomField<T>) new TextField(j, card.Id, Auth);
+				}
+
+				var parameter = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();
+				parameter.Object = json;
+
+				newData = await JsonRepository.Execute<IJsonParameter, IJsonCustomField>(Auth, endpoint, parameter, ct);
+			}
+
 
 			return createField(newData);
 		}
