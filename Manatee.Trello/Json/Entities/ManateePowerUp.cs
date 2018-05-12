@@ -22,7 +22,7 @@ namespace Manatee.Trello.Json.Entities
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			return new JsonObject {["idPlugin"] = Id};
 		}
 	}
 }
