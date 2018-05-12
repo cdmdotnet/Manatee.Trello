@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -227,6 +229,10 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task CanCopy()
 		{
 			var card = await TestEnvironment.Current.BuildCard();
+			var jpeg = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+			                        "TestData/smallest-jpeg.jpg");
+			await card.Attachments.Add(File.ReadAllBytes(jpeg),
+			                           "smallest-jpeg.jpg");
 			var otherCard = await card.List.Cards.Add(card);
 
 			Assert.AreNotEqual(card.Id, otherCard.Id);
