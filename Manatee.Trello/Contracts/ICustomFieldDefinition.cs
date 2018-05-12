@@ -54,7 +54,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		Task<ICustomField<double?>> SetValueForCard(ICard card, double? value,
-		                                                                  CancellationToken ct = default(CancellationToken));
+		                                            CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Sets a value for a custom field on a card.
@@ -64,7 +64,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		Task<ICustomField<bool?>> SetValueForCard(ICard card, bool? value,
-		                                                                CancellationToken ct = default(CancellationToken));
+		                                          CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Sets a value for a custom field on a card.
@@ -74,7 +74,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		Task<ICustomField<string>> SetValueForCard(ICard card, string value,
-		                                                                 CancellationToken ct = default(CancellationToken));
+		                                           CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Sets a value for a custom field on a card.
@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		Task<ICustomField<IDropDownOption>> SetValueForCard(ICard card, IDropDownOption value,
-		                                                                          CancellationToken ct = default(CancellationToken));
+		                                                    CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Sets a value for a custom field on a card.
@@ -94,6 +94,6 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		Task<ICustomField<DateTime?>> SetValueForCard(ICard card, DateTime? value,
-		                                                                    CancellationToken ct = default(CancellationToken));
+		                                              CancellationToken ct = default(CancellationToken));
 	}
 }

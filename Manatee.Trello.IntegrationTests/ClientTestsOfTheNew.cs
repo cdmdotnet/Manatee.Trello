@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -32,6 +29,18 @@ namespace Manatee.Trello.IntegrationTests
 
 			Assert.AreNotEqual(sourceCard.Id, card.Id);
 			Assert.AreEqual(sourceCard.Name, card.Name);
+		}
+
+		[Test]
+		[SetCulture("de-DE")]
+		public async Task Issue203_CustomNumberFieldsInAlternateCulture()
+		{
+			await TestEnvironment.Current.Board.PowerUps.EnablePowerUp(new CustomFieldsPowerUp());
+
+			var numberField = await TestEnvironment.Current.Board.CustomFields.Add("NumberField", CustomFieldType.Number);
+			var card = await TestEnvironment.Current.BuildCard();
+
+			await numberField.SetValueForCard(card, 9.6);
 		}
 	}
 }
