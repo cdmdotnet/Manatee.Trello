@@ -38,7 +38,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public ListCollection Lists { get; }
 		public ReadOnlyMemberCollection Members { get; }
 		public BoardMembershipCollection Memberships { get; }
-		public ReadOnlyPowerUpCollection PowerUps { get; }
+		public PowerUpCollection PowerUps { get; }
 		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		public BoardPreferencesContext BoardPreferencesContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
@@ -131,7 +131,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Lists = new ListCollection(() => Data.Id, auth);
 			Members = new ReadOnlyMemberCollection(EntityRequestType.Board_Read_Members, () => Data.Id, auth);
 			Memberships = new BoardMembershipCollection(() => Data.Id, auth);
-			PowerUps = new ReadOnlyPowerUpCollection(() => Data.Id, auth);
+			PowerUps = new PowerUpCollection(() => Data.Id, auth);
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Board_Read_PowerUpData, () => Data.Id, auth);
 
 			BoardPreferencesContext = new BoardPreferencesContext(Auth);
