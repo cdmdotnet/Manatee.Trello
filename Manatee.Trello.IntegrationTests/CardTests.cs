@@ -223,5 +223,15 @@ namespace Manatee.Trello.IntegrationTests
 
 			Assert.AreEqual(card.Id, otherCard.Id);
 		}
+
+		[Test]
+		public async Task CanCopy()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			var otherCard = await card.List.Cards.Add(card);
+
+			Assert.AreNotEqual(card.Id, otherCard.Id);
+			Assert.AreEqual(card.Name, otherCard.Name);
+		}
 	}
 }
