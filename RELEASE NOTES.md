@@ -1,5 +1,9 @@
 This file is used to list specific public-facing changes for each version.  The notes on the Nuget package are a summary of these.
 
+## 3.0.9
+
+Chagne serialization of numbers when setting custom field values to use invariant culture.
+
 ## 3.0.8
 
 Updated file location for license usage details to local app data for the current user.
