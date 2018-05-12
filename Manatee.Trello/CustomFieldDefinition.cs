@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -125,6 +126,9 @@ namespace Manatee.Trello
 		public async Task<ICustomField<double?>> SetValueForCard(ICard card, double? value,
 		                                                         CancellationToken ct = default(CancellationToken))
 		{
+			NotNullRule<ICard>.Instance.Validate(null, card);
+			NullableHasValueRule<double>.Instance.Validate(null, value);
+
 			return await _context.SetValueOnCard(card, value, ct);
 		}
 
@@ -138,6 +142,9 @@ namespace Manatee.Trello
 		public async Task<ICustomField<bool?>> SetValueForCard(ICard card, bool? value,
 		                                                       CancellationToken ct = default(CancellationToken))
 		{
+			NotNullRule<ICard>.Instance.Validate(null, card);
+			NullableHasValueRule<bool>.Instance.Validate(null, value);
+
 			return await _context.SetValueOnCard(card, value, ct);
 		}
 
@@ -151,6 +158,9 @@ namespace Manatee.Trello
 		public async Task<ICustomField<string>> SetValueForCard(ICard card, string value,
 		                                                        CancellationToken ct = default(CancellationToken))
 		{
+			NotNullRule<ICard>.Instance.Validate(null, card);
+			NotNullRule<string>.Instance.Validate(null, value);
+
 			return await _context.SetValueOnCard(card, value, ct);
 		}
 
@@ -164,6 +174,9 @@ namespace Manatee.Trello
 		public async Task<ICustomField<IDropDownOption>> SetValueForCard(ICard card, IDropDownOption value,
 		                                                                 CancellationToken ct = default(CancellationToken))
 		{
+			NotNullRule<ICard>.Instance.Validate(null, card);
+			NotNullRule<IDropDownOption>.Instance.Validate(null, value);
+
 			return await _context.SetValueOnCard(card, value, ct);
 		}
 
@@ -177,6 +190,9 @@ namespace Manatee.Trello
 		public async Task<ICustomField<DateTime?>> SetValueForCard(ICard card, DateTime? value,
 		                                                           CancellationToken ct = default(CancellationToken))
 		{
+			NotNullRule<ICard>.Instance.Validate(null, card);
+			NullableHasValueRule<DateTime>.Instance.Validate(null, value);
+
 			return await _context.SetValueOnCard(card, value, ct);
 		}
 

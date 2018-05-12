@@ -69,9 +69,11 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		[Ignore("Need to determine how to enable custom fields on the board before this will run.")]
+		//[Ignore("Need to determine how to enable custom fields on the board before this will run.")]
 		public async Task CustomFields()
 		{
+			await TestEnvironment.Current.Board.PowerUps.EnablePowerUp(new CustomFieldsPowerUp());
+
 			var numberField = await TestEnvironment.Current.Board.CustomFields.Add("NumberField", CustomFieldType.Number);
 			var textField = await TestEnvironment.Current.Board.CustomFields.Add("TextField", CustomFieldType.Text);
 			var dateField = await TestEnvironment.Current.Board.CustomFields.Add("DateField", CustomFieldType.DateTime);
@@ -82,8 +84,11 @@ namespace Manatee.Trello.IntegrationTests
 
 			var card = await TestEnvironment.Current.BuildCard();
 
+			await dropDownField.Refresh();
+
 			var today = DateTime.Today;
 			var two = dropDownField.Options.FirstOrDefault(o => o.Text == "two");
+			Assert.NotNull(two);
 
 			await numberField.SetValueForCard(card, 9);
 			await textField.SetValueForCard(card, "text");

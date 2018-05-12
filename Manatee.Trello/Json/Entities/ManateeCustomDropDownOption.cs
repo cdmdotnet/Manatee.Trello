@@ -3,6 +3,35 @@ using Manatee.Json.Serialization;
 
 namespace Manatee.Trello.Json.Entities
 {
+
+//	{
+//	idModel: "5a00adcebe1991022b4a4bb4",
+//	modelType: "board",
+//	name: "My Dropdown",
+//	options: [,
+//	{
+
+//		color: "none",
+//		value: {
+
+//			text: "First Option"
+
+//		}, 
+//		pos: 1024
+//	},
+//	{
+//	color: "none",
+//	value: {
+//		text: "Second Option"
+//	}, 
+//	pos: 2048
+//}
+//],
+//pos: "bottom",
+//type: "list",
+//display_cardFront: false
+//}
+
 	internal class ManateeCustomDropDownOption : IJsonCustomDropDownOption, IJsonSerializable
 	{
 		public string Id { get; set; }
@@ -37,7 +66,6 @@ namespace Manatee.Trello.Json.Entities
 				{
 					["value"] = new JsonObject{["text"] = Text},
 				};
-			
 			Color.Serialize(obj, serializer, "color");
 			Pos.Serialize(obj, serializer, "pos");
 

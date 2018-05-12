@@ -94,7 +94,7 @@ namespace Manatee.Trello.Json.Entities
 						UseForClear = true;
 						break;
 					}
-					obj["idValue"] = Selected.Field.Id;
+					obj["idValue"] = Selected.Id;
 					break;
 				case CustomFieldType.CheckBox:
 					if (Checked == null)
