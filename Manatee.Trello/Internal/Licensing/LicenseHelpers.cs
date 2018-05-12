@@ -8,6 +8,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using Manatee.Json;
 using Manatee.Json.Serialization;
@@ -25,7 +26,33 @@ namespace Manatee.Trello.Internal.Licensing
 
 		public const string BuyMeText = "Please see https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3 for information on purchasing a license.";
 
-		private const string DetailsPath = "Manatee.Trello.run";
+		private const string WindowsDetailsPath = @"%LOCALAPPDATA%\Manatee.Trello\Manatee.Trello.run";
+		private const string MacOsDetailsPath = @"~/Library/Manatee.Trello/Manatee.Trello.run";
+		private const string UnixDetailsPath = @"~/.config/Manatee.Trello/Manatee.Trello.run";
+
+		private static string DetailsPath
+		{
+			get
+			{
+#if NET45
+				switch (Environment.OSVersion.Platform)
+					{
+						case PlatformID.MacOSX:
+							return MacOsDetailsPath;
+						case PlatformID.Unix:
+							return UnixDetailsPath;
+						default:
+							return Environment.ExpandEnvironmentVariables(WindowsDetailsPath);
+					}
+#else
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+					return MacOsDetailsPath;
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+					return UnixDetailsPath;
+				return Environment.ExpandEnvironmentVariables(WindowsDetailsPath);
+#endif
+			}
+		}
 
 		private static readonly object Lock;
 		private static readonly JsonSerializer Serializer;
