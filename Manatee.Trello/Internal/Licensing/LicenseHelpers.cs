@@ -4,6 +4,8 @@
 // Modified for use in Manatee.Trello
 #endregion
 
+//#define PERSIST_USAGE
+
 using System;
 using System.Globalization;
 using System.IO;
@@ -87,6 +89,7 @@ namespace Manatee.Trello.Internal.Licensing
 
 		public static void SaveCurrentState()
 		{
+#if PERSIST_USAGE
 			var newDetails = new RunDetails
 				{
 					Retrievals = _retrievalCount,
@@ -96,10 +99,12 @@ namespace Manatee.Trello.Internal.Licensing
 
 			var json = Serializer.Serialize(newDetails);
 			File.WriteAllText(DetailsPath, json.ToString());
+#endif
 		}
 
 		private static void LoadCurrentState()
 		{
+#if PERSIST_USAGE
 			if (!File.Exists(DetailsPath)) return;
 
 			var text = File.ReadAllText(DetailsPath);
@@ -111,6 +116,7 @@ namespace Manatee.Trello.Internal.Licensing
 			_retrievalCount = details.Retrievals;
 			_submissionCount = details.Submissions;
 			_sessionExpiry = Math.Max(0, (long) (details.SessionExpiry - DateTime.Now).TotalMilliseconds);
+#endif
 		}
 
 		public static void IncrementAndCheckRetrieveCount()
