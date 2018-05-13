@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -8,13 +10,15 @@ namespace Manatee.Trello.IntegrationTests
 	public class ClientTestsOfTheNew
 	{
 		[Test]
-		public async Task Issue205_CopyCard()
+		public async Task Issue205_CopyCardWithAttachment()
 		{
 			var board = TestEnvironment.Current.Board;
 			await board.Lists.Refresh();
 			var list = board.Lists.Last();
 			var cards = list.Cards;
 			var sourceCard = await TestEnvironment.Current.BuildCard();
+			var jpeg = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Files/smallest-jpeg.jpg");
+			await sourceCard.Attachments.Add(File.ReadAllBytes(jpeg), "smallest-jpeg.jpg");
 
 			TrelloConfiguration.Cache.Remove(sourceCard);
 
