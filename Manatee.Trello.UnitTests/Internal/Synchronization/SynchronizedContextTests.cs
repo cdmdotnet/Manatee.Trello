@@ -27,35 +27,51 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 		[Test]
 		public async Task RefreshThrottleHoldsCalls()
 		{
-			MockHost.MockJson();
-			MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())
-			        .Returns(new SynchronizedData());
+			var currentThrottle = TrelloConfiguration.RefreshThrottle;
+			try
+			{
+				MockHost.MockJson();
+				MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())
+				        .Returns(new SynchronizedData());
 
-			TrelloConfiguration.RefreshThrottle = TimeSpan.FromDays(1);
+				TrelloConfiguration.RefreshThrottle = TimeSpan.FromDays(1);
 
-			var target = new SynchronizedObject();
+				var target = new SynchronizedObject();
 
-			await target.Synchronize(CancellationToken.None);
-			await target.Synchronize(CancellationToken.None);
+				await target.Synchronize(CancellationToken.None);
+				await target.Synchronize(CancellationToken.None);
 
-			target.RetrievalCount.Should().Be(1);
+				target.RetrievalCount.Should().Be(1);
+			}
+			finally
+			{
+				TrelloConfiguration.RefreshThrottle = currentThrottle;
+			}
 		}
 
 		[Test]
 		public async Task NoRefreshThrottleAllowsCalls()
 		{
-			MockHost.MockJson();
-			MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())
-			        .Returns(new SynchronizedData());
+			var currentThrottle = TrelloConfiguration.RefreshThrottle;
+			try
+			{
+				MockHost.MockJson();
+				MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())
+				        .Returns(new SynchronizedData());
 
-			TrelloConfiguration.RefreshThrottle = TimeSpan.Zero;
+				TrelloConfiguration.RefreshThrottle = TimeSpan.Zero;
 
-			var target = new SynchronizedObject();
+				var target = new SynchronizedObject();
 
-			await target.Synchronize(CancellationToken.None);
-			await target.Synchronize(CancellationToken.None);
+				await target.Synchronize(CancellationToken.None);
+				await target.Synchronize(CancellationToken.None);
 
-			target.RetrievalCount.Should().Be(2);
+				target.RetrievalCount.Should().Be(2);
+			}
+			finally
+			{
+				TrelloConfiguration.RefreshThrottle = currentThrottle;
+			}
 		}
 
 		[Test]
@@ -99,23 +115,56 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 		[Test]
 		public async Task SynchronizeRaisesSynchronizedEvent()
 		{
-			MockHost.MockJson();
-			MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())
-			        .Returns(new SynchronizedData());
+			var currentThrottle = TrelloConfiguration.RefreshThrottle;
+			try
+			{
+				MockHost.MockJson();
+				MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())
+				        .Returns(new SynchronizedData());
 
-			TrelloConfiguration.RefreshThrottle = TimeSpan.FromDays(1);
+				TrelloConfiguration.RefreshThrottle = TimeSpan.FromDays(1);
 
-			var counter = 0;
+				var counter = 0;
 
-			var target = new SynchronizedObject
-				{
-					NewData = new SynchronizedData {Test = "one"}
-				};
-			target.Synchronized += properties => counter++;
+				var target = new SynchronizedObject
+					{
+						NewData = new SynchronizedData {Test = "one"}
+					};
+				target.Synchronized += properties => counter++;
 
-			await target.Synchronize(CancellationToken.None);
+				await target.Synchronize(CancellationToken.None);
 
-			counter.Should().Be(1);
+				counter.Should().Be(1);
+			}
+			finally
+			{
+				TrelloConfiguration.RefreshThrottle = currentThrottle;
+			}
+		}
+
+		[Test]
+		public async Task ForcedRefreshOverridesThrottle()
+		{
+			var currentThrottle = TrelloConfiguration.RefreshThrottle;
+			try
+			{
+				MockHost.MockJson();
+				MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())
+				        .Returns(new SynchronizedData());
+
+				TrelloConfiguration.RefreshThrottle = TimeSpan.FromDays(1);
+
+				var target = new SynchronizedObject();
+
+				await target.Synchronize(true, CancellationToken.None);
+				await target.Synchronize(true, CancellationToken.None);
+
+				target.RetrievalCount.Should().Be(2);
+			}
+			finally
+			{
+				TrelloConfiguration.RefreshThrottle = currentThrottle;
+			}
 		}
 
 		[Test]
