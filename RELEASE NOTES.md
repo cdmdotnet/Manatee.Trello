@@ -10,6 +10,8 @@ In line with changes in the Trello API:
     - https://trello.com/c/VX8B4ndj
 - Label uses have been removed from the API.
     - https://trello.com/c/qlIE6fkg
+- Custom fields can now be configured to show or not show on the front of a card.
+    - https://trello.com/c/F3j0G136
 
 ### Changes
 
@@ -17,10 +19,14 @@ New members:
 
 - `static Meember.AvatarSize`
 - `Member.Fields.AvatarUrl`
+- `ICustomFieldDefinition.DisplayInfo`
+- `CustomFieldDefinition.DisplayInfo`
 
 New types:
 
 - `AvatarSize`
+- `ICustomFieldDisplayInfo`
+- `CustomFieldDisplayInfo`
 
 Functional changes:
 

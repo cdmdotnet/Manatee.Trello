@@ -16,7 +16,6 @@ namespace Manatee.Trello.Json.Entities
 		public bool? Checked { get; set; }
 		public IJsonCustomDropDownOption Selected { get; set; }
 		public CustomFieldType Type { get; set; }
-		public bool UseForClear { get; set; }
 		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -78,13 +77,14 @@ namespace Manatee.Trello.Json.Entities
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
+			var useForClear = false;
 			var obj = new JsonObject();
 			switch (Type)
 			{
 				case CustomFieldType.Text:
 					if (Text == null)
 					{
-						UseForClear = true;
+						useForClear = true;
 						break;
 					}
 					obj["text"] = Text;
@@ -92,7 +92,7 @@ namespace Manatee.Trello.Json.Entities
 				case CustomFieldType.DropDown:
 					if (Selected == null)
 					{
-						UseForClear = true;
+						useForClear = true;
 						break;
 					}
 					obj["idValue"] = Selected.Id;
@@ -100,7 +100,7 @@ namespace Manatee.Trello.Json.Entities
 				case CustomFieldType.CheckBox:
 					if (Checked == null)
 					{
-						UseForClear = true;
+						useForClear = true;
 						break;
 					}
 					obj["checked"] = Checked.ToLowerString();
@@ -108,7 +108,7 @@ namespace Manatee.Trello.Json.Entities
 				case CustomFieldType.DateTime:
 					if (Date == null)
 					{
-						UseForClear = true;
+						useForClear = true;
 						break;
 					}
 					obj["date"] = serializer.Serialize(Date);
@@ -116,7 +116,7 @@ namespace Manatee.Trello.Json.Entities
 				case CustomFieldType.Number:
 					if (Number == null)
 					{
-						UseForClear = true;
+						useForClear = true;
 						break;
 					}
 					obj["number"] = string.Format(CultureInfo.InvariantCulture, "{0}", Number);
@@ -126,7 +126,7 @@ namespace Manatee.Trello.Json.Entities
 					throw new ArgumentOutOfRangeException();
 			}
 
-			return UseForClear ? (JsonValue) string.Empty : obj;
+			return useForClear ? (JsonValue) string.Empty : obj;
 		}
 	}
 }

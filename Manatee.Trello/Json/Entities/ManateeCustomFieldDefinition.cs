@@ -13,6 +13,7 @@ namespace Manatee.Trello.Json.Entities
 		public IJsonPosition Pos { get; set; }
 		public CustomFieldType? Type { get; set; }
 		public List<IJsonCustomDropDownOption> Options { get; set; }
+		public IJsonCustomFieldDisplayInfo Display { get; set; }
 		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -28,6 +29,7 @@ namespace Manatee.Trello.Json.Entities
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 					Type = obj.Deserialize<CustomFieldType?>(serializer, "type");
 					Options = obj.Deserialize<List<IJsonCustomDropDownOption>>(serializer, "options");
+					Display = obj.Deserialize<IJsonCustomFieldDisplayInfo>(serializer, "display");
 					ValidForMerge = true;
 					break;
 				case JsonValueType.String:
@@ -50,6 +52,7 @@ namespace Manatee.Trello.Json.Entities
 			Type.Serialize(obj, serializer, "type");
 			if (Type == CustomFieldType.DropDown)
 				Options.Serialize(obj, serializer, "options");
+			Display?.CardFront.Serialize(obj, serializer, "display/cardFront");
 
 			return obj;
 		}
