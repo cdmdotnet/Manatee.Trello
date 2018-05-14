@@ -69,10 +69,9 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		//[Ignore("Need to determine how to enable custom fields on the board before this will run.")]
 		public async Task CustomFields()
 		{
-			await TestEnvironment.Current.Board.PowerUps.EnablePowerUp(new CustomFieldsPowerUp());
+			await TestEnvironment.Current.Board.EnsurePowerUp(new CustomFieldsPowerUp());
 
 			var numberField = await TestEnvironment.Current.Board.CustomFields.Add("NumberField", CustomFieldType.Number);
 			var textField = await TestEnvironment.Current.Board.CustomFields.Add("TextField", CustomFieldType.Text);
@@ -90,7 +89,7 @@ namespace Manatee.Trello.IntegrationTests
 			var two = dropDownField.Options.FirstOrDefault(o => o.Text == "two");
 			Assert.NotNull(two);
 
-			await numberField.SetValueForCard(card, 9);
+			await numberField.SetValueForCard(card, 9.6);
 			await textField.SetValueForCard(card, "text");
 			await dateField.SetValueForCard(card, today);
 			await dropDownField.SetValueForCard(card, two);
@@ -98,7 +97,7 @@ namespace Manatee.Trello.IntegrationTests
 
 			await card.Refresh();
 
-			card.CustomFields.OfType<NumberField>().First().Value.Should().Be(9);
+			card.CustomFields.OfType<NumberField>().First().Value.Should().Be(9.6);
 			card.CustomFields.OfType<TextField>().First().Value.Should().Be("text");
 			card.CustomFields.OfType<DateTimeField>().First().Value.Should().Be(today);
 			card.CustomFields.OfType<DropDownField>().First().Value.Text.Should().Be("two");
@@ -222,6 +221,16 @@ namespace Manatee.Trello.IntegrationTests
 			await card.Refresh();
 
 			Assert.AreEqual(card.Id, otherCard.Id);
+		}
+
+		[Test]
+		public async Task CanCopy()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			var otherCard = await card.List.Cards.Add(card);
+
+			Assert.AreNotEqual(card.Id, otherCard.Id);
+			Assert.AreEqual(card.Name, otherCard.Name);
 		}
 	}
 }

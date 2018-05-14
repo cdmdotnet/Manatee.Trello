@@ -15,10 +15,10 @@ namespace Manatee.Trello.Json.Entities
 		{
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
+			Id = obj.TryGetString("id") ?? obj.TryGetString("_id");
 			Width = (int?) obj.TryGetNumber("width");
 			Height = (int?)obj.TryGetNumber("height");
 			Url = obj.TryGetString("url");
-			Id = obj.TryGetString("id");
 			Scaled = obj.TryGetBoolean("scaled");
 		}
 		public JsonValue ToJson(JsonSerializer serializer)
