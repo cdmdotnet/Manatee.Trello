@@ -14,6 +14,12 @@
 Updated member avatar access per Trello's changes.
 Obsoleted Label.Uses.
 
+v3.0.10
+BUG FIX: Attachment image previews not deserializing correctly.
+
+v3.0.9
+BUG FIX: Numeric custom field serialization issue with non-English cultures.
+
 v3.0.8
 Fixes issues with setting custom field values.
 Adds enabling and disabling of power-ups on boards.

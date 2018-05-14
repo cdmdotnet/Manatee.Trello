@@ -36,6 +36,14 @@ Obsoleted the following:
 - `Label.Uses` (now just returns null)
 - `IJsonLabel.Uses`
 
+## 3.0.10
+
+Attachment image previews have their ID property serialized as `_id` rather than `id`.
+
+## 3.0.9
+
+Changed serialization of numbers when setting custom field values to use invariant culture.
+
 ## 3.0.8
 
 Updated file location for license usage details to local app data for the current user.
