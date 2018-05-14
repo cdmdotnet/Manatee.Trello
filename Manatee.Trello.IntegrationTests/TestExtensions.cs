@@ -10,6 +10,7 @@ namespace Manatee.Trello.IntegrationTests
 			if (board.PowerUps.Any(p => p.Id == powerUp.Id)) return;
 
 			await board.PowerUps.EnablePowerUp(powerUp);
+			await board.PowerUps.Refresh();
 		}
 	}
 }
