@@ -105,7 +105,7 @@ namespace Manatee.Trello.IntegrationTests
 
 			var nameTasks = cards.Select(async c =>
 				{
-					await c.Refresh(tokenSource.Token);
+					await c.Refresh(ct: tokenSource.Token);
 					return c.Name;
 				}).ToList();
 

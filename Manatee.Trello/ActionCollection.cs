@@ -75,8 +75,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the collection.
 		/// </summary>
-		/// <returns>A task.</returns>
-		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		public sealed override async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
 			IncorporateLimit();
 
