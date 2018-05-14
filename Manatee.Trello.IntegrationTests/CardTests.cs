@@ -71,7 +71,7 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task CustomFields()
 		{
-			await TestEnvironment.Current.Board.PowerUps.EnablePowerUp(new CustomFieldsPowerUp());
+			await TestEnvironment.Current.Board.EnsurePowerUp(new CustomFieldsPowerUp());
 
 			var numberField = await TestEnvironment.Current.Board.CustomFields.Add("NumberField", CustomFieldType.Number);
 			var textField = await TestEnvironment.Current.Board.CustomFields.Add("TextField", CustomFieldType.Text);

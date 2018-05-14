@@ -39,9 +39,9 @@ namespace Manatee.Trello.IntegrationTests
 		[SetCulture("de-DE")]
 		public async Task Issue203_CustomNumberFieldsInAlternateCulture()
 		{
-			await TestEnvironment.Current.Board.PowerUps.EnablePowerUp(new CustomFieldsPowerUp());
+			await TestEnvironment.Current.Board.EnsurePowerUp(new CustomFieldsPowerUp());
 
-			var numberField = await TestEnvironment.Current.Board.CustomFields.Add("NumberField", CustomFieldType.Number);
+			var numberField = await TestEnvironment.Current.Board.CustomFields.Add(nameof(Issue203_CustomNumberFieldsInAlternateCulture), CustomFieldType.Number);
 			var card = await TestEnvironment.Current.BuildCard();
 
 			await numberField.SetValueForCard(card, 9.6);
