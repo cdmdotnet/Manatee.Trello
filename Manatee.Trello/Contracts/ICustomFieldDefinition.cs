@@ -13,6 +13,12 @@ namespace Manatee.Trello
 		/// Gets the board on which the field is defined.
 		/// </summary>
 		IBoard Board { get; }
+
+		/// <summary>
+		/// Gets display information for the custom field.
+		/// </summary>
+		ICustomFieldDisplayInfo DisplayInfo { get; }
+
 		/// <summary>
 		/// Gets an identifier that groups fields across boards.
 		/// </summary>

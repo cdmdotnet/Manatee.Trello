@@ -3,8 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Manatee.Trello.Json;
-using Manatee.Trello.Rest;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -97,11 +95,32 @@ namespace Manatee.Trello.IntegrationTests
 
 			await card.Refresh();
 
-			card.CustomFields.OfType<NumberField>().First().Value.Should().Be(9.6);
+			var numberFieldInstance = card.CustomFields.OfType<NumberField>().First();
+
+			numberFieldInstance.Value.Should().Be(9.6);
 			card.CustomFields.OfType<TextField>().First().Value.Should().Be("text");
 			card.CustomFields.OfType<DateTimeField>().First().Value.Should().Be(today);
 			card.CustomFields.OfType<DropDownField>().First().Value.Text.Should().Be("two");
 			card.CustomFields.OfType<CheckBoxField>().First().Value.Should().Be(true);
+
+			numberFieldInstance.Value = null;
+
+			await TrelloProcessor.Flush();
+			await numberFieldInstance.Refresh();
+
+			numberFieldInstance.Value.Should().BeNull();
+
+			numberField.DisplayInfo.CardFront.Should().Be(true);
+
+			textField.DisplayInfo.CardFront = false;
+
+			TrelloConfiguration.Cache.Remove(textField);
+			await TrelloProcessor.Flush();
+			await TestEnvironment.Current.Board.Refresh();
+
+			var otherTextField = TestEnvironment.Current.Board.CustomFields.First(f => f.Type == CustomFieldType.Text);
+
+			otherTextField.DisplayInfo.CardFront.Should().Be(false);
 		}
 
 		[Test]

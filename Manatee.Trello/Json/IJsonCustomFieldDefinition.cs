@@ -42,5 +42,11 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		[JsonSerialize]
 		List<IJsonCustomDropDownOption> Options { get; set; }
+		/// <summary>
+		/// Gets or sets the display information.
+		/// </summary>
+		[JsonDeserialize]
+		[JsonSerialize]
+		IJsonCustomFieldDisplayInfo Display { get; set; }
 	}
 }

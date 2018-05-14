@@ -27,6 +27,11 @@ namespace Manatee.Trello
 		public IBoard Board => _board.Value;
 
 		/// <summary>
+		/// Gets display information for the custom field.
+		/// </summary>
+		public ICustomFieldDisplayInfo DisplayInfo { get; }
+
+		/// <summary>
 		/// Gets an identifier that groups fields across boards.
 		/// </summary>
 		public string FieldGroup => _fieldGroup.Value;
@@ -81,16 +86,13 @@ namespace Manatee.Trello
 			_context = new CustomFieldDefinitionContext(Id, auth);
 
 			_board = new Field<IBoard>(_context, nameof(Board));
+			DisplayInfo = new CustomFieldDisplayInfo(_context.DisplayInfo);
 			_fieldGroup = new Field<string>(_context, nameof(FieldGroup));
 			_name = new Field<string>(_context, nameof(Name));
 			_position = new Field<Position>(_context, nameof(Position));
 			_type = new Field<CustomFieldType?>(_context, nameof(Type));
 
 			TrelloConfiguration.Cache.Add(this);
-
-			// we need to enumerate the collection to cache all of the values
-			// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-			//Options?.ToList();
 
 			_context.Merge(json);
 			_context.Synchronized += Synchronized;
