@@ -1,8 +1,12 @@
 This file is used to list specific public-facing changes for each version.  The notes on the Nuget package are a summary of these.
 
+## 3.0.10
+
+Attachment image previews have their ID property serialized as `_id` rather than `id`.
+
 ## 3.0.9
 
-Chagne serialization of numbers when setting custom field values to use invariant culture.
+Changed serialization of numbers when setting custom field values to use invariant culture.
 
 ## 3.0.8
 
