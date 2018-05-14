@@ -4,13 +4,21 @@
     <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>A fully object-oriented .Net wrapper for the TrelloAPI.</Description>
-    <Version>3.0.7</Version>
+    <Version>3.0.9</Version>
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/gregsdennis/Manatee.Trello</PackageProjectUrl>
     <PackageTags>api wrapper trello manatee</PackageTags>
-    <PackageReleaseNotes>v3.0.7
+    <PackageReleaseNotes>v3.0.9
+BUG FIX: Numeric custom field serialization issue with non-English cultures.
+
+v3.0.8
+Fixes issues with setting custom field values.
+Adds enabling and disabling of power-ups on boards.
+Other minor fixes.
+
+v3.0.7
 BUG FIX: Custom fields not saving for some types.
 Other internal fixes and enhancements.
 
@@ -46,7 +54,7 @@ Optionally retain entities in the cache on delete.</PackageReleaseNotes>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.7.0</FileVersion>
+    <FileVersion>3.0.9.0</FileVersion>
     <Authors>gregsdennis</Authors>
     <Company>Little Crab Solutions</Company>
   </PropertyGroup>
