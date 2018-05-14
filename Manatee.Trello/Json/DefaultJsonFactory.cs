@@ -35,6 +35,7 @@ namespace Manatee.Trello.Json
 					{typeof (IJsonCheckItem), () => new ManateeCheckItem()},
 					{typeof (IJsonCheckList), () => new ManateeCheckList()},
 					{typeof (IJsonCustomField), () => new ManateeCustomField()},
+					{typeof (IJsonCustomFieldDisplayInfo), () => new ManateeCustomFieldDisplayInfo()},
 					{typeof (IJsonCustomDropDownOption), () => new ManateeCustomDropDownOption()},
 					{typeof (IJsonCustomFieldDefinition), () => new ManateeCustomFieldDefinition()}, 
 					{typeof (IJsonImagePreview), () => new ManateeImagePreview()},
