@@ -11,7 +11,7 @@ namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
 	[Ignore("These tests are here for posterity, but the scenarios need to be included in whatever test suite is written.")]
-	public class ClientTests
+	public class ClientTestsOfAntiquity
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
 

@@ -34,8 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Label.Fields.Color |
-			               Label.Fields.Name |
-						   Label.Fields.Uses;
+			               Label.Fields.Name;
 			Properties = new Dictionary<string, Property<IJsonLabel>>
 				{
 					{
@@ -54,10 +53,6 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						nameof(Label.Name),
 						new Property<IJsonLabel, string>((d, a) => d.Name, (d, o) => d.Name = o)
-					},
-					{
-						nameof(Label.Uses),
-						new Property<IJsonLabel, int?>((d, a) => d.Uses, (d, o) => d.Uses = o)
 					},
 				};
 		}

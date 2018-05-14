@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Internal;
@@ -94,7 +95,7 @@ namespace Manatee.Trello.Json.Entities
 						UseForClear = true;
 						break;
 					}
-					obj["idValue"] = Selected.Field.Id;
+					obj["idValue"] = Selected.Id;
 					break;
 				case CustomFieldType.CheckBox:
 					if (Checked == null)
@@ -118,7 +119,7 @@ namespace Manatee.Trello.Json.Entities
 						UseForClear = true;
 						break;
 					}
-					obj["number"] = Number.ToString();
+					obj["number"] = string.Format(CultureInfo.InvariantCulture, "{0}", Number);
 					break;
 				case CustomFieldType.Unknown:
 				default:

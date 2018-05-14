@@ -17,7 +17,6 @@ namespace Manatee.Trello
 	{
 		private readonly EntityRequestType _updateRequestType;
 		private readonly Dictionary<string, object> _requestParameters;
-		private Dictionary<string, object> _additionalParameters;
 
 		/// <summary>
 		/// Retrieves a card which matches the supplied key.
@@ -53,13 +52,11 @@ namespace Manatee.Trello
 			// NOTE: See issue 109.  /1/lists/{listId}/cards does not support filter=visible
 			if (_updateRequestType == EntityRequestType.List_Read_Cards && filter == CardFilter.Visible)
 			{
-				_additionalParameters?.Remove("filter");
+				AdditionalParameters.Remove("filter");
 				return;
 			}
 
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>();
-			_additionalParameters["filter"] = filter.GetDescription();
+			AdditionalParameters["filter"] = filter.GetDescription();
 		}
 
 		/// <summary>
@@ -69,12 +66,10 @@ namespace Manatee.Trello
 		/// <param name="end">The end date.</param>
 		public void Filter(DateTime? start, DateTime? end)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object>();
 			if (start != null)
-				_additionalParameters["since"] = start;
+				AdditionalParameters["since"] = start;
 			if (end != null)
-				_additionalParameters["before"] = end;
+				AdditionalParameters["before"] = end;
 		}
 
 		/// <summary>
@@ -83,11 +78,11 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
-			IncorporateLimit(_additionalParameters);
+			IncorporateLimit();
 
 			_requestParameters["_id"] = OwnerId;
 			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
-			var newData = await JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, ct, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jc =>

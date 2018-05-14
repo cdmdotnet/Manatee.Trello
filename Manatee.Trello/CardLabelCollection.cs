@@ -72,7 +72,7 @@ namespace Manatee.Trello
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Labels,
 			                                     new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonLabel>>(Auth, endpoint, ct);
+			var newData = await JsonRepository.Execute<List<IJsonLabel>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(ja =>

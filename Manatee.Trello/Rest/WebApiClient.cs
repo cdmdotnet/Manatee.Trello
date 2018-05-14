@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -12,6 +13,12 @@ namespace Manatee.Trello.Rest
 		private readonly string _baseUri;
 		private readonly HttpClient _client;
 
+#if NET45
+		static WebApiClient()
+		{
+			ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+		}
+#endif
 		public WebApiClient(string baseUri)
 		{
 			_client = new HttpClient();

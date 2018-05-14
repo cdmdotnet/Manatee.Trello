@@ -9,7 +9,6 @@ namespace Manatee.Trello.IntegrationTests
 	//[Ignore("This should only be run manually to clean up after halted tests (occurs if debugging a test and debugger is halted).")]
 	public class ManualTests
 	{
-
 		[Test]
 		public async Task CleanUpLeftOverTestRuns()
 		{
@@ -19,6 +18,11 @@ namespace Manatee.Trello.IntegrationTests
 			await me.Refresh();
 
 			await Task.WhenAll(me.Boards.Where(b => b.Name.StartsWith("TestBoard_")).Select(async b =>
+				{
+					Console.WriteLine($"Deleting board {b}");
+					await b.Delete();
+				}));
+			await Task.WhenAll(me.Boards.Where(b => b.Name.StartsWith("changed")).Select(async b =>
 				{
 					Console.WriteLine($"Deleting board {b}");
 					await b.Delete();

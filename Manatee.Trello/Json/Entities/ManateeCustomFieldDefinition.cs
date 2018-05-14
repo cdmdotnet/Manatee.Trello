@@ -48,6 +48,8 @@ namespace Manatee.Trello.Json.Entities
 			Name.Serialize(obj, serializer, "name");
 			Pos.Serialize(obj, serializer, "pos");
 			Type.Serialize(obj, serializer, "type");
+			if (Type == CustomFieldType.DropDown)
+				Options.Serialize(obj, serializer, "options");
 
 			return obj;
 		}

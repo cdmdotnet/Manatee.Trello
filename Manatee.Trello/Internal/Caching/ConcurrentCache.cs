@@ -14,6 +14,8 @@ namespace Manatee.Trello.Internal.Caching
 
 		public void Add(ICacheable obj)
 		{
+			if (_collection.ContainsKey(obj.Id))
+				TrelloConfiguration.Log.Info($"Discovered second instance of {obj.GetType().Name} with ID {obj.Id}");
 			_collection[obj.Id] = obj;
 		}
 

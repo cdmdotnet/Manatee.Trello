@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
@@ -18,10 +19,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the source type for the member's avatar.
 		/// </summary>
+		[Obsolete("Trello has depricated this property.")]
 		public new AvatarSource? AvatarSource
 		{
-			get { return base.AvatarSource; }
-			set { base.AvatarSource = value; }
+			get { return null; }
+			set { }
 		}
 		/// <summary>
 		/// Gets or sets the member's bio.

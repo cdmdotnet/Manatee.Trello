@@ -14,12 +14,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyBoardMembershipCollection : ReadOnlyCollection<IBoardMembership>, IReadOnlyBoardMembershipCollection
 	{
-		private Dictionary<string, object> _additionalParameters;
-
 		internal ReadOnlyBoardMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
-			_additionalParameters = new Dictionary<string, object> {{"fields", "all"}};
 		}
 
 		/// <summary>
@@ -39,7 +36,7 @@ namespace Manatee.Trello
 		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonBoardMembership>>(Auth, endpoint, ct, _additionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonBoardMembership>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jbm =>
@@ -71,13 +68,11 @@ namespace Manatee.Trello
 		/// <param name="memberships">The filter values.</param>
 		public void Filter(IEnumerable<MembershipFilter> memberships)
 		{
-			if (_additionalParameters == null)
-				_additionalParameters = new Dictionary<string, object> {{"filter", string.Empty}};
-			var filter = ((string) _additionalParameters["filter"]);
+			var filter = (string)AdditionalParameters["filter"];
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += memberships.Select(a => a.GetDescription()).Join(",");
-			_additionalParameters["filter"] = filter;
+			AdditionalParameters["filter"] = filter;
 		}
 	}
 }

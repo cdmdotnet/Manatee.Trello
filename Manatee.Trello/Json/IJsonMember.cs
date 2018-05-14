@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Manatee.Trello.Json
@@ -11,7 +12,13 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the member's avatar hash.
 		/// </summary>
 		[JsonDeserialize]
+		[Obsolete("Trello has depricated this property.")]
 		string AvatarHash { get; set; }
+		/// <summary>
+		/// Gets or sets the member's avatar hash.
+		/// </summary>
+		[JsonDeserialize]
+		string AvatarUrl { get; set; }
 		/// <summary>
 		/// Gets or sets the bio of the member.
 		/// </summary>
@@ -57,6 +64,7 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		[JsonSerialize]
+		[Obsolete("Trello has depricated this property.")]
 		AvatarSource? AvatarSource { get; set; }
 		/// <summary>
 		/// Gets or sets whether the member is confirmed.
@@ -72,8 +80,8 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the member's Gravatar hash.
 		/// </summary>
-		// TODO: Implement Member.GravatarHash.
 		[JsonDeserialize]
+		[Obsolete("Trello has depricated this property.")]
 		string GravatarHash { get; set; }
 		/// <summary>
 		/// Gets or sets the login types for the member.
@@ -89,8 +97,8 @@ namespace Manatee.Trello.Json
 		/// <summary>
 		/// Gets or sets the user's uploaded avatar hash.
 		/// </summary>
-		// TODO: Implement Member.UploadedAvatarHash.
 		[JsonDeserialize]
+		[Obsolete("Trello has depricated this property.")]
 		string UploadedAvatarHash { get; set; }
 		/// <summary>
 		/// Gets or sets the types of message which are dismissed for the member.
