@@ -58,7 +58,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await Context.Synchronize(ct);
+			await Context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonCustomField>.Merge(IJsonCustomField json, bool overwrite)

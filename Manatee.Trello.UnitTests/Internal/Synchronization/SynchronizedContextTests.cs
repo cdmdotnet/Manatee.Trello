@@ -38,8 +38,8 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 
 				var target = new SynchronizedObject();
 
-				await target.Synchronize(CancellationToken.None);
-				await target.Synchronize(CancellationToken.None);
+				await target.Synchronize(false, CancellationToken.None);
+				await target.Synchronize(false, CancellationToken.None);
 
 				target.RetrievalCount.Should().Be(1);
 			}
@@ -63,8 +63,8 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 
 				var target = new SynchronizedObject();
 
-				await target.Synchronize(CancellationToken.None);
-				await target.Synchronize(CancellationToken.None);
+				await target.Synchronize(false, CancellationToken.None);
+				await target.Synchronize(false, CancellationToken.None);
 
 				target.RetrievalCount.Should().Be(2);
 			}
@@ -132,7 +132,7 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 					};
 				target.Synchronized += properties => counter++;
 
-				await target.Synchronize(CancellationToken.None);
+				await target.Synchronize(false, CancellationToken.None);
 
 				counter.Should().Be(1);
 			}
@@ -216,7 +216,7 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 
 			var target = new SynchronizedObject {SupportsUpdates = false};
 
-			await target.Synchronize(CancellationToken.None);
+			await target.Synchronize(false, CancellationToken.None);
 
 			target.SubmissionCount.Should().Be(0);
 		}
@@ -230,7 +230,7 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 
 			var target = new SynchronizedObject {SupportsUpdates = false};
 
-			await target.Synchronize(CancellationToken.None);
+			await target.Synchronize(false, CancellationToken.None);
 
 			target.SubmissionCount.Should().Be(0);
 		}

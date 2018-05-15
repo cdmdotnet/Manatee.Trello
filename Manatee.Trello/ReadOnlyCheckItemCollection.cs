@@ -36,7 +36,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public sealed override async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 			if (_context.Data.CheckItems == null) return;
 			foreach (var jsonCheckItem in _context.Data.CheckItems)
 			{

@@ -46,14 +46,14 @@ namespace Manatee.Trello.Internal.Synchronization
 		public abstract T GetValue<T>(string property);
 		public abstract Task SetValue<T>(string property, T value, CancellationToken ct);
 
-		public async Task Synchronize(CancellationToken ct)
+		public async Task Synchronize(bool force, CancellationToken ct)
 		{
 			var now = DateTime.Now;
-			if (_expires > now) return;
+			if (!force && _expires > now) return;
 
 			lock (_expireLock)
 			{
-				if (_expires > now) return;
+				if (!force && _expires > now) return;
 
 				_expires = now + TrelloConfiguration.RefreshThrottle;
 			}
