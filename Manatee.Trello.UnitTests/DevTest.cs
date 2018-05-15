@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Tests.Common;
-using Manatee.Trello.UnitTests;
 using Moq;
 using NUnit.Framework;
 
-namespace Manatee.Trello.IntegrationTests
+namespace Manatee.Trello.UnitTests
 {
 	[TestFixture]
 	[Ignore("This test fixture for development purposes only.")]
