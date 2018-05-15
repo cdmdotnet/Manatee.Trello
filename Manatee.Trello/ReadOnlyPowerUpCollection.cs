@@ -23,8 +23,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public sealed override async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_PowerUps, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonPowerUp>>(Auth, endpoint, ct, AdditionalParameters);

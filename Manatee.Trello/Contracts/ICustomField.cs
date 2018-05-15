@@ -23,8 +23,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the custom field instance data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(CancellationToken ct = default(CancellationToken));
+		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 
 	/// <summary>

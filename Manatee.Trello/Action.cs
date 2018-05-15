@@ -102,7 +102,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(CancellationToken.None).Wait();
+					_context.Synchronize(true, CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -240,10 +240,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the action data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonAction>.Merge(IJsonAction json, bool overwrite)

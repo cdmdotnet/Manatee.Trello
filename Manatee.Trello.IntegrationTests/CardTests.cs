@@ -205,25 +205,23 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			try
 			{
-				TrelloConfiguration.RefreshThrottle = TimeSpan.Zero;
 				Card.DownloadedFields |= Card.Fields.Comments;
 
 				var card = await TestEnvironment.Current.BuildCard();
 
 				var comment = await card.Comments.Add("a comment");
-				await card.Refresh();
+				await card.Refresh(true);
 
 				card.Comments.Count().Should().Be(1);
 
 				await comment.Delete();
-				await card.Refresh();
+				await card.Refresh(true);
 
 				card.Comments.Count().Should().Be(0);
 			}
 			finally
 			{
 				Card.DownloadedFields &= ~Card.Fields.Comments;
-				TrelloConfiguration.RefreshThrottle = TimeSpan.FromSeconds(5);
 			}
 		}
 

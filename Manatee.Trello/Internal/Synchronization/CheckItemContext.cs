@@ -130,7 +130,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			checkListJson.Id = _ownerId;
 			var checkList = checkListJson.GetFromCache<CheckList, IJsonCheckList>(Auth);
 			if (string.IsNullOrEmpty(checkList.Json.Card?.Id))
-				await checkList.Refresh(ct);
+				await checkList.Refresh(ct: ct);
 
 			// This may make a call to get the card, but it can't be avoided.  We need its ID.
 			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Write_Update, new Dictionary<string, object>

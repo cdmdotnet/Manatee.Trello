@@ -42,7 +42,7 @@ namespace Manatee.Trello
 			await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Items.Add(label);
-			await _context.Synchronize(ct);
+			await _context.Synchronize(true, ct);
 		}
 
 		/// <summary>
@@ -61,14 +61,15 @@ namespace Manatee.Trello
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			Items.Remove(label);
-			await _context.Synchronize(ct);
+			await _context.Synchronize(true, ct);
 		}
 
 		/// <summary>
 		/// Manually updates the collection's data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public sealed override async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Labels,
 			                                     new Dictionary<string, object> {{"_id", OwnerId}});

@@ -43,7 +43,7 @@ namespace Manatee.Trello.IntegrationTests
 
 					var board = new Board(TrelloIds.BoardId);
 
-					await board.Refresh(ct);
+					await board.Refresh(ct: ct);
 
 					Console.WriteLine(board);
 				});
