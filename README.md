@@ -153,11 +153,11 @@ Features:
     - Webhooks
         - Add/Edit/Delete
 
-See the [docs folder](https://github.com/gregsdennis/Manatee.Trello/blob/master/docs) for more information on how to use this wonderful library!
+See the [docs](https://gregsdennis.github.io/Manatee.Trello) for more information on how to use this wonderful library!
 
 ## Extended use
 
-As of version 3, a [licensing model](https://github.com/gregsdennis/Manatee.Trello/blob/master/docs/7.%20Licensing.md) has been introduced.
+As of version 3, a [licensing model](https://gregsdennis.github.io/Manatee.Trello/licensing) has been introduced.
 
 If you're planning on using this for your organization, please consider purchasing a license.
 
