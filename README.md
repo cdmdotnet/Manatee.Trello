@@ -121,6 +121,7 @@ Features:
         - Add/Remove members
         - Add/Edit/Delete custom fields
         - Add/Remove to/from organization
+        - Enable/Disable power-ups
     - Lists
         - Add/Edit/Reorder
         - Move to board

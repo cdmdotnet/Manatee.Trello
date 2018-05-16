@@ -1,3 +1,7 @@
+---
+title: Welcome
+---
+
 Manatee.Trello is a .Net wrapper for [Trello’s RESTful API](https://developers.trello.com/advanced-reference) written C#.  The goal of this library is to expose the functionality of Trello as an intuitive, fully object-oriented design that allows the developer to interact with Trello objects in a way familiar to the average .Net developer.
 
 Every object possesses the properties one would expect to find by simply using the [Trello web UI](http://trello.com).  For example, a Board has a collection of Lists, each of which has a collection of Cards.  A Card also references back to the List and Board in which it is contained.
@@ -30,7 +34,7 @@ Features:
         - Add/Edit personal preferences
         - Add/Remove members
         - Add/Edit/Delete custom fields
-        - Add/Remove to/from organization
+        - Add/Remove to/from organization,
         - Enable/Disable power-ups
     - Lists
         - Add/Edit/Reorder
