@@ -11,13 +11,14 @@ show_full_navigation: true
 logo: /siteicon.png
 description: A fully object-oriented .Net wrapper for Trello's RESTful API written in C#.
 author:
-  name:
-  email:
-  twitter: # twitter username without the @ symbol
+  name: Greg Dennis
+  email: gregsdennis@yahoo.com
+  twitter: gregsdennis
 social:
   name: Manatee.Trello
   links:
-    - https://github.com/gregsdennis.Manatee.Trello
+    - https://github.com/gregsdennis/Manatee.Trello
+    - https://codingforsmarties.wordpress.com
 
 # -----
 # Build
