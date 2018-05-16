@@ -16,8 +16,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public static async Task Flush()
 		{
-			await RestRequestProcessor.Flush();
-			LicenseHelpers.SaveCurrentState();
+			await LicenseHelpers.Batch(RestRequestProcessor.Flush());
 		}
 
 		/// <summary>

@@ -21,31 +21,12 @@ namespace Manatee.Trello.UnitTests
 		[Test]
 		public async Task TestMethod1()
 		{
-			await Run(async ct =>
+			//await Run(async ct =>
 				{
-					var json = File.ReadAllText("C:\\Users\\gregs\\Downloads\\Board_JSON.json");
-
-					var response = new Mock<IRestResponse<IJsonBoard>>();
-					response.SetupGet(r => r.StatusCode)
-					        .Returns(HttpStatusCode.OK);
-					response.SetupGet(r => r.Content)
-					        .Returns(json);
-
-					var jsonBoard = TrelloConfiguration.Deserializer.Deserialize(response.Object);
-
-					response.SetupGet(r => r.Data)
-					        .Returns(jsonBoard);
-
-					MockHost.MockRest<IJsonBoard>();
-					MockHost.Client.Setup(c => c.Execute<IJsonBoard>(It.IsAny<IRestRequest>(), It.IsAny<CancellationToken>()))
-					        .ReturnsAsync(() => response.Object);
-
-					var board = new Board(TrelloIds.BoardId);
-
-					await board.Refresh(ct);
-
-					Console.WriteLine(board);
-				});
+					Console.WriteLine($"before: {Environment.GetEnvironmentVariable("TEST_VAR", EnvironmentVariableTarget.User)}");
+					Environment.SetEnvironmentVariable("TEST_VAR", Guid.NewGuid().ToString(), EnvironmentVariableTarget.User);
+					Console.WriteLine($"after: {Environment.GetEnvironmentVariable("TEST_VAR", EnvironmentVariableTarget.User)}");
+				}//);
 		}
 
 		private static async Task Run(Func<CancellationToken, Task> action)
