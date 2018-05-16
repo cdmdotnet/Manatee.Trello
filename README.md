@@ -120,19 +120,19 @@ Features:
         - Add/Edit personal preferences
         - Add/Remove members
         - Add/Edit/Delete custom fields
-        - Add to organization
+        - Add/Remove to/from organization
+        - Enable/Disable power-ups
     - Lists
-        - Add/Edit
+        - Add/Edit/Reorder
         - Move to board
-        - Reorder
     - Cards
-        - Add/Edit/Delete
+        - Add/Copy/Edit/Delete/Reorder
         - Add/Edit/Clear custom field data
         - Add/Edit/Remove stickers
         - Add/Edit/Delete comments
-        - Add/Edit/Delete checklists & items
+        - Add/Copy/Edit/Delete/Reorder checklists
+        - Add/Edit/Delete/Reorder checklist items
         - Move to list
-        - Reorder
     - Organizations (Teams)
         - Add/Edit/Delete
         - Read/Set org-wide preferences & permissions
@@ -153,11 +153,11 @@ Features:
     - Webhooks
         - Add/Edit/Delete
 
-See the wiki pages for more information on how to use this wonderful library!
+See the [docs](https://gregsdennis.github.io/Manatee.Trello) for more information on how to use this wonderful library!
 
 ## Extended use
 
-As of version 3, a [licensing model](https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3) has been introduced.
+As of version 3, a [licensing model](https://gregsdennis.github.io/Manatee.Trello/licensing) has been introduced.
 
 If you're planning on using this for your organization, please consider purchasing a license.
 

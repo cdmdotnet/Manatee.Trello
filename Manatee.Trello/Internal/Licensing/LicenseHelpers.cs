@@ -4,14 +4,13 @@
 // Modified for use in Manatee.Trello
 #endregion
 
-//#define PERSIST_USAGE
-
 using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 
@@ -31,6 +30,7 @@ namespace Manatee.Trello.Internal.Licensing
 		private const string WindowsDetailsPath = @"%LOCALAPPDATA%\Manatee.Trello\Manatee.Trello.run";
 		private const string MacOsDetailsPath = @"~/Library/Manatee.Trello/Manatee.Trello.run";
 		private const string UnixDetailsPath = @"~/.config/Manatee.Trello/Manatee.Trello.run";
+		private const string LicenseEnvironmentVariable = "TRELLO_LICENSE_TRACKING";
 
 		private static string DetailsPath
 		{
@@ -56,7 +56,8 @@ namespace Manatee.Trello.Internal.Licensing
 			}
 		}
 
-		private static readonly object Lock;
+		private static readonly object TimerLock;
+		private static readonly object CountsLock;
 		private static readonly JsonSerializer Serializer;
 
 		private static long _retrievalCount;
@@ -64,10 +65,12 @@ namespace Manatee.Trello.Internal.Licensing
 		private static long _sessionExpiry;
 		private static LicenseDetails _registeredLicense;
 		private static Timer _resetTimer;
+		private static bool _holdPersistence;
 
 		static LicenseHelpers()
 		{
-			Lock = new object();
+			TimerLock = new object();
+			CountsLock = new object();
 			Serializer = new JsonSerializer();
 
 			LoadCurrentState();
@@ -87,27 +90,25 @@ namespace Manatee.Trello.Internal.Licensing
 			return (_retrievalCount, _submissionCount);
 		}
 
-		public static void SaveCurrentState()
-		{
-#if PERSIST_USAGE
-			var newDetails = new RunDetails
-				{
-					Retrievals = _retrievalCount,
-					Submissions = _submissionCount,
-					SessionExpiry = DateTime.Now.AddHours(1)
-				};
-
-			var json = Serializer.Serialize(newDetails);
-			File.WriteAllText(DetailsPath, json.ToString());
-#endif
-		}
-
 		private static void LoadCurrentState()
 		{
-#if PERSIST_USAGE
-			if (!File.Exists(DetailsPath)) return;
+#if !NETSTANDARD1_3
+			string text;
+			lock (CountsLock)
+			{
+				try
+				{
+					text = Environment.GetEnvironmentVariable(LicenseEnvironmentVariable, EnvironmentVariableTarget.User);
+				}
+				catch (Exception e)
+				{
+					TrelloConfiguration.Log.Error(e);
+					return;
+				}
+			}
 
-			var text = File.ReadAllText(DetailsPath);
+			if (string.IsNullOrEmpty(text)) return;
+
 			var json = JsonValue.Parse(text);
 			var details = Serializer.Deserialize<RunDetails>(json);
 
@@ -127,6 +128,7 @@ namespace Manatee.Trello.Internal.Licensing
 
 			const int maxOperationCount = 300;
 			Interlocked.Increment(ref _retrievalCount);
+			SaveCurrentState();
 
 			if (_retrievalCount > maxOperationCount)
 				throw new LicenseException($"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. " + BuyMeText);
@@ -140,16 +142,46 @@ namespace Manatee.Trello.Internal.Licensing
 
 			const int maxOperationCount = 300;
 			Interlocked.Increment(ref _submissionCount);
+			SaveCurrentState();
 
 			if (_submissionCount > maxOperationCount)
 				throw new LicenseException($"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. " + BuyMeText);
+		}
+
+		private static void SaveCurrentState()
+		{
+#if !NETSTANDARD1_3
+			var newDetails = new RunDetails
+				{
+					Retrievals = _retrievalCount,
+					Submissions = _submissionCount,
+					SessionExpiry = DateTime.Now.AddHours(1)
+				};
+
+			var json = Serializer.Serialize(newDetails);
+			if (_holdPersistence) return;
+			lock (CountsLock)
+			{
+				if (_holdPersistence) return;
+
+				try
+				{
+					Environment.SetEnvironmentVariable(LicenseEnvironmentVariable, json.ToString(), EnvironmentVariableTarget.User);
+				}
+				catch (Exception e)
+				{
+					// nothing else we can really do here
+					TrelloConfiguration.Log.Error(e);
+				}
+			}
+#endif
 		}
 
 		private static void EnsureResetTimer()
 		{
 			if (_resetTimer != null) return;
 
-			lock (Lock)
+			lock (TimerLock)
 			{
 				if (_resetTimer != null) return;
 
@@ -244,6 +276,14 @@ namespace Manatee.Trello.Internal.Licensing
 
 			_resetTimer.Dispose();
 			_resetTimer = null;
+		}
+
+		public static async Task Batch(Task batch)
+		{
+			_holdPersistence = true;
+			await batch;
+			_holdPersistence = false;
+			SaveCurrentState();
 		}
 	}
 }

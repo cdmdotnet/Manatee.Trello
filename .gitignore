@@ -13,6 +13,9 @@
 # AutoWiki
 AutoWiki/
 
+# jekyll docs
+docs/_site/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
