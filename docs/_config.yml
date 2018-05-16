@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ----
 # Site
 
@@ -77,3 +78,6 @@ defaults:
 types:
   - minor
   - major
+=======
+remote_theme: CloudCannon/edition-jekyll-template
+>>>>>>> 0ab1be519006c686560f2ac0f14dd867a722d295
