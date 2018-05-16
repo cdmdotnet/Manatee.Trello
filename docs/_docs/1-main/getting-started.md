@@ -98,7 +98,7 @@ Several of the entities, like cards and lists, can be sorted or otherwise have t
 
 Trello records an entities position using a floating point number system.  If the user moves card **A** between cards **B** and **C**, Trello takes the numeric position values of **B** and **C**, averages them, and assigns that value to card **A**.
 
-E# Searching for entities
+## Searching for entities
 
 *Under construction*
 
