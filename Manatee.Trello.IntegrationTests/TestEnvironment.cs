@@ -40,7 +40,7 @@ namespace Manatee.Trello.IntegrationTests
 				new CapturingClientProvider(TrelloConfiguration.RestClientProvider,
 				                            r => LastRequest = r,
 				                            r => LastResponse = r);
-			TrelloConfiguration.Log = new ConsoleLog();
+			TrelloConfiguration.Log = new LocalOnlyConsoleLog();
 
 			var testTimeStamp = $"{DateTime.Now:yyMMddHHmmss}";
 
