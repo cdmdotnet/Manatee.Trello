@@ -78,9 +78,9 @@ Sending data back to Trello is quite easy.
 
 Many edits are updating fields, such as the description on a card or the name of a board.  For tasks like this, you only need to set the property.  This will trigger an asynchronous process to submit the new data to Trello.
 
-When a property is set, a timer starts, the duration of which is determined by `TrelloConfiguration.ChangeSubmissionTime`.  Once the timer expires, it sends the change.  But here's the catch: if another change for the same entity is made (i.e. setting another property), the timer is reset.  When the timer expires, *all* changes are sent.
+When a property is set, a timer starts, the duration of which is determined by `TrelloConfiguration.ChangeSubmissionTime`.  Once the timer expires, it sends the change.  But there's a bonus: if another change for the same entity is made (i.e. setting another property), the timer is reset.  When the timer expires, *all* changes are sent as a single request.  If you need to, you can wait for property changes to be sent to Trello by calling `await TrelloProcessor.Flush()`.  This will ensure that the updates are sent before continuing.
 
-Other writes are generally creations or deletions.
+Other writes are generally deletions or creations.
 
 When you need to delete an entity, simply call its `Delete()` method.  Done.
 
