@@ -1,1 +1,1 @@
-The release notes can now be found in the [Change Log](https://gregsdennis.github.io/Manatee.Trello/changelog) in the official documentation.
+The release notes can now be found in the [official documentation](https://gregsdennis.github.io/Manatee.Trello/releasenotes).
