@@ -4,6 +4,8 @@ category: Version 2.x - API
 order: 4
 ---
 
+> **NOTICE** In migrating to this new documentation, many (if not all) of the links are broken.  Please use the sidebar on the left for navigation.
+
 # Card
 
 Represents a card.

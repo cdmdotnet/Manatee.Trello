@@ -63,7 +63,7 @@ Features:
     - Webhooks
         - Add/Edit/Delete
 
-The free version will permit 300 downloads and 300 uploads per hour.  If you need more than this, please consider [purchasing a license](licensing.md).
+The free version will permit 300 downloads and 300 uploads per hour.  If you need more than this, please consider [purchasing a license](https://gregsdennis.github.io/Manatee.Trello/1-main/licensing/).
 
 # How it all started
 

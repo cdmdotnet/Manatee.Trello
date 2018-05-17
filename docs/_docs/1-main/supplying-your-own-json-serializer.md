@@ -4,7 +4,7 @@ category:
 order: 5
 ---
 
-You can instruct the library to use a custom JSON serializer.  The default serializer uses [Manatee.Json](https://www.nuget.org/packages/Manatee.Trello.ManateeJson/).  This is my own JSON serializer, and it's the best... because it's mine.
+You can instruct the library to use a custom JSON serializer.  The default serializer uses [Manatee.Json](https://github.com/gregsdennis/Manatee.Json).  This is my own JSON serializer, and it's the best... because it's mine.
 
 > **NOTE** Once upon a time, I had implemented a serializer based on Newtonsoft's Json.Net.  But due to several complexities of the Trello API contract, I didn't feel I was enough of a Json.Net wizard to tackle these, so I dropped it.
 

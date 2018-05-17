@@ -4,6 +4,8 @@ category: Version 2.x - API
 order: 1
 ---
 
+> **NOTICE** In migrating to this new documentation, many (if not all) of the links are broken.  Please use the sidebar on the left for navigation.
+
 # Action
 
 Documents all of the activities in Trello.

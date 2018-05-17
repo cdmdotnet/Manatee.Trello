@@ -9,10 +9,10 @@ order: 1
 Before entities can be created, Manatee.Trello must be configured using the `TrelloConfiguration`, `TrelloAuthorization`, and `TrelloProcessor` classes.  To do this, several components will be required:
 
 - Application Key & User Token - These identify the application and provide access to Trello data.  The user token is not explicitly required, but without it you will only gain read-only access to publicly available information.
-- JSON Serializer/Deserializer/Factory - The serializer & deserializer facilitate object data translation between Trello's servers and Manatee.Trello.  The factory allows Manatee.Trello to create JSON objects internally.  More information can be found on the [Json Serializer](Json) page.
-- REST Provider - This facilitates communication between Trello's servers and Manatee.Trello.  More information can be found on the [Rest Provider](Rest) page.
+- JSON Serializer/Deserializer/Factory - The serializer & deserializer facilitate object data translation between Trello's servers and Manatee.Trello.  The factory allows Manatee.Trello to create JSON objects internally.  More information can be found on the [Json Serializer](/3-v2/Supplying-your-own-JSON-serializer) page.
+- REST Provider - This facilitates communication between Trello's servers and Manatee.Trello.  More information can be found on the [Rest Provider](/3-v2/Supplying-your-own-ReSt-client) page.
 
-The `TrelloConfiguration` static class also exposes several other configuration options.  These can be found on the [Configuration](Configuration) page.
+The `TrelloConfiguration` static class also exposes several other configuration options.  These can be found on the [Configuration](/3-v2/Configuration) page.
 
 The code below gives an example of configuring Manatee.Trello.
 

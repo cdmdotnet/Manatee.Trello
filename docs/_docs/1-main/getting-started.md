@@ -22,7 +22,7 @@ There is very little configuration that is required to get Manatee.Trello going 
 
 The only values that must be provided are for authorization, which you can read about [later in this document](#authorization).
 
-Additional configuration is discussed on the [Configuration page](/configuration).
+Additional configuration is discussed on the [Configuration page](/1-main/configuration).
 
 ## Reading data
 
@@ -100,7 +100,44 @@ Trello records an entities position using a floating point number system.  If th
 
 ## Searching for entities
 
-*Under construction*
+Trello has the ability to search any board, organization, or card for certain text.  This ability is exposed through the `Search` object.  With this object, you can specify the search query, the entities in which to search, which types of entities to return, and the maximum number of each type of entity to return.
+
+The following code searches a specified board for a maximum of 100 cards which contain the text "trello" and outputs the number of cards.
+
+```csharp
+string boardId = "[a board ID]";
+string query = "trello";
+var board = factory.Board(boardId);
+var search = factory.Search(query, 100, SearchModelType.Cards, new IQueryable[] {board});
+
+await search.Refresh();
+
+Console.Writeline(search.Cards.Count());
+```
+
+> **NOTE**  All collection objects implement `IEnumerable<T>`, so the `Count()` method is the `Enumerable.Count()` method defined in System.Linq.
+
+While the context list can contain any object, only the first 24 each of boards, organizations, and cards will be included in the search.  This is a limitation from Trello, not this wrapper.  Also, the `SearchModelType` values may be combined using the bit-wise OR operator `|`.
+
+You can also build queries using the `SearchQuery` class.  This class contains a number of static methods which will produce an instance specifying what you want to search for.  There are also extension methods which allow you to append search criteria.  For example, the following code will search for:
+
+- Cards
+- On a specific board
+- Assigned to `Member.Me`
+- Containing the text "trello" in a comment, and
+- Due in the next week
+
+```csharp
+string boardId = "[a board ID]";
+var query = new SearchQuery.Member(Member.Me)
+                           .AndTextInComments("trello")
+                           .AndDueWithinWeek();
+var board = new Board(boardId);
+var results = new Search(query, 100, SearchModelType.Cards, new IQueryable[] {board});
+Console.Writeline(results.Cards.Count());
+```
+
+This query is equivalent to the string `@me comment:trello due:week`.  See [Trello's blog post](http://help.trello.com/customer/portal/articles/1145462-searching-for-cards-all-boards-) for more information on search parameters.  All of these have been implemented.
 
 ## Authorization
 

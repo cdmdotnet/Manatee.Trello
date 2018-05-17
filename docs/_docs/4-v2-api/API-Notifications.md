@@ -4,6 +4,8 @@ category: Version 2.x - API
 order: 10
 ---
 
+> **NOTICE** In migrating to this new documentation, many (if not all) of the links are broken.  Please use the sidebar on the left for navigation.
+
 # Notification
 
 Represents a notification.

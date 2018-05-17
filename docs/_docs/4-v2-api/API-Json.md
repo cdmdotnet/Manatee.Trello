@@ -4,6 +4,8 @@ category: Version 2.x - API
 order: 18
 ---
 
+> **NOTICE** In migrating to this new documentation, many (if not all) of the links are broken.  Please use the sidebar on the left for navigation.
+
 # ISerializer
 
 Defines methods required by the IRestClient to serialize an object to JSON.

@@ -6,7 +6,7 @@ order: 2
 
 There are several ways that one can configure Manatee.Trello.  This configuration is exposed via the `TrelloConfiguration` static class.  These options include:
 
-- `Log` - This allows Manatee.Trello to log communications and exceptions.  More information can be found on the [Logging](/gregsdennis/manatee.trello/wiki/Logging) page.
+- `Log` - This allows Manatee.Trello to log communications and exceptions.  More information can be found on the [Logging](#Logging) section below.
 - `Cache` - Every object caches itself on creation.  Manatee.Trello utilizes this behavior to prevent creation of two instances which represent the same object.  (It should be noted that multiple instances can be explicitly created, however.)
 - `ThrowOnTrelloError` -  This sets behavior on whether the system will throw an exception on errors received from Trello or merely log them.
 - `ExpiryTime` - This sets how long entities will consider their data valid.  After this time the data is considered stale and any access to the object will trigger a call to refresh the data.
@@ -19,7 +19,7 @@ In addition to the `TrelloConfiguration` static class, there is also a `TrelloPr
 - *Obsolete and unused as of v1.9.0* `WaitForPendingRequests` - `true` initializes the processor thread to start in the foreground, which will hold the application open until the `Shutdown()` method is called.  `false` will allow the application to close immediately, but may leave some requests unsent.  The default is `false`.
 - *Obsolete as of v1.9.0* `Shutdown()` - Signals the processor thread that the application is closing.  When this occurs, it calls for all requests to be added to the queue so that they can be processed, shortcutting the idle time configured by `TrelloConfiguration.ChangeSubmissionTime`. *As of v1.9.0, this method simply forwards its call to `Flush()`.*
 
-See [Request Processing](Requests) for more information on how requests are processed.
+See *Request Processing* on the [Getting Started](/3-v2/Getting-started) page for more information on how requests are processed.
 
 # Default configuration
 

@@ -6,7 +6,7 @@ order: 5
 
 You can instruct the library to use a custom JSON serializer.  I have supplied a serializer available on Nuget already:
 
-- [Manatee.Json](https://www.nuget.org/packages/Manatee.Trello.ManateeJson/) - This is my own JSON serializer, and it's the best... because it's mine.
+- [Manatee.Json](https://github.com/gregsdennis/Manatee.Json) - This is my own JSON serializer, and it's the best... because it's mine.
 
 > **NOTE** Once upon a time, I had created Manatee.Trello.NewtonsoftJson.  But through several complexities of the Trello API contract, I didn't feel I was enough of a Json.Net wizard to tackle these, so I dropped it.
 
