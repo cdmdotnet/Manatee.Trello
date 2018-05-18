@@ -62,10 +62,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (_updateLock)
 			{
 				var properties = Merge(data).ToList();
-				if (!properties.Any()) return;
-
-				var handler = Synchronized;
-				handler?.Invoke(properties);
 			}
 		}
 
@@ -73,6 +69,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected abstract IEnumerable<string> Merge(object newData);
 		protected abstract Task Submit(CancellationToken ct);
 
+
+		protected void OnMerged(IEnumerable<string> properties)
+		{
+			var handler = Synchronized;
+			handler?.Invoke(properties);
+		}
 		protected void CancelUpdate()
 		{
 			_cancelUpdate = true;
@@ -181,6 +183,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return Merge((TJson) newData);
 		}
+
 		protected sealed override async Task Submit(CancellationToken ct)
 		{
 			var json = GetChanges();
@@ -212,6 +215,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			if (json is IAcceptId mergable && !mergable.ValidForMerge) return Enumerable.Empty<string>();
 
+			IEnumerable<string> allProperties;
+
 			lock (_mergeLock)
 			{
 				MarkInitialized();
@@ -229,8 +234,14 @@ namespace Manatee.Trello.Internal.Synchronization
 					property.Set(Data, newValue);
 					propertyNames.Add(propertyName);
 				}
-				return propertyNames.Concat(MergeDependencies(json));
+
+				allProperties = propertyNames.Concat(MergeDependencies(json));
 			}
+
+			if (allProperties.Any())
+				OnMerged(allProperties);
+
+			return allProperties;
 		}
 		internal void ClearChanges()
 		{

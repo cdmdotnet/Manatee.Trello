@@ -119,6 +119,30 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 		}
 
 		[Test]
+		public void MergeRaisesSynchronizedEvent()
+		{
+			MockHost.MockJson();
+			MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())
+			        .Returns(new SynchronizedData());
+
+			TrelloConfiguration.RefreshThrottle = TimeSpan.FromDays(1);
+
+			var counter = 0;
+
+			var target = new SynchronizedObject
+				{
+					NewData = new SynchronizedData {Test = "one"}
+				};
+			target.Synchronized += properties => counter++;
+
+			target.Merge(new SynchronizedData {Test = "two"});
+
+			counter.Should().Be(1);
+			target.Data.Test.Should().Be("two");
+
+		}
+
+		[Test]
 		public async Task CancelUpdatePreventsSubmittingPendingChanges()
 		{
 			MockHost.MockJson();
