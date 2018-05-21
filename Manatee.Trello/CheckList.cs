@@ -175,7 +175,8 @@ namespace Manatee.Trello
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal CheckList(IJsonCheckList json, TrelloAuthorization auth)
 			: this(json.Id, auth)

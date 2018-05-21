@@ -316,7 +316,8 @@ namespace Manatee.Trello
 			_userName = new Field<string>(_context, nameof(UserName));
 			_userName.AddRule(UsernameRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Member(IJsonMember json, TrelloAuthorization auth)
 			: this(json.Id, false, auth)

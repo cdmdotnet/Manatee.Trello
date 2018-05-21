@@ -218,7 +218,9 @@ namespace Manatee.Trello
 			_zIndex.AddRule(NullableHasValueRule<int>.Instance);
 
 			_context.Merge(json);
-			TrelloConfiguration.Cache.Add(this);
+
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 
 		/// <summary>

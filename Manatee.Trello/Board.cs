@@ -398,7 +398,7 @@ namespace Manatee.Trello
 			_lastActivity = new Field<DateTime?>(_context, nameof(LastActivity));
 			_lastViewed = new Field<DateTime?>(_context, nameof(LastViewed));
 
-			if (_context.HasValidId)
+			if (_context.HasValidId && auth != TrelloAuthorization.Null)
 				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Board(IJsonBoard json, TrelloAuthorization auth)

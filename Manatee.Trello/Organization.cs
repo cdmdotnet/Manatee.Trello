@@ -236,7 +236,8 @@ namespace Manatee.Trello
 			_website = new Field<string>(_context, nameof(Website));
 			_website.AddRule(UriRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Organization(IJsonOrganization json, TrelloAuthorization auth)
 			: this(json.Id, auth)

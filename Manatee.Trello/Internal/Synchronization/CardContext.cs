@@ -133,6 +133,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(Card.Url),
 						new Property<IJsonCard, string>((d, a) => d.Url, (d, o) => d.Url = o)
 					},
+					{
+						nameof(IJsonCard.ValidForMerge),
+						new Property<IJsonCard, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o)
+					},
 				};
 		}
 		public CardContext(string id, TrelloAuthorization auth)

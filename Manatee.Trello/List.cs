@@ -213,6 +213,7 @@ namespace Manatee.Trello
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 
+			if (auth != TrelloAuthorization.Null)
 				TrelloConfiguration.Cache.Add(this);
 		}
 		internal List(IJsonList json, TrelloAuthorization auth)

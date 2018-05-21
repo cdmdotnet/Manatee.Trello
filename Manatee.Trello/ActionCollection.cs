@@ -72,11 +72,7 @@ namespace Manatee.Trello
 				AdditionalParameters["before"] = end.Value.ToUniversalTime().ToString("O");
 		}
 
-		/// <summary>
-		/// Refreshes the collection.
-		/// </summary>
-		/// <returns>A task.</returns>
-		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
+		internal sealed override async Task PerformRefresh(CancellationToken ct)
 		{
 			IncorporateLimit();
 

@@ -19,10 +19,11 @@ namespace Manatee.Trello.Internal.Synchronization
 		public abstract bool HasChanges { get; }
 
 		protected bool ManagesSubmissions { get; }
+		protected TrelloAuthorization Auth { get; }
 
 		public event Action<IEnumerable<string>> Synchronized;
 
-		protected SynchronizationContext(bool useTimer)
+		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer)
 		{
 			ManagesSubmissions = useTimer;
 			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
@@ -37,6 +38,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_semaphore = new SemaphoreSlim(1, 1);
 			_expires = DateTime.MinValue;
 			RestRequestProcessor.LastCall += _TimerElapsed;
+			Auth = auth ?? TrelloAuthorization.Default;
 		}
 		~SynchronizationContext()
 		{
@@ -48,6 +50,8 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public async Task Synchronize(CancellationToken ct)
 		{
+			if (Auth == TrelloAuthorization.Null) return;
+
 			var now = DateTime.Now;
 			if (_expires > now) return;
 
@@ -114,6 +118,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		private async Task _SubmitChanges(CancellationToken ct)
 		{
+			if (Auth == TrelloAuthorization.Null) return;
 			if (!HasChanges) return;
 
 			await Submit(ct);
@@ -130,15 +135,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public override bool HasChanges => _localChanges?.Any() ?? false;
 
-		protected TrelloAuthorization Auth { get; }
 		protected bool IsInitialized { get; private set; }
 
 		internal TJson Data { get; }
 
 		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer = true)
-			: base(useTimer)
+			: base(auth, useTimer)
 		{
-			Auth = auth ?? TrelloAuthorization.Default;
 			Data = TrelloConfiguration.JsonFactory.Create<TJson>();
 			_localChanges = new List<string>();
 			_mergeLock = new object();
@@ -231,6 +234,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					if (!overwrite && oldValue != null) continue;
 
 					var newValue = property.Get(json, Auth);
+					if (newValue == oldValue) continue;
+
 					property.Set(Data, newValue);
 					propertyNames.Add(propertyName);
 				}

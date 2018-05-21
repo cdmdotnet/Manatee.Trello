@@ -144,7 +144,8 @@ namespace Manatee.Trello
 			_state.AddRule(NullableHasValueRule<CheckItemState>.Instance);
 			_state.AddRule(EnumerationRule<CheckItemState?>.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 			_context.Synchronized += Synchronized;
