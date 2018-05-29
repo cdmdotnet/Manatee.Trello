@@ -149,9 +149,9 @@ namespace Manatee.Trello.Internal.Synchronization
 				ActionDataContext.ClearChanges();
 			}
 		}
-		protected override IEnumerable<string> MergeDependencies(IJsonAction json)
+		protected override IEnumerable<string> MergeDependencies(IJsonAction json, bool overwrite)
 		{
-			return ActionDataContext.Merge(json.Data);
+			return ActionDataContext.Merge(json.Data, overwrite);
 		}
 		protected override bool CanUpdate()
 		{

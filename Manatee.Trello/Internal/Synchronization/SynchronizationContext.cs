@@ -196,7 +196,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			await SubmitData(json, ct);
 			ClearChanges();
 		}
-		protected virtual IEnumerable<string> MergeDependencies(TJson json)
+		protected virtual IEnumerable<string> MergeDependencies(TJson json, bool overwrite)
 		{
 			return Enumerable.Empty<string>();
 		}
@@ -231,16 +231,16 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					var property = Properties[propertyName];
 					var oldValue = property.Get(Data, Auth);
-					if (!overwrite && oldValue != null) continue;
-
 					var newValue = property.Get(json, Auth);
-					if (newValue == oldValue) continue;
+					if (newValue == null && !overwrite) continue;
+					if (Equals(newValue, oldValue)) continue;
 
 					property.Set(Data, newValue);
-					propertyNames.Add(propertyName);
+					if (!property.IsHidden)
+						propertyNames.Add(propertyName);
 				}
 
-				allProperties = propertyNames.Concat(MergeDependencies(json));
+				allProperties = propertyNames.Concat(MergeDependencies(json, overwrite));
 			}
 
 			if (allProperties.Any())

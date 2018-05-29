@@ -413,8 +413,13 @@ namespace Manatee.Trello
 		/// <param name="action">The action.</param>
 		public void ApplyAction(IAction action)
 		{
-			if (action.Type != ActionType.UpdateBoard || action.Data.Board == null || action.Data.Board.Id != Id) return;
-			_context.Merge(((Board) action.Data.Board).Json);
+			var localAction = action as Action;
+
+			if (action.Type != ActionType.UpdateBoard ||
+			    localAction?.Json?.Data?.Board == null ||
+			    localAction.Json.Data.Board.Id != Id) return;
+
+			_context.Merge(localAction.Json.Data.Board, false);
 		}
 
 		/// <summary>

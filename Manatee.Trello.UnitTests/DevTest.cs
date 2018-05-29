@@ -4,7 +4,6 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Tests.Common;
 using Moq;

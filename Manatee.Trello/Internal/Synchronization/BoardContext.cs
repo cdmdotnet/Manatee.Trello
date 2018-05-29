@@ -251,18 +251,20 @@ namespace Manatee.Trello.Internal.Synchronization
 				BoardPreferencesContext.ClearChanges();
 			}
 		}
-		protected override IEnumerable<string> MergeDependencies(IJsonBoard json)
+		protected override IEnumerable<string> MergeDependencies(IJsonBoard json, bool overwrite)
 		{
-			var properties = BoardPreferencesContext.Merge(json.Prefs).ToList();
+			var properties = BoardPreferencesContext.Merge(json.Prefs, overwrite)
+			                                        .Select(p => $"{nameof(Board.Preferences)}.{p}")
+			                                        .ToList();
 
 			if (json.Actions != null)
 			{
-				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth, overwrite)));
 				properties.Add(nameof(Board.Actions));
 			}
 			if (json.Cards != null)
 			{
-				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth)));
+				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth, overwrite)));
 				properties.Add(nameof(Board.Cards));
 			}
 			if (json.CustomFields != null)
@@ -272,22 +274,22 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 			if (json.Labels != null)
 			{
-				Labels.Update(json.Labels.Select(a => a.GetFromCache<Label, IJsonLabel>(Auth)));
+				Labels.Update(json.Labels.Select(a => a.GetFromCache<Label, IJsonLabel>(Auth, overwrite)));
 				properties.Add(nameof(Board.Labels));
 			}
 			if (json.Lists != null)
 			{
-				Lists.Update(json.Lists.Select(a => a.GetFromCache<List, IJsonList>(Auth)));
+				Lists.Update(json.Lists.Select(a => a.GetFromCache<List, IJsonList>(Auth, overwrite)));
 				properties.Add(nameof(Board.Lists));
 			}
 			if (json.Members != null)
 			{
-				Members.Update(json.Members.Select(a => a.GetFromCache<Member, IJsonMember>(Auth)));
+				Members.Update(json.Members.Select(a => a.GetFromCache<Member, IJsonMember>(Auth, overwrite)));
 				properties.Add(nameof(Board.Members));
 			}
 			if (json.Memberships != null)
 			{
-				Memberships.Update(json.Memberships.Select(a => a.TryGetFromCache<BoardMembership, IJsonBoardMembership>() ??
+				Memberships.Update(json.Memberships.Select(a => a.TryGetFromCache<BoardMembership, IJsonBoardMembership>(overwrite) ??
 																new BoardMembership(a, Data.Id, Auth)));
 				properties.Add(nameof(Board.Memberships));
 			}
@@ -298,7 +300,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 			if (json.PowerUpData != null)
 			{
-				PowerUpData.Update(json.PowerUpData.Select(a => a.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth)));
+				PowerUpData.Update(json.PowerUpData.Select(a => a.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth, overwrite)));
 				properties.Add(nameof(Board.PowerUpData));
 			}
 

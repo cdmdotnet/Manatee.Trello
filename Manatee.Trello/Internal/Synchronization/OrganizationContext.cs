@@ -190,34 +190,36 @@ namespace Manatee.Trello.Internal.Synchronization
 				OrganizationPreferencesContext.ClearChanges();
 			}
 		}
-		protected override IEnumerable<string> MergeDependencies(IJsonOrganization json)
+		protected override IEnumerable<string> MergeDependencies(IJsonOrganization json, bool overwrite)
 		{
-			var properties = OrganizationPreferencesContext.Merge(json.Prefs).ToList();
+			var properties = OrganizationPreferencesContext.Merge(json.Prefs, overwrite)
+			                                               .Select(p => $"{nameof(Organization.Preferences)}.{p}")
+			                                               .ToList();
 
 			if (json.Actions != null)
 			{
-				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth, overwrite)));
 				properties.Add(nameof(Organization.Actions));
 			}
 			if (json.Boards != null)
 			{
-				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth)));
+				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth, overwrite)));
 				properties.Add(nameof(Organization.Boards));
 			}
 			if (json.Members != null)
 			{
-				Members.Update(json.Members.Select(a => a.GetFromCache<Member, IJsonMember>(Auth)));
+				Members.Update(json.Members.Select(a => a.GetFromCache<Member, IJsonMember>(Auth, overwrite)));
 				properties.Add(nameof(Organization.Members));
 			}
 			if (json.Memberships != null)
 			{
-				Memberships.Update(json.Memberships.Select(a => a.TryGetFromCache<OrganizationMembership, IJsonOrganizationMembership>() ??
+				Memberships.Update(json.Memberships.Select(a => a.TryGetFromCache<OrganizationMembership, IJsonOrganizationMembership>(overwrite) ??
 				                                                new OrganizationMembership(a, Data.Id, Auth)));
 				properties.Add(nameof(Organization.Memberships));
 			}
 			if (json.PowerUpData != null)
 			{
-				PowerUpData.Update(json.PowerUpData.Select(a => a.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth)));
+				PowerUpData.Update(json.PowerUpData.Select(a => a.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth, overwrite)));
 				properties.Add(nameof(Organization.PowerUpData));
 			}
 
