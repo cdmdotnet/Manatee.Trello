@@ -18,11 +18,7 @@ namespace Manatee.Trello
 			_context = context;
 		}
 
-		/// <summary>
-		/// Manually updates the collection's data.
-		/// </summary>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
+		internal sealed override async Task PerformRefresh(CancellationToken ct)
 		{
 			await _context.Synchronize(ct);
 			if (_context.Data.ImageScaled == null) return;

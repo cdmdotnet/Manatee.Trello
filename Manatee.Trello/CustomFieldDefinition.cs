@@ -86,7 +86,8 @@ namespace Manatee.Trello
 			_position = new Field<Position>(_context, nameof(Position));
 			_type = new Field<CustomFieldType?>(_context, nameof(Type));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 
 			// we need to enumerate the collection to cache all of the values
 			// ReSharper disable once ReturnValueOfPureMethodIsNotUsed

@@ -448,7 +448,7 @@ namespace Manatee.Trello
 			_shortUrl = new Field<string>(_context, nameof(ShortUrl));
 			_url = new Field<string>(_context, nameof(Url));
 
-			if (_context.HasValidId)
+			if (_context.HasValidId && auth != TrelloAuthorization.Null)
 				TrelloConfiguration.Cache.Add(this);
 		}
 
@@ -464,9 +464,13 @@ namespace Manatee.Trello
 		/// <param name="action">The action.</param>
 		public void ApplyAction(IAction action)
 		{
-			if (action.Type != ActionType.UpdateCard || action.Data.Card == null || action.Data.Card.Id != Id) return;
+			var localAction = action as Action;
 
-			_context.Merge(((Card) action.Data.Card).Json);
+			if (action.Type != ActionType.UpdateCard ||
+			    localAction?.Json?.Data?.Card == null ||
+			    localAction.Json?.Data?.Card.Id != Id) return;
+
+			_context.Merge(localAction.Json.Data.Card, false);
 		}
 
 		/// <summary>

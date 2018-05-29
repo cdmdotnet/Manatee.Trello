@@ -14,6 +14,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public static TrelloAuthorization Default { get; }
 
+		internal static TrelloAuthorization Null { get; } = new TrelloAuthorization();
+
 		/// <summary>
 		/// The token which identifies the application attempting to connect.
 		/// </summary>

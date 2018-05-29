@@ -180,7 +180,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_deleted = true;
 		}
 
-		protected override IEnumerable<string> MergeDependencies(IJsonAttachment json)
+		protected override IEnumerable<string> MergeDependencies(IJsonAttachment json, bool overwrite)
 		{
 			var properties = new List<string>();
 

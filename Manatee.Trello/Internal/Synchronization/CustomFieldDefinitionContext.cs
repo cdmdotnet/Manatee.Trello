@@ -60,6 +60,10 @@ namespace Manatee.Trello.Internal.Synchronization
 									if (o != null) d.Type = o;
 								})
 					},
+					{
+						nameof(IJsonCustomFieldDefinition.ValidForMerge),
+						new Property<IJsonCustomFieldDefinition, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 
@@ -109,13 +113,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			Merge(newData);
 		}
 
-		protected override IEnumerable<string> MergeDependencies(IJsonCustomFieldDefinition json)
+		protected override IEnumerable<string> MergeDependencies(IJsonCustomFieldDefinition json, bool overwrite)
 		{
 			var properties = new List<string>();
 
 			if (json.Options != null)
 			{
-				DropDownOptions.Update(json.Options.Select(a => a.GetFromCache<DropDownOption, IJsonCustomDropDownOption>(Auth)));
+				DropDownOptions.Update(json.Options.Select(a => a.GetFromCache<DropDownOption, IJsonCustomDropDownOption>(Auth, overwrite)));
 				properties.Add(nameof(Board.Cards));
 			}
 

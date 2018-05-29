@@ -76,7 +76,8 @@ namespace Manatee.Trello
 			_memberType.AddRule(EnumerationRule<OrganizationMembershipType?>.Instance);
 			_isUnconfirmed = new Field<bool?>(_context, nameof(IsUnconfirmed));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 		}

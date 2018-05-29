@@ -60,6 +60,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						new Property<IJsonCustomField, CustomFieldType>((d, a) => d.Type,
 						                                                (d, o) => d.Type = o)
 					},
+					{
+						nameof(IJsonCustomField.ValidForMerge),
+						new Property<IJsonCustomField, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 

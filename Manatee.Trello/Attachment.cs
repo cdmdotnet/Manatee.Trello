@@ -210,7 +210,8 @@ namespace Manatee.Trello
 			_position.AddRule(PositionRule.Instance);
 			_url = new Field<string>(_context, nameof(Url));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 		}

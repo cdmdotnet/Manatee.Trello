@@ -133,6 +133,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(Card.Url),
 						new Property<IJsonCard, string>((d, a) => d.Url, (d, o) => d.Url = o)
 					},
+					{
+						nameof(IJsonCard.ValidForMerge),
+						new Property<IJsonCard, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public CardContext(string id, TrelloAuthorization auth)
@@ -262,58 +266,60 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			Merge(newData);
 		}
-		protected override IEnumerable<string> MergeDependencies(IJsonCard json)
+		protected override IEnumerable<string> MergeDependencies(IJsonCard json, bool overwrite)
 		{
-			var properties = BadgesContext.Merge(json.Badges).ToList();
+			var properties = BadgesContext.Merge(json.Badges, overwrite)
+			                              .Select(p => $"{nameof(Card.Badges)}.{p}")
+			                              .ToList();
 
 			if (json.Actions != null)
 			{
-				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth, overwrite)));
 				properties.Add(nameof(Card.Actions));
 			}
 			if (json.Attachments != null)
 			{
-				Attachments.Update(json.Attachments.Select(a => a.TryGetFromCache<Attachment, IJsonAttachment>() ?? new Attachment(a, Data.Id, Auth)));
+				Attachments.Update(json.Attachments.Select(a => a.TryGetFromCache<Attachment, IJsonAttachment>(overwrite) ?? new Attachment(a, Data.Id, Auth)));
 				properties.Add(nameof(Card.Attachments));
 			}
 			if (json.CheckLists != null)
 			{
-				CheckLists.Update(json.CheckLists.Select(a => a.GetFromCache<CheckList, IJsonCheckList>(Auth)));
+				CheckLists.Update(json.CheckLists.Select(a => a.GetFromCache<CheckList, IJsonCheckList>(Auth, overwrite)));
 				properties.Add(nameof(Card.CheckLists));
 			}
 			if (json.Comments != null)
 			{
-				Comments.Update(json.Comments.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				Comments.Update(json.Comments.Select(a => a.GetFromCache<Action, IJsonAction>(Auth, overwrite)));
 				properties.Add(nameof(Card.Comments));
 			}
 			if (json.CustomFields != null)
 			{
-				CustomFields.Update(json.CustomFields.Select(a => a.GetFromCache<CustomField, IJsonCustomField>(Auth, true, Data.Id)));
+				CustomFields.Update(json.CustomFields.Select(a => a.GetFromCache<CustomField, IJsonCustomField>(Auth, overwrite, Data.Id)));
 				properties.Add(nameof(Card.CustomFields));
 			}
 			if (json.Labels != null)
 			{
-				Labels.Update(json.Labels.Select(a => a.GetFromCache<Label, IJsonLabel>(Auth)));
+				Labels.Update(json.Labels.Select(a => a.GetFromCache<Label, IJsonLabel>(Auth, overwrite)));
 				properties.Add(nameof(Card.Labels));
 			}
 			if (json.Members != null)
 			{
-				Members.Update(json.Members.Select(a => a.GetFromCache<Member, IJsonMember>(Auth)));
+				Members.Update(json.Members.Select(a => a.GetFromCache<Member, IJsonMember>(Auth, overwrite)));
 				properties.Add(nameof(Card.Members));
 			}
 			if (json.PowerUpData != null)
 			{
-				PowerUpData.Update(json.PowerUpData.Select(a => a.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth)));
+				PowerUpData.Update(json.PowerUpData.Select(a => a.GetFromCache<PowerUpData, IJsonPowerUpData>(Auth, overwrite)));
 				properties.Add(nameof(Card.PowerUpData));
 			}
 			if (json.Stickers != null)
 			{
-				Stickers.Update(json.Stickers.Select(a => a.TryGetFromCache<Sticker, IJsonSticker>() ?? new Sticker(a, Data.Id, Auth)));
+				Stickers.Update(json.Stickers.Select(a => a.TryGetFromCache<Sticker, IJsonSticker>(overwrite) ?? new Sticker(a, Data.Id, Auth)));
 				properties.Add(nameof(Card.Stickers));
 			}
 			if (json.MembersVoted != null)
 			{
-				VotingMembers.Update(json.MembersVoted.Select(a => a.GetFromCache<Member, IJsonMember>(Auth)));
+				VotingMembers.Update(json.MembersVoted.Select(a => a.GetFromCache<Member, IJsonMember>(Auth, overwrite)));
 				properties.Add(nameof(Card.VotingMembers));
 			}
 

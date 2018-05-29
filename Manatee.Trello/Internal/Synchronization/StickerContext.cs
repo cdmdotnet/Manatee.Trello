@@ -76,6 +76,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(Sticker.ZIndex),
 						new Property<IJsonSticker, int?>((d, a) => d.ZIndex, (d, o) => d.ZIndex = o)
 					},
+					{
+						nameof(IJsonSticker.ValidForMerge),
+						new Property<IJsonSticker, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public StickerContext(string id, string ownerId, TrelloAuthorization auth)

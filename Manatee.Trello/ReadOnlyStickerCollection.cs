@@ -16,11 +16,7 @@ namespace Manatee.Trello
 		internal ReadOnlyStickerCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
 
-		/// <summary>
-		/// Manually updates the collection's data.
-		/// </summary>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public sealed override async Task Refresh(CancellationToken ct = default(CancellationToken))
+		internal sealed override async Task PerformRefresh(CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Stickers, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonSticker>>(Auth, endpoint, ct, AdditionalParameters);
