@@ -117,6 +117,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(Board.ShortLink),
 						new Property<IJsonBoard, string>((d, a) => d.ShortLink, (d, o) => d.ShortLink = o)
 					},
+					{
+						nameof(IJsonBoard.ValidForMerge),
+						new Property<IJsonBoard, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public BoardContext(string id, TrelloAuthorization auth)

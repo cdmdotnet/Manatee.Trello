@@ -60,6 +60,10 @@ namespace Manatee.Trello.Internal.Synchronization
 									if (o != null) d.Type = o;
 								})
 					},
+					{
+						nameof(IJsonCustomFieldDefinition.ValidForMerge),
+						new Property<IJsonCustomFieldDefinition, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 

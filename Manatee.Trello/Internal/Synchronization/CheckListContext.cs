@@ -64,6 +64,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						new Property<IJsonCheckList, Position>((d, a) => Position.GetPosition(d.Pos),
 						                                       (d, o) => d.Pos = Position.GetJson(o))
 					},
+					{
+						nameof(IJsonCheckList.ValidForMerge),
+						new Property<IJsonCheckList, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public CheckListContext(string id, TrelloAuthorization auth)

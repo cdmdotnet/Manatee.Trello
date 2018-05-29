@@ -70,6 +70,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(List.Position),
 						new Property<IJsonList, Position>((d, a) => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))
 					},
+					{
+						nameof(IJsonList.ValidForMerge),
+						new Property<IJsonList, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public ListContext(string id, TrelloAuthorization auth)

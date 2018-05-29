@@ -59,6 +59,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(Label.Uses),
 						new Property<IJsonLabel, int?>((d, a) => d.Uses, (d, o) => d.Uses = o)
 					},
+					{
+						nameof(IJsonLabel.ValidForMerge),
+						new Property<IJsonLabel, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public LabelContext(string id, TrelloAuthorization auth)

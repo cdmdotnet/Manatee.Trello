@@ -83,6 +83,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(Organization.Website),
 						new Property<IJsonOrganization, string>((d, a) => d.Website, (d, o) => d.Website = o)
 					},
+					{
+						nameof(IJsonOrganization.ValidForMerge),
+						new Property<IJsonOrganization, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public OrganizationContext(string id, TrelloAuthorization auth)
