@@ -1,10 +1,8 @@
 ---
 title: ICustomFieldDefinition
 category: API
-order: 66
+order: 79
 ---
-
-# ICustomFieldDefinition
 
 Represents a custom field definition.
 
@@ -18,7 +16,7 @@ Represents a custom field definition.
 
 ## Properties
 
-### [IBoard](IBoard#iboard) Board { get; }
+### [IBoard](../IBoard#iboard) Board { get; }
 
 Gets the board on which the field is defined.
 
@@ -30,15 +28,15 @@ Gets an identifier that groups fields across boards.
 
 Gets or sets the name of the field.
 
-### [IDropDownOptionCollection](IDropDownOptionCollection#idropdownoptioncollection) Options { get; }
+### [IDropDownOptionCollection](../IDropDownOptionCollection#idropdownoptioncollection) Options { get; }
 
 Gets drop down options, if applicable.
 
-### [Position](Position#position) Position { get; set; }
+### [Position](../Position#position) Position { get; set; }
 
 Gets or sets the position of the field.
 
-### [CustomFieldType](CustomFieldType#customfieldtype)? Type { get; }
+### [CustomFieldType](../CustomFieldType#customfieldtype)? Type { get; }
 
 Gets the data type of the field.
 

@@ -1,10 +1,8 @@
 ---
 title: TrelloProcessor
 category: API
-order: 191
+order: 249
 ---
-
-# TrelloProcessor
 
 Provides options and control for the internal request queue processor.
 
@@ -33,5 +31,5 @@ The string content of the notification.
 
 **Parameter:** auth
 
-The [TrelloAuthorization](TrelloAuthorization#trelloauthorization) under which the notification should be processed
+The [TrelloAuthorization](../TrelloAuthorization#trelloauthorization) under which the notification should be processed
 

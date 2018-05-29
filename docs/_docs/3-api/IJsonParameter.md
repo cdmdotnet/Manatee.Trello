@@ -1,10 +1,8 @@
 ---
 title: IJsonParameter
 category: API
-order: 241
+order: 116
 ---
-
-# IJsonParameter
 
 Defines the JSON structure for a single-value parameter.
 

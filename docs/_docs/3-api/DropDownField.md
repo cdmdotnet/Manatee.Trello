@@ -1,10 +1,8 @@
 ---
 title: DropDownField
 category: API
-order: 119
+order: 48
 ---
-
-# DropDownField
 
 Represents a custom selection field instance.
 
@@ -21,7 +19,7 @@ Represents a custom selection field instance.
 
 ## Properties
 
-### [IDropDownOption](IDropDownOption#idropdownoption) Value { get; set; }
+### [IDropDownOption](../IDropDownOption#idropdownoption) Value { get; set; }
 
 Gets or sets the value.
 

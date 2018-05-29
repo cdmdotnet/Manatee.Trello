@@ -1,10 +1,8 @@
 ---
 title: CardLabelCollection
 category: API
-order: 30
+order: 29
 ---
-
-# CardLabelCollection
 
 A collection of labels for cards.
 

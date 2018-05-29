@@ -1,10 +1,8 @@
 ---
 title: IQueryable
 category: API
-order: 92
+order: 148
 ---
-
-# IQueryable
 
 Provides a marker to identify searchable types.
 

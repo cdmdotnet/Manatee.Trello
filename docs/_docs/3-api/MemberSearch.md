@@ -1,10 +1,8 @@
 ---
 title: MemberSearch
 category: API
-order: 136
+order: 191
 ---
-
-# MemberSearch
 
 Performs a search for members.
 

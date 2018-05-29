@@ -1,10 +1,8 @@
 ---
 title: RestMethod
 category: API
-order: 205
+order: 236
 ---
-
-# RestMethod
 
 Enumerates the RESTful call methods required by TrelloService.
 

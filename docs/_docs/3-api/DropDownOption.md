@@ -1,10 +1,8 @@
 ---
 title: DropDownOption
 category: API
-order: 120
+order: 49
 ---
-
-# DropDownOption
 
 Represents an option for a custom selection field.
 
@@ -19,11 +17,11 @@ Represents an option for a custom selection field.
 
 ## Properties
 
-### [LabelColor](LabelColor#labelcolor)? Color { get; }
+### [LabelColor](../LabelColor#labelcolor)? Color { get; }
 
 Gets the option color.
 
-### [ICustomFieldDefinition](ICustomFieldDefinition#icustomfielddefinition) Field { get; }
+### [ICustomFieldDefinition](../ICustomFieldDefinition#icustomfielddefinition) Field { get; }
 
 Gets the custom field definition that defines this option.
 
@@ -31,7 +29,7 @@ Gets the custom field definition that defines this option.
 
 Gets an ID on which matching can be performed.
 
-### [Position](Position#position) Position { get; }
+### [Position](../Position#position) Position { get; }
 
 Gets the option position.
 
@@ -41,7 +39,7 @@ Gets the option text.
 
 ## Methods
 
-### static [IDropDownOption](IDropDownOption#idropdownoption) Create(string text, LabelColor color)
+### static [IDropDownOption](../IDropDownOption#idropdownoption) Create(string text, LabelColor color)
 
 Creates a new drop down option.
 

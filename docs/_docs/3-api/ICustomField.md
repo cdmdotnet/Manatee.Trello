@@ -1,12 +1,10 @@
 ---
 title: ICustomField
 category: API
-order: 64
+order: 77
 ---
 
-# ICustomField
-
-Provides a base for [ICustomField`1](ICustomField`1#icustomfield1).
+Provides a base for [ICustomField`1](../ICustomField`1#icustomfield1).
 
 **Assembly:** Manatee.Trello.dll
 
@@ -18,7 +16,7 @@ Provides a base for [ICustomField`1](ICustomField`1#icustomfield1).
 
 ## Properties
 
-### [ICustomFieldDefinition](ICustomFieldDefinition#icustomfielddefinition) Definition { get; }
+### [ICustomFieldDefinition](../ICustomFieldDefinition#icustomfielddefinition) Definition { get; }
 
 Gets the custom field definition.
 

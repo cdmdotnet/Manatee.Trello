@@ -1,10 +1,8 @@
 ---
 title: IRestClientProvider
 category: API
-order: 199
+order: 162
 ---
-
-# IRestClientProvider
 
 Defines methods required to create an instance of IRestClient.
 
@@ -18,13 +16,13 @@ Defines methods required to create an instance of IRestClient.
 
 ## Properties
 
-### [IRestRequestProvider](IRestRequestProvider#irestrequestprovider) RequestProvider { get; }
+### [IRestRequestProvider](../IRestRequestProvider#irestrequestprovider) RequestProvider { get; }
 
 Creates requests for the client.
 
 ## Methods
 
-### [IRestClient](IRestClient#irestclient) CreateRestClient(string apiBaseUrl)
+### [IRestClient](../IRestClient#irestclient) CreateRestClient(string apiBaseUrl)
 
 Creates an instance of IRestClient.
 

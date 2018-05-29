@@ -1,10 +1,8 @@
 ---
 title: DefaultJsonFactory
 category: API
-order: 206
+order: 45
 ---
-
-# DefaultJsonFactory
 
 Creates instances of JSON interfaces.
 
@@ -19,7 +17,7 @@ Creates instances of JSON interfaces.
 
 ## Properties
 
-### static [DefaultJsonFactory](DefaultJsonFactory#defaultjsonfactory) Instance { get; }
+### static [DefaultJsonFactory](../DefaultJsonFactory#defaultjsonfactory) Instance { get; }
 
 Provides a singleton instance.
 

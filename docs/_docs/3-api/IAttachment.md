@@ -1,10 +1,8 @@
 ---
 title: IAttachment
 category: API
-order: 41
+order: 54
 ---
-
-# IAttachment
 
 Represents an attachment to a card.
 
@@ -30,7 +28,7 @@ Gets the creation date of the attachment.
 
 Gets the date and time the attachment was added to a card.
 
-### [WebColor](WebColor#webcolor) EdgeColor { get; }
+### [WebColor](../WebColor#webcolor) EdgeColor { get; }
 
 Gets the color used as a border for the attachment preview on the card.
 
@@ -38,9 +36,9 @@ Gets the color used as a border for the attachment preview on the card.
 
 Gets whether the attachment was uploaded data or attached by URI.
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
-Gets the [Member](IAttachment#imember-member--get-) who added the attachment.
+Gets the [Member](../IAttachment#imember-member--get-) who added the attachment.
 
 ### string MimeType { get; }
 
@@ -50,7 +48,7 @@ Gets the MIME type of the attachment.
 
 Gets or sets the name of the attachment.
 
-### [Position](Position#position) Position { get; set; }
+### [Position](../Position#position) Position { get; set; }
 
 Gets or sets the attachment&#39;s position.
 

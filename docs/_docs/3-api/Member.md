@@ -1,10 +1,8 @@
 ---
 title: Member
 category: API
-order: 131
+order: 186
 ---
-
-# Member
 
 Represents a member.
 
@@ -21,7 +19,7 @@ Represents a member.
 
 ### Member(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [Member](Member#member) object.
+Creates a new instance of the [Member](../Member#member) object.
 
 **Parameter:** id
 
@@ -29,7 +27,7 @@ The member&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
 
 #### Remarks
 
@@ -45,7 +43,7 @@ Specifies which fields should be downloaded.
 
 Gets the collection of actions performed by the member.
 
-### [AvatarSource](AvatarSource#avatarsource)? AvatarSource { get; }
+### [AvatarSource](../AvatarSource#avatarsource)? AvatarSource { get; }
 
 Gets the source type for the member&#39;s avatar.
 
@@ -93,7 +91,7 @@ Gets a string which can be used in comments or descriptions to mention another u
 
 Gets the collection of organizations to which the member belongs.
 
-### [MemberStatus](MemberStatus#memberstatus)? Status { get; }
+### [MemberStatus](../MemberStatus#memberstatus)? Status { get; }
 
 Gets the member&#39;s online status.
 

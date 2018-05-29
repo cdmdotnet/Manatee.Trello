@@ -1,10 +1,8 @@
 ---
 title: IJsonBoardMembership
 category: API
-order: 217
+order: 92
 ---
-
-# IJsonBoardMembership
 
 Defines the JSON structure for the BoardMembership object.
 
@@ -22,11 +20,11 @@ Defines the JSON structure for the BoardMembership object.
 
 Gets or sets whether the membership is deactivated.
 
-### [IJsonMember](IJsonMember#ijsonmember) Member { get; set; }
+### [IJsonMember](../IJsonMember#ijsonmember) Member { get; set; }
 
 Gets or sets the ID of the member.
 
-### [BoardMembershipType](BoardMembershipType#boardmembershiptype)? MemberType { get; set; }
+### [BoardMembershipType](../BoardMembershipType#boardmembershiptype)? MemberType { get; set; }
 
 Gets or sets the membership type.
 

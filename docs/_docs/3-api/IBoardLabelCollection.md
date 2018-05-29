@@ -1,10 +1,8 @@
 ---
 title: IBoardLabelCollection
 category: API
-order: 47
+order: 60
 ---
-
-# IBoardLabelCollection
 
 A collection of labels for boards.
 

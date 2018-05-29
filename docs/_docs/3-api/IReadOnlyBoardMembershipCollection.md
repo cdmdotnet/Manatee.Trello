@@ -1,10 +1,8 @@
 ---
 title: IReadOnlyBoardMembershipCollection
 category: API
-order: 95
+order: 151
 ---
-
-# IReadOnlyBoardMembershipCollection
 
 A read-only collection of board memberships.
 
@@ -18,7 +16,7 @@ A read-only collection of board memberships.
 
 ## Properties
 
-### [IBoardMembership](IBoardMembership#iboardmembership) this[string key] { get; }
+### [IBoardMembership](../IBoardMembership#iboardmembership) this[string key] { get; }
 
 Retrieves a membership which matches the supplied key.
 

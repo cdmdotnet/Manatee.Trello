@@ -1,12 +1,10 @@
 ---
 title: IOrganizationMembership
 category: API
-order: 86
+order: 142
 ---
 
-# IOrganizationMembership
-
-Associates a [Member](IOrganizationMembership#imember-member--get-) to an [Organization](Organization#organization) and indicates any permissions the member has in the organization.
+Associates a [Member](../IOrganizationMembership#imember-member--get-) to an [Organization](../Organization#organization) and indicates any permissions the member has in the organization.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -26,11 +24,11 @@ Gets the creation date of the membership.
 
 Gets whether the member has accepted the invitation to join Trello.
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets the member.
 
-### [OrganizationMembershipType](OrganizationMembershipType#organizationmembershiptype)? MemberType { get; set; }
+### [OrganizationMembershipType](../OrganizationMembershipType#organizationmembershiptype)? MemberType { get; set; }
 
 Gets the membership&#39;s permission level.
 

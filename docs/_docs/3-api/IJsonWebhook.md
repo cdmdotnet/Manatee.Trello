@@ -1,10 +1,8 @@
 ---
 title: IJsonWebhook
 category: API
-order: 249
+order: 124
 ---
-
-# IJsonWebhook
 
 Defines the JSON structure for the Webhook object.
 

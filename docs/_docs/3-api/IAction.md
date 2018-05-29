@@ -1,10 +1,8 @@
 ---
 title: IAction
 category: API
-order: 39
+order: 52
 ---
-
-# IAction
 
 Documents all of the activities in Trello.
 
@@ -22,11 +20,11 @@ Documents all of the activities in Trello.
 
 Gets the creation date of the action.
 
-### [IMember](IMember#imember) Creator { get; }
+### [IMember](../IMember#imember) Creator { get; }
 
 Gets the member who performed the action.
 
-### [IActionData](IActionData#iactiondata) Data { get; }
+### [IActionData](../IActionData#iactiondata) Data { get; }
 
 Gets any data associated with the action.
 
@@ -34,7 +32,7 @@ Gets any data associated with the action.
 
 Gets the date and time at which the action was performed.
 
-### [ActionType](ActionType#actiontype)? Type { get; }
+### [ActionType](../ActionType#actiontype)? Type { get; }
 
 Gets the type of action.
 

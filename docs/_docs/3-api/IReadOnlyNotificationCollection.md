@@ -1,10 +1,8 @@
 ---
 title: IReadOnlyNotificationCollection
 category: API
-order: 102
+order: 158
 ---
-
-# IReadOnlyNotificationCollection
 
 A read-only collection of notifications.
 

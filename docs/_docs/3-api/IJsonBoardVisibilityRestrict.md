@@ -1,10 +1,8 @@
 ---
 title: IJsonBoardVisibilityRestrict
 category: API
-order: 220
+order: 95
 ---
-
-# IJsonBoardVisibilityRestrict
 
 Defines the JSON structure for the BoardVisibilityRestrict object.
 
@@ -18,15 +16,15 @@ Defines the JSON structure for the BoardVisibilityRestrict object.
 
 ## Properties
 
-### [OrganizationBoardVisibility](OrganizationBoardVisibility#organizationboardvisibility)? Org { get; set; }
+### [OrganizationBoardVisibility](../OrganizationBoardVisibility#organizationboardvisibility)? Org { get; set; }
 
 Gets or sets the visibility of Org-visible boards owned by the organization.
 
-### [OrganizationBoardVisibility](OrganizationBoardVisibility#organizationboardvisibility)? Private { get; set; }
+### [OrganizationBoardVisibility](../OrganizationBoardVisibility#organizationboardvisibility)? Private { get; set; }
 
 Gets or sets the visibility of private boards owned by the organization.
 
-### [OrganizationBoardVisibility](OrganizationBoardVisibility#organizationboardvisibility)? Public { get; set; }
+### [OrganizationBoardVisibility](../OrganizationBoardVisibility#organizationboardvisibility)? Public { get; set; }
 
 Gets or sets the visibility of publicly-visible boards owned by the organization.
 

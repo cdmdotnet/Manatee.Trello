@@ -1,10 +1,8 @@
 ---
 title: MemberPreferences
 category: API
-order: 135
+order: 190
 ---
-
-# MemberPreferences
 
 Represents preferences for a member.
 

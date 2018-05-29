@@ -1,10 +1,8 @@
 ---
 title: MemberSearchResult
 category: API
-order: 137
+order: 192
 ---
-
-# MemberSearchResult
 
 Represents a result from a member search.
 
@@ -19,7 +17,7 @@ Represents a result from a member search.
 
 ## Properties
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets the returned member.
 

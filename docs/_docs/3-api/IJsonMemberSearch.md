@@ -1,10 +1,8 @@
 ---
 title: IJsonMemberSearch
 category: API
-order: 234
+order: 109
 ---
-
-# IJsonMemberSearch
 
 Defines the JSON structure for a member search.
 
@@ -18,7 +16,7 @@ Defines the JSON structure for a member search.
 
 ## Properties
 
-### [IJsonBoard](IJsonBoard#ijsonboard) Board { get; set; }
+### [IJsonBoard](../IJsonBoard#ijsonboard) Board { get; set; }
 
 Gets or sets a board within which the search should run.
 
@@ -34,7 +32,7 @@ Gets or sets a list of members.
 
 Gets or sets whether only organization members should be returned.
 
-### [IJsonOrganization](IJsonOrganization#ijsonorganization) Organization { get; set; }
+### [IJsonOrganization](../IJsonOrganization#ijsonorganization) Organization { get; set; }
 
 Gets or sets an organization within which the search should run.
 

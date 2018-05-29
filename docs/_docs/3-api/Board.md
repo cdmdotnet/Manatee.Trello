@@ -1,10 +1,8 @@
 ---
 title: Board
 category: API
-order: 9
+order: 8
 ---
-
-# Board
 
 Represents a board.
 
@@ -21,7 +19,7 @@ Represents a board.
 
 ### Board(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [Board](Board#board) object.
+Creates a new instance of the [Board](../Board#board) object.
 
 **Parameter:** id
 
@@ -29,7 +27,7 @@ The board&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
 
 ## Properties
 
@@ -53,7 +51,7 @@ This property only exposes unarchived cards.
 
 Gets the creation date of the board.
 
-### [ICustomFieldDefinitionCollection](ICustomFieldDefinitionCollection#icustomfielddefinitioncollection) CustomFields { get; }
+### [ICustomFieldDefinitionCollection](../ICustomFieldDefinitionCollection#icustomfielddefinitioncollection) CustomFields { get; }
 
 Gets the collection of custom fields defined on the board.
 
@@ -81,7 +79,7 @@ Gets or sets wheterh this board is pinned.
 
 Gets or sets whether the current member is subscribed to this board.
 
-### [IList](IList#ilist) this[string key] { get; }
+### [IList](../IList#ilist) this[string key] { get; }
 
 Retrieves a list which matches the supplied key.
 
@@ -97,7 +95,7 @@ The matching list, or null if none found.
 
 Matches on list ID and name. Comparison is case-sensitive.
 
-### [IList](IList#ilist) this[int index] { get; }
+### [IList](../IList#ilist) this[int index] { get; }
 
 Retrieves the list at the specified index.
 
@@ -113,7 +111,7 @@ The index.
 
 The list.
 
-### [IBoardLabelCollection](IBoardLabelCollection#iboardlabelcollection) Labels { get; }
+### [IBoardLabelCollection](../IBoardLabelCollection#iboardlabelcollection) Labels { get; }
 
 Gets the collection of labels for this board.
 
@@ -125,7 +123,7 @@ Gets the date of the board&#39;s most recent activity.
 
 Gets the date when the board was most recently viewed.
 
-### [IListCollection](IListCollection#ilistcollection) Lists { get; }
+### [IListCollection](../IListCollection#ilistcollection) Lists { get; }
 
 Gets the collection of lists on this board.
 
@@ -137,7 +135,7 @@ This property only exposes unarchived lists.
 
 Gets the collection of members on this board.
 
-### [IBoardMembershipCollection](IBoardMembershipCollection#iboardmembershipcollection) Memberships { get; }
+### [IBoardMembershipCollection](../IBoardMembershipCollection#iboardmembershipcollection) Memberships { get; }
 
 Gets the collection of members and their privileges on this board.
 
@@ -145,7 +143,7 @@ Gets the collection of members and their privileges on this board.
 
 Gets or sets the board&#39;s name.
 
-### [IOrganization](IOrganization#iorganization) Organization { get; set; }
+### [IOrganization](../IOrganization#iorganization) Organization { get; set; }
 
 Gets or sets the organization to which this board belongs.
 
@@ -153,7 +151,7 @@ Gets or sets the organization to which this board belongs.
 
 Setting null makes the board&#39;s first admin the owner.
 
-### [IBoardPersonalPreferences](IBoardPersonalPreferences#iboardpersonalpreferences) PersonalPreferences { get; }
+### [IBoardPersonalPreferences](../IBoardPersonalPreferences#iboardpersonalpreferences) PersonalPreferences { get; }
 
 Gets the set of preferences for the board.
 
@@ -161,11 +159,11 @@ Gets the set of preferences for the board.
 
 Gets specific data regarding power-ups.
 
-### [IPowerUpCollection](IPowerUpCollection#ipowerupcollection) PowerUps { get; }
+### [IPowerUpCollection](../IPowerUpCollection#ipowerupcollection) PowerUps { get; }
 
 Gets metadata about any active power-ups.
 
-### [IBoardPreferences](IBoardPreferences#iboardpreferences) Preferences { get; }
+### [IBoardPreferences](../IBoardPreferences#iboardpreferences) Preferences { get; }
 
 Gets the set of preferences for the board.
 

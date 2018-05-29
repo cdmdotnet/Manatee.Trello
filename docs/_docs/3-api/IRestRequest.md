@@ -1,10 +1,8 @@
 ---
 title: IRestRequest
 category: API
-order: 200
+order: 163
 ---
-
-# IRestRequest
 
 Defines properties and methods required to make RESTful requests.
 
@@ -18,7 +16,7 @@ Defines properties and methods required to make RESTful requests.
 
 ## Properties
 
-### [RestMethod](RestMethod#restmethod) Method { get; set; }
+### [RestMethod](../RestMethod#restmethod) Method { get; set; }
 
 Gets and sets the method to be used in the call.
 

@@ -1,10 +1,8 @@
 ---
 title: IJsonNotification
 category: API
-order: 235
+order: 110
 ---
-
-# IJsonNotification
 
 Defines the JSON structure for the Notification object.
 
@@ -18,7 +16,7 @@ Defines the JSON structure for the Notification object.
 
 ## Properties
 
-### [IJsonNotificationData](IJsonNotificationData#ijsonnotificationdata) Data { get; set; }
+### [IJsonNotificationData](../IJsonNotificationData#ijsonnotificationdata) Data { get; set; }
 
 Gets or sets the data associated with the notification. Contents depend upon the notification&#39;s type.
 
@@ -26,11 +24,11 @@ Gets or sets the data associated with the notification. Contents depend upon the
 
 Gets or sets the date on which the notification was created.
 
-### [IJsonMember](IJsonMember#ijsonmember) MemberCreator { get; set; }
+### [IJsonMember](../IJsonMember#ijsonmember) MemberCreator { get; set; }
 
 Gets or sets the ID of the member whose action spawned the notification.
 
-### [NotificationType](NotificationType#notificationtype)? Type { get; set; }
+### [NotificationType](../NotificationType#notificationtype)? Type { get; set; }
 
 Gets or sets the notification&#39;s type.
 

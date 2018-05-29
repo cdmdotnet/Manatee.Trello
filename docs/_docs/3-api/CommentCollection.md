@@ -1,12 +1,10 @@
 ---
 title: CommentCollection
 category: API
-order: 38
+order: 37
 ---
 
-# CommentCollection
-
-A collection of [Action](Action#action)s of types [ActionType.CommentCard](ActionType#static-actiontype-commentcard) and [ActionType.CopyCommentCard](ActionType#static-actiontype-copycommentcard).
+A collection of [Action](../Action#action)s of types [ActionType.CommentCard](../ActionType#static-actiontype-commentcard) and [ActionType.CopyCommentCard](../ActionType#static-actiontype-copycommentcard).
 
 **Assembly:** Manatee.Trello.dll
 
@@ -33,5 +31,5 @@ The content of the comment.
 
 (Optional) A cancellation token for async processing.
 
-**Returns:** The [IAction](IAction#iaction) associated with the comment.
+**Returns:** The [IAction](../IAction#iaction) associated with the comment.
 

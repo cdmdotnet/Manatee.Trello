@@ -1,10 +1,8 @@
 ---
-title: IReadOnlyCollection`1
+title: IReadOnlyCollection&lt;T&gt;
 category: API
-order: 99
+order: 155
 ---
-
-# IReadOnlyCollection&lt;T&gt;
 
 Provides base functionality for a read-only collection.
 

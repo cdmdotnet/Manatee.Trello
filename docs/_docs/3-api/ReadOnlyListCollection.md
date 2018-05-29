@@ -1,10 +1,8 @@
 ---
 title: ReadOnlyListCollection
 category: API
-order: 170
+order: 226
 ---
-
-# ReadOnlyListCollection
 
 A read-only collection of lists.
 
@@ -20,7 +18,7 @@ A read-only collection of lists.
 
 ## Properties
 
-### [IList](IList#ilist) this[string key] { get; }
+### [IList](../IList#ilist) this[string key] { get; }
 
 Retrieves a list which matches the supplied key.
 

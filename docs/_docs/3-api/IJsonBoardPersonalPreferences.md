@@ -1,10 +1,8 @@
 ---
 title: IJsonBoardPersonalPreferences
 category: API
-order: 218
+order: 93
 ---
-
-# IJsonBoardPersonalPreferences
 
 Defines the JSON structure for the BoardPersonalPreferences object.
 
@@ -18,11 +16,11 @@ Defines the JSON structure for the BoardPersonalPreferences object.
 
 ## Properties
 
-### [IJsonList](IJsonList#ijsonlist) EmailList { get; set; }
+### [IJsonList](../IJsonList#ijsonlist) EmailList { get; set; }
 
 Gets or sets the list for new cards when they are added via email.
 
-### [IJsonPosition](IJsonPosition#ijsonposition) EmailPosition { get; set; }
+### [IJsonPosition](../IJsonPosition#ijsonposition) EmailPosition { get; set; }
 
 Gets or sets the position of new cards when they are added via email.
 

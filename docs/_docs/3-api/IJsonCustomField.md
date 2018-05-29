@@ -1,10 +1,8 @@
 ---
 title: IJsonCustomField
 category: API
-order: 226
+order: 101
 ---
-
-# IJsonCustomField
 
 Defines the JSON structure for a custom field instance.
 
@@ -26,7 +24,7 @@ Gets or sets the checked.
 
 Gets or sets the date.
 
-### [IJsonCustomFieldDefinition](IJsonCustomFieldDefinition#ijsoncustomfielddefinition) Definition { get; set; }
+### [IJsonCustomFieldDefinition](../IJsonCustomFieldDefinition#ijsoncustomfielddefinition) Definition { get; set; }
 
 Gets or sets the custom field definition.
 
@@ -34,7 +32,7 @@ Gets or sets the custom field definition.
 
 Gets or sets the number.
 
-### [IJsonCustomDropDownOption](IJsonCustomDropDownOption#ijsoncustomdropdownoption) Selected { get; set; }
+### [IJsonCustomDropDownOption](../IJsonCustomDropDownOption#ijsoncustomdropdownoption) Selected { get; set; }
 
 Gets or sets the selected drop down option.
 
@@ -42,7 +40,7 @@ Gets or sets the selected drop down option.
 
 Gets or sets the text.
 
-### [CustomFieldType](CustomFieldType#customfieldtype) Type { get; set; }
+### [CustomFieldType](../CustomFieldType#customfieldtype) Type { get; set; }
 
 Gets or sets the data type.
 

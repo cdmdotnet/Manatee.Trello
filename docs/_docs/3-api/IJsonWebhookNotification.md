@@ -1,10 +1,8 @@
 ---
 title: IJsonWebhookNotification
 category: API
-order: 250
+order: 125
 ---
-
-# IJsonWebhookNotification
 
 Defines the JSON structure for the WebhookNotification object.
 
@@ -18,7 +16,7 @@ Defines the JSON structure for the WebhookNotification object.
 
 ## Properties
 
-### [IJsonAction](IJsonAction#ijsonaction) Action { get; set; }
+### [IJsonAction](../IJsonAction#ijsonaction) Action { get; set; }
 
 Gets or sets the action associated with the notification.
 

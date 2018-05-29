@@ -1,10 +1,8 @@
 ---
 title: IJsonFactory
 category: API
-order: 228
+order: 103
 ---
-
-# IJsonFactory
 
 Creates instances of JSON interfaces.
 

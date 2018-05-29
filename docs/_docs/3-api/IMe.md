@@ -1,10 +1,8 @@
 ---
 title: IMe
 category: API
-order: 75
+order: 131
 ---
-
-# IMe
 
 Represents the current member.
 
@@ -18,7 +16,7 @@ Represents the current member.
 
 ## Properties
 
-### [AvatarSource](AvatarSource#avatarsource)? AvatarSource { get; set; }
+### [AvatarSource](../AvatarSource#avatarsource)? AvatarSource { get; set; }
 
 Gets or sets the source type for the member&#39;s avatar.
 
@@ -26,7 +24,7 @@ Gets or sets the source type for the member&#39;s avatar.
 
 Gets or sets the member&#39;s bio.
 
-### [IBoardCollection](IBoardCollection#iboardcollection) Boards { get; }
+### [IBoardCollection](../IBoardCollection#iboardcollection) Boards { get; }
 
 Gets the collection of boards owned by the member.
 
@@ -42,15 +40,15 @@ Gets or sets the member&#39;s full name.
 
 Gets or sets the member&#39;s initials.
 
-### [IReadOnlyNotificationCollection](IReadOnlyNotificationCollection#ireadonlynotificationcollection) Notifications { get; }
+### [IReadOnlyNotificationCollection](../IReadOnlyNotificationCollection#ireadonlynotificationcollection) Notifications { get; }
 
 Gets the collection of notificaitons for the member.
 
-### [IOrganizationCollection](IOrganizationCollection#iorganizationcollection) Organizations { get; }
+### [IOrganizationCollection](../IOrganizationCollection#iorganizationcollection) Organizations { get; }
 
 Gets the collection of organizations to which the member belongs.
 
-### [IMemberPreferences](IMemberPreferences#imemberpreferences) Preferences { get; }
+### [IMemberPreferences](../IMemberPreferences#imemberpreferences) Preferences { get; }
 
 Gets the set of preferences for the member.
 

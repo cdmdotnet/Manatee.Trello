@@ -1,12 +1,10 @@
 ---
 title: DefaultRestClientProvider
 category: API
-order: 197
+order: 47
 ---
 
-# DefaultRestClientProvider
-
-Implements [IRestClientProvider](IRestClientProvider#irestclientprovider) using ASP.Net&#39;s System.Net.Http.HttpClient.
+Implements [IRestClientProvider](../IRestClientProvider#irestclientprovider) using ASP.Net&#39;s System.Net.Http.HttpClient.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -19,25 +17,25 @@ Implements [IRestClientProvider](IRestClientProvider#irestclientprovider) using 
 
 ## Properties
 
-### static [DefaultRestClientProvider](DefaultRestClientProvider#defaultrestclientprovider) Instance { get; }
+### static [DefaultRestClientProvider](../DefaultRestClientProvider#defaultrestclientprovider) Instance { get; }
 
-Singleton instance of [DefaultRestClientProvider](DefaultRestClientProvider#defaultrestclientprovider).
+Singleton instance of [DefaultRestClientProvider](../DefaultRestClientProvider#defaultrestclientprovider).
 
-### [IRestRequestProvider](IRestRequestProvider#irestrequestprovider) RequestProvider { get; }
+### [IRestRequestProvider](../IRestRequestProvider#irestrequestprovider) RequestProvider { get; }
 
 Creates requests for the client.
 
 ## Methods
 
-### [IRestClient](IRestClient#irestclient) CreateRestClient(string apiBaseUrl)
+### [IRestClient](../IRestClient#irestclient) CreateRestClient(string apiBaseUrl)
 
-Creates an instance of [IRestClient](IRestClient#irestclient).
+Creates an instance of [IRestClient](../IRestClient#irestclient).
 
 **Parameter:** apiBaseUrl
 
 The base URL to be used by the client
 
-**Returns:** An instance of [IRestClient](IRestClient#irestclient).
+**Returns:** An instance of [IRestClient](../IRestClient#irestclient).
 
 ### void Dispose()
 

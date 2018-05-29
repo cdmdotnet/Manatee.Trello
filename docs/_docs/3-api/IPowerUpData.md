@@ -1,10 +1,8 @@
 ---
 title: IPowerUpData
 category: API
-order: 91
+order: 147
 ---
-
-# IPowerUpData
 
 Represents the data associated with a power-up.
 

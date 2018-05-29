@@ -1,10 +1,8 @@
 ---
 title: ICommentCollection
 category: API
-order: 63
+order: 76
 ---
-
-# ICommentCollection
 
 A collection of comment actions.
 
@@ -30,5 +28,5 @@ The content of the comment.
 
 (Optional) A cancellation token for async processing.
 
-**Returns:** The [IAction](IAction#iaction) associated with the comment.
+**Returns:** The [IAction](../IAction#iaction) associated with the comment.
 

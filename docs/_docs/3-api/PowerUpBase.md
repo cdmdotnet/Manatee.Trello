@@ -1,10 +1,8 @@
 ---
 title: PowerUpBase
 category: API
-order: 155
+order: 210
 ---
-
-# PowerUpBase
 
 Provides a base implementation for Trello Power-Ups.
 
@@ -47,7 +45,7 @@ Refreshes the power-up data.
 
 ### string ToString()
 
-Returns the [Name](PowerUpBase#string-name--get-)
+Returns the [Name](../PowerUpBase#string-name--get-)
 
 **Returns:** A string that represents the current object.
 

@@ -1,10 +1,8 @@
 ---
 title: IJsonTokenPermission
 category: API
-order: 248
+order: 123
 ---
-
-# IJsonTokenPermission
 
 Defines the JSON structure for the TokenPermission object.
 
@@ -22,7 +20,7 @@ Defines the JSON structure for the TokenPermission object.
 
 Gets or sets the ID of the model to which a token grants permissions.
 
-### [TokenModelType](TokenModelType#tokenmodeltype)? ModelType { get; set; }
+### [TokenModelType](../TokenModelType#tokenmodeltype)? ModelType { get; set; }
 
 Gets or sets the type of the model.
 

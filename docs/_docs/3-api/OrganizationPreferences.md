@@ -1,10 +1,8 @@
 ---
 title: OrganizationPreferences
 category: API
-order: 153
+order: 208
 ---
-
-# OrganizationPreferences
 
 Represents the preferences for an organization.
 
@@ -35,19 +33,19 @@ Gets or sets whether external members are disabled.
 
 Still researching what this means.
 
-### [OrganizationBoardVisibility](OrganizationBoardVisibility#organizationboardvisibility)? OrganizationBoardVisibility { get; set; }
+### [OrganizationBoardVisibility](../OrganizationBoardVisibility#organizationboardvisibility)? OrganizationBoardVisibility { get; set; }
 
 Gets or sets the visibility of organization-viewable boards owned by the organization.
 
-### [OrganizationPermissionLevel](OrganizationPermissionLevel#organizationpermissionlevel)? PermissionLevel { get; set; }
+### [OrganizationPermissionLevel](../OrganizationPermissionLevel#organizationpermissionlevel)? PermissionLevel { get; set; }
 
 Gets or sets the general visibility of the organization.
 
-### [OrganizationBoardVisibility](OrganizationBoardVisibility#organizationboardvisibility)? PrivateBoardVisibility { get; set; }
+### [OrganizationBoardVisibility](../OrganizationBoardVisibility#organizationboardvisibility)? PrivateBoardVisibility { get; set; }
 
 Gets or sets the visibility of private-viewable boards owned by the organization.
 
-### [OrganizationBoardVisibility](OrganizationBoardVisibility#organizationboardvisibility)? PublicBoardVisibility { get; set; }
+### [OrganizationBoardVisibility](../OrganizationBoardVisibility#organizationboardvisibility)? PublicBoardVisibility { get; set; }
 
 Gets or sets the visibility of public-viewable boards owned by the organizations.
 

@@ -1,10 +1,8 @@
 ---
 title: IJsonCard
 category: API
-order: 222
+order: 97
 ---
-
-# IJsonCard
 
 Defines the JSON structure for the Card object.
 
@@ -26,15 +24,15 @@ Gets or sets a collection of actions.
 
 Gets or sets a collection of attachments.
 
-### [IJsonBadges](IJsonBadges#ijsonbadges) Badges { get; set; }
+### [IJsonBadges](../IJsonBadges#ijsonbadges) Badges { get; set; }
 
 Gets or set the badges displayed on the card cover.
 
-### [IJsonBoard](IJsonBoard#ijsonboard) Board { get; set; }
+### [IJsonBoard](../IJsonBoard#ijsonboard) Board { get; set; }
 
 Gets or sets the ID of the board which contains the card.
 
-### [IJsonCard](IJsonCard#ijsoncard) CardSource { get; set; }
+### [IJsonCard](../IJsonCard#ijsoncard) CardSource { get; set; }
 
 Gets or sets a card to be used as a template during creation.
 
@@ -94,7 +92,7 @@ Gets or sets the card&#39;s short ID.
 
 Gets or sets the labels assigned to this card.
 
-### [IJsonList](IJsonList#ijsonlist) List { get; set; }
+### [IJsonList](../IJsonList#ijsonlist) List { get; set; }
 
 Gets or sets the ID of the list which contains the card.
 
@@ -114,7 +112,7 @@ Gets or sets a collection of members who have voted for the card.
 
 Gets or sets the card&#39;s name
 
-### [IJsonPosition](IJsonPosition#ijsonposition) Pos { get; set; }
+### [IJsonPosition](../IJsonPosition#ijsonposition) Pos { get; set; }
 
 Gets or sets the card&#39;s position.
 

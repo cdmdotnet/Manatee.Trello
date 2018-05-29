@@ -1,10 +1,8 @@
 ---
 title: OrganizationFilter
 category: API
-order: 148
+order: 203
 ---
-
-# OrganizationFilter
 
 Enumerates the filter options for organization collections.
 

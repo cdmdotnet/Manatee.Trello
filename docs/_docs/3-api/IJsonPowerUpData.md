@@ -1,10 +1,8 @@
 ---
 title: IJsonPowerUpData
 category: API
-order: 244
+order: 119
 ---
-
-# IJsonPowerUpData
 
 Defines the JSON structure for the PowerUpData object.
 

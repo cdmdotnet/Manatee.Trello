@@ -1,10 +1,8 @@
 ---
 title: IJsonToken
 category: API
-order: 247
+order: 122
 ---
-
-# IJsonToken
 
 Defines the JSON structure for the Token object.
 
@@ -30,7 +28,7 @@ Gets or sets the date the token will expire, if any.
 
 Gets or sets the identifier of the application which requested the token.
 
-### [IJsonMember](IJsonMember#ijsonmember) Member { get; set; }
+### [IJsonMember](../IJsonMember#ijsonmember) Member { get; set; }
 
 Gets or sets the ID of the member who issued the token.
 

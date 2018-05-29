@@ -1,10 +1,8 @@
 ---
 title: IJsonAttachment
 category: API
-order: 213
+order: 88
 ---
-
-# IJsonAttachment
 
 Defines the JSON structure for the Attachment object.
 
@@ -34,7 +32,7 @@ Gets or sets the border color of the attachment preview on the card.
 
 ?
 
-### [IJsonMember](IJsonMember#ijsonmember) Member { get; set; }
+### [IJsonMember](../IJsonMember#ijsonmember) Member { get; set; }
 
 Gets or sets the ID of the member who created the attachment.
 
@@ -46,7 +44,7 @@ Gets or sets the type of attachment.
 
 Gets or sets the name of the attachment.
 
-### [IJsonPosition](IJsonPosition#ijsonposition) Pos { get; set; }
+### [IJsonPosition](../IJsonPosition#ijsonposition) Pos { get; set; }
 
 Gets or sets the attachment&#39;s position.
 

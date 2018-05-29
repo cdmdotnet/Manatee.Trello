@@ -1,10 +1,8 @@
 ---
 title: MemberCollection
 category: API
-order: 132
+order: 187
 ---
-
-# MemberCollection
 
 A collection of members.
 

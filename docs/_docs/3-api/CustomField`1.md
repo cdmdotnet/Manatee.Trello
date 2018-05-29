@@ -1,10 +1,8 @@
 ---
-title: CustomField`1
+title: CustomField&lt;T&gt;
 category: API
-order: 113
+order: 39
 ---
-
-# CustomField&lt;T&gt;
 
 Represents a custom field instance.
 

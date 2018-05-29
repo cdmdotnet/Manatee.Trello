@@ -1,10 +1,8 @@
 ---
 title: ReadOnlyDropDownOptionCollection
 category: API
-order: 169
+order: 225
 ---
-
-# ReadOnlyDropDownOptionCollection
 
 A read-only collection of custom drop down options.
 

@@ -1,10 +1,8 @@
 ---
 title: ICard
 category: API
-order: 55
+order: 68
 ---
-
-# ICard
 
 Represents a card.
 
@@ -24,25 +22,25 @@ Gets the collection of actions performed on this card.
 
 #### Remarks
 
-By default imposed by Trello, this contains actions of types [ActionType.CommentCard](ActionType#static-actiontype-commentcard) and .
+By default imposed by Trello, this contains actions of types [ActionType.CommentCard](../ActionType#static-actiontype-commentcard) and .
 
-### [IAttachmentCollection](IAttachmentCollection#iattachmentcollection) Attachments { get; }
+### [IAttachmentCollection](../IAttachmentCollection#iattachmentcollection) Attachments { get; }
 
 Gets the collection of attachments contained in the card.
 
-### [IBadges](IBadges#ibadges) Badges { get; }
+### [IBadges](../IBadges#ibadges) Badges { get; }
 
 Gets the badges summarizing the content of the card.
 
-### [IBoard](IBoard#iboard) Board { get; }
+### [IBoard](../IBoard#iboard) Board { get; }
 
 Gets the board to which the card belongs.
 
-### [ICheckListCollection](ICheckListCollection#ichecklistcollection) CheckLists { get; }
+### [ICheckListCollection](../ICheckListCollection#ichecklistcollection) CheckLists { get; }
 
 Gets the collection of checklists contained in the card.
 
-### [ICommentCollection](ICommentCollection#icommentcollection) Comments { get; }
+### [ICommentCollection](../ICommentCollection#icommentcollection) Comments { get; }
 
 Gets the collection of comments made on the card.
 
@@ -68,13 +66,13 @@ Gets or sets whether the card is archived.
 
 ### bool? IsComplete { get; set; }
 
-Gets or sets whether the card is complete. Associated with [DueDate](ICard#datetime-duedate--get-set-).
+Gets or sets whether the card is complete. Associated with [DueDate](../ICard#datetime-duedate--get-set-).
 
 ### bool? IsSubscribed { get; set; }
 
 Gets or sets whether the current member is subscribed to the card.
 
-### [ICheckList](ICheckList#ichecklist) this[string key] { get; }
+### [ICheckList](../ICheckList#ichecklist) this[string key] { get; }
 
 Retrieves a check list which matches the supplied key.
 
@@ -90,7 +88,7 @@ The matching check list, or null if none found.
 
 Matches on CheckList.Id and CheckList.Name. Comparison is case-sensitive.
 
-### [ICheckList](ICheckList#ichecklist) this[int index] { get; }
+### [ICheckList](../ICheckList#ichecklist) this[int index] { get; }
 
 Retrieves the check list at the specified index.
 
@@ -106,7 +104,7 @@ The index.
 
 The check list.
 
-### [ICardLabelCollection](ICardLabelCollection#icardlabelcollection) Labels { get; }
+### [ICardLabelCollection](../ICardLabelCollection#icardlabelcollection) Labels { get; }
 
 Gets the collection of labels on the card.
 
@@ -114,11 +112,11 @@ Gets the collection of labels on the card.
 
 Gets the most recent date of activity on the card.
 
-### [IList](IList#ilist) List { get; set; }
+### [IList](../IList#ilist) List { get; set; }
 
 Gets or sets the list to the card belongs.
 
-### [IMemberCollection](IMemberCollection#imembercollection) Members { get; }
+### [IMemberCollection](../IMemberCollection#imembercollection) Members { get; }
 
 Gets the collection of members who are assigned to the card.
 
@@ -126,7 +124,7 @@ Gets the collection of members who are assigned to the card.
 
 Gets or sets the card&#39;s name.
 
-### [Position](Position#position) Position { get; set; }
+### [Position](../Position#position) Position { get; set; }
 
 Gets or sets the card&#39;s position.
 
@@ -146,7 +144,7 @@ Gets the card&#39;s short URL.
 
 Because this value does not change, it can be used as a permalink.
 
-### [ICardStickerCollection](ICardStickerCollection#icardstickercollection) Stickers { get; }
+### [ICardStickerCollection](../ICardStickerCollection#icardstickercollection) Stickers { get; }
 
 Gets the collection of stickers which appear on the card.
 
@@ -156,7 +154,7 @@ Gets the card&#39;s full URL.
 
 #### Remarks
 
-Trello will likely change this value as the name changes. You can use [ShortUrl](ICard#string-shorturl--get-) for permalinks.
+Trello will likely change this value as the name changes. You can use [ShortUrl](../ICard#string-shorturl--get-) for permalinks.
 
 ### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IMember, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] VotingMembers { get; }
 

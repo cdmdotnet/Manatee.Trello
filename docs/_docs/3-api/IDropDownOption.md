@@ -1,10 +1,8 @@
 ---
 title: IDropDownOption
 category: API
-order: 68
+order: 82
 ---
-
-# IDropDownOption
 
 Represents a custom field drop down option.
 
@@ -18,15 +16,15 @@ Represents a custom field drop down option.
 
 ## Properties
 
-### [LabelColor](LabelColor#labelcolor)? Color { get; }
+### [LabelColor](../LabelColor#labelcolor)? Color { get; }
 
 Gets the option color.
 
-### [ICustomFieldDefinition](ICustomFieldDefinition#icustomfielddefinition) Field { get; }
+### [ICustomFieldDefinition](../ICustomFieldDefinition#icustomfielddefinition) Field { get; }
 
 Gets the custom field definition that defines this option.
 
-### [Position](Position#position) Position { get; }
+### [Position](../Position#position) Position { get; }
 
 Gets the option position.
 

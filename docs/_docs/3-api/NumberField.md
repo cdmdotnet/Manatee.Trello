@@ -1,10 +1,8 @@
 ---
 title: NumberField
 category: API
-order: 144
+order: 199
 ---
-
-# NumberField
 
 Represents a custom numeric field.
 

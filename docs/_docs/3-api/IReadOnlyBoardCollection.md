@@ -1,10 +1,8 @@
 ---
 title: IReadOnlyBoardCollection
 category: API
-order: 94
+order: 150
 ---
-
-# IReadOnlyBoardCollection
 
 A read-only collectin of boards.
 
@@ -18,7 +16,7 @@ A read-only collectin of boards.
 
 ## Properties
 
-### [IBoard](IBoard#iboard) this[string key] { get; }
+### [IBoard](../IBoard#iboard) this[string key] { get; }
 
 Retrieves a board which matches the supplied key.
 

@@ -1,10 +1,8 @@
 ---
 title: MemberExtensions
 category: API
-order: 133
+order: 188
 ---
-
-# MemberExtensions
 
 Extension methods for members.
 
@@ -27,5 +25,5 @@ Gets all open cards for a member.
 
 The member.
 
-**Returns:** A [ReadOnlyCardCollection](ReadOnlyCardCollection#readonlycardcollection) containing the member&#39;s cards.
+**Returns:** A [ReadOnlyCardCollection](../ReadOnlyCardCollection#readonlycardcollection) containing the member&#39;s cards.
 

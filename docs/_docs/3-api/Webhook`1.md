@@ -1,14 +1,12 @@
 ---
-title: Webhook`1
+title: Webhook&lt;T&gt;
 category: API
-order: 196
+order: 254
 ---
-
-# Webhook&lt;T&gt;
 
 Represents a webhook.
 
-**Type Parameter:** T : [ICanWebhook](ICanWebhook#icanwebhook)
+**Type Parameter:** T : [ICanWebhook](../ICanWebhook#icanwebhook)
 
 The type of object to which the webhook is attached.
 
@@ -25,7 +23,7 @@ The type of object to which the webhook is attached.
 
 ### Webhook&lt;T&gt;(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [Webhook`1](Webhook`1#webhook1) object for a webhook which has already been registered with Trello.
+Creates a new instance of the [Webhook`1](../Webhook`1#webhook1) object for a webhook which has already been registered with Trello.
 
 **Parameter:** id
 
@@ -33,7 +31,7 @@ The id.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
 
 ## Properties
 

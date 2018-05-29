@@ -1,10 +1,8 @@
 ---
 title: MemberFilter
 category: API
-order: 134
+order: 189
 ---
-
-# MemberFilter
 
 Enumerates the filter options for member collections.
 
@@ -35,5 +33,5 @@ Filters to only owners.
 
 #### Remarks
 
-Per @doug at Trello regarding [MemberFilter.Admins](MemberFilter#admins) == [MemberFilter.Owners](MemberFilter#owners): &quot;Turns out owners was once used by the iOS app and we only have it there for backwards compatibility. They are the same.&quot;
+Per @doug at Trello regarding [MemberFilter.Admins](../MemberFilter#admins) == [MemberFilter.Owners](../MemberFilter#owners): &quot;Turns out owners was once used by the iOS app and we only have it there for backwards compatibility. They are the same.&quot;
 

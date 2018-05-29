@@ -1,10 +1,8 @@
 ---
 title: IMemberSearchResult
 category: API
-order: 80
+order: 136
 ---
-
-# IMemberSearchResult
 
 Represents a result from a member search.
 
@@ -18,7 +16,7 @@ Represents a result from a member search.
 
 ## Properties
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets the returned member.
 

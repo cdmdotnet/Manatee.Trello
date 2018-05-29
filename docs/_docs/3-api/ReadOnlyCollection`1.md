@@ -1,10 +1,8 @@
 ---
-title: ReadOnlyCollection`1
+title: ReadOnlyCollection&lt;T&gt;
 category: API
-order: 166
+order: 222
 ---
-
-# ReadOnlyCollection&lt;T&gt;
 
 Provides base functionality for a read-only collection.
 

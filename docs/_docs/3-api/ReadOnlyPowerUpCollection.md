@@ -1,10 +1,8 @@
 ---
 title: ReadOnlyPowerUpCollection
 category: API
-order: 175
+order: 231
 ---
-
-# ReadOnlyPowerUpCollection
 
 A read-only collection of power-ups.
 
@@ -20,5 +18,5 @@ A read-only collection of power-ups.
 
 #### Remarks
 
-If a power-up hasn&#39;t been registered, it will be instantiated using [UnknownPowerUp](UnknownPowerUp#unknownpowerup).
+If a power-up hasn&#39;t been registered, it will be instantiated using [UnknownPowerUp](../UnknownPowerUp#unknownpowerup).
 

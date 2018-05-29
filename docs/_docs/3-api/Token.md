@@ -1,10 +1,8 @@
 ---
 title: Token
 category: API
-order: 184
+order: 242
 ---
-
-# Token
 
 Represents a user token.
 
@@ -21,7 +19,7 @@ Represents a user token.
 
 ### Token(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [Token](Token#token) object.
+Creates a new instance of the [Token](../Token#token) object.
 
 **Parameter:** id
 
@@ -29,7 +27,7 @@ The token&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
 
 #### Remarks
 
@@ -45,7 +43,7 @@ Specifies which fields should be downloaded.
 
 Gets the name of the application associated with the token.
 
-### [ITokenPermission](ITokenPermission#itokenpermission) BoardPermissions { get; }
+### [ITokenPermission](../ITokenPermission#itokenpermission) BoardPermissions { get; }
 
 Gets the permissions on boards granted by the token.
 
@@ -65,15 +63,15 @@ Gets the date and time the token expires, if any.
 
 Gets the token&#39;s ID.
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets the member for which the token was issued.
 
-### [ITokenPermission](ITokenPermission#itokenpermission) MemberPermissions { get; }
+### [ITokenPermission](../ITokenPermission#itokenpermission) MemberPermissions { get; }
 
 Gets the permissions on members granted by the token.
 
-### [ITokenPermission](ITokenPermission#itokenpermission) OrganizationPermissions { get; }
+### [ITokenPermission](../ITokenPermission#itokenpermission) OrganizationPermissions { get; }
 
 Gets the permissions on organizations granted by the token.
 

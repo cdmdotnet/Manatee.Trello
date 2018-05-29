@@ -1,10 +1,8 @@
 ---
 title: ISerializer
 category: API
-order: 251
+order: 169
 ---
-
-# ISerializer
 
 Defines methods required by the IRestClient to serialize an object to JSON.
 

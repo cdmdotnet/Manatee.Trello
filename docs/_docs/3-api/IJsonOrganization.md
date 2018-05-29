@@ -1,10 +1,8 @@
 ---
 title: IJsonOrganization
 category: API
-order: 238
+order: 113
 ---
-
-# IJsonOrganization
 
 Defines the JSON structure for the Organization object.
 
@@ -62,7 +60,7 @@ Gets or sets a collection of power-up data.
 
 Enumerates the powerups obtained by the organization.
 
-### [IJsonOrganizationPreferences](IJsonOrganizationPreferences#ijsonorganizationpreferences) Prefs { get; set; }
+### [IJsonOrganizationPreferences](../IJsonOrganizationPreferences#ijsonorganizationpreferences) Prefs { get; set; }
 
 Gets or sets a set of preferences for the organization.
 

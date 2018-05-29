@@ -1,10 +1,8 @@
 ---
 title: IMemberCollection
 category: API
-order: 77
+order: 133
 ---
-
-# IMemberCollection
 
 A collection of members.
 

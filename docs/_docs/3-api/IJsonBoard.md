@@ -1,10 +1,8 @@
 ---
 title: IJsonBoard
 category: API
-order: 215
+order: 90
 ---
-
-# IJsonBoard
 
 Defines the JSON structure for the Board object.
 
@@ -22,7 +20,7 @@ Defines the JSON structure for the Board object.
 
 Gets or sets a list of actions.
 
-### [IJsonBoard](IJsonBoard#ijsonboard) BoardSource { get; set; }
+### [IJsonBoard](../IJsonBoard#ijsonboard) BoardSource { get; set; }
 
 Gets or sets a board to be used as a template.
 
@@ -70,7 +68,7 @@ Gets or sets a list of memberships.
 
 Gets or sets the board&#39;s name.
 
-### [IJsonOrganization](IJsonOrganization#ijsonorganization) Organization { get; set; }
+### [IJsonOrganization](../IJsonOrganization#ijsonorganization) Organization { get; set; }
 
 Gets or sets the ID of the organization, if any, to which this board belongs.
 
@@ -86,7 +84,7 @@ Gets or sets a list of power-up data.
 
 Gets or sets a list of power-ups.
 
-### [IJsonBoardPreferences](IJsonBoardPreferences#ijsonboardpreferences) Prefs { get; set; }
+### [IJsonBoardPreferences](../IJsonBoardPreferences#ijsonboardpreferences) Prefs { get; set; }
 
 Gets or sets a set of preferences for the board.
 

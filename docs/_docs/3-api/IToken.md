@@ -1,10 +1,8 @@
 ---
 title: IToken
 category: API
-order: 108
+order: 171
 ---
-
-# IToken
 
 Represents a user token.
 
@@ -22,7 +20,7 @@ Represents a user token.
 
 Gets the name of the application associated with the token.
 
-### [ITokenPermission](ITokenPermission#itokenpermission) BoardPermissions { get; }
+### [ITokenPermission](../ITokenPermission#itokenpermission) BoardPermissions { get; }
 
 Gets the permissions on boards granted by the token.
 
@@ -38,15 +36,15 @@ Gets the date and time the token was created.
 
 Gets the date and time the token expires, if any.
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets the member for which the token was issued.
 
-### [ITokenPermission](ITokenPermission#itokenpermission) MemberPermissions { get; }
+### [ITokenPermission](../ITokenPermission#itokenpermission) MemberPermissions { get; }
 
 Gets the permissions on members granted by the token.
 
-### [ITokenPermission](ITokenPermission#itokenpermission) OrganizationPermissions { get; }
+### [ITokenPermission](../ITokenPermission#itokenpermission) OrganizationPermissions { get; }
 
 Gets the permissions on organizations granted by the token.
 

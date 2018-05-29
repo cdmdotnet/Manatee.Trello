@@ -1,10 +1,8 @@
 ---
 title: ICheckItem
 category: API
-order: 59
+order: 72
 ---
-
-# ICheckItem
 
 Represents a checklist item.
 
@@ -18,7 +16,7 @@ Represents a checklist item.
 
 ## Properties
 
-### [ICheckList](ICheckList#ichecklist) CheckList { get; set; }
+### [ICheckList](../ICheckList#ichecklist) CheckList { get; set; }
 
 Gets or sets the checklist to which the item belongs.
 
@@ -34,11 +32,11 @@ Gets the creation date of the checklist item.
 
 Gets or sets the checklist item&#39;s name.
 
-### [Position](Position#position) Position { get; set; }
+### [Position](../Position#position) Position { get; set; }
 
 Gets or sets the checklist item&#39;s position.
 
-### [CheckItemState](CheckItemState#checkitemstate)? State { get; set; }
+### [CheckItemState](../CheckItemState#checkitemstate)? State { get; set; }
 
 Gets or sets the checklist item&#39;s state.
 

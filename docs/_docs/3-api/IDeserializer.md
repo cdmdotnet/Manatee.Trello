@@ -1,10 +1,8 @@
 ---
 title: IDeserializer
 category: API
-order: 209
+order: 81
 ---
-
-# IDeserializer
 
 Defines methods required by the IRestClient to deserialize a response from JSON to an object.
 

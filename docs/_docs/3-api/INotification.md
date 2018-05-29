@@ -1,10 +1,8 @@
 ---
 title: INotification
 category: API
-order: 82
+order: 138
 ---
-
-# INotification
 
 Represents a notification.
 
@@ -22,11 +20,11 @@ Represents a notification.
 
 Gets the creation date of the notification.
 
-### [IMember](IMember#imember) Creator { get; }
+### [IMember](../IMember#imember) Creator { get; }
 
 Gets the member who performed the action which created the notification.
 
-### [INotificationData](INotificationData#inotificationdata) Data { get; }
+### [INotificationData](../INotificationData#inotificationdata) Data { get; }
 
 Gets any data associated with the notification.
 
@@ -38,7 +36,7 @@ Gets the date and teim at which the notification was issued.
 
 Gets or sets whether the notification has been read.
 
-### [NotificationType](NotificationType#notificationtype)? Type { get; }
+### [NotificationType](../NotificationType#notificationtype)? Type { get; }
 
 Gets the type of notification.
 

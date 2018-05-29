@@ -1,10 +1,8 @@
 ---
 title: BoardMembership
 category: API
-order: 18
+order: 17
 ---
-
-# BoardMembership
 
 Represents the permission level a member has on a board.
 
@@ -31,11 +29,11 @@ Gets the membership definition&#39;s ID.
 
 Gets whether the member has accepted the invitation to join Trello.
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets the member.
 
-### [BoardMembershipType](BoardMembershipType#boardmembershiptype)? MemberType { get; set; }
+### [BoardMembershipType](../BoardMembershipType#boardmembershiptype)? MemberType { get; set; }
 
 Gets the membership&#39;s permission level.
 

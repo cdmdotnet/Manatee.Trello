@@ -1,10 +1,8 @@
 ---
 title: IJsonList
 category: API
-order: 231
+order: 106
 ---
-
-# IJsonList
 
 Defines the JSON structure for the List object.
 
@@ -22,7 +20,7 @@ Defines the JSON structure for the List object.
 
 Gets or sets a collection of actions.
 
-### [IJsonBoard](IJsonBoard#ijsonboard) Board { get; set; }
+### [IJsonBoard](../IJsonBoard#ijsonboard) Board { get; set; }
 
 Gets or sets the ID of the board which contains the list.
 
@@ -38,7 +36,7 @@ Gets or sets whether the list is archived.
 
 Gets or sets the name of the list.
 
-### [IJsonPosition](IJsonPosition#ijsonposition) Pos { get; set; }
+### [IJsonPosition](../IJsonPosition#ijsonposition) Pos { get; set; }
 
 Gets or sets the position of the list.
 

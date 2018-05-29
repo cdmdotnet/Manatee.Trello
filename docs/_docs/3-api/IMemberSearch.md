@@ -1,10 +1,8 @@
 ---
 title: IMemberSearch
 category: API
-order: 79
+order: 135
 ---
-
-# IMemberSearch
 
 Performs a search for members.
 

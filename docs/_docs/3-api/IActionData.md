@@ -1,10 +1,8 @@
 ---
 title: IActionData
 category: API
-order: 40
+order: 53
 ---
-
-# IActionData
 
 Exposes any data associated with an action.
 
@@ -18,7 +16,7 @@ Exposes any data associated with an action.
 
 ## Properties
 
-### [IAttachment](IAttachment#iattachment) Attachment { get; }
+### [IAttachment](../IAttachment#iattachment) Attachment { get; }
 
 Gets an assocated attachment.
 
@@ -27,7 +25,7 @@ Gets an assocated attachment.
 - AddAttachmentToCard
 - DeleteAttachmentFromCard
 
-### [IBoard](IBoard#iboard) Board { get; }
+### [IBoard](../IBoard#iboard) Board { get; }
 
 Gets an assocated board.
 
@@ -44,7 +42,7 @@ Gets an assocated board.
 - UnconfirmedBoardInvitation
 - UpdateBoard
 
-### [IBoard](IBoard#iboard) BoardSource { get; }
+### [IBoard](../IBoard#iboard) BoardSource { get; }
 
 Gets an assocated board.
 
@@ -52,7 +50,7 @@ Gets an assocated board.
 
 - CopyBoard
 
-### [IBoard](IBoard#iboard) BoardTarget { get; }
+### [IBoard](../IBoard#iboard) BoardTarget { get; }
 
 Gets an assocated board.
 
@@ -60,7 +58,7 @@ Gets an assocated board.
 
 - CopyBoardx
 
-### [ICard](ICard#icard) Card { get; }
+### [ICard](../ICard#icard) Card { get; }
 
 Gets an assocated card.
 
@@ -87,7 +85,7 @@ Gets an assocated card.
 - UpdateCardName
 - UpdateCheckItemStateOnCard
 
-### [ICard](ICard#icard) CardSource { get; }
+### [ICard](../ICard#icard) CardSource { get; }
 
 Gets an assocated card.
 
@@ -95,7 +93,7 @@ Gets an assocated card.
 
 - CopyCard
 
-### [ICheckItem](ICheckItem#icheckitem) CheckItem { get; }
+### [ICheckItem](../ICheckItem#icheckitem) CheckItem { get; }
 
 Gets an assocated checklist item.
 
@@ -104,7 +102,7 @@ Gets an assocated checklist item.
 - ConvertToCardFromCheckItem
 - UpdateCheckItemStateOnCard
 
-### [ICheckList](ICheckList#ichecklist) CheckList { get; }
+### [ICheckList](../ICheckList#ichecklist) CheckList { get; }
 
 Gets an assocated checklist.
 
@@ -114,7 +112,7 @@ Gets an assocated checklist.
 - RemoveChecklistFromCard
 - UpdateChecklist
 
-### [ICustomFieldDefinition](ICustomFieldDefinition#icustomfielddefinition) CustomField { get; }
+### [ICustomFieldDefinition](../ICustomFieldDefinition#icustomfielddefinition) CustomField { get; }
 
 Gets an associated custom field definition.
 
@@ -123,7 +121,7 @@ Gets an associated custom field definition.
 - UpdateCustomField
 - UpdateCustomFieldItem
 
-### [ILabel](ILabel#ilabel) Label { get; }
+### [ILabel](../ILabel#ilabel) Label { get; }
 
 Gets the associated label.
 
@@ -139,7 +137,7 @@ Gets the associated label.
 
 Gets the date/time a comment was last edited.
 
-### [IList](IList#ilist) List { get; }
+### [IList](../IList#ilist) List { get; }
 
 Gets an assocated list.
 
@@ -152,7 +150,7 @@ Gets an assocated list.
 - UpdateListClosed
 - UpdateListName
 
-### [IList](IList#ilist) ListAfter { get; }
+### [IList](../IList#ilist) ListAfter { get; }
 
 Gets the current list.
 
@@ -162,9 +160,9 @@ Gets the current list.
 
 #### Remarks
 
-For some action types, this information may be in the [List](IActionData#ilist-list--get-) or [OldList](IActionData#ilist-oldlist--get-) properties.
+For some action types, this information may be in the [List](../IActionData#ilist-list--get-) or [OldList](../IActionData#ilist-oldlist--get-) properties.
 
-### [IList](IList#ilist) ListBefore { get; }
+### [IList](../IList#ilist) ListBefore { get; }
 
 Gets the previous list.
 
@@ -174,9 +172,9 @@ Gets the previous list.
 
 #### Remarks
 
-For some action types, this information may be in the [List](IActionData#ilist-list--get-) or [OldList](IActionData#ilist-oldlist--get-) properties.
+For some action types, this information may be in the [List](../IActionData#ilist-list--get-) or [OldList](../IActionData#ilist-oldlist--get-) properties.
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets an assocated member.
 
@@ -200,7 +198,7 @@ Gets the previous description.
 - UpdateCard
 - UpdateCardDesc
 
-### [IList](IList#ilist) OldList { get; }
+### [IList](../IList#ilist) OldList { get; }
 
 Gets the previous list.
 
@@ -211,9 +209,9 @@ Gets the previous list.
 
 #### Remarks
 
-For some action types, this information may be in the [ListAfter](IActionData#ilist-listafter--get-) or [ListBefore](IActionData#ilist-listbefore--get-) properties.
+For some action types, this information may be in the [ListAfter](../IActionData#ilist-listafter--get-) or [ListBefore](../IActionData#ilist-listbefore--get-) properties.
 
-### [Position](Position#position) OldPosition { get; }
+### [Position](../Position#position) OldPosition { get; }
 
 Gets the previous position.
 
@@ -232,7 +230,7 @@ Gets the previous text value.
 - UpdateCard
 - CommentCard
 
-### [IOrganization](IOrganization#iorganization) Organization { get; }
+### [IOrganization](../IOrganization#iorganization) Organization { get; }
 
 Gets an associated organization.
 
@@ -247,7 +245,7 @@ Gets an associated organization.
 - UnconfirmedOrganizationInvitation
 - UpdateOrganization
 
-### [IPowerUp](IPowerUp#ipowerup) PowerUp { get; }
+### [IPowerUp](../IPowerUp#ipowerup) PowerUp { get; }
 
 Gets an associated power-up.
 

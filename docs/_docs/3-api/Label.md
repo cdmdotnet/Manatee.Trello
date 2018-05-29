@@ -1,10 +1,8 @@
 ---
 title: Label
 category: API
-order: 123
+order: 178
 ---
-
-# Label
 
 A label.
 
@@ -23,11 +21,11 @@ A label.
 
 Specifies which fields should be downloaded.
 
-### [IBoard](IBoard#iboard) Board { get; }
+### [IBoard](../IBoard#iboard) Board { get; }
 
 Gets the board on which the label is defined.
 
-### [LabelColor](LabelColor#labelcolor)? Color { get; set; }
+### [LabelColor](../LabelColor#labelcolor)? Color { get; set; }
 
 Gets and sets the color. Use null for no color.
 

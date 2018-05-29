@@ -1,12 +1,10 @@
 ---
 title: ActionType
 category: API
-order: 4
+order: 3
 ---
 
-# ActionType
-
-Enumerates known types of [Action](Action#action)s.
+Enumerates known types of [Action](../Action#action)s.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -20,235 +18,235 @@ Enumerates known types of [Action](Action#action)s.
 
 ## Fields
 
-### static [ActionType](ActionType#actiontype) AddAdminToBoard
+### static [ActionType](../ActionType#actiontype) AddAdminToBoard
 
-Indicates a [Member](Member#member) was added to a [Board](Board#board).
+Indicates a [Member](../Member#member) was added to a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) AddAdminToOrganization
+### static [ActionType](../ActionType#actiontype) AddAdminToOrganization
 
-Indicates a [Member](Member#member) was added to a [Organization](Organization#organization).
+Indicates a [Member](../Member#member) was added to a [Organization](../Organization#organization).
 
-### static [ActionType](ActionType#actiontype) AddAttachmentToCard
+### static [ActionType](../ActionType#actiontype) AddAttachmentToCard
 
-Indicates an [Attachment](Attachment#attachment) was added to a [Card](Card#card).
+Indicates an [Attachment](../Attachment#attachment) was added to a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) AddBoardsPinnedToMember
+### static [ActionType](../ActionType#actiontype) AddBoardsPinnedToMember
 
-Indicates a [Member](Member#member) pinned a [Board](Board#board).
+Indicates a [Member](../Member#member) pinned a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) AddChecklistToCard
+### static [ActionType](../ActionType#actiontype) AddChecklistToCard
 
-Indicates a [CheckList](CheckList#checklist) was added to a [Card](Card#card).
+Indicates a [CheckList](../CheckList#checklist) was added to a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) AddLabelToCard
+### static [ActionType](../ActionType#actiontype) AddLabelToCard
 
-Indicates a [Label](Label#label) was added to a [Card](Card#card).
+Indicates a [Label](../Label#label) was added to a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) AddMemberToBoard
+### static [ActionType](../ActionType#actiontype) AddMemberToBoard
 
-Indicates a [Member](Member#member) was added to a [Board](Board#board).
+Indicates a [Member](../Member#member) was added to a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) AddMemberToCard
+### static [ActionType](../ActionType#actiontype) AddMemberToCard
 
-Indicates a [Member](Member#member) was added to a [Card](Card#card).
+Indicates a [Member](../Member#member) was added to a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) AddMemberToOrganization
+### static [ActionType](../ActionType#actiontype) AddMemberToOrganization
 
-Indicates a [Member](Member#member) was added to an [Organization](Organization#organization).
+Indicates a [Member](../Member#member) was added to an [Organization](../Organization#organization).
 
-### static [ActionType](ActionType#actiontype) AddToOrganizationBoard
+### static [ActionType](../ActionType#actiontype) AddToOrganizationBoard
 
-Indicates a [Organization](Organization#organization) was added to a [Board](Board#board).
+Indicates a [Organization](../Organization#organization) was added to a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) CommentCard
+### static [ActionType](../ActionType#actiontype) CommentCard
 
-Indicates a comment was added to a [Card](Card#card).
+Indicates a comment was added to a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) ConvertToCardFromCheckItem
+### static [ActionType](../ActionType#actiontype) ConvertToCardFromCheckItem
 
-Indicates a [CheckList](CheckList#checklist) item was converted to [Card](Card#card).
+Indicates a [CheckList](../CheckList#checklist) item was converted to [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) CopyBoard
+### static [ActionType](../ActionType#actiontype) CopyBoard
 
-Indicates a [Board](Board#board) was copied.
+Indicates a [Board](../Board#board) was copied.
 
-### static [ActionType](ActionType#actiontype) CopyCard
+### static [ActionType](../ActionType#actiontype) CopyCard
 
-Indicates a [Card](Card#card) was copied.
+Indicates a [Card](../Card#card) was copied.
 
-### static [ActionType](ActionType#actiontype) CopyChecklist
+### static [ActionType](../ActionType#actiontype) CopyChecklist
 
-Indicates a [CheckList](CheckList#checklist) was copied.
+Indicates a [CheckList](../CheckList#checklist) was copied.
 
-### static [ActionType](ActionType#actiontype) CopyCommentCard
+### static [ActionType](../ActionType#actiontype) CopyCommentCard
 
-Indicates a comment was copied from one [Card](Card#card) to another.
+Indicates a comment was copied from one [Card](../Card#card) to another.
 
-### static [ActionType](ActionType#actiontype) CreateBoard
+### static [ActionType](../ActionType#actiontype) CreateBoard
 
-Indicates a [Board](Board#board) was created.
+Indicates a [Board](../Board#board) was created.
 
-### static [ActionType](ActionType#actiontype) CreateBoardInvitation
+### static [ActionType](../ActionType#actiontype) CreateBoardInvitation
 
-Indicates a [Member](Member#member) was invided to a [Board](Board#board).
+Indicates a [Member](../Member#member) was invided to a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) CreateBoardPreference
+### static [ActionType](../ActionType#actiontype) CreateBoardPreference
 
-Indicates a [Board](Board#board) preference was created.
+Indicates a [Board](../Board#board) preference was created.
 
-### static [ActionType](ActionType#actiontype) CreateCard
+### static [ActionType](../ActionType#actiontype) CreateCard
 
-Indicates a [Card](Card#card) was created.
+Indicates a [Card](../Card#card) was created.
 
-### static [ActionType](ActionType#actiontype) CreateChecklist
+### static [ActionType](../ActionType#actiontype) CreateChecklist
 
-Indicates a [CheckList](CheckList#checklist) was created.
+Indicates a [CheckList](../CheckList#checklist) was created.
 
-### static [ActionType](ActionType#actiontype) CreateLabel
+### static [ActionType](../ActionType#actiontype) CreateLabel
 
-Indicates a [Label](Label#label) was created.
+Indicates a [Label](../Label#label) was created.
 
-### static [ActionType](ActionType#actiontype) CreateList
+### static [ActionType](../ActionType#actiontype) CreateList
 
-Indicates a [List](List#list) was created.
+Indicates a [List](../List#list) was created.
 
-### static [ActionType](ActionType#actiontype) CreateOrganization
+### static [ActionType](../ActionType#actiontype) CreateOrganization
 
-Indicates an [Organization](Organization#organization) was created.
+Indicates an [Organization](../Organization#organization) was created.
 
-### static [ActionType](ActionType#actiontype) CreateOrganizationInvitation
+### static [ActionType](../ActionType#actiontype) CreateOrganizationInvitation
 
-Indicates a [Member](Member#member) was invided to an [Organization](Organization#organization).
+Indicates a [Member](../Member#member) was invided to an [Organization](../Organization#organization).
 
-### static [ActionType](ActionType#actiontype) DeleteAttachmentFromCard
+### static [ActionType](../ActionType#actiontype) DeleteAttachmentFromCard
 
-Indicates an [Attachment](Attachment#attachment) was deleted from a [Card](Card#card).
+Indicates an [Attachment](../Attachment#attachment) was deleted from a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) DeleteBoardInvitation
+### static [ActionType](../ActionType#actiontype) DeleteBoardInvitation
 
-Indicates an invitation to a [Board](Board#board) was rescinded.
+Indicates an invitation to a [Board](../Board#board) was rescinded.
 
-### static [ActionType](ActionType#actiontype) DeleteCard
+### static [ActionType](../ActionType#actiontype) DeleteCard
 
-Indicates a [Card](Card#card) was deleted.
+Indicates a [Card](../Card#card) was deleted.
 
-### static [ActionType](ActionType#actiontype) DeleteCheckItem
+### static [ActionType](../ActionType#actiontype) DeleteCheckItem
 
-Indicates a [CheckItem](CheckItem#checkitem) was deleted.
+Indicates a [CheckItem](../CheckItem#checkitem) was deleted.
 
-### static [ActionType](ActionType#actiontype) DeleteLabel
+### static [ActionType](../ActionType#actiontype) DeleteLabel
 
-Indicates a [Label](Label#label) was deleted.
+Indicates a [Label](../Label#label) was deleted.
 
-### static [ActionType](ActionType#actiontype) DeleteOrganizationInvitation
+### static [ActionType](../ActionType#actiontype) DeleteOrganizationInvitation
 
-Indicates an invitation to an [Organization](Organization#organization) was rescinded.
+Indicates an invitation to an [Organization](../Organization#organization) was rescinded.
 
-### static [ActionType](ActionType#actiontype) DisablePlugin
+### static [ActionType](../ActionType#actiontype) DisablePlugin
 
 Indicates a power-up was disabled.
 
-### static [ActionType](ActionType#actiontype) DisablePowerUp
+### static [ActionType](../ActionType#actiontype) DisablePowerUp
 
 Indicates a power-up was disabled.
 
-### static [ActionType](ActionType#actiontype) EmailCard
+### static [ActionType](../ActionType#actiontype) EmailCard
 
-Indicates a [Card](Card#card) was created via email.
+Indicates a [Card](../Card#card) was created via email.
 
-### static [ActionType](ActionType#actiontype) EnablePlugin
-
-Indicates a power-up was enabled.
-
-### static [ActionType](ActionType#actiontype) EnablePowerUp
+### static [ActionType](../ActionType#actiontype) EnablePlugin
 
 Indicates a power-up was enabled.
 
-### static [ActionType](ActionType#actiontype) MakeAdminOfBoard
+### static [ActionType](../ActionType#actiontype) EnablePowerUp
 
-Indicates a [Member](Member#member) was made an admin of a [Board](Board#board).
+Indicates a power-up was enabled.
 
-### static [ActionType](ActionType#actiontype) MakeAdminOfOrganization
+### static [ActionType](../ActionType#actiontype) MakeAdminOfBoard
 
-Indicates a [Member](Member#member) was made an admin of an [Organization](Organization#organization).
+Indicates a [Member](../Member#member) was made an admin of a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) MakeNormalMemberOfBoard
+### static [ActionType](../ActionType#actiontype) MakeAdminOfOrganization
 
-Indicates a [Member](Member#member) was made a normal [Member](Member#member) of a [Board](Board#board).
+Indicates a [Member](../Member#member) was made an admin of an [Organization](../Organization#organization).
 
-### static [ActionType](ActionType#actiontype) MakeNormalMemberOfOrganization
+### static [ActionType](../ActionType#actiontype) MakeNormalMemberOfBoard
 
-Indicates a [Member](Member#member) was made a normal [Member](Member#member) of an [Organization](Organization#organization).
+Indicates a [Member](../Member#member) was made a normal [Member](../Member#member) of a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) MakeObserverOfBoard
+### static [ActionType](../ActionType#actiontype) MakeNormalMemberOfOrganization
 
-Indicates a [Member](Member#member) was made an observer of a [Board](Board#board).
+Indicates a [Member](../Member#member) was made a normal [Member](../Member#member) of an [Organization](../Organization#organization).
 
-### static [ActionType](ActionType#actiontype) MemberJoinedTrello
+### static [ActionType](../ActionType#actiontype) MakeObserverOfBoard
 
-Indicates a [Member](Member#member) joined Trello.
+Indicates a [Member](../Member#member) was made an observer of a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) MoveCardFromBoard
+### static [ActionType](../ActionType#actiontype) MemberJoinedTrello
 
-Indicates a [Card](Card#card) was moved from one [Board](Board#board) to another.
+Indicates a [Member](../Member#member) joined Trello.
 
-### static [ActionType](ActionType#actiontype) MoveCardToBoard
+### static [ActionType](../ActionType#actiontype) MoveCardFromBoard
 
-Indicates a [Card](Card#card) was moved from one [Board](Board#board) to another.
+Indicates a [Card](../Card#card) was moved from one [Board](../Board#board) to another.
 
-### static [ActionType](ActionType#actiontype) MoveListFromBoard
+### static [ActionType](../ActionType#actiontype) MoveCardToBoard
 
-Indicates a [List](List#list) was moved from one [Board](Board#board) to another.
+Indicates a [Card](../Card#card) was moved from one [Board](../Board#board) to another.
 
-### static [ActionType](ActionType#actiontype) MoveListToBoard
+### static [ActionType](../ActionType#actiontype) MoveListFromBoard
 
-Indicates a [List](List#list) was moved from one [Board](Board#board) to another.
+Indicates a [List](../List#list) was moved from one [Board](../Board#board) to another.
 
-### static [ActionType](ActionType#actiontype) RemoveAdminFromBoard
+### static [ActionType](../ActionType#actiontype) MoveListToBoard
 
-Indicates a [Member](Member#member) was removed as an admin from a [Board](Board#board).
+Indicates a [List](../List#list) was moved from one [Board](../Board#board) to another.
 
-### static [ActionType](ActionType#actiontype) RemoveAdminFromOrganization
+### static [ActionType](../ActionType#actiontype) RemoveAdminFromBoard
 
-Indicates a [Member](Member#member) was removed as an admin from an [Organization](Organization#organization).
+Indicates a [Member](../Member#member) was removed as an admin from a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) RemoveBoardsPinnedFromMember
+### static [ActionType](../ActionType#actiontype) RemoveAdminFromOrganization
 
-Indicates an [Member](Member#member) unpinnned a [Board](Board#board).
+Indicates a [Member](../Member#member) was removed as an admin from an [Organization](../Organization#organization).
 
-### static [ActionType](ActionType#actiontype) RemoveChecklistFromCard
+### static [ActionType](../ActionType#actiontype) RemoveBoardsPinnedFromMember
 
-Indicates a [CheckList](CheckList#checklist) was removed from a [Card](Card#card).
+Indicates an [Member](../Member#member) unpinnned a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) RemoveFromOrganizationBoard
+### static [ActionType](../ActionType#actiontype) RemoveChecklistFromCard
 
-Indicates an [Organization](Organization#organization) was removed from a [Board](Board#board).
+Indicates a [CheckList](../CheckList#checklist) was removed from a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) RemoveLabelFromCard
+### static [ActionType](../ActionType#actiontype) RemoveFromOrganizationBoard
 
-Indicates a [Label](Label#label) was removed from a [Card](Card#card).
+Indicates an [Organization](../Organization#organization) was removed from a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) RemoveMemberFromBoard
+### static [ActionType](../ActionType#actiontype) RemoveLabelFromCard
 
-Indicates a [Member](Member#member) was removed from a [Board](Board#board).
+Indicates a [Label](../Label#label) was removed from a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) RemoveMemberFromCard
+### static [ActionType](../ActionType#actiontype) RemoveMemberFromBoard
 
-Indicates a [Member](Member#member) was removed from a [Card](Card#card).
+Indicates a [Member](../Member#member) was removed from a [Board](../Board#board).
 
-### static [ActionType](ActionType#actiontype) RemoveMemberFromOrganization
+### static [ActionType](../ActionType#actiontype) RemoveMemberFromCard
 
-Indicates a [Member](Member#member) was removed from an [Organization](Organization#organization).
+Indicates a [Member](../Member#member) was removed from a [Card](../Card#card).
 
-### static [ActionType](ActionType#actiontype) UnconfirmedBoardInvitation
+### static [ActionType](../ActionType#actiontype) RemoveMemberFromOrganization
 
-Indicates an invitation to a [Board](Board#board) was created.
+Indicates a [Member](../Member#member) was removed from an [Organization](../Organization#organization).
 
-### static [ActionType](ActionType#actiontype) UnconfirmedOrganizationInvitation
+### static [ActionType](../ActionType#actiontype) UnconfirmedBoardInvitation
 
-Indicates an invitation to an [Organization](Organization#organization) was created.
+Indicates an invitation to a [Board](../Board#board) was created.
 
-### static [ActionType](ActionType#actiontype) Unknown
+### static [ActionType](../ActionType#actiontype) UnconfirmedOrganizationInvitation
+
+Indicates an invitation to an [Organization](../Organization#organization) was created.
+
+### static [ActionType](../ActionType#actiontype) Unknown
 
 Not recognized. May have been created since the current version of this API.
 
@@ -256,63 +254,63 @@ Not recognized. May have been created since the current version of this API.
 
 This value is not supported by Trello&#39;s API.
 
-### static [ActionType](ActionType#actiontype) UpdateBoard
+### static [ActionType](../ActionType#actiontype) UpdateBoard
 
-Indicates a [Board](Board#board) was updated.
+Indicates a [Board](../Board#board) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateCard
+### static [ActionType](../ActionType#actiontype) UpdateCard
 
-Indicates a [Card](Card#card) was updated.
+Indicates a [Card](../Card#card) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateCheckItem
+### static [ActionType](../ActionType#actiontype) UpdateCheckItem
 
-Indicates a [CheckItem](CheckItem#checkitem) was updated.
+Indicates a [CheckItem](../CheckItem#checkitem) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateCheckItemStateOnCard
+### static [ActionType](../ActionType#actiontype) UpdateCheckItemStateOnCard
 
-Indicates a [CheckList](CheckList#checklist) was updated.
+Indicates a [CheckList](../CheckList#checklist) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateChecklist
+### static [ActionType](../ActionType#actiontype) UpdateChecklist
 
-Indicates a [CheckList](CheckList#checklist) was updated.
+Indicates a [CheckList](../CheckList#checklist) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateCustomField
+### static [ActionType](../ActionType#actiontype) UpdateCustomField
 
-Indicates that a [CustomField](CustomField#customfield) was updated.
+Indicates that a [CustomField](../CustomField#customfield) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateCustomFieldItem
+### static [ActionType](../ActionType#actiontype) UpdateCustomFieldItem
 
-Indicates that a [CustomField](CustomField#customfield) was updated.
+Indicates that a [CustomField](../CustomField#customfield) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateLabel
+### static [ActionType](../ActionType#actiontype) UpdateLabel
 
-Indicates a [Label](Label#label) was updated.
+Indicates a [Label](../Label#label) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateList
+### static [ActionType](../ActionType#actiontype) UpdateList
 
-Indicates a [List](List#list) was updated.
+Indicates a [List](../List#list) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateMember
+### static [ActionType](../ActionType#actiontype) UpdateMember
 
-Indicates a [Member](Member#member) was updated.
+Indicates a [Member](../Member#member) was updated.
 
-### static [ActionType](ActionType#actiontype) UpdateOrganization
+### static [ActionType](../ActionType#actiontype) UpdateOrganization
 
-Indicates an [Organization](Organization#organization) was updated.
+Indicates an [Organization](../Organization#organization) was updated.
 
-### static [ActionType](ActionType#actiontype) VoteOnCard
+### static [ActionType](../ActionType#actiontype) VoteOnCard
 
-Indicates a [Member](Member#member) voted for a [Card](Card#card).
+Indicates a [Member](../Member#member) voted for a [Card](../Card#card).
 
 ## Properties
 
-### static [ActionType](ActionType#actiontype) All { get; }
+### static [ActionType](../ActionType#actiontype) All { get; }
 
 Indicates all action types
 
-### static [ActionType](ActionType#actiontype) DefaultForCardActions { get; }
+### static [ActionType](../ActionType#actiontype) DefaultForCardActions { get; }
 
-Indictes the default set of values returned by [Actions](Card#manateetrelloireadonlycollection1manateetrelloiaction-manateetrello-version3000-cultureneutral-publickeytokenf502fcc17fc907d6-actions--get-).
+Indictes the default set of values returned by [Actions](../Card#manateetrelloireadonlycollection1manateetrelloiaction-manateetrello-version3000-cultureneutral-publickeytokenf502fcc17fc907d6-actions--get-).
 
 ## Methods
 
@@ -328,7 +326,7 @@ Gets all the values of this ActionType enumerated type.
 
 **Returns:** 
 
-### static [ActionType](ActionType#actiontype) op_BitwiseAnd(ActionType lhs, ActionType rhs)
+### static [ActionType](../ActionType#actiontype) op_BitwiseAnd(ActionType lhs, ActionType rhs)
 
 AND operator. And together ActionType instances.
 
@@ -342,7 +340,7 @@ AND operator. And together ActionType instances.
 
 **Returns:** 
 
-### static [ActionType](ActionType#actiontype) op_BitwiseOr(ActionType lhs, ActionType rhs)
+### static [ActionType](../ActionType#actiontype) op_BitwiseOr(ActionType lhs, ActionType rhs)
 
 OR operator. Or together ActionType instances.
 
@@ -370,7 +368,7 @@ Equality operator.
 
 **Returns:** 
 
-### static [ActionType](ActionType#actiontype) op_ExclusiveOr(ActionType lhs, ActionType rhs)
+### static [ActionType](../ActionType#actiontype) op_ExclusiveOr(ActionType lhs, ActionType rhs)
 
 XOR operator. Xor together ActionType instances.
 

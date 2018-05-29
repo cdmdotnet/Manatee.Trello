@@ -1,10 +1,8 @@
 ---
 title: IJsonCheckList
 category: API
-order: 224
+order: 99
 ---
-
-# IJsonCheckList
 
 Defines the JSON structure for the CheckList object.
 
@@ -18,11 +16,11 @@ Defines the JSON structure for the CheckList object.
 
 ## Properties
 
-### [IJsonBoard](IJsonBoard#ijsonboard) Board { get; set; }
+### [IJsonBoard](../IJsonBoard#ijsonboard) Board { get; set; }
 
 Gets or sets the ID of the board which contains this checklist.
 
-### [IJsonCard](IJsonCard#ijsoncard) Card { get; set; }
+### [IJsonCard](../IJsonCard#ijsoncard) Card { get; set; }
 
 Gets or sets the ID of the card which contains this checklist.
 
@@ -30,7 +28,7 @@ Gets or sets the ID of the card which contains this checklist.
 
 Gets or sets the collection of items in this checklist.
 
-### [IJsonCheckList](IJsonCheckList#ijsonchecklist) CheckListSource { get; set; }
+### [IJsonCheckList](../IJsonCheckList#ijsonchecklist) CheckListSource { get; set; }
 
 Gets or sets a checklist to copy during creation.
 
@@ -38,7 +36,7 @@ Gets or sets a checklist to copy during creation.
 
 Gets or sets the name of this checklist.
 
-### [IJsonPosition](IJsonPosition#ijsonposition) Pos { get; set; }
+### [IJsonPosition](../IJsonPosition#ijsonposition) Pos { get; set; }
 
 Gets or sets the position of this checklist.
 

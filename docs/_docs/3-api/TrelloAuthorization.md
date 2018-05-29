@@ -1,10 +1,8 @@
 ---
 title: TrelloAuthorization
 category: API
-order: 187
+order: 245
 ---
-
-# TrelloAuthorization
 
 Contains authorization tokens needed to connect to Trello&#39;s API.
 
@@ -19,7 +17,7 @@ Contains authorization tokens needed to connect to Trello&#39;s API.
 
 ## Properties
 
-### static [TrelloAuthorization](TrelloAuthorization#trelloauthorization) Default { get; }
+### static [TrelloAuthorization](../TrelloAuthorization#trelloauthorization) Default { get; }
 
 Gets the default authorization.
 

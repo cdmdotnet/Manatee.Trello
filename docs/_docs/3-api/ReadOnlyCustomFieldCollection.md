@@ -1,10 +1,8 @@
 ---
 title: ReadOnlyCustomFieldCollection
 category: API
-order: 167
+order: 223
 ---
-
-# ReadOnlyCustomFieldCollection
 
 A read-only collection of custom fields.
 

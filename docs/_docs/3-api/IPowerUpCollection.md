@@ -1,10 +1,8 @@
 ---
 title: IPowerUpCollection
 category: API
-order: 90
+order: 146
 ---
-
-# IPowerUpCollection
 
 A collection of power-ups.
 

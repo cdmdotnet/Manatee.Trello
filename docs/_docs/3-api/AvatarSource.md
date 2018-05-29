@@ -1,10 +1,8 @@
 ---
 title: AvatarSource
 category: API
-order: 7
+order: 6
 ---
-
-# AvatarSource
 
 Enumerates the avatar sources used by Trello.
 

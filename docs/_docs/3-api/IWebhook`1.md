@@ -1,14 +1,12 @@
 ---
-title: IWebhook`1
+title: IWebhook&lt;T&gt;
 category: API
-order: 111
+order: 174
 ---
-
-# IWebhook&lt;T&gt;
 
 Represents a webhook.
 
-**Type Parameter:** T : [ICanWebhook](ICanWebhook#icanwebhook)
+**Type Parameter:** T : [ICanWebhook](../ICanWebhook#icanwebhook)
 
 The type of object to which the webhook is attached.
 

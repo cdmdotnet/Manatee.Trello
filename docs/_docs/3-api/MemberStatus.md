@@ -1,10 +1,8 @@
 ---
 title: MemberStatus
 category: API
-order: 139
+order: 194
 ---
-
-# MemberStatus
 
 Enumerates known values for a member&#39;s activity status.
 

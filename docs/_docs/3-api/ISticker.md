@@ -1,10 +1,8 @@
 ---
 title: ISticker
 category: API
-order: 107
+order: 170
 ---
-
-# ISticker
 
 Represents a sticker on a card.
 

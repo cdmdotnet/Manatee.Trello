@@ -1,10 +1,8 @@
 ---
 title: ReadOnlyCheckListCollection
 category: API
-order: 165
+order: 221
 ---
-
-# ReadOnlyCheckListCollection
 
 A read-only collection of checklists.
 
@@ -20,7 +18,7 @@ A read-only collection of checklists.
 
 ## Properties
 
-### [ICheckList](ICheckList#ichecklist) this[string key] { get; }
+### [ICheckList](../ICheckList#ichecklist) this[string key] { get; }
 
 Retrieves a check list which matches the supplied key.
 

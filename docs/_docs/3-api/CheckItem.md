@@ -1,10 +1,8 @@
 ---
 title: CheckItem
 category: API
-order: 33
+order: 32
 ---
-
-# CheckItem
 
 Represents a checklist item.
 
@@ -23,7 +21,7 @@ Represents a checklist item.
 
 Specifies which fields should be downloaded.
 
-### [ICheckList](ICheckList#ichecklist) CheckList { get; set; }
+### [ICheckList](../ICheckList#ichecklist) CheckList { get; set; }
 
 Gets or sets the checklist to which the item belongs.
 
@@ -43,11 +41,11 @@ Gets or sets the checklist item&#39;s ID.
 
 Gets or sets the checklist item&#39;s name.
 
-### [Position](Position#position) Position { get; set; }
+### [Position](../Position#position) Position { get; set; }
 
 Gets or sets the checklist item&#39;s position.
 
-### [CheckItemState](CheckItemState#checkitemstate)? State { get; set; }
+### [CheckItemState](../CheckItemState#checkitemstate)? State { get; set; }
 
 Gets or sets the checklist item&#39;s state.
 

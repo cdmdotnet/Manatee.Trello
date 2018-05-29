@@ -1,10 +1,8 @@
 ---
 title: IRestResponse
 category: API
-order: 202
+order: 165
 ---
-
-# IRestResponse
 
 Defines properties required for objects returned by RESTful calls.
 

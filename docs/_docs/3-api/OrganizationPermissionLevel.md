@@ -1,10 +1,8 @@
 ---
 title: OrganizationPermissionLevel
 category: API
-order: 152
+order: 207
 ---
-
-# OrganizationPermissionLevel
 
 Enumerates known values for organization permission levels
 

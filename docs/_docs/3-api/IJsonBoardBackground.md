@@ -1,10 +1,8 @@
 ---
 title: IJsonBoardBackground
 category: API
-order: 216
+order: 91
 ---
-
-# IJsonBoardBackground
 
 Defines the JSON structure for the BoardBackground object.
 
@@ -22,7 +20,7 @@ Defines the JSON structure for the BoardBackground object.
 
 The bottom color of a gradient background.
 
-### [BoardBackgroundBrightness](BoardBackgroundBrightness#boardbackgroundbrightness)? Brightness { get; set; }
+### [BoardBackgroundBrightness](../BoardBackgroundBrightness#boardbackgroundbrightness)? Brightness { get; set; }
 
 Gets the overall brightness of the background.
 

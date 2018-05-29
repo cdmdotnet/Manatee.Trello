@@ -1,10 +1,8 @@
 ---
 title: CustomField
 category: API
-order: 112
+order: 38
 ---
-
-# CustomField
 
 Represents a custom field instance.
 
@@ -19,7 +17,7 @@ Represents a custom field instance.
 
 ## Properties
 
-### [ICustomFieldDefinition](ICustomFieldDefinition#icustomfielddefinition) Definition { get; }
+### [ICustomFieldDefinition](../ICustomFieldDefinition#icustomfielddefinition) Definition { get; }
 
 Gets the custom field definition.
 

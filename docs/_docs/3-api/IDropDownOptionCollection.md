@@ -1,10 +1,8 @@
 ---
 title: IDropDownOptionCollection
 category: API
-order: 69
+order: 83
 ---
-
-# IDropDownOptionCollection
 
 A collection of custom field drop down options.
 

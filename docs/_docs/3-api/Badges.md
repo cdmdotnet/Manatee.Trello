@@ -1,10 +1,8 @@
 ---
 title: Badges
 category: API
-order: 8
+order: 7
 ---
-
-# Badges
 
 Represents a collection of badges which summarize the contents of a card.
 

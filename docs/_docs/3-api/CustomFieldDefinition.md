@@ -1,10 +1,8 @@
 ---
 title: CustomFieldDefinition
 category: API
-order: 114
+order: 40
 ---
-
-# CustomFieldDefinition
 
 Represents a custom field definition.
 
@@ -19,7 +17,7 @@ Represents a custom field definition.
 
 ## Properties
 
-### [IBoard](IBoard#iboard) Board { get; }
+### [IBoard](../IBoard#iboard) Board { get; }
 
 Gets the board on which the field is defined.
 
@@ -35,15 +33,15 @@ Gets an ID on which matching can be performed.
 
 Gets or sets the name of the field.
 
-### [IDropDownOptionCollection](IDropDownOptionCollection#idropdownoptioncollection) Options { get; }
+### [IDropDownOptionCollection](../IDropDownOptionCollection#idropdownoptioncollection) Options { get; }
 
 Gets drop down options, if applicable.
 
-### [Position](Position#position) Position { get; set; }
+### [Position](../Position#position) Position { get; set; }
 
 Gets or sets the position of the field.
 
-### [CustomFieldType](CustomFieldType#customfieldtype)? Type { get; }
+### [CustomFieldType](../CustomFieldType#customfieldtype)? Type { get; }
 
 Gets the data type of the field.
 

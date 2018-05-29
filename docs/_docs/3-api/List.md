@@ -1,10 +1,8 @@
 ---
 title: List
 category: API
-order: 127
+order: 182
 ---
-
-# List
 
 Represents a list.
 
@@ -21,7 +19,7 @@ Represents a list.
 
 ### List(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [List](List#list) object.
+Creates a new instance of the [List](../List#list) object.
 
 **Parameter:** id
 
@@ -29,7 +27,7 @@ The list&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
 
 ## Properties
 
@@ -41,11 +39,11 @@ Specifies which fields should be downloaded.
 
 Gets the collection of actions performed on the list.
 
-### [IBoard](IBoard#iboard) Board { get; set; }
+### [IBoard](../IBoard#iboard) Board { get; set; }
 
 Gets or sets the board on which the list belongs.
 
-### [ICardCollection](ICardCollection#icardcollection) Cards { get; }
+### [ICardCollection](../ICardCollection#icardcollection) Cards { get; }
 
 Gets the collection of cards contained in the list.
 
@@ -65,7 +63,7 @@ Gets or sets whether the list is archived.
 
 Gets or sets whether the current member is subscribed to the list.
 
-### [ICard](ICard#icard) this[string key] { get; }
+### [ICard](../ICard#icard) this[string key] { get; }
 
 Retrieves a card which matches the supplied key.
 
@@ -81,7 +79,7 @@ The matching card, or null if none found.
 
 Matches on card ID and name. Comparison is case-sensitive.
 
-### [ICard](ICard#icard) this[int index] { get; }
+### [ICard](../ICard#icard) this[int index] { get; }
 
 Retrieves the card at the specified index.
 
@@ -101,7 +99,7 @@ The card.
 
 Gets the list&#39;s name.
 
-### [Position](Position#position) Position { get; set; }
+### [Position](../Position#position) Position { get; set; }
 
 Gets the list&#39;s position.
 

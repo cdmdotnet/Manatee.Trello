@@ -1,10 +1,8 @@
 ---
 title: ICache
 category: API
-order: 52
+order: 65
 ---
-
-# ICache
 
 Defines operations for a cache.
 
@@ -34,7 +32,7 @@ Removes all objects from the cache.
 
 Finds an object of a certain type meeting specified criteria.
 
-**Type Parameter:** T : [ICacheable](ICacheable#icacheable)
+**Type Parameter:** T : [ICacheable](../ICacheable#icacheable)
 
 The type of object to find.
 

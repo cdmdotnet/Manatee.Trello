@@ -1,10 +1,8 @@
 ---
 title: ICheckList
 category: API
-order: 61
+order: 74
 ---
-
-# ICheckList
 
 Represents a checklist.
 
@@ -18,15 +16,15 @@ Represents a checklist.
 
 ## Properties
 
-### [IBoard](IBoard#iboard) Board { get; }
+### [IBoard](../IBoard#iboard) Board { get; }
 
 Gets the board on which the checklist belongs.
 
-### [ICard](ICard#icard) Card { get; }
+### [ICard](../ICard#icard) Card { get; }
 
 Gets the card on which the checklist belongs.
 
-### [ICheckItemCollection](ICheckItemCollection#icheckitemcollection) CheckItems { get; }
+### [ICheckItemCollection](../ICheckItemCollection#icheckitemcollection) CheckItems { get; }
 
 Gets the collection of items in the checklist.
 
@@ -34,7 +32,7 @@ Gets the collection of items in the checklist.
 
 Gets the creation date of the checklist.
 
-### [ICheckItem](ICheckItem#icheckitem) this[string key] { get; }
+### [ICheckItem](../ICheckItem#icheckitem) this[string key] { get; }
 
 Retrieves a check list item which matches the supplied key.
 
@@ -50,7 +48,7 @@ The matching check list item, or null if none found.
 
 Matches on CheckItem.Id and CheckItem.Name. Comparison is case-sensitive.
 
-### [ICheckItem](ICheckItem#icheckitem) this[int index] { get; }
+### [ICheckItem](../ICheckItem#icheckitem) this[int index] { get; }
 
 Retrieves the check list item at the specified index.
 
@@ -70,7 +68,7 @@ The check list item.
 
 Gets the checklist&#39;s name.
 
-### [Position](Position#position) Position { get; set; }
+### [Position](../Position#position) Position { get; set; }
 
 Gets the checklist&#39;s position.
 

@@ -1,12 +1,10 @@
 ---
 title: ICardStickerCollection
 category: API
-order: 58
+order: 71
 ---
 
-# ICardStickerCollection
-
-A collection of [ISticker](ISticker#isticker)s.
+A collection of [ISticker](../ISticker#isticker)s.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -20,7 +18,7 @@ A collection of [ISticker](ISticker#isticker)s.
 
 ### Task&lt;ISticker&gt; Add(string name, double left, double top, int zIndex, int rotation, CancellationToken ct)
 
-Adds a [ISticker](ISticker#isticker) to a [ICard](ICard#icard).
+Adds a [ISticker](../ISticker#isticker) to a [ICard](../ICard#icard).
 
 **Parameter:** name
 
@@ -58,7 +56,7 @@ Thrown when *rotation* is less than 0 or greater than 359.
 
 ### Task Remove(Sticker sticker, CancellationToken ct)
 
-Removes a [ISticker](ISticker#isticker) from a [ICard](ICard#icard).
+Removes a [ISticker](../ISticker#isticker) from a [ICard](../ICard#icard).
 
 **Parameter:** sticker
 

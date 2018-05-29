@@ -1,10 +1,8 @@
 ---
 title: IJsonMember
 category: API
-order: 232
+order: 107
 ---
-
-# IJsonMember
 
 Defines the JSON structure for the Member object.
 
@@ -26,7 +24,7 @@ Gets or sets a collection of actions.
 
 Gets or sets the member&#39;s avatar hash.
 
-### [AvatarSource](AvatarSource#avatarsource)? AvatarSource { get; set; }
+### [AvatarSource](../AvatarSource#avatarsource)? AvatarSource { get; set; }
 
 Gets or sets the source URL for the member&#39;s avatar.
 
@@ -82,7 +80,7 @@ Gets or sets the types of message which are dismissed for the member.
 
 Gets or sets a collection of organizations.
 
-### [IJsonMemberPreferences](IJsonMemberPreferences#ijsonmemberpreferences) Prefs { get; set; }
+### [IJsonMemberPreferences](../IJsonMemberPreferences#ijsonmemberpreferences) Prefs { get; set; }
 
 Gets or sets a set of preferences for the member.
 
@@ -90,7 +88,7 @@ Gets or sets a set of preferences for the member.
 
 Gets or sets the similarity of the member to a search query.
 
-### [MemberStatus](MemberStatus#memberstatus)? Status { get; set; }
+### [MemberStatus](../MemberStatus#memberstatus)? Status { get; set; }
 
 Gets or sets the member&#39;s activity status.
 

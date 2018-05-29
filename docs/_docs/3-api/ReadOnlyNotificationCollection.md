@@ -1,10 +1,8 @@
 ---
 title: ReadOnlyNotificationCollection
 category: API
-order: 172
+order: 228
 ---
-
-# ReadOnlyNotificationCollection
 
 A read-only collection of actions.
 

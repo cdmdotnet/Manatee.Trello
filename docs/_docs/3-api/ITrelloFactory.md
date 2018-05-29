@@ -1,10 +1,8 @@
 ---
 title: ITrelloFactory
 category: API
-order: 110
+order: 173
 ---
-
-# ITrelloFactory
 
 Supports entity creation for dependency-injected applications.
 
@@ -18,9 +16,9 @@ Supports entity creation for dependency-injected applications.
 
 ## Methods
 
-### [IAction](IAction#iaction) Action(string id, TrelloAuthorization auth)
+### [IAction](../IAction#iaction) Action(string id, TrelloAuthorization auth)
 
-Creates an [IAction](IAction#iaction).
+Creates an [IAction](../IAction#iaction).
 
 **Parameter:** id
 
@@ -30,25 +28,11 @@ The action ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IAction](IAction#iaction)
+**Returns:** An [IAction](../IAction#iaction)
 
-### [IBoard](IBoard#iboard) Board(string id, TrelloAuthorization auth)
+### [IBoard](../IBoard#iboard) Board(string id, TrelloAuthorization auth)
 
-Creates an [IBoard](IBoard#iboard).
-
-**Parameter:** id
-
-The board ID.
-
-**Parameter:** auth
-
-(Optional) The authorization.
-
-**Returns:** An [IBoard](IBoard#iboard)
-
-### [ICard](ICard#icard) Card(string id, TrelloAuthorization auth)
-
-Creates an [ICard](ICard#icard).
+Creates an [IBoard](../IBoard#iboard).
 
 **Parameter:** id
 
@@ -58,11 +42,25 @@ The board ID.
 
 (Optional) The authorization.
 
-**Returns:** An [ICard](ICard#icard)
+**Returns:** An [IBoard](../IBoard#iboard)
 
-### [ICheckList](ICheckList#ichecklist) CheckList(string id, TrelloAuthorization auth)
+### [ICard](../ICard#icard) Card(string id, TrelloAuthorization auth)
 
-Creates an [ICheckList](ICheckList#ichecklist).
+Creates an [ICard](../ICard#icard).
+
+**Parameter:** id
+
+The board ID.
+
+**Parameter:** auth
+
+(Optional) The authorization.
+
+**Returns:** An [ICard](../ICard#icard)
+
+### [ICheckList](../ICheckList#ichecklist) CheckList(string id, TrelloAuthorization auth)
+
+Creates an [ICheckList](../ICheckList#ichecklist).
 
 **Parameter:** id
 
@@ -72,9 +70,9 @@ The checklist ID.
 
 (Optional) The authorization.
 
-**Returns:** An [ICheckList](ICheckList#ichecklist)
+**Returns:** An [ICheckList](../ICheckList#ichecklist)
 
-### [IDropDownOption](IDropDownOption#idropdownoption) DropDownOption(string text, LabelColor color)
+### [IDropDownOption](../IDropDownOption#idropdownoption) DropDownOption(string text, LabelColor color)
 
 Creates a Manatee.Trello.ITrelloFactory.DropDownOption(System.String,Manatee.Trello.LabelColor).
 
@@ -86,11 +84,11 @@ The drop down text.
 
 (Optional) The drop down color.
 
-**Returns:** An [IDropDownOption](IDropDownOption#idropdownoption)
+**Returns:** An [IDropDownOption](../IDropDownOption#idropdownoption)
 
-### [IList](IList#ilist) List(string id, TrelloAuthorization auth)
+### [IList](../IList#ilist) List(string id, TrelloAuthorization auth)
 
-Creates an [IList](IList#ilist).
+Creates an [IList](../IList#ilist).
 
 **Parameter:** id
 
@@ -100,25 +98,25 @@ The list ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IList](IList#ilist)
+**Returns:** An [IList](../IList#ilist)
 
 ### Task&lt;IMe&gt; Me(CancellationToken ct)
 
-Creates an [IMe](IMe#ime).
+Creates an [IMe](../IMe#ime).
 
 **Parameter:** ct
 
 (Optional) A cancellation token for async processing.
 
-**Returns:** An [IMe](IMe#ime)
+**Returns:** An [IMe](../IMe#ime)
 
 #### Remarks
 
-This performs a call to the API to get the member authorized by [TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-).
+This performs a call to the API to get the member authorized by [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-).
 
-### [IMember](IMember#imember) Member(string id, TrelloAuthorization auth)
+### [IMember](../IMember#imember) Member(string id, TrelloAuthorization auth)
 
-Creates an [IMember](IMember#imember).
+Creates an [IMember](../IMember#imember).
 
 **Parameter:** id
 
@@ -128,11 +126,11 @@ The member ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IMember](IMember#imember)
+**Returns:** An [IMember](../IMember#imember)
 
-### [INotification](INotification#inotification) Notification(string id, TrelloAuthorization auth)
+### [INotification](../INotification#inotification) Notification(string id, TrelloAuthorization auth)
 
-Creates an [INotification](INotification#inotification).
+Creates an [INotification](../INotification#inotification).
 
 **Parameter:** id
 
@@ -142,31 +140,11 @@ The notification ID.
 
 (Optional) The authorization.
 
-**Returns:** An [INotification](INotification#inotification)
+**Returns:** An [INotification](../INotification#inotification)
 
-### [IOrganization](IOrganization#iorganization) Organization(string id, TrelloAuthorization auth)
+### [IOrganization](../IOrganization#iorganization) Organization(string id, TrelloAuthorization auth)
 
-Creates an [IOrganization](IOrganization#iorganization).
-
-**Parameter:** id
-
-The action ID.
-
-**Parameter:** auth
-
-(Optional) The authorization.
-
-**Returns:** An [IOrganization](IOrganization#iorganization)
-
-### [ISearchQuery](ISearchQuery#isearchquery) SearchQuery()
-
-Creates a new empty [ISearchQuery](ISearchQuery#isearchquery).
-
-**Returns:** An [ISearchQuery](ISearchQuery#isearchquery)
-
-### [IToken](IToken#itoken) Token(string id, TrelloAuthorization auth)
-
-Creates an [IToken](IToken#itoken).
+Creates an [IOrganization](../IOrganization#iorganization).
 
 **Parameter:** id
 
@@ -176,13 +154,33 @@ The action ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IToken](IToken#itoken)
+**Returns:** An [IOrganization](../IOrganization#iorganization)
+
+### [ISearchQuery](../ISearchQuery#isearchquery) SearchQuery()
+
+Creates a new empty [ISearchQuery](../ISearchQuery#isearchquery).
+
+**Returns:** An [ISearchQuery](../ISearchQuery#isearchquery)
+
+### [IToken](../IToken#itoken) Token(string id, TrelloAuthorization auth)
+
+Creates an [IToken](../IToken#itoken).
+
+**Parameter:** id
+
+The action ID.
+
+**Parameter:** auth
+
+(Optional) The authorization.
+
+**Returns:** An [IToken](../IToken#itoken)
 
 ### Task`1 Webhook&lt;T&gt;(T target, string callBackUrl, string description, TrelloAuthorization auth, CancellationToken ct)
 
-Creates an [IWebhook`1](IWebhook`1#iwebhook1) and registers a new webhook with Trello.
+Creates an [IWebhook`1](../IWebhook`1#iwebhook1) and registers a new webhook with Trello.
 
-**Type Parameter:** T : [ICanWebhook](ICanWebhook#icanwebhook)
+**Type Parameter:** T : [ICanWebhook](../ICanWebhook#icanwebhook)
 
 **Parameter:** target
 
@@ -204,13 +202,13 @@ A description.
 
 (Optional) A cancellation token for async processing.
 
-**Returns:** An [IWebhook`1](IWebhook`1#iwebhook1)
+**Returns:** An [IWebhook`1](../IWebhook`1#iwebhook1)
 
 ### IWebhook`1 Webhook&lt;T&gt;(string id, TrelloAuthorization auth)
 
-Creates an [IWebhook`1](IWebhook`1#iwebhook1) for an existing webhook.
+Creates an [IWebhook`1](../IWebhook`1#iwebhook1) for an existing webhook.
 
-**Type Parameter:** T : [ICanWebhook](ICanWebhook#icanwebhook)
+**Type Parameter:** T : [ICanWebhook](../ICanWebhook#icanwebhook)
 
 **Parameter:** id
 
@@ -220,5 +218,5 @@ The action ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IWebhook`1](IWebhook`1#iwebhook1)
+**Returns:** An [IWebhook`1](../IWebhook`1#iwebhook1)
 

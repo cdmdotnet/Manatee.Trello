@@ -1,10 +1,8 @@
 ---
 title: ILabel
 category: API
-order: 71
+order: 126
 ---
-
-# ILabel
 
 A label.
 
@@ -18,11 +16,11 @@ A label.
 
 ## Properties
 
-### [IBoard](IBoard#iboard) Board { get; }
+### [IBoard](../IBoard#iboard) Board { get; }
 
-Gets the [Board](ILabel#iboard-board--get-) on which the label is defined.
+Gets the [Board](../ILabel#iboard-board--get-) on which the label is defined.
 
-### [LabelColor](LabelColor#labelcolor)? Color { get; set; }
+### [LabelColor](../LabelColor#labelcolor)? Color { get; set; }
 
 Gets and sets the color. Use null for no color.
 

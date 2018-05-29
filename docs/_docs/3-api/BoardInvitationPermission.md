@@ -1,10 +1,8 @@
 ---
 title: BoardInvitationPermission
 category: API
-order: 16
+order: 15
 ---
-
-# BoardInvitationPermission
 
 Enumerates known board invitation permission levels.
 

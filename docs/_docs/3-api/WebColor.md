@@ -1,10 +1,8 @@
 ---
 title: WebColor
 category: API
-order: 195
+order: 253
 ---
-
-# WebColor
 
 Defines a color in the RGB space.
 
@@ -21,7 +19,7 @@ Defines a color in the RGB space.
 
 ### WebColor(ushort red, ushort green, ushort blue)
 
-Creates a new instance of the [WebColor](WebColor#webcolor) class.
+Creates a new instance of the [WebColor](../WebColor#webcolor) class.
 
 **Parameter:** red
 
@@ -37,7 +35,7 @@ The blue component.
 
 ### WebColor(string serialized)
 
-Creates a new isntance of the [WebColor](WebColor#webcolor) class.
+Creates a new isntance of the [WebColor](../WebColor#webcolor) class.
 
 **Parameter:** serialized
 

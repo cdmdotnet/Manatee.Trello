@@ -1,10 +1,8 @@
 ---
 title: CardFilter
 category: API
-order: 29
+order: 28
 ---
-
-# CardFilter
 
 Enumerates the filter options for card collections.
 

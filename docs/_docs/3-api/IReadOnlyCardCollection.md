@@ -1,10 +1,8 @@
 ---
 title: IReadOnlyCardCollection
 category: API
-order: 96
+order: 152
 ---
-
-# IReadOnlyCardCollection
 
 A read-only collection of cards.
 
@@ -18,7 +16,7 @@ A read-only collection of cards.
 
 ## Properties
 
-### [ICard](ICard#icard) this[string key] { get; }
+### [ICard](../ICard#icard) this[string key] { get; }
 
 Retrieves a card which matches the supplied key.
 

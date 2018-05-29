@@ -1,10 +1,8 @@
 ---
 title: Search
 category: API
-order: 179
+order: 237
 ---
-
-# Search
 
 Performs a search.
 

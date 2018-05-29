@@ -1,10 +1,8 @@
 ---
 title: ReadOnlyMemberCollection
 category: API
-order: 171
+order: 227
 ---
-
-# ReadOnlyMemberCollection
 
 A read-only collection of members.
 
@@ -20,7 +18,7 @@ A read-only collection of members.
 
 ## Properties
 
-### [IMember](IMember#imember) this[string key] { get; }
+### [IMember](../IMember#imember) this[string key] { get; }
 
 Retrieves a member which matches the supplied key.
 

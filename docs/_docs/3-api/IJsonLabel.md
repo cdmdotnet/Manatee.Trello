@@ -1,10 +1,8 @@
 ---
 title: IJsonLabel
 category: API
-order: 230
+order: 105
 ---
-
-# IJsonLabel
 
 Defines the JSON structure for the Label object.
 
@@ -18,11 +16,11 @@ Defines the JSON structure for the Label object.
 
 ## Properties
 
-### [IJsonBoard](IJsonBoard#ijsonboard) Board { get; set; }
+### [IJsonBoard](../IJsonBoard#ijsonboard) Board { get; set; }
 
 Gets and sets the board on which the label is defined.
 
-### [LabelColor](LabelColor#labelcolor)? Color { get; set; }
+### [LabelColor](../LabelColor#labelcolor)? Color { get; set; }
 
 Gets and sets the color of the label.
 

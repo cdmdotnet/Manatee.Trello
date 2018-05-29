@@ -1,10 +1,8 @@
 ---
 title: Position
 category: API
-order: 154
+order: 209
 ---
-
-# Position
 
 Represents the position of a checklist in a card, a card in a list, or list in a board
 
@@ -21,7 +19,7 @@ Represents the position of a checklist in a card, a card in a list, or list in a
 
 ### Position(double value)
 
-Creates a new instance of the [Position](Position#position) class.
+Creates a new instance of the [Position](../Position#position) class.
 
 **Parameter:** value
 
@@ -29,15 +27,15 @@ A positive integer.
 
 ## Properties
 
-### static [Position](Position#position) Bottom { get; }
+### static [Position](../Position#position) Bottom { get; }
 
 Represents the bottom position.
 
-### static [Position](Position#position) Top { get; }
+### static [Position](../Position#position) Top { get; }
 
 Represents the top position.
 
-### static [Position](Position#position) Unknown { get; }
+### static [Position](../Position#position) Unknown { get; }
 
 Represents an invalid position.
 
@@ -51,101 +49,101 @@ Gets the internal numeric position value.
 
 ## Methods
 
-### static [Position](Position#position) Between(Position a, Position b)
+### static [Position](../Position#position) Between(Position a, Position b)
 
-Creates a new [Position](Position#position) object between two others.
+Creates a new [Position](../Position#position) object between two others.
 
 **Parameter:** a
 
-A [Position](Position#position).
+A [Position](../Position#position).
 
 **Parameter:** b
 
-Another [Position](Position#position).
+Another [Position](../Position#position).
 
-**Returns:** The new [Position](Position#position).
+**Returns:** The new [Position](../Position#position).
 
 ### static bool op_Equality(Position a, Position b)
 
-Compares two [Position](Position#position) objects by examining their content.
+Compares two [Position](../Position#position) objects by examining their content.
 
 **Parameter:** a
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Parameter:** b
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Returns:** True if equivalent, false otherwise.
 
 ### static bool op_GreaterThan(Position a, Position b)
 
-Compares two [Position](Position#position) values for linear order.
+Compares two [Position](../Position#position) values for linear order.
 
 **Parameter:** a
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Parameter:** b
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Returns:** True if the first operand is greater than the second, false otherwise.
 
 ### static bool op_GreaterThanOrEqual(Position a, Position b)
 
-Compares two [Position](Position#position) values for linear order.
+Compares two [Position](../Position#position) values for linear order.
 
 **Parameter:** a
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Parameter:** b
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Returns:** True if the first operand is greater than or equal to the second, false otherwise.
 
 ### static bool op_Inequality(Position a, Position b)
 
-Compares two [Position](Position#position) objects by examining their content.
+Compares two [Position](../Position#position) objects by examining their content.
 
 **Parameter:** a
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Parameter:** b
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Returns:** False if equivalent, true otherwise.
 
 ### static bool op_LessThan(Position a, Position b)
 
-Compares two [Position](Position#position) values for linear order.
+Compares two [Position](../Position#position) values for linear order.
 
 **Parameter:** a
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Parameter:** b
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Returns:** True if the first operand is less than the second, false otherwise.
 
 ### static bool op_LessThanOrEqual(Position a, Position b)
 
-Compares two [Position](Position#position) values for linear order.
+Compares two [Position](../Position#position) values for linear order.
 
 **Parameter:** a
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Parameter:** b
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Returns:** True if the first operand is less than or equal to the second, false otherwise.
 
@@ -175,11 +173,11 @@ An object to compare with this instance.
 
 ### bool Equals(Position other)
 
-Compares two [Position](Position#position) object by examining their content.
+Compares two [Position](../Position#position) object by examining their content.
 
 **Parameter:** other
 
-A [Position](Position#position) object.
+A [Position](../Position#position) object.
 
 **Returns:** True if equivalent, false otherwise.
 

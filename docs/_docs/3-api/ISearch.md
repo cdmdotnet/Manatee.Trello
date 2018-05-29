@@ -1,10 +1,8 @@
 ---
 title: ISearch
 category: API
-order: 105
+order: 167
 ---
-
-# ISearch
 
 Performs a search.
 

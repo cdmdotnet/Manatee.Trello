@@ -1,10 +1,8 @@
 ---
 title: Notification
 category: API
-order: 141
+order: 196
 ---
-
-# Notification
 
 Represents a notification.
 
@@ -21,7 +19,7 @@ Represents a notification.
 
 ### Notification(string id, TrelloAuthorization auth)
 
-Creates a new [Notification](Notification#notification) object.
+Creates a new [Notification](../Notification#notification) object.
 
 **Parameter:** id
 
@@ -30,7 +28,7 @@ The notification&#39;s ID.
 **Parameter:** auth
 
 (Optional) Custom authorization parameters. When not provided,
-[TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+[TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
 
 ## Properties
 
@@ -42,11 +40,11 @@ Specifies which fields should be downloaded.
 
 Gets the creation date of the notification.
 
-### [IMember](IMember#imember) Creator { get; }
+### [IMember](../IMember#imember) Creator { get; }
 
 Gets the member who performed the action which created the notification.
 
-### [INotificationData](INotificationData#inotificationdata) Data { get; }
+### [INotificationData](../INotificationData#inotificationdata) Data { get; }
 
 Gets any data associated.
 
@@ -62,7 +60,7 @@ Gets the notification&#39;s ID.
 
 Gets or sets whether the notification has been read.
 
-### [NotificationType](NotificationType#notificationtype)? Type { get; }
+### [NotificationType](../NotificationType#notificationtype)? Type { get; }
 
 Gets the type of notification.
 

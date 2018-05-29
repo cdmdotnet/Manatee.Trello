@@ -1,10 +1,8 @@
 ---
 title: BoardBackground
 category: API
-order: 10
+order: 9
 ---
-
-# BoardBackground
 
 Represents a background image for a board.
 
@@ -19,51 +17,51 @@ Represents a background image for a board.
 
 ## Properties
 
-### static [BoardBackground](BoardBackground#boardbackground) Blue { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Blue { get; }
 
 The standard blue board background.
 
-### static [BoardBackground](BoardBackground#boardbackground) Green { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Green { get; }
 
 The standard green board background.
 
-### static [BoardBackground](BoardBackground#boardbackground) Grey { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Grey { get; }
 
 The standard grey board background.
 
-### static [BoardBackground](BoardBackground#boardbackground) Lime { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Lime { get; }
 
 The standard bright green board background.
 
-### static [BoardBackground](BoardBackground#boardbackground) Orange { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Orange { get; }
 
 The standard orange board background.
 
-### static [BoardBackground](BoardBackground#boardbackground) Pink { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Pink { get; }
 
 The standard pink board background.
 
-### static [BoardBackground](BoardBackground#boardbackground) Purple { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Purple { get; }
 
 The standard purple board background.
 
-### static [BoardBackground](BoardBackground#boardbackground) Red { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Red { get; }
 
 The standard red board background.
 
-### static [BoardBackground](BoardBackground#boardbackground) Sky { get; }
+### static [BoardBackground](../BoardBackground#boardbackground) Sky { get; }
 
 The standard light blue board background.
 
-### [WebColor](WebColor#webcolor) BottomColor { get; }
+### [WebColor](../WebColor#webcolor) BottomColor { get; }
 
 Gets the bottom color of a gradient background.
 
-### [BoardBackgroundBrightness](BoardBackgroundBrightness#boardbackgroundbrightness)? Brightness { get; }
+### [BoardBackgroundBrightness](../BoardBackgroundBrightness#boardbackgroundbrightness)? Brightness { get; }
 
 Gets the brightness of the background.
 
-### [WebColor](WebColor#webcolor) Color { get; }
+### [WebColor](../WebColor#webcolor) Color { get; }
 
 Gets the color of a stock solid-color background.
 
@@ -83,7 +81,7 @@ Gets whether the image is tiled when displayed.
 
 Gets a collections of scaled background images.
 
-### [WebColor](WebColor#webcolor) TopColor { get; }
+### [WebColor](../WebColor#webcolor) TopColor { get; }
 
 Gets the top color of a gradient background.
 

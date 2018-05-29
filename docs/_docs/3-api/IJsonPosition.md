@@ -1,10 +1,8 @@
 ---
 title: IJsonPosition
 category: API
-order: 242
+order: 117
 ---
-
-# IJsonPosition
 
 Defines the JSON structure for the Position object.
 

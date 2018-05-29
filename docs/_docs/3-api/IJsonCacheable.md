@@ -1,10 +1,8 @@
 ---
 title: IJsonCacheable
 category: API
-order: 221
+order: 96
 ---
-
-# IJsonCacheable
 
 Defines properties required for TrelloService to cache an item.
 

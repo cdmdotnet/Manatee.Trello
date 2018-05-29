@@ -1,10 +1,8 @@
 ---
 title: IReadOnlyOrganizationCollection
 category: API
-order: 103
+order: 159
 ---
-
-# IReadOnlyOrganizationCollection
 
 A read-only collection of organizations.
 
@@ -18,7 +16,7 @@ A read-only collection of organizations.
 
 ## Properties
 
-### [IOrganization](IOrganization#iorganization) this[string key] { get; }
+### [IOrganization](../IOrganization#iorganization) this[string key] { get; }
 
 Retrieves a organization which matches the supplied key.
 

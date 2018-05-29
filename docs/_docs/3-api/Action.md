@@ -4,8 +4,6 @@ category: API
 order: 1
 ---
 
-# Action
-
 Represents an action performed on Trello objects.
 
 **Assembly:** Manatee.Trello.dll
@@ -21,7 +19,7 @@ Represents an action performed on Trello objects.
 
 ### Action(string id, TrelloAuthorization auth)
 
-Creates a new [Action](Action#action) instance.
+Creates a new [Action](../Action#action) instance.
 
 **Parameter:** id
 
@@ -29,7 +27,7 @@ The action&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
 
 ## Properties
 
@@ -41,11 +39,11 @@ Specifies which fields should be downloaded.
 
 Gets the creation date of the action.
 
-### [IMember](IMember#imember) Creator { get; }
+### [IMember](../IMember#imember) Creator { get; }
 
 Gets the member who performed the action.
 
-### [IActionData](IActionData#iactiondata) Data { get; }
+### [IActionData](../IActionData#iactiondata) Data { get; }
 
 Gets any data associated with the action.
 
@@ -57,7 +55,7 @@ Gets the date and time at which the action was performed.
 
 Gets an ID on which matching can be performed.
 
-### [ActionType](ActionType#actiontype)? Type { get; }
+### [ActionType](../ActionType#actiontype)? Type { get; }
 
 Gets the type of action.
 

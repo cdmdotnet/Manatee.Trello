@@ -1,10 +1,8 @@
 ---
 title: IJsonCustomDropDownOption
 category: API
-order: 225
+order: 100
 ---
-
-# IJsonCustomDropDownOption
 
 Defines the JSON structure for a custom field drop down option.
 
@@ -18,15 +16,15 @@ Defines the JSON structure for a custom field drop down option.
 
 ## Properties
 
-### [LabelColor](LabelColor#labelcolor)? Color { get; set; }
+### [LabelColor](../LabelColor#labelcolor)? Color { get; set; }
 
 Gets or sets the color.
 
-### [IJsonCustomFieldDefinition](IJsonCustomFieldDefinition#ijsoncustomfielddefinition) Field { get; set; }
+### [IJsonCustomFieldDefinition](../IJsonCustomFieldDefinition#ijsoncustomfielddefinition) Field { get; set; }
 
 Gets or sets the custom field definition.
 
-### [IJsonPosition](IJsonPosition#ijsonposition) Pos { get; set; }
+### [IJsonPosition](../IJsonPosition#ijsonposition) Pos { get; set; }
 
 Gets or sets the position.
 

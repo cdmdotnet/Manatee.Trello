@@ -1,10 +1,8 @@
 ---
 title: IJsonNotificationOldData
 category: API
-order: 237
+order: 112
 ---
-
-# IJsonNotificationOldData
 
 Defines the JSON structure for the ActionOldData object.
 
@@ -26,7 +24,7 @@ Gets or sets whether an item was closed.
 
 Gets or sets an old description.
 
-### [IJsonList](IJsonList#ijsonlist) List { get; set; }
+### [IJsonList](../IJsonList#ijsonlist) List { get; set; }
 
 Gets or sets an old list.
 

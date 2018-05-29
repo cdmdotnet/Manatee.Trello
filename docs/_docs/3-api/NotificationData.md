@@ -1,10 +1,8 @@
 ---
 title: NotificationData
 category: API
-order: 142
+order: 197
 ---
-
-# NotificationData
 
 Exposes any data associated with a notification.
 
@@ -19,7 +17,7 @@ Exposes any data associated with a notification.
 
 ## Properties
 
-### [IAttachment](IAttachment#iattachment) Attachment { get; }
+### [IAttachment](../IAttachment#iattachment) Attachment { get; }
 
 Gets an assocated attachment.
 
@@ -27,7 +25,7 @@ Gets an assocated attachment.
 
 - AddedAttachmentToCard
 
-### [IBoard](IBoard#iboard) Board { get; }
+### [IBoard](../IBoard#iboard) Board { get; }
 
 Gets an assocated board.
 
@@ -39,15 +37,15 @@ Gets an assocated board.
 - RemovedFromBoard
 - MakeAdminOfBoard
 
-### [IBoard](IBoard#iboard) BoardSource { get; }
+### [IBoard](../IBoard#iboard) BoardSource { get; }
 
 Gets an assocated board.
 
-### [IBoard](IBoard#iboard) BoardTarget { get; }
+### [IBoard](../IBoard#iboard) BoardTarget { get; }
 
 Gets an assocated board.
 
-### [ICard](ICard#icard) Card { get; }
+### [ICard](../ICard#icard) Card { get; }
 
 Gets an assocated card.
 
@@ -65,11 +63,11 @@ Gets an assocated card.
 - UpdateCheckItemStateOnCard
 - CardDueSoon
 
-### [ICard](ICard#icard) CardSource { get; }
+### [ICard](../ICard#icard) CardSource { get; }
 
 Gets an assocated card.
 
-### [ICheckItem](ICheckItem#icheckitem) CheckItem { get; }
+### [ICheckItem](../ICheckItem#icheckitem) CheckItem { get; }
 
 Gets an assocated checklist item.
 
@@ -77,31 +75,31 @@ Gets an assocated checklist item.
 
 - UpdateCheckItemStateOnCard
 
-### [ICheckList](ICheckList#ichecklist) CheckList { get; }
+### [ICheckList](../ICheckList#ichecklist) CheckList { get; }
 
 Gets an assocated checklist.
 
-### [IList](IList#ilist) List { get; }
+### [IList](../IList#ilist) List { get; }
 
 Gets an assocated list.
 
-### [IList](IList#ilist) ListAfter { get; }
+### [IList](../IList#ilist) ListAfter { get; }
 
 Gets the current list.
 
 #### Remarks
 
-For some action types, this information may be in the [List](NotificationData#ilist-list--get-) or [OldList](NotificationData#ilist-oldlist--get-) properties.
+For some action types, this information may be in the [List](../NotificationData#ilist-list--get-) or [OldList](../NotificationData#ilist-oldlist--get-) properties.
 
-### [IList](IList#ilist) ListBefore { get; }
+### [IList](../IList#ilist) ListBefore { get; }
 
 Gets the previous list.
 
 #### Remarks
 
-For some action types, this information may be in the [List](NotificationData#ilist-list--get-) or [OldList](NotificationData#ilist-oldlist--get-) properties.
+For some action types, this information may be in the [List](../NotificationData#ilist-list--get-) or [OldList](../NotificationData#ilist-oldlist--get-) properties.
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets an assocated member.
 
@@ -119,15 +117,15 @@ Gets the previous description.
 
 - ChangeCard
 
-### [IList](IList#ilist) OldList { get; }
+### [IList](../IList#ilist) OldList { get; }
 
 Gets the previous list.
 
 #### Remarks
 
-For some action types, this information may be in the [ListAfter](NotificationData#ilist-listafter--get-) or [ListBefore](NotificationData#ilist-listbefore--get-) properties.
+For some action types, this information may be in the [ListAfter](../NotificationData#ilist-listafter--get-) or [ListBefore](../NotificationData#ilist-listbefore--get-) properties.
 
-### [Position](Position#position) OldPosition { get; }
+### [Position](../Position#position) OldPosition { get; }
 
 Gets the previous position.
 
@@ -143,7 +141,7 @@ Gets the previous text value.
 
 - CommentCard
 
-### [IOrganization](IOrganization#iorganization) Organization { get; }
+### [IOrganization](../IOrganization#iorganization) Organization { get; }
 
 Gets an assocated organization.
 

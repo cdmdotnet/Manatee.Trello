@@ -1,10 +1,8 @@
 ---
 title: IMember
 category: API
-order: 76
+order: 132
 ---
-
-# IMember
 
 Represents a member.
 
@@ -22,7 +20,7 @@ Represents a member.
 
 Gets the collection of actions performed by the member.
 
-### [AvatarSource](AvatarSource#avatarsource)? AvatarSource { get; }
+### [AvatarSource](../AvatarSource#avatarsource)? AvatarSource { get; }
 
 Gets the source type for the member&#39;s avatar.
 
@@ -66,7 +64,7 @@ Gets a string which can be used in comments or descriptions to mention this user
 
 Gets the collection of organizations to which the member belongs.
 
-### [MemberStatus](MemberStatus#memberstatus)? Status { get; }
+### [MemberStatus](../MemberStatus#memberstatus)? Status { get; }
 
 Gets the member&#39;s online status.
 

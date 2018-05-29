@@ -1,10 +1,8 @@
 ---
 title: IReadOnlyOrganizationMembershipCollection
 category: API
-order: 104
+order: 160
 ---
-
-# IReadOnlyOrganizationMembershipCollection
 
 A read-only collection of organization memberships.
 
@@ -18,7 +16,7 @@ A read-only collection of organization memberships.
 
 ## Properties
 
-### [IOrganizationMembership](IOrganizationMembership#iorganizationmembership) this[string key] { get; }
+### [IOrganizationMembership](../IOrganizationMembership#iorganizationmembership) this[string key] { get; }
 
 Retrieves a membership which matches the supplied key.
 

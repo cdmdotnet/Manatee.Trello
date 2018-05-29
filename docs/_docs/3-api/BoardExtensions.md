@@ -1,10 +1,8 @@
 ---
 title: BoardExtensions
 category: API
-order: 14
+order: 13
 ---
-
-# BoardExtensions
 
 Extension methods for boards.
 
@@ -19,7 +17,7 @@ Extension methods for boards.
 
 ## Methods
 
-### static [IReadOnlyCardCollection](IReadOnlyCardCollection#ireadonlycardcollection) CardsForMember(IBoard board, IMember member)
+### static [IReadOnlyCardCollection](../IReadOnlyCardCollection#ireadonlycardcollection) CardsForMember(IBoard board, IMember member)
 
 Gets all open cards for a member on a specific board.
 
@@ -31,5 +29,5 @@ The board.
 
 The member.
 
-**Returns:** A [IReadOnlyCardCollection](IReadOnlyCardCollection#ireadonlycardcollection) containing the member&#39;s cards.
+**Returns:** A [IReadOnlyCardCollection](../IReadOnlyCardCollection#ireadonlycardcollection) containing the member&#39;s cards.
 

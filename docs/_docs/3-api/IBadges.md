@@ -1,10 +1,8 @@
 ---
 title: IBadges
 category: API
-order: 43
+order: 56
 ---
-
-# IBadges
 
 Represents a collection of badges which summarize the contents of a card.
 

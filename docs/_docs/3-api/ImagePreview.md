@@ -1,10 +1,8 @@
 ---
 title: ImagePreview
 category: API
-order: 122
+order: 130
 ---
-
-# ImagePreview
 
 Represents a preview for an image.
 

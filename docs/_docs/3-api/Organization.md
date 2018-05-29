@@ -1,10 +1,8 @@
 ---
 title: Organization
 category: API
-order: 145
+order: 200
 ---
-
-# Organization
 
 Represents an organization.
 
@@ -21,7 +19,7 @@ Represents an organization.
 
 ### Organization(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [Organization](Organization#organization) object.
+Creates a new instance of the [Organization](../Organization#organization) object.
 
 **Parameter:** id
 
@@ -29,7 +27,7 @@ The organization&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
 
 #### Remarks
 
@@ -45,7 +43,7 @@ Specifies which fields should be downloaded.
 
 Gets the collection of actions performed on the organization.
 
-### [IBoardCollection](IBoardCollection#iboardcollection) Boards { get; }
+### [IBoardCollection](../IBoardCollection#iboardcollection) Boards { get; }
 
 Gets the collection of boards owned by the organization.
 
@@ -73,7 +71,7 @@ Gets whether the organization has business class status.
 
 Gets the collection of members who belong to the organization.
 
-### [IOrganizationMembershipCollection](IOrganizationMembershipCollection#iorganizationmembershipcollection) Memberships { get; }
+### [IOrganizationMembershipCollection](../IOrganizationMembershipCollection#iorganizationmembershipcollection) Memberships { get; }
 
 Gets the collection of members and their priveledges on this organization.
 
@@ -85,7 +83,7 @@ Gets the organization&#39;s name.
 
 Gets specific data regarding power-ups.
 
-### [IOrganizationPreferences](IOrganizationPreferences#iorganizationpreferences) Preferences { get; }
+### [IOrganizationPreferences](../IOrganizationPreferences#iorganizationpreferences) Preferences { get; }
 
 Gets the set of preferences for the organization.
 

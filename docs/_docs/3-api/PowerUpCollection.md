@@ -1,10 +1,8 @@
 ---
 title: PowerUpCollection
 category: API
-order: 156
+order: 211
 ---
-
-# PowerUpCollection
 
 A collection of power-ups.
 

@@ -1,10 +1,8 @@
 ---
 title: IBoardBackground
 category: API
-order: 45
+order: 58
 ---
-
-# IBoardBackground
 
 Represents a background image for a board.
 
@@ -18,15 +16,15 @@ Represents a background image for a board.
 
 ## Properties
 
-### [WebColor](WebColor#webcolor) BottomColor { get; }
+### [WebColor](../WebColor#webcolor) BottomColor { get; }
 
 Gets the bottom color of a gradient background.
 
-### [BoardBackgroundBrightness](BoardBackgroundBrightness#boardbackgroundbrightness)? Brightness { get; }
+### [BoardBackgroundBrightness](../BoardBackgroundBrightness#boardbackgroundbrightness)? Brightness { get; }
 
 Gets the brightness of the background.
 
-### [WebColor](WebColor#webcolor) Color { get; }
+### [WebColor](../WebColor#webcolor) Color { get; }
 
 Gets the color of a stock solid-color background.
 
@@ -42,7 +40,7 @@ Gets whether the image is tiled when displayed.
 
 Gets a collections of scaled background images.
 
-### [WebColor](WebColor#webcolor) TopColor { get; }
+### [WebColor](../WebColor#webcolor) TopColor { get; }
 
 Gets the top color of a gradient background.
 

@@ -1,10 +1,8 @@
 ---
 title: IBoardPersonalPreferences
 category: API
-order: 50
+order: 63
 ---
-
-# IBoardPersonalPreferences
 
 Represents the user-specific preferences for a board.
 
@@ -18,13 +16,13 @@ Represents the user-specific preferences for a board.
 
 ## Properties
 
-### [IList](IList#ilist) EmailList { get; set; }
+### [IList](../IList#ilist) EmailList { get; set; }
 
-Gets or sets the [List](List#list) which will be used to post new cards submitted by email.
+Gets or sets the [List](../List#list) which will be used to post new cards submitted by email.
 
-### [Position](Position#position) EmailPosition { get; set; }
+### [Position](../Position#position) EmailPosition { get; set; }
 
-Gets or sets the [Position](Position#position) within a [List](List#list) which will be used to post new cards submitted by email.
+Gets or sets the [Position](../Position#position) within a [List](../List#list) which will be used to post new cards submitted by email.
 
 ### bool? ShowListGuide { get; set; }
 

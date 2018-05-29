@@ -1,10 +1,8 @@
 ---
 title: LabelColor
 category: API
-order: 124
+order: 179
 ---
-
-# LabelColor
 
 Enumerates label colors for a board.
 

@@ -1,12 +1,10 @@
 ---
 title: IBoardMembership
 category: API
-order: 48
+order: 61
 ---
 
-# IBoardMembership
-
-Associates a [IMember](IMember#imember) to a [IBoard](IBoard#iboard) and indicates any permissions the member has on the board.
+Associates a [IMember](../IMember#imember) to a [IBoard](../IBoard#iboard) and indicates any permissions the member has on the board.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -26,11 +24,11 @@ Gets the creation date of the membership.
 
 Gets whether the member has accepted the invitation to join Trello.
 
-### [IMember](IMember#imember) Member { get; }
+### [IMember](../IMember#imember) Member { get; }
 
 Gets the member.
 
-### [BoardMembershipType](BoardMembershipType#boardmembershiptype)? MemberType { get; set; }
+### [BoardMembershipType](../BoardMembershipType#boardmembershiptype)? MemberType { get; set; }
 
 Gets the membership&#39;s permission level.
 

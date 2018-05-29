@@ -1,10 +1,8 @@
 ---
 title: ICardLabelCollection
 category: API
-order: 57
+order: 70
 ---
-
-# ICardLabelCollection
 
 A collection of labels for cards.
 

@@ -1,10 +1,8 @@
 ---
 title: ReadOnlyStickerPreviewCollection
 category: API
-order: 178
+order: 234
 ---
-
-# ReadOnlyStickerPreviewCollection
 
 A read-only collection of image previews for attachments.
 

@@ -1,10 +1,8 @@
 ---
 title: RestFile
 category: API
-order: 204
+order: 235
 ---
-
-# RestFile
 
 Defines a file to be included in a REST request.
 

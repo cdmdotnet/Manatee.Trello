@@ -1,10 +1,8 @@
 ---
 title: MembershipFilter
 category: API
-order: 138
+order: 193
 ---
-
-# MembershipFilter
 
 Enumerates the filter options for membership collections.
 

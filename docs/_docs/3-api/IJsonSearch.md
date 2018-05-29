@@ -1,10 +1,8 @@
 ---
 title: IJsonSearch
 category: API
-order: 245
+order: 120
 ---
-
-# IJsonSearch
 
 Defines the JSON structure for the Search object.
 
@@ -54,7 +52,7 @@ Gets or sets whether the search should match on partial words.
 
 Gets or sets the search query.
 
-### [SearchModelType](SearchModelType#searchmodeltype)? Types { get; set; }
+### [SearchModelType](../SearchModelType#searchmodeltype)? Types { get; set; }
 
 Gets or sets which types of objects should be returned.
 
