@@ -1,3 +1,9 @@
+---
+title: Label
+category: API
+order: 123
+---
+
 # Label
 
 A label.

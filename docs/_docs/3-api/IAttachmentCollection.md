@@ -1,3 +1,9 @@
+---
+title: IAttachmentCollection
+category: API
+order: 42
+---
+
 # IAttachmentCollection
 
 A collection of attachments.

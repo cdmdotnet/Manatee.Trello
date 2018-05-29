@@ -1,3 +1,9 @@
+---
+title: INotification
+category: API
+order: 82
+---
+
 # INotification
 
 Represents a notification.

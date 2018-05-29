@@ -1,3 +1,9 @@
+---
+title: BoardPreferences
+category: API
+order: 23
+---
+
 # BoardPreferences
 
 Represents the preferences for a board.

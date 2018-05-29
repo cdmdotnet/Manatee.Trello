@@ -1,3 +1,9 @@
+---
+title: IJsonActionData
+category: API
+order: 211
+---
+
 # IJsonActionData
 
 Defines the JSON structure for the ActionData object.

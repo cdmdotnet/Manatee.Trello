@@ -1,3 +1,9 @@
+---
+title: BoardMembership
+category: API
+order: 18
+---
+
 # BoardMembership
 
 Represents the permission level a member has on a board.

@@ -1,3 +1,9 @@
+---
+title: IReadOnlyActionCollection
+category: API
+order: 93
+---
+
 # IReadOnlyActionCollection
 
 A read-only collection of actions.

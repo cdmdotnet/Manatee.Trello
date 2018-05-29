@@ -1,3 +1,9 @@
+---
+title: ListCollection
+category: API
+order: 128
+---
+
 # ListCollection
 
 A collection of lists.

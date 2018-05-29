@@ -1,3 +1,9 @@
+---
+title: IMemberCollection
+category: API
+order: 77
+---
+
 # IMemberCollection
 
 A collection of members.

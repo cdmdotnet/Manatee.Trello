@@ -1,3 +1,9 @@
+---
+title: IAcceptId
+category: API
+order: 208
+---
+
 # IAcceptId
 
 Implemented on types that accept both a string ID as well as a full object for deserialization.

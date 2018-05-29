@@ -1,3 +1,9 @@
+---
+title: UnknownPowerUp
+category: API
+order: 192
+---
+
 # UnknownPowerUp
 
 Provides an implementation for an unknown power-up.

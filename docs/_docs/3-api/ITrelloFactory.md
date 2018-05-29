@@ -1,3 +1,9 @@
+---
+title: ITrelloFactory
+category: API
+order: 110
+---
+
 # ITrelloFactory
 
 Supports entity creation for dependency-injected applications.

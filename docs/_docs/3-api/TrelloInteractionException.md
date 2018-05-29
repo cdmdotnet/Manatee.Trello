@@ -1,3 +1,9 @@
+---
+title: TrelloInteractionException
+category: API
+order: 190
+---
+
 # TrelloInteractionException
 
 Thrown when Trello reports an error with a request.

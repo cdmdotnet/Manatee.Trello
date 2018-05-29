@@ -1,3 +1,9 @@
+---
+title: IJsonOrganizationPreferences
+category: API
+order: 240
+---
+
 # IJsonOrganizationPreferences
 
 Defines the JSON structure for the OrganizationPreferences object.

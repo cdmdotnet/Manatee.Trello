@@ -1,3 +1,9 @@
+---
+title: ICache
+category: API
+order: 52
+---
+
 # ICache
 
 Defines operations for a cache.

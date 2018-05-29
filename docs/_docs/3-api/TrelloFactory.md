@@ -1,3 +1,9 @@
+---
+title: TrelloFactory
+category: API
+order: 189
+---
+
 # TrelloFactory
 
 Supports entity creation for dependency-injected applications.

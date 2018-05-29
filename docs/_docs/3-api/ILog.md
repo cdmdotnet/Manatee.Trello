@@ -1,3 +1,9 @@
+---
+title: ILog
+category: API
+order: 74
+---
+
 # ILog
 
 Defines methods required to log information, events, and errors generated throughout Manatee.Trello.

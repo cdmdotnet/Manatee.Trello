@@ -1,3 +1,9 @@
+---
+title: IReadOnlyCardCollection
+category: API
+order: 96
+---
+
 # IReadOnlyCardCollection
 
 A read-only collection of cards.

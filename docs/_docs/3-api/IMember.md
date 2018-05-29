@@ -1,3 +1,9 @@
+---
+title: IMember
+category: API
+order: 76
+---
+
 # IMember
 
 Represents a member.

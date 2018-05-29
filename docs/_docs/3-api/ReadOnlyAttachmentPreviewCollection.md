@@ -1,3 +1,9 @@
+---
+title: ReadOnlyAttachmentPreviewCollection
+category: API
+order: 159
+---
+
 # ReadOnlyAttachmentPreviewCollection
 
 A read-only collection of image previews for attachments.

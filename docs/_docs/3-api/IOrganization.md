@@ -1,3 +1,9 @@
+---
+title: IOrganization
+category: API
+order: 84
+---
+
 # IOrganization
 
 Represents an organization.

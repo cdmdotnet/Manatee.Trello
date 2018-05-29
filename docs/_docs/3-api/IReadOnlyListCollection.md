@@ -1,3 +1,9 @@
+---
+title: IReadOnlyListCollection
+category: API
+order: 100
+---
+
 # IReadOnlyListCollection
 
 A read-only collection of lists.

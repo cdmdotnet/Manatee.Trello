@@ -1,3 +1,9 @@
+---
+title: CheckBoxField
+category: API
+order: 32
+---
+
 # CheckBoxField
 
 Represents a custom checkbox field instance.

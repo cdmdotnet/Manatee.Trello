@@ -1,3 +1,9 @@
+---
+title: IReadOnlyCheckItemCollection
+category: API
+order: 97
+---
+
 # IReadOnlyCheckItemCollection
 
 A read-only collection of checklist items.

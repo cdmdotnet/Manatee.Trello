@@ -1,3 +1,9 @@
+---
+title: ReadOnlyActionCollection
+category: API
+order: 2
+---
+
 # ReadOnlyActionCollection
 
 A read-only collection of actions.

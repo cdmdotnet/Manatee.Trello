@@ -1,3 +1,9 @@
+---
+title: AttachmentCollection
+category: API
+order: 6
+---
+
 # AttachmentCollection
 
 A collection of attachments.

@@ -1,3 +1,9 @@
+---
+title: OrganizationMembershipType
+category: API
+order: 151
+---
+
 # OrganizationMembershipType
 
 Enumerates known board membership types.

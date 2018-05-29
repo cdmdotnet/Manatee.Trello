@@ -1,3 +1,9 @@
+---
+title: IReadOnlyOrganizationCollection
+category: API
+order: 103
+---
+
 # IReadOnlyOrganizationCollection
 
 A read-only collection of organizations.

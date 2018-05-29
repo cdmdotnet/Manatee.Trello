@@ -1,3 +1,9 @@
+---
+title: Member
+category: API
+order: 131
+---
+
 # Member
 
 Represents a member.

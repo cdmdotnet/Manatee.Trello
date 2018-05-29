@@ -1,3 +1,9 @@
+---
+title: BoardVotingPermission
+category: API
+order: 24
+---
+
 # BoardVotingPermission
 
 Enumerates known voting permission levels for a board

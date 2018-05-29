@@ -1,3 +1,9 @@
+---
+title: IList
+category: API
+order: 72
+---
+
 # IList
 
 Represents a list.

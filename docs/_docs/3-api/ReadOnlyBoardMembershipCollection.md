@@ -1,3 +1,9 @@
+---
+title: ReadOnlyBoardMembershipCollection
+category: API
+order: 162
+---
+
 # ReadOnlyBoardMembershipCollection
 
 A read-only collection of board memberships.

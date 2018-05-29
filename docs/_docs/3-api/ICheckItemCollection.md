@@ -1,3 +1,9 @@
+---
+title: ICheckItemCollection
+category: API
+order: 60
+---
+
 # ICheckItemCollection
 
 A collection of checklist items.

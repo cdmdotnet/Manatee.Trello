@@ -1,3 +1,9 @@
+---
+title: IImagePreview
+category: API
+order: 70
+---
+
 # IImagePreview
 
 Represents a preview for an image.

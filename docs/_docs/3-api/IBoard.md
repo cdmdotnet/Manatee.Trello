@@ -1,3 +1,9 @@
+---
+title: IBoard
+category: API
+order: 44
+---
+
 # IBoard
 
 Represents a board.

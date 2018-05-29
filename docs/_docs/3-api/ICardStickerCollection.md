@@ -1,3 +1,9 @@
+---
+title: ICardStickerCollection
+category: API
+order: 58
+---
+
 # ICardStickerCollection
 
 A collection of [ISticker](ISticker#isticker)s.

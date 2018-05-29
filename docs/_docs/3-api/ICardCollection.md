@@ -1,3 +1,9 @@
+---
+title: ICardCollection
+category: API
+order: 56
+---
+
 # ICardCollection
 
 A collection of cards.

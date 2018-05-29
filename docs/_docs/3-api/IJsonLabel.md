@@ -1,3 +1,9 @@
+---
+title: IJsonLabel
+category: API
+order: 230
+---
+
 # IJsonLabel
 
 Defines the JSON structure for the Label object.

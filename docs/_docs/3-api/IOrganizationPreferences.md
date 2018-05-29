@@ -1,3 +1,9 @@
+---
+title: IOrganizationPreferences
+category: API
+order: 88
+---
+
 # IOrganizationPreferences
 
 Represents the preferences for an organization.

@@ -1,3 +1,9 @@
+---
+title: IJsonCheckList
+category: API
+order: 224
+---
+
 # IJsonCheckList
 
 Defines the JSON structure for the CheckList object.

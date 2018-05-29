@@ -1,3 +1,9 @@
+---
+title: ReadOnlyOrganizationCollection
+category: API
+order: 173
+---
+
 # ReadOnlyOrganizationCollection
 
 A read-only collection of organizations.

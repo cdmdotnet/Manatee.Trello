@@ -1,3 +1,9 @@
+---
+title: ReadOnlyAttachmentCollection
+category: API
+order: 158
+---
+
 # ReadOnlyAttachmentCollection
 
 A read-only collection of attachments.

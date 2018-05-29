@@ -1,3 +1,9 @@
+---
+title: IRestResponse`1
+category: API
+order: 203
+---
+
 # IRestResponse&lt;T&gt;
 
 Defines required properties returned by RESTful calls.

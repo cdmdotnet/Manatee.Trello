@@ -1,3 +1,9 @@
+---
+title: PowerUpCollection
+category: API
+order: 156
+---
+
 # PowerUpCollection
 
 A collection of power-ups.

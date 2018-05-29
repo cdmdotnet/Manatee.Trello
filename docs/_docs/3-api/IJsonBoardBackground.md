@@ -1,3 +1,9 @@
+---
+title: IJsonBoardBackground
+category: API
+order: 216
+---
+
 # IJsonBoardBackground
 
 Defines the JSON structure for the BoardBackground object.

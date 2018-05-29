@@ -1,3 +1,9 @@
+---
+title: TrelloConfiguration
+category: API
+order: 188
+---
+
 # TrelloConfiguration
 
 Exposes a set of run-time options for Manatee.Trello.

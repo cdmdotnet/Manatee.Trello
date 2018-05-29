@@ -1,3 +1,9 @@
+---
+title: SearchQuery
+category: API
+order: 181
+---
+
 # SearchQuery
 
 Provides an easy mechanism to build search queries.

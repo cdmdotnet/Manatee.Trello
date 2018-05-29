@@ -1,3 +1,9 @@
+---
+title: BoardBackground
+category: API
+order: 10
+---
+
 # BoardBackground
 
 Represents a background image for a board.

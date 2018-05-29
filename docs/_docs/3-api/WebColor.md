@@ -1,3 +1,9 @@
+---
+title: WebColor
+category: API
+order: 195
+---
+
 # WebColor
 
 Defines a color in the RGB space.

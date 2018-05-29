@@ -1,3 +1,9 @@
+---
+title: IJsonMember
+category: API
+order: 232
+---
+
 # IJsonMember
 
 Defines the JSON structure for the Member object.

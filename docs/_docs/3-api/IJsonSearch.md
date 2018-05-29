@@ -1,3 +1,9 @@
+---
+title: IJsonSearch
+category: API
+order: 245
+---
+
 # IJsonSearch
 
 Defines the JSON structure for the Search object.

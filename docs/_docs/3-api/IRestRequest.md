@@ -1,3 +1,9 @@
+---
+title: IRestRequest
+category: API
+order: 200
+---
+
 # IRestRequest
 
 Defines properties and methods required to make RESTful requests.

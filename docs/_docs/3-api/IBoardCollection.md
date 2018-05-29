@@ -1,3 +1,9 @@
+---
+title: IBoardCollection
+category: API
+order: 46
+---
+
 # IBoardCollection
 
 A collection of boards.

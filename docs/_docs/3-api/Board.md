@@ -1,3 +1,9 @@
+---
+title: Board
+category: API
+order: 9
+---
+
 # Board
 
 Represents a board.

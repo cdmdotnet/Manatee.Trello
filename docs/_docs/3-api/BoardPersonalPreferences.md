@@ -1,3 +1,9 @@
+---
+title: BoardPersonalPreferences
+category: API
+order: 22
+---
+
 # BoardPersonalPreferences
 
 Represents the user-specific preferences for a board.

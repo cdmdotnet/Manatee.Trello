@@ -1,3 +1,9 @@
+---
+title: BoardExtensions
+category: API
+order: 14
+---
+
 # BoardExtensions
 
 Extension methods for boards.

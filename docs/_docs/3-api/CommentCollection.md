@@ -1,3 +1,9 @@
+---
+title: CommentCollection
+category: API
+order: 38
+---
+
 # CommentCollection
 
 A collection of [Action](Action#action)s of types [ActionType.CommentCard](ActionType#static-actiontype-commentcard) and [ActionType.CopyCommentCard](ActionType#static-actiontype-copycommentcard).

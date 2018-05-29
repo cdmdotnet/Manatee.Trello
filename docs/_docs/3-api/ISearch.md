@@ -1,3 +1,9 @@
+---
+title: ISearch
+category: API
+order: 105
+---
+
 # ISearch
 
 Performs a search.

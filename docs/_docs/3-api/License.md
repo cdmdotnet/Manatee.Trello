@@ -1,3 +1,9 @@
+---
+title: License
+category: API
+order: 125
+---
+
 # License
 
 Manages the license used with Manatee.Trello. Please see https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3 for information on purchasing a license.

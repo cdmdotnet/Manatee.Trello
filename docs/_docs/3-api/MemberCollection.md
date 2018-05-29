@@ -1,3 +1,9 @@
+---
+title: MemberCollection
+category: API
+order: 132
+---
+
 # MemberCollection
 
 A collection of members.

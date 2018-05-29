@@ -1,3 +1,9 @@
+---
+title: CardCollection
+category: API
+order: 28
+---
+
 # CardCollection
 
 A collection of cards.

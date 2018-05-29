@@ -1,3 +1,9 @@
+---
+title: VotingPowerUp
+category: API
+order: 194
+---
+
 # VotingPowerUp
 
 Represents the Voting power-up.

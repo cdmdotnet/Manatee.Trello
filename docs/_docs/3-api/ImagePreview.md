@@ -1,3 +1,9 @@
+---
+title: ImagePreview
+category: API
+order: 122
+---
+
 # ImagePreview
 
 Represents a preview for an image.

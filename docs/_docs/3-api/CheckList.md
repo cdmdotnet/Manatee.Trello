@@ -1,3 +1,9 @@
+---
+title: CheckList
+category: API
+order: 36
+---
+
 # CheckList
 
 Represents a checklist.

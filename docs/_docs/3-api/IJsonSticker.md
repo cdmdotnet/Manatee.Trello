@@ -1,3 +1,9 @@
+---
+title: IJsonSticker
+category: API
+order: 246
+---
+
 # IJsonSticker
 
 Defines the JSON structure for the Sticker object.

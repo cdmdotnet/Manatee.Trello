@@ -1,3 +1,9 @@
+---
+title: IJsonNotification
+category: API
+order: 235
+---
+
 # IJsonNotification
 
 Defines the JSON structure for the Notification object.

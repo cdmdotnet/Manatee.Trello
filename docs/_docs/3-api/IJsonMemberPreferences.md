@@ -1,3 +1,9 @@
+---
+title: IJsonMemberPreferences
+category: API
+order: 233
+---
+
 # IJsonMemberPreferences
 
 Defines the JSON structure for the MemberPreferences object.

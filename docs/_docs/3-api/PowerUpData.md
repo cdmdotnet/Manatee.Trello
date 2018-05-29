@@ -1,3 +1,9 @@
+---
+title: PowerUpData
+category: API
+order: 157
+---
+
 # PowerUpData
 
 Represents the data associated with a plugin.

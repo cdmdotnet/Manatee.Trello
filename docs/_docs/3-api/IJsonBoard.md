@@ -1,3 +1,9 @@
+---
+title: IJsonBoard
+category: API
+order: 215
+---
+
 # IJsonBoard
 
 Defines the JSON structure for the Board object.

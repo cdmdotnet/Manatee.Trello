@@ -1,3 +1,9 @@
+---
+title: MemberPreferences
+category: API
+order: 135
+---
+
 # MemberPreferences
 
 Represents preferences for a member.

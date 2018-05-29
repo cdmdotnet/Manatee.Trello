@@ -1,3 +1,9 @@
+---
+title: IRestClientProvider
+category: API
+order: 199
+---
+
 # IRestClientProvider
 
 Defines methods required to create an instance of IRestClient.

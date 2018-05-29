@@ -1,3 +1,9 @@
+---
+title: JsonSerializeAttribute
+category: API
+order: 253
+---
+
 # JsonSerializeAttribute
 
 Declares that the JSON property should be serialized and whether it is optional or required.

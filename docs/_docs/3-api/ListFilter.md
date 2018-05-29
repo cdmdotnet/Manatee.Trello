@@ -1,3 +1,9 @@
+---
+title: ListFilter
+category: API
+order: 129
+---
+
 # ListFilter
 
 Enumerates the filter options for list collections.

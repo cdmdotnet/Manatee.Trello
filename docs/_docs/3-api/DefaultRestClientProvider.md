@@ -1,3 +1,9 @@
+---
+title: DefaultRestClientProvider
+category: API
+order: 197
+---
+
 # DefaultRestClientProvider
 
 Implements [IRestClientProvider](IRestClientProvider#irestclientprovider) using ASP.Net&#39;s System.Net.Http.HttpClient.

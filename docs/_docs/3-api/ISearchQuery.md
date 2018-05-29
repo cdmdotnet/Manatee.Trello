@@ -1,3 +1,9 @@
+---
+title: ISearchQuery
+category: API
+order: 106
+---
+
 # ISearchQuery
 
 Builds a search query.

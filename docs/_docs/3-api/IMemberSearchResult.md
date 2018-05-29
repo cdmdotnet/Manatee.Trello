@@ -1,3 +1,9 @@
+---
+title: IMemberSearchResult
+category: API
+order: 80
+---
+
 # IMemberSearchResult
 
 Represents a result from a member search.

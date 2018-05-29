@@ -1,3 +1,9 @@
+---
+title: IReadOnlyMemberCollection
+category: API
+order: 101
+---
+
 # IReadOnlyMemberCollection
 
 A read-only collection of members.

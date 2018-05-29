@@ -1,3 +1,9 @@
+---
+title: IBoardMembershipCollection
+category: API
+order: 49
+---
+
 # IBoardMembershipCollection
 
 A collection of board memberships.

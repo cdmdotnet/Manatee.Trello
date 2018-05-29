@@ -1,3 +1,9 @@
+---
+title: ReadOnlyBoardBackgroundScalesCollection
+category: API
+order: 160
+---
+
 # ReadOnlyBoardBackgroundScalesCollection
 
 A read-only collection of scaled versions of board backgrounds.

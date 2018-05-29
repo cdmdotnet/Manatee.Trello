@@ -1,3 +1,9 @@
+---
+title: IJsonImagePreview
+category: API
+order: 229
+---
+
 # IJsonImagePreview
 
 Defines the JSON structure for the AttachmentPreview object.

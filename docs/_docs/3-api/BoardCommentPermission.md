@@ -1,3 +1,9 @@
+---
+title: BoardCommentPermission
+category: API
+order: 13
+---
+
 # BoardCommentPermission
 
 Enumerates known board commenting permission levels.

@@ -1,3 +1,9 @@
+---
+title: ReadOnlyPowerUpDataCollection
+category: API
+order: 176
+---
+
 # ReadOnlyPowerUpDataCollection
 
 A read-only collection of power-up data.

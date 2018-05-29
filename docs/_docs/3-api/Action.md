@@ -1,3 +1,9 @@
+---
+title: Action
+category: API
+order: 1
+---
+
 # Action
 
 Represents an action performed on Trello objects.

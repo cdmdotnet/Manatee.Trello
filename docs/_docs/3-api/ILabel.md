@@ -1,3 +1,9 @@
+---
+title: ILabel
+category: API
+order: 71
+---
+
 # ILabel
 
 A label.

@@ -1,3 +1,9 @@
+---
+title: BoardBackgroundBrightness
+category: API
+order: 11
+---
+
 # BoardBackgroundBrightness
 
 Specifies the brightness level of the board background.

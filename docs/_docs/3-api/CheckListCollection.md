@@ -1,3 +1,9 @@
+---
+title: CheckListCollection
+category: API
+order: 37
+---
+
 # CheckListCollection
 
 A collection of checklists.

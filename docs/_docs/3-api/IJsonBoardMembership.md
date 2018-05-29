@@ -1,3 +1,9 @@
+---
+title: IJsonBoardMembership
+category: API
+order: 217
+---
+
 # IJsonBoardMembership
 
 Defines the JSON structure for the BoardMembership object.

@@ -1,3 +1,9 @@
+---
+title: IOrganizationCollection
+category: API
+order: 85
+---
+
 # IOrganizationCollection
 
 A collection of organizations.

@@ -1,3 +1,9 @@
+---
+title: PowerUpBase
+category: API
+order: 155
+---
+
 # PowerUpBase
 
 Provides a base implementation for Trello Power-Ups.

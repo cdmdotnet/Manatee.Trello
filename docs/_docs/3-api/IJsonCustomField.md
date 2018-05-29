@@ -1,3 +1,9 @@
+---
+title: IJsonCustomField
+category: API
+order: 226
+---
+
 # IJsonCustomField
 
 Defines the JSON structure for a custom field instance.

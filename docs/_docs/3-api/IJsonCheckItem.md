@@ -1,3 +1,9 @@
+---
+title: IJsonCheckItem
+category: API
+order: 223
+---
+
 # IJsonCheckItem
 
 Defines the JSON structure for the CheckItem object.

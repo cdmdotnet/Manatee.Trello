@@ -1,3 +1,9 @@
+---
+title: BoardCollection
+category: API
+order: 12
+---
+
 # BoardCollection
 
 A collection of boards.

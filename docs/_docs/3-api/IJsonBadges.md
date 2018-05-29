@@ -1,3 +1,9 @@
+---
+title: IJsonBadges
+category: API
+order: 214
+---
+
 # IJsonBadges
 
 Defines the JSON structure for the Badges object.

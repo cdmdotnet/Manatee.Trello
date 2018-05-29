@@ -1,3 +1,9 @@
+---
+title: IAttachment
+category: API
+order: 41
+---
+
 # IAttachment
 
 Represents an attachment to a card.

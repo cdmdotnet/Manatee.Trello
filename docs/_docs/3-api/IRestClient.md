@@ -1,3 +1,9 @@
+---
+title: IRestClient
+category: API
+order: 198
+---
+
 # IRestClient
 
 Defines methods required to make RESTful calls.

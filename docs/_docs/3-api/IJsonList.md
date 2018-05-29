@@ -1,3 +1,9 @@
+---
+title: IJsonList
+category: API
+order: 231
+---
+
 # IJsonList
 
 Defines the JSON structure for the List object.

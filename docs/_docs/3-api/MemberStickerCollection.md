@@ -1,3 +1,9 @@
+---
+title: MemberStickerCollection
+category: API
+order: 140
+---
+
 # MemberStickerCollection
 
 A collection of [ISticker](ISticker#isticker)s.

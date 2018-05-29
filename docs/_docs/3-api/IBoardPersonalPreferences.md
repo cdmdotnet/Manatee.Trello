@@ -1,3 +1,9 @@
+---
+title: IBoardPersonalPreferences
+category: API
+order: 50
+---
+
 # IBoardPersonalPreferences
 
 Represents the user-specific preferences for a board.

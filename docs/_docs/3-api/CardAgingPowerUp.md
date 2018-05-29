@@ -1,3 +1,9 @@
+---
+title: CardAgingPowerUp
+category: API
+order: 26
+---
+
 # CardAgingPowerUp
 
 Represents the Card Aging power-up.

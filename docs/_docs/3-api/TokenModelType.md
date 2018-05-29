@@ -1,3 +1,9 @@
+---
+title: TokenModelType
+category: API
+order: 185
+---
+
 # TokenModelType
 
 Enumerates the model types to which a user token may grant access.

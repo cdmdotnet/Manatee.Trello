@@ -1,3 +1,9 @@
+---
+title: NotificationType
+category: API
+order: 143
+---
+
 # NotificationType
 
 Enumerates known types of notifications.

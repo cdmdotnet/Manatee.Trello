@@ -1,3 +1,9 @@
+---
+title: IOrganizationMembership
+category: API
+order: 86
+---
+
 # IOrganizationMembership
 
 Associates a [Member](IOrganizationMembership#imember-member--get-) to an [Organization](Organization#organization) and indicates any permissions the member has in the organization.

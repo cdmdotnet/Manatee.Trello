@@ -1,3 +1,9 @@
+---
+title: ReadOnlyPowerUpCollection
+category: API
+order: 175
+---
+
 # ReadOnlyPowerUpCollection
 
 A read-only collection of power-ups.

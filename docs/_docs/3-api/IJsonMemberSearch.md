@@ -1,3 +1,9 @@
+---
+title: IJsonMemberSearch
+category: API
+order: 234
+---
+
 # IJsonMemberSearch
 
 Defines the JSON structure for a member search.

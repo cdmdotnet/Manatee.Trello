@@ -1,3 +1,9 @@
+---
+title: IJsonBoardPersonalPreferences
+category: API
+order: 218
+---
+
 # IJsonBoardPersonalPreferences
 
 Defines the JSON structure for the BoardPersonalPreferences object.

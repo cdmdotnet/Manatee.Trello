@@ -1,3 +1,9 @@
+---
+title: ICustomFieldDefinitionCollection
+category: API
+order: 67
+---
+
 # ICustomFieldDefinitionCollection
 
 A collection of custom field definitions.

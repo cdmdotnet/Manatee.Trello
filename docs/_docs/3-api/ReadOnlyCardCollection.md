@@ -1,3 +1,9 @@
+---
+title: ReadOnlyCardCollection
+category: API
+order: 163
+---
+
 # ReadOnlyCardCollection
 
 A read-only collection of cards.

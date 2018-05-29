@@ -1,3 +1,9 @@
+---
+title: ICard
+category: API
+order: 55
+---
+
 # ICard
 
 Represents a card.

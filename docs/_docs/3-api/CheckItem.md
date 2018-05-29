@@ -1,3 +1,9 @@
+---
+title: CheckItem
+category: API
+order: 33
+---
+
 # CheckItem
 
 Represents a checklist item.

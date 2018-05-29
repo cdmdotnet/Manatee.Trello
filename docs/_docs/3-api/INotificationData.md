@@ -1,3 +1,9 @@
+---
+title: INotificationData
+category: API
+order: 83
+---
+
 # INotificationData
 
 Exposes any data associated with a notification.

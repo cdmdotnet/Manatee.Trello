@@ -1,3 +1,9 @@
+---
+title: Sticker
+category: API
+order: 182
+---
+
 # Sticker
 
 Represents a sticker on a card.

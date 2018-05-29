@@ -1,3 +1,9 @@
+---
+title: ActionType
+category: API
+order: 4
+---
+
 # ActionType
 
 Enumerates known types of [Action](Action#action)s.

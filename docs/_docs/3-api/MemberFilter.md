@@ -1,3 +1,9 @@
+---
+title: MemberFilter
+category: API
+order: 134
+---
+
 # MemberFilter
 
 Enumerates the filter options for member collections.

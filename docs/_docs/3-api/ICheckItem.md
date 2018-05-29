@@ -1,3 +1,9 @@
+---
+title: ICheckItem
+category: API
+order: 59
+---
+
 # ICheckItem
 
 Represents a checklist item.

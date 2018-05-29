@@ -1,3 +1,9 @@
+---
+title: OrganizationMembership
+category: API
+order: 149
+---
+
 # OrganizationMembership
 
 Represents the permission level a member has on an organization.

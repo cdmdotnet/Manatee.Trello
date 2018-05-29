@@ -1,3 +1,9 @@
+---
+title: IJsonOrganization
+category: API
+order: 238
+---
+
 # IJsonOrganization
 
 Defines the JSON structure for the Organization object.

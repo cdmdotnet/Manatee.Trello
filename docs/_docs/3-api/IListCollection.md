@@ -1,3 +1,9 @@
+---
+title: IListCollection
+category: API
+order: 73
+---
+
 # IListCollection
 
 A collection of lists.

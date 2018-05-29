@@ -1,3 +1,9 @@
+---
+title: IPowerUp
+category: API
+order: 89
+---
+
 # IPowerUp
 
 Defines the basis of a power-up.

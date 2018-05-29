@@ -1,3 +1,9 @@
+---
+title: IToken
+category: API
+order: 108
+---
+
 # IToken
 
 Represents a user token.

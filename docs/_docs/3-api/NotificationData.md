@@ -1,3 +1,9 @@
+---
+title: NotificationData
+category: API
+order: 142
+---
+
 # NotificationData
 
 Exposes any data associated with a notification.

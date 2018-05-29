@@ -1,3 +1,9 @@
+---
+title: IWebhook`1
+category: API
+order: 111
+---
+
 # IWebhook&lt;T&gt;
 
 Represents a webhook.

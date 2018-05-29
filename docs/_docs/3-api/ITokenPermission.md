@@ -1,3 +1,9 @@
+---
+title: ITokenPermission
+category: API
+order: 109
+---
+
 # ITokenPermission
 
 Represents permissions granted by a token.

@@ -1,3 +1,9 @@
+---
+title: IJsonCard
+category: API
+order: 222
+---
+
 # IJsonCard
 
 Defines the JSON structure for the Card object.

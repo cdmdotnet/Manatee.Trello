@@ -1,3 +1,9 @@
+---
+title: IJsonWebhookNotification
+category: API
+order: 250
+---
+
 # IJsonWebhookNotification
 
 Defines the JSON structure for the WebhookNotification object.

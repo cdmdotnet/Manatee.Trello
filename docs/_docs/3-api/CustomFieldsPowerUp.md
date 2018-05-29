@@ -1,3 +1,9 @@
+---
+title: CustomFieldsPowerUp
+category: API
+order: 116
+---
+
 # CustomFieldsPowerUp
 
 Represents the Custom Fields power-up.

@@ -1,3 +1,9 @@
+---
+title: IMemberStickerCollection
+category: API
+order: 81
+---
+
 # IMemberStickerCollection
 
 A collection of [ISticker](ISticker#isticker)s.

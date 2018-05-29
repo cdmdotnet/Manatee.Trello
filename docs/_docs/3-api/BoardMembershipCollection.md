@@ -1,3 +1,9 @@
+---
+title: BoardMembershipCollection
+category: API
+order: 19
+---
+
 # BoardMembershipCollection
 
 A collection of board memberships.

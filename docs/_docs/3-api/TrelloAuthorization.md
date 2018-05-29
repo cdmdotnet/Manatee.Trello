@@ -1,3 +1,9 @@
+---
+title: TrelloAuthorization
+category: API
+order: 187
+---
+
 # TrelloAuthorization
 
 Contains authorization tokens needed to connect to Trello&#39;s API.

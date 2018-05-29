@@ -1,3 +1,9 @@
+---
+title: IBoardBackground
+category: API
+order: 45
+---
+
 # IBoardBackground
 
 Represents a background image for a board.

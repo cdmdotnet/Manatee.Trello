@@ -1,3 +1,9 @@
+---
+title: MemberSearchResult
+category: API
+order: 137
+---
+
 # MemberSearchResult
 
 Represents a result from a member search.

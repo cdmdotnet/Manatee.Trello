@@ -1,3 +1,9 @@
+---
+title: Me
+category: API
+order: 130
+---
+
 # Me
 
 Represents the current member.

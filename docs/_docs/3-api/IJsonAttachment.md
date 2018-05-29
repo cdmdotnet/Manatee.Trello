@@ -1,3 +1,9 @@
+---
+title: IJsonAttachment
+category: API
+order: 213
+---
+
 # IJsonAttachment
 
 Defines the JSON structure for the Attachment object.

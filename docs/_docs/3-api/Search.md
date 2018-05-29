@@ -1,3 +1,9 @@
+---
+title: Search
+category: API
+order: 179
+---
+
 # Search
 
 Performs a search.

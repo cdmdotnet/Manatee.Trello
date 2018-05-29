@@ -1,3 +1,9 @@
+---
+title: IBoardMembership
+category: API
+order: 48
+---
+
 # IBoardMembership
 
 Associates a [IMember](IMember#imember) to a [IBoard](IBoard#iboard) and indicates any permissions the member has on the board.

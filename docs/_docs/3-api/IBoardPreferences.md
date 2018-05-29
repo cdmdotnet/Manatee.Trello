@@ -1,3 +1,9 @@
+---
+title: IBoardPreferences
+category: API
+order: 51
+---
+
 # IBoardPreferences
 
 Represents the preferences for a board.

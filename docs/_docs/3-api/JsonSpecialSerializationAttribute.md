@@ -1,3 +1,9 @@
+---
+title: JsonSpecialSerializationAttribute
+category: API
+order: 254
+---
+
 # JsonSpecialSerializationAttribute
 
 Declares that the JSON property has a special serialization.

@@ -1,3 +1,9 @@
+---
+title: TokenPermission
+category: API
+order: 186
+---
+
 # TokenPermission
 
 Represents permissions granted by a token.

@@ -1,3 +1,9 @@
+---
+title: IJsonTokenPermission
+category: API
+order: 248
+---
+
 # IJsonTokenPermission
 
 Defines the JSON structure for the TokenPermission object.

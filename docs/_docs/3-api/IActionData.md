@@ -1,3 +1,9 @@
+---
+title: IActionData
+category: API
+order: 40
+---
+
 # IActionData
 
 Exposes any data associated with an action.

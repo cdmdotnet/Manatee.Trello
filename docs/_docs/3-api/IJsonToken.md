@@ -1,3 +1,9 @@
+---
+title: IJsonToken
+category: API
+order: 247
+---
+
 # IJsonToken
 
 Defines the JSON structure for the Token object.

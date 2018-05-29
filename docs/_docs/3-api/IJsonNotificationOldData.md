@@ -1,3 +1,9 @@
+---
+title: IJsonNotificationOldData
+category: API
+order: 237
+---
+
 # IJsonNotificationOldData
 
 Defines the JSON structure for the ActionOldData object.

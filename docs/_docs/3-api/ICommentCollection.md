@@ -1,3 +1,9 @@
+---
+title: ICommentCollection
+category: API
+order: 63
+---
+
 # ICommentCollection
 
 A collection of comment actions.

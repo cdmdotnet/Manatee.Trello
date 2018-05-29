@@ -1,3 +1,9 @@
+---
+title: CustomFieldDefinitionCollection
+category: API
+order: 115
+---
+
 # CustomFieldDefinitionCollection
 
 A collection of custom field definitions.

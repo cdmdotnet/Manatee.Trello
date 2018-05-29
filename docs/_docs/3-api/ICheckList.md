@@ -1,3 +1,9 @@
+---
+title: ICheckList
+category: API
+order: 61
+---
+
 # ICheckList
 
 Represents a checklist.

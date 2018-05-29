@@ -1,3 +1,9 @@
+---
+title: BoardLabelCollection
+category: API
+order: 17
+---
+
 # BoardLabelCollection
 
 A collection of labels for boards.

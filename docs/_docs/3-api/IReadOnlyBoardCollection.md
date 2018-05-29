@@ -1,3 +1,9 @@
+---
+title: IReadOnlyBoardCollection
+category: API
+order: 94
+---
+
 # IReadOnlyBoardCollection
 
 A read-only collectin of boards.

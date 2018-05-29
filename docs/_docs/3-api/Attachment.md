@@ -1,3 +1,9 @@
+---
+title: Attachment
+category: API
+order: 5
+---
+
 # Attachment
 
 Represents an attachment to a card.

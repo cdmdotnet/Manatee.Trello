@@ -1,3 +1,9 @@
+---
+title: BoardPermissionLevel
+category: API
+order: 21
+---
+
 # BoardPermissionLevel
 
 Enumerates known values for board permission levels

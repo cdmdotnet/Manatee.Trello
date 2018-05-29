@@ -1,3 +1,9 @@
+---
+title: BoardFilter
+category: API
+order: 15
+---
+
 # BoardFilter
 
 Enumerates the filter options for board collections. Can be combined with the bitwise-OR operator.
