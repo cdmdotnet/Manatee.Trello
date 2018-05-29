@@ -46,7 +46,8 @@ namespace Manatee.Trello
 
 			_definition = new Field<ICustomFieldDefinition>(_context, nameof(Definition));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 			_context.Synchronized += Synchronized;

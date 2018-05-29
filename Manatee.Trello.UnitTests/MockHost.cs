@@ -14,7 +14,7 @@ namespace Manatee.Trello.UnitTests
 		public static Mock<IRestClient> Client { get; private set; } 
 		public static Mock Response { get; private set; }
 
-		public static void MockRest<T>()
+		public static void MockRest<T>(string content = null)
 			where T : class
 		{
 			var response = new Mock<IRestResponse<T>>();
@@ -22,7 +22,10 @@ namespace Manatee.Trello.UnitTests
 			response.SetupGet(r => r.StatusCode)
 			            .Returns(HttpStatusCode.OK);
 			response.SetupGet(r => r.Content)
-			            .Returns("{}");
+			            .Returns(content ?? "{}");
+			if (content != null)
+				response.SetupGet(r => r.Data)
+				        .Returns(() => TrelloConfiguration.Deserializer.Deserialize<T>(content));
 
 			Client = new Mock<IRestClient>();
 			Client.Setup(c => c.Execute<T>(It.IsAny<IRestRequest>(), It.IsAny<CancellationToken>()))

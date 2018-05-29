@@ -79,7 +79,7 @@ namespace Manatee.Trello.Json.Entities
 					Name = obj.TryGetString("name");
 					Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 					Url = obj.TryGetString("url");
-					ShortUrl = obj.TryGetString("shortUrl") ?? obj.TryGetString("shortLink");
+					ShortUrl = obj.TryGetString("shortUrl") ?? $"https://trello.com/c/{obj.TryGetString("shortLink")}";
 					Subscribed = obj.TryGetBoolean("subscribed");
 					Stickers = obj.Deserialize<List<IJsonSticker>>(serializer, "stickers");
 					MembersVoted = obj.Deserialize<List<IJsonMember>>(serializer, "membersVoted");

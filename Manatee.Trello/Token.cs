@@ -154,7 +154,8 @@ namespace Manatee.Trello
 			MemberPermissions = new TokenPermission(_context.MemberPermissions);
 			OrganizationPermissions = new TokenPermission(_context.OrganizationPermissions);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Token(IJsonToken json, TrelloAuthorization auth)
 			: this(json.Id, auth)

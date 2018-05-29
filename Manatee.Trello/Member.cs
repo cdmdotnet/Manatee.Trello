@@ -316,7 +316,8 @@ namespace Manatee.Trello
 			_userName = new Field<string>(_context, nameof(UserName));
 			_userName.AddRule(UsernameRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Member(IJsonMember json, TrelloAuthorization auth)
 			: this(json.Id, false, auth)
@@ -330,8 +331,13 @@ namespace Manatee.Trello
 		/// <param name="action">The action.</param>
 		public void ApplyAction(IAction action)
 		{
-			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
-			_context.Merge(((Member) action.Data.Member).Json);
+			var localAction = action as Action;
+
+			if (action.Type != ActionType.UpdateMember || 
+			    localAction?.Json?.Data?.Member == null ||
+			    localAction.Data.Member.Id != Id) return;
+
+			_context.Merge(localAction.Json.Data.Member);
 		}
 
 		/// <summary>

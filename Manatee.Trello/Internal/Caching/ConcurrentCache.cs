@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Manatee.Trello.Internal.Caching
 {
@@ -35,9 +36,14 @@ namespace Manatee.Trello.Internal.Caching
 			_collection.Clear();
 		}
 
-		public IEnumerator GetEnumerator()
+		public IEnumerator<ICacheable> GetEnumerator()
 		{
-			return _collection.GetEnumerator();
+			return _collection.Values.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 	}
 }

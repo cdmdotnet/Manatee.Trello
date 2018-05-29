@@ -109,7 +109,8 @@ namespace Manatee.Trello
 			_isTiled = new Field<bool?>(_context, nameof(IsTiled));
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, auth);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		private BoardBackground(string id)
 		{

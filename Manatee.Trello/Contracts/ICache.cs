@@ -1,12 +1,11 @@
-using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// Defines operations for a cache.
 	/// </summary>
-	public interface ICache : IEnumerable
+	public interface ICache : IEnumerable<ICacheable>
 	{
 		/// <summary>
 		/// Adds an object to the cache, if it does not already exist.
