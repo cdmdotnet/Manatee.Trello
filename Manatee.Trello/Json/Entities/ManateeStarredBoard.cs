@@ -7,7 +7,7 @@ namespace Manatee.Trello.Json.Entities
 	{
 		public string Id { get; set; }
 		public IJsonBoard Board { get; set; }
-		public IJsonPosition Position { get; set; }
+		public IJsonPosition Pos { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -15,12 +15,16 @@ namespace Manatee.Trello.Json.Entities
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
 			Board = obj.Deserialize<IJsonBoard>(serializer, "idBoard");
-			Position = obj.Deserialize<IJsonPosition>(serializer, "pos");
+			Pos = obj.Deserialize<IJsonPosition>(serializer, "pos");
 		}
 
 		public JsonValue ToJson(JsonSerializer serializer)
 		{
-			throw new System.NotImplementedException();
+			var obj = new JsonObject();
+			
+			Pos.Serialize(obj, serializer, "pos");
+
+			return obj;
 		}
 	}
 }
