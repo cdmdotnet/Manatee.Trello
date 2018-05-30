@@ -16,6 +16,8 @@ In line with changes in the Trello API:
 
 Starred boards are represented as objects in the Trello API.  Previous versions only exposed `Board.IsStarred` as a read-only property.  This can now be listed and manipulated through the `StarredBoard` entity and its collection on the `Member` and `Me` entities, respectively.
 
+Updated collection `Add()` methods to include optional parameters so that the data can be included as part of the creation process rather than having to set properties which would require at least one additional call.
+
 ## Changes
 
 New members:
