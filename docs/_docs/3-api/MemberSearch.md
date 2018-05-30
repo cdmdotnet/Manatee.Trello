@@ -17,7 +17,7 @@ Performs a search for members.
 
 ## Properties
 
-### IEnumerable&lt;MemberSearchResult&gt; Results { get; }
+### IEnumerable&lt;[MemberSearchResult](../MemberSearchResult#membersearchresult)&gt; Results { get; }
 
 Gets the collection of results returned by the search.
 

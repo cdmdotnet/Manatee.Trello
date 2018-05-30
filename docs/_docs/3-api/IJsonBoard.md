@@ -16,7 +16,7 @@ Defines the JSON structure for the Board object.
 
 ## Properties
 
-### List&lt;IJsonAction&gt; Actions { get; set; }
+### List&lt;[IJsonAction](../IJsonAction#ijsonaction)&gt; Actions { get; set; }
 
 Gets or sets a list of actions.
 
@@ -24,7 +24,7 @@ Gets or sets a list of actions.
 
 Gets or sets a board to be used as a template.
 
-### List&lt;IJsonCard&gt; Cards { get; set; }
+### List&lt;[IJsonCard](../IJsonCard#ijsoncard)&gt; Cards { get; set; }
 
 Gets or sets a list of cards.
 
@@ -32,7 +32,7 @@ Gets or sets a list of cards.
 
 Gets or sets whether this board is closed.
 
-### List&lt;IJsonCustomFieldDefinition&gt; CustomFields { get; set; }
+### List&lt;[IJsonCustomFieldDefinition](../IJsonCustomFieldDefinition#ijsoncustomfielddefinition)&gt; CustomFields { get; set; }
 
 Gets or sets a list of custom field definitions.
 
@@ -48,19 +48,19 @@ Gets or sets the date the board was last viewed.
 
 Gets or sets the board&#39;s description.
 
-### List&lt;IJsonLabel&gt; Labels { get; set; }
+### List&lt;[IJsonLabel](../IJsonLabel#ijsonlabel)&gt; Labels { get; set; }
 
 Gets or sets a list of labels.
 
-### List&lt;IJsonList&gt; Lists { get; set; }
+### List&lt;[IJsonList](../IJsonList#ijsonlist)&gt; Lists { get; set; }
 
 Gets or sets a list of lists.
 
-### List&lt;IJsonMember&gt; Members { get; set; }
+### List&lt;[IJsonMember](../IJsonMember#ijsonmember)&gt; Members { get; set; }
 
 Gets or sets a list of members.
 
-### List&lt;IJsonBoardMembership&gt; Memberships { get; set; }
+### List&lt;[IJsonBoardMembership](../IJsonBoardMembership#ijsonboardmembership)&gt; Memberships { get; set; }
 
 Gets or sets a list of memberships.
 
@@ -76,11 +76,11 @@ Gets or sets the ID of the organization, if any, to which this board belongs.
 
 Gets or sets whether the board is pinned.
 
-### List&lt;IJsonPowerUpData&gt; PowerUpData { get; set; }
+### List&lt;[IJsonPowerUpData](../IJsonPowerUpData#ijsonpowerupdata)&gt; PowerUpData { get; set; }
 
 Gets or sets a list of power-up data.
 
-### List&lt;IJsonPowerUp&gt; PowerUps { get; set; }
+### List&lt;[IJsonPowerUp](../IJsonPowerUp#ijsonpowerup)&gt; PowerUps { get; set; }
 
 Gets or sets a list of power-ups.
 

@@ -16,13 +16,13 @@ Represents a card.
 
 ## Properties
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }
+### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
 
 Gets the collection of actions performed on this card.
 
 #### Remarks
 
-By default imposed by Trello, this contains actions of types [ActionType.CommentCard](../ActionType#static-actiontype-commentcard) and .
+By default imposed by Trello, this contains actions of types Manatee.Trello.ActionType.CommentCard and .
 
 ### [IAttachmentCollection](../IAttachmentCollection#iattachmentcollection) Attachments { get; }
 
@@ -48,7 +48,7 @@ Gets the collection of comments made on the card.
 
 Gets the creation date of the card.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.ICustomField, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] CustomFields { get; }
+### IReadOnlyCollection&lt;[ICustomField](../ICustomField#icustomfield)&gt; CustomFields { get; }
 
 Gets the collection of custom field values for the card.
 
@@ -66,7 +66,7 @@ Gets or sets whether the card is archived.
 
 ### bool? IsComplete { get; set; }
 
-Gets or sets whether the card is complete. Associated with [DueDate](../ICard#datetime-duedate--get-set-).
+Gets or sets whether the card is complete. Associated with Manatee.Trello.ICard.DueDate.
 
 ### bool? IsSubscribed { get; set; }
 
@@ -128,7 +128,7 @@ Gets or sets the card&#39;s name.
 
 Gets or sets the card&#39;s position.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IPowerUpData, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] PowerUpData { get; }
+### IReadOnlyCollection&lt;[IPowerUpData](../IPowerUpData#ipowerupdata)&gt; PowerUpData { get; }
 
 Gets specific data regarding power-ups.
 
@@ -154,15 +154,15 @@ Gets the card&#39;s full URL.
 
 #### Remarks
 
-Trello will likely change this value as the name changes. You can use [ShortUrl](../ICard#string-shorturl--get-) for permalinks.
+Trello will likely change this value as the name changes. You can use Manatee.Trello.ICard.ShortUrl for permalinks.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IMember, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] VotingMembers { get; }
+### IReadOnlyCollection&lt;[IMember](../IMember#imember)&gt; VotingMembers { get; }
 
 Gets all members who have voted for this card.
 
 ## Events
 
-### Action&lt;ICard, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICard](../ICard#icard), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the card is updated.
 

@@ -29,5 +29,5 @@ The board.
 
 The member.
 
-**Returns:** A [IReadOnlyCardCollection](../IReadOnlyCardCollection#ireadonlycardcollection) containing the member&#39;s cards.
+**Returns:** A Manatee.Trello.IReadOnlyCardCollection containing the member&#39;s cards.
 

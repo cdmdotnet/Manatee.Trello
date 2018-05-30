@@ -19,7 +19,7 @@ Represents a card.
 
 ### Card(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [Card](../Card#card) object.
+Creates a new instance of the Manatee.Trello.Card object.
 
 **Parameter:** id
 
@@ -27,7 +27,7 @@ The card&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, Manatee.Trello.TrelloAuthorization.Default will be used.
 
 #### Remarks
 
@@ -35,17 +35,17 @@ The supplied ID can be either the full or short ID.
 
 ## Properties
 
-### static Manatee.Trello.Card+Fields DownloadedFields { get; set; }
+### static Card.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }
+### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
 
 Gets the collection of actions performed on this card.
 
 #### Remarks
 
-By default imposed by Trello, this contains actions of type [ActionType.CommentCard](../ActionType#static-actiontype-commentcard).
+By default imposed by Trello, this contains actions of type Manatee.Trello.ActionType.CommentCard.
 
 ### [IAttachmentCollection](../IAttachmentCollection#iattachmentcollection) Attachments { get; }
 
@@ -71,7 +71,7 @@ Gets the collection of comments made on the card.
 
 Gets the creation date of the card.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.ICustomField, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] CustomFields { get; }
+### IReadOnlyCollection&lt;[ICustomField](../ICustomField#icustomfield)&gt; CustomFields { get; }
 
 Gets the collection of custom field values for the card.
 
@@ -93,7 +93,7 @@ Gets or sets whether the card is archived.
 
 ### bool? IsComplete { get; set; }
 
-Gets or sets whether the card is complete. Associated with [DueDate](../Card#datetime-duedate--get-set-).
+Gets or sets whether the card is complete. Associated with Manatee.Trello.Card.DueDate.
 
 ### bool? IsSubscribed { get; set; }
 
@@ -155,7 +155,7 @@ Gets or sets the card&#39;s name.
 
 Gets or sets the card&#39;s position.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IPowerUpData, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] PowerUpData { get; }
+### IReadOnlyCollection&lt;[IPowerUpData](../IPowerUpData#ipowerupdata)&gt; PowerUpData { get; }
 
 Gets card-specific power-up data.
 
@@ -181,15 +181,15 @@ Gets the card&#39;s full URL.
 
 #### Remarks
 
-Trello will likely change this value as the name changes. You can use [ShortUrl](../Card#string-shorturl--get-) for permalinks.
+Trello will likely change this value as the name changes. You can use Manatee.Trello.Card.ShortUrl for permalinks.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IMember, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] VotingMembers { get; }
+### IReadOnlyCollection&lt;[IMember](../IMember#imember)&gt; VotingMembers { get; }
 
 Gets all members who have voted for this card.
 
 ## Events
 
-### Action&lt;ICard, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICard](../ICard#icard), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the card is updated.
 

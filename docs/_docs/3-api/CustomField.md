@@ -27,7 +27,7 @@ Gets an ID on which matching can be performed.
 
 ## Events
 
-### Action&lt;ICustomField, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICustomField](../ICustomField#icustomfield), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the custom field is updated.
 

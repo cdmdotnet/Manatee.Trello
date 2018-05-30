@@ -16,7 +16,7 @@ Defines methods required to make RESTful calls.
 
 ## Methods
 
-### Task&lt;IRestResponse&gt; Execute(IRestRequest request, CancellationToken ct)
+### Task&lt;[IRestResponse](../IRestResponse#irestresponse)&gt; Execute(IRestRequest request, CancellationToken ct)
 
 Makes a RESTful call and ignores any return data.
 
@@ -28,7 +28,7 @@ The request.
 
 (Optional) A cancellation token for async processing.
 
-### Task`1 Execute&lt;T&gt;(IRestRequest request, CancellationToken ct)
+### Task&lt;[IRestResponse`1](../IRestResponse`1#irestresponse1)&gt; Execute&lt;T&gt;(IRestRequest request, CancellationToken ct)
 
 Makes a RESTful call and expects a single object to be returned.
 

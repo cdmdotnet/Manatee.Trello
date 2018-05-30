@@ -19,7 +19,7 @@ Represents a user token.
 
 ### Token(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [Token](../Token#token) object.
+Creates a new instance of the Manatee.Trello.Token object.
 
 **Parameter:** id
 
@@ -27,7 +27,7 @@ The token&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, Manatee.Trello.TrelloAuthorization.Default will be used.
 
 #### Remarks
 
@@ -35,7 +35,7 @@ The supplied ID can be either the full ID or the token itself.
 
 ## Properties
 
-### static Manatee.Trello.Token+Fields DownloadedFields { get; set; }
+### static Token.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 

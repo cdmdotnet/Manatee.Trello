@@ -24,7 +24,7 @@ Gets or sets a board within which the search should run.
 
 Gets or sets the number of results to return.
 
-### List&lt;IJsonMember&gt; Members { get; set; }
+### List&lt;[IJsonMember](../IJsonMember#ijsonmember)&gt; Members { get; set; }
 
 Gets or sets a list of members.
 

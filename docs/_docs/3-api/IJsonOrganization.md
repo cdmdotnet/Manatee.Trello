@@ -16,11 +16,11 @@ Defines the JSON structure for the Organization object.
 
 ## Properties
 
-### List&lt;IJsonAction&gt; Actions { get; set; }
+### List&lt;[IJsonAction](../IJsonAction#ijsonaction)&gt; Actions { get; set; }
 
 Gets or sets a collection of actions.
 
-### List&lt;IJsonBoard&gt; Boards { get; set; }
+### List&lt;[IJsonBoard](../IJsonBoard#ijsonboard)&gt; Boards { get; set; }
 
 Gets or sets a collection of boards.
 
@@ -36,11 +36,11 @@ Gets or sets the name to be displayed for the organization.
 
 Gets or sets the organization&#39;s logo hash.
 
-### List&lt;IJsonMember&gt; Members { get; set; }
+### List&lt;[IJsonMember](../IJsonMember#ijsonmember)&gt; Members { get; set; }
 
 Gets or sets a collection of members.
 
-### List&lt;IJsonOrganizationMembership&gt; Memberships { get; set; }
+### List&lt;[IJsonOrganizationMembership](../IJsonOrganizationMembership#ijsonorganizationmembership)&gt; Memberships { get; set; }
 
 Gets or sets a collection of memberships.
 
@@ -52,7 +52,7 @@ Gets or sets the name of the organization.
 
 Gets or sets whether the organization is a paid account.
 
-### List&lt;IJsonPowerUpData&gt; PowerUpData { get; set; }
+### List&lt;[IJsonPowerUpData](../IJsonPowerUpData#ijsonpowerupdata)&gt; PowerUpData { get; set; }
 
 Gets or sets a collection of power-up data.
 

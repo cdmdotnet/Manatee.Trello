@@ -36,7 +36,7 @@ Gets the image of a background.
 
 Gets whether the image is tiled when displayed.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IImagePreview, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] ScaledImages { get; }
+### IReadOnlyCollection&lt;[IImagePreview](../IImagePreview#iimagepreview)&gt; ScaledImages { get; }
 
 Gets a collections of scaled background images.
 

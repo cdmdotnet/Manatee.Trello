@@ -65,15 +65,15 @@ Specifies whether deleted items should be removed from the cache. The default is
 
 Specifies the REST client provider.
 
-### static Func&lt;IRestResponse, int, bool&gt; RetryPredicate { get; set; }
+### static Func&lt;[IRestResponse](../IRestResponse#irestresponse), int, bool&gt; RetryPredicate { get; set; }
 
-Specifies a predicate to execute to determine if a retry should be attempted. The default simply uses [TrelloConfiguration.MaxRetryCount](../TrelloConfiguration#static-int-maxretrycount--get-set-) and [TrelloConfiguration.DelayBetweenRetries](../TrelloConfiguration#static-timespan-delaybetweenretries--get-set-).
+Specifies a predicate to execute to determine if a retry should be attempted. The default simply uses Manatee.Trello.TrelloConfiguration.MaxRetryCount and Manatee.Trello.TrelloConfiguration.DelayBetweenRetries.
 
 #### Remarks
 
 Parameters:
 
-- [IRestResponse](../IRestResponse#irestresponse) - The response object from the REST provider. Will need to be cast to the appropriate type.
+- Manatee.Trello.Rest.IRestResponse - The response object from the REST provider. Will need to be cast to the appropriate type.
 - System.Int32 - The number of retries attempted.
 
 Return value:

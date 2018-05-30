@@ -42,7 +42,7 @@ Gets the type of notification.
 
 ## Events
 
-### Action&lt;INotification, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[INotification](../INotification#inotification), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the notification is updated.
 

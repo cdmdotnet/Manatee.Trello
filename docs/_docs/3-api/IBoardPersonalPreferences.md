@@ -18,11 +18,11 @@ Represents the user-specific preferences for a board.
 
 ### [IList](../IList#ilist) EmailList { get; set; }
 
-Gets or sets the [List](../List#list) which will be used to post new cards submitted by email.
+Gets or sets the Manatee.Trello.List which will be used to post new cards submitted by email.
 
 ### [Position](../Position#position) EmailPosition { get; set; }
 
-Gets or sets the [Position](../Position#position) within a [List](../List#list) which will be used to post new cards submitted by email.
+Gets or sets the Manatee.Trello.Position within a Manatee.Trello.List which will be used to post new cards submitted by email.
 
 ### bool? ShowListGuide { get; set; }
 

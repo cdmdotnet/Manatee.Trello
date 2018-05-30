@@ -33,5 +33,5 @@ Filters to only owners.
 
 #### Remarks
 
-Per @doug at Trello regarding [MemberFilter.Admins](../MemberFilter#admins) == [MemberFilter.Owners](../MemberFilter#owners): &quot;Turns out owners was once used by the iOS app and we only have it there for backwards compatibility. They are the same.&quot;
+Per @doug at Trello regarding Manatee.Trello.MemberFilter.Admins == Manatee.Trello.MemberFilter.Owners: &quot;Turns out owners was once used by the iOS app and we only have it there for backwards compatibility. They are the same.&quot;
 

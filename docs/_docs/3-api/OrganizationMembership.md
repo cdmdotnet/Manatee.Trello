@@ -39,7 +39,7 @@ Gets the membership&#39;s permission level.
 
 ## Events
 
-### Action&lt;IOrganizationMembership, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IOrganizationMembership](../IOrganizationMembership#iorganizationmembership), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the membership is updated.
 

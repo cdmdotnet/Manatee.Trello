@@ -19,7 +19,7 @@ Represents an action performed on Trello objects.
 
 ### Action(string id, TrelloAuthorization auth)
 
-Creates a new [Action](../Action#action) instance.
+Creates a new Manatee.Trello.Action instance.
 
 **Parameter:** id
 
@@ -27,11 +27,11 @@ The action&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, Manatee.Trello.TrelloAuthorization.Default will be used.
 
 ## Properties
 
-### static Manatee.Trello.Action+Fields DownloadedFields { get; set; }
+### static Action.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 
@@ -61,7 +61,7 @@ Gets the type of action.
 
 ## Events
 
-### Action&lt;IAction, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IAction](../IAction#iaction), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the action is updated.
 

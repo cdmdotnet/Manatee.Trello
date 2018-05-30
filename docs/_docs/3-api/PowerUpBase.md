@@ -45,7 +45,7 @@ Refreshes the power-up data.
 
 ### string ToString()
 
-Returns the [Name](../PowerUpBase#string-name--get-)
+Returns the Manatee.Trello.PowerUpBase.Name
 
 **Returns:** A string that represents the current object.
 

@@ -4,7 +4,7 @@ category: API
 order: 77
 ---
 
-Provides a base for [ICustomField`1](../ICustomField`1#icustomfield1).
+Provides a base for Manatee.Trello.ICustomField`1.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -22,7 +22,7 @@ Gets the custom field definition.
 
 ## Events
 
-### Action&lt;ICustomField, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICustomField](../ICustomField#icustomfield), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the custom field is updated.
 

@@ -89,7 +89,7 @@ Gets the current list.
 
 #### Remarks
 
-For some action types, this information may be in the [List](../NotificationData#ilist-list--get-) or [OldList](../NotificationData#ilist-oldlist--get-) properties.
+For some action types, this information may be in the Manatee.Trello.NotificationData.List or Manatee.Trello.NotificationData.OldList properties.
 
 ### [IList](../IList#ilist) ListBefore { get; }
 
@@ -97,7 +97,7 @@ Gets the previous list.
 
 #### Remarks
 
-For some action types, this information may be in the [List](../NotificationData#ilist-list--get-) or [OldList](../NotificationData#ilist-oldlist--get-) properties.
+For some action types, this information may be in the Manatee.Trello.NotificationData.List or Manatee.Trello.NotificationData.OldList properties.
 
 ### [IMember](../IMember#imember) Member { get; }
 
@@ -123,7 +123,7 @@ Gets the previous list.
 
 #### Remarks
 
-For some action types, this information may be in the [ListAfter](../NotificationData#ilist-listafter--get-) or [ListBefore](../NotificationData#ilist-listbefore--get-) properties.
+For some action types, this information may be in the Manatee.Trello.NotificationData.ListAfter or Manatee.Trello.NotificationData.ListBefore properties.
 
 ### [Position](../Position#position) OldPosition { get; }
 

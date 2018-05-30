@@ -16,11 +16,11 @@ Represents a board.
 
 ## Properties
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }
+### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
 
 Gets the collection of actions performed on and within this board.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.ICard, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Cards { get; }
+### IReadOnlyCollection&lt;[ICard](../ICard#icard)&gt; Cards { get; }
 
 Gets the collection of cards contained within this board.
 
@@ -108,7 +108,7 @@ Gets the collection of lists on this board.
 
 This property only exposes unarchived lists.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IMember, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Members { get; }
+### IReadOnlyCollection&lt;[IMember](../IMember#imember)&gt; Members { get; }
 
 Gets the collection of members on this board.
 
@@ -132,7 +132,7 @@ Setting null makes the board&#39;s first admin the owner.
 
 Gets the set of preferences for the board.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IPowerUpData, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] PowerUpData { get; }
+### IReadOnlyCollection&lt;[IPowerUpData](../IPowerUpData#ipowerupdata)&gt; PowerUpData { get; }
 
 Gets specific data regarding power-ups.
 
@@ -158,7 +158,7 @@ Gets the board&#39;s URI.
 
 ## Events
 
-### Action&lt;IBoard, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IBoard](../IBoard#iboard), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the board is updated.
 

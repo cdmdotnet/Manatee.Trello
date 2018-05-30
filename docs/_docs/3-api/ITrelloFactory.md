@@ -18,7 +18,7 @@ Supports entity creation for dependency-injected applications.
 
 ### [IAction](../IAction#iaction) Action(string id, TrelloAuthorization auth)
 
-Creates an [IAction](../IAction#iaction).
+Creates an Manatee.Trello.IAction.
 
 **Parameter:** id
 
@@ -28,11 +28,11 @@ The action ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IAction](../IAction#iaction)
+**Returns:** An Manatee.Trello.IAction
 
 ### [IBoard](../IBoard#iboard) Board(string id, TrelloAuthorization auth)
 
-Creates an [IBoard](../IBoard#iboard).
+Creates an Manatee.Trello.IBoard.
 
 **Parameter:** id
 
@@ -42,11 +42,11 @@ The board ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IBoard](../IBoard#iboard)
+**Returns:** An Manatee.Trello.IBoard
 
 ### [ICard](../ICard#icard) Card(string id, TrelloAuthorization auth)
 
-Creates an [ICard](../ICard#icard).
+Creates an Manatee.Trello.ICard.
 
 **Parameter:** id
 
@@ -56,11 +56,11 @@ The board ID.
 
 (Optional) The authorization.
 
-**Returns:** An [ICard](../ICard#icard)
+**Returns:** An Manatee.Trello.ICard
 
 ### [ICheckList](../ICheckList#ichecklist) CheckList(string id, TrelloAuthorization auth)
 
-Creates an [ICheckList](../ICheckList#ichecklist).
+Creates an Manatee.Trello.ICheckList.
 
 **Parameter:** id
 
@@ -70,7 +70,7 @@ The checklist ID.
 
 (Optional) The authorization.
 
-**Returns:** An [ICheckList](../ICheckList#ichecklist)
+**Returns:** An Manatee.Trello.ICheckList
 
 ### [IDropDownOption](../IDropDownOption#idropdownoption) DropDownOption(string text, LabelColor color)
 
@@ -84,11 +84,11 @@ The drop down text.
 
 (Optional) The drop down color.
 
-**Returns:** An [IDropDownOption](../IDropDownOption#idropdownoption)
+**Returns:** An Manatee.Trello.IDropDownOption
 
 ### [IList](../IList#ilist) List(string id, TrelloAuthorization auth)
 
-Creates an [IList](../IList#ilist).
+Creates an Manatee.Trello.IList.
 
 **Parameter:** id
 
@@ -98,25 +98,25 @@ The list ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IList](../IList#ilist)
+**Returns:** An Manatee.Trello.IList
 
-### Task&lt;IMe&gt; Me(CancellationToken ct)
+### Task&lt;[IMe](../IMe#ime)&gt; Me(CancellationToken ct)
 
-Creates an [IMe](../IMe#ime).
+Creates an Manatee.Trello.IMe.
 
 **Parameter:** ct
 
 (Optional) A cancellation token for async processing.
 
-**Returns:** An [IMe](../IMe#ime)
+**Returns:** An Manatee.Trello.IMe
 
 #### Remarks
 
-This performs a call to the API to get the member authorized by [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-).
+This performs a call to the API to get the member authorized by Manatee.Trello.TrelloAuthorization.Default.
 
 ### [IMember](../IMember#imember) Member(string id, TrelloAuthorization auth)
 
-Creates an [IMember](../IMember#imember).
+Creates an Manatee.Trello.IMember.
 
 **Parameter:** id
 
@@ -126,11 +126,11 @@ The member ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IMember](../IMember#imember)
+**Returns:** An Manatee.Trello.IMember
 
 ### [INotification](../INotification#inotification) Notification(string id, TrelloAuthorization auth)
 
-Creates an [INotification](../INotification#inotification).
+Creates an Manatee.Trello.INotification.
 
 **Parameter:** id
 
@@ -140,11 +140,11 @@ The notification ID.
 
 (Optional) The authorization.
 
-**Returns:** An [INotification](../INotification#inotification)
+**Returns:** An Manatee.Trello.INotification
 
 ### [IOrganization](../IOrganization#iorganization) Organization(string id, TrelloAuthorization auth)
 
-Creates an [IOrganization](../IOrganization#iorganization).
+Creates an Manatee.Trello.IOrganization.
 
 **Parameter:** id
 
@@ -154,17 +154,17 @@ The action ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IOrganization](../IOrganization#iorganization)
+**Returns:** An Manatee.Trello.IOrganization
 
 ### [ISearchQuery](../ISearchQuery#isearchquery) SearchQuery()
 
-Creates a new empty [ISearchQuery](../ISearchQuery#isearchquery).
+Creates a new empty Manatee.Trello.ISearchQuery.
 
-**Returns:** An [ISearchQuery](../ISearchQuery#isearchquery)
+**Returns:** An Manatee.Trello.ISearchQuery
 
 ### [IToken](../IToken#itoken) Token(string id, TrelloAuthorization auth)
 
-Creates an [IToken](../IToken#itoken).
+Creates an Manatee.Trello.IToken.
 
 **Parameter:** id
 
@@ -174,11 +174,11 @@ The action ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IToken](../IToken#itoken)
+**Returns:** An Manatee.Trello.IToken
 
-### Task`1 Webhook&lt;T&gt;(T target, string callBackUrl, string description, TrelloAuthorization auth, CancellationToken ct)
+### Task&lt;[IWebhook`1](../IWebhook`1#iwebhook1)&gt; Webhook&lt;T&gt;(T target, string callBackUrl, string description, TrelloAuthorization auth, CancellationToken ct)
 
-Creates an [IWebhook`1](../IWebhook`1#iwebhook1) and registers a new webhook with Trello.
+Creates an Manatee.Trello.IWebhook`1 and registers a new webhook with Trello.
 
 **Type Parameter:** T : [ICanWebhook](../ICanWebhook#icanwebhook)
 
@@ -202,11 +202,11 @@ A description.
 
 (Optional) A cancellation token for async processing.
 
-**Returns:** An [IWebhook`1](../IWebhook`1#iwebhook1)
+**Returns:** An Manatee.Trello.IWebhook`1
 
-### IWebhook`1 Webhook&lt;T&gt;(string id, TrelloAuthorization auth)
+### [IWebhook`1](../IWebhook`1#iwebhook1) Webhook&lt;T&gt;(string id, TrelloAuthorization auth)
 
-Creates an [IWebhook`1](../IWebhook`1#iwebhook1) for an existing webhook.
+Creates an Manatee.Trello.IWebhook`1 for an existing webhook.
 
 **Type Parameter:** T : [ICanWebhook](../ICanWebhook#icanwebhook)
 
@@ -218,5 +218,5 @@ The action ID.
 
 (Optional) The authorization.
 
-**Returns:** An [IWebhook`1](../IWebhook`1#iwebhook1)
+**Returns:** An Manatee.Trello.IWebhook`1
 

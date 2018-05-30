@@ -23,7 +23,7 @@ The type of object to which the webhook is attached.
 
 ### Webhook&lt;T&gt;(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [Webhook`1](../Webhook`1#webhook1) object for a webhook which has already been registered with Trello.
+Creates a new instance of the Manatee.Trello.Webhook`1 object for a webhook which has already been registered with Trello.
 
 **Parameter:** id
 
@@ -31,7 +31,7 @@ The id.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, Manatee.Trello.TrelloAuthorization.Default will be used.
 
 ## Properties
 
@@ -61,7 +61,7 @@ Gets or sets the webhook&#39;s target.
 
 ## Events
 
-### Action`2 Updated
+### Action&lt;[IWebhook`1](../IWebhook`1#iwebhook1), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the webhook is updated.
 

@@ -16,7 +16,7 @@ Represents an organization.
 
 ## Properties
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }
+### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
 
 Gets the collection of actions performed on the organization.
 
@@ -40,7 +40,7 @@ Gets or sets the organization&#39;s display name.
 
 Gets whether the organization has business class status.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IMember, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Members { get; }
+### IReadOnlyCollection&lt;[IMember](../IMember#imember)&gt; Members { get; }
 
 Gets the collection of members who belong to the organization.
 
@@ -52,7 +52,7 @@ Gets the collection of members and their priveledges on this organization.
 
 Gets the organization&#39;s name.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IPowerUpData, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] PowerUpData { get; }
+### IReadOnlyCollection&lt;[IPowerUpData](../IPowerUpData#ipowerupdata)&gt; PowerUpData { get; }
 
 Gets specific data regarding power-ups.
 
@@ -70,7 +70,7 @@ Gets or sets the organization&#39;s website.
 
 ## Events
 
-### Action&lt;IOrganization, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IOrganization](../IOrganization#iorganization), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the organization is updated.
 

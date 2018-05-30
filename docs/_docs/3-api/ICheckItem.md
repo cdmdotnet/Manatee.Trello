@@ -42,7 +42,7 @@ Gets or sets the checklist item&#39;s state.
 
 ## Events
 
-### Action&lt;ICheckItem, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICheckItem](../ICheckItem#icheckitem), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the checklist item is updated.
 

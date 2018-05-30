@@ -16,7 +16,7 @@ Defines the JSON structure for the List object.
 
 ## Properties
 
-### List&lt;IJsonAction&gt; Actions { get; set; }
+### List&lt;[IJsonAction](../IJsonAction#ijsonaction)&gt; Actions { get; set; }
 
 Gets or sets a collection of actions.
 
@@ -24,7 +24,7 @@ Gets or sets a collection of actions.
 
 Gets or sets the ID of the board which contains the list.
 
-### List&lt;IJsonCard&gt; Cards { get; set; }
+### List&lt;[IJsonCard](../IJsonCard#ijsoncard)&gt; Cards { get; set; }
 
 Gets or sets a collection of cards.
 

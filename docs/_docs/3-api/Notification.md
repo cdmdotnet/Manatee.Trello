@@ -19,7 +19,7 @@ Represents a notification.
 
 ### Notification(string id, TrelloAuthorization auth)
 
-Creates a new [Notification](../Notification#notification) object.
+Creates a new Manatee.Trello.Notification object.
 
 **Parameter:** id
 
@@ -28,11 +28,11 @@ The notification&#39;s ID.
 **Parameter:** auth
 
 (Optional) Custom authorization parameters. When not provided,
-[TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+Manatee.Trello.TrelloAuthorization.Default will be used.
 
 ## Properties
 
-### static Manatee.Trello.Notification+Fields DownloadedFields { get; set; }
+### static Notification.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 
@@ -66,7 +66,7 @@ Gets the type of notification.
 
 ## Events
 
-### Action&lt;INotification, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[INotification](../INotification#inotification), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the notification is updated.
 

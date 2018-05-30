@@ -18,5 +18,5 @@ A read-only collection of power-ups.
 
 #### Remarks
 
-If a power-up hasn&#39;t been registered, it will be instantiated using [UnknownPowerUp](../UnknownPowerUp#unknownpowerup).
+If a power-up hasn&#39;t been registered, it will be instantiated using Manatee.Trello.UnknownPowerUp.
 

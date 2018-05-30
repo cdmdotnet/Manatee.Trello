@@ -74,7 +74,7 @@ Gets the checklist&#39;s position.
 
 ## Events
 
-### Action&lt;ICheckList, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICheckList](../ICheckList#ichecklist), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the check list is updated.
 

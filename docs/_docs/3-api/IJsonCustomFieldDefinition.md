@@ -28,7 +28,7 @@ Gets or sets the field group.
 
 Gets or sets the name.
 
-### List&lt;IJsonCustomDropDownOption&gt; Options { get; set; }
+### List&lt;[IJsonCustomDropDownOption](../IJsonCustomDropDownOption#ijsoncustomdropdownoption)&gt; Options { get; set; }
 
 Gets or sets any drop down options.
 

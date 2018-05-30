@@ -38,7 +38,7 @@ Gets the type of action.
 
 ## Events
 
-### Action&lt;IAction, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IAction](../IAction#iaction), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the action is updated.
 

@@ -32,7 +32,7 @@ Gets or sets the color.
 
 Gets or sets the url for the image.
 
-### List&lt;IJsonImagePreview&gt; ImageScaled { get; set; }
+### List&lt;[IJsonImagePreview](../IJsonImagePreview#ijsonimagepreview)&gt; ImageScaled { get; set; }
 
 Gets or sets a collection of scaled images.
 

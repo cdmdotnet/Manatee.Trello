@@ -42,7 +42,7 @@ Gets or sets the webhook&#39;s target.
 
 ## Events
 
-### Action`2 Updated
+### Action&lt;[IWebhook`1](../IWebhook`1#iwebhook1), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the webhook is updated.
 

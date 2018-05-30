@@ -16,23 +16,23 @@ Performs a search.
 
 ## Properties
 
-### IEnumerable&lt;IAction&gt; Actions { get; }
+### IEnumerable&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
 
 Gets the collection of actions returned by the search.
 
-### IEnumerable&lt;IBoard&gt; Boards { get; }
+### IEnumerable&lt;[IBoard](../IBoard#iboard)&gt; Boards { get; }
 
 Gets the collection of boards returned by the search.
 
-### IEnumerable&lt;ICard&gt; Cards { get; }
+### IEnumerable&lt;[ICard](../ICard#icard)&gt; Cards { get; }
 
 Gets the collection of cards returned by the search.
 
-### IEnumerable&lt;IMember&gt; Members { get; }
+### IEnumerable&lt;[IMember](../IMember#imember)&gt; Members { get; }
 
 Gets the collection of members returned by the search.
 
-### IEnumerable&lt;IOrganization&gt; Organizations { get; }
+### IEnumerable&lt;[IOrganization](../IOrganization#iorganization)&gt; Organizations { get; }
 
 Gets the collection of organizations returned by the search.
 

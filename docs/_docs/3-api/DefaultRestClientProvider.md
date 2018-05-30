@@ -4,7 +4,7 @@ category: API
 order: 47
 ---
 
-Implements [IRestClientProvider](../IRestClientProvider#irestclientprovider) using ASP.Net&#39;s System.Net.Http.HttpClient.
+Implements Manatee.Trello.Rest.IRestClientProvider using ASP.Net&#39;s System.Net.Http.HttpClient.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -19,7 +19,7 @@ Implements [IRestClientProvider](../IRestClientProvider#irestclientprovider) usi
 
 ### static [DefaultRestClientProvider](../DefaultRestClientProvider#defaultrestclientprovider) Instance { get; }
 
-Singleton instance of [DefaultRestClientProvider](../DefaultRestClientProvider#defaultrestclientprovider).
+Singleton instance of Manatee.Trello.Rest.DefaultRestClientProvider.
 
 ### [IRestRequestProvider](../IRestRequestProvider#irestrequestprovider) RequestProvider { get; }
 
@@ -29,13 +29,13 @@ Creates requests for the client.
 
 ### [IRestClient](../IRestClient#irestclient) CreateRestClient(string apiBaseUrl)
 
-Creates an instance of [IRestClient](../IRestClient#irestclient).
+Creates an instance of Manatee.Trello.Rest.IRestClient.
 
 **Parameter:** apiBaseUrl
 
 The base URL to be used by the client
 
-**Returns:** An instance of [IRestClient](../IRestClient#irestclient).
+**Returns:** An instance of Manatee.Trello.Rest.IRestClient.
 
 ### void Dispose()
 

@@ -16,7 +16,7 @@ Represents a list.
 
 ## Properties
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }
+### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
 
 Gets the collection of actions performed on the list.
 
@@ -82,7 +82,7 @@ Gets the list&#39;s position.
 
 ## Events
 
-### Action&lt;IList, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IList](../IList#ilist), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the list is updated.
 

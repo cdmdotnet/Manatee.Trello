@@ -24,7 +24,7 @@ Gets or sets the position of the left edge of the sticker.
 
 Gets or sets the name of the sticker.
 
-### List&lt;IJsonImagePreview&gt; Previews { get; set; }
+### List&lt;[IJsonImagePreview](../IJsonImagePreview#ijsonimagepreview)&gt; Previews { get; set; }
 
 Gets or sets a collection of previews for the attachment.
 

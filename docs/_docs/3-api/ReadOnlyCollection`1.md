@@ -43,7 +43,7 @@ Indicates the maximum number of items to return.
 
 ## Methods
 
-### IEnumerator`1 GetEnumerator()
+### IEnumerator&lt;T&gt; GetEnumerator()
 
 Returns an enumerator that iterates through the collection.
 

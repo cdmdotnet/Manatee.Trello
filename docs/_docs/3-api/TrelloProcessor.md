@@ -31,5 +31,5 @@ The string content of the notification.
 
 **Parameter:** auth
 
-The [TrelloAuthorization](../TrelloAuthorization#trelloauthorization) under which the notification should be processed
+The Manatee.Trello.TrelloAuthorization under which the notification should be processed
 

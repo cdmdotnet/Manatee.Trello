@@ -4,7 +4,7 @@ category: API
 order: 142
 ---
 
-Associates a [Member](../IOrganizationMembership#imember-member--get-) to an [Organization](../Organization#organization) and indicates any permissions the member has in the organization.
+Associates a Manatee.Trello.IOrganizationMembership.Member to an Manatee.Trello.Organization and indicates any permissions the member has in the organization.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -34,7 +34,7 @@ Gets the membership&#39;s permission level.
 
 ## Events
 
-### Action&lt;IOrganizationMembership, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IOrganizationMembership](../IOrganizationMembership#iorganizationmembership), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the membership is updated.
 

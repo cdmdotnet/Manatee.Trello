@@ -16,11 +16,11 @@ Defines the JSON structure for the Card object.
 
 ## Properties
 
-### List&lt;IJsonAction&gt; Actions { get; set; }
+### List&lt;[IJsonAction](../IJsonAction#ijsonaction)&gt; Actions { get; set; }
 
 Gets or sets a collection of actions.
 
-### List&lt;IJsonAttachment&gt; Attachments { get; set; }
+### List&lt;[IJsonAttachment](../IJsonAttachment#ijsonattachment)&gt; Attachments { get; set; }
 
 Gets or sets a collection of attachments.
 
@@ -36,7 +36,7 @@ Gets or sets the ID of the board which contains the card.
 
 Gets or sets a card to be used as a template during creation.
 
-### List&lt;IJsonCheckList&gt; CheckLists { get; set; }
+### List&lt;[IJsonCheckList](../IJsonCheckList#ijsonchecklist)&gt; CheckLists { get; set; }
 
 Gets or sets a collection of checklists.
 
@@ -44,11 +44,11 @@ Gets or sets a collection of checklists.
 
 Gets or sets whether a card has been archived.
 
-### List&lt;IJsonAction&gt; Comments { get; set; }
+### List&lt;[IJsonAction](../IJsonAction#ijsonaction)&gt; Comments { get; set; }
 
 Gets or sets a collection of comments.
 
-### List&lt;IJsonCustomField&gt; CustomFields { get; set; }
+### List&lt;[IJsonCustomField](../IJsonCustomField#ijsoncustomfield)&gt; CustomFields { get; set; }
 
 Gets or sets a collection of custom field instances.
 
@@ -88,7 +88,7 @@ Gets or sets a comma-delimited list of member IDs. Used during card creation.
 
 Gets or sets the card&#39;s short ID.
 
-### List&lt;IJsonLabel&gt; Labels { get; set; }
+### List&lt;[IJsonLabel](../IJsonLabel#ijsonlabel)&gt; Labels { get; set; }
 
 Gets or sets the labels assigned to this card.
 
@@ -100,11 +100,11 @@ Gets or sets the ID of the list which contains the card.
 
 Gets or sets whether the cover attachment was manually selected
 
-### List&lt;IJsonMember&gt; Members { get; set; }
+### List&lt;[IJsonMember](../IJsonMember#ijsonmember)&gt; Members { get; set; }
 
 Gets or sets a collection of members.
 
-### List&lt;IJsonMember&gt; MembersVoted { get; set; }
+### List&lt;[IJsonMember](../IJsonMember#ijsonmember)&gt; MembersVoted { get; set; }
 
 Gets or sets a collection of members who have voted for the card.
 
@@ -116,7 +116,7 @@ Gets or sets the card&#39;s name
 
 Gets or sets the card&#39;s position.
 
-### List&lt;IJsonPowerUpData&gt; PowerUpData { get; set; }
+### List&lt;[IJsonPowerUpData](../IJsonPowerUpData#ijsonpowerupdata)&gt; PowerUpData { get; set; }
 
 Gets or sets a collection of power-up data.
 
@@ -124,7 +124,7 @@ Gets or sets a collection of power-up data.
 
 Gets or sets the short URL for this card.
 
-### List&lt;IJsonSticker&gt; Stickers { get; set; }
+### List&lt;[IJsonSticker](../IJsonSticker#ijsonsticker)&gt; Stickers { get; set; }
 
 Gets or sets a collection of stickers.
 

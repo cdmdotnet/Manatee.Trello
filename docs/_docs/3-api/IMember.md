@@ -16,7 +16,7 @@ Represents a member.
 
 ## Properties
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }
+### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
 
 Gets the collection of actions performed by the member.
 
@@ -32,11 +32,11 @@ Gets the URL to the member&#39;s avatar.
 
 Gets the member&#39;s bio.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IBoard, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Boards { get; }
+### IReadOnlyCollection&lt;[IBoard](../IBoard#iboard)&gt; Boards { get; }
 
 Gets the collection of boards owned by the member.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.ICard, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Cards { get; }
+### IReadOnlyCollection&lt;[ICard](../ICard#icard)&gt; Cards { get; }
 
 Gets the collection of cards assigned to the member.
 
@@ -60,7 +60,7 @@ Gets whether the member has actually join or has merely been invited (ghost).
 
 Gets a string which can be used in comments or descriptions to mention this user. The user will receive notification that they&#39;ve been mentioned.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IOrganization, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Organizations { get; }
+### IReadOnlyCollection&lt;[IOrganization](../IOrganization#iorganization)&gt; Organizations { get; }
 
 Gets the collection of organizations to which the member belongs.
 
@@ -82,7 +82,7 @@ Gets the member&#39;s username.
 
 ## Events
 
-### Action&lt;IMember, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IMember](../IMember#imember), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the member is updated.
 

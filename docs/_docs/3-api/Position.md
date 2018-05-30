@@ -19,7 +19,7 @@ Represents the position of a checklist in a card, a card in a list, or list in a
 
 ### Position(double value)
 
-Creates a new instance of the [Position](../Position#position) class.
+Creates a new instance of the Manatee.Trello.Position class.
 
 **Parameter:** value
 
@@ -51,99 +51,99 @@ Gets the internal numeric position value.
 
 ### static [Position](../Position#position) Between(Position a, Position b)
 
-Creates a new [Position](../Position#position) object between two others.
+Creates a new Manatee.Trello.Position object between two others.
 
 **Parameter:** a
 
-A [Position](../Position#position).
+A Manatee.Trello.Position.
 
 **Parameter:** b
 
-Another [Position](../Position#position).
+Another Manatee.Trello.Position.
 
-**Returns:** The new [Position](../Position#position).
+**Returns:** The new Manatee.Trello.Position.
 
 ### static bool op_Equality(Position a, Position b)
 
-Compares two [Position](../Position#position) objects by examining their content.
+Compares two Manatee.Trello.Position objects by examining their content.
 
 **Parameter:** a
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Parameter:** b
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Returns:** True if equivalent, false otherwise.
 
 ### static bool op_GreaterThan(Position a, Position b)
 
-Compares two [Position](../Position#position) values for linear order.
+Compares two Manatee.Trello.Position values for linear order.
 
 **Parameter:** a
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Parameter:** b
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Returns:** True if the first operand is greater than the second, false otherwise.
 
 ### static bool op_GreaterThanOrEqual(Position a, Position b)
 
-Compares two [Position](../Position#position) values for linear order.
+Compares two Manatee.Trello.Position values for linear order.
 
 **Parameter:** a
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Parameter:** b
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Returns:** True if the first operand is greater than or equal to the second, false otherwise.
 
 ### static bool op_Inequality(Position a, Position b)
 
-Compares two [Position](../Position#position) objects by examining their content.
+Compares two Manatee.Trello.Position objects by examining their content.
 
 **Parameter:** a
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Parameter:** b
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Returns:** False if equivalent, true otherwise.
 
 ### static bool op_LessThan(Position a, Position b)
 
-Compares two [Position](../Position#position) values for linear order.
+Compares two Manatee.Trello.Position values for linear order.
 
 **Parameter:** a
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Parameter:** b
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Returns:** True if the first operand is less than the second, false otherwise.
 
 ### static bool op_LessThanOrEqual(Position a, Position b)
 
-Compares two [Position](../Position#position) values for linear order.
+Compares two Manatee.Trello.Position values for linear order.
 
 **Parameter:** a
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Parameter:** b
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Returns:** True if the first operand is less than or equal to the second, false otherwise.
 
@@ -173,11 +173,11 @@ An object to compare with this instance.
 
 ### bool Equals(Position other)
 
-Compares two [Position](../Position#position) object by examining their content.
+Compares two Manatee.Trello.Position object by examining their content.
 
 **Parameter:** other
 
-A [Position](../Position#position) object.
+A Manatee.Trello.Position object.
 
 **Returns:** True if equivalent, false otherwise.
 

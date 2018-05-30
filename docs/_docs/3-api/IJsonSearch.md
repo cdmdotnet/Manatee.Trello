@@ -16,19 +16,19 @@ Defines the JSON structure for the Search object.
 
 ## Properties
 
-### List&lt;IJsonAction&gt; Actions { get; set; }
+### List&lt;[IJsonAction](../IJsonAction#ijsonaction)&gt; Actions { get; set; }
 
 Lists the IDs of actions which match the query.
 
-### List&lt;IJsonBoard&gt; Boards { get; set; }
+### List&lt;[IJsonBoard](../IJsonBoard#ijsonboard)&gt; Boards { get; set; }
 
 Lists the IDs of boards which match the query.
 
-### List&lt;IJsonCard&gt; Cards { get; set; }
+### List&lt;[IJsonCard](../IJsonCard#ijsoncard)&gt; Cards { get; set; }
 
 Lists the IDs of cards which match the query.
 
-### List&lt;IJsonCacheable&gt; Context { get; set; }
+### List&lt;[IJsonCacheable](../IJsonCacheable#ijsoncacheable)&gt; Context { get; set; }
 
 Gets or sets a collection of boards, cards, and organizations within which the search should run.
 
@@ -36,11 +36,11 @@ Gets or sets a collection of boards, cards, and organizations within which the s
 
 Gets or sets how many results to return;
 
-### List&lt;IJsonMember&gt; Members { get; set; }
+### List&lt;[IJsonMember](../IJsonMember#ijsonmember)&gt; Members { get; set; }
 
 Lists the IDs of members which match the query.
 
-### List&lt;IJsonOrganization&gt; Organizations { get; set; }
+### List&lt;[IJsonOrganization](../IJsonOrganization#ijsonorganization)&gt; Organizations { get; set; }
 
 Lists the IDs of organizations which match the query.
 

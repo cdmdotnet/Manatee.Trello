@@ -17,7 +17,7 @@ A label.
 
 ## Properties
 
-### static Manatee.Trello.Label+Fields DownloadedFields { get; set; }
+### static Label.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 

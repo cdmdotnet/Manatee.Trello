@@ -19,7 +19,7 @@ Represents a checklist.
 
 ### CheckList(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [CheckList](../CheckList#checklist) object.
+Creates a new instance of the Manatee.Trello.CheckList object.
 
 **Parameter:** id
 
@@ -27,11 +27,11 @@ The check list&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, Manatee.Trello.TrelloAuthorization.Default will be used.
 
 ## Properties
 
-### static Manatee.Trello.CheckList+Fields DownloadedFields { get; set; }
+### static CheckList.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 
@@ -97,7 +97,7 @@ Gets the checklist&#39;s position.
 
 ## Events
 
-### Action&lt;ICheckList, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICheckList](../ICheckList#ichecklist), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the check list is updated.
 

@@ -19,7 +19,7 @@ Represents a list.
 
 ### List(string id, TrelloAuthorization auth)
 
-Creates a new instance of the [List](../List#list) object.
+Creates a new instance of the Manatee.Trello.List object.
 
 **Parameter:** id
 
@@ -27,15 +27,15 @@ The list&#39;s ID.
 
 **Parameter:** auth
 
-(Optional) Custom authorization parameters. When not provided, [TrelloAuthorization.Default](../TrelloAuthorization#static-trelloauthorization-default--get-) will be used.
+(Optional) Custom authorization parameters. When not provided, Manatee.Trello.TrelloAuthorization.Default will be used.
 
 ## Properties
 
-### static Manatee.Trello.List+Fields DownloadedFields { get; set; }
+### static List.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IAction, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Actions { get; }
+### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
 
 Gets the collection of actions performed on the list.
 
@@ -105,7 +105,7 @@ Gets the list&#39;s position.
 
 ## Events
 
-### Action&lt;IList, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[IList](../IList#ilist), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the list is updated.
 

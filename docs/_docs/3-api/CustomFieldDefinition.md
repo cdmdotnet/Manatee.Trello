@@ -47,7 +47,7 @@ Gets the data type of the field.
 
 ## Events
 
-### Action&lt;ICustomFieldDefinition, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICustomFieldDefinition](../ICustomFieldDefinition#icustomfielddefinition), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the custom field definition is updated.
 

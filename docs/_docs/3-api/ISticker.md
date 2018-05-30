@@ -28,7 +28,7 @@ Gets or sets the position of the left edge.
 
 Gets the name of the sticker.
 
-### Manatee.Trello.IReadOnlyCollection`1[[Manatee.Trello.IImagePreview, Manatee.Trello, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f502fcc17fc907d6]] Previews { get; }
+### IReadOnlyCollection&lt;[IImagePreview](../IImagePreview#iimagepreview)&gt; Previews { get; }
 
 Gets the collection of previews.
 
@@ -50,7 +50,7 @@ Gets or sets the z-index.
 
 ## Events
 
-### Action&lt;ISticker, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ISticker](../ISticker#isticker), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the sticker is updated.
 

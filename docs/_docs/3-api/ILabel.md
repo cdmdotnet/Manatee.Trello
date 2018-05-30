@@ -18,7 +18,7 @@ A label.
 
 ### [IBoard](../IBoard#iboard) Board { get; }
 
-Gets the [Board](../ILabel#iboard-board--get-) on which the label is defined.
+Gets the Manatee.Trello.ILabel.Board on which the label is defined.
 
 ### [LabelColor](../LabelColor#labelcolor)? Color { get; set; }
 

@@ -4,7 +4,7 @@ category: API
 order: 3
 ---
 
-Enumerates known types of [Action](../Action#action)s.
+Enumerates known types of Manatee.Trello.Actions.
 
 **Assembly:** Manatee.Trello.dll
 
@@ -20,127 +20,127 @@ Enumerates known types of [Action](../Action#action)s.
 
 ### static [ActionType](../ActionType#actiontype) AddAdminToBoard
 
-Indicates a [Member](../Member#member) was added to a [Board](../Board#board).
+Indicates a Manatee.Trello.Member was added to a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) AddAdminToOrganization
 
-Indicates a [Member](../Member#member) was added to a [Organization](../Organization#organization).
+Indicates a Manatee.Trello.Member was added to a Manatee.Trello.Organization.
 
 ### static [ActionType](../ActionType#actiontype) AddAttachmentToCard
 
-Indicates an [Attachment](../Attachment#attachment) was added to a [Card](../Card#card).
+Indicates an Manatee.Trello.Attachment was added to a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) AddBoardsPinnedToMember
 
-Indicates a [Member](../Member#member) pinned a [Board](../Board#board).
+Indicates a Manatee.Trello.Member pinned a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) AddChecklistToCard
 
-Indicates a [CheckList](../CheckList#checklist) was added to a [Card](../Card#card).
+Indicates a Manatee.Trello.CheckList was added to a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) AddLabelToCard
 
-Indicates a [Label](../Label#label) was added to a [Card](../Card#card).
+Indicates a Manatee.Trello.Label was added to a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) AddMemberToBoard
 
-Indicates a [Member](../Member#member) was added to a [Board](../Board#board).
+Indicates a Manatee.Trello.Member was added to a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) AddMemberToCard
 
-Indicates a [Member](../Member#member) was added to a [Card](../Card#card).
+Indicates a Manatee.Trello.Member was added to a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) AddMemberToOrganization
 
-Indicates a [Member](../Member#member) was added to an [Organization](../Organization#organization).
+Indicates a Manatee.Trello.Member was added to an Manatee.Trello.Organization.
 
 ### static [ActionType](../ActionType#actiontype) AddToOrganizationBoard
 
-Indicates a [Organization](../Organization#organization) was added to a [Board](../Board#board).
+Indicates a Manatee.Trello.Organization was added to a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) CommentCard
 
-Indicates a comment was added to a [Card](../Card#card).
+Indicates a comment was added to a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) ConvertToCardFromCheckItem
 
-Indicates a [CheckList](../CheckList#checklist) item was converted to [Card](../Card#card).
+Indicates a Manatee.Trello.CheckList item was converted to Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) CopyBoard
 
-Indicates a [Board](../Board#board) was copied.
+Indicates a Manatee.Trello.Board was copied.
 
 ### static [ActionType](../ActionType#actiontype) CopyCard
 
-Indicates a [Card](../Card#card) was copied.
+Indicates a Manatee.Trello.Card was copied.
 
 ### static [ActionType](../ActionType#actiontype) CopyChecklist
 
-Indicates a [CheckList](../CheckList#checklist) was copied.
+Indicates a Manatee.Trello.CheckList was copied.
 
 ### static [ActionType](../ActionType#actiontype) CopyCommentCard
 
-Indicates a comment was copied from one [Card](../Card#card) to another.
+Indicates a comment was copied from one Manatee.Trello.Card to another.
 
 ### static [ActionType](../ActionType#actiontype) CreateBoard
 
-Indicates a [Board](../Board#board) was created.
+Indicates a Manatee.Trello.Board was created.
 
 ### static [ActionType](../ActionType#actiontype) CreateBoardInvitation
 
-Indicates a [Member](../Member#member) was invided to a [Board](../Board#board).
+Indicates a Manatee.Trello.Member was invided to a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) CreateBoardPreference
 
-Indicates a [Board](../Board#board) preference was created.
+Indicates a Manatee.Trello.Board preference was created.
 
 ### static [ActionType](../ActionType#actiontype) CreateCard
 
-Indicates a [Card](../Card#card) was created.
+Indicates a Manatee.Trello.Card was created.
 
 ### static [ActionType](../ActionType#actiontype) CreateChecklist
 
-Indicates a [CheckList](../CheckList#checklist) was created.
+Indicates a Manatee.Trello.CheckList was created.
 
 ### static [ActionType](../ActionType#actiontype) CreateLabel
 
-Indicates a [Label](../Label#label) was created.
+Indicates a Manatee.Trello.Label was created.
 
 ### static [ActionType](../ActionType#actiontype) CreateList
 
-Indicates a [List](../List#list) was created.
+Indicates a Manatee.Trello.List was created.
 
 ### static [ActionType](../ActionType#actiontype) CreateOrganization
 
-Indicates an [Organization](../Organization#organization) was created.
+Indicates an Manatee.Trello.Organization was created.
 
 ### static [ActionType](../ActionType#actiontype) CreateOrganizationInvitation
 
-Indicates a [Member](../Member#member) was invided to an [Organization](../Organization#organization).
+Indicates a Manatee.Trello.Member was invided to an Manatee.Trello.Organization.
 
 ### static [ActionType](../ActionType#actiontype) DeleteAttachmentFromCard
 
-Indicates an [Attachment](../Attachment#attachment) was deleted from a [Card](../Card#card).
+Indicates an Manatee.Trello.Attachment was deleted from a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) DeleteBoardInvitation
 
-Indicates an invitation to a [Board](../Board#board) was rescinded.
+Indicates an invitation to a Manatee.Trello.Board was rescinded.
 
 ### static [ActionType](../ActionType#actiontype) DeleteCard
 
-Indicates a [Card](../Card#card) was deleted.
+Indicates a Manatee.Trello.Card was deleted.
 
 ### static [ActionType](../ActionType#actiontype) DeleteCheckItem
 
-Indicates a [CheckItem](../CheckItem#checkitem) was deleted.
+Indicates a Manatee.Trello.CheckItem was deleted.
 
 ### static [ActionType](../ActionType#actiontype) DeleteLabel
 
-Indicates a [Label](../Label#label) was deleted.
+Indicates a Manatee.Trello.Label was deleted.
 
 ### static [ActionType](../ActionType#actiontype) DeleteOrganizationInvitation
 
-Indicates an invitation to an [Organization](../Organization#organization) was rescinded.
+Indicates an invitation to an Manatee.Trello.Organization was rescinded.
 
 ### static [ActionType](../ActionType#actiontype) DisablePlugin
 
@@ -152,7 +152,7 @@ Indicates a power-up was disabled.
 
 ### static [ActionType](../ActionType#actiontype) EmailCard
 
-Indicates a [Card](../Card#card) was created via email.
+Indicates a Manatee.Trello.Card was created via email.
 
 ### static [ActionType](../ActionType#actiontype) EnablePlugin
 
@@ -164,87 +164,87 @@ Indicates a power-up was enabled.
 
 ### static [ActionType](../ActionType#actiontype) MakeAdminOfBoard
 
-Indicates a [Member](../Member#member) was made an admin of a [Board](../Board#board).
+Indicates a Manatee.Trello.Member was made an admin of a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) MakeAdminOfOrganization
 
-Indicates a [Member](../Member#member) was made an admin of an [Organization](../Organization#organization).
+Indicates a Manatee.Trello.Member was made an admin of an Manatee.Trello.Organization.
 
 ### static [ActionType](../ActionType#actiontype) MakeNormalMemberOfBoard
 
-Indicates a [Member](../Member#member) was made a normal [Member](../Member#member) of a [Board](../Board#board).
+Indicates a Manatee.Trello.Member was made a normal Manatee.Trello.Member of a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) MakeNormalMemberOfOrganization
 
-Indicates a [Member](../Member#member) was made a normal [Member](../Member#member) of an [Organization](../Organization#organization).
+Indicates a Manatee.Trello.Member was made a normal Manatee.Trello.Member of an Manatee.Trello.Organization.
 
 ### static [ActionType](../ActionType#actiontype) MakeObserverOfBoard
 
-Indicates a [Member](../Member#member) was made an observer of a [Board](../Board#board).
+Indicates a Manatee.Trello.Member was made an observer of a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) MemberJoinedTrello
 
-Indicates a [Member](../Member#member) joined Trello.
+Indicates a Manatee.Trello.Member joined Trello.
 
 ### static [ActionType](../ActionType#actiontype) MoveCardFromBoard
 
-Indicates a [Card](../Card#card) was moved from one [Board](../Board#board) to another.
+Indicates a Manatee.Trello.Card was moved from one Manatee.Trello.Board to another.
 
 ### static [ActionType](../ActionType#actiontype) MoveCardToBoard
 
-Indicates a [Card](../Card#card) was moved from one [Board](../Board#board) to another.
+Indicates a Manatee.Trello.Card was moved from one Manatee.Trello.Board to another.
 
 ### static [ActionType](../ActionType#actiontype) MoveListFromBoard
 
-Indicates a [List](../List#list) was moved from one [Board](../Board#board) to another.
+Indicates a Manatee.Trello.List was moved from one Manatee.Trello.Board to another.
 
 ### static [ActionType](../ActionType#actiontype) MoveListToBoard
 
-Indicates a [List](../List#list) was moved from one [Board](../Board#board) to another.
+Indicates a Manatee.Trello.List was moved from one Manatee.Trello.Board to another.
 
 ### static [ActionType](../ActionType#actiontype) RemoveAdminFromBoard
 
-Indicates a [Member](../Member#member) was removed as an admin from a [Board](../Board#board).
+Indicates a Manatee.Trello.Member was removed as an admin from a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) RemoveAdminFromOrganization
 
-Indicates a [Member](../Member#member) was removed as an admin from an [Organization](../Organization#organization).
+Indicates a Manatee.Trello.Member was removed as an admin from an Manatee.Trello.Organization.
 
 ### static [ActionType](../ActionType#actiontype) RemoveBoardsPinnedFromMember
 
-Indicates an [Member](../Member#member) unpinnned a [Board](../Board#board).
+Indicates an Manatee.Trello.Member unpinnned a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) RemoveChecklistFromCard
 
-Indicates a [CheckList](../CheckList#checklist) was removed from a [Card](../Card#card).
+Indicates a Manatee.Trello.CheckList was removed from a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) RemoveFromOrganizationBoard
 
-Indicates an [Organization](../Organization#organization) was removed from a [Board](../Board#board).
+Indicates an Manatee.Trello.Organization was removed from a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) RemoveLabelFromCard
 
-Indicates a [Label](../Label#label) was removed from a [Card](../Card#card).
+Indicates a Manatee.Trello.Label was removed from a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) RemoveMemberFromBoard
 
-Indicates a [Member](../Member#member) was removed from a [Board](../Board#board).
+Indicates a Manatee.Trello.Member was removed from a Manatee.Trello.Board.
 
 ### static [ActionType](../ActionType#actiontype) RemoveMemberFromCard
 
-Indicates a [Member](../Member#member) was removed from a [Card](../Card#card).
+Indicates a Manatee.Trello.Member was removed from a Manatee.Trello.Card.
 
 ### static [ActionType](../ActionType#actiontype) RemoveMemberFromOrganization
 
-Indicates a [Member](../Member#member) was removed from an [Organization](../Organization#organization).
+Indicates a Manatee.Trello.Member was removed from an Manatee.Trello.Organization.
 
 ### static [ActionType](../ActionType#actiontype) UnconfirmedBoardInvitation
 
-Indicates an invitation to a [Board](../Board#board) was created.
+Indicates an invitation to a Manatee.Trello.Board was created.
 
 ### static [ActionType](../ActionType#actiontype) UnconfirmedOrganizationInvitation
 
-Indicates an invitation to an [Organization](../Organization#organization) was created.
+Indicates an invitation to an Manatee.Trello.Organization was created.
 
 ### static [ActionType](../ActionType#actiontype) Unknown
 
@@ -256,51 +256,51 @@ This value is not supported by Trello&#39;s API.
 
 ### static [ActionType](../ActionType#actiontype) UpdateBoard
 
-Indicates a [Board](../Board#board) was updated.
+Indicates a Manatee.Trello.Board was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateCard
 
-Indicates a [Card](../Card#card) was updated.
+Indicates a Manatee.Trello.Card was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateCheckItem
 
-Indicates a [CheckItem](../CheckItem#checkitem) was updated.
+Indicates a Manatee.Trello.CheckItem was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateCheckItemStateOnCard
 
-Indicates a [CheckList](../CheckList#checklist) was updated.
+Indicates a Manatee.Trello.CheckList was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateChecklist
 
-Indicates a [CheckList](../CheckList#checklist) was updated.
+Indicates a Manatee.Trello.CheckList was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateCustomField
 
-Indicates that a [CustomField](../CustomField#customfield) was updated.
+Indicates that a Manatee.Trello.CustomField was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateCustomFieldItem
 
-Indicates that a [CustomField](../CustomField#customfield) was updated.
+Indicates that a Manatee.Trello.CustomField was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateLabel
 
-Indicates a [Label](../Label#label) was updated.
+Indicates a Manatee.Trello.Label was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateList
 
-Indicates a [List](../List#list) was updated.
+Indicates a Manatee.Trello.List was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateMember
 
-Indicates a [Member](../Member#member) was updated.
+Indicates a Manatee.Trello.Member was updated.
 
 ### static [ActionType](../ActionType#actiontype) UpdateOrganization
 
-Indicates an [Organization](../Organization#organization) was updated.
+Indicates an Manatee.Trello.Organization was updated.
 
 ### static [ActionType](../ActionType#actiontype) VoteOnCard
 
-Indicates a [Member](../Member#member) voted for a [Card](../Card#card).
+Indicates a Manatee.Trello.Member voted for a Manatee.Trello.Card.
 
 ## Properties
 
@@ -310,7 +310,7 @@ Indicates all action types
 
 ### static [ActionType](../ActionType#actiontype) DefaultForCardActions { get; }
 
-Indictes the default set of values returned by [Actions](../Card#manateetrelloireadonlycollection1manateetrelloiaction-manateetrello-version3000-cultureneutral-publickeytokenf502fcc17fc907d6-actions--get-).
+Indictes the default set of values returned by Manatee.Trello.Card.Actions.
 
 ## Methods
 
@@ -320,7 +320,7 @@ Gets the names of this ActionType enumerated type.
 
 **Returns:** 
 
-### static Manatee.Trello.ActionType[] GetValues()
+### static ActionType[] GetValues()
 
 Gets all the values of this ActionType enumerated type.
 
@@ -447,7 +447,7 @@ Overridden. Compares equality with another object.
 
 **Returns:** 
 
-### IEnumerable&lt;ActionType&gt; GetFlags()
+### IEnumerable&lt;[ActionType](../ActionType#actiontype)&gt; GetFlags()
 
 Gets all of the flags that are active in this instance.
 

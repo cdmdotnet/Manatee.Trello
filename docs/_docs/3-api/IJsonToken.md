@@ -32,7 +32,7 @@ Gets or sets the identifier of the application which requested the token.
 
 Gets or sets the ID of the member who issued the token.
 
-### List&lt;IJsonTokenPermission&gt; Permissions { get; set; }
+### List&lt;[IJsonTokenPermission](../IJsonTokenPermission#ijsontokenpermission)&gt; Permissions { get; set; }
 
 Gets or sets the collection of permissions granted by the token.
 

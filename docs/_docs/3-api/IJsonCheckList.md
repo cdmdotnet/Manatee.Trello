@@ -24,7 +24,7 @@ Gets or sets the ID of the board which contains this checklist.
 
 Gets or sets the ID of the card which contains this checklist.
 
-### List&lt;IJsonCheckItem&gt; CheckItems { get; set; }
+### List&lt;[IJsonCheckItem](../IJsonCheckItem#ijsoncheckitem)&gt; CheckItems { get; set; }
 
 Gets or sets the collection of items in this checklist.
 

@@ -24,7 +24,7 @@ The JSON content returned by the call.
 
 Gets any exception that was thrown during the call.
 
-### System.Net.HttpStatusCode StatusCode { get; }
+### HttpStatusCode StatusCode { get; }
 
 Gets the status code.
 

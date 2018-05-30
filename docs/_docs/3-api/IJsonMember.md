@@ -16,7 +16,7 @@ Defines the JSON structure for the Member object.
 
 ## Properties
 
-### List&lt;IJsonAction&gt; Actions { get; set; }
+### List&lt;[IJsonAction](../IJsonAction#ijsonaction)&gt; Actions { get; set; }
 
 Gets or sets a collection of actions.
 
@@ -32,11 +32,11 @@ Gets or sets the source URL for the member&#39;s avatar.
 
 Gets or sets the bio of the member.
 
-### List&lt;IJsonBoard&gt; Boards { get; set; }
+### List&lt;[IJsonBoard](../IJsonBoard#ijsonboard)&gt; Boards { get; set; }
 
 Gets or sets a collection of boards.
 
-### List&lt;IJsonCard&gt; Cards { get; set; }
+### List&lt;[IJsonCard](../IJsonCard#ijsoncard)&gt; Cards { get; set; }
 
 Gets or sets a collection of cards.
 
@@ -68,7 +68,7 @@ Gets or sets the login types for the member.
 
 Gets or sets the type of member.
 
-### List&lt;IJsonNotification&gt; Notifications { get; set; }
+### List&lt;[IJsonNotification](../IJsonNotification#ijsonnotification)&gt; Notifications { get; set; }
 
 Gets or sets a collection of notifications.
 
@@ -76,7 +76,7 @@ Gets or sets a collection of notifications.
 
 Gets or sets the types of message which are dismissed for the member.
 
-### List&lt;IJsonOrganization&gt; Organizations { get; set; }
+### List&lt;[IJsonOrganization](../IJsonOrganization#ijsonorganization)&gt; Organizations { get; set; }
 
 Gets or sets a collection of organizations.
 

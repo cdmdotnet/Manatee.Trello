@@ -17,7 +17,7 @@ Represents a checklist item.
 
 ## Properties
 
-### static Manatee.Trello.CheckItem+Fields DownloadedFields { get; set; }
+### static CheckItem.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 
@@ -51,7 +51,7 @@ Gets or sets the checklist item&#39;s state.
 
 ## Events
 
-### Action&lt;ICheckItem, IEnumerable&lt;string&gt;&gt; Updated
+### Action&lt;[ICheckItem](../ICheckItem#icheckitem), IEnumerable&lt;string&gt;&gt; Updated
 
 Raised when data on the checklist item is updated.
 

@@ -16,7 +16,7 @@ A collection of comment actions.
 
 ## Methods
 
-### Task&lt;IAction&gt; Add(string text, CancellationToken ct)
+### Task&lt;[IAction](../IAction#iaction)&gt; Add(string text, CancellationToken ct)
 
 Posts a new comment to a card.
 
@@ -28,5 +28,5 @@ The content of the comment.
 
 (Optional) A cancellation token for async processing.
 
-**Returns:** The [IAction](../IAction#iaction) associated with the comment.
+**Returns:** The Manatee.Trello.IAction associated with the comment.
 
