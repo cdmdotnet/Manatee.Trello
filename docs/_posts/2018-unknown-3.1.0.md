@@ -27,6 +27,12 @@ New members:
 - `IJsonMember.StarredBoards`
 - `Member.StarredBoards`
 - `Me.StarredBoards`
+- Optional `description` parameter for `IBoardCollection.Add()`
+- Optional `description` parameter for `BoardCollection.Add()`
+- Optional `position` parameter for `IListCollection.Add()`
+- Optional `position` parameter for `ListCollection.Add()`
+- Optional `description` and `name` parameters for `IOrganizationCollection.Add()`
+- Optional `description` and `name` parameters for `OrganizationCollection.Add()`
 
 New types:
 

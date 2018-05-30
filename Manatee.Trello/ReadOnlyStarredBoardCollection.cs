@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -34,32 +33,6 @@ namespace Manatee.Trello
 					board.Json = jb;
 					return board;
 				}));
-		}
-	}
-
-	public class StarredBoardCollection : ReadOnlyStarredBoardCollection, IStarredBoardCollection
-	{
-		internal StarredBoardCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth)
-		{
-		}
-
-		public async Task<IStarredBoard> Add(IBoard board, Position position = null, CancellationToken ct = default(CancellationToken))
-		{
-			var error = NotNullRule<IBoard>.Instance.Validate(null, board);
-			if (error != null)
-				throw new ValidationException<IBoard>(board, new[] {error});
-			position = position ?? Position.Bottom;
-
-			var json = TrelloConfiguration.JsonFactory.Create<IJsonStarredBoard>();
-			json.Board = TrelloConfiguration.JsonFactory.Create<IJsonBoard>();
-			json.Board.Id = board.Id;
-			json.Pos = Position.GetJson(position);
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_AddStarredBoard, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
-
-			return new StarredBoard(OwnerId, newData, Auth);
 		}
 	}
 }
