@@ -189,7 +189,7 @@ namespace Manatee.Trello
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
 		/// <remarks>By default imposed by Trello, this contains actions of type <see cref="ActionType.CommentCard"/>.</remarks>
-		public IReadOnlyCollection<IAction> Actions { get; }
+		public IReadOnlyActionCollection Actions { get; }
 
 		/// <summary>
 		/// Gets the collection of attachments contained in the card.
@@ -373,7 +373,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets all members who have voted for this card.
 		/// </summary>
-		public IReadOnlyCollection<IMember> VotingMembers => _context.VotingMembers;
+		public IReadOnlyMemberCollection VotingMembers => _context.VotingMembers;
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.

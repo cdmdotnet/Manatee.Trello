@@ -13,7 +13,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		IReadOnlyCollection<IAction> Actions { get; }
+		IReadOnlyActionCollection Actions { get; }
 
 		/// <summary>
 		/// Gets the source type for the member's avatar.
@@ -33,12 +33,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		IReadOnlyCollection<IBoard> Boards { get; }
+		IReadOnlyBoardCollection Boards { get; }
 
 		/// <summary>
 		/// Gets the collection of cards assigned to the member.
 		/// </summary>
-		IReadOnlyCollection<ICard> Cards { get; }
+		IReadOnlyCardCollection Cards { get; }
 
 		/// <summary>
 		/// Gets the creation date of the member.
@@ -68,7 +68,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		IReadOnlyCollection<IOrganization> Organizations { get; }
+		IReadOnlyOrganizationCollection Organizations { get; }
+
+		/// <summary>
+		/// Gets the collection of the member's board stars.
+		/// </summary>
+		IReadOnlyCollection<IStarredBoard> StarredBoards { get; }
 
 		/// <summary>
 		/// Gets the member's online status.

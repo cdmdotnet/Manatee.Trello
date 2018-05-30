@@ -36,7 +36,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public new IBoardCollection Boards => (BoardCollection) base.Boards;
+		public new IBoardCollection Boards => (IBoardCollection) base.Boards;
 		/// <summary>
 		/// Gets or sets the member's email.
 		/// </summary>
@@ -69,11 +69,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public new IOrganizationCollection Organizations => (OrganizationCollection) base.Organizations;
+		public new IOrganizationCollection Organizations => (IOrganizationCollection) base.Organizations;
 		/// <summary>
 		/// Gets the set of preferences for the member.
 		/// </summary>
 		public IMemberPreferences Preferences { get; }
+
+		/// <summary>
+		/// Gets the collection of the member's board stars.
+		/// </summary>
+		public new IStarredBoardCollection StarredBoards => (IStarredBoardCollection) base.StarredBoards;
 		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>

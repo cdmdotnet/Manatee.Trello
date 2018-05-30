@@ -1,6 +1,6 @@
 ---
-title: 3.0.10
-type: bug fix
+title: 3.1.0
+type: new feature
 ---
 
 ## Summary
@@ -14,6 +14,8 @@ In line with changes in the Trello API:
 - Custom fields can now be configured to show or not show on the front of a card.
     - https://trello.com/c/F3j0G136
 
+Starred boards are represented as objects in the Trello API.  Previous versions only exposed `Board.IsStarred` as a read-only property.  This can now be listed and manipulated through the `StarredBoard` entity and its collection on the `Member` and `Me` entities, respectively.
+
 ## Changes
 
 New members:
@@ -22,12 +24,20 @@ New members:
 - `Member.Fields.AvatarUrl`
 - `ICustomFieldDefinition.DisplayInfo`
 - `CustomFieldDefinition.DisplayInfo`
+- `IJsonMember.StarredBoards`
+- `Member.StarredBoards`
+- `Me.StarredBoards`
 
 New types:
 
 - `AvatarSize`
 - `ICustomFieldDisplayInfo`
 - `CustomFieldDisplayInfo`
+- `IJsonStarredBoard`
+- `StarredBoard`
+- `ReadOnlyStarredBoardCollection`
+- `IStarredBoardCollection`
+- `StarredBoardCollection`
 
 Functional changes:
 

@@ -25,6 +25,7 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof (IJsonMember), typeof (Member)},
 					{typeof (IJsonOrganization), typeof (Organization)},
 					{typeof (IJsonNotification), typeof (Notification)},
+					{typeof (IJsonStarredBoard), typeof (StarredBoard)},
 					{typeof (IJsonToken), typeof (Token)},
 				};
 			JsonFactory = new Dictionary<Type, Func<IJsonCacheable, TrelloAuthorization, object[], ICacheable>>
@@ -42,6 +43,7 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof(List), (j, a, p) => new List((IJsonList) j, a)},
 					{typeof(Member), (j, a, p) => new Member((IJsonMember) j, a)},
 					{typeof(Organization), (j, a, p) => new Organization((IJsonOrganization) j, a)},
+					{typeof(StarredBoard), (j, a, p) => new StarredBoard((string) p[0], (IJsonStarredBoard) j, a)},
 					{typeof(Notification), (j, a, p) => new Notification((IJsonNotification) j, a)},
 					{typeof(Token), (j, a, p) => new Token((IJsonToken) j, a)},
 					{typeof(IPowerUp), (j, a, p) => BuildConfiguredPowerUp((IJsonPowerUp) j, a) ?? new UnknownPowerUp((IJsonPowerUp) j, a)},
