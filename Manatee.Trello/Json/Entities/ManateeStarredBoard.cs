@@ -22,6 +22,7 @@ namespace Manatee.Trello.Json.Entities
 		{
 			var obj = new JsonObject();
 			
+			Board.Id.Serialize(obj, serializer, "idBoard");
 			Pos.Serialize(obj, serializer, "pos");
 
 			return obj;

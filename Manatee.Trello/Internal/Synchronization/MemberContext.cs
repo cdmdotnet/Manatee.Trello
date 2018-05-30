@@ -176,6 +176,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["organizations"] = "all";
 					Parameters["organization_fields"] = OrganizationContext.CurrentParameters["fields"];
 				}
+				if (parameterFields.HasFlag(Member.Fields.StarredBoards))
+					Parameters["boardStars"] = "true";
 			}
 		}
 
@@ -229,6 +231,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (json.Organizations != null)
 			{
 				Organizations.Update(json.Organizations.Select(a => a.GetFromCache<Organization, IJsonOrganization>(Auth, overwrite)));
+				properties.Add(nameof(Member.Organizations));
+			}
+			if (json.StarredBoards != null)
+			{
+				StarredBoards.Update(json.StarredBoards.Select(a => a.GetFromCache<StarredBoard, IJsonStarredBoard>(Auth, overwrite, Data.Id)));
 				properties.Add(nameof(Member.Organizations));
 			}
 

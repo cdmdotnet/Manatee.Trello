@@ -55,6 +55,9 @@ namespace Manatee.Trello
 
 			_board = new Field<IBoard>(_context, nameof(Board));
 			_position = new Field<Position>(_context, nameof(Position));
+
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 
 		void IMergeJson<IJsonStarredBoard>.Merge(IJsonStarredBoard json, bool overwrite)

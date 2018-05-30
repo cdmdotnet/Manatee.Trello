@@ -17,7 +17,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Properties = new Dictionary<string, Property<IJsonStarredBoard>>
 				{
 					{
-						nameof(StarredBoard),
+						nameof(StarredBoard.Board),
 						new Property<IJsonStarredBoard, Board>((d, a) => d.Board?.GetFromCache<Board, IJsonBoard>(a),
 						                                       (d, o) => d.Board = o?.Json)
 					},
