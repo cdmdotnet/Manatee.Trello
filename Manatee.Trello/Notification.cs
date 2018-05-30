@@ -168,7 +168,8 @@ namespace Manatee.Trello
 			_isUnread = new Field<bool?>(_context, nameof(IsUnread));
 			_type = new Field<NotificationType?>(_context, nameof(Type));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Notification(IJsonNotification json, TrelloAuthorization auth)
 			: this(json.Id, auth)

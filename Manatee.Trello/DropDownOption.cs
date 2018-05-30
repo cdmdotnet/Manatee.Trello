@@ -57,7 +57,7 @@ namespace Manatee.Trello
 			_labelColor = new Field<LabelColor?>(_context, nameof(Color));
 			_position = new Field<Position>(_context, nameof(Position));
 
-			if (!created)
+			if (!created && auth != TrelloAuthorization.Null)
 				TrelloConfiguration.Cache.Add(this);
 		}
 

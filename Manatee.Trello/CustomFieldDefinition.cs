@@ -92,7 +92,8 @@ namespace Manatee.Trello
 			_position = new Field<Position>(_context, nameof(Position));
 			_type = new Field<CustomFieldType?>(_context, nameof(Type));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 			_context.Synchronized += Synchronized;

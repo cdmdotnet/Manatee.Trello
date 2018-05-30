@@ -19,10 +19,11 @@ namespace Manatee.Trello.Internal.Synchronization
 		public abstract bool HasChanges { get; }
 
 		protected bool ManagesSubmissions { get; }
+		protected TrelloAuthorization Auth { get; }
 
 		public event Action<IEnumerable<string>> Synchronized;
 
-		protected SynchronizationContext(bool useTimer)
+		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer)
 		{
 			ManagesSubmissions = useTimer;
 			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
@@ -37,6 +38,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_semaphore = new SemaphoreSlim(1, 1);
 			_expires = DateTime.MinValue;
 			RestRequestProcessor.LastCall += _TimerElapsed;
+			Auth = auth ?? TrelloAuthorization.Default;
 		}
 		~SynchronizationContext()
 		{
@@ -48,6 +50,8 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public async Task Synchronize(bool force, CancellationToken ct)
 		{
+			if (Auth == TrelloAuthorization.Null) return;
+
 			var now = DateTime.Now;
 			if (!force && _expires > now) return;
 
@@ -62,10 +66,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			lock (_updateLock)
 			{
 				var properties = Merge(data).ToList();
-				if (!properties.Any()) return;
-
-				var handler = Synchronized;
-				handler?.Invoke(properties);
 			}
 		}
 
@@ -73,6 +73,12 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected abstract IEnumerable<string> Merge(object newData);
 		protected abstract Task Submit(CancellationToken ct);
 
+
+		protected void OnMerged(IEnumerable<string> properties)
+		{
+			var handler = Synchronized;
+			handler?.Invoke(properties);
+		}
 		protected void CancelUpdate()
 		{
 			_cancelUpdate = true;
@@ -112,6 +118,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		private async Task _SubmitChanges(CancellationToken ct)
 		{
+			if (Auth == TrelloAuthorization.Null) return;
 			if (!HasChanges) return;
 
 			await Submit(ct);
@@ -128,15 +135,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public override bool HasChanges => _localChanges?.Any() ?? false;
 
-		protected TrelloAuthorization Auth { get; }
 		protected bool IsInitialized { get; private set; }
 
 		internal TJson Data { get; }
 
 		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer = true)
-			: base(useTimer)
+			: base(auth, useTimer)
 		{
-			Auth = auth ?? TrelloAuthorization.Default;
 			Data = TrelloConfiguration.JsonFactory.Create<TJson>();
 			_localChanges = new List<string>();
 			_mergeLock = new object();
@@ -181,6 +186,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return Merge((TJson) newData);
 		}
+
 		protected sealed override async Task Submit(CancellationToken ct)
 		{
 			var json = GetChanges();
@@ -190,7 +196,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			await SubmitData(json, ct);
 			ClearChanges();
 		}
-		protected virtual IEnumerable<string> MergeDependencies(TJson json)
+		protected virtual IEnumerable<string> MergeDependencies(TJson json, bool overwrite)
 		{
 			return Enumerable.Empty<string>();
 		}
@@ -212,6 +218,8 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			if (json is IAcceptId mergable && !mergable.ValidForMerge) return Enumerable.Empty<string>();
 
+			IEnumerable<string> allProperties;
+
 			lock (_mergeLock)
 			{
 				MarkInitialized();
@@ -223,14 +231,22 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					var property = Properties[propertyName];
 					var oldValue = property.Get(Data, Auth);
-					if (!overwrite && oldValue != null) continue;
-
 					var newValue = property.Get(json, Auth);
+					if (newValue == null && !overwrite) continue;
+					if (Equals(newValue, oldValue)) continue;
+
 					property.Set(Data, newValue);
-					propertyNames.Add(propertyName);
+					if (!property.IsHidden)
+						propertyNames.Add(propertyName);
 				}
-				return propertyNames.Concat(MergeDependencies(json));
+
+				allProperties = propertyNames.Concat(MergeDependencies(json, overwrite));
 			}
+
+			if (allProperties.Any())
+				OnMerged(allProperties);
+
+			return allProperties;
 		}
 		internal void ClearChanges()
 		{

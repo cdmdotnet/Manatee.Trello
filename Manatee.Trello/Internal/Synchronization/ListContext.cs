@@ -70,6 +70,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(List.Position),
 						new Property<IJsonList, Position>((d, a) => Position.GetPosition(d.Pos), (d, o) => d.Pos = Position.GetJson(o))
 					},
+					{
+						nameof(IJsonList.ValidForMerge),
+						new Property<IJsonList, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public ListContext(string id, TrelloAuthorization auth)
@@ -134,18 +138,18 @@ namespace Manatee.Trello.Internal.Synchronization
 			Merge(newData);
 		}
 
-		protected override IEnumerable<string> MergeDependencies(IJsonList json)
+		protected override IEnumerable<string> MergeDependencies(IJsonList json, bool overwrite)
 		{
 			var properties = new List<string>();
 
 			if (json.Actions != null)
 			{
-				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth, overwrite)));
 				properties.Add(nameof(List.Actions));
 			}
 			if (json.Cards != null)
 			{
-				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth)));
+				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth, overwrite)));
 				properties.Add(nameof(List.Cards));
 			}
 

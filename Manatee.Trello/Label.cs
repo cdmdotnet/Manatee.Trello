@@ -129,7 +129,8 @@ namespace Manatee.Trello
 			
 			_context.Merge(json);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 
 		/// <summary>

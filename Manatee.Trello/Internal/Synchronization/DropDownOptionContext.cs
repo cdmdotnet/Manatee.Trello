@@ -49,6 +49,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						new Property<IJsonCustomDropDownOption, Position>((d, a) => Position.GetPosition(d.Pos),
 						                                                  (d, o) => d.Pos = Position.GetJson(o))
 					},
+					{
+						nameof(IJsonCustomDropDownOption.ValidForMerge),
+						new Property<IJsonCustomDropDownOption, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 

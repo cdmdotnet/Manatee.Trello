@@ -9,8 +9,8 @@ Out of the box, Manatee.Trello supports 300 downloads and 300 uploads per hour. 
 Licenses come in three varieties:
 
 - **Open Source Development** - Free licenses may be issued for projects that are developed openly and made free to the public.
-- **Single Developer** - For individual developers *$99 annually*
-- **Site-wide** - For multiple developers within a single domain *$799 annually*
+- **Single Developer** - For individual developers *US $99 annually*
+- **Site-wide** - For multiple developers within a single domain *US $799 annually*
 
 Annual licenses are valid for all major versions released within a calendar year of the date of purchase.
 

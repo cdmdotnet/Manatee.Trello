@@ -236,7 +236,8 @@ namespace Manatee.Trello
 			_website = new Field<string>(_context, nameof(Website));
 			_website.AddRule(UriRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Organization(IJsonOrganization json, TrelloAuthorization auth)
 			: this(json.Id, auth)
@@ -250,9 +251,13 @@ namespace Manatee.Trello
 		/// <param name="action">The action.</param>
 		public void ApplyAction(IAction action)
 		{
-			if (action.Type != ActionType.UpdateOrganization || action.Data.Organization == null || action.Data.Organization.Id != Id)
-				return;
-			_context.Merge(((Organization) action.Data.Organization).Json);
+			var localAction = action as Action;
+
+			if (action.Type != ActionType.UpdateOrganization ||
+			    localAction?.Json?.Data?.Org == null ||
+			    localAction.Json.Data.Org.Id != Id) return;
+
+			_context.Merge(localAction.Json.Data.Org);
 		}
 
 		/// <summary>

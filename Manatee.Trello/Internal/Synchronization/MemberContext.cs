@@ -198,33 +198,33 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		protected override IEnumerable<string> MergeDependencies(IJsonMember json)
+		protected override IEnumerable<string> MergeDependencies(IJsonMember json, bool overwrite)
 		{
-			var properties = MemberPreferencesContext.Merge(json.Prefs).ToList();
+			var properties = MemberPreferencesContext.Merge(json.Prefs, overwrite).ToList();
 
 			if (json.Actions != null)
 			{
-				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth, overwrite)));
 				properties.Add(nameof(Member.Actions));
 			}
 			if (json.Boards != null)
 			{
-				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth)));
+				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth, overwrite)));
 				properties.Add(nameof(Member.Boards));
 			}
 			if (json.Cards != null)
 			{
-				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth)));
+				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth, overwrite)));
 				properties.Add(nameof(Member.Cards));
 			}
 			if (json.Notifications != null)
 			{
-				Notifications.Update(json.Notifications.Select(a => a.GetFromCache<Notification, IJsonNotification>(Auth)));
+				Notifications.Update(json.Notifications.Select(a => a.GetFromCache<Notification, IJsonNotification>(Auth, overwrite)));
 				properties.Add(nameof(Me.Notifications));
 			}
 			if (json.Organizations != null)
 			{
-				Organizations.Update(json.Organizations.Select(a => a.GetFromCache<Organization, IJsonOrganization>(Auth)));
+				Organizations.Update(json.Organizations.Select(a => a.GetFromCache<Organization, IJsonOrganization>(Auth, overwrite)));
 				properties.Add(nameof(Member.Organizations));
 			}
 

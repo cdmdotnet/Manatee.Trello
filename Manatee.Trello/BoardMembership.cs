@@ -76,7 +76,8 @@ namespace Manatee.Trello
 			_memberType.AddRule(EnumerationRule<BoardMembershipType?>.Instance);
 			_isDeactivated = new Field<bool?>(_context, nameof(IsDeactivated));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 		}

@@ -96,7 +96,8 @@ namespace Manatee.Trello
 			_target = new Field<T>(_context, nameof(Target));
 			_target.AddRule(NotNullRule<T>.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 
 		private Webhook(string id, WebhookContext<T> context)

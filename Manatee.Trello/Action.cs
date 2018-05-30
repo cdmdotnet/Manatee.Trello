@@ -216,7 +216,8 @@ namespace Manatee.Trello
 			Data = new ActionData(_context.ActionDataContext);
 			_type = new Field<ActionType?>(_context, nameof(Type));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Action(IJsonAction json, TrelloAuthorization auth)
 			: this(json.Id, auth)

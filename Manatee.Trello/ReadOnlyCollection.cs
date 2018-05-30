@@ -61,7 +61,14 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public abstract Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		{
+			if (Auth == TrelloAuthorization.Null) return;
+
+			await PerformRefresh(force, ct);
+		}
+
+		internal abstract Task PerformRefresh(bool force, CancellationToken ct);
 
 		/// <summary>Returns an enumerator that iterates through a collection.</summary>
 		/// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>

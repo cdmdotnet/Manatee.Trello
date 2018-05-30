@@ -98,7 +98,7 @@ namespace Manatee.Trello.Internal.Caching
 			return factory(json, auth);
 		}
 
-		private static CustomField _BuildCustomField(IJsonCustomField json, TrelloAuthorization auth, object[] parameters)
+		public static CustomField _BuildCustomField(this IJsonCustomField json, TrelloAuthorization auth, object[] parameters)
 		{
 			var cardId = (string) parameters[0];
 
