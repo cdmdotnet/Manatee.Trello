@@ -55,6 +55,7 @@ namespace Manatee.Trello.Json
 					{typeof (IJsonPowerUp), () => new ManateePowerUp()},
 					{typeof (IJsonPowerUpData), () => new ManateePowerUpData()},
 					{typeof (IJsonSearch), () => new ManateeSearch()},
+					{typeof (IJsonStarredBoard), () => new ManateeStarredBoard()},
 					{typeof (IJsonSticker), () => new ManateeSticker()},
 					{typeof (IJsonToken), () => new ManateeToken()},
 					{typeof (IJsonTokenPermission), () => new ManateeTokenPermission()},
