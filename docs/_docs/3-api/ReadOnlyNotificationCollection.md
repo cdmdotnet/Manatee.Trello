@@ -26,3 +26,11 @@ Adds a filter to the collection.
 
 The filter type.
 
+### void Filter(IEnumerable&lt;NotificationType&gt; filters)
+
+Adds a set of filters to the collection.
+
+**Parameter:** filters
+
+A collection of filters.
+

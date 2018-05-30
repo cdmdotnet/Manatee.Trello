@@ -128,6 +128,35 @@ The member ID.
 
 **Returns:** An Manatee.Trello.IMember
 
+### [IMemberSearch](../IMemberSearch#imembersearch) MemberSearch(string query, int? limit, IBoard board, IOrganization organization, bool? restrictToOrganization, TrelloAuthorization auth)
+
+Creates a new instance of the Manatee.Trello.IMemberSearch object and performs the search.
+
+**Parameter:** query
+
+The query.
+
+**Parameter:** limit
+
+(Optional) The result limit. Can be a value from 1 to 20. The default is 8.
+
+**Parameter:** board
+
+(Optional) A board to which the search should be limited.
+
+**Parameter:** organization
+
+(Optional) An organization to which the search should be limited.
+
+**Parameter:** restrictToOrganization
+
+(Optional) Restricts the search to only organization members.
+
+**Parameter:** auth
+
+(Optional) Custom authorization parameters. When not provided,
+Manatee.Trello.TrelloAuthorization.Default will be used.
+
 ### [INotification](../INotification#inotification) Notification(string id, TrelloAuthorization auth)
 
 Creates an Manatee.Trello.INotification.
@@ -155,6 +184,66 @@ The action ID.
 (Optional) The authorization.
 
 **Returns:** An Manatee.Trello.IOrganization
+
+### [ISearch](../ISearch#isearch) Search(ISearchQuery query, int? limit, SearchModelType modelTypes, IEnumerable&lt;IQueryable&gt; context, bool isPartial, TrelloAuthorization auth)
+
+Creates an Manatee.Trello.ISearch.
+
+**Parameter:** query
+
+The search query.
+
+**Parameter:** limit
+
+(Optional) The maximum number of items to return.
+
+**Parameter:** modelTypes
+
+(Optional) The model types desired.
+
+**Parameter:** context
+
+(Optional) The context (scope) of the search.
+
+**Parameter:** isPartial
+
+(Optional) Allow &quot;starts with&quot; matches.
+
+**Parameter:** auth
+
+(Optional) The authorization.
+
+**Returns:** An Manatee.Trello.ISearch
+
+### [ISearch](../ISearch#isearch) Search(string query, int? limit, SearchModelType modelTypes, IEnumerable&lt;IQueryable&gt; context, bool isPartial, TrelloAuthorization auth)
+
+Creates an Manatee.Trello.ISearch.
+
+**Parameter:** query
+
+The search query.
+
+**Parameter:** limit
+
+(Optional) The maximum number of items to return.
+
+**Parameter:** modelTypes
+
+(Optional) The model types desired.
+
+**Parameter:** context
+
+(Optional) The context (scope) of the search.
+
+**Parameter:** isPartial
+
+(Optional) Allow &quot;starts with&quot; matches.
+
+**Parameter:** auth
+
+(Optional) The authorization.
+
+**Returns:** An Manatee.Trello.ISearch
 
 ### [ISearchQuery](../ISearchQuery#isearchquery) SearchQuery()
 

@@ -15,6 +15,66 @@ Performs a search.
 - Object
 - Search
 
+## Constructors
+
+### Search(ISearchQuery query, int? limit, SearchModelType modelTypes, IEnumerable&lt;IQueryable&gt; context, TrelloAuthorization auth, bool isPartial)
+
+Creates a new instance of the Manatee.Trello.Search object and performs the search.
+
+**Parameter:** query
+
+The query.
+
+**Parameter:** limit
+
+The maximum number of results to return.
+
+**Parameter:** modelTypes
+
+(Optional) The desired model types to return. Can be joined using the | operator. Default is All.
+
+**Parameter:** context
+
+(Optional) A collection of queryable items to serve as a context in which to search.
+
+**Parameter:** auth
+
+(Optional) Custom authorization parameters. When not provided,
+Manatee.Trello.TrelloAuthorization.Default will be used.
+
+**Parameter:** isPartial
+
+(Optional) Indicates whether to include matches that &lt;em&gt;start with&lt;/em&gt; the query text. Default is false.
+
+### Search(string query, int? limit, SearchModelType modelTypes, IEnumerable&lt;IQueryable&gt; context, TrelloAuthorization auth, bool isPartial)
+
+Creates a new instance of the Manatee.Trello.Search object and performs the search.
+
+**Parameter:** query
+
+The query.
+
+**Parameter:** limit
+
+The maximum number of results to return.
+
+**Parameter:** modelTypes
+
+(Optional) The desired model types to return. Can be joined using the | operator. Default is All.
+
+**Parameter:** context
+
+(Optional) A collection of queryable items to serve as a context in which to search.
+
+**Parameter:** auth
+
+(Optional) Custom authorization parameters. When not provided,
+Manatee.Trello.TrelloAuthorization.Default will be used.
+
+**Parameter:** isPartial
+
+(Optional) Indicates whether to include matches that &lt;em&gt;start with&lt;/em&gt; the query text. Default is false.
+
 ## Properties
 
 ### IEnumerable&lt;[IAction](../IAction#iaction)&gt; Actions { get; }

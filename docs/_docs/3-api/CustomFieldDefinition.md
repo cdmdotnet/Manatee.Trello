@@ -69,6 +69,42 @@ Refreshes the custom field definition data.
 
 (Optional) A cancellation token for async processing.
 
+### Task&lt;ICustomField&lt;double?&gt;&gt; SetValueForCard(ICard card, double? value, CancellationToken ct)
+
+Sets a value for a custom field on a card.
+
+**Parameter:** card
+
+The card on which to set the value.
+
+**Parameter:** value
+
+The vaue to set.
+
+**Parameter:** ct
+
+(Optional) A cancellation token for async processing.
+
+**Returns:** The custom field instance.
+
+### Task&lt;ICustomField&lt;bool?&gt;&gt; SetValueForCard(ICard card, bool? value, CancellationToken ct)
+
+Sets a value for a custom field on a card.
+
+**Parameter:** card
+
+The card on which to set the value.
+
+**Parameter:** value
+
+The vaue to set.
+
+**Parameter:** ct
+
+(Optional) A cancellation token for async processing.
+
+**Returns:** The custom field instance.
+
 ### Task&lt;ICustomField&lt;string&gt;&gt; SetValueForCard(ICard card, string value, CancellationToken ct)
 
 Sets a value for a custom field on a card.
@@ -88,6 +124,24 @@ The vaue to set.
 **Returns:** The custom field instance.
 
 ### Task&lt;ICustomField&lt;IDropDownOption&gt;&gt; SetValueForCard(ICard card, IDropDownOption value, CancellationToken ct)
+
+Sets a value for a custom field on a card.
+
+**Parameter:** card
+
+The card on which to set the value.
+
+**Parameter:** value
+
+The vaue to set.
+
+**Parameter:** ct
+
+(Optional) A cancellation token for async processing.
+
+**Returns:** The custom field instance.
+
+### Task&lt;ICustomField&lt;DateTime?&gt;&gt; SetValueForCard(ICard card, DateTime? value, CancellationToken ct)
 
 Sets a value for a custom field on a card.
 

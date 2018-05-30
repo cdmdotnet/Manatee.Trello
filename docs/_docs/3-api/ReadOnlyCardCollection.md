@@ -44,3 +44,15 @@ Adds a filter to the collection.
 
 The filter value.
 
+### void Filter(DateTime? start, DateTime? end)
+
+Adds a filter to the collection based on start and end date.
+
+**Parameter:** start
+
+The start date.
+
+**Parameter:** end
+
+The end date.
+
