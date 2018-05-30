@@ -135,7 +135,8 @@ namespace Manatee.Trello
 			/// Indicates the avatar URL should be downloaded.
 			/// </summary>
 			[Display(Description = "avatarUrl")]
-			AvatarUrl = 1 << 23
+			AvatarUrl = 1 << 23,
+			StarredBoards = 1 << 24
 		}
 
 		private readonly Field<string> _avatarUrl;
@@ -173,7 +174,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
@@ -195,11 +196,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public IReadOnlyCollection<IBoard> Boards => _context.Boards;
+		public IReadOnlyBoardCollection Boards => _context.Boards;
 		/// <summary>
 		/// Gets the collection of cards assigned to the member.
 		/// </summary>
-		public IReadOnlyCollection<ICard> Cards => _context.Cards;
+		public IReadOnlyCardCollection Cards => _context.Cards;
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
@@ -252,7 +253,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public IReadOnlyCollection<IOrganization> Organizations => _context.Organizations;
+		public IReadOnlyOrganizationCollection Organizations => _context.Organizations;
+
+		/// <summary>
+		/// Gets the collection of the member's board stars.
+		/// </summary>
+		public IReadOnlyCollection<IStarredBoard> StarredBoards => _context.StarredBoards;
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>

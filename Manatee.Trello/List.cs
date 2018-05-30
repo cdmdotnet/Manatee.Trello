@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 		/// <summary>
 		/// Gets or sets the board on which the list belongs.
 		/// </summary>

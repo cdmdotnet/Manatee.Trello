@@ -34,6 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public ReadOnlyCardCollection Cards { get; }
 		public ReadOnlyNotificationCollection Notifications { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
+		public ReadOnlyStarredBoardCollection StarredBoards { get; }
 		public MemberPreferencesContext MemberPreferencesContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
@@ -120,6 +121,9 @@ namespace Manatee.Trello.Internal.Synchronization
 				                ? new OrganizationCollection(() => Data.Id, auth)
 				                : new ReadOnlyOrganizationCollection(() => Data.Id, auth);
 			Notifications = new ReadOnlyNotificationCollection(() => Data.Id, auth);
+			StarredBoards = isMe
+				                ? new StarredBoardCollection(() => Data.Id, auth)
+				                : new ReadOnlyStarredBoardCollection(() => Data.Id, auth); 
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);

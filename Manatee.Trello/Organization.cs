@@ -107,7 +107,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
@@ -161,7 +161,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		public IReadOnlyCollection<IMember> Members => _context.Members;
+		public IReadOnlyMemberCollection Members => _context.Members;
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>

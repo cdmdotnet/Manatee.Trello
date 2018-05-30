@@ -159,7 +159,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on and within this board.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 
 		/// <summary>
 		/// Gets the collection of cards contained within this board.
@@ -167,7 +167,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This property only exposes unarchived cards.
 		/// </remarks>
-		public IReadOnlyCollection<ICard> Cards => _context.Cards;
+		public IReadOnlyCardCollection Cards => _context.Cards;
 
 		/// <summary>
 		/// Gets the creation date of the board.
@@ -264,7 +264,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members on this board.
 		/// </summary>
-		public IReadOnlyCollection<IMember> Members => _context.Members;
+		public IReadOnlyMemberCollection Members => _context.Members;
 
 		/// <summary>
 		/// Gets the collection of members and their privileges on this board.
