@@ -16,7 +16,7 @@ Defines methods to generate IRequest objects used to make RESTful calls.
 
 ## Methods
 
-### [IRestRequest](../IRestRequest#irestrequest) Create(string endpoint, IDictionary&lt;string, Object&gt; parameters)
+### [IRestRequest](../IRestRequest#irestrequest) Create(string endpoint, IDictionary&lt;string, Object&gt; parameters = null)
 
 Creates a general request using a collection of objects and an additional parameter to generate the resource string and an object to supply additional parameters.
 

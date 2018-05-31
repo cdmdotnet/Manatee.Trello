@@ -17,7 +17,7 @@ Represents a list.
 
 ## Constructors
 
-### List(string id, TrelloAuthorization auth)
+### List(string id, TrelloAuthorization auth = null)
 
 Creates a new instance of the Manatee.Trello.List object.
 
@@ -119,7 +119,7 @@ Applies the changes an action represents.
 
 The action.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the label data.
 

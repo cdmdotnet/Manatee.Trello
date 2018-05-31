@@ -76,7 +76,7 @@ Raised when data on the organization is updated.
 
 ## Methods
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the organization.
 
@@ -88,7 +88,7 @@ Deletes the organization.
 
 This permanently deletes the organization from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the organization data.
 

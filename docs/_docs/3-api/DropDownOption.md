@@ -39,7 +39,7 @@ Gets the option text.
 
 ## Methods
 
-### static [IDropDownOption](../IDropDownOption#idropdownoption) Create(string text, LabelColor color)
+### static [IDropDownOption](../IDropDownOption#idropdownoption) Create(string text, LabelColor color = None)
 
 Creates a new drop down option.
 
@@ -57,7 +57,7 @@ The text.
 
 This object will not update. It is intended for adding new options to custom drop down fields.
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the drop down option.
 
@@ -69,7 +69,7 @@ Deletes the drop down option.
 
 This permanently deletes the drop down option from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the drop down option data.
 

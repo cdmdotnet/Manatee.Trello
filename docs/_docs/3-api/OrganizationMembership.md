@@ -45,7 +45,7 @@ Raised when data on the membership is updated.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the organization membership data.
 

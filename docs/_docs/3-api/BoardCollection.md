@@ -19,7 +19,7 @@ A collection of boards.
 
 ## Methods
 
-### Task&lt;[IBoard](../IBoard#iboard)&gt; Add(string name, IBoard source, CancellationToken ct)
+### Task&lt;[IBoard](../IBoard#iboard)&gt; Add(string name, IBoard source = null, CancellationToken ct = default(CancellationToken))
 
 Creates a new board.
 

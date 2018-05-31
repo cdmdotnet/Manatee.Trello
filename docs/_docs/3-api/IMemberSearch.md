@@ -22,7 +22,7 @@ Gets the collection of results returned by the search.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the search results.
 

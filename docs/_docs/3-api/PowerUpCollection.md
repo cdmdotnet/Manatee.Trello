@@ -19,7 +19,7 @@ A collection of power-ups.
 
 ## Methods
 
-### Task DisablePowerUp(IPowerUp powerUp, CancellationToken ct)
+### Task DisablePowerUp(IPowerUp powerUp, CancellationToken ct = default(CancellationToken))
 
 Disables a power-up for a board.
 
@@ -31,7 +31,7 @@ The power-up to disble.
 
 (Optional) A cancellation token for async processing.
 
-### Task EnablePowerUp(IPowerUp powerUp, CancellationToken ct)
+### Task EnablePowerUp(IPowerUp powerUp, CancellationToken ct = default(CancellationToken))
 
 Enables a power-up for a board.
 

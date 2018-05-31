@@ -19,7 +19,7 @@ A collection of members.
 
 ## Methods
 
-### Task Add(IMember member, CancellationToken ct)
+### Task Add(IMember member, CancellationToken ct = default(CancellationToken))
 
 Adds a member to the collection.
 
@@ -31,7 +31,7 @@ The member to add.
 
 (Optional) A cancellation token for async processing.
 
-### Task Remove(IMember member, CancellationToken ct)
+### Task Remove(IMember member, CancellationToken ct = default(CancellationToken))
 
 Removes a member from the collection.
 

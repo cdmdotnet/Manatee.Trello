@@ -17,7 +17,7 @@ Represents a board.
 
 ## Constructors
 
-### Board(string id, TrelloAuthorization auth)
+### Board(string id, TrelloAuthorization auth = null)
 
 Creates a new instance of the Manatee.Trello.Board object.
 
@@ -195,7 +195,7 @@ Applies the changes an action represents.
 
 The action.
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the board.
 
@@ -207,7 +207,7 @@ Deletes the board.
 
 This permanently deletes the board from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the board data.
 

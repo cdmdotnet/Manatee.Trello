@@ -16,7 +16,7 @@ A collection of Manatee.Trello.IStickers.
 
 ## Methods
 
-### Task&lt;[ISticker](../ISticker#isticker)&gt; Add(string name, double left, double top, int zIndex, int rotation, CancellationToken ct)
+### Task&lt;[ISticker](../ISticker#isticker)&gt; Add(string name, double left, double top, int zIndex = 0, int rotation = 0, CancellationToken ct = default(CancellationToken))
 
 Adds a Manatee.Trello.ISticker to a Manatee.Trello.ICard.
 
@@ -54,7 +54,7 @@ Thrown when *name* is null, empty, or whitespace.
 
 Thrown when *rotation* is less than 0 or greater than 359.
 
-### Task Remove(Sticker sticker, CancellationToken ct)
+### Task Remove(Sticker sticker, CancellationToken ct = default(CancellationToken))
 
 Removes a Manatee.Trello.ISticker from a Manatee.Trello.ICard.
 

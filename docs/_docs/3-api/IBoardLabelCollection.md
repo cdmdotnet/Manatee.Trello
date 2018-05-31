@@ -16,7 +16,7 @@ A collection of labels for boards.
 
 ## Methods
 
-### Task&lt;[ILabel](../ILabel#ilabel)&gt; Add(string name, LabelColor? color, CancellationToken ct)
+### Task&lt;[ILabel](../ILabel#ilabel)&gt; Add(string name, LabelColor? color, CancellationToken ct = default(CancellationToken))
 
 Adds a label to the collection.
 

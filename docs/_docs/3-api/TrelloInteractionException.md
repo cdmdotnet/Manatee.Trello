@@ -26,7 +26,7 @@ Creates a new instance of the TrelloInteractionException class.
 
 The exception which occurred during the call.
 
-### TrelloInteractionException(string message, Exception innerException)
+### TrelloInteractionException(string message, Exception innerException = null)
 
 Creates a new instance of the TrelloInteractionException class.
 

@@ -21,7 +21,7 @@ Provides options and control for the internal request queue processor.
 
 Signals the processor that the application is shutting down. The processor will perform a &quot;last call&quot; for pending requests.
 
-### static void ProcessNotification(string content, TrelloAuthorization auth)
+### static void ProcessNotification(string content, TrelloAuthorization auth = null)
 
 Processes webhook notification content.
 

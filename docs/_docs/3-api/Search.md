@@ -17,7 +17,7 @@ Performs a search.
 
 ## Constructors
 
-### Search(ISearchQuery query, int? limit, SearchModelType modelTypes, IEnumerable&lt;IQueryable&gt; context, TrelloAuthorization auth, bool isPartial)
+### Search(ISearchQuery query, int? limit = null, SearchModelType modelTypes = All, IEnumerable&lt;IQueryable&gt; context = null, TrelloAuthorization auth = null, bool isPartial = False)
 
 Creates a new instance of the Manatee.Trello.Search object and performs the search.
 
@@ -46,7 +46,7 @@ Manatee.Trello.TrelloAuthorization.Default will be used.
 
 (Optional) Indicates whether to include matches that &lt;em&gt;start with&lt;/em&gt; the query text. Default is false.
 
-### Search(string query, int? limit, SearchModelType modelTypes, IEnumerable&lt;IQueryable&gt; context, TrelloAuthorization auth, bool isPartial)
+### Search(string query, int? limit = null, SearchModelType modelTypes = All, IEnumerable&lt;IQueryable&gt; context = null, TrelloAuthorization auth = null, bool isPartial = False)
 
 Creates a new instance of the Manatee.Trello.Search object and performs the search.
 
@@ -103,7 +103,7 @@ Gets the query.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the search results.
 

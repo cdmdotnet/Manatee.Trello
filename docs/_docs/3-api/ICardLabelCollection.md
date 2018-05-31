@@ -16,7 +16,7 @@ A collection of labels for cards.
 
 ## Methods
 
-### Task Add(ILabel label, CancellationToken ct)
+### Task Add(ILabel label, CancellationToken ct = default(CancellationToken))
 
 Adds a label to the collection.
 
@@ -28,7 +28,7 @@ The label to add.
 
 (Optional) A cancellation token for async processing.
 
-### Task Remove(ILabel label, CancellationToken ct)
+### Task Remove(ILabel label, CancellationToken ct = default(CancellationToken))
 
 Removes a label from the collection.
 

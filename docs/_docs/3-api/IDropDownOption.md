@@ -34,7 +34,7 @@ Gets the option text.
 
 ## Methods
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the drop down option.
 
@@ -46,7 +46,7 @@ Deletes the drop down option.
 
 This permanently deletes the drop down option from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the drop down option data.
 

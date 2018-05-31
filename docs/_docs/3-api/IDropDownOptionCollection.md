@@ -16,7 +16,7 @@ A collection of custom field drop down options.
 
 ## Methods
 
-### Task&lt;[IDropDownOption](../IDropDownOption#idropdownoption)&gt; Add(string text, Position position, LabelColor? color, CancellationToken ct)
+### Task&lt;[IDropDownOption](../IDropDownOption#idropdownoption)&gt; Add(string text, Position position, LabelColor? color = null, CancellationToken ct = default(CancellationToken))
 
 Adds a new drop down option.
 

@@ -16,7 +16,7 @@ A collection of comment actions.
 
 ## Methods
 
-### Task&lt;[IAction](../IAction#iaction)&gt; Add(string text, CancellationToken ct)
+### Task&lt;[IAction](../IAction#iaction)&gt; Add(string text, CancellationToken ct = default(CancellationToken))
 
 Posts a new comment to a card.
 

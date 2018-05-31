@@ -31,7 +31,7 @@ Gets the data as a string. This data will be JSON-encoded.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the power-up data... data.
 

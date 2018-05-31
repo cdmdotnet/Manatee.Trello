@@ -17,7 +17,7 @@ Performs a search for members.
 
 ## Constructors
 
-### MemberSearch(string query, int? limit, IBoard board, IOrganization organization, bool? restrictToOrganization, TrelloAuthorization auth)
+### MemberSearch(string query, int? limit = null, IBoard board = null, IOrganization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)
 
 Creates a new instance of the Manatee.Trello.MemberSearch object and performs the search.
 
@@ -54,7 +54,7 @@ Gets the collection of results returned by the search.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the search results.
 

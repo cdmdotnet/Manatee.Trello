@@ -19,7 +19,7 @@ A collection of checklist items.
 
 ## Methods
 
-### Task&lt;[ICheckItem](../ICheckItem#icheckitem)&gt; Add(string name, CancellationToken ct)
+### Task&lt;[ICheckItem](../ICheckItem#icheckitem)&gt; Add(string name, CancellationToken ct = default(CancellationToken))
 
 Creates a new checklist item.
 

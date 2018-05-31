@@ -16,7 +16,7 @@ A collection of custom field definitions.
 
 ## Methods
 
-### Task&lt;[ICustomFieldDefinition](../ICustomFieldDefinition#icustomfielddefinition)&gt; Add(string name, CustomFieldType type, CancellationToken ct, IDropDownOption[] options)
+### Task&lt;[ICustomFieldDefinition](../ICustomFieldDefinition#icustomfielddefinition)&gt; Add(string name, CustomFieldType type, CancellationToken ct = default(CancellationToken), IDropDownOption[] options)
 
 Adds a new custom field definition to a board.
 

@@ -16,7 +16,7 @@ A collection of checklists.
 
 ## Methods
 
-### Task&lt;[ICheckList](../ICheckList#ichecklist)&gt; Add(string name, ICheckList source, CancellationToken ct)
+### Task&lt;[ICheckList](../ICheckList#ichecklist)&gt; Add(string name, ICheckList source = null, CancellationToken ct = default(CancellationToken))
 
 Creates a new checklist, optionally by copying a checklist.
 

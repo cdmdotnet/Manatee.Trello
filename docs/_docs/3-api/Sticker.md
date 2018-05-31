@@ -115,7 +115,7 @@ Raised when data on the attachment is updated.
 
 ## Methods
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the sticker.
 
@@ -127,7 +127,7 @@ Deletes the sticker.
 
 This permanently deletes the sticker from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the sticker data.
 
