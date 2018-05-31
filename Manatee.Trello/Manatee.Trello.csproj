@@ -13,7 +13,10 @@
     <PackageReleaseNotes>v3.1.0
 Updated member avatar access per Trello's changes.
 Obsoleted Label.Uses.
-Added starred boards, accessible through the member entity.</PackageReleaseNotes>
+Custom fields can be configured to show or not show on the card cover.
+Added starred boards, accessible through the member entity.
+Updated overloads of collection Add() methods to include additional optional parameters.
+All entities can be forcibly refreshed.</PackageReleaseNotes>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
