@@ -17,7 +17,7 @@ Represents a member.
 
 ## Constructors
 
-### Member(string id, TrelloAuthorization auth)
+### Member(string id, TrelloAuthorization auth = null)
 
 Creates a new instance of the Manatee.Trello.Member object.
 
@@ -123,7 +123,7 @@ Applies the changes an action represents.
 
 The action.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the member data.
 

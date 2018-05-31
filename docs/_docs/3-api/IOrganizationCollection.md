@@ -16,7 +16,7 @@ A collection of organizations.
 
 ## Methods
 
-### Task&lt;[IOrganization](../IOrganization#iorganization)&gt; Add(string displayName, CancellationToken ct)
+### Task&lt;[IOrganization](../IOrganization#iorganization)&gt; Add(string displayName, CancellationToken ct = default(CancellationToken))
 
 Creates a new organization.
 

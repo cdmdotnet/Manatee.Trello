@@ -48,7 +48,7 @@ Raised when data on the webhook is updated.
 
 ## Methods
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the webhook.
 
@@ -60,7 +60,7 @@ Deletes the webhook.
 
 This permanently deletes the webhook from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the webhook data.
 

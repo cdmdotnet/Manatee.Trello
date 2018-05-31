@@ -161,12 +161,6 @@ $nav-image: $baseurl + "/images/menu.svg";
 	position: relative;
 	background-color: $content-background-color;
 	color: $content-color;
-
-	h3::before {
-		content: "";
-		@extend hr;
-		margin: 60px 0;
-	}
 }
 
 .content,
@@ -245,8 +239,8 @@ nav > ul {
 	> a {
 		color: #666;
 		text-decoration: none;
-		font-size: 1.4rem;
-		padding: $space / 2 0 $space / 2 $space * 2;
+		font-size: 1.8rem;
+		padding: $space / 3 0 $space / 3 $space * 2;
 		display: block;
 	}
 
@@ -309,12 +303,12 @@ h3 + .warning {
 
 
 h4 code {
-	background: $nav-background-color;
+	// background: $nav-background-color;
 	color: $content-color;
 	background-color: transparent;
 	font-weight: 700;
 	padding: 0;
-	font-size: 1.1em;
+	// font-size: 1.1em;
 	line-height: 1;
 }
 

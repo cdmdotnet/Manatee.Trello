@@ -17,7 +17,7 @@ Represents an organization.
 
 ## Constructors
 
-### Organization(string id, TrelloAuthorization auth)
+### Organization(string id, TrelloAuthorization auth = null)
 
 Creates a new instance of the Manatee.Trello.Organization object.
 
@@ -111,7 +111,7 @@ Applies the changes an action represents.
 
 The action.
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the organization.
 
@@ -123,7 +123,7 @@ Deletes the organization.
 
 This permanently deletes the organization from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the organization data.
 

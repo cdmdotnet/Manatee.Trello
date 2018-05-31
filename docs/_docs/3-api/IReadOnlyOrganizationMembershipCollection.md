@@ -42,3 +42,11 @@ Adds a filter to the collection.
 
 The filter value.
 
+### void Filter(IEnumerable&lt;MembershipFilter&gt; filters)
+
+Adds a set of filters to the collection.
+
+**Parameter:** filters
+
+The filter values.
+

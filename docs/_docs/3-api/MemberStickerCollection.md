@@ -19,7 +19,7 @@ A collection of Manatee.Trello.IStickers.
 
 ## Methods
 
-### Task&lt;[ISticker](../ISticker#isticker)&gt; Add(Byte[] data, string name, CancellationToken ct)
+### Task&lt;[ISticker](../ISticker#isticker)&gt; Add(Byte[] data, string name, CancellationToken ct = default(CancellationToken))
 
 Adds a Manatee.Trello.ISticker to a Manatee.Trello.IMember&#39;s custom sticker set by uploading data.
 

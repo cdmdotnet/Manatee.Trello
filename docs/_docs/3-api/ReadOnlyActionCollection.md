@@ -26,3 +26,23 @@ Adds a filter to the collection.
 
 The action type.
 
+### void Filter(IEnumerable&lt;ActionType&gt; actionTypes)
+
+Adds a number of filters to the collection.
+
+**Parameter:** actionTypes
+
+A collection of action types.
+
+### void Filter(DateTime? start, DateTime? end)
+
+Adds a date-based filter to the collection.
+
+**Parameter:** start
+
+The start date.
+
+**Parameter:** end
+
+The end date.
+

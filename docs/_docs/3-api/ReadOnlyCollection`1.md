@@ -49,7 +49,7 @@ Returns an enumerator that iterates through the collection.
 
 **Returns:** An enumerator that can be used to iterate through the collection.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Manually updates the collection&#39;s data.
 

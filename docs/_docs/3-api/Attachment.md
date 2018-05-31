@@ -77,7 +77,7 @@ Raised when data on the attachment is updated.
 
 ## Methods
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the attachment.
 
@@ -89,7 +89,7 @@ Deletes the attachment.
 
 This permanently deletes the attachment from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the attachment data.
 

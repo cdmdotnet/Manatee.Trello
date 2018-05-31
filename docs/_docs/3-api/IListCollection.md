@@ -16,7 +16,7 @@ A collection of lists.
 
 ## Methods
 
-### Task&lt;[IList](../IList#ilist)&gt; Add(string name, CancellationToken ct)
+### Task&lt;[IList](../IList#ilist)&gt; Add(string name, CancellationToken ct = default(CancellationToken))
 
 Creates a new list.
 

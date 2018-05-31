@@ -47,7 +47,7 @@ Gets the number of cards which use this label.
 
 ## Methods
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the label. All usages of the label will also be removed.
 
@@ -59,7 +59,7 @@ Deletes the label. All usages of the label will also be removed.
 
 This permanently deletes the label from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the label data.
 

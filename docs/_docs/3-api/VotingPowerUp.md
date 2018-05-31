@@ -31,7 +31,7 @@ Gets the power-up name.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the power-up data.
 

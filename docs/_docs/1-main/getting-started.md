@@ -139,6 +139,8 @@ Console.Writeline(results.Cards.Count());
 
 This query is equivalent to the string `@me comment:trello due:week`.  See [Trello's blog post](http://help.trello.com/customer/portal/articles/1145462-searching-for-cards-all-boards-) for more information on search parameters.  All of these have been implemented.
 
+> **NOTE** When creating entities, it will take some time for the new items to be indexed on the Trello servers.  During this time, these entities will not be returned in searches.  This may also affect searching for entities that have recently changed.
+
 ## Authorization
 
 An *application key* and *authentication token* are string values that enable Trello to recognize who is requesting access and through which application they are doing so.  All required information regarding obtaining these values may be found on [Trello's developer documentation pages](https://developers.trello.com/page/authorization).

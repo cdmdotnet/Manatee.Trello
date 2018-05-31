@@ -48,7 +48,7 @@ Raised when data on the notification is updated.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the notification data.
 

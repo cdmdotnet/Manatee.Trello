@@ -92,3 +92,17 @@ Specifies the serializer for the REST client.
 
 Specifies whether the service should throw an exception when an error is received from Trello. Default is true.
 
+## Methods
+
+### static void RegisterPowerUp(string id, Func&lt;IJsonPowerUp, TrelloAuthorization, IPowerUp&gt; factory)
+
+Registers a new power-up implementation.
+
+**Parameter:** id
+
+The Trello ID of the power-up.
+
+**Parameter:** factory
+
+A factory function that creates instances of the power-up implementation.
+

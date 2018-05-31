@@ -42,7 +42,7 @@ Indicates the maximum number of items to return.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Manually updates the collection&#39;s data.
 

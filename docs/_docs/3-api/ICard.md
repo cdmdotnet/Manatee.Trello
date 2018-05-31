@@ -168,7 +168,7 @@ Raised when data on the card is updated.
 
 ## Methods
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the card.
 
@@ -180,7 +180,7 @@ Deletes the card.
 
 This permanently deletes the card from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the card data.
 

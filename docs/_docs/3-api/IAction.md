@@ -44,7 +44,7 @@ Raised when data on the action is updated.
 
 ## Methods
 
-### Task Delete(CancellationToken ct)
+### Task Delete(CancellationToken ct = default(CancellationToken))
 
 Deletes the action.
 
@@ -54,7 +54,7 @@ Deletes the action.
 
 This permanently deletes the action from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct)
+### Task Refresh(CancellationToken ct = default(CancellationToken))
 
 Refreshes the action data.
 
