@@ -136,6 +136,7 @@ Features:
         - Add/Edit/Delete comments
         - Add/Copy/Edit/Delete/Reorder checklists
         - Add/Edit/Delete/Reorder checklist items
+        - Show/Hide custom fields on cover
         - Move to list
     - Organizations (Teams)
         - Add/Edit/Delete

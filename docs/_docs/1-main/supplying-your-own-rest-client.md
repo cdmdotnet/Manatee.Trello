@@ -22,6 +22,7 @@ public class MyRestRequestProvider : IRestRequestProvider
 {
     ...
 }
+
 public class MyRestClientProvider : IRestClientProvider
 {
     ...

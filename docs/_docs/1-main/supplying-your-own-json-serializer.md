@@ -23,6 +23,7 @@ public class MyJsonSerializerWrapper : ISerializer, IDeserializer
 {
     ...
 }
+
 public class MyJsonFactory : IJsonFactory
 {
     ...

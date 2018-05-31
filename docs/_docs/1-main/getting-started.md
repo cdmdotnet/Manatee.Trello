@@ -28,17 +28,16 @@ Additional configuration is discussed on the [Configuration page](../configurati
 
 In Manatee.Trello, entities can be created using one of two methods:
 
-- via a constructor
-
-    ```csharp
-    var board = new Board("<board ID>");
-    ```
-
 - via the factory
 
     ```csharp
     var factory = new TrelloFactory();
     var board = factory.Board("<board ID>")
+    ```
+- via a constructor
+
+    ```csharp
+    var board = new Board("<board ID>");
     ```
 
 The factory returns interfaces and is ideal for dependency injection scenarios and for supporting unit testability.
@@ -53,7 +52,7 @@ If you don't need any of the data from the board itself, but you just want the c
 
 Most of the entities define a flag-enabled `Fields` enumeration and a `DownloadedFields` static property.  This property determines what data is downloaded when the `Refresh()` method is called.
 
-For example, if we don't care about downloading the actions or the URL for a board, you can use the following:
+For example, if you don't care about downloading the actions or the URL for a board, you can use the following to disable download for these properties:
 
 ```csharp
 Board.DownloadedFields &= ~Board.Fields.Actions & ~Board.Fields.Url;
@@ -65,12 +64,12 @@ To re-enable these fields for download, simply invert the statement:
 Board.DownloadedFields |= Board.Fields.Actions | Board.Fields.Url;
 ```
 
-By default, all of the data is downloaded for all of these entities.  The exceptions are:
+By default, all of the data is downloaded for all entities.  The exceptions are:
 
 - Boards don't download members (in favor of memberships) or cards (in favor of getting cards when refreshing lists)
 - Organizations don't download members (in favor of memberships)
 
-If an entity has already been downloaded and cached, and new data for it is retrieved as part of an unrelated refresh, the new data will be merged into the existing entity.  Manatee.Trello attempts to use *all* of the data provided by the API to ensure that information is as up-to-date as possible.
+If an entity has already been downloaded and cached, and new data for it is retrieved as part of an unrelated refresh (e.g. refreshing a card may also download data for the list which contains it), the new data will be merged into the existing entity.  Manatee.Trello attempts to use *all* of the data provided by the API to ensure that information is as up-to-date as possible.
 
 ## Writing data
 
@@ -96,7 +95,7 @@ There are usually overloads for the `Add()` methods.  See the API documentation 
 
 Several of the entities, like cards and lists, can be sorted or otherwise have their order changed.  This is controlled by the `Position` property.
 
-Trello records an entities position using a floating point number system.  If the user moves card **A** between cards **B** and **C**, Trello takes the numeric position values of **B** and **C**, averages them, and assigns that value to card **A**.
+Trello records an entity's position using a floating point number system.  If the user moves card **A** between cards **B** and **C**, Trello takes the numeric position values of **B** and **C**, averages them, and assigns that value to card **A**.
 
 ## Searching for entities
 
@@ -129,15 +128,15 @@ You can also build queries using the `SearchQuery` class.  This class contains a
 
 ```csharp
 string boardId = "[a board ID]";
-var query = new SearchQuery.Member(Member.Me)
-                           .AndTextInComments("trello")
-                           .AndDueWithinWeek();
+var query = new SearchQuery().Member(Member.Me)
+                             .AndTextInComments("trello")
+                             .AndDueWithinWeek();
 var board = new Board(boardId);
 var results = new Search(query, 100, SearchModelType.Cards, new IQueryable[] {board});
 Console.Writeline(results.Cards.Count());
 ```
 
-This query is equivalent to the string `@me comment:trello due:week`.  See [Trello's blog post](http://help.trello.com/customer/portal/articles/1145462-searching-for-cards-all-boards-) for more information on search parameters.  All of these have been implemented.
+This query is equivalent to the string `"@me comment:trello due:week"`.  See [Trello's blog post](http://help.trello.com/customer/portal/articles/1145462-searching-for-cards-all-boards-) for more information on search parameters.  All of the special parameters listed in this post have been implemented.
 
 > **NOTE** When creating entities, it will take some time for the new items to be indexed on the Trello servers.  During this time, these entities will not be returned in searches.  This may also affect searching for entities that have recently changed.
 
