@@ -1,7 +1,7 @@
 ---
 title: TrelloAuthorization
 category: API
-order: 245
+order: 255
 ---
 
 Contains authorization tokens needed to connect to Trello&#39;s API.

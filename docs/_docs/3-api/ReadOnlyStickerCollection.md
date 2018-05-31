@@ -1,7 +1,7 @@
 ---
 title: ReadOnlyStickerCollection
 category: API
-order: 233
+order: 241
 ---
 
 A read-only collection of attachments.

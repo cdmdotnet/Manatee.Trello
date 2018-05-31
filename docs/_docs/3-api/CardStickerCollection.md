@@ -1,7 +1,7 @@
 ---
 title: CardStickerCollection
 category: API
-order: 30
+order: 31
 ---
 
 A collection of Manatee.Trello.IStickers.

@@ -1,7 +1,7 @@
 ---
 title: IBoardMembership
 category: API
-order: 61
+order: 63
 ---
 
 Associates a Manatee.Trello.IMember to a Manatee.Trello.IBoard and indicates any permissions the member has on the board.
@@ -40,9 +40,13 @@ Raised when data on the membership is updated.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the board membership data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

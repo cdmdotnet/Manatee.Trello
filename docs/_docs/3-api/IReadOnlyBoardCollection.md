@@ -1,7 +1,7 @@
 ---
 title: IReadOnlyBoardCollection
 category: API
-order: 150
+order: 155
 ---
 
 A read-only collectin of boards.

@@ -1,7 +1,7 @@
 ---
 title: BoardMembershipType
 category: API
-order: 19
+order: 20
 ---
 
 Enumerates known board membership types.

@@ -1,7 +1,7 @@
 ---
 title: MemberStickerCollection
 category: API
-order: 195
+order: 202
 ---
 
 A collection of Manatee.Trello.IStickers.

@@ -1,7 +1,7 @@
 ---
 title: BoardLabelCollection
 category: API
-order: 16
+order: 17
 ---
 
 A collection of labels for boards.

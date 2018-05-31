@@ -1,7 +1,7 @@
 ---
 title: MemberFilter
 category: API
-order: 189
+order: 196
 ---
 
 Enumerates the filter options for member collections.

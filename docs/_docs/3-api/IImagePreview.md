@@ -1,7 +1,7 @@
 ---
 title: IImagePreview
 category: API
-order: 84
+order: 87
 ---
 
 Represents a preview for an image.

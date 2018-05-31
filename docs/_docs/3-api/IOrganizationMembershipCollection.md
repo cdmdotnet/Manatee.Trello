@@ -1,7 +1,7 @@
 ---
 title: IOrganizationMembershipCollection
 category: API
-order: 143
+order: 148
 ---
 
 A collection of organization memberships.

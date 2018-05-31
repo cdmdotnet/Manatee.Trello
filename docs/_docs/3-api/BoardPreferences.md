@@ -1,7 +1,7 @@
 ---
 title: BoardPreferences
 category: API
-order: 22
+order: 23
 ---
 
 Represents the preferences for a board.

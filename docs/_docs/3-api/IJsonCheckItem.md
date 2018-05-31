@@ -1,7 +1,7 @@
 ---
 title: IJsonCheckItem
 category: API
-order: 98
+order: 101
 ---
 
 Defines the JSON structure for the CheckItem object.

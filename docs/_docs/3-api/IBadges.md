@@ -1,7 +1,7 @@
 ---
 title: IBadges
 category: API
-order: 56
+order: 58
 ---
 
 Represents a collection of badges which summarize the contents of a card.

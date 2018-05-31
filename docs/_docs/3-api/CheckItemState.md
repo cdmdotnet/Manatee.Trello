@@ -1,7 +1,7 @@
 ---
 title: CheckItemState
 category: API
-order: 34
+order: 35
 ---
 
 Enumerates known values for an item in a checklist.

@@ -1,7 +1,7 @@
 ---
 title: Search
 category: API
-order: 237
+order: 245
 ---
 
 Performs a search.
@@ -103,9 +103,13 @@ Gets the query.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the search results.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

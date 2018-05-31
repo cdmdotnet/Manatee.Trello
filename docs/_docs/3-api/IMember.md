@@ -1,7 +1,7 @@
 ---
 title: IMember
 category: API
-order: 132
+order: 137
 ---
 
 Represents a member.
@@ -16,7 +16,7 @@ Represents a member.
 
 ## Properties
 
-### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
+### [IReadOnlyActionCollection](../IReadOnlyActionCollection#ireadonlyactioncollection) Actions { get; }
 
 Gets the collection of actions performed by the member.
 
@@ -32,11 +32,11 @@ Gets the URL to the member&#39;s avatar.
 
 Gets the member&#39;s bio.
 
-### IReadOnlyCollection&lt;[IBoard](../IBoard#iboard)&gt; Boards { get; }
+### [IReadOnlyBoardCollection](../IReadOnlyBoardCollection#ireadonlyboardcollection) Boards { get; }
 
 Gets the collection of boards owned by the member.
 
-### IReadOnlyCollection&lt;[ICard](../ICard#icard)&gt; Cards { get; }
+### [IReadOnlyCardCollection](../IReadOnlyCardCollection#ireadonlycardcollection) Cards { get; }
 
 Gets the collection of cards assigned to the member.
 
@@ -60,9 +60,13 @@ Gets whether the member has actually join or has merely been invited (ghost).
 
 Gets a string which can be used in comments or descriptions to mention this user. The user will receive notification that they&#39;ve been mentioned.
 
-### IReadOnlyCollection&lt;[IOrganization](../IOrganization#iorganization)&gt; Organizations { get; }
+### [IReadOnlyOrganizationCollection](../IReadOnlyOrganizationCollection#ireadonlyorganizationcollection) Organizations { get; }
 
 Gets the collection of organizations to which the member belongs.
+
+### IReadOnlyCollection&lt;[IStarredBoard](../IStarredBoard#istarredboard)&gt; StarredBoards { get; }
+
+Gets the collection of the member&#39;s board stars.
 
 ### [MemberStatus](../MemberStatus#memberstatus)? Status { get; }
 
@@ -88,9 +92,13 @@ Raised when data on the member is updated.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the member data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

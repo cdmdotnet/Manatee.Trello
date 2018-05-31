@@ -1,7 +1,7 @@
 ---
 title: IList
 category: API
-order: 127
+order: 132
 ---
 
 Represents a list.
@@ -16,7 +16,7 @@ Represents a list.
 
 ## Properties
 
-### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
+### [IReadOnlyActionCollection](../IReadOnlyActionCollection#ireadonlyactioncollection) Actions { get; }
 
 Gets the collection of actions performed on the list.
 
@@ -88,9 +88,13 @@ Raised when data on the list is updated.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the label data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

@@ -1,7 +1,7 @@
 ---
 title: OrganizationCollection
 category: API
-order: 202
+order: 209
 ---
 
 A collection of organizations.
@@ -19,13 +19,21 @@ A collection of organizations.
 
 ## Methods
 
-### Task&lt;[IOrganization](../IOrganization#iorganization)&gt; Add(string displayName, CancellationToken ct = default(CancellationToken))
+### Task&lt;[IOrganization](../IOrganization#iorganization)&gt; Add(string displayName, string description = null, string name = null, CancellationToken ct = default(CancellationToken))
 
 Creates a new organization.
 
 **Parameter:** displayName
 
 The display name of the organization to add.
+
+**Parameter:** description
+
+(Optional) A description of the organization.
+
+**Parameter:** name
+
+(Optional) An org-name for the organization; like a member&#39;s username. If omitted, Trello will generate it from *displayName*.
 
 **Parameter:** ct
 

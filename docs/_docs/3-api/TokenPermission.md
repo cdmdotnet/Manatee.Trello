@@ -1,7 +1,7 @@
 ---
 title: TokenPermission
 category: API
-order: 244
+order: 254
 ---
 
 Represents permissions granted by a token.

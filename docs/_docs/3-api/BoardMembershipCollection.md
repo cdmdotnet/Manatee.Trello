@@ -1,7 +1,7 @@
 ---
 title: BoardMembershipCollection
 category: API
-order: 18
+order: 19
 ---
 
 A collection of board memberships.

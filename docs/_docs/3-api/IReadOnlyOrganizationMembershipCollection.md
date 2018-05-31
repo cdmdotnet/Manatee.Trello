@@ -1,7 +1,7 @@
 ---
 title: IReadOnlyOrganizationMembershipCollection
 category: API
-order: 160
+order: 165
 ---
 
 A read-only collection of organization memberships.

@@ -1,7 +1,7 @@
 ---
 title: TrelloInteractionException
 category: API
-order: 248
+order: 258
 ---
 
 Thrown when Trello reports an error with a request.

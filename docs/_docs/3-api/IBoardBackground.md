@@ -1,7 +1,7 @@
 ---
 title: IBoardBackground
 category: API
-order: 58
+order: 60
 ---
 
 Represents a background image for a board.

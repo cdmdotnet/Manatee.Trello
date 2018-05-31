@@ -1,7 +1,7 @@
 ---
 title: IJsonOrganizationPreferences
 category: API
-order: 115
+order: 119
 ---
 
 Defines the JSON structure for the OrganizationPreferences object.

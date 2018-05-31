@@ -1,7 +1,7 @@
 ---
 title: IBoardPersonalPreferences
 category: API
-order: 63
+order: 65
 ---
 
 Represents the user-specific preferences for a board.

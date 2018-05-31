@@ -1,7 +1,7 @@
 ---
 title: ISearchQuery
 category: API
-order: 168
+order: 173
 ---
 
 Builds a search query.

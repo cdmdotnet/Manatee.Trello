@@ -1,7 +1,7 @@
 ---
 title: IAction
 category: API
-order: 52
+order: 54
 ---
 
 Documents all of the activities in Trello.
@@ -54,9 +54,13 @@ Deletes the action.
 
 This permanently deletes the action from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the action data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

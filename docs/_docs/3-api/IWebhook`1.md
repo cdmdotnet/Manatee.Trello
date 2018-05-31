@@ -1,7 +1,7 @@
 ---
 title: IWebhook&lt;T&gt;
 category: API
-order: 174
+order: 181
 ---
 
 Represents a webhook.
@@ -60,9 +60,13 @@ Deletes the webhook.
 
 This permanently deletes the webhook from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the webhook data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

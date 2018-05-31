@@ -1,7 +1,7 @@
 ---
 title: Member
 category: API
-order: 186
+order: 193
 ---
 
 Represents a member.
@@ -35,11 +35,15 @@ The supplied ID can be either the full ID or the username.
 
 ## Properties
 
+### static [AvatarSize](../AvatarSize#avatarsize) AvatarSize { get; set; }
+
+Specifies the desired size for avatars. The default is Manatee.Trello.AvatarSize.Large
+
 ### static Member.Fields DownloadedFields { get; set; }
 
 Specifies which fields should be downloaded.
 
-### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
+### [IReadOnlyActionCollection](../IReadOnlyActionCollection#ireadonlyactioncollection) Actions { get; }
 
 Gets the collection of actions performed by the member.
 
@@ -55,11 +59,11 @@ Gets the URL to the member&#39;s avatar.
 
 Gets the member&#39;s bio.
 
-### IReadOnlyCollection&lt;[IBoard](../IBoard#iboard)&gt; Boards { get; }
+### [IReadOnlyBoardCollection](../IReadOnlyBoardCollection#ireadonlyboardcollection) Boards { get; }
 
 Gets the collection of boards owned by the member.
 
-### IReadOnlyCollection&lt;[ICard](../ICard#icard)&gt; Cards { get; }
+### [IReadOnlyCardCollection](../IReadOnlyCardCollection#ireadonlycardcollection) Cards { get; }
 
 Gets the collection of cards assigned to the member.
 
@@ -87,9 +91,13 @@ Gets whether the member has actually join or has merely been invited (ghost).
 
 Gets a string which can be used in comments or descriptions to mention another user. The user will receive notification that they&#39;ve been mentioned.
 
-### IReadOnlyCollection&lt;[IOrganization](../IOrganization#iorganization)&gt; Organizations { get; }
+### [IReadOnlyOrganizationCollection](../IReadOnlyOrganizationCollection#ireadonlyorganizationcollection) Organizations { get; }
 
 Gets the collection of organizations to which the member belongs.
+
+### IReadOnlyCollection&lt;[IStarredBoard](../IStarredBoard#istarredboard)&gt; StarredBoards { get; }
+
+Gets the collection of the member&#39;s board stars.
 
 ### [MemberStatus](../MemberStatus#memberstatus)? Status { get; }
 
@@ -123,9 +131,13 @@ Applies the changes an action represents.
 
 The action.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the member data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

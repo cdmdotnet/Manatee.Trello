@@ -1,7 +1,7 @@
 ---
 title: IJsonBoardVisibilityRestrict
 category: API
-order: 95
+order: 98
 ---
 
 Defines the JSON structure for the BoardVisibilityRestrict object.

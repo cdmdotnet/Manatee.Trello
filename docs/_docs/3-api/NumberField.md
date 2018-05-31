@@ -1,7 +1,7 @@
 ---
 title: NumberField
 category: API
-order: 199
+order: 206
 ---
 
 Represents a custom numeric field.

@@ -1,7 +1,7 @@
 ---
 title: NotificationType
 category: API
-order: 198
+order: 205
 ---
 
 Enumerates known types of notifications.

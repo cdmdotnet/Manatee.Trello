@@ -1,7 +1,7 @@
 ---
 title: BoardCollection
 category: API
-order: 11
+order: 12
 ---
 
 A collection of boards.
@@ -19,7 +19,7 @@ A collection of boards.
 
 ## Methods
 
-### Task&lt;[IBoard](../IBoard#iboard)&gt; Add(string name, IBoard source = null, CancellationToken ct = default(CancellationToken))
+### Task&lt;[IBoard](../IBoard#iboard)&gt; Add(string name, string description = null, IBoard source = null, CancellationToken ct = default(CancellationToken))
 
 Creates a new board.
 
@@ -27,9 +27,13 @@ Creates a new board.
 
 The name of the board to create.
 
+**Parameter:** description
+
+(Optional) A description for the board.
+
 **Parameter:** source
 
-A board to use as a template.
+(Optional) A board to use as a template.
 
 **Parameter:** ct
 

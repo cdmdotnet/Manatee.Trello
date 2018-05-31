@@ -1,7 +1,7 @@
 ---
 title: JsonSpecialSerializationAttribute
 category: API
-order: 177
+order: 184
 ---
 
 Declares that the JSON property has a special serialization.

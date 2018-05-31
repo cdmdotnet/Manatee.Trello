@@ -1,7 +1,7 @@
 ---
 title: IJsonOrganizationMembership
 category: API
-order: 114
+order: 118
 ---
 
 Defines the JSON structure for the OrganizationMembership object.

@@ -1,7 +1,7 @@
 ---
 title: Me
 category: API
-order: 185
+order: 192
 ---
 
 Represents the current member.
@@ -53,6 +53,10 @@ Gets the collection of organizations to which the member belongs.
 ### [IMemberPreferences](../IMemberPreferences#imemberpreferences) Preferences { get; }
 
 Gets the set of preferences for the member.
+
+### [IStarredBoardCollection](../IStarredBoardCollection#istarredboardcollection) StarredBoards { get; }
+
+Gets the collection of the member&#39;s board stars.
 
 ### string UserName { get; set; }
 

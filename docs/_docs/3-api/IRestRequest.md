@@ -1,7 +1,7 @@
 ---
 title: IRestRequest
 category: API
-order: 163
+order: 168
 ---
 
 Defines properties and methods required to make RESTful requests.

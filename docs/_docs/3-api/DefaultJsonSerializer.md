@@ -1,7 +1,7 @@
 ---
 title: DefaultJsonSerializer
 category: API
-order: 46
+order: 48
 ---
 
 Wrapper class for the Manatee.Json.Serializer for use with RestSharp.

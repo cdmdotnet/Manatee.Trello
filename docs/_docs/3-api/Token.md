@@ -1,7 +1,7 @@
 ---
 title: Token
 category: API
-order: 242
+order: 252
 ---
 
 Represents a user token.
@@ -89,9 +89,13 @@ Deletes the token.
 
 This permanently deletes the token from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the token data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

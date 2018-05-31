@@ -1,7 +1,7 @@
 ---
 title: BoardBackgroundBrightness
 category: API
-order: 10
+order: 11
 ---
 
 Specifies the brightness level of the board background.

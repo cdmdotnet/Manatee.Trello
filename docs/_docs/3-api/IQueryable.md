@@ -1,7 +1,7 @@
 ---
 title: IQueryable
 category: API
-order: 148
+order: 153
 ---
 
 Provides a marker to identify searchable types.

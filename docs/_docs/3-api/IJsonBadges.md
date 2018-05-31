@@ -1,7 +1,7 @@
 ---
 title: IJsonBadges
 category: API
-order: 89
+order: 92
 ---
 
 Defines the JSON structure for the Badges object.

@@ -12,6 +12,9 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ListCollection : ReadOnlyListCollection, IListCollection
 	{
+		/// <summary>
+		/// (Obsolete) Indicates the maximum number of items to return.
+		/// </summary>
 		[Obsolete("Trello does not support limiting lists.")]
 		public override int? Limit { get; set; }
 

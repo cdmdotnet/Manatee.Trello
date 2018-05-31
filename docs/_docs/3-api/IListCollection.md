@@ -1,7 +1,7 @@
 ---
 title: IListCollection
 category: API
-order: 128
+order: 133
 ---
 
 A collection of lists.
@@ -16,13 +16,17 @@ A collection of lists.
 
 ## Methods
 
-### Task&lt;[IList](../IList#ilist)&gt; Add(string name, CancellationToken ct = default(CancellationToken))
+### Task&lt;[IList](../IList#ilist)&gt; Add(string name, Position position = null, CancellationToken ct = default(CancellationToken))
 
 Creates a new list.
 
 **Parameter:** name
 
 The name of the list to add.
+
+**Parameter:** position
+
+(Optional) The position of the list.
 
 **Parameter:** ct
 

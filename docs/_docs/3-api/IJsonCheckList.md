@@ -1,7 +1,7 @@
 ---
 title: IJsonCheckList
 category: API
-order: 99
+order: 102
 ---
 
 Defines the JSON structure for the CheckList object.

@@ -1,7 +1,7 @@
 ---
 title: ITokenPermission
 category: API
-order: 172
+order: 179
 ---
 
 Represents permissions granted by a token.

@@ -1,7 +1,7 @@
 ---
 title: IJsonTokenPermission
 category: API
-order: 123
+order: 128
 ---
 
 Defines the JSON structure for the TokenPermission object.

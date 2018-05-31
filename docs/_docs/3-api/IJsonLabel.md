@@ -1,7 +1,7 @@
 ---
 title: IJsonLabel
 category: API
-order: 105
+order: 109
 ---
 
 Defines the JSON structure for the Label object.

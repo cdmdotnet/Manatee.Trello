@@ -1,7 +1,7 @@
 ---
 title: Organization
 category: API
-order: 200
+order: 207
 ---
 
 Represents an organization.
@@ -39,7 +39,7 @@ The supplied ID can be either the full ID or the organization&#39;s name.
 
 Specifies which fields should be downloaded.
 
-### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
+### [IReadOnlyActionCollection](../IReadOnlyActionCollection#ireadonlyactioncollection) Actions { get; }
 
 Gets the collection of actions performed on the organization.
 
@@ -67,7 +67,7 @@ Gets the organization&#39;s ID.
 
 Gets whether the organization has business class status.
 
-### IReadOnlyCollection&lt;[IMember](../IMember#imember)&gt; Members { get; }
+### [IReadOnlyMemberCollection](../IReadOnlyMemberCollection#ireadonlymembercollection) Members { get; }
 
 Gets the collection of members who belong to the organization.
 
@@ -123,9 +123,13 @@ Deletes the organization.
 
 This permanently deletes the organization from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the organization data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

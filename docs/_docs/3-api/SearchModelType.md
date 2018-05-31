@@ -1,7 +1,7 @@
 ---
 title: SearchModelType
 category: API
-order: 238
+order: 246
 ---
 
 Enumerates the model types for which one can search.

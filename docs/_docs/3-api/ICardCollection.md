@@ -1,7 +1,7 @@
 ---
 title: ICardCollection
 category: API
-order: 69
+order: 71
 ---
 
 A collection of cards.

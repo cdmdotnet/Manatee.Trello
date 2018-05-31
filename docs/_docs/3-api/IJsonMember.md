@@ -1,7 +1,7 @@
 ---
 title: IJsonMember
 category: API
-order: 107
+order: 111
 ---
 
 Defines the JSON structure for the Member object.
@@ -27,6 +27,10 @@ Gets or sets the member&#39;s avatar hash.
 ### [AvatarSource](../AvatarSource#avatarsource)? AvatarSource { get; set; }
 
 Gets or sets the source URL for the member&#39;s avatar.
+
+### string AvatarUrl { get; set; }
+
+Gets or sets the member&#39;s avatar hash.
 
 ### string Bio { get; set; }
 
@@ -87,6 +91,10 @@ Gets or sets a set of preferences for the member.
 ### int? Similarity { get; set; }
 
 Gets or sets the similarity of the member to a search query.
+
+### List&lt;[IJsonStarredBoard](../IJsonStarredBoard#ijsonstarredboard)&gt; StarredBoards { get; set; }
+
+Gets or sets a collection of board stars.
 
 ### [MemberStatus](../MemberStatus#memberstatus)? Status { get; set; }
 

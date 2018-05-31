@@ -1,7 +1,7 @@
 ---
 title: CardAgingStyle
 category: API
-order: 26
+order: 27
 ---
 
 Enumerates the various styles of aging for the Card Aging power up.

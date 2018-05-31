@@ -1,7 +1,7 @@
 ---
 title: BoardPermissionLevel
 category: API
-order: 20
+order: 21
 ---
 
 Enumerates known values for board permission levels

@@ -1,7 +1,7 @@
 ---
 title: ICacheable
 category: API
-order: 66
+order: 68
 ---
 
 Defines properties which are required to cache an object.

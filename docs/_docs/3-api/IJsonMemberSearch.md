@@ -1,7 +1,7 @@
 ---
 title: IJsonMemberSearch
 category: API
-order: 109
+order: 113
 ---
 
 Defines the JSON structure for a member search.

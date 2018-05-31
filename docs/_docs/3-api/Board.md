@@ -1,7 +1,7 @@
 ---
 title: Board
 category: API
-order: 8
+order: 9
 ---
 
 Represents a board.
@@ -35,11 +35,11 @@ The board&#39;s ID.
 
 Specifies which fields should be downloaded.
 
-### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
+### [IReadOnlyActionCollection](../IReadOnlyActionCollection#ireadonlyactioncollection) Actions { get; }
 
 Gets the collection of actions performed on and within this board.
 
-### IReadOnlyCollection&lt;[ICard](../ICard#icard)&gt; Cards { get; }
+### [IReadOnlyCardCollection](../IReadOnlyCardCollection#ireadonlycardcollection) Cards { get; }
 
 Gets the collection of cards contained within this board.
 
@@ -131,7 +131,7 @@ Gets the collection of lists on this board.
 
 This property only exposes unarchived lists.
 
-### IReadOnlyCollection&lt;[IMember](../IMember#imember)&gt; Members { get; }
+### [IReadOnlyMemberCollection](../IReadOnlyMemberCollection#ireadonlymembercollection) Members { get; }
 
 Gets the collection of members on this board.
 
@@ -207,9 +207,13 @@ Deletes the board.
 
 This permanently deletes the board from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the board data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

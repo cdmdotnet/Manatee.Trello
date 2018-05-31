@@ -1,7 +1,7 @@
 ---
 title: TrelloConfiguration
 category: API
-order: 246
+order: 256
 ---
 
 Exposes a set of run-time options for Manatee.Trello.
