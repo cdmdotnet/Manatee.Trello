@@ -1,7 +1,7 @@
 ---
 title: DefaultRestClientProvider
 category: API
-order: 47
+order: 49
 ---
 
 Implements Manatee.Trello.Rest.IRestClientProvider using ASP.Net&#39;s System.Net.Http.HttpClient.

@@ -1,7 +1,7 @@
 ---
 title: List
 category: API
-order: 182
+order: 189
 ---
 
 Represents a list.
@@ -35,7 +35,7 @@ The list&#39;s ID.
 
 Specifies which fields should be downloaded.
 
-### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
+### [IReadOnlyActionCollection](../IReadOnlyActionCollection#ireadonlyactioncollection) Actions { get; }
 
 Gets the collection of actions performed on the list.
 
@@ -119,9 +119,13 @@ Applies the changes an action represents.
 
 The action.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the label data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

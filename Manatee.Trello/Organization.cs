@@ -107,7 +107,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
@@ -148,7 +148,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(CancellationToken.None).Wait();
+					_context.Synchronize(true, CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -161,7 +161,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		public IReadOnlyCollection<IMember> Members => _context.Members;
+		public IReadOnlyMemberCollection Members => _context.Members;
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>
@@ -277,10 +277,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the organization data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonOrganization>.Merge(IJsonOrganization json, bool overwrite)

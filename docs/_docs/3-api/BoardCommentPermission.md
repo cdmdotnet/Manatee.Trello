@@ -1,7 +1,7 @@
 ---
 title: BoardCommentPermission
 category: API
-order: 12
+order: 13
 ---
 
 Enumerates known board commenting permission levels.

@@ -1,7 +1,7 @@
 ---
 title: IJsonBoardMembership
 category: API
-order: 92
+order: 95
 ---
 
 Defines the JSON structure for the BoardMembership object.

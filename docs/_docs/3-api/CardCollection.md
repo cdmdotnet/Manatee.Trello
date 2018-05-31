@@ -1,7 +1,7 @@
 ---
 title: CardCollection
 category: API
-order: 27
+order: 28
 ---
 
 A collection of cards.

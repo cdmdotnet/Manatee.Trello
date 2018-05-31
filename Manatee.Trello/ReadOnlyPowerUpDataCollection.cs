@@ -22,7 +22,7 @@ namespace Manatee.Trello
 			_requestType = requestType;
 		}
 
-		internal sealed override async Task PerformRefresh(CancellationToken ct)
+		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(_requestType, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonPowerUpData>>(Auth, endpoint, ct, AdditionalParameters);

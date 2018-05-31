@@ -1,7 +1,7 @@
 ---
 title: IAttachment
 category: API
-order: 54
+order: 56
 ---
 
 Represents an attachment to a card.
@@ -80,9 +80,13 @@ Deletes the attachment.
 
 This permanently deletes the attachment from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the attachment data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

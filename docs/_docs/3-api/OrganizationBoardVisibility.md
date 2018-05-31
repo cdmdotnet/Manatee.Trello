@@ -1,7 +1,7 @@
 ---
 title: OrganizationBoardVisibility
 category: API
-order: 201
+order: 208
 ---
 
 Enumerates known visibility levels for board in orgainzations.

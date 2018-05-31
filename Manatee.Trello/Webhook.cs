@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>, ICacheable
+	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>
 		where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
@@ -151,10 +151,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the webhook data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonWebhook>.Merge(IJsonWebhook json, bool overwrite)

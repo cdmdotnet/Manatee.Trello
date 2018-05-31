@@ -1,7 +1,7 @@
 ---
 title: MemberSearchResult
 category: API
-order: 192
+order: 199
 ---
 
 Represents a result from a member search.

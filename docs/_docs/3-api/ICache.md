@@ -1,7 +1,7 @@
 ---
 title: ICache
 category: API
-order: 65
+order: 67
 ---
 
 Defines operations for a cache.

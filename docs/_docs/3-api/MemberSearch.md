@@ -1,7 +1,7 @@
 ---
 title: MemberSearch
 category: API
-order: 191
+order: 198
 ---
 
 Performs a search for members.
@@ -54,9 +54,13 @@ Gets the collection of results returned by the search.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the search results.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

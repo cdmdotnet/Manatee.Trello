@@ -1,7 +1,7 @@
 ---
 title: ValidationException&lt;T&gt;
 category: API
-order: 251
+order: 261
 ---
 
 Thrown when validation fails on a Trello object property.

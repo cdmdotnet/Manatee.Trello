@@ -1,7 +1,7 @@
 ---
 title: IJsonCustomField
 category: API
-order: 101
+order: 104
 ---
 
 Defines the JSON structure for a custom field instance.
@@ -43,8 +43,4 @@ Gets or sets the text.
 ### [CustomFieldType](../CustomFieldType#customfieldtype) Type { get; set; }
 
 Gets or sets the data type.
-
-### bool UseForClear { get; set; }
-
-Used to signal the value should be cleared.
 

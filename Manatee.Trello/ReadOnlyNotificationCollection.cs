@@ -41,7 +41,7 @@ namespace Manatee.Trello
 			AdditionalParameters["filter"] = filter;
 		}
 
-		internal sealed override async Task PerformRefresh(CancellationToken ct)
+		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
 			IncorporateLimit();
 

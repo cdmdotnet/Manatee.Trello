@@ -24,7 +24,7 @@ namespace Manatee.Trello
 		{
 		}
 
-		internal sealed override async Task PerformRefresh(CancellationToken ct)
+		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CustomFields,
 			                                     new Dictionary<string, object> {{"_id", OwnerId}});

@@ -14,9 +14,8 @@ namespace Manatee.Trello
 	public abstract class CustomField : ICustomField, IMergeJson<IJsonCustomField>
 	{
 		private readonly Field<ICustomFieldDefinition> _definition;
-		private readonly CustomFieldContext _context;
 
-		internal CustomFieldContext Context => _context;
+		internal CustomFieldContext Context { get; }
 
 		/// <summary>
 		/// Gets an ID on which matching can be performed.
@@ -30,8 +29,8 @@ namespace Manatee.Trello
 
 		internal IJsonCustomField Json
 		{
-			get { return _context.Data; }
-			set { _context.Merge(value); }
+			get { return Context.Data; }
+			set { Context.Merge(value); }
 		}
 
 		/// <summary>
@@ -42,34 +41,35 @@ namespace Manatee.Trello
 		internal CustomField(IJsonCustomField json, string cardId, TrelloAuthorization auth)
 		{
 			Id = json.Id;
-			_context = new CustomFieldContext(Id, cardId, auth);
+			Context = new CustomFieldContext(Id, cardId, auth);
 
-			_definition = new Field<ICustomFieldDefinition>(_context, nameof(Definition));
+			_definition = new Field<ICustomFieldDefinition>(Context, nameof(Definition));
 
 			if (auth != TrelloAuthorization.Null)
 				TrelloConfiguration.Cache.Add(this);
 
-			_context.Merge(json);
-			_context.Synchronized += Synchronized;
+			Context.Merge(json);
+			Context.Synchronized += Synchronized;
 		}
 
 		/// <summary>
 		/// Refreshes the custom field instance data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await Context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonCustomField>.Merge(IJsonCustomField json, bool overwrite)
 		{
-			_context.Merge(json, overwrite);
+			Context.Merge(json, overwrite);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
 		{
-			Id = _context.Data.Id;
+			Id = Context.Data.Id;
 			var handler = Updated;
 			handler?.Invoke(this, properties);
 		}

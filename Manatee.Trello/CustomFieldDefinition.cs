@@ -27,6 +27,11 @@ namespace Manatee.Trello
 		public IBoard Board => _board.Value;
 
 		/// <summary>
+		/// Gets display information for the custom field.
+		/// </summary>
+		public ICustomFieldDisplayInfo DisplayInfo { get; }
+
+		/// <summary>
 		/// Gets an identifier that groups fields across boards.
 		/// </summary>
 		public string FieldGroup => _fieldGroup.Value;
@@ -81,6 +86,7 @@ namespace Manatee.Trello
 			_context = new CustomFieldDefinitionContext(Id, auth);
 
 			_board = new Field<IBoard>(_context, nameof(Board));
+			DisplayInfo = new CustomFieldDisplayInfo(_context.DisplayInfo);
 			_fieldGroup = new Field<string>(_context, nameof(FieldGroup));
 			_name = new Field<string>(_context, nameof(Name));
 			_position = new Field<Position>(_context, nameof(Position));
@@ -88,10 +94,6 @@ namespace Manatee.Trello
 
 			if (auth != TrelloAuthorization.Null)
 				TrelloConfiguration.Cache.Add(this);
-
-			// we need to enumerate the collection to cache all of the values
-			// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-			//Options?.ToList();
 
 			_context.Merge(json);
 			_context.Synchronized += Synchronized;
@@ -111,10 +113,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the custom field definition data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 		}
 
 		/// <summary>

@@ -1,7 +1,7 @@
 ---
 title: TokenModelType
 category: API
-order: 243
+order: 253
 ---
 
 Enumerates the model types to which a user token may grant access.

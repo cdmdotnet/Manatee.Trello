@@ -26,11 +26,13 @@ namespace Manatee.Trello
 			/// Indicates the AvatarHash property should be populated.
 			/// </summary>
 			[Display(Description="avatarHash")]
+			[Obsolete("Trello has depricated this property.")]
 			AvatarHash = 1,
 			/// <summary>
 			/// Indicates the AvatarSource property should be populated.
 			/// </summary>
 			[Display(Description="avatarSource")]
+			[Obsolete("Trello has depricated this property.")]
 			AvatarSource = 1 << 1,
 			/// <summary>
 			/// Indicates the Bio property should be populated.
@@ -56,11 +58,12 @@ namespace Manatee.Trello
 			/// Indicates the GravatarHash property should be populated.
 			/// </summary>
 			[Display(Description="gravatarHash")]
+			[Obsolete("Trello has depricated this property.")]
 			GravatarHash = 1 << 6,
 			/// <summary>
 			/// Indicates the Initials property should be populated.
 			/// </summary>
-			[Display(Description="intials")]
+			[Display(Description="initials")]
 			Initials = 1 << 7,
 			/// <summary>
 			/// Indicates the LoginTypes property should be populated.
@@ -96,6 +99,7 @@ namespace Manatee.Trello
 			/// Indicates the UploadedAvatarHash property should be populated.
 			/// </summary>
 			[Display(Description="uploadedAvatarHash")]
+			[Obsolete("Trello has depricated this property.")]
 			UploadedAvatarHash = 1 << 15,
 			/// <summary>
 			/// Indicates the Url property should be populated.
@@ -127,11 +131,17 @@ namespace Manatee.Trello
 			/// Indicates the notifications will be downloaded.
 			/// </summary>
 			Notifications = 1 << 22,
+			/// <summary>
+			/// Indicates the avatar URL should be downloaded.
+			/// </summary>
+			[Display(Description = "avatarUrl")]
+			AvatarUrl = 1 << 23,
+			/// <summary>
+			/// Indicates the board stars will be downloaded.
+			/// </summary>
+			StarredBoards = 1 << 24
 		}
 
-		private const string AvatarUrlFormat = "https://trello-avatars.s3.amazonaws.com/{0}/170.png";
-
-		private readonly Field<AvatarSource?> _avatarSource;
 		private readonly Field<string> _avatarUrl;
 		private readonly Field<string> _bio;
 		private readonly Field<string> _fullName;
@@ -159,19 +169,21 @@ namespace Manatee.Trello
 				MemberContext.UpdateParameters();
 			}
 		}
+		/// <summary>
+		/// Specifies the desired size for avatars.  The default is <see cref="AvatarSize.Large"/>
+		/// </summary>
+		public static AvatarSize AvatarSize { get; set; }
 
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
-		public AvatarSource? AvatarSource
-		{
-			get { return _avatarSource.Value; }
-			internal set { _avatarSource.Value = value; }
-		}
+		[Obsolete("Trello has depricated this property.")]
+		public AvatarSource? AvatarSource => null;
+
 		/// <summary>
 		/// Gets the URL to the member's avatar.
 		/// </summary>
@@ -187,11 +199,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public IReadOnlyCollection<IBoard> Boards => _context.Boards;
+		public IReadOnlyBoardCollection Boards => _context.Boards;
 		/// <summary>
 		/// Gets the collection of cards assigned to the member.
 		/// </summary>
-		public IReadOnlyCollection<ICard> Cards => _context.Cards;
+		public IReadOnlyCardCollection Cards => _context.Cards;
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
@@ -220,7 +232,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(CancellationToken.None).Wait();
+					_context.Synchronize(true, CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -244,7 +256,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public IReadOnlyCollection<IOrganization> Organizations => _context.Organizations;
+		public IReadOnlyOrganizationCollection Organizations => _context.Organizations;
+
+		/// <summary>
+		/// Gets the collection of the member's board stars.
+		/// </summary>
+		public IReadOnlyCollection<IStarredBoard> StarredBoards => _context.StarredBoards;
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
@@ -281,6 +298,7 @@ namespace Manatee.Trello
 		static Member()
 		{
 			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
+			AvatarSize = AvatarSize.Large;
 		}
 
 		/// <summary>
@@ -300,9 +318,6 @@ namespace Manatee.Trello
 			_context = new MemberContext(id, isMe, auth);
 			_context.Synchronized += Synchronized;
 
-			_avatarSource = new Field<AvatarSource?>(_context, nameof(AvatarSource));
-			_avatarSource.AddRule(NullableHasValueRule<AvatarSource>.Instance);
-			_avatarSource.AddRule(EnumerationRule<AvatarSource?>.Instance);
 			_avatarUrl = new Field<string>(_context, nameof(AvatarUrl));
 			_bio = new Field<string>(_context, nameof(Bio));
 			_fullName = new Field<string>(_context, nameof(FullName));
@@ -343,10 +358,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the member data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>
@@ -370,8 +386,8 @@ namespace Manatee.Trello
 		}
 		private string GetAvatar()
 		{
-			var hash = _avatarUrl.Value;
-			return hash.IsNullOrWhiteSpace() ? null : string.Format(AvatarUrlFormat, hash);
+			var url = _avatarUrl.Value;
+			return url.IsNullOrWhiteSpace() ? null : $"{url}/{(int) AvatarSize}.png";
 		}
 	}
 }

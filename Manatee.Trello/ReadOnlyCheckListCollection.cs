@@ -28,7 +28,7 @@ namespace Manatee.Trello
 		/// </remarks>
 		public ICheckList this[string key] => GetByKey(key);
 
-		internal sealed override async Task PerformRefresh(CancellationToken ct)
+		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CheckLists, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonCheckList>>(Auth, endpoint, ct, AdditionalParameters);

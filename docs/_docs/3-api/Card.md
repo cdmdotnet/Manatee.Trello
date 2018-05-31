@@ -1,7 +1,7 @@
 ---
 title: Card
 category: API
-order: 24
+order: 25
 ---
 
 Represents a card.
@@ -39,7 +39,7 @@ The supplied ID can be either the full or short ID.
 
 Specifies which fields should be downloaded.
 
-### IReadOnlyCollection&lt;[IAction](../IAction#iaction)&gt; Actions { get; }
+### [IReadOnlyActionCollection](../IReadOnlyActionCollection#ireadonlyactioncollection) Actions { get; }
 
 Gets the collection of actions performed on this card.
 
@@ -183,7 +183,7 @@ Gets the card&#39;s full URL.
 
 Trello will likely change this value as the name changes. You can use Manatee.Trello.Card.ShortUrl for permalinks.
 
-### IReadOnlyCollection&lt;[IMember](../IMember#imember)&gt; VotingMembers { get; }
+### [IReadOnlyMemberCollection](../IReadOnlyMemberCollection#ireadonlymembercollection) VotingMembers { get; }
 
 Gets all members who have voted for this card.
 
@@ -215,9 +215,13 @@ Deletes the card.
 
 This permanently deletes the card from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the card data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

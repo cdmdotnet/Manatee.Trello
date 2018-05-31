@@ -1,7 +1,7 @@
 ---
 title: CommentCollection
 category: API
-order: 37
+order: 38
 ---
 
 A collection of Manatee.Trello.Actions of types Manatee.Trello.ActionType.CommentCard and Manatee.Trello.ActionType.CopyCommentCard.

@@ -1,7 +1,7 @@
 ---
 title: IRestClientProvider
 category: API
-order: 162
+order: 167
 ---
 
 Defines methods required to create an instance of IRestClient.

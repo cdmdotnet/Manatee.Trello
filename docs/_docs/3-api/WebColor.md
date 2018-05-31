@@ -1,7 +1,7 @@
 ---
 title: WebColor
 category: API
-order: 253
+order: 263
 ---
 
 Defines a color in the RGB space.

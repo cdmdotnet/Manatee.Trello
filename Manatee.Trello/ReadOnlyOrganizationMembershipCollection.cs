@@ -53,7 +53,7 @@ namespace Manatee.Trello
 			AdditionalParameters["filter"] = filter;
 		}
 
-		internal sealed override async Task PerformRefresh(CancellationToken ct)
+		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonOrganizationMembership>>(Auth, endpoint, ct, AdditionalParameters);

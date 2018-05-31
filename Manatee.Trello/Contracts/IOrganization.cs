@@ -13,7 +13,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		IReadOnlyCollection<IAction> Actions { get; }
+		IReadOnlyActionCollection Actions { get; }
 
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
@@ -43,7 +43,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		IReadOnlyCollection<IMember> Members { get; }
+		IReadOnlyMemberCollection Members { get; }
 
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
@@ -92,7 +92,8 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the organization data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(CancellationToken ct = default(CancellationToken));
+		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

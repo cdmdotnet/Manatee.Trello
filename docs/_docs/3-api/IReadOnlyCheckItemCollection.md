@@ -1,7 +1,7 @@
 ---
 title: IReadOnlyCheckItemCollection
 category: API
-order: 153
+order: 158
 ---
 
 A read-only collection of checklist items.

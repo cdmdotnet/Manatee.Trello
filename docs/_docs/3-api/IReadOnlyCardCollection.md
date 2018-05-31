@@ -1,7 +1,7 @@
 ---
 title: IReadOnlyCardCollection
 category: API
-order: 152
+order: 157
 ---
 
 A read-only collection of cards.

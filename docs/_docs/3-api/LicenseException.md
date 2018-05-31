@@ -1,7 +1,7 @@
 ---
 title: LicenseException
 category: API
-order: 181
+order: 188
 ---
 
 Thrown when an invalid license is registered.

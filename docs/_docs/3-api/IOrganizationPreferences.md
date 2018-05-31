@@ -1,7 +1,7 @@
 ---
 title: IOrganizationPreferences
 category: API
-order: 144
+order: 149
 ---
 
 Represents the preferences for an organization.

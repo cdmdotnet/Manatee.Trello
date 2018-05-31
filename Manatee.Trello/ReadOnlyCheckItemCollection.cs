@@ -29,9 +29,9 @@ namespace Manatee.Trello
 			_context = context;
 		}
 
-		internal sealed override async Task PerformRefresh(CancellationToken ct)
+		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 			if (_context.Data.CheckItems == null) return;
 			foreach (var jsonCheckItem in _context.Data.CheckItems)
 			{

@@ -1,7 +1,7 @@
 ---
 title: SearchQuery
 category: API
-order: 239
+order: 247
 ---
 
 Provides an easy mechanism to build search queries.

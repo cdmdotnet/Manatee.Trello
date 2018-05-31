@@ -1,7 +1,7 @@
 ---
 title: CustomFieldType
 category: API
-order: 43
+order: 45
 ---
 
 Enumerates the types of custom fields available.

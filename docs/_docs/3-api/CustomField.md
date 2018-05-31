@@ -1,7 +1,7 @@
 ---
 title: CustomField
 category: API
-order: 38
+order: 39
 ---
 
 Represents a custom field instance.
@@ -33,9 +33,13 @@ Raised when data on the custom field is updated.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the custom field instance data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

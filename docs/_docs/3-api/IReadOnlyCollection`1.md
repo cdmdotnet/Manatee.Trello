@@ -1,7 +1,7 @@
 ---
 title: IReadOnlyCollection&lt;T&gt;
 category: API
-order: 155
+order: 160
 ---
 
 Provides base functionality for a read-only collection.
@@ -42,9 +42,13 @@ Indicates the maximum number of items to return.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Manually updates the collection&#39;s data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

@@ -117,6 +117,7 @@ namespace Manatee.Trello.Json
 			serializer.AbstractionMap.Map<IJsonPowerUp, ManateePowerUp>();
 			serializer.AbstractionMap.Map<IJsonPowerUpData, ManateePowerUpData>();
 			serializer.AbstractionMap.Map<IJsonSearch, ManateeSearch>();
+			serializer.AbstractionMap.Map<IJsonStarredBoard, ManateeStarredBoard>();
 			serializer.AbstractionMap.Map<IJsonSticker, ManateeSticker>();
 			serializer.AbstractionMap.Map<IJsonToken, ManateeToken>();
 			serializer.AbstractionMap.Map<IJsonTokenPermission, ManateeTokenPermission>();

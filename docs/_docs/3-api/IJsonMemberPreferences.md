@@ -1,7 +1,7 @@
 ---
 title: IJsonMemberPreferences
 category: API
-order: 108
+order: 112
 ---
 
 Defines the JSON structure for the MemberPreferences object.

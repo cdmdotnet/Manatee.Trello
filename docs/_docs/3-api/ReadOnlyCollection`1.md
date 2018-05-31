@@ -1,7 +1,7 @@
 ---
 title: ReadOnlyCollection&lt;T&gt;
 category: API
-order: 222
+order: 229
 ---
 
 Provides base functionality for a read-only collection.
@@ -49,9 +49,13 @@ Returns an enumerator that iterates through the collection.
 
 **Returns:** An enumerator that can be used to iterate through the collection.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Manually updates the collection&#39;s data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

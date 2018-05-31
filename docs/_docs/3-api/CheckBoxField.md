@@ -1,7 +1,7 @@
 ---
 title: CheckBoxField
 category: API
-order: 31
+order: 32
 ---
 
 Represents a custom checkbox field instance.

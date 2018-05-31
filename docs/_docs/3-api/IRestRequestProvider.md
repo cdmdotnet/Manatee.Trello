@@ -1,7 +1,7 @@
 ---
 title: IRestRequestProvider
 category: API
-order: 164
+order: 169
 ---
 
 Defines methods to generate IRequest objects used to make RESTful calls.

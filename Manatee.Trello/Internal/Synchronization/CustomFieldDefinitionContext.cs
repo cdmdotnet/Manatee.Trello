@@ -14,6 +14,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		private bool _deleted;
 
 		public DropDownOptionCollection DropDownOptions { get; }
+		public CustomFieldDisplayInfoContext DisplayInfo { get; }
 
 		static CustomFieldDefinitionContext()
 		{
@@ -26,6 +27,14 @@ namespace Manatee.Trello.Internal.Synchronization
 							                                                {
 								                                                if (o != null) d.Board = o.Json;
 							                                                })
+					},
+					{
+						nameof(IJsonCustomFieldDefinition.Display),
+						new Property<IJsonCustomFieldDefinition, IJsonCustomFieldDisplayInfo>((d, a) => d.Display,
+						                                                 (d, o) =>
+							                                                 {
+								                                                 if (o != null) d.Display = o;
+							                                                 })
 					},
 					{
 						nameof(CustomFieldDefinition.FieldGroup),
@@ -73,6 +82,10 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			DropDownOptions = new DropDownOptionCollection(() => Data.Id, auth);
+
+			DisplayInfo = new CustomFieldDisplayInfoContext(auth);
+			DisplayInfo.SubmitRequested += ct => HandleSubmitRequested("Display", ct);
+			Data.Display = DisplayInfo.Data;
 		}
 
 		public async Task Delete(CancellationToken ct)
@@ -81,7 +94,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			CancelUpdate();
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Write_Delete,
-			                                     new Dictionary<string, object> { { "_id", Data.Id } });
+			                                     new Dictionary<string, object> {{"_id", Data.Id}});
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
@@ -111,16 +124,27 @@ namespace Manatee.Trello.Internal.Synchronization
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Merge(newData);
+			Data.Display = DisplayInfo.Data;
+		}
+
+		protected override void ApplyDependentChanges(IJsonCustomFieldDefinition json)
+		{
+			Data.Display = DisplayInfo.Data;
+			if (DisplayInfo.HasChanges)
+			{
+				json.Display = DisplayInfo.GetChanges();
+				DisplayInfo.ClearChanges();
+			}
 		}
 
 		protected override IEnumerable<string> MergeDependencies(IJsonCustomFieldDefinition json, bool overwrite)
 		{
-			var properties = new List<string>();
+			var properties = DisplayInfo.Merge(json.Display).ToList();
 
 			if (json.Options != null)
 			{
 				DropDownOptions.Update(json.Options.Select(a => a.GetFromCache<DropDownOption, IJsonCustomDropDownOption>(Auth, overwrite)));
-				properties.Add(nameof(Board.Cards));
+				properties.Add(nameof(CustomFieldDefinition.Options));
 			}
 
 			return properties;

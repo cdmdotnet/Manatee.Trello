@@ -159,7 +159,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on and within this board.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 
 		/// <summary>
 		/// Gets the collection of cards contained within this board.
@@ -167,7 +167,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This property only exposes unarchived cards.
 		/// </remarks>
-		public IReadOnlyCollection<ICard> Cards => _context.Cards;
+		public IReadOnlyCardCollection Cards => _context.Cards;
 
 		/// <summary>
 		/// Gets the creation date of the board.
@@ -204,7 +204,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(CancellationToken.None).Wait();
+					_context.Synchronize(true, CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -264,7 +264,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members on this board.
 		/// </summary>
-		public IReadOnlyCollection<IMember> Members => _context.Members;
+		public IReadOnlyMemberCollection Members => _context.Members;
 
 		/// <summary>
 		/// Gets the collection of members and their privileges on this board.
@@ -439,10 +439,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the board data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonBoard>.Merge(IJsonBoard json, bool overwrite)

@@ -1,7 +1,7 @@
 ---
 title: IJsonCustomFieldDefinition
 category: API
-order: 102
+order: 105
 ---
 
 Defines the JSON structure for a custom field definition.
@@ -19,6 +19,10 @@ Defines the JSON structure for a custom field definition.
 ### [IJsonBoard](../IJsonBoard#ijsonboard) Board { get; set; }
 
 Gets or sets the board.
+
+### [IJsonCustomFieldDisplayInfo](../IJsonCustomFieldDisplayInfo#ijsoncustomfielddisplayinfo) Display { get; set; }
+
+Gets or sets the display information.
 
 ### string FieldGroup { get; set; }
 

@@ -23,7 +23,7 @@ namespace Manatee.Trello.UnitTests
 			await Run(async ct =>
 			{
 				var card = _factory.Card(TrelloIds.CardId);
-				await card.Refresh(ct);
+				await card.Refresh(ct: ct);
 
 				//var webhook = await Webhook<ICard>.Create(card, "https://webhook.site/a980d5d4-cdaf-407b-b486-b0c74b553894", ct: ct);
 				//var webhook = new Webhook<ICard>("5aff6a4505cae24096bd2487");

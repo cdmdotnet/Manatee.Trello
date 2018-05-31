@@ -1,7 +1,7 @@
 ---
 title: IJsonOrganization
 category: API
-order: 113
+order: 117
 ---
 
 Defines the JSON structure for the Organization object.

@@ -34,19 +34,18 @@ namespace Manatee.Trello.Internal.Synchronization
 		public ReadOnlyCardCollection Cards { get; }
 		public ReadOnlyNotificationCollection Notifications { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
+		public ReadOnlyStarredBoardCollection StarredBoards { get; }
 		public MemberPreferencesContext MemberPreferencesContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static MemberContext()
 		{
 			Parameters = new Dictionary<string, object>();
-			MemberFields = Member.Fields.AvatarHash |
-			               Member.Fields.AvatarSource |
+			MemberFields = Member.Fields.AvatarUrl |
 			               Member.Fields.Bio |
 			               Member.Fields.IsConfirmed |
 			               Member.Fields.Email |
 			               Member.Fields.FullName |
-			               Member.Fields.GravatarHash |
 			               Member.Fields.Initials |
 			               Member.Fields.LoginTypes |
 			               Member.Fields.MemberType |
@@ -54,18 +53,13 @@ namespace Manatee.Trello.Internal.Synchronization
 			               Member.Fields.Preferencess |
 			               Member.Fields.Status |
 			               Member.Fields.Trophies |
-			               Member.Fields.UploadedAvatarHash |
 			               Member.Fields.Url |
 			               Member.Fields.Username;
 			Properties = new Dictionary<string, Property<IJsonMember>>
 				{
 					{
-						nameof(Member.AvatarSource),
-						new Property<IJsonMember, AvatarSource?>((d, a) => d.AvatarSource, (d, o) => d.AvatarSource = o)
-					},
-					{
 						nameof(Member.AvatarUrl),
-						new Property<IJsonMember, string>((d, a) => d.AvatarHash, (d, o) => d.AvatarHash = o)
+						new Property<IJsonMember, string>((d, a) => d.AvatarUrl, (d, o) => d.AvatarUrl = o)
 					},
 					{
 						nameof(Member.Bio),
@@ -127,6 +121,9 @@ namespace Manatee.Trello.Internal.Synchronization
 				                ? new OrganizationCollection(() => Data.Id, auth)
 				                : new ReadOnlyOrganizationCollection(() => Data.Id, auth);
 			Notifications = new ReadOnlyNotificationCollection(() => Data.Id, auth);
+			StarredBoards = isMe
+				                ? new StarredBoardCollection(() => Data.Id, auth)
+				                : new ReadOnlyStarredBoardCollection(() => Data.Id, auth); 
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
@@ -179,6 +176,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["organizations"] = "all";
 					Parameters["organization_fields"] = OrganizationContext.CurrentParameters["fields"];
 				}
+				if (parameterFields.HasFlag(Member.Fields.StarredBoards))
+					Parameters["boardStars"] = "true";
 			}
 		}
 
@@ -198,7 +197,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected override void ApplyDependentChanges(IJsonMember json)
 		{
-			if (json.Prefs != null)
+			if (MemberPreferencesContext.HasChanges)
 			{
 				json.Prefs = MemberPreferencesContext.GetChanges();
 				MemberPreferencesContext.ClearChanges();
@@ -232,6 +231,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (json.Organizations != null)
 			{
 				Organizations.Update(json.Organizations.Select(a => a.GetFromCache<Organization, IJsonOrganization>(Auth, overwrite)));
+				properties.Add(nameof(Member.Organizations));
+			}
+			if (json.StarredBoards != null)
+			{
+				StarredBoards.Update(json.StarredBoards.Select(a => a.GetFromCache<StarredBoard, IJsonStarredBoard>(Auth, overwrite, Data.Id)));
 				properties.Add(nameof(Member.Organizations));
 			}
 

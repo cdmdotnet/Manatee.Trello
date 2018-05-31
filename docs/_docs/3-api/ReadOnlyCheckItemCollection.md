@@ -1,7 +1,7 @@
 ---
 title: ReadOnlyCheckItemCollection
 category: API
-order: 220
+order: 227
 ---
 
 A read-only collection of checklist items.

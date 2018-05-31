@@ -1,7 +1,7 @@
 ---
 title: CheckItemCollection
 category: API
-order: 33
+order: 34
 ---
 
 A collection of checklist items.

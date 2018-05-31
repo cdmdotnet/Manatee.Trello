@@ -1,7 +1,7 @@
 ---
 title: ICheckListCollection
 category: API
-order: 75
+order: 77
 ---
 
 A collection of checklists.

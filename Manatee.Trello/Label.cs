@@ -40,13 +40,13 @@ namespace Manatee.Trello
 			/// Indicates the Uses property should be populated.
 			/// </summary>
 			[Display(Description="uses")]
+			[Obsolete("Trello no longer supports this feature.")]
 			Uses = 1 << 3
 		}
 
 		private readonly Field<Board> _board;
 		private readonly Field<LabelColor?> _color;
 		private readonly Field<string> _name;
-		private readonly Field<int?> _uses;
 		private readonly LabelContext _context;
 		private DateTime? _creation;
 		private static Fields _downloadedFields;
@@ -103,7 +103,8 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the number of cards which use this label.
 		/// </summary>
-		public int? Uses => _uses.Value;
+		[Obsolete("Trello no longer supports this feature.")]
+		public int? Uses => null;
 
 		internal IJsonLabel Json
 		{
@@ -125,7 +126,6 @@ namespace Manatee.Trello
 			_color = new Field<LabelColor?>(_context, nameof(Color));
 			_color.AddRule(EnumerationRule<LabelColor?>.Instance);
 			_name = new Field<string>(_context, nameof(Name));
-			_uses = new Field<int?>(_context, nameof(Uses));
 			
 			_context.Merge(json);
 
@@ -150,10 +150,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the label data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			await _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonLabel>.Merge(IJsonLabel json, bool overwrite)

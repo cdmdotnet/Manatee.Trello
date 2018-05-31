@@ -16,7 +16,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// By default imposed by Trello, this contains actions of types <see cref="ActionType.CommentCard"/> and <see cref="ActionType.UpdateCardIdList"/>.
 		/// </remarks>
-		IReadOnlyCollection<IAction> Actions { get; }
+		IReadOnlyActionCollection Actions { get; }
 
 		/// <summary>
 		/// Gets the collection of attachments contained in the card.
@@ -142,7 +142,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets all members who have voted for this card.
 		/// </summary>
-		IReadOnlyCollection<IMember> VotingMembers { get; }
+		IReadOnlyMemberCollection VotingMembers { get; }
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.
@@ -181,7 +181,8 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the card data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(CancellationToken ct = default(CancellationToken));
+		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

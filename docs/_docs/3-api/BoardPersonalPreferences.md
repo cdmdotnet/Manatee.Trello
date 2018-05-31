@@ -1,7 +1,7 @@
 ---
 title: BoardPersonalPreferences
 category: API
-order: 21
+order: 22
 ---
 
 Represents the user-specific preferences for a board.

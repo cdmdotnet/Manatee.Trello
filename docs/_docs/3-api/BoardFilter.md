@@ -1,7 +1,7 @@
 ---
 title: BoardFilter
 category: API
-order: 14
+order: 15
 ---
 
 Enumerates the filter options for board collections. Can be combined with the bitwise-OR operator.

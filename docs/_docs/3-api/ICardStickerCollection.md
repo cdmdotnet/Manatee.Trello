@@ -1,7 +1,7 @@
 ---
 title: ICardStickerCollection
 category: API
-order: 71
+order: 73
 ---
 
 A collection of Manatee.Trello.IStickers.

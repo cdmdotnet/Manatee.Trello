@@ -1,7 +1,7 @@
 ---
 title: ITrelloFactory
 category: API
-order: 173
+order: 180
 ---
 
 Supports entity creation for dependency-injected applications.

@@ -1,7 +1,7 @@
 ---
 title: IRestClient
 category: API
-order: 161
+order: 166
 ---
 
 Defines methods required to make RESTful calls.

@@ -1,7 +1,7 @@
 ---
 title: ISticker
 category: API
-order: 170
+order: 177
 ---
 
 Represents a sticker on a card.
@@ -68,9 +68,13 @@ Deletes the sticker.
 
 This permanently deletes the sticker from Trello&#39;s server, however, this object will remain in memory and all properties will remain accessible.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the sticker data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

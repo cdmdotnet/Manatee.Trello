@@ -1,7 +1,7 @@
 ---
 title: CustomFieldsPowerUp
 category: API
-order: 42
+order: 44
 ---
 
 Represents the Custom Fields power-up.
@@ -31,9 +31,13 @@ Gets the power-up name.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the power-up data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

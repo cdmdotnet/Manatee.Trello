@@ -1,7 +1,7 @@
 ---
 title: ICommentCollection
 category: API
-order: 76
+order: 78
 ---
 
 A collection of comment actions.

@@ -1,7 +1,7 @@
 ---
 title: CardFilter
 category: API
-order: 28
+order: 29
 ---
 
 Enumerates the filter options for card collections.

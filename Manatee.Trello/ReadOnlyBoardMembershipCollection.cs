@@ -29,7 +29,7 @@ namespace Manatee.Trello
 		/// </remarks>
 		public IBoardMembership this[string key] => GetByKey(key);
 
-		internal sealed override async Task PerformRefresh(CancellationToken ct)
+		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Memberships, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonBoardMembership>>(Auth, endpoint, ct, AdditionalParameters);

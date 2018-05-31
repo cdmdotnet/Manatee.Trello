@@ -1,7 +1,7 @@
 ---
 title: CustomFieldDefinition
 category: API
-order: 40
+order: 41
 ---
 
 Represents a custom field definition.
@@ -20,6 +20,10 @@ Represents a custom field definition.
 ### [IBoard](../IBoard#iboard) Board { get; }
 
 Gets the board on which the field is defined.
+
+### [ICustomFieldDisplayInfo](../ICustomFieldDisplayInfo#icustomfielddisplayinfo) DisplayInfo { get; }
+
+Gets display information for the custom field.
 
 ### string FieldGroup { get; }
 
@@ -61,9 +65,13 @@ Deletes the field definition.
 
 (Optional) A cancellation token for async processing.
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the custom field definition data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

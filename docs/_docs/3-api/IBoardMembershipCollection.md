@@ -1,7 +1,7 @@
 ---
 title: IBoardMembershipCollection
 category: API
-order: 62
+order: 64
 ---
 
 A collection of board memberships.

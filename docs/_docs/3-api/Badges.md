@@ -1,7 +1,7 @@
 ---
 title: Badges
 category: API
-order: 7
+order: 8
 ---
 
 Represents a collection of badges which summarize the contents of a card.

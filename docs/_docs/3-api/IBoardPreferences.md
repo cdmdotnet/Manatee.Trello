@@ -1,7 +1,7 @@
 ---
 title: IBoardPreferences
 category: API
-order: 64
+order: 66
 ---
 
 Represents the preferences for a board.

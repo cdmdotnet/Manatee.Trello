@@ -1,7 +1,7 @@
 ---
 title: Notification
 category: API
-order: 196
+order: 203
 ---
 
 Represents a notification.
@@ -72,9 +72,13 @@ Raised when data on the notification is updated.
 
 ## Methods
 
-### Task Refresh(CancellationToken ct = default(CancellationToken))
+### Task Refresh(bool force = False, CancellationToken ct = default(CancellationToken))
 
 Refreshes the notification data.
+
+**Parameter:** force
+
+Indicates that the refresh should ignore the value in Manatee.Trello.TrelloConfiguration.RefreshThrottle and make the call to the API.
 
 **Parameter:** ct
 

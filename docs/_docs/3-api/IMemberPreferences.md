@@ -1,7 +1,7 @@
 ---
 title: IMemberPreferences
 category: API
-order: 134
+order: 139
 ---
 
 Represents preferences for a member.

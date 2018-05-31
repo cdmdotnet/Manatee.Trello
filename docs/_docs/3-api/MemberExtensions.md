@@ -1,7 +1,7 @@
 ---
 title: MemberExtensions
 category: API
-order: 188
+order: 195
 ---
 
 Extension methods for members.
