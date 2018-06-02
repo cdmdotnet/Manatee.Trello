@@ -162,7 +162,7 @@ See the [docs](https://gregsdennis.github.io/Manatee.Trello) for more informatio
 
 ## Extended use
 
-As of version 3, a [licensing model](https://gregsdennis.github.io/Manatee.Trello/1-main/licensing) has been introduced.
+As of version 3, a [licensing model](https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html) has been introduced.
 
 If you're planning on using this for your organization, please consider purchasing a license.
 
