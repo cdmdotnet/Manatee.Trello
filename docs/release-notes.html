@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>3.1.0 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="3.1.0 ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg site-icon" src="siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="310">3.1.0</h1>
+
+<p><em>Released on 1 Jun, 2018.</em></p>
+<h2 id="summary">Summary</h2>
+<h3 id="in-line-with-changes-in-the-trello-api">In line with changes in the Trello API:</h3>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/178">#178</a>) Getting member avatar images have been augmented. Now the client must specify an image size.  The default is 170x170 which was previously the only option.  Now 30x30 and 50x50 are available as well. <a href="https://trello.com/c/VX8B4ndj">Trello's change</a></p>
+<p>(no issue logged) Label uses have been removed from the API. <a href="https://trello.com/c/qlIE6fkg">Trello's change</a></p>
+<p>(no issue logged) Custom fields can now be configured to show or not show on the front of a card. <a href="https://trello.com/c/F3j0G136">Trello's change</a></p>
+<h3 id="new-library-features">New library features:</h3>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/187">#187</a>) Starred boards are represented as objects in the Trello API.  Previous library versions only exposed <code>Board.IsStarred</code> as a read-only property.  These can now be listed and manipulated through the <code>StarredBoard</code> entity and its collection on the <code>Member</code> and <code>Me</code> entities, respectively.</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/224">#224</a>) Updated collection <code>Add()</code> methods to include optional parameters so that the data can be included as part of the creation process rather than having to set properties which would require at least one additional call.</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/211">#211</a>) All entities and collections can now be forcibly refreshed.</p>
+<h2 id="changes">Changes</h2>
+<p>New members:</p>
+<ul>
+<li><code>static Meember.AvatarSize</code></li>
+<li><code>Member.Fields.AvatarUrl</code></li>
+<li><code>ICustomFieldDefinition.DisplayInfo</code></li>
+<li><code>CustomFieldDefinition.DisplayInfo</code></li>
+<li><code>IJsonMember.StarredBoards</code></li>
+<li><code>Member.StarredBoards</code></li>
+<li><code>Me.StarredBoards</code></li>
+<li>Optional <code>description</code> parameter for <code>IBoardCollection.Add()</code></li>
+<li>Optional <code>description</code> parameter for <code>BoardCollection.Add()</code></li>
+<li>Optional <code>position</code> parameter for <code>IListCollection.Add()</code></li>
+<li>Optional <code>position</code> parameter for <code>ListCollection.Add()</code></li>
+<li>Optional <code>description</code> and <code>name</code> parameters for <code>IOrganizationCollection.Add()</code></li>
+<li>Optional <code>description</code> and <code>name</code> parameters for <code>OrganizationCollection.Add()</code></li>
+</ul>
+<p>New types:</p>
+<ul>
+<li><code>AvatarSize</code></li>
+<li><code>ICustomFieldDisplayInfo</code></li>
+<li><code>CustomFieldDisplayInfo</code></li>
+<li><code>IJsonStarredBoard</code></li>
+<li><code>StarredBoard</code></li>
+<li><code>ReadOnlyStarredBoardCollection</code></li>
+<li><code>IStarredBoardCollection</code></li>
+<li><code>StarredBoardCollection</code></li>
+</ul>
+<p>Functional changes:</p>
+<ul>
+<li><code>Member.AvatarUrl</code> now returns sized image assigned by <code>static Member.AvatarSize</code></li>
+</ul>
+<p>Obsoleted the following:</p>
+<ul>
+<li><code>Member.Fields.AvatarHash</code></li>
+<li><code>Member.Fields.AvatarSource</code></li>
+<li><code>Member.Fields.GravatarHash</code></li>
+<li><code>Member.Fields.UploadedAvatarHash</code></li>
+<li><code>Member.AvatarSource</code> (now just returns null)</li>
+<li><code>Label.Uses</code> (now just returns null)</li>
+<li><code>IJsonLabel.Uses</code></li>
+</ul>
+<h1 id="3012">3.0.12</h1>
+<p><em>Released on 30 May, 2018.</em></p>
+<p>Fixes issue for webhook processing where the property list provided by the event were inaccurate.  Also resolves an issue of updating cached entities with potentially stale data downloaded from <code>Action</code>s that indicated past activities.  <strong>As a result, <code>Action.Data</code> and <code>Notification.Data</code> no longer use cached entities.</strong></p>
+<p>Additionally, the properties reported for sub-entities (e.g. <code>Card.Badges</code>) are now prefixed with the container property.  So if <code>Card.Badges.Comments</code> (a count of the comments on the card) changes, the <code>Card.Updated</code> event would report that <code>Badges.Comments</code> was updated.  Previously, the property report would be only <code>Comments</code> which conflicts with the <code>Card.Comments</code> property.</p>
+<p>Fixed a deserialization issue for cards.  <code>ShortLink</code> does not directly translate to <code>ShortUrl</code> and needs some formatting.</p>
+<p><code>Refresh()</code> on collection types is no longer virtual.  (Should have been sealed on all implementations anyway.)</p>
+<h1 id="3011">3.0.11</h1>
+<p><em>Released on 18 May, 2018.</em></p>
+<p>Fixed issue for all entities where processing webhook data would not fire the <code>Updated</code> event.</p>
+<h1 id="3010">3.0.10</h1>
+<p><em>Released on 14 May, 2018.</em></p>
+<p>Attachment image previews have their ID property serialized as <code>_id</code> rather than <code>id</code>.</p>
+<h1 id="309">3.0.9</h1>
+<p><em>Released on 12 May, 2018.</em></p>
+<p>Changed serialization of numbers when setting custom field values to use invariant culture.</p>
+<h1 id="308">3.0.8</h1>
+<p><em>Released on 12 May, 2018.</em></p>
+<p>Updated file location for license usage details to local app data for the current user.</p>
+<p>Updated power-up implementation:</p>
+<ul>
+<li><code>IBoard.PowerUps</code> is now <code>IPowerUpCollection</code> (was <code>IReadOnlyCollection&lt;IPowerUp&gt;</code>)
+<ul>
+<li>Adds <code>EnablePowerUp()</code> and <code>DisablePowerUp()</code></li>
+</ul>
+</li>
+<li>Fixed issues with setting number, string, and drop-down custom fields</li>
+</ul>
+<h1 id="307">3.0.7</h1>
+<p><em>Released on 11 May, 2018.</em></p>
+<p>Bug fix for setting dropdown and text custom fields on cards without values.</p>
+<p>Internal updates to collection classes.</p>
+<h1 id="306">3.0.6</h1>
+<p><em>Released on 7 May, 2018.</em></p>
+<p>Updated boards and cards to only cache themselves once the full ID has been downloaded.</p>
+<h1 id="305">3.0.5</h1>
+<p><em>Released on 4 May, 2018.</em></p>
+<p>Fixed further issues with deserialization.</p>
+<ul>
+<li><code>IJsonBoard</code></li>
+<li><code>IJsonList</code></li>
+<li><code>IJsonOrganizationMembership</code></li>
+<li><code>IJsonToken</code></li>
+</ul>
+<h1 id="304">3.0.4</h1>
+<p><em>Released on 4 May, 2018.</em></p>
+<p>Fixed issue with <code>IJsonBoardBackground</code> deserialization.</p>
+<h1 id="303">3.0.3</h1>
+<p><em>Released on 3 May, 2018.</em></p>
+<p>Fixed issue with <code>DropDownOption</code> that caused <code>ArgumentNullException</code> when attempting to add the entity to the cache.</p>
+<h1 id="302">3.0.2</h1>
+<p><em>Released on 2 May, 2018.</em></p>
+<p>The following are now read-only as these requests are not supported by Trello.</p>
+<ul>
+<li><code>Board.IsPinned</code></li>
+<li><code>Board.IsStarred</code></li>
+<li><code>CheckList.Card</code></li>
+</ul>
+<p><code>ICache</code> changed to take <code>ICacheable</code> instead of any object to help support better thread safety.</p>
+<p><code>Webhook</code> now implements <code>ICacheable</code></p>
+<h1 id="301">3.0.1</h1>
+<p><em>Released on 1 May, 2018.</em></p>
+<p>Fixed description attribute for:</p>
+<ul>
+<li><code>CheckList.Fields.Board</code></li>
+<li><code>CheckList.Fields.Card</code></li>
+</ul>
+<p><code>IDropDownCollection</code> fixed to inherit <code>IReadOnlyCollection&lt;IDropDownOption&gt;</code>.</p>
+<p>Added missing <code>DropDownOption</code> method to <code>TrelloFactory</code> to provide a mechanism for creating new options for custom fields.  Also added matching <code>static DropDownOption.Create()</code> method.</p>
+<p>Added <code>CheckList</code> to <code>IJsonCheckItem</code></p>
+<p>Fixed serialization issues for:</p>
+<ul>
+<li>cards</li>
+<li>check items</li>
+<li>check lists</li>
+</ul>
+<h1 id="300">3.0.0</h1>
+<p><em>Released on 27 Apr, 2018.</em></p>
+<h2 id="supported-frameworks">Supported frameworks</h2>
+<p>Now multi-targets:</p>
+<ul>
+<li>.Net Framework 4.5</li>
+<li>.Net Standard 1.3</li>
+<li>.Net Standard 2.0</li>
+</ul>
+<h2 id="added-asynchronous-processing">Added asynchronous processing</h2>
+<p>All methods that perform requests (<code>Refresh()</code>, <code>Delete()</code>, collection <code>Add()</code> methods, etc.) are now async methods and should be awaited.</p>
+<p>Request processing no longer occurs in a queue.  Instead, the .Net <em>async/await</em> model is used.</p>
+<h2 id="data-access">Data access</h2>
+<p>Getting properties no longer produces requests.  Calling <code>Refresh()</code> is required.</p>
+<p>Setting properties works as before.</p>
+<p>When refreshing entities and collections, more data is downloaded with a single call.  Additionally, all data is used to update any available entities.  This results in fewer required calls.</p>
+<h2 id="entities">Entities</h2>
+<p>Interfaces have been extracted for all entities to support unit testing.</p>
+<p>All properties have been altered to return interfaces rather than concrete types.</p>
+<h2 id="configuration">Configuration</h2>
+<p>Added <code>RefreshThrottle</code> to limit successive GET requests.
+Added <code>RemoveDeletedItemsFromCache</code> to optionally keep deleted entities in the cache.
+Removed <code>ExpiryTime</code> in conjuction with changes to property getters.</p>
+<h2 id="libraries">Libraries</h2>
+<p>The following libraries have been consolidated into the main library:</p>
+<ul>
+<li><em>Manatee.Trello.ManateeJson</em></li>
+<li><em>Manatee.Trello.WebApi</em></li>
+<li><em>Manatee.Trello.CustomFields</em></li>
+</ul>
+<p>The configuration seams for these libraries are still available if alternate solutions are desired.</p>
+<h3 id="additional-changes">Additional changes</h3>
+<p>Custom fields are now writable.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/docs_source/release-notes.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

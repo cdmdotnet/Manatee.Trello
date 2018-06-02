@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="download-the-package">Download the package</h2>
+<p>The first thing to do is download and install the Nuget package.</p>
+<p>This can be performed from the Nuget Package Manager command line or through the Visual Studio UI.</p>
+<pre><code>&gt; Install-Package Manatee.Trello
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>There is very little configuration that is required to get Manatee.Trello going out of the box.</p>
+<blockquote>
+<p><strong>NOTE</strong> For users of Manatee.Trello versions 1 or 2, the REST provider and JSON serializer have been integrated into the main Nuget package and are initialized as the default services.  These no longer need to be configured.</p>
+</blockquote>
+<p>The only values that must be provided are for authorization, which you can read about <a href="#authorization">later in this document</a>.</p>
+<p>Additional configuration is discussed on the <a href="configuration.html">Configuration page</a>.</p>
+<h2 id="reading-data">Reading data</h2>
+<p>In Manatee.Trello, entities can be created using one of two methods:</p>
+<ul>
+<li><p>via the factory</p>
+<pre><code class="lang-csharp">var factory = new TrelloFactory();
+var board = factory.Board(&quot;&lt;board ID&gt;&quot;)
+</code></pre>
+</li>
+<li><p>via a constructor</p>
+<pre><code class="lang-csharp">var board = new Board(&quot;&lt;board ID&gt;&quot;);
+</code></pre>
+</li>
+</ul>
+<p>The factory returns interfaces and is ideal for dependency injection scenarios and for supporting unit testability.</p>
+<p>Before any of the data is available, the <code>Refresh()</code> method must be called.  This is an asynchronous method that should be awaited.</p>
+<blockquote>
+<p><strong>NOTE</strong> In previous versions, the data would be automatically downloaded, which was a synchronous and blocking process.  The approach was abandoned to support an async/await model as well as to give the client more control over when data is downloaded.  The only exception to this is the <code>Id</code> property on boards and cards (these can be instantiated via shorter IDs, and the system will block to resolve the full ID).</p>
+</blockquote>
+<p>If you don't need any of the data from the board itself, but you just want the collection of lists, you can call <code>Refresh()</code> directly on the <code>Lists</code> collection.  Otherwise, by default, the lists will be downloaded as part of the board refresh as well.  While this results in rather large data transfers per call, it reduces the number of required calls greatly which provides an overall performance increase.</p>
+<h3 id="customizing-the-download">Customizing the download</h3>
+<p>Most of the entities define a flag-enabled <code>Fields</code> enumeration and a <code>DownloadedFields</code> static property.  This property determines what data is downloaded when the <code>Refresh()</code> method is called.</p>
+<p>For example, if you don't care about downloading the actions or the URL for a board, you can use the following to disable download for these properties:</p>
+<pre><code class="lang-csharp">Board.DownloadedFields &amp;= ~Board.Fields.Actions &amp; ~Board.Fields.Url;
+</code></pre>
+<p>To re-enable these fields for download, simply invert the statement:</p>
+<pre><code class="lang-csharp">Board.DownloadedFields |= Board.Fields.Actions | Board.Fields.Url;
+</code></pre>
+<p>By default, all of the data is downloaded for all entities.  The exceptions are:</p>
+<ul>
+<li>Boards don't download members (in favor of memberships) or cards (in favor of getting cards when refreshing lists)</li>
+<li>Organizations don't download members (in favor of memberships)</li>
+</ul>
+<p>If an entity has already been downloaded and cached, and new data for it is retrieved as part of an unrelated refresh (e.g. refreshing a card may also download data for the list which contains it), the new data will be merged into the existing entity.  Manatee.Trello attempts to use <em>all</em> of the data provided by the API to ensure that information is as up-to-date as possible.</p>
+<h2 id="writing-data">Writing data</h2>
+<p>Sending data back to Trello is quite easy.</p>
+<p>Many edits are updating fields, such as the description on a card or the name of a board.  For tasks like this, you only need to set the property.  This will trigger an asynchronous process to submit the new data to Trello.</p>
+<p>When a property is set, a timer starts, the duration of which is determined by <code>TrelloConfiguration.ChangeSubmissionTime</code>.  Once the timer expires, it sends the change.  But there's a bonus: if another change for the same entity is made (i.e. setting another property), the timer is reset.  When the timer expires, <em>all</em> changes are sent as a single request.  If you need to, you can wait for property changes to be sent to Trello by calling <code>await TrelloProcessor.Flush()</code>.  This will ensure that the updates are sent before continuing.</p>
+<p>Other writes are generally deletions or creations.</p>
+<p>When you need to delete an entity, simply call its <code>Delete()</code> method.  Done.</p>
+<p>Creating entities can be accomplished via methods on various collections.  For instance, to add a card to a list, do this:</p>
+<pre><code class="lang-csharp">var newCard = await list.Cards.Add(&quot;a new card&quot;);
+</code></pre>
+<p>There are usually overloads for the <code>Add()</code> methods.  See the API documentation pages of this wiki for more information on what calls are available.</p>
+<h3 id="a-note-about-positioning">A note about positioning</h3>
+<p>Several of the entities, like cards and lists, can be sorted or otherwise have their order changed.  This is controlled by the <code>Position</code> property.</p>
+<p>Trello records an entity's position using a floating point number system.  If the user moves card <strong>A</strong> between cards <strong>B</strong> and <strong>C</strong>, Trello takes the numeric position values of <strong>B</strong> and <strong>C</strong>, averages them, and assigns that value to card <strong>A</strong>.</p>
+<h2 id="searching-for-entities">Searching for entities</h2>
+<p>Trello has the ability to search any board, organization, or card for certain text.  This ability is exposed through the <code>Search</code> object.  With this object, you can specify the search query, the entities in which to search, which types of entities to return, and the maximum number of each type of entity to return.</p>
+<p>The following code searches a specified board for a maximum of 100 cards which contain the text &quot;trello&quot; and outputs the number of cards.</p>
+<pre><code class="lang-csharp">string boardId = &quot;[a board ID]&quot;;
+string query = &quot;trello&quot;;
+var board = factory.Board(boardId);
+var search = factory.Search(query, 100, SearchModelType.Cards, new IQueryable[] {board});
+
+await search.Refresh();
+
+Console.Writeline(search.Cards.Count());
+</code></pre>
+<blockquote>
+<p><strong>NOTE</strong>  All collection objects implement <code>IEnumerable&lt;T&gt;</code>, so the <code>Count()</code> method is the <code>Enumerable.Count()</code> method defined in System.Linq.</p>
+</blockquote>
+<p>While the context list can contain any object, only the first 24 each of boards, organizations, and cards will be included in the search.  This is a limitation from Trello, not this wrapper.  Also, the <code>SearchModelType</code> values may be combined using the bit-wise OR operator <code>|</code>.</p>
+<p>You can also build queries using the <code>SearchQuery</code> class.  This class contains a number of static methods which will produce an instance specifying what you want to search for.  There are also extension methods which allow you to append search criteria.  For example, the following code will search for:</p>
+<ul>
+<li>Cards</li>
+<li>On a specific board</li>
+<li>Assigned to <code>Member.Me</code></li>
+<li>Containing the text &quot;trello&quot; in a comment, and</li>
+<li>Due in the next week</li>
+</ul>
+<pre><code class="lang-csharp">string boardId = &quot;[a board ID]&quot;;
+var query = new SearchQuery().Member(Member.Me)
+                             .AndTextInComments(&quot;trello&quot;)
+                             .AndDueWithinWeek();
+var board = new Board(boardId);
+var results = new Search(query, 100, SearchModelType.Cards, new IQueryable[] {board});
+Console.Writeline(results.Cards.Count());
+</code></pre>
+<p>This query is equivalent to the string <code>&quot;@me comment:trello due:week&quot;</code>.  See <a href="http://help.trello.com/customer/portal/articles/1145462-searching-for-cards-all-boards-">Trello's blog post</a> for more information on search parameters.  All of the special parameters listed in this post have been implemented.</p>
+<blockquote>
+<p><strong>NOTE</strong> When creating entities, it will take some time for the new items to be indexed on the Trello servers.  During this time, these entities will not be returned in searches.  This may also affect searching for entities that have recently changed.</p>
+</blockquote>
+<h2 id="authorization">Authorization</h2>
+<p>An <em>application key</em> and <em>authentication token</em> are string values that enable Trello to recognize who is requesting access and through which application they are doing so.  All required information regarding obtaining these values may be found on <a href="https://developers.trello.com/page/authorization">Trello's developer documentation pages</a>.</p>
+<h3 id="application-key">Application key</h3>
+<p>The application key is stored in <code>TrelloAuthorization.AppKey</code>.  This value is tied to a specific user.  Trello advises that this should be a service account created specifically for the application.</p>
+<p>Alone, the application key grants read access to any publicly-readable data.  To enable write access or access to protected data, an authentication token must be provided as well.</p>
+<h3 id="authentication-token">Authentication token</h3>
+<p>The authentication token is store in <code>TrelloAuthorization.UserToken</code> and will grant access as approved by the user who issued it.  Users have the power to grant read, write, and admin privileges to a token for a specific duration or indefinitely.</p>
+<blockquote>
+<p><strong>NOTE</strong>  A authentication is a string, whereas the <code>Token</code> object will provide information on an authentication token, including the name of the application that requested it and the member who created it.</p>
+</blockquote>
+<p>Manatee.Trello can use multiple authorizations simultaneously.  This can be extremely useful when bridging two systems or user profiles.  By using multiple authorizations, you can be consistent between the two systems (the correct users make cards or add comments, etc.).</p>
+<p>To enable this, simply create a new instance of the <code>TrelloAuthorization</code> class and pass it into the factory method for your entity.  The authorization will be retained throughout the lifetime of that entity.</p>
+<pre><code class="lang-csharp">var auth = new TrelloAuthorization
+{
+    AppKey = &quot;[your application key]&quot;,
+    UserToken = &quot;[your user token]&quot;
+}
+var card = new Card(&quot;[your card ID]&quot;, auth);
+</code></pre>
+<p>This authorization parameter is optional.  The entity will use <code>TrelloAuthorization.Default</code> in its absence.</p>
+<h2 id="error-handling">Error handling</h2>
+<p>Manatee.Trello will pass on any errors returned by Trello's API wrapped in a <code>TrelloInteractionException</code>.</p>
+<p>For entities which feature a <code>Delete()</code> method, once <code>Delete()</code> has been called that entity essentially becomes &quot;dead.&quot;  That is, all of the data which has been already downloaded will remain available however updates will have no effect, and the entity will be permanently removed from Trello's servers.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/docs_source/usage/getting-started.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,602 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IJsonOrganization
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IJsonOrganization
+   ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Manatee.Trello.Json.IJsonOrganization">
+  
+  
+  <h1 id="Manatee_Trello_Json_IJsonOrganization" data-uid="Manatee.Trello.Json.IJsonOrganization" class="text-break">Interface IJsonOrganization
+  </h1>
+  <div class="markdown level0 summary"><p>Defines the JSON structure for the Organization object.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Manatee.Trello.Json.IJsonCacheable.html#Manatee_Trello_Json_IJsonCacheable_Id">IJsonCacheable.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Manatee.Trello.Json.IAcceptId.html#Manatee_Trello_Json_IAcceptId_ValidForMerge">IAcceptId.ValidForMerge</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.Json.html">Manatee.Trello.Json</a></h6>
+  <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
+  <h5 id="Manatee_Trello_Json_IJsonOrganization_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IJsonOrganization : IJsonCacheable, IAcceptId</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Actions.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Actions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L69">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Actions_" data-uid="Manatee.Trello.Json.IJsonOrganization.Actions*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Actions" data-uid="Manatee.Trello.Json.IJsonOrganization.Actions">Actions</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of actions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonAction&gt; Actions { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonAction.html">IJsonAction</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Boards.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Boards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L74">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Boards_" data-uid="Manatee.Trello.Json.IJsonOrganization.Boards*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Boards" data-uid="Manatee.Trello.Json.IJsonOrganization.Boards">Boards</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of boards.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonBoard&gt; Boards { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonBoard.html">IJsonBoard</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Desc.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Desc%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L25">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Desc_" data-uid="Manatee.Trello.Json.IJsonOrganization.Desc*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Desc" data-uid="Manatee.Trello.Json.IJsonOrganization.Desc">Desc</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the description for the organization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Desc { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_DisplayName.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.DisplayName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L19">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_DisplayName_" data-uid="Manatee.Trello.Json.IJsonOrganization.DisplayName*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_DisplayName" data-uid="Manatee.Trello.Json.IJsonOrganization.DisplayName">DisplayName</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the name to be displayed for the organization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string DisplayName { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_LogoHash.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.LogoHash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L42">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_LogoHash_" data-uid="Manatee.Trello.Json.IJsonOrganization.LogoHash*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_LogoHash" data-uid="Manatee.Trello.Json.IJsonOrganization.LogoHash">LogoHash</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the organization's logo hash.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string LogoHash { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Members.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Members%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L79">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Members_" data-uid="Manatee.Trello.Json.IJsonOrganization.Members*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Members" data-uid="Manatee.Trello.Json.IJsonOrganization.Members">Members</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of members.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonMember&gt; Members { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonMember.html">IJsonMember</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Memberships.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Memberships%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L84">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Memberships_" data-uid="Manatee.Trello.Json.IJsonOrganization.Memberships*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Memberships" data-uid="Manatee.Trello.Json.IJsonOrganization.Memberships">Memberships</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of memberships.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonOrganizationMembership&gt; Memberships { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonOrganizationMembership.html">IJsonOrganizationMembership</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Name.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L13">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Name_" data-uid="Manatee.Trello.Json.IJsonOrganization.Name*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Name" data-uid="Manatee.Trello.Json.IJsonOrganization.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the name of the organization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Name { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_PaidAccount.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.PaidAccount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L52">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_PaidAccount_" data-uid="Manatee.Trello.Json.IJsonOrganization.PaidAccount*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_PaidAccount" data-uid="Manatee.Trello.Json.IJsonOrganization.PaidAccount">PaidAccount</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the organization is a paid account.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? PaidAccount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_PowerUpData.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.PowerUpData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L89">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_PowerUpData_" data-uid="Manatee.Trello.Json.IJsonOrganization.PowerUpData*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_PowerUpData" data-uid="Manatee.Trello.Json.IJsonOrganization.PowerUpData">PowerUpData</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of power-up data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonPowerUpData&gt; PowerUpData { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonPowerUpData.html">IJsonPowerUpData</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_PowerUps.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.PowerUps%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L47">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_PowerUps_" data-uid="Manatee.Trello.Json.IJsonOrganization.PowerUps*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_PowerUps" data-uid="Manatee.Trello.Json.IJsonOrganization.PowerUps">PowerUps</h4>
+  <div class="markdown level1 summary"><p>Enumerates the powerups obtained by the organization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;int&gt; PowerUps { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Prefs.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Prefs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L57">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Prefs_" data-uid="Manatee.Trello.Json.IJsonOrganization.Prefs*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Prefs" data-uid="Manatee.Trello.Json.IJsonOrganization.Prefs">Prefs</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a set of preferences for the organization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IJsonOrganizationPreferences Prefs { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Json.IJsonOrganizationPreferences.html">IJsonOrganizationPreferences</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_PremiumFeatures.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.PremiumFeatures%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L64">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_PremiumFeatures_" data-uid="Manatee.Trello.Json.IJsonOrganization.PremiumFeatures*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_PremiumFeatures" data-uid="Manatee.Trello.Json.IJsonOrganization.PremiumFeatures">PremiumFeatures</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of premium features available to the organization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;string&gt; PremiumFeatures { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Url.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Url%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L31">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Url_" data-uid="Manatee.Trello.Json.IJsonOrganization.Url*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Url" data-uid="Manatee.Trello.Json.IJsonOrganization.Url">Url</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the URL to the organization's profile.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Url { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization_Website.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization.Website%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L36">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonOrganization_Website_" data-uid="Manatee.Trello.Json.IJsonOrganization.Website*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonOrganization_Website" data-uid="Manatee.Trello.Json.IJsonOrganization.Website">Website</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the organization's website.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Website { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonOrganization.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonOrganization%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonOrganization.cs/#L8" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
