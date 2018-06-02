@@ -13,3 +13,12 @@ Annual licenses are valid for all major versions released within a calendar year
 In addition to unlimited calls to Trello, license holder will also receive priority support for any identified bugs and features requests.
 
 Please feel free to [email me](mailto:gregsdennis@yahoo.com) with your licensing needs.
+
+## Applying your license
+
+Once you have acquired a license file, you'll need to register it with Manatee.Trello.  To do that, first read in the file content, the pass that content to the `License.RegisterLicense()` static method.
+
+```csharp
+var content = File.ReadAllText("[path to your license file]");
+License.RegisterLicense(content);
+```

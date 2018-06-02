@@ -46,7 +46,7 @@ Manatee.Trello can automatically retry calls on failures, delaying a final error
 
 In addition to the behavioral settings above, Manatee.Trello defines several seams where you can supply your own implementations of certain components.
 
-- `Serializer`/`Deserializer` allows you to provide your own JSON serializer.  For more information, please see the [JSON serialier page](../supplying-your-own-json-serializer).  The built-in implementation uses [Manatee.Json](https://github.com/gregsdennis/Manatee.Json)
-- `RestClientProvider` allows you to provide your own HTTP client.  For more information, please see the [REST provider page](../supplying-your-own-rest-client).  The built-in implementation uses ASP.Net's `WebClient`.
+- `Serializer`/`Deserializer` allows you to provide your own JSON serializer.  For more information, please see the [JSON serialier page](supplying-your-own-json-serializer.html).  The built-in implementation uses [Manatee.Json](https://github.com/gregsdennis/Manatee.Json)
+- `RestClientProvider` allows you to provide your own HTTP client.  For more information, please see the [REST provider page](supplying-your-own-rest-client.html).  The built-in implementation uses ASP.Net's `WebClient`.
 
 > **NOTE** For all you version 2 users, you may recall that these components were supplied in separate Nuget packages.  This is no longer the case, as those packages have been incorporated as of version 3 to serve as default implementations.  This means that you no longer have to set these properties as part of your initial configuration.

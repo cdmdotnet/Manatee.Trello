@@ -65,12 +65,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			var data = await GetBasicData(ct);
 			lock (_updateLock)
 			{
-				var properties = Merge(data).ToList();
+				Merge(data);
 			}
 		}
 
 		protected abstract Task<object> GetBasicData(CancellationToken ct);
-		protected abstract IEnumerable<string> Merge(object newData);
+		protected abstract void Merge(object newData);
 		protected abstract Task Submit(CancellationToken ct);
 
 

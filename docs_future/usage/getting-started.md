@@ -18,7 +18,7 @@ There is very little configuration that is required to get Manatee.Trello going 
 
 The only values that must be provided are for authorization, which you can read about [later in this document](#authorization).
 
-Additional configuration is discussed on the [Configuration page](../configuration).
+Additional configuration is discussed on the [Configuration page](configuration.html).
 
 ## Reading data
 

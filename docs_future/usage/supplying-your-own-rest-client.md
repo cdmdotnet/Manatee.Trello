@@ -37,7 +37,7 @@ public static void Main()
 
 That's it.  Manatee.Trello will now call your REST provider through the wrappers you have provided.
 
->**NOTE**  Your REST provider should allow using a custom JSON serializer.  It is suggested that you code your `IRestClientProvider` implementation to use the serializer defined by the `TrelloConfiguration` stataic class.  The default serializer implementation is backed by [Manatee.Json](https://github.com/gregsdennis/Manatee.Json).  See the [JSON Serializer](../supplying-your-own-json-serializer) section of this wiki for more details on using a custom JSON serializer.
+>**NOTE**  Your REST provider should allow using a custom JSON serializer.  It is suggested that you code your `IRestClientProvider` implementation to use the serializer defined by the `TrelloConfiguration` stataic class.  The default serializer implementation is backed by [Manatee.Json](https://github.com/gregsdennis/Manatee.Json).  See the [JSON Serializer](supplying-your-own-json-serializer.html) section of this wiki for more details on using a custom JSON serializer.
 
 # Error handling
 
