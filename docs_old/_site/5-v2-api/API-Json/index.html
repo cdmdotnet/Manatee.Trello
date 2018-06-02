@@ -1,0 +1,2574 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>JSON Serialization | Manatee.Trello</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="JSON Serialization" />
+<meta name="author" content="Greg Dennis" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="NOTICE In migrating to this new documentation, many (if not all) of the links are broken. Please use the sidebar on the left for navigation." />
+<meta property="og:description" content="NOTICE In migrating to this new documentation, many (if not all) of the links are broken. Please use the sidebar on the left for navigation." />
+<link rel="canonical" href="http://localhost:4000/5-v2-api/API-Json/" />
+<meta property="og:url" content="http://localhost:4000/5-v2-api/API-Json/" />
+<meta property="og:site_name" content="Manatee.Trello" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-31T22:10:49+00:00" />
+<script type="application/ld+json">
+{"description":"NOTICE In migrating to this new documentation, many (if not all) of the links are broken. Please use the sidebar on the left for navigation.","author":{"@type":"Person","name":"Greg Dennis"},"@type":"Article","url":"http://localhost:4000/5-v2-api/API-Json/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"},"name":"Greg Dennis"},"headline":"JSON Serialization","dateModified":"2018-05-31T22:10:49+00:00","datePublished":"2018-05-31T22:10:49+00:00","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Manatee.Trello" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/touch-icon.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/"><img src="/images/siteicon.png" width="40" height="40" alt="Manatee.Trello logo"></a>
+				Manatee.Trello
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/">Welcome</a>
+					</li>
+				</ul>
+
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/1-main/getting-started/"></a>
+							<ul>
+								
+									<li class="nav-item "><a href="/1-main/getting-started/">Getting Started</a></li>
+								
+									<li class="nav-item "><a href="/1-main/configuration/">Configuration</a></li>
+								
+									<li class="nav-item "><a href="/1-main/power-ups/">Power-Ups</a></li>
+								
+									<li class="nav-item "><a href="/1-main/webhooks/">Webhooks</a></li>
+								
+									<li class="nav-item "><a href="/1-main/supplying-your-own-json-serializer/">Supplying your own JSON serializer</a></li>
+								
+									<li class="nav-item "><a href="/1-main/supplying-your-own-rest-client/">Supplying your own ReST client</a></li>
+								
+									<li class="nav-item "><a href="/1-main/licensing/">Licensing</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/2-examples/getting-boards/">Examples</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/2-examples/getting-boards/">Getting all of the boards for the owner of the token</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/known-card/">Getting a known card and updating some of its data</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/changing-data/">Changing the data that's downloaded</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/adding-card/">Adding a card to a list</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/delete-checkitem/">Deleting a check item</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/webhook/">Creating a webhook</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/3-api/Action/">API</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/3-api/Action/">Action</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ActionData/">ActionData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ActionType/">ActionType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Attachment/">Attachment</a></li>
+								
+									<li class="nav-item "><a href="/3-api/AttachmentCollection/">AttachmentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/AvatarSize/">AvatarSize</a></li>
+								
+									<li class="nav-item "><a href="/3-api/AvatarSource/">AvatarSource</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Badges/">Badges</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Board/">Board</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardBackground/">BoardBackground</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardBackgroundBrightness/">BoardBackgroundBrightness</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardCollection/">BoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardCommentPermission/">BoardCommentPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardExtensions/">BoardExtensions</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardFilter/">BoardFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardInvitationPermission/">BoardInvitationPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardLabelCollection/">BoardLabelCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardMembership/">BoardMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardMembershipCollection/">BoardMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardMembershipType/">BoardMembershipType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardPermissionLevel/">BoardPermissionLevel</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardPersonalPreferences/">BoardPersonalPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardPreferences/">BoardPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardVotingPermission/">BoardVotingPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Card/">Card</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardAgingPowerUp/">CardAgingPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardAgingStyle/">CardAgingStyle</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardCollection/">CardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardFilter/">CardFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardLabelCollection/">CardLabelCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardStickerCollection/">CardStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckBoxField/">CheckBoxField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckItem/">CheckItem</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckItemCollection/">CheckItemCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckItemState/">CheckItemState</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckList/">CheckList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckListCollection/">CheckListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CommentCollection/">CommentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomField/">CustomField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomField%601/">CustomField&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldDefinition/">CustomFieldDefinition</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldDefinitionCollection/">CustomFieldDefinitionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldDisplayInfo/">CustomFieldDisplayInfo</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldsPowerUp/">CustomFieldsPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldType/">CustomFieldType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DateTimeField/">DateTimeField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DefaultJsonFactory/">DefaultJsonFactory</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DefaultJsonSerializer/">DefaultJsonSerializer</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DefaultRestClientProvider/">DefaultRestClientProvider</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DropDownField/">DropDownField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DropDownOption/">DropDownOption</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DropDownOptionCollection/">DropDownOptionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IAcceptId/">IAcceptId</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IAction/">IAction</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IActionData/">IActionData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IAttachment/">IAttachment</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IAttachmentCollection/">IAttachmentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBadges/">IBadges</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoard/">IBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardBackground/">IBoardBackground</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardCollection/">IBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardLabelCollection/">IBoardLabelCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardMembership/">IBoardMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardMembershipCollection/">IBoardMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardPersonalPreferences/">IBoardPersonalPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardPreferences/">IBoardPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICache/">ICache</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICacheable/">ICacheable</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICanWebhook/">ICanWebhook</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICard/">ICard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICardCollection/">ICardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICardLabelCollection/">ICardLabelCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICardStickerCollection/">ICardStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICheckItem/">ICheckItem</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICheckItemCollection/">ICheckItemCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICheckList/">ICheckList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICheckListCollection/">ICheckListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICommentCollection/">ICommentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomField/">ICustomField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomField%601/">ICustomField&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomFieldDefinition/">ICustomFieldDefinition</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomFieldDefinitionCollection/">ICustomFieldDefinitionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomFieldDisplayInfo/">ICustomFieldDisplayInfo</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IDeserializer/">IDeserializer</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IDropDownOption/">IDropDownOption</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IDropDownOptionCollection/">IDropDownOptionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IImagePreview/">IImagePreview</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonAction/">IJsonAction</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonActionData/">IJsonActionData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonActionOldData/">IJsonActionOldData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonAttachment/">IJsonAttachment</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBadges/">IJsonBadges</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoard/">IJsonBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardBackground/">IJsonBoardBackground</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardMembership/">IJsonBoardMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardPersonalPreferences/">IJsonBoardPersonalPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardPreferences/">IJsonBoardPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardVisibilityRestrict/">IJsonBoardVisibilityRestrict</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCacheable/">IJsonCacheable</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCard/">IJsonCard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCheckItem/">IJsonCheckItem</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCheckList/">IJsonCheckList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCustomDropDownOption/">IJsonCustomDropDownOption</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCustomField/">IJsonCustomField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCustomFieldDefinition/">IJsonCustomFieldDefinition</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCustomFieldDisplayInfo/">IJsonCustomFieldDisplayInfo</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonFactory/">IJsonFactory</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonImagePreview/">IJsonImagePreview</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonLabel/">IJsonLabel</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonList/">IJsonList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonMember/">IJsonMember</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonMemberPreferences/">IJsonMemberPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonMemberSearch/">IJsonMemberSearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonNotification/">IJsonNotification</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonNotificationData/">IJsonNotificationData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonNotificationOldData/">IJsonNotificationOldData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonOrganization/">IJsonOrganization</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonOrganizationMembership/">IJsonOrganizationMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonOrganizationPreferences/">IJsonOrganizationPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonParameter/">IJsonParameter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonPosition/">IJsonPosition</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonPowerUp/">IJsonPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonPowerUpData/">IJsonPowerUpData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonSearch/">IJsonSearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonStarredBoard/">IJsonStarredBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonSticker/">IJsonSticker</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonToken/">IJsonToken</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonTokenPermission/">IJsonTokenPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonWebhook/">IJsonWebhook</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonWebhookNotification/">IJsonWebhookNotification</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ILabel/">ILabel</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IList/">IList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IListCollection/">IListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ILog/">ILog</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ImagePreview/">ImagePreview</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMe/">IMe</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMember/">IMember</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberCollection/">IMemberCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberPreferences/">IMemberPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberSearch/">IMemberSearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberSearchResult/">IMemberSearchResult</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberStickerCollection/">IMemberStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/INotification/">INotification</a></li>
+								
+									<li class="nav-item "><a href="/3-api/INotificationData/">INotificationData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganization/">IOrganization</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganizationCollection/">IOrganizationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganizationMembership/">IOrganizationMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganizationMembershipCollection/">IOrganizationMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganizationPreferences/">IOrganizationPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IPowerUp/">IPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IPowerUpCollection/">IPowerUpCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IPowerUpData/">IPowerUpData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IQueryable/">IQueryable</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyActionCollection/">IReadOnlyActionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyBoardCollection/">IReadOnlyBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyBoardMembershipCollection/">IReadOnlyBoardMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyCardCollection/">IReadOnlyCardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyCheckItemCollection/">IReadOnlyCheckItemCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyCheckListCollection/">IReadOnlyCheckListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyCollection%601/">IReadOnlyCollection&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyListCollection/">IReadOnlyListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyMemberCollection/">IReadOnlyMemberCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyNotificationCollection/">IReadOnlyNotificationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyOrganizationCollection/">IReadOnlyOrganizationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyOrganizationMembershipCollection/">IReadOnlyOrganizationMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestClient/">IRestClient</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestClientProvider/">IRestClientProvider</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestRequest/">IRestRequest</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestRequestProvider/">IRestRequestProvider</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestResponse/">IRestResponse</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestResponse%601/">IRestResponse&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ISearch/">ISearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ISearchQuery/">ISearchQuery</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ISerializer/">ISerializer</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IStarredBoard/">IStarredBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IStarredBoardCollection/">IStarredBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ISticker/">ISticker</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IToken/">IToken</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ITokenPermission/">ITokenPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ITrelloFactory/">ITrelloFactory</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IWebhook%601/">IWebhook&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/JsonDeserializeAttribute/">JsonDeserializeAttribute</a></li>
+								
+									<li class="nav-item "><a href="/3-api/JsonSerializeAttribute/">JsonSerializeAttribute</a></li>
+								
+									<li class="nav-item "><a href="/3-api/JsonSpecialSerializationAttribute/">JsonSpecialSerializationAttribute</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Label/">Label</a></li>
+								
+									<li class="nav-item "><a href="/3-api/LabelColor/">LabelColor</a></li>
+								
+									<li class="nav-item "><a href="/3-api/License/">License</a></li>
+								
+									<li class="nav-item "><a href="/3-api/LicenseException/">LicenseException</a></li>
+								
+									<li class="nav-item "><a href="/3-api/List/">List</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ListCollection/">ListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ListFilter/">ListFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Me/">Me</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Member/">Member</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberCollection/">MemberCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberExtensions/">MemberExtensions</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberFilter/">MemberFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberPreferences/">MemberPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberSearch/">MemberSearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberSearchResult/">MemberSearchResult</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MembershipFilter/">MembershipFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberStatus/">MemberStatus</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberStickerCollection/">MemberStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Notification/">Notification</a></li>
+								
+									<li class="nav-item "><a href="/3-api/NotificationData/">NotificationData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/NotificationType/">NotificationType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/NumberField/">NumberField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Organization/">Organization</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationBoardVisibility/">OrganizationBoardVisibility</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationCollection/">OrganizationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationFilter/">OrganizationFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationMembership/">OrganizationMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationMembershipCollection/">OrganizationMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationMembershipType/">OrganizationMembershipType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationPermissionLevel/">OrganizationPermissionLevel</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationPreferences/">OrganizationPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Position/">Position</a></li>
+								
+									<li class="nav-item "><a href="/3-api/PowerUpBase/">PowerUpBase</a></li>
+								
+									<li class="nav-item "><a href="/3-api/PowerUpCollection/">PowerUpCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/PowerUpData/">PowerUpData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyActionCollection/">ReadOnlyActionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyAttachmentCollection/">ReadOnlyAttachmentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyAttachmentPreviewCollection/">ReadOnlyAttachmentPreviewCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyBoardBackgroundScalesCollection/">ReadOnlyBoardBackgroundScalesCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyBoardCollection/">ReadOnlyBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyBoardMembershipCollection/">ReadOnlyBoardMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCardCollection/">ReadOnlyCardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCheckItemCollection/">ReadOnlyCheckItemCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCheckListCollection/">ReadOnlyCheckListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCollection%601/">ReadOnlyCollection&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCustomFieldCollection/">ReadOnlyCustomFieldCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCustomFieldDefinitionCollection/">ReadOnlyCustomFieldDefinitionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyDropDownOptionCollection/">ReadOnlyDropDownOptionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyListCollection/">ReadOnlyListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyMemberCollection/">ReadOnlyMemberCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyNotificationCollection/">ReadOnlyNotificationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyOrganizationCollection/">ReadOnlyOrganizationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyOrganizationMembershipCollection/">ReadOnlyOrganizationMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyPowerUpCollection/">ReadOnlyPowerUpCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyPowerUpDataCollection/">ReadOnlyPowerUpDataCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyStarredBoardCollection/">ReadOnlyStarredBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyStickerCollection/">ReadOnlyStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyStickerPreviewCollection/">ReadOnlyStickerPreviewCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/RestFile/">RestFile</a></li>
+								
+									<li class="nav-item "><a href="/3-api/RestMethod/">RestMethod</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Search/">Search</a></li>
+								
+									<li class="nav-item "><a href="/3-api/SearchModelType/">SearchModelType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/SearchQuery/">SearchQuery</a></li>
+								
+									<li class="nav-item "><a href="/3-api/StarredBoard/">StarredBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/StarredBoardCollection/">StarredBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Sticker/">Sticker</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TextField/">TextField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Token/">Token</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TokenModelType/">TokenModelType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TokenPermission/">TokenPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloAuthorization/">TrelloAuthorization</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloConfiguration/">TrelloConfiguration</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloFactory/">TrelloFactory</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloInteractionException/">TrelloInteractionException</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloProcessor/">TrelloProcessor</a></li>
+								
+									<li class="nav-item "><a href="/3-api/UnknownPowerUp/">UnknownPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ValidationException%601/">ValidationException&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/VotingPowerUp/">VotingPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/WebColor/">WebColor</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Webhook%601/">Webhook&lt;T&gt;</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/4-v2/Getting-started/">Version 2.x</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/4-v2/Getting-started/">Getting Started</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/Configuration/">Configuration</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/PowerUps/">Power-Ups</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/Webhooks/">Webhooks</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/Supplying-your-own-JSON-serializer/">Supplying your own JSON serializer</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/Supplying-your-own-ReST-client/">Supplying your own ReST client</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/5-v2-api/API-Actions/">Version 2.x - API</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Actions/">Actions</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Attachments/">Attachments</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Boards/">Boards</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Cards/">Cards</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-CheckLists/">CheckLists</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Exceptions/">Exceptions</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Configuration/">Configuration</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Labels/">Labels</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Lists/">Lists</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Members/">Members</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Notifications/">Notifications</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Organizations/">Organizations</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Power-Ups/">Power-Ups</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Searching/">Searching</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Stickers/">Stickers</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Tokens/">Tokens</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Webhooks/">Webhooks</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Common-Types/">Other common types</a></li>
+								
+									<li class="nav-item current"><a href="/5-v2-api/API-Json/">JSON Serialization</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Rest/">ReST client</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/releasenotes/">Release Notes</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Version 2.x - API</h2>
+				<h3>JSON Serialization</h3>
+			</div>
+			<article class="content">
+				<blockquote>
+  <p><strong>NOTICE</strong> In migrating to this new documentation, many (if not all) of the links are broken.  Please use the sidebar on the left for navigation.</p>
+</blockquote>
+
+<h1 id="iserializer">ISerializer</h1>
+
+<p>Defines methods required by the IRestClient to serialize an object to JSON.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>ISerializer</li>
+</ul>
+
+<h2 id="methods">Methods</h2>
+
+<h3 id="string-serializeobject-obj">string Serialize(Object obj)</h3>
+
+<p>Serializes an object to JSON.</p>
+
+<p><strong>Parameter:</strong> obj</p>
+
+<p>The object to serialize.</p>
+
+<p><strong>Returns:</strong> An equivalent JSON string.</p>
+
+<h1 id="ideserializer">IDeserializer</h1>
+
+<p>Defines methods required by the IRestClient to deserialize a response from JSON to an object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IDeserializer</li>
+</ul>
+
+<h2 id="methods-1">Methods</h2>
+
+<h3 id="t-deserializetstring-content">T Deserialize&lt;T&gt;(string content)</h3>
+
+<p>Attempts to deserialize a RESTful response to the indicated type.</p>
+
+<p><strong>Type Parameter:</strong> T (no constraints)</p>
+
+<p>The type of object expected.</p>
+
+<p><strong>Parameter:</strong> content</p>
+
+<p>A string which contains the JSON to deserialize.</p>
+
+<p><strong>Returns:</strong> The requested object, if JSON is valid; null otherwise.</p>
+
+<h1 id="manateeserializer">ManateeSerializer</h1>
+
+<p>Wrapper class for the Manatee.Json.Serializer for use with RestSharp.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.ManateeJson.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.ManateeJson</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>Object</li>
+  <li>ManateeSerializer</li>
+</ul>
+
+<h2 id="constructors">Constructors</h2>
+
+<h3 id="manateeserializer-1">ManateeSerializer()</h3>
+
+<p>Creates and initializes a new instance of the ManateeJsonSerializer class.</p>
+
+<h2 id="methods-2">Methods</h2>
+
+<h3 id="t-deserializetstring-content-1">T Deserialize&lt;T&gt;(string content)</h3>
+
+<p>Attempts to deserialize a RESTful response to the indicated type.</p>
+
+<p><strong>Type Parameter:</strong> T (no constraints)</p>
+
+<p>The type of object expected.</p>
+
+<p><strong>Parameter:</strong> content</p>
+
+<p>A string which contains the JSON to deserialize.</p>
+
+<p><strong>Returns:</strong> The requested object, if JSON is valid; null otherwise.</p>
+
+<h3 id="string-serializeobject-obj-1">string Serialize(Object obj)</h3>
+
+<p>Serializes an object to JSON.</p>
+
+<p><strong>Parameter:</strong> obj</p>
+
+<p>The object to serialize.</p>
+
+<p><strong>Returns:</strong> An equivalent JSON string.</p>
+
+<h1 id="jsondeserializeattribute">JsonDeserializeAttribute</h1>
+
+<p>Declares that the JSON property should be deserialized.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>Object</li>
+  <li>Attribute</li>
+  <li>JsonDeserializeAttribute</li>
+</ul>
+
+<h1 id="jsonserializeattribute">JsonSerializeAttribute</h1>
+
+<p>Declares that the JSON property should be serialized and whether it is optional or required.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>Object</li>
+  <li>Attribute</li>
+  <li>JsonSerializeAttribute</li>
+</ul>
+
+<h2 id="properties">Properties</h2>
+
+<h3 id="bool-isrequired--get-set-">bool IsRequired { get; set; }</h3>
+
+<p>Gets or sets whether this property is required by the Trello API.</p>
+
+<h1 id="jsonspecialserializationattribute">JsonSpecialSerializationAttribute</h1>
+
+<p>Declares that the JSON property has a special serialization.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>Object</li>
+  <li>Attribute</li>
+  <li>JsonSpecialSerializationAttribute</li>
+</ul>
+
+<h1 id="ijsonfactory">IJsonFactory</h1>
+
+<p>Creates instances of JSON interfaces.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonFactory</li>
+</ul>
+
+<h2 id="methods-3">Methods</h2>
+
+<h3 id="t-createt">T Create&lt;T&gt;()</h3>
+
+<p>Creates an instance of the requested JSON interface.</p>
+
+<p><strong>Type Parameter:</strong> T (no constraints)</p>
+
+<p>The type to create.</p>
+
+<p><strong>Returns:</strong> An instance of the requested type.</p>
+
+<h1 id="manateefactory">ManateeFactory</h1>
+
+<p>Creates instances of JSON interfaces.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.ManateeJson.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.ManateeJson</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>Object</li>
+  <li>ManateeFactory</li>
+</ul>
+
+<h2 id="methods-4">Methods</h2>
+
+<h3 id="t-createt-1">T Create&lt;T&gt;()</h3>
+
+<p>Creates an instance of the requested JSON interface.</p>
+
+<p><strong>Type Parameter:</strong> T (no constraints)</p>
+
+<p>The type to create.</p>
+
+<p><strong>Returns:</strong> An instance of the requested type.</p>
+
+<h1 id="ijsoncacheable">IJsonCacheable</h1>
+
+<p>Defines properties required for TrelloService to cache an item.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonCacheable</li>
+</ul>
+
+<h2 id="properties-1">Properties</h2>
+
+<h3 id="string-id--get-set-">string Id { get; set; }</h3>
+
+<p>Gets or sets a unique identifier (not necessarily a GUID).</p>
+
+<h1 id="ijsonaction">IJsonAction</h1>
+
+<p>Defines the JSON structure for the Action object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonAction</li>
+</ul>
+
+<h2 id="properties-2">Properties</h2>
+
+<h3 id="ijsonactiondata-data--get-set-"><a href="/API-Json#ijsonactiondata">IJsonActionData</a> Data { get; set; }</h3>
+
+<p>Gets or sets the data associated with the action. Contents depend upon the action's type.</p>
+
+<h3 id="datetime-date--get-set-">DateTime? Date { get; set; }</h3>
+
+<p>Gets or sets the date on which the action was performed.</p>
+
+<h3 id="ijsonmember-membercreator--get-set-"><a href="/API-Json#ijsonmember">IJsonMember</a> MemberCreator { get; set; }</h3>
+
+<p>Gets or sets the ID of the member who performed the action.</p>
+
+<h3 id="string-text--get-set-">string Text { get; set; }</h3>
+
+<p>Gets or sets the text for a comment while updating it.</p>
+
+<h3 id="actiontype-type--get-set-"><a href="/API-Actions#actiontype">ActionType</a>? Type { get; set; }</h3>
+
+<p>Gets or sets the action's type.</p>
+
+<h1 id="ijsonactiondata">IJsonActionData</h1>
+
+<p>Defines the JSON structure for the ActionData object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonActionData</li>
+</ul>
+
+<h2 id="properties-3">Properties</h2>
+
+<h3 id="ijsonattachment-attachment--get-set-"><a href="/API-Json#ijsonattachment">IJsonAttachment</a> Attachment { get; set; }</h3>
+
+<p>Gets or sets an attachment associated with the action if any.</p>
+
+<h3 id="ijsonboard-board--get-set-"><a href="/API-Json#ijsonboard">IJsonBoard</a> Board { get; set; }</h3>
+
+<p>Gets or sets a board associated with the action if any.</p>
+
+<h3 id="ijsonboard-boardsource--get-set-"><a href="/API-Json#ijsonboard">IJsonBoard</a> BoardSource { get; set; }</h3>
+
+<p>Gets or sets a board associated with the action if any.</p>
+
+<h3 id="ijsonboard-boardtarget--get-set-"><a href="/API-Json#ijsonboard">IJsonBoard</a> BoardTarget { get; set; }</h3>
+
+<p>Gets or sets a board associated with the action if any.</p>
+
+<h3 id="ijsoncard-card--get-set-"><a href="/API-Json#ijsoncard">IJsonCard</a> Card { get; set; }</h3>
+
+<p>Gets or sets a card associated with the action if any.</p>
+
+<h3 id="ijsoncard-cardsource--get-set-"><a href="/API-Json#ijsoncard">IJsonCard</a> CardSource { get; set; }</h3>
+
+<p>Gets or sets a card associated with the action if any.</p>
+
+<h3 id="ijsoncheckitem-checkitem--get-set-"><a href="/API-Json#ijsoncheckitem">IJsonCheckItem</a> CheckItem { get; set; }</h3>
+
+<p>Gets or sets a check item associated with the action if any.</p>
+
+<h3 id="ijsonchecklist-checklist--get-set-"><a href="/API-Json#ijsonchecklist">IJsonCheckList</a> CheckList { get; set; }</h3>
+
+<p>Gets or sets a check list associated with the action if any.</p>
+
+<h3 id="datetime-datelastedited--get-set-">DateTime? DateLastEdited { get; set; }</h3>
+
+<p>Gets or sets the last date/time that a comment was edited.</p>
+
+<h3 id="ijsonlabel-label--get-set-"><a href="/API-Json#ijsonlabel">IJsonLabel</a> Label { get; set; }</h3>
+
+<p>Gets or sets a label associated with the action if any.</p>
+
+<h3 id="ijsonlist-list--get-set-"><a href="/API-Json#ijsonlist">IJsonList</a> List { get; set; }</h3>
+
+<p>Gets or sets a list associated with the action if any.</p>
+
+<h3 id="ijsonlist-listafter--get-set-"><a href="/API-Json#ijsonlist">IJsonList</a> ListAfter { get; set; }</h3>
+
+<p>Gets or sets a destination list associated with the action if any.</p>
+
+<h3 id="ijsonlist-listbefore--get-set-"><a href="/API-Json#ijsonlist">IJsonList</a> ListBefore { get; set; }</h3>
+
+<p>Gets or sets a source list associated with the action if any.</p>
+
+<h3 id="ijsonmember-member--get-set-"><a href="/API-Json#ijsonmember">IJsonMember</a> Member { get; set; }</h3>
+
+<p>Gets or sets a member associated with the action if any.</p>
+
+<h3 id="ijsonactionolddata-old--get-set-"><a href="/API-Json#ijsonactionolddata">IJsonActionOldData</a> Old { get; set; }</h3>
+
+<p>Gets or sets any previous data associated with the action.</p>
+
+<h3 id="ijsonorganization-org--get-set-"><a href="/API-Json#ijsonorganization">IJsonOrganization</a> Org { get; set; }</h3>
+
+<p>Gets or sets an organization associated with the action if any.</p>
+
+<h3 id="ijsonpowerup-plugin--get-set-"><a href="/API-Json#ijsonpowerup">IJsonPowerUp</a> Plugin { get; set; }</h3>
+
+<p>Gets or sets plugin data associated with the action if any.</p>
+
+<h3 id="string-text--get-set--1">string Text { get; set; }</h3>
+
+<p>Gets or sets text associated with the action if any.</p>
+
+<h3 id="string-value--get-set-">string Value { get; set; }</h3>
+
+<p>Gets or sets a custom value associate with the action if any.</p>
+
+<h1 id="ijsonactionolddata">IJsonActionOldData</h1>
+
+<p>Defines the JSON structure for the ActionOldData object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonActionOldData</li>
+</ul>
+
+<h2 id="properties-4">Properties</h2>
+
+<h3 id="bool-closed--get-set-">bool? Closed { get; set; }</h3>
+
+<p>Gets or sets whether an item was closed.</p>
+
+<h3 id="string-desc--get-set-">string Desc { get; set; }</h3>
+
+<p>Gets or sets an old description.</p>
+
+<h3 id="ijsonlist-list--get-set--1"><a href="/API-Json#ijsonlist">IJsonList</a> List { get; set; }</h3>
+
+<p>Gets or sets an old list.</p>
+
+<h3 id="double-pos--get-set-">double? Pos { get; set; }</h3>
+
+<p>Gets or sets an old position.</p>
+
+<h3 id="string-text--get-set--2">string Text { get; set; }</h3>
+
+<p>Gets or sets old text.</p>
+
+<h1 id="ijsonattachment">IJsonAttachment</h1>
+
+<p>Defines the JSON structure for the Attachment object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonAttachment</li>
+</ul>
+
+<h2 id="properties-5">Properties</h2>
+
+<h3 id="int-bytes--get-set-">int? Bytes { get; set; }</h3>
+
+<p>Gets or sets the size of the attachment.</p>
+
+<h3 id="datetime-date--get-set--1">DateTime? Date { get; set; }</h3>
+
+<p>Gets or sets the date on which the attachment was created.</p>
+
+<h3 id="string-edgecolor--get-set-">string EdgeColor { get; set; }</h3>
+
+<p>Gets or sets the border color of the attachment preview on the card.</p>
+
+<h3 id="bool-isupload--get-set-">bool? IsUpload { get; set; }</h3>
+
+<p>?</p>
+
+<h3 id="ijsonmember-member--get-set--1"><a href="/API-Json#ijsonmember">IJsonMember</a> Member { get; set; }</h3>
+
+<p>Gets or sets the ID of the member who created the attachment.</p>
+
+<h3 id="string-mimetype--get-set-">string MimeType { get; set; }</h3>
+
+<p>Gets or sets the type of attachment.</p>
+
+<h3 id="string-name--get-set-">string Name { get; set; }</h3>
+
+<p>Gets or sets the name of the attachment.</p>
+
+<h3 id="ijsonposition-pos--get-set-"><a href="/API-Json#ijsonposition">IJsonPosition</a> Pos { get; set; }</h3>
+
+<p>Gets or sets the attachment's position.</p>
+
+<h3 id="listijsonimagepreview-previews--get-set-">List&lt;IJsonImagePreview&gt; Previews { get; set; }</h3>
+
+<p>Gets or sets a collection of previews for the attachment.</p>
+
+<h3 id="string-url--get-set-">string Url { get; set; }</h3>
+
+<p>Gets or sets the attachment storage location.</p>
+
+<h1 id="ijsonbadges">IJsonBadges</h1>
+
+<p>Defines the JSON structure for the Badges object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonBadges</li>
+</ul>
+
+<h2 id="properties-6">Properties</h2>
+
+<h3 id="int-attachments--get-set-">int? Attachments { get; set; }</h3>
+
+<p>Gets or sets the number of attachments.</p>
+
+<h3 id="int-checkitems--get-set-">int? CheckItems { get; set; }</h3>
+
+<p>Gets or sets the number of check items.</p>
+
+<h3 id="int-checkitemschecked--get-set-">int? CheckItemsChecked { get; set; }</h3>
+
+<p>Gets or sets the number of check items which have been checked.</p>
+
+<h3 id="int-comments--get-set-">int? Comments { get; set; }</h3>
+
+<p>Gets or sets the number of comments.</p>
+
+<h3 id="bool-description--get-set-">bool? Description { get; set; }</h3>
+
+<p>Gets or sets whether the card has a description.</p>
+
+<h3 id="datetime-due--get-set-">DateTime? Due { get; set; }</h3>
+
+<p>Gets or sets the due date, if one exists.</p>
+
+<h3 id="bool-duecomplete--get-set-">bool? DueComplete { get; set; }</h3>
+
+<p>Gets or sets whether the card is complete.</p>
+
+<h3 id="string-fogbugz--get-set-">string Fogbugz { get; set; }</h3>
+
+<p>Gets or sets the FogBugz ID.</p>
+
+<h3 id="bool-subscribed--get-set-">bool? Subscribed { get; set; }</h3>
+
+<p>Gets or sets whether the member is subscribed to the card.</p>
+
+<h3 id="bool-viewingmembervoted--get-set-">bool? ViewingMemberVoted { get; set; }</h3>
+
+<p>Gets or sets whether the member has voted for this card.</p>
+
+<h3 id="int-votes--get-set-">int? Votes { get; set; }</h3>
+
+<p>Gets or sets the number of votes.</p>
+
+<h1 id="ijsonboard">IJsonBoard</h1>
+
+<p>Defines the JSON structure for the Board object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonBoard</li>
+</ul>
+
+<h2 id="properties-7">Properties</h2>
+
+<h3 id="ijsonboard-boardsource--get-set--1"><a href="/API-Json#ijsonboard">IJsonBoard</a> BoardSource { get; set; }</h3>
+
+<p>Gets or sets a board to be used as a template.</p>
+
+<h3 id="bool-closed--get-set--1">bool? Closed { get; set; }</h3>
+
+<p>Gets or sets whether this board is closed.</p>
+
+<h3 id="datetime-datelastactivity--get-set-">DateTime? DateLastActivity { get; set; }</h3>
+
+<p>Gets or sets the date the board last had activity.</p>
+
+<h3 id="datetime-datelastview--get-set-">DateTime? DateLastView { get; set; }</h3>
+
+<p>Gets or sets the date the board was last viewed.</p>
+
+<h3 id="string-desc--get-set--1">string Desc { get; set; }</h3>
+
+<p>Gets or sets the board's description.</p>
+
+<h3 id="string-name--get-set--1">string Name { get; set; }</h3>
+
+<p>Gets or sets the board's name.</p>
+
+<h3 id="ijsonorganization-organization--get-set-"><a href="/API-Json#ijsonorganization">IJsonOrganization</a> Organization { get; set; }</h3>
+
+<p>Gets or sets the ID of the organization, if any, to which this board belongs.</p>
+
+<h3 id="bool-pinned--get-set-">bool? Pinned { get; set; }</h3>
+
+<p>Gets or sets whether the board is pinned.</p>
+
+<h3 id="ijsonboardpreferences-prefs--get-set-"><a href="/API-Json#ijsonboardpreferences">IJsonBoardPreferences</a> Prefs { get; set; }</h3>
+
+<p>Gets or sets a set of preferences for the board.</p>
+
+<h3 id="string-shortlink--get-set-">string ShortLink { get; set; }</h3>
+
+<p>Gets or sets the short link (ID).</p>
+
+<h3 id="string-shorturl--get-set-">string ShortUrl { get; set; }</h3>
+
+<p>Gets or sets the short URL.</p>
+
+<h3 id="bool-starred--get-set-">bool? Starred { get; set; }</h3>
+
+<p>Gets or sets whether the board is starred on the member's dashboard.</p>
+
+<h3 id="bool-subscribed--get-set--1">bool? Subscribed { get; set; }</h3>
+
+<p>Gets or sets whether the user is subscribed to this board.</p>
+
+<h3 id="string-url--get-set--1">string Url { get; set; }</h3>
+
+<p>Gets or sets the URL for this board.</p>
+
+<h1 id="ijsonboardbackground">IJsonBoardBackground</h1>
+
+<p>Defines the JSON structure for the BoardBackground object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonBoardBackground</li>
+</ul>
+
+<h2 id="properties-8">Properties</h2>
+
+<h3 id="string-bottomcolor--get-set-">string BottomColor { get; set; }</h3>
+
+<p>The bottom color of a gradient background.</p>
+
+<h3 id="boardbackgroundbrightness-brightness--get-set-">BoardBackgroundBrightness? Brightness { get; set; }</h3>
+
+<p>Gets the overall brightness of the background.</p>
+
+<h3 id="string-color--get-set-">string Color { get; set; }</h3>
+
+<p>Gets or sets the color.</p>
+
+<h3 id="string-image--get-set-">string Image { get; set; }</h3>
+
+<p>Gets or sets the url for the image.</p>
+
+<h3 id="listijsonimagepreview-imagescaled--get-set-">List&lt;IJsonImagePreview&gt; ImageScaled { get; set; }</h3>
+
+<p>Gets or sets a collection of scaled images.</p>
+
+<h3 id="bool-tile--get-set-">bool? Tile { get; set; }</h3>
+
+<p>Gets or sets whether the image should be tiled when displayed.</p>
+
+<h3 id="string-topcolor--get-set-">string TopColor { get; set; }</h3>
+
+<p>The top color of a gradient background.</p>
+
+<h1 id="ijsonboardmembership">IJsonBoardMembership</h1>
+
+<p>Defines the JSON structure for the BoardMembership object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonBoardMembership</li>
+</ul>
+
+<h2 id="properties-9">Properties</h2>
+
+<h3 id="bool-deactivated--get-set-">bool? Deactivated { get; set; }</h3>
+
+<p>Gets or sets whether the membership is deactivated.</p>
+
+<h3 id="ijsonmember-member--get-set--2"><a href="/API-Json#ijsonmember">IJsonMember</a> Member { get; set; }</h3>
+
+<p>Gets or sets the ID of the member.</p>
+
+<h3 id="boardmembershiptype-membertype--get-set-"><a href="/API-Boards#boardmembershiptype">BoardMembershipType</a>? MemberType { get; set; }</h3>
+
+<p>Gets or sets the membership type.</p>
+
+<h1 id="ijsonboardpersonalpreferences">IJsonBoardPersonalPreferences</h1>
+
+<p>Defines the JSON structure for the BoardPersonalPreferences object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonBoardPersonalPreferences</li>
+</ul>
+
+<h2 id="properties-10">Properties</h2>
+
+<h3 id="ijsonlist-emaillist--get-set-"><a href="/API-Json#ijsonlist">IJsonList</a> EmailList { get; set; }</h3>
+
+<p>Gets or sets the list for new cards when they are added via email.</p>
+
+<h3 id="ijsonposition-emailposition--get-set-"><a href="/API-Json#ijsonposition">IJsonPosition</a> EmailPosition { get; set; }</h3>
+
+<p>Gets or sets the position of new cards when they are added via email.</p>
+
+<h3 id="bool-showlistguide--get-set-">bool? ShowListGuide { get; set; }</h3>
+
+<p>Gets or sets whether the list guide (left side of the screen) is expanded.</p>
+
+<h3 id="bool-showsidebar--get-set-">bool? ShowSidebar { get; set; }</h3>
+
+<p>Gets or sets whether the side bar (right side of the screen) is shown</p>
+
+<h3 id="bool-showsidebaractivity--get-set-">bool? ShowSidebarActivity { get; set; }</h3>
+
+<p>Gets or sets whether the activity section of the side bar is shown.</p>
+
+<h3 id="bool-showsidebarboardactions--get-set-">bool? ShowSidebarBoardActions { get; set; }</h3>
+
+<p>Gets or sets whether the board actions (Add List/Add Member/Filter Cards) section of the side bar is shown.</p>
+
+<h3 id="bool-showsidebarmembers--get-set-">bool? ShowSidebarMembers { get; set; }</h3>
+
+<p>Gets or sets whether the members section of the list of the side bar is shown.</p>
+
+<h1 id="ijsonboardpreferences">IJsonBoardPreferences</h1>
+
+<p>Defines the JSON structure for the BoardPreferences object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonBoardPreferences</li>
+</ul>
+
+<h2 id="properties-11">Properties</h2>
+
+<h3 id="ijsonboardbackground-background--get-set-"><a href="/API-Json#ijsonboardbackground">IJsonBoardBackground</a> Background { get; set; }</h3>
+
+<p>Gets or sets the background image of the board.</p>
+
+<h3 id="bool-calendarfeed--get-set-">bool? CalendarFeed { get; set; }</h3>
+
+<p>Gets or sets whether the calendar feed is enabled.</p>
+
+<h3 id="cardagingstyle-cardaging--get-set-"><a href="/API-Boards#cardagingstyle">CardAgingStyle</a>? CardAging { get; set; }</h3>
+
+<p>Gets or sets the style of card aging is used, if the power up is enabled.</p>
+
+<h3 id="bool-cardcovers--get-set-">bool? CardCovers { get; set; }</h3>
+
+<p>Gets or sets whether card covers are shown on the board.</p>
+
+<h3 id="boardcommentpermission-comments--get-set-"><a href="/API-Boards#boardcommentpermission">BoardCommentPermission</a>? Comments { get; set; }</h3>
+
+<p>Gets or sets who may comment on cards.</p>
+
+<h3 id="boardinvitationpermission-invitations--get-set-"><a href="/API-Boards#boardinvitationpermission">BoardInvitationPermission</a>? Invitations { get; set; }</h3>
+
+<p>Gets or sets who may extend invitations to join the board.</p>
+
+<h3 id="boardpermissionlevel-permissionlevel--get-set-"><a href="/API-Boards#boardpermissionlevel">BoardPermissionLevel</a>? PermissionLevel { get; set; }</h3>
+
+<p>Gets or sets who may view the board.</p>
+
+<h3 id="bool-selfjoin--get-set-">bool? SelfJoin { get; set; }</h3>
+
+<p>Gets or sets whether a Trello member may join the board without an invitation.</p>
+
+<h3 id="boardvotingpermission-voting--get-set-"><a href="/API-Boards#boardvotingpermission">BoardVotingPermission</a>? Voting { get; set; }</h3>
+
+<p>Gets or sets who may vote on cards.</p>
+
+<h1 id="ijsonboardvisibilityrestrict">IJsonBoardVisibilityRestrict</h1>
+
+<p>Defines the JSON structure for the BoardVisibilityRestrict object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonBoardVisibilityRestrict</li>
+</ul>
+
+<h2 id="properties-12">Properties</h2>
+
+<h3 id="organizationboardvisibility-org--get-set-"><a href="/API-Organizations#organizationboardvisibility">OrganizationBoardVisibility</a>? Org { get; set; }</h3>
+
+<p>Gets or sets the visibility of Org-visible boards owned by the organization.</p>
+
+<h3 id="organizationboardvisibility-private--get-set-"><a href="/API-Organizations#organizationboardvisibility">OrganizationBoardVisibility</a>? Private { get; set; }</h3>
+
+<p>Gets or sets the visibility of private boards owned by the organization.</p>
+
+<h3 id="organizationboardvisibility-public--get-set-"><a href="/API-Organizations#organizationboardvisibility">OrganizationBoardVisibility</a>? Public { get; set; }</h3>
+
+<p>Gets or sets the visibility of publicly-visible boards owned by the organization.</p>
+
+<h1 id="ijsoncard">IJsonCard</h1>
+
+<p>Defines the JSON structure for the Card object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonCard</li>
+</ul>
+
+<h2 id="properties-13">Properties</h2>
+
+<h3 id="ijsonbadges-badges--get-set-"><a href="/API-Json#ijsonbadges">IJsonBadges</a> Badges { get; set; }</h3>
+
+<p>Gets or set the badges displayed on the card cover.</p>
+
+<h3 id="ijsonboard-board--get-set--1"><a href="/API-Json#ijsonboard">IJsonBoard</a> Board { get; set; }</h3>
+
+<p>Gets or sets the ID of the board which contains the card.</p>
+
+<h3 id="ijsoncard-cardsource--get-set--1"><a href="/API-Json#ijsoncard">IJsonCard</a> CardSource { get; set; }</h3>
+
+<p>Gets or sets a card to be used as a template during creation.</p>
+
+<h3 id="bool-closed--get-set--2">bool? Closed { get; set; }</h3>
+
+<p>Gets or sets whether a card has been archived.</p>
+
+<h3 id="datetime-datelastactivity--get-set--1">DateTime? DateLastActivity { get; set; }</h3>
+
+<p>Gets or sets the date of last activity for a card.</p>
+
+<h3 id="string-desc--get-set--2">string Desc { get; set; }</h3>
+
+<p>Gets or sets the card's description.</p>
+
+<h3 id="datetime-due--get-set--1">DateTime? Due { get; set; }</h3>
+
+<p>Gets or sets the card's due date.</p>
+
+<h3 id="bool-duecomplete--get-set--1">bool? DueComplete { get; set; }</h3>
+
+<p>Gets or sets whether the card is complete.</p>
+
+<h3 id="bool-forceduedate--get-set-">bool ForceDueDate { get; set; }</h3>
+
+<p>Gets or sets whether the due date should be serialized, even if it is null.</p>
+
+<h3 id="string-idattachmentcover--get-set-">string IdAttachmentCover { get; set; }</h3>
+
+<p>Gets or sets the ID of the attachment cover image.</p>
+
+<h3 id="string-idlabels--get-set-">string IdLabels { get; set; }</h3>
+
+<p>Gets or sets a comma-delimited list of label IDs. Used during card creation.</p>
+
+<h3 id="string-idmembers--get-set-">string IdMembers { get; set; }</h3>
+
+<p>Gets or sets a comma-delimited list of member IDs. Used during card creation.</p>
+
+<h3 id="int-idshort--get-set-">int? IdShort { get; set; }</h3>
+
+<p>Gets or sets the card's short ID.</p>
+
+<h3 id="listijsonlabel-labels--get-set-">List&lt;IJsonLabel&gt; Labels { get; set; }</h3>
+
+<p>Gets or sets the labels assigned to this card.</p>
+
+<h3 id="ijsonlist-list--get-set--2"><a href="/API-Json#ijsonlist">IJsonList</a> List { get; set; }</h3>
+
+<p>Gets or sets the ID of the list which contains the card.</p>
+
+<h3 id="bool-manualcoverattachment--get-set-">bool? ManualCoverAttachment { get; set; }</h3>
+
+<p>Gets or sets whether the cover attachment was manually selected</p>
+
+<h3 id="string-name--get-set--2">string Name { get; set; }</h3>
+
+<p>Gets or sets the card's name</p>
+
+<h3 id="ijsonposition-pos--get-set--1"><a href="/API-Json#ijsonposition">IJsonPosition</a> Pos { get; set; }</h3>
+
+<p>Gets or sets the card's position.</p>
+
+<h3 id="string-shorturl--get-set--1">string ShortUrl { get; set; }</h3>
+
+<p>Gets or sets the short URL for this card.</p>
+
+<h3 id="bool-subscribed--get-set--2">bool? Subscribed { get; set; }</h3>
+
+<p>Gets or sets whether the current member is subscribed to this card.</p>
+
+<h3 id="string-url--get-set--2">string Url { get; set; }</h3>
+
+<p>Gets or sets the URL for this card.</p>
+
+<h3 id="object-urlsource--get-set-">Object UrlSource { get; set; }</h3>
+
+<p>Gets or sets a URL to be imported during creation.</p>
+
+<h1 id="ijsoncheckitem">IJsonCheckItem</h1>
+
+<p>Defines the JSON structure for the CheckItem object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonCheckItem</li>
+</ul>
+
+<h2 id="properties-14">Properties</h2>
+
+<h3 id="string-name--get-set--3">string Name { get; set; }</h3>
+
+<p>Gets or sets the name of the checklist item.</p>
+
+<h3 id="ijsonposition-pos--get-set--2"><a href="/API-Json#ijsonposition">IJsonPosition</a> Pos { get; set; }</h3>
+
+<p>Gets or sets the position of the checklist item.</p>
+
+<h3 id="checkitemstate-state--get-set-"><a href="/API-CheckLists#checkitemstate">CheckItemState</a>? State { get; set; }</h3>
+
+<p>Gets or sets the check state of the checklist item.</p>
+
+<h1 id="ijsonchecklist">IJsonCheckList</h1>
+
+<p>Defines the JSON structure for the CheckList object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonCheckList</li>
+</ul>
+
+<h2 id="properties-15">Properties</h2>
+
+<h3 id="ijsonboard-board--get-set--2"><a href="/API-Json#ijsonboard">IJsonBoard</a> Board { get; set; }</h3>
+
+<p>Gets or sets the ID of the board which contains this checklist.</p>
+
+<h3 id="ijsoncard-card--get-set--1"><a href="/API-Json#ijsoncard">IJsonCard</a> Card { get; set; }</h3>
+
+<p>Gets or sets the ID of the card which contains this checklist.</p>
+
+<h3 id="listijsoncheckitem-checkitems--get-set-">List&lt;IJsonCheckItem&gt; CheckItems { get; set; }</h3>
+
+<p>Gets or sets the collection of items in this checklist.</p>
+
+<h3 id="ijsonchecklist-checklistsource--get-set-"><a href="/API-Json#ijsonchecklist">IJsonCheckList</a> CheckListSource { get; set; }</h3>
+
+<p>Gets or sets a checklist to copy during creation.</p>
+
+<h3 id="string-name--get-set--4">string Name { get; set; }</h3>
+
+<p>Gets or sets the name of this checklist.</p>
+
+<h3 id="ijsonposition-pos--get-set--3"><a href="/API-Json#ijsonposition">IJsonPosition</a> Pos { get; set; }</h3>
+
+<p>Gets or sets the position of this checklist.</p>
+
+<h1 id="ijsonimagepreview">IJsonImagePreview</h1>
+
+<p>Defines the JSON structure for the AttachmentPreview object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonImagePreview</li>
+</ul>
+
+<h2 id="properties-16">Properties</h2>
+
+<h3 id="int-height--get-set-">int? Height { get; set; }</h3>
+
+<p>Gets or sets the height in pixels of the attachment preview.</p>
+
+<h3 id="bool-scaled--get-set-">bool? Scaled { get; set; }</h3>
+
+<p>Gets or sets whether the attachment was scaled to produce the preview.</p>
+
+<h3 id="string-url--get-set--3">string Url { get; set; }</h3>
+
+<p>Gets or sets the attachment storage location.</p>
+
+<h3 id="int-width--get-set-">int? Width { get; set; }</h3>
+
+<p>Gets or sets the width in pixels of the attachment preview.</p>
+
+<h1 id="ijsonlabel">IJsonLabel</h1>
+
+<p>Defines the JSON structure for the Label object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonLabel</li>
+</ul>
+
+<h2 id="properties-17">Properties</h2>
+
+<h3 id="ijsonboard-board--get-set--3"><a href="/API-Json#ijsonboard">IJsonBoard</a> Board { get; set; }</h3>
+
+<p>Gets and sets the board on which the label is defined.</p>
+
+<h3 id="labelcolor-color--get-set-">LabelColor? Color { get; set; }</h3>
+
+<p>Gets and sets the color of the label.</p>
+
+<h3 id="bool-forcenullcolor--set-">bool ForceNullColor { set; }</h3>
+
+<p>Determines if the color property should be submitted even if it is null.</p>
+
+<h4 id="remarks">Remarks</h4>
+
+<p>This property is not part of the JSON structure.</p>
+
+<h3 id="string-name--get-set--5">string Name { get; set; }</h3>
+
+<p>Gets and sets the name of the label.</p>
+
+<h3 id="int-uses--get-set-">int? Uses { get; set; }</h3>
+
+<p>Gets and sets how many cards use this label.</p>
+
+<h1 id="ijsonlist">IJsonList</h1>
+
+<p>Defines the JSON structure for the List object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonList</li>
+</ul>
+
+<h2 id="properties-18">Properties</h2>
+
+<h3 id="ijsonboard-board--get-set--4"><a href="/API-Json#ijsonboard">IJsonBoard</a> Board { get; set; }</h3>
+
+<p>Gets or sets the ID of the board which contains the list.</p>
+
+<h3 id="bool-closed--get-set--3">bool? Closed { get; set; }</h3>
+
+<p>Gets or sets whether the list is archived.</p>
+
+<h3 id="string-name--get-set--6">string Name { get; set; }</h3>
+
+<p>Gets or sets the name of the list.</p>
+
+<h3 id="ijsonposition-pos--get-set--4"><a href="/API-Json#ijsonposition">IJsonPosition</a> Pos { get; set; }</h3>
+
+<p>Gets or sets the position of the list.</p>
+
+<h3 id="bool-subscribed--get-set--3">bool? Subscribed { get; set; }</h3>
+
+<p>Gets or sets whether the current member is subscribed to the list.</p>
+
+<h1 id="ijsonmember">IJsonMember</h1>
+
+<p>Defines the JSON structure for the Member object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonMember</li>
+</ul>
+
+<h2 id="properties-19">Properties</h2>
+
+<h3 id="string-avatarhash--get-set-">string AvatarHash { get; set; }</h3>
+
+<p>Gets or sets the member's avatar hash.</p>
+
+<h3 id="avatarsource-avatarsource--get-set-"><a href="/API-Members#avatarsource">AvatarSource</a>? AvatarSource { get; set; }</h3>
+
+<p>Gets or sets the source URL for the member's avatar.</p>
+
+<h3 id="string-bio--get-set-">string Bio { get; set; }</h3>
+
+<p>Gets or sets the bio of the member.</p>
+
+<h3 id="bool-confirmed--get-set-">bool? Confirmed { get; set; }</h3>
+
+<p>Gets or sets whether the member is confirmed.</p>
+
+<h3 id="string-email--get-set-">string Email { get; set; }</h3>
+
+<p>Gets or sets the member's registered email address.</p>
+
+<h3 id="string-fullname--get-set-">string FullName { get; set; }</h3>
+
+<p>Gets the member's full name.</p>
+
+<h3 id="string-gravatarhash--get-set-">string GravatarHash { get; set; }</h3>
+
+<p>Gets or sets the member's Gravatar hash.</p>
+
+<h3 id="string-initials--get-set-">string Initials { get; set; }</h3>
+
+<p>Gets or sets the member's initials.</p>
+
+<h3 id="liststring-logintypes--get-set-">List&lt;string&gt; LoginTypes { get; set; }</h3>
+
+<p>Gets or sets the login types for the member.</p>
+
+<h3 id="string-membertype--get-set-">string MemberType { get; set; }</h3>
+
+<p>Gets or sets the type of member.</p>
+
+<h3 id="liststring-onetimemessagesdismissed--get-set-">List&lt;string&gt; OneTimeMessagesDismissed { get; set; }</h3>
+
+<p>Gets or sets the types of message which are dismissed for the member.</p>
+
+<h3 id="ijsonmemberpreferences-prefs--get-set-"><a href="/API-Json#ijsonmemberpreferences">IJsonMemberPreferences</a> Prefs { get; set; }</h3>
+
+<p>Gets or sets a set of preferences for the member.</p>
+
+<h3 id="int-similarity--get-set-">int? Similarity { get; set; }</h3>
+
+<p>Gets or sets the similarity of the member to a search query.</p>
+
+<h3 id="memberstatus-status--get-set-"><a href="/API-Members#memberstatus">MemberStatus</a>? Status { get; set; }</h3>
+
+<p>Gets or sets the member's activity status.</p>
+
+<h3 id="liststring-trophies--get-set-">List&lt;string&gt; Trophies { get; set; }</h3>
+
+<p>Gets or sets the trophies obtained by the member.</p>
+
+<h3 id="string-uploadedavatarhash--get-set-">string UploadedAvatarHash { get; set; }</h3>
+
+<p>Gets or sets the user's uploaded avatar hash.</p>
+
+<h3 id="string-url--get-set--4">string Url { get; set; }</h3>
+
+<p>Gets or sets the URL to the member's profile.</p>
+
+<h3 id="string-username--get-set-">string Username { get; set; }</h3>
+
+<p>Gets or sets the member's username.</p>
+
+<h1 id="ijsonmemberpreferences">IJsonMemberPreferences</h1>
+
+<p>Defines the JSON structure for the MemberPreferences object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonMemberPreferences</li>
+</ul>
+
+<h2 id="properties-20">Properties</h2>
+
+<h3 id="bool-colorblind--get-set-">bool? ColorBlind { get; set; }</h3>
+
+<p>Enables/disables color-blind mode.</p>
+
+<h3 id="int-minutesbetweensummaries--get-set-">int? MinutesBetweenSummaries { get; set; }</h3>
+
+<p>Gets or sets the number of minutes between summary emails.</p>
+
+<h1 id="ijsonmembersearch">IJsonMemberSearch</h1>
+
+<p>Defines the JSON structure for a member search.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonMemberSearch</li>
+</ul>
+
+<h2 id="properties-21">Properties</h2>
+
+<h3 id="ijsonboard-board--get-set--5"><a href="/API-Json#ijsonboard">IJsonBoard</a> Board { get; set; }</h3>
+
+<p>Gets or sets a board within which the search should run.</p>
+
+<h3 id="int-limit--get-set-">int? Limit { get; set; }</h3>
+
+<p>Gets or sets the number of results to return.</p>
+
+<h3 id="listijsonmember-members--get-set-">List&lt;IJsonMember&gt; Members { get; set; }</h3>
+
+<p>Gets or sets a list of members.</p>
+
+<h3 id="bool-onlyorgmembers--get-set-">bool? OnlyOrgMembers { get; set; }</h3>
+
+<p>Gets or sets whether only organization members should be returned.</p>
+
+<h3 id="ijsonorganization-organization--get-set--1"><a href="/API-Json#ijsonorganization">IJsonOrganization</a> Organization { get; set; }</h3>
+
+<p>Gets or sets an organization within which the search should run.</p>
+
+<h3 id="string-query--get-set-">string Query { get; set; }</h3>
+
+<p>Gets or sets the search query.</p>
+
+<h1 id="ijsonnotification">IJsonNotification</h1>
+
+<p>Defines the JSON structure for the Notification object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonNotification</li>
+</ul>
+
+<h2 id="properties-22">Properties</h2>
+
+<h3 id="ijsonnotificationdata-data--get-set-"><a href="/API-Json#ijsonnotificationdata">IJsonNotificationData</a> Data { get; set; }</h3>
+
+<p>Gets or sets the data associated with the notification. Contents depend upon the notification's type.</p>
+
+<h3 id="datetime-date--get-set--2">DateTime? Date { get; set; }</h3>
+
+<p>Gets or sets the date on which the notification was created.</p>
+
+<h3 id="ijsonmember-membercreator--get-set--1"><a href="/API-Json#ijsonmember">IJsonMember</a> MemberCreator { get; set; }</h3>
+
+<p>Gets or sets the ID of the member whose action spawned the notification.</p>
+
+<h3 id="notificationtype-type--get-set-"><a href="/API-Notifications#notificationtype">NotificationType</a>? Type { get; set; }</h3>
+
+<p>Gets or sets the notification's type.</p>
+
+<h3 id="bool-unread--get-set-">bool? Unread { get; set; }</h3>
+
+<p>Gets or sets whether the notification has been read.</p>
+
+<h1 id="ijsonnotificationdata">IJsonNotificationData</h1>
+
+<p>Defines the JSON structure for the NotificationData object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonNotificationData</li>
+</ul>
+
+<h2 id="properties-23">Properties</h2>
+
+<h3 id="ijsonattachment-attachment--get-set--1"><a href="/API-Json#ijsonattachment">IJsonAttachment</a> Attachment { get; set; }</h3>
+
+<p>Gets or sets an attachment associated with the action if any.</p>
+
+<h3 id="ijsonboard-board--get-set--6"><a href="/API-Json#ijsonboard">IJsonBoard</a> Board { get; set; }</h3>
+
+<p>Gets or sets a board associated with the action if any.</p>
+
+<h3 id="ijsonboard-boardsource--get-set--2"><a href="/API-Json#ijsonboard">IJsonBoard</a> BoardSource { get; set; }</h3>
+
+<p>Gets or sets a board associated with the action if any.</p>
+
+<h3 id="ijsonboard-boardtarget--get-set--1"><a href="/API-Json#ijsonboard">IJsonBoard</a> BoardTarget { get; set; }</h3>
+
+<p>Gets or sets a board associated with the action if any.</p>
+
+<h3 id="ijsoncard-card--get-set--2"><a href="/API-Json#ijsoncard">IJsonCard</a> Card { get; set; }</h3>
+
+<p>Gets or sets a card associated with the action if any.</p>
+
+<h3 id="ijsoncard-cardsource--get-set--2"><a href="/API-Json#ijsoncard">IJsonCard</a> CardSource { get; set; }</h3>
+
+<p>Gets or sets a card associated with the action if any.</p>
+
+<h3 id="ijsoncheckitem-checkitem--get-set--1"><a href="/API-Json#ijsoncheckitem">IJsonCheckItem</a> CheckItem { get; set; }</h3>
+
+<p>Gets or sets a check item associated with the action if any.</p>
+
+<h3 id="ijsonchecklist-checklist--get-set--1"><a href="/API-Json#ijsonchecklist">IJsonCheckList</a> CheckList { get; set; }</h3>
+
+<p>Gets or sets a check list associated with the action if any.</p>
+
+<h3 id="ijsonlist-list--get-set--3"><a href="/API-Json#ijsonlist">IJsonList</a> List { get; set; }</h3>
+
+<p>Gets or sets a list associated with the action if any.</p>
+
+<h3 id="ijsonlist-listafter--get-set--1"><a href="/API-Json#ijsonlist">IJsonList</a> ListAfter { get; set; }</h3>
+
+<p>Gets or sets a destination list associated with the action if any.</p>
+
+<h3 id="ijsonlist-listbefore--get-set--1"><a href="/API-Json#ijsonlist">IJsonList</a> ListBefore { get; set; }</h3>
+
+<p>Gets or sets a source list associated with the action if any.</p>
+
+<h3 id="ijsonmember-member--get-set--3"><a href="/API-Json#ijsonmember">IJsonMember</a> Member { get; set; }</h3>
+
+<p>Gets or sets a member associated with the action if any.</p>
+
+<h3 id="ijsonnotificationolddata-old--get-set-"><a href="/API-Json#ijsonnotificationolddata">IJsonNotificationOldData</a> Old { get; set; }</h3>
+
+<p>Gets or sets any previous data associated with the action.</p>
+
+<h3 id="ijsonorganization-org--get-set--1"><a href="/API-Json#ijsonorganization">IJsonOrganization</a> Org { get; set; }</h3>
+
+<p>Gets or sets an organization associated with the action if any.</p>
+
+<h3 id="string-text--get-set--3">string Text { get; set; }</h3>
+
+<p>Gets or sets text associated with the action if any.</p>
+
+<h1 id="ijsonnotificationolddata">IJsonNotificationOldData</h1>
+
+<p>Defines the JSON structure for the ActionOldData object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonNotificationOldData</li>
+</ul>
+
+<h2 id="properties-24">Properties</h2>
+
+<h3 id="bool-closed--get-set--4">bool? Closed { get; set; }</h3>
+
+<p>Gets or sets whether an item was closed.</p>
+
+<h3 id="string-desc--get-set--3">string Desc { get; set; }</h3>
+
+<p>Gets or sets an old description.</p>
+
+<h3 id="ijsonlist-list--get-set--4"><a href="/API-Json#ijsonlist">IJsonList</a> List { get; set; }</h3>
+
+<p>Gets or sets an old list.</p>
+
+<h3 id="double-pos--get-set--1">double? Pos { get; set; }</h3>
+
+<p>Gets or sets an old position.</p>
+
+<h3 id="string-text--get-set--4">string Text { get; set; }</h3>
+
+<p>Gets or sets old text.</p>
+
+<h1 id="ijsonorganization">IJsonOrganization</h1>
+
+<p>Defines the JSON structure for the Organization object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonOrganization</li>
+</ul>
+
+<h2 id="properties-25">Properties</h2>
+
+<h3 id="string-desc--get-set--4">string Desc { get; set; }</h3>
+
+<p>Gets or sets the description for the organization.</p>
+
+<h3 id="string-displayname--get-set-">string DisplayName { get; set; }</h3>
+
+<p>Gets or sets the name to be displayed for the organization.</p>
+
+<h3 id="string-logohash--get-set-">string LogoHash { get; set; }</h3>
+
+<p>Gets or sets the organization's logo hash.</p>
+
+<h3 id="string-name--get-set--7">string Name { get; set; }</h3>
+
+<p>Gets or sets the name of the organization.</p>
+
+<h3 id="bool-paidaccount--get-set-">bool? PaidAccount { get; set; }</h3>
+
+<p>Gets or sets whether the organization is a paid account.</p>
+
+<h3 id="listint-powerups--get-set-">List&lt;int&gt; PowerUps { get; set; }</h3>
+
+<p>Enumerates the powerups obtained by the organization.</p>
+
+<h3 id="ijsonorganizationpreferences-prefs--get-set-"><a href="/API-Json#ijsonorganizationpreferences">IJsonOrganizationPreferences</a> Prefs { get; set; }</h3>
+
+<p>Gets or sets a set of preferences for the organization.</p>
+
+<h3 id="liststring-premiumfeatures--get-set-">List&lt;string&gt; PremiumFeatures { get; set; }</h3>
+
+<p>Gets or sets a collection of premium features available to the organization.</p>
+
+<h3 id="string-url--get-set--5">string Url { get; set; }</h3>
+
+<p>Gets or sets the URL to the organization's profile.</p>
+
+<h3 id="string-website--get-set-">string Website { get; set; }</h3>
+
+<p>Gets or sets the organization's website.</p>
+
+<h1 id="ijsonorganizationmembership">IJsonOrganizationMembership</h1>
+
+<p>Defines the JSON structure for the OrganizationMembership object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonOrganizationMembership</li>
+</ul>
+
+<h2 id="properties-26">Properties</h2>
+
+<h3 id="ijsonmember-member--get-set--4"><a href="/API-Json#ijsonmember">IJsonMember</a> Member { get; set; }</h3>
+
+<p>Gets or sets the ID of the member.</p>
+
+<h3 id="organizationmembershiptype-membertype--get-set-"><a href="/API-Organizations#organizationmembershiptype">OrganizationMembershipType</a>? MemberType { get; set; }</h3>
+
+<p>Gets or sets the membership type.</p>
+
+<h3 id="bool-unconfirmed--get-set-">bool? Unconfirmed { get; set; }</h3>
+
+<p>Gets or sets whether the membership is unconfirmed.</p>
+
+<h1 id="ijsonorganizationpreferences">IJsonOrganizationPreferences</h1>
+
+<p>Defines the JSON structure for the OrganizationPreferences object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonOrganizationPreferences</li>
+</ul>
+
+<h2 id="properties-27">Properties</h2>
+
+<h3 id="string-associateddomain--get-set-">string AssociatedDomain { get; set; }</h3>
+
+<p>Gets or sets the Google Apps domain.</p>
+
+<h3 id="ijsonboardvisibilityrestrict-boardvisibilityrestrict--get-set-"><a href="/API-Json#ijsonboardvisibilityrestrict">IJsonBoardVisibilityRestrict</a> BoardVisibilityRestrict { get; set; }</h3>
+
+<p>Gets or sets the visibility of boards owned by the organization.</p>
+
+<h3 id="bool-externalmembersdisabled--get-set-">bool? ExternalMembersDisabled { get; set; }</h3>
+
+<p>Gets or sets whether external members are disabled.</p>
+
+<h3 id="listobject-orginviterestrict--get-set-">List&lt;Object&gt; OrgInviteRestrict { get; set; }</h3>
+
+<p>Gets or sets organization invitation restrictions.</p>
+
+<h3 id="organizationpermissionlevel-permissionlevel--get-set-"><a href="/API-Organizations#organizationpermissionlevel">OrganizationPermissionLevel</a>? PermissionLevel { get; set; }</h3>
+
+<p>Gets or sets the permission level.</p>
+
+<h1 id="ijsonparameter">IJsonParameter</h1>
+
+<p>Defines the JSON structure for a single-value parameter.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonParameter</li>
+</ul>
+
+<h2 id="properties-28">Properties</h2>
+
+<h3 id="bool-boolean--get-set-">bool? Boolean { get; set; }</h3>
+
+<p>Gets or sets a boolean parameter value;</p>
+
+<h3 id="string-string--get-set-">string String { get; set; }</h3>
+
+<p>Gets or sets a string parameter value;</p>
+
+<h1 id="ijsonposition">IJsonPosition</h1>
+
+<p>Defines the JSON structure for the Position object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonPosition</li>
+</ul>
+
+<h2 id="properties-29">Properties</h2>
+
+<h3 id="double-explicit--get-set-">double? Explicit { get; set; }</h3>
+
+<p>Gets or sets an explicit numeric value for the position.</p>
+
+<h3 id="string-named--get-set-">string Named { get; set; }</h3>
+
+<p>Gets or sets a named value for the position.</p>
+
+<h4 id="remarks-1">Remarks</h4>
+
+<p>Valid values are "top" and "bottom".</p>
+
+<h1 id="ijsonpowerup">IJsonPowerUp</h1>
+
+<p>Defines the JSON structure for the PowerUp object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonPowerUp</li>
+</ul>
+
+<h2 id="properties-30">Properties</h2>
+
+<h3 id="string-name--get-set--8">string Name { get; set; }</h3>
+
+<p>Gets or sets the name.</p>
+
+<h3 id="bool-public--get-set-">bool? Public { get; set; }</h3>
+
+<p>Gets or sets whether the power-up is public.</p>
+
+<h3 id="string-url--get-set--6">string Url { get; set; }</h3>
+
+<p>Gets or sets the URL for more information about the power-up.</p>
+
+<h1 id="ijsonpowerupdata">IJsonPowerUpData</h1>
+
+<p>Defines the JSON structure for the PowerUpData object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonPowerUpData</li>
+</ul>
+
+<h2 id="properties-31">Properties</h2>
+
+<h3 id="string-pluginid--get-set-">string PluginId { get; set; }</h3>
+
+<p>Gets or sets the power-up ID.</p>
+
+<h3 id="string-value--get-set--1">string Value { get; set; }</h3>
+
+<p>Gets or sets the value.</p>
+
+<h1 id="ijsonsearch">IJsonSearch</h1>
+
+<p>Defines the JSON structure for the Search object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonSearch</li>
+</ul>
+
+<h2 id="properties-32">Properties</h2>
+
+<h3 id="listijsonaction-actions--get-set-">List&lt;IJsonAction&gt; Actions { get; set; }</h3>
+
+<p>Lists the IDs of actions which match the query.</p>
+
+<h3 id="listijsonboard-boards--get-set-">List&lt;IJsonBoard&gt; Boards { get; set; }</h3>
+
+<p>Lists the IDs of boards which match the query.</p>
+
+<h3 id="listijsoncard-cards--get-set-">List&lt;IJsonCard&gt; Cards { get; set; }</h3>
+
+<p>Lists the IDs of cards which match the query.</p>
+
+<h3 id="listijsoncacheable-context--get-set-">List&lt;IJsonCacheable&gt; Context { get; set; }</h3>
+
+<p>Gets or sets a collection of boards, cards, and organizations within which the search should run.</p>
+
+<h3 id="int-limit--get-set--1">int? Limit { get; set; }</h3>
+
+<p>Gets or sets how many results to return;</p>
+
+<h3 id="listijsonmember-members--get-set--1">List&lt;IJsonMember&gt; Members { get; set; }</h3>
+
+<p>Lists the IDs of members which match the query.</p>
+
+<h3 id="listijsonorganization-organizations--get-set-">List&lt;IJsonOrganization&gt; Organizations { get; set; }</h3>
+
+<p>Lists the IDs of organizations which match the query.</p>
+
+<h3 id="bool-partial--get-set-">bool Partial { get; set; }</h3>
+
+<p>Gets or sets whether the search should match on partial words.</p>
+
+<h3 id="string-query--get-set--1">string Query { get; set; }</h3>
+
+<p>Gets or sets the search query.</p>
+
+<h3 id="searchmodeltype-types--get-set-"><a href="/API-Searching#searchmodeltype">SearchModelType</a>? Types { get; set; }</h3>
+
+<p>Gets or sets which types of objects should be returned.</p>
+
+<h1 id="ijsonsticker">IJsonSticker</h1>
+
+<p>Defines the JSON structure for the Sticker object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonSticker</li>
+</ul>
+
+<h2 id="properties-33">Properties</h2>
+
+<h3 id="double-left--get-set-">double? Left { get; set; }</h3>
+
+<p>Gets or sets the position of the left edge of the sticker.</p>
+
+<h3 id="string-name--get-set--9">string Name { get; set; }</h3>
+
+<p>Gets or sets the name of the sticker.</p>
+
+<h3 id="listijsonimagepreview-previews--get-set--1">List&lt;IJsonImagePreview&gt; Previews { get; set; }</h3>
+
+<p>Gets or sets a collection of previews for the attachment.</p>
+
+<h3 id="int-rotation--get-set-">int? Rotation { get; set; }</h3>
+
+<p>Gets or sets the rotation angle of the sticker in degrees.</p>
+
+<h3 id="double-top--get-set-">double? Top { get; set; }</h3>
+
+<p>Gets or sets the position of the top edge of the sticker.</p>
+
+<h3 id="string-url--get-set--7">string Url { get; set; }</h3>
+
+<p>Gets or sets the image's URL.</p>
+
+<h3 id="int-zindex--get-set-">int? ZIndex { get; set; }</h3>
+
+<p>Gets or sets the sticker's z-index.</p>
+
+<h1 id="ijsontoken">IJsonToken</h1>
+
+<p>Defines the JSON structure for the Token object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonToken</li>
+</ul>
+
+<h2 id="properties-34">Properties</h2>
+
+<h3 id="datetime-datecreated--get-set-">DateTime? DateCreated { get; set; }</h3>
+
+<p>Gets or sets the date the token was created.</p>
+
+<h3 id="datetime-dateexpires--get-set-">DateTime? DateExpires { get; set; }</h3>
+
+<p>Gets or sets the date the token will expire, if any.</p>
+
+<h3 id="string-identifier--get-set-">string Identifier { get; set; }</h3>
+
+<p>Gets or sets the identifier of the application which requested the token.</p>
+
+<h3 id="ijsonmember-member--get-set--5"><a href="/API-Json#ijsonmember">IJsonMember</a> Member { get; set; }</h3>
+
+<p>Gets or sets the ID of the member who issued the token.</p>
+
+<h3 id="listijsontokenpermission-permissions--get-set-">List&lt;IJsonTokenPermission&gt; Permissions { get; set; }</h3>
+
+<p>Gets or sets the collection of permissions granted by the token.</p>
+
+<h1 id="tokenmodeltype">TokenModelType</h1>
+
+<p>Enumerates the model types to which a user token may grant access.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>Object</li>
+  <li>ValueType</li>
+  <li>Enum</li>
+  <li>TokenModelType</li>
+</ul>
+
+<h2 id="fields">Fields</h2>
+
+<h3 id="unknown">Unknown</h3>
+
+<p>Assigned when the model type is not recognized.</p>
+
+<h3 id="member">Member</h3>
+
+<p>Indicates the model is one or more Members.</p>
+
+<h3 id="board">Board</h3>
+
+<p>Indicates the model is one or more Boards.</p>
+
+<h3 id="organization">Organization</h3>
+
+<p>Indicates the model is one or more Organizations.</p>
+
+<h1 id="ijsontokenpermission">IJsonTokenPermission</h1>
+
+<p>Defines the JSON structure for the TokenPermission object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonTokenPermission</li>
+</ul>
+
+<h2 id="properties-35">Properties</h2>
+
+<h3 id="string-idmodel--get-set-">string IdModel { get; set; }</h3>
+
+<p>Gets or sets the ID of the model to which a token grants permissions.</p>
+
+<h3 id="tokenmodeltype-modeltype--get-set-"><a href="/API-Json#tokenmodeltype">TokenModelType</a>? ModelType { get; set; }</h3>
+
+<p>Gets or sets the type of the model.</p>
+
+<h3 id="bool-read--get-set-">bool? Read { get; set; }</h3>
+
+<p>Gets or sets whether a token grants read permissions to the model.</p>
+
+<h3 id="bool-write--get-set-">bool? Write { get; set; }</h3>
+
+<p>Gets or sets whether a token grants write permissions to the model.</p>
+
+<h1 id="ijsonwebhook">IJsonWebhook</h1>
+
+<p>Defines the JSON structure for the Webhook object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonWebhook</li>
+</ul>
+
+<h2 id="properties-36">Properties</h2>
+
+<h3 id="bool-active--get-set-">bool? Active { get; set; }</h3>
+
+<p>Gets or sets whether the webhook is active.</p>
+
+<h3 id="string-callbackurl--get-set-">string CallbackUrl { get; set; }</h3>
+
+<p>Gets or sets the URL which receives notification messages.</p>
+
+<h3 id="string-description--get-set-">string Description { get; set; }</h3>
+
+<p>Gets or sets the description of the webhook.</p>
+
+<h3 id="string-idmodel--get-set--1">string IdModel { get; set; }</h3>
+
+<p>Gets or sets the ID of the entity which the webhook monitors.</p>
+
+<h1 id="ijsonwebhooknotification">IJsonWebhookNotification</h1>
+
+<p>Defines the JSON structure for the WebhookNotification object.</p>
+
+<p><strong>Assembly:</strong> Manatee.Trello.dll</p>
+
+<p><strong>Namespace:</strong> Manatee.Trello.Json</p>
+
+<p><strong>Inheritance hierarchy:</strong></p>
+
+<ul>
+  <li>IJsonWebhookNotification</li>
+</ul>
+
+<h2 id="properties-37">Properties</h2>
+
+<h3 id="ijsonaction-action--get-set-"><a href="/API-Json#ijsonaction">IJsonAction</a> Action { get; set; }</h3>
+
+<p>Gets or sets the action associated with the notification.</p>
+
+
+			</article>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>

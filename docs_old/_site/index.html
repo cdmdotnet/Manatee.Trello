@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Welcome | Manatee.Trello</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="Welcome" />
+<meta name="author" content="Greg Dennis" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A fully object-oriented .Net wrapper for Trello’s RESTful API written in C#." />
+<meta property="og:description" content="A fully object-oriented .Net wrapper for Trello’s RESTful API written in C#." />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="Manatee.Trello" />
+<script type="application/ld+json">
+{"name":"Manatee.Trello","description":"A fully object-oriented .Net wrapper for Trello’s RESTful API written in C#.","author":{"@type":"Person","name":"Greg Dennis"},"@type":"WebSite","url":"http://localhost:4000/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"},"name":"Greg Dennis"},"headline":"Welcome","sameAs":["https://github.com/gregsdennis/Manatee.Trello","https://codingforsmarties.wordpress.com"],"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Manatee.Trello" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/touch-icon.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/"><img src="/images/siteicon.png" width="40" height="40" alt="Manatee.Trello logo"></a>
+				Manatee.Trello
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level current">
+						
+						<a href="/">Welcome</a>
+					</li>
+				</ul>
+
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/1-main/getting-started/"></a>
+							<ul>
+								
+									<li class="nav-item "><a href="/1-main/getting-started/">Getting Started</a></li>
+								
+									<li class="nav-item "><a href="/1-main/configuration/">Configuration</a></li>
+								
+									<li class="nav-item "><a href="/1-main/power-ups/">Power-Ups</a></li>
+								
+									<li class="nav-item "><a href="/1-main/webhooks/">Webhooks</a></li>
+								
+									<li class="nav-item "><a href="/1-main/supplying-your-own-json-serializer/">Supplying your own JSON serializer</a></li>
+								
+									<li class="nav-item "><a href="/1-main/supplying-your-own-rest-client/">Supplying your own ReST client</a></li>
+								
+									<li class="nav-item "><a href="/1-main/licensing/">Licensing</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/2-examples/getting-boards/">Examples</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/2-examples/getting-boards/">Getting all of the boards for the owner of the token</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/known-card/">Getting a known card and updating some of its data</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/changing-data/">Changing the data that's downloaded</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/adding-card/">Adding a card to a list</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/delete-checkitem/">Deleting a check item</a></li>
+								
+									<li class="nav-item "><a href="/2-examples/webhook/">Creating a webhook</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/3-api/Action/">API</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/3-api/Action/">Action</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ActionData/">ActionData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ActionType/">ActionType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Attachment/">Attachment</a></li>
+								
+									<li class="nav-item "><a href="/3-api/AttachmentCollection/">AttachmentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/AvatarSize/">AvatarSize</a></li>
+								
+									<li class="nav-item "><a href="/3-api/AvatarSource/">AvatarSource</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Badges/">Badges</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Board/">Board</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardBackground/">BoardBackground</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardBackgroundBrightness/">BoardBackgroundBrightness</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardCollection/">BoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardCommentPermission/">BoardCommentPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardExtensions/">BoardExtensions</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardFilter/">BoardFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardInvitationPermission/">BoardInvitationPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardLabelCollection/">BoardLabelCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardMembership/">BoardMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardMembershipCollection/">BoardMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardMembershipType/">BoardMembershipType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardPermissionLevel/">BoardPermissionLevel</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardPersonalPreferences/">BoardPersonalPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardPreferences/">BoardPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/BoardVotingPermission/">BoardVotingPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Card/">Card</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardAgingPowerUp/">CardAgingPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardAgingStyle/">CardAgingStyle</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardCollection/">CardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardFilter/">CardFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardLabelCollection/">CardLabelCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CardStickerCollection/">CardStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckBoxField/">CheckBoxField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckItem/">CheckItem</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckItemCollection/">CheckItemCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckItemState/">CheckItemState</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckList/">CheckList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CheckListCollection/">CheckListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CommentCollection/">CommentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomField/">CustomField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomField%601/">CustomField&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldDefinition/">CustomFieldDefinition</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldDefinitionCollection/">CustomFieldDefinitionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldDisplayInfo/">CustomFieldDisplayInfo</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldsPowerUp/">CustomFieldsPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/CustomFieldType/">CustomFieldType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DateTimeField/">DateTimeField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DefaultJsonFactory/">DefaultJsonFactory</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DefaultJsonSerializer/">DefaultJsonSerializer</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DefaultRestClientProvider/">DefaultRestClientProvider</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DropDownField/">DropDownField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DropDownOption/">DropDownOption</a></li>
+								
+									<li class="nav-item "><a href="/3-api/DropDownOptionCollection/">DropDownOptionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IAcceptId/">IAcceptId</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IAction/">IAction</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IActionData/">IActionData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IAttachment/">IAttachment</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IAttachmentCollection/">IAttachmentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBadges/">IBadges</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoard/">IBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardBackground/">IBoardBackground</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardCollection/">IBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardLabelCollection/">IBoardLabelCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardMembership/">IBoardMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardMembershipCollection/">IBoardMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardPersonalPreferences/">IBoardPersonalPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IBoardPreferences/">IBoardPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICache/">ICache</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICacheable/">ICacheable</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICanWebhook/">ICanWebhook</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICard/">ICard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICardCollection/">ICardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICardLabelCollection/">ICardLabelCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICardStickerCollection/">ICardStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICheckItem/">ICheckItem</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICheckItemCollection/">ICheckItemCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICheckList/">ICheckList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICheckListCollection/">ICheckListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICommentCollection/">ICommentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomField/">ICustomField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomField%601/">ICustomField&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomFieldDefinition/">ICustomFieldDefinition</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomFieldDefinitionCollection/">ICustomFieldDefinitionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ICustomFieldDisplayInfo/">ICustomFieldDisplayInfo</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IDeserializer/">IDeserializer</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IDropDownOption/">IDropDownOption</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IDropDownOptionCollection/">IDropDownOptionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IImagePreview/">IImagePreview</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonAction/">IJsonAction</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonActionData/">IJsonActionData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonActionOldData/">IJsonActionOldData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonAttachment/">IJsonAttachment</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBadges/">IJsonBadges</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoard/">IJsonBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardBackground/">IJsonBoardBackground</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardMembership/">IJsonBoardMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardPersonalPreferences/">IJsonBoardPersonalPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardPreferences/">IJsonBoardPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonBoardVisibilityRestrict/">IJsonBoardVisibilityRestrict</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCacheable/">IJsonCacheable</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCard/">IJsonCard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCheckItem/">IJsonCheckItem</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCheckList/">IJsonCheckList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCustomDropDownOption/">IJsonCustomDropDownOption</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCustomField/">IJsonCustomField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCustomFieldDefinition/">IJsonCustomFieldDefinition</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonCustomFieldDisplayInfo/">IJsonCustomFieldDisplayInfo</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonFactory/">IJsonFactory</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonImagePreview/">IJsonImagePreview</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonLabel/">IJsonLabel</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonList/">IJsonList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonMember/">IJsonMember</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonMemberPreferences/">IJsonMemberPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonMemberSearch/">IJsonMemberSearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonNotification/">IJsonNotification</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonNotificationData/">IJsonNotificationData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonNotificationOldData/">IJsonNotificationOldData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonOrganization/">IJsonOrganization</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonOrganizationMembership/">IJsonOrganizationMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonOrganizationPreferences/">IJsonOrganizationPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonParameter/">IJsonParameter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonPosition/">IJsonPosition</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonPowerUp/">IJsonPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonPowerUpData/">IJsonPowerUpData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonSearch/">IJsonSearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonStarredBoard/">IJsonStarredBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonSticker/">IJsonSticker</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonToken/">IJsonToken</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonTokenPermission/">IJsonTokenPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonWebhook/">IJsonWebhook</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IJsonWebhookNotification/">IJsonWebhookNotification</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ILabel/">ILabel</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IList/">IList</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IListCollection/">IListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ILog/">ILog</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ImagePreview/">ImagePreview</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMe/">IMe</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMember/">IMember</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberCollection/">IMemberCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberPreferences/">IMemberPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberSearch/">IMemberSearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberSearchResult/">IMemberSearchResult</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IMemberStickerCollection/">IMemberStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/INotification/">INotification</a></li>
+								
+									<li class="nav-item "><a href="/3-api/INotificationData/">INotificationData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganization/">IOrganization</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganizationCollection/">IOrganizationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganizationMembership/">IOrganizationMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganizationMembershipCollection/">IOrganizationMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IOrganizationPreferences/">IOrganizationPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IPowerUp/">IPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IPowerUpCollection/">IPowerUpCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IPowerUpData/">IPowerUpData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IQueryable/">IQueryable</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyActionCollection/">IReadOnlyActionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyBoardCollection/">IReadOnlyBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyBoardMembershipCollection/">IReadOnlyBoardMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyCardCollection/">IReadOnlyCardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyCheckItemCollection/">IReadOnlyCheckItemCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyCheckListCollection/">IReadOnlyCheckListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyCollection%601/">IReadOnlyCollection&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyListCollection/">IReadOnlyListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyMemberCollection/">IReadOnlyMemberCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyNotificationCollection/">IReadOnlyNotificationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyOrganizationCollection/">IReadOnlyOrganizationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IReadOnlyOrganizationMembershipCollection/">IReadOnlyOrganizationMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestClient/">IRestClient</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestClientProvider/">IRestClientProvider</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestRequest/">IRestRequest</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestRequestProvider/">IRestRequestProvider</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestResponse/">IRestResponse</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IRestResponse%601/">IRestResponse&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ISearch/">ISearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ISearchQuery/">ISearchQuery</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ISerializer/">ISerializer</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IStarredBoard/">IStarredBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IStarredBoardCollection/">IStarredBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ISticker/">ISticker</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IToken/">IToken</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ITokenPermission/">ITokenPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ITrelloFactory/">ITrelloFactory</a></li>
+								
+									<li class="nav-item "><a href="/3-api/IWebhook%601/">IWebhook&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/JsonDeserializeAttribute/">JsonDeserializeAttribute</a></li>
+								
+									<li class="nav-item "><a href="/3-api/JsonSerializeAttribute/">JsonSerializeAttribute</a></li>
+								
+									<li class="nav-item "><a href="/3-api/JsonSpecialSerializationAttribute/">JsonSpecialSerializationAttribute</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Label/">Label</a></li>
+								
+									<li class="nav-item "><a href="/3-api/LabelColor/">LabelColor</a></li>
+								
+									<li class="nav-item "><a href="/3-api/License/">License</a></li>
+								
+									<li class="nav-item "><a href="/3-api/LicenseException/">LicenseException</a></li>
+								
+									<li class="nav-item "><a href="/3-api/List/">List</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ListCollection/">ListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ListFilter/">ListFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Me/">Me</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Member/">Member</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberCollection/">MemberCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberExtensions/">MemberExtensions</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberFilter/">MemberFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberPreferences/">MemberPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberSearch/">MemberSearch</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberSearchResult/">MemberSearchResult</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MembershipFilter/">MembershipFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberStatus/">MemberStatus</a></li>
+								
+									<li class="nav-item "><a href="/3-api/MemberStickerCollection/">MemberStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Notification/">Notification</a></li>
+								
+									<li class="nav-item "><a href="/3-api/NotificationData/">NotificationData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/NotificationType/">NotificationType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/NumberField/">NumberField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Organization/">Organization</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationBoardVisibility/">OrganizationBoardVisibility</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationCollection/">OrganizationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationFilter/">OrganizationFilter</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationMembership/">OrganizationMembership</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationMembershipCollection/">OrganizationMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationMembershipType/">OrganizationMembershipType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationPermissionLevel/">OrganizationPermissionLevel</a></li>
+								
+									<li class="nav-item "><a href="/3-api/OrganizationPreferences/">OrganizationPreferences</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Position/">Position</a></li>
+								
+									<li class="nav-item "><a href="/3-api/PowerUpBase/">PowerUpBase</a></li>
+								
+									<li class="nav-item "><a href="/3-api/PowerUpCollection/">PowerUpCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/PowerUpData/">PowerUpData</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyActionCollection/">ReadOnlyActionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyAttachmentCollection/">ReadOnlyAttachmentCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyAttachmentPreviewCollection/">ReadOnlyAttachmentPreviewCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyBoardBackgroundScalesCollection/">ReadOnlyBoardBackgroundScalesCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyBoardCollection/">ReadOnlyBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyBoardMembershipCollection/">ReadOnlyBoardMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCardCollection/">ReadOnlyCardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCheckItemCollection/">ReadOnlyCheckItemCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCheckListCollection/">ReadOnlyCheckListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCollection%601/">ReadOnlyCollection&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCustomFieldCollection/">ReadOnlyCustomFieldCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyCustomFieldDefinitionCollection/">ReadOnlyCustomFieldDefinitionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyDropDownOptionCollection/">ReadOnlyDropDownOptionCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyListCollection/">ReadOnlyListCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyMemberCollection/">ReadOnlyMemberCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyNotificationCollection/">ReadOnlyNotificationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyOrganizationCollection/">ReadOnlyOrganizationCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyOrganizationMembershipCollection/">ReadOnlyOrganizationMembershipCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyPowerUpCollection/">ReadOnlyPowerUpCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyPowerUpDataCollection/">ReadOnlyPowerUpDataCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyStarredBoardCollection/">ReadOnlyStarredBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyStickerCollection/">ReadOnlyStickerCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ReadOnlyStickerPreviewCollection/">ReadOnlyStickerPreviewCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/RestFile/">RestFile</a></li>
+								
+									<li class="nav-item "><a href="/3-api/RestMethod/">RestMethod</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Search/">Search</a></li>
+								
+									<li class="nav-item "><a href="/3-api/SearchModelType/">SearchModelType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/SearchQuery/">SearchQuery</a></li>
+								
+									<li class="nav-item "><a href="/3-api/StarredBoard/">StarredBoard</a></li>
+								
+									<li class="nav-item "><a href="/3-api/StarredBoardCollection/">StarredBoardCollection</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Sticker/">Sticker</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TextField/">TextField</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Token/">Token</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TokenModelType/">TokenModelType</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TokenPermission/">TokenPermission</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloAuthorization/">TrelloAuthorization</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloConfiguration/">TrelloConfiguration</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloFactory/">TrelloFactory</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloInteractionException/">TrelloInteractionException</a></li>
+								
+									<li class="nav-item "><a href="/3-api/TrelloProcessor/">TrelloProcessor</a></li>
+								
+									<li class="nav-item "><a href="/3-api/UnknownPowerUp/">UnknownPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/ValidationException%601/">ValidationException&lt;T&gt;</a></li>
+								
+									<li class="nav-item "><a href="/3-api/VotingPowerUp/">VotingPowerUp</a></li>
+								
+									<li class="nav-item "><a href="/3-api/WebColor/">WebColor</a></li>
+								
+									<li class="nav-item "><a href="/3-api/Webhook%601/">Webhook&lt;T&gt;</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/4-v2/Getting-started/">Version 2.x</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/4-v2/Getting-started/">Getting Started</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/Configuration/">Configuration</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/PowerUps/">Power-Ups</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/Webhooks/">Webhooks</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/Supplying-your-own-JSON-serializer/">Supplying your own JSON serializer</a></li>
+								
+									<li class="nav-item "><a href="/4-v2/Supplying-your-own-ReST-client/">Supplying your own ReST client</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/5-v2-api/API-Actions/">Version 2.x - API</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Actions/">Actions</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Attachments/">Attachments</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Boards/">Boards</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Cards/">Cards</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-CheckLists/">CheckLists</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Exceptions/">Exceptions</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Configuration/">Configuration</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Labels/">Labels</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Lists/">Lists</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Members/">Members</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Notifications/">Notifications</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Organizations/">Organizations</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Power-Ups/">Power-Ups</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Searching/">Searching</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Stickers/">Stickers</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Tokens/">Tokens</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Webhooks/">Webhooks</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Common-Types/">Other common types</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Json/">JSON Serialization</a></li>
+								
+									<li class="nav-item "><a href="/5-v2-api/API-Rest/">ReST client</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/releasenotes/">Release Notes</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Manatee.Trello</h2>
+				<h3>Welcome</h3>
+			</div>
+			<article class="content">
+				<p>Manatee.Trello is a .Net wrapper for <a href="https://developers.trello.com/advanced-reference">Trello’s RESTful API</a> written C#.  The goal of this library is to expose the functionality of Trello as an intuitive, fully object-oriented design that allows the developer to interact with Trello objects in a way familiar to the average .Net developer.</p>
+
+<p>Every object possesses the properties one would expect to find by simply using the <a href="http://trello.com">Trello web UI</a>.  For example, a Board has a collection of Lists, each of which has a collection of Cards.  A Card also references back to the List and Board in which it is contained.</p>
+
+<p>Features:</p>
+
+<ul>
+  <li>Supports:
+    <ul>
+      <li>.Net Framework 4.5</li>
+      <li>.Net Standard 1.3</li>
+      <li>.Net Standard 2.0</li>
+    </ul>
+  </li>
+  <li>Fully asynchronous implementation</li>
+  <li>Full customization of data management (download only what you need)</li>
+  <li>Data upload aggregation (set multiple properties on an entity with a single call)</li>
+  <li>All collections are LINQ-compatible</li>
+  <li>All entities implement interfaces to support unit testing &amp; dependency injection</li>
+  <li>Extensible framework to support Trello PowerUps</li>
+  <li>CustomFields, Voting, and Card Aging PowerUps built in (must be enabled on the board)</li>
+  <li>Supports simultaneous usage of multiple Trello accounts</li>
+  <li>Entity caching to avoid unnecessary duplication of entities</li>
+  <li>Seams available for providing custom implementations of:
+    <ul>
+      <li>Cache</li>
+      <li>REST client</li>
+      <li>JSON serializer</li>
+    </ul>
+  </li>
+  <li>Webhook integration</li>
+  <li>Update notification via .Net events</li>
+  <li>Functions:
+    <ul>
+      <li>Boards
+        <ul>
+          <li>Add/Edit/Delete</li>
+          <li>Add/Edit board-wide preferences &amp; permissions</li>
+          <li>Add/Edit personal preferences</li>
+          <li>Add/Remove members</li>
+          <li>Add/Edit/Delete custom fields</li>
+          <li>Add/Remove to/from organization,</li>
+          <li>Enable/Disable power-ups</li>
+        </ul>
+      </li>
+      <li>Lists
+        <ul>
+          <li>Add/Edit/Reorder</li>
+          <li>Move to board</li>
+        </ul>
+      </li>
+      <li>Cards
+        <ul>
+          <li>Add/Copy/Edit/Delete/Reorder</li>
+          <li>Add/Edit/Clear custom field data</li>
+          <li>Add/Edit/Remove stickers</li>
+          <li>Add/Edit/Delete comments</li>
+          <li>Add/Copy/Edit/Delete/Reorder checklists</li>
+          <li>Add/Edit/Delete/Reorder checklist items</li>
+          <li>Show/Hide custom fields on cover</li>
+          <li>Move to list</li>
+        </ul>
+      </li>
+      <li>Organizations (Teams)
+        <ul>
+          <li>Add/Edit/Delete</li>
+          <li>Read/Set org-wide preferences &amp; permissions</li>
+          <li>Add/Remove members</li>
+          <li>Add/Edit/Clear custom field data</li>
+        </ul>
+      </li>
+      <li>Members
+        <ul>
+          <li>Read public member data</li>
+          <li>Read/Update authenticated member data</li>
+          <li>Read notifications for authenticated member</li>
+        </ul>
+      </li>
+      <li>PowerUps
+        <ul>
+          <li>Provided base class</li>
+        </ul>
+      </li>
+      <li>Searches
+        <ul>
+          <li>General search</li>
+          <li>Member search</li>
+          <li>Refresh to rerun query</li>
+        </ul>
+      </li>
+      <li>Tokens
+        <ul>
+          <li>Read/Delete</li>
+        </ul>
+      </li>
+      <li>Webhooks
+        <ul>
+          <li>Add/Edit/Delete</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>The free version will permit 300 downloads and 300 uploads per hour.  If you need more than this, please consider <a href="/1-main/licensing">purchasing a license</a>.</p>
+
+<h1 id="how-it-all-started">How it all started</h1>
+
+<p>When I started this project in 2012, I was a software support developer, which meant that when other people’s code did something it wasn’t supposed to, I was on the team that determined where the bug was and fixed it.  As such we had a plethora of systems dedicated to managing our list of found problems.</p>
+
+<p>The business users (my bosses) wanted a simple report to show the statuses of all of the problems we were working on as well as what was in our backlog and what we were planning on tackling next.  Enter Trello.  Following the example of Trello’s own <a href="https://trello.com/dev">Dev Board</a>, I created an organization for the company and a board for my team so that my internal customers could simply load up our board and see the information in an easy-to-read manner.</p>
+
+<p>After about a month of manually updating cards in both our problem management systems and on Trello, I decided it was time to investigate options for pulling data from our systems and uploading automatically to our board.  I found that while Trello exposed a rich API to manipulate the site programmatically, the existing .Net wrappers were insufficient for my need.  The existing wrappers only exposed a service-based architecture, which didn’t seem very object-oriented, and it was very obvious that they were mere wrappers around function calls provided by Trello’s development team.  I wanted objects with properties which I could manipulate, and I didn’t want to see any hint of an API.</p>
+
+<p>Thus, Manatee.Trello was conceived.</p>
+
+<p>Since its conception, I have moved through the ranks (and the world) to a Senior Developer role, implementing design patterns, best practices, and architectures all over everywhere.  I have endeavored to apply that knowledge and experience to this library.</p>
+
+			</article>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>
