@@ -182,9 +182,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return await GetData(ct);
 		}
-		protected sealed override IEnumerable<string> Merge(object newData)
+		protected sealed override void Merge(object newData)
 		{
-			return Merge((TJson) newData);
+			Merge((TJson) newData);
 		}
 
 		protected sealed override async Task Submit(CancellationToken ct)
