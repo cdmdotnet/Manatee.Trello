@@ -204,10 +204,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return true;
 		}
-		protected async Task HandleSubmitRequested(string propertyName, CancellationToken ct)
+		protected Task HandleSubmitRequested(string propertyName, CancellationToken ct)
 		{
 			_AddLocalChange(propertyName);
-			await ResetTimer(ct);
+			return ResetTimer(ct);
 		}
 		protected void MarkInitialized()
 		{
