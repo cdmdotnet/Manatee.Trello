@@ -134,6 +134,8 @@ Console.Writeline(results.Cards.Count());
 
 This query is equivalent to the string `"@me comment:trello due:week"`.  See [Trello's blog post](http://help.trello.com/customer/portal/articles/1145462-searching-for-cards-all-boards-) for more information on search parameters.  All of the special parameters listed in this post have been implemented.
 
+> **IMPORTANT** Trello requires that all entities supply the full ID when used as a search context.  This means that any entity that was created using the short ID (board & cards) will need to be refreshed first.
+
 > **NOTE** When creating entities, it will take some time for the new items to be indexed on the Trello servers.  During this time, these entities will not be returned in searches.  This may also affect searching for entities that have recently changed.
 
 ## Authorization

@@ -48,25 +48,27 @@ namespace Manatee.Trello.IntegrationTests
 		// This is the same as the first test, but instead of using the full ID, we're using the short link.
 		// When this was reported, it caused a KeyNotFoundException.
 		[Test]
-		public async Task SearchForCardsUsingShortIdInContextObject()
+		public void SearchForCardsUsingShortIdInContextObject()
 		{
-			{
-				// Due to indexing and/or data distribution latency on the Trello servers, this test
-				// must be performed on pre-existing data.  Let's hope that the sandbox remains in a
-				// good state...
-				var board = TestEnvironment.Current.Factory.Board(TrelloIds.BoardId);
+			Assert.ThrowsAsync<TrelloInteractionException>(async () =>
+				{
+					// Due to indexing and/or data distribution latency on the Trello servers, this test
+					// must be performed on pre-existing data.  Let's hope that the sandbox remains in a
+					// good state...
+					var board = TestEnvironment.Current.Factory.Board(TrelloIds.BoardId);
 
-				TrelloConfiguration.Cache.Remove(board);
-				var shortId = board.ShortLink;
-				board = TestEnvironment.Current.Factory.Board(shortId);
+					await board.Refresh();
 
-				var search = TestEnvironment.Current.Factory.Search("backup", modelTypes: SearchModelType.Cards, context: new[] {board});
+					TrelloConfiguration.Cache.Remove(board);
+					var shortId = board.ShortLink;
+					board = TestEnvironment.Current.Factory.Board(shortId);
 
-				await search.Refresh();
+					var search = TestEnvironment.Current.Factory.Search("backup", modelTypes: SearchModelType.Cards, context: new[] {board});
 
-				search.Cards.Should().Contain(c => c.Name.ToLower() == "account backup");
-				search.Cards.Should().Contain(c => c.Name.ToLower() == "board backup");
-			}
+					await search.Refresh();
+
+					Assert.Fail("Expected Trello to fail on search with short ID in context.  They may have lifted the full ID requirement.  (Yea!)");
+				});
 		}
 	}
 }
