@@ -138,11 +138,11 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
-		protected override IEnumerable<string> MergeDependencies(IJsonToken json)
+		protected override IEnumerable<string> MergeDependencies(IJsonToken json, bool overwrite)
 		{
-			return MemberPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Member))
-			                        .Concat(BoardPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Board)))
-			                        .Concat(OrganizationPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Organization)));
+			return MemberPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Member), overwrite)
+			                        .Concat(BoardPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Board), overwrite))
+			                        .Concat(OrganizationPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Organization), overwrite));
 		}
 		protected override bool CanUpdate()
 		{

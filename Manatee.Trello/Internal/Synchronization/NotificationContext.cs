@@ -116,9 +116,9 @@ namespace Manatee.Trello.Internal.Synchronization
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
 		}
-		protected override IEnumerable<string> MergeDependencies(IJsonNotification json)
+		protected override IEnumerable<string> MergeDependencies(IJsonNotification json, bool overwrite)
 		{
-			return NotificationDataContext.Merge(json.Data);
+			return NotificationDataContext.Merge(json.Data, overwrite);
 		}
 	}
 }

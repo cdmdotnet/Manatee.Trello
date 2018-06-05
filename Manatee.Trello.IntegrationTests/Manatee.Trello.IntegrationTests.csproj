@@ -62,10 +62,11 @@
     <Compile Include="CheckListTests.cs" />
     <Compile Include="ClientTestsOfAntiquity.cs" />
     <Compile Include="ClientTestsOfTheNew.cs" />
-    <Compile Include="ConsoleLog.cs" />
+    <Compile Include="LocalOnlyConsoleLog.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="ManualTests.cs" />
     <Compile Include="MemberTests.cs" />
+    <Compile Include="SearchTests.cs" />
     <Compile Include="TestEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StackOverflowTests.cs" />

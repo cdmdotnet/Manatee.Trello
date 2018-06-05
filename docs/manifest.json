@@ -1,0 +1,3707 @@
+{
+  "homepages": [],
+  "source_base_path": "c:/Projects/Manatee.Trello/docs_source",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html",
+          "hash": "yTxivwCtqFi3SFqGTXkO+Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Action.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Action.Fields.html",
+          "hash": "JOncHHMKgLym2Kx1ARGHww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Action.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Action.html",
+          "hash": "Ay89JcISCWS4N2g1yBfs5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ActionData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ActionData.html",
+          "hash": "lMvurYB+OlCDHqJVAfHnkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ActionType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ActionType.html",
+          "hash": "7fblq7t7Clv1Dq7pcvMzog=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Attachment.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Attachment.Fields.html",
+          "hash": "R0kQqW7EB/mDp19jCjO7pA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Attachment.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Attachment.html",
+          "hash": "qcjFLHi6JqhqmoHWdWHxTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.AttachmentCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.AttachmentCollection.html",
+          "hash": "eN54248K9YQD7qf/PzLWLw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.AvatarSize.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.AvatarSize.html",
+          "hash": "FkM33D+et0Fkvfdxdoxmuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.AvatarSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.AvatarSource.html",
+          "hash": "KDw+QnbvOxFdgjdALiZhiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Badges.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Badges.html",
+          "hash": "Z2ERou8V8+kpmjHS/vstVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Board.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Board.Fields.html",
+          "hash": "AG+lvndOinos+ElHE3gw1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Board.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Board.html",
+          "hash": "mWBAJ/Jii7Ng7q63cOPJ8Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardBackground.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardBackground.html",
+          "hash": "oORc1BZXYpFVu0X2YeyHmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardBackgroundBrightness.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardBackgroundBrightness.html",
+          "hash": "WiaHzNWCjG+ZXSEwAiZntw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardCollection.html",
+          "hash": "YSDICwFGN5w2M6mQXrps8w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardCommentPermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardCommentPermission.html",
+          "hash": "wM09ivYLEwcxS3UjsGPHnA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardExtensions.html",
+          "hash": "YhWotk1MstKBvWUP4gbUhA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardFilter.html",
+          "hash": "KIEAEqHRvhliI92cNvJT1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardInvitationPermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardInvitationPermission.html",
+          "hash": "pa143+2tzZRZf54ooha/4w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardLabelCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardLabelCollection.html",
+          "hash": "nLpjYUorVrezCi5Yvh4wMw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardMembership.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardMembership.html",
+          "hash": "cubTCi0tP/JUyziuOLlMyg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardMembershipCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardMembershipCollection.html",
+          "hash": "JqgVetqnbnsFBH+LL4bSBQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardMembershipType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardMembershipType.html",
+          "hash": "iOq9uH99PPJmoDlqYITsUw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardPermissionLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardPermissionLevel.html",
+          "hash": "QrPv+Vul4b8aGfEwh/yCIA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardPersonalPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardPersonalPreferences.html",
+          "hash": "zdw3oO+Q6E/wt/VJdnBHqQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardPreferences.html",
+          "hash": "Y0nfpsgun3hwjK1pnYQ22A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.BoardVotingPermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.BoardVotingPermission.html",
+          "hash": "ONd3v7unVecfRKeb1dzpSQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Card.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Card.Fields.html",
+          "hash": "iMyixIDXtWz5uCzxNB4G8Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Card.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Card.html",
+          "hash": "FuU718lyu6vZVC3v5CgZrg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CardAgingPowerUp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CardAgingPowerUp.html",
+          "hash": "V6oLpN7AY8sR61uP/k/EJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CardAgingStyle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CardAgingStyle.html",
+          "hash": "p/wFKFzKZUNAhFS++r4TGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CardCollection.html",
+          "hash": "R7REtAGdF/KNMH2dMJ18rg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CardFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CardFilter.html",
+          "hash": "ssr4SBlWIguXnqmOTKo4XA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CardLabelCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CardLabelCollection.html",
+          "hash": "0YWZbI5MizZzftEL+TdPRg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CardStickerCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CardStickerCollection.html",
+          "hash": "B5vmoKwnyucBowDVSraa0A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CheckBoxField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CheckBoxField.html",
+          "hash": "CjDuxjDDjjM82beEAEX9XQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CheckItem.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CheckItem.Fields.html",
+          "hash": "rlddZXTiNClw23lEZLIUcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CheckItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CheckItem.html",
+          "hash": "rb5vayI11z7CvgU3e/CdrA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CheckItemCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CheckItemCollection.html",
+          "hash": "/i743UQrm58tSSCd9KgqeQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CheckItemState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CheckItemState.html",
+          "hash": "vuI/0/XcFHxjcJ1h+zC8kg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CheckList.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CheckList.Fields.html",
+          "hash": "Y3YdNEQABCf0d3BCkHOcHw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CheckList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CheckList.html",
+          "hash": "HBV6xeNs/K+kjzzgTB08PQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CheckListCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CheckListCollection.html",
+          "hash": "qN7ltS0IAtbfuZEjGTH8gw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CommentCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CommentCollection.html",
+          "hash": "YvYOgHaE5HZ5Zwc5WY24Cw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CustomField-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CustomField-1.html",
+          "hash": "j+x54lLsaMQsz4ir2ihShg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CustomField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CustomField.html",
+          "hash": "1zIzTeBo04pbzMLYSTB8Pw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CustomFieldDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CustomFieldDefinition.html",
+          "hash": "e8qN3PYDDF+AXYKMwi0M8Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CustomFieldDefinitionCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CustomFieldDefinitionCollection.html",
+          "hash": "VgKzGZ0h7CTN4+kAP0MyLA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CustomFieldDisplayInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CustomFieldDisplayInfo.html",
+          "hash": "+TAg+BcGD0D4TlSCb399MA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CustomFieldType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CustomFieldType.html",
+          "hash": "v04Z3VIgUgYar10z/tXjXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CustomFieldsPowerUp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CustomFieldsPowerUp.html",
+          "hash": "pHauyQ9nD7b6apuGhNuPOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.DateTimeField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.DateTimeField.html",
+          "hash": "cxg/7OO/eF4XXz6fYJu5qA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.DropDownField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.DropDownField.html",
+          "hash": "5zxUGN+7ST9zI4vPraicsw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.DropDownOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.DropDownOption.html",
+          "hash": "91h+PYZnL0AT5gcyHht3tg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.DropDownOptionCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.DropDownOptionCollection.html",
+          "hash": "Aj2LRvy6VfjzH49KKjo3bQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IAction.html",
+          "hash": "NIHd4McPyRDzDBN5VLhPBg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IActionData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IActionData.html",
+          "hash": "Q/Td1AmQvXcrVpxd2DmBPA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IAttachment.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IAttachment.html",
+          "hash": "70hDcorDosRt+bTLCm1ABA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IAttachmentCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IAttachmentCollection.html",
+          "hash": "W28DdE+PvwT5KEaO3HIk1g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBadges.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBadges.html",
+          "hash": "QrER6KjVcl7WfRNyyIAq7A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBoard.html",
+          "hash": "e0WfQ3bXJjQ4K7zVkrKh/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBoardBackground.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBoardBackground.html",
+          "hash": "jvigdfuz/JcFY7XIbZkiJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBoardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBoardCollection.html",
+          "hash": "7hwTIplhb2AJTNd4fRWV3A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBoardLabelCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBoardLabelCollection.html",
+          "hash": "Kv784KQejTVEPpHdUxxgFw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBoardMembership.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBoardMembership.html",
+          "hash": "CBMP3n5Yk4PWgubctjNYqA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBoardMembershipCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBoardMembershipCollection.html",
+          "hash": "y0KCK1lVI6zF9+1pWVvUsQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBoardPersonalPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBoardPersonalPreferences.html",
+          "hash": "Ud/UGe+oUJfKM6nzEPlu2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IBoardPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IBoardPreferences.html",
+          "hash": "c0+rYW1Cqogh2p81uNOIJg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICache.html",
+          "hash": "AY89vmVc/tEPgmFjb14iHQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICacheable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICacheable.html",
+          "hash": "0cu0PYnXkaZc4GQTQhRvjA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICanWebhook.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICanWebhook.html",
+          "hash": "ZE538uBGk1mWjrM3XlIa+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICard.html",
+          "hash": "6QdjhZlpAW/460hBWoPDdQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICardCollection.html",
+          "hash": "rkrwEIOOuYWVKqJEtON7fQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICardLabelCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICardLabelCollection.html",
+          "hash": "dxXovxTw95VO14GNH3auOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICardStickerCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICardStickerCollection.html",
+          "hash": "gdcm6TSFRNazJC01s93cfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICheckItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICheckItem.html",
+          "hash": "bVKcBJxc1qGrqij0Wo7MnQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICheckItemCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICheckItemCollection.html",
+          "hash": "QrXGGGAmf0nSxUHNXvecBA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICheckList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICheckList.html",
+          "hash": "7+HW18fTucC372zLxJKHWQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICheckListCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICheckListCollection.html",
+          "hash": "Fz7h/ZHr/lvBKs16cG5vTg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICommentCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICommentCollection.html",
+          "hash": "E0/iO6CfdDCxP2QRl1AZeg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICustomField-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICustomField-1.html",
+          "hash": "WT97Uh4fkv+crntvwzhX2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICustomField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICustomField.html",
+          "hash": "dlb+wQi63JEjWyYTqgx5cg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICustomFieldDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICustomFieldDefinition.html",
+          "hash": "2BQVViYZoyBe6W6digiH/Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICustomFieldDefinitionCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICustomFieldDefinitionCollection.html",
+          "hash": "Qezx+9yuGn78RoUEi2MSpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ICustomFieldDisplayInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ICustomFieldDisplayInfo.html",
+          "hash": "EDRUH7zxQH6Nm1/Dt/UcjQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IDropDownOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IDropDownOption.html",
+          "hash": "VkdZv2UQPZqa805Wg8js5g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IDropDownOptionCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IDropDownOptionCollection.html",
+          "hash": "8JKYpppfNXeMdLamTo79rw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IImagePreview.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IImagePreview.html",
+          "hash": "xinDtYyCem6mTSa/FnuYMQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ILabel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ILabel.html",
+          "hash": "TMcXniIDaTMdGLXrJfNGgw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IList.html",
+          "hash": "JKNVqlYg6VPD/6HpVun2Kw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IListCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IListCollection.html",
+          "hash": "Hygs6ANOs9906IBEZ/zcEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ILog.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ILog.html",
+          "hash": "cyTW3S270rSMjUrtvgReAw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IMe.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IMe.html",
+          "hash": "DHJpGgkUSgrA0hISFZHLPg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IMember.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IMember.html",
+          "hash": "ZHQKSS2j+JmEP94S/DHvhA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IMemberCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IMemberCollection.html",
+          "hash": "PpaE6g4/Nmr3ctHqwZwS2g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IMemberPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IMemberPreferences.html",
+          "hash": "d+iW8hbq9VKzjhxnN9tmCQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IMemberSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IMemberSearch.html",
+          "hash": "kH3Co+47ZgkIoX6CUonVnQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IMemberSearchResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IMemberSearchResult.html",
+          "hash": "A0U5lBNgyWQ32Baat2MP3w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IMemberStickerCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IMemberStickerCollection.html",
+          "hash": "YBJlogu3wSKyKaNTzN2nVw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.INotification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.INotification.html",
+          "hash": "2rjULB2QCW/Ss4XqDQMUzQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.INotificationData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.INotificationData.html",
+          "hash": "zpFj0bqcNlp6Ra8eHKJEvw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IOrganization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IOrganization.html",
+          "hash": "5qEtC4b3IvcbveMO0t56ww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IOrganizationCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IOrganizationCollection.html",
+          "hash": "Qc4Y04eWCm8nrk24MMhHAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IOrganizationMembership.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IOrganizationMembership.html",
+          "hash": "r03L84Rj2e+wiJmiYHlT8g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IOrganizationMembershipCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IOrganizationMembershipCollection.html",
+          "hash": "oi/NVNFc2IyaP0ok+dBFQQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IOrganizationPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IOrganizationPreferences.html",
+          "hash": "fwvVWSyUUs2XtrEtYwOICw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IPowerUp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IPowerUp.html",
+          "hash": "2dcbSw63wfNCIU1jP5j1+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IPowerUpCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IPowerUpCollection.html",
+          "hash": "0WYzq6YTUnaXvkqN2igjmw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IPowerUpData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IPowerUpData.html",
+          "hash": "Cj2ni70HJV3gEpxp+5GaLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IQueryable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IQueryable.html",
+          "hash": "MGOZEoEbRBpJRo9vAs1nKQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyActionCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyActionCollection.html",
+          "hash": "wWU9axdLBLEoDowELZrr4g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyBoardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyBoardCollection.html",
+          "hash": "yT2BEn8+znIrFWvIBfsMoA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyBoardMembershipCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyBoardMembershipCollection.html",
+          "hash": "ahG3A6GIZ14IaEmwIW1hdw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyCardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyCardCollection.html",
+          "hash": "JmE/In2IqNlOc1+wcGtecw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyCheckItemCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyCheckItemCollection.html",
+          "hash": "7uXxkBIyNgS1d4vnO4m8Kw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyCheckListCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyCheckListCollection.html",
+          "hash": "iOn/rPY3UD/34sFNSV01tA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyCollection-1.html",
+          "hash": "qG1YFnqJao9Cofla7BHNOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyListCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyListCollection.html",
+          "hash": "eQ5rDPdzkuRdo/No0qO+JQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyMemberCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyMemberCollection.html",
+          "hash": "fQNydPm5csEtI/zOnrVgbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyNotificationCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyNotificationCollection.html",
+          "hash": "x+tMy0elBXid9Frw1bsAvQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyOrganizationCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyOrganizationCollection.html",
+          "hash": "5BrbvSvSOAWIav4TkVkkbQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IReadOnlyOrganizationMembershipCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IReadOnlyOrganizationMembershipCollection.html",
+          "hash": "1nYBcJJZDdWdhvUJqtWhGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ISearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ISearch.html",
+          "hash": "SDozS3oN29IWgIdjxEXcLw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ISearchQuery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ISearchQuery.html",
+          "hash": "+BESIppN0BKURJ75blaiHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IStarredBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IStarredBoard.html",
+          "hash": "gzw2da9/LEOKHXDhAe1KAw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IStarredBoardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IStarredBoardCollection.html",
+          "hash": "FfnwldZSF6IOKIqZIhJTUA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ISticker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ISticker.html",
+          "hash": "XZHV1zE2sQuBix0kLnebuQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IToken.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IToken.html",
+          "hash": "8JvVWnRf3FJmzmg1/ZD7mA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ITokenPermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ITokenPermission.html",
+          "hash": "1L17Vs1ZVgp0zQt8Q+XLQA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ITrelloFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ITrelloFactory.html",
+          "hash": "s8/yj2Lq1haIYsa4+vpWmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.IWebhook-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.IWebhook-1.html",
+          "hash": "atzAvb0gkam5LiTrnYgOgg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ImagePreview.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ImagePreview.html",
+          "hash": "KH7V/4IxAPejLrpGQcldtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.DefaultJsonFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.DefaultJsonFactory.html",
+          "hash": "N/dA+0NQBB7g9Z2HNmHdWQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.DefaultJsonSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.DefaultJsonSerializer.html",
+          "hash": "xdYgtLDg2HvHBmX7qxikRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IAcceptId.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IAcceptId.html",
+          "hash": "LqGO6CdpYEWDLCgIpgQoCg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IDeserializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IDeserializer.html",
+          "hash": "eVXdiqn4rQpikS3Ic1yp3w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonAction.html",
+          "hash": "Z3Rr2JhNgXjEym3xEinVOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonActionData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonActionData.html",
+          "hash": "4qbGs9WC58k0N/hkv5REVw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonActionOldData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonActionOldData.html",
+          "hash": "M4bFqM2NHR9Aqtbh3hWeEw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonAttachment.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonAttachment.html",
+          "hash": "CnwBMpOdYlxxXiWkMgzYwQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonBadges.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonBadges.html",
+          "hash": "o+iopr3guzQlhLFJUJwdrQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonBoard.html",
+          "hash": "WMH3XCnPm8ZnXR19sq7kQg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonBoardBackground.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonBoardBackground.html",
+          "hash": "4wdou9kf1eWtUO6q4g7rqA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonBoardMembership.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonBoardMembership.html",
+          "hash": "C3zjiSJo657SU0Y1WUNepg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonBoardPersonalPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonBoardPersonalPreferences.html",
+          "hash": "qxj/kiMrKxSi6BNqs125ug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonBoardPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonBoardPreferences.html",
+          "hash": "lb6obxYoM8U5ggcg7dMNVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonBoardVisibilityRestrict.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonBoardVisibilityRestrict.html",
+          "hash": "P9BxLXFagXtI58JO3esrzQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonCacheable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonCacheable.html",
+          "hash": "XstqXyxQnaBlknTzkpRhoA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonCard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonCard.html",
+          "hash": "Ix2j758NjI3v9n71nsKw9g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonCheckItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonCheckItem.html",
+          "hash": "7MpygeZH6l/BjDjXJDzByA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonCheckList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonCheckList.html",
+          "hash": "cGS8CVk4IyntFHGGplDZlw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonCustomDropDownOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonCustomDropDownOption.html",
+          "hash": "AGOtng9hUd+o6SE8MTMKpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonCustomField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonCustomField.html",
+          "hash": "lUwu7gc/6xY1sRmzGw/N7g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonCustomFieldDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonCustomFieldDefinition.html",
+          "hash": "WHeRB80CdmlZckhX0s7+Dg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonCustomFieldDisplayInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonCustomFieldDisplayInfo.html",
+          "hash": "f5msh/IvPtCcexGnK3uZLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonFactory.html",
+          "hash": "6cv9MRMazwh0HkGFtWZ86g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonImagePreview.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonImagePreview.html",
+          "hash": "pEZ+SDf0GcyiEcHw3KQHEA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonLabel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonLabel.html",
+          "hash": "Dgub1lzW6Uf+P5F+7WnJpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonList.html",
+          "hash": "znSIBx6/H+DJT29LCuVzWQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonMember.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonMember.html",
+          "hash": "nxpm38dV90cT+vDjHZ7R0Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonMemberPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonMemberPreferences.html",
+          "hash": "Lt5UJkNNN2D8uqR+BREl6A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonMemberSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonMemberSearch.html",
+          "hash": "OQlkZhyCWhvcTnIwYok0gg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonNotification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonNotification.html",
+          "hash": "xhJ7iG09ur+8BmapQJo1kw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonNotificationData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonNotificationData.html",
+          "hash": "LASHjy/D3rfvgBln+nxdlQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonNotificationOldData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonNotificationOldData.html",
+          "hash": "drv57HvYcP3Mb7azXg7YrA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonOrganization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonOrganization.html",
+          "hash": "HnVgbZCqAcbOtvSPrZsM2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonOrganizationMembership.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonOrganizationMembership.html",
+          "hash": "uZEoQ1lgtYNx9mjTJcpqpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonOrganizationPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonOrganizationPreferences.html",
+          "hash": "4GFlfSp9MWyZsCNumDEbRg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonParameter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonParameter.html",
+          "hash": "xFRbSblVYR91VSGlETu6Ww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonPosition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonPosition.html",
+          "hash": "1zv5sNG1j1p+4zxiLmhF5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonPowerUp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonPowerUp.html",
+          "hash": "hqfVzLESGiXrnwn0xsLqSQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonPowerUpData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonPowerUpData.html",
+          "hash": "MVJ11Xswr3v2nTMOwvFEAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonSearch.html",
+          "hash": "HT/+eUomwGOm5/svQu+QIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonStarredBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonStarredBoard.html",
+          "hash": "zd1wakv47jtcqIPerRLiJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonSticker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonSticker.html",
+          "hash": "BlgUy9z5rNuOOUYPuG4u+A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonToken.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonToken.html",
+          "hash": "RQGZ8M8k0txJypJ/NsldMg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonTokenPermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonTokenPermission.html",
+          "hash": "iQeRbI7tfUog9BZTGrQTBw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonWebhook.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonWebhook.html",
+          "hash": "X5V++68kAp4StzTFKuFNYA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.IJsonWebhookNotification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.IJsonWebhookNotification.html",
+          "hash": "rSSfxFlG/vMLGoJ0yR5Now=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.ISerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.ISerializer.html",
+          "hash": "iqoYgbLblSYoSCrSgOwrvg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.JsonDeserializeAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.JsonDeserializeAttribute.html",
+          "hash": "q0PvDtK5K+IMDFSEwEt+kA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.JsonSerializeAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.JsonSerializeAttribute.html",
+          "hash": "jph+NeOFa0DUabZzVbZ3Og=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.JsonSpecialSerializationAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.JsonSpecialSerializationAttribute.html",
+          "hash": "wnDgmyAazdur9tRzZTq5Yw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Json.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Json.html",
+          "hash": "AXSQ0NLTP9/fRVI/TeKt2w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Label.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Label.Fields.html",
+          "hash": "VVZfZOwLD08xtiL1DoZ/Eg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Label.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Label.html",
+          "hash": "vjfjvp0ERRd4UIwaZhwuvg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.LabelColor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.LabelColor.html",
+          "hash": "O2/bQAEglJYUN6E9AhP1tg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.License.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.License.html",
+          "hash": "TDwHYxjoOlDHIfULX6TKSQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.LicenseException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.LicenseException.html",
+          "hash": "KG+WzhyfEJwnLkJ1/tgqDA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.List.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.List.Fields.html",
+          "hash": "uAhIpp8/h6fI1al0cFKfzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.List.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.List.html",
+          "hash": "u7+nHFfRWo1+WTDfVNuWCA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ListCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ListCollection.html",
+          "hash": "uSui7eeh7R8ElgvSIozPjg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ListFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ListFilter.html",
+          "hash": "YS17101IDyz6dqklTbLKNw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Me.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Me.html",
+          "hash": "3z1JRMFjNMKxcDIzO9qdUA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Member.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Member.Fields.html",
+          "hash": "obXXyrd1YUPfs8CfGG1B+w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Member.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Member.html",
+          "hash": "KIByFpzg+ZWRdnGyb+PSUQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MemberCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MemberCollection.html",
+          "hash": "Pdc7aj3kB1g0JIlr4m5MwQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MemberExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MemberExtensions.html",
+          "hash": "D1OlyrXvyBeHvA/f2Scq2g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MemberFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MemberFilter.html",
+          "hash": "SgOWiFkvQUkmyQBSUnvRJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MemberPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MemberPreferences.html",
+          "hash": "p2CUiWGhtp+Ti7ZfTBZhUg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MemberSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MemberSearch.html",
+          "hash": "12YKvxVtEX88cfUgLKgbXw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MemberSearchResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MemberSearchResult.html",
+          "hash": "ShGgRtR1DvjcmfXgR50rbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MemberStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MemberStatus.html",
+          "hash": "eUtretOtwPX5np6U/JaqlA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MemberStickerCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MemberStickerCollection.html",
+          "hash": "M/b62k5RTlvKDSAHVeQRnA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.MembershipFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.MembershipFilter.html",
+          "hash": "7qIbk8KgbKrXc1bpBoOarQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Notification.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Notification.Fields.html",
+          "hash": "38aveh40b/iJqZYXyBBCYA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Notification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Notification.html",
+          "hash": "1E/cw9e0uk34/D3RIAa0gA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.NotificationData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.NotificationData.html",
+          "hash": "1upIVrTksBcKjhnqIfRx4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.NotificationType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.NotificationType.html",
+          "hash": "Kgq7O/CpjexJKpEzmRbdGg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.NumberField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.NumberField.html",
+          "hash": "F1XMr3cC+M3wr+m1TABWzA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Organization.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Organization.Fields.html",
+          "hash": "0Lu0ZOa9skvh9qSz/mPEuA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Organization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Organization.html",
+          "hash": "sJnzFLniJ8kAEXDOgnpk2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.OrganizationBoardVisibility.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.OrganizationBoardVisibility.html",
+          "hash": "+4WABl8ZNEFo3x8Dynm0ZQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.OrganizationCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.OrganizationCollection.html",
+          "hash": "phm0nYhJVg2X592Q5MCg4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.OrganizationFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.OrganizationFilter.html",
+          "hash": "mCfqPTQoLpdExmVXi93vuA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.OrganizationMembership.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.OrganizationMembership.html",
+          "hash": "QOMVvs+IiBl2CIxG1FjoeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.OrganizationMembershipCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.OrganizationMembershipCollection.html",
+          "hash": "z2G5gFy8WOCmfOR0f/jGpg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.OrganizationMembershipType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.OrganizationMembershipType.html",
+          "hash": "MwoxWLfJ+p2ndV8XkKrLLg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.OrganizationPermissionLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.OrganizationPermissionLevel.html",
+          "hash": "AgUfGxXJ1+DXuUgKPiIHZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.OrganizationPreferences.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.OrganizationPreferences.html",
+          "hash": "afm5k3A+XTj3KPM/GCLkMw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Position.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Position.html",
+          "hash": "ZqXqoDUl0RZkYdmMA9IXvg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.PowerUpBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.PowerUpBase.html",
+          "hash": "yl2jmSX5rz56q/S5/UjvWg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.PowerUpCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.PowerUpCollection.html",
+          "hash": "ixWiWbNCwXduhzBqDCUIcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.PowerUpData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.PowerUpData.html",
+          "hash": "ymKHmRHNJelk94OKDfQ/eQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyActionCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyActionCollection.html",
+          "hash": "/BDE5J3rvwIPRmWkB1/J0A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyAttachmentCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyAttachmentCollection.html",
+          "hash": "62kcdTqWTM9lTmFEt6bKEw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyAttachmentPreviewCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyAttachmentPreviewCollection.html",
+          "hash": "QRvg8jvFODQvrVkitiGkAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyBoardBackgroundScalesCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyBoardBackgroundScalesCollection.html",
+          "hash": "Ubk3umDKpWnoXKUhLZZI3w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyBoardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyBoardCollection.html",
+          "hash": "Be2pueAgChkmDSlnQmj8ng=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyBoardMembershipCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyBoardMembershipCollection.html",
+          "hash": "g0yAx1Ug6RHYegkpY6DQUQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyCardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyCardCollection.html",
+          "hash": "RYrgEvuv8DY0nDJvMXWmOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyCheckItemCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyCheckItemCollection.html",
+          "hash": "iPFAfeLRonaHJnlno6B7Yw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyCheckListCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyCheckListCollection.html",
+          "hash": "5l3ogHTpGZhHZPJnZ/58VA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyCollection-1.html",
+          "hash": "dauA9dGcejnTpzl8B3UlLw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyCustomFieldCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyCustomFieldCollection.html",
+          "hash": "yHU2zva+JIjE8hqu2bTm3A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.html",
+          "hash": "0QWbotwXFdvUCmrzDSYPiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyDropDownOptionCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyDropDownOptionCollection.html",
+          "hash": "XcgPP7xJefcH/plihRQraw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyListCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyListCollection.html",
+          "hash": "WzgfyZpv2MkFiTyMXS/Eig=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyMemberCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyMemberCollection.html",
+          "hash": "b+8H/vceD7x8CJh4JC2jEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyNotificationCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyNotificationCollection.html",
+          "hash": "/3z3vZyVmDqRtKLo8tMT+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyOrganizationCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyOrganizationCollection.html",
+          "hash": "Poe2Vh+mNEI8RYYN54jaVQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyOrganizationMembershipCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyOrganizationMembershipCollection.html",
+          "hash": "kwRrhSQae89/ZNpewY/OYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyPowerUpCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyPowerUpCollection.html",
+          "hash": "plQ0FWCfxS5tPtPo3Y71JQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyPowerUpDataCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyPowerUpDataCollection.html",
+          "hash": "dR69P7c1l2bi9/v2ILA03g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyStarredBoardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyStarredBoardCollection.html",
+          "hash": "FkSW8654Dz0BtcXJQRcFtQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyStickerCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyStickerCollection.html",
+          "hash": "8N8PTpAyyOlyCwfxpC9thQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ReadOnlyStickerPreviewCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ReadOnlyStickerPreviewCollection.html",
+          "hash": "ws44qJ8xVd/A63cvX8apnQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.DefaultRestClientProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.DefaultRestClientProvider.html",
+          "hash": "h5/5huCWtbs7XG3qkL3GpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.IRestClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.IRestClient.html",
+          "hash": "HoSjdiKz2Nl7eEyuzmZskg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.IRestClientProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.IRestClientProvider.html",
+          "hash": "WKvNq1wcOoaGMSinT06E8Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.IRestRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.IRestRequest.html",
+          "hash": "glnXtqTqnvyFsc+ZA9gp6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.IRestRequestProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.IRestRequestProvider.html",
+          "hash": "r8KB53/hBHp+lrOMup/ZOA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.IRestResponse-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.IRestResponse-1.html",
+          "hash": "AExFISt2KUacLNctSLrY3g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.IRestResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.IRestResponse.html",
+          "hash": "iPK/0wl1+JUW1FTLCysZ3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.RestFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.RestFile.html",
+          "hash": "nt2uzsMB8jF1mzgSfc66vg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.RestMethod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.RestMethod.html",
+          "hash": "dw0JD5JB4KP59mFWoWk+pw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Rest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Rest.html",
+          "hash": "0x5pXNRj8KBwke36v0Eejw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Search.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Search.html",
+          "hash": "6uXkDfOzevIDSL7gi1PKkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.SearchModelType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.SearchModelType.html",
+          "hash": "sJcyLw6vOTIoLsmg/nCN2w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.SearchQuery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.SearchQuery.html",
+          "hash": "YaLsT5gEHsT8JkyZQUJiuQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.StarredBoard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.StarredBoard.html",
+          "hash": "WMln5bc6QHzXqVwJ6WNXvg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.StarredBoardCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.StarredBoardCollection.html",
+          "hash": "dUlELfHp6hXfoqZNRak/Zg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Sticker.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Sticker.Fields.html",
+          "hash": "yRy7kd3e4lIe9DIr8oCWRw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Sticker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Sticker.html",
+          "hash": "0bpHwsmb475cCSHCExTDxw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.TextField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.TextField.html",
+          "hash": "KSZHLE198t0nOl9toFEjYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Token.Fields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Token.Fields.html",
+          "hash": "Gk6y97LmMA36HuPw+hcUdg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Token.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Token.html",
+          "hash": "UXbhXr1CHVHV9fNZFiCifQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.TokenModelType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.TokenModelType.html",
+          "hash": "cp0NXGHoSUplxmZaoN+XOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.TokenPermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.TokenPermission.html",
+          "hash": "ADvmU7s5hQ/o6xeZBUg6Dg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.TrelloAuthorization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.TrelloAuthorization.html",
+          "hash": "lVgBKuRTogsCp3Nd5cu8uQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.TrelloConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.TrelloConfiguration.html",
+          "hash": "A7DpqwAnZD2iwl5oHhoJ3w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.TrelloFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.TrelloFactory.html",
+          "hash": "Hp4TfASyEsnmj25BwBuKdQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.TrelloInteractionException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.TrelloInteractionException.html",
+          "hash": "vxFGkf7Vbjia/vIbGh7/cw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.TrelloProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.TrelloProcessor.html",
+          "hash": "nBp7wqz6/v3O0zX1oQ5T1Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.UnknownPowerUp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.UnknownPowerUp.html",
+          "hash": "9x3Plx9VvUm6yxola6tmqg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.ValidationException-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.ValidationException-1.html",
+          "hash": "Xnb1NYeAALk5AZNAdGR0hw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.VotingPowerUp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.VotingPowerUp.html",
+          "hash": "vlfGRxeYisAgEiLgYrw7cA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.WebColor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.WebColor.html",
+          "hash": "tSfCTJ2aSnJQ+RI89/iodQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.Webhook-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.Webhook-1.html",
+          "hash": "mC28Bz3NvIRA3NCpwL3Z0Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.html",
+          "hash": "hw4ruDxBva+vR78cBt/2Vg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "zQVyk20+/WGGStSNyoBWPw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "a4TBWvoKMjwD2OoNDoFpaw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "examples/adding-card.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/adding-card.html",
+          "hash": "qSl2raHkmxbLSIJtIA6e/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "examples/changing-data.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/changing-data.html",
+          "hash": "9dlhF2FZJ4ofxitbbw2c4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "examples/delete-checkitem.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/delete-checkitem.html",
+          "hash": "19vmWv+BnjOEtnI2xxefFw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "examples/getting-boards.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/getting-boards.html",
+          "hash": "bpXKNTpWY+9x9R9f2zP3AQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "examples/known-card.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/known-card.html",
+          "hash": "l9snztFsYXnPoc6latbbhQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "examples/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "examples/toc.html",
+          "hash": "NA2fbK5rou/CZ/P9btP8QQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "examples/webhook.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/webhook.html",
+          "hash": "bL1j6opUDe8l/yhbZUs1qg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/favicon.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/favicon.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/menu.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/menu.svg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/siteicon.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/siteicon.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "Yf9kLyLb3rbeBdHlfzybLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "release-notes.md",
+      "output": {
+        ".html": {
+          "relative_path": "release-notes.html",
+          "hash": "wZiQeIaxUJNJY0xYGJ8+QQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "AY18mgKfXWSqAZgTmzI/Mg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "usage/configuration.md",
+      "output": {
+        ".html": {
+          "relative_path": "usage/configuration.html",
+          "hash": "S552/Cd54RFmcA6yby0shw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "usage/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "usage/getting-started.html",
+          "hash": "P2KU3N31p5V56JIQ01padw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "usage/licensing.md",
+      "output": {
+        ".html": {
+          "relative_path": "usage/licensing.html",
+          "hash": "nCRDiDNyxAzBAuMYZBD1aA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "usage/power-ups.md",
+      "output": {
+        ".html": {
+          "relative_path": "usage/power-ups.html",
+          "hash": "5obtISWTRhyFwwUhvpWgkg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "usage/supplying-your-own-json-serializer.md",
+      "output": {
+        ".html": {
+          "relative_path": "usage/supplying-your-own-json-serializer.html",
+          "hash": "gp3cfMKVy5gUqOcmt67Ouw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "usage/supplying-your-own-rest-client.md",
+      "output": {
+        ".html": {
+          "relative_path": "usage/supplying-your-own-rest-client.html",
+          "hash": "awqP09YCSmk8XV47JAVPvg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "usage/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "usage/toc.html",
+          "hash": "SsItgTzANL68gmKUlYDAJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "usage/webhooks.md",
+      "output": {
+        ".html": {
+          "relative_path": "usage/webhooks.html",
+          "hash": "3jI/4dOyBzYDBEfUCpkJUw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build"
+      },
+      "processors": {
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing"
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

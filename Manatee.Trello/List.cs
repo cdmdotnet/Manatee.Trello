@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 		/// <summary>
 		/// Gets or sets the board on which the list belongs.
 		/// </summary>
@@ -117,7 +117,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(CancellationToken.None).Wait();
+					_context.Synchronize(true, CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -213,6 +213,7 @@ namespace Manatee.Trello
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 
+			if (auth != TrelloAuthorization.Null)
 				TrelloConfiguration.Cache.Add(this);
 		}
 		internal List(IJsonList json, TrelloAuthorization auth)
@@ -227,17 +228,23 @@ namespace Manatee.Trello
 		/// <param name="action">The action.</param>
 		public void ApplyAction(IAction action)
 		{
-			if (action.Type != ActionType.UpdateList || action.Data.List == null || action.Data.List.Id != Id) return;
-			_context.Merge(((List) action.Data.List).Json);
+			var localAction = action as Action;
+
+			if (action.Type != ActionType.UpdateList ||
+			    localAction?.Json?.Data?.List == null ||
+			    localAction.Json.Data.List.Id != Id) return;
+
+			_context.Merge(localAction.Json.Data.List, false);
 		}
 
 		/// <summary>
 		/// Refreshes the label data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			return _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonList>.Merge(IJsonList json, bool overwrite)

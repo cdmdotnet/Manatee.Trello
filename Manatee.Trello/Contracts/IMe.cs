@@ -51,6 +51,11 @@
 		IMemberPreferences Preferences { get; }
 
 		/// <summary>
+		/// Gets the collection of the member's board stars.
+		/// </summary>
+		new IStarredBoardCollection StarredBoards { get; }
+
+		/// <summary>
 		/// Gets or sets the member's username.
 		/// </summary>
 		new string UserName { get; set; }

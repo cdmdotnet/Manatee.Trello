@@ -57,7 +57,7 @@ namespace Manatee.Trello
 			_labelColor = new Field<LabelColor?>(_context, nameof(Color));
 			_position = new Field<Position>(_context, nameof(Position));
 
-			if (!created)
+			if (!created && auth != TrelloAuthorization.Null)
 				TrelloConfiguration.Cache.Add(this);
 		}
 
@@ -95,10 +95,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the drop down option data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			return _context.Synchronize(force, ct);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>

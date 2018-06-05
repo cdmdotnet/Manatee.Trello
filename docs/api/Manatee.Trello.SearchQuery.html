@@ -1,0 +1,1161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SearchQuery
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SearchQuery
+   ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Manatee.Trello.SearchQuery">
+  
+  
+  <h1 id="Manatee_Trello_SearchQuery" data-uid="Manatee.Trello.SearchQuery" class="text-break">Class SearchQuery
+  </h1>
+  <div class="markdown level0 summary"><p>Provides an easy mechanism to build search queries.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">SearchQuery</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
+  <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
+  <h5 id="Manatee_Trello_SearchQuery_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SearchQuery : ISearchQuery</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_CreatedWithinDay.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.CreatedWithinDay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L188">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_CreatedWithinDay_" data-uid="Manatee.Trello.SearchQuery.CreatedWithinDay*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_CreatedWithinDay" data-uid="Manatee.Trello.SearchQuery.CreatedWithinDay">CreatedWithinDay()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the past 24 hours.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery CreatedWithinDay()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_CreatedWithinDays_System_Int32_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.CreatedWithinDays(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L219">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_CreatedWithinDays_" data-uid="Manatee.Trello.SearchQuery.CreatedWithinDays*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_CreatedWithinDays_System_Int32_" data-uid="Manatee.Trello.SearchQuery.CreatedWithinDays(System.Int32)">CreatedWithinDays(Int32)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the past <code data-dev-comment-type="paramref" class="paramref">days</code> days.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery CreatedWithinDays(int days)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">days</span></td>
+        <td><p>The number of days.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_CreatedWithinMonth.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.CreatedWithinMonth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L208">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_CreatedWithinMonth_" data-uid="Manatee.Trello.SearchQuery.CreatedWithinMonth*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_CreatedWithinMonth" data-uid="Manatee.Trello.SearchQuery.CreatedWithinMonth">CreatedWithinMonth()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the past month.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery CreatedWithinMonth()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_CreatedWithinWeek.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.CreatedWithinWeek%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L198">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_CreatedWithinWeek_" data-uid="Manatee.Trello.SearchQuery.CreatedWithinWeek*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_CreatedWithinWeek" data-uid="Manatee.Trello.SearchQuery.CreatedWithinWeek">CreatedWithinWeek()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the past week.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery CreatedWithinWeek()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_DueWithinDay.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.DueWithinDay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L137">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_DueWithinDay_" data-uid="Manatee.Trello.SearchQuery.DueWithinDay*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_DueWithinDay" data-uid="Manatee.Trello.SearchQuery.DueWithinDay">DueWithinDay()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the next 24 hours.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery DueWithinDay()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_DueWithinDays_System_Int32_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.DueWithinDays(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L168">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_DueWithinDays_" data-uid="Manatee.Trello.SearchQuery.DueWithinDays*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_DueWithinDays_System_Int32_" data-uid="Manatee.Trello.SearchQuery.DueWithinDays(System.Int32)">DueWithinDays(Int32)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the next <code data-dev-comment-type="paramref" class="paramref">days</code> hours.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery DueWithinDays(int days)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">days</span></td>
+        <td><p>The number of days.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_DueWithinMonth.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.DueWithinMonth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L157">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_DueWithinMonth_" data-uid="Manatee.Trello.SearchQuery.DueWithinMonth*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_DueWithinMonth" data-uid="Manatee.Trello.SearchQuery.DueWithinMonth">DueWithinMonth()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the next month.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery DueWithinMonth()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_DueWithinWeek.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.DueWithinWeek%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L147">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_DueWithinWeek_" data-uid="Manatee.Trello.SearchQuery.DueWithinWeek*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_DueWithinWeek" data-uid="Manatee.Trello.SearchQuery.DueWithinWeek">DueWithinWeek()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the next week.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery DueWithinWeek()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_EditedWithinDay.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.EditedWithinDay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L229">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_EditedWithinDay_" data-uid="Manatee.Trello.SearchQuery.EditedWithinDay*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_EditedWithinDay" data-uid="Manatee.Trello.SearchQuery.EditedWithinDay">EditedWithinDay()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the past 24 hours.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery EditedWithinDay()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_EditedWithinDays_System_Int32_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.EditedWithinDays(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L260">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_EditedWithinDays_" data-uid="Manatee.Trello.SearchQuery.EditedWithinDays*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_EditedWithinDays_System_Int32_" data-uid="Manatee.Trello.SearchQuery.EditedWithinDays(System.Int32)">EditedWithinDays(Int32)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the past <code data-dev-comment-type="paramref" class="paramref">days</code> days.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery EditedWithinDays(int days)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">days</span></td>
+        <td><p>The number of days.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_EditedWithinMonth.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.EditedWithinMonth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L249">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_EditedWithinMonth_" data-uid="Manatee.Trello.SearchQuery.EditedWithinMonth*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_EditedWithinMonth" data-uid="Manatee.Trello.SearchQuery.EditedWithinMonth">EditedWithinMonth()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the past month.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery EditedWithinMonth()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_EditedWithinWeek.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.EditedWithinWeek%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L239">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_EditedWithinWeek_" data-uid="Manatee.Trello.SearchQuery.EditedWithinWeek*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_EditedWithinWeek" data-uid="Manatee.Trello.SearchQuery.EditedWithinWeek">EditedWithinWeek()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items due in the past week.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery EditedWithinWeek()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_IsArchived.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.IsArchived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L107">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_IsArchived_" data-uid="Manatee.Trello.SearchQuery.IsArchived*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_IsArchived" data-uid="Manatee.Trello.SearchQuery.IsArchived">IsArchived()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only archived items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery IsArchived()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_IsOpen.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.IsOpen%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L117">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_IsOpen_" data-uid="Manatee.Trello.SearchQuery.IsOpen*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_IsOpen" data-uid="Manatee.Trello.SearchQuery.IsOpen">IsOpen()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only unarchived items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery IsOpen()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_IsStarred.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.IsStarred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L127">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_IsStarred_" data-uid="Manatee.Trello.SearchQuery.IsStarred*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_IsStarred" data-uid="Manatee.Trello.SearchQuery.IsStarred">IsStarred()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only starred items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery IsStarred()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_Label_Manatee_Trello_ILabel_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.Label(Manatee.Trello.ILabel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L86">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_Label_" data-uid="Manatee.Trello.SearchQuery.Label*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_Label_Manatee_Trello_ILabel_" data-uid="Manatee.Trello.SearchQuery.Label(Manatee.Trello.ILabel)">Label(ILabel)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a label search parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery Label(ILabel label)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ILabel.html">ILabel</a></td>
+        <td><span class="parametername">label</span></td>
+        <td><p>The label to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_Label_Manatee_Trello_LabelColor_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.Label(Manatee.Trello.LabelColor)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L97">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_Label_" data-uid="Manatee.Trello.SearchQuery.Label*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_Label_Manatee_Trello_LabelColor_" data-uid="Manatee.Trello.SearchQuery.Label(Manatee.Trello.LabelColor)">Label(LabelColor)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a label color search parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery Label(LabelColor labelColor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.LabelColor.html">LabelColor</a></td>
+        <td><span class="parametername">labelColor</span></td>
+        <td><p>The label color to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_Member_Manatee_Trello_IMember_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.Member(Manatee.Trello.IMember)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L75">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_Member_" data-uid="Manatee.Trello.SearchQuery.Member*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_Member_Manatee_Trello_IMember_" data-uid="Manatee.Trello.SearchQuery.Member(Manatee.Trello.IMember)">Member(IMember)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a member search parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery Member(IMember member)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IMember.html">IMember</a></td>
+        <td><span class="parametername">member</span></td>
+        <td><p>The member to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_Overdue.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.Overdue%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L178">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_Overdue_" data-uid="Manatee.Trello.SearchQuery.Overdue*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_Overdue" data-uid="Manatee.Trello.SearchQuery.Overdue">Overdue()</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a search parameter to restrict to only items which are overdue.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery Overdue()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_Text_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.Text(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L20">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_Text_" data-uid="Manatee.Trello.SearchQuery.Text*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_Text_System_String_" data-uid="Manatee.Trello.SearchQuery.Text(System.String)">Text(String)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a text search parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery Text(string text)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_TextInCheckLists_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.TextInCheckLists(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L64">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_TextInCheckLists_" data-uid="Manatee.Trello.SearchQuery.TextInCheckLists*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_TextInCheckLists_System_String_" data-uid="Manatee.Trello.SearchQuery.TextInCheckLists(System.String)">TextInCheckLists(String)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a text search parameter specific to check lists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery TextInCheckLists(string text)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_TextInComments_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.TextInComments(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L53">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_TextInComments_" data-uid="Manatee.Trello.SearchQuery.TextInComments*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_TextInComments_System_String_" data-uid="Manatee.Trello.SearchQuery.TextInComments(System.String)">TextInComments(String)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a text search parameter specific to card comments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery TextInComments(string text)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_TextInDescription_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.TextInDescription(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L42">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_TextInDescription_" data-uid="Manatee.Trello.SearchQuery.TextInDescription*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_TextInDescription_System_String_" data-uid="Manatee.Trello.SearchQuery.TextInDescription(System.String)">TextInDescription(String)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a text search parameter specific to card descriptions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery TextInDescription(string text)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_TextInName_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.TextInName(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L31">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_TextInName_" data-uid="Manatee.Trello.SearchQuery.TextInName*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_TextInName_System_String_" data-uid="Manatee.Trello.SearchQuery.TextInName(System.String)">TextInName(String)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> specifying a text search parameter specific to card names.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISearchQuery TextInName(string text)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The text to search for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a></td>
+        <td><p>A new <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a> parameter list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery_ToString.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L274">View Source</a>
+  </span>
+  <a id="Manatee_Trello_SearchQuery_ToString_" data-uid="Manatee.Trello.SearchQuery.ToString*"></a>
+  <h4 id="Manatee_Trello_SearchQuery_ToString" data-uid="Manatee.Trello.SearchQuery.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A string that represents the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.ToString()</span></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Manatee.Trello.ISearchQuery.html">ISearchQuery</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_SearchQuery.md&amp;value=---%0Auid%3A%20Manatee.Trello.SearchQuery%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/SearchQuery.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

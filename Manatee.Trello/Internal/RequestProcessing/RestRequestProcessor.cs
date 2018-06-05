@@ -17,7 +17,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 		public static Task<IRestResponse> AddRequest(IRestRequest request, CancellationToken ct)
 		{
-			return Process(async () => await Client.Execute(request, ct), request, ct);
+			return Process(() => Client.Execute(request, ct), request, ct);
 		}
 		public static Task<IRestResponse> AddRequest<T>(IRestRequest request, CancellationToken ct)
 			where T : class

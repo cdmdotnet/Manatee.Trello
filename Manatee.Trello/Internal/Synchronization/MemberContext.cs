@@ -34,6 +34,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public ReadOnlyCardCollection Cards { get; }
 		public ReadOnlyNotificationCollection Notifications { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
+		public ReadOnlyStarredBoardCollection StarredBoards { get; }
 		public MemberPreferencesContext MemberPreferencesContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
@@ -120,6 +121,9 @@ namespace Manatee.Trello.Internal.Synchronization
 				                ? new OrganizationCollection(() => Data.Id, auth)
 				                : new ReadOnlyOrganizationCollection(() => Data.Id, auth);
 			Notifications = new ReadOnlyNotificationCollection(() => Data.Id, auth);
+			StarredBoards = isMe
+				                ? new StarredBoardCollection(() => Data.Id, auth)
+				                : new ReadOnlyStarredBoardCollection(() => Data.Id, auth); 
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
@@ -172,6 +176,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["organizations"] = "all";
 					Parameters["organization_fields"] = OrganizationContext.CurrentParameters["fields"];
 				}
+				if (parameterFields.HasFlag(Member.Fields.StarredBoards))
+					Parameters["boardStars"] = "true";
 			}
 		}
 
@@ -198,33 +204,38 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		protected override IEnumerable<string> MergeDependencies(IJsonMember json)
+		protected override IEnumerable<string> MergeDependencies(IJsonMember json, bool overwrite)
 		{
-			var properties = MemberPreferencesContext.Merge(json.Prefs).ToList();
+			var properties = MemberPreferencesContext.Merge(json.Prefs, overwrite).ToList();
 
 			if (json.Actions != null)
 			{
-				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth)));
+				Actions.Update(json.Actions.Select(a => a.GetFromCache<Action, IJsonAction>(Auth, overwrite)));
 				properties.Add(nameof(Member.Actions));
 			}
 			if (json.Boards != null)
 			{
-				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth)));
+				Boards.Update(json.Boards.Select(a => a.GetFromCache<Board, IJsonBoard>(Auth, overwrite)));
 				properties.Add(nameof(Member.Boards));
 			}
 			if (json.Cards != null)
 			{
-				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth)));
+				Cards.Update(json.Cards.Select(a => a.GetFromCache<Card, IJsonCard>(Auth, overwrite)));
 				properties.Add(nameof(Member.Cards));
 			}
 			if (json.Notifications != null)
 			{
-				Notifications.Update(json.Notifications.Select(a => a.GetFromCache<Notification, IJsonNotification>(Auth)));
+				Notifications.Update(json.Notifications.Select(a => a.GetFromCache<Notification, IJsonNotification>(Auth, overwrite)));
 				properties.Add(nameof(Me.Notifications));
 			}
 			if (json.Organizations != null)
 			{
-				Organizations.Update(json.Organizations.Select(a => a.GetFromCache<Organization, IJsonOrganization>(Auth)));
+				Organizations.Update(json.Organizations.Select(a => a.GetFromCache<Organization, IJsonOrganization>(Auth, overwrite)));
+				properties.Add(nameof(Member.Organizations));
+			}
+			if (json.StarredBoards != null)
+			{
+				StarredBoards.Update(json.StarredBoards.Select(a => a.GetFromCache<StarredBoard, IJsonStarredBoard>(Auth, overwrite, Data.Id)));
 				properties.Add(nameof(Member.Organizations));
 			}
 

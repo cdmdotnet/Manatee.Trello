@@ -1,9 +1,13 @@
 # Manatee.Trello
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qdlvb960nc7eik2w/branch/master?svg=true)](https://ci.appveyor.com/project/gregsdennis/manatee-trello/branch/master)
-[![MyGet Build Status](https://www.myget.org/BuildSource/Badge/littlecrabsolutions?identifier=b70114b6-4cba-4624-97a9-be505a253c12)](https://www.myget.org/)<br>
 [![NuGet version (Manatee.Trello)](https://img.shields.io/nuget/v/Manatee.Trello.svg?style=flat-square)](https://www.nuget.org/packages/Manatee.Trello/)
-[![Discuss on Slack](/Resources/Slack_RGB.png)](https://join.slack.com/t/manateeopensource/shared_invite/enQtMzU4MjgzMjgyNzU3LWQ0ODM5ZTVhMTVhODY1Mjk5MTIxMjgxZjI2NWRiZWZkYmExMDM0MDRjNGE4OWRkMjYxMTc1M2ViMTZiYzM0OTI)<br>
+[![Build status](https://ci.appveyor.com/api/projects/status/qdlvb960nc7eik2w/branch/master?svg=true)](https://ci.appveyor.com/project/gregsdennis/manatee-trello/branch/master)
+[![MyGet Build Status](https://www.myget.org/BuildSource/Badge/littlecrabsolutions?identifier=b70114b6-4cba-4624-97a9-be505a253c12)](https://www.myget.org/)
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/gregsdennis/Manatee.Trello.svg)](http://isitmaintained.com/project/gregsdennis/Manatee.Trello "Percentage of issues still open")
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/gregsdennis/Manatee.Trello.svg)](http://isitmaintained.com/project/gregsdennis/Manatee.Trello "Average time to resolve an issue")
+
+[![Discuss on Slack](/Resources/Slack_RGB.png)](https://join.slack.com/t/manateeopensource/shared_invite/enQtMzU4MjgzMjgyNzU3LWQ0ODM5ZTVhMTVhODY1Mjk5MTIxMjgxZjI2NWRiZWZkYmExMDM0MDRjNGE4OWRkMjYxMTc1M2ViMTZiYzM0OTI)
+
 <a href="http://www.jetbrains.com/resharper"><img src="http://i61.tinypic.com/15qvwj7.jpg" alt="ReSharper" title="ReSharper"></a>
 
 The primary goal of Manatee.Trello is to provide an intuitive, object-oriented representation of Trello entities.  Other API wrappers that I encounter contain service objects with functions that return little more than non-functional DTOs (data transfer objects) to represent the entities.
@@ -120,19 +124,20 @@ Features:
         - Add/Edit personal preferences
         - Add/Remove members
         - Add/Edit/Delete custom fields
-        - Add to organization
+        - Add/Remove to/from organization
+        - Enable/Disable power-ups
     - Lists
-        - Add/Edit
+        - Add/Edit/Reorder
         - Move to board
-        - Reorder
     - Cards
-        - Add/Edit/Delete
+        - Add/Copy/Edit/Delete/Reorder
         - Add/Edit/Clear custom field data
         - Add/Edit/Remove stickers
         - Add/Edit/Delete comments
-        - Add/Edit/Delete checklists & items
+        - Add/Copy/Edit/Delete/Reorder checklists
+        - Add/Edit/Delete/Reorder checklist items
+        - Show/Hide custom fields on cover
         - Move to list
-        - Reorder
     - Organizations (Teams)
         - Add/Edit/Delete
         - Read/Set org-wide preferences & permissions
@@ -153,11 +158,11 @@ Features:
     - Webhooks
         - Add/Edit/Delete
 
-See the wiki pages for more information on how to use this wonderful library!
+See the [docs](https://gregsdennis.github.io/Manatee.Trello) for more information on how to use this wonderful library!
 
 ## Extended use
 
-As of version 3, a [licensing model](https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3) has been introduced.
+As of version 3, a [licensing model](https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html) has been introduced.
 
 If you're planning on using this for your organization, please consider purchasing a license.
 

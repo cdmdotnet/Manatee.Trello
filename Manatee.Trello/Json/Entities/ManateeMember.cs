@@ -31,6 +31,7 @@ namespace Manatee.Trello.Json.Entities
 		public List<IJsonCard> Cards { get; set; }
 		public List<IJsonNotification> Notifications { get; set; }
 		public List<IJsonOrganization> Organizations { get; set; }
+		public List<IJsonStarredBoard> StarredBoards { get; set; }
 		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -60,6 +61,7 @@ namespace Manatee.Trello.Json.Entities
 					Cards = obj.Deserialize<List<IJsonCard>>(serializer, "cards");
 					Notifications = obj.Deserialize<List<IJsonNotification>>(serializer, "notifications");
 					Organizations = obj.Deserialize<List<IJsonOrganization>>(serializer, "organizations");
+					StarredBoards = obj.Deserialize<List<IJsonStarredBoard>>(serializer, "boardStars");
 					ValidForMerge = true;
 					break;
 				case JsonValueType.String:

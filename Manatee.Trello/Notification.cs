@@ -168,7 +168,8 @@ namespace Manatee.Trello
 			_isUnread = new Field<bool?>(_context, nameof(IsUnread));
 			_type = new Field<NotificationType?>(_context, nameof(Type));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Notification(IJsonNotification json, TrelloAuthorization auth)
 			: this(json.Id, auth)
@@ -179,10 +180,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the notification data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			return _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonNotification>.Merge(IJsonNotification json, bool overwrite)

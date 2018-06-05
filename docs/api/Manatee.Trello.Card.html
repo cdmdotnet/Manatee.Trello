@@ -1,0 +1,1393 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Card
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Card
+   ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Manatee.Trello.Card">
+  
+  
+  <h1 id="Manatee_Trello_Card" data-uid="Manatee.Trello.Card" class="text-break">Class Card
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a card.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Card</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Manatee.Trello.ICard.html">ICard</a></div>
+    <div><a class="xref" href="Manatee.Trello.ICanWebhook.html">ICanWebhook</a></div>
+    <div><a class="xref" href="Manatee.Trello.IQueryable.html">IQueryable</a></div>
+    <div><a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
+  <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
+  <h5 id="Manatee_Trello_Card_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Card : ICard, ICanWebhook, IQueryable, ICacheable, IMergeJson&lt;IJsonCard&gt;</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card__ctor_System_String_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.%23ctor(System.String%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L423">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card__ctor_" data-uid="Manatee.Trello.Card.#ctor*"></a>
+  <h4 id="Manatee_Trello_Card__ctor_System_String_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.Card.#ctor(System.String,Manatee.Trello.TrelloAuthorization)">Card(String, TrelloAuthorization)</h4>
+  <div class="markdown level1 summary"><p>Creates a new instance of the <a class="xref" href="Manatee.Trello.Card.html">Card</a> object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Card(string id, TrelloAuthorization auth = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The card's ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.TrelloAuthorization.html">TrelloAuthorization</a></td>
+        <td><span class="parametername">auth</span></td>
+        <td><p>(Optional) Custom authorization parameters. When not provided, <a class="xref" href="Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_Default">Default</a> will be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_Card__ctor_System_String_Manatee_Trello_TrelloAuthorization__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The supplied ID can be either the full or short ID.</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Actions.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Actions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L192">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Actions_" data-uid="Manatee.Trello.Card.Actions*"></a>
+  <h4 id="Manatee_Trello_Card_Actions" data-uid="Manatee.Trello.Card.Actions">Actions</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of actions performed on this card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyActionCollection Actions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyActionCollection.html">IReadOnlyActionCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_Card_Actions_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>By default imposed by Trello, this contains actions of type <a class="xref" href="Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_CommentCard">CommentCard</a>.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Attachments.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Attachments%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L197">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Attachments_" data-uid="Manatee.Trello.Card.Attachments*"></a>
+  <h4 id="Manatee_Trello_Card_Attachments" data-uid="Manatee.Trello.Card.Attachments">Attachments</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of attachments contained in the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IAttachmentCollection Attachments { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IAttachmentCollection.html">IAttachmentCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Badges.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Badges%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L202">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Badges_" data-uid="Manatee.Trello.Card.Badges*"></a>
+  <h4 id="Manatee_Trello_Card_Badges" data-uid="Manatee.Trello.Card.Badges">Badges</h4>
+  <div class="markdown level1 summary"><p>Gets the badges summarizing the card's content.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IBadges Badges { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IBadges.html">IBadges</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Board.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Board%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L207">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Board_" data-uid="Manatee.Trello.Card.Board*"></a>
+  <h4 id="Manatee_Trello_Card_Board" data-uid="Manatee.Trello.Card.Board">Board</h4>
+  <div class="markdown level1 summary"><p>Gets the board to which the card belongs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IBoard Board { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IBoard.html">IBoard</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_CheckLists.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.CheckLists%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L212">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_CheckLists_" data-uid="Manatee.Trello.Card.CheckLists*"></a>
+  <h4 id="Manatee_Trello_Card_CheckLists" data-uid="Manatee.Trello.Card.CheckLists">CheckLists</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of checklists contained in the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICheckListCollection CheckLists { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICheckListCollection.html">ICheckListCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Comments.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Comments%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L217">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Comments_" data-uid="Manatee.Trello.Card.Comments*"></a>
+  <h4 id="Manatee_Trello_Card_Comments" data-uid="Manatee.Trello.Card.Comments">Comments</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of comments made on the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommentCollection Comments { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICommentCollection.html">ICommentCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_CreationDate.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.CreationDate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L222">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_CreationDate_" data-uid="Manatee.Trello.Card.CreationDate*"></a>
+  <h4 id="Manatee_Trello_Card_CreationDate" data-uid="Manatee.Trello.Card.CreationDate">CreationDate</h4>
+  <div class="markdown level1 summary"><p>Gets the creation date of the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime CreationDate { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.DateTime</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_CustomFields.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.CustomFields%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L235">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_CustomFields_" data-uid="Manatee.Trello.Card.CustomFields*"></a>
+  <h4 id="Manatee_Trello_Card_CustomFields" data-uid="Manatee.Trello.Card.CustomFields">CustomFields</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of custom field values for the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;ICustomField&gt; CustomFields { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.ICustomField.html">ICustomField</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Description.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Description%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L240">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Description_" data-uid="Manatee.Trello.Card.Description*"></a>
+  <h4 id="Manatee_Trello_Card_Description" data-uid="Manatee.Trello.Card.Description">Description</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's description.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Description { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_DownloadedFields.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.DownloadedFields%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L178">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_DownloadedFields_" data-uid="Manatee.Trello.Card.DownloadedFields*"></a>
+  <h4 id="Manatee_Trello_Card_DownloadedFields" data-uid="Manatee.Trello.Card.DownloadedFields">DownloadedFields</h4>
+  <div class="markdown level1 summary"><p>Specifies which fields should be downloaded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Card.Fields DownloadedFields { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Card.Fields.html">Card.Fields</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_DueDate.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.DueDate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L249">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_DueDate_" data-uid="Manatee.Trello.Card.DueDate*"></a>
+  <h4 id="Manatee_Trello_Card_DueDate" data-uid="Manatee.Trello.Card.DueDate">DueDate</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's due date.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime? DueDate { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.DateTime</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Id.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L258">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Id_" data-uid="Manatee.Trello.Card.Id*"></a>
+  <h4 id="Manatee_Trello_Card_Id" data-uid="Manatee.Trello.Card.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the card's ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_IsArchived.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.IsArchived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L272">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_IsArchived_" data-uid="Manatee.Trello.Card.IsArchived*"></a>
+  <h4 id="Manatee_Trello_Card_IsArchived" data-uid="Manatee.Trello.Card.IsArchived">IsArchived</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the card is archived.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? IsArchived { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_IsComplete.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.IsComplete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L281">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_IsComplete_" data-uid="Manatee.Trello.Card.IsComplete*"></a>
+  <h4 id="Manatee_Trello_Card_IsComplete" data-uid="Manatee.Trello.Card.IsComplete">IsComplete</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the card is complete.  Associated with <a class="xref" href="Manatee.Trello.Card.html#Manatee_Trello_Card_DueDate">DueDate</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? IsComplete { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_IsSubscribed.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.IsSubscribed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L290">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_IsSubscribed_" data-uid="Manatee.Trello.Card.IsSubscribed*"></a>
+  <h4 id="Manatee_Trello_Card_IsSubscribed" data-uid="Manatee.Trello.Card.IsSubscribed">IsSubscribed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the current member is subscribed to the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? IsSubscribed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Item_System_Int32_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Item(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L396">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Item_" data-uid="Manatee.Trello.Card.Item*"></a>
+  <h4 id="Manatee_Trello_Card_Item_System_Int32_" data-uid="Manatee.Trello.Card.Item(System.Int32)">Item[Int32]</h4>
+  <div class="markdown level1 summary"><p>Retrieves the check list at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICheckList this[int index] { get; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICheckList.html">ICheckList</a></td>
+        <td><p>The check list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> is less than 0 or greater than or equal to the number of elements in the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Item_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Item(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L386">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Item_" data-uid="Manatee.Trello.Card.Item*"></a>
+  <h4 id="Manatee_Trello_Card_Item_System_String_" data-uid="Manatee.Trello.Card.Item(System.String)">Item[String]</h4>
+  <div class="markdown level1 summary"><p>Retrieves a check list which matches the supplied key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICheckList this[string key] { get; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key to match.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICheckList.html">ICheckList</a></td>
+        <td><p>The matching check list, or null if none found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_Card_Item_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Matches on checklist ID and name.  Comparison is case-sensitive.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Labels.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Labels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L299">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Labels_" data-uid="Manatee.Trello.Card.Labels*"></a>
+  <h4 id="Manatee_Trello_Card_Labels" data-uid="Manatee.Trello.Card.Labels">Labels</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of labels on the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICardLabelCollection Labels { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICardLabelCollection.html">ICardLabelCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_LastActivity.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.LastActivity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L304">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_LastActivity_" data-uid="Manatee.Trello.Card.LastActivity*"></a>
+  <h4 id="Manatee_Trello_Card_LastActivity" data-uid="Manatee.Trello.Card.LastActivity">LastActivity</h4>
+  <div class="markdown level1 summary"><p>Gets the most recent date of activity on the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime? LastActivity { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.DateTime</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_List.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.List%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L309">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_List_" data-uid="Manatee.Trello.Card.List*"></a>
+  <h4 id="Manatee_Trello_Card_List" data-uid="Manatee.Trello.Card.List">List</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the list to the card belongs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList List { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IList.html">IList</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Members.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Members%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L322">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Members_" data-uid="Manatee.Trello.Card.Members*"></a>
+  <h4 id="Manatee_Trello_Card_Members" data-uid="Manatee.Trello.Card.Members">Members</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of members who are assigned to the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IMemberCollection Members { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IMemberCollection.html">IMemberCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Name.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L327">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Name_" data-uid="Manatee.Trello.Card.Name*"></a>
+  <h4 id="Manatee_Trello_Card_Name" data-uid="Manatee.Trello.Card.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Position.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Position%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L336">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Position_" data-uid="Manatee.Trello.Card.Position*"></a>
+  <h4 id="Manatee_Trello_Card_Position" data-uid="Manatee.Trello.Card.Position">Position</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Position Position { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Position.html">Position</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_PowerUpData.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.PowerUpData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L345">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_PowerUpData_" data-uid="Manatee.Trello.Card.PowerUpData*"></a>
+  <h4 id="Manatee_Trello_Card_PowerUpData" data-uid="Manatee.Trello.Card.PowerUpData">PowerUpData</h4>
+  <div class="markdown level1 summary"><p>Gets card-specific power-up data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;IPowerUpData&gt; PowerUpData { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.IPowerUpData.html">IPowerUpData</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_ShortId.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.ShortId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L350">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_ShortId_" data-uid="Manatee.Trello.Card.ShortId*"></a>
+  <h4 id="Manatee_Trello_Card_ShortId" data-uid="Manatee.Trello.Card.ShortId">ShortId</h4>
+  <div class="markdown level1 summary"><p>Gets the card's short ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int? ShortId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_ShortUrl.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.ShortUrl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L358">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_ShortUrl_" data-uid="Manatee.Trello.Card.ShortUrl*"></a>
+  <h4 id="Manatee_Trello_Card_ShortUrl" data-uid="Manatee.Trello.Card.ShortUrl">ShortUrl</h4>
+  <div class="markdown level1 summary"><p>Gets the card's short URL.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ShortUrl { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_Card_ShortUrl_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Because this value does not change, it can be used as a permalink.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Stickers.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Stickers%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L363">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Stickers_" data-uid="Manatee.Trello.Card.Stickers*"></a>
+  <h4 id="Manatee_Trello_Card_Stickers" data-uid="Manatee.Trello.Card.Stickers">Stickers</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of stickers which appear on the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICardStickerCollection Stickers { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICardStickerCollection.html">ICardStickerCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Url.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Url%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L371">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Url_" data-uid="Manatee.Trello.Card.Url*"></a>
+  <h4 id="Manatee_Trello_Card_Url" data-uid="Manatee.Trello.Card.Url">Url</h4>
+  <div class="markdown level1 summary"><p>Gets the card's full URL.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Url { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_Card_Url_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Trello will likely change this value as the name changes.  You can use <a class="xref" href="Manatee.Trello.Card.html#Manatee_Trello_Card_ShortUrl">ShortUrl</a> for permalinks.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_VotingMembers.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.VotingMembers%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L376">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_VotingMembers_" data-uid="Manatee.Trello.Card.VotingMembers*"></a>
+  <h4 id="Manatee_Trello_Card_VotingMembers" data-uid="Manatee.Trello.Card.VotingMembers">VotingMembers</h4>
+  <div class="markdown level1 summary"><p>Gets all members who have voted for this card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyMemberCollection VotingMembers { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyMemberCollection.html">IReadOnlyMemberCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_ApplyAction_Manatee_Trello_IAction_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.ApplyAction(Manatee.Trello.IAction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L465">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_ApplyAction_" data-uid="Manatee.Trello.Card.ApplyAction*"></a>
+  <h4 id="Manatee_Trello_Card_ApplyAction_Manatee_Trello_IAction_" data-uid="Manatee.Trello.Card.ApplyAction(Manatee.Trello.IAction)">ApplyAction(IAction)</h4>
+  <div class="markdown level1 summary"><p>Applies the changes an action represents.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyAction(IAction action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IAction.html">IAction</a></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Delete_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Delete(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L483">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Delete_" data-uid="Manatee.Trello.Card.Delete*"></a>
+  <h4 id="Manatee_Trello_Card_Delete_System_Threading_CancellationToken_" data-uid="Manatee.Trello.Card.Delete(System.Threading.CancellationToken)">Delete(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Deletes the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task Delete(CancellationToken ct = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>(Optional) A cancellation token for async processing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_Card_Delete_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This permanently deletes the card from Trello's server, however, this object will remain in memory and all properties will remain accessible.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Refresh_System_Boolean_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Refresh(System.Boolean%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L495">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_Refresh_" data-uid="Manatee.Trello.Card.Refresh*"></a>
+  <h4 id="Manatee_Trello_Card_Refresh_System_Boolean_System_Threading_CancellationToken_" data-uid="Manatee.Trello.Card.Refresh(System.Boolean,System.Threading.CancellationToken)">Refresh(Boolean, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Refreshes the card data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">force</span></td>
+        <td><p>Indicates that the refresh should ignore the value in <a class="xref" href="Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_RefreshThrottle">RefreshThrottle</a> and make the call to the API.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>(Optional) A cancellation token for async processing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_ToString.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L507">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Card_ToString_" data-uid="Manatee.Trello.Card.ToString*"></a>
+  <h4 id="Manatee_Trello_Card_ToString" data-uid="Manatee.Trello.Card.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A string that represents the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.ToString()</span></div>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card_Updated.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card.Updated%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L407">View Source</a>
+  </span>
+  <h4 id="Manatee_Trello_Card_Updated" data-uid="Manatee.Trello.Card.Updated">Updated</h4>
+  <div class="markdown level1 summary"><p>Raised when data on the card is updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;ICard, IEnumerable&lt;string&gt;&gt; Updated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="Manatee.Trello.ICard.html">ICard</a>, <span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Manatee.Trello.ICard.html">ICard</a>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.ICanWebhook.html">ICanWebhook</a>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.IQueryable.html">IQueryable</a>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Card.md&amp;value=---%0Auid%3A%20Manatee.Trello.Card%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Card.cs/#L17" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

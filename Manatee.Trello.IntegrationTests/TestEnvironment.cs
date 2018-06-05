@@ -31,6 +31,8 @@ namespace Manatee.Trello.IntegrationTests
 
 			Current = this;
 
+			EnsureLicense();
+
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = _GetUserToken();
 
@@ -38,7 +40,7 @@ namespace Manatee.Trello.IntegrationTests
 				new CapturingClientProvider(TrelloConfiguration.RestClientProvider,
 				                            r => LastRequest = r,
 				                            r => LastResponse = r);
-			TrelloConfiguration.Log = new ConsoleLog();
+			TrelloConfiguration.Log = new LocalOnlyConsoleLog();
 
 			var testTimeStamp = $"{DateTime.Now:yyMMddHHmmss}";
 
@@ -50,6 +52,15 @@ namespace Manatee.Trello.IntegrationTests
 
 			await Organization.Refresh();
 			await Board.Refresh();
+		}
+
+		private static void EnsureLicense()
+		{
+			var license = Environment.GetEnvironmentVariable("TRELLO_LICENSE");
+
+			if (license == null) return;
+
+			License.RegisterLicense(license);
 		}
 
 		private static string _GetUserToken()

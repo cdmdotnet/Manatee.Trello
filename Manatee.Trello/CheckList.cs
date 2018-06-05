@@ -175,7 +175,8 @@ namespace Manatee.Trello
 			_position.AddRule(NotNullRule<Position>.Instance);
 			_position.AddRule(PositionRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal CheckList(IJsonCheckList json, TrelloAuthorization auth)
 			: this(json.Id, auth)
@@ -200,10 +201,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the checklist data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			return _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonCheckList>.Merge(IJsonCheckList json, bool overwrite)

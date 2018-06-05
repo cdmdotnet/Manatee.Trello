@@ -107,7 +107,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 		/// <summary>
 		/// Gets the collection of boards owned by the organization.
 		/// </summary>
@@ -148,7 +148,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(CancellationToken.None).Wait();
+					_context.Synchronize(true, CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -161,7 +161,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>
-		public IReadOnlyCollection<IMember> Members => _context.Members;
+		public IReadOnlyMemberCollection Members => _context.Members;
 		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>
@@ -236,7 +236,8 @@ namespace Manatee.Trello
 			_website = new Field<string>(_context, nameof(Website));
 			_website.AddRule(UriRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Organization(IJsonOrganization json, TrelloAuthorization auth)
 			: this(json.Id, auth)
@@ -250,9 +251,13 @@ namespace Manatee.Trello
 		/// <param name="action">The action.</param>
 		public void ApplyAction(IAction action)
 		{
-			if (action.Type != ActionType.UpdateOrganization || action.Data.Organization == null || action.Data.Organization.Id != Id)
-				return;
-			_context.Merge(((Organization) action.Data.Organization).Json);
+			var localAction = action as Action;
+
+			if (action.Type != ActionType.UpdateOrganization ||
+			    localAction?.Json?.Data?.Org == null ||
+			    localAction.Json.Data.Org.Id != Id) return;
+
+			_context.Merge(localAction.Json.Data.Org);
 		}
 
 		/// <summary>
@@ -272,10 +277,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the organization data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			return _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonOrganization>.Merge(IJsonOrganization json, bool overwrite)

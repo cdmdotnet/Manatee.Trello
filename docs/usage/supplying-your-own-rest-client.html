@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Supplying your own ReST client </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Supplying your own ReST client ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="supplying-your-own-rest-client">Supplying your own ReST client</h1>
+
+<p>By default, Manatee.Trello uses a REST client backed by ASP.Net's <code>WebClient</code> class.</p>
+<p>If you would like to use a different client, you will have to build the provider yourself.  The Manatee.Trello.Rest namespace contains a number of interfaces which must be implemented in order to use your preferred REST provider.</p>
+<ul>
+<li><code>IRestClient</code> - This interface defines methods used to make RESTful calls.  Its implementation will serve as a wrapper for your preferred REST provider.</li>
+<li><code>IRestClientProvider</code> - This interface defines methods required to create an instance of <code>IRestClient</code>.  Within your implementation, you can maintain a single instance of the client object, if the client supports it, but Manatee.Trello will request the client object for each request.</li>
+<li><code>IRestRequest</code> - This interface defines properties and methods required to make RESTful requests.  Its implementation serves as a wrapper for your REST provider's request objects.</li>
+<li><code>IRestRequestProvider</code> - This interface defines methods required to generate <code>IRequest</code> objects used to make RESTful calls.  Its implementation will be exposed by your <code>IRestClientProvider</code> implementation.</li>
+<li><code>IRestResponse</code> - Defines properties required for objects returned by RESTful calls.  Its implmentation serves as a wrapper for your REST provider's response objects.</li>
+<li><code>IRestResponse&lt;T&gt;</code> - Extends <code>IRestResponse</code> to add a typed <code>Data</code> property.</li>
+</ul>
+<p>Once you have your implementations, set the <code>RestRequestProvider</code> property on the <code>IRestClientProvider</code> implementation to the <code>IRestRequestProvider</code> implementation, then set the <code>RestClientProvider</code> static property on the <code>TrelloConfiguration</code> static class to your <code>IRestClientProvider</code> implementation.</p>
+<pre><code class="lang-csharp">public class MyRestRequestProvider : IRestRequestProvider
+{
+    ...
+}
+
+public class MyRestClientProvider : IRestClientProvider
+{
+    ...
+}
+
+public static void Main()
+{
+...
+    var clientProvider = new MyRestClientProvider();
+    var requestProvider = new MyRestRequestProvider();
+    clientProvider.RestRequestProvider = requestProvider;
+    TrelloConfiguration.RestClientProvider = clientProvider;
+    ...
+}
+</code></pre>
+<p>That's it.  Manatee.Trello will now call your REST provider through the wrappers you have provided.</p>
+<blockquote>
+<p><strong>NOTE</strong>  Your REST provider should allow using a custom JSON serializer.  It is suggested that you code your <code>IRestClientProvider</code> implementation to use the serializer defined by the <code>TrelloConfiguration</code> stataic class.  The default serializer implementation is backed by <a href="https://github.com/gregsdennis/Manatee.Json">Manatee.Json</a>.  See the <a href="supplying-your-own-json-serializer.html">JSON Serializer</a> section of this wiki for more details on using a custom JSON serializer.</p>
+</blockquote>
+<h1 id="error-handling">Error handling</h1>
+<p>Manatee.Trello is designed to expect exceptions from the REST provider it is given.  This means that your REST client wrapper implementation (or the client itself) should throw exceptions when receiving invalid data.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/docs_source/usage/supplying-your-own-rest-client.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

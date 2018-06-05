@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Configuration </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Configuration ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="configuration">Configuration</h1>
+
+<p>Out of the box, there isn't much to configure for Manatee.Trello.  Just set up authorization, and you're ready to go.</p>
+<p>If, however, you're one to tinker, this page describes the various ways Manatee.Trello can be configured.</p>
+<h2 id="authorization">Authorization</h2>
+<p>The <code>TrelloAuthorization</code> class enables entities to communicate with the Trello API by identifying the application and/or a user.  It exposes two properties:</p>
+<ul>
+<li><code>AppKey</code> identifies the application.  Each user has one.  Trello suggests that you create a dedicated account for your application to serve as a service account.</li>
+<li><code>UserToken</code> identifies a user.  This is optional, however without it, only publicly visible data will be accessible, and then only for reading.  When supplied, you can also get access to any private data, and the token will specify the type of access.</li>
+</ul>
+<p>You can read more about authorization in <a href="https://developers.trello.com/v1.0/reference#api-key-tokens">Trello's documentation</a>.</p>
+<h3 id="multiple-authorizations">Multiple authorizations</h3>
+<p>In most cases, you'll only need to set the default keys via the <code>TrelloAuthorization.Default</code> static property.  However, in some cases, you may want to access different entities as different users.</p>
+<p>To support this, all of the entity constructors and factory methods take an optional authorization parameter.  Simply create a new <code>TrelloAuthorization</code> instance with the alternate keys, and supply it to one of these methods.</p>
+<p>Once an entity is created, it will use the same authorization throughout its lifetime.</p>
+<h2 id="general-configuration">General configuration</h2>
+<p>All other configuration is performed via the <code>TrelloConfiguration</code> static class.</p>
+<h3 id="basic-behavior">Basic behavior</h3>
+<ul>
+<li><code>Log</code> allows you to supply your own logging solution.  The default implementation simply logs to the Debug window.  Implement <code>ILog</code> to provide your own solution.</li>
+<li><code>ThrowOnTrelloError</code> indicates whether Manatee.Trello will throw a <code>TrelloInteractionException</code> when receiving a bad response from Trello.  The default is true.</li>
+<li><code>ChangeSubmissionTime</code> specifies how long Manatee.Trello will wait for additional changes to an entity before submitting them to Trello.  Setting 0 ms here will result in immediate submission and will disable call aggregation.  The default value is 100 ms.</li>
+<li><code>RefreshThrottle</code> defines a time during which an entity cannot be refreshed twice.  This serves to prevent rapid calls for the same entity.  Setting 0 ms here will result in all <code>Refresh()</code> invocations making a call to Trello's API.  The default is 5 seconds.</li>
+<li><code>RegisterPowerUp()</code> registers custom power-up implementations, allowing Manatee.Trello to create instances.  This is important when enumerating <code>Board.PowerUps</code>.</li>
+</ul>
+<h3 id="automatic-retries">Automatic retries</h3>
+<p>Manatee.Trello can automatically retry calls on failures, delaying a final error until the final retry fails.  The following settings configure this behavior.  By default, this functionality is disabled.</p>
+<ul>
+<li><code>RetryStatusCodes</code> defines which HTTP status codes warrant a retry.</li>
+<li><code>MaxRetryCount</code> specifies the number of retries will be performed before finally failing.</li>
+<li><code>DelayBetweenRetries</code> indicates a static retry delay to use between each retry.</li>
+<li><code>RetryPredicate</code> allows you to implement custom logic.  If set, the above values will not be used (unless used by your logic).</li>
+</ul>
+<h3 id="components">Components</h3>
+<p>In addition to the behavioral settings above, Manatee.Trello defines several seams where you can supply your own implementations of certain components.</p>
+<ul>
+<li><code>Serializer</code>/<code>Deserializer</code> allows you to provide your own JSON serializer.  For more information, please see the <a href="supplying-your-own-json-serializer.html">JSON serialier page</a>.  The built-in implementation uses <a href="https://github.com/gregsdennis/Manatee.Json">Manatee.Json</a></li>
+<li><code>RestClientProvider</code> allows you to provide your own HTTP client.  For more information, please see the <a href="supplying-your-own-rest-client.html">REST provider page</a>.  The built-in implementation uses ASP.Net's <code>WebClient</code>.</li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong> For all you version 2 users, you may recall that these components were supplied in separate Nuget packages.  This is no longer the case, as those packages have been incorporated as of version 3 to serve as default implementations.  This means that you no longer have to set these properties as part of your initial configuration.</p>
+</blockquote>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/docs_source/usage/configuration.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

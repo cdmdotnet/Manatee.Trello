@@ -135,7 +135,11 @@ namespace Manatee.Trello
 			/// Indicates the avatar URL should be downloaded.
 			/// </summary>
 			[Display(Description = "avatarUrl")]
-			AvatarUrl = 1 << 23
+			AvatarUrl = 1 << 23,
+			/// <summary>
+			/// Indicates the board stars will be downloaded.
+			/// </summary>
+			StarredBoards = 1 << 24
 		}
 
 		private readonly Field<string> _avatarUrl;
@@ -173,7 +177,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
 		/// </summary>
-		public IReadOnlyCollection<IAction> Actions => _context.Actions;
+		public IReadOnlyActionCollection Actions => _context.Actions;
 		/// <summary>
 		/// Gets the source type for the member's avatar.
 		/// </summary>
@@ -195,11 +199,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
-		public IReadOnlyCollection<IBoard> Boards => _context.Boards;
+		public IReadOnlyBoardCollection Boards => _context.Boards;
 		/// <summary>
 		/// Gets the collection of cards assigned to the member.
 		/// </summary>
-		public IReadOnlyCollection<ICard> Cards => _context.Cards;
+		public IReadOnlyCardCollection Cards => _context.Cards;
 		/// <summary>
 		/// Gets the creation date of the member.
 		/// </summary>
@@ -228,7 +232,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(CancellationToken.None).Wait();
+					_context.Synchronize(true, CancellationToken.None).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -252,7 +256,12 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of organizations to which the member belongs.
 		/// </summary>
-		public IReadOnlyCollection<IOrganization> Organizations => _context.Organizations;
+		public IReadOnlyOrganizationCollection Organizations => _context.Organizations;
+
+		/// <summary>
+		/// Gets the collection of the member's board stars.
+		/// </summary>
+		public IReadOnlyCollection<IStarredBoard> StarredBoards => _context.StarredBoards;
 		/// <summary>
 		/// Gets the member's online status.
 		/// </summary>
@@ -322,7 +331,8 @@ namespace Manatee.Trello
 			_userName = new Field<string>(_context, nameof(UserName));
 			_userName.AddRule(UsernameRule.Instance);
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 		}
 		internal Member(IJsonMember json, TrelloAuthorization auth)
 			: this(json.Id, false, auth)
@@ -336,17 +346,23 @@ namespace Manatee.Trello
 		/// <param name="action">The action.</param>
 		public void ApplyAction(IAction action)
 		{
-			if (action.Type != ActionType.UpdateMember || action.Data.Member == null || action.Data.Member.Id != Id) return;
-			_context.Merge(((Member) action.Data.Member).Json);
+			var localAction = action as Action;
+
+			if (action.Type != ActionType.UpdateMember || 
+			    localAction?.Json?.Data?.Member == null ||
+			    localAction.Data.Member.Id != Id) return;
+
+			_context.Merge(localAction.Json.Data.Member);
 		}
 
 		/// <summary>
 		/// Refreshes the member data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			return _context.Synchronize(force, ct);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>

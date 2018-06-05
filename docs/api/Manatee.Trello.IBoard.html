@@ -1,0 +1,1154 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IBoard
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IBoard
+   ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Manatee.Trello.IBoard">
+  
+  
+  <h1 id="Manatee_Trello_IBoard" data-uid="Manatee.Trello.IBoard" class="text-break">Interface IBoard
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a board.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Manatee.Trello.ICanWebhook.html#Manatee_Trello_ICanWebhook_ApplyAction_Manatee_Trello_IAction_">ICanWebhook.ApplyAction(IAction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Manatee.Trello.ICacheable.html#Manatee_Trello_ICacheable_Id">ICacheable.Id</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
+  <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
+  <h5 id="Manatee_Trello_IBoard_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IBoard : ICanWebhook, IQueryable, ICacheable</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Actions.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Actions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L16">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Actions_" data-uid="Manatee.Trello.IBoard.Actions*"></a>
+  <h4 id="Manatee_Trello_IBoard_Actions" data-uid="Manatee.Trello.IBoard.Actions">Actions</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of actions performed on and within this board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IReadOnlyActionCollection Actions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyActionCollection.html">IReadOnlyActionCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Cards.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Cards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L24">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Cards_" data-uid="Manatee.Trello.IBoard.Cards*"></a>
+  <h4 id="Manatee_Trello_IBoard_Cards" data-uid="Manatee.Trello.IBoard.Cards">Cards</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of cards contained within this board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IReadOnlyCardCollection Cards { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyCardCollection.html">IReadOnlyCardCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_IBoard_Cards_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property only exposes unarchived cards.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_CreationDate.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.CreationDate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L29">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_CreationDate_" data-uid="Manatee.Trello.IBoard.CreationDate*"></a>
+  <h4 id="Manatee_Trello_IBoard_CreationDate" data-uid="Manatee.Trello.IBoard.CreationDate">CreationDate</h4>
+  <div class="markdown level1 summary"><p>Gets the creation date of the board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DateTime CreationDate { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.DateTime</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_CustomFields.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.CustomFields%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L33">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_CustomFields_" data-uid="Manatee.Trello.IBoard.CustomFields*"></a>
+  <h4 id="Manatee_Trello_IBoard_CustomFields" data-uid="Manatee.Trello.IBoard.CustomFields">CustomFields</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of custom fields defined on the board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICustomFieldDefinitionCollection CustomFields { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICustomFieldDefinitionCollection.html">ICustomFieldDefinitionCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Description.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Description%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L38">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Description_" data-uid="Manatee.Trello.IBoard.Description*"></a>
+  <h4 id="Manatee_Trello_IBoard_Description" data-uid="Manatee.Trello.IBoard.Description">Description</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the board's description.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Description { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_IsClosed.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.IsClosed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L43">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_IsClosed_" data-uid="Manatee.Trello.IBoard.IsClosed*"></a>
+  <h4 id="Manatee_Trello_IBoard_IsClosed" data-uid="Manatee.Trello.IBoard.IsClosed">IsClosed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether this board is closed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? IsClosed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_IsPinned.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.IsPinned%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L114">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_IsPinned_" data-uid="Manatee.Trello.IBoard.IsPinned*"></a>
+  <h4 id="Manatee_Trello_IBoard_IsPinned" data-uid="Manatee.Trello.IBoard.IsPinned">IsPinned</h4>
+  <div class="markdown level1 summary"><p>Gets or sets wheterh this board is pinned.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? IsPinned { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_IsStarred.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.IsStarred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L119">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_IsStarred_" data-uid="Manatee.Trello.IBoard.IsStarred*"></a>
+  <h4 id="Manatee_Trello_IBoard_IsStarred" data-uid="Manatee.Trello.IBoard.IsStarred">IsStarred</h4>
+  <div class="markdown level1 summary"><p>Gets or sets wheterh this board is pinned.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? IsStarred { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_IsSubscribed.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.IsSubscribed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L48">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_IsSubscribed_" data-uid="Manatee.Trello.IBoard.IsSubscribed*"></a>
+  <h4 id="Manatee_Trello_IBoard_IsSubscribed" data-uid="Manatee.Trello.IBoard.IsSubscribed">IsSubscribed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the current member is subscribed to this board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? IsSubscribed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Item_System_Int32_.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Item(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L159">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Item_" data-uid="Manatee.Trello.IBoard.Item*"></a>
+  <h4 id="Manatee_Trello_IBoard_Item_System_Int32_" data-uid="Manatee.Trello.IBoard.Item(System.Int32)">Item[Int32]</h4>
+  <div class="markdown level1 summary"><p>Retrieves the list at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IList this[int index] { get; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IList.html">IList</a></td>
+        <td><p>The list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> is less than 0 or greater than or equal to the number of elements in the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Item_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Item(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L149">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Item_" data-uid="Manatee.Trello.IBoard.Item*"></a>
+  <h4 id="Manatee_Trello_IBoard_Item_System_String_" data-uid="Manatee.Trello.IBoard.Item(System.String)">Item[String]</h4>
+  <div class="markdown level1 summary"><p>Retrieves a list which matches the supplied key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IList this[string key] { get; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key to match.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IList.html">IList</a></td>
+        <td><p>The matching list, or null if none found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_IBoard_Item_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Matches on List.Id and List.Name.  Comparison is case-sensitive.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Labels.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Labels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L53">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Labels_" data-uid="Manatee.Trello.IBoard.Labels*"></a>
+  <h4 id="Manatee_Trello_IBoard_Labels" data-uid="Manatee.Trello.IBoard.Labels">Labels</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of labels for this board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBoardLabelCollection Labels { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IBoardLabelCollection.html">IBoardLabelCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_LastActivity.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.LastActivity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L124">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_LastActivity_" data-uid="Manatee.Trello.IBoard.LastActivity*"></a>
+  <h4 id="Manatee_Trello_IBoard_LastActivity" data-uid="Manatee.Trello.IBoard.LastActivity">LastActivity</h4>
+  <div class="markdown level1 summary"><p>Gets the date of the board's most recent activity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DateTime? LastActivity { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.DateTime</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_LastViewed.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.LastViewed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L129">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_LastViewed_" data-uid="Manatee.Trello.IBoard.LastViewed*"></a>
+  <h4 id="Manatee_Trello_IBoard_LastViewed" data-uid="Manatee.Trello.IBoard.LastViewed">LastViewed</h4>
+  <div class="markdown level1 summary"><p>Gets the date when the board was most recently viewed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DateTime? LastViewed { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.DateTime</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Lists.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Lists%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L61">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Lists_" data-uid="Manatee.Trello.IBoard.Lists*"></a>
+  <h4 id="Manatee_Trello_IBoard_Lists" data-uid="Manatee.Trello.IBoard.Lists">Lists</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of lists on this board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IListCollection Lists { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IListCollection.html">IListCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_IBoard_Lists_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property only exposes unarchived lists.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Members.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Members%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L66">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Members_" data-uid="Manatee.Trello.IBoard.Members*"></a>
+  <h4 id="Manatee_Trello_IBoard_Members" data-uid="Manatee.Trello.IBoard.Members">Members</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of members on this board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IReadOnlyMemberCollection Members { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyMemberCollection.html">IReadOnlyMemberCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Memberships.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Memberships%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L71">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Memberships_" data-uid="Manatee.Trello.IBoard.Memberships*"></a>
+  <h4 id="Manatee_Trello_IBoard_Memberships" data-uid="Manatee.Trello.IBoard.Memberships">Memberships</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of members and their privileges on this board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBoardMembershipCollection Memberships { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IBoardMembershipCollection.html">IBoardMembershipCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Name.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L76">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Name_" data-uid="Manatee.Trello.IBoard.Name*"></a>
+  <h4 id="Manatee_Trello_IBoard_Name" data-uid="Manatee.Trello.IBoard.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the board's name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Name { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Organization.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Organization%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L84">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Organization_" data-uid="Manatee.Trello.IBoard.Organization*"></a>
+  <h4 id="Manatee_Trello_IBoard_Organization" data-uid="Manatee.Trello.IBoard.Organization">Organization</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the organization to which this board belongs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IOrganization Organization { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IOrganization.html">IOrganization</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_IBoard_Organization_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Setting null makes the board's first admin the owner.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_PersonalPreferences.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.PersonalPreferences%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L104">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_PersonalPreferences_" data-uid="Manatee.Trello.IBoard.PersonalPreferences*"></a>
+  <h4 id="Manatee_Trello_IBoard_PersonalPreferences" data-uid="Manatee.Trello.IBoard.PersonalPreferences">PersonalPreferences</h4>
+  <div class="markdown level1 summary"><p>Gets the set of preferences for the board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBoardPersonalPreferences PersonalPreferences { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IBoardPersonalPreferences.html">IBoardPersonalPreferences</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_PowerUpData.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.PowerUpData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L94">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_PowerUpData_" data-uid="Manatee.Trello.IBoard.PowerUpData*"></a>
+  <h4 id="Manatee_Trello_IBoard_PowerUpData" data-uid="Manatee.Trello.IBoard.PowerUpData">PowerUpData</h4>
+  <div class="markdown level1 summary"><p>Gets specific data regarding power-ups.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IReadOnlyCollection&lt;IPowerUpData&gt; PowerUpData { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.IPowerUpData.html">IPowerUpData</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_PowerUps.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.PowerUps%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L89">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_PowerUps_" data-uid="Manatee.Trello.IBoard.PowerUps*"></a>
+  <h4 id="Manatee_Trello_IBoard_PowerUps" data-uid="Manatee.Trello.IBoard.PowerUps">PowerUps</h4>
+  <div class="markdown level1 summary"><p>Gets metadata about any active power-ups.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPowerUpCollection PowerUps { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IPowerUpCollection.html">IPowerUpCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Preferences.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Preferences%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L99">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Preferences_" data-uid="Manatee.Trello.IBoard.Preferences*"></a>
+  <h4 id="Manatee_Trello_IBoard_Preferences" data-uid="Manatee.Trello.IBoard.Preferences">Preferences</h4>
+  <div class="markdown level1 summary"><p>Gets the set of preferences for the board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBoardPreferences Preferences { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IBoardPreferences.html">IBoardPreferences</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_ShortLink.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.ShortLink%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L134">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_ShortLink_" data-uid="Manatee.Trello.IBoard.ShortLink*"></a>
+  <h4 id="Manatee_Trello_IBoard_ShortLink" data-uid="Manatee.Trello.IBoard.ShortLink">ShortLink</h4>
+  <div class="markdown level1 summary"><p>Gets the board's short URI.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ShortLink { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_ShortUrl.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.ShortUrl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L139">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_ShortUrl_" data-uid="Manatee.Trello.IBoard.ShortUrl*"></a>
+  <h4 id="Manatee_Trello_IBoard_ShortUrl" data-uid="Manatee.Trello.IBoard.ShortUrl">ShortUrl</h4>
+  <div class="markdown level1 summary"><p>Gets the board's short link (ID).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ShortUrl { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Url.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Url%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L109">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Url_" data-uid="Manatee.Trello.IBoard.Url*"></a>
+  <h4 id="Manatee_Trello_IBoard_Url" data-uid="Manatee.Trello.IBoard.Url">Url</h4>
+  <div class="markdown level1 summary"><p>Gets the board's URI.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Url { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Delete_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Delete(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L173">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Delete_" data-uid="Manatee.Trello.IBoard.Delete*"></a>
+  <h4 id="Manatee_Trello_IBoard_Delete_System_Threading_CancellationToken_" data-uid="Manatee.Trello.IBoard.Delete(System.Threading.CancellationToken)">Delete(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Deletes the board.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task Delete(CancellationToken ct = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>(Optional) A cancellation token for async processing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_IBoard_Delete_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This permanently deletes the board from Trello's server, however, this object will remain in memory and all properties will remain accessible.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Refresh_System_Boolean_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Refresh(System.Boolean%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L180">View Source</a>
+  </span>
+  <a id="Manatee_Trello_IBoard_Refresh_" data-uid="Manatee.Trello.IBoard.Refresh*"></a>
+  <h4 id="Manatee_Trello_IBoard_Refresh_System_Boolean_System_Threading_CancellationToken_" data-uid="Manatee.Trello.IBoard.Refresh(System.Boolean,System.Threading.CancellationToken)">Refresh(Boolean, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Refreshes the board data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">force</span></td>
+        <td><p>Indicates that the refresh should ignore the value in <a class="xref" href="Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_RefreshThrottle">RefreshThrottle</a> and make the call to the API.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>(Optional) A cancellation token for async processing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard_Updated.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard.Updated%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L164">View Source</a>
+  </span>
+  <h4 id="Manatee_Trello_IBoard_Updated" data-uid="Manatee.Trello.IBoard.Updated">Updated</h4>
+  <div class="markdown level1 summary"><p>Raised when data on the board is updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event Action&lt;IBoard, IEnumerable&lt;string&gt;&gt; Updated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="Manatee.Trello.IBoard.html">IBoard</a>, <span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Manatee.Trello.BoardExtensions.html#Manatee_Trello_BoardExtensions_CardsForMember_Manatee_Trello_IBoard_Manatee_Trello_IMember_">BoardExtensions.CardsForMember(IBoard, IMember)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IBoard.md&amp;value=---%0Auid%3A%20Manatee.Trello.IBoard%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IBoard.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

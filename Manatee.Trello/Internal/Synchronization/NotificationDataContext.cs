@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -12,9 +11,9 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(NotificationData.Attachment),
-						new Property<IJsonNotificationData, Attachment>((d, a) => d.Attachment == null
-							                                                          ? null
-							                                                          : new Attachment(d.Attachment, d.Card.Id, a),
+						new Property<IJsonNotificationData, Attachment>((d, a) => d.Attachment != null
+							                                                          ? new Attachment(d.Attachment, d.Card.Id, TrelloAuthorization.Null)
+							                                                          : null,
 						                                                (d, o) =>
 							                                                {
 								                                                if (o != null) d.Attachment = o.Json;
@@ -22,7 +21,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.Board),
-						new Property<IJsonNotificationData, Board>((d, a) => d.Board?.GetFromCache<Board, IJsonBoard>(a, false),
+						new Property<IJsonNotificationData, Board>((d, a) => d.Board != null
+							                                                     ? new Board(d.Board, TrelloAuthorization.Null)
+							                                                     : null,
 						                                           (d, o) =>
 							                                           {
 								                                           if (o != null) d.Board = o.Json;
@@ -30,7 +31,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.BoardSource),
-						new Property<IJsonNotificationData, Board>((d, a) => d.BoardSource?.GetFromCache<Board, IJsonBoard>(a, false),
+						new Property<IJsonNotificationData, Board>((d, a) => d.BoardSource != null
+							                                                     ? new Board(d.BoardSource, TrelloAuthorization.Null)
+							                                                     : null,
 						                                           (d, o) =>
 							                                           {
 								                                           if (o != null) d.BoardSource = o.Json;
@@ -38,7 +41,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.BoardTarget),
-						new Property<IJsonNotificationData, Board>((d, a) => d.BoardTarget?.GetFromCache<Board, IJsonBoard>(a, false),
+						new Property<IJsonNotificationData, Board>((d, a) => d.BoardTarget != null
+							                                                     ? new Board(d.BoardTarget, TrelloAuthorization.Null)
+							                                                     : null,
 						                                           (d, o) =>
 							                                           {
 								                                           if (o != null) d.BoardTarget = o.Json;
@@ -46,7 +51,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.Card),
-						new Property<IJsonNotificationData, Card>((d, a) => d.Card?.GetFromCache<Card, IJsonCard>(a, false),
+						new Property<IJsonNotificationData, Card>((d, a) => d.Card != null
+							                                                    ? new Card(d.Card, TrelloAuthorization.Null)
+							                                                    : null,
 						                                          (d, o) =>
 							                                          {
 								                                          if (o != null) d.Card = o.Json;
@@ -54,7 +61,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.CardSource),
-						new Property<IJsonNotificationData, Card>((d, a) => d.CardSource?.GetFromCache<Card, IJsonCard>(a, false),
+						new Property<IJsonNotificationData, Card>((d, a) => d.CardSource != null
+							                                                    ? new Card(d.CardSource, TrelloAuthorization.Null)
+							                                                    : null,
 						                                          (d, o) =>
 							                                          {
 								                                          if (o != null) d.CardSource = o.Json;
@@ -62,9 +71,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.CheckItem),
-						new Property<IJsonNotificationData, CheckItem>((d, a) => d.CheckItem == null || d.CheckList == null
-							                                                         ? null
-							                                                         : new CheckItem(d.CheckItem, d.CheckList.Id),
+						new Property<IJsonNotificationData, CheckItem>((d, a) => d.CheckItem != null
+							                                                         ? new CheckItem(d.CheckItem, d.CheckList.Id, TrelloAuthorization.Null)
+							                                                         : null,
 						                                               (d, o) =>
 							                                               {
 								                                               if (o != null) d.CheckItem = o.Json;
@@ -72,7 +81,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.CheckList),
-						new Property<IJsonNotificationData, CheckList>((d, a) => d.CheckList?.GetFromCache<CheckList, IJsonCheckList>(a, false),
+						new Property<IJsonNotificationData, CheckList>((d, a) => d.CheckList != null
+							                                                         ? new CheckList(d.CheckList, TrelloAuthorization.Null)
+							                                                         : null,
 						                                               (d, o) =>
 							                                               {
 								                                               if (o != null) d.CheckList = o.Json;
@@ -80,7 +91,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.List),
-						new Property<IJsonNotificationData, List>((d, a) => d.List?.GetFromCache<List, IJsonList>(a, false),
+						new Property<IJsonNotificationData, List>((d, a) => d.List != null
+							                                                    ? new List(d.List, TrelloAuthorization.Null)
+							                                                    : null,
 						                                          (d, o) =>
 							                                          {
 								                                          if (o != null) d.List = o.Json;
@@ -88,7 +101,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.ListAfter),
-						new Property<IJsonNotificationData, List>((d, a) => d.ListAfter?.GetFromCache<List, IJsonList>(a, false),
+						new Property<IJsonNotificationData, List>((d, a) => d.ListAfter != null
+							                                                    ? new List(d.ListAfter, TrelloAuthorization.Null)
+							                                                    : null,
 						                                          (d, o) =>
 							                                          {
 								                                          if (o != null) d.ListAfter = o.Json;
@@ -96,7 +111,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.ListBefore),
-						new Property<IJsonNotificationData, List>((d, a) => d.ListBefore?.GetFromCache<List, IJsonList>(a, false),
+						new Property<IJsonNotificationData, List>((d, a) => d.ListBefore != null
+							                                                    ? new List(d.ListBefore, TrelloAuthorization.Null)
+							                                                    : null,
 						                                          (d, o) =>
 							                                          {
 								                                          if (o != null) d.ListBefore = o.Json;
@@ -104,7 +121,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.Member),
-						new Property<IJsonNotificationData, Member>((d, a) => d.Member?.GetFromCache<Member, IJsonMember>(a, false),
+						new Property<IJsonNotificationData, Member>((d, a) => d.Member != null
+							                                                      ? new Member(d.Member, TrelloAuthorization.Null)
+							                                                      : null,
 						                                            (d, o) =>
 							                                            {
 								                                            if (o != null) d.Member = o.Json;
@@ -128,7 +147,9 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.OldList),
-						new Property<IJsonNotificationData, List>((d, a) => d.Old?.List?.GetFromCache<List, IJsonList>(a, false),
+						new Property<IJsonNotificationData, List>((d, a) => d.Old?.List != null
+							                                                    ? new List(d.Old.List, TrelloAuthorization.Null)
+							                                                    : null,
 						                                          (d, o) =>
 							                                          {
 								                                          if (d.Old != null) d.Old.List = o.Json;
@@ -152,12 +173,13 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(NotificationData.Organization),
-						new Property<IJsonNotificationData, Organization>(
-							(d, a) => d.Org?.GetFromCache<Organization, IJsonOrganization>(a, false),
-							(d, o) =>
-								{
-									if (o != null) d.Org = o.Json;
-								})
+						new Property<IJsonNotificationData, Organization>((d, a) => d.Org != null
+							                                                            ? new Organization(d.Org, TrelloAuthorization.Null)
+							                                                            : null,
+						                                                  (d, o) =>
+							                                                  {
+								                                                  if (o != null) d.Org = o.Json;
+							                                                  })
 					},
 					{
 						nameof(NotificationData.Text),

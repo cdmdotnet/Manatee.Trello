@@ -210,7 +210,8 @@ namespace Manatee.Trello
 			_position.AddRule(PositionRule.Instance);
 			_url = new Field<string>(_context, nameof(Url));
 
-			TrelloConfiguration.Cache.Add(this);
+			if (auth != TrelloAuthorization.Null)
+				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
 		}
@@ -231,10 +232,11 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the attachment data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(ct);
+			return _context.Synchronize(force, ct);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>

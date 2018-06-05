@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.CardRepeater;
 using Manatee.Trello.Tests.Common;
+using Manatee.Trello.Rest;
+using Moq;
 using NUnit.Framework;
 
 namespace Manatee.Trello.UnitTests

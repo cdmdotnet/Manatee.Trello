@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Power-Ups </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Power-Ups ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="power-ups">Power-Ups</h1>
+
+<p>Trello PowerUps enable users to leverage custom functionality to make their board more powerful.</p>
+<p>To support this new feature and allow anyone to create their own power-up, they expose only the raw data.  It's up to the power-up creator to interpret and use the data.  As a result, each power-up is unique, making a generic Manatee.Trello power-up implementation impossible.  Due to this, power-up implementations will be published separately from the primary Nuget package.</p>
+<blockquote>
+<p><strong>NOTE</strong> Custom Fields, Voting, and, Card Aging are considered power-ups by Trello, however their functionalities are integrated into the API.  Therefore they are also integrated into Manatee.Trello.</p>
+</blockquote>
+<blockquote>
+<p><strong>NOTE</strong> Prior to its integration into the primary API, Custom Fields was published as a separate Nuget package.  It has been integrated as of version 3.</p>
+</blockquote>
+<p>This section describes the base functionality in Manatee.Trello for implementing power-ups.</p>
+<p>Although it's no longer a power-up this section still uses the Custom Fields power-up implementation as an example.  I'll update the wiki when I create a new power-up.  Really, nothing about the particulars of implementing a power-up have changed, so the example is still valid.</p>
+<h1 id="data-organization">Data organization</h1>
+<p>Trello exposes data in two forms: the power-up definition and the associated data.</p>
+<h2 id="power-up-definitions">Power-up definitions</h2>
+<p>Each board determines the set of active power-ups.  Boards under free accounts can have only a single power-up active at a time, while paid accounts can have multiple.  Definitions are available on the board via the <code>Board.PowerUps</code> property.</p>
+<p>Unless a specific implementation has been registered (see <a href="#creating-your-own-power-up">Creating your own power-up</a>) this will return only <code>UnknownPowerUp</code> instances.  Once a power-up is registered, it will start returning that type of power-up if it's available.</p>
+<p>A power-up definition specifies the power-up global ID (unique across all boards), the name, and a URL to a JSON object containing more meta-data regarding the power-up.</p>
+<h2 id="power-up-data">Power-up data</h2>
+<p>Power-ups can enhance the functionality of boards and cards.  Each of these objects in Manatee.Trello exposes a <code>PowerUpData</code> property that can be used to get a collection of data objects (<code>PowerUpData</code>) that reveals the enhanced data for that item.  (Trello says that power-ups can enhance organizations, too, but they don't have that exposed.  The <code>Organization.PowerUpData</code> property will therefore likely throw an exception.  I have it there for completeness.)</p>
+<p>Each data object defines the specific ID for that instance, the ID of the power-up which defined it, and the value (as a JSON string) of the data.</p>
+<p>This is as implementation-specific as Manatee.Trello can be.  Making use of this data requires details very specific to a particular power-up.</p>
+<h1 id="creating-your-own-power-up">Creating your own power-up</h1>
+<p>The Custom Fields power-up has already been implemented.  It will serve as our example.  Note that each implementation will function slightly differently, but this should give you a general idea of how to proceed.</p>
+<p>To do this, you'll need to get a hold of the JSON response values directly from the Trello API.</p>
+<h2 id="implementing-the-definition">Implementing the definition</h2>
+<p>Every power-up implementation is required to define its unique ID and a constructor that takes an <code>IJsonPowerUp</code> object and a <code>TrelloAuthorization</code> object.  All power-ups should also register themselves with the <code>TrelloConfiguration</code> static class (it makes things easier for the client).  Note that these do not have to be public members.</p>
+<p>The <code>PowerUpBase</code> abstract class has been provided by Manatee.Trello to get you started and provide some basic power-up functionality.</p>
+<pre><code class="lang-csharp">public class CustomFieldsPowerUp : PowerUpBase
+{
+    internal const string PluginId = &quot;56d5e249a98895a9797bebb9&quot;;
+
+    private static bool _isRegistered;
+
+    private CustomFieldsPowerUp(IJsonPowerUp json, TrelloAuthorization auth)
+        : base(json, auth) {}
+
+    internal static void Register()
+    {
+        if (!_isRegistered)
+        {
+            _isRegistered = true;
+            TrelloConfiguration.RegisterPowerUp(PluginId, (j, a) =&gt; new CustomFieldsPowerUp(j, a));
+        }
+    }
+}
+</code></pre>
+<p>That's about it for the definition.  Now, the <code>Board.PowerUps</code> property will return an instance of this class (instead of <code>UnknownPowerUp</code>) if the power-up is active.  But just having the power-up definition doesn't really help much, so let's take a look at getting some data.</p>
+<h2 id="implementing-the-data">Implementing the data</h2>
+<p>We start by looking at the data that is returned when we call all of the power-up-related properties.</p>
+<blockquote>
+<p><strong>NOTE</strong> This data assumes that Custom Fields is the only power-up active on the board.  Otherwise, there will be an entry for each plugin.
+<strong>NOTE</strong> To create this data, I had to add the Custom Fields plugin to a board, define a field of each type, and then apply data to a card for each field.</p>
+</blockquote>
+<ul>
+<li><p><code>Board.PowerUps</code></p>
+<pre><code class="lang-json">[
+    {
+        &quot;id&quot;: &quot;56d5e249a98895a9797bebb9&quot;,
+        &quot;name&quot;: &quot;Custom Fields&quot;,
+        &quot;public&quot;: true,
+        &quot;url&quot;: &quot;https://card-fields.trello.services/manifest.json&quot;
+    }
+]
+</code></pre>
+</li>
+<li><p><code>Board.PowerUpData</code></p>
+<pre><code class="lang-json">[
+    {
+        &quot;id&quot;: &quot;57f4bfeccccb2628768688be&quot;,
+        &quot;idPlugin&quot;: &quot;56d5e249a98895a9797bebb9&quot;,
+        &quot;scope&quot;: &quot;board&quot;,
+        &quot;idModel&quot;: &quot;51478f6469fd3d9341001dae&quot;,
+        &quot;value&quot;: &quot;{\&quot;fields\&quot;:[{\&quot;n\&quot;:\&quot;MyNumberField\&quot;,\&quot;t\&quot;:1,\&quot;b\&quot;:1,\&quot;id\&quot;:\&quot;VHHdzCU0-ROR8bF\&quot;},{\&quot;n\&quot;:\&quot;MyDateField\&quot;,\&quot;t\&quot;:0,\&quot;id\&quot;:\&quot;VHHdzCU0-ITIYAU\&quot;},{\&quot;n\&quot;:\&quot;MyDateField\&quot;,\&quot;t\&quot;:3,\&quot;id\&quot;:\&quot;VHHdzCU0-dE8xFw\&quot;},{\&quot;n\&quot;:\&quot;MyCheckboxField\&quot;,\&quot;t\&quot;:2,\&quot;id\&quot;:\&quot;VHHdzCU0-o8TMjq\&quot;},{\&quot;n\&quot;:\&quot;MyDropdownField\&quot;,\&quot;t\&quot;:4,\&quot;o\&quot;:[\&quot;One\&quot;,\&quot;Two\&quot;,\&quot;Three\&quot;,\&quot;Text\&quot;],\&quot;id\&quot;:\&quot;VHHdzCU0-Y1ylHE\&quot;}],\&quot;btn\&quot;:\&quot;Metadata\&quot;}&quot;,
+        &quot;access&quot;: &quot;shared&quot;
+    }
+]
+</code></pre>
+</li>
+<li><p><code>Card.PowerUpData</code></p>
+<pre><code class="lang-json">[
+    {
+        &quot;id&quot;: &quot;57f4bffd0a0a813388367a0b&quot;,
+        &quot;idPlugin&quot;: &quot;56d5e249a98895a9797bebb9&quot;,
+        &quot;scope&quot;: &quot;card&quot;,
+        &quot;idModel&quot;: &quot;51478f6ce7d2d11751005681&quot;,
+        &quot;value&quot;: &quot;{\&quot;fields\&quot;:{\&quot;VHHdzCU0-ROR8bF\&quot;:\&quot;4\&quot;,\&quot;VHHdzCU0-ITIYAU\&quot;:\&quot;nothing to see here\&quot;,\&quot;VHHdzCU0-dE8xFw\&quot;:\&quot;2016-11-15T12:00:00+13:00\&quot;,\&quot;VHHdzCU0-o8TMjq\&quot;:true,\&quot;VHHdzCU0-Y1ylHE\&quot;:3}}&quot;,
+        &quot;access&quot;: &quot;shared&quot;
+    }
+]
+</code></pre>
+</li>
+</ul>
+<p>If you stare at this data long enough, and through squinty eyes, you'll be able to see the pattern:</p>
+<ul>
+<li>The <code>Board.PowerUps</code> property give us the data to build the <code>CustomFieldsPowerUp</code> instance from the last section.</li>
+<li>The <code>Board.PowerUpData</code> property defines the fields and the text that appears on the button inside a card.  Each field has and ID (<code>id</code>), a name (<code>n</code>), and a data type (<code>t</code>).  Dropdown fields also have a property that defines the available options (<code>o</code>).</li>
+<li>The <code>Card.PowerUpData</code> property defines the field data for that card.  Note that numbers, text, and dates all come in as text, which booleans show as <code>bool</code> and dropdown data appears as an integer indicating the index of the selected option.</li>
+</ul>
+<p>So all we have to do is link up the field definitions with the field data.  To start, we model the data.</p>
+<pre><code class="lang-csharp">// this models the Board.PowerUpData data.
+public class CustomFieldsSettings
+{
+    public string ButtonText { get; private set; }
+    public IEnumerable&lt;CustomFieldDefinition&gt; Fields { get; private set; }
+    
+    ... // I have some JSON serialization details as well.
+}
+
+// This models each field definition.
+public class CustomFieldDefinition : IJsonSerializable
+{
+    internal string Id { get; private set; }
+    public string Name { get; private set; }
+    public FieldType Type { get; private set; }
+    public bool ShowBadge { get; private set; }
+    public IEnumerable&lt;string&gt; DropdownOptions { get; private set; }
+
+    ... // more JSON serialization stuff.
+}
+
+// This models the data for a field.
+public class CustomFieldData
+{
+    internal string Id { get; set; }
+    public string Name { get; internal set; }
+    public FieldType Type { get; internal set; }
+    public string Value { get; internal set; }
+}
+</code></pre>
+<p>To get the data (in a convenient fashion) we create a couple extension methods:  one that works on boards and one on cards.</p>
+<pre><code class="lang-csharp">public static class CustomFieldExtensions
+{
+    private static readonly JsonSerializer Serializer = new JsonSerializer();
+
+    public static CustomFieldsSettings CustomFieldsSettings(this Board board)
+    {
+        CustomFieldsPowerUp.Register();
+        var data = board.PowerUpData.FirstOrDefault(d =&gt; d.PluginId == CustomFieldsPowerUp.PluginId);
+        if (data == null) return null;
+
+        var json = JsonValue.Parse(data.Value);
+        var settings = Serializer.Deserialize&lt;CustomFieldsSettings&gt;(json);
+        return settings;
+    }
+    public static IEnumerable&lt;CustomFieldData&gt; CustomFields(this Card card)
+    {
+        CustomFieldsPowerUp.Register();
+        var data = card.PowerUpData.FirstOrDefault(d =&gt; d.PluginId == CustomFieldsPowerUp.PluginId);
+        if (data == null) return null;
+        // This will return null if the power-up isn't registered.
+        var powerUp = card.Board.TryGetPowerUp();
+        if (powerUp == null) return null;
+        var json = JsonValue.Parse(data.Value);
+        var fieldData = json.Object.TryGetObject(&quot;fields&quot;).Select(d =&gt; new CustomFieldData
+                                                                        {
+                                                                            Id = d.Key,
+                                                                            Value = d.Value.Type == JsonValueType.String
+                                                                                        ? d.Value.String
+                                                                                        : d.Value.ToString()
+                                                                        });
+        var fieldSettings = card.Board.CustomFieldsSettings();
+        fieldData = fieldSettings.Fields.Join(fieldData,
+                                                f =&gt; f.Id,
+                                                d =&gt; d.Id,
+                                                (f, d) =&gt;
+                                                    {
+                                                        d.Name = f.Name;
+                                                        d.Type = f.Type;
+                                                        return d;
+                                                    });
+
+        return fieldData;
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>NOTE</strong> The <code>TryGetPowerUp()</code> method is an extension on the board that caches the power-up per board.  It just helps reduces the number of calls.</p>
+</blockquote>
+<p>Now the client can simply call <code>card.CustomFields()</code> to get all of the custom field data.</p>
+<p>Ideally other power-up implementations will follow the same basic concept: creating a <code>PowerUpBase</code> derivative and extension methods to access the data.  The hard part is figuring out the data.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/docs_source/usage/power-ups.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

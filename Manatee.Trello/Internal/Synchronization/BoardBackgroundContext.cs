@@ -45,6 +45,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						nameof(BoardBackground.Brightness),
 						new Property<IJsonBoardBackground, BoardBackgroundBrightness?>((d, a) => d.Brightness, (d, o) => d.Brightness = o)
 					},
+					{
+						nameof(IJsonBoardBackground.ValidForMerge),
+						new Property<IJsonBoardBackground, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
+					},
 				};
 		}
 		public BoardBackgroundContext(TrelloAuthorization auth)

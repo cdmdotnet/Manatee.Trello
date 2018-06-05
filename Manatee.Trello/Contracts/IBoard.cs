@@ -13,7 +13,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of actions performed on and within this board.
 		/// </summary>
-		IReadOnlyCollection<IAction> Actions { get; }
+		IReadOnlyActionCollection Actions { get; }
 
 		/// <summary>
 		/// Gets the collection of cards contained within this board.
@@ -21,7 +21,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This property only exposes unarchived cards.
 		/// </remarks>
-		IReadOnlyCollection<ICard> Cards { get; }
+		IReadOnlyCardCollection Cards { get; }
 
 		/// <summary>
 		/// Gets the creation date of the board.
@@ -63,7 +63,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the collection of members on this board.
 		/// </summary>
-		IReadOnlyCollection<IMember> Members { get; }
+		IReadOnlyMemberCollection Members { get; }
 
 		/// <summary>
 		/// Gets the collection of members and their privileges on this board.
@@ -175,7 +175,8 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Refreshes the board data.
 		/// </summary>
+		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(CancellationToken ct = default(CancellationToken));
+		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

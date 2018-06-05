@@ -1,0 +1,1098 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IJsonCard
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IJsonCard
+   ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Manatee.Trello.Json.IJsonCard">
+  
+  
+  <h1 id="Manatee_Trello_Json_IJsonCard" data-uid="Manatee.Trello.Json.IJsonCard" class="text-break">Interface IJsonCard
+  </h1>
+  <div class="markdown level0 summary"><p>Defines the JSON structure for the Card object.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Manatee.Trello.Json.IJsonCacheable.html#Manatee_Trello_Json_IJsonCacheable_Id">IJsonCacheable.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Manatee.Trello.Json.IAcceptId.html#Manatee_Trello_Json_IAcceptId_ValidForMerge">IAcceptId.ValidForMerge</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.Json.html">Manatee.Trello.Json</a></h6>
+  <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
+  <h5 id="Manatee_Trello_Json_IJsonCard_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IJsonCard : IJsonCacheable, IAcceptId</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Actions.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Actions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L14">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Actions_" data-uid="Manatee.Trello.Json.IJsonCard.Actions*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Actions" data-uid="Manatee.Trello.Json.IJsonCard.Actions">Actions</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of actions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonAction&gt; Actions { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonAction.html">IJsonAction</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Attachments.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Attachments%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L19">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Attachments_" data-uid="Manatee.Trello.Json.IJsonCard.Attachments*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Attachments" data-uid="Manatee.Trello.Json.IJsonCard.Attachments">Attachments</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of attachments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonAttachment&gt; Attachments { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonAttachment.html">IJsonAttachment</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Badges.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Badges%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L30">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Badges_" data-uid="Manatee.Trello.Json.IJsonCard.Badges*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Badges" data-uid="Manatee.Trello.Json.IJsonCard.Badges">Badges</h4>
+  <div class="markdown level1 summary"><p>Gets or set the badges displayed on the card cover.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IJsonBadges Badges { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Json.IJsonBadges.html">IJsonBadges</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Board.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Board%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L24">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Board_" data-uid="Manatee.Trello.Json.IJsonCard.Board*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Board" data-uid="Manatee.Trello.Json.IJsonCard.Board">Board</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the ID of the board which contains the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IJsonBoard Board { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Json.IJsonBoard.html">IJsonBoard</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_CardSource.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.CardSource%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L145">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_CardSource_" data-uid="Manatee.Trello.Json.IJsonCard.CardSource*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_CardSource" data-uid="Manatee.Trello.Json.IJsonCard.CardSource">CardSource</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a card to be used as a template during creation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IJsonCard CardSource { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Json.IJsonCard.html">IJsonCard</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_CheckLists.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.CheckLists%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L35">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_CheckLists_" data-uid="Manatee.Trello.Json.IJsonCard.CheckLists*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_CheckLists" data-uid="Manatee.Trello.Json.IJsonCard.CheckLists">CheckLists</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of checklists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonCheckList&gt; CheckLists { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonCheckList.html">IJsonCheckList</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Closed.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Closed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L40">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Closed_" data-uid="Manatee.Trello.Json.IJsonCard.Closed*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Closed" data-uid="Manatee.Trello.Json.IJsonCard.Closed">Closed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether a card has been archived.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? Closed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Comments.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Comments%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L46">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Comments_" data-uid="Manatee.Trello.Json.IJsonCard.Comments*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Comments" data-uid="Manatee.Trello.Json.IJsonCard.Comments">Comments</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of comments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonAction&gt; Comments { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonAction.html">IJsonAction</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_CustomFields.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.CustomFields%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L51">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_CustomFields_" data-uid="Manatee.Trello.Json.IJsonCard.CustomFields*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_CustomFields" data-uid="Manatee.Trello.Json.IJsonCard.CustomFields">CustomFields</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of custom field instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonCustomField&gt; CustomFields { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonCustomField.html">IJsonCustomField</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_DateLastActivity.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.DateLastActivity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L56">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_DateLastActivity_" data-uid="Manatee.Trello.Json.IJsonCard.DateLastActivity*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_DateLastActivity" data-uid="Manatee.Trello.Json.IJsonCard.DateLastActivity">DateLastActivity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the date of last activity for a card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DateTime? DateLastActivity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.DateTime</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Desc.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Desc%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L61">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Desc_" data-uid="Manatee.Trello.Json.IJsonCard.Desc*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Desc" data-uid="Manatee.Trello.Json.IJsonCard.Desc">Desc</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's description.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Desc { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Due.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Due%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L67">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Due_" data-uid="Manatee.Trello.Json.IJsonCard.Due*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Due" data-uid="Manatee.Trello.Json.IJsonCard.Due">Due</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's due date.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DateTime? Due { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.DateTime</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_DueComplete.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.DueComplete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L73">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_DueComplete_" data-uid="Manatee.Trello.Json.IJsonCard.DueComplete*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_DueComplete" data-uid="Manatee.Trello.Json.IJsonCard.DueComplete">DueComplete</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the card is complete.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? DueComplete { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_ForceDueDate.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.ForceDueDate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L155">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_ForceDueDate_" data-uid="Manatee.Trello.Json.IJsonCard.ForceDueDate*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_ForceDueDate" data-uid="Manatee.Trello.Json.IJsonCard.ForceDueDate">ForceDueDate</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the due date should be serialized, even if it is null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ForceDueDate { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_IdAttachmentCover.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.IdAttachmentCover%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L84">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_IdAttachmentCover_" data-uid="Manatee.Trello.Json.IJsonCard.IdAttachmentCover*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_IdAttachmentCover" data-uid="Manatee.Trello.Json.IJsonCard.IdAttachmentCover">IdAttachmentCover</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the ID of the attachment cover image.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string IdAttachmentCover { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_IdLabels.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.IdLabels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L164">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_IdLabels_" data-uid="Manatee.Trello.Json.IJsonCard.IdLabels*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_IdLabels" data-uid="Manatee.Trello.Json.IJsonCard.IdLabels">IdLabels</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a comma-delimited list of label IDs. Used during card creation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string IdLabels { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_IdMembers.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.IdMembers%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L159">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_IdMembers_" data-uid="Manatee.Trello.Json.IJsonCard.IdMembers*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_IdMembers" data-uid="Manatee.Trello.Json.IJsonCard.IdMembers">IdMembers</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a comma-delimited list of member IDs. Used during card creation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string IdMembers { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_IdShort.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.IdShort%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L79">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_IdShort_" data-uid="Manatee.Trello.Json.IJsonCard.IdShort*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_IdShort" data-uid="Manatee.Trello.Json.IJsonCard.IdShort">IdShort</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's short ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int? IdShort { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Labels.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Labels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L89">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Labels_" data-uid="Manatee.Trello.Json.IJsonCard.Labels*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Labels" data-uid="Manatee.Trello.Json.IJsonCard.Labels">Labels</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the labels assigned to this card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonLabel&gt; Labels { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonLabel.html">IJsonLabel</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_List.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.List%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L96">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_List_" data-uid="Manatee.Trello.Json.IJsonCard.List*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_List" data-uid="Manatee.Trello.Json.IJsonCard.List">List</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the ID of the list which contains the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IJsonList List { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Json.IJsonList.html">IJsonList</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_ManualCoverAttachment.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.ManualCoverAttachment%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L102">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_ManualCoverAttachment_" data-uid="Manatee.Trello.Json.IJsonCard.ManualCoverAttachment*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_ManualCoverAttachment" data-uid="Manatee.Trello.Json.IJsonCard.ManualCoverAttachment">ManualCoverAttachment</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the cover attachment was manually selected</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? ManualCoverAttachment { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Members.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Members%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L107">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Members_" data-uid="Manatee.Trello.Json.IJsonCard.Members*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Members" data-uid="Manatee.Trello.Json.IJsonCard.Members">Members</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of members.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonMember&gt; Members { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonMember.html">IJsonMember</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_MembersVoted.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.MembersVoted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L174">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_MembersVoted_" data-uid="Manatee.Trello.Json.IJsonCard.MembersVoted*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_MembersVoted" data-uid="Manatee.Trello.Json.IJsonCard.MembersVoted">MembersVoted</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of members who have voted for the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonMember&gt; MembersVoted { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonMember.html">IJsonMember</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Name.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L112">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Name_" data-uid="Manatee.Trello.Json.IJsonCard.Name*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Name" data-uid="Manatee.Trello.Json.IJsonCard.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Name { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Pos.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Pos%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L118">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Pos_" data-uid="Manatee.Trello.Json.IJsonCard.Pos*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Pos" data-uid="Manatee.Trello.Json.IJsonCard.Pos">Pos</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the card's position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IJsonPosition Pos { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Json.IJsonPosition.html">IJsonPosition</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_PowerUpData.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.PowerUpData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L124">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_PowerUpData_" data-uid="Manatee.Trello.Json.IJsonCard.PowerUpData*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_PowerUpData" data-uid="Manatee.Trello.Json.IJsonCard.PowerUpData">PowerUpData</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of power-up data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonPowerUpData&gt; PowerUpData { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonPowerUpData.html">IJsonPowerUpData</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_ShortUrl.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.ShortUrl%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L134">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_ShortUrl_" data-uid="Manatee.Trello.Json.IJsonCard.ShortUrl*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_ShortUrl" data-uid="Manatee.Trello.Json.IJsonCard.ShortUrl">ShortUrl</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the short URL for this card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ShortUrl { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Stickers.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Stickers%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L169">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Stickers_" data-uid="Manatee.Trello.Json.IJsonCard.Stickers*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Stickers" data-uid="Manatee.Trello.Json.IJsonCard.Stickers">Stickers</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a collection of stickers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;IJsonSticker&gt; Stickers { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="Manatee.Trello.Json.IJsonSticker.html">IJsonSticker</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Subscribed.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Subscribed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L139">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Subscribed_" data-uid="Manatee.Trello.Json.IJsonCard.Subscribed*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Subscribed" data-uid="Manatee.Trello.Json.IJsonCard.Subscribed">Subscribed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the current member is subscribed to this card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool? Subscribed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_Url.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.Url%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L129">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_Url_" data-uid="Manatee.Trello.Json.IJsonCard.Url*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_Url" data-uid="Manatee.Trello.Json.IJsonCard.Url">Url</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the URL for this card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Url { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard_UrlSource.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard.UrlSource%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L150">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Json_IJsonCard_UrlSource_" data-uid="Manatee.Trello.Json.IJsonCard.UrlSource*"></a>
+  <h4 id="Manatee_Trello_Json_IJsonCard_UrlSource" data-uid="Manatee.Trello.Json.IJsonCard.UrlSource">UrlSource</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a URL to be imported during creation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">object UrlSource { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Json_IJsonCard.md&amp;value=---%0Auid%3A%20Manatee.Trello.Json.IJsonCard%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Json/IJsonCard.cs/#L9" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
