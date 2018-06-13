@@ -63,6 +63,7 @@
 <h1 id="310">3.1.0</h1>
 
 <p><em>Released on 1 Jun, 2018.</em></p>
+<p><span id="trello">trello</span> <span id="feature">feature</span></p>
 <h2 id="summary">Summary</h2>
 <h3 id="in-line-with-changes-in-the-trello-api">In line with changes in the Trello API:</h3>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/178">#178</a>) Getting member avatar images have been augmented. Now the client must specify an image size.  The default is 170x170 which was previously the only option.  Now 30x30 and 50x50 are available as well. <a href="https://trello.com/c/VX8B4ndj">Trello's change</a></p>
@@ -116,21 +117,26 @@
 </ul>
 <h1 id="3012">3.0.12</h1>
 <p><em>Released on 30 May, 2018.</em></p>
+<p><span id="feature">feature</span> <span id="patch">patch</span></p>
 <p>Fixes issue for webhook processing where the property list provided by the event were inaccurate.  Also resolves an issue of updating cached entities with potentially stale data downloaded from <code>Action</code>s that indicated past activities.  <strong>As a result, <code>Action.Data</code> and <code>Notification.Data</code> no longer use cached entities.</strong></p>
 <p>Additionally, the properties reported for sub-entities (e.g. <code>Card.Badges</code>) are now prefixed with the container property.  So if <code>Card.Badges.Comments</code> (a count of the comments on the card) changes, the <code>Card.Updated</code> event would report that <code>Badges.Comments</code> was updated.  Previously, the property report would be only <code>Comments</code> which conflicts with the <code>Card.Comments</code> property.</p>
 <p>Fixed a deserialization issue for cards.  <code>ShortLink</code> does not directly translate to <code>ShortUrl</code> and needs some formatting.</p>
 <p><code>Refresh()</code> on collection types is no longer virtual.  (Should have been sealed on all implementations anyway.)</p>
 <h1 id="3011">3.0.11</h1>
 <p><em>Released on 18 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Fixed issue for all entities where processing webhook data would not fire the <code>Updated</code> event.</p>
 <h1 id="3010">3.0.10</h1>
 <p><em>Released on 14 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Attachment image previews have their ID property serialized as <code>_id</code> rather than <code>id</code>.</p>
 <h1 id="309">3.0.9</h1>
 <p><em>Released on 12 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Changed serialization of numbers when setting custom field values to use invariant culture.</p>
 <h1 id="308">3.0.8</h1>
 <p><em>Released on 12 May, 2018.</em></p>
+<p><span id="feature">feature</span> <span id="patch">patch</span></p>
 <p>Updated file location for license usage details to local app data for the current user.</p>
 <p>Updated power-up implementation:</p>
 <ul>
@@ -143,13 +149,16 @@
 </ul>
 <h1 id="307">3.0.7</h1>
 <p><em>Released on 11 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Bug fix for setting dropdown and text custom fields on cards without values.</p>
 <p>Internal updates to collection classes.</p>
 <h1 id="306">3.0.6</h1>
 <p><em>Released on 7 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Updated boards and cards to only cache themselves once the full ID has been downloaded.</p>
 <h1 id="305">3.0.5</h1>
 <p><em>Released on 4 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Fixed further issues with deserialization.</p>
 <ul>
 <li><code>IJsonBoard</code></li>
@@ -159,12 +168,15 @@
 </ul>
 <h1 id="304">3.0.4</h1>
 <p><em>Released on 4 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Fixed issue with <code>IJsonBoardBackground</code> deserialization.</p>
 <h1 id="303">3.0.3</h1>
 <p><em>Released on 3 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Fixed issue with <code>DropDownOption</code> that caused <code>ArgumentNullException</code> when attempting to add the entity to the cache.</p>
 <h1 id="302">3.0.2</h1>
 <p><em>Released on 2 May, 2018.</em></p>
+<p><span id="trello">trello</span> <span id="feature">feature</span> <span id="patch">patch</span></p>
 <p>The following are now read-only as these requests are not supported by Trello.</p>
 <ul>
 <li><code>Board.IsPinned</code></li>
@@ -175,6 +187,7 @@
 <p><code>Webhook</code> now implements <code>ICacheable</code></p>
 <h1 id="301">3.0.1</h1>
 <p><em>Released on 1 May, 2018.</em></p>
+<p><span id="patch">patch</span></p>
 <p>Fixed description attribute for:</p>
 <ul>
 <li><code>CheckList.Fields.Board</code></li>
@@ -191,6 +204,7 @@
 </ul>
 <h1 id="300">3.0.0</h1>
 <p><em>Released on 27 Apr, 2018.</em></p>
+<p><span id="break">breaking changes</span> <span id="trello">trello</span> <span id="feature">feature</span> <span id="patch">patch</span></p>
 <h2 id="supported-frameworks">Supported frameworks</h2>
 <p>Now multi-targets:</p>
 <ul>
@@ -230,7 +244,7 @@ Removed <code>ExpiryTime</code> in conjuction with changes to property getters.<
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/docs_source/release-notes.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/docs_source/release-notes.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

@@ -2,6 +2,8 @@
 
 *Released on 1 Jun, 2018.*
 
+<span id="trello">trello</span> <span id="feature">feature</span>
+
 ## Summary
 
 ### In line with changes in the Trello API:
@@ -67,6 +69,8 @@ Obsoleted the following:
 
 *Released on 30 May, 2018.*
 
+<span id="feature">feature</span> <span id="patch">patch</span> 
+
 Fixes issue for webhook processing where the property list provided by the event were inaccurate.  Also resolves an issue of updating cached entities with potentially stale data downloaded from `Action`s that indicated past activities.  **As a result, `Action.Data` and `Notification.Data` no longer use cached entities.**
 
 Additionally, the properties reported for sub-entities (e.g. `Card.Badges`) are now prefixed with the container property.  So if `Card.Badges.Comments` (a count of the comments on the card) changes, the `Card.Updated` event would report that `Badges.Comments` was updated.  Previously, the property report would be only `Comments` which conflicts with the `Card.Comments` property.
@@ -79,11 +83,15 @@ Fixed a deserialization issue for cards.  `ShortLink` does not directly translat
 
 *Released on 18 May, 2018.*
 
+<span id="patch">patch</span> 
+
 Fixed issue for all entities where processing webhook data would not fire the `Updated` event.
 
 # 3.0.10
 
 *Released on 14 May, 2018.*
+
+<span id="patch">patch</span> 
 
 Attachment image previews have their ID property serialized as `_id` rather than `id`.
 
@@ -91,11 +99,15 @@ Attachment image previews have their ID property serialized as `_id` rather than
 
 *Released on 12 May, 2018.*
 
+<span id="patch">patch</span> 
+
 Changed serialization of numbers when setting custom field values to use invariant culture.
 
 # 3.0.8
 
 *Released on 12 May, 2018.*
+
+<span id="feature">feature</span> <span id="patch">patch</span> 
 
 Updated file location for license usage details to local app data for the current user.
 
@@ -109,6 +121,8 @@ Updated power-up implementation:
 
 *Released on 11 May, 2018.*
 
+<span id="patch">patch</span> 
+
 Bug fix for setting dropdown and text custom fields on cards without values.
 
 Internal updates to collection classes.
@@ -117,11 +131,15 @@ Internal updates to collection classes.
 
 *Released on 7 May, 2018.*
 
+<span id="patch">patch</span> 
+
 Updated boards and cards to only cache themselves once the full ID has been downloaded.
 
 # 3.0.5
 
 *Released on 4 May, 2018.*
+
+<span id="patch">patch</span> 
 
 Fixed further issues with deserialization.
 
@@ -134,17 +152,23 @@ Fixed further issues with deserialization.
 
 *Released on 4 May, 2018.*
 
+<span id="patch">patch</span> 
+
 Fixed issue with `IJsonBoardBackground` deserialization.
 
 # 3.0.3
 
 *Released on 3 May, 2018.*
 
+<span id="patch">patch</span> 
+
 Fixed issue with `DropDownOption` that caused `ArgumentNullException` when attempting to add the entity to the cache.
 
 # 3.0.2
 
 *Released on 2 May, 2018.*
+
+<span id="trello">trello</span> <span id="feature">feature</span> <span id="patch">patch</span> 
 
 The following are now read-only as these requests are not supported by Trello.
 
@@ -159,6 +183,8 @@ The following are now read-only as these requests are not supported by Trello.
 # 3.0.1
 
 *Released on 1 May, 2018.*
+
+<span id="patch">patch</span> 
 
 Fixed description attribute for:
 
@@ -180,6 +206,8 @@ Fixed serialization issues for:
 # 3.0.0
 
 *Released on 27 Apr, 2018.*
+
+<span id="break">breaking change</span> <span id="trello">trello</span> <span id="feature">feature</span> <span id="patch">patch</span> 
 
 ## Supported frameworks
 

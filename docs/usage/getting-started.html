@@ -161,6 +161,9 @@ Console.Writeline(results.Cards.Count());
 </code></pre>
 <p>This query is equivalent to the string <code>&quot;@me comment:trello due:week&quot;</code>.  See <a href="http://help.trello.com/customer/portal/articles/1145462-searching-for-cards-all-boards-">Trello's blog post</a> for more information on search parameters.  All of the special parameters listed in this post have been implemented.</p>
 <blockquote>
+<p><strong>IMPORTANT</strong> Trello requires that all entities supply the full ID when used as a search context.  This means that any entity that was created using the short ID (board &amp; cards) will need to be refreshed first.</p>
+</blockquote>
+<blockquote>
 <p><strong>NOTE</strong> When creating entities, it will take some time for the new items to be indexed on the Trello servers.  During this time, these entities will not be returned in searches.  This may also affect searching for entities that have recently changed.</p>
 </blockquote>
 <h2 id="authorization">Authorization</h2>
@@ -194,7 +197,7 @@ var card = new Card(&quot;[your card ID]&quot;, auth);
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/docs_source/usage/getting-started.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/docs_source/usage/getting-started.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

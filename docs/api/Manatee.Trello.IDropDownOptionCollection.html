@@ -85,35 +85,32 @@
       <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html#Manatee_Trello_IReadOnlyCollection_1_Item_System_Int32_">IReadOnlyCollection&lt;IDropDownOption&gt;.Item[Int32]</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html#Manatee_Trello_IReadOnlyCollection_1_Refresh_System_Boolean_System_Threading_CancellationToken_">IReadOnlyCollection&lt;IDropDownOption&gt;.Refresh(Boolean, CancellationToken)</a>
-    </div>
-    <div>
-      <span class="xref">System.Collections.Generic.IEnumerable&lt;Manatee.Trello.IDropDownOption&gt;.GetEnumerator()</span>
+      <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html#Manatee_Trello_IReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_">IReadOnlyCollection&lt;IDropDownOption&gt;.Refresh(Boolean, CancellationToken)</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_IDropDownOptionCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IDropDownOptionCollection : IReadOnlyCollection&lt;IDropDownOption&gt;, IEnumerable&lt;IDropDownOption&gt;, IEnumerable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IDropDownOptionCollection : IReadOnlyCollection&lt;IDropDownOption&gt;, IEnumerable&lt;IDropDownOption&gt;</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IDropDownOptionCollection_Add_System_String_Manatee_Trello_Position_System_Nullable_Manatee_Trello_LabelColor__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.IDropDownOptionCollection.Add(System.String%2CManatee.Trello.Position%2CSystem.Nullable%7BManatee.Trello.LabelColor%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_IDropDownOptionCollection_Add_System_String_Manatee_Trello_Position_System_Nullable_Manatee_Trello_LabelColor__CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.IDropDownOptionCollection.Add(System.String%2CManatee.Trello.Position%2CSystem.Nullable%7BManatee.Trello.LabelColor%7D%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IDropDownOptionCollection.cs/#L19">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Contracts/IDropDownOptionCollection.cs/#L19">View Source</a>
   </span>
   <a id="Manatee_Trello_IDropDownOptionCollection_Add_" data-uid="Manatee.Trello.IDropDownOptionCollection.Add*"></a>
-  <h4 id="Manatee_Trello_IDropDownOptionCollection_Add_System_String_Manatee_Trello_Position_System_Nullable_Manatee_Trello_LabelColor__System_Threading_CancellationToken_" data-uid="Manatee.Trello.IDropDownOptionCollection.Add(System.String,Manatee.Trello.Position,System.Nullable{Manatee.Trello.LabelColor},System.Threading.CancellationToken)">Add(String, Position, Nullable&lt;LabelColor&gt;, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_IDropDownOptionCollection_Add_System_String_Manatee_Trello_Position_System_Nullable_Manatee_Trello_LabelColor__CancellationToken_" data-uid="Manatee.Trello.IDropDownOptionCollection.Add(System.String,Manatee.Trello.Position,System.Nullable{Manatee.Trello.LabelColor},CancellationToken)">Add(String, Position, Nullable&lt;LabelColor&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Adds a new drop down option.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;IDropDownOption&gt; Add(string text, Position position, LabelColor? color = default(LabelColor? ), CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;IDropDownOption&gt; Add(string text, Position position, LabelColor? color = null, CancellationToken ct = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -144,7 +141,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -161,7 +158,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Manatee.Trello.IDropDownOption.html">IDropDownOption</a>&gt;</td>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="Manatee.Trello.IDropDownOption.html">IDropDownOption</a>&gt;</td>
         <td><p>The <a class="xref" href="Manatee.Trello.IDropDownOption.html">IDropDownOption</a> generated by Trello.</p>
 </td>
       </tr>
@@ -175,10 +172,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_IDropDownOptionCollection.md&amp;value=---%0Auid%3A%20Manatee.Trello.IDropDownOptionCollection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_IDropDownOptionCollection.md&amp;value=---%0Auid%3A%20Manatee.Trello.IDropDownOptionCollection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/IDropDownOptionCollection.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Contracts/IDropDownOptionCollection.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

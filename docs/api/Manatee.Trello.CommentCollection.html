@@ -88,8 +88,7 @@
     <div><a class="xref" href="Manatee.Trello.ICommentCollection.html">ICommentCollection</a></div>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyActionCollection.html">IReadOnlyActionCollection</a></div>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.IAction.html">IAction</a>&gt;</div>
-    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IAction.html">IAction</a>&gt;</div>
-    <div><span class="xref">System.Collections.IEnumerable</span></div>
+    <div><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IAction.html">IAction</a>&gt;</div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -97,10 +96,10 @@
       <a class="xref" href="Manatee.Trello.ReadOnlyActionCollection.html#Manatee_Trello_ReadOnlyActionCollection_Filter_Manatee_Trello_ActionType_">ReadOnlyActionCollection.Filter(ActionType)</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.ReadOnlyActionCollection.html#Manatee_Trello_ReadOnlyActionCollection_Filter_System_Collections_Generic_IEnumerable_Manatee_Trello_ActionType__">ReadOnlyActionCollection.Filter(IEnumerable&lt;ActionType&gt;)</a>
+      <a class="xref" href="Manatee.Trello.ReadOnlyActionCollection.html#Manatee_Trello_ReadOnlyActionCollection_Filter_IEnumerable_Manatee_Trello_ActionType__">ReadOnlyActionCollection.Filter(IEnumerable&lt;ActionType&gt;)</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.ReadOnlyActionCollection.html#Manatee_Trello_ReadOnlyActionCollection_Filter_System_Nullable_System_DateTime__System_Nullable_System_DateTime__">ReadOnlyActionCollection.Filter(Nullable&lt;DateTime&gt;, Nullable&lt;DateTime&gt;)</a>
+      <a class="xref" href="Manatee.Trello.ReadOnlyActionCollection.html#Manatee_Trello_ReadOnlyActionCollection_Filter_System_Nullable_DateTime__System_Nullable_DateTime__">ReadOnlyActionCollection.Filter(Nullable&lt;DateTime&gt;, Nullable&lt;DateTime&gt;)</a>
     </div>
     <div>
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Limit">ReadOnlyCollection&lt;IAction&gt;.Limit</a>
@@ -112,59 +111,35 @@
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_GetEnumerator">ReadOnlyCollection&lt;IAction&gt;.GetEnumerator()</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_System_Threading_CancellationToken_">ReadOnlyCollection&lt;IAction&gt;.Refresh(Boolean, CancellationToken)</a>
-    </div>
-    <div>
-      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_System_Collections_IEnumerable_GetEnumerator">ReadOnlyCollection&lt;IAction&gt;.IEnumerable.GetEnumerator()</a>
+      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_">ReadOnlyCollection&lt;IAction&gt;.Refresh(Boolean, CancellationToken)</a>
     </div>
     <div>
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_IncorporateLimit">ReadOnlyCollection&lt;IAction&gt;.IncorporateLimit()</a>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_CommentCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CommentCollection : ReadOnlyActionCollection, ICommentCollection, IReadOnlyActionCollection, IReadOnlyCollection&lt;IAction&gt;, IEnumerable&lt;IAction&gt;, IEnumerable</code></pre>
+    <pre><code class="lang-csharp hljs">public class CommentCollection : ReadOnlyActionCollection, ICommentCollection, IReadOnlyActionCollection, IReadOnlyCollection&lt;IAction&gt;, IEnumerable&lt;IAction&gt;</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_CommentCollection_Add_System_String_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.CommentCollection.Add(System.String%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_CommentCollection_Add_System_String_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.CommentCollection.Add(System.String%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/CommentCollection.cs/#L28">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/CommentCollection.cs/#L28">View Source</a>
   </span>
   <a id="Manatee_Trello_CommentCollection_Add_" data-uid="Manatee.Trello.CommentCollection.Add*"></a>
-  <h4 id="Manatee_Trello_CommentCollection_Add_System_String_System_Threading_CancellationToken_" data-uid="Manatee.Trello.CommentCollection.Add(System.String,System.Threading.CancellationToken)">Add(String, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_CommentCollection_Add_System_String_CancellationToken_" data-uid="Manatee.Trello.CommentCollection.Add(System.String,CancellationToken)">Add(String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Posts a new comment to a card.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IAction&gt; Add(string text, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;IAction&gt; Add(string text, CancellationToken ct = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -183,7 +158,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -200,7 +175,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Manatee.Trello.IAction.html">IAction</a>&gt;</td>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="Manatee.Trello.IAction.html">IAction</a>&gt;</td>
         <td><p>The <a class="xref" href="Manatee.Trello.IAction.html">IAction</a> associated with the comment.</p>
 </td>
       </tr>
@@ -217,10 +192,7 @@
       <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection&lt;T&gt;</a>
   </div>
   <div>
-      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
-  </div>
-  <div>
-      <span class="xref">System.Collections.IEnumerable</span>
+      <span class="xref">IEnumerable&lt;&gt;</span>
   </div>
 </article>
           </div>
@@ -230,10 +202,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_CommentCollection.md&amp;value=---%0Auid%3A%20Manatee.Trello.CommentCollection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_CommentCollection.md&amp;value=---%0Auid%3A%20Manatee.Trello.CommentCollection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/CommentCollection.cs/#L14" class="contribution-link">View Source</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/CommentCollection.cs/#L14" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
