@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
@@ -46,6 +49,22 @@ namespace Manatee.Trello.IntegrationTests
 
 			board.IsStarred.Should().Be(true);
 			member.StarredBoards.Should().Contain(s => s.Board == board);
+		}
+
+		[Test]
+		public async Task BoardBackgrounds()
+		{
+			var me = await TestEnvironment.Current.Factory.Me();
+			await me.BoardBackgrounds.Refresh(true);
+
+			var imagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Files/logo.png");
+			var data = File.ReadAllBytes(imagePath);
+			var newBackground = await me.BoardBackgrounds.Add(data);
+
+			newBackground.Should().NotBeNull();
+			newBackground.Type.Should().Be(BoardBackgroundType.Custom);
+
+			await newBackground.Delete();
 		}
 	}
 }

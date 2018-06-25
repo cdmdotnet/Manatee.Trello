@@ -90,6 +90,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Files\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Files\smallest-jpeg.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

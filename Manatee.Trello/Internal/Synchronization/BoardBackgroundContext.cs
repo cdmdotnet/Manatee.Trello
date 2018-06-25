@@ -1,11 +1,15 @@
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class BoardBackgroundContext : LinkedSynchronizationContext<IJsonBoardBackground>
 	{
-		// todo: do I need to move scaled images here?
+		private readonly string _ownerId;
+		private bool _deleted;
 
 		static BoardBackgroundContext()
 		{
@@ -46,6 +50,10 @@ namespace Manatee.Trello.Internal.Synchronization
 						new Property<IJsonBoardBackground, BoardBackgroundBrightness?>((d, a) => d.Brightness, (d, o) => d.Brightness = o)
 					},
 					{
+						nameof(BoardBackground.Type),
+						new Property<IJsonBoardBackground, BoardBackgroundType?>((d, a) => d.Type, (d, o) => d.Type = o)
+					},
+					{
 						nameof(IJsonBoardBackground.ValidForMerge),
 						new Property<IJsonBoardBackground, bool>((d, a) => d.ValidForMerge, (d, o) => d.ValidForMerge = o, true)
 					},
@@ -53,5 +61,26 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		public BoardBackgroundContext(TrelloAuthorization auth)
 			: base(auth) {}
+		public BoardBackgroundContext(string ownerId, TrelloAuthorization auth)
+			: base(auth)
+		{
+			_ownerId = ownerId;
+		}
+
+		public async Task Delete(CancellationToken ct)
+		{
+			if (_deleted) return;
+			CancelUpdate();
+
+			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_DeleteBoardBackground,
+			                                     new Dictionary<string, object>
+				                                     {
+					                                     {"_idMember", _ownerId},
+					                                     {"_id", Data.Id}
+				                                     });
+			await JsonRepository.Execute(Auth, endpoint, ct);
+
+			_deleted = true;
+		}
 	}
 }

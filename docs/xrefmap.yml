@@ -2319,6 +2319,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.BoardBackground.Color
   nameWithType: BoardBackground.Color
+- uid: Manatee.Trello.BoardBackground.Delete(CancellationToken)
+  name: Delete(CancellationToken)
+  href: api/Manatee.Trello.BoardBackground.html#Manatee_Trello_BoardBackground_Delete_CancellationToken_
+  commentId: M:Manatee.Trello.BoardBackground.Delete(CancellationToken)
+  fullName: Manatee.Trello.BoardBackground.Delete(CancellationToken)
+  nameWithType: BoardBackground.Delete(CancellationToken)
+- uid: Manatee.Trello.BoardBackground.Delete*
+  name: Delete
+  href: api/Manatee.Trello.BoardBackground.html#Manatee_Trello_BoardBackground_Delete_
+  commentId: Overload:Manatee.Trello.BoardBackground.Delete
+  isSpec: "True"
+  fullName: Manatee.Trello.BoardBackground.Delete
+  nameWithType: BoardBackground.Delete
 - uid: Manatee.Trello.BoardBackground.Green
   name: Green
   href: api/Manatee.Trello.BoardBackground.html#Manatee_Trello_BoardBackground_Green
@@ -2488,6 +2501,32 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.BoardBackground.TopColor
   nameWithType: BoardBackground.TopColor
+- uid: Manatee.Trello.BoardBackground.ToString
+  name: ToString()
+  href: api/Manatee.Trello.BoardBackground.html#Manatee_Trello_BoardBackground_ToString
+  commentId: M:Manatee.Trello.BoardBackground.ToString
+  fullName: Manatee.Trello.BoardBackground.ToString()
+  nameWithType: BoardBackground.ToString()
+- uid: Manatee.Trello.BoardBackground.ToString*
+  name: ToString
+  href: api/Manatee.Trello.BoardBackground.html#Manatee_Trello_BoardBackground_ToString_
+  commentId: Overload:Manatee.Trello.BoardBackground.ToString
+  isSpec: "True"
+  fullName: Manatee.Trello.BoardBackground.ToString
+  nameWithType: BoardBackground.ToString
+- uid: Manatee.Trello.BoardBackground.Type
+  name: Type
+  href: api/Manatee.Trello.BoardBackground.html#Manatee_Trello_BoardBackground_Type
+  commentId: P:Manatee.Trello.BoardBackground.Type
+  fullName: Manatee.Trello.BoardBackground.Type
+  nameWithType: BoardBackground.Type
+- uid: Manatee.Trello.BoardBackground.Type*
+  name: Type
+  href: api/Manatee.Trello.BoardBackground.html#Manatee_Trello_BoardBackground_Type_
+  commentId: Overload:Manatee.Trello.BoardBackground.Type
+  isSpec: "True"
+  fullName: Manatee.Trello.BoardBackground.Type
+  nameWithType: BoardBackground.Type
 - uid: Manatee.Trello.BoardBackgroundBrightness
   name: BoardBackgroundBrightness
   href: api/Manatee.Trello.BoardBackgroundBrightness.html
@@ -2512,6 +2551,58 @@ references:
   commentId: F:Manatee.Trello.BoardBackgroundBrightness.Unknown
   fullName: Manatee.Trello.BoardBackgroundBrightness.Unknown
   nameWithType: BoardBackgroundBrightness.Unknown
+- uid: Manatee.Trello.BoardBackgroundCollection
+  name: BoardBackgroundCollection
+  href: api/Manatee.Trello.BoardBackgroundCollection.html
+  commentId: T:Manatee.Trello.BoardBackgroundCollection
+  fullName: Manatee.Trello.BoardBackgroundCollection
+  nameWithType: BoardBackgroundCollection
+- uid: Manatee.Trello.BoardBackgroundCollection.Add(System.Byte[],CancellationToken)
+  name: Add(Byte[], CancellationToken)
+  href: api/Manatee.Trello.BoardBackgroundCollection.html#Manatee_Trello_BoardBackgroundCollection_Add_System_Byte___CancellationToken_
+  commentId: M:Manatee.Trello.BoardBackgroundCollection.Add(System.Byte[],CancellationToken)
+  name.vb: Add(Byte(), CancellationToken)
+  fullName: Manatee.Trello.BoardBackgroundCollection.Add(System.Byte[], CancellationToken)
+  fullName.vb: Manatee.Trello.BoardBackgroundCollection.Add(System.Byte(), CancellationToken)
+  nameWithType: BoardBackgroundCollection.Add(Byte[], CancellationToken)
+  nameWithType.vb: BoardBackgroundCollection.Add(Byte(), CancellationToken)
+- uid: Manatee.Trello.BoardBackgroundCollection.Add*
+  name: Add
+  href: api/Manatee.Trello.BoardBackgroundCollection.html#Manatee_Trello_BoardBackgroundCollection_Add_
+  commentId: Overload:Manatee.Trello.BoardBackgroundCollection.Add
+  isSpec: "True"
+  fullName: Manatee.Trello.BoardBackgroundCollection.Add
+  nameWithType: BoardBackgroundCollection.Add
+- uid: Manatee.Trello.BoardBackgroundType
+  name: BoardBackgroundType
+  href: api/Manatee.Trello.BoardBackgroundType.html
+  commentId: T:Manatee.Trello.BoardBackgroundType
+  fullName: Manatee.Trello.BoardBackgroundType
+  nameWithType: BoardBackgroundType
+- uid: Manatee.Trello.BoardBackgroundType.Custom
+  name: Custom
+  href: api/Manatee.Trello.BoardBackgroundType.html#Manatee_Trello_BoardBackgroundType_Custom
+  commentId: F:Manatee.Trello.BoardBackgroundType.Custom
+  fullName: Manatee.Trello.BoardBackgroundType.Custom
+  nameWithType: BoardBackgroundType.Custom
+- uid: Manatee.Trello.BoardBackgroundType.Default
+  name: Default
+  href: api/Manatee.Trello.BoardBackgroundType.html#Manatee_Trello_BoardBackgroundType_Default
+  commentId: F:Manatee.Trello.BoardBackgroundType.Default
+  fullName: Manatee.Trello.BoardBackgroundType.Default
+  nameWithType: BoardBackgroundType.Default
+- uid: Manatee.Trello.BoardBackgroundType.Premium
+  name: Premium
+  href: api/Manatee.Trello.BoardBackgroundType.html#Manatee_Trello_BoardBackgroundType_Premium
+  commentId: F:Manatee.Trello.BoardBackgroundType.Premium
+  fullName: Manatee.Trello.BoardBackgroundType.Premium
+  nameWithType: BoardBackgroundType.Premium
+- uid: Manatee.Trello.BoardBackgroundType.Unknown
+  name: Unknown
+  href: api/Manatee.Trello.BoardBackgroundType.html#Manatee_Trello_BoardBackgroundType_Unknown
+  commentId: F:Manatee.Trello.BoardBackgroundType.Unknown
+  fullName: Manatee.Trello.BoardBackgroundType.Unknown
+  nameWithType: BoardBackgroundType.Unknown
 - uid: Manatee.Trello.BoardCollection
   name: BoardCollection
   href: api/Manatee.Trello.BoardCollection.html
@@ -3476,12 +3567,6 @@ references:
   commentId: F:Manatee.Trello.Card.Fields.Position
   fullName: Manatee.Trello.Card.Fields.Position
   nameWithType: Card.Fields.Position
-- uid: Manatee.Trello.Card.Fields.PowerUpData
-  name: PowerUpData
-  href: api/Manatee.Trello.Card.Fields.html#Manatee_Trello_Card_Fields_PowerUpData
-  commentId: F:Manatee.Trello.Card.Fields.PowerUpData
-  fullName: Manatee.Trello.Card.Fields.PowerUpData
-  nameWithType: Card.Fields.PowerUpData
 - uid: Manatee.Trello.Card.Fields.ShortId
   name: ShortId
   href: api/Manatee.Trello.Card.Fields.html#Manatee_Trello_Card_Fields_ShortId
@@ -6300,6 +6385,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IBoardBackground.Color
   nameWithType: IBoardBackground.Color
+- uid: Manatee.Trello.IBoardBackground.Delete(CancellationToken)
+  name: Delete(CancellationToken)
+  href: api/Manatee.Trello.IBoardBackground.html#Manatee_Trello_IBoardBackground_Delete_CancellationToken_
+  commentId: M:Manatee.Trello.IBoardBackground.Delete(CancellationToken)
+  fullName: Manatee.Trello.IBoardBackground.Delete(CancellationToken)
+  nameWithType: IBoardBackground.Delete(CancellationToken)
+- uid: Manatee.Trello.IBoardBackground.Delete*
+  name: Delete
+  href: api/Manatee.Trello.IBoardBackground.html#Manatee_Trello_IBoardBackground_Delete_
+  commentId: Overload:Manatee.Trello.IBoardBackground.Delete
+  isSpec: "True"
+  fullName: Manatee.Trello.IBoardBackground.Delete
+  nameWithType: IBoardBackground.Delete
 - uid: Manatee.Trello.IBoardBackground.Image
   name: Image
   href: api/Manatee.Trello.IBoardBackground.html#Manatee_Trello_IBoardBackground_Image
@@ -6352,6 +6450,41 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IBoardBackground.TopColor
   nameWithType: IBoardBackground.TopColor
+- uid: Manatee.Trello.IBoardBackground.Type
+  name: Type
+  href: api/Manatee.Trello.IBoardBackground.html#Manatee_Trello_IBoardBackground_Type
+  commentId: P:Manatee.Trello.IBoardBackground.Type
+  fullName: Manatee.Trello.IBoardBackground.Type
+  nameWithType: IBoardBackground.Type
+- uid: Manatee.Trello.IBoardBackground.Type*
+  name: Type
+  href: api/Manatee.Trello.IBoardBackground.html#Manatee_Trello_IBoardBackground_Type_
+  commentId: Overload:Manatee.Trello.IBoardBackground.Type
+  isSpec: "True"
+  fullName: Manatee.Trello.IBoardBackground.Type
+  nameWithType: IBoardBackground.Type
+- uid: Manatee.Trello.IBoardBackgroundCollection
+  name: IBoardBackgroundCollection
+  href: api/Manatee.Trello.IBoardBackgroundCollection.html
+  commentId: T:Manatee.Trello.IBoardBackgroundCollection
+  fullName: Manatee.Trello.IBoardBackgroundCollection
+  nameWithType: IBoardBackgroundCollection
+- uid: Manatee.Trello.IBoardBackgroundCollection.Add(System.Byte[],CancellationToken)
+  name: Add(Byte[], CancellationToken)
+  href: api/Manatee.Trello.IBoardBackgroundCollection.html#Manatee_Trello_IBoardBackgroundCollection_Add_System_Byte___CancellationToken_
+  commentId: M:Manatee.Trello.IBoardBackgroundCollection.Add(System.Byte[],CancellationToken)
+  name.vb: Add(Byte(), CancellationToken)
+  fullName: Manatee.Trello.IBoardBackgroundCollection.Add(System.Byte[], CancellationToken)
+  fullName.vb: Manatee.Trello.IBoardBackgroundCollection.Add(System.Byte(), CancellationToken)
+  nameWithType: IBoardBackgroundCollection.Add(Byte[], CancellationToken)
+  nameWithType.vb: IBoardBackgroundCollection.Add(Byte(), CancellationToken)
+- uid: Manatee.Trello.IBoardBackgroundCollection.Add*
+  name: Add
+  href: api/Manatee.Trello.IBoardBackgroundCollection.html#Manatee_Trello_IBoardBackgroundCollection_Add_
+  commentId: Overload:Manatee.Trello.IBoardBackgroundCollection.Add
+  isSpec: "True"
+  fullName: Manatee.Trello.IBoardBackgroundCollection.Add
+  nameWithType: IBoardBackgroundCollection.Add
 - uid: Manatee.Trello.IBoardCollection
   name: IBoardCollection
   href: api/Manatee.Trello.IBoardCollection.html
@@ -8509,6 +8642,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IMe.Bio
   nameWithType: IMe.Bio
+- uid: Manatee.Trello.IMe.BoardBackgrounds
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.IMe.html#Manatee_Trello_IMe_BoardBackgrounds
+  commentId: P:Manatee.Trello.IMe.BoardBackgrounds
+  fullName: Manatee.Trello.IMe.BoardBackgrounds
+  nameWithType: IMe.BoardBackgrounds
+- uid: Manatee.Trello.IMe.BoardBackgrounds*
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.IMe.html#Manatee_Trello_IMe_BoardBackgrounds_
+  commentId: Overload:Manatee.Trello.IMe.BoardBackgrounds
+  isSpec: "True"
+  fullName: Manatee.Trello.IMe.BoardBackgrounds
+  nameWithType: IMe.BoardBackgrounds
 - uid: Manatee.Trello.IMe.Boards
   name: Boards
   href: api/Manatee.Trello.IMe.html#Manatee_Trello_IMe_Boards
@@ -8684,6 +8830,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IMember.Bio
   nameWithType: IMember.Bio
+- uid: Manatee.Trello.IMember.BoardBackgrounds
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.IMember.html#Manatee_Trello_IMember_BoardBackgrounds
+  commentId: P:Manatee.Trello.IMember.BoardBackgrounds
+  fullName: Manatee.Trello.IMember.BoardBackgrounds
+  nameWithType: IMember.BoardBackgrounds
+- uid: Manatee.Trello.IMember.BoardBackgrounds*
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.IMember.html#Manatee_Trello_IMember_BoardBackgrounds_
+  commentId: Overload:Manatee.Trello.IMember.BoardBackgrounds
+  isSpec: "True"
+  fullName: Manatee.Trello.IMember.BoardBackgrounds
+  nameWithType: IMember.BoardBackgrounds
 - uid: Manatee.Trello.IMember.Boards
   name: Boards
   href: api/Manatee.Trello.IMember.html#Manatee_Trello_IMember_Boards
@@ -12771,6 +12930,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.Json.IJsonBoardBackground.TopColor
   nameWithType: IJsonBoardBackground.TopColor
+- uid: Manatee.Trello.Json.IJsonBoardBackground.Type
+  name: Type
+  href: api/Manatee.Trello.Json.IJsonBoardBackground.html#Manatee_Trello_Json_IJsonBoardBackground_Type
+  commentId: P:Manatee.Trello.Json.IJsonBoardBackground.Type
+  fullName: Manatee.Trello.Json.IJsonBoardBackground.Type
+  nameWithType: IJsonBoardBackground.Type
+- uid: Manatee.Trello.Json.IJsonBoardBackground.Type*
+  name: Type
+  href: api/Manatee.Trello.Json.IJsonBoardBackground.html#Manatee_Trello_Json_IJsonBoardBackground_Type_
+  commentId: Overload:Manatee.Trello.Json.IJsonBoardBackground.Type
+  isSpec: "True"
+  fullName: Manatee.Trello.Json.IJsonBoardBackground.Type
+  nameWithType: IJsonBoardBackground.Type
 - uid: Manatee.Trello.Json.IJsonBoardMembership
   name: IJsonBoardMembership
   href: api/Manatee.Trello.Json.IJsonBoardMembership.html
@@ -16576,6 +16748,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.Me.Bio
   nameWithType: Me.Bio
+- uid: Manatee.Trello.Me.BoardBackgrounds
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.Me.html#Manatee_Trello_Me_BoardBackgrounds
+  commentId: P:Manatee.Trello.Me.BoardBackgrounds
+  fullName: Manatee.Trello.Me.BoardBackgrounds
+  nameWithType: Me.BoardBackgrounds
+- uid: Manatee.Trello.Me.BoardBackgrounds*
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.Me.html#Manatee_Trello_Me_BoardBackgrounds_
+  commentId: Overload:Manatee.Trello.Me.BoardBackgrounds
+  isSpec: "True"
+  fullName: Manatee.Trello.Me.BoardBackgrounds
+  nameWithType: Me.BoardBackgrounds
 - uid: Manatee.Trello.Me.Boards
   name: Boards
   href: api/Manatee.Trello.Me.html#Manatee_Trello_Me_Boards
@@ -16790,6 +16975,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.Member.Bio
   nameWithType: Member.Bio
+- uid: Manatee.Trello.Member.BoardBackgrounds
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.Member.html#Manatee_Trello_Member_BoardBackgrounds
+  commentId: P:Manatee.Trello.Member.BoardBackgrounds
+  fullName: Manatee.Trello.Member.BoardBackgrounds
+  nameWithType: Member.BoardBackgrounds
+- uid: Manatee.Trello.Member.BoardBackgrounds*
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.Member.html#Manatee_Trello_Member_BoardBackgrounds_
+  commentId: Overload:Manatee.Trello.Member.BoardBackgrounds
+  isSpec: "True"
+  fullName: Manatee.Trello.Member.BoardBackgrounds
+  nameWithType: Member.BoardBackgrounds
 - uid: Manatee.Trello.Member.Boards
   name: Boards
   href: api/Manatee.Trello.Member.html#Manatee_Trello_Member_Boards
@@ -16878,6 +17076,12 @@ references:
   commentId: F:Manatee.Trello.Member.Fields.Bio
   fullName: Manatee.Trello.Member.Fields.Bio
   nameWithType: Member.Fields.Bio
+- uid: Manatee.Trello.Member.Fields.BoardBackgrounds
+  name: BoardBackgrounds
+  href: api/Manatee.Trello.Member.Fields.html#Manatee_Trello_Member_Fields_BoardBackgrounds
+  commentId: F:Manatee.Trello.Member.Fields.BoardBackgrounds
+  fullName: Manatee.Trello.Member.Fields.BoardBackgrounds
+  nameWithType: Member.Fields.BoardBackgrounds
 - uid: Manatee.Trello.Member.Fields.Boards
   name: Boards
   href: api/Manatee.Trello.Member.Fields.html#Manatee_Trello_Member_Fields_Boards
@@ -19276,6 +19480,12 @@ references:
   commentId: T:Manatee.Trello.ReadOnlyAttachmentPreviewCollection
   fullName: Manatee.Trello.ReadOnlyAttachmentPreviewCollection
   nameWithType: ReadOnlyAttachmentPreviewCollection
+- uid: Manatee.Trello.ReadOnlyBoardBackgroundCollection
+  name: ReadOnlyBoardBackgroundCollection
+  href: api/Manatee.Trello.ReadOnlyBoardBackgroundCollection.html
+  commentId: T:Manatee.Trello.ReadOnlyBoardBackgroundCollection
+  fullName: Manatee.Trello.ReadOnlyBoardBackgroundCollection
+  nameWithType: ReadOnlyBoardBackgroundCollection
 - uid: Manatee.Trello.ReadOnlyBoardBackgroundScalesCollection
   name: ReadOnlyBoardBackgroundScalesCollection
   href: api/Manatee.Trello.ReadOnlyBoardBackgroundScalesCollection.html
@@ -21837,19 +22047,6 @@ references:
   commentId: T:Manatee.Trello.TrelloProcessor
   fullName: Manatee.Trello.TrelloProcessor
   nameWithType: TrelloProcessor
-- uid: Manatee.Trello.TrelloProcessor.CustomRequest(Manatee.Trello.Rest.RestMethod,System.String,System.Object,Manatee.Trello.TrelloAuthorization,CancellationToken)
-  name: CustomRequest(RestMethod, String, Object, TrelloAuthorization, CancellationToken)
-  href: api/Manatee.Trello.TrelloProcessor.html#Manatee_Trello_TrelloProcessor_CustomRequest_Manatee_Trello_Rest_RestMethod_System_String_System_Object_Manatee_Trello_TrelloAuthorization_CancellationToken_
-  commentId: M:Manatee.Trello.TrelloProcessor.CustomRequest(Manatee.Trello.Rest.RestMethod,System.String,System.Object,Manatee.Trello.TrelloAuthorization,CancellationToken)
-  fullName: Manatee.Trello.TrelloProcessor.CustomRequest(Manatee.Trello.Rest.RestMethod, System.String, System.Object, Manatee.Trello.TrelloAuthorization, CancellationToken)
-  nameWithType: TrelloProcessor.CustomRequest(RestMethod, String, Object, TrelloAuthorization, CancellationToken)
-- uid: Manatee.Trello.TrelloProcessor.CustomRequest*
-  name: CustomRequest
-  href: api/Manatee.Trello.TrelloProcessor.html#Manatee_Trello_TrelloProcessor_CustomRequest_
-  commentId: Overload:Manatee.Trello.TrelloProcessor.CustomRequest
-  isSpec: "True"
-  fullName: Manatee.Trello.TrelloProcessor.CustomRequest
-  nameWithType: TrelloProcessor.CustomRequest
 - uid: Manatee.Trello.TrelloProcessor.Flush
   name: Flush()
   href: api/Manatee.Trello.TrelloProcessor.html#Manatee_Trello_TrelloProcessor_Flush

@@ -36,6 +36,11 @@ namespace Manatee.Trello
 		IReadOnlyBoardCollection Boards { get; }
 
 		/// <summary>
+		/// Gets the collection of custom board backgrounds uploaded by the member.
+		/// </summary>
+		IReadOnlyCollection<IBoardBackground> BoardBackgrounds { get; }
+		
+		/// <summary>
 		/// Gets the collection of cards assigned to the member.
 		/// </summary>
 		IReadOnlyCardCollection Cards { get; }

@@ -1,4 +1,7 @@
-﻿using Manatee.Trello.Internal;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -7,7 +10,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a background image for a board.
 	/// </summary>
-	public class BoardBackground : IBoardBackground
+	public class BoardBackground : IBoardBackground, IMergeJson<IJsonBoardBackground>
 	{
 		private static BoardBackground _blue, _orange, _green, _red, _purple, _pink, _lime, _sky, _grey;
 
@@ -17,6 +20,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _image;
 		private readonly Field<bool?> _isTiled;
 		private readonly Field<BoardBackgroundBrightness?> _brightness;
+		private readonly Field<BoardBackgroundType?> _type;
 		private readonly BoardBackgroundContext _context;
 
 		/// <summary>
@@ -89,16 +93,21 @@ namespace Manatee.Trello
 		/// </summary>
 		public WebColor TopColor => _topColor.Value;
 
+		/// <summary>
+		/// Gets the type of background.
+		/// </summary>
+		public BoardBackgroundType? Type => _type.Value;
+
 		internal IJsonBoardBackground Json
 		{
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
 
-		internal BoardBackground(IJsonBoardBackground json, TrelloAuthorization auth)
+		internal BoardBackground(string ownerId, IJsonBoardBackground json, TrelloAuthorization auth)
 		{
 			Id = json.Id;
-			_context = new BoardBackgroundContext(auth);
+			_context = new BoardBackgroundContext(ownerId, auth);
 			_context.Merge(json);
 
 			_brightness = new Field<BoardBackgroundBrightness?>(_context, nameof(Brightness));
@@ -107,6 +116,7 @@ namespace Manatee.Trello
 			_bottomColor = new Field<WebColor>(_context, nameof(BottomColor));
 			_image = new Field<string>(_context, nameof(Image));
 			_isTiled = new Field<bool?>(_context, nameof(IsTiled));
+			_type = new Field<BoardBackgroundType?>(_context, nameof(Type));
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, auth);
 
 			if (auth != TrelloAuthorization.Null)
@@ -124,9 +134,34 @@ namespace Manatee.Trello
 			_bottomColor = new Field<WebColor>(_context, nameof(BottomColor));
 			_image = new Field<string>(_context, nameof(Image));
 			_isTiled = new Field<bool?>(_context, nameof(IsTiled));
+			_type = new Field<BoardBackgroundType?>(_context, nameof(Type));
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, TrelloAuthorization.Default);
 
 			TrelloConfiguration.Cache.Add(this);
+		}
+
+		/// <summary>
+		/// Deletes a custom board background;
+		/// </summary>
+		/// <param name="ct"></param>
+		/// <returns></returns>
+		public Task Delete(CancellationToken ct = default(CancellationToken))
+		{
+			if (Type != BoardBackgroundType.Custom)
+				throw new InvalidOperationException("Cannot delete Trello-provided board backgrounds.");
+			return _context.Delete(ct);
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return Id;
+		}
+
+		void IMergeJson<IJsonBoardBackground>.Merge(IJsonBoardBackground json, bool overwrite)
+		{
+			_context.Merge(json, overwrite);
 		}
 	}
 }

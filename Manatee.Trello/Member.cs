@@ -139,7 +139,11 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the board stars will be downloaded.
 			/// </summary>
-			StarredBoards = 1 << 24
+			StarredBoards = 1 << 24,
+			/// <summary>
+			/// Indicates the board backgrounds will be downloaded.
+			/// </summary>
+			BoardBackgrounds = 1 << 25
 		}
 
 		private readonly Field<string> _avatarUrl;
@@ -200,6 +204,12 @@ namespace Manatee.Trello
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
 		public IReadOnlyBoardCollection Boards => _context.Boards;
+
+		/// <summary>
+		/// Gets the collection of custom board backgrounds uploaded by the member.
+		/// </summary>
+		public IReadOnlyCollection<IBoardBackground> BoardBackgrounds => _context.BoardBackgrounds;
+
 		/// <summary>
 		/// Gets the collection of cards assigned to the member.
 		/// </summary>

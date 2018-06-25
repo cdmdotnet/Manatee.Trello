@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>3.1.0 </title>
+    <title>3.2.0 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="3.1.0 ">
+    <meta name="title" content="3.2.0 ">
     <meta name="generator" content="docfx 2.36.1.0">
     
     <link rel="shortcut icon" href="favicon.ico">
@@ -60,11 +60,41 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="310">3.1.0</h1>
+<h1 id="320">3.2.0</h1>
 
+<p><em>Released on XXXXXXXXXXXXXXXXXXXXXXXXX</em></p>
+<p><span id="feature">feature</span></p>
+<h2 id="summary">Summary</h2>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/3">3</a>) Support for reading, uploading, and deleting custom board backgrounds.  (Uploading new backgrounds requires a Trello Gold account.)</p>
+<h2 id="changes">Changes</h2>
+<p>New members:</p>
+<ul>
+<li><code>IJsonBoardBackground.Type</code></li>
+<li><code>IBoardBackground.Type</code></li>
+<li><code>IBoardBackground.Delete()</code></li>
+<li><code>BoardBackground.Type</code></li>
+<li><code>BoardBackground.Delete()</code></li>
+<li><code>IMember.BoardBackgrounds</code></li>
+<li><code>Member.BoardBackgrounds</code></li>
+<li><code>IMe.BoardBackgrounds</code></li>
+<li><code>Me.BoardBackgrounds</code></li>
+<li><code>static Member.Fields.BoardBackgrounds</code></li>
+</ul>
+<p>New types:</p>
+<ul>
+<li><code>ReadOnlyBoardBackgroundCollection</code></li>
+<li><code>IBoardBackgroundCollection</code></li>
+<li><code>BoardBackgroundCollection</code></li>
+<li><code>BoardBackgroundType</code></li>
+</ul>
+<p>Functional changes:</p>
+<ul>
+<li>Custom board backgrounds now downloaded by default as part of member.</li>
+</ul>
+<h1 id="310">3.1.0</h1>
 <p><em>Released on 1 Jun, 2018.</em></p>
 <p><span id="trello">trello</span> <span id="feature">feature</span></p>
-<h2 id="summary">Summary</h2>
+<h2 id="summary-1">Summary</h2>
 <h3 id="in-line-with-changes-in-the-trello-api">In line with changes in the Trello API:</h3>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/178">#178</a>) Getting member avatar images have been augmented. Now the client must specify an image size.  The default is 170x170 which was previously the only option.  Now 30x30 and 50x50 are available as well. <a href="https://trello.com/c/VX8B4ndj">Trello's change</a></p>
 <p>(no issue logged) Label uses have been removed from the API. <a href="https://trello.com/c/qlIE6fkg">Trello's change</a></p>
@@ -73,7 +103,7 @@
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/187">#187</a>) Starred boards are represented as objects in the Trello API.  Previous library versions only exposed <code>Board.IsStarred</code> as a read-only property.  These can now be listed and manipulated through the <code>StarredBoard</code> entity and its collection on the <code>Member</code> and <code>Me</code> entities, respectively.</p>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/224">#224</a>) Updated collection <code>Add()</code> methods to include optional parameters so that the data can be included as part of the creation process rather than having to set properties which would require at least one additional call.</p>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/211">#211</a>) All entities and collections can now be forcibly refreshed.</p>
-<h2 id="changes">Changes</h2>
+<h2 id="changes-1">Changes</h2>
 <p>New members:</p>
 <ul>
 <li><code>static Meember.AvatarSize</code></li>
@@ -204,7 +234,7 @@
 </ul>
 <h1 id="300">3.0.0</h1>
 <p><em>Released on 27 Apr, 2018.</em></p>
-<p><span id="break">breaking changes</span> <span id="trello">trello</span> <span id="feature">feature</span> <span id="patch">patch</span></p>
+<p><span id="break">breaking change</span> <span id="trello">trello</span> <span id="feature">feature</span> <span id="patch">patch</span></p>
 <h2 id="supported-frameworks">Supported frameworks</h2>
 <p>Now multi-targets:</p>
 <ul>
@@ -244,7 +274,7 @@ Removed <code>ExpiryTime</code> in conjuction with changes to property getters.<
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/docs_source/release-notes.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/3-custom-board-backgrounds/docs_source/release-notes.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

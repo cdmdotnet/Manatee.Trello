@@ -14,6 +14,7 @@ namespace Manatee.Trello.Json.Entities
 		public List<IJsonImagePreview> ImageScaled { get; set; }
 		public bool? Tile { get; set; }
 		public string TopColor { get; set; }
+		public BoardBackgroundType? Type { get; set; }
 		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -22,14 +23,18 @@ namespace Manatee.Trello.Json.Entities
 			{
 				case JsonValueType.Object:
 					var obj = json.Object;
-					Id = obj.TryGetString("background");
-					BottomColor = obj.TryGetString("backgroundBottomColor");
-					Brightness = obj.Deserialize<BoardBackgroundBrightness?>(serializer, "backgroundBrightness");
-					Color = obj.TryGetString("backgroundColor");
-					Image = obj.TryGetString("backgroundImage");
-					ImageScaled = obj.Deserialize<List<IJsonImagePreview>>(serializer, "backgroundImageScaled");
-					Tile = obj.TryGetBoolean("backgroundTile");
-					TopColor = obj.TryGetString("backgroundTopColor");
+					Id = obj.TryGetString("id") ?? obj.TryGetString("background");
+					BottomColor = obj.TryGetString("bottomColor") ?? obj.TryGetString("backgroundBottomColor");
+					Brightness = obj.Deserialize<BoardBackgroundBrightness?>(serializer, "brightness") ??
+					             obj.Deserialize<BoardBackgroundBrightness?>(serializer, "backgroundBrightness");
+					Color = obj.TryGetString("color") ?? obj.TryGetString("backgroundColor");
+					Image = obj.TryGetString("fullSizeUrl") ?? obj.TryGetString("backgroundImage");
+					ImageScaled = obj.Deserialize<List<IJsonImagePreview>>(serializer, "scaled") ??
+					              obj.Deserialize<List<IJsonImagePreview>>(serializer, "backgroundImageScaled");
+					Tile = obj.TryGetBoolean("tile") ?? obj.TryGetBoolean("backgroundTile");
+					TopColor = obj.TryGetString("topColor") ?? obj.TryGetString("backgroundTopColor");
+					Type = obj.Deserialize<BoardBackgroundType?>(serializer, "type") ??
+					       obj.Deserialize<BoardBackgroundType?>(serializer, "backgroundType");
 					ValidForMerge = true;
 					break;
 				case JsonValueType.String:

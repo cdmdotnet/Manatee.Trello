@@ -1,7 +1,7 @@
 ﻿namespace Manatee.Trello
 {
 	/// <summary>
-	/// A read-only collectin of boards.
+	/// A read-only collection of boards.
 	/// </summary>
 	public interface IReadOnlyBoardCollection : IReadOnlyCollection<IBoard>
 	{

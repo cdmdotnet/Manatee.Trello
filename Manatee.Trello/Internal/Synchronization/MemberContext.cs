@@ -31,6 +31,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public ReadOnlyActionCollection Actions { get; }
 		public ReadOnlyBoardCollection Boards { get; }
+		public ReadOnlyBoardBackgroundCollection BoardBackgrounds { get; }
 		public ReadOnlyCardCollection Cards { get; }
 		public ReadOnlyNotificationCollection Notifications { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
@@ -113,17 +114,22 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Member), () => Data.Id, auth);
-			Boards = isMe
-				         ? new BoardCollection(typeof(Member), () => Data.Id, auth) 
-				         : new ReadOnlyBoardCollection(typeof(Member), () => Data.Id, auth);
+			if (isMe)
+			{
+				Boards = new BoardCollection(typeof(Member), () => Data.Id, auth);
+				BoardBackgrounds = new BoardBackgroundCollection(() => Data.Id, auth);
+				Organizations = new OrganizationCollection(() => Data.Id, auth);
+				StarredBoards = new StarredBoardCollection(() => Data.Id, auth);
+			}
+			else
+			{
+				Boards = new ReadOnlyBoardCollection(typeof(Member), () => Data.Id, auth);
+				BoardBackgrounds = new ReadOnlyBoardBackgroundCollection(() => Data.Id, auth);
+				Organizations = new ReadOnlyOrganizationCollection(() => Data.Id, auth);
+				StarredBoards = new ReadOnlyStarredBoardCollection(() => Data.Id, auth);
+			}
 			Cards = new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, () => Data.Id, auth);
-			Organizations = isMe 
-				                ? new OrganizationCollection(() => Data.Id, auth)
-				                : new ReadOnlyOrganizationCollection(() => Data.Id, auth);
 			Notifications = new ReadOnlyNotificationCollection(() => Data.Id, auth);
-			StarredBoards = isMe
-				                ? new StarredBoardCollection(() => Data.Id, auth)
-				                : new ReadOnlyStarredBoardCollection(() => Data.Id, auth); 
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
@@ -178,6 +184,8 @@ namespace Manatee.Trello.Internal.Synchronization
 				}
 				if (parameterFields.HasFlag(Member.Fields.StarredBoards))
 					Parameters["boardStars"] = "true";
+				if (parameterFields.HasFlag(Member.Fields.BoardBackgrounds))
+					Parameters["boardBackgrounds"] = "custom";
 			}
 		}
 
