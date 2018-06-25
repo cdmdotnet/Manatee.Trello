@@ -21,6 +21,11 @@
 		new IBoardCollection Boards { get; }
 
 		/// <summary>
+		/// Gets the collection of custom board backgrounds uploaded by the member.
+		/// </summary>
+		new IBoardBackgroundCollection BoardBackgrounds { get; }
+
+		/// <summary>
 		/// Gets or sets the member's email.
 		/// </summary>
 		string Email { get; set; }

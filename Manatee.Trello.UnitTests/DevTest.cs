@@ -26,6 +26,11 @@ namespace Manatee.Trello.UnitTests
 					var me = await _factory.Me(ct);
 					await me.BoardBackgrounds.Refresh(true, ct);
 					OutputCollection("backgrounds", me.BoardBackgrounds);
+
+					var data = File.ReadAllBytes("C:\\Users\\gregs\\OneDrive\\Public\\Manatee Open-Source (shadow).png");
+					var newBackground = await me.BoardBackgrounds.Add(data, ct);
+
+					Console.WriteLine(newBackground);
 				});
 		}
 

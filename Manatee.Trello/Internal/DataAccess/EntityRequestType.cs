@@ -93,6 +93,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Member_Read_Organizations,
 		Member_Read_Refresh,
 		Member_Read_StarredBoards,
+		Member_Write_AddBoardBackground,
 		Member_Write_AddStarredBoard,
 		Member_Write_CreateBoard,
 		Member_Write_CreateOrganization,
