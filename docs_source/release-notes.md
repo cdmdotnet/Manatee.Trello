@@ -14,7 +14,14 @@ New members:
 
 - `IJsonBoardBackground.Type`
 - `IBoardBackground.Type`
+- `IBoardBackground.Delete()`
 - `BoardBackground.Type`
+- `BoardBackground.Delete()`
+- `IMember.BoardBackgrounds`
+- `Member.BoardBackgrounds`
+- `IMe.BoardBackgrounds`
+- `Me.BoardBackgrounds`
+- `static Member.Fields.BoardBackgrounds`
 
 New types:
 
@@ -22,6 +29,10 @@ New types:
 - `IBoardBackgroundCollection`
 - `BoardBackgroundCollection`
 - `BoardBackgroundType`
+
+Functional changes:
+
+- Custom board backgrounds now downloaded by default as part of member.
 
 # 3.1.0
 
