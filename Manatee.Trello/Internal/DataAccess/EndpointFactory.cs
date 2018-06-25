@@ -92,6 +92,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.List_Write_Update, () => new Endpoint(RestMethod.Put, "lists", "_id")},
 					{EntityRequestType.Member_Read_Actions, () => new Endpoint(RestMethod.Get, "members", "_id", "actions")},
 					{EntityRequestType.Member_Read_Boards, () => new Endpoint(RestMethod.Get, "members", "_id", "boards")},
+					{EntityRequestType.Member_Read_BoardBackgrounds, () => new Endpoint(RestMethod.Get, "members", "_id", "boardBackgrounds")},
 					{EntityRequestType.Member_Read_Cards, () => new Endpoint(RestMethod.Get, "members", "_id", "cards")},
 					{EntityRequestType.Member_Read_Notifications, () => new Endpoint(RestMethod.Get, "members", "_id", "notifications")},
 					{EntityRequestType.Member_Read_Organizations, () => new Endpoint(RestMethod.Get, "members", "_id", "organizations")},

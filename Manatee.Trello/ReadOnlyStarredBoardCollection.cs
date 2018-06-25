@@ -10,7 +10,7 @@ using Manatee.Trello.Json;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// A read-only collectin of boards.
+	/// A read-only collection of boards.
 	/// </summary>
 	public class ReadOnlyStarredBoardCollection : ReadOnlyCollection<IStarredBoard>
 	{

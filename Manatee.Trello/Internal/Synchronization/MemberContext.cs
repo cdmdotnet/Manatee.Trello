@@ -31,6 +31,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public ReadOnlyActionCollection Actions { get; }
 		public ReadOnlyBoardCollection Boards { get; }
+		public ReadOnlyBoardBackgroundCollection BoardBackgrounds { get; }
 		public ReadOnlyCardCollection Cards { get; }
 		public ReadOnlyNotificationCollection Notifications { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
@@ -116,6 +117,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Boards = isMe
 				         ? new BoardCollection(typeof(Member), () => Data.Id, auth) 
 				         : new ReadOnlyBoardCollection(typeof(Member), () => Data.Id, auth);
+			BoardBackgrounds = new ReadOnlyBoardBackgroundCollection(() => Data.Id, auth);
 			Cards = new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, () => Data.Id, auth);
 			Organizations = isMe 
 				                ? new OrganizationCollection(() => Data.Id, auth)
@@ -178,6 +180,8 @@ namespace Manatee.Trello.Internal.Synchronization
 				}
 				if (parameterFields.HasFlag(Member.Fields.StarredBoards))
 					Parameters["boardStars"] = "true";
+				if (parameterFields.HasFlag(Member.Fields.BoardBackgrounds))
+					Parameters["boardBackgrounds"] = "custom";
 			}
 		}
 

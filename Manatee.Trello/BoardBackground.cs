@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a background image for a board.
 	/// </summary>
-	public class BoardBackground : IBoardBackground
+	public class BoardBackground : IBoardBackground, IMergeJson<IJsonBoardBackground>
 	{
 		private static BoardBackground _blue, _orange, _green, _red, _purple, _pink, _lime, _sky, _grey;
 
@@ -127,6 +127,16 @@ namespace Manatee.Trello
 			ScaledImages = new ReadOnlyBoardBackgroundScalesCollection(_context, TrelloAuthorization.Default);
 
 			TrelloConfiguration.Cache.Add(this);
+		}
+
+		public override string ToString()
+		{
+			return Id;
+		}
+
+		void IMergeJson<IJsonBoardBackground>.Merge(IJsonBoardBackground json, bool overwrite)
+		{
+			_context.Merge(json, overwrite);
 		}
 	}
 }
