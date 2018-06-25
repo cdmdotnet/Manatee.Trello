@@ -32,7 +32,7 @@ namespace Manatee.Trello.Internal.Caching
 				{
 					{typeof(Action), (j, a, p) => new Action((IJsonAction) j, a)},
 					{typeof(Board), (j, a, p) => new Board((IJsonBoard) j, a)},
-					{typeof(BoardBackground), (j, a, p) => new BoardBackground((IJsonBoardBackground) j, a)},
+					{typeof(BoardBackground), (j, a, p) => new BoardBackground((string) p?[0], (IJsonBoardBackground) j, a)},
 					{typeof(Card), (j, a, p) => new Card((IJsonCard) j, a)},
 					{typeof(CheckList), (j, a, p) => new CheckList((IJsonCheckList) j, a)},
 					{typeof(CustomField), (j, a, p) => _BuildCustomField((IJsonCustomField) j, a, p)},
@@ -100,7 +100,7 @@ namespace Manatee.Trello.Internal.Caching
 			return factory(json, auth);
 		}
 
-		public static CustomField _BuildCustomField(this IJsonCustomField json, TrelloAuthorization auth, object[] parameters)
+		private static CustomField _BuildCustomField(this IJsonCustomField json, TrelloAuthorization auth, object[] parameters)
 		{
 			var cardId = (string) parameters[0];
 

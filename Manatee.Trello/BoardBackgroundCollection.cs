@@ -30,7 +30,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_AddBoardBackground, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<IJsonBoardBackground>(Auth, endpoint, ct, parameters);
 
-			return new BoardBackground(newData, Auth);
+			return new BoardBackground(OwnerId, newData, Auth);
 		}
 	}
 }

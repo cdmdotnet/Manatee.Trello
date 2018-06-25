@@ -102,6 +102,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Member_Write_AddStarredBoard, () => new Endpoint(RestMethod.Post, "members", "_id", "boardStars")},
 					{EntityRequestType.Member_Write_CreateBoard, () => new Endpoint(RestMethod.Post, "boards")},
 					{EntityRequestType.Member_Write_CreateOrganization, () => new Endpoint(RestMethod.Post, "organizations")},
+					{EntityRequestType.Member_Write_DeleteBoardBackground, () => new Endpoint(RestMethod.Delete, "members", "_idMember", "boardBackgrounds", "_id")},
 					{EntityRequestType.Member_Write_Update, () => new Endpoint(RestMethod.Put, "members", "_id")},
 					{EntityRequestType.Notification_Read_Refresh, () => new Endpoint(RestMethod.Get, "notifications", "_id")},
 					{EntityRequestType.Notification_Write_Update, () => new Endpoint(RestMethod.Put, "notifications", "_id")},

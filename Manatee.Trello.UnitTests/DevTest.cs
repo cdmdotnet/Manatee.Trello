@@ -31,6 +31,8 @@ namespace Manatee.Trello.UnitTests
 					var newBackground = await me.BoardBackgrounds.Add(data, ct);
 
 					Console.WriteLine(newBackground);
+
+					await newBackground.Delete(ct);
 				});
 		}
 

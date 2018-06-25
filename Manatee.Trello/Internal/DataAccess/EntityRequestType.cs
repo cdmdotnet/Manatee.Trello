@@ -97,6 +97,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Member_Write_AddStarredBoard,
 		Member_Write_CreateBoard,
 		Member_Write_CreateOrganization,
+		Member_Write_DeleteBoardBackground,
 		Member_Write_Update,
 		//Member_Write_VoteForCard,
 		//MemberSession_Write_Delete,
