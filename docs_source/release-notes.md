@@ -1,3 +1,28 @@
+# 3.2.0
+
+*Released on XXXXXXXXXXXXXXXXXXXXXXXXX*
+
+<span id="feature">feature</span>
+
+## Summary
+
+([3](https://github.com/gregsdennis/Manatee.Trello/issues/3)) Support for reading, uploading, and deleting custom board backgrounds.  (Uploading new backgrounds requires a Trello Gold account.)
+
+## Changes
+
+New members:
+
+- `IJsonBoardBackground.Type`
+- `IBoardBackground.Type`
+- `BoardBackground.Type`
+
+New types:
+
+- `ReadOnlyBoardBackgroundCollection`
+- `IBoardBackgroundCollection`
+- `BoardBackgroundCollection`
+- `BoardBackgroundType`
+
 # 3.1.0
 
 *Released on 1 Jun, 2018.*
