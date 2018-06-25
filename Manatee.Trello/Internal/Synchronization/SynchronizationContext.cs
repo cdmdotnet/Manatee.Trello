@@ -65,12 +65,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			var data = await GetBasicData(ct);
 			lock (_updateLock)
 			{
-				var properties = Merge(data).ToList();
+				Merge(data);
 			}
 		}
 
 		protected abstract Task<object> GetBasicData(CancellationToken ct);
-		protected abstract IEnumerable<string> Merge(object newData);
+		protected abstract void Merge(object newData);
 		protected abstract Task Submit(CancellationToken ct);
 
 
@@ -182,9 +182,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return await GetData(ct);
 		}
-		protected sealed override IEnumerable<string> Merge(object newData)
+		protected sealed override void Merge(object newData)
 		{
-			return Merge((TJson) newData);
+			Merge((TJson) newData);
 		}
 
 		protected sealed override async Task Submit(CancellationToken ct)
@@ -204,10 +204,10 @@ namespace Manatee.Trello.Internal.Synchronization
 		{
 			return true;
 		}
-		protected async Task HandleSubmitRequested(string propertyName, CancellationToken ct)
+		protected Task HandleSubmitRequested(string propertyName, CancellationToken ct)
 		{
 			_AddLocalChange(propertyName);
-			await ResetTimer(ct);
+			return ResetTimer(ct);
 		}
 		protected void MarkInitialized()
 		{

@@ -203,9 +203,9 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
-			await _context.Synchronize(force, ct);
+			return _context.Synchronize(force, ct);
 		}
 
 		void IMergeJson<IJsonCheckList>.Merge(IJsonCheckList json, bool overwrite)

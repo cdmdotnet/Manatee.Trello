@@ -1,0 +1,759 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class List
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class List
+   ">
+    <meta name="generator" content="docfx 2.36.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg site-icon" src="../siteicon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Manatee.Trello.List">
+  
+  
+  <h1 id="Manatee_Trello_List" data-uid="Manatee.Trello.List" class="text-break">Class List
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a list.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">List</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Manatee.Trello.IList.html">IList</a></div>
+    <div><a class="xref" href="Manatee.Trello.ICanWebhook.html">ICanWebhook</a></div>
+    <div><a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
+  <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
+  <h5 id="Manatee_Trello_List_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class List : object, IList, ICanWebhook, ICacheable, IMergeJson&lt;IJsonList&gt;</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List__ctor_System_String_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.%23ctor(System.String%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L198">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List__ctor_" data-uid="Manatee.Trello.List.#ctor*"></a>
+  <h4 id="Manatee_Trello_List__ctor_System_String_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.List.#ctor(System.String,Manatee.Trello.TrelloAuthorization)">List(String, TrelloAuthorization)</h4>
+  <div class="markdown level1 summary"><p>Creates a new instance of the <a class="xref" href="Manatee.Trello.List.html">List</a> object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List(string id, TrelloAuthorization auth = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The list's ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.TrelloAuthorization.html">TrelloAuthorization</a></td>
+        <td><span class="parametername">auth</span></td>
+        <td><p>(Optional) Custom authorization parameters. When not provided, <a class="xref" href="Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_Default">Default</a> will be used.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Actions.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Actions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L87">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Actions_" data-uid="Manatee.Trello.List.Actions*"></a>
+  <h4 id="Manatee_Trello_List_Actions" data-uid="Manatee.Trello.List.Actions">Actions</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of actions performed on the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyActionCollection Actions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IReadOnlyActionCollection.html">IReadOnlyActionCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Board.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Board%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L91">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Board_" data-uid="Manatee.Trello.List.Board*"></a>
+  <h4 id="Manatee_Trello_List_Board" data-uid="Manatee.Trello.List.Board">Board</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the board on which the list belongs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IBoard Board { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IBoard.html">IBoard</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Cards.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Cards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L99">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Cards_" data-uid="Manatee.Trello.List.Cards*"></a>
+  <h4 id="Manatee_Trello_List_Cards" data-uid="Manatee.Trello.List.Cards">Cards</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of cards contained in the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICardCollection Cards { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICardCollection.html">ICardCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_CreationDate.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.CreationDate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L103">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_CreationDate_" data-uid="Manatee.Trello.List.CreationDate*"></a>
+  <h4 id="Manatee_Trello_List_CreationDate" data-uid="Manatee.Trello.List.CreationDate">CreationDate</h4>
+  <div class="markdown level1 summary"><p>Gets the creation date of the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime CreationDate { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">DateTime</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_DownloadedFields.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.DownloadedFields%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L74">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_DownloadedFields_" data-uid="Manatee.Trello.List.DownloadedFields*"></a>
+  <h4 id="Manatee_Trello_List_DownloadedFields" data-uid="Manatee.Trello.List.DownloadedFields">DownloadedFields</h4>
+  <div class="markdown level1 summary"><p>Specifies which fields should be downloaded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List.Fields DownloadedFields { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.List.Fields.html">List.Fields</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Id.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L115">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Id_" data-uid="Manatee.Trello.List.Id*"></a>
+  <h4 id="Manatee_Trello_List_Id" data-uid="Manatee.Trello.List.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the list's ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Id { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_IsArchived.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.IsArchived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L128">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_IsArchived_" data-uid="Manatee.Trello.List.IsArchived*"></a>
+  <h4 id="Manatee_Trello_List_IsArchived" data-uid="Manatee.Trello.List.IsArchived">IsArchived</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the list is archived.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? IsArchived { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_IsSubscribed.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.IsSubscribed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L136">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_IsSubscribed_" data-uid="Manatee.Trello.List.IsSubscribed*"></a>
+  <h4 id="Manatee_Trello_List_IsSubscribed" data-uid="Manatee.Trello.List.IsSubscribed">IsSubscribed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the current member is subscribed to the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? IsSubscribed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Item_System_Int32_.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Item(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L175">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Item_" data-uid="Manatee.Trello.List.Item*"></a>
+  <h4 id="Manatee_Trello_List_Item_System_Int32_" data-uid="Manatee.Trello.List.Item(System.Int32)">Item[Int32]</h4>
+  <div class="markdown level1 summary"><p>Retrieves the card at the specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICard this[int index] { get; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICard.html">ICard</a></td>
+        <td><p>The card.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Item_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Item(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L166">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Item_" data-uid="Manatee.Trello.List.Item*"></a>
+  <h4 id="Manatee_Trello_List_Item_System_String_" data-uid="Manatee.Trello.List.Item(System.String)">Item[String]</h4>
+  <div class="markdown level1 summary"><p>Retrieves a card which matches the supplied key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICard this[string key] { get; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key to match.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.ICard.html">ICard</a></td>
+        <td><p>The matching card, or null if none found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Manatee_Trello_List_Item_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Matches on card ID and name.  Comparison is case-sensitive.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Name.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L144">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Name_" data-uid="Manatee.Trello.List.Name*"></a>
+  <h4 id="Manatee_Trello_List_Name" data-uid="Manatee.Trello.List.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets the list's name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Position.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Position%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L152">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Position_" data-uid="Manatee.Trello.List.Position*"></a>
+  <h4 id="Manatee_Trello_List_Position" data-uid="Manatee.Trello.List.Position">Position</h4>
+  <div class="markdown level1 summary"><p>Gets the list's position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Position Position { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.Position.html">Position</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_ApplyAction_Manatee_Trello_IAction_.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.ApplyAction(Manatee.Trello.IAction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L229">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_ApplyAction_" data-uid="Manatee.Trello.List.ApplyAction*"></a>
+  <h4 id="Manatee_Trello_List_ApplyAction_Manatee_Trello_IAction_" data-uid="Manatee.Trello.List.ApplyAction(Manatee.Trello.IAction)">ApplyAction(IAction)</h4>
+  <div class="markdown level1 summary"><p>Applies the changes an action represents.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyAction(IAction action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IAction.html">IAction</a></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Refresh_System_Boolean_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Refresh(System.Boolean%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L245">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_Refresh_" data-uid="Manatee.Trello.List.Refresh*"></a>
+  <h4 id="Manatee_Trello_List_Refresh_System_Boolean_CancellationToken_" data-uid="Manatee.Trello.List.Refresh(System.Boolean,CancellationToken)">Refresh(Boolean, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Refreshes the label data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task Refresh(bool force = false, CancellationToken ct = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">force</span></td>
+        <td><p>Indicates that the refresh should ignore the value in <a class="xref" href="Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_RefreshThrottle">RefreshThrottle</a> and make the call to the API.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>(Optional) A cancellation token for async processing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_ToString.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L257">View Source</a>
+  </span>
+  <a id="Manatee_Trello_List_ToString_" data-uid="Manatee.Trello.List.ToString*"></a>
+  <h4 id="Manatee_Trello_List_ToString" data-uid="Manatee.Trello.List.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A string that represents the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List_Updated.md&amp;value=---%0Auid%3A%20Manatee.Trello.List.Updated%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L186">View Source</a>
+  </span>
+  <h4 id="Manatee_Trello_List_Updated" data-uid="Manatee.Trello.List.Updated">Updated</h4>
+  <div class="markdown level1 summary"><p>Raised when data on the list is updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;IList, IEnumerable&lt;string&gt;&gt; Updated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Manatee.Trello.Action</span>&lt;<a class="xref" href="Manatee.Trello.IList.html">IList</a>, <span class="xref">IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Manatee.Trello.IList.html">IList</a>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.ICanWebhook.html">ICanWebhook</a>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_List.md&amp;value=---%0Auid%3A%20Manatee.Trello.List%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/List.cs/#L17" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
