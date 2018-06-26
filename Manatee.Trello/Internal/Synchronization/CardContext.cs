@@ -244,16 +244,22 @@ namespace Manatee.Trello.Internal.Synchronization
 			RaiseDeleted();
 		}
 
+		public override Endpoint GetRefreshEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Card_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
+		}
+
+		protected override Dictionary<string, object> GetParameters()
+		{
+			return CurrentParameters;
+		}
+
 		protected override async Task<IJsonCard> GetData(CancellationToken ct)
 		{
 			try
 			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, 
-				                                     new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint, ct, CurrentParameters);
-
-				MarkInitialized();
-				return newData;
+				return await base.GetData(ct);
 			}
 			catch (TrelloInteractionException e)
 			{
@@ -262,6 +268,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				return Data;
 			}
 		}
+
 		protected override async Task SubmitData(IJsonCard json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Update,

@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a notification.
 	/// </summary>
-	public interface INotification : ICacheable
+	public interface INotification : ICacheable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the creation date of the notification.
@@ -44,12 +44,5 @@ namespace Manatee.Trello
 		/// Raised when data on the notification is updated.
 		/// </summary>
 		event Action<INotification, IEnumerable<string>> Updated;
-
-		/// <summary>
-		/// Refreshes the notification data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

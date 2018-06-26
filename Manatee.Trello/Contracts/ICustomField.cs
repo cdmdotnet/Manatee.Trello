@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Provides a base for <see cref="ICustomField{T}"/>.
 	/// </summary>
-	public interface ICustomField : ICacheable
+	public interface ICustomField : ICacheable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the custom field definition.
@@ -19,13 +19,6 @@ namespace Manatee.Trello
 		/// Raised when data on the custom field is updated.
 		/// </summary>
 		event Action<ICustomField, IEnumerable<string>> Updated;
-
-		/// <summary>
-		/// Refreshes the custom field instance data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 
 	/// <summary>

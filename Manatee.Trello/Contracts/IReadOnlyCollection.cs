@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Manatee.Trello
 {
@@ -9,7 +7,7 @@ namespace Manatee.Trello
 	/// Provides base functionality for a read-only collection.
 	/// </summary>
 	/// <typeparam name="T">The type of object contained by the collection.</typeparam>
-	public interface IReadOnlyCollection<out T> : IEnumerable<T>
+	public interface IReadOnlyCollection<out T> : IEnumerable<T>, IRefreshable
 	{
 		/// <summary>
 		/// Indicates the maximum number of items to return.
@@ -24,12 +22,5 @@ namespace Manatee.Trello
 		/// <paramref name="index"/> is less than 0 or greater than or equal to the number of elements in the collection.
 		/// </exception>
 		T this[int index] { get; }
-
-		/// <summary>
-		/// Manually updates the collection's data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

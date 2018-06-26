@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a custom field definition.
 	/// </summary>
-	public interface ICustomFieldDefinition : ICacheable
+	public interface ICustomFieldDefinition : ICacheable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the board on which the field is defined.
@@ -45,13 +45,6 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		Task Delete(CancellationToken ct = default(CancellationToken));
-
-		/// <summary>
-		/// Refreshes the custom field definition data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 
 		/// <summary>
 		/// Sets a value for a custom field on a card.

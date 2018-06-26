@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Rest;
-// ReSharper disable ThrowingSystemException
 
 namespace Manatee.Trello.Internal.DataAccess
 {
