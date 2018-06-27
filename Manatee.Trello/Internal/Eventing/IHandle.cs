@@ -1,4 +1,4 @@
-﻿namespace Manatee.Trello.Internal
+﻿namespace Manatee.Trello.Internal.Eventing
 {
 	/// <summary>
 	///   A marker interface for classes that subscribe to messages.

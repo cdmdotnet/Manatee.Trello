@@ -42,5 +42,27 @@ namespace Manatee.Trello.UnitTests
 				MockHost.ResetRest();
 			}
 		}
+
+		[Test]
+		public async Task CardListChangeProvokesUpdateInListCardCollection()
+		{
+			var cardData = "{\"id\":\"5a72b7ab3711a44643c5ed49\",\"idList\":\"51478f6469fd3d9341001dad\"}";
+			var listData = "{\"id\":\"51478f6469fd3d9341001daf\",\"cards\":[{\"id\":\"5a72b7ab3711a44643c5ed50\"}]}";
+
+			MockHost.MockRest<IJsonCard>(cardData);
+			MockHost.MockRest<IJsonList>(listData);
+
+			var card = _factory.Card("5a72b7ab3711a44643c5ed49");
+			var list = _factory.List("51478f6469fd3d9341001daf");
+
+			await card.Refresh();
+			await list.Refresh();
+
+			list.Cards.Count().Should().Be(1);
+
+			card.List = list;
+
+			list.Cards.Count().Should().Be(2);
+		}
 	}
 }
