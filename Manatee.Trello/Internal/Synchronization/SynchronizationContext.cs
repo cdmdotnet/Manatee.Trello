@@ -160,7 +160,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					if (!CanUpdate()) return;
 
 					Properties[property].Set(Data, value);
-					if (Data is IJsonCacheable cacheable)
+					if (TrelloConfiguration.EnableConsistencyProcessing && Data is IJsonCacheable cacheable)
 						EventAggregator.Publish(EntityUpdatedEvent.Create(typeof(TJson), cacheable, property));
 					_localChanges.Add(property);
 					await ResetTimer(t);
