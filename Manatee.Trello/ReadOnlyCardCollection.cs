@@ -88,6 +88,7 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
 			var newData = await JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, ct, AdditionalParameters);
 
+			var previousItems = new List<ICard>(Items);
 			Items.Clear();
 			Items.AddRange(newData.Select(jc =>
 				{
@@ -95,6 +96,11 @@ namespace Manatee.Trello
 					card.Json = jc;
 					return card;
 				}));
+			var removedItems = previousItems.Except(Items, CacheableComparer.Get<ICard>()).OfType<Card>().ToList();
+			foreach (var item in removedItems)
+			{
+				item.Json.List = null;
+			}
 		}
 
 		private ICard GetByKey(string key)
