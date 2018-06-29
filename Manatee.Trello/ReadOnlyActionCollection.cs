@@ -16,7 +16,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyActionCollection : ReadOnlyCollection<IAction>,
 	                                        IReadOnlyActionCollection,
-											IHandle<EntityDeletedEvent<IJsonAction>>
+	                                        IHandle<EntityDeletedEvent<IJsonAction>>
 	{
 		private static readonly Dictionary<Type, EntityRequestType> RequestTypes;
 		private readonly EntityRequestType _updateRequestType;
@@ -32,6 +32,7 @@ namespace Manatee.Trello
 					{typeof(Organization), EntityRequestType.Organization_Read_Actions},
 				};
 		}
+
 		internal ReadOnlyActionCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
@@ -54,7 +55,7 @@ namespace Manatee.Trello
 		/// <param name="actionTypes">A collection of action types.</param>
 		public void Filter(IEnumerable<ActionType> actionTypes)
 		{
-			var filter = AdditionalParameters.ContainsKey("filter") ? (string)AdditionalParameters["filter"] : string.Empty;
+			var filter = AdditionalParameters.ContainsKey("filter") ? (string) AdditionalParameters["filter"] : string.Empty;
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			var actionType = actionTypes.Aggregate(ActionType.Unknown, (c, a) => c | a);

@@ -35,13 +35,14 @@ namespace Manatee.Trello
 		internal ReadOnlyCardCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
-			_updateRequestType = type == typeof (List)
+			_updateRequestType = type == typeof(List)
 				                     ? EntityRequestType.List_Read_Cards
 				                     : EntityRequestType.Board_Read_Cards;
 			_requestParameters = new Dictionary<string, object>();
 
 			EventAggregator.Subscribe(this);
 		}
+
 		internal ReadOnlyCardCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth, Dictionary<string, object> requestParameters = null)
 			: base(getOwnerId, auth)
 		{

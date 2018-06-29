@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// A read-only collection of custom field definitions.
 	/// </summary>
 	public class ReadOnlyCustomFieldDefinitionCollection : ReadOnlyCollection<ICustomFieldDefinition>,
-														   IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>
+	                                                       IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>
 	{
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCustomFieldDefinitionCollection"/> class.

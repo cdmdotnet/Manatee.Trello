@@ -16,10 +16,12 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCheckListCollection : ReadOnlyCollection<ICheckList>,
 	                                           IReadOnlyCheckListCollection,
-											   IHandle<EntityDeletedEvent<IJsonCheckList>>
+	                                           IHandle<EntityDeletedEvent<IJsonCheckList>>
 	{
 		internal ReadOnlyCheckListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		/// <summary>
 		/// Retrieves a check list which matches the supplied key.

@@ -16,10 +16,12 @@ namespace Manatee.Trello
 	/// </summary>
 	public class BoardLabelCollection : ReadOnlyCollection<ILabel>,
 	                                    IBoardLabelCollection,
-										IHandle<EntityDeletedEvent<IJsonLabel>>
+	                                    IHandle<EntityDeletedEvent<IJsonLabel>>
 	{
 		internal BoardLabelCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		/// <summary>
 		/// Adds a label to the collection.

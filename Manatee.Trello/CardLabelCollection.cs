@@ -16,7 +16,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class CardLabelCollection : ReadOnlyCollection<ILabel>,
 	                                   ICardLabelCollection,
-									   IHandle<EntityDeletedEvent<IJsonLabel>>
+	                                   IHandle<EntityDeletedEvent<IJsonLabel>>
 	{
 		private readonly CardContext _context;
 

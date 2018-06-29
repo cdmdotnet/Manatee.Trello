@@ -13,10 +13,12 @@ namespace Manatee.Trello
 	/// A read-only collection of attachments.
 	/// </summary>
 	public class ReadOnlyStickerCollection : ReadOnlyCollection<ISticker>,
-											 IHandle<EntityDeletedEvent<IJsonSticker>>
+	                                         IHandle<EntityDeletedEvent<IJsonSticker>>
 	{
 		internal ReadOnlyStickerCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{

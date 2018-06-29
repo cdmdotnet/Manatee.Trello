@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// A read-only collection of boards.
 	/// </summary>
 	public class ReadOnlyStarredBoardCollection : ReadOnlyCollection<IStarredBoard>,
-												  IHandle<EntityDeletedEvent<IJsonStarredBoard>>
+	                                              IHandle<EntityDeletedEvent<IJsonStarredBoard>>
 	{
 		internal ReadOnlyStarredBoardCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)

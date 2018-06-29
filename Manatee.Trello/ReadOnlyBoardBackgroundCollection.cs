@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// A read-only collection of custom board backgrounds.
 	/// </summary>
 	public class ReadOnlyBoardBackgroundCollection : ReadOnlyCollection<IBoardBackground>,
-													 IHandle<EntityDeletedEvent<IJsonBoardBackground>>
+	                                                 IHandle<EntityDeletedEvent<IJsonBoardBackground>>
 	{
 		internal ReadOnlyBoardBackgroundCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)

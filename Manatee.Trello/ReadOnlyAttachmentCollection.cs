@@ -13,10 +13,12 @@ namespace Manatee.Trello
 	/// A read-only collection of attachments.
 	/// </summary>
 	public class ReadOnlyAttachmentCollection : ReadOnlyCollection<IAttachment>,
-												IHandle<EntityDeletedEvent<IJsonAttachment>>
+	                                            IHandle<EntityDeletedEvent<IJsonAttachment>>
 	{
 		internal ReadOnlyAttachmentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{

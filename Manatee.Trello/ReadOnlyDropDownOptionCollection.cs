@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// A read-only collection of custom drop down options.
 	/// </summary>
 	public class ReadOnlyDropDownOptionCollection : ReadOnlyCollection<IDropDownOption>,
-													IHandle<EntityDeletedEvent<IJsonCustomDropDownOption>>
+	                                                IHandle<EntityDeletedEvent<IJsonCustomDropDownOption>>
 	{
 		internal ReadOnlyDropDownOptionCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)

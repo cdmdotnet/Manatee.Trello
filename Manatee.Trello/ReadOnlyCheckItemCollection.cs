@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCheckItemCollection : ReadOnlyCollection<ICheckItem>,
 	                                           IReadOnlyCheckItemCollection,
-											   IHandle<EntityUpdatedEvent<IJsonCheckItem>>,
+	                                           IHandle<EntityUpdatedEvent<IJsonCheckItem>>,
 	                                           IHandle<EntityDeletedEvent<IJsonCheckItem>>
 	{
 		private readonly CheckListContext _context;
@@ -45,8 +45,9 @@ namespace Manatee.Trello
 				if (checkItem == null)
 					Items.Add(new CheckItem(jsonCheckItem, _context.Data.Id));
 				else
-					((CheckItem)checkItem).Json = jsonCheckItem;
+					((CheckItem) checkItem).Json = jsonCheckItem;
 			}
+
 			foreach (var checkItem in Items.ToList())
 			{
 				if (_context.Data.CheckItems.All(jci => jci.Id != checkItem.Id))

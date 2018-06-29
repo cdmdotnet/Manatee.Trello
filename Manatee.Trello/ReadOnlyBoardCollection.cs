@@ -16,8 +16,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyBoardCollection : ReadOnlyCollection<IBoard>,
 	                                       IReadOnlyBoardCollection,
-										   IHandle<EntityUpdatedEvent<IJsonBoard>>,
-										   IHandle<EntityDeletedEvent<IJsonBoard>>
+	                                       IHandle<EntityUpdatedEvent<IJsonBoard>>,
+	                                       IHandle<EntityDeletedEvent<IJsonBoard>>
 	{
 		private readonly EntityRequestType _updateRequestType;
 
@@ -34,7 +34,7 @@ namespace Manatee.Trello
 		internal ReadOnlyBoardCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
-			_updateRequestType = type == typeof (Organization)
+			_updateRequestType = type == typeof(Organization)
 				                     ? EntityRequestType.Organization_Read_Boards
 				                     : EntityRequestType.Member_Read_Boards;
 		}
@@ -52,7 +52,7 @@ namespace Manatee.Trello
 		{
 			IncorporateLimit();
 
-			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> { { "_id", OwnerId } });
+			var endpoint = EndpointFactory.Build(_updateRequestType, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonBoard>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();

@@ -16,7 +16,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyMemberCollection : ReadOnlyCollection<IMember>,
 	                                        IReadOnlyMemberCollection,
-											IHandle<EntityUpdatedEvent<IJsonMember>>
+	                                        IHandle<EntityUpdatedEvent<IJsonMember>>
 	{
 		private readonly EntityRequestType _updateRequestType;
 
@@ -53,7 +53,7 @@ namespace Manatee.Trello
 		/// <param name="filters">The filter values.</param>
 		public void Filter(IEnumerable<MemberFilter> filters)
 		{
-			var filter = AdditionalParameters.ContainsKey("filter") ? (string)AdditionalParameters["filter"] : string.Empty;
+			var filter = AdditionalParameters.ContainsKey("filter") ? (string) AdditionalParameters["filter"] : string.Empty;
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += filters.Select(a => a.GetDescription()).Join(",");

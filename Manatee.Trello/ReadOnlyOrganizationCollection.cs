@@ -16,10 +16,12 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyOrganizationCollection : ReadOnlyCollection<IOrganization>,
 	                                              IReadOnlyOrganizationCollection,
-												  IHandle<EntityDeletedEvent<IJsonOrganization>>
+	                                              IHandle<EntityDeletedEvent<IJsonOrganization>>
 	{
 		internal ReadOnlyOrganizationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		/// <summary>
 		/// Retrieves a organization which matches the supplied key.
