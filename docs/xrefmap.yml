@@ -2802,6 +2802,24 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.BoardLabelCollection.Filter
   nameWithType: BoardLabelCollection.Filter
+- uid: Manatee.Trello.BoardLabelCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonLabel}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonLabel})
+  name: IHandle<EntityDeletedEvent<IJsonLabel>>.Handle(EntityDeletedEvent<IJsonLabel>)
+  href: api/Manatee.Trello.BoardLabelCollection.html#Manatee_Trello_BoardLabelCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonLabel___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonLabel__
+  commentId: M:Manatee.Trello.BoardLabelCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonLabel}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonLabel})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle(EntityDeletedEvent(Of IJsonLabel))
+  fullName: Manatee.Trello.BoardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>)
+  fullName.vb: Manatee.Trello.BoardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonLabel))
+  nameWithType: BoardLabelCollection.IHandle<EntityDeletedEvent<IJsonLabel>>.Handle(EntityDeletedEvent<IJsonLabel>)
+  nameWithType.vb: BoardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle(EntityDeletedEvent(Of IJsonLabel))
+- uid: Manatee.Trello.BoardLabelCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonLabel}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonLabel>>.Handle
+  href: api/Manatee.Trello.BoardLabelCollection.html#Manatee_Trello_BoardLabelCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonLabel___Handle_
+  commentId: Overload:Manatee.Trello.BoardLabelCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonLabel}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle
+  fullName: Manatee.Trello.BoardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle
+  nameWithType: BoardLabelCollection.IHandle<EntityDeletedEvent<IJsonLabel>>.Handle
+  nameWithType.vb: BoardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle
 - uid: Manatee.Trello.BoardMembership
   name: BoardMembership
   href: api/Manatee.Trello.BoardMembership.html
@@ -4027,6 +4045,24 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.CardLabelCollection.Add
   nameWithType: CardLabelCollection.Add
+- uid: Manatee.Trello.CardLabelCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonLabel}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonLabel})
+  name: IHandle<EntityDeletedEvent<IJsonLabel>>.Handle(EntityDeletedEvent<IJsonLabel>)
+  href: api/Manatee.Trello.CardLabelCollection.html#Manatee_Trello_CardLabelCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonLabel___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonLabel__
+  commentId: M:Manatee.Trello.CardLabelCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonLabel}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonLabel})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle(EntityDeletedEvent(Of IJsonLabel))
+  fullName: Manatee.Trello.CardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>)
+  fullName.vb: Manatee.Trello.CardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonLabel))
+  nameWithType: CardLabelCollection.IHandle<EntityDeletedEvent<IJsonLabel>>.Handle(EntityDeletedEvent<IJsonLabel>)
+  nameWithType.vb: CardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle(EntityDeletedEvent(Of IJsonLabel))
+- uid: Manatee.Trello.CardLabelCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonLabel}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonLabel>>.Handle
+  href: api/Manatee.Trello.CardLabelCollection.html#Manatee_Trello_CardLabelCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonLabel___Handle_
+  commentId: Overload:Manatee.Trello.CardLabelCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonLabel}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle
+  fullName: Manatee.Trello.CardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle
+  nameWithType: CardLabelCollection.IHandle<EntityDeletedEvent<IJsonLabel>>.Handle
+  nameWithType.vb: CardLabelCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonLabel>>.Handle
 - uid: Manatee.Trello.CardLabelCollection.Remove(Manatee.Trello.ILabel,CancellationToken)
   name: Remove(ILabel, CancellationToken)
   href: api/Manatee.Trello.CardLabelCollection.html#Manatee_Trello_CardLabelCollection_Remove_Manatee_Trello_ILabel_CancellationToken_
@@ -9537,6 +9573,44 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.INotificationData.WasArchived
   nameWithType: INotificationData.WasArchived
+- uid: Manatee.Trello.Internal.Eventing
+  name: Manatee.Trello.Internal.Eventing
+  href: api/Manatee.Trello.Internal.Eventing.html
+  commentId: N:Manatee.Trello.Internal.Eventing
+  fullName: Manatee.Trello.Internal.Eventing
+  nameWithType: Manatee.Trello.Internal.Eventing
+- uid: Manatee.Trello.Internal.Eventing.IHandle
+  name: IHandle
+  href: api/Manatee.Trello.Internal.Eventing.IHandle.html
+  commentId: T:Manatee.Trello.Internal.Eventing.IHandle
+  fullName: Manatee.Trello.Internal.Eventing.IHandle
+  nameWithType: IHandle
+- uid: Manatee.Trello.Internal.Eventing.IHandle`1
+  name: IHandle<TMessage>
+  href: api/Manatee.Trello.Internal.Eventing.IHandle-1.html
+  commentId: T:Manatee.Trello.Internal.Eventing.IHandle`1
+  name.vb: IHandle(Of TMessage)
+  fullName: Manatee.Trello.Internal.Eventing.IHandle<TMessage>
+  fullName.vb: Manatee.Trello.Internal.Eventing.IHandle(Of TMessage)
+  nameWithType: IHandle<TMessage>
+  nameWithType.vb: IHandle(Of TMessage)
+- uid: Manatee.Trello.Internal.Eventing.IHandle`1.Handle(`0)
+  name: Handle(TMessage)
+  href: api/Manatee.Trello.Internal.Eventing.IHandle-1.html#Manatee_Trello_Internal_Eventing_IHandle_1_Handle__0_
+  commentId: M:Manatee.Trello.Internal.Eventing.IHandle`1.Handle(`0)
+  fullName: Manatee.Trello.Internal.Eventing.IHandle<TMessage>.Handle(TMessage)
+  fullName.vb: Manatee.Trello.Internal.Eventing.IHandle(Of TMessage).Handle(TMessage)
+  nameWithType: IHandle<TMessage>.Handle(TMessage)
+  nameWithType.vb: IHandle(Of TMessage).Handle(TMessage)
+- uid: Manatee.Trello.Internal.Eventing.IHandle`1.Handle*
+  name: Handle
+  href: api/Manatee.Trello.Internal.Eventing.IHandle-1.html#Manatee_Trello_Internal_Eventing_IHandle_1_Handle_
+  commentId: Overload:Manatee.Trello.Internal.Eventing.IHandle`1.Handle
+  isSpec: "True"
+  fullName: Manatee.Trello.Internal.Eventing.IHandle<TMessage>.Handle
+  fullName.vb: Manatee.Trello.Internal.Eventing.IHandle(Of TMessage).Handle
+  nameWithType: IHandle<TMessage>.Handle
+  nameWithType.vb: IHandle(Of TMessage).Handle
 - uid: Manatee.Trello.IOrganization
   name: IOrganization
   href: api/Manatee.Trello.IOrganization.html
@@ -19468,12 +19542,48 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ReadOnlyActionCollection.Filter
   nameWithType: ReadOnlyActionCollection.Filter
+- uid: Manatee.Trello.ReadOnlyActionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonAction}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonAction})
+  name: IHandle<EntityDeletedEvent<IJsonAction>>.Handle(EntityDeletedEvent<IJsonAction>)
+  href: api/Manatee.Trello.ReadOnlyActionCollection.html#Manatee_Trello_ReadOnlyActionCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonAction___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonAction__
+  commentId: M:Manatee.Trello.ReadOnlyActionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonAction}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonAction})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAction>>.Handle(EntityDeletedEvent(Of IJsonAction))
+  fullName: Manatee.Trello.ReadOnlyActionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAction>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAction>)
+  fullName.vb: Manatee.Trello.ReadOnlyActionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAction>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonAction))
+  nameWithType: ReadOnlyActionCollection.IHandle<EntityDeletedEvent<IJsonAction>>.Handle(EntityDeletedEvent<IJsonAction>)
+  nameWithType.vb: ReadOnlyActionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAction>>.Handle(EntityDeletedEvent(Of IJsonAction))
+- uid: Manatee.Trello.ReadOnlyActionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonAction}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonAction>>.Handle
+  href: api/Manatee.Trello.ReadOnlyActionCollection.html#Manatee_Trello_ReadOnlyActionCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonAction___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyActionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonAction}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAction>>.Handle
+  fullName: Manatee.Trello.ReadOnlyActionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAction>>.Handle
+  nameWithType: ReadOnlyActionCollection.IHandle<EntityDeletedEvent<IJsonAction>>.Handle
+  nameWithType.vb: ReadOnlyActionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAction>>.Handle
 - uid: Manatee.Trello.ReadOnlyAttachmentCollection
   name: ReadOnlyAttachmentCollection
   href: api/Manatee.Trello.ReadOnlyAttachmentCollection.html
   commentId: T:Manatee.Trello.ReadOnlyAttachmentCollection
   fullName: Manatee.Trello.ReadOnlyAttachmentCollection
   nameWithType: ReadOnlyAttachmentCollection
+- uid: Manatee.Trello.ReadOnlyAttachmentCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonAttachment}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonAttachment})
+  name: IHandle<EntityDeletedEvent<IJsonAttachment>>.Handle(EntityDeletedEvent<IJsonAttachment>)
+  href: api/Manatee.Trello.ReadOnlyAttachmentCollection.html#Manatee_Trello_ReadOnlyAttachmentCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonAttachment___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonAttachment__
+  commentId: M:Manatee.Trello.ReadOnlyAttachmentCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonAttachment}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonAttachment})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAttachment>>.Handle(EntityDeletedEvent(Of IJsonAttachment))
+  fullName: Manatee.Trello.ReadOnlyAttachmentCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAttachment>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAttachment>)
+  fullName.vb: Manatee.Trello.ReadOnlyAttachmentCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAttachment>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonAttachment))
+  nameWithType: ReadOnlyAttachmentCollection.IHandle<EntityDeletedEvent<IJsonAttachment>>.Handle(EntityDeletedEvent<IJsonAttachment>)
+  nameWithType.vb: ReadOnlyAttachmentCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAttachment>>.Handle(EntityDeletedEvent(Of IJsonAttachment))
+- uid: Manatee.Trello.ReadOnlyAttachmentCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonAttachment}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonAttachment>>.Handle
+  href: api/Manatee.Trello.ReadOnlyAttachmentCollection.html#Manatee_Trello_ReadOnlyAttachmentCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonAttachment___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyAttachmentCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonAttachment}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAttachment>>.Handle
+  fullName: Manatee.Trello.ReadOnlyAttachmentCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAttachment>>.Handle
+  nameWithType: ReadOnlyAttachmentCollection.IHandle<EntityDeletedEvent<IJsonAttachment>>.Handle
+  nameWithType.vb: ReadOnlyAttachmentCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonAttachment>>.Handle
 - uid: Manatee.Trello.ReadOnlyAttachmentPreviewCollection
   name: ReadOnlyAttachmentPreviewCollection
   href: api/Manatee.Trello.ReadOnlyAttachmentPreviewCollection.html
@@ -19486,6 +19596,24 @@ references:
   commentId: T:Manatee.Trello.ReadOnlyBoardBackgroundCollection
   fullName: Manatee.Trello.ReadOnlyBoardBackgroundCollection
   nameWithType: ReadOnlyBoardBackgroundCollection
+- uid: Manatee.Trello.ReadOnlyBoardBackgroundCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonBoardBackground}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonBoardBackground})
+  name: IHandle<EntityDeletedEvent<IJsonBoardBackground>>.Handle(EntityDeletedEvent<IJsonBoardBackground>)
+  href: api/Manatee.Trello.ReadOnlyBoardBackgroundCollection.html#Manatee_Trello_ReadOnlyBoardBackgroundCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonBoardBackground___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonBoardBackground__
+  commentId: M:Manatee.Trello.ReadOnlyBoardBackgroundCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonBoardBackground}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonBoardBackground})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoardBackground>>.Handle(EntityDeletedEvent(Of IJsonBoardBackground))
+  fullName: Manatee.Trello.ReadOnlyBoardBackgroundCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoardBackground>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoardBackground>)
+  fullName.vb: Manatee.Trello.ReadOnlyBoardBackgroundCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoardBackground>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonBoardBackground))
+  nameWithType: ReadOnlyBoardBackgroundCollection.IHandle<EntityDeletedEvent<IJsonBoardBackground>>.Handle(EntityDeletedEvent<IJsonBoardBackground>)
+  nameWithType.vb: ReadOnlyBoardBackgroundCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoardBackground>>.Handle(EntityDeletedEvent(Of IJsonBoardBackground))
+- uid: Manatee.Trello.ReadOnlyBoardBackgroundCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonBoardBackground}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonBoardBackground>>.Handle
+  href: api/Manatee.Trello.ReadOnlyBoardBackgroundCollection.html#Manatee_Trello_ReadOnlyBoardBackgroundCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonBoardBackground___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyBoardBackgroundCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonBoardBackground}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoardBackground>>.Handle
+  fullName: Manatee.Trello.ReadOnlyBoardBackgroundCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoardBackground>>.Handle
+  nameWithType: ReadOnlyBoardBackgroundCollection.IHandle<EntityDeletedEvent<IJsonBoardBackground>>.Handle
+  nameWithType.vb: ReadOnlyBoardBackgroundCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoardBackground>>.Handle
 - uid: Manatee.Trello.ReadOnlyBoardBackgroundScalesCollection
   name: ReadOnlyBoardBackgroundScalesCollection
   href: api/Manatee.Trello.ReadOnlyBoardBackgroundScalesCollection.html
@@ -19527,6 +19655,42 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ReadOnlyBoardCollection.Item
   nameWithType: ReadOnlyBoardCollection.Item
+- uid: Manatee.Trello.ReadOnlyBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonBoard}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonBoard})
+  name: IHandle<EntityDeletedEvent<IJsonBoard>>.Handle(EntityDeletedEvent<IJsonBoard>)
+  href: api/Manatee.Trello.ReadOnlyBoardCollection.html#Manatee_Trello_ReadOnlyBoardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonBoard___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonBoard__
+  commentId: M:Manatee.Trello.ReadOnlyBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonBoard}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonBoard})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle(EntityDeletedEvent(Of IJsonBoard))
+  fullName: Manatee.Trello.ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoard>)
+  fullName.vb: Manatee.Trello.ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonBoard))
+  nameWithType: ReadOnlyBoardCollection.IHandle<EntityDeletedEvent<IJsonBoard>>.Handle(EntityDeletedEvent<IJsonBoard>)
+  nameWithType.vb: ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle(EntityDeletedEvent(Of IJsonBoard))
+- uid: Manatee.Trello.ReadOnlyBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonBoard}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonBoard>>.Handle
+  href: api/Manatee.Trello.ReadOnlyBoardCollection.html#Manatee_Trello_ReadOnlyBoardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonBoard___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonBoard}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle
+  fullName: Manatee.Trello.ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle
+  nameWithType: ReadOnlyBoardCollection.IHandle<EntityDeletedEvent<IJsonBoard>>.Handle
+  nameWithType.vb: ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle
+- uid: Manatee.Trello.ReadOnlyBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonBoard}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonBoard})
+  name: IHandle<EntityUpdatedEvent<IJsonBoard>>.Handle(EntityUpdatedEvent<IJsonBoard>)
+  href: api/Manatee.Trello.ReadOnlyBoardCollection.html#Manatee_Trello_ReadOnlyBoardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonBoard___Handle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonBoard__
+  commentId: M:Manatee.Trello.ReadOnlyBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonBoard}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonBoard})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle(EntityUpdatedEvent(Of IJsonBoard))
+  fullName: Manatee.Trello.ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonBoard>)
+  fullName.vb: Manatee.Trello.ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent(Of Manatee.Trello.Json.IJsonBoard))
+  nameWithType: ReadOnlyBoardCollection.IHandle<EntityUpdatedEvent<IJsonBoard>>.Handle(EntityUpdatedEvent<IJsonBoard>)
+  nameWithType.vb: ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle(EntityUpdatedEvent(Of IJsonBoard))
+- uid: Manatee.Trello.ReadOnlyBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonBoard}}#Handle*
+  name: IHandle<EntityUpdatedEvent<IJsonBoard>>.Handle
+  href: api/Manatee.Trello.ReadOnlyBoardCollection.html#Manatee_Trello_ReadOnlyBoardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonBoard___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonBoard}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle
+  fullName: Manatee.Trello.ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle
+  nameWithType: ReadOnlyBoardCollection.IHandle<EntityUpdatedEvent<IJsonBoard>>.Handle
+  nameWithType.vb: ReadOnlyBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonBoard>>.Handle
 - uid: Manatee.Trello.ReadOnlyBoardMembershipCollection
   name: ReadOnlyBoardMembershipCollection
   href: api/Manatee.Trello.ReadOnlyBoardMembershipCollection.html
@@ -19615,6 +19779,42 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ReadOnlyCardCollection.Item
   nameWithType: ReadOnlyCardCollection.Item
+- uid: Manatee.Trello.ReadOnlyCardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCard}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCard})
+  name: IHandle<EntityDeletedEvent<IJsonCard>>.Handle(EntityDeletedEvent<IJsonCard>)
+  href: api/Manatee.Trello.ReadOnlyCardCollection.html#Manatee_Trello_ReadOnlyCardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCard___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCard__
+  commentId: M:Manatee.Trello.ReadOnlyCardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCard}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCard})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCard>>.Handle(EntityDeletedEvent(Of IJsonCard))
+  fullName: Manatee.Trello.ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCard>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCard>)
+  fullName.vb: Manatee.Trello.ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCard>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonCard))
+  nameWithType: ReadOnlyCardCollection.IHandle<EntityDeletedEvent<IJsonCard>>.Handle(EntityDeletedEvent<IJsonCard>)
+  nameWithType.vb: ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCard>>.Handle(EntityDeletedEvent(Of IJsonCard))
+- uid: Manatee.Trello.ReadOnlyCardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCard}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonCard>>.Handle
+  href: api/Manatee.Trello.ReadOnlyCardCollection.html#Manatee_Trello_ReadOnlyCardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCard___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyCardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCard}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCard>>.Handle
+  fullName: Manatee.Trello.ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCard>>.Handle
+  nameWithType: ReadOnlyCardCollection.IHandle<EntityDeletedEvent<IJsonCard>>.Handle
+  nameWithType.vb: ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCard>>.Handle
+- uid: Manatee.Trello.ReadOnlyCardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonCard}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonCard})
+  name: IHandle<EntityUpdatedEvent<IJsonCard>>.Handle(EntityUpdatedEvent<IJsonCard>)
+  href: api/Manatee.Trello.ReadOnlyCardCollection.html#Manatee_Trello_ReadOnlyCardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonCard___Handle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonCard__
+  commentId: M:Manatee.Trello.ReadOnlyCardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonCard}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonCard})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCard>>.Handle(EntityUpdatedEvent(Of IJsonCard))
+  fullName: Manatee.Trello.ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCard>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCard>)
+  fullName.vb: Manatee.Trello.ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCard>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent(Of Manatee.Trello.Json.IJsonCard))
+  nameWithType: ReadOnlyCardCollection.IHandle<EntityUpdatedEvent<IJsonCard>>.Handle(EntityUpdatedEvent<IJsonCard>)
+  nameWithType.vb: ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCard>>.Handle(EntityUpdatedEvent(Of IJsonCard))
+- uid: Manatee.Trello.ReadOnlyCardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonCard}}#Handle*
+  name: IHandle<EntityUpdatedEvent<IJsonCard>>.Handle
+  href: api/Manatee.Trello.ReadOnlyCardCollection.html#Manatee_Trello_ReadOnlyCardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonCard___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyCardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonCard}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCard>>.Handle
+  fullName: Manatee.Trello.ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCard>>.Handle
+  nameWithType: ReadOnlyCardCollection.IHandle<EntityUpdatedEvent<IJsonCard>>.Handle
+  nameWithType.vb: ReadOnlyCardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCard>>.Handle
 - uid: Manatee.Trello.ReadOnlyCheckItemCollection
   name: ReadOnlyCheckItemCollection
   href: api/Manatee.Trello.ReadOnlyCheckItemCollection.html
@@ -19637,6 +19837,42 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ReadOnlyCheckItemCollection.Item
   nameWithType: ReadOnlyCheckItemCollection.Item
+- uid: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCheckItem}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCheckItem})
+  name: IHandle<EntityDeletedEvent<IJsonCheckItem>>.Handle(EntityDeletedEvent<IJsonCheckItem>)
+  href: api/Manatee.Trello.ReadOnlyCheckItemCollection.html#Manatee_Trello_ReadOnlyCheckItemCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCheckItem___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCheckItem__
+  commentId: M:Manatee.Trello.ReadOnlyCheckItemCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCheckItem}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCheckItem})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle(EntityDeletedEvent(Of IJsonCheckItem))
+  fullName: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckItem>)
+  fullName.vb: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonCheckItem))
+  nameWithType: ReadOnlyCheckItemCollection.IHandle<EntityDeletedEvent<IJsonCheckItem>>.Handle(EntityDeletedEvent<IJsonCheckItem>)
+  nameWithType.vb: ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle(EntityDeletedEvent(Of IJsonCheckItem))
+- uid: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCheckItem}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonCheckItem>>.Handle
+  href: api/Manatee.Trello.ReadOnlyCheckItemCollection.html#Manatee_Trello_ReadOnlyCheckItemCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCheckItem___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyCheckItemCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCheckItem}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle
+  fullName: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle
+  nameWithType: ReadOnlyCheckItemCollection.IHandle<EntityDeletedEvent<IJsonCheckItem>>.Handle
+  nameWithType.vb: ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle
+- uid: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonCheckItem}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonCheckItem})
+  name: IHandle<EntityUpdatedEvent<IJsonCheckItem>>.Handle(EntityUpdatedEvent<IJsonCheckItem>)
+  href: api/Manatee.Trello.ReadOnlyCheckItemCollection.html#Manatee_Trello_ReadOnlyCheckItemCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonCheckItem___Handle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonCheckItem__
+  commentId: M:Manatee.Trello.ReadOnlyCheckItemCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonCheckItem}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonCheckItem})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle(EntityUpdatedEvent(Of IJsonCheckItem))
+  fullName: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCheckItem>)
+  fullName.vb: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent(Of Manatee.Trello.Json.IJsonCheckItem))
+  nameWithType: ReadOnlyCheckItemCollection.IHandle<EntityUpdatedEvent<IJsonCheckItem>>.Handle(EntityUpdatedEvent<IJsonCheckItem>)
+  nameWithType.vb: ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle(EntityUpdatedEvent(Of IJsonCheckItem))
+- uid: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonCheckItem}}#Handle*
+  name: IHandle<EntityUpdatedEvent<IJsonCheckItem>>.Handle
+  href: api/Manatee.Trello.ReadOnlyCheckItemCollection.html#Manatee_Trello_ReadOnlyCheckItemCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonCheckItem___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyCheckItemCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonCheckItem}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle
+  fullName: Manatee.Trello.ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle
+  nameWithType: ReadOnlyCheckItemCollection.IHandle<EntityUpdatedEvent<IJsonCheckItem>>.Handle
+  nameWithType.vb: ReadOnlyCheckItemCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonCheckItem>>.Handle
 - uid: Manatee.Trello.ReadOnlyCheckListCollection
   name: ReadOnlyCheckListCollection
   href: api/Manatee.Trello.ReadOnlyCheckListCollection.html
@@ -19659,6 +19895,24 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ReadOnlyCheckListCollection.Item
   nameWithType: ReadOnlyCheckListCollection.Item
+- uid: Manatee.Trello.ReadOnlyCheckListCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCheckList}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCheckList})
+  name: IHandle<EntityDeletedEvent<IJsonCheckList>>.Handle(EntityDeletedEvent<IJsonCheckList>)
+  href: api/Manatee.Trello.ReadOnlyCheckListCollection.html#Manatee_Trello_ReadOnlyCheckListCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCheckList___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCheckList__
+  commentId: M:Manatee.Trello.ReadOnlyCheckListCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCheckList}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCheckList})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckList>>.Handle(EntityDeletedEvent(Of IJsonCheckList))
+  fullName: Manatee.Trello.ReadOnlyCheckListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckList>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckList>)
+  fullName.vb: Manatee.Trello.ReadOnlyCheckListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckList>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonCheckList))
+  nameWithType: ReadOnlyCheckListCollection.IHandle<EntityDeletedEvent<IJsonCheckList>>.Handle(EntityDeletedEvent<IJsonCheckList>)
+  nameWithType.vb: ReadOnlyCheckListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckList>>.Handle(EntityDeletedEvent(Of IJsonCheckList))
+- uid: Manatee.Trello.ReadOnlyCheckListCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCheckList}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonCheckList>>.Handle
+  href: api/Manatee.Trello.ReadOnlyCheckListCollection.html#Manatee_Trello_ReadOnlyCheckListCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCheckList___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyCheckListCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCheckList}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckList>>.Handle
+  fullName: Manatee.Trello.ReadOnlyCheckListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckList>>.Handle
+  nameWithType: ReadOnlyCheckListCollection.IHandle<EntityDeletedEvent<IJsonCheckList>>.Handle
+  nameWithType.vb: ReadOnlyCheckListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCheckList>>.Handle
 - uid: Manatee.Trello.ReadOnlyCollection`1
   name: ReadOnlyCollection<T>
   href: api/Manatee.Trello.ReadOnlyCollection-1.html
@@ -19784,12 +20038,48 @@ references:
   commentId: T:Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection
   fullName: Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection
   nameWithType: ReadOnlyCustomFieldDefinitionCollection
+- uid: Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCustomFieldDefinition}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCustomFieldDefinition})
+  name: IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>.Handle(EntityDeletedEvent<IJsonCustomFieldDefinition>)
+  href: api/Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.html#Manatee_Trello_ReadOnlyCustomFieldDefinitionCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCustomFieldDefinition___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCustomFieldDefinition__
+  commentId: M:Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCustomFieldDefinition}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCustomFieldDefinition})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomFieldDefinition>>.Handle(EntityDeletedEvent(Of IJsonCustomFieldDefinition))
+  fullName: Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomFieldDefinition>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomFieldDefinition>)
+  fullName.vb: Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomFieldDefinition>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonCustomFieldDefinition))
+  nameWithType: ReadOnlyCustomFieldDefinitionCollection.IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>.Handle(EntityDeletedEvent<IJsonCustomFieldDefinition>)
+  nameWithType.vb: ReadOnlyCustomFieldDefinitionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomFieldDefinition>>.Handle(EntityDeletedEvent(Of IJsonCustomFieldDefinition))
+- uid: Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCustomFieldDefinition}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>.Handle
+  href: api/Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.html#Manatee_Trello_ReadOnlyCustomFieldDefinitionCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCustomFieldDefinition___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCustomFieldDefinition}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomFieldDefinition>>.Handle
+  fullName: Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomFieldDefinition>>.Handle
+  nameWithType: ReadOnlyCustomFieldDefinitionCollection.IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>.Handle
+  nameWithType.vb: ReadOnlyCustomFieldDefinitionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomFieldDefinition>>.Handle
 - uid: Manatee.Trello.ReadOnlyDropDownOptionCollection
   name: ReadOnlyDropDownOptionCollection
   href: api/Manatee.Trello.ReadOnlyDropDownOptionCollection.html
   commentId: T:Manatee.Trello.ReadOnlyDropDownOptionCollection
   fullName: Manatee.Trello.ReadOnlyDropDownOptionCollection
   nameWithType: ReadOnlyDropDownOptionCollection
+- uid: Manatee.Trello.ReadOnlyDropDownOptionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCustomDropDownOption}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCustomDropDownOption})
+  name: IHandle<EntityDeletedEvent<IJsonCustomDropDownOption>>.Handle(EntityDeletedEvent<IJsonCustomDropDownOption>)
+  href: api/Manatee.Trello.ReadOnlyDropDownOptionCollection.html#Manatee_Trello_ReadOnlyDropDownOptionCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCustomDropDownOption___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCustomDropDownOption__
+  commentId: M:Manatee.Trello.ReadOnlyDropDownOptionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCustomDropDownOption}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonCustomDropDownOption})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomDropDownOption>>.Handle(EntityDeletedEvent(Of IJsonCustomDropDownOption))
+  fullName: Manatee.Trello.ReadOnlyDropDownOptionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomDropDownOption>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomDropDownOption>)
+  fullName.vb: Manatee.Trello.ReadOnlyDropDownOptionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomDropDownOption>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonCustomDropDownOption))
+  nameWithType: ReadOnlyDropDownOptionCollection.IHandle<EntityDeletedEvent<IJsonCustomDropDownOption>>.Handle(EntityDeletedEvent<IJsonCustomDropDownOption>)
+  nameWithType.vb: ReadOnlyDropDownOptionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomDropDownOption>>.Handle(EntityDeletedEvent(Of IJsonCustomDropDownOption))
+- uid: Manatee.Trello.ReadOnlyDropDownOptionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCustomDropDownOption}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonCustomDropDownOption>>.Handle
+  href: api/Manatee.Trello.ReadOnlyDropDownOptionCollection.html#Manatee_Trello_ReadOnlyDropDownOptionCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonCustomDropDownOption___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyDropDownOptionCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonCustomDropDownOption}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomDropDownOption>>.Handle
+  fullName: Manatee.Trello.ReadOnlyDropDownOptionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomDropDownOption>>.Handle
+  nameWithType: ReadOnlyDropDownOptionCollection.IHandle<EntityDeletedEvent<IJsonCustomDropDownOption>>.Handle
+  nameWithType.vb: ReadOnlyDropDownOptionCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonCustomDropDownOption>>.Handle
 - uid: Manatee.Trello.ReadOnlyListCollection
   name: ReadOnlyListCollection
   href: api/Manatee.Trello.ReadOnlyListCollection.html
@@ -19825,6 +20115,24 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ReadOnlyListCollection.Item
   nameWithType: ReadOnlyListCollection.Item
+- uid: Manatee.Trello.ReadOnlyListCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonList}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonList})
+  name: IHandle<EntityUpdatedEvent<IJsonList>>.Handle(EntityUpdatedEvent<IJsonList>)
+  href: api/Manatee.Trello.ReadOnlyListCollection.html#Manatee_Trello_ReadOnlyListCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonList___Handle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonList__
+  commentId: M:Manatee.Trello.ReadOnlyListCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonList}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonList})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonList>>.Handle(EntityUpdatedEvent(Of IJsonList))
+  fullName: Manatee.Trello.ReadOnlyListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonList>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonList>)
+  fullName.vb: Manatee.Trello.ReadOnlyListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonList>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent(Of Manatee.Trello.Json.IJsonList))
+  nameWithType: ReadOnlyListCollection.IHandle<EntityUpdatedEvent<IJsonList>>.Handle(EntityUpdatedEvent<IJsonList>)
+  nameWithType.vb: ReadOnlyListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonList>>.Handle(EntityUpdatedEvent(Of IJsonList))
+- uid: Manatee.Trello.ReadOnlyListCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonList}}#Handle*
+  name: IHandle<EntityUpdatedEvent<IJsonList>>.Handle
+  href: api/Manatee.Trello.ReadOnlyListCollection.html#Manatee_Trello_ReadOnlyListCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonList___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyListCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonList}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonList>>.Handle
+  fullName: Manatee.Trello.ReadOnlyListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonList>>.Handle
+  nameWithType: ReadOnlyListCollection.IHandle<EntityUpdatedEvent<IJsonList>>.Handle
+  nameWithType.vb: ReadOnlyListCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonList>>.Handle
 - uid: Manatee.Trello.ReadOnlyMemberCollection
   name: ReadOnlyMemberCollection
   href: api/Manatee.Trello.ReadOnlyMemberCollection.html
@@ -19869,6 +20177,24 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ReadOnlyMemberCollection.Item
   nameWithType: ReadOnlyMemberCollection.Item
+- uid: Manatee.Trello.ReadOnlyMemberCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonMember}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonMember})
+  name: IHandle<EntityUpdatedEvent<IJsonMember>>.Handle(EntityUpdatedEvent<IJsonMember>)
+  href: api/Manatee.Trello.ReadOnlyMemberCollection.html#Manatee_Trello_ReadOnlyMemberCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonMember___Handle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonMember__
+  commentId: M:Manatee.Trello.ReadOnlyMemberCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonMember}}#Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent{Manatee.Trello.Json.IJsonMember})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonMember>>.Handle(EntityUpdatedEvent(Of IJsonMember))
+  fullName: Manatee.Trello.ReadOnlyMemberCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonMember>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonMember>)
+  fullName.vb: Manatee.Trello.ReadOnlyMemberCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonMember>>.Handle(Manatee.Trello.Internal.Eventing.EntityUpdatedEvent(Of Manatee.Trello.Json.IJsonMember))
+  nameWithType: ReadOnlyMemberCollection.IHandle<EntityUpdatedEvent<IJsonMember>>.Handle(EntityUpdatedEvent<IJsonMember>)
+  nameWithType.vb: ReadOnlyMemberCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonMember>>.Handle(EntityUpdatedEvent(Of IJsonMember))
+- uid: Manatee.Trello.ReadOnlyMemberCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonMember}}#Handle*
+  name: IHandle<EntityUpdatedEvent<IJsonMember>>.Handle
+  href: api/Manatee.Trello.ReadOnlyMemberCollection.html#Manatee_Trello_ReadOnlyMemberCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityUpdatedEvent_Manatee_Trello_Json_IJsonMember___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyMemberCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityUpdatedEvent{Manatee#Trello#Json#IJsonMember}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonMember>>.Handle
+  fullName: Manatee.Trello.ReadOnlyMemberCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonMember>>.Handle
+  nameWithType: ReadOnlyMemberCollection.IHandle<EntityUpdatedEvent<IJsonMember>>.Handle
+  nameWithType.vb: ReadOnlyMemberCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityUpdatedEvent<Manatee.Trello.Json.IJsonMember>>.Handle
 - uid: Manatee.Trello.ReadOnlyNotificationCollection
   name: ReadOnlyNotificationCollection
   href: api/Manatee.Trello.ReadOnlyNotificationCollection.html
@@ -19932,6 +20258,24 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ReadOnlyOrganizationCollection.Item
   nameWithType: ReadOnlyOrganizationCollection.Item
+- uid: Manatee.Trello.ReadOnlyOrganizationCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonOrganization}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonOrganization})
+  name: IHandle<EntityDeletedEvent<IJsonOrganization>>.Handle(EntityDeletedEvent<IJsonOrganization>)
+  href: api/Manatee.Trello.ReadOnlyOrganizationCollection.html#Manatee_Trello_ReadOnlyOrganizationCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonOrganization___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonOrganization__
+  commentId: M:Manatee.Trello.ReadOnlyOrganizationCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonOrganization}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonOrganization})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonOrganization>>.Handle(EntityDeletedEvent(Of IJsonOrganization))
+  fullName: Manatee.Trello.ReadOnlyOrganizationCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonOrganization>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonOrganization>)
+  fullName.vb: Manatee.Trello.ReadOnlyOrganizationCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonOrganization>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonOrganization))
+  nameWithType: ReadOnlyOrganizationCollection.IHandle<EntityDeletedEvent<IJsonOrganization>>.Handle(EntityDeletedEvent<IJsonOrganization>)
+  nameWithType.vb: ReadOnlyOrganizationCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonOrganization>>.Handle(EntityDeletedEvent(Of IJsonOrganization))
+- uid: Manatee.Trello.ReadOnlyOrganizationCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonOrganization}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonOrganization>>.Handle
+  href: api/Manatee.Trello.ReadOnlyOrganizationCollection.html#Manatee_Trello_ReadOnlyOrganizationCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonOrganization___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyOrganizationCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonOrganization}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonOrganization>>.Handle
+  fullName: Manatee.Trello.ReadOnlyOrganizationCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonOrganization>>.Handle
+  nameWithType: ReadOnlyOrganizationCollection.IHandle<EntityDeletedEvent<IJsonOrganization>>.Handle
+  nameWithType.vb: ReadOnlyOrganizationCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonOrganization>>.Handle
 - uid: Manatee.Trello.ReadOnlyOrganizationMembershipCollection
   name: ReadOnlyOrganizationMembershipCollection
   href: api/Manatee.Trello.ReadOnlyOrganizationMembershipCollection.html
@@ -19994,12 +20338,48 @@ references:
   commentId: T:Manatee.Trello.ReadOnlyStarredBoardCollection
   fullName: Manatee.Trello.ReadOnlyStarredBoardCollection
   nameWithType: ReadOnlyStarredBoardCollection
+- uid: Manatee.Trello.ReadOnlyStarredBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonStarredBoard}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonStarredBoard})
+  name: IHandle<EntityDeletedEvent<IJsonStarredBoard>>.Handle(EntityDeletedEvent<IJsonStarredBoard>)
+  href: api/Manatee.Trello.ReadOnlyStarredBoardCollection.html#Manatee_Trello_ReadOnlyStarredBoardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonStarredBoard___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonStarredBoard__
+  commentId: M:Manatee.Trello.ReadOnlyStarredBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonStarredBoard}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonStarredBoard})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonStarredBoard>>.Handle(EntityDeletedEvent(Of IJsonStarredBoard))
+  fullName: Manatee.Trello.ReadOnlyStarredBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonStarredBoard>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonStarredBoard>)
+  fullName.vb: Manatee.Trello.ReadOnlyStarredBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonStarredBoard>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonStarredBoard))
+  nameWithType: ReadOnlyStarredBoardCollection.IHandle<EntityDeletedEvent<IJsonStarredBoard>>.Handle(EntityDeletedEvent<IJsonStarredBoard>)
+  nameWithType.vb: ReadOnlyStarredBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonStarredBoard>>.Handle(EntityDeletedEvent(Of IJsonStarredBoard))
+- uid: Manatee.Trello.ReadOnlyStarredBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonStarredBoard}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonStarredBoard>>.Handle
+  href: api/Manatee.Trello.ReadOnlyStarredBoardCollection.html#Manatee_Trello_ReadOnlyStarredBoardCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonStarredBoard___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyStarredBoardCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonStarredBoard}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonStarredBoard>>.Handle
+  fullName: Manatee.Trello.ReadOnlyStarredBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonStarredBoard>>.Handle
+  nameWithType: ReadOnlyStarredBoardCollection.IHandle<EntityDeletedEvent<IJsonStarredBoard>>.Handle
+  nameWithType.vb: ReadOnlyStarredBoardCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonStarredBoard>>.Handle
 - uid: Manatee.Trello.ReadOnlyStickerCollection
   name: ReadOnlyStickerCollection
   href: api/Manatee.Trello.ReadOnlyStickerCollection.html
   commentId: T:Manatee.Trello.ReadOnlyStickerCollection
   fullName: Manatee.Trello.ReadOnlyStickerCollection
   nameWithType: ReadOnlyStickerCollection
+- uid: Manatee.Trello.ReadOnlyStickerCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonSticker}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonSticker})
+  name: IHandle<EntityDeletedEvent<IJsonSticker>>.Handle(EntityDeletedEvent<IJsonSticker>)
+  href: api/Manatee.Trello.ReadOnlyStickerCollection.html#Manatee_Trello_ReadOnlyStickerCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonSticker___Handle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonSticker__
+  commentId: M:Manatee.Trello.ReadOnlyStickerCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonSticker}}#Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent{Manatee.Trello.Json.IJsonSticker})
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonSticker>>.Handle(EntityDeletedEvent(Of IJsonSticker))
+  fullName: Manatee.Trello.ReadOnlyStickerCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonSticker>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonSticker>)
+  fullName.vb: Manatee.Trello.ReadOnlyStickerCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonSticker>>.Handle(Manatee.Trello.Internal.Eventing.EntityDeletedEvent(Of Manatee.Trello.Json.IJsonSticker))
+  nameWithType: ReadOnlyStickerCollection.IHandle<EntityDeletedEvent<IJsonSticker>>.Handle(EntityDeletedEvent<IJsonSticker>)
+  nameWithType.vb: ReadOnlyStickerCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonSticker>>.Handle(EntityDeletedEvent(Of IJsonSticker))
+- uid: Manatee.Trello.ReadOnlyStickerCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonSticker}}#Handle*
+  name: IHandle<EntityDeletedEvent<IJsonSticker>>.Handle
+  href: api/Manatee.Trello.ReadOnlyStickerCollection.html#Manatee_Trello_ReadOnlyStickerCollection_Manatee_Trello_Internal_Eventing_IHandle_Manatee_Trello_Internal_Eventing_EntityDeletedEvent_Manatee_Trello_Json_IJsonSticker___Handle_
+  commentId: Overload:Manatee.Trello.ReadOnlyStickerCollection.Manatee#Trello#Internal#Eventing#IHandle{Manatee#Trello#Internal#Eventing#EntityDeletedEvent{Manatee#Trello#Json#IJsonSticker}}#Handle
+  isSpec: "True"
+  name.vb: Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonSticker>>.Handle
+  fullName: Manatee.Trello.ReadOnlyStickerCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonSticker>>.Handle
+  nameWithType: ReadOnlyStickerCollection.IHandle<EntityDeletedEvent<IJsonSticker>>.Handle
+  nameWithType.vb: ReadOnlyStickerCollection.Manatee.Trello.Internal.Eventing.IHandle<Manatee.Trello.Internal.Eventing.EntityDeletedEvent<Manatee.Trello.Json.IJsonSticker>>.Handle
 - uid: Manatee.Trello.ReadOnlyStickerPreviewCollection
   name: ReadOnlyStickerPreviewCollection
   href: api/Manatee.Trello.ReadOnlyStickerPreviewCollection.html
@@ -21642,6 +22022,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.TrelloConfiguration.Deserializer
   nameWithType: TrelloConfiguration.Deserializer
+- uid: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  name: EnableConsistencyProcessing
+  href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_EnableConsistencyProcessing
+  commentId: P:Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  fullName: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  nameWithType: TrelloConfiguration.EnableConsistencyProcessing
+- uid: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing*
+  name: EnableConsistencyProcessing
+  href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_EnableConsistencyProcessing_
+  commentId: Overload:Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  nameWithType: TrelloConfiguration.EnableConsistencyProcessing
 - uid: Manatee.Trello.TrelloConfiguration.JsonFactory
   name: JsonFactory
   href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_JsonFactory
