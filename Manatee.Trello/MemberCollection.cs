@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
@@ -13,8 +14,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class MemberCollection : ReadOnlyMemberCollection, IMemberCollection
 	{
-		internal MemberCollection(EntityRequestType requestType, Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(requestType, getOwnerId, auth) {}
+		internal MemberCollection(Func<string> getOwnerId, TrelloAuthorization auth)
+			: base(EntityRequestType.Card_Read_Members, getOwnerId, auth) {}
 
 		/// <summary>
 		/// Adds a member to the collection.
@@ -34,6 +35,14 @@ namespace Manatee.Trello
 			await JsonRepository.Execute(Auth, endpoint, json, ct);
 
 			Items.Add(member);
+
+			if (TrelloConfiguration.EnableConsistencyProcessing &&
+			    member.Cards is ReadOnlyCollection<ICard> cardCollection)
+			{
+				var card = TrelloConfiguration.Cache.OfType<ICard>().FirstOrDefault(c => c.Id == OwnerId);
+				if (card != null)
+					cardCollection.Items.Add(card);
+			}
 		}
 
 		/// <summary>
@@ -51,6 +60,14 @@ namespace Manatee.Trello
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			Items.Remove(member);
+
+			if (TrelloConfiguration.EnableConsistencyProcessing &&
+			    member.Cards is ReadOnlyCollection<ICard> cardCollection)
+			{
+				var card = TrelloConfiguration.Cache.OfType<ICard>().FirstOrDefault(c => c.Id == OwnerId);
+				if (card != null)
+					cardCollection.Items.Remove(card);
+			}
 		}
 	}
 }

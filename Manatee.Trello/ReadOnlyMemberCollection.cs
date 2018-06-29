@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -13,7 +14,9 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of members.
 	/// </summary>
-	public class ReadOnlyMemberCollection : ReadOnlyCollection<IMember>, IReadOnlyMemberCollection
+	public class ReadOnlyMemberCollection : ReadOnlyCollection<IMember>,
+	                                        IReadOnlyMemberCollection,
+											IHandle<EntityUpdatedEvent<IJsonMember>>
 	{
 		private readonly EntityRequestType _updateRequestType;
 
@@ -74,6 +77,41 @@ namespace Manatee.Trello
 		private IMember GetByKey(string key)
 		{
 			return this.FirstOrDefault(m => key.In(m.Id, m.FullName, m.UserName));
+		}
+
+		void IHandle<EntityUpdatedEvent<IJsonMember>>.Handle(EntityUpdatedEvent<IJsonMember> message)
+		{
+			IMember member;
+			switch (_updateRequestType)
+			{
+				case EntityRequestType.Board_Read_Members:
+					if (!message.Properties.Contains(nameof(Board.Members))) return;
+					member = Items.FirstOrDefault(b => b.Id == message.Data.Id);
+					var boardIds = message.Data.Boards.Select(m => m.Id).ToList();
+					if (!boardIds.Contains(OwnerId) && member != null)
+						Items.Remove(member);
+					else if (boardIds.Contains(OwnerId) && member == null)
+						Items.Add(message.Data.GetFromCache<Member>(Auth));
+					break;
+				case EntityRequestType.Card_Read_Members:
+					if (!message.Properties.Contains(nameof(Card.Members))) return;
+					member = Items.FirstOrDefault(b => b.Id == message.Data.Id);
+					var cardIds = message.Data.Cards.Select(m => m.Id).ToList();
+					if (!cardIds.Contains(OwnerId) && member != null)
+						Items.Remove(member);
+					else if (cardIds.Contains(OwnerId) && member == null)
+						Items.Add(message.Data.GetFromCache<Member>(Auth));
+					break;
+				case EntityRequestType.Organization_Read_Members:
+					if (!message.Properties.Contains(nameof(Organization.Members))) return;
+					member = Items.FirstOrDefault(b => b.Id == message.Data.Id);
+					var orgIds = message.Data.Organizations.Select(m => m.Id).ToList();
+					if (!orgIds.Contains(OwnerId) && member != null)
+						Items.Remove(member);
+					else if (orgIds.Contains(OwnerId) && member == null)
+						Items.Add(message.Data.GetFromCache<Member>(Auth));
+					break;
+			}
 		}
 	}
 }

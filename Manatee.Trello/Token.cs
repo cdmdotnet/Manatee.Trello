@@ -46,7 +46,7 @@ namespace Manatee.Trello
 			/// </summary>
 			[Display(Description="permissions")]
 			Permissions,
-			// TODO: add
+			// TODO: (#164) add
 			//Webhooks
 		}
 
