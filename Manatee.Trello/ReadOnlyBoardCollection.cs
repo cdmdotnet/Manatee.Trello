@@ -16,6 +16,7 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyBoardCollection : ReadOnlyCollection<IBoard>,
 	                                       IReadOnlyBoardCollection,
+										   IHandle<EntityUpdatedEvent<IJsonBoard>>,
 										   IHandle<EntityDeletedEvent<IJsonBoard>>
 	{
 		private readonly EntityRequestType _updateRequestType;
@@ -66,6 +67,31 @@ namespace Manatee.Trello
 		private IBoard GetByKey(string key)
 		{
 			return this.FirstOrDefault(b => key.In(b.Id, b.Name));
+		}
+
+		void IHandle<EntityUpdatedEvent<IJsonBoard>>.Handle(EntityUpdatedEvent<IJsonBoard> message)
+		{
+			IBoard board;
+			switch (_updateRequestType)
+			{
+				case EntityRequestType.Organization_Read_Boards:
+					if (!message.Properties.Contains(nameof(Board.Organization))) return;
+					board = Items.FirstOrDefault(b => b.Id == message.Data.Id);
+					if (message.Data.Organization?.Id != OwnerId && board != null)
+						Items.Remove(board);
+					else if (message.Data.Organization?.Id == OwnerId && board == null)
+						Items.Add(message.Data.GetFromCache<Board>(Auth));
+					break;
+				case EntityRequestType.Member_Read_Boards:
+					if (!message.Properties.Contains(nameof(Board.Members))) return;
+					board = Items.FirstOrDefault(b => b.Id == message.Data.Id);
+					var memberIds = message.Data.Members.Select(m => m.Id).ToList();
+					if (!memberIds.Contains(OwnerId) && board != null)
+						Items.Remove(board);
+					else if (memberIds.Contains(OwnerId) && board == null)
+						Items.Add(message.Data.GetFromCache<Board>(Auth));
+					break;
+			}
 		}
 
 		void IHandle<EntityDeletedEvent<IJsonBoard>>.Handle(EntityDeletedEvent<IJsonBoard> message)

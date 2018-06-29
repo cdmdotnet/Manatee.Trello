@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -13,7 +14,9 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of lists.
 	/// </summary>
-	public class ReadOnlyListCollection : ReadOnlyCollection<IList>, IReadOnlyListCollection
+	public class ReadOnlyListCollection : ReadOnlyCollection<IList>,
+	                                      IReadOnlyListCollection,
+	                                      IHandle<EntityUpdatedEvent<IJsonList>>
 	{
 		/// <summary>
 		/// Retrieves a list which matches the supplied key.
@@ -58,6 +61,16 @@ namespace Manatee.Trello
 		private IList GetByKey(string key)
 		{
 			return this.FirstOrDefault(l => key.In(l.Id, l.Name));
+		}
+
+		void IHandle<EntityUpdatedEvent<IJsonList>>.Handle(EntityUpdatedEvent<IJsonList> message)
+		{
+			if (!message.Properties.Contains(nameof(List.Board))) return;
+			var list = Items.FirstOrDefault(l => l.Id == message.Data.Id);
+			if (message.Data.Board?.Id != OwnerId && list != null)
+				Items.Remove(list);
+			else if (message.Data.Board?.Id == OwnerId && list == null)
+				Items.Add(message.Data.GetFromCache<List>(Auth));
 		}
 	}
 }
