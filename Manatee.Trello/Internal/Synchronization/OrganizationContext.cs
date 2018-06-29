@@ -161,6 +161,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
+			RaiseDeleted();
 		}
 
 		protected override async Task<IJsonOrganization> GetData(CancellationToken ct)

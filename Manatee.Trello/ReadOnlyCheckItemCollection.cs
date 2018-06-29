@@ -2,14 +2,20 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Caching;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// A read-only collection of checklist items.
 	/// </summary>
-	public class ReadOnlyCheckItemCollection : ReadOnlyCollection<ICheckItem>, IReadOnlyCheckItemCollection
+	public class ReadOnlyCheckItemCollection : ReadOnlyCollection<ICheckItem>,
+	                                           IReadOnlyCheckItemCollection,
+	                                           IHandle<EntityUpdatedEvent<IJsonCheckItem>>,
+	                                           IHandle<EntityDeletedEvent<IJsonCheckItem>>
 	{
 		private readonly CheckListContext _context;
 
@@ -39,8 +45,9 @@ namespace Manatee.Trello
 				if (checkItem == null)
 					Items.Add(new CheckItem(jsonCheckItem, _context.Data.Id));
 				else
-					((CheckItem)checkItem).Json = jsonCheckItem;
+					((CheckItem) checkItem).Json = jsonCheckItem;
 			}
+
 			foreach (var checkItem in Items.ToList())
 			{
 				if (_context.Data.CheckItems.All(jci => jci.Id != checkItem.Id))
@@ -51,6 +58,22 @@ namespace Manatee.Trello
 		private ICheckItem GetByKey(string key)
 		{
 			return this.FirstOrDefault(ci => key.In(ci.Id, ci.Name));
+		}
+
+		void IHandle<EntityUpdatedEvent<IJsonCheckItem>>.Handle(EntityUpdatedEvent<IJsonCheckItem> message)
+		{
+			if (!message.Properties.Contains(nameof(CheckItem.CheckList))) return;
+			var checkItem = Items.FirstOrDefault(b => b.Id == message.Data.Id);
+			if (message.Data.CheckList?.Id != OwnerId && checkItem != null)
+				Items.Remove(checkItem);
+			else if (message.Data.CheckList?.Id == OwnerId && checkItem == null)
+				Items.Add(message.Data.GetFromCache<CheckItem>(Auth));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonCheckItem>>.Handle(EntityDeletedEvent<IJsonCheckItem> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

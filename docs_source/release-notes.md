@@ -2,11 +2,13 @@
 
 *Released on XXXXXXXXXXXXXXXXXXXXXXXXX*
 
-<span id="feature">feature</span>
+<span id="feature">feature</span> <span id="patch">patch</span> 
 
 ## Summary
 
-([3](https://github.com/gregsdennis/Manatee.Trello/issues/3)) Support for reading, uploading, and deleting custom board backgrounds.  (Uploading new backgrounds requires a Trello Gold account.)
+([#3](https://github.com/gregsdennis/Manatee.Trello/issues/3)) Support for reading, uploading, and deleting custom board backgrounds.  (Uploading new backgrounds requires a Trello Gold account.)
+
+([#222](https://github.com/gregsdennis/Manatee.Trello/issues/222)) Entities and the collections that contain them are more relational.  For instance if a card is moved to a new list (by assigning the `List` property or by refreshing the card after an online change), the source list's card collection removes the card and the destination list's card collection adds the card.  This is performed completely internally without having to make additional API calls.  This functionality is opt-in via `TrelloConfiguration.EnableConsistencyProcessing`.
 
 ## Changes
 
@@ -22,6 +24,7 @@ New members:
 - `IMe.BoardBackgrounds`
 - `Me.BoardBackgrounds`
 - `static Member.Fields.BoardBackgrounds`
+- `static TrelloConfiguration.EnableConsistencyProcessing`
 
 New types:
 
@@ -33,6 +36,7 @@ New types:
 Functional changes:
 
 - Custom board backgrounds now downloaded by default as part of member.
+- `ReadOnlyCustomFieldCollection` now properly implements `IReadOnlyCollection<ICustomField>` instead of `IReadOnlyCollection<CustomField>` (interface vs. class).
 
 # 3.1.0
 

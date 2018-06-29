@@ -150,7 +150,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Comments = new CommentCollection(() => Data.Id, auth);
 			CustomFields = new ReadOnlyCustomFieldCollection(() => Data.Id, auth);
 			Labels = new CardLabelCollection(this, auth);
-			Members = new MemberCollection(EntityRequestType.Card_Read_Members, () => Data.Id, auth);
+			Members = new MemberCollection(() => Data.Id, auth);
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Card_Read_PowerUpData, () => Data.Id, auth);
 			Stickers = new CardStickerCollection(() => Data.Id, auth);
 			VotingMembers = new ReadOnlyMemberCollection(EntityRequestType.Card_Read_MembersVoted, () => Data.Id, auth);
@@ -238,6 +238,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			await JsonRepository.Execute(Auth, endpoint, ct);
 
 			_deleted = true;
+			RaiseDeleted();
 		}
 
 		protected override async Task<IJsonCard> GetData(CancellationToken ct)

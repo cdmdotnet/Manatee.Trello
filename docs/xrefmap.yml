@@ -21642,6 +21642,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.TrelloConfiguration.Deserializer
   nameWithType: TrelloConfiguration.Deserializer
+- uid: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  name: EnableConsistencyProcessing
+  href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_EnableConsistencyProcessing
+  commentId: P:Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  fullName: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  nameWithType: TrelloConfiguration.EnableConsistencyProcessing
+- uid: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing*
+  name: EnableConsistencyProcessing
+  href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_EnableConsistencyProcessing_
+  commentId: Overload:Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
+  nameWithType: TrelloConfiguration.EnableConsistencyProcessing
 - uid: Manatee.Trello.TrelloConfiguration.JsonFactory
   name: JsonFactory
   href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_JsonFactory

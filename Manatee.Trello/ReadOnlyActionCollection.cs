@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -13,7 +14,9 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of actions.
 	/// </summary>
-	public class ReadOnlyActionCollection : ReadOnlyCollection<IAction>, IReadOnlyActionCollection
+	public class ReadOnlyActionCollection : ReadOnlyCollection<IAction>,
+	                                        IReadOnlyActionCollection,
+	                                        IHandle<EntityDeletedEvent<IJsonAction>>
 	{
 		private static readonly Dictionary<Type, EntityRequestType> RequestTypes;
 		private readonly EntityRequestType _updateRequestType;
@@ -29,6 +32,7 @@ namespace Manatee.Trello
 					{typeof(Organization), EntityRequestType.Organization_Read_Actions},
 				};
 		}
+
 		internal ReadOnlyActionCollection(Type type, Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
@@ -51,7 +55,7 @@ namespace Manatee.Trello
 		/// <param name="actionTypes">A collection of action types.</param>
 		public void Filter(IEnumerable<ActionType> actionTypes)
 		{
-			var filter = AdditionalParameters.ContainsKey("filter") ? (string)AdditionalParameters["filter"] : string.Empty;
+			var filter = AdditionalParameters.ContainsKey("filter") ? (string) AdditionalParameters["filter"] : string.Empty;
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			var actionType = actionTypes.Aggregate(ActionType.Unknown, (c, a) => c | a);
@@ -86,6 +90,12 @@ namespace Manatee.Trello
 					action.Json = ja;
 					return action;
 				}));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonAction>>.Handle(EntityDeletedEvent<IJsonAction> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

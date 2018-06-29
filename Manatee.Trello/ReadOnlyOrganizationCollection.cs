@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -13,10 +14,14 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of organizations.
 	/// </summary>
-	public class ReadOnlyOrganizationCollection : ReadOnlyCollection<IOrganization>, IReadOnlyOrganizationCollection
+	public class ReadOnlyOrganizationCollection : ReadOnlyCollection<IOrganization>,
+	                                              IReadOnlyOrganizationCollection,
+	                                              IHandle<EntityDeletedEvent<IJsonOrganization>>
 	{
 		internal ReadOnlyOrganizationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		/// <summary>
 		/// Retrieves a organization which matches the supplied key.
@@ -56,6 +61,12 @@ namespace Manatee.Trello
 		private IOrganization GetByKey(string key)
 		{
 			return this.FirstOrDefault(o => key.In(o.Id, o.Name, o.DisplayName));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonOrganization>>.Handle(EntityDeletedEvent<IJsonOrganization> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
@@ -37,6 +38,14 @@ namespace Manatee.Trello
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 
+			if (TrelloConfiguration.EnableConsistencyProcessing &&
+			    member.Organizations is ReadOnlyCollection<IOrganization> orgCollection)
+			{
+				var org = TrelloConfiguration.Cache.OfType<IOrganization>().FirstOrDefault(o => o.Id == OwnerId);
+				if (org != null)
+					orgCollection.Items.Add(org);
+			}
+
 			return new OrganizationMembership(newData, OwnerId, Auth);
 		}
 
@@ -56,6 +65,14 @@ namespace Manatee.Trello
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Organization_Write_RemoveMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
 			await JsonRepository.Execute(Auth, endpoint, json, ct);
+
+			if (TrelloConfiguration.EnableConsistencyProcessing &&
+			    member.Organizations is ReadOnlyCollection<IOrganization> orgCollection)
+			{
+				var org = TrelloConfiguration.Cache.OfType<IOrganization>().FirstOrDefault(o => o.Id == OwnerId);
+				if (org != null)
+					orgCollection.Items.Remove(org);
+			}
 		}
 	}
 }

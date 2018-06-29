@@ -12,7 +12,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of custom fields.
 	/// </summary>
-	public class ReadOnlyCustomFieldCollection : ReadOnlyCollection<CustomField>
+	public class ReadOnlyCustomFieldCollection : ReadOnlyCollection<ICustomField>
 	{
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCustomFieldCollection"/> class.

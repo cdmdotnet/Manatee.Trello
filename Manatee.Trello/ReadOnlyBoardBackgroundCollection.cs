@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -12,7 +13,8 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of custom board backgrounds.
 	/// </summary>
-	public class ReadOnlyBoardBackgroundCollection : ReadOnlyCollection<IBoardBackground>
+	public class ReadOnlyBoardBackgroundCollection : ReadOnlyCollection<IBoardBackground>,
+	                                                 IHandle<EntityDeletedEvent<IJsonBoardBackground>>
 	{
 		internal ReadOnlyBoardBackgroundCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
@@ -35,6 +37,12 @@ namespace Manatee.Trello
 					background.Json = jb;
 					return background;
 				}));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonBoardBackground>>.Handle(EntityDeletedEvent<IJsonBoardBackground> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

@@ -64,7 +64,7 @@ namespace Manatee.Trello
 		/// <param name="memberships">The filter values.</param>
 		public void Filter(IEnumerable<MembershipFilter> memberships)
 		{
-			var filter = (string)AdditionalParameters["filter"];
+			var filter = (string) AdditionalParameters["filter"];
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += memberships.Select(a => a.GetDescription()).Join(",");

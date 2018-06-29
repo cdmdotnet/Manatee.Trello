@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
@@ -14,7 +15,9 @@ namespace Manatee.Trello
 	public class BoardMembershipCollection : ReadOnlyBoardMembershipCollection, IBoardMembershipCollection
 	{
 		internal BoardMembershipCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) { }
+			: base(getOwnerId, auth)
+		{
+		}
 
 		/// <summary>
 		/// Adds a member to a board with specified privileges.
@@ -27,14 +30,22 @@ namespace Manatee.Trello
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<IMember>(member, new[] { error });
+				throw new ValidationException<IMember>(member, new[] {error});
 
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonBoardMembership>();
-			json.Member = ((Member)member).Json;
+			json.Member = ((Member) member).Json;
 			json.MemberType = membership;
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_AddOrUpdateMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
+
+			if (TrelloConfiguration.EnableConsistencyProcessing &&
+			    member.Boards is ReadOnlyCollection<IBoard> boardCollection)
+			{
+				var board = TrelloConfiguration.Cache.OfType<IBoard>().FirstOrDefault(b => b.Id == OwnerId);
+				if (board != null)
+					boardCollection.Items.Add(board);
+			}
 
 			return new BoardMembership(newData, OwnerId, Auth);
 		}
@@ -48,10 +59,18 @@ namespace Manatee.Trello
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
-				throw new ValidationException<IMember>(member, new[] { error });
+				throw new ValidationException<IMember>(member, new[] {error});
 
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_RemoveMember, new Dictionary<string, object> {{"_id", OwnerId}, {"_memberId", member.Id}});
 			await JsonRepository.Execute(Auth, endpoint, ct);
+
+			if (TrelloConfiguration.EnableConsistencyProcessing &&
+			    member.Boards is ReadOnlyCollection<IBoard> boardCollection)
+			{
+				var board = TrelloConfiguration.Cache.OfType<IBoard>().FirstOrDefault(b => b.Id == OwnerId);
+				if (board != null)
+					boardCollection.Items.Remove(board);
+			}
 		}
 	}
 }
