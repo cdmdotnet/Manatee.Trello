@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -13,7 +14,9 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of checklists.
 	/// </summary>
-	public class ReadOnlyCheckListCollection : ReadOnlyCollection<ICheckList>, IReadOnlyCheckListCollection
+	public class ReadOnlyCheckListCollection : ReadOnlyCollection<ICheckList>,
+	                                           IReadOnlyCheckListCollection,
+											   IHandle<EntityDeletedEvent<IJsonCheckList>>
 	{
 		internal ReadOnlyCheckListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
@@ -45,6 +48,12 @@ namespace Manatee.Trello
 		private ICheckList GetByKey(string key)
 		{
 			return this.FirstOrDefault(cl => key.In(cl.Id, cl.Name));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonCheckList>>.Handle(EntityDeletedEvent<IJsonCheckList> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -13,7 +14,9 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of actions.
 	/// </summary>
-	public class ReadOnlyActionCollection : ReadOnlyCollection<IAction>, IReadOnlyActionCollection
+	public class ReadOnlyActionCollection : ReadOnlyCollection<IAction>,
+	                                        IReadOnlyActionCollection,
+											IHandle<EntityDeletedEvent<IJsonAction>>
 	{
 		private static readonly Dictionary<Type, EntityRequestType> RequestTypes;
 		private readonly EntityRequestType _updateRequestType;
@@ -86,6 +89,12 @@ namespace Manatee.Trello
 					action.Json = ja;
 					return action;
 				}));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonAction>>.Handle(EntityDeletedEvent<IJsonAction> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

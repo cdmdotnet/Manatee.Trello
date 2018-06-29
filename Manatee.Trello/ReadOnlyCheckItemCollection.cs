@@ -2,14 +2,18 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
 	/// <summary>
 	/// A read-only collection of checklist items.
 	/// </summary>
-	public class ReadOnlyCheckItemCollection : ReadOnlyCollection<ICheckItem>, IReadOnlyCheckItemCollection
+	public class ReadOnlyCheckItemCollection : ReadOnlyCollection<ICheckItem>,
+	                                           IReadOnlyCheckItemCollection,
+											   IHandle<EntityDeletedEvent<IJsonCheckItem>>
 	{
 		private readonly CheckListContext _context;
 
@@ -51,6 +55,12 @@ namespace Manatee.Trello
 		private ICheckItem GetByKey(string key)
 		{
 			return this.FirstOrDefault(ci => key.In(ci.Id, ci.Name));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonCheckItem>>.Handle(EntityDeletedEvent<IJsonCheckItem> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

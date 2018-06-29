@@ -143,8 +143,8 @@ namespace Manatee.Trello
 
 		void IHandle<EntityDeletedEvent<IJsonCard>>.Handle(EntityDeletedEvent<IJsonCard> message)
 		{
-			var card = Items.FirstOrDefault(c => c.Id == message.Data.Id);
-			Items.Remove(card);
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

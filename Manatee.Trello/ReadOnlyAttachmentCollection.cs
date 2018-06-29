@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -11,7 +12,8 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of attachments.
 	/// </summary>
-	public class ReadOnlyAttachmentCollection : ReadOnlyCollection<IAttachment>
+	public class ReadOnlyAttachmentCollection : ReadOnlyCollection<IAttachment>,
+												IHandle<EntityDeletedEvent<IJsonAttachment>>
 	{
 		internal ReadOnlyAttachmentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) {}
@@ -28,6 +30,12 @@ namespace Manatee.Trello
 					attachment.Json = ja;
 					return attachment;
 				}));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonAttachment>>.Handle(EntityDeletedEvent<IJsonAttachment> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

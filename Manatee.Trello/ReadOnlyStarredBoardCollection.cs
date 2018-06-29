@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -12,7 +13,8 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of boards.
 	/// </summary>
-	public class ReadOnlyStarredBoardCollection : ReadOnlyCollection<IStarredBoard>
+	public class ReadOnlyStarredBoardCollection : ReadOnlyCollection<IStarredBoard>,
+												  IHandle<EntityDeletedEvent<IJsonStarredBoard>>
 	{
 		internal ReadOnlyStarredBoardCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
@@ -33,6 +35,12 @@ namespace Manatee.Trello
 					board.Json = jb;
 					return board;
 				}));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonStarredBoard>>.Handle(EntityDeletedEvent<IJsonStarredBoard> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

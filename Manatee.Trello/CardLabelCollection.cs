@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -13,7 +14,9 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A collection of labels for cards.
 	/// </summary>
-	public class CardLabelCollection : ReadOnlyCollection<ILabel>, ICardLabelCollection
+	public class CardLabelCollection : ReadOnlyCollection<ILabel>,
+	                                   ICardLabelCollection,
+									   IHandle<EntityDeletedEvent<IJsonLabel>>
 	{
 		private readonly CardContext _context;
 
@@ -77,6 +80,12 @@ namespace Manatee.Trello
 					label.Json = ja;
 					return label;
 				}));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonLabel>>.Handle(EntityDeletedEvent<IJsonLabel> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }
