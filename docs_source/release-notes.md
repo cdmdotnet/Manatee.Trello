@@ -6,8 +6,9 @@
 
 ## Summary
 
-([3](https://github.com/gregsdennis/Manatee.Trello/issues/3)) Support for reading, uploading, and deleting custom board backgrounds.  (Uploading new backgrounds requires a Trello Gold account.)
-([222](https://github.com/gregsdennis/Manatee.Trello/issues/222)) Entities and the collections that contain them are more relational.  For instance if a card is moved to a new list (by assigning the `List` property or by refreshing the card after an online change), the source list's card collection removes the card and the destination list's card collection adds the card.  This is performed completely internally without having to make additional API calls.  This functionality is opt-in via `TrelloConfiguration.EnableConsistencyProcessing`.
+([#3](https://github.com/gregsdennis/Manatee.Trello/issues/3)) Support for reading, uploading, and deleting custom board backgrounds.  (Uploading new backgrounds requires a Trello Gold account.)
+
+([#222](https://github.com/gregsdennis/Manatee.Trello/issues/222)) Entities and the collections that contain them are more relational.  For instance if a card is moved to a new list (by assigning the `List` property or by refreshing the card after an online change), the source list's card collection removes the card and the destination list's card collection adds the card.  This is performed completely internally without having to make additional API calls.  This functionality is opt-in via `TrelloConfiguration.EnableConsistencyProcessing`.
 
 ## Changes
 
