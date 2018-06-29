@@ -160,8 +160,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					if (!CanUpdate()) return;
 
 					Properties[property].Set(Data, value);
-					if (TrelloConfiguration.EnableConsistencyProcessing && Data is IJsonCacheable cacheable)
-						EventAggregator.Publish(EntityUpdatedEvent.Create(typeof(TJson), cacheable, property));
+					RaiseUpdated(new[] {property});
 					_localChanges.Add(property);
 					await ResetTimer(t);
 				}, ct);
@@ -246,10 +245,17 @@ namespace Manatee.Trello.Internal.Synchronization
 				allProperties = propertyNames.Concat(MergeDependencies(json, overwrite));
 			}
 
+			allProperties = allProperties.ToList();
+
+			// ReSharper disable PossibleMultipleEnumeration
 			if (allProperties.Any())
+			{
 				OnMerged(allProperties);
+				RaiseUpdated(allProperties);
+			}
 
 			return allProperties;
+			// ReSharper restore PossibleMultipleEnumeration
 		}
 		internal void ClearChanges()
 		{
@@ -265,6 +271,18 @@ namespace Manatee.Trello.Internal.Synchronization
 				property.Set(json, newValue);
 			}
 			return json;
+		}
+
+		internal void RaiseUpdated(IEnumerable<string> properties)
+		{
+			if (TrelloConfiguration.EnableConsistencyProcessing && Data is IJsonCacheable cacheable)
+				EventAggregator.Publish(EntityUpdatedEvent.Create(typeof(TJson), cacheable, properties));
+		}
+
+		internal void RaiseDeleted()
+		{
+			if (TrelloConfiguration.EnableConsistencyProcessing && Data is IJsonCacheable cacheable)
+				EventAggregator.Publish(EntityDeletedEvent.Create(typeof(TJson), cacheable));
 		}
 
 		private void _AddLocalChange(string property)

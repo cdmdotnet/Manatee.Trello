@@ -16,7 +16,8 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ReadOnlyCardCollection : ReadOnlyCollection<ICard>,
 	                                      IReadOnlyCardCollection,
-	                                      IHandle<EntityUpdatedEvent<IJsonCard>>
+	                                      IHandle<EntityUpdatedEvent<IJsonCard>>,
+	                                      IHandle<EntityDeletedEvent<IJsonCard>>
 	{
 		private readonly EntityRequestType _updateRequestType;
 		private readonly Dictionary<string, object> _requestParameters;
@@ -107,7 +108,7 @@ namespace Manatee.Trello
 			switch (_updateRequestType)
 			{
 				case EntityRequestType.Board_Read_Cards:
-					if (message.Property != nameof(Card.Board)) return;
+					if (!message.Properties.Contains(nameof(Card.Board))) return;
 					card = Items.FirstOrDefault(c => c.Id == message.Data.Id);
 					if (message.Data.Board?.Id != OwnerId && card != null)
 						Items.Remove(card);
@@ -115,7 +116,7 @@ namespace Manatee.Trello
 						Items.Add(message.Data.GetFromCache<Card>(Auth));
 					break;
 				case EntityRequestType.List_Read_Cards:
-					if (message.Property != nameof(Card.List)) return;
+					if (!message.Properties.Contains(nameof(Card.List))) return;
 					card = Items.FirstOrDefault(c => c.Id == message.Data.Id);
 					if (message.Data.List?.Id != OwnerId && card != null)
 						Items.Remove(card);
@@ -123,9 +124,21 @@ namespace Manatee.Trello
 						Items.Add(message.Data.GetFromCache<Card>(Auth));
 					break;
 				case EntityRequestType.Member_Read_Cards:
-					if (message.Property != nameof(Card.Members)) return;
+					if (!message.Properties.Contains(nameof(Card.Members))) return;
+					card = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+					var memberIds = message.Data.Members.Select(m => m.Id).ToList();
+					if (!memberIds.Contains(OwnerId) && card != null)
+						Items.Remove(card);
+					else if (memberIds.Contains(OwnerId) && card == null)
+						Items.Add(message.Data.GetFromCache<Card>(Auth));
 					break;
 			}
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonCard>>.Handle(EntityDeletedEvent<IJsonCard> message)
+		{
+			var card = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(card);
 		}
 	}
 }
