@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -13,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A label.
 	/// </summary>
-	public class Label : ILabel, IMergeJson<IJsonLabel>
+	public class Label : ILabel, IMergeJson<IJsonLabel>, IBatchRefresh
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for labels.
@@ -111,6 +112,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		static Label()
 		{
@@ -160,6 +162,17 @@ namespace Manatee.Trello
 		void IMergeJson<IJsonLabel>.Merge(IJsonLabel json, bool overwrite)
 		{
 			_context.Merge(json, overwrite);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonLabel>(content);
+			_context.Merge(json);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>

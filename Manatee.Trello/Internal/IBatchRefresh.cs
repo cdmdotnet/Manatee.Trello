@@ -2,7 +2,7 @@
 
 namespace Manatee.Trello.Internal
 {
-	internal interface IBatchRefresh : IRefreshable, ICacheable
+	internal interface IBatchRefresh : IBatchRefreshable, ICacheable
 	{
 		TrelloAuthorization Auth { get; }
 		Endpoint GetRefreshEndpoint();

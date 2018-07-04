@@ -23,7 +23,7 @@ namespace Manatee.Trello.IntegrationTests
 			otherBoard.Name.Should().BeNullOrEmpty();
 			otherList.Name.Should().BeNullOrEmpty();
 
-			await TrelloProcessor.Refresh(new IRefreshable[] {otherBoard, otherList});
+			await TrelloProcessor.Refresh(new IBatchRefreshable[] {otherBoard, otherList});
 
 			otherBoard.Name.Should().Be(board.Name);
 			otherList.Name.Should().Be(list.Name);

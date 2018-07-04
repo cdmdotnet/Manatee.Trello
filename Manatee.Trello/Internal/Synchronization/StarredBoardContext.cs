@@ -52,6 +52,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			RaiseDeleted();
 		}
 
+		public override Endpoint GetRefreshEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.StarredBoard_Read_Refresh,
+			                             new Dictionary<string, object> {{"_idMember", _ownerId}, {"_id", Data.Id}});
+		}
+
 		protected override async Task<IJsonStarredBoard> GetData(CancellationToken ct)
 		{
 			try

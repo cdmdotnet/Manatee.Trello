@@ -74,6 +74,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 		}
 
+		public override Endpoint GetRefreshEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.CustomField_Read_Refresh,
+			                             new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
+		}
+
 		protected override async Task SubmitData(IJsonCustomField json, CancellationToken ct)
 		{
 			var parameter = TrelloConfiguration.JsonFactory.Create<IJsonParameter>();

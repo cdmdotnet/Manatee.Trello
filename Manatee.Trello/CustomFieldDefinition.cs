@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -12,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a custom field definition.
 	/// </summary>
-	public class CustomFieldDefinition : ICustomFieldDefinition, IMergeJson<IJsonCustomFieldDefinition>
+	public class CustomFieldDefinition : ICustomFieldDefinition, IMergeJson<IJsonCustomFieldDefinition>, IBatchRefresh
 	{
 		private readonly Field<IBoard> _board;
 		private readonly Field<string> _fieldGroup;
@@ -74,6 +75,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the custom field definition is updated.
@@ -118,6 +120,11 @@ namespace Manatee.Trello
 		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
 			return _context.Synchronize(force, ct);
+		}
+
+		void IMergeJson<IJsonCustomFieldDefinition>.Merge(IJsonCustomFieldDefinition json, bool overwrite)
+		{
+			_context.Merge(json, overwrite);
 		}
 
 		/// <summary>
@@ -207,16 +214,22 @@ namespace Manatee.Trello
 			return $"{Name} ({Type})";
 		}
 
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonCustomFieldDefinition>(content);
+			_context.Merge(json);
+		}
+
 		private void Synchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;
 			handler?.Invoke(this, properties);
-		}
-
-		void IMergeJson<IJsonCustomFieldDefinition>.Merge(IJsonCustomFieldDefinition json, bool overwrite)
-		{
-			_context.Merge(json, overwrite);
 		}
 	}
 }

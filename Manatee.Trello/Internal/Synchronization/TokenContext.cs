@@ -122,6 +122,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			RaiseDeleted();
 		}
 
+		public override Endpoint GetRefreshEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Token_Read_Refresh,
+			                             new Dictionary<string, object> {{"_token", Data.Id}});
+		}
+
 		protected override async Task<IJsonToken> GetData(CancellationToken ct)
 		{
 			try

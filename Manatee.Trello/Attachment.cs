@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -14,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an attachment to a card.
 	/// </summary>
-	public class Attachment : IAttachment, IMergeJson<IJsonAttachment>
+	public class Attachment : IAttachment, IMergeJson<IJsonAttachment>, IBatchRefresh
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for attachments.
@@ -181,6 +182,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the attachment is updated.
@@ -249,6 +251,17 @@ namespace Manatee.Trello
 		void IMergeJson<IJsonAttachment>.Merge(IJsonAttachment json, bool overwrite)
 		{
 			_context.Merge(json, overwrite);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonAttachment>(content);
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

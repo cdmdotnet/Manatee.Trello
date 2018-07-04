@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -11,7 +12,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member's board star.
 	/// </summary>
-	public class StarredBoard : IStarredBoard, IMergeJson<IJsonStarredBoard>
+	public class StarredBoard : IStarredBoard, IMergeJson<IJsonStarredBoard>, IBatchRefresh
 	{
 		private readonly Field<IBoard> _board;
 		private readonly Field<Position> _position;
@@ -41,6 +42,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the star is updated.
@@ -85,6 +87,17 @@ namespace Manatee.Trello
 		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
 		{
 			return _context.Synchronize(force, ct);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonStarredBoard>(content);
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)
