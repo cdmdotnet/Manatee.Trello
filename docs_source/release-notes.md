@@ -14,6 +14,8 @@
 
 ([#227](https://github.com/gregsdennis/Manatee.Trello/issues/227)) When copying cards, it's possible to indicate what subset of additional data to copy besides merely property information. Any combination of attachments, checklists, comments, due date,labels, members, and stickers are supported.  This change adds an optional `keep` parameter to the `CardCollection.Add()` overload that takes a source card to duplicate.
 
+([#239](https://github.com/gregsdennis/Manatee.Trello/issues/239)) Trello supports up to 10 items to be retrieved simultaneously through a single bulk call.  To support this, several changes have been introduced, most notably `TrelloProcessor.Refresh()` which takes a collection of entities and manages them into appropriate batches based on size and authorization, if multiple authorizations have been used.
+
 ## Changes
 
 ### New members
@@ -30,6 +32,7 @@
 - `static Member.Fields.BoardBackgrounds`
 - `static TrelloConfiguration.EnableConsistencyProcessing`
 - `IJsonCard.KeepFromSource`
+- `static TrelloProcessor.Refresh()`
 
 ### New types
 
@@ -38,6 +41,10 @@
 - `BoardBackgroundCollection`
 - `BoardBackgroundType`
 - `CardCopyKeepFromSourceOptions`
+- `IJsonBatch`
+- `IJsonBatchItem`
+- `IRefreshable`
+- `IBatchRefreshable`
 
 ### Functional changes
 
@@ -45,6 +52,7 @@
 - `ReadOnlyCustomFieldCollection` now properly implements `IReadOnlyCollection<ICustomField>` instead of `IReadOnlyCollection<CustomField>` (interface vs. class).
 - Refreshing a collection now raises the `Updated` event on the collection's owner (e.g. calling `List.Cards.Refresh()` raises `List.Updated`).
 - `CardCollection.Add(ICard card, CancellationToken ct = default(CancellationToken))` becomes `CardCollection.Add(ICard card, CardCopyKeepFromSourceOptions keep = CardCopyKeepFromSourceOptions.None, CancellationToken ct = default(CancellationToken))`.
+- `CustomField.Refresh()` and `PowerUpBase.Refresh()` now work as expected.  Previously, these may have done nothing or failed completely.
 
 # 3.1.0
 
