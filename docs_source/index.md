@@ -25,6 +25,7 @@ Features:
     - JSON serializer
 - Webhook integration
 - Update notification via .Net events
+- Batch downloads
 - Functions:
     - Boards
         - Add/Edit/Delete
@@ -32,8 +33,9 @@ Features:
         - Add/Edit personal preferences
         - Add/Remove members
         - Add/Edit/Delete custom fields
-        - Add/Remove to/from organization,
+        - Add/Remove to/from organization
         - Enable/Disable power-ups
+        - Set custom backgrounds
     - Lists
         - Add/Edit/Reorder
         - Move to board
