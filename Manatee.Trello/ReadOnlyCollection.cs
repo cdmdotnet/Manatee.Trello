@@ -36,6 +36,8 @@ namespace Manatee.Trello
 		internal TrelloAuthorization Auth { get; }
 		internal Dictionary<string, object> AdditionalParameters { get; }
 
+		internal event EventHandler Refreshed;
+
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCollection{T}"/> object.
 		/// </summary>
@@ -70,6 +72,8 @@ namespace Manatee.Trello
 #else
 				return Task.CompletedTask;
 #endif
+
+			Refreshed?.Invoke(this, new EventArgs());
 
 			return PerformRefresh(force, ct);
 		}

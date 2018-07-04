@@ -128,8 +128,14 @@ namespace Manatee.Trello.Internal.Synchronization
 				Organizations = new ReadOnlyOrganizationCollection(() => Data.Id, auth);
 				StarredBoards = new ReadOnlyStarredBoardCollection(() => Data.Id, auth);
 			}
+			Boards.Refreshed += (s, e) => OnMerged(new[] {nameof(Boards) });
+			BoardBackgrounds.Refreshed += (s, e) => OnMerged(new[] {nameof(BoardBackgrounds) });
+			Organizations.Refreshed += (s, e) => OnMerged(new[] {nameof(Organizations) });
+			StarredBoards.Refreshed += (s, e) => OnMerged(new[] {nameof(StarredBoards) });
 			Cards = new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, () => Data.Id, auth);
+			Cards.Refreshed += (s, e) => OnMerged(new[] {nameof(Cards) });
 			Notifications = new ReadOnlyNotificationCollection(() => Data.Id, auth);
+			Notifications.Refreshed += (s, e) => OnMerged(new[] { nameof(Notifications) });
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);

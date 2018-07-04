@@ -129,14 +129,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Board), () => Data.Id, auth);
+			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions) });
 			Cards = new ReadOnlyCardCollection(typeof(Board), () => Data.Id, auth);
+			Cards.Refreshed += (s, e) => OnMerged(new[] {nameof(Cards) });
 			CustomFields = new CustomFieldDefinitionCollection(() => Data.Id, auth);
+			CustomFields.Refreshed += (s, e) => OnMerged(new[] {nameof(CustomFields) });
 			Labels = new BoardLabelCollection(() => Data.Id, auth);
+			Labels.Refreshed += (s, e) => OnMerged(new[] {nameof(Labels) });
 			Lists = new ListCollection(() => Data.Id, auth);
+			Lists.Refreshed += (s, e) => OnMerged(new[] {nameof(Lists) });
 			Members = new ReadOnlyMemberCollection(EntityRequestType.Board_Read_Members, () => Data.Id, auth);
+			Members.Refreshed += (s, e) => OnMerged(new[] {nameof(Members) });
 			Memberships = new BoardMembershipCollection(() => Data.Id, auth);
+			Memberships.Refreshed += (s, e) => OnMerged(new[] {nameof(Memberships) });
 			PowerUps = new PowerUpCollection(() => Data.Id, auth);
+			PowerUps.Refreshed += (s, e) => OnMerged(new[] {nameof(PowerUps) });
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Board_Read_PowerUpData, () => Data.Id, auth);
+			PowerUpData.Refreshed += (s, e) => OnMerged(new[] { nameof(PowerUpData) });
 
 			BoardPreferencesContext = new BoardPreferencesContext(Auth);
 			BoardPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);

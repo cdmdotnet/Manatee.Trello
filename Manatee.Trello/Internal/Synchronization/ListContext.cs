@@ -76,13 +76,16 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
+
 		public ListContext(string id, TrelloAuthorization auth)
 			: base(auth)
 		{
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(List), () => Data.Id, auth);
+			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions)});
 			Cards = new CardCollection(() => Data.Id, auth);
+			Cards.Refreshed += (s, e) => OnMerged(new[] {nameof(Cards)});
 		}
 
 		public static void UpdateParameters()

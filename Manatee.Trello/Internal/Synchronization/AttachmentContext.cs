@@ -100,6 +100,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Previews = new ReadOnlyAttachmentPreviewCollection(this, Auth);
+			Previews.Refreshed += (s, e) => OnMerged(new[] {nameof(Previews)});
 		}
 
 		public static void UpdateParameters()
