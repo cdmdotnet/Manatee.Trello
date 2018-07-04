@@ -29,6 +29,7 @@
 - `Me.BoardBackgrounds`
 - `static Member.Fields.BoardBackgrounds`
 - `static TrelloConfiguration.EnableConsistencyProcessing`
+- `IJsonCard.KeepFromSource`
 
 ### New types
 
