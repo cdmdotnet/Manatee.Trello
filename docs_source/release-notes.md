@@ -37,6 +37,7 @@ Functional changes:
 
 - Custom board backgrounds now downloaded by default as part of member.
 - `ReadOnlyCustomFieldCollection` now properly implements `IReadOnlyCollection<ICustomField>` instead of `IReadOnlyCollection<CustomField>` (interface vs. class).
+- Refreshing a collection now raises the `Updated` event on the collection's owner (e.g. calling `List.Cards.Refresh()` raises `List.Updated`).
 
 # 3.1.0
 
