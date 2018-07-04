@@ -9,10 +9,8 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class CustomFieldDefinitionContext : SynchronizationContext<IJsonCustomFieldDefinition>
+	internal class CustomFieldDefinitionContext : DeletableSynchronizationContext<IJsonCustomFieldDefinition>
 	{
-		private bool _deleted;
-
 		public DropDownOptionCollection DropDownOptions { get; }
 		public CustomFieldDisplayInfoContext DisplayInfo { get; }
 
@@ -82,41 +80,25 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			DropDownOptions = new DropDownOptionCollection(() => Data.Id, auth);
+			DropDownOptions.Refreshed += (s, e) => OnMerged(new[] {nameof(DropDownOptions)});
 
 			DisplayInfo = new CustomFieldDisplayInfoContext(auth);
 			DisplayInfo.SubmitRequested += ct => HandleSubmitRequested("Display", ct);
 			Data.Display = DisplayInfo.Data;
 		}
 
-		public async Task Delete(CancellationToken ct)
+		public override Endpoint GetRefreshEndpoint()
 		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Write_Delete,
-			                                     new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
+			return EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
 
-		protected override async Task<IJsonCustomFieldDefinition> GetData(CancellationToken ct)
+		protected override Endpoint GetDeleteEndpoint()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Read_Refresh,
-				                                     new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCustomFieldDefinition>(Auth, endpoint, ct);
-
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Write_Delete,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
+
 		protected override async Task SubmitData(IJsonCustomFieldDefinition json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDefinition_Write_Update,

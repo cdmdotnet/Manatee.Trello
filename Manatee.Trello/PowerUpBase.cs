@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -9,7 +10,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Provides a base implementation for Trello Power-Ups.
 	/// </summary>
-	public abstract class PowerUpBase : IPowerUp, IMergeJson<IJsonPowerUp>
+	public abstract class PowerUpBase : IPowerUp, IMergeJson<IJsonPowerUp>, IBatchRefresh
 	{
 		private readonly Field<string> _name;
 		private readonly Field<bool?> _isPublic;
@@ -38,6 +39,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Initializes a power-up.
@@ -64,6 +66,17 @@ namespace Manatee.Trello
 		void IMergeJson<IJsonPowerUp>.Merge(IJsonPowerUp json, bool overwrite)
 		{
 			_context.Merge(json, overwrite);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonPowerUp>(content);
+			_context.Merge(json);
 		}
 
 		/// <summary>Returns the <see cref="Name"/></summary>

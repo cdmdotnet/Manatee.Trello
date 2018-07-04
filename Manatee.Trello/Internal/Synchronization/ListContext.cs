@@ -76,13 +76,16 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
+
 		public ListContext(string id, TrelloAuthorization auth)
 			: base(auth)
 		{
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(List), () => Data.Id, auth);
+			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions)});
 			Cards = new CardCollection(() => Data.Id, auth);
+			Cards.Refreshed += (s, e) => OnMerged(new[] {nameof(Cards)});
 		}
 
 		public static void UpdateParameters()
@@ -124,13 +127,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		protected override async Task<IJsonList> GetData(CancellationToken ct)
+		public override Endpoint GetRefreshEndpoint()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.List_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonList>(Auth, endpoint, ct, CurrentParameters);
-
-			return newData;
+			return EndpointFactory.Build(EntityRequestType.List_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
+
+		protected override Dictionary<string, object> GetParameters()
+		{
+			return CurrentParameters;
+		}
+
 		protected override async Task SubmitData(IJsonList json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});

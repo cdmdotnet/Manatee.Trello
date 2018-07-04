@@ -10,7 +10,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class ActionContext : SynchronizationContext<IJsonAction>
+	internal class ActionContext : DeletableSynchronizationContext<IJsonAction>
 	{
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Action.Fields MemberFields;
@@ -29,8 +29,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		private bool _deleted;
-
 		public ActionDataContext ActionDataContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
@@ -39,13 +37,16 @@ namespace Manatee.Trello.Internal.Synchronization
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Action.Fields.Data |
 			               Action.Fields.Date |
-						   Action.Fields.Type;
+			               Action.Fields.Type;
 			Properties = new Dictionary<string, Property<IJsonAction>>
 				{
 					{
 						nameof(Action.Creator),
 						new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member, IJsonMember>(a),
-						                                  (d, o) => { if (o != null) d.MemberCreator = o.Json; })
+						                                  (d, o) =>
+							                                  {
+								                                  if (o != null) d.MemberCreator = o.Json;
+							                                  })
 					},
 					{
 						nameof(Action.Date),
@@ -65,6 +66,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
+
 		public ActionContext(string id, TrelloAuthorization auth)
 			: base(auth)
 		{
@@ -88,7 +90,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			{
 				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(Action.Fields)).Cast<Action.Fields>().ToList();
-				var availableFields = (Action.Fields)flags.Cast<int>().Sum();
+				var availableFields = (Action.Fields) flags.Cast<int>().Sum();
 
 				var memberFields = availableFields & MemberFields & Action.DownloadedFields;
 				Parameters["fields"] = memberFields.GetDescription();
@@ -102,35 +104,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		public async Task Delete(CancellationToken ct)
+		public override Endpoint GetRefreshEndpoint()
 		{
-			if (_deleted) return;
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Delete,
-			                                     new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
+			return EndpointFactory.Build(EntityRequestType.Action_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
 
-		protected override async Task<IJsonAction> GetData(CancellationToken ct)
+		protected override Dictionary<string, object> GetParameters()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Action_Read_Refresh,
-				                                     new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonAction>(Auth, endpoint, ct, CurrentParameters);
-				MarkInitialized();
-
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return CurrentParameters;
 		}
+
+		protected override Endpoint GetDeleteEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Action_Write_Delete,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
+		}
+
 		protected override async Task SubmitData(IJsonAction json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Action_Write_Update,
@@ -140,6 +130,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Merge(newData);
 			Data.Data = ActionDataContext.Data;
 		}
+
 		protected override void ApplyDependentChanges(IJsonAction json)
 		{
 			Data.Data = ActionDataContext.Data;
@@ -149,13 +140,10 @@ namespace Manatee.Trello.Internal.Synchronization
 				ActionDataContext.ClearChanges();
 			}
 		}
+
 		protected override IEnumerable<string> MergeDependencies(IJsonAction json, bool overwrite)
 		{
 			return ActionDataContext.Merge(json.Data, overwrite);
-		}
-		protected override bool CanUpdate()
-		{
-			return !_deleted;
 		}
 	}
 }

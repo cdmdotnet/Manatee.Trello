@@ -8,7 +8,7 @@ namespace Manatee.Trello.Json
 	public interface IJsonBoardBackground : IJsonCacheable, IAcceptId
 	{
 		/// <summary>
-		/// The bottom color of a gradient background.
+		/// Gets or sets the bottom color of a gradient background.
 		/// </summary>
 		string BottomColor { get; set; }
 		/// <summary>
@@ -40,8 +40,12 @@ namespace Manatee.Trello.Json
 		[JsonSerialize]
 		bool? Tile { get; set; }
 		/// <summary>
-		/// The top color of a gradient background.
+		/// Gets or sets the top color of a gradient background.
 		/// </summary>
 		string TopColor { get; set; }
+		/// <summary>
+		/// Gets or sets the type of background.
+		/// </summary>
+		BoardBackgroundType? Type { get; set; }
 	}
 }

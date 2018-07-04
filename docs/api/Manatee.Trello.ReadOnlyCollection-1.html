@@ -85,6 +85,7 @@
       <div class="level2"><a class="xref" href="Manatee.Trello.ReadOnlyActionCollection.html">ReadOnlyActionCollection</a></div>
       <div class="level2"><a class="xref" href="Manatee.Trello.ReadOnlyAttachmentCollection.html">ReadOnlyAttachmentCollection</a></div>
       <div class="level2"><a class="xref" href="Manatee.Trello.ReadOnlyAttachmentPreviewCollection.html">ReadOnlyAttachmentPreviewCollection</a></div>
+      <div class="level2"><a class="xref" href="Manatee.Trello.ReadOnlyBoardBackgroundCollection.html">ReadOnlyBoardBackgroundCollection</a></div>
       <div class="level2"><a class="xref" href="Manatee.Trello.ReadOnlyBoardBackgroundScalesCollection.html">ReadOnlyBoardBackgroundScalesCollection</a></div>
       <div class="level2"><a class="xref" href="Manatee.Trello.ReadOnlyBoardCollection.html">ReadOnlyBoardCollection</a></div>
       <div class="level2"><a class="xref" href="Manatee.Trello.ReadOnlyBoardMembershipCollection.html">ReadOnlyBoardMembershipCollection</a></div>
@@ -109,12 +110,13 @@
     <h5>Implements</h5>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;T&gt;</div>
     <div><span class="xref">IEnumerable</span>&lt;T&gt;</div>
+    <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_ReadOnlyCollection_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class ReadOnlyCollection&lt;T&gt; : object, IReadOnlyCollection&lt;T&gt;, IEnumerable&lt;T&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class ReadOnlyCollection&lt;T&gt; : object, IReadOnlyCollection&lt;T&gt;, IEnumerable&lt;T&gt;, IRefreshable</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -136,10 +138,10 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1__ctor_Func_System_String__Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.%23ctor(Func%7BSystem.String%7D%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1__ctor_Func_System_String__Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.%23ctor(Func%7BSystem.String%7D%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/ReadOnlyCollection.cs/#L43">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/ReadOnlyCollection.cs/#L46">View Source</a>
   </span>
   <a id="Manatee_Trello_ReadOnlyCollection_1__ctor_" data-uid="Manatee.Trello.ReadOnlyCollection`1.#ctor*"></a>
   <h4 id="Manatee_Trello_ReadOnlyCollection_1__ctor_Func_System_String__Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.ReadOnlyCollection`1.#ctor(Func{System.String},Manatee.Trello.TrelloAuthorization)">ReadOnlyCollection(Func&lt;String&gt;, TrelloAuthorization)</h4>
@@ -176,10 +178,10 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_Item_System_Int32_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.Item(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_Item_System_Int32_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.Item(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/ReadOnlyCollection.cs/#L31">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/ReadOnlyCollection.cs/#L32">View Source</a>
   </span>
   <a id="Manatee_Trello_ReadOnlyCollection_1_Item_" data-uid="Manatee.Trello.ReadOnlyCollection`1.Item*"></a>
   <h4 id="Manatee_Trello_ReadOnlyCollection_1_Item_System_Int32_" data-uid="Manatee.Trello.ReadOnlyCollection`1.Item(System.Int32)">Item[Int32]</h4>
@@ -226,10 +228,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_Limit.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.Limit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_Limit.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.Limit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/ReadOnlyCollection.cs/#L22">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/ReadOnlyCollection.cs/#L22">View Source</a>
   </span>
   <a id="Manatee_Trello_ReadOnlyCollection_1_Limit_" data-uid="Manatee.Trello.ReadOnlyCollection`1.Limit*"></a>
   <h4 id="Manatee_Trello_ReadOnlyCollection_1_Limit" data-uid="Manatee.Trello.ReadOnlyCollection`1.Limit">Limit</h4>
@@ -259,10 +261,10 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_GetEnumerator.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_GetEnumerator.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/ReadOnlyCollection.cs/#L54">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/ReadOnlyCollection.cs/#L57">View Source</a>
   </span>
   <a id="Manatee_Trello_ReadOnlyCollection_1_GetEnumerator_" data-uid="Manatee.Trello.ReadOnlyCollection`1.GetEnumerator*"></a>
   <h4 id="Manatee_Trello_ReadOnlyCollection_1_GetEnumerator" data-uid="Manatee.Trello.ReadOnlyCollection`1.GetEnumerator">GetEnumerator()</h4>
@@ -291,10 +293,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_IncorporateLimit.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.IncorporateLimit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_IncorporateLimit.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.IncorporateLimit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/ReadOnlyCollection.cs/#L88">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/ReadOnlyCollection.cs/#L93">View Source</a>
   </span>
   <a id="Manatee_Trello_ReadOnlyCollection_1_IncorporateLimit_" data-uid="Manatee.Trello.ReadOnlyCollection`1.IncorporateLimit*"></a>
   <h4 id="Manatee_Trello_ReadOnlyCollection_1_IncorporateLimit" data-uid="Manatee.Trello.ReadOnlyCollection`1.IncorporateLimit">IncorporateLimit()</h4>
@@ -307,10 +309,10 @@
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.Refresh(System.Boolean%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601.Refresh(System.Boolean%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/ReadOnlyCollection.cs/#L64">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/ReadOnlyCollection.cs/#L67">View Source</a>
   </span>
   <a id="Manatee_Trello_ReadOnlyCollection_1_Refresh_" data-uid="Manatee.Trello.ReadOnlyCollection`1.Refresh*"></a>
   <h4 id="Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_" data-uid="Manatee.Trello.ReadOnlyCollection`1.Refresh(System.Boolean,CancellationToken)">Refresh(Boolean, CancellationToken)</h4>
@@ -367,6 +369,9 @@
   <div>
       <span class="xref">IEnumerable&lt;&gt;</span>
   </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>
+  </div>
 </article>
           </div>
           
@@ -375,10 +380,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_ReadOnlyCollection_1.md&amp;value=---%0Auid%3A%20Manatee.Trello.ReadOnlyCollection%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/ReadOnlyCollection.cs/#L14" class="contribution-link">View Source</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/ReadOnlyCollection.cs/#L14" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

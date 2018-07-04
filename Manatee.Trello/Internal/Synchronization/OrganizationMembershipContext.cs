@@ -41,6 +41,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			_ownerId = ownerId;
 			Data.Id = id;
 		}
+
+		public override Endpoint GetRefreshEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.OrganizationMembership_Read_Refresh,
+			                             new Dictionary<string, object> {{"_organizationId", _ownerId}, {"_id", Data.Id}});
+		}
 		protected override async Task<IJsonOrganizationMembership> GetData(CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.OrganizationMembership_Read_Refresh,

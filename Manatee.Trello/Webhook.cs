@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -13,7 +14,7 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>
+	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>, IBatchRefresh
 		where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
@@ -71,6 +72,8 @@ namespace Manatee.Trello
 			get { return _target.Value; }
 			set { _target.Value = value; }
 		}
+
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the webhook is updated.
@@ -161,6 +164,17 @@ namespace Manatee.Trello
 		void IMergeJson<IJsonWebhook>.Merge(IJsonWebhook json, bool overwrite)
 		{
 			_context.Merge(json, overwrite);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhook>(content);
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

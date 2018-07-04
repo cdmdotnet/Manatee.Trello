@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an organization.
 	/// </summary>
-	public interface IOrganization : ICanWebhook, IQueryable
+	public interface IOrganization : ICanWebhook, IQueryable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the collection of actions performed on the organization.
@@ -88,12 +88,5 @@ namespace Manatee.Trello
 		/// This permanently deletes the organization from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
-
-		/// <summary>
-		/// Refreshes the organization data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

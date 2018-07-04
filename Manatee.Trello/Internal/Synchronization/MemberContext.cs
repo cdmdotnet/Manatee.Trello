@@ -31,6 +31,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		public ReadOnlyActionCollection Actions { get; }
 		public ReadOnlyBoardCollection Boards { get; }
+		public ReadOnlyBoardBackgroundCollection BoardBackgrounds { get; }
 		public ReadOnlyCardCollection Cards { get; }
 		public ReadOnlyNotificationCollection Notifications { get; }
 		public ReadOnlyOrganizationCollection Organizations { get; }
@@ -113,17 +114,28 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Member), () => Data.Id, auth);
-			Boards = isMe
-				         ? new BoardCollection(typeof(Member), () => Data.Id, auth) 
-				         : new ReadOnlyBoardCollection(typeof(Member), () => Data.Id, auth);
+			if (isMe)
+			{
+				Boards = new BoardCollection(typeof(Member), () => Data.Id, auth);
+				BoardBackgrounds = new BoardBackgroundCollection(() => Data.Id, auth);
+				Organizations = new OrganizationCollection(() => Data.Id, auth);
+				StarredBoards = new StarredBoardCollection(() => Data.Id, auth);
+			}
+			else
+			{
+				Boards = new ReadOnlyBoardCollection(typeof(Member), () => Data.Id, auth);
+				BoardBackgrounds = new ReadOnlyBoardBackgroundCollection(() => Data.Id, auth);
+				Organizations = new ReadOnlyOrganizationCollection(() => Data.Id, auth);
+				StarredBoards = new ReadOnlyStarredBoardCollection(() => Data.Id, auth);
+			}
+			Boards.Refreshed += (s, e) => OnMerged(new[] {nameof(Boards) });
+			BoardBackgrounds.Refreshed += (s, e) => OnMerged(new[] {nameof(BoardBackgrounds) });
+			Organizations.Refreshed += (s, e) => OnMerged(new[] {nameof(Organizations) });
+			StarredBoards.Refreshed += (s, e) => OnMerged(new[] {nameof(StarredBoards) });
 			Cards = new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, () => Data.Id, auth);
-			Organizations = isMe 
-				                ? new OrganizationCollection(() => Data.Id, auth)
-				                : new ReadOnlyOrganizationCollection(() => Data.Id, auth);
+			Cards.Refreshed += (s, e) => OnMerged(new[] {nameof(Cards) });
 			Notifications = new ReadOnlyNotificationCollection(() => Data.Id, auth);
-			StarredBoards = isMe
-				                ? new StarredBoardCollection(() => Data.Id, auth)
-				                : new ReadOnlyStarredBoardCollection(() => Data.Id, auth); 
+			Notifications.Refreshed += (s, e) => OnMerged(new[] { nameof(Notifications) });
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
@@ -178,16 +190,22 @@ namespace Manatee.Trello.Internal.Synchronization
 				}
 				if (parameterFields.HasFlag(Member.Fields.StarredBoards))
 					Parameters["boardStars"] = "true";
+				if (parameterFields.HasFlag(Member.Fields.BoardBackgrounds))
+					Parameters["boardBackgrounds"] = "custom";
 			}
 		}
 
-		protected override async Task<IJsonMember> GetData(CancellationToken ct)
+		public override Endpoint GetRefreshEndpoint()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint, ct, CurrentParameters);
-
-			return newData;
+			return EndpointFactory.Build(EntityRequestType.Member_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
+
+		protected override Dictionary<string, object> GetParameters()
+		{
+			return CurrentParameters;
+		}
+
 		protected override async Task SubmitData(IJsonMember json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});

@@ -9,7 +9,8 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public interface IWebhook<T> : ICacheable where T : class, ICanWebhook
+	public interface IWebhook<T> : ICacheable, IRefreshable
+		where T : class, ICanWebhook
 	{
 		/// <summary>
 		/// Gets or sets a callback URL for the webhook.
@@ -49,12 +50,5 @@ namespace Manatee.Trello
 		/// This permanently deletes the webhook from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
-
-		/// <summary>
-		/// Refreshes the webhook data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

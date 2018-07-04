@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member.
 	/// </summary>
-	public interface IMember : ICanWebhook
+	public interface IMember : ICanWebhook, IRefreshable
 	{
 		/// <summary>
 		/// Gets the collection of actions performed by the member.
@@ -35,6 +35,11 @@ namespace Manatee.Trello
 		/// </summary>
 		IReadOnlyBoardCollection Boards { get; }
 
+		/// <summary>
+		/// Gets the collection of custom board backgrounds uploaded by the member.
+		/// </summary>
+		IReadOnlyCollection<IBoardBackground> BoardBackgrounds { get; }
+		
 		/// <summary>
 		/// Gets the collection of cards assigned to the member.
 		/// </summary>
@@ -99,12 +104,5 @@ namespace Manatee.Trello
 		/// Raised when data on the member is updated.
 		/// </summary>
 		event Action<IMember, IEnumerable<string>> Updated;
-
-		/// <summary>
-		/// Refreshes the member data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

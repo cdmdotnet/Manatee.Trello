@@ -84,10 +84,12 @@
   </div>
   <div classs="implements">
     <h5>Implements</h5>
+    <div><a class="xref" href="Manatee.Trello.IBatchRefreshable.html">IBatchRefreshable</a></div>
     <div><a class="xref" href="Manatee.Trello.IMe.html">IMe</a></div>
     <div><a class="xref" href="Manatee.Trello.IMember.html">IMember</a></div>
     <div><a class="xref" href="Manatee.Trello.ICanWebhook.html">ICanWebhook</a></div>
     <div><a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a></div>
+    <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -144,16 +146,16 @@
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_Me_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Me : Member, IMergeJson&lt;IJsonMember&gt;, IMe, IMember, ICanWebhook, ICacheable</code></pre>
+    <pre><code class="lang-csharp hljs">public class Me : Member, IMergeJson&lt;IJsonMember&gt;, IBatchRefresh, IBatchRefreshable, IMe, IMember, ICanWebhook, ICacheable, IRefreshable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_AvatarSource.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.AvatarSource%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_AvatarSource.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.AvatarSource%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L22">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L22">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_AvatarSource_" data-uid="Manatee.Trello.Me.AvatarSource*"></a>
   <h4 id="Manatee_Trello_Me_AvatarSource" data-uid="Manatee.Trello.Me.AvatarSource">AvatarSource</h4>
@@ -181,10 +183,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_Bio.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Bio%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_Bio.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Bio%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L31">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L31">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_Bio_" data-uid="Manatee.Trello.Me.Bio*"></a>
   <h4 id="Manatee_Trello_Me_Bio" data-uid="Manatee.Trello.Me.Bio">Bio</h4>
@@ -212,10 +214,41 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_Boards.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Boards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_BoardBackgrounds.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.BoardBackgrounds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L39">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L44">View Source</a>
+  </span>
+  <a id="Manatee_Trello_Me_BoardBackgrounds_" data-uid="Manatee.Trello.Me.BoardBackgrounds*"></a>
+  <h4 id="Manatee_Trello_Me_BoardBackgrounds" data-uid="Manatee.Trello.Me.BoardBackgrounds">BoardBackgrounds</h4>
+  <div class="markdown level1 summary"><p>Gets the collection of custom board backgrounds uploaded by the member.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IBoardBackgroundCollection BoardBackgrounds { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.IBoardBackgroundCollection.html">IBoardBackgroundCollection</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_Boards.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Boards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L39">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_Boards_" data-uid="Manatee.Trello.Me.Boards*"></a>
   <h4 id="Manatee_Trello_Me_Boards" data-uid="Manatee.Trello.Me.Boards">Boards</h4>
@@ -243,10 +276,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_Email.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Email%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_Email.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Email%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L43">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L49">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_Email_" data-uid="Manatee.Trello.Me.Email*"></a>
   <h4 id="Manatee_Trello_Me_Email" data-uid="Manatee.Trello.Me.Email">Email</h4>
@@ -274,10 +307,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_FullName.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.FullName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_FullName.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.FullName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L51">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L57">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_FullName_" data-uid="Manatee.Trello.Me.FullName*"></a>
   <h4 id="Manatee_Trello_Me_FullName" data-uid="Manatee.Trello.Me.FullName">FullName</h4>
@@ -305,10 +338,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_Initials.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Initials%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_Initials.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Initials%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L59">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L65">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_Initials_" data-uid="Manatee.Trello.Me.Initials*"></a>
   <h4 id="Manatee_Trello_Me_Initials" data-uid="Manatee.Trello.Me.Initials">Initials</h4>
@@ -336,10 +369,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_Notifications.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Notifications%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_Notifications.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Notifications%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L68">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L74">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_Notifications_" data-uid="Manatee.Trello.Me.Notifications*"></a>
   <h4 id="Manatee_Trello_Me_Notifications" data-uid="Manatee.Trello.Me.Notifications">Notifications</h4>
@@ -367,10 +400,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_Organizations.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Organizations%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_Organizations.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Organizations%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L72">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L78">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_Organizations_" data-uid="Manatee.Trello.Me.Organizations*"></a>
   <h4 id="Manatee_Trello_Me_Organizations" data-uid="Manatee.Trello.Me.Organizations">Organizations</h4>
@@ -398,10 +431,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_Preferences.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Preferences%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_Preferences.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.Preferences%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L76">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L82">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_Preferences_" data-uid="Manatee.Trello.Me.Preferences*"></a>
   <h4 id="Manatee_Trello_Me_Preferences" data-uid="Manatee.Trello.Me.Preferences">Preferences</h4>
@@ -429,10 +462,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_StarredBoards.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.StarredBoards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_StarredBoards.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.StarredBoards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L81">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L87">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_StarredBoards_" data-uid="Manatee.Trello.Me.StarredBoards*"></a>
   <h4 id="Manatee_Trello_Me_StarredBoards" data-uid="Manatee.Trello.Me.StarredBoards">StarredBoards</h4>
@@ -460,10 +493,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me_UserName.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.UserName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me_UserName.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me.UserName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L85">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L91">View Source</a>
   </span>
   <a id="Manatee_Trello_Me_UserName_" data-uid="Manatee.Trello.Me.UserName*"></a>
   <h4 id="Manatee_Trello_Me_UserName" data-uid="Manatee.Trello.Me.UserName">UserName</h4>
@@ -491,6 +524,9 @@
   </table>
   <h3 id="implements">Implements</h3>
   <div>
+      <a class="xref" href="Manatee.Trello.IBatchRefreshable.html">IBatchRefreshable</a>
+  </div>
+  <div>
       <a class="xref" href="Manatee.Trello.IMe.html">IMe</a>
   </div>
   <div>
@@ -502,6 +538,9 @@
   <div>
       <a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a>
   </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>
+  </div>
 </article>
           </div>
           
@@ -510,10 +549,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/feature/175-new-powerup/apiSpec/new?filename=Manatee_Trello_Me.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_Me.md&amp;value=---%0Auid%3A%20Manatee.Trello.Me%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/Manatee.Trello/Me.cs/#L13" class="contribution-link">View Source</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/Me.cs/#L13" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

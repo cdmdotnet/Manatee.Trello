@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -11,7 +12,8 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A read-only collection of custom field definitions.
 	/// </summary>
-	public class ReadOnlyCustomFieldDefinitionCollection : ReadOnlyCollection<ICustomFieldDefinition>
+	public class ReadOnlyCustomFieldDefinitionCollection : ReadOnlyCollection<ICustomFieldDefinition>,
+	                                                       IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>
 	{
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCustomFieldDefinitionCollection"/> class.
@@ -36,6 +38,12 @@ namespace Manatee.Trello
 					field.Json = ja;
 					return field;
 				}));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>.Handle(EntityDeletedEvent<IJsonCustomFieldDefinition> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

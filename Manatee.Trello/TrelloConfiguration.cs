@@ -126,6 +126,14 @@ namespace Manatee.Trello
 			set { _retryPredicate = value; }
 		}
 
+		/// <summary>
+		/// Specifies that changes on one entity will be relationally tracked throughout the system.  This functionality is opt-in; the default is false.
+		/// </summary>
+		/// <remarks>
+		/// When this property is set collections will update automatically for downloaded entities without having to be refreshed.  For instance if a card's <see cref="Card.List"/> property is changed, the list that contains it will remove that card from its collection and the new list will add the card.
+		/// </remarks>
+		public static bool EnableConsistencyProcessing { get; set; }
+
 		internal static Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>> RegisteredPowerUps { get; }
 
 		static TrelloConfiguration()

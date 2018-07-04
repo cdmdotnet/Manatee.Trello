@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Associates a <see cref="IMember"/> to a <see cref="IBoard"/> and indicates any permissions the member has on the board.
 	/// </summary>
-	public interface IBoardMembership : ICacheable
+	public interface IBoardMembership : ICacheable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the creation date of the membership.
@@ -34,12 +34,5 @@ namespace Manatee.Trello
 		/// Raised when data on the membership is updated.
 		/// </summary>
 		event Action<IBoardMembership, IEnumerable<string>> Updated;
-
-		/// <summary>
-		/// Refreshes the board membership data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

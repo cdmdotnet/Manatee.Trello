@@ -20,6 +20,7 @@ namespace Manatee.Trello
 		/// Indicates the maximum number of items to return.
 		/// </summary>
 		public virtual int? Limit { get; set; }
+
 		/// <summary>
 		/// Retrieves the item at the specified index.
 		/// </summary>
@@ -34,6 +35,8 @@ namespace Manatee.Trello
 		internal List<T> Items { get; }
 		internal TrelloAuthorization Auth { get; }
 		internal Dictionary<string, object> AdditionalParameters { get; }
+
+		internal event EventHandler Refreshed;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ReadOnlyCollection{T}"/> object.
@@ -69,6 +72,8 @@ namespace Manatee.Trello
 #else
 				return Task.CompletedTask;
 #endif
+
+			Refreshed?.Invoke(this, new EventArgs());
 
 			return PerformRefresh(force, ct);
 		}

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -13,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an action performed on Trello objects.
 	/// </summary>
-	public class Action : IAction, IMergeJson<IJsonAction>
+	public class Action : IAction, IMergeJson<IJsonAction>, IBatchRefresh
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for actions.
@@ -118,6 +119,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the action is updated.
@@ -260,6 +262,17 @@ namespace Manatee.Trello
 			return Type.HasValue && Type != ActionType.Unknown
 				       ? StringDefinitions[Type.Value](this)
 				       : "Action type could not be determined.";
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonAction>(content);
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

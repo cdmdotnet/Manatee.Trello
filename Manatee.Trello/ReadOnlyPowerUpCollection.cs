@@ -18,7 +18,9 @@ namespace Manatee.Trello
 	public class ReadOnlyPowerUpCollection : ReadOnlyCollection<IPowerUp>
 	{
 		internal ReadOnlyPowerUpCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{

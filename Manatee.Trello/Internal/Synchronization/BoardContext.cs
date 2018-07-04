@@ -10,7 +10,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class BoardContext : SynchronizationContext<IJsonBoard>
+	internal class BoardContext : DeletableSynchronizationContext<IJsonBoard>
 	{
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Board.Fields MemberFields;
@@ -28,8 +28,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				}
 			}
 		}
-
-		private bool _deleted;
 
 		public ReadOnlyActionCollection Actions { get; }
 		public ReadOnlyCardCollection Cards { get; }
@@ -129,14 +127,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Board), () => Data.Id, auth);
+			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions) });
 			Cards = new ReadOnlyCardCollection(typeof(Board), () => Data.Id, auth);
+			Cards.Refreshed += (s, e) => OnMerged(new[] {nameof(Cards) });
 			CustomFields = new CustomFieldDefinitionCollection(() => Data.Id, auth);
+			CustomFields.Refreshed += (s, e) => OnMerged(new[] {nameof(CustomFields) });
 			Labels = new BoardLabelCollection(() => Data.Id, auth);
+			Labels.Refreshed += (s, e) => OnMerged(new[] {nameof(Labels) });
 			Lists = new ListCollection(() => Data.Id, auth);
+			Lists.Refreshed += (s, e) => OnMerged(new[] {nameof(Lists) });
 			Members = new ReadOnlyMemberCollection(EntityRequestType.Board_Read_Members, () => Data.Id, auth);
+			Members.Refreshed += (s, e) => OnMerged(new[] {nameof(Members) });
 			Memberships = new BoardMembershipCollection(() => Data.Id, auth);
+			Memberships.Refreshed += (s, e) => OnMerged(new[] {nameof(Memberships) });
 			PowerUps = new PowerUpCollection(() => Data.Id, auth);
+			PowerUps.Refreshed += (s, e) => OnMerged(new[] {nameof(PowerUps) });
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Board_Read_PowerUpData, () => Data.Id, auth);
+			PowerUpData.Refreshed += (s, e) => OnMerged(new[] { nameof(PowerUpData) });
 
 			BoardPreferencesContext = new BoardPreferencesContext(Auth);
 			BoardPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
@@ -208,35 +215,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		public async Task Delete(CancellationToken ct)
+		public override Endpoint GetRefreshEndpoint()
 		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Delete,
-												 new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
+			return EndpointFactory.Build(EntityRequestType.Board_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
 
-		protected override async Task<IJsonBoard> GetData(CancellationToken ct)
+		protected override Dictionary<string, object> GetParameters()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Refresh,
-													 new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonBoard>(Auth, endpoint, ct, CurrentParameters);
-
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return CurrentParameters;
 		}
+
+		protected override Endpoint GetDeleteEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Board_Write_Delete,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
+		}
+
 		protected override async Task SubmitData(IJsonBoard json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_Update,

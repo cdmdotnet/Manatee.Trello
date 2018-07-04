@@ -2,7 +2,7 @@
 
 namespace Manatee.Trello.UnitTests.Internal.Synchronization
 {
-	internal class SynchronizedData : IAcceptId
+	public class SynchronizedData : IAcceptId
 	{
 		public string Test { get; set; } = "default";
 		public string Dependency { get; set; } = "none";

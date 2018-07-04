@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -13,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a user token.
 	/// </summary>
-	public class Token : IToken, IMergeJson<IJsonToken>
+	public class Token : IToken, IMergeJson<IJsonToken>, IBatchRefresh
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for tokens.
@@ -46,7 +47,7 @@ namespace Manatee.Trello
 			/// </summary>
 			[Display(Description="permissions")]
 			Permissions,
-			// TODO: add
+			// TODO: (#164) add
 			//Webhooks
 		}
 
@@ -127,6 +128,8 @@ namespace Manatee.Trello
 		/// </summary>
 		public ITokenPermission OrganizationPermissions { get; }
 
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
+
 		static Token()
 		{
 			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
@@ -190,6 +193,17 @@ namespace Manatee.Trello
 		void IMergeJson<IJsonToken>.Merge(IJsonToken json, bool overwrite)
 		{
 			_context.Merge(json, overwrite);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonToken>(content);
+			_context.Merge(json);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>

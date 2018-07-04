@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
@@ -9,7 +10,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an option for a custom selection field.
 	/// </summary>
-	public class DropDownOption : IDropDownOption, IMergeJson<IJsonCustomDropDownOption>
+	public class DropDownOption : IDropDownOption, IMergeJson<IJsonCustomDropDownOption>, IBatchRefresh
 	{
 		private readonly Field<CustomFieldDefinition> _field;
 		private readonly Field<string> _text;
@@ -47,6 +48,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		internal DropDownOption(IJsonCustomDropDownOption json, TrelloAuthorization auth, bool created = false)
 		{
@@ -112,6 +114,17 @@ namespace Manatee.Trello
 		void IMergeJson<IJsonCustomDropDownOption>.Merge(IJsonCustomDropDownOption json, bool overwrite)
 		{
 			_context.Merge(json, overwrite);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonCustomDropDownOption>(content);
+			_context.Merge(json);
 		}
 	}
 }

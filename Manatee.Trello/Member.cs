@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -14,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member.
 	/// </summary>
-	public class Member : IMember, IMergeJson<IJsonMember>
+	public class Member : IMember, IMergeJson<IJsonMember>, IBatchRefresh
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for members.
@@ -139,7 +140,11 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the board stars will be downloaded.
 			/// </summary>
-			StarredBoards = 1 << 24
+			StarredBoards = 1 << 24,
+			/// <summary>
+			/// Indicates the board backgrounds will be downloaded.
+			/// </summary>
+			BoardBackgrounds = 1 << 25
 		}
 
 		private readonly Field<string> _avatarUrl;
@@ -200,6 +205,12 @@ namespace Manatee.Trello
 		/// Gets the collection of boards owned by the member.
 		/// </summary>
 		public IReadOnlyBoardCollection Boards => _context.Boards;
+
+		/// <summary>
+		/// Gets the collection of custom board backgrounds uploaded by the member.
+		/// </summary>
+		public IReadOnlyCollection<IBoardBackground> BoardBackgrounds => _context.BoardBackgrounds;
+
 		/// <summary>
 		/// Gets the collection of cards assigned to the member.
 		/// </summary>
@@ -288,7 +299,8 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
-		internal TrelloAuthorization Auth { get; }
+		internal TrelloAuthorization Auth => _context.Auth;
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the member is updated.
@@ -313,7 +325,6 @@ namespace Manatee.Trello
 			: this(id, false, auth) {}
 		internal Member(string id, bool isMe, TrelloAuthorization auth)
 		{
-			Auth = auth;
 			Id = id;
 			_context = new MemberContext(id, isMe, auth);
 			_context.Synchronized += Synchronized;
@@ -376,6 +387,17 @@ namespace Manatee.Trello
 		void IMergeJson<IJsonMember>.Merge(IJsonMember json, bool overwrite)
 		{
 			_context.Merge(json, overwrite);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonMember>(content);
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

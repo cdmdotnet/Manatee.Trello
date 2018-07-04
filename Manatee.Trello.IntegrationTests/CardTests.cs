@@ -237,7 +237,7 @@ namespace Manatee.Trello.IntegrationTests
 
 			await card.Refresh();
 
-			Assert.AreEqual(card.Id, otherCard.Id);
+			otherCard.Id.Should().Be(card.Id);
 		}
 
 		[Test]
@@ -246,8 +246,20 @@ namespace Manatee.Trello.IntegrationTests
 			var card = await TestEnvironment.Current.BuildCard();
 			var otherCard = await card.List.Cards.Add(card);
 
-			Assert.AreNotEqual(card.Id, otherCard.Id);
-			Assert.AreEqual(card.Name, otherCard.Name);
+			otherCard.Id.Should().NotBe(card.Id);
+			otherCard.Name.Should().Be(card.Name);
+		}
+
+		[Test]
+		public async Task CanCopyAndKeepData()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			var label = TestEnvironment.Current.Board.Labels.FirstOrDefault(l => l.Color == LabelColor.Green);
+			await card.Labels.Add(label);
+			var otherCard = await card.List.Cards.Add(card, CardCopyKeepFromSourceOptions.Labels);
+
+			otherCard.Id.Should().NotBe(card.Id);
+			otherCard.Labels.Should().Contain(l => l.Color == LabelColor.Green);
 		}
 	}
 }

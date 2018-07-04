@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -13,10 +14,14 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A collection of labels for boards.
 	/// </summary>
-	public class BoardLabelCollection : ReadOnlyCollection<ILabel>, IBoardLabelCollection
+	public class BoardLabelCollection : ReadOnlyCollection<ILabel>,
+	                                    IBoardLabelCollection,
+	                                    IHandle<EntityDeletedEvent<IJsonLabel>>
 	{
 		internal BoardLabelCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		/// <summary>
 		/// Adds a label to the collection.
@@ -63,6 +68,12 @@ namespace Manatee.Trello
 					board.Json = jb;
 					return board;
 				}));
+		}
+
+		void IHandle<EntityDeletedEvent<IJsonLabel>>.Handle(EntityDeletedEvent<IJsonLabel> message)
+		{
+			var item = Items.FirstOrDefault(c => c.Id == message.Data.Id);
+			Items.Remove(item);
 		}
 	}
 }

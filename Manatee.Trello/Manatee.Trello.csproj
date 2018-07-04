@@ -4,23 +4,17 @@
     <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>A fully object-oriented .Net wrapper for the TrelloAPI.</Description>
-    <Version>3.1.0</Version>
+    <Version>3.2.0</Version>
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/gregsdennis/Manatee.Trello</PackageProjectUrl>
+    <PackageProjectUrl>https://gregsdennis.github.io/Manatee.Trello/</PackageProjectUrl>
     <PackageTags>api wrapper trello manatee</PackageTags>
-    <PackageReleaseNotes>v3.1.0
-Updated member avatar access per Trello's changes.
-Obsoleted Label.Uses.
-Custom fields can be configured to show or not show on the card cover.
-Added starred boards, accessible through the member entity.
-Updated overloads of collection Add() methods to include additional optional parameters.
-All entities can be forcibly refreshed.</PackageReleaseNotes>
+    <PackageReleaseNotes>https://gregsdennis.github.io/Manatee.Trello/release-notes.html</PackageReleaseNotes>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
+    <FileVersion>3.2.0.0</FileVersion>
     <Authors>gregsdennis</Authors>
     <Company>Little Crab Solutions</Company>
   </PropertyGroup>
@@ -36,6 +30,7 @@ All entities can be forcibly refreshed.</PackageReleaseNotes>
 
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Manatee.Trello.xml</DocumentationFile>
+    <RepositoryUrl>https://github.com/gregsdennis/Manatee.Trello</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">

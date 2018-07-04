@@ -14,6 +14,12 @@ namespace Manatee.Trello.UnitTests
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
 
+		[SetUp]
+		public void Setup()
+		{
+			TrelloAuthorization.Default.AppKey = "test";
+		}
+
 		[Test]
 		public async Task CardProcessesWebhook()
 		{
@@ -40,6 +46,168 @@ namespace Manatee.Trello.UnitTests
 				if (properties != null)
 					Console.WriteLine(string.Join("\n", properties));
 				MockHost.ResetRest();
+				TrelloConfiguration.Cache.Clear();
+			}
+		}
+
+		[Test]
+		public async Task CardListChangeDoesNothingWhenOptionDisabled()
+		{
+			try
+			{
+				var cardData = "{\"id\":\"5a72b7ab3711a44643c5ed49\",\"idList\":\"51478f6469fd3d9341001dad\"}";
+				var listData = "{\"id\":\"51478f6469fd3d9341001daf\",\"cards\":[{\"id\":\"5a72b7ab3711a44643c5ed50\"}]}";
+
+				MockHost.MockRest<IJsonCard>(cardData);
+				MockHost.MockRest<IJsonList>(listData);
+
+				var card = _factory.Card("5a72b7ab3711a44643c5ed49");
+				var list = _factory.List("51478f6469fd3d9341001daf");
+
+				await card.Refresh();
+				await list.Refresh();
+
+				list.Cards.Count().Should().Be(1);
+
+				card.List = list;
+
+				list.Cards.Count().Should().Be(1);
+			}
+			finally
+			{
+				MockHost.ResetRest();
+				TrelloConfiguration.EnableConsistencyProcessing = false;
+				TrelloConfiguration.Cache.Clear();
+			}
+		}
+
+		[Test]
+		public async Task CardListChangeProvokesUpdateInListCardCollection()
+		{
+			try
+			{
+				TrelloConfiguration.EnableConsistencyProcessing = true;
+
+				var cardData = "{\"id\":\"5a72b7ab3711a44643c5ed49\",\"idList\":\"51478f6469fd3d9341001dad\"}";
+				var listData = "{\"id\":\"51478f6469fd3d9341001daf\",\"cards\":[{\"id\":\"5a72b7ab3711a44643c5ed50\"}]}";
+
+				MockHost.MockRest<IJsonCard>(cardData);
+				MockHost.MockRest<IJsonList>(listData);
+
+				var card = _factory.Card("5a72b7ab3711a44643c5ed49");
+				var list = _factory.List("51478f6469fd3d9341001daf");
+
+				await card.Refresh();
+				await list.Refresh();
+
+				list.Cards.Count().Should().Be(1);
+
+				card.List = list;
+
+				list.Cards.Count().Should().Be(2);
+			}
+			finally
+			{
+				MockHost.ResetRest();
+				TrelloConfiguration.EnableConsistencyProcessing = false;
+				TrelloConfiguration.Cache.Clear();
+			}
+		}
+
+		[Test]
+		public async Task CardDeleteDoesNothingWhenOptionDisabled()
+		{
+			try
+			{
+				var cardData = "{\"id\":\"5a72b7ab3711a44643c5ed49\",\"idList\":\"51478f6469fd3d9341001dad\"}";
+				var listData = "{\"id\":\"51478f6469fd3d9341001daf\",\"cards\":[{\"id\":\"5a72b7ab3711a44643c5ed49\"}]}";
+
+				MockHost.MockRest<IJsonCard>(cardData);
+				MockHost.MockRest<IJsonList>(listData);
+
+				var card = _factory.Card("5a72b7ab3711a44643c5ed49");
+				var list = _factory.List("51478f6469fd3d9341001daf");
+
+				await card.Refresh();
+				await list.Refresh();
+
+				list.Cards.Count().Should().Be(1);
+
+				await card.Delete();
+
+				list.Cards.Count().Should().Be(1);
+			}
+			finally
+			{
+				MockHost.ResetRest();
+				TrelloConfiguration.EnableConsistencyProcessing = false;
+				TrelloConfiguration.Cache.Clear();
+			}
+		}
+
+		[Test]
+		public async Task CardDeleteProvokesRemovalFromListCardCollection()
+		{
+			try
+			{
+				TrelloConfiguration.EnableConsistencyProcessing = true;
+
+				var cardData = "{\"id\":\"5a72b7ab3711a44643c5ed49\",\"idList\":\"51478f6469fd3d9341001dad\"}";
+				var listData = "{\"id\":\"51478f6469fd3d9341001daf\",\"cards\":[{\"id\":\"5a72b7ab3711a44643c5ed49\"}]}";
+
+				MockHost.MockRest<IJsonCard>(cardData);
+				MockHost.MockRest<IJsonList>(listData);
+
+				var card = _factory.Card("5a72b7ab3711a44643c5ed49");
+				var list = _factory.List("51478f6469fd3d9341001daf");
+
+				await card.Refresh();
+				await list.Refresh();
+
+				list.Cards.Count().Should().Be(1);
+
+				await card.Delete();
+
+				list.Cards.Count().Should().Be(0);
+			}
+			finally
+			{
+				MockHost.ResetRest();
+				TrelloConfiguration.EnableConsistencyProcessing = false;
+				TrelloConfiguration.Cache.Clear();
+			}
+		}
+
+		[Test]
+		public async Task ChecklistsRefreshRaisesCardUpdatedEvent()
+		{
+			try
+			{
+				TrelloConfiguration.EnableConsistencyProcessing = true;
+
+				var cardData = "{\"id\":\"5a72b7ab3711a44643c5ed49\",\"idList\":\"51478f6469fd3d9341001dad\"}";
+				var checkListData = "[]";
+
+				MockHost.MockRest<IJsonCard>(cardData);
+				MockHost.MockRest<List<IJsonCheckList>>(checkListData);
+
+				var card = _factory.Card("5a72b7ab3711a44643c5ed49");
+
+				await card.Refresh();
+
+				List<string> properties = null;
+
+				card.Updated += (s, e) => properties = e.ToList();
+
+				await card.CheckLists.Refresh();
+
+				properties.Should().Contain(nameof(Card.CheckLists));
+			}
+			finally
+			{
+				MockHost.ResetRest();
+				TrelloConfiguration.EnableConsistencyProcessing = false;
+				TrelloConfiguration.Cache.Clear();
 			}
 		}
 	}

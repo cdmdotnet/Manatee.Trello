@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Manatee.Trello.Json;
 using Manatee.Trello.Rest;
@@ -9,14 +11,20 @@ namespace Manatee.Trello.UnitTests
 {
 	public static class MockHost
 	{
+		private static Mock<IRestClient> _client;
+		private static string _currentCaller;
 
-
-		public static Mock<IRestClient> Client { get; private set; } 
+		public static Mock<IRestClient> Client => _client ?? (_client = new Mock<IRestClient>());
 		public static Mock Response { get; private set; }
 
-		public static void MockRest<T>(string content = null)
+		public static void MockRest<T>(string content = null, [CallerMemberName] string caller = null)
 			where T : class
 		{
+			if (_currentCaller != null && _currentCaller != caller)
+				throw new InvalidOperationException("You forgot to reset the mocks, you idiot.");
+
+			_currentCaller = caller;
+
 			var response = new Mock<IRestResponse<T>>();
 			Response = response;
 			response.SetupGet(r => r.StatusCode)
@@ -27,7 +35,8 @@ namespace Manatee.Trello.UnitTests
 				response.SetupGet(r => r.Data)
 				        .Returns(() => TrelloConfiguration.Deserializer.Deserialize<T>(content));
 
-			Client = new Mock<IRestClient>();
+			Client.Setup(c => c.Execute(It.IsAny<IRestRequest>(), It.IsAny<CancellationToken>()))
+			      .ReturnsAsync(response.Object);
 			Client.Setup(c => c.Execute<T>(It.IsAny<IRestRequest>(), It.IsAny<CancellationToken>()))
 			      .ReturnsAsync(response.Object);
 
@@ -46,6 +55,8 @@ namespace Manatee.Trello.UnitTests
 
 		public static void ResetRest()
 		{
+			_client = null;
+			_currentCaller = null;
 			TrelloConfiguration.RestClientProvider = null;
 		}
 

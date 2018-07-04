@@ -1,12 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Manatee.Trello
+﻿namespace Manatee.Trello
 {
 	/// <summary>
 	/// Represents the data associated with a power-up.
 	/// </summary>
-	public interface IPowerUpData : ICacheable
+	public interface IPowerUpData : ICacheable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the ID for the plugin with which this data is associated.
@@ -17,12 +14,5 @@ namespace Manatee.Trello
 		/// Gets the data as a string.  This data will be JSON-encoded.
 		/// </summary>
 		string Value { get; }
-
-		/// <summary>
-		/// Refreshes the power-up data... data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

@@ -1,3 +1,59 @@
+# 3.2.0
+
+*Released on 5 Jul, 2018.*
+
+<span id="feature">feature</span> <span id="patch">patch</span> 
+
+## Summary
+
+([#3](https://github.com/gregsdennis/Manatee.Trello/issues/3)) Support for reading, uploading, and deleting custom board backgrounds.  (Uploading new backgrounds requires a Trello Gold account.)
+
+([#222](https://github.com/gregsdennis/Manatee.Trello/issues/222)) Entities and the collections that contain them are more relational.  For instance if a card is moved to a new list (by assigning the `List` property or by refreshing the card after an online change), the source list's card collection removes the card and the destination list's card collection adds the card.  This is performed completely internally without having to make additional API calls.  This functionality is opt-in via `TrelloConfiguration.EnableConsistencyProcessing`.
+
+([#235](https://github.com/gregsdennis/Manatee.Trello/issues/235)) An issue was discovered where refreshing collections would not raise the `Updated` event on the entities that owned them.  For instance, when a list is refreshed, it fetches the cards as part of the call and the event is raised with "Cards" in the list of properties that updated.  But if the `Cards` property were directly refreshed, the event would not be raised.  Also, none of the collections expose an `Updated` event.  This results in no notification that an update as occurred.  This change raises the event on the entity (in this case, the list) when any of its collections are updated.
+
+([#227](https://github.com/gregsdennis/Manatee.Trello/issues/227)) When copying cards, it's possible to indicate what subset of additional data to copy besides merely property information. Any combination of attachments, checklists, comments, due date,labels, members, and stickers are supported.  This change adds an optional `keep` parameter to the `CardCollection.Add()` overload that takes a source card to duplicate.
+
+([#239](https://github.com/gregsdennis/Manatee.Trello/issues/239)) Trello supports up to 10 items to be retrieved simultaneously through a single bulk call.  To support this, several changes have been introduced, most notably `TrelloProcessor.Refresh()` which takes a collection of entities and manages them into appropriate batches based on size and authorization, if multiple authorizations have been used.
+
+## Changes
+
+### New members
+
+- `IJsonBoardBackground.Type`
+- `IBoardBackground.Type`
+- `IBoardBackground.Delete()`
+- `BoardBackground.Type`
+- `BoardBackground.Delete()`
+- `IMember.BoardBackgrounds`
+- `Member.BoardBackgrounds`
+- `IMe.BoardBackgrounds`
+- `Me.BoardBackgrounds`
+- `static Member.Fields.BoardBackgrounds`
+- `static TrelloConfiguration.EnableConsistencyProcessing`
+- `IJsonCard.KeepFromSource`
+- `static TrelloProcessor.Refresh()`
+
+### New types
+
+- `ReadOnlyBoardBackgroundCollection`
+- `IBoardBackgroundCollection`
+- `BoardBackgroundCollection`
+- `BoardBackgroundType`
+- `CardCopyKeepFromSourceOptions`
+- `IJsonBatch`
+- `IJsonBatchItem`
+- `IRefreshable`
+- `IBatchRefreshable`
+
+### Functional changes
+
+- Custom board backgrounds now downloaded by default as part of member.
+- `ReadOnlyCustomFieldCollection` now properly implements `IReadOnlyCollection<ICustomField>` instead of `IReadOnlyCollection<CustomField>` (interface vs. class).
+- Refreshing a collection now raises the `Updated` event on the collection's owner (e.g. calling `List.Cards.Refresh()` raises `List.Updated`).
+- `CardCollection.Add(ICard card, CancellationToken ct = default(CancellationToken))` becomes `CardCollection.Add(ICard card, CardCopyKeepFromSourceOptions keep = CardCopyKeepFromSourceOptions.None, CancellationToken ct = default(CancellationToken))`.
+- `CustomField.Refresh()` and `PowerUpBase.Refresh()` now work as expected.  Previously, these may have done nothing or failed completely.
+
 # 3.1.0
 
 *Released on 1 Jun, 2018.*
@@ -55,7 +111,7 @@ Functional changes:
 
 - `Member.AvatarUrl` now returns sized image assigned by `static Member.AvatarSize`
 
-Obsoleted the following:
+Obsoleted:
 
 - `Member.Fields.AvatarHash`
 - `Member.Fields.AvatarSource`

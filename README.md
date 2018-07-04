@@ -147,6 +147,8 @@ Features:
         - Read public member data
         - Read/Update authenticated member data
         - Read notifications for authenticated member
+        - Read custom board backgrounds
+        - Delete custom board backgrounds for authenticated member
     - PowerUps
         - Provided base class
     - Searches

@@ -16,7 +16,9 @@ namespace Manatee.Trello
 	public class ReadOnlyNotificationCollection : ReadOnlyCollection<INotification>, IReadOnlyNotificationCollection
 	{
 		internal ReadOnlyNotificationCollection(Func<string> getOwnerId, TrelloAuthorization auth)
-			: base(getOwnerId, auth) {}
+			: base(getOwnerId, auth)
+		{
+		}
 
 		/// <summary>
 		/// Adds a filter to the collection.
@@ -34,7 +36,7 @@ namespace Manatee.Trello
 		/// <param name="filters">A collection of filters.</param>
 		public void Filter(IEnumerable<NotificationType> filters)
 		{
-			var filter = (string)AdditionalParameters["filter"];
+			var filter = (string) AdditionalParameters["filter"];
 			if (!filter.IsNullOrWhiteSpace())
 				filter += ",";
 			filter += filters.Select(a => a.GetDescription()).Join(",");

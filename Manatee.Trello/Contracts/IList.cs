@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public interface IList : ICanWebhook
+	public interface IList : ICanWebhook, IRefreshable
 	{
 		/// <summary>
 		/// Gets the collection of actions performed on the list.
@@ -74,12 +74,5 @@ namespace Manatee.Trello
 		/// Raised when data on the list is updated.
 		/// </summary>
 		event Action<IList, IEnumerable<string>> Updated;
-
-		/// <summary>
-		/// Refreshes the label data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

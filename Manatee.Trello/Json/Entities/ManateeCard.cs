@@ -40,6 +40,7 @@ namespace Manatee.Trello.Json.Entities
 		public string IdLabels { get; set; }
 		public List<IJsonSticker> Stickers { get; set; }
 		public List<IJsonMember> MembersVoted { get; set; }
+		public CardCopyKeepFromSourceOptions KeepFromSource { get; set; }
 		public bool ValidForMerge { get; set; }
 
 		public void FromJson(JsonValue json, JsonSerializer serializer)
@@ -107,6 +108,8 @@ namespace Manatee.Trello.Json.Entities
 			UrlSource.Serialize(json, serializer, "urlSource");
 			IdMembers.Serialize(json, serializer, "idMembers");
 			IdLabels.Serialize(json, serializer, "idLabels");
+			if (KeepFromSource != CardCopyKeepFromSourceOptions.None)
+				KeepFromSource.Serialize(json, serializer, "keepFromSource");
 			return json;
 		}
 	}

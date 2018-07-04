@@ -1,4 +1,7 @@
-﻿namespace Manatee.Trello
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace Manatee.Trello
 {
 	/// <summary>
 	/// Represents a background image for a board.
@@ -39,5 +42,17 @@
 		/// Gets the top color of a gradient background.
 		/// </summary>
 		WebColor TopColor { get; }
+
+		/// <summary>
+		/// Gets the type of background.
+		/// </summary>
+		BoardBackgroundType? Type { get; }
+
+		/// <summary>
+		/// Deletes a custom board background;
+		/// </summary>
+		/// <param name="ct"></param>
+		/// <returns></returns>
+		Task Delete(CancellationToken ct = default(CancellationToken));
 	}
 }
