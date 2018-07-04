@@ -147,6 +147,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => Data.Id, auth);
 			Attachments = new AttachmentCollection(() => Data.Id, auth);
 			CheckLists = new CheckListCollection(() => Data.Id, auth);
+			CheckLists.Refreshed += (s, e) => OnMerged(new[] {nameof(CheckLists)});
 			Comments = new CommentCollection(() => Data.Id, auth);
 			CustomFields = new ReadOnlyCustomFieldCollection(() => Data.Id, auth);
 			Labels = new CardLabelCollection(this, auth);

@@ -171,5 +171,38 @@ namespace Manatee.Trello.UnitTests
 				TrelloConfiguration.Cache.Clear();
 			}
 		}
+
+		[Test]
+		public async Task ChecklistsRefreshRaisesCardUpdatedEvent()
+		{
+			try
+			{
+				TrelloConfiguration.EnableConsistencyProcessing = true;
+
+				var cardData = "{\"id\":\"5a72b7ab3711a44643c5ed49\",\"idList\":\"51478f6469fd3d9341001dad\"}";
+				var checkListData = "[]";
+
+				MockHost.MockRest<IJsonCard>(cardData);
+				MockHost.MockRest<List<IJsonCheckList>>(checkListData);
+
+				var card = _factory.Card("5a72b7ab3711a44643c5ed49");
+
+				await card.Refresh();
+
+				List<string> properties = null;
+
+				card.Updated += (s, e) => properties = e.ToList();
+
+				await card.CheckLists.Refresh();
+
+				properties.Should().Contain(nameof(Card.CheckLists));
+			}
+			finally
+			{
+				MockHost.ResetRest();
+				TrelloConfiguration.EnableConsistencyProcessing = false;
+				TrelloConfiguration.Cache.Clear();
+			}
+		}
 	}
 }
