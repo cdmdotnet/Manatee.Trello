@@ -28,8 +28,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		private bool _deleted;
-
 		static LabelContext()
 		{
 			Parameters = new Dictionary<string, object>();
