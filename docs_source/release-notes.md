@@ -12,6 +12,8 @@
 
 ([#235](https://github.com/gregsdennis/Manatee.Trello/issues/235)) An issue was discovered where refreshing collections would not raise the `Updated` event on the entities that owned them.  For instance, when a list is refreshed, it fetches the cards as part of the call and the event is raised with "Cards" in the list of properties that updated.  But if the `Cards` property were directly refreshed, the event would not be raised.  Also, none of the collections expose an `Updated` event.  This results in no notification that an update as occurred.  This change raises the event on the entity (in this case, the list) when any of its collections are updated.
 
+([#227](https://github.com/gregsdennis/Manatee.Trello/issues/227)) When copying cards, it's possible to indicate what subset of additional data to copy besides merely property information. Any combination of attachments, checklists, comments, due date,labels, members, and stickers are supported.  This change adds an optional `keep` parameter to the `CardCollection.Add()` overload that takes a source card to duplicate.
+
 ## Changes
 
 ### New members
@@ -34,12 +36,14 @@
 - `IBoardBackgroundCollection`
 - `BoardBackgroundCollection`
 - `BoardBackgroundType`
+- `CardCopyKeepFromSourceOptions`
 
 ### Functional changes
 
 - Custom board backgrounds now downloaded by default as part of member.
 - `ReadOnlyCustomFieldCollection` now properly implements `IReadOnlyCollection<ICustomField>` instead of `IReadOnlyCollection<CustomField>` (interface vs. class).
 - Refreshing a collection now raises the `Updated` event on the collection's owner (e.g. calling `List.Cards.Refresh()` raises `List.Updated`).
+- `CardCollection.Add(ICard card, CancellationToken ct = default(CancellationToken))` becomes `CardCollection.Add(ICard card, CardCopyKeepFromSourceOptions keep = CardCopyKeepFromSourceOptions.None, CancellationToken ct = default(CancellationToken))`.
 
 # 3.1.0
 
