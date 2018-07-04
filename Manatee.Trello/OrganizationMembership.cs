@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -12,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the permission level a member has on an organization.
 	/// </summary>
-	public class OrganizationMembership : IOrganizationMembership, IMergeJson<IJsonOrganizationMembership>
+	public class OrganizationMembership : IOrganizationMembership, IMergeJson<IJsonOrganizationMembership>, IBatchRefresh
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<OrganizationMembershipType?> _memberType;
@@ -58,6 +59,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the membership is updated.
@@ -109,6 +111,17 @@ namespace Manatee.Trello
 		void IMergeJson<IJsonOrganizationMembership>.Merge(IJsonOrganizationMembership json, bool overwrite)
 		{
 			_context.Merge(json, overwrite);
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonOrganizationMembership>(content);
+			_context.Merge(json);
 		}
 	}
 }

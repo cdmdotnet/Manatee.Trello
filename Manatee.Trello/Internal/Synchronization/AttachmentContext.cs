@@ -9,7 +9,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class AttachmentContext : SynchronizationContext<IJsonAttachment>
+	internal class AttachmentContext : DeletableSynchronizationContext<IJsonAttachment>
 	{
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Attachment.Fields MemberFields;
@@ -29,7 +29,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 
 		private readonly string _ownerId;
-		private bool _deleted;
 
 		public ReadOnlyAttachmentPreviewCollection Previews { get; }
 
@@ -133,23 +132,29 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		protected override async Task<IJsonAttachment> GetData(CancellationToken ct)
+		public override Endpoint GetRefreshEndpoint()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Read_Refresh,
-				                                     new Dictionary<string, object> { { "_cardId", _ownerId }, { "_id", Data.Id } });
-				var newData = await JsonRepository.Execute<IJsonAttachment>(Auth, endpoint, ct, CurrentParameters);
+			return EndpointFactory.Build(EntityRequestType.Attachment_Read_Refresh,
+			                             new Dictionary<string, object>
+				                             {
+					                             {"_cardId", _ownerId},
+					                             {"_id", Data.Id}
+				                             });
+		}
 
-				MarkInitialized();
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+		protected override Dictionary<string, object> GetParameters()
+		{
+			return CurrentParameters;
+		}
+
+		protected override Endpoint GetDeleteEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete,
+			                             new Dictionary<string, object>
+				                             {
+					                             {"_cardId", _ownerId},
+					                             {"_id", Data.Id}
+				                             }); ;
 		}
 
 		protected override async Task SubmitData(IJsonAttachment json, CancellationToken ct)
@@ -165,23 +170,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			Merge(newData);
 		}
 
-		public async Task Delete(CancellationToken ct)
-		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Attachment_Write_Delete,
-			                                     new Dictionary<string, object>
-				                                     {
-					                                     {"_cardId", _ownerId},
-					                                     {"_id", Data.Id}
-				                                     });
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
-		}
-
 		protected override IEnumerable<string> MergeDependencies(IJsonAttachment json, bool overwrite)
 		{
 			var properties = new List<string>();
@@ -193,11 +181,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 
 			return properties;
-		}
-
-		protected override bool CanUpdate()
-		{
-			return !_deleted;
 		}
 	}
 }

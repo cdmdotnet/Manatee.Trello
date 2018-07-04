@@ -10,7 +10,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class CardContext : SynchronizationContext<IJsonCard>
+	internal class CardContext : DeletableSynchronizationContext<IJsonCard>
 	{
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Card.Fields MemberFields;
@@ -28,8 +28,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				}
 			}
 		}
-
-		private bool _deleted;
 
 		public ReadOnlyActionCollection Actions { get; }
 		public AttachmentCollection Attachments { get; }
@@ -231,37 +229,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		public async Task Delete(CancellationToken ct)
+		public override Endpoint GetRefreshEndpoint()
 		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Delete,
-			                                     new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
+			return EndpointFactory.Build(EntityRequestType.Card_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
 
-		protected override async Task<IJsonCard> GetData(CancellationToken ct)
+		protected override Dictionary<string, object> GetParameters()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Refresh, 
-				                                     new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCard>(Auth, endpoint, ct, CurrentParameters);
-
-				MarkInitialized();
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return CurrentParameters;
 		}
+
+		protected override Endpoint GetDeleteEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Card_Write_Delete,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
+		}
+
 		protected override async Task SubmitData(IJsonCard json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Write_Update,
@@ -328,10 +312,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 
 			return properties;
-		}
-		protected override bool CanUpdate()
-		{
-			return !_deleted;
 		}
 	}
 }

@@ -8,7 +8,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member's board star.
 	/// </summary>
-	public interface IStarredBoard : ICacheable
+	public interface IStarredBoard : ICacheable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the board that is starred.
@@ -32,12 +32,5 @@ namespace Manatee.Trello
 		/// This permanently deletes the star from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
-
-		/// <summary>
-		/// Refreshes the star data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

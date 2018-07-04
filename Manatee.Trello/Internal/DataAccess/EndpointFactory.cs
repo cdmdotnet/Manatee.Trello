@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manatee.Trello.Rest;
-// ReSharper disable ThrowingSystemException
 
 namespace Manatee.Trello.Internal.DataAccess
 {
@@ -20,6 +19,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Attachment_Read_Refresh, () => new Endpoint(RestMethod.Get, "cards", "_cardId", "attachments", "_id")},
 					{EntityRequestType.Attachment_Write_Delete, () => new Endpoint(RestMethod.Delete, "cards", "_cardId", "attachments", "_id")},
 					{EntityRequestType.Attachment_Write_Update, () => new Endpoint(RestMethod.Put, "cards", "_cardId", "attachments", "_id")},
+					{EntityRequestType.Batch_Read_Refresh, () => new Endpoint(RestMethod.Get, "batch")},
 					{EntityRequestType.Board_Read_Actions, () => new Endpoint(RestMethod.Get, "boards", "_id", "actions")},
 					{EntityRequestType.Board_Read_Cards, () => new Endpoint(RestMethod.Get, "boards", "_id", "cards")},
 					{EntityRequestType.Board_Read_CardsForMember, () => new Endpoint(RestMethod.Get, "boards", "_id", "members", "_idMember", "cards")},
@@ -73,6 +73,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.CheckList_Write_AddCheckItem, () => new Endpoint(RestMethod.Post, "checklists", "_id", "checkItems")},
 					{EntityRequestType.CheckList_Write_Delete, () => new Endpoint(RestMethod.Delete, "checklists", "_id")},
 					{EntityRequestType.CheckList_Write_Update, () => new Endpoint(RestMethod.Put, "checklists", "_id")},
+					{EntityRequestType.CustomField_Read_Refresh, () => new Endpoint(RestMethod.Get, "card", "_cardId", "customFieldItems", "_id")},
 					{EntityRequestType.CustomField_Write_Update, () => new Endpoint(RestMethod.Put, "card", "_cardId", "customField", "_id", "item")},
 					{EntityRequestType.CustomFieldDefinition_Read_Options, () => new Endpoint(RestMethod.Get, "customFields", "_id", "options")},
 					{EntityRequestType.CustomFieldDefinition_Read_Refresh, () => new Endpoint(RestMethod.Get, "customFields", "_id")},
@@ -120,6 +121,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.OrganizationMembership_Read_Refresh, () => new Endpoint(RestMethod.Get, "organizations", "_organizationId", "memberships", "_id")},
 					{EntityRequestType.OrganizationMembership_Write_Update, () => new Endpoint(RestMethod.Put, "organizations", "_organizationId", "memberships", "_id")},
 					{EntityRequestType.OrganizationPreferences_Read_Refresh, () => new Endpoint(RestMethod.Get, "organizations", "_id", "prefs")},
+					{EntityRequestType.PowerUp_Read_Refresh, () => new Endpoint(RestMethod.Get, "boards", "_boardId", "plugins", "_id")},
 					{EntityRequestType.Service_Read_Me, () => new Endpoint(RestMethod.Get, "members", "me")},
 					{EntityRequestType.Service_Read_Search, () => new Endpoint(RestMethod.Get, "search")},
 					{EntityRequestType.Service_Read_SearchMembers, () => new Endpoint(RestMethod.Get, "search", "members")},

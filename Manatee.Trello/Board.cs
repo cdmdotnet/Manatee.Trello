@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -14,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a board.
 	/// </summary>
-	public class Board : IBoard, IMergeJson<IJsonBoard>
+	public class Board : IBoard, IMergeJson<IJsonBoard>, IBatchRefresh
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for boards.
@@ -352,7 +353,8 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
-		internal TrelloAuthorization Auth { get; }
+		internal TrelloAuthorization Auth => _context.Auth;
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the board is updated.
@@ -373,7 +375,6 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided, <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public Board(string id, TrelloAuthorization auth = null)
 		{
-			Auth = auth;
 			_context = new BoardContext(id, auth);
 			_context.Synchronized += Synchronized;
 			Id = id;
@@ -456,6 +457,17 @@ namespace Manatee.Trello
 		public override string ToString()
 		{
 			return Name;
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonBoard>(content);
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

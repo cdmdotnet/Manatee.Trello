@@ -25,6 +25,8 @@ namespace Manatee.Trello.Json
 					{typeof (IJsonActionOldData), () => new ManateeActionOldData()},
 					{typeof (IJsonAttachment), () => new ManateeAttachment()},
 					{typeof (IJsonBadges), () => new ManateeBadges()},
+					{typeof (IJsonBatch), () => new ManateeBatch()},
+					{typeof (IJsonBatchItem), () => new ManateeBatchItem()},
 					{typeof (IJsonBoard), () => new ManateeBoard()},
 					{typeof (IJsonBoardBackground), () => new ManateeBoardBackground()},
 					{typeof (IJsonBoardMembership), () => new ManateeBoardMembership()},

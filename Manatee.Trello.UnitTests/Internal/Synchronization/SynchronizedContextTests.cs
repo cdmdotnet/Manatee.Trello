@@ -9,6 +9,19 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 	[TestFixture]
 	public class SynchronizedContextTests
 	{
+		[SetUp]
+		public void Setup()
+		{
+			MockHost.MockRest<SynchronizedData>();
+			TrelloAuthorization.Default.AppKey = "test";
+		}
+
+		[TearDown]
+		public void TearDown()
+		{
+			MockHost.ResetRest();
+		}
+
 		[Test]
 		public void GetValueDoesNotRetrieve()
 		{

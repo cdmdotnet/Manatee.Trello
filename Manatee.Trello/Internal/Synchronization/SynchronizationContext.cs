@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Eventing;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
@@ -18,9 +19,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		private DateTime _expires;
 
 		public abstract bool HasChanges { get; }
+		public TrelloAuthorization Auth { get; }
 
 		protected bool ManagesSubmissions { get; }
-		protected TrelloAuthorization Auth { get; }
 
 		public event Action<IEnumerable<string>> Synchronized;
 
@@ -166,9 +167,19 @@ namespace Manatee.Trello.Internal.Synchronization
 				}, ct);
 		}
 
-		protected virtual Task<TJson> GetData(CancellationToken ct)
+		public virtual Endpoint GetRefreshEndpoint()
 		{
-			return Task.FromResult(Data);
+			throw new NotImplementedException();
+		}
+
+		protected virtual async Task<TJson> GetData(CancellationToken ct)
+		{
+			var endpoint = GetRefreshEndpoint();
+			var parameters = GetParameters();
+			var newData = await JsonRepository.Execute<TJson>(Auth, endpoint, ct, parameters);
+
+			MarkInitialized();
+			return newData;
 		}
 		protected virtual Task SubmitData(TJson json, CancellationToken ct)
 		{
@@ -179,6 +190,11 @@ namespace Manatee.Trello.Internal.Synchronization
 #endif
 		}
 		protected virtual void ApplyDependentChanges(TJson json) {}
+
+		protected virtual Dictionary<string, object> GetParameters()
+		{
+			return new Dictionary<string, object>();
+		}
 
 		protected sealed override async Task<object> GetBasicData(CancellationToken ct)
 		{

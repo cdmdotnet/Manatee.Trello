@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
@@ -33,6 +34,12 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = json.Id;
 
 			Merge(json);
+		}
+
+		public override Endpoint GetRefreshEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.PowerUp_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
 	}
 }

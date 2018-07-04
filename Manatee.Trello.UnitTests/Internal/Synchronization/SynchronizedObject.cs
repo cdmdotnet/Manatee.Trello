@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
+using Manatee.Trello.Rest;
 
 namespace Manatee.Trello.UnitTests.Internal.Synchronization
 {
@@ -37,6 +39,11 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 		{
 		}
 
+		public override Endpoint GetRefreshEndpoint()
+		{
+			return new Endpoint(RestMethod.Get);
+		}
+
 		protected override async Task<SynchronizedData> GetData(CancellationToken ct)
 		{
 			RetrievalCount++;
@@ -56,7 +63,7 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 
 		public Task RequestDependencyChange(string propertyName, CancellationToken ct)
 		{
-			return  HandleSubmitRequested(propertyName, ct);
+			return HandleSubmitRequested(propertyName, ct);
 		}
 
 		protected override bool CanUpdate()

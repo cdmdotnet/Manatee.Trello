@@ -88,6 +88,8 @@ namespace Manatee.Trello.Json
 			serializer.AbstractionMap.Map<IJsonActionOldData, ManateeActionOldData>();
 			serializer.AbstractionMap.Map<IJsonAttachment, ManateeAttachment>();
 			serializer.AbstractionMap.Map<IJsonBadges, ManateeBadges>();
+			serializer.AbstractionMap.Map<IJsonBatch, ManateeBatch>();
+			serializer.AbstractionMap.Map<IJsonBatchItem, ManateeBatchItem>();
 			serializer.AbstractionMap.Map<IJsonBoard, ManateeBoard>();
 			serializer.AbstractionMap.Map<IJsonBoardBackground, ManateeBoardBackground>();
 			serializer.AbstractionMap.Map<IJsonBoardMembership, ManateeBoardMembership>();

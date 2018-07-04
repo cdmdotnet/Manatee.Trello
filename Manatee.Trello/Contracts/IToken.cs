@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a user token.
 	/// </summary>
-	public interface IToken : ICacheable
+	public interface IToken : ICacheable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the name of the application associated with the token.
@@ -57,12 +57,5 @@ namespace Manatee.Trello
 		/// This permanently deletes the token from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
-
-		/// <summary>
-		/// Refreshes the token data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

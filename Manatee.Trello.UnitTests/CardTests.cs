@@ -14,6 +14,12 @@ namespace Manatee.Trello.UnitTests
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
 
+		[SetUp]
+		public void Setup()
+		{
+			TrelloAuthorization.Default.AppKey = "test";
+		}
+
 		[Test]
 		public async Task CardProcessesWebhook()
 		{

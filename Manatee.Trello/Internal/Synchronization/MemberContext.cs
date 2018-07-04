@@ -195,13 +195,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		protected override async Task<IJsonMember> GetData(CancellationToken ct)
+		public override Endpoint GetRefreshEndpoint()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonMember>(Auth, endpoint, ct, CurrentParameters);
-
-			return newData;
+			return EndpointFactory.Build(EntityRequestType.Member_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
+
+		protected override Dictionary<string, object> GetParameters()
+		{
+			return CurrentParameters;
+		}
+
 		protected override async Task SubmitData(IJsonMember json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});

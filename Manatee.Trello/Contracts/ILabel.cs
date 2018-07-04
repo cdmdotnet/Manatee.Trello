@@ -7,7 +7,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// A label.
 	/// </summary>
-	public interface ILabel : ICacheable
+	public interface ILabel : ICacheable, IRefreshable
 	{
 		/// <summary>
 		/// Gets the <see cref="Board"/> on which the label is defined.
@@ -42,12 +42,5 @@ namespace Manatee.Trello
 		/// This permanently deletes the label from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
 		Task Delete(CancellationToken ct = default(CancellationToken));
-
-		/// <summary>
-		/// Refreshes the label data.
-		/// </summary>
-		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken));
 	}
 }

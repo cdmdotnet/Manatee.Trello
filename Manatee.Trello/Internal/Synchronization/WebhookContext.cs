@@ -7,11 +7,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class WebhookContext<T> : SynchronizationContext<IJsonWebhook>
+	internal class WebhookContext<T> : DeletableSynchronizationContext<IJsonWebhook>
 		where T : class, ICanWebhook
 	{
-		private bool _deleted;
-
 		static WebhookContext()
 		{
 			Properties = new Dictionary<string, Property<IJsonWebhook>>
@@ -37,7 +35,7 @@ namespace Manatee.Trello.Internal.Synchronization
 						new Property<IJsonWebhook, T>(
 							(d, a) => d.IdModel == null
 								          ? null
-								          : TrelloConfiguration.Cache.Find<T>(d.IdModel) ?? BuildModel(d.IdModel),
+								          : TrelloConfiguration.Cache.Find<T>(d.IdModel) ?? BuildModel(d.IdModel, a),
 							(d, o) => d.IdModel = o?.Id)
 					},
 				};
@@ -65,37 +63,19 @@ namespace Manatee.Trello.Internal.Synchronization
 			Merge(data);
 			return data.Id;
 		}
-		public async Task Delete(CancellationToken ct)
+
+		public override Endpoint GetRefreshEndpoint()
 		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Delete, 
-			                                     new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
+			return EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
 
-		protected override async Task<IJsonWebhook> GetData(CancellationToken ct)
+		protected override Endpoint GetDeleteEndpoint()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Read_Refresh,
-				                                     new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonWebhook>(Auth, endpoint, ct);
-				MarkInitialized();
-
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return EndpointFactory.Build(EntityRequestType.Webhook_Write_Delete,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
+
 		protected override async Task SubmitData(IJsonWebhook json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Webhook_Write_Update,
@@ -103,14 +83,10 @@ namespace Manatee.Trello.Internal.Synchronization
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
 		}
-		protected override bool CanUpdate()
-		{
-			return !_deleted;
-		}
 
-		private static T BuildModel(string id)
+		private static T BuildModel(string id, TrelloAuthorization auth)
 		{
-			return (T) Activator.CreateInstance(typeof (T), id, null);
+			return (T) Activator.CreateInstance(typeof (T), id, auth);
 		}
 	}
 }
