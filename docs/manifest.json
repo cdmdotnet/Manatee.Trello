@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Action.Fields.html",
-          "hash": "fsSb1bbEhqyXiClWt/i5+w=="
+          "hash": "lf9EbcG6EjGeryZP2YFwWg=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Action.html",
-          "hash": "7Qf0dmsA2q/oNfKgIoR//Q=="
+          "hash": "8uA88yde6i9m6snxgPHjCA=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ActionData.html",
-          "hash": "MFpknByhU48OUpoMlvKhng=="
+          "hash": "gLDaIp1f/nSzPCfbarNBNA=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ActionType.html",
-          "hash": "6X5ta1HEPR1F6p1PFbI09g=="
+          "hash": "Ts5GCgOlrdjmT7l8OKvkzg=="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Attachment.Fields.html",
-          "hash": "AHE8cgqCmY3AePznn9Crdw=="
+          "hash": "qWWOErLqJqERLX64uQC9sg=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Attachment.html",
-          "hash": "RZ0ocfMx0L6rZdR47oMqJQ=="
+          "hash": "QFQe4BYbpFAp1QpmEBveLQ=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.AttachmentCollection.html",
-          "hash": "4mr/BH46/5dMDwwSnv/PPA=="
+          "hash": "1aYOpLwBIA5OGXKXr6HUvA=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.AvatarSize.html",
-          "hash": "zWD2ZwbTX5QGjpjZT0bGVA=="
+          "hash": "xFXYUq6Ot/UhDXwhh1miPg=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.AvatarSource.html",
-          "hash": "c7ebVTN1v2Gsx+6/TAZe0w=="
+          "hash": "zql5FS/TpFfX+olIPZeu3w=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Badges.html",
-          "hash": "t9ACGGBK+IcAa/NPPOPyKg=="
+          "hash": "nB4He5lnDi0yp9rGIWMdsA=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Board.Fields.html",
-          "hash": "vi2EgvlBBBiQrLSRAIik5A=="
+          "hash": "GPpdL+9J9bUYcZCpNEWOeQ=="
         }
       },
       "is_incremental": false,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Board.html",
-          "hash": "f1EJQLH3ZBBe/dvFBYzmHw=="
+          "hash": "swWMW5TJQGmmsM5c4YeTug=="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardBackground.html",
-          "hash": "0pSWM+R2OBj0/ADObtP83Q=="
+          "hash": "TB8SREJDDFXjVcdWRjbiyg=="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardBackgroundBrightness.html",
-          "hash": "jBOjk7CZMWwd76rCvXrLJg=="
+          "hash": "G6CDX1QhtrSkFPa/CDeRCg=="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardBackgroundCollection.html",
-          "hash": "zaxfLYj80tIhsHKe/x5ekw=="
+          "hash": "P8IX6dlhu512rGMgaZf4WA=="
         }
       },
       "is_incremental": false,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardBackgroundType.html",
-          "hash": "2aXnz839AqMk4ctlJJDVVw=="
+          "hash": "467b9hWMHADWCw/8u2JaCw=="
         }
       },
       "is_incremental": false,
@@ -213,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardCollection.html",
-          "hash": "USR8pR9koM6Ny5xuCiqgCQ=="
+          "hash": "ztcxh3MLdtTqxPYWveXZ1w=="
         }
       },
       "is_incremental": false,
@@ -225,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardCommentPermission.html",
-          "hash": "pE756Z0AW2jvmMWcqqsXqA=="
+          "hash": "xUA/GzSDHxTI4NGAI0PbAw=="
         }
       },
       "is_incremental": false,
@@ -237,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardExtensions.html",
-          "hash": "OtzbNyLLvj8QK+Jx3up80w=="
+          "hash": "jipB9Oj2fFpApVpx4x4+lQ=="
         }
       },
       "is_incremental": false,
@@ -249,7 +249,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardFilter.html",
-          "hash": "3AdN2lD8qZOgjuYBDe3gow=="
+          "hash": "JmPyGMIO246lX9TqFSFpgw=="
         }
       },
       "is_incremental": false,
@@ -261,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardInvitationPermission.html",
-          "hash": "u6X+HanfXDDVC+hvqhsEjw=="
+          "hash": "s7j64PmJ+hh/6OPLcLMRTw=="
         }
       },
       "is_incremental": false,
@@ -273,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardLabelCollection.html",
-          "hash": "iC6LBVU/db2/bJ7ajW0X5A=="
+          "hash": "UCHaGo5V24y1NopWeaMGDQ=="
         }
       },
       "is_incremental": false,
@@ -285,7 +285,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardMembership.html",
-          "hash": "KOCXdLy1qqSliFbeD4+1kQ=="
+          "hash": "pdMtDU7Y9IhJum+VcvW9ug=="
         }
       },
       "is_incremental": false,
@@ -297,7 +297,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardMembershipCollection.html",
-          "hash": "lmFx5wtL5ajUZrZ+yE5dIw=="
+          "hash": "yyRLLIU12Be7hZ4XNVEG2g=="
         }
       },
       "is_incremental": false,
@@ -309,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardMembershipType.html",
-          "hash": "ihheBVV88/ViWTUNa1R9cA=="
+          "hash": "qIcJFPMZ/7vIcgqBMk43cw=="
         }
       },
       "is_incremental": false,
@@ -321,7 +321,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardPermissionLevel.html",
-          "hash": "SmP93YohxDbQa123T2fVxw=="
+          "hash": "05Az31mJ5T7DFF+r9s1K3g=="
         }
       },
       "is_incremental": false,
@@ -333,7 +333,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardPersonalPreferences.html",
-          "hash": "FIhCp33IhNDO5nJvMiFS2w=="
+          "hash": "/MBG1cOnlofeyC3o4XiZHA=="
         }
       },
       "is_incremental": false,
@@ -345,7 +345,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardPreferences.html",
-          "hash": "3Y2Z1XvfMfS3pN91wPL5SA=="
+          "hash": "lTKyjTBsSbssZp4twbA5dQ=="
         }
       },
       "is_incremental": false,
@@ -357,7 +357,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.BoardVotingPermission.html",
-          "hash": "KmNni3fwzQgEx8nlqzdxMQ=="
+          "hash": "f9jGTO6RC3MOJQ+mbF622w=="
         }
       },
       "is_incremental": false,
@@ -369,7 +369,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Card.Fields.html",
-          "hash": "BGvQRLXBNb2AHj1lD7Ed3w=="
+          "hash": "BZVf8M9fL8KYfD+qRkFGCw=="
         }
       },
       "is_incremental": false,
@@ -381,7 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Card.html",
-          "hash": "zgdH0X3C1Ur5MQO2l9J9Xw=="
+          "hash": "vcep4IWkKOOvHPKr+87/OQ=="
         }
       },
       "is_incremental": false,
@@ -393,7 +393,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CardAgingPowerUp.html",
-          "hash": "pZ0KXK/7yXcN5C/goPljeg=="
+          "hash": "Vs3fkyvLGljCovljEulpKg=="
         }
       },
       "is_incremental": false,
@@ -405,7 +405,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CardAgingStyle.html",
-          "hash": "ajRRMs3Y6yLnEfUYdX/S8Q=="
+          "hash": "/3dqe2WefAxfXr1zMws5Fw=="
         }
       },
       "is_incremental": false,
@@ -417,7 +417,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CardCollection.html",
-          "hash": "KDhT6HhF/oFF3hhAfxq+Tg=="
+          "hash": "W/6nU5EADPzIW/edCFY4Qg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Manatee.Trello.CardCopyKeepFromSourceOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Manatee.Trello.CardCopyKeepFromSourceOptions.html",
+          "hash": "FRjEdRDTM2Ou2mb3A20tYA=="
         }
       },
       "is_incremental": false,
@@ -429,7 +441,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CardFilter.html",
-          "hash": "ngfi35FN0LfrLBRLyyVdiA=="
+          "hash": "RBTW0LM9Ks6LytI8HALzVw=="
         }
       },
       "is_incremental": false,
@@ -441,7 +453,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CardLabelCollection.html",
-          "hash": "Zt5PPOm5P7EsPtQf6fBo/A=="
+          "hash": "4xEdSDV8UYw2SZ2pTbw8gA=="
         }
       },
       "is_incremental": false,
@@ -453,7 +465,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CardStickerCollection.html",
-          "hash": "lM58I8KmS/IchW6Tbp+KyA=="
+          "hash": "yTrRa2GafiI0xD2NJ4aMRA=="
         }
       },
       "is_incremental": false,
@@ -465,7 +477,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CheckBoxField.html",
-          "hash": "4sWKc2Ch63Ql47CKU/ht2w=="
+          "hash": "FWXbcAWmsAYrfJpGZwKSQA=="
         }
       },
       "is_incremental": false,
@@ -477,7 +489,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CheckItem.Fields.html",
-          "hash": "99OUKPSeXiiV8XLS7PP1HQ=="
+          "hash": "m423vl/hP2WT6q6DdDTOdw=="
         }
       },
       "is_incremental": false,
@@ -489,7 +501,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CheckItem.html",
-          "hash": "zU89LqssaD6hppYkU+ZK5w=="
+          "hash": "A920xd9bY3C7KLD8PrtWQg=="
         }
       },
       "is_incremental": false,
@@ -501,7 +513,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CheckItemCollection.html",
-          "hash": "dXuHb7bDmiu9L445//ZGVA=="
+          "hash": "e4x+nXv6bexY3qqMpu0U4g=="
         }
       },
       "is_incremental": false,
@@ -513,7 +525,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CheckItemState.html",
-          "hash": "+b1wmUxMK7PfN2GCHwsyVQ=="
+          "hash": "WNDt4BZirPUBVBxqVDRp8g=="
         }
       },
       "is_incremental": false,
@@ -525,7 +537,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CheckList.Fields.html",
-          "hash": "32k/jysKX0iTB+e3pD4mDg=="
+          "hash": "qnt+1rm2aLYQmvJ4Hw14uQ=="
         }
       },
       "is_incremental": false,
@@ -537,7 +549,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CheckList.html",
-          "hash": "BIavgCiHrSJS3oZdlVQ3qg=="
+          "hash": "SvLivTWgEJj956IANS90Lg=="
         }
       },
       "is_incremental": false,
@@ -549,7 +561,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CheckListCollection.html",
-          "hash": "4KD5e9aUckwqYCFEX9mP3g=="
+          "hash": "n5mlaVlfDKgMGmNsURwPTA=="
         }
       },
       "is_incremental": false,
@@ -561,7 +573,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CommentCollection.html",
-          "hash": "eJeH7nXL/dzvZTK4spxeWw=="
+          "hash": "lWMTamc1+PBD19Yp7AKCrQ=="
         }
       },
       "is_incremental": false,
@@ -573,7 +585,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CustomField-1.html",
-          "hash": "IJ1QEbVhHCNO8JeLz7gL7g=="
+          "hash": "J0xptq6WjZHaivg7pYdWhQ=="
         }
       },
       "is_incremental": false,
@@ -585,7 +597,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CustomField.html",
-          "hash": "xrctuPcPjrprkH+u8T6hbg=="
+          "hash": "Wn+LI9/lWRMo3/dWq74Mjw=="
         }
       },
       "is_incremental": false,
@@ -597,7 +609,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CustomFieldDefinition.html",
-          "hash": "K318oHYRzN/2taWivgrZtQ=="
+          "hash": "r0ong5Zs434+HTzYBMp6bA=="
         }
       },
       "is_incremental": false,
@@ -609,7 +621,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CustomFieldDefinitionCollection.html",
-          "hash": "SeTL5ZxQhxEIcXT1GkDTig=="
+          "hash": "QK4WLTCwk4wPXXgZ/cIR+A=="
         }
       },
       "is_incremental": false,
@@ -621,7 +633,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CustomFieldDisplayInfo.html",
-          "hash": "jQ6vF3x29YlrwVheGgUAng=="
+          "hash": "IDPV+VB+Qon2Q99Ym3vAjQ=="
         }
       },
       "is_incremental": false,
@@ -633,7 +645,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CustomFieldType.html",
-          "hash": "B09iixvMbxRDQObO9RzAtQ=="
+          "hash": "jbIM2qUgyrKZeJfc+55cSg=="
         }
       },
       "is_incremental": false,
@@ -645,7 +657,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.CustomFieldsPowerUp.html",
-          "hash": "VcTrqRv+m7Mv1rBqZMAvaw=="
+          "hash": "uSTc0GEM9o/rJO4+iGauQg=="
         }
       },
       "is_incremental": false,
@@ -657,7 +669,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.DateTimeField.html",
-          "hash": "CQB3Hu5rnUdXmCTvNgS2hw=="
+          "hash": "ssf7KruJ6Wi/rTiEFiURcw=="
         }
       },
       "is_incremental": false,
@@ -669,7 +681,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.DropDownField.html",
-          "hash": "12GMCY/Mn1w3lpLlFvnklw=="
+          "hash": "EgeruZ79g2gD/lfa96gRzA=="
         }
       },
       "is_incremental": false,
@@ -681,7 +693,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.DropDownOption.html",
-          "hash": "Ng1+/esALZjFXRJxU8a2wQ=="
+          "hash": "GvN9jx2A9ZpYFo5om8JP6Q=="
         }
       },
       "is_incremental": false,
@@ -693,7 +705,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.DropDownOptionCollection.html",
-          "hash": "fWfEVbu8QgGfzz8OSePJtw=="
+          "hash": "zLLAWzZlhxAe8OC8K4KPaQ=="
         }
       },
       "is_incremental": false,
@@ -705,7 +717,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IAction.html",
-          "hash": "g3hGI4i+xyjAtcxP8gTG6w=="
+          "hash": "OCwJdFuBJt7nIyQk+Vda3g=="
         }
       },
       "is_incremental": false,
@@ -717,7 +729,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IActionData.html",
-          "hash": "2MXqrax3nJLn+Bzj9LXSAg=="
+          "hash": "WB3UwM9rnpUS3yawzKZOZg=="
         }
       },
       "is_incremental": false,
@@ -729,7 +741,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IAttachment.html",
-          "hash": "j6gOBDy/rHYIdN13hSVIvQ=="
+          "hash": "a51PUwuExoMoqMY+GAodHQ=="
         }
       },
       "is_incremental": false,
@@ -741,7 +753,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IAttachmentCollection.html",
-          "hash": "ozTJhNEpsFBYMjgoBu4B/A=="
+          "hash": "R5nG+ULFkcNA3O+py5bYTg=="
         }
       },
       "is_incremental": false,
@@ -753,7 +765,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBadges.html",
-          "hash": "I1HMazNnssZ87XCwolunEQ=="
+          "hash": "+oM9IE88BR/7nj25A92dFA=="
         }
       },
       "is_incremental": false,
@@ -765,7 +777,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoard.html",
-          "hash": "ZDVG0BL9ded5RZI41ekrsg=="
+          "hash": "TY/tELfWEbQExxhITB+2bQ=="
         }
       },
       "is_incremental": false,
@@ -777,7 +789,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoardBackground.html",
-          "hash": "wBmUa6FZTlCEWndmF0t4Zg=="
+          "hash": "2SMwXei7DJvAXPIzv3MirA=="
         }
       },
       "is_incremental": false,
@@ -789,7 +801,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoardBackgroundCollection.html",
-          "hash": "qntp43iQw3/HkFmeLOflBA=="
+          "hash": "Wb+1und/K3s+UHvzOrBUFA=="
         }
       },
       "is_incremental": false,
@@ -801,7 +813,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoardCollection.html",
-          "hash": "NLn+k7UE+MLu52F3elaO5w=="
+          "hash": "RIB9sCreXCpHFtJv7PqYUA=="
         }
       },
       "is_incremental": false,
@@ -813,7 +825,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoardLabelCollection.html",
-          "hash": "nj34WoOqI+iyaj4rluvoew=="
+          "hash": "ALgDHDJKzk4LUcwdX0JQPg=="
         }
       },
       "is_incremental": false,
@@ -825,7 +837,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoardMembership.html",
-          "hash": "qVfETk9C69jDDwRMGCcAEQ=="
+          "hash": "FsBw2wenOW3+qMOzye8oNg=="
         }
       },
       "is_incremental": false,
@@ -837,7 +849,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoardMembershipCollection.html",
-          "hash": "6jGI93gibWd7LbVs9qkdPw=="
+          "hash": "EUbVf8cmPje82W7N+E5xKg=="
         }
       },
       "is_incremental": false,
@@ -849,7 +861,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoardPersonalPreferences.html",
-          "hash": "NgKJZpHymF78MVAknpgEUw=="
+          "hash": "WFC+ax8e1JgyfTyyYAcnHQ=="
         }
       },
       "is_incremental": false,
@@ -861,7 +873,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IBoardPreferences.html",
-          "hash": "4Dq5oFb3KDHgnj9cs0EfsA=="
+          "hash": "acH2AbxgRvZ/w4YJjuJKHA=="
         }
       },
       "is_incremental": false,
@@ -873,7 +885,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICache.html",
-          "hash": "a1Tyke11JjFZJbZUGbbY6g=="
+          "hash": "fSjr35DHhZDVnfX4KVK0oA=="
         }
       },
       "is_incremental": false,
@@ -885,7 +897,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICacheable.html",
-          "hash": "0fn7S16YlyPDjw3jZ0UhKQ=="
+          "hash": "ExZCzRUu0J+jFqlzvRZz0w=="
         }
       },
       "is_incremental": false,
@@ -897,7 +909,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICanWebhook.html",
-          "hash": "5R1PxnDHqSM49ObAmuTAEQ=="
+          "hash": "LJQiOuvmVRhLMt5AQWIRdw=="
         }
       },
       "is_incremental": false,
@@ -909,7 +921,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICard.html",
-          "hash": "DQkPYBmh505YcbhRqIZ4gw=="
+          "hash": "CxCUw2aIBmbKvaQ/ymE0bw=="
         }
       },
       "is_incremental": false,
@@ -921,7 +933,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICardCollection.html",
-          "hash": "pk3u9Vo6yCxgqcAR8cXgMQ=="
+          "hash": "CsLncagPdNAbH72b6AsfZg=="
         }
       },
       "is_incremental": false,
@@ -933,7 +945,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICardLabelCollection.html",
-          "hash": "NfX9EF2Kc/cnZkhC1Ec6ow=="
+          "hash": "seoiqZe9BCyq3Un6HLw2Cg=="
         }
       },
       "is_incremental": false,
@@ -945,7 +957,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICardStickerCollection.html",
-          "hash": "fmLveUJkxrpQSCDXkLMz6A=="
+          "hash": "ojp2KO7rsDcz2vMZiFyHbg=="
         }
       },
       "is_incremental": false,
@@ -957,7 +969,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICheckItem.html",
-          "hash": "FtxBuAxEKAYaue6FvfiTGA=="
+          "hash": "WJ62sWuMMJZpRRF08bcFHg=="
         }
       },
       "is_incremental": false,
@@ -969,7 +981,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICheckItemCollection.html",
-          "hash": "4UpD3Va8Ph00KkxvscnGgg=="
+          "hash": "CYLbKyL7OQpOjuUcL2HxBQ=="
         }
       },
       "is_incremental": false,
@@ -981,7 +993,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICheckList.html",
-          "hash": "fzMvGkh1ZXarY6EwUwS9ag=="
+          "hash": "nXf6bv47tCUKP1V31fi8pg=="
         }
       },
       "is_incremental": false,
@@ -993,7 +1005,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICheckListCollection.html",
-          "hash": "WwUV8N+fiy3zqU67JyqDxw=="
+          "hash": "+ugsjJrTWkp3K4zQW0gW/g=="
         }
       },
       "is_incremental": false,
@@ -1005,7 +1017,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICommentCollection.html",
-          "hash": "Ri0k/iOk26xeXxvuFJCGkQ=="
+          "hash": "pnJl3kE7NSm/xrBiliEKwg=="
         }
       },
       "is_incremental": false,
@@ -1017,7 +1029,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICustomField-1.html",
-          "hash": "r3txf/r6/0FyANxdir1j7w=="
+          "hash": "bKHWILsK0Az4KlJ8UsGYOQ=="
         }
       },
       "is_incremental": false,
@@ -1029,7 +1041,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICustomField.html",
-          "hash": "k3X/t3/+pkIUJWQ9cjqpQg=="
+          "hash": "7rq3wY3LuJiT/hw+IT21EQ=="
         }
       },
       "is_incremental": false,
@@ -1041,7 +1053,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICustomFieldDefinition.html",
-          "hash": "vS8GNfXYidhvCeLyjjFlsw=="
+          "hash": "U/XBKwQWHktQh7Pq28wfjg=="
         }
       },
       "is_incremental": false,
@@ -1053,7 +1065,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICustomFieldDefinitionCollection.html",
-          "hash": "Yl9z7/l7UOa8QQ1s+4AeYA=="
+          "hash": "CpfLjT/i6+r9X5aux23Dfg=="
         }
       },
       "is_incremental": false,
@@ -1065,7 +1077,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICustomFieldDisplayInfo.html",
-          "hash": "dNOAryGgpPM8x2v5RhXA1g=="
+          "hash": "kqiRKblzT9V/INoYb3FHag=="
         }
       },
       "is_incremental": false,
@@ -1077,7 +1089,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IDropDownOption.html",
-          "hash": "qbtSzXWlHiNXxTkqHqy26g=="
+          "hash": "oIB9dtGk04Uucn6Y9s6t2A=="
         }
       },
       "is_incremental": false,
@@ -1089,7 +1101,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IDropDownOptionCollection.html",
-          "hash": "LToqnR7I0b3Qu6wESqB5WA=="
+          "hash": "NQ9vI+ypjShwZ9If6Yog+g=="
         }
       },
       "is_incremental": false,
@@ -1101,7 +1113,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IImagePreview.html",
-          "hash": "IbC8Go7pInbpu47NG1SuHw=="
+          "hash": "jpSvm8TWknNXrWSbKmC6sQ=="
         }
       },
       "is_incremental": false,
@@ -1113,7 +1125,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ILabel.html",
-          "hash": "UHn/hIVyr6VnOGjR780f9A=="
+          "hash": "jF6MOJennwrFaNRNhPZ5Fg=="
         }
       },
       "is_incremental": false,
@@ -1125,7 +1137,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IList.html",
-          "hash": "CBfdUURa5GkIMKGxxsna6g=="
+          "hash": "sB13HL81dIl+J2bgtFfT+w=="
         }
       },
       "is_incremental": false,
@@ -1137,7 +1149,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IListCollection.html",
-          "hash": "KIFX2LPEPEAupqx6Ww0i6g=="
+          "hash": "839R+ofIOY7NanI1bignCA=="
         }
       },
       "is_incremental": false,
@@ -1149,7 +1161,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ILog.html",
-          "hash": "/3MumcW86KwW5G9lqiwpUw=="
+          "hash": "JStlBlu2f78iB1p5vfDHJQ=="
         }
       },
       "is_incremental": false,
@@ -1161,7 +1173,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IMe.html",
-          "hash": "bf6+ErSmNEMfv2vIxtnOPw=="
+          "hash": "wVh8Z2v4faqpT5pJ0z5aMw=="
         }
       },
       "is_incremental": false,
@@ -1173,7 +1185,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IMember.html",
-          "hash": "mO7KD64hy1pZYur0v3kMVg=="
+          "hash": "7dGeXJCxZ5WQgf/CkPDTpg=="
         }
       },
       "is_incremental": false,
@@ -1185,7 +1197,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IMemberCollection.html",
-          "hash": "c/jXPBKtwley4Hg+9tzLjw=="
+          "hash": "ZY4grIKDBH4170zBeo7HeQ=="
         }
       },
       "is_incremental": false,
@@ -1197,7 +1209,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IMemberPreferences.html",
-          "hash": "ixoJUgcnfYjYyc5TUX4A6A=="
+          "hash": "3EQwkfRvE63vPUKijKrcDw=="
         }
       },
       "is_incremental": false,
@@ -1209,7 +1221,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IMemberSearch.html",
-          "hash": "PVPGJMt1bFjQNBxlDVrqUA=="
+          "hash": "+96uq9fKigBaAzas65SPVw=="
         }
       },
       "is_incremental": false,
@@ -1221,7 +1233,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IMemberSearchResult.html",
-          "hash": "392wu3e4DR1QtRiaLex0hA=="
+          "hash": "z28MV0b7+HlIlp6yojHaWQ=="
         }
       },
       "is_incremental": false,
@@ -1233,7 +1245,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IMemberStickerCollection.html",
-          "hash": "Wogl3jhr2GgzhVohV4oUeA=="
+          "hash": "y0BB+F5VMAeH/f60Gim3/g=="
         }
       },
       "is_incremental": false,
@@ -1245,7 +1257,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.INotification.html",
-          "hash": "4uKcs+7m5Fqytk7G5z/y1Q=="
+          "hash": "CwoQVnhUCWrDaV/DB7BpDg=="
         }
       },
       "is_incremental": false,
@@ -1257,7 +1269,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.INotificationData.html",
-          "hash": "b4g5BVL0UK+NBamvPGcOtA=="
+          "hash": "+gaYRSd4/ev2Tr6IYAC17g=="
         }
       },
       "is_incremental": false,
@@ -1269,7 +1281,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IOrganization.html",
-          "hash": "j7apsoZfOzaQG/+obMXCSQ=="
+          "hash": "kcOgoKYpzpcRRx+97fQWeQ=="
         }
       },
       "is_incremental": false,
@@ -1281,7 +1293,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IOrganizationCollection.html",
-          "hash": "ENUZKFyzTAznGgcLX7nmyA=="
+          "hash": "OAuP8sHrXhMYbh3hAbQVpA=="
         }
       },
       "is_incremental": false,
@@ -1293,7 +1305,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IOrganizationMembership.html",
-          "hash": "ExC4lB/YiszeGGPRH204GQ=="
+          "hash": "4syKFGHI80QkRHz6k4AKEw=="
         }
       },
       "is_incremental": false,
@@ -1305,7 +1317,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IOrganizationMembershipCollection.html",
-          "hash": "qIj0zMDMF0xCWmhajsQ7xQ=="
+          "hash": "pgElL3ZfMq0fLJ09Bh9dRw=="
         }
       },
       "is_incremental": false,
@@ -1317,7 +1329,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IOrganizationPreferences.html",
-          "hash": "uiwij175rBqmGDumJbOTcw=="
+          "hash": "MSagbGgYolRlcF7M1D8vjg=="
         }
       },
       "is_incremental": false,
@@ -1329,7 +1341,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IPowerUp.html",
-          "hash": "cH18sNTSdgoUtwZarkYmRw=="
+          "hash": "Rb9a8pgdD8YWgDAD2JyaWw=="
         }
       },
       "is_incremental": false,
@@ -1341,7 +1353,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IPowerUpCollection.html",
-          "hash": "S9uoQoONx4BYqgkFPKbPqQ=="
+          "hash": "0fBte3VGhGE1H3yzglK+Xg=="
         }
       },
       "is_incremental": false,
@@ -1353,7 +1365,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IPowerUpData.html",
-          "hash": "PnEyPN5qSpVQ/l6aY89TNQ=="
+          "hash": "Un5GSG1WMg3X4TezjBCFzg=="
         }
       },
       "is_incremental": false,
@@ -1365,7 +1377,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IQueryable.html",
-          "hash": "a/1h9izx3Lo79GXE4TbNIA=="
+          "hash": "/h6ULGv6C5Fx+JApJLmDSQ=="
         }
       },
       "is_incremental": false,
@@ -1377,7 +1389,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyActionCollection.html",
-          "hash": "nlWtgzYDg/FSB9TQwBS/MA=="
+          "hash": "h6B5xQo0nCTkIMVW2X475g=="
         }
       },
       "is_incremental": false,
@@ -1389,7 +1401,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyBoardCollection.html",
-          "hash": "rnjad4j/3UkPBvUwqOxD+Q=="
+          "hash": "SXqdn9Z7EO5Gw5eCfq73Ow=="
         }
       },
       "is_incremental": false,
@@ -1401,7 +1413,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyBoardMembershipCollection.html",
-          "hash": "RgHQPF4V8LaM5GkPUKI12g=="
+          "hash": "9UT/lFtZeLkPLGGhY9WAMA=="
         }
       },
       "is_incremental": false,
@@ -1413,7 +1425,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyCardCollection.html",
-          "hash": "8BCaHNEATt883lkD7qC+Eg=="
+          "hash": "89qCpFXvT4mMrHQagFt9FA=="
         }
       },
       "is_incremental": false,
@@ -1425,7 +1437,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyCheckItemCollection.html",
-          "hash": "olxK5OmKXl9QPF7LzizOhQ=="
+          "hash": "YBaBmtlnZoogslW5swjtmQ=="
         }
       },
       "is_incremental": false,
@@ -1437,7 +1449,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyCheckListCollection.html",
-          "hash": "BRewcSkfVk79YwwjhQav/Q=="
+          "hash": "dLYgFtqbNjicV1tYjkLKVQ=="
         }
       },
       "is_incremental": false,
@@ -1449,7 +1461,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyCollection-1.html",
-          "hash": "4gLdxPLlrh55j7bRyeM4Bw=="
+          "hash": "EkCl2C0o1HCnHhn2gucHBg=="
         }
       },
       "is_incremental": false,
@@ -1461,7 +1473,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyListCollection.html",
-          "hash": "W7a9Iaxlo13OQYw4tJSOJQ=="
+          "hash": "qP0xgRx3aNNPSwm2OartVA=="
         }
       },
       "is_incremental": false,
@@ -1473,7 +1485,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyMemberCollection.html",
-          "hash": "LC0uZKl/qYamVKneUtMoBg=="
+          "hash": "TyFVNMS9u8XVbaHSMkwocg=="
         }
       },
       "is_incremental": false,
@@ -1485,7 +1497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyNotificationCollection.html",
-          "hash": "miAICJTJKLFA+nnE5KlVVg=="
+          "hash": "etLLHbO1yYPsZ5xzQcTizw=="
         }
       },
       "is_incremental": false,
@@ -1497,7 +1509,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyOrganizationCollection.html",
-          "hash": "HKAw7SMgQCNHu1hTkjc/eQ=="
+          "hash": "j1jd2q/kOBE+FsKFOg3baA=="
         }
       },
       "is_incremental": false,
@@ -1509,7 +1521,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IReadOnlyOrganizationMembershipCollection.html",
-          "hash": "w8EJMyICK2Vz/dFGQGw6Kg=="
+          "hash": "lO6/jBMiVis17Fjyg+i84g=="
         }
       },
       "is_incremental": false,
@@ -1521,7 +1533,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ISearch.html",
-          "hash": "seyZ16Sye2M4G/XEzhqmug=="
+          "hash": "hMi5qHN+TUM1SqhRJF8mGg=="
         }
       },
       "is_incremental": false,
@@ -1533,7 +1545,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ISearchQuery.html",
-          "hash": "7zgrGK8RWlkZdOibl1b+Zw=="
+          "hash": "7uL5lobNfEgkVg8OEpPBGQ=="
         }
       },
       "is_incremental": false,
@@ -1545,7 +1557,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IStarredBoard.html",
-          "hash": "LowCqRh0P70Mllkq7JgiiQ=="
+          "hash": "r8OghtEGBTo/oH5TR8Dgww=="
         }
       },
       "is_incremental": false,
@@ -1557,7 +1569,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IStarredBoardCollection.html",
-          "hash": "3U3OkMcq2kZ2SQWGgy/mYQ=="
+          "hash": "izQSssJOqaCuUYMjfsTKrw=="
         }
       },
       "is_incremental": false,
@@ -1569,7 +1581,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ISticker.html",
-          "hash": "sj7BPWg9BLOZkhQ8NNvQDQ=="
+          "hash": "6VDzAq5p519EK5ahsRamsQ=="
         }
       },
       "is_incremental": false,
@@ -1581,7 +1593,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IToken.html",
-          "hash": "T1QhVZZyAUkfJzLo1yFZpQ=="
+          "hash": "eB4YefJNAeQBA1VQXjY1vw=="
         }
       },
       "is_incremental": false,
@@ -1593,7 +1605,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ITokenPermission.html",
-          "hash": "RqKI6O1Gk4co1RHePrZ1dg=="
+          "hash": "AY2vrtah5vfusEsRKV3Dkw=="
         }
       },
       "is_incremental": false,
@@ -1605,7 +1617,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ITrelloFactory.html",
-          "hash": "b8/UCVebLsU+Daqba9R0pw=="
+          "hash": "aS14UXlueDWDvcknj1nQKA=="
         }
       },
       "is_incremental": false,
@@ -1617,7 +1629,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.IWebhook-1.html",
-          "hash": "fRU4+OSy4/tuX1h0HFLR+g=="
+          "hash": "AAHs7rK6i33kdDSeoaVnnA=="
         }
       },
       "is_incremental": false,
@@ -1629,7 +1641,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ImagePreview.html",
-          "hash": "bFOvyNSfjSUkieVhfhfXfg=="
+          "hash": "EjQN/jQ74tWAMpi7GoE6Iw=="
         }
       },
       "is_incremental": false,
@@ -1641,7 +1653,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.DefaultJsonFactory.html",
-          "hash": "OZWIWZFUn6HwwhPVfAXPhQ=="
+          "hash": "onZLa3ZI4mGCHxWpvv4q9Q=="
         }
       },
       "is_incremental": false,
@@ -1653,7 +1665,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.DefaultJsonSerializer.html",
-          "hash": "R935DaE4Ku4Gtn8MhwGU+w=="
+          "hash": "l3qo+c84RlUG5MDPkDEqoQ=="
         }
       },
       "is_incremental": false,
@@ -1665,7 +1677,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IAcceptId.html",
-          "hash": "x9BkPuEaGGH1Q3gLT2dqJA=="
+          "hash": "NiE08bV2+FegSNkai0/3uQ=="
         }
       },
       "is_incremental": false,
@@ -1677,7 +1689,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IDeserializer.html",
-          "hash": "kEws9LH4FIXn0gdR3pYdtQ=="
+          "hash": "0jssceOkVTQ6/v2voA+05g=="
         }
       },
       "is_incremental": false,
@@ -1689,7 +1701,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonAction.html",
-          "hash": "AUYgWw5rMN38vFewawjqYA=="
+          "hash": "hzho2tshn2vQ3ZahvUaOMg=="
         }
       },
       "is_incremental": false,
@@ -1701,7 +1713,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonActionData.html",
-          "hash": "I51NZ1VpeMt/Ja9lEjswHw=="
+          "hash": "8sGMzOf/WHewIu57kWngNg=="
         }
       },
       "is_incremental": false,
@@ -1713,7 +1725,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonActionOldData.html",
-          "hash": "DBvBl2VYmWl5P2Ie9WXZdw=="
+          "hash": "Fv+Qxenh40bPk+XOd6QNKw=="
         }
       },
       "is_incremental": false,
@@ -1725,7 +1737,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonAttachment.html",
-          "hash": "pauHAcTlJl6uwd5DZZXuSw=="
+          "hash": "zdgp3LaYjbXA58AhSQG2Sw=="
         }
       },
       "is_incremental": false,
@@ -1737,7 +1749,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonBadges.html",
-          "hash": "vTk1zd44bWu6Uj0FpZPPKg=="
+          "hash": "WaM8OrTpXUKqPlZN2sDeXA=="
         }
       },
       "is_incremental": false,
@@ -1749,7 +1761,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonBoard.html",
-          "hash": "rWcNg0jdola0bk46YNuiYg=="
+          "hash": "MdPYLsQ5YQe/Nk4vGYcj5Q=="
         }
       },
       "is_incremental": false,
@@ -1761,7 +1773,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonBoardBackground.html",
-          "hash": "QteLpWGd7GcDrU+Skcs7vA=="
+          "hash": "TDOI+zx5jjBmgahPIiDKKA=="
         }
       },
       "is_incremental": false,
@@ -1773,7 +1785,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonBoardMembership.html",
-          "hash": "S0dJrdqwl/ZpV/ZSf9m1Jg=="
+          "hash": "VcKF5vWGS75pS4xezJ8LtA=="
         }
       },
       "is_incremental": false,
@@ -1785,7 +1797,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonBoardPersonalPreferences.html",
-          "hash": "jCNgDiUfGCpnQJSMF66lbw=="
+          "hash": "cS+ZFcn6tdtQu4FTofhWAA=="
         }
       },
       "is_incremental": false,
@@ -1797,7 +1809,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonBoardPreferences.html",
-          "hash": "8p1HCZeGbpVzurT6q9/D3A=="
+          "hash": "xY/mGeAyBIubhFhCb2dlWQ=="
         }
       },
       "is_incremental": false,
@@ -1809,7 +1821,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonBoardVisibilityRestrict.html",
-          "hash": "N4X/cSwAq/ox1bIxCGEtrw=="
+          "hash": "6nNKhX0EJnI1Tq4kdrTSkw=="
         }
       },
       "is_incremental": false,
@@ -1821,7 +1833,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonCacheable.html",
-          "hash": "sIfetZff0yb5DMt1iDU2uA=="
+          "hash": "TNPjWWLD3y7LsbdVZ0vbjA=="
         }
       },
       "is_incremental": false,
@@ -1833,7 +1845,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonCard.html",
-          "hash": "C9aT9VY3GETnIFeE3VT0uA=="
+          "hash": "E+aX2HXdQ72I/CADgQ8wCQ=="
         }
       },
       "is_incremental": false,
@@ -1845,7 +1857,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonCheckItem.html",
-          "hash": "00g+6vSYYsFVHM6yv1fljw=="
+          "hash": "rAPzJU3D1RS7d0lAdxp/yA=="
         }
       },
       "is_incremental": false,
@@ -1857,7 +1869,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonCheckList.html",
-          "hash": "J2uovxIooXskZpFsy7T/JA=="
+          "hash": "ZxZ2EfWJLxFw/MBCeHyXJA=="
         }
       },
       "is_incremental": false,
@@ -1869,7 +1881,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonCustomDropDownOption.html",
-          "hash": "wQuH/eB1feuE6T4a2dYi0A=="
+          "hash": "xhoS06vVb4+HesFixsNgTQ=="
         }
       },
       "is_incremental": false,
@@ -1881,7 +1893,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonCustomField.html",
-          "hash": "R3NCi+MXwPYX4silcqSGNA=="
+          "hash": "NB9wKPsCeViRaGSzxezajg=="
         }
       },
       "is_incremental": false,
@@ -1893,7 +1905,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonCustomFieldDefinition.html",
-          "hash": "4TmQ+Q9IQkNzIiJhmkvFlQ=="
+          "hash": "BtIShwcA8DCRSUpJTdRdxw=="
         }
       },
       "is_incremental": false,
@@ -1905,7 +1917,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonCustomFieldDisplayInfo.html",
-          "hash": "gKehMjxk0aZHxr40d2BNUQ=="
+          "hash": "YufT9HI6zB2FES1RuViTRQ=="
         }
       },
       "is_incremental": false,
@@ -1917,7 +1929,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonFactory.html",
-          "hash": "1/REROKz/ZKJUeFi0h6sKw=="
+          "hash": "C85hJrO8gL/0HFMTvCunug=="
         }
       },
       "is_incremental": false,
@@ -1929,7 +1941,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonImagePreview.html",
-          "hash": "6GhhGDSomNaEFeqCrA7jAQ=="
+          "hash": "Zt2ehWsMiKrVMCZ1RA1rQw=="
         }
       },
       "is_incremental": false,
@@ -1941,7 +1953,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonLabel.html",
-          "hash": "EF9QTF0qbzdz3FfrXDQkyg=="
+          "hash": "Gg3+7scon3YxJwCf8iqlXg=="
         }
       },
       "is_incremental": false,
@@ -1953,7 +1965,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonList.html",
-          "hash": "jrdxeuJo/6ELRE1VQo2PAQ=="
+          "hash": "8+V9GS4H26KMLBHM2gTg+w=="
         }
       },
       "is_incremental": false,
@@ -1965,7 +1977,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonMember.html",
-          "hash": "uHI5384NO0riRK2Q8U27fw=="
+          "hash": "OFQ44cBQ73GQbuU2Fcle6g=="
         }
       },
       "is_incremental": false,
@@ -1977,7 +1989,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonMemberPreferences.html",
-          "hash": "0dlobkdy97eAtTMNiKZRbA=="
+          "hash": "BGXbDJKiorq8A85brkKcQg=="
         }
       },
       "is_incremental": false,
@@ -1989,7 +2001,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonMemberSearch.html",
-          "hash": "1WHQKfhI8HSZtKDNdyXd/w=="
+          "hash": "Xal/866oZ9kNVnBcRW0l1Q=="
         }
       },
       "is_incremental": false,
@@ -2001,7 +2013,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonNotification.html",
-          "hash": "j33YRuXlchhm5CUfd1dG5w=="
+          "hash": "oX6Gq/RDEjPT7j4pOSOX0w=="
         }
       },
       "is_incremental": false,
@@ -2013,7 +2025,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonNotificationData.html",
-          "hash": "OdS258rhrSBL3sHf8FJ3wQ=="
+          "hash": "dLCxyBNjnpHgTSlP9Gp01w=="
         }
       },
       "is_incremental": false,
@@ -2025,7 +2037,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonNotificationOldData.html",
-          "hash": "AwkMvKyp7nBahzl8grCDAw=="
+          "hash": "k0qG4oxZ39zLFn04PoT4hA=="
         }
       },
       "is_incremental": false,
@@ -2037,7 +2049,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonOrganization.html",
-          "hash": "slebA7PSHiy9Gnbk71IERg=="
+          "hash": "L3vKMIlaYV9xbVcn33q03Q=="
         }
       },
       "is_incremental": false,
@@ -2049,7 +2061,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonOrganizationMembership.html",
-          "hash": "n3fhmA7sEZ3efZ9MioVMuA=="
+          "hash": "ZqSg6JB5IR8O1QdNfSVLcg=="
         }
       },
       "is_incremental": false,
@@ -2061,7 +2073,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonOrganizationPreferences.html",
-          "hash": "QZz04DyC+AXRH7CeFkZ3FA=="
+          "hash": "5W1nlRZUEYHqrZ9Xm9Haew=="
         }
       },
       "is_incremental": false,
@@ -2073,7 +2085,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonParameter.html",
-          "hash": "d9JaU6vKq8JRTIZ/mrIjdw=="
+          "hash": "BLszc3opKNxTL4kjN57qOw=="
         }
       },
       "is_incremental": false,
@@ -2085,7 +2097,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonPosition.html",
-          "hash": "Gn/mzRXxkU4p0WPei6Bxhw=="
+          "hash": "xKlACNWWnBlnwqYXr3brgg=="
         }
       },
       "is_incremental": false,
@@ -2097,7 +2109,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonPowerUp.html",
-          "hash": "rujjCGeWKBJu1VymFOpXfA=="
+          "hash": "YzyPth+YtFqvdzEkza2+jw=="
         }
       },
       "is_incremental": false,
@@ -2109,7 +2121,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonPowerUpData.html",
-          "hash": "cj4SLjNko3JXmoUoLaH0AA=="
+          "hash": "yoDcyghGto31SW972qDeqQ=="
         }
       },
       "is_incremental": false,
@@ -2121,7 +2133,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonSearch.html",
-          "hash": "dLrs+w0kajBHT9j5O1ZbHQ=="
+          "hash": "nLfWkPeqHlVYEqku+Ia2Sg=="
         }
       },
       "is_incremental": false,
@@ -2133,7 +2145,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonStarredBoard.html",
-          "hash": "kxXqU1TPa0GP/t2zATVPjQ=="
+          "hash": "smH+AvhkTx+ybUCecY7aIA=="
         }
       },
       "is_incremental": false,
@@ -2145,7 +2157,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonSticker.html",
-          "hash": "notixO/QPImVG7nI66vAwQ=="
+          "hash": "0NPsjMRxmNbsXIHOsXha4w=="
         }
       },
       "is_incremental": false,
@@ -2157,7 +2169,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonToken.html",
-          "hash": "lN1g+Yl9YY+J/uF8M5Rlew=="
+          "hash": "JfhOXl165+Cqw7w7zmHozw=="
         }
       },
       "is_incremental": false,
@@ -2169,7 +2181,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonTokenPermission.html",
-          "hash": "PFg56VlBguB1actva50aQw=="
+          "hash": "Uul9fS4avbJ2FvTFUhNl/g=="
         }
       },
       "is_incremental": false,
@@ -2181,7 +2193,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonWebhook.html",
-          "hash": "aa7ewJVHdhPAeR6f5+7rIQ=="
+          "hash": "ZJIed1PKhf/WDLz9Bd/IAA=="
         }
       },
       "is_incremental": false,
@@ -2193,7 +2205,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.IJsonWebhookNotification.html",
-          "hash": "iy2d8LIHAvLVL69lBoJ8HQ=="
+          "hash": "/zCGnlT336kc9NFRdbbTzg=="
         }
       },
       "is_incremental": false,
@@ -2205,7 +2217,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.ISerializer.html",
-          "hash": "AnQf7SdtqRljbkjmHx9YRA=="
+          "hash": "vsEZQHfKNHtK7KYaJ6bReA=="
         }
       },
       "is_incremental": false,
@@ -2217,7 +2229,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.JsonDeserializeAttribute.html",
-          "hash": "25pHXOXdIo40E+78784DiA=="
+          "hash": "N7jPProMaTK/M1UsFWe7YQ=="
         }
       },
       "is_incremental": false,
@@ -2229,7 +2241,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.JsonSerializeAttribute.html",
-          "hash": "suxuAidcJyYLP51MjGIK7w=="
+          "hash": "lE95wb6hHFmwK7cHRHEJ9A=="
         }
       },
       "is_incremental": false,
@@ -2241,7 +2253,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Json.JsonSpecialSerializationAttribute.html",
-          "hash": "0m5zdDrioOBViXD1y7/GVw=="
+          "hash": "cU5I66ZOAvJczYOlFsDC9A=="
         }
       },
       "is_incremental": false,
@@ -2265,7 +2277,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Label.Fields.html",
-          "hash": "e6joKbxHyXLJngAe2EToUw=="
+          "hash": "l8IfkanjLGM7An6hfLhnmQ=="
         }
       },
       "is_incremental": false,
@@ -2277,7 +2289,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Label.html",
-          "hash": "N4YFSWZJVNhjYyGi6IXq1w=="
+          "hash": "UBMtE/ci7oE5ZtLd9z1chg=="
         }
       },
       "is_incremental": false,
@@ -2289,7 +2301,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.LabelColor.html",
-          "hash": "ZiTvt5iGLq1eXcew1KcxZA=="
+          "hash": "/Y90viZ3DewGN/RnOa/Bew=="
         }
       },
       "is_incremental": false,
@@ -2301,7 +2313,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.License.html",
-          "hash": "HkaZ1YZhiXw7EmrXYax2RQ=="
+          "hash": "PTtEFy5cqc+AL49YARlmGg=="
         }
       },
       "is_incremental": false,
@@ -2313,7 +2325,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.LicenseException.html",
-          "hash": "AaD2bRNP/JlVBKUr5wfCPQ=="
+          "hash": "L0Lq8eCPCkBtse37OjThFQ=="
         }
       },
       "is_incremental": false,
@@ -2325,7 +2337,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.List.Fields.html",
-          "hash": "QcLlVLXOAtTVlEwk767M4g=="
+          "hash": "ZI+/bvzfE7+YTg4uW8VMGw=="
         }
       },
       "is_incremental": false,
@@ -2337,7 +2349,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.List.html",
-          "hash": "ZbeKM5tG9ebO6NBhlK/z2w=="
+          "hash": "vyKPe3j7vegLxetP52OIeA=="
         }
       },
       "is_incremental": false,
@@ -2349,7 +2361,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ListCollection.html",
-          "hash": "cv8oVsrmR28nX2QKd+QyRA=="
+          "hash": "ZLKAD5+0C/N6JEq+xlcGRQ=="
         }
       },
       "is_incremental": false,
@@ -2361,7 +2373,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ListFilter.html",
-          "hash": "Xj/ip1ONiKElKOHcczAmyA=="
+          "hash": "fvR4eWaSnJE+FXoRHK0wGQ=="
         }
       },
       "is_incremental": false,
@@ -2373,7 +2385,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Me.html",
-          "hash": "HgpYjdLjY7U3y7JnFcayVQ=="
+          "hash": "RDyHOLFxbasYcRsncl1vTA=="
         }
       },
       "is_incremental": false,
@@ -2385,7 +2397,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Member.Fields.html",
-          "hash": "pfZwWncOb1DufEToPsb37A=="
+          "hash": "uE1u6DWDPLX67oS4jPiSEA=="
         }
       },
       "is_incremental": false,
@@ -2397,7 +2409,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Member.html",
-          "hash": "faOXtJnD1Ip6TDzk92BXmQ=="
+          "hash": "E/2bO3aJbxSKDz0KXtLvBg=="
         }
       },
       "is_incremental": false,
@@ -2409,7 +2421,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MemberCollection.html",
-          "hash": "0hSBRGBdNXex9HOPY7gQ2g=="
+          "hash": "b5kN0s6KCB3G1TOIHkOqaw=="
         }
       },
       "is_incremental": false,
@@ -2421,7 +2433,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MemberExtensions.html",
-          "hash": "kseV3XjQ346H9iCZ6efgeA=="
+          "hash": "PYbj5QawHbtqVMUYnFoUWg=="
         }
       },
       "is_incremental": false,
@@ -2433,7 +2445,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MemberFilter.html",
-          "hash": "rZWXVXRsHeFAG89SCpKK0w=="
+          "hash": "D1VWWPnbALJHyikAsp6kpQ=="
         }
       },
       "is_incremental": false,
@@ -2445,7 +2457,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MemberPreferences.html",
-          "hash": "7kG0FOd3brN1VCtLglx5hQ=="
+          "hash": "YiE8TBgish9ljyCqaNanlg=="
         }
       },
       "is_incremental": false,
@@ -2457,7 +2469,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MemberSearch.html",
-          "hash": "DQVZwSSk6XSVIi+lgyvfFA=="
+          "hash": "5L3861ZrIhmC16APpoxesA=="
         }
       },
       "is_incremental": false,
@@ -2469,7 +2481,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MemberSearchResult.html",
-          "hash": "j+8v/SVo5C42xA46QrXdbg=="
+          "hash": "j2ySM5davjVtv6ZpL3V4Tw=="
         }
       },
       "is_incremental": false,
@@ -2481,7 +2493,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MemberStatus.html",
-          "hash": "KRobGYzF99MLAFbjAk67Yg=="
+          "hash": "/dY3XjQyE/XrMhr31+dX3Q=="
         }
       },
       "is_incremental": false,
@@ -2493,7 +2505,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MemberStickerCollection.html",
-          "hash": "O6aLtbctHoZF2k85mym38Q=="
+          "hash": "0NWCDsyF7/+pTQtikCVjIQ=="
         }
       },
       "is_incremental": false,
@@ -2505,7 +2517,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.MembershipFilter.html",
-          "hash": "XRw4a3Qq+K6fAW8MEQR81A=="
+          "hash": "V0K3tff5K5Y6xFS6d8Fwxg=="
         }
       },
       "is_incremental": false,
@@ -2517,7 +2529,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Notification.Fields.html",
-          "hash": "O/wDpdQMSXBqbvFEP+xbZQ=="
+          "hash": "tVyyha/gAdlcVqBMaKfDCw=="
         }
       },
       "is_incremental": false,
@@ -2529,7 +2541,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Notification.html",
-          "hash": "qI0BX74pWRoPEBOCK4Yp8w=="
+          "hash": "tCMO201nRS2DOwLwbmskHA=="
         }
       },
       "is_incremental": false,
@@ -2541,7 +2553,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.NotificationData.html",
-          "hash": "UVwmm+cRSQeLqswlv8dLkA=="
+          "hash": "FYsKK3Iu1zOpRHp6hZc4Mg=="
         }
       },
       "is_incremental": false,
@@ -2553,7 +2565,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.NotificationType.html",
-          "hash": "8q5b9O7U/jbJUWKMFnGIOQ=="
+          "hash": "80S+JZVdplkgCsH3K5/4mg=="
         }
       },
       "is_incremental": false,
@@ -2565,7 +2577,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.NumberField.html",
-          "hash": "N315vA4OM7f1Pa1TWzOj7w=="
+          "hash": "uxiPFChbc4EVpNY6gZhgag=="
         }
       },
       "is_incremental": false,
@@ -2577,7 +2589,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Organization.Fields.html",
-          "hash": "Wh7/lnLze0Kue5btlqzmPw=="
+          "hash": "4Ry5jN8757vswvx/ruG++g=="
         }
       },
       "is_incremental": false,
@@ -2589,7 +2601,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Organization.html",
-          "hash": "V+IR49b37b2KrqhUrEgtvg=="
+          "hash": "071cjvHcpkGt4R020heZtg=="
         }
       },
       "is_incremental": false,
@@ -2601,7 +2613,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.OrganizationBoardVisibility.html",
-          "hash": "PA2wqMKclflucpJ0RUMv0g=="
+          "hash": "PTKViuPZH2HK/56cAhguFQ=="
         }
       },
       "is_incremental": false,
@@ -2613,7 +2625,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.OrganizationCollection.html",
-          "hash": "xJGBJn/ckgypDAf7Jq64bg=="
+          "hash": "BysjfeSpmJijHJ2o7Y3IqA=="
         }
       },
       "is_incremental": false,
@@ -2625,7 +2637,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.OrganizationFilter.html",
-          "hash": "/ss1RwUUdmk/bURxMxRA4w=="
+          "hash": "k0bTLTsuWoanvwELvTweaA=="
         }
       },
       "is_incremental": false,
@@ -2637,7 +2649,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.OrganizationMembership.html",
-          "hash": "6cCaAJvz1zANa7iqxD694A=="
+          "hash": "chFmrlxYD4dwezQm7qfo7A=="
         }
       },
       "is_incremental": false,
@@ -2649,7 +2661,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.OrganizationMembershipCollection.html",
-          "hash": "Xt99HSL0+ZUQviky8jxXKA=="
+          "hash": "CWO0v7e9hFQilv/uxSkXpg=="
         }
       },
       "is_incremental": false,
@@ -2661,7 +2673,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.OrganizationMembershipType.html",
-          "hash": "nVRSV85LoJsBDCleKPjoNQ=="
+          "hash": "5sAydD9AFlkcNsnYZ5HG5Q=="
         }
       },
       "is_incremental": false,
@@ -2673,7 +2685,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.OrganizationPermissionLevel.html",
-          "hash": "5MfTBevcsTkWnV8M73Qzmw=="
+          "hash": "Sdfz28JPDh2+I491xZjJ4g=="
         }
       },
       "is_incremental": false,
@@ -2685,7 +2697,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.OrganizationPreferences.html",
-          "hash": "yR3yaDgjnTu/Ga/ufiHtng=="
+          "hash": "2jeymqfEEm1qcZfBYWAX3Q=="
         }
       },
       "is_incremental": false,
@@ -2697,7 +2709,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Position.html",
-          "hash": "jqARbOmrJcLSGmUmXYa3yA=="
+          "hash": "bJJ1XyDme4M37PXoItOJ/g=="
         }
       },
       "is_incremental": false,
@@ -2709,7 +2721,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.PowerUpBase.html",
-          "hash": "NaqDmPvf9AWQF1Aa8rTyfg=="
+          "hash": "jpG5FTlPDsDvkPRj0wT+HQ=="
         }
       },
       "is_incremental": false,
@@ -2721,7 +2733,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.PowerUpCollection.html",
-          "hash": "R7F/13L0AKZPE50MUXDE4g=="
+          "hash": "6mr/bRe2es/nbcEXkEuVUg=="
         }
       },
       "is_incremental": false,
@@ -2733,7 +2745,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.PowerUpData.html",
-          "hash": "nPkPbzUnpBp0apQ96LEEzA=="
+          "hash": "Qoq+iM86H/UdE4SyH4bLzg=="
         }
       },
       "is_incremental": false,
@@ -2745,7 +2757,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyActionCollection.html",
-          "hash": "TkJRBkfbzOHfyzsqh35lUQ=="
+          "hash": "oTgO9bWbY6IaRLiI5y6vow=="
         }
       },
       "is_incremental": false,
@@ -2757,7 +2769,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyAttachmentCollection.html",
-          "hash": "ksbUFaL43H6jQvBOHOxZLg=="
+          "hash": "G7CWStNU6acHxXWUVSNtrw=="
         }
       },
       "is_incremental": false,
@@ -2769,7 +2781,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyAttachmentPreviewCollection.html",
-          "hash": "Mc4FspGWZHUTqOWdVU3M5Q=="
+          "hash": "x0JeDn50xAFmyF/NI6yTrA=="
         }
       },
       "is_incremental": false,
@@ -2781,7 +2793,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyBoardBackgroundCollection.html",
-          "hash": "kk+VtW5tn6nGEY/TmJCRRA=="
+          "hash": "OG9k4RKIjzSGMFrufmx8YQ=="
         }
       },
       "is_incremental": false,
@@ -2793,7 +2805,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyBoardBackgroundScalesCollection.html",
-          "hash": "fVfkhKgZb+swG59qlpeVVg=="
+          "hash": "1tdyt2ZcUl1JBaMP3GVHng=="
         }
       },
       "is_incremental": false,
@@ -2805,7 +2817,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyBoardCollection.html",
-          "hash": "8s1y+oByQylpldztjDgZWQ=="
+          "hash": "nZxZaBr+Llka8T2f/GRUvg=="
         }
       },
       "is_incremental": false,
@@ -2817,7 +2829,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyBoardMembershipCollection.html",
-          "hash": "nzFVeJUzupc62wLvMpSzHw=="
+          "hash": "rJLlSb/l3q7y4AS+8Nnelw=="
         }
       },
       "is_incremental": false,
@@ -2829,7 +2841,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyCardCollection.html",
-          "hash": "wDjEddZz+BXCx/EET+deQA=="
+          "hash": "I0gUyNCnGjvHw/ChA31Slw=="
         }
       },
       "is_incremental": false,
@@ -2841,7 +2853,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyCheckItemCollection.html",
-          "hash": "FQr1NWAiYb5I38rmZQ2Zpg=="
+          "hash": "mr59RBWXIFathkk8aWeOxw=="
         }
       },
       "is_incremental": false,
@@ -2853,7 +2865,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyCheckListCollection.html",
-          "hash": "RdjJJynohXbHBq7oi7LpKQ=="
+          "hash": "xCwHlefpBQiieYSqDiDO4w=="
         }
       },
       "is_incremental": false,
@@ -2865,7 +2877,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyCollection-1.html",
-          "hash": "3aYng48BxAvJAlze5Jzuzw=="
+          "hash": "yAnCov/5mZ78i7Hjt8sN9A=="
         }
       },
       "is_incremental": false,
@@ -2877,7 +2889,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyCustomFieldCollection.html",
-          "hash": "7L7A0XbObWCSfwq5xNCpRA=="
+          "hash": "YZ36wrZ5FsZ/jWfVhNUGqg=="
         }
       },
       "is_incremental": false,
@@ -2889,7 +2901,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyCustomFieldDefinitionCollection.html",
-          "hash": "JJHXbm3WsNEXrVk+HDV91g=="
+          "hash": "JdRJGbF51pP1ecUmiX+vpw=="
         }
       },
       "is_incremental": false,
@@ -2901,7 +2913,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyDropDownOptionCollection.html",
-          "hash": "iaEJRaVr4wc7MVvicLgpNQ=="
+          "hash": "Kf8IZoTG7Ray3++x8BH9eg=="
         }
       },
       "is_incremental": false,
@@ -2913,7 +2925,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyListCollection.html",
-          "hash": "hTn6BAX2ytmy79ak6aGsCg=="
+          "hash": "y8gLcOBcQAIWHJNQjgyYcA=="
         }
       },
       "is_incremental": false,
@@ -2925,7 +2937,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyMemberCollection.html",
-          "hash": "vHmrOkJacTJCVwGAjtwzDg=="
+          "hash": "DiH6fjHlFDlxfvzhUYDQzA=="
         }
       },
       "is_incremental": false,
@@ -2937,7 +2949,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyNotificationCollection.html",
-          "hash": "TZS4LnqDDgUB+3BBP6yGCQ=="
+          "hash": "FcYfdXfWrEKQmAxP3lGkdg=="
         }
       },
       "is_incremental": false,
@@ -2949,7 +2961,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyOrganizationCollection.html",
-          "hash": "6Pyc2p0r8qsgF4ZIxlXnKQ=="
+          "hash": "hdpJXbdAnIgtt4S8PrtMbg=="
         }
       },
       "is_incremental": false,
@@ -2961,7 +2973,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyOrganizationMembershipCollection.html",
-          "hash": "bC7D4/bzW7NCESkTUj3Q8g=="
+          "hash": "x5raVZsS5ZRmRhEdLQjhTA=="
         }
       },
       "is_incremental": false,
@@ -2973,7 +2985,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyPowerUpCollection.html",
-          "hash": "OV46XhhdX/nv8weRhePRYQ=="
+          "hash": "QlWomwCG2kYBKssaX/LrYg=="
         }
       },
       "is_incremental": false,
@@ -2985,7 +2997,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyPowerUpDataCollection.html",
-          "hash": "FvL4oEAibnka1vtf8quJlA=="
+          "hash": "ftY2IKB+J8rY91Pf03LHzw=="
         }
       },
       "is_incremental": false,
@@ -2997,7 +3009,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyStarredBoardCollection.html",
-          "hash": "ROGpEaiGEY13lyHt8mq5HA=="
+          "hash": "qlzgxJJZpApHuzdj/LAGVg=="
         }
       },
       "is_incremental": false,
@@ -3009,7 +3021,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyStickerCollection.html",
-          "hash": "ye925lBB40LidnAcPVuFtg=="
+          "hash": "12GMRmK2rzu4Q7at/gDyUQ=="
         }
       },
       "is_incremental": false,
@@ -3021,7 +3033,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyStickerPreviewCollection.html",
-          "hash": "0AS1VlyuLkc3nzQra4M7GQ=="
+          "hash": "su/xQ0bMwnmov9W0/+SjdA=="
         }
       },
       "is_incremental": false,
@@ -3033,7 +3045,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.DefaultRestClientProvider.html",
-          "hash": "z65vjG/JUTadBzAH8md5Dw=="
+          "hash": "gvaK0uLt1yvDBa6/xhOVvg=="
         }
       },
       "is_incremental": false,
@@ -3045,7 +3057,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.IRestClient.html",
-          "hash": "kamydc+9hIcMS0SHgHASFQ=="
+          "hash": "IcLuvj02p5XUkSwT4UxYHg=="
         }
       },
       "is_incremental": false,
@@ -3057,7 +3069,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.IRestClientProvider.html",
-          "hash": "pSrNkQ66+ilIqgapVq81bw=="
+          "hash": "sK4LBh9VSaC7mlbq+wQ1MQ=="
         }
       },
       "is_incremental": false,
@@ -3069,7 +3081,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.IRestRequest.html",
-          "hash": "0JDqYcfHh/kWTC36zJwP2Q=="
+          "hash": "116x9ZrFxTso229zGx9/eQ=="
         }
       },
       "is_incremental": false,
@@ -3081,7 +3093,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.IRestRequestProvider.html",
-          "hash": "XPomldFN8PsoiQ0M4B01Ww=="
+          "hash": "c5v96KAkdgvjQflWDH6z3w=="
         }
       },
       "is_incremental": false,
@@ -3093,7 +3105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.IRestResponse-1.html",
-          "hash": "5lx23kCwQoV5xdZJ+lWRJA=="
+          "hash": "jotEcejdpCFHhl2sIceNgw=="
         }
       },
       "is_incremental": false,
@@ -3105,7 +3117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.IRestResponse.html",
-          "hash": "oHdaa+B5jJfYbGxeIpKyxA=="
+          "hash": "4KEh3WCqemGhi7D7gCfCsw=="
         }
       },
       "is_incremental": false,
@@ -3117,7 +3129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.RestFile.html",
-          "hash": "qVH2i7rGbXt6gLms7ivPYw=="
+          "hash": "tC9Yi+XBcy5dbptJRQZhPA=="
         }
       },
       "is_incremental": false,
@@ -3129,7 +3141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Rest.RestMethod.html",
-          "hash": "t3rFsg7jYUMxhbEnLwNXLQ=="
+          "hash": "f95x1TvNbsRVWL47RdAQ0A=="
         }
       },
       "is_incremental": false,
@@ -3153,7 +3165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Search.html",
-          "hash": "+Y2GVImGNI8/3Nat1kxphQ=="
+          "hash": "M8Z2eYu53j6nMdeToCyg7A=="
         }
       },
       "is_incremental": false,
@@ -3165,7 +3177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.SearchModelType.html",
-          "hash": "ex9c7swTbkaZ4jcwfJtrZQ=="
+          "hash": "Da1QjxyA5dRvEBN4M7Qeqw=="
         }
       },
       "is_incremental": false,
@@ -3177,7 +3189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.SearchQuery.html",
-          "hash": "WsVkj+O1tsf66QZkv4+Y/A=="
+          "hash": "z0Do65P2ILOANxcoqlDHoA=="
         }
       },
       "is_incremental": false,
@@ -3189,7 +3201,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.StarredBoard.html",
-          "hash": "IPBcErnZa2HtcB8yM331cw=="
+          "hash": "+5lzGlLxr6N+VPevajc+/A=="
         }
       },
       "is_incremental": false,
@@ -3201,7 +3213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.StarredBoardCollection.html",
-          "hash": "OjL6PnBlpqABs28auLOI6A=="
+          "hash": "C1fkiPLb/R0shSI8MwIrpQ=="
         }
       },
       "is_incremental": false,
@@ -3213,7 +3225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Sticker.Fields.html",
-          "hash": "FzmdxuzJeFQ4XEjF2VyuCQ=="
+          "hash": "scAHA8cRLCQZl0osukcW7g=="
         }
       },
       "is_incremental": false,
@@ -3225,7 +3237,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Sticker.html",
-          "hash": "pyoaUoQ4qs8mS0jjxjVWMQ=="
+          "hash": "nFglgK5kEO3/egTo1h8dcQ=="
         }
       },
       "is_incremental": false,
@@ -3237,7 +3249,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TextField.html",
-          "hash": "p2EkbHaToF/kTgBLeUzRUA=="
+          "hash": "alHHgAZCYd9t9lvO9Tc9yQ=="
         }
       },
       "is_incremental": false,
@@ -3249,7 +3261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Token.Fields.html",
-          "hash": "3fVo1MRa+YwFk9TBvdzevA=="
+          "hash": "B3pdVva01rzvVFiOVSAXag=="
         }
       },
       "is_incremental": false,
@@ -3261,7 +3273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Token.html",
-          "hash": "eVr+q2orjyrk0PPYrv8Y1w=="
+          "hash": "L+esYYsQPvVDzhsMFH5Q4g=="
         }
       },
       "is_incremental": false,
@@ -3273,7 +3285,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TokenModelType.html",
-          "hash": "186STbK2jlR8FqWX+HuHwQ=="
+          "hash": "67qYmQL3S+rWv4kHQdV7Iw=="
         }
       },
       "is_incremental": false,
@@ -3285,7 +3297,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TokenPermission.html",
-          "hash": "qImsUSRcXLitcz7Vitgmlw=="
+          "hash": "Dmdq3stL4Rih5BUS3dh2Pg=="
         }
       },
       "is_incremental": false,
@@ -3297,7 +3309,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TrelloAuthorization.html",
-          "hash": "odHZjUpYpXtv0uete18ePA=="
+          "hash": "opQfhHXJUlJykm8kUrY8zg=="
         }
       },
       "is_incremental": false,
@@ -3309,7 +3321,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TrelloConfiguration.html",
-          "hash": "EiqwplT6o6saADt3prCUqg=="
+          "hash": "22r5p/qOrnYJW4Qouwk2FA=="
         }
       },
       "is_incremental": false,
@@ -3321,7 +3333,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TrelloFactory.html",
-          "hash": "XK1Ha37MBJqGFFFe9hMEpQ=="
+          "hash": "uqW8XdAdeA4KvgN4z57+XQ=="
         }
       },
       "is_incremental": false,
@@ -3333,7 +3345,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TrelloInteractionException.html",
-          "hash": "ZdJC13OBXTAZfg8O5znDKA=="
+          "hash": "0rKrthBVqRoNM5SJC0Rs9w=="
         }
       },
       "is_incremental": false,
@@ -3345,7 +3357,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TrelloProcessor.html",
-          "hash": "1flvH793gzXavfcFvtc8Ig=="
+          "hash": "0b7+/vNcg0xwprJ85iF/Mw=="
         }
       },
       "is_incremental": false,
@@ -3357,7 +3369,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.UnknownPowerUp.html",
-          "hash": "O9MjhVors9T3Yi+e7sZKhw=="
+          "hash": "X+WmeB81zWyQKiOUghFUWA=="
         }
       },
       "is_incremental": false,
@@ -3369,7 +3381,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ValidationException-1.html",
-          "hash": "0HJiHI9giVaT8mmppHhXiQ=="
+          "hash": "cQBXjibrJKCiAg7Emg3GDg=="
         }
       },
       "is_incremental": false,
@@ -3381,7 +3393,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.VotingPowerUp.html",
-          "hash": "SgJhHh/RUyEQU2Bq7lEncw=="
+          "hash": "cu5Az9wOE9MPjb/Qk+T/tQ=="
         }
       },
       "is_incremental": false,
@@ -3393,7 +3405,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.WebColor.html",
-          "hash": "SU8qQbUsH4Eti/POoTIvfw=="
+          "hash": "h480mO+MpLK+Y7dKyLCpjg=="
         }
       },
       "is_incremental": false,
@@ -3405,7 +3417,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Webhook-1.html",
-          "hash": "96Kzb/akpQ6Jdc3EcHsCiQ=="
+          "hash": "PA0WxmW1x0SlwCzNaJOBxQ=="
         }
       },
       "is_incremental": false,
@@ -3417,7 +3429,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.html",
-          "hash": "lfdBDBcJN0NscFcPfLkz0w=="
+          "hash": "/h9WXnP9i9xxFO4+9eifzw=="
         }
       },
       "is_incremental": false,
@@ -3441,7 +3453,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "VySq/8Q6iszD+1ALC8Y16A=="
+          "hash": "DBgYuZzWooPXoGyqNrebBQ=="
         }
       },
       "is_incremental": false,
@@ -3585,10 +3597,10 @@
       "output": {
         ".html": {
           "relative_path": "release-notes.html",
-          "hash": "oSCshSq/GoTZOPYy0Q0/nQ=="
+          "hash": "1BSIBZSgc85DWOQit5DsyQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -3716,17 +3728,17 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {

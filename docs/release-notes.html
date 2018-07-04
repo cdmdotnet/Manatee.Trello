@@ -67,8 +67,10 @@
 <h2 id="summary">Summary</h2>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/3">#3</a>) Support for reading, uploading, and deleting custom board backgrounds.  (Uploading new backgrounds requires a Trello Gold account.)</p>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/222">#222</a>) Entities and the collections that contain them are more relational.  For instance if a card is moved to a new list (by assigning the <code>List</code> property or by refreshing the card after an online change), the source list's card collection removes the card and the destination list's card collection adds the card.  This is performed completely internally without having to make additional API calls.  This functionality is opt-in via <code>TrelloConfiguration.EnableConsistencyProcessing</code>.</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/235">#235</a>) An issue was discovered where refreshing collections would not raise the <code>Updated</code> event on the entities that owned them.  For instance, when a list is refreshed, it fetches the cards as part of the call and the event is raised with &quot;Cards&quot; in the list of properties that updated.  But if the <code>Cards</code> property were directly refreshed, the event would not be raised.  Also, none of the collections expose an <code>Updated</code> event.  This results in no notification that an update as occurred.  This change raises the event on the entity (in this case, the list) when any of its collections are updated.</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/227">#227</a>) When copying cards, it's possible to indicate what subset of additional data to copy besides merely property information. Any combination of attachments, checklists, comments, due date,labels, members, and stickers are supported.  This change adds an optional <code>keep</code> parameter to the <code>CardCollection.Add()</code> overload that takes a source card to duplicate.</p>
 <h2 id="changes">Changes</h2>
-<p>New members:</p>
+<h3 id="new-members">New members</h3>
 <ul>
 <li><code>IJsonBoardBackground.Type</code></li>
 <li><code>IBoardBackground.Type</code></li>
@@ -81,18 +83,22 @@
 <li><code>Me.BoardBackgrounds</code></li>
 <li><code>static Member.Fields.BoardBackgrounds</code></li>
 <li><code>static TrelloConfiguration.EnableConsistencyProcessing</code></li>
+<li><code>IJsonCard.KeepFromSource</code></li>
 </ul>
-<p>New types:</p>
+<h3 id="new-types">New types</h3>
 <ul>
 <li><code>ReadOnlyBoardBackgroundCollection</code></li>
 <li><code>IBoardBackgroundCollection</code></li>
 <li><code>BoardBackgroundCollection</code></li>
 <li><code>BoardBackgroundType</code></li>
+<li><code>CardCopyKeepFromSourceOptions</code></li>
 </ul>
-<p>Functional changes:</p>
+<h3 id="functional-changes">Functional changes</h3>
 <ul>
 <li>Custom board backgrounds now downloaded by default as part of member.</li>
 <li><code>ReadOnlyCustomFieldCollection</code> now properly implements <code>IReadOnlyCollection&lt;ICustomField&gt;</code> instead of <code>IReadOnlyCollection&lt;CustomField&gt;</code> (interface vs. class).</li>
+<li>Refreshing a collection now raises the <code>Updated</code> event on the collection's owner (e.g. calling <code>List.Cards.Refresh()</code> raises <code>List.Updated</code>).</li>
+<li><code>CardCollection.Add(ICard card, CancellationToken ct = default(CancellationToken))</code> becomes <code>CardCollection.Add(ICard card, CardCopyKeepFromSourceOptions keep = CardCopyKeepFromSourceOptions.None, CancellationToken ct = default(CancellationToken))</code>.</li>
 </ul>
 <h1 id="310">3.1.0</h1>
 <p><em>Released on 1 Jun, 2018.</em></p>
@@ -138,7 +144,7 @@
 <ul>
 <li><code>Member.AvatarUrl</code> now returns sized image assigned by <code>static Member.AvatarSize</code></li>
 </ul>
-<p>Obsoleted the following:</p>
+<p>Obsoleted:</p>
 <ul>
 <li><code>Member.Fields.AvatarHash</code></li>
 <li><code>Member.Fields.AvatarSource</code></li>
@@ -277,7 +283,7 @@ Removed <code>ExpiryTime</code> in conjuction with changes to property getters.<
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/222-relational-entities/docs_source/release-notes.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/docs_source/release-notes.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

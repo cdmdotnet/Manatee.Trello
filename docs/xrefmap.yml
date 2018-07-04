@@ -3950,12 +3950,12 @@ references:
   commentId: T:Manatee.Trello.CardCollection
   fullName: Manatee.Trello.CardCollection
   nameWithType: CardCollection
-- uid: Manatee.Trello.CardCollection.Add(Manatee.Trello.ICard,CancellationToken)
-  name: Add(ICard, CancellationToken)
-  href: api/Manatee.Trello.CardCollection.html#Manatee_Trello_CardCollection_Add_Manatee_Trello_ICard_CancellationToken_
-  commentId: M:Manatee.Trello.CardCollection.Add(Manatee.Trello.ICard,CancellationToken)
-  fullName: Manatee.Trello.CardCollection.Add(Manatee.Trello.ICard, CancellationToken)
-  nameWithType: CardCollection.Add(ICard, CancellationToken)
+- uid: Manatee.Trello.CardCollection.Add(Manatee.Trello.ICard,Manatee.Trello.CardCopyKeepFromSourceOptions,CancellationToken)
+  name: Add(ICard, CardCopyKeepFromSourceOptions, CancellationToken)
+  href: api/Manatee.Trello.CardCollection.html#Manatee_Trello_CardCollection_Add_Manatee_Trello_ICard_Manatee_Trello_CardCopyKeepFromSourceOptions_CancellationToken_
+  commentId: M:Manatee.Trello.CardCollection.Add(Manatee.Trello.ICard,Manatee.Trello.CardCopyKeepFromSourceOptions,CancellationToken)
+  fullName: Manatee.Trello.CardCollection.Add(Manatee.Trello.ICard, Manatee.Trello.CardCopyKeepFromSourceOptions, CancellationToken)
+  nameWithType: CardCollection.Add(ICard, CardCopyKeepFromSourceOptions, CancellationToken)
 - uid: Manatee.Trello.CardCollection.Add(System.String,System.String,CancellationToken)
   name: Add(String, String, CancellationToken)
   href: api/Manatee.Trello.CardCollection.html#Manatee_Trello_CardCollection_Add_System_String_System_String_CancellationToken_
@@ -3978,6 +3978,66 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.CardCollection.Add
   nameWithType: CardCollection.Add
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions
+  name: CardCopyKeepFromSourceOptions
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html
+  commentId: T:Manatee.Trello.CardCopyKeepFromSourceOptions
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions
+  nameWithType: CardCopyKeepFromSourceOptions
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.All
+  name: All
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_All
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.All
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.All
+  nameWithType: CardCopyKeepFromSourceOptions.All
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.Attachments
+  name: Attachments
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_Attachments
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.Attachments
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.Attachments
+  nameWithType: CardCopyKeepFromSourceOptions.Attachments
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.Checklists
+  name: Checklists
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_Checklists
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.Checklists
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.Checklists
+  nameWithType: CardCopyKeepFromSourceOptions.Checklists
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.Comments
+  name: Comments
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_Comments
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.Comments
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.Comments
+  nameWithType: CardCopyKeepFromSourceOptions.Comments
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.Due
+  name: Due
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_Due
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.Due
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.Due
+  nameWithType: CardCopyKeepFromSourceOptions.Due
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.Labels
+  name: Labels
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_Labels
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.Labels
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.Labels
+  nameWithType: CardCopyKeepFromSourceOptions.Labels
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.Members
+  name: Members
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_Members
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.Members
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.Members
+  nameWithType: CardCopyKeepFromSourceOptions.Members
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.None
+  name: None
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_None
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.None
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.None
+  nameWithType: CardCopyKeepFromSourceOptions.None
+- uid: Manatee.Trello.CardCopyKeepFromSourceOptions.Stickers
+  name: Stickers
+  href: api/Manatee.Trello.CardCopyKeepFromSourceOptions.html#Manatee_Trello_CardCopyKeepFromSourceOptions_Stickers
+  commentId: F:Manatee.Trello.CardCopyKeepFromSourceOptions.Stickers
+  fullName: Manatee.Trello.CardCopyKeepFromSourceOptions.Stickers
+  nameWithType: CardCopyKeepFromSourceOptions.Stickers
 - uid: Manatee.Trello.CardFilter
   name: CardFilter
   href: api/Manatee.Trello.CardFilter.html
@@ -7361,12 +7421,12 @@ references:
   commentId: T:Manatee.Trello.ICardCollection
   fullName: Manatee.Trello.ICardCollection
   nameWithType: ICardCollection
-- uid: Manatee.Trello.ICardCollection.Add(Manatee.Trello.ICard,CancellationToken)
-  name: Add(ICard, CancellationToken)
-  href: api/Manatee.Trello.ICardCollection.html#Manatee_Trello_ICardCollection_Add_Manatee_Trello_ICard_CancellationToken_
-  commentId: M:Manatee.Trello.ICardCollection.Add(Manatee.Trello.ICard,CancellationToken)
-  fullName: Manatee.Trello.ICardCollection.Add(Manatee.Trello.ICard, CancellationToken)
-  nameWithType: ICardCollection.Add(ICard, CancellationToken)
+- uid: Manatee.Trello.ICardCollection.Add(Manatee.Trello.ICard,Manatee.Trello.CardCopyKeepFromSourceOptions,CancellationToken)
+  name: Add(ICard, CardCopyKeepFromSourceOptions, CancellationToken)
+  href: api/Manatee.Trello.ICardCollection.html#Manatee_Trello_ICardCollection_Add_Manatee_Trello_ICard_Manatee_Trello_CardCopyKeepFromSourceOptions_CancellationToken_
+  commentId: M:Manatee.Trello.ICardCollection.Add(Manatee.Trello.ICard,Manatee.Trello.CardCopyKeepFromSourceOptions,CancellationToken)
+  fullName: Manatee.Trello.ICardCollection.Add(Manatee.Trello.ICard, Manatee.Trello.CardCopyKeepFromSourceOptions, CancellationToken)
+  nameWithType: ICardCollection.Add(ICard, CardCopyKeepFromSourceOptions, CancellationToken)
 - uid: Manatee.Trello.ICardCollection.Add(System.String,System.String,CancellationToken)
   name: Add(String, String, CancellationToken)
   href: api/Manatee.Trello.ICardCollection.html#Manatee_Trello_ICardCollection_Add_System_String_System_String_CancellationToken_
@@ -13512,6 +13572,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.Json.IJsonCard.IdShort
   nameWithType: IJsonCard.IdShort
+- uid: Manatee.Trello.Json.IJsonCard.KeepFromSource
+  name: KeepFromSource
+  href: api/Manatee.Trello.Json.IJsonCard.html#Manatee_Trello_Json_IJsonCard_KeepFromSource
+  commentId: P:Manatee.Trello.Json.IJsonCard.KeepFromSource
+  fullName: Manatee.Trello.Json.IJsonCard.KeepFromSource
+  nameWithType: IJsonCard.KeepFromSource
+- uid: Manatee.Trello.Json.IJsonCard.KeepFromSource*
+  name: KeepFromSource
+  href: api/Manatee.Trello.Json.IJsonCard.html#Manatee_Trello_Json_IJsonCard_KeepFromSource_
+  commentId: Overload:Manatee.Trello.Json.IJsonCard.KeepFromSource
+  isSpec: "True"
+  fullName: Manatee.Trello.Json.IJsonCard.KeepFromSource
+  nameWithType: IJsonCard.KeepFromSource
 - uid: Manatee.Trello.Json.IJsonCard.Labels
   name: Labels
   href: api/Manatee.Trello.Json.IJsonCard.html#Manatee_Trello_Json_IJsonCard_Labels
