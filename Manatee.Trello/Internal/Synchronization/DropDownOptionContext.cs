@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class DropDownOptionContext : SynchronizationContext<IJsonCustomDropDownOption>
+	internal class DropDownOptionContext : DeletableSynchronizationContext<IJsonCustomDropDownOption>
 	{
-		private bool _deleted;
-
 		static DropDownOptionContext()
 		{
 			Properties = new Dictionary<string, Property<IJsonCustomDropDownOption>>
@@ -62,52 +58,27 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = data.Id;
 			Merge(data);
 
-			_deleted = created;
-		}
-
-		public async Task Delete(CancellationToken ct)
-		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDropDownOption_Write_Delete,
-			                                     new Dictionary<string, object>
-				                                     {
-					                                     {"_idField", Data.Field.Id},
-					                                     {"_id", Data.Id}
-				                                     });
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
+			Deleted = created;
 		}
 
 		public override Endpoint GetRefreshEndpoint()
 		{
 			return EndpointFactory.Build(EntityRequestType.CustomFieldDropDownOption_Read_Refresh,
-			                             new Dictionary<string, object> {{"_id", Data.Id}});
+			                             new Dictionary<string, object>
+				                             {
+					                             {"_idField", Data.Field.Id},
+					                             {"_id", Data.Id}
+				                             });
 		}
 
-		protected override async Task<IJsonCustomDropDownOption> GetData(CancellationToken ct)
+		protected override Endpoint GetDeleteEndpoint()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.CustomFieldDropDownOption_Read_Refresh,
-				                                     new Dictionary<string, object>
-					                                     {
-						                                     {"_idField", Data.Field.Id},
-						                                     {"_id", Data.Id}
-					                                     });
-				var newData = await JsonRepository.Execute<IJsonCustomDropDownOption>(Auth, endpoint, ct);
-
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return EndpointFactory.Build(EntityRequestType.CustomFieldDropDownOption_Write_Delete,
+			                             new Dictionary<string, object>
+				                             {
+					                             {"_idField", Data.Field.Id},
+					                             {"_id", Data.Id}
+				                             });
 		}
 	}
 }

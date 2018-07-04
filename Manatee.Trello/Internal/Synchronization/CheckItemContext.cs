@@ -9,7 +9,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class CheckItemContext : SynchronizationContext<IJsonCheckItem>
+	internal class CheckItemContext : DeletableSynchronizationContext<IJsonCheckItem>
 	{
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly CheckItem.Fields MemberFields;
@@ -29,7 +29,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 
 		private string _ownerId;
-		private bool _deleted;
 
 		static CheckItemContext()
 		{
@@ -91,43 +90,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		public async Task Delete(CancellationToken ct)
-		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Write_Delete,
-			                                     new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
-		}
-
 		public override Endpoint GetRefreshEndpoint()
 		{
 			return EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh,
 			                             new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
 		}
 
-		protected override async Task<IJsonCheckItem> GetData(CancellationToken ct)
+		protected override Dictionary<string, object> GetParameters()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.CheckItem_Read_Refresh,
-				                                     new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonCheckItem>(Auth, endpoint, ct, CurrentParameters);
-
-				MarkInitialized();
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return CurrentParameters;
 		}
+
+		protected override Endpoint GetDeleteEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.CheckItem_Write_Delete,
+			                             new Dictionary<string, object> {{"_checklistId", _ownerId}, {"_id", Data.Id}});
+		}
+
 		protected override async Task SubmitData(IJsonCheckItem json, CancellationToken ct)
 		{
 			// Checklist should be downloaded already since CheckItem ctor is internal,
@@ -149,10 +128,6 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (!string.IsNullOrEmpty(newData.CheckList?.Id))
 				_ownerId = newData.CheckList.Id;
 			Merge(newData);
-		}
-		protected override bool CanUpdate()
-		{
-			return !_deleted;
 		}
 	}
 }

@@ -9,7 +9,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class LabelContext : SynchronizationContext<IJsonLabel>
+	internal class LabelContext : DeletableSynchronizationContext<IJsonLabel>
 	{
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Label.Fields MemberFields;
@@ -94,41 +94,23 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		public async Task Delete(CancellationToken ct)
-		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
-		}
-
 		public override Endpoint GetRefreshEndpoint()
 		{
 			return EndpointFactory.Build(EntityRequestType.Label_Read_Refresh,
 			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
 
-		protected override async Task<IJsonLabel> GetData(CancellationToken ct)
+		protected override Dictionary<string, object> GetParameters()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Label_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonLabel>(Auth, endpoint, ct, CurrentParameters);
-
-				MarkInitialized();
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return CurrentParameters;
 		}
+
+		protected override Endpoint GetDeleteEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Label_Write_Delete,
+			                             new Dictionary<string, object> {{"_id", Data.Id}});
+		}
+
 		protected override async Task SubmitData(IJsonLabel json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Label_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});

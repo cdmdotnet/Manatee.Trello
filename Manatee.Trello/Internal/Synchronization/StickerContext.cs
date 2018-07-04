@@ -8,7 +8,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class StickerContext : SynchronizationContext<IJsonSticker>
+	internal class StickerContext : DeletableSynchronizationContext<IJsonSticker>
 	{
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Sticker.Fields MemberFields;
@@ -28,7 +28,6 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 
 		private readonly string _ownerId;
-		private bool _deleted;
 
 		public ReadOnlyStickerPreviewCollection Previews { get; }
 
@@ -113,53 +112,37 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		public async Task Delete(CancellationToken ct)
-		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Sticker_Write_Delete, 
-			                                     new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
-		}
-
 		public override Endpoint GetRefreshEndpoint()
 		{
 			return EndpointFactory.Build(EntityRequestType.Sticker_Read_Refresh,
-			                             new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
+			                             new Dictionary<string, object>
+				                             {
+					                             {"_cardId", _ownerId},
+					                             {"_id", Data.Id}
+				                             });
 		}
 
-		protected override async Task<IJsonSticker> GetData(CancellationToken ct)
+		protected override Dictionary<string, object> GetParameters()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Sticker_Read_Refresh,
-				                                     new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonSticker>(Auth, endpoint, ct, CurrentParameters);
-
-				MarkInitialized();
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return CurrentParameters;
 		}
+
+		protected override Endpoint GetDeleteEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Sticker_Write_Delete,
+			                             new Dictionary<string, object>
+				                             {
+					                             {"_cardId", _ownerId},
+					                             {"_id", Data.Id}
+				                             });
+		}
+
 		protected override async Task SubmitData(IJsonSticker json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Sticker_Write_Update,
 			                                     new Dictionary<string, object> {{"_cardId", _ownerId}, {"_id", Data.Id}});
 			var newData = await JsonRepository.Execute(Auth, endpoint, json, ct);
 			Merge(newData);
-		}
-		protected override bool CanUpdate()
-		{
-			return !_deleted;
 		}
 	}
 }

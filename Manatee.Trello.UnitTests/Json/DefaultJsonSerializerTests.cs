@@ -12,6 +12,12 @@ namespace Manatee.Trello.UnitTests.Json
 	[TestFixture]
 	public class DefaultJsonSerializerTests
 	{
+		[SetUp]
+		public void Setup()
+		{
+			TrelloAuthorization.Default.AppKey = "test";
+		}
+
 		public static IEnumerable JsonTypes
 		{
 			get

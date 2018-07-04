@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Validation;
@@ -10,7 +8,7 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class TokenContext : SynchronizationContext<IJsonToken>
+	internal class TokenContext : DeletableSynchronizationContext<IJsonToken>
 	{
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Token.Fields MemberFields;
@@ -28,8 +26,6 @@ namespace Manatee.Trello.Internal.Synchronization
 				}
 			}
 		}
-
-		private bool _deleted;
 
 		public TokenPermissionContext MemberPermissions { get; }
 		public TokenPermissionContext BoardPermissions { get; }
@@ -110,50 +106,28 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 		}
 
-		public async Task Delete(CancellationToken ct)
-		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.Token_Write_Delete, new Dictionary<string, object> {{"_id", Data.Id}});
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
-		}
-
 		public override Endpoint GetRefreshEndpoint()
 		{
 			return EndpointFactory.Build(EntityRequestType.Token_Read_Refresh,
 			                             new Dictionary<string, object> {{"_token", Data.Id}});
 		}
 
-		protected override async Task<IJsonToken> GetData(CancellationToken ct)
+		protected override Dictionary<string, object> GetParameters()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.Token_Read_Refresh, new Dictionary<string, object> {{"_token", Data.Id}});
-				var newData = await JsonRepository.Execute<IJsonToken>(Auth, endpoint, ct, CurrentParameters);
-				MarkInitialized();
-
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return CurrentParameters;
 		}
+
+		protected override Endpoint GetDeleteEndpoint()
+		{
+			return EndpointFactory.Build(EntityRequestType.Token_Write_Delete,
+			                             new Dictionary<string, object> {{ "_id", Data.Id}});
+		}
+
 		protected override IEnumerable<string> MergeDependencies(IJsonToken json, bool overwrite)
 		{
 			return MemberPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Member), overwrite)
 			                        .Concat(BoardPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Board), overwrite))
 			                        .Concat(OrganizationPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Organization), overwrite));
-		}
-		protected override bool CanUpdate()
-		{
-			return !_deleted;
 		}
 	}
 }

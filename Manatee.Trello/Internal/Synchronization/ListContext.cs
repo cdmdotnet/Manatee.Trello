@@ -133,13 +133,11 @@ namespace Manatee.Trello.Internal.Synchronization
 			                             new Dictionary<string, object> {{"_id", Data.Id}});
 		}
 
-		protected override async Task<IJsonList> GetData(CancellationToken ct)
+		protected override Dictionary<string, object> GetParameters()
 		{
-			var endpoint = EndpointFactory.Build(EntityRequestType.List_Read_Refresh, new Dictionary<string, object> {{"_id", Data.Id}});
-			var newData = await JsonRepository.Execute<IJsonList>(Auth, endpoint, ct, CurrentParameters);
-
-			return newData;
+			return CurrentParameters;
 		}
+
 		protected override async Task SubmitData(IJsonList json, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.List_Write_Update, new Dictionary<string, object> {{"_id", Data.Id}});

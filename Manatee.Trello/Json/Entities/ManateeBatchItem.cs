@@ -17,6 +17,7 @@ namespace Manatee.Trello.Json.Entities
 			switch (json.Type)
 			{
 				case JsonValueType.Object:
+					if (json.Object.Count != 1) return;
 					var response = json.Object.Single();
 					StatusCode = (HttpStatusCode) int.Parse(response.Key);
 					EntityId = response.Value.Object["id"].String;

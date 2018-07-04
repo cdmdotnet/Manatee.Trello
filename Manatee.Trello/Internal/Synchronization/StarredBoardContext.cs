@@ -7,10 +7,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
-	internal class StarredBoardContext : SynchronizationContext<IJsonStarredBoard>
+	internal class StarredBoardContext : DeletableSynchronizationContext<IJsonStarredBoard>
 	{
 		private readonly string _ownerId;
-		private bool _deleted;
 
 		static StarredBoardContext()
 		{
@@ -35,50 +34,24 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 		}
 
-		public async Task Delete(CancellationToken ct)
-		{
-			if (_deleted) return;
-			CancelUpdate();
-
-			var endpoint = EndpointFactory.Build(EntityRequestType.StarredBoard_Write_Delete,
-			                                     new Dictionary<string, object>
-				                                     {
-					                                     {"_idMember", _ownerId},
-					                                     {"_id", Data.Id}
-				                                     });
-			await JsonRepository.Execute(Auth, endpoint, ct);
-
-			_deleted = true;
-			RaiseDeleted();
-		}
-
 		public override Endpoint GetRefreshEndpoint()
 		{
 			return EndpointFactory.Build(EntityRequestType.StarredBoard_Read_Refresh,
-			                             new Dictionary<string, object> {{"_idMember", _ownerId}, {"_id", Data.Id}});
+			                             new Dictionary<string, object>
+				                             {
+					                             {"_idMember", _ownerId},
+					                             {"_id", Data.Id}
+				                             });
 		}
 
-		protected override async Task<IJsonStarredBoard> GetData(CancellationToken ct)
+		protected override Endpoint GetDeleteEndpoint()
 		{
-			try
-			{
-				var endpoint = EndpointFactory.Build(EntityRequestType.StarredBoard_Read_Refresh,
-				                                     new Dictionary<string, object>
-					                                     {
-						                                     {"_idMember", _ownerId},
-						                                     {"_id", Data.Id}
-					                                     });
-				var newData = await JsonRepository.Execute<IJsonStarredBoard>(Auth, endpoint, ct);
-
-				MarkInitialized();
-				return newData;
-			}
-			catch (TrelloInteractionException e)
-			{
-				if (!e.IsNotFoundError() || !IsInitialized) throw;
-				_deleted = true;
-				return Data;
-			}
+			return EndpointFactory.Build(EntityRequestType.StarredBoard_Write_Delete,
+			                             new Dictionary<string, object>
+				                             {
+					                             {"_idMember", _ownerId},
+					                             {"_id", Data.Id}
+				                             });
 		}
 
 		protected override async Task SubmitData(IJsonStarredBoard json, CancellationToken ct)
