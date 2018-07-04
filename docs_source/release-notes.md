@@ -14,7 +14,7 @@
 
 ## Changes
 
-New members:
+### New members
 
 - `IJsonBoardBackground.Type`
 - `IBoardBackground.Type`
@@ -28,14 +28,14 @@ New members:
 - `static Member.Fields.BoardBackgrounds`
 - `static TrelloConfiguration.EnableConsistencyProcessing`
 
-New types:
+### New types
 
 - `ReadOnlyBoardBackgroundCollection`
 - `IBoardBackgroundCollection`
 - `BoardBackgroundCollection`
 - `BoardBackgroundType`
 
-Functional changes:
+### Functional changes
 
 - Custom board backgrounds now downloaded by default as part of member.
 - `ReadOnlyCustomFieldCollection` now properly implements `IReadOnlyCollection<ICustomField>` instead of `IReadOnlyCollection<CustomField>` (interface vs. class).
@@ -98,7 +98,7 @@ Functional changes:
 
 - `Member.AvatarUrl` now returns sized image assigned by `static Member.AvatarSize`
 
-Obsoleted the following:
+Obsoleted:
 
 - `Member.Fields.AvatarHash`
 - `Member.Fields.AvatarSource`
