@@ -10,6 +10,8 @@
 
 ([#222](https://github.com/gregsdennis/Manatee.Trello/issues/222)) Entities and the collections that contain them are more relational.  For instance if a card is moved to a new list (by assigning the `List` property or by refreshing the card after an online change), the source list's card collection removes the card and the destination list's card collection adds the card.  This is performed completely internally without having to make additional API calls.  This functionality is opt-in via `TrelloConfiguration.EnableConsistencyProcessing`.
 
+([#235](https://github.com/gregsdennis/Manatee.Trello/issues/235)) An issue was discovered where refreshing collections would not raise the `Updated` event on the entities that owned them.  For instance, when a list is refreshed, it fetches the cards as part of the call and the event is raised with "Cards" in the list of properties that updated.  But if the `Cards` property were directly refreshed, the event would not be raised.  Also, none of the collections expose an `Updated` event.  This results in no notification that an update as occurred.  This change raises the event on the entity (in this case, the list) when any of its collections are updated.
+
 ## Changes
 
 New members:
