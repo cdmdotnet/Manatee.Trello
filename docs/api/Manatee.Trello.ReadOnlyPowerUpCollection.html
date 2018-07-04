@@ -87,6 +87,7 @@
     <h5>Implements</h5>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.IPowerUp.html">IPowerUp</a>&gt;</div>
     <div><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IPowerUp.html">IPowerUp</a>&gt;</div>
+    <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -110,7 +111,7 @@
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_ReadOnlyPowerUpCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ReadOnlyPowerUpCollection : ReadOnlyCollection&lt;IPowerUp&gt;, IReadOnlyCollection&lt;IPowerUp&gt;, IEnumerable&lt;IPowerUp&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class ReadOnlyPowerUpCollection : ReadOnlyCollection&lt;IPowerUp&gt;, IReadOnlyCollection&lt;IPowerUp&gt;, IEnumerable&lt;IPowerUp&gt;, IRefreshable</code></pre>
   </div>
   <h5 id="Manatee_Trello_ReadOnlyPowerUpCollection_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>If a power-up hasn't been registered, it will be instantiated using <a class="xref" href="Manatee.Trello.UnknownPowerUp.html">UnknownPowerUp</a>.</p>
@@ -121,6 +122,9 @@
   </div>
   <div>
       <span class="xref">IEnumerable&lt;&gt;</span>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>
   </div>
 </article>
           </div>

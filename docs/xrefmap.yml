@@ -5317,19 +5317,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IAction.Delete
   nameWithType: IAction.Delete
-- uid: Manatee.Trello.IAction.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IAction.html#Manatee_Trello_IAction_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IAction.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IAction.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IAction.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IAction.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IAction.html#Manatee_Trello_IAction_Refresh_
-  commentId: Overload:Manatee.Trello.IAction.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IAction.Refresh
-  nameWithType: IAction.Refresh
 - uid: Manatee.Trello.IAction.Type
   name: Type
   href: api/Manatee.Trello.IAction.html#Manatee_Trello_IAction_Type
@@ -5816,19 +5803,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IAttachment.Previews
   nameWithType: IAttachment.Previews
-- uid: Manatee.Trello.IAttachment.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IAttachment.html#Manatee_Trello_IAttachment_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IAttachment.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IAttachment.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IAttachment.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IAttachment.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IAttachment.html#Manatee_Trello_IAttachment_Refresh_
-  commentId: Overload:Manatee.Trello.IAttachment.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IAttachment.Refresh
-  nameWithType: IAttachment.Refresh
 - uid: Manatee.Trello.IAttachment.Updated
   name: Updated
   href: api/Manatee.Trello.IAttachment.html#Manatee_Trello_IAttachment_Updated
@@ -6025,6 +5999,12 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IBadges.Votes
   nameWithType: IBadges.Votes
+- uid: Manatee.Trello.IBatchRefreshable
+  name: IBatchRefreshable
+  href: api/Manatee.Trello.IBatchRefreshable.html
+  commentId: T:Manatee.Trello.IBatchRefreshable
+  fullName: Manatee.Trello.IBatchRefreshable
+  nameWithType: IBatchRefreshable
 - uid: Manatee.Trello.IBoard
   name: IBoard
   href: api/Manatee.Trello.IBoard.html
@@ -6342,19 +6322,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IBoard.Preferences
   nameWithType: IBoard.Preferences
-- uid: Manatee.Trello.IBoard.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IBoard.html#Manatee_Trello_IBoard_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IBoard.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IBoard.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IBoard.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IBoard.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IBoard.html#Manatee_Trello_IBoard_Refresh_
-  commentId: Overload:Manatee.Trello.IBoard.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IBoard.Refresh
-  nameWithType: IBoard.Refresh
 - uid: Manatee.Trello.IBoard.ShortLink
   name: ShortLink
   href: api/Manatee.Trello.IBoard.html#Manatee_Trello_IBoard_ShortLink
@@ -6657,19 +6624,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IBoardMembership.MemberType
   nameWithType: IBoardMembership.MemberType
-- uid: Manatee.Trello.IBoardMembership.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IBoardMembership.html#Manatee_Trello_IBoardMembership_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IBoardMembership.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IBoardMembership.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IBoardMembership.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IBoardMembership.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IBoardMembership.html#Manatee_Trello_IBoardMembership_Refresh_
-  commentId: Overload:Manatee.Trello.IBoardMembership.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IBoardMembership.Refresh
-  nameWithType: IBoardMembership.Refresh
 - uid: Manatee.Trello.IBoardMembership.Updated
   name: Updated
   href: api/Manatee.Trello.IBoardMembership.html#Manatee_Trello_IBoardMembership_Updated
@@ -7331,19 +7285,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ICard.PowerUpData
   nameWithType: ICard.PowerUpData
-- uid: Manatee.Trello.ICard.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.ICard.html#Manatee_Trello_ICard_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.ICard.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.ICard.Refresh(System.Boolean, CancellationToken)
-  nameWithType: ICard.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.ICard.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.ICard.html#Manatee_Trello_ICard_Refresh_
-  commentId: Overload:Manatee.Trello.ICard.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.ICard.Refresh
-  nameWithType: ICard.Refresh
 - uid: Manatee.Trello.ICard.ShortId
   name: ShortId
   href: api/Manatee.Trello.ICard.html#Manatee_Trello_ICard_ShortId
@@ -7584,19 +7525,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ICheckItem.Position
   nameWithType: ICheckItem.Position
-- uid: Manatee.Trello.ICheckItem.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.ICheckItem.html#Manatee_Trello_ICheckItem_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.ICheckItem.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.ICheckItem.Refresh(System.Boolean, CancellationToken)
-  nameWithType: ICheckItem.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.ICheckItem.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.ICheckItem.html#Manatee_Trello_ICheckItem_Refresh_
-  commentId: Overload:Manatee.Trello.ICheckItem.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.ICheckItem.Refresh
-  nameWithType: ICheckItem.Refresh
 - uid: Manatee.Trello.ICheckItem.State
   name: State
   href: api/Manatee.Trello.ICheckItem.html#Manatee_Trello_ICheckItem_State
@@ -7757,19 +7685,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ICheckList.Position
   nameWithType: ICheckList.Position
-- uid: Manatee.Trello.ICheckList.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.ICheckList.html#Manatee_Trello_ICheckList_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.ICheckList.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.ICheckList.Refresh(System.Boolean, CancellationToken)
-  nameWithType: ICheckList.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.ICheckList.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.ICheckList.html#Manatee_Trello_ICheckList_Refresh_
-  commentId: Overload:Manatee.Trello.ICheckList.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.ICheckList.Refresh
-  nameWithType: ICheckList.Refresh
 - uid: Manatee.Trello.ICheckList.Updated
   name: Updated
   href: api/Manatee.Trello.ICheckList.html#Manatee_Trello_ICheckList_Updated
@@ -7833,19 +7748,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ICustomField.Definition
   nameWithType: ICustomField.Definition
-- uid: Manatee.Trello.ICustomField.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.ICustomField.html#Manatee_Trello_ICustomField_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.ICustomField.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.ICustomField.Refresh(System.Boolean, CancellationToken)
-  nameWithType: ICustomField.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.ICustomField.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.ICustomField.html#Manatee_Trello_ICustomField_Refresh_
-  commentId: Overload:Manatee.Trello.ICustomField.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.ICustomField.Refresh
-  nameWithType: ICustomField.Refresh
 - uid: Manatee.Trello.ICustomField.Updated
   name: Updated
   href: api/Manatee.Trello.ICustomField.html#Manatee_Trello_ICustomField_Updated
@@ -7975,19 +7877,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ICustomFieldDefinition.Position
   nameWithType: ICustomFieldDefinition.Position
-- uid: Manatee.Trello.ICustomFieldDefinition.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.ICustomFieldDefinition.html#Manatee_Trello_ICustomFieldDefinition_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.ICustomFieldDefinition.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.ICustomFieldDefinition.Refresh(System.Boolean, CancellationToken)
-  nameWithType: ICustomFieldDefinition.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.ICustomFieldDefinition.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.ICustomFieldDefinition.html#Manatee_Trello_ICustomFieldDefinition_Refresh_
-  commentId: Overload:Manatee.Trello.ICustomFieldDefinition.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.ICustomFieldDefinition.Refresh
-  nameWithType: ICustomFieldDefinition.Refresh
 - uid: Manatee.Trello.ICustomFieldDefinition.SetValueForCard(Manatee.Trello.ICard,Manatee.Trello.IDropDownOption,CancellationToken)
   name: SetValueForCard(ICard, IDropDownOption, CancellationToken)
   href: api/Manatee.Trello.ICustomFieldDefinition.html#Manatee_Trello_ICustomFieldDefinition_SetValueForCard_Manatee_Trello_ICard_Manatee_Trello_IDropDownOption_CancellationToken_
@@ -8146,19 +8035,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IDropDownOption.Position
   nameWithType: IDropDownOption.Position
-- uid: Manatee.Trello.IDropDownOption.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IDropDownOption.html#Manatee_Trello_IDropDownOption_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IDropDownOption.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IDropDownOption.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IDropDownOption.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IDropDownOption.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IDropDownOption.html#Manatee_Trello_IDropDownOption_Refresh_
-  commentId: Overload:Manatee.Trello.IDropDownOption.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IDropDownOption.Refresh
-  nameWithType: IDropDownOption.Refresh
 - uid: Manatee.Trello.IDropDownOption.Text
   name: Text
   href: api/Manatee.Trello.IDropDownOption.html#Manatee_Trello_IDropDownOption_Text
@@ -8336,19 +8212,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ILabel.Name
   nameWithType: ILabel.Name
-- uid: Manatee.Trello.ILabel.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.ILabel.html#Manatee_Trello_ILabel_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.ILabel.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.ILabel.Refresh(System.Boolean, CancellationToken)
-  nameWithType: ILabel.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.ILabel.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.ILabel.html#Manatee_Trello_ILabel_Refresh_
-  commentId: Overload:Manatee.Trello.ILabel.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.ILabel.Refresh
-  nameWithType: ILabel.Refresh
 - uid: Manatee.Trello.ILabel.Uses
   name: Uses
   href: api/Manatee.Trello.ILabel.html#Manatee_Trello_ILabel_Uses
@@ -8497,19 +8360,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IList.Position
   nameWithType: IList.Position
-- uid: Manatee.Trello.IList.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IList.html#Manatee_Trello_IList_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IList.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IList.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IList.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IList.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IList.html#Manatee_Trello_IList_Refresh_
-  commentId: Overload:Manatee.Trello.IList.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IList.Refresh
-  nameWithType: IList.Refresh
 - uid: Manatee.Trello.IList.Updated
   name: Updated
   href: api/Manatee.Trello.IList.html#Manatee_Trello_IList_Updated
@@ -9007,19 +8857,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IMember.Organizations
   nameWithType: IMember.Organizations
-- uid: Manatee.Trello.IMember.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IMember.html#Manatee_Trello_IMember_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IMember.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IMember.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IMember.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IMember.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IMember.html#Manatee_Trello_IMember_Refresh_
-  commentId: Overload:Manatee.Trello.IMember.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IMember.Refresh
-  nameWithType: IMember.Refresh
 - uid: Manatee.Trello.IMember.StarredBoards
   name: StarredBoards
   href: api/Manatee.Trello.IMember.html#Manatee_Trello_IMember_StarredBoards
@@ -9161,19 +8998,6 @@ references:
   commentId: T:Manatee.Trello.IMemberSearch
   fullName: Manatee.Trello.IMemberSearch
   nameWithType: IMemberSearch
-- uid: Manatee.Trello.IMemberSearch.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IMemberSearch.html#Manatee_Trello_IMemberSearch_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IMemberSearch.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IMemberSearch.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IMemberSearch.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IMemberSearch.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IMemberSearch.html#Manatee_Trello_IMemberSearch_Refresh_
-  commentId: Overload:Manatee.Trello.IMemberSearch.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IMemberSearch.Refresh
-  nameWithType: IMemberSearch.Refresh
 - uid: Manatee.Trello.IMemberSearch.Results
   name: Results
   href: api/Manatee.Trello.IMemberSearch.html#Manatee_Trello_IMemberSearch_Results
@@ -9312,19 +9136,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.INotification.IsUnread
   nameWithType: INotification.IsUnread
-- uid: Manatee.Trello.INotification.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.INotification.html#Manatee_Trello_INotification_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.INotification.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.INotification.Refresh(System.Boolean, CancellationToken)
-  nameWithType: INotification.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.INotification.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.INotification.html#Manatee_Trello_INotification_Refresh_
-  commentId: Overload:Manatee.Trello.INotification.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.INotification.Refresh
-  nameWithType: INotification.Refresh
 - uid: Manatee.Trello.INotification.Type
   name: Type
   href: api/Manatee.Trello.INotification.html#Manatee_Trello_INotification_Type
@@ -9759,19 +9570,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IOrganization.Preferences
   nameWithType: IOrganization.Preferences
-- uid: Manatee.Trello.IOrganization.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IOrganization.html#Manatee_Trello_IOrganization_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IOrganization.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IOrganization.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IOrganization.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IOrganization.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IOrganization.html#Manatee_Trello_IOrganization_Refresh_
-  commentId: Overload:Manatee.Trello.IOrganization.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IOrganization.Refresh
-  nameWithType: IOrganization.Refresh
 - uid: Manatee.Trello.IOrganization.Updated
   name: Updated
   href: api/Manatee.Trello.IOrganization.html#Manatee_Trello_IOrganization_Updated
@@ -9881,19 +9679,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IOrganizationMembership.MemberType
   nameWithType: IOrganizationMembership.MemberType
-- uid: Manatee.Trello.IOrganizationMembership.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IOrganizationMembership.html#Manatee_Trello_IOrganizationMembership_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IOrganizationMembership.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IOrganizationMembership.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IOrganizationMembership.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IOrganizationMembership.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IOrganizationMembership.html#Manatee_Trello_IOrganizationMembership_Refresh_
-  commentId: Overload:Manatee.Trello.IOrganizationMembership.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IOrganizationMembership.Refresh
-  nameWithType: IOrganizationMembership.Refresh
 - uid: Manatee.Trello.IOrganizationMembership.Updated
   name: Updated
   href: api/Manatee.Trello.IOrganizationMembership.html#Manatee_Trello_IOrganizationMembership_Updated
@@ -10048,19 +9833,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IPowerUp.Name
   nameWithType: IPowerUp.Name
-- uid: Manatee.Trello.IPowerUp.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IPowerUp.html#Manatee_Trello_IPowerUp_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IPowerUp.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IPowerUp.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IPowerUp.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IPowerUp.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IPowerUp.html#Manatee_Trello_IPowerUp_Refresh_
-  commentId: Overload:Manatee.Trello.IPowerUp.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IPowerUp.Refresh
-  nameWithType: IPowerUp.Refresh
 - uid: Manatee.Trello.IPowerUpCollection
   name: IPowerUpCollection
   href: api/Manatee.Trello.IPowerUpCollection.html
@@ -10112,19 +9884,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IPowerUpData.PluginId
   nameWithType: IPowerUpData.PluginId
-- uid: Manatee.Trello.IPowerUpData.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IPowerUpData.html#Manatee_Trello_IPowerUpData_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IPowerUpData.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IPowerUpData.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IPowerUpData.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IPowerUpData.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IPowerUpData.html#Manatee_Trello_IPowerUpData_Refresh_
-  commentId: Overload:Manatee.Trello.IPowerUpData.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IPowerUpData.Refresh
-  nameWithType: IPowerUpData.Refresh
 - uid: Manatee.Trello.IPowerUpData.Value
   name: Value
   href: api/Manatee.Trello.IPowerUpData.html#Manatee_Trello_IPowerUpData_Value
@@ -10392,23 +10151,6 @@ references:
   fullName.vb: Manatee.Trello.IReadOnlyCollection(Of T).Limit
   nameWithType: IReadOnlyCollection<T>.Limit
   nameWithType.vb: IReadOnlyCollection(Of T).Limit
-- uid: Manatee.Trello.IReadOnlyCollection`1.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IReadOnlyCollection-1.html#Manatee_Trello_IReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IReadOnlyCollection`1.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IReadOnlyCollection<T>.Refresh(System.Boolean, CancellationToken)
-  fullName.vb: Manatee.Trello.IReadOnlyCollection(Of T).Refresh(System.Boolean, CancellationToken)
-  nameWithType: IReadOnlyCollection<T>.Refresh(Boolean, CancellationToken)
-  nameWithType.vb: IReadOnlyCollection(Of T).Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IReadOnlyCollection`1.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IReadOnlyCollection-1.html#Manatee_Trello_IReadOnlyCollection_1_Refresh_
-  commentId: Overload:Manatee.Trello.IReadOnlyCollection`1.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IReadOnlyCollection<T>.Refresh
-  fullName.vb: Manatee.Trello.IReadOnlyCollection(Of T).Refresh
-  nameWithType: IReadOnlyCollection<T>.Refresh
-  nameWithType.vb: IReadOnlyCollection(Of T).Refresh
 - uid: Manatee.Trello.IReadOnlyListCollection
   name: IReadOnlyListCollection
   href: api/Manatee.Trello.IReadOnlyListCollection.html
@@ -10595,6 +10337,25 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IReadOnlyOrganizationMembershipCollection.Item
   nameWithType: IReadOnlyOrganizationMembershipCollection.Item
+- uid: Manatee.Trello.IRefreshable
+  name: IRefreshable
+  href: api/Manatee.Trello.IRefreshable.html
+  commentId: T:Manatee.Trello.IRefreshable
+  fullName: Manatee.Trello.IRefreshable
+  nameWithType: IRefreshable
+- uid: Manatee.Trello.IRefreshable.Refresh(System.Boolean,CancellationToken)
+  name: Refresh(Boolean, CancellationToken)
+  href: api/Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_CancellationToken_
+  commentId: M:Manatee.Trello.IRefreshable.Refresh(System.Boolean,CancellationToken)
+  fullName: Manatee.Trello.IRefreshable.Refresh(System.Boolean, CancellationToken)
+  nameWithType: IRefreshable.Refresh(Boolean, CancellationToken)
+- uid: Manatee.Trello.IRefreshable.Refresh*
+  name: Refresh
+  href: api/Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_
+  commentId: Overload:Manatee.Trello.IRefreshable.Refresh
+  isSpec: "True"
+  fullName: Manatee.Trello.IRefreshable.Refresh
+  nameWithType: IRefreshable.Refresh
 - uid: Manatee.Trello.ISearch
   name: ISearch
   href: api/Manatee.Trello.ISearch.html
@@ -10679,19 +10440,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ISearch.Query
   nameWithType: ISearch.Query
-- uid: Manatee.Trello.ISearch.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.ISearch.html#Manatee_Trello_ISearch_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.ISearch.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.ISearch.Refresh(System.Boolean, CancellationToken)
-  nameWithType: ISearch.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.ISearch.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.ISearch.html#Manatee_Trello_ISearch_Refresh_
-  commentId: Overload:Manatee.Trello.ISearch.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.ISearch.Refresh
-  nameWithType: ISearch.Refresh
 - uid: Manatee.Trello.ISearchQuery
   name: ISearchQuery
   href: api/Manatee.Trello.ISearchQuery.html
@@ -11048,19 +10796,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IStarredBoard.Position
   nameWithType: IStarredBoard.Position
-- uid: Manatee.Trello.IStarredBoard.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IStarredBoard.html#Manatee_Trello_IStarredBoard_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IStarredBoard.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IStarredBoard.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IStarredBoard.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IStarredBoard.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IStarredBoard.html#Manatee_Trello_IStarredBoard_Refresh_
-  commentId: Overload:Manatee.Trello.IStarredBoard.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IStarredBoard.Refresh
-  nameWithType: IStarredBoard.Refresh
 - uid: Manatee.Trello.IStarredBoard.Updated
   name: Updated
   href: api/Manatee.Trello.IStarredBoard.html#Manatee_Trello_IStarredBoard_Updated
@@ -11157,19 +10892,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ISticker.Previews
   nameWithType: ISticker.Previews
-- uid: Manatee.Trello.ISticker.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.ISticker.html#Manatee_Trello_ISticker_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.ISticker.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.ISticker.Refresh(System.Boolean, CancellationToken)
-  nameWithType: ISticker.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.ISticker.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.ISticker.html#Manatee_Trello_ISticker_Refresh_
-  commentId: Overload:Manatee.Trello.ISticker.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.ISticker.Refresh
-  nameWithType: ISticker.Refresh
 - uid: Manatee.Trello.ISticker.Rotation
   name: Rotation
   href: api/Manatee.Trello.ISticker.html#Manatee_Trello_ISticker_Rotation
@@ -11338,19 +11060,6 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.IToken.OrganizationPermissions
   nameWithType: IToken.OrganizationPermissions
-- uid: Manatee.Trello.IToken.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IToken.html#Manatee_Trello_IToken_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IToken.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IToken.Refresh(System.Boolean, CancellationToken)
-  nameWithType: IToken.Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IToken.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IToken.html#Manatee_Trello_IToken_Refresh_
-  commentId: Overload:Manatee.Trello.IToken.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IToken.Refresh
-  nameWithType: IToken.Refresh
 - uid: Manatee.Trello.ITokenPermission
   name: ITokenPermission
   href: api/Manatee.Trello.ITokenPermission.html
@@ -11705,23 +11414,6 @@ references:
   fullName.vb: Manatee.Trello.IWebhook(Of T).IsActive
   nameWithType: IWebhook<T>.IsActive
   nameWithType.vb: IWebhook(Of T).IsActive
-- uid: Manatee.Trello.IWebhook`1.Refresh(System.Boolean,CancellationToken)
-  name: Refresh(Boolean, CancellationToken)
-  href: api/Manatee.Trello.IWebhook-1.html#Manatee_Trello_IWebhook_1_Refresh_System_Boolean_CancellationToken_
-  commentId: M:Manatee.Trello.IWebhook`1.Refresh(System.Boolean,CancellationToken)
-  fullName: Manatee.Trello.IWebhook<T>.Refresh(System.Boolean, CancellationToken)
-  fullName.vb: Manatee.Trello.IWebhook(Of T).Refresh(System.Boolean, CancellationToken)
-  nameWithType: IWebhook<T>.Refresh(Boolean, CancellationToken)
-  nameWithType.vb: IWebhook(Of T).Refresh(Boolean, CancellationToken)
-- uid: Manatee.Trello.IWebhook`1.Refresh*
-  name: Refresh
-  href: api/Manatee.Trello.IWebhook-1.html#Manatee_Trello_IWebhook_1_Refresh_
-  commentId: Overload:Manatee.Trello.IWebhook`1.Refresh
-  isSpec: "True"
-  fullName: Manatee.Trello.IWebhook<T>.Refresh
-  fullName.vb: Manatee.Trello.IWebhook(Of T).Refresh
-  nameWithType: IWebhook<T>.Refresh
-  nameWithType.vb: IWebhook(Of T).Refresh
 - uid: Manatee.Trello.IWebhook`1.Target
   name: Target
   href: api/Manatee.Trello.IWebhook-1.html#Manatee_Trello_IWebhook_1_Target
@@ -12588,6 +12280,83 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.Json.IJsonBadges.Votes
   nameWithType: IJsonBadges.Votes
+- uid: Manatee.Trello.Json.IJsonBatch
+  name: IJsonBatch
+  href: api/Manatee.Trello.Json.IJsonBatch.html
+  commentId: T:Manatee.Trello.Json.IJsonBatch
+  fullName: Manatee.Trello.Json.IJsonBatch
+  nameWithType: IJsonBatch
+- uid: Manatee.Trello.Json.IJsonBatch.Items
+  name: Items
+  href: api/Manatee.Trello.Json.IJsonBatch.html#Manatee_Trello_Json_IJsonBatch_Items
+  commentId: P:Manatee.Trello.Json.IJsonBatch.Items
+  fullName: Manatee.Trello.Json.IJsonBatch.Items
+  nameWithType: IJsonBatch.Items
+- uid: Manatee.Trello.Json.IJsonBatch.Items*
+  name: Items
+  href: api/Manatee.Trello.Json.IJsonBatch.html#Manatee_Trello_Json_IJsonBatch_Items_
+  commentId: Overload:Manatee.Trello.Json.IJsonBatch.Items
+  isSpec: "True"
+  fullName: Manatee.Trello.Json.IJsonBatch.Items
+  nameWithType: IJsonBatch.Items
+- uid: Manatee.Trello.Json.IJsonBatchItem
+  name: IJsonBatchItem
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html
+  commentId: T:Manatee.Trello.Json.IJsonBatchItem
+  fullName: Manatee.Trello.Json.IJsonBatchItem
+  nameWithType: IJsonBatchItem
+- uid: Manatee.Trello.Json.IJsonBatchItem.Content
+  name: Content
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html#Manatee_Trello_Json_IJsonBatchItem_Content
+  commentId: P:Manatee.Trello.Json.IJsonBatchItem.Content
+  fullName: Manatee.Trello.Json.IJsonBatchItem.Content
+  nameWithType: IJsonBatchItem.Content
+- uid: Manatee.Trello.Json.IJsonBatchItem.Content*
+  name: Content
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html#Manatee_Trello_Json_IJsonBatchItem_Content_
+  commentId: Overload:Manatee.Trello.Json.IJsonBatchItem.Content
+  isSpec: "True"
+  fullName: Manatee.Trello.Json.IJsonBatchItem.Content
+  nameWithType: IJsonBatchItem.Content
+- uid: Manatee.Trello.Json.IJsonBatchItem.EntityId
+  name: EntityId
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html#Manatee_Trello_Json_IJsonBatchItem_EntityId
+  commentId: P:Manatee.Trello.Json.IJsonBatchItem.EntityId
+  fullName: Manatee.Trello.Json.IJsonBatchItem.EntityId
+  nameWithType: IJsonBatchItem.EntityId
+- uid: Manatee.Trello.Json.IJsonBatchItem.EntityId*
+  name: EntityId
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html#Manatee_Trello_Json_IJsonBatchItem_EntityId_
+  commentId: Overload:Manatee.Trello.Json.IJsonBatchItem.EntityId
+  isSpec: "True"
+  fullName: Manatee.Trello.Json.IJsonBatchItem.EntityId
+  nameWithType: IJsonBatchItem.EntityId
+- uid: Manatee.Trello.Json.IJsonBatchItem.Error
+  name: Error
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html#Manatee_Trello_Json_IJsonBatchItem_Error
+  commentId: P:Manatee.Trello.Json.IJsonBatchItem.Error
+  fullName: Manatee.Trello.Json.IJsonBatchItem.Error
+  nameWithType: IJsonBatchItem.Error
+- uid: Manatee.Trello.Json.IJsonBatchItem.Error*
+  name: Error
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html#Manatee_Trello_Json_IJsonBatchItem_Error_
+  commentId: Overload:Manatee.Trello.Json.IJsonBatchItem.Error
+  isSpec: "True"
+  fullName: Manatee.Trello.Json.IJsonBatchItem.Error
+  nameWithType: IJsonBatchItem.Error
+- uid: Manatee.Trello.Json.IJsonBatchItem.StatusCode
+  name: StatusCode
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html#Manatee_Trello_Json_IJsonBatchItem_StatusCode
+  commentId: P:Manatee.Trello.Json.IJsonBatchItem.StatusCode
+  fullName: Manatee.Trello.Json.IJsonBatchItem.StatusCode
+  nameWithType: IJsonBatchItem.StatusCode
+- uid: Manatee.Trello.Json.IJsonBatchItem.StatusCode*
+  name: StatusCode
+  href: api/Manatee.Trello.Json.IJsonBatchItem.html#Manatee_Trello_Json_IJsonBatchItem_StatusCode_
+  commentId: Overload:Manatee.Trello.Json.IJsonBatchItem.StatusCode
+  isSpec: "True"
+  fullName: Manatee.Trello.Json.IJsonBatchItem.StatusCode
+  nameWithType: IJsonBatchItem.StatusCode
 - uid: Manatee.Trello.Json.IJsonBoard
   name: IJsonBoard
   href: api/Manatee.Trello.Json.IJsonBoard.html
@@ -21644,6 +21413,64 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.TrelloAuthorization.Default
   nameWithType: TrelloAuthorization.Default
+- uid: Manatee.Trello.TrelloAuthorization.Equals(Manatee.Trello.TrelloAuthorization)
+  name: Equals(TrelloAuthorization)
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_Equals_Manatee_Trello_TrelloAuthorization_
+  commentId: M:Manatee.Trello.TrelloAuthorization.Equals(Manatee.Trello.TrelloAuthorization)
+  fullName: Manatee.Trello.TrelloAuthorization.Equals(Manatee.Trello.TrelloAuthorization)
+  nameWithType: TrelloAuthorization.Equals(TrelloAuthorization)
+- uid: Manatee.Trello.TrelloAuthorization.Equals(System.Object)
+  name: Equals(Object)
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_Equals_System_Object_
+  commentId: M:Manatee.Trello.TrelloAuthorization.Equals(System.Object)
+  fullName: Manatee.Trello.TrelloAuthorization.Equals(System.Object)
+  nameWithType: TrelloAuthorization.Equals(Object)
+- uid: Manatee.Trello.TrelloAuthorization.Equals*
+  name: Equals
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_Equals_
+  commentId: Overload:Manatee.Trello.TrelloAuthorization.Equals
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloAuthorization.Equals
+  nameWithType: TrelloAuthorization.Equals
+- uid: Manatee.Trello.TrelloAuthorization.GetHashCode
+  name: GetHashCode()
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_GetHashCode
+  commentId: M:Manatee.Trello.TrelloAuthorization.GetHashCode
+  fullName: Manatee.Trello.TrelloAuthorization.GetHashCode()
+  nameWithType: TrelloAuthorization.GetHashCode()
+- uid: Manatee.Trello.TrelloAuthorization.GetHashCode*
+  name: GetHashCode
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_GetHashCode_
+  commentId: Overload:Manatee.Trello.TrelloAuthorization.GetHashCode
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloAuthorization.GetHashCode
+  nameWithType: TrelloAuthorization.GetHashCode
+- uid: Manatee.Trello.TrelloAuthorization.op_Equality(Manatee.Trello.TrelloAuthorization,Manatee.Trello.TrelloAuthorization)
+  name: Equality(TrelloAuthorization, TrelloAuthorization)
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_op_Equality_Manatee_Trello_TrelloAuthorization_Manatee_Trello_TrelloAuthorization_
+  commentId: M:Manatee.Trello.TrelloAuthorization.op_Equality(Manatee.Trello.TrelloAuthorization,Manatee.Trello.TrelloAuthorization)
+  fullName: Manatee.Trello.TrelloAuthorization.Equality(Manatee.Trello.TrelloAuthorization, Manatee.Trello.TrelloAuthorization)
+  nameWithType: TrelloAuthorization.Equality(TrelloAuthorization, TrelloAuthorization)
+- uid: Manatee.Trello.TrelloAuthorization.op_Equality*
+  name: Equality
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_op_Equality_
+  commentId: Overload:Manatee.Trello.TrelloAuthorization.op_Equality
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloAuthorization.Equality
+  nameWithType: TrelloAuthorization.Equality
+- uid: Manatee.Trello.TrelloAuthorization.op_Inequality(Manatee.Trello.TrelloAuthorization,Manatee.Trello.TrelloAuthorization)
+  name: Inequality(TrelloAuthorization, TrelloAuthorization)
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_op_Inequality_Manatee_Trello_TrelloAuthorization_Manatee_Trello_TrelloAuthorization_
+  commentId: M:Manatee.Trello.TrelloAuthorization.op_Inequality(Manatee.Trello.TrelloAuthorization,Manatee.Trello.TrelloAuthorization)
+  fullName: Manatee.Trello.TrelloAuthorization.Inequality(Manatee.Trello.TrelloAuthorization, Manatee.Trello.TrelloAuthorization)
+  nameWithType: TrelloAuthorization.Inequality(TrelloAuthorization, TrelloAuthorization)
+- uid: Manatee.Trello.TrelloAuthorization.op_Inequality*
+  name: Inequality
+  href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_op_Inequality_
+  commentId: Overload:Manatee.Trello.TrelloAuthorization.op_Inequality
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloAuthorization.Inequality
+  nameWithType: TrelloAuthorization.Inequality
 - uid: Manatee.Trello.TrelloAuthorization.UserToken
   name: UserToken
   href: api/Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_UserToken
@@ -22159,6 +21986,22 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.TrelloProcessor.ProcessNotification
   nameWithType: TrelloProcessor.ProcessNotification
+- uid: Manatee.Trello.TrelloProcessor.Refresh(IEnumerable{Manatee.Trello.IBatchRefreshable},CancellationToken)
+  name: Refresh(IEnumerable<IBatchRefreshable>, CancellationToken)
+  href: api/Manatee.Trello.TrelloProcessor.html#Manatee_Trello_TrelloProcessor_Refresh_IEnumerable_Manatee_Trello_IBatchRefreshable__CancellationToken_
+  commentId: M:Manatee.Trello.TrelloProcessor.Refresh(IEnumerable{Manatee.Trello.IBatchRefreshable},CancellationToken)
+  name.vb: Refresh(IEnumerable(Of IBatchRefreshable), CancellationToken)
+  fullName: Manatee.Trello.TrelloProcessor.Refresh(IEnumerable<Manatee.Trello.IBatchRefreshable>, CancellationToken)
+  fullName.vb: Manatee.Trello.TrelloProcessor.Refresh(IEnumerable(Of Manatee.Trello.IBatchRefreshable), CancellationToken)
+  nameWithType: TrelloProcessor.Refresh(IEnumerable<IBatchRefreshable>, CancellationToken)
+  nameWithType.vb: TrelloProcessor.Refresh(IEnumerable(Of IBatchRefreshable), CancellationToken)
+- uid: Manatee.Trello.TrelloProcessor.Refresh*
+  name: Refresh
+  href: api/Manatee.Trello.TrelloProcessor.html#Manatee_Trello_TrelloProcessor_Refresh_
+  commentId: Overload:Manatee.Trello.TrelloProcessor.Refresh
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloProcessor.Refresh
+  nameWithType: TrelloProcessor.Refresh
 - uid: Manatee.Trello.UnknownPowerUp
   name: UnknownPowerUp
   href: api/Manatee.Trello.UnknownPowerUp.html

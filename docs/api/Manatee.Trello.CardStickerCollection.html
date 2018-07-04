@@ -88,6 +88,7 @@
     <div><a class="xref" href="Manatee.Trello.ICardStickerCollection.html">ICardStickerCollection</a></div>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.ISticker.html">ISticker</a>&gt;</div>
     <div><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.ISticker.html">ISticker</a>&gt;</div>
+    <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -111,7 +112,7 @@
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_CardStickerCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CardStickerCollection : ReadOnlyStickerCollection, IHandle&lt;EntityDeletedEvent&lt;IJsonSticker&gt;&gt;, IHandle, ICardStickerCollection, IReadOnlyCollection&lt;ISticker&gt;, IEnumerable&lt;ISticker&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class CardStickerCollection : ReadOnlyStickerCollection, IHandle&lt;EntityDeletedEvent&lt;IJsonSticker&gt;&gt;, IHandle, ICardStickerCollection, IReadOnlyCollection&lt;ISticker&gt;, IEnumerable&lt;ISticker&gt;, IRefreshable</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -280,6 +281,9 @@
   </div>
   <div>
       <span class="xref">IEnumerable&lt;&gt;</span>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>
   </div>
 </article>
           </div>

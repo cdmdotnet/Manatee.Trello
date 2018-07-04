@@ -84,13 +84,15 @@
   <div classs="implements">
     <h5>Implements</h5>
     <div><a class="xref" href="Manatee.Trello.ICheckItem.html">ICheckItem</a></div>
+    <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
+    <div><a class="xref" href="Manatee.Trello.IBatchRefreshable.html">IBatchRefreshable</a></div>
     <div><a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a></div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_CheckItem_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CheckItem : object, ICheckItem, ICacheable, IMergeJson&lt;IJsonCheckItem&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class CheckItem : object, ICheckItem, IRefreshable, IMergeJson&lt;IJsonCheckItem&gt;, IBatchRefresh, IBatchRefreshable, ICacheable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -99,7 +101,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_CheckList.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.CheckList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L69">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L70">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_CheckList_" data-uid="Manatee.Trello.CheckItem.CheckList*"></a>
   <h4 id="Manatee_Trello_CheckItem_CheckList" data-uid="Manatee.Trello.CheckItem.CheckList">CheckList</h4>
@@ -133,7 +135,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_CreationDate.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.CreationDate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L77">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L78">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_CreationDate_" data-uid="Manatee.Trello.CheckItem.CreationDate*"></a>
   <h4 id="Manatee_Trello_CheckItem_CreationDate" data-uid="Manatee.Trello.CheckItem.CreationDate">CreationDate</h4>
@@ -164,7 +166,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_DownloadedFields.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.DownloadedFields%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L53">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L54">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_DownloadedFields_" data-uid="Manatee.Trello.CheckItem.DownloadedFields*"></a>
   <h4 id="Manatee_Trello_CheckItem_DownloadedFields" data-uid="Manatee.Trello.CheckItem.DownloadedFields">DownloadedFields</h4>
@@ -195,7 +197,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_Id.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L89">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L90">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_Id_" data-uid="Manatee.Trello.CheckItem.Id*"></a>
   <h4 id="Manatee_Trello_CheckItem_Id" data-uid="Manatee.Trello.CheckItem.Id">Id</h4>
@@ -226,7 +228,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_Name.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L93">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L94">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_Name_" data-uid="Manatee.Trello.CheckItem.Name*"></a>
   <h4 id="Manatee_Trello_CheckItem_Name" data-uid="Manatee.Trello.CheckItem.Name">Name</h4>
@@ -257,7 +259,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_Position.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.Position%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L101">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L102">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_Position_" data-uid="Manatee.Trello.CheckItem.Position*"></a>
   <h4 id="Manatee_Trello_CheckItem_Position" data-uid="Manatee.Trello.CheckItem.Position">Position</h4>
@@ -288,7 +290,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_State.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.State%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L109">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L110">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_State_" data-uid="Manatee.Trello.CheckItem.State*"></a>
   <h4 id="Manatee_Trello_CheckItem_State" data-uid="Manatee.Trello.CheckItem.State">State</h4>
@@ -321,7 +323,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_Delete_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.Delete(CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L161">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L163">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_Delete_" data-uid="Manatee.Trello.CheckItem.Delete*"></a>
   <h4 id="Manatee_Trello_CheckItem_Delete_CancellationToken_" data-uid="Manatee.Trello.CheckItem.Delete(CancellationToken)">Delete(CancellationToken)</h4>
@@ -373,7 +375,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_Refresh_System_Boolean_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.Refresh(System.Boolean%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L173">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L175">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_Refresh_" data-uid="Manatee.Trello.CheckItem.Refresh*"></a>
   <h4 id="Manatee_Trello_CheckItem_Refresh_System_Boolean_CancellationToken_" data-uid="Manatee.Trello.CheckItem.Refresh(System.Boolean,CancellationToken)">Refresh(Boolean, CancellationToken)</h4>
@@ -428,7 +430,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_ToString.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L186">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L188">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckItem_ToString_" data-uid="Manatee.Trello.CheckItem.ToString*"></a>
   <h4 id="Manatee_Trello_CheckItem_ToString" data-uid="Manatee.Trello.CheckItem.ToString">ToString()</h4>
@@ -462,7 +464,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem_Updated.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem.Updated%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L124">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L126">View Source</a>
   </span>
   <h4 id="Manatee_Trello_CheckItem_Updated" data-uid="Manatee.Trello.CheckItem.Updated">Updated</h4>
   <div class="markdown level1 summary"><p>Raised when data on the checklist item is updated.</p>
@@ -492,6 +494,12 @@
       <a class="xref" href="Manatee.Trello.ICheckItem.html">ICheckItem</a>
   </div>
   <div>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.IBatchRefreshable.html">IBatchRefreshable</a>
+  </div>
+  <div>
       <a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a>
   </div>
 </article>
@@ -505,7 +513,7 @@
                     <a href="https://github.com/gregsdennis/Manatee.Trello/new/release-3.2.0/apiSpec/new?filename=Manatee_Trello_CheckItem.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckItem%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L17" class="contribution-link">View Source</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/release-3.2.0/Manatee.Trello/CheckItem.cs/#L18" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

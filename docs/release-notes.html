@@ -69,6 +69,7 @@
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/222">#222</a>) Entities and the collections that contain them are more relational.  For instance if a card is moved to a new list (by assigning the <code>List</code> property or by refreshing the card after an online change), the source list's card collection removes the card and the destination list's card collection adds the card.  This is performed completely internally without having to make additional API calls.  This functionality is opt-in via <code>TrelloConfiguration.EnableConsistencyProcessing</code>.</p>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/235">#235</a>) An issue was discovered where refreshing collections would not raise the <code>Updated</code> event on the entities that owned them.  For instance, when a list is refreshed, it fetches the cards as part of the call and the event is raised with &quot;Cards&quot; in the list of properties that updated.  But if the <code>Cards</code> property were directly refreshed, the event would not be raised.  Also, none of the collections expose an <code>Updated</code> event.  This results in no notification that an update as occurred.  This change raises the event on the entity (in this case, the list) when any of its collections are updated.</p>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/227">#227</a>) When copying cards, it's possible to indicate what subset of additional data to copy besides merely property information. Any combination of attachments, checklists, comments, due date,labels, members, and stickers are supported.  This change adds an optional <code>keep</code> parameter to the <code>CardCollection.Add()</code> overload that takes a source card to duplicate.</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/239">#239</a>) Trello supports up to 10 items to be retrieved simultaneously through a single bulk call.  To support this, several changes have been introduced, most notably <code>TrelloProcessor.Refresh()</code> which takes a collection of entities and manages them into appropriate batches based on size and authorization, if multiple authorizations have been used.</p>
 <h2 id="changes">Changes</h2>
 <h3 id="new-members">New members</h3>
 <ul>
@@ -84,6 +85,7 @@
 <li><code>static Member.Fields.BoardBackgrounds</code></li>
 <li><code>static TrelloConfiguration.EnableConsistencyProcessing</code></li>
 <li><code>IJsonCard.KeepFromSource</code></li>
+<li><code>static TrelloProcessor.Refresh()</code></li>
 </ul>
 <h3 id="new-types">New types</h3>
 <ul>
@@ -92,6 +94,10 @@
 <li><code>BoardBackgroundCollection</code></li>
 <li><code>BoardBackgroundType</code></li>
 <li><code>CardCopyKeepFromSourceOptions</code></li>
+<li><code>IJsonBatch</code></li>
+<li><code>IJsonBatchItem</code></li>
+<li><code>IRefreshable</code></li>
+<li><code>IBatchRefreshable</code></li>
 </ul>
 <h3 id="functional-changes">Functional changes</h3>
 <ul>
@@ -99,6 +105,7 @@
 <li><code>ReadOnlyCustomFieldCollection</code> now properly implements <code>IReadOnlyCollection&lt;ICustomField&gt;</code> instead of <code>IReadOnlyCollection&lt;CustomField&gt;</code> (interface vs. class).</li>
 <li>Refreshing a collection now raises the <code>Updated</code> event on the collection's owner (e.g. calling <code>List.Cards.Refresh()</code> raises <code>List.Updated</code>).</li>
 <li><code>CardCollection.Add(ICard card, CancellationToken ct = default(CancellationToken))</code> becomes <code>CardCollection.Add(ICard card, CardCopyKeepFromSourceOptions keep = CardCopyKeepFromSourceOptions.None, CancellationToken ct = default(CancellationToken))</code>.</li>
+<li><code>CustomField.Refresh()</code> and <code>PowerUpBase.Refresh()</code> now work as expected.  Previously, these may have done nothing or failed completely.</li>
 </ul>
 <h1 id="310">3.1.0</h1>
 <p><em>Released on 1 Jun, 2018.</em></p>

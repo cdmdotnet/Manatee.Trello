@@ -89,6 +89,7 @@
     <div><a class="xref" href="Manatee.Trello.IReadOnlyBoardCollection.html">IReadOnlyBoardCollection</a></div>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.IBoard.html">IBoard</a>&gt;</div>
     <div><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IBoard.html">IBoard</a>&gt;</div>
+    <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -118,7 +119,7 @@
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_BoardCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BoardCollection : ReadOnlyBoardCollection, IHandle&lt;EntityUpdatedEvent&lt;IJsonBoard&gt;&gt;, IHandle&lt;EntityDeletedEvent&lt;IJsonBoard&gt;&gt;, IHandle, IBoardCollection, IReadOnlyBoardCollection, IReadOnlyCollection&lt;IBoard&gt;, IEnumerable&lt;IBoard&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class BoardCollection : ReadOnlyBoardCollection, IHandle&lt;EntityUpdatedEvent&lt;IJsonBoard&gt;&gt;, IHandle&lt;EntityDeletedEvent&lt;IJsonBoard&gt;&gt;, IHandle, IBoardCollection, IReadOnlyBoardCollection, IReadOnlyCollection&lt;IBoard&gt;, IEnumerable&lt;IBoard&gt;, IRefreshable</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -202,6 +203,9 @@
   </div>
   <div>
       <span class="xref">IEnumerable&lt;&gt;</span>
+  </div>
+  <div>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>
   </div>
 </article>
           </div>
