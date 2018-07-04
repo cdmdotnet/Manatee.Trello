@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a card.
 	/// </summary>
-	public class Card : ICard, IMergeJson<IJsonCard>, IRefreshEndpointSupplier
+	public class Card : ICard, IMergeJson<IJsonCard>, IBatchRefresh
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for cards.
@@ -401,7 +401,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
-		TrelloAuthorization IRefreshEndpointSupplier.Auth => _context.Auth;
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the card is updated.
@@ -511,9 +511,15 @@ namespace Manatee.Trello
 			return Name ?? $"#{ShortId}";
 		}
 
-		Endpoint IRefreshEndpointSupplier.GetRefreshEndpoint()
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
 		{
 			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonCard>(content);
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

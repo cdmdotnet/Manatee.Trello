@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Internal.Validation;
 using Manatee.Trello.Json;
@@ -14,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public class List : IList, IMergeJson<IJsonList>
+	public class List : IList, IMergeJson<IJsonList>, IBatchRefresh
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for lists.
@@ -179,6 +180,7 @@ namespace Manatee.Trello
 			get { return _context.Data; }
 			set { _context.Merge(value); }
 		}
+		TrelloAuthorization IBatchRefresh.Auth => _context.Auth;
 
 		/// <summary>
 		/// Raised when data on the list is updated.
@@ -257,6 +259,17 @@ namespace Manatee.Trello
 		public override string ToString()
 		{
 			return Name;
+		}
+
+		Endpoint IBatchRefresh.GetRefreshEndpoint()
+		{
+			return _context.GetRefreshEndpoint();
+		}
+
+		void IBatchRefresh.Apply(string content)
+		{
+			var json = TrelloConfiguration.Deserializer.Deserialize<IJsonList>(content);
+			_context.Merge(json);
 		}
 
 		private void Synchronized(IEnumerable<string> properties)

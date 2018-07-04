@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchTests.cs" />
     <Compile Include="BoardTests.cs" />
     <Compile Include="CapturingClient.cs" />
     <Compile Include="CapturingClientProvider.cs" />

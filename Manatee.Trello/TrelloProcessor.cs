@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,25 +43,25 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Performs a batch refresh of all entities.
 		/// </summary>
+		/// <param name="entities">The entities to refresh.</param>
 		/// <param name="ct"></param>
-		/// <param name="entities"></param>
 		/// <returns></returns>
 		/// <remarks>
 		/// Trello imposes a limit of 10 entities per call.  Therefore this method will break all entities into batches
 		/// of 10 and make a single call for each, returning when all have completed.
 		/// </remarks>
-		public static Task Refresh(CancellationToken ct = default(CancellationToken), params IRefreshable[] entities)
+		public static Task Refresh(IEnumerable<IRefreshable> entities, CancellationToken ct = default(CancellationToken))
 		{
-			var groupedByAuth = entities.OfType<IRefreshEndpointSupplier>()
+			var groupedByAuth = entities.OfType<IBatchRefresh>()
 			                            .GroupBy(e => e.Auth);
 			var batches = groupedByAuth.SelectMany(ga => ga.Select((entity, index) => new {entity, index})
-			                                               .GroupBy(gc => gc.index / 10, gc => gc.entity))
-			                           .ToList();
+			                                               .GroupBy(gc => gc.index / 10, gc => gc.entity)
+			                                               .Select(g => g.ToList()));
 
-			return Task.WhenAll(batches.Select(g => _RefreshBatch(g, ct)));
+			return LicenseHelpers.Batch(Task.WhenAll(batches.Select(g => _RefreshBatch(g, ct))));
 		}
 
-		private static Task _RefreshBatch(List<IRefreshEndpointSupplier> batch, CancellationToken ct)
+		private static async Task _RefreshBatch(List<IBatchRefresh> batch, CancellationToken ct)
 		{
 			var auth = batch.First().Auth;
 			var entityEndpoints = batch.Select(e => e.GetRefreshEndpoint());
@@ -70,12 +69,15 @@ namespace Manatee.Trello
 			var batchEndpoint = EndpointFactory.Build(EntityRequestType.Batch_Read_Refresh);
 			var parameters = new Dictionary<string, object>
 				{
-					["urls"] = string.Join(",", entityEndpoints.Select(e => e.ToString()))
+					["urls"] = string.Join(",", entityEndpoints.Select(e => $"/{e}"))
 				};
-			var newData = await JsonRepository.Execute<IJsonCard>(Auth, batchEndpoint, ct, parameters);
+			var newData = await JsonRepository.Execute<IJsonBatch>(auth, batchEndpoint, ct, parameters);
 
-			MarkInitialized();
-			return newData;
+			foreach (var item in newData.Items.Where(r => r.Error == null))
+			{
+				var entity = batch.FirstOrDefault(e => e.Id == item.EntityId);
+				entity?.Apply(item.Content);
+			}
 		}
 	}
 }
