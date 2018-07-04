@@ -8,7 +8,7 @@
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/gregsdennis/Manatee.Trello</PackageProjectUrl>
+    <PackageProjectUrl>https://gregsdennis.github.io/Manatee.Trello/</PackageProjectUrl>
     <PackageTags>api wrapper trello manatee</PackageTags>
     <PackageReleaseNotes>https://gregsdennis.github.io/Manatee.Trello/release-notes.html</PackageReleaseNotes>
     <SignAssembly>True</SignAssembly>
@@ -30,6 +30,7 @@
 
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Manatee.Trello.xml</DocumentationFile>
+    <RepositoryUrl>https://github.com/gregsdennis/Manatee.Trello</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
