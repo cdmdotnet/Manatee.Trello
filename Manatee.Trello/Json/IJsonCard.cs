@@ -173,5 +173,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonDeserialize]
 		List<IJsonMember> MembersVoted { get; set; }
+		/// <summary>
+		/// Gets or sets the additional data to keep when copying a card.
+		/// </summary>
+		[JsonSerialize]
+		CardCopyKeepFromSourceOptions KeepFromSource { get; set; }
 	}
 }
