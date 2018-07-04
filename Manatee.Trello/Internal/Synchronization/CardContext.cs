@@ -68,10 +68,6 @@ namespace Manatee.Trello.Internal.Synchronization
 						                               (d, o) => d.Board = o?.Json)
 					},
 					{
-						nameof(Card.CustomFields),
-						new Property<IJsonCard, List<IJsonCustomField>>((d, a) => d.CustomFields, (d, o) => d.CustomFields = o)
-					},
-					{
 						nameof(Card.Description),
 						new Property<IJsonCard, string>((d, a) => d.Desc, (d, o) => d.Desc = o)
 					},
@@ -98,10 +94,6 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						nameof(Card.IsSubscribed),
 						new Property<IJsonCard, bool?>((d, a) => d.Subscribed, (d, o) => d.Subscribed = o)
-					},
-					{
-						nameof(Card.Labels),
-						new Property<IJsonCard, List<IJsonLabel>>((d, a) => d.Labels, (d, o) => d.Labels = o)
 					},
 					{
 						nameof(Card.LastActivity),
@@ -139,22 +131,32 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
+
 		public CardContext(string id, TrelloAuthorization auth)
 			: base(auth)
 		{
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => Data.Id, auth);
+			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions)});
 			Attachments = new AttachmentCollection(() => Data.Id, auth);
+			Attachments.Refreshed += (s, e) => OnMerged(new[] {nameof(Attachments)});
 			CheckLists = new CheckListCollection(() => Data.Id, auth);
 			CheckLists.Refreshed += (s, e) => OnMerged(new[] {nameof(CheckLists)});
 			Comments = new CommentCollection(() => Data.Id, auth);
+			Comments.Refreshed += (s, e) => OnMerged(new[] {nameof(Comments)});
 			CustomFields = new ReadOnlyCustomFieldCollection(() => Data.Id, auth);
+			CustomFields.Refreshed += (s, e) => OnMerged(new[] {nameof(CustomFields)});
 			Labels = new CardLabelCollection(this, auth);
+			Labels.Refreshed += (s, e) => OnMerged(new[] {nameof(Labels)});
 			Members = new MemberCollection(() => Data.Id, auth);
+			Members.Refreshed += (s, e) => OnMerged(new[] {nameof(Members)});
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Card_Read_PowerUpData, () => Data.Id, auth);
+			PowerUpData.Refreshed += (s, e) => OnMerged(new[] {nameof(PowerUpData)});
 			Stickers = new CardStickerCollection(() => Data.Id, auth);
+			Stickers.Refreshed += (s, e) => OnMerged(new[] {nameof(Stickers)});
 			VotingMembers = new ReadOnlyMemberCollection(EntityRequestType.Card_Read_MembersVoted, () => Data.Id, auth);
+			VotingMembers.Refreshed += (s, e) => OnMerged(new[] {nameof(VotingMembers)});
 
 			BadgesContext = new BadgesContext(Auth);
 

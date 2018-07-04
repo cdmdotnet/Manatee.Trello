@@ -89,6 +89,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Previews = new ReadOnlyStickerPreviewCollection(this, auth);
+			Previews.Refreshed += (s, e) => OnMerged(new[] {nameof(Previews)});
 		}
 
 		public static void UpdateParameters()

@@ -76,6 +76,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			CheckItems = new CheckItemCollection(this, auth);
+			CheckItems.Refreshed += (s, e) => OnMerged(new[] {nameof(CheckItems)});
 		}
 
 		public static void UpdateParameters()

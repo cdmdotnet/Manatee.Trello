@@ -89,16 +89,22 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
+
 		public OrganizationContext(string id, TrelloAuthorization auth)
 			: base(auth)
 		{
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Organization), () => Data.Id, auth);
+			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions)});
 			Boards = new BoardCollection(typeof(Organization), () => Data.Id, auth);
+			Boards.Refreshed += (s, e) => OnMerged(new[] {nameof(Boards)});
 			Members = new ReadOnlyMemberCollection(EntityRequestType.Organization_Read_Members, () => Data.Id, auth);
+			Members.Refreshed += (s, e) => OnMerged(new[] {nameof(Members)});
 			Memberships = new OrganizationMembershipCollection(() => Data.Id, auth);
+			Memberships.Refreshed += (s, e) => OnMerged(new[] {nameof(Memberships)});
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Organization_Read_PowerUpData, () => Data.Id, auth);
+			PowerUpData.Refreshed += (s, e) => OnMerged(new[] {nameof(PowerUpData)});
 
 			OrganizationPreferencesContext = new OrganizationPreferencesContext(Auth);
 			OrganizationPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);
