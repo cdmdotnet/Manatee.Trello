@@ -17956,6 +17956,12 @@ references:
   commentId: F:Manatee.Trello.NotificationType.AddAdminToOrganization
   fullName: Manatee.Trello.NotificationType.AddAdminToOrganization
   nameWithType: NotificationType.AddAdminToOrganization
+- uid: Manatee.Trello.NotificationType.AddAttachmentToCard
+  name: AddAttachmentToCard
+  href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_AddAttachmentToCard
+  commentId: F:Manatee.Trello.NotificationType.AddAttachmentToCard
+  fullName: Manatee.Trello.NotificationType.AddAttachmentToCard
+  nameWithType: NotificationType.AddAttachmentToCard
 - uid: Manatee.Trello.NotificationType.AddedAttachmentToCard
   name: AddedAttachmentToCard
   href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_AddedAttachmentToCard
