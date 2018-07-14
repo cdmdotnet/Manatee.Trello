@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Manatee.Json;
+using Manatee.Trello.Internal;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Tests.Common;
 using Moq;
@@ -13,10 +15,28 @@ using NUnit.Framework;
 namespace Manatee.Trello.UnitTests
 {
 	[TestFixture]
-	[Ignore("This test fixture for development purposes only.")]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
+
+		[Test]
+		public void Issue241_RedundantMeRefresh()
+		{
+			Run(async ct =>
+				{
+					var text = File.ReadAllText(@"c:\users\gregs\desktop\response.json");
+					var json = JsonValue.Parse(text);
+
+					var foundTypes = json.Object["notifications"].Array.Select(jv => jv.Object["type"].String);
+					var allTypes = Enum.GetValues(typeof(NotificationType)).Cast<NotificationType>().Select(t => t.GetDescription());
+
+					var newTypes = foundTypes.Except(allTypes);
+
+					OutputCollection("new types", newTypes);
+
+				}).Wait();
+		}
 
 		[Test]
 		public async Task TestMethod1()
