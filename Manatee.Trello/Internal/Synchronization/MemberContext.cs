@@ -254,7 +254,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (json.StarredBoards != null)
 			{
 				StarredBoards.Update(json.StarredBoards.Select(a => a.GetFromCache<StarredBoard, IJsonStarredBoard>(Auth, overwrite, Data.Id)));
-				properties.Add(nameof(Member.Organizations));
+				properties.Add(nameof(Member.StarredBoards));
 			}
 
 			return properties;
