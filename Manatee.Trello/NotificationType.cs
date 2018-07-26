@@ -114,9 +114,14 @@ namespace Manatee.Trello
 		[Display(Description="cardDueSoon")]
 		CardDueSoon = 1 << 19,
 		/// <summary>
+		/// Indicates the current member added an attachment to a card.
+		/// </summary>
+		[Display(Description = "addAttachmentToCard")]
+		AddAttachmentToCard = 1 << 20,
+		/// <summary>
 		/// Indicates all notification types.
 		/// </summary>
 		[Display(Description="all")]
-		All = (1 << 20) - 1,
+		All = (1 << 21) - 1,
 	}
 }

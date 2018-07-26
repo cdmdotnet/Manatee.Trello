@@ -1,3 +1,11 @@
+# 3.2.1
+
+*Released on 14 Jul, 2018.*
+
+<span id="patch">patch</span>
+
+([#241](https://github.com/gregsdennis/Manatee.Trello/issues/241)) Added a missing notification type: addAttachmentToCard.
+
 # 3.2.0
 
 *Released on 5 Jul, 2018.*
