@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Manatee.Json;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Rest;
@@ -15,7 +16,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.UnitTests
 {
 	[TestFixture]
-	[Ignore("This test fixture for development purposes only.")]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
@@ -25,16 +26,15 @@ namespace Manatee.Trello.UnitTests
 		{
 			await Run(async ct =>
 				{
-					var me = await _factory.Me(ct);
-					await me.BoardBackgrounds.Refresh(true, ct);
-					OutputCollection("backgrounds", me.BoardBackgrounds);
+					TrelloConfiguration.EnableConsistencyProcessing = true;
 
-					var data = File.ReadAllBytes("C:\\Users\\gregs\\OneDrive\\Public\\Manatee Open-Source (shadow).png");
-					var newBackground = await me.BoardBackgrounds.Add(data, ct);
+					Board.DownloadedFields |= Board.Fields.Cards;
 
-					Console.WriteLine(newBackground);
+					var board = _factory.Board(TrelloIds.BoardId);
 
-					await newBackground.Delete(ct);
+					await board.Refresh(false, ct);
+
+					board.Lists[0].Cards.Should().NotBeEmpty();
 				});
 		}
 
