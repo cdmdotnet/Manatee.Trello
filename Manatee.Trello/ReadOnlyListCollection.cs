@@ -31,6 +31,7 @@ namespace Manatee.Trello
 		internal ReadOnlyListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
+			EventAggregator.Subscribe(this);
 		}
 
 		/// <summary>

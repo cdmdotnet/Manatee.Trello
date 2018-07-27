@@ -80,20 +80,21 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
+		//[Ignore("")]
 		public async Task DownloadsEverything()
 		{
 			try
 			{
-				TrelloConfiguration.EnableConsistencyProcessing = true;
+				TrelloConfiguration.EnableConsistencyProcessing = false;
 
 				Board.DownloadedFields |= Board.Fields.Cards;
 
 				var board = TestEnvironment.Current.Board;
 				var card = await TestEnvironment.Current.BuildCard();
 				var listName = card.List.Name;
-				TrelloConfiguration.Cache.Clear();
-				TrelloConfiguration.Cache.Add(TestEnvironment.Current.Board);
-				TrelloConfiguration.Cache.Add(board.Organization);
+
+				board.Lists[listName].Should().BeNull();
+				TrelloConfiguration.EnableConsistencyProcessing = true;
 
 				await board.Refresh(true);
 
@@ -102,6 +103,7 @@ namespace Manatee.Trello.IntegrationTests
 			finally
 			{
 				Board.DownloadedFields &= ~Board.Fields.Cards;
+				TrelloConfiguration.EnableConsistencyProcessing = false;
 			}
 		}
 	}

@@ -19,6 +19,7 @@ namespace Manatee.Trello
 		internal ReadOnlyBoardBackgroundCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
+			EventAggregator.Subscribe(this);
 		}
 
 		internal override async Task PerformRefresh(bool force, CancellationToken ct)

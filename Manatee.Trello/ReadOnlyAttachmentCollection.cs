@@ -18,6 +18,7 @@ namespace Manatee.Trello
 		internal ReadOnlyAttachmentCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
+			EventAggregator.Subscribe(this);
 		}
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)

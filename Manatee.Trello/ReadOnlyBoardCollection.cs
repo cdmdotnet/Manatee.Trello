@@ -37,6 +37,8 @@ namespace Manatee.Trello
 			_updateRequestType = type == typeof(Organization)
 				                     ? EntityRequestType.Organization_Read_Boards
 				                     : EntityRequestType.Member_Read_Boards;
+
+			EventAggregator.Subscribe(this);
 		}
 
 		/// <summary>
