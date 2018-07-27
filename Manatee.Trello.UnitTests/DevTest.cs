@@ -34,6 +34,8 @@ namespace Manatee.Trello.UnitTests
 
 					await board.Refresh(false, ct);
 
+					OutputCollection("list counts", board.Lists.Select(l => $"{l}: {l.Cards.Count()}"));
+
 					board.Lists[0].Cards.Should().NotBeEmpty();
 				});
 		}

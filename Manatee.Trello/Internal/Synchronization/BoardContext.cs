@@ -178,7 +178,16 @@ namespace Manatee.Trello.Internal.Synchronization
 				if (parameterFields.HasFlag(Board.Fields.Cards))
 				{
 					Parameters["cards"] = "visible";
-					Parameters["card_fields"] = CardContext.CurrentParameters["fields"];
+					var fields = CardContext.CurrentParameters["fields"];
+					if (Card.DownloadedFields.HasFlag(Card.Fields.List))
+						fields += ",idList";
+					Parameters["card_fields"] = fields;
+					if (Card.DownloadedFields.HasFlag(Card.Fields.Members))
+						Parameters["card_members"] = "true";
+					if (Card.DownloadedFields.HasFlag(Card.Fields.Attachments))
+						Parameters["card_attachements"] = "all";
+					if (Card.DownloadedFields.HasFlag(Card.Fields.Stickers))
+						Parameters["card_stickers"] = "true";
 				}
 				if (parameterFields.HasFlag(Board.Fields.CustomFields))
 					Parameters["customFields"] = "true";
