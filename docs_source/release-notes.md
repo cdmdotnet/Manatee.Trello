@@ -1,3 +1,11 @@
+# 3.2.2
+
+*Released on XXXXXXXXXXXXXXXXXXXXXX.*
+
+<span id="patch">patch</span>
+
+([PR 245](https://github.com/gregsdennis/Manatee.Trello/pull/245) submitted by [@zodchiy](https://github.com/zodchiy)) Fixed issue with `Member.StarredBoards`.
+
 # 3.2.1
 
 *Released on 14 Jul, 2018.*
