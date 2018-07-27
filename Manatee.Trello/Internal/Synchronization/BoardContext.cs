@@ -160,7 +160,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		private static void GenerateParameters()
 		{
-				lock (Parameters)
+			lock (Parameters)
 			{
 				Parameters.Clear();
 				var flags = Enum.GetValues(typeof(Board.Fields)).Cast<Board.Fields>().ToList();
@@ -169,7 +169,9 @@ namespace Manatee.Trello.Internal.Synchronization
 				var memberFields = availableFields & MemberFields & Board.DownloadedFields;
 				Parameters["fields"] = memberFields.GetDescription();
 
-				var parameterFields = availableFields & Board.DownloadedFields & (~MemberFields);
+				if (!TrelloConfiguration.EnableDeepDownloads) return;
+
+				var parameterFields = availableFields & Board.DownloadedFields & ~MemberFields;
 				if (parameterFields.HasFlag(Board.Fields.Actions))
 				{
 					Parameters["actions"] = "all";
@@ -179,7 +181,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					Parameters["cards"] = "visible";
 					var fields = CardContext.CurrentParameters["fields"];
-					if (Card.DownloadedFields.HasFlag(Card.Fields.List))
+					if (Board.DownloadedFields.HasFlag(Board.Fields.Lists) || Card.DownloadedFields.HasFlag(Card.Fields.List))
 						fields += ",idList";
 					Parameters["card_fields"] = fields;
 					if (Card.DownloadedFields.HasFlag(Card.Fields.Members))
