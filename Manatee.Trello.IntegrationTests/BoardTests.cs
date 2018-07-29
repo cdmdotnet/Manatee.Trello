@@ -95,6 +95,7 @@ namespace Manatee.Trello.IntegrationTests
 
 				board.Lists[listName].Should().BeNull();
 				TrelloConfiguration.EnableConsistencyProcessing = true;
+				TrelloConfiguration.Cache.Remove(card);
 
 				await board.Refresh(true);
 
