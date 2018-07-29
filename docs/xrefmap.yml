@@ -21561,6 +21561,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.TrelloConfiguration.EnableConsistencyProcessing
   nameWithType: TrelloConfiguration.EnableConsistencyProcessing
+- uid: Manatee.Trello.TrelloConfiguration.EnableDeepDownloads
+  name: EnableDeepDownloads
+  href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_EnableDeepDownloads
+  commentId: P:Manatee.Trello.TrelloConfiguration.EnableDeepDownloads
+  fullName: Manatee.Trello.TrelloConfiguration.EnableDeepDownloads
+  nameWithType: TrelloConfiguration.EnableDeepDownloads
+- uid: Manatee.Trello.TrelloConfiguration.EnableDeepDownloads*
+  name: EnableDeepDownloads
+  href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_EnableDeepDownloads_
+  commentId: Overload:Manatee.Trello.TrelloConfiguration.EnableDeepDownloads
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloConfiguration.EnableDeepDownloads
+  nameWithType: TrelloConfiguration.EnableDeepDownloads
 - uid: Manatee.Trello.TrelloConfiguration.JsonFactory
   name: JsonFactory
   href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_JsonFactory
