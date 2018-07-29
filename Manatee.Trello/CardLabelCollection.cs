@@ -24,6 +24,8 @@ namespace Manatee.Trello
 			: base(() => context.Data.Id, auth)
 		{
 			_context = context;
+
+			EventAggregator.Subscribe(this);
 		}
 
 		/// <summary>

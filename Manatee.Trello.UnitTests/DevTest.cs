@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Manatee.Json;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Rest;
@@ -25,16 +26,17 @@ namespace Manatee.Trello.UnitTests
 		{
 			await Run(async ct =>
 				{
-					var me = await _factory.Me(ct);
-					await me.BoardBackgrounds.Refresh(true, ct);
-					OutputCollection("backgrounds", me.BoardBackgrounds);
+					TrelloConfiguration.EnableConsistencyProcessing = true;
 
-					var data = File.ReadAllBytes("C:\\Users\\gregs\\OneDrive\\Public\\Manatee Open-Source (shadow).png");
-					var newBackground = await me.BoardBackgrounds.Add(data, ct);
+					Board.DownloadedFields |= Board.Fields.Cards;
 
-					Console.WriteLine(newBackground);
+					var board = _factory.Board(TrelloIds.BoardId);
 
-					await newBackground.Delete(ct);
+					await board.Refresh(false, ct);
+
+					OutputCollection("list counts", board.Lists.Select(l => $"{l}: {l.Cards.Count()}"));
+
+					board.Lists[0].Cards.Should().NotBeEmpty();
 				});
 		}
 

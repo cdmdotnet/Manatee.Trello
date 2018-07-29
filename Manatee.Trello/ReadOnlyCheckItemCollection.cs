@@ -33,6 +33,8 @@ namespace Manatee.Trello
 			: base(() => context.Data.Id, auth)
 		{
 			_context = context;
+
+			EventAggregator.Subscribe(this);
 		}
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
