@@ -1,3 +1,15 @@
+# 3.3.0
+
+*Released on XXXXXXXXXXXXXXXXXXXXXX.*
+
+<span id="feature">feature</span><span id="patch">patch</span>
+
+([PR 245](https://github.com/gregsdennis/Manatee.Trello/pull/245) by [@zodchiy](https://github.com/zodchiy)) Fixed issue with `Member.StarredBoards`.
+
+([#241](https://github.com/gregsdennis/Manatee.Trello/issues/241)) Boards can now download most of their nested data depending on the value of the new `TrelloConfiguration.EnableDeepDownloads` static property.  By default, this property is set to true.  The effect is fully realized when `TrelloConfiguration.EnableConsistencyProcessing` (from #222) is also set to true.
+
+([#222 (cont.)](https://github.com/gregsdennis/Manatee.Trello/issues/222)) While fixing #241, I discovered that some portions of #222 had been missed.  These have also been fixed.
+
 # 3.2.1
 
 *Released on 14 Jul, 2018.*

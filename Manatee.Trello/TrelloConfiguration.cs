@@ -130,9 +130,19 @@ namespace Manatee.Trello
 		/// Specifies that changes on one entity will be relationally tracked throughout the system.  This functionality is opt-in; the default is false.
 		/// </summary>
 		/// <remarks>
-		/// When this property is set collections will update automatically for downloaded entities without having to be refreshed.  For instance if a card's <see cref="Card.List"/> property is changed, the list that contains it will remove that card from its collection and the new list will add the card.
+		/// When this property is enabled, collections will update automatically for downloaded entities without having to be refreshed.  For instance if a card's <see cref="Card.List"/> property is changed, the list that contains it will remove that card from its collection and the new list will add the card.
 		/// </remarks>
 		public static bool EnableConsistencyProcessing { get; set; }
+
+		/// <summary>
+		/// Specifies that downloading an entity will also download its nested (or child) entities.  The default is true.
+		/// </summary>
+		/// <remarks>
+		/// For example, when this probably is enabled, downloading a board will also attempt to download its lists, cards, members, etc.  This will significantly increase download size, but it will allow for fewer call, which should significantly increase performance.
+		/// The fields which are downloaded will still respect the values set in the <code>DownloadedFields</code> static property.  For example, if <see cref="Board.DownloadedFields"/> does not contain the value <see cref="Board.Fields.Cards"/>, the cards will not be downloaded.
+		/// Currently, only boards (downloading lists and cards) and lists (downloading cards) are supported.
+		/// </remarks>
+		public static bool EnableDeepDownloads { get; set; }
 
 		internal static Dictionary<string, Func<IJsonPowerUp, TrelloAuthorization, IPowerUp>> RegisteredPowerUps { get; }
 
@@ -144,6 +154,7 @@ namespace Manatee.Trello
 			RetryStatusCodes = new List<HttpStatusCode>();
 			RemoveDeletedItemsFromCache = true;
 			RefreshThrottle = TimeSpan.FromSeconds(5);
+			EnableDeepDownloads = true;
 		}
 
 		/// <summary>

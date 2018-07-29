@@ -78,5 +78,34 @@ namespace Manatee.Trello.IntegrationTests
 				TrelloConfiguration.Cache.Add(TestEnvironment.Current.Board);
 			}
 		}
+
+		[Test]
+		//[Ignore("")]
+		public async Task DownloadsEverything()
+		{
+			try
+			{
+				TrelloConfiguration.EnableConsistencyProcessing = false;
+
+				Board.DownloadedFields |= Board.Fields.Cards;
+
+				var board = TestEnvironment.Current.Board;
+				var card = await TestEnvironment.Current.BuildCard();
+				var listName = card.List.Name;
+
+				board.Lists[listName].Should().BeNull();
+				TrelloConfiguration.EnableConsistencyProcessing = true;
+				TrelloConfiguration.Cache.Remove(card);
+
+				await board.Refresh(true);
+
+				board.Lists[listName].Cards.Should().NotBeEmpty();
+			}
+			finally
+			{
+				Board.DownloadedFields &= ~Board.Fields.Cards;
+				TrelloConfiguration.EnableConsistencyProcessing = false;
+			}
+		}
 	}
 }

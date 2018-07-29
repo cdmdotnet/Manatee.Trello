@@ -23,6 +23,7 @@ namespace Manatee.Trello
 		internal ReadOnlyCustomFieldDefinitionCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
+			EventAggregator.Subscribe(this);
 		}
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
