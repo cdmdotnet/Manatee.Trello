@@ -1,10 +1,10 @@
 # Webhooks
 
-As an alternative to refreshing entities manually, you have the option of using webhooks to listen for notifications from Trello.  Webhooks are basically subcriptions to entities.  When an entity is altered outside of Manatee.Trello, an HTML POST message will be sent by Trello to a URI that the developer specifies which contains an Action describing what occurred.
+As an alternative to refreshing entities manually, you have the option of using webhooks to listen for notifications from Trello.  Webhooks are basically subcriptions to entities.  When an entity is altered outside of Manatee.Trello, an HTML POST message will be sent by Trello to a URI that the developer specifies which contains an `Action` describing what occurred.
 
-Manatee.Trello can interpret these Actions and apply any changes to affected entities.  It should be noted that this does not disable manually refreshing entities.
+Manatee.Trello can interpret these `Action`s and apply any changes to the affected entities.  It should be noted that this does not disable manually refreshing entities.
 
-# Creating webhooks
+## Creating webhooks
 
 You can create webhooks via either the `Webhook<T>` constructor or a method on the entity factory which takes an object implementing the `ICanWebhook` interface.  Like the other entities, you can also download the information for a webhook that already exists by passing the webhook's ID.
 
@@ -19,7 +19,7 @@ The URI which is passed in must be set up to receive POST messages.  Within the 
 
 > **IMPORTANT** When you create a webhook, Trello will make a HEAD request to callbackURL you provide to verify that it is a valid URL. Failing to respond to the HEAD request will result in the webhook failing to be created.
 
-# Working with webhooks
+## Working with webhooks
 
 There are several properties on the `Webhook` entity that you can use to modify its behavior.
 

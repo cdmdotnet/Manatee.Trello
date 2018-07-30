@@ -96,10 +96,14 @@ var board = factory.Board(&quot;&lt;board ID&gt;&quot;)
 </ul>
 <p>The factory returns interfaces and is ideal for dependency injection scenarios and for supporting unit testability.</p>
 <p>Before any of the data is available, the <code>Refresh()</code> method must be called.  This is an asynchronous method that should be awaited.</p>
+<pre><code class="lang-csharp">await board.Refresh();
+</code></pre>
 <blockquote>
 <p><strong>NOTE</strong> In previous versions, the data would be automatically downloaded, which was a synchronous and blocking process.  The approach was abandoned to support an async/await model as well as to give the client more control over when data is downloaded.  The only exception to this is the <code>Id</code> property on boards and cards (these can be instantiated via shorter IDs, and the system will block to resolve the full ID).</p>
 </blockquote>
 <p>If you don't need any of the data from the board itself, but you just want the collection of lists, you can call <code>Refresh()</code> directly on the <code>Lists</code> collection.  Otherwise, by default, the lists will be downloaded as part of the board refresh as well.  While this results in rather large data transfers per call, it reduces the number of required calls greatly which provides an overall performance increase.</p>
+<pre><code class="lang-csharp">await board.Lists.Refresh();
+</code></pre>
 <h3 id="customizing-the-download">Customizing the download</h3>
 <p>Most of the entities define a flag-enabled <code>Fields</code> enumeration and a <code>DownloadedFields</code> static property.  This property determines what data is downloaded when the <code>Refresh()</code> method is called.</p>
 <p>For example, if you don't care about downloading the actions or the URL for a board, you can use the following to disable download for these properties:</p>
@@ -197,7 +201,7 @@ var card = new Card(&quot;[your card ID]&quot;, auth);
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/feature/175-new-powerup/docs_source/usage/getting-started.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/docs_source/usage/getting-started.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

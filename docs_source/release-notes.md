@@ -1,6 +1,6 @@
 # 3.3.0
 
-*Released on XXXXXXXXXXXXXXXXXXXXXX.*
+*Released on 29 Jul, 2018.*
 
 <span id="feature">feature</span><span id="patch">patch</span>
 

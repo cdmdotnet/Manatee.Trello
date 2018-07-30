@@ -12,10 +12,10 @@ If you prefer to use a different JSON serializer, the method is similar to that 
 - `IJsonFactory` - All of the objects in Manatee.Trello use the JSON objects for data contexts.  This factory provides a mechanism for the internals to create instances of those JSON objects.
 - <code>I<i>PickAnEntity</i></code> - There are quite a few entity interfaces for which you will need to provide functionality.  Furthermore, the serializer and deserializer will be called using these interfaces, so you'll need to ensure that your implementation of `IDeserializer` is configured properly to create instances of your entity implementations when the entity interface is supplied as the type.  (For example, if `IJsonCard` is requested by Manatee.Trello, your deserializer will need to know to create an instance of your `MyJsonCard` class which implements `IJsonCard`.)
 
-Once all of the interfaces have been implemented, you can configure Manatee.Trello to use your serializer by setting the `Serializer` and `Deserializer` static properties on the `TrelloServiceConfiguration` static class.
+Once all of the interfaces have been implemented, you can configure Manatee.Trello to use your serializer by setting the `Serializer` and `Deserializer` static properties on the `TrelloConfiguration` static class.
 
 ```csharp
-public class MyJsonSerializerWrapper : ISerializer, IDeserializer
+public class MyJsonSerializerAdapter : ISerializer, IDeserializer
 {
     ...
 }
@@ -28,7 +28,7 @@ public class MyJsonFactory : IJsonFactory
 public static void Main()
 {
     ...
-    var serializer = new MyJsonSerializerWrapper();
+    var serializer = new MyJsonSerializerAdapter();
     TrelloConfiguration.Serializer = serializer;
     TrelloConfiguration.Deserializer = serializer;
     TrelloConfiguration.JsonFactory = new MyJsonFactory();
@@ -42,6 +42,6 @@ To aid in deciding which properties should and should not be serialized, three n
 - `JsonSerializeAttribute` - Indicates that a property should be serialized if a value is present.  Also exposes an `IsRequired` boolean property to indicate whether Trello requires this property.
 - `JsonSpecialSerializationAttribute` - Indicates that Trello expects special serialization for a given property.  Refer to the [Trello API documentation](https://developers.trello.com/v1.0/reference#introduction) for more information regarding these properties.
 
-Lastly, many of the DTO interaces implement `IAcceptId`.  These DTOs may be received as mere the entity's ID string instead of the entire body.  When a string is received, it must be deserialized as the full object with only the `Id` property populated.  When an object is received, deserialize all applicable properties and set the `ValidForMerge` property to `true`.  In this way, Manatee.Trello will know that this DTO can be used as a new data source for that entity.
+Lastly, many of the DTO interaces implement `IAcceptId`.  These DTOs may be received as merely the entity's ID string instead of the entire body as an object.  When a string is received, it must be deserialized as the full object with only the `Id` property populated.  When an object is received, deserialize all applicable properties and set the `ValidForMerge` property to `true`.  In this way, Manatee.Trello will know that this DTO can be used as a new data source for that entity.
 
 That's it.  Manatee.Trello will now use your JSON serializer through the wrappers you have provided.

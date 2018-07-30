@@ -82,8 +82,8 @@
 <li><code>IJsonFactory</code> - All of the objects in Manatee.Trello use the JSON objects for data contexts.  This factory provides a mechanism for the internals to create instances of those JSON objects.</li>
 <li><code>I<i>PickAnEntity</i></code> - There are quite a few entity interfaces for which you will need to provide functionality.  Furthermore, the serializer and deserializer will be called using these interfaces, so you'll need to ensure that your implementation of <code>IDeserializer</code> is configured properly to create instances of your entity implementations when the entity interface is supplied as the type.  (For example, if <code>IJsonCard</code> is requested by Manatee.Trello, your deserializer will need to know to create an instance of your <code>MyJsonCard</code> class which implements <code>IJsonCard</code>.)</li>
 </ul>
-<p>Once all of the interfaces have been implemented, you can configure Manatee.Trello to use your serializer by setting the <code>Serializer</code> and <code>Deserializer</code> static properties on the <code>TrelloServiceConfiguration</code> static class.</p>
-<pre><code class="lang-csharp">public class MyJsonSerializerWrapper : ISerializer, IDeserializer
+<p>Once all of the interfaces have been implemented, you can configure Manatee.Trello to use your serializer by setting the <code>Serializer</code> and <code>Deserializer</code> static properties on the <code>TrelloConfiguration</code> static class.</p>
+<pre><code class="lang-csharp">public class MyJsonSerializerAdapter : ISerializer, IDeserializer
 {
     ...
 }
@@ -96,7 +96,7 @@ public class MyJsonFactory : IJsonFactory
 public static void Main()
 {
     ...
-    var serializer = new MyJsonSerializerWrapper();
+    var serializer = new MyJsonSerializerAdapter();
     TrelloConfiguration.Serializer = serializer;
     TrelloConfiguration.Deserializer = serializer;
     TrelloConfiguration.JsonFactory = new MyJsonFactory();
@@ -109,7 +109,7 @@ public static void Main()
 <li><code>JsonSerializeAttribute</code> - Indicates that a property should be serialized if a value is present.  Also exposes an <code>IsRequired</code> boolean property to indicate whether Trello requires this property.</li>
 <li><code>JsonSpecialSerializationAttribute</code> - Indicates that Trello expects special serialization for a given property.  Refer to the <a href="https://developers.trello.com/v1.0/reference#introduction">Trello API documentation</a> for more information regarding these properties.</li>
 </ul>
-<p>Lastly, many of the DTO interaces implement <code>IAcceptId</code>.  These DTOs may be received as mere the entity's ID string instead of the entire body.  When a string is received, it must be deserialized as the full object with only the <code>Id</code> property populated.  When an object is received, deserialize all applicable properties and set the <code>ValidForMerge</code> property to <code>true</code>.  In this way, Manatee.Trello will know that this DTO can be used as a new data source for that entity.</p>
+<p>Lastly, many of the DTO interaces implement <code>IAcceptId</code>.  These DTOs may be received as merely the entity's ID string instead of the entire body as an object.  When a string is received, it must be deserialized as the full object with only the <code>Id</code> property populated.  When an object is received, deserialize all applicable properties and set the <code>ValidForMerge</code> property to <code>true</code>.  In this way, Manatee.Trello will know that this DTO can be used as a new data source for that entity.</p>
 <p>That's it.  Manatee.Trello will now use your JSON serializer through the wrappers you have provided.</p>
 </article>
           </div>

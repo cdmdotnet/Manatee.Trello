@@ -69,9 +69,9 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="webhooks">Webhooks</h1>
 
-<p>As an alternative to refreshing entities manually, you have the option of using webhooks to listen for notifications from Trello.  Webhooks are basically subcriptions to entities.  When an entity is altered outside of Manatee.Trello, an HTML POST message will be sent by Trello to a URI that the developer specifies which contains an Action describing what occurred.</p>
-<p>Manatee.Trello can interpret these Actions and apply any changes to affected entities.  It should be noted that this does not disable manually refreshing entities.</p>
-<h1 id="creating-webhooks">Creating webhooks</h1>
+<p>As an alternative to refreshing entities manually, you have the option of using webhooks to listen for notifications from Trello.  Webhooks are basically subcriptions to entities.  When an entity is altered outside of Manatee.Trello, an HTML POST message will be sent by Trello to a URI that the developer specifies which contains an <code>Action</code> describing what occurred.</p>
+<p>Manatee.Trello can interpret these <code>Action</code>s and apply any changes to the affected entities.  It should be noted that this does not disable manually refreshing entities.</p>
+<h2 id="creating-webhooks">Creating webhooks</h2>
 <p>You can create webhooks via either the <code>Webhook&lt;T&gt;</code> constructor or a method on the entity factory which takes an object implementing the <code>ICanWebhook</code> interface.  Like the other entities, you can also download the information for a webhook that already exists by passing the webhook's ID.</p>
 <pre><code class="lang-csharp">var member = factory.Member(&quot;myusername&quot;);
 var webhook = factory.Webook&lt;Member&gt;(member, &quot;http://myurl.com/inbox/&quot;);
@@ -83,7 +83,7 @@ var webhook = factory.Webook&lt;Member&gt;(member, &quot;http://myurl.com/inbox/
 <blockquote>
 <p><strong>IMPORTANT</strong> When you create a webhook, Trello will make a HEAD request to callbackURL you provide to verify that it is a valid URL. Failing to respond to the HEAD request will result in the webhook failing to be created.</p>
 </blockquote>
-<h1 id="working-with-webhooks">Working with webhooks</h1>
+<h2 id="working-with-webhooks">Working with webhooks</h2>
 <p>There are several properties on the <code>Webhook</code> entity that you can use to modify its behavior.</p>
 <ul>
 <li><code>CallbackUrl</code> - Changes the callback URL to which Trello will send notification messages.</li>

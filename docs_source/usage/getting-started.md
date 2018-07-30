@@ -40,9 +40,17 @@ The factory returns interfaces and is ideal for dependency injection scenarios a
 
 Before any of the data is available, the `Refresh()` method must be called.  This is an asynchronous method that should be awaited.
 
+```csharp
+await board.Refresh();
+```
+
 > **NOTE** In previous versions, the data would be automatically downloaded, which was a synchronous and blocking process.  The approach was abandoned to support an async/await model as well as to give the client more control over when data is downloaded.  The only exception to this is the `Id` property on boards and cards (these can be instantiated via shorter IDs, and the system will block to resolve the full ID).
 
 If you don't need any of the data from the board itself, but you just want the collection of lists, you can call `Refresh()` directly on the `Lists` collection.  Otherwise, by default, the lists will be downloaded as part of the board refresh as well.  While this results in rather large data transfers per call, it reduces the number of required calls greatly which provides an overall performance increase.
+
+```csharp
+await board.Lists.Refresh();
+```
 
 ### Customizing the download
 
