@@ -1,3 +1,11 @@
+# 3.3.1
+
+*Released on 29 Jul, 2018.*
+
+<span id="patch">patch</span>
+
+([#249](https://github.com/gregsdennis/Manatee.Trello/issues/249)) Member data is being overwritten because actions and notifications are attempting to merge in creator data.  This change prevents overwriting during the merge.
+
 # 3.3.0
 
 *Released on 29 Jul, 2018.*
