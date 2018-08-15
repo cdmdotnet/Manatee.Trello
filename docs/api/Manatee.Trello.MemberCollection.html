@@ -88,7 +88,8 @@
     <div><a class="xref" href="Manatee.Trello.IMemberCollection.html">IMemberCollection</a></div>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyMemberCollection.html">IReadOnlyMemberCollection</a></div>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.IMember.html">IMember</a>&gt;</div>
-    <div><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IMember.html">IMember</a>&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IMember.html">IMember</a>&gt;</div>
+    <div><span class="xref">System.Collections.IEnumerable</span></div>
     <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
   </div>
   <div class="inheritedMembers">
@@ -100,7 +101,7 @@
       <a class="xref" href="Manatee.Trello.ReadOnlyMemberCollection.html#Manatee_Trello_ReadOnlyMemberCollection_Filter_Manatee_Trello_MemberFilter_">ReadOnlyMemberCollection.Filter(MemberFilter)</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.ReadOnlyMemberCollection.html#Manatee_Trello_ReadOnlyMemberCollection_Filter_IEnumerable_Manatee_Trello_MemberFilter__">ReadOnlyMemberCollection.Filter(IEnumerable&lt;MemberFilter&gt;)</a>
+      <a class="xref" href="Manatee.Trello.ReadOnlyMemberCollection.html#Manatee_Trello_ReadOnlyMemberCollection_Filter_System_Collections_Generic_IEnumerable_Manatee_Trello_MemberFilter__">ReadOnlyMemberCollection.Filter(IEnumerable&lt;MemberFilter&gt;)</a>
     </div>
     <div>
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Limit">ReadOnlyCollection&lt;IMember&gt;.Limit</a>
@@ -112,35 +113,59 @@
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_GetEnumerator">ReadOnlyCollection&lt;IMember&gt;.GetEnumerator()</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_">ReadOnlyCollection&lt;IMember&gt;.Refresh(Boolean, CancellationToken)</a>
+      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_System_Threading_CancellationToken_">ReadOnlyCollection&lt;IMember&gt;.Refresh(Boolean, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_System_Collections_IEnumerable_GetEnumerator">ReadOnlyCollection&lt;IMember&gt;.IEnumerable.GetEnumerator()</a>
     </div>
     <div>
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_IncorporateLimit">ReadOnlyCollection&lt;IMember&gt;.IncorporateLimit()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_MemberCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class MemberCollection : ReadOnlyMemberCollection, IHandle&lt;EntityUpdatedEvent&lt;IJsonMember&gt;&gt;, IHandle, IMemberCollection, IReadOnlyMemberCollection, IReadOnlyCollection&lt;IMember&gt;, IEnumerable&lt;IMember&gt;, IRefreshable</code></pre>
+    <pre><code class="lang-csharp hljs">public class MemberCollection : ReadOnlyMemberCollection, IHandle&lt;EntityUpdatedEvent&lt;IJsonMember&gt;&gt;, IHandle, IMemberCollection, IReadOnlyMemberCollection, IReadOnlyCollection&lt;IMember&gt;, IEnumerable&lt;IMember&gt;, IEnumerable, IRefreshable</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_MemberCollection_Add_Manatee_Trello_IMember_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.MemberCollection.Add(Manatee.Trello.IMember%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_MemberCollection_Add_Manatee_Trello_IMember_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.MemberCollection.Add(Manatee.Trello.IMember%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/MemberCollection.cs/#L25">View Source</a>
   </span>
   <a id="Manatee_Trello_MemberCollection_Add_" data-uid="Manatee.Trello.MemberCollection.Add*"></a>
-  <h4 id="Manatee_Trello_MemberCollection_Add_Manatee_Trello_IMember_CancellationToken_" data-uid="Manatee.Trello.MemberCollection.Add(Manatee.Trello.IMember,CancellationToken)">Add(IMember, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_MemberCollection_Add_Manatee_Trello_IMember_System_Threading_CancellationToken_" data-uid="Manatee.Trello.MemberCollection.Add(Manatee.Trello.IMember,System.Threading.CancellationToken)">Add(IMember, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Adds a member to the collection.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Add(IMember member, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Add(IMember member, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -159,7 +184,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -176,26 +201,26 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_MemberCollection_Remove_Manatee_Trello_IMember_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.MemberCollection.Remove(Manatee.Trello.IMember%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_MemberCollection_Remove_Manatee_Trello_IMember_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.MemberCollection.Remove(Manatee.Trello.IMember%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/MemberCollection.cs/#L53">View Source</a>
   </span>
   <a id="Manatee_Trello_MemberCollection_Remove_" data-uid="Manatee.Trello.MemberCollection.Remove*"></a>
-  <h4 id="Manatee_Trello_MemberCollection_Remove_Manatee_Trello_IMember_CancellationToken_" data-uid="Manatee.Trello.MemberCollection.Remove(Manatee.Trello.IMember,CancellationToken)">Remove(IMember, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_MemberCollection_Remove_Manatee_Trello_IMember_System_Threading_CancellationToken_" data-uid="Manatee.Trello.MemberCollection.Remove(Manatee.Trello.IMember,System.Threading.CancellationToken)">Remove(IMember, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Removes a member from the collection.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Remove(IMember member, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Remove(IMember member, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -214,7 +239,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -231,7 +256,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -247,7 +272,10 @@
       <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection&lt;T&gt;</a>
   </div>
   <div>
-      <span class="xref">IEnumerable&lt;&gt;</span>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IEnumerable</span>
   </div>
   <div>
       <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>

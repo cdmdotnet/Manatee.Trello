@@ -85,11 +85,35 @@
     <h5>Implements</h5>
     <div><a class="xref" href="Manatee.Trello.ITrelloFactory.html">ITrelloFactory</a></div>
   </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_TrelloFactory_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class TrelloFactory : object, ITrelloFactory</code></pre>
+    <pre><code class="lang-csharp hljs">public class TrelloFactory : ITrelloFactory</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -431,19 +455,19 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Me_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Me(CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Me_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Me(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L86">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Me_" data-uid="Manatee.Trello.TrelloFactory.Me*"></a>
-  <h4 id="Manatee_Trello_TrelloFactory_Me_CancellationToken_" data-uid="Manatee.Trello.TrelloFactory.Me(CancellationToken)">Me(CancellationToken)</h4>
+  <h4 id="Manatee_Trello_TrelloFactory_Me_System_Threading_CancellationToken_" data-uid="Manatee.Trello.TrelloFactory.Me(System.Threading.CancellationToken)">Me(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Manatee.Trello.IMe.html">IMe</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IMe&gt; Me(CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;IMe&gt; Me(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -456,7 +480,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -473,13 +497,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<a class="xref" href="Manatee.Trello.IMe.html">IMe</a>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Manatee.Trello.IMe.html">IMe</a>&gt;</td>
         <td><p>An <a class="xref" href="Manatee.Trello.IMe.html">IMe</a></p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Manatee_Trello_TrelloFactory_Me_CancellationToken__remarks">Remarks</h5>
+  <h5 id="Manatee_Trello_TrelloFactory_Me_System_Threading_CancellationToken__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This performs a call to the API to get the member authorized by <a class="xref" href="Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_Default">Default</a>.</p>
 </div>
   <span class="small pull-right mobile-hide">
@@ -552,7 +576,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IMemberSearch MemberSearch(string query, int? limit = null, IBoard board = null, IOrganization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public IMemberSearch MemberSearch(string query, int? limit = default(int? ), IBoard board = null, IOrganization organization = null, bool? restrictToOrganization = default(bool? ), TrelloAuthorization auth = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -732,19 +756,19 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Search_Manatee_Trello_ISearchQuery_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Search(Manatee.Trello.ISearchQuery%2CSystem.Nullable%7BSystem.Int32%7D%2CManatee.Trello.SearchModelType%2CIEnumerable%7BManatee.Trello.IQueryable%7D%2CSystem.Boolean%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Search_Manatee_Trello_ISearchQuery_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_System_Collections_Generic_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Search(Manatee.Trello.ISearchQuery%2CSystem.Nullable%7BSystem.Int32%7D%2CManatee.Trello.SearchModelType%2CSystem.Collections.Generic.IEnumerable%7BManatee.Trello.IQueryable%7D%2CSystem.Boolean%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L160">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Search_" data-uid="Manatee.Trello.TrelloFactory.Search*"></a>
-  <h4 id="Manatee_Trello_TrelloFactory_Search_Manatee_Trello_ISearchQuery_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Search(Manatee.Trello.ISearchQuery,System.Nullable{System.Int32},Manatee.Trello.SearchModelType,IEnumerable{Manatee.Trello.IQueryable},System.Boolean,Manatee.Trello.TrelloAuthorization)">Search(ISearchQuery, Nullable&lt;Int32&gt;, SearchModelType, IEnumerable&lt;IQueryable&gt;, Boolean, TrelloAuthorization)</h4>
+  <h4 id="Manatee_Trello_TrelloFactory_Search_Manatee_Trello_ISearchQuery_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_System_Collections_Generic_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Search(Manatee.Trello.ISearchQuery,System.Nullable{System.Int32},Manatee.Trello.SearchModelType,System.Collections.Generic.IEnumerable{Manatee.Trello.IQueryable},System.Boolean,Manatee.Trello.TrelloAuthorization)">Search(ISearchQuery, Nullable&lt;Int32&gt;, SearchModelType, IEnumerable&lt;IQueryable&gt;, Boolean, TrelloAuthorization)</h4>
   <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Manatee.Trello.ISearch.html">ISearch</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ISearch Search(ISearchQuery query, int? limit = null, SearchModelType modelTypes = default(SearchModelType), IEnumerable&lt;IQueryable&gt; context = null, bool isPartial = false, TrelloAuthorization auth = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public ISearch Search(ISearchQuery query, int? limit = default(int? ), SearchModelType modelTypes = SearchModelType.Actions | SearchModelType.Boards | SearchModelType.Cards | SearchModelType.Members | SearchModelType.Organizations | SearchModelType.All, IEnumerable&lt;IQueryable&gt; context = null, bool isPartial = false, TrelloAuthorization auth = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -775,7 +799,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IQueryable.html">IQueryable</a>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IQueryable.html">IQueryable</a>&gt;</td>
         <td><span class="parametername">context</span></td>
         <td><p>(Optional) The context (scope) of the search.</p>
 </td>
@@ -812,19 +836,19 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Search_System_String_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Search(System.String%2CSystem.Nullable%7BSystem.Int32%7D%2CManatee.Trello.SearchModelType%2CIEnumerable%7BManatee.Trello.IQueryable%7D%2CSystem.Boolean%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Search_System_String_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_System_Collections_Generic_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Search(System.String%2CSystem.Nullable%7BSystem.Int32%7D%2CManatee.Trello.SearchModelType%2CSystem.Collections.Generic.IEnumerable%7BManatee.Trello.IQueryable%7D%2CSystem.Boolean%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L176">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Search_" data-uid="Manatee.Trello.TrelloFactory.Search*"></a>
-  <h4 id="Manatee_Trello_TrelloFactory_Search_System_String_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Search(System.String,System.Nullable{System.Int32},Manatee.Trello.SearchModelType,IEnumerable{Manatee.Trello.IQueryable},System.Boolean,Manatee.Trello.TrelloAuthorization)">Search(String, Nullable&lt;Int32&gt;, SearchModelType, IEnumerable&lt;IQueryable&gt;, Boolean, TrelloAuthorization)</h4>
+  <h4 id="Manatee_Trello_TrelloFactory_Search_System_String_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_System_Collections_Generic_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Search(System.String,System.Nullable{System.Int32},Manatee.Trello.SearchModelType,System.Collections.Generic.IEnumerable{Manatee.Trello.IQueryable},System.Boolean,Manatee.Trello.TrelloAuthorization)">Search(String, Nullable&lt;Int32&gt;, SearchModelType, IEnumerable&lt;IQueryable&gt;, Boolean, TrelloAuthorization)</h4>
   <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Manatee.Trello.ISearch.html">ISearch</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ISearch Search(string query, int? limit = null, SearchModelType modelTypes = default(SearchModelType), IEnumerable&lt;IQueryable&gt; context = null, bool isPartial = false, TrelloAuthorization auth = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public ISearch Search(string query, int? limit = default(int? ), SearchModelType modelTypes = SearchModelType.Actions | SearchModelType.Boards | SearchModelType.Cards | SearchModelType.Members | SearchModelType.Organizations | SearchModelType.All, IEnumerable&lt;IQueryable&gt; context = null, bool isPartial = false, TrelloAuthorization auth = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -855,7 +879,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IQueryable.html">IQueryable</a>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IQueryable.html">IQueryable</a>&gt;</td>
         <td><span class="parametername">context</span></td>
         <td><p>(Optional) The context (scope) of the search.</p>
 </td>
@@ -980,19 +1004,19 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Webhook__1___0_System_String_System_String_Manatee_Trello_TrelloAuthorization_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Webhook%60%601(%60%600%2CSystem.String%2CSystem.String%2CManatee.Trello.TrelloAuthorization%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Webhook__1___0_System_String_System_String_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Webhook%60%601(%60%600%2CSystem.String%2CSystem.String%2CManatee.Trello.TrelloAuthorization%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L202">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Webhook_" data-uid="Manatee.Trello.TrelloFactory.Webhook*"></a>
-  <h4 id="Manatee_Trello_TrelloFactory_Webhook__1___0_System_String_System_String_Manatee_Trello_TrelloAuthorization_CancellationToken_" data-uid="Manatee.Trello.TrelloFactory.Webhook``1(``0,System.String,System.String,Manatee.Trello.TrelloAuthorization,CancellationToken)">Webhook&lt;T&gt;(T, String, String, TrelloAuthorization, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_TrelloFactory_Webhook__1___0_System_String_System_String_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_" data-uid="Manatee.Trello.TrelloFactory.Webhook``1(``0,System.String,System.String,Manatee.Trello.TrelloAuthorization,System.Threading.CancellationToken)">Webhook&lt;T&gt;(T, String, String, TrelloAuthorization, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Manatee.Trello.IWebhook-1.html">IWebhook&lt;T&gt;</a> and registers a new webhook with Trello.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IWebhook&lt;T&gt;&gt; Webhook&lt;T&gt;(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null, CancellationToken ct = null)
+    <pre><code class="lang-csharp hljs">public Task&lt;IWebhook&lt;T&gt;&gt; Webhook&lt;T&gt;(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null, CancellationToken ct = default(CancellationToken))
     where T : class, ICanWebhook</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1030,7 +1054,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -1047,7 +1071,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<a class="xref" href="Manatee.Trello.IWebhook-1.html">IWebhook</a>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Manatee.Trello.IWebhook-1.html">IWebhook</a>&lt;T&gt;&gt;</td>
         <td><p>An <a class="xref" href="Manatee.Trello.IWebhook-1.html">IWebhook&lt;T&gt;</a></p>
 </td>
       </tr>

@@ -81,11 +81,35 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">TrelloProcessor</span></div>
   </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_TrelloProcessor_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class TrelloProcessor : object</code></pre>
+    <pre><code class="lang-csharp hljs">public static class TrelloProcessor</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -115,7 +139,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -162,19 +186,19 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloProcessor_Refresh_IEnumerable_Manatee_Trello_IBatchRefreshable__CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloProcessor.Refresh(IEnumerable%7BManatee.Trello.IBatchRefreshable%7D%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloProcessor_Refresh_System_Collections_Generic_IEnumerable_Manatee_Trello_IBatchRefreshable__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloProcessor.Refresh(System.Collections.Generic.IEnumerable%7BManatee.Trello.IBatchRefreshable%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloProcessor.cs/#L52">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloProcessor_Refresh_" data-uid="Manatee.Trello.TrelloProcessor.Refresh*"></a>
-  <h4 id="Manatee_Trello_TrelloProcessor_Refresh_IEnumerable_Manatee_Trello_IBatchRefreshable__CancellationToken_" data-uid="Manatee.Trello.TrelloProcessor.Refresh(IEnumerable{Manatee.Trello.IBatchRefreshable},CancellationToken)">Refresh(IEnumerable&lt;IBatchRefreshable&gt;, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_TrelloProcessor_Refresh_System_Collections_Generic_IEnumerable_Manatee_Trello_IBatchRefreshable__System_Threading_CancellationToken_" data-uid="Manatee.Trello.TrelloProcessor.Refresh(System.Collections.Generic.IEnumerable{Manatee.Trello.IBatchRefreshable},System.Threading.CancellationToken)">Refresh(IEnumerable&lt;IBatchRefreshable&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Performs a batch refresh of all entities.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task Refresh(IEnumerable&lt;IBatchRefreshable&gt; entities, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task Refresh(IEnumerable&lt;IBatchRefreshable&gt; entities, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -187,13 +211,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IBatchRefreshable.html">IBatchRefreshable</a>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IBatchRefreshable.html">IBatchRefreshable</a>&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The entities to refresh.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -210,12 +234,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Manatee_Trello_TrelloProcessor_Refresh_IEnumerable_Manatee_Trello_IBatchRefreshable__CancellationToken__remarks">Remarks</h5>
+  <h5 id="Manatee_Trello_TrelloProcessor_Refresh_System_Collections_Generic_IEnumerable_Manatee_Trello_IBatchRefreshable__System_Threading_CancellationToken__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>Trello imposes a limit of 10 entities per call.  Therefore this method will break all entities into batches
 of 10 and make a single call for each, returning when all have completed.</p>
 </div>

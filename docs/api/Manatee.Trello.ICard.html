@@ -85,7 +85,7 @@
       <a class="xref" href="Manatee.Trello.ICacheable.html#Manatee_Trello_ICacheable_Id">ICacheable.Id</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_CancellationToken_">IRefreshable.Refresh(Boolean, CancellationToken)</a>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_System_Threading_CancellationToken_">IRefreshable.Refresh(Boolean, CancellationToken)</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
@@ -311,7 +311,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">DateTime</span></td>
+        <td><span class="xref">System.DateTime</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -404,7 +404,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">DateTime</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.DateTime</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -552,6 +552,22 @@
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> is less than 0 or greater than or equal to the number of elements in the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_ICard_Item_System_String_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ICard.Item(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -662,7 +678,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">DateTime</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.DateTime</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -987,19 +1003,19 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_ICard_Delete_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ICard.Delete(CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_ICard_Delete_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.ICard.Delete(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Contracts/ICard.cs/#L179">View Source</a>
   </span>
   <a id="Manatee_Trello_ICard_Delete_" data-uid="Manatee.Trello.ICard.Delete*"></a>
-  <h4 id="Manatee_Trello_ICard_Delete_CancellationToken_" data-uid="Manatee.Trello.ICard.Delete(CancellationToken)">Delete(CancellationToken)</h4>
+  <h4 id="Manatee_Trello_ICard_Delete_System_Threading_CancellationToken_" data-uid="Manatee.Trello.ICard.Delete(System.Threading.CancellationToken)">Delete(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes the card.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task Delete(CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">Task Delete(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1012,7 +1028,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -1029,12 +1045,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Manatee_Trello_ICard_Delete_CancellationToken__remarks">Remarks</h5>
+  <h5 id="Manatee_Trello_ICard_Delete_System_Threading_CancellationToken__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This permanently deletes the card from Trello's server, however, this object will remain in memory and all properties will remain accessible.</p>
 </div>
   <h3 id="events">Events
@@ -1064,7 +1080,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Manatee.Trello.Action</span>&lt;<a class="xref" href="Manatee.Trello.ICard.html">ICard</a>, <span class="xref">IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="Manatee.Trello.ICard.html">ICard</a>, <span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>

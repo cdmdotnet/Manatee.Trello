@@ -86,7 +86,8 @@
   <div classs="implements">
     <h5>Implements</h5>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.IPowerUp.html">IPowerUp</a>&gt;</div>
-    <div><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IPowerUp.html">IPowerUp</a>&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.IPowerUp.html">IPowerUp</a>&gt;</div>
+    <div><span class="xref">System.Collections.IEnumerable</span></div>
     <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
   </div>
   <div class="inheritedMembers">
@@ -101,17 +102,41 @@
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_GetEnumerator">ReadOnlyCollection&lt;IPowerUp&gt;.GetEnumerator()</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_">ReadOnlyCollection&lt;IPowerUp&gt;.Refresh(Boolean, CancellationToken)</a>
+      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_System_Threading_CancellationToken_">ReadOnlyCollection&lt;IPowerUp&gt;.Refresh(Boolean, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_System_Collections_IEnumerable_GetEnumerator">ReadOnlyCollection&lt;IPowerUp&gt;.IEnumerable.GetEnumerator()</a>
     </div>
     <div>
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_IncorporateLimit">ReadOnlyCollection&lt;IPowerUp&gt;.IncorporateLimit()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_ReadOnlyPowerUpCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ReadOnlyPowerUpCollection : ReadOnlyCollection&lt;IPowerUp&gt;, IReadOnlyCollection&lt;IPowerUp&gt;, IEnumerable&lt;IPowerUp&gt;, IRefreshable</code></pre>
+    <pre><code class="lang-csharp hljs">public class ReadOnlyPowerUpCollection : ReadOnlyCollection&lt;IPowerUp&gt;, IReadOnlyCollection&lt;IPowerUp&gt;, IEnumerable&lt;IPowerUp&gt;, IEnumerable, IRefreshable</code></pre>
   </div>
   <h5 id="Manatee_Trello_ReadOnlyPowerUpCollection_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>If a power-up hasn't been registered, it will be instantiated using <a class="xref" href="Manatee.Trello.UnknownPowerUp.html">UnknownPowerUp</a>.</p>
@@ -121,7 +146,10 @@
       <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection&lt;T&gt;</a>
   </div>
   <div>
-      <span class="xref">IEnumerable&lt;&gt;</span>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IEnumerable</span>
   </div>
   <div>
       <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>

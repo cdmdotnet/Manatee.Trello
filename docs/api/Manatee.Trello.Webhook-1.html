@@ -88,11 +88,35 @@
     <div><a class="xref" href="Manatee.Trello.IBatchRefreshable.html">IBatchRefreshable</a></div>
     <div><a class="xref" href="Manatee.Trello.ICacheable.html">ICacheable</a></div>
   </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_Webhook_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Webhook&lt;T&gt; : object, IWebhook&lt;T&gt;, IRefreshable, IMergeJson&lt;IJsonWebhook&gt;, IBatchRefresh, IBatchRefreshable, ICacheable where T : class, ICanWebhook</code></pre>
+    <pre><code class="lang-csharp hljs">public class Webhook&lt;T&gt; : IWebhook&lt;T&gt;, IRefreshable, IMergeJson&lt;IJsonWebhook&gt;, IBatchRefresh, IBatchRefreshable, ICacheable where T : class, ICanWebhook</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -211,7 +235,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">DateTime</span></td>
+        <td><span class="xref">System.DateTime</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -344,19 +368,19 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Webhook_1_Create__0_System_String_System_String_Manatee_Trello_TrelloAuthorization_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Webhook%601.Create(%600%2CSystem.String%2CSystem.String%2CManatee.Trello.TrelloAuthorization%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Webhook_1_Create__0_System_String_System_String_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Webhook%601.Create(%600%2CSystem.String%2CSystem.String%2CManatee.Trello.TrelloAuthorization%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Webhook.cs/#L131">View Source</a>
   </span>
   <a id="Manatee_Trello_Webhook_1_Create_" data-uid="Manatee.Trello.Webhook`1.Create*"></a>
-  <h4 id="Manatee_Trello_Webhook_1_Create__0_System_String_System_String_Manatee_Trello_TrelloAuthorization_CancellationToken_" data-uid="Manatee.Trello.Webhook`1.Create(`0,System.String,System.String,Manatee.Trello.TrelloAuthorization,CancellationToken)">Create(T, String, String, TrelloAuthorization, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_Webhook_1_Create__0_System_String_System_String_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_" data-uid="Manatee.Trello.Webhook`1.Create(`0,System.String,System.String,Manatee.Trello.TrelloAuthorization,System.Threading.CancellationToken)">Create(T, String, String, TrelloAuthorization, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Creates a new instance of the <a class="xref" href="Manatee.Trello.Webhook-1.html">Webhook&lt;T&gt;</a> object and registers a webhook with Trello.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Webhook&lt;T&gt;&gt; Create(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;Webhook&lt;T&gt;&gt; Create(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -390,7 +414,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -407,26 +431,26 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<a class="xref" href="Manatee.Trello.Webhook-1.html">Webhook</a>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Manatee.Trello.Webhook-1.html">Webhook</a>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Webhook_1_Delete_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Webhook%601.Delete(CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Webhook_1_Delete_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Webhook%601.Delete(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Webhook.cs/#L147">View Source</a>
   </span>
   <a id="Manatee_Trello_Webhook_1_Delete_" data-uid="Manatee.Trello.Webhook`1.Delete*"></a>
-  <h4 id="Manatee_Trello_Webhook_1_Delete_CancellationToken_" data-uid="Manatee.Trello.Webhook`1.Delete(CancellationToken)">Delete(CancellationToken)</h4>
+  <h4 id="Manatee_Trello_Webhook_1_Delete_System_Threading_CancellationToken_" data-uid="Manatee.Trello.Webhook`1.Delete(System.Threading.CancellationToken)">Delete(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes the webhook.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Delete(CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Delete(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -439,7 +463,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -456,29 +480,29 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Manatee_Trello_Webhook_1_Delete_CancellationToken__remarks">Remarks</h5>
+  <h5 id="Manatee_Trello_Webhook_1_Delete_System_Threading_CancellationToken__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This permanently deletes the webhook from Trello's server, however, this object will remain in memory and all properties will remain accessible.</p>
 </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Webhook_1_Refresh_System_Boolean_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Webhook%601.Refresh(System.Boolean%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_Webhook_1_Refresh_System_Boolean_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.Webhook%601.Refresh(System.Boolean%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/Webhook.cs/#L159">View Source</a>
   </span>
   <a id="Manatee_Trello_Webhook_1_Refresh_" data-uid="Manatee.Trello.Webhook`1.Refresh*"></a>
-  <h4 id="Manatee_Trello_Webhook_1_Refresh_System_Boolean_CancellationToken_" data-uid="Manatee.Trello.Webhook`1.Refresh(System.Boolean,CancellationToken)">Refresh(Boolean, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_Webhook_1_Refresh_System_Boolean_System_Threading_CancellationToken_" data-uid="Manatee.Trello.Webhook`1.Refresh(System.Boolean,System.Threading.CancellationToken)">Refresh(Boolean, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Refreshes the webhook data.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Refresh(bool force = false, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -497,7 +521,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -514,7 +538,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -546,7 +570,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Manatee.Trello.Action</span>&lt;<a class="xref" href="Manatee.Trello.IWebhook-1.html">IWebhook</a>&lt;T&gt;, <span class="xref">IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="Manatee.Trello.IWebhook-1.html">IWebhook</a>&lt;T&gt;, <span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>

@@ -79,14 +79,17 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_CancellationToken_">IRefreshable.Refresh(Boolean, CancellationToken)</a>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;.GetEnumerator()</span>
+    </div>
+    <div>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_System_Threading_CancellationToken_">IRefreshable.Refresh(Boolean, CancellationToken)</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_IReadOnlyCollection_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IReadOnlyCollection&lt;out T&gt; : IEnumerable&lt;T&gt;, IRefreshable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IReadOnlyCollection&lt;out T&gt; : IEnumerable&lt;T&gt;, IEnumerable, IRefreshable</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -152,6 +155,22 @@
       <tr>
         <td><span class="xref">T</span></td>
         <td><p>The item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> is less than 0 or greater than or equal to the number of elements in the collection.</p>
 </td>
       </tr>
     </tbody>

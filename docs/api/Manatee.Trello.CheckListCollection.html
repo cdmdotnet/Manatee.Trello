@@ -88,7 +88,8 @@
     <div><a class="xref" href="Manatee.Trello.ICheckListCollection.html">ICheckListCollection</a></div>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCheckListCollection.html">IReadOnlyCheckListCollection</a></div>
     <div><a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection</a>&lt;<a class="xref" href="Manatee.Trello.ICheckList.html">ICheckList</a>&gt;</div>
-    <div><span class="xref">IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.ICheckList.html">ICheckList</a>&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Manatee.Trello.ICheckList.html">ICheckList</a>&gt;</div>
+    <div><span class="xref">System.Collections.IEnumerable</span></div>
     <div><a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a></div>
   </div>
   <div class="inheritedMembers">
@@ -106,35 +107,59 @@
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_GetEnumerator">ReadOnlyCollection&lt;ICheckList&gt;.GetEnumerator()</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_CancellationToken_">ReadOnlyCollection&lt;ICheckList&gt;.Refresh(Boolean, CancellationToken)</a>
+      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_Refresh_System_Boolean_System_Threading_CancellationToken_">ReadOnlyCollection&lt;ICheckList&gt;.Refresh(Boolean, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_System_Collections_IEnumerable_GetEnumerator">ReadOnlyCollection&lt;ICheckList&gt;.IEnumerable.GetEnumerator()</a>
     </div>
     <div>
       <a class="xref" href="Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_IncorporateLimit">ReadOnlyCollection&lt;ICheckList&gt;.IncorporateLimit()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_CheckListCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CheckListCollection : ReadOnlyCheckListCollection, IHandle&lt;EntityDeletedEvent&lt;IJsonCheckList&gt;&gt;, IHandle, ICheckListCollection, IReadOnlyCheckListCollection, IReadOnlyCollection&lt;ICheckList&gt;, IEnumerable&lt;ICheckList&gt;, IRefreshable</code></pre>
+    <pre><code class="lang-csharp hljs">public class CheckListCollection : ReadOnlyCheckListCollection, IHandle&lt;EntityDeletedEvent&lt;IJsonCheckList&gt;&gt;, IHandle, ICheckListCollection, IReadOnlyCheckListCollection, IReadOnlyCollection&lt;ICheckList&gt;, IEnumerable&lt;ICheckList&gt;, IEnumerable, IRefreshable</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_CheckListCollection_Add_System_String_Manatee_Trello_ICheckList_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckListCollection.Add(System.String%2CManatee.Trello.ICheckList%2CCancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_CheckListCollection_Add_System_String_Manatee_Trello_ICheckList_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.CheckListCollection.Add(System.String%2CManatee.Trello.ICheckList%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/CheckListCollection.cs/#L25">View Source</a>
   </span>
   <a id="Manatee_Trello_CheckListCollection_Add_" data-uid="Manatee.Trello.CheckListCollection.Add*"></a>
-  <h4 id="Manatee_Trello_CheckListCollection_Add_System_String_Manatee_Trello_ICheckList_CancellationToken_" data-uid="Manatee.Trello.CheckListCollection.Add(System.String,Manatee.Trello.ICheckList,CancellationToken)">Add(String, ICheckList, CancellationToken)</h4>
+  <h4 id="Manatee_Trello_CheckListCollection_Add_System_String_Manatee_Trello_ICheckList_System_Threading_CancellationToken_" data-uid="Manatee.Trello.CheckListCollection.Add(System.String,Manatee.Trello.ICheckList,System.Threading.CancellationToken)">Add(String, ICheckList, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Creates a new checklist, optionally by copying a checklist.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;ICheckList&gt; Add(string name, ICheckList source = null, CancellationToken ct = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ICheckList&gt; Add(string name, ICheckList source = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -159,7 +184,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
         <td><p>(Optional) A cancellation token for async processing.</p>
 </td>
@@ -176,7 +201,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<a class="xref" href="Manatee.Trello.ICheckList.html">ICheckList</a>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Manatee.Trello.ICheckList.html">ICheckList</a>&gt;</td>
         <td><p>The <a class="xref" href="Manatee.Trello.ICheckList.html">ICheckList</a> generated by Trello.</p>
 </td>
       </tr>
@@ -193,7 +218,10 @@
       <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html">IReadOnlyCollection&lt;T&gt;</a>
   </div>
   <div>
-      <span class="xref">IEnumerable&lt;&gt;</span>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IEnumerable</span>
   </div>
   <div>
       <a class="xref" href="Manatee.Trello.IRefreshable.html">IRefreshable</a>

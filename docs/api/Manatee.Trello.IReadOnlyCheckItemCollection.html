@@ -85,14 +85,17 @@
       <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html#Manatee_Trello_IReadOnlyCollection_1_Item_System_Int32_">IReadOnlyCollection&lt;ICheckItem&gt;.Item[Int32]</a>
     </div>
     <div>
-      <a class="xref" href="Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_CancellationToken_">IRefreshable.Refresh(Boolean, CancellationToken)</a>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;Manatee.Trello.ICheckItem&gt;.GetEnumerator()</span>
+    </div>
+    <div>
+      <a class="xref" href="Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_System_Threading_CancellationToken_">IRefreshable.Refresh(Boolean, CancellationToken)</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Manatee.Trello.html">Manatee.Trello</a></h6>
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_IReadOnlyCheckItemCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IReadOnlyCheckItemCollection : IReadOnlyCollection&lt;ICheckItem&gt;, IEnumerable&lt;ICheckItem&gt;, IRefreshable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IReadOnlyCheckItemCollection : IReadOnlyCollection&lt;ICheckItem&gt;, IEnumerable&lt;ICheckItem&gt;, IEnumerable, IRefreshable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
