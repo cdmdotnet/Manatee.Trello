@@ -10,12 +10,12 @@ namespace Manatee.Trello
 
 {
 	/// <summary>
-	/// Manages the license used with Manatee.Trello. Please see https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3 for information on purchasing a license.
+	/// Manages the license used with Manatee.Trello. Please see https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html for information on purchasing a license.
 	/// </summary>
 	public static class License
 	{
 		/// <summary>
-		/// Register the specified license with Manatee.Trello. Please see https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3 for information on purchasing a license.
+		/// Register the specified license with Manatee.Trello. Please see https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html for information on purchasing a license.
 		/// </summary>
 		/// <param name="license">The license text to register.</param>
 		/// <remarks> 

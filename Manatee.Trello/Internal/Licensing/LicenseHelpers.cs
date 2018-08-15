@@ -25,7 +25,7 @@ namespace Manatee.Trello.Internal.Licensing
 			public DateTime SessionExpiry { get; set; }
 		}
 
-		public const string BuyMeText = "Please see https://github.com/gregsdennis/Manatee.Trello/wiki/Licensing-3 for information on purchasing a license.";
+		private const string BuyMeText = "Please see https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html for information on purchasing a license.";
 
 		private const string WindowsDetailsPath = @"%LOCALAPPDATA%\Manatee.Trello\Manatee.Trello.run";
 		private const string MacOsDetailsPath = @"~/Library/Manatee.Trello/Manatee.Trello.run";
