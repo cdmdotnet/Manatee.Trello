@@ -42,7 +42,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				{
 					{
 						nameof(Action.Creator),
-						new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member, IJsonMember>(a),
+						new Property<IJsonAction, Member>((d, a) => d.MemberCreator.GetFromCache<Member, IJsonMember>(a, false),
 						                                  (d, o) =>
 							                                  {
 								                                  if (o != null) d.MemberCreator = o.Json;

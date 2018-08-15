@@ -16,7 +16,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.UnitTests
 {
 	[TestFixture]
-	[Ignore("This test fixture for development purposes only.")]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
@@ -26,17 +26,19 @@ namespace Manatee.Trello.UnitTests
 		{
 			await Run(async ct =>
 				{
-					TrelloConfiguration.EnableConsistencyProcessing = true;
+					var board = new Board(TrelloIds.BoardId);
+					await board.Refresh(ct: ct);
 
-					Board.DownloadedFields |= Board.Fields.Cards;
+					var f = new TrelloFactory();
+					var card = f.Card(TrelloIds.CardId);
 
-					var board = _factory.Board(TrelloIds.BoardId);
+					await card.Comments.Refresh(ct: ct);
+					var comment = card.Comments.OrderBy(c => c.CreationDate).LastOrDefault();
 
-					await board.Refresh(false, ct);
+					await comment.Creator.Refresh(ct: ct);
+					var creator = comment.Creator;
 
-					OutputCollection("list counts", board.Lists.Select(l => $"{l}: {l.Cards.Count()}"));
-
-					board.Lists[0].Cards.Should().NotBeEmpty();
+					Console.WriteLine(creator);
 				});
 		}
 
