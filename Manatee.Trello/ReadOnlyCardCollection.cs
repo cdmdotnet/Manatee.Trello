@@ -7,6 +7,7 @@ using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Eventing;
+using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -86,8 +87,10 @@ namespace Manatee.Trello
 			IncorporateLimit();
 
 			_requestParameters["_id"] = OwnerId;
+			var allParameters = AdditionalParameters.Concat(CardContext.CurrentParameters)
+			                                        .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
-			var newData = await JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, ct, AdditionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, ct, allParameters);
 
 			var previousItems = new List<ICard>(Items);
 			Items.Clear();

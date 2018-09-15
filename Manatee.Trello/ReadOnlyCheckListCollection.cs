@@ -7,6 +7,7 @@ using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
 using Manatee.Trello.Internal.Eventing;
+using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -35,8 +36,10 @@ namespace Manatee.Trello
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
+			var allParameters = AdditionalParameters.Concat(CheckListContext.CurrentParameters)
+			                                        .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_CheckLists, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonCheckList>>(Auth, endpoint, ct, AdditionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonCheckList>>(Auth, endpoint, ct, allParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jc =>

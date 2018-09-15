@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.DataAccess;
+using Manatee.Trello.Internal.Synchronization;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello
@@ -47,8 +48,10 @@ namespace Manatee.Trello
 		{
 			IncorporateLimit();
 
+			var allParameters = AdditionalParameters.Concat(NotificationContext.CurrentParameters)
+			                                        .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Notifications, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<List<IJsonNotification>>(Auth, endpoint, ct, AdditionalParameters);
+			var newData = await JsonRepository.Execute<List<IJsonNotification>>(Auth, endpoint, ct, allParameters);
 
 			Items.Clear();
 			Items.AddRange(newData.Select(jn =>

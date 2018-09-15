@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Manatee.Json" Version="9.8.0" />
+    <PackageReference Include="Manatee.Json" Version="9.9.5" />
   </ItemGroup>
 
 </Project>
