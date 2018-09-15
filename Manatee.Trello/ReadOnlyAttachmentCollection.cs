@@ -25,6 +25,7 @@ namespace Manatee.Trello
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
 		{
 			var allParameters = AdditionalParameters.Concat(AttachmentContext.CurrentParameters)
+			                                        .Where(kvp => ((string) kvp.Value).Contains("attachments"))
 			                                        .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 			var endpoint = EndpointFactory.Build(EntityRequestType.Card_Read_Attachments, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonAttachment>>(Auth, endpoint, ct, allParameters);

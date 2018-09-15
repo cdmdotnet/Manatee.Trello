@@ -115,7 +115,7 @@ namespace Manatee.Trello.Internal.Synchronization
 				}
 				if (parameterFields.HasFlag(List.Fields.Cards))
 				{
-					Parameters["cards"] = "visible";
+					Parameters["cards"] = "open";
 					var fields = CardContext.CurrentParameters["fields"];
 					if (Card.DownloadedFields.HasFlag(Card.Fields.List))
 						fields += ",idList";
@@ -123,7 +123,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					if (Card.DownloadedFields.HasFlag(Card.Fields.Members))
 						Parameters["card_members"] = "true";
 					if (Card.DownloadedFields.HasFlag(Card.Fields.Attachments))
-						Parameters["card_attachements"] = "all";
+						Parameters["card_attachments"] = "true";
 					if (Card.DownloadedFields.HasFlag(Card.Fields.Stickers))
 						Parameters["card_stickers"] = "true";
 				}
