@@ -80,7 +80,6 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		//[Ignore("")]
 		public async Task DownloadsEverything()
 		{
 			try

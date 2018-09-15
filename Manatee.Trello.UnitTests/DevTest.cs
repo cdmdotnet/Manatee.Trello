@@ -16,7 +16,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.UnitTests
 {
 	[TestFixture]
-	//[Ignore("This test fixture for development purposes only.")]
+	[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
@@ -26,19 +26,14 @@ namespace Manatee.Trello.UnitTests
 		{
 			await Run(async ct =>
 				{
-					var board = new Board(TrelloIds.BoardId);
+					Card.DownloadedFields |= Card.Fields.CustomFields;
+
+					var board = _factory.Board(TrelloIds.BoardId);
 					await board.Refresh(ct: ct);
 
-					var f = new TrelloFactory();
-					var card = f.Card(TrelloIds.CardId);
+					await board.Cards.Refresh(ct: ct);
 
-					await card.Comments.Refresh(ct: ct);
-					var comment = card.Comments.OrderBy(c => c.CreationDate).LastOrDefault();
-
-					await comment.Creator.Refresh(ct: ct);
-					var creator = comment.Creator;
-
-					Console.WriteLine(creator);
+					Console.WriteLine(board.Cards[0].CustomFields[0].Definition.Name);
 				});
 		}
 
