@@ -1,10 +1,16 @@
+# 3.3.3
+
+*Released on XXXXXXXXXXXXXXXX*
+
+([#254](https://github.com/gregsdennis/Manatee.Trello/issues/254)) When refreshing a board's cards collection, the `List` property would end up null.  This fix corrects the query parameters to correctly return the lists.
+
 # 3.3.2
 
 *Released on 15 Aug, 2018.*
 
 <span id="patch">patch</span>
 
-([#249](https://github.com/gregsdennis/Manatee.Trello/issues/249)) Collections aren't respecting the static `DownloadedField` property of the objects they were downloading.  This change adds the required query parameters to download all of the selected details.
+([#252](https://github.com/gregsdennis/Manatee.Trello/issues/252)) Collections aren't respecting the static `DownloadedField` property of the objects they were downloading.  This change adds the required query parameters to download all of the selected details.
 
 # 3.3.1
 
