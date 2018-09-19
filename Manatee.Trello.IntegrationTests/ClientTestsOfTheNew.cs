@@ -50,7 +50,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public async Task Issue254_CardListIsNull()
+		public async Task Issue254a_CardListIsNull()
 		{
 			var card = await TestEnvironment.Current.BuildCard();
 
@@ -64,6 +64,22 @@ namespace Manatee.Trello.IntegrationTests
 					await board.Cards.Refresh();
 
 					board.Cards[0].List.Should().NotBeNull();
+				});
+		}
+
+		[Test]
+		[Ignore("This doesn't test anything.  Cannot reproduce reported results.")]
+		public async Task Issue254b_ConsistencyThrowsStackOverflow()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+
+			await TestEnvironment.RunClean(async () =>
+				{
+					TrelloConfiguration.EnableConsistencyProcessing = true;
+
+					var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
+
+					await board.Refresh();
 				});
 		}
 	}
