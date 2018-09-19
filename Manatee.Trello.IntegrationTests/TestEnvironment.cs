@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Manatee.Trello.Rest;
@@ -144,6 +145,33 @@ namespace Manatee.Trello.IntegrationTests
 			var checkItem = await checkList.CheckItems.Add(name);
 
 			return checkItem;
+		}
+
+		public async Task RunClean(Func<Task> action)
+		{
+			var oldCache = TrelloConfiguration.Cache;
+			TrelloConfiguration.Cache = null; // creates a new cache
+
+			try
+			{
+				await action();
+			}
+			finally
+			{
+				TrelloConfiguration.Cache = oldCache;
+				Reset();
+			}
+		}
+
+		public void Reset()
+		{
+			TrelloConfiguration.EnableConsistencyProcessing = false;
+			TrelloConfiguration.ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);
+			TrelloConfiguration.RemoveDeletedItemsFromCache = true;
+			TrelloConfiguration.ThrowOnTrelloError = true;
+			TrelloConfiguration.RefreshThrottle = TimeSpan.FromSeconds(5);
+			TrelloConfiguration.RetryPredicate = null;
+			TrelloConfiguration.EnableDeepDownloads = true;
 		}
 	}
 }

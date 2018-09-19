@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -45,6 +46,24 @@ namespace Manatee.Trello.IntegrationTests
 			var card = await TestEnvironment.Current.BuildCard();
 
 			await numberField.SetValueForCard(card, 9.6);
+		}
+
+		[Test]
+		public async Task Issue254_CardListIsNull()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+
+			await TestEnvironment.Current.RunClean(async () =>
+				{
+					var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
+
+					await board.Refresh();
+					await board.CustomFields.Refresh();
+					await board.Lists.Refresh();
+					await board.Cards.Refresh();
+
+					board.Cards[0].List.Should().NotBeNull();
+				});
 		}
 	}
 }
