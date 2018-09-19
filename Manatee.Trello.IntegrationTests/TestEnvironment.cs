@@ -147,7 +147,7 @@ namespace Manatee.Trello.IntegrationTests
 			return checkItem;
 		}
 
-		public async Task RunClean(Func<Task> action)
+		public static async Task RunClean(Func<Task> action)
 		{
 			var oldCache = TrelloConfiguration.Cache;
 			TrelloConfiguration.Cache = null; // creates a new cache
@@ -159,11 +159,11 @@ namespace Manatee.Trello.IntegrationTests
 			finally
 			{
 				TrelloConfiguration.Cache = oldCache;
-				Reset();
+				_Reset();
 			}
 		}
 
-		public void Reset()
+		private static void _Reset()
 		{
 			TrelloConfiguration.EnableConsistencyProcessing = false;
 			TrelloConfiguration.ChangeSubmissionTime = TimeSpan.FromMilliseconds(100);

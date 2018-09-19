@@ -21,19 +21,20 @@ namespace Manatee.Trello.IntegrationTests
 			var jpeg = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Files/smallest-jpeg.jpg");
 			await sourceCard.Attachments.Add(File.ReadAllBytes(jpeg), "smallest-jpeg.jpg");
 
-			TrelloConfiguration.Cache.Remove(sourceCard);
+			await TestEnvironment.RunClean(async () =>
+				{
+					sourceCard = new Card(sourceCard.Id);
 
-			sourceCard = new Card(sourceCard.Id);
+					// make sure that we only have the ID
+					Assert.IsNull(sourceCard.Name);
 
-			// make sure that we only have the ID
-			Assert.IsNull(sourceCard.Name);
+					var card = await cards.Add(sourceCard);
 
-			var card = await cards.Add(sourceCard);
+					await sourceCard.Refresh();
 
-			await sourceCard.Refresh();
-
-			Assert.AreNotEqual(sourceCard.Id, card.Id);
-			Assert.AreEqual(sourceCard.Name, card.Name);
+					Assert.AreNotEqual(sourceCard.Id, card.Id);
+					Assert.AreEqual(sourceCard.Name, card.Name);
+				});
 		}
 
 		[Test]
@@ -53,7 +54,7 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			var card = await TestEnvironment.Current.BuildCard();
 
-			await TestEnvironment.Current.RunClean(async () =>
+			await TestEnvironment.RunClean(async () =>
 				{
 					var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
 

@@ -22,26 +22,22 @@ namespace Manatee.Trello.IntegrationTests
 
 				await TrelloProcessor.Flush();
 
-				TrelloConfiguration.Cache.Remove(board);
+				await TestEnvironment.RunClean(async () =>
+					{
+						var reBoard = TestEnvironment.Current.Factory.Board(board.Id);
 
-				var reBoard = TestEnvironment.Current.Factory.Board(board.Id);
+						await reBoard.Refresh();
 
-				await reBoard.Refresh();
-
-				TrelloConfiguration.Cache.Remove(reBoard);
-
-				reBoard.Description.Should().Be("changed");
-				reBoard.Name.Should().Be("changed also");
-				reBoard.IsClosed.Should().Be(true);
-				reBoard.IsSubscribed.Should().Be(true);
+						reBoard.Description.Should().Be("changed");
+						reBoard.Name.Should().Be("changed also");
+						reBoard.IsClosed.Should().Be(true);
+						reBoard.IsSubscribed.Should().Be(true);
+					});
 			}
 			finally
 			{
 				TestEnvironment.Current.Board.IsClosed = false;
-
 				await TrelloProcessor.Flush();
-
-				TrelloConfiguration.Cache.Add(TestEnvironment.Current.Board);
 			}
 		}
 
