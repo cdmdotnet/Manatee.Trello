@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
@@ -20,19 +21,20 @@ namespace Manatee.Trello.IntegrationTests
 			var jpeg = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Files/smallest-jpeg.jpg");
 			await sourceCard.Attachments.Add(File.ReadAllBytes(jpeg), "smallest-jpeg.jpg");
 
-			TrelloConfiguration.Cache.Remove(sourceCard);
+			await TestEnvironment.RunClean(async () =>
+				{
+					sourceCard = new Card(sourceCard.Id);
 
-			sourceCard = new Card(sourceCard.Id);
+					// make sure that we only have the ID
+					Assert.IsNull(sourceCard.Name);
 
-			// make sure that we only have the ID
-			Assert.IsNull(sourceCard.Name);
+					var card = await cards.Add(sourceCard);
 
-			var card = await cards.Add(sourceCard);
+					await sourceCard.Refresh();
 
-			await sourceCard.Refresh();
-
-			Assert.AreNotEqual(sourceCard.Id, card.Id);
-			Assert.AreEqual(sourceCard.Name, card.Name);
+					Assert.AreNotEqual(sourceCard.Id, card.Id);
+					Assert.AreEqual(sourceCard.Name, card.Name);
+				});
 		}
 
 		[Test]
@@ -45,6 +47,40 @@ namespace Manatee.Trello.IntegrationTests
 			var card = await TestEnvironment.Current.BuildCard();
 
 			await numberField.SetValueForCard(card, 9.6);
+		}
+
+		[Test]
+		public async Task Issue254a_CardListIsNull()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+
+			await TestEnvironment.RunClean(async () =>
+				{
+					var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
+
+					await board.Refresh();
+					await board.CustomFields.Refresh();
+					await board.Lists.Refresh();
+					await board.Cards.Refresh();
+
+					board.Cards[0].List.Should().NotBeNull();
+				});
+		}
+
+		[Test]
+		[Ignore("This doesn't test anything.  Cannot reproduce reported results.")]
+		public async Task Issue254b_ConsistencyThrowsStackOverflow()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+
+			await TestEnvironment.RunClean(async () =>
+				{
+					TrelloConfiguration.EnableConsistencyProcessing = true;
+
+					var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
+
+					await board.Refresh();
+				});
 		}
 	}
 }
