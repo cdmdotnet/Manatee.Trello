@@ -1,6 +1,18 @@
+# 3.4.0
+
+*Released on 20 Sep, 2018*
+
+<span id="feature">feature</span> <span id="patch">patch</span> 
+
+Updated JSON support to use Manatee.Json v10.
+
+Added `ActionType.CreatedCustomField`.
+
 # 3.3.3
 
-*Released on XXXXXXXXXXXXXXXX*
+*Released on 20 Sep, 2018*
+
+<span id="patch">patch</span>
 
 ([#254](https://github.com/gregsdennis/Manatee.Trello/issues/254)) When refreshing a board's cards collection, the `List` property would end up null.  This fix corrects the query parameters to correctly return the lists.
 
