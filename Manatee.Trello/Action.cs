@@ -183,6 +183,7 @@ namespace Manatee.Trello
 					{ActionType.CreateBoardInvitation, a => $"{a.Creator} invited {a.Data.Member} to board {a.Data.Board}."},
 					{ActionType.CreateBoardPreference, a => $"{a.Creator} updated preferences on board {a.Data.Board}."},
 					{ActionType.CreateChecklist, a => $"{a.Creator} created checklist {a.Data.CheckList}."},
+					{ActionType.CreateCustomField, a => $"{a.Creator} created custom field {a.Data.CustomField}."},
 					{ActionType.CreateLabel, a => $"{a.Creator} created label {a.Data.Label}."},
 					{ActionType.CreateOrganizationInvitation, a => $"{a.Creator} invited {a.Data.Member} to organization {a.Data.Organization}."},
 					{ActionType.DeleteCheckItem, a => $"{a.Creator} deleted check item {a.Data.CheckItem}."},

@@ -150,6 +150,12 @@ namespace Manatee.Trello
 		public static readonly ActionType CreateChecklist;
 
 		/// <summary>
+		/// Indicates a <see cref="CheckList"/> was created.
+		/// </summary>
+		[Display(Description = "createCustomField")]
+		public static readonly ActionType CreateCustomField;
+
+		/// <summary>
 		/// Indicates a <see cref="Label"/> was created.
 		/// </summary>
 		[Display(Description = "createLabel")]
