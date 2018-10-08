@@ -34,16 +34,11 @@
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-    <PackageReference Include="System.Net.Http" Version="4.3.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
-  </ItemGroup>
+	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-    <PackageReference Include="System.Net.Http" Version="4.3.0" />
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+		<PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
