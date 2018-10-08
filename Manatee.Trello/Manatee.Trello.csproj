@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Manatee.Json" Version="10.0.2" />
+    <PackageReference Include="Manatee.Json" Version="10.0.4" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
