@@ -243,7 +243,7 @@ namespace Manatee.Trello.Internal.Licensing
 				json = JsonValue.Parse(reader);
 			}
 
-			var deserializedLicense = new JsonSerializer().Deserialize<LicenseDetails>(json);
+			var deserializedLicense = Serializer.Deserialize<LicenseDetails>(json);
 
 			var data = deserializedLicense.GetSignificateData();
 			var signature = SubArray(licenseData, 0, 128);

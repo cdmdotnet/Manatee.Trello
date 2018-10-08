@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using Manatee.Json;
 using Manatee.Json.Serialization;
@@ -15,7 +13,6 @@ namespace Manatee.Trello.Json
 	public class DefaultJsonSerializer : ISerializer, IDeserializer
 	{
 		private readonly JsonSerializer _serializer;
-		private readonly MethodInfo _method;
 
 		/// <summary>
 		/// Provides a singleton instance.
@@ -27,21 +24,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		private DefaultJsonSerializer()
 		{
-			_serializer = new JsonSerializer
-				{
-					Options =
-						{
-							EnumSerializationFormat = EnumSerializationFormat.AsName,
-							FlagsEnumSeparator = ","
-						}
-				};
-			_serializer.CustomSerializations.RegisterType(DateTimeToJson, JsonToDateTime);
-			_serializer.CustomSerializations.RegisterType(DateTimeToJson2, JsonToDateTime2);
-			_serializer.CustomSerializations.RegisterType(ActionTypeToJson, JsonToActionType);
+			_serializer = new JsonSerializer {Options = {FlagsEnumSeparator = ","}};
 			InitializeAbstractionMap(_serializer);
-			_method = _serializer.GetType().GetTypeInfo().DeclaredMethods
-			                     .First(m => m.Name == nameof(Serialize))
-			                     .GetGenericMethodDefinition();
+			SerializerFactory.AddSerializer(new ActionTypeSerializer());
+			SerializerFactory.AddSerializer(new DateTimeSerializer());
 		}
 
 		/// <summary>
@@ -51,8 +37,7 @@ namespace Manatee.Trello.Json
 		/// <returns>An equivalent JSON string.</returns>
 		public string Serialize(object obj)
 		{
-			var method = _method.MakeGenericMethod(obj.GetType());
-			var json = method.Invoke(_serializer, new[] {obj});
+			var json = _serializer.Serialize(obj);
 			var text = json.ToString();
 			return text;
 		}
@@ -125,58 +110,6 @@ namespace Manatee.Trello.Json
 			serializer.AbstractionMap.Map<IJsonTokenPermission, ManateeTokenPermission>();
 			serializer.AbstractionMap.Map<IJsonWebhook, ManateeWebhook>();
 			serializer.AbstractionMap.Map<IJsonWebhookNotification, ManateeWebhookNotification>();
-		}
-
-		private static JsonValue DateTimeToJson(DateTime? date, JsonSerializer serializer)
-		{
-			var dateString = date?.ToUniversalTime()
-			                     .ToString("yyyy-MM-ddTHH:mm:ss.fffZ") ?? JsonValue.Null;
-
-			return dateString;
-		}
-
-		private static DateTime? JsonToDateTime(JsonValue json, JsonSerializer serializer)
-		{
-			var dateString = json.String;
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var date))
-			{
-				var localDate = date.ToLocalTime();
-
-				return localDate;
-			}
-
-			return null;
-		}
-
-		private static JsonValue DateTimeToJson2(DateTime date, JsonSerializer serializer)
-		{
-			var dateString = date.ToUniversalTime()
-			                     .ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-
-			return dateString;
-		}
-
-		private static DateTime JsonToDateTime2(JsonValue json, JsonSerializer serializer)
-		{
-			var dateString = json.String;
-			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var date))
-			{
-				var localDate = date.ToLocalTime();
-
-				return localDate;
-			}
-
-			return DateTime.MinValue;
-		}
-
-		private static JsonValue ActionTypeToJson(ActionType? actionType, JsonSerializer serializer)
-		{
-			return actionType?.ToString();
-		}
-
-		private static ActionType? JsonToActionType(JsonValue json, JsonSerializer serializer)
-		{
-			return ActionType.TryParse(json.String, out var actionType) ? actionType : (ActionType?) null;
 		}
 	}
 }
