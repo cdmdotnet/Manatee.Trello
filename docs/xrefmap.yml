@@ -668,6 +668,12 @@ references:
   commentId: F:Manatee.Trello.ActionType.CreateChecklist
   fullName: Manatee.Trello.ActionType.CreateChecklist
   nameWithType: ActionType.CreateChecklist
+- uid: Manatee.Trello.ActionType.CreateCustomField
+  name: CreateCustomField
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_CreateCustomField
+  commentId: F:Manatee.Trello.ActionType.CreateCustomField
+  fullName: Manatee.Trello.ActionType.CreateCustomField
+  nameWithType: ActionType.CreateCustomField
 - uid: Manatee.Trello.ActionType.CreateLabel
   name: CreateLabel
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_CreateLabel
