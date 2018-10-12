@@ -305,7 +305,7 @@ namespace Manatee.Trello
 		public DateTime? LastActivity => _lastActivity.Value;
 
 		/// <summary>
-		/// Gets or sets the list to the card belongs.
+		/// Gets or sets the list to which the card belongs.
 		/// </summary>
 		public IList List
 		{

@@ -89,7 +89,7 @@ namespace Manatee.Trello
 		DateTime? LastActivity { get; }
 
 		/// <summary>
-		/// Gets or sets the list to the card belongs.
+		/// Gets or sets the list to which the card belongs.
 		/// </summary>
 		IList List { get; set; }
 
