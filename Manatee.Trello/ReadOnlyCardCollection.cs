@@ -88,7 +88,7 @@ namespace Manatee.Trello
 
 			_requestParameters["_id"] = OwnerId;
 			var allParameters = AdditionalParameters.Concat(CardContext.CurrentParameters)
-			                                        .ToDictionary(kvp => $"cards_{kvp.Key}", kvp => kvp.Value);
+			                                        .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
 			var newData = await JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, ct, allParameters);
 
