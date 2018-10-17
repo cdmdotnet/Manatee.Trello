@@ -86,7 +86,11 @@ namespace Manatee.Trello
 		public async Task<IMe> Me(CancellationToken ct = default(CancellationToken))
 		{
 			var id = await Trello.Me.GetId(ct);
-			return TrelloConfiguration.Cache.Find<Me>(id) ?? new Me(id);
+			var me = TrelloConfiguration.Cache.Find<Me>(id) ?? new Me(id);
+
+			await me.Refresh(false, ct);
+
+			return me;
 		}
 
 		/// <summary>
