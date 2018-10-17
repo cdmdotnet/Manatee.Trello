@@ -150,6 +150,7 @@ namespace Manatee.Trello
 					{NotificationType.MakeAdminOfOrganization, n => $"{n.Creator} made member {n.Data.Member} an admin of organization {n.Data.Organization}."},
 					{NotificationType.CardDueSoon, n => $"Card {n.Data.Card} is due soon."},
 					{NotificationType.AddAttachmentToCard, n => $"{n.Creator} added an attachment to {n.Data.Card}."},
+					{NotificationType.MemberJoinedTrello, n => $"{n.Creator} joined Trello!"},
 				};
 			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
