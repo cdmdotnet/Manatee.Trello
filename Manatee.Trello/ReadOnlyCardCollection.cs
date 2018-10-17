@@ -77,9 +77,9 @@ namespace Manatee.Trello
 		public void Filter(DateTime? start, DateTime? end)
 		{
 			if (start != null)
-				AdditionalParameters["since"] = start;
+				AdditionalParameters["since"] = start.Value.ToUniversalTime().ToString("O"); ;
 			if (end != null)
-				AdditionalParameters["before"] = end;
+				AdditionalParameters["before"] = end.Value.ToUniversalTime().ToString("O"); ;
 		}
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
