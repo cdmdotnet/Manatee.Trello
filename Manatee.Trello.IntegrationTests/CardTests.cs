@@ -261,5 +261,15 @@ namespace Manatee.Trello.IntegrationTests
 			otherCard.Id.Should().NotBe(card.Id);
 			otherCard.Labels.Should().Contain(l => l.Color == LabelColor.Green);
 		}
+
+		[Test]
+		public async Task MembersCanBeListed()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			await card.Members.Add(TestEnvironment.Current.Me);
+			await card.Members.Refresh(true);
+
+			card.Members.Count().Should().Be(1);
+		}
 	}
 }
