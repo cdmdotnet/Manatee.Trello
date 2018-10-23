@@ -77,9 +77,9 @@ namespace Manatee.Trello
 		public void Filter(DateTime? start, DateTime? end)
 		{
 			if (start != null)
-				AdditionalParameters["since"] = start;
+				AdditionalParameters["since"] = start.Value.ToUniversalTime().ToString("O");
 			if (end != null)
-				AdditionalParameters["before"] = end;
+				AdditionalParameters["before"] = end.Value.ToUniversalTime().ToString("O");
 		}
 
 		internal sealed override async Task PerformRefresh(bool force, CancellationToken ct)
@@ -88,7 +88,10 @@ namespace Manatee.Trello
 
 			_requestParameters["_id"] = OwnerId;
 			var allParameters = AdditionalParameters.Concat(CardContext.CurrentParameters)
-			                                        .ToDictionary(kvp => $"cards_{kvp.Key}", kvp => kvp.Value);
+			                                        .ToDictionary(kvp => kvp.Key.In("filter", "since", "before")
+				                                                             ? kvp.Key
+				                                                             : $"cards_{kvp.Key}",
+			                                                      kvp => kvp.Value);
 			var endpoint = EndpointFactory.Build(_updateRequestType, _requestParameters);
 			var newData = await JsonRepository.Execute<List<IJsonCard>>(Auth, endpoint, ct, allParameters);
 

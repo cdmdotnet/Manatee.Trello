@@ -119,9 +119,14 @@ namespace Manatee.Trello
 		[Display(Description = "addAttachmentToCard")]
 		AddAttachmentToCard = 1 << 20,
 		/// <summary>
+		/// Indicates the current member joined Trello.
+		/// </summary>
+		[Display(Description = "memberJoinedTrello")]
+		MemberJoinedTrello = 1 << 21,
+		/// <summary>
 		/// Indicates all notification types.
 		/// </summary>
 		[Display(Description="all")]
-		All = (1 << 21) - 1,
+		All = (1 << 22) - 1,
 	}
 }
