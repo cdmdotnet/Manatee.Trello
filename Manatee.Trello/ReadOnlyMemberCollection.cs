@@ -35,7 +35,6 @@ namespace Manatee.Trello
 			: base(getOwnerId, auth)
 		{
 			_updateRequestType = requestType;
-			AdditionalParameters["fields"] = "all";
 
 			EventAggregator.Subscribe(this);
 		}
