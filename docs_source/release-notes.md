@@ -1,10 +1,18 @@
 # 3.4.1
 
-*Released on XXXXXXXXXXXXXXXXXXXXXXXXXX*
+*Released on 23 Oct, 2018*
 
 <span id="patch">patch</span>
 
+([#260](https://github.com/gregsdennis/Manatee.Trello/issues/260)) Date-based filtering for card collections wasn't working at all.  Thanks to GitHub user [@zodchiy](https://github.com/zodchiy) for finding and fixing this one!
 
+([#262](https://github.com/gregsdennis/Manatee.Trello/issues/262)) `TrelloFactory.Me()` now refreshes automatically.  Since you have to await it anyway, it was redundant to have to also call `await me.Refresh()`.
+
+([#263](https://github.com/gregsdennis/Manatee.Trello/issues/263)) A previously-unknown notification type was found: `memberJoinedTrello`.  This is included for the member which invited someone to Trello when the invitation is accepted.
+
+([#266](https://github.com/gregsdennis/Manatee.Trello/issues/266)) Refreshing member collections was throwing a `DuplicateKeyException` because it was trying to add the `fields` query parameter twice.
+
+([#267](https://github.com/gregsdennis/Manatee.Trello/issues/267)) Filtering on card, board, list, and notification collections was broken when consistency processing was introduced.
 
 # 3.4.0
 
