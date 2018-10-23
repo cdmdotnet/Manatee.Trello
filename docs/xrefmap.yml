@@ -18063,6 +18063,12 @@ references:
   commentId: F:Manatee.Trello.NotificationType.MakeAdminOfOrganization
   fullName: Manatee.Trello.NotificationType.MakeAdminOfOrganization
   nameWithType: NotificationType.MakeAdminOfOrganization
+- uid: Manatee.Trello.NotificationType.MemberJoinedTrello
+  name: MemberJoinedTrello
+  href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_MemberJoinedTrello
+  commentId: F:Manatee.Trello.NotificationType.MemberJoinedTrello
+  fullName: Manatee.Trello.NotificationType.MemberJoinedTrello
+  nameWithType: NotificationType.MemberJoinedTrello
 - uid: Manatee.Trello.NotificationType.MentionedOnCard
   name: MentionedOnCard
   href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_MentionedOnCard

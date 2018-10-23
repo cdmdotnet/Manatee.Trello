@@ -36,7 +36,7 @@
           "hash": "0zuuLzmIPrbUadUdpbd8Iw=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -48,7 +48,7 @@
           "hash": "lMvurYB+OlCDHqJVAfHnkQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -381,7 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Card.html",
-          "hash": "8amUD8Uw3EmUAws6aLCbKQ=="
+          "hash": "OCV0gPzhQ5iOXadVcqPx2w=="
         }
       },
       "is_incremental": false,
@@ -420,7 +420,7 @@
           "hash": "5wSXntgBghRXbbEbY1IeQw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -468,7 +468,7 @@
           "hash": "id6LMzON4j3WFHO2tC3L4Q=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -552,7 +552,7 @@
           "hash": "0Uv3OklMgLToCPh7s3Zp2Q=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -576,7 +576,7 @@
           "hash": "VwNxtqd0JbEBkbaS3/LCkg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -612,7 +612,7 @@
           "hash": "S9erIe1mjZIcb/+i6YZhrA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -732,7 +732,7 @@
           "hash": "Q/Td1AmQvXcrVpxd2DmBPA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -933,7 +933,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ICard.html",
-          "hash": "o2SA5hRXE/Tw0yJSOvNvFQ=="
+          "hash": "9S2REntyDiztN3U3ovybEw=="
         }
       },
       "is_incremental": false,
@@ -948,7 +948,7 @@
           "hash": "91tUYeZOIubj5evBtTwNbQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -972,7 +972,7 @@
           "hash": "tr/OZP1QrJxQho8jD5kZCQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1008,7 +1008,7 @@
           "hash": "ywBlGPsiJYkvgG+oRqTt9w=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1032,7 +1032,7 @@
           "hash": "gx+WBhdJRj41TyT40pDKGg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -1068,7 +1068,7 @@
           "hash": "Lv/U17SETZ/vzFBu3Mn12Q=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1152,7 +1152,7 @@
           "hash": "phQWBwg8kfVuSSDmR5Yl4A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1284,7 +1284,7 @@
           "hash": "zpFj0bqcNlp6Ra8eHKJEvw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1404,7 +1404,7 @@
           "hash": "7Wr6BK16H7d4JrBJkGmhTA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -1440,7 +1440,7 @@
           "hash": "EEsSt5shELyE0/A5h05LWA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1512,7 +1512,7 @@
           "hash": "KPKfi6nrFkfAoVM0tlRNKA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1644,7 +1644,7 @@
           "hash": "KehzhRpbwot00PH2cvwYIg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1692,7 +1692,7 @@
           "hash": "C2MpKEcb9HcNGuVJhz+Z8g=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -2316,7 +2316,7 @@
           "hash": "RbrxLaMtJDEf8pj1BBrlfQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -2400,7 +2400,7 @@
           "hash": "FHb/DfXUs8bCRjAL1k5Q6A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -2472,7 +2472,7 @@
           "hash": "S31dT2M53ZXNLuriP9WRug=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -2589,10 +2589,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.Notification.html",
-          "hash": "NaREjs3sdep9P57u0mmD2g=="
+          "hash": "afE5BLdBOdMjDAl8LGu4qw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -2604,7 +2604,7 @@
           "hash": "1upIVrTksBcKjhnqIfRx4A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -2613,10 +2613,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.NotificationType.html",
-          "hash": "3AFo/KPUXrqCuRoilh/YkA=="
+          "hash": "U/GohA3uVVNSZXEHgbz6iA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -2808,7 +2808,7 @@
           "hash": "B3pzaeLSDsq92Czn5j2tnQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -2892,7 +2892,7 @@
           "hash": "0aWnSwZhvNDjTXAkDBTTdA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -2928,7 +2928,7 @@
           "hash": "+19RocujGEvGpVlBcaq7kQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -2985,10 +2985,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.ReadOnlyMemberCollection.html",
-          "hash": "9Qt4z2nPh8rS1DFiZ23W3Q=="
+          "hash": "N3clpM4XBV+XVcgYzi2JLg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -3000,7 +3000,7 @@
           "hash": "9B7AryFfDM8zAkfNBo+Kcw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -3372,7 +3372,7 @@
           "hash": "m+pIAqmeBcdsCxaDrPg2rg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -3381,10 +3381,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.TrelloFactory.html",
-          "hash": "NQ9+doX++HuF8ricn4Ri1w=="
+          "hash": "DHWWfhpqQ+yOdWJLBgD8VQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -3645,7 +3645,7 @@
       "output": {
         ".html": {
           "relative_path": "release-notes.html",
-          "hash": "IvqOzgfsTPrqU7/yGP+JFw=="
+          "hash": "REBDg6CBLSq7PNPX8IFkFQ=="
         }
       },
       "is_incremental": false,
@@ -3776,11 +3776,6 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
@@ -3792,6 +3787,11 @@
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
+          "incrementalPhase": "build"
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

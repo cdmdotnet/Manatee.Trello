@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>3.4.0 </title>
+    <title>3.4.1 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="3.4.0 ">
+    <meta name="title" content="3.4.1 ">
     <meta name="generator" content="docfx 2.36.1.0">
     
     <link rel="shortcut icon" href="favicon.ico">
@@ -60,8 +60,16 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="340">3.4.0</h1>
+<h1 id="341">3.4.1</h1>
 
+<p><em>Released on 23 Oct, 2018</em></p>
+<p><span id="patch">patch</span></p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/260">#260</a>) Date-based filtering for card collections wasn't working at all.  Thanks to GitHub user <a href="https://github.com/zodchiy">@zodchiy</a> for finding and fixing this one!</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/262">#262</a>) <code>TrelloFactory.Me()</code> now refreshes automatically.  Since you have to await it anyway, it was redundant to have to also call <code>await me.Refresh()</code>.</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/263">#263</a>) A previously-unknown notification type was found: <code>memberJoinedTrello</code>.  This is included for the member which invited someone to Trello when the invitation is accepted.</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/266">#266</a>) Refreshing member collections was throwing a <code>DuplicateKeyException</code> because it was trying to add the <code>fields</code> query parameter twice.</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/267">#267</a>) Filtering on card, board, list, and notification collections was broken when consistency processing was introduced.</p>
+<h1 id="340">3.4.0</h1>
 <p><em>Released on 20 Sep, 2018</em></p>
 <p><span id="feature">feature</span> <span id="patch">patch</span></p>
 <p>Updated JSON support to use Manatee.Json v10.</p>
