@@ -49,7 +49,10 @@ namespace Manatee.Trello
 			IncorporateLimit();
 
 			var allParameters = AdditionalParameters.Concat(NotificationContext.CurrentParameters)
-			                                        .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+			                                        .ToDictionary(kvp => kvp.Key == "filter"
+				                                                             ? kvp.Key
+				                                                             : $"notification_{kvp.Key}",
+			                                                      kvp => kvp.Value);
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Read_Notifications, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonNotification>>(Auth, endpoint, ct, allParameters);
 
