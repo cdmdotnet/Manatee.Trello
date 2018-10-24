@@ -8,7 +8,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Json;
@@ -26,35 +25,7 @@ namespace Manatee.Trello.Internal.Licensing
 		}
 
 		private const string BuyMeText = "Please see https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html for information on purchasing a license.";
-
-		private const string WindowsDetailsPath = @"%LOCALAPPDATA%\Manatee.Trello\Manatee.Trello.run";
-		private const string MacOsDetailsPath = @"~/Library/Manatee.Trello/Manatee.Trello.run";
-		private const string UnixDetailsPath = @"~/.config/Manatee.Trello/Manatee.Trello.run";
 		private const string LicenseEnvironmentVariable = "TRELLO_LICENSE_TRACKING";
-
-		private static string DetailsPath
-		{
-			get
-			{
-#if NET45
-				switch (Environment.OSVersion.Platform)
-					{
-						case PlatformID.MacOSX:
-							return MacOsDetailsPath;
-						case PlatformID.Unix:
-							return UnixDetailsPath;
-						default:
-							return Environment.ExpandEnvironmentVariables(WindowsDetailsPath);
-					}
-#else
-				if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-					return MacOsDetailsPath;
-				if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-					return UnixDetailsPath;
-				return Environment.ExpandEnvironmentVariables(WindowsDetailsPath);
-#endif
-			}
-		}
 
 		private static readonly object TimerLock;
 		private static readonly object CountsLock;
@@ -62,10 +33,12 @@ namespace Manatee.Trello.Internal.Licensing
 
 		private static long _retrievalCount;
 		private static long _submissionCount;
-		private static long _sessionExpiry;
+		private static DateTime _sessionExpiry;
 		private static LicenseDetails _registeredLicense;
 		private static Timer _resetTimer;
 		private static bool _holdPersistence;
+
+		public static TimeSpan SessionDuration { get; set; } = TimeSpan.FromHours(1);
 
 		static LicenseHelpers()
 		{
@@ -76,18 +49,11 @@ namespace Manatee.Trello.Internal.Licensing
 			LoadCurrentState();
 		}
 
-		// This is used for testing.
-		// ReSharper disable once MemberCanBePrivate.Global
-		public static void ResetCounts(object state)
+		private static void ResetCounts(object state)
 		{
 			_retrievalCount = 0;
 			_submissionCount = 0;
-			_sessionExpiry = 0;
-		}
-
-		public static (long, long) GetCounts()
-		{
-			return (_retrievalCount, _submissionCount);
+			_sessionExpiry = DateTime.Now.Add(SessionDuration);
 		}
 
 		private static void LoadCurrentState()
@@ -116,7 +82,7 @@ namespace Manatee.Trello.Internal.Licensing
 
 			_retrievalCount = details.Retrievals;
 			_submissionCount = details.Submissions;
-			_sessionExpiry = Math.Max(0, (long) (details.SessionExpiry - DateTime.Now).TotalMilliseconds);
+			_sessionExpiry = details.SessionExpiry;
 #endif
 		}
 
@@ -131,7 +97,9 @@ namespace Manatee.Trello.Internal.Licensing
 			SaveCurrentState();
 
 			if (_retrievalCount > maxOperationCount)
-				throw new LicenseException($"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. " + BuyMeText);
+				throw new LicenseException($"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. " +
+				                           $"The current session will reset at {_sessionExpiry:g}. " + 
+				                           BuyMeText);
 		}
 
 		public static void IncrementAndCheckSubmissionCount()
@@ -145,7 +113,9 @@ namespace Manatee.Trello.Internal.Licensing
 			SaveCurrentState();
 
 			if (_submissionCount > maxOperationCount)
-				throw new LicenseException($"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. " + BuyMeText);
+				throw new LicenseException($"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. " +
+				                           $"The current session will reset at {_sessionExpiry:g}. " + 
+				                           BuyMeText);
 		}
 
 		private static void SaveCurrentState()
@@ -155,7 +125,7 @@ namespace Manatee.Trello.Internal.Licensing
 				{
 					Retrievals = _retrievalCount,
 					Submissions = _submissionCount,
-					SessionExpiry = DateTime.Now.AddHours(1)
+					SessionExpiry = _sessionExpiry
 				};
 
 			var json = Serializer.Serialize(newDetails);
@@ -185,7 +155,12 @@ namespace Manatee.Trello.Internal.Licensing
 			{
 				if (_resetTimer != null) return;
 
-				var timer = new Timer(ResetCounts, null, TimeSpan.FromMilliseconds(_sessionExpiry), TimeSpan.FromHours(1));
+				var now = DateTime.Now;
+				DateTime expiry = _sessionExpiry;
+				if (expiry == DateTime.MinValue)
+					expiry = now;
+
+				var timer = new Timer(ResetCounts, null, TimeSpan.FromMilliseconds((expiry - now).TotalMilliseconds), SessionDuration);
 
 				Interlocked.MemoryBarrier();
 
