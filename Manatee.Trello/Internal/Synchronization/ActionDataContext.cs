@@ -74,7 +74,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					{
 						nameof(ActionData.CheckItem),
 						new Property<IJsonActionData, CheckItem>((d, a) => d.CheckItem != null
-							                                                   ? new CheckItem(d.CheckItem, d.CheckList.Id, TrelloAuthorization.Null)
+							                                                   ? new CheckItem(d.CheckItem, d.CheckList?.Id, TrelloAuthorization.Null)
 							                                                   : null,
 						                                         (d, o) =>
 							                                         {
