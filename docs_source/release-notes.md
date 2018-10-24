@@ -1,3 +1,7 @@
+# 3.4.2
+
+Fixed issue where licensing restrictions weren't being reset after an hour, resulting in the inability to use the library for mulitple hours after all calls have been consumed.
+
 # 3.4.1
 
 *Released on 23 Oct, 2018*
