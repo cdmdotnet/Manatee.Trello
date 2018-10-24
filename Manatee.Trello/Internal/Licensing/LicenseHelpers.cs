@@ -155,7 +155,12 @@ namespace Manatee.Trello.Internal.Licensing
 			{
 				if (_resetTimer != null) return;
 
-				var timer = new Timer(ResetCounts, null, TimeSpan.FromMilliseconds((_sessionExpiry - DateTime.Now).TotalMilliseconds), SessionDuration);
+				var now = DateTime.Now;
+				DateTime expiry = _sessionExpiry;
+				if (expiry == DateTime.MinValue)
+					expiry = now;
+
+				var timer = new Timer(ResetCounts, null, TimeSpan.FromMilliseconds((expiry - now).TotalMilliseconds), SessionDuration);
 
 				Interlocked.MemoryBarrier();
 
