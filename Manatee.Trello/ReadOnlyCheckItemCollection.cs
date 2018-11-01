@@ -41,6 +41,7 @@ namespace Manatee.Trello
 		{
 			await _context.Synchronize(force, ct);
 			if (_context.Data.CheckItems == null) return;
+			EventAggregator.Unsubscribe(this);
 			foreach (var jsonCheckItem in _context.Data.CheckItems)
 			{
 				var checkItem = Items.SingleOrDefault(ci => ci.Id == jsonCheckItem.Id);
@@ -49,6 +50,7 @@ namespace Manatee.Trello
 				else
 					((CheckItem) checkItem).Json = jsonCheckItem;
 			}
+			EventAggregator.Subscribe(this);
 
 			foreach (var checkItem in Items.ToList())
 			{

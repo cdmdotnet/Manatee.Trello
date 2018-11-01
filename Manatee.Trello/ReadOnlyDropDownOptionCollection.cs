@@ -29,12 +29,14 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonCustomDropDownOption>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(jb =>
 				{
 					var option = jb.GetFromCache<DropDownOption, IJsonCustomDropDownOption>(Auth);
 					option.Json = jb;
 					return option;
 				}));
+			EventAggregator.Subscribe(this);
 		}
 
 		void IHandle<EntityDeletedEvent<IJsonCustomDropDownOption>>.Handle(EntityDeletedEvent<IJsonCustomDropDownOption> message)

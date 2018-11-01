@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -80,6 +81,24 @@ namespace Manatee.Trello.IntegrationTests
 					var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
 
 					await board.Refresh();
+				});
+		}
+
+		[Test]
+		public async Task DuplicatedData()
+		{
+			await TestEnvironment.RunClean(async () =>
+				{
+					TrelloConfiguration.EnableConsistencyProcessing = true;
+					TrelloConfiguration.EnableDeepDownloads = true;
+
+					Board.DownloadedFields |= Board.Fields.Cards;
+
+					var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
+					await board.Refresh();
+					await board.Lists.Refresh(true);
+
+					board.Lists.Count(l => l.Name == "Done").Should().Be(1);
 				});
 		}
 	}

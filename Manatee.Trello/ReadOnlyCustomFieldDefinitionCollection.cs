@@ -33,12 +33,14 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonCustomFieldDefinition>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(ja =>
 				{
 					var field = TrelloConfiguration.Cache.Find<CustomFieldDefinition>(ja.Id) ?? new CustomFieldDefinition(ja, Auth);
 					field.Json = ja;
 					return field;
 				}));
+			EventAggregator.Subscribe(this);
 		}
 
 		void IHandle<EntityDeletedEvent<IJsonCustomFieldDefinition>>.Handle(EntityDeletedEvent<IJsonCustomFieldDefinition> message)

@@ -30,12 +30,14 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonSticker>>(Auth, endpoint, ct, allParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(ja =>
 				{
 					var attachment = TrelloConfiguration.Cache.Find<Sticker>(ja.Id) ?? new Sticker(ja, OwnerId, Auth);
 					attachment.Json = ja;
 					return attachment;
 				}));
+			EventAggregator.Subscribe(this);
 		}
 
 		void IHandle<EntityDeletedEvent<IJsonSticker>>.Handle(EntityDeletedEvent<IJsonSticker> message)

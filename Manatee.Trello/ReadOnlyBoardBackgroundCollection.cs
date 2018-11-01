@@ -32,12 +32,14 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonBoardBackground>>(Auth, endpoint, ct, AdditionalParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(jb =>
 				{
 					var background = jb.GetFromCache<BoardBackground, IJsonBoardBackground>(Auth, true, OwnerId);
 					background.Json = jb;
 					return background;
 				}));
+			EventAggregator.Subscribe(this);
 		}
 
 		void IHandle<EntityDeletedEvent<IJsonBoardBackground>>.Handle(EntityDeletedEvent<IJsonBoardBackground> message)

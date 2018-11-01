@@ -54,12 +54,14 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonOrganization>>(Auth, endpoint, ct, allParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(jo =>
 				{
 					var org = jo.GetFromCache<Organization, IJsonOrganization>(Auth);
 					org.Json = jo;
 					return org;
 				}));
+			EventAggregator.Subscribe(this);
 		}
 
 		private IOrganization GetByKey(string key)

@@ -89,12 +89,14 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonAction>>(Auth, endpoint, ct, allParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(ja =>
 				{
 					var action = ja.GetFromCache<Action, IJsonAction>(Auth);
 					action.Json = ja;
 					return action;
 				}));
+			EventAggregator.Subscribe(this);
 		}
 
 		void IHandle<EntityDeletedEvent<IJsonAction>>.Handle(EntityDeletedEvent<IJsonAction> message)
