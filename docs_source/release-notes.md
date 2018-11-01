@@ -1,3 +1,11 @@
+# 3.4.3
+
+*Released on 1 Nov, 2018*
+
+<span id="patch">patch</span>
+
+([#270](https://github.com/gregsdennis/Manatee.Trello/issues/270)) In some cases, having consistency processing on was causing entities to be added to collections twice.
+
 # 3.4.2
 
 Fixed issue where licensing restrictions weren't being reset after an hour, resulting in the inability to use the library for mulitple hours after all calls have been consumed.
