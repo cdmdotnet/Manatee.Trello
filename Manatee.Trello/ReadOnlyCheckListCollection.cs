@@ -22,6 +22,7 @@ namespace Manatee.Trello
 		internal ReadOnlyCheckListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth)
 		{
+			EventAggregator.Subscribe(this);
 		}
 
 		/// <summary>
@@ -42,12 +43,14 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonCheckList>>(Auth, endpoint, ct, allParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(jc =>
 				{
 					var checkList = jc.GetFromCache<CheckList, IJsonCheckList>(Auth);
 					checkList.Json = jc;
 					return checkList;
 				}));
+			EventAggregator.Subscribe(this);
 		}
 
 		private ICheckList GetByKey(string key)

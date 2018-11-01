@@ -31,6 +31,7 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonAttachment>>(Auth, endpoint, ct, allParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(ja =>
 				{
 					var attachment = TrelloConfiguration.Cache.Find<Attachment>(ja.Id) ?? new Attachment(ja, OwnerId, Auth);

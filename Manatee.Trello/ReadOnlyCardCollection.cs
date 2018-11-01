@@ -97,12 +97,14 @@ namespace Manatee.Trello
 
 			var previousItems = new List<ICard>(Items);
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(jc =>
 				{
 					var card = jc.GetFromCache<Card, IJsonCard>(Auth);
 					card.Json = jc;
 					return card;
 				}));
+			EventAggregator.Subscribe(this);
 			var removedItems = previousItems.Except(Items, CacheableComparer.Get<ICard>()).OfType<Card>().ToList();
 			foreach (var item in removedItems)
 			{

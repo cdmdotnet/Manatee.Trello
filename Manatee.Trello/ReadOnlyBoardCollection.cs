@@ -64,12 +64,14 @@ namespace Manatee.Trello
 			var newData = await JsonRepository.Execute<List<IJsonBoard>>(Auth, endpoint, ct, allParameters);
 
 			Items.Clear();
+			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(jb =>
 				{
 					var board = jb.GetFromCache<Board, IJsonBoard>(Auth);
 					board.Json = jb;
 					return board;
 				}));
+			EventAggregator.Subscribe(this);
 		}
 
 		private IBoard GetByKey(string key)
