@@ -93,7 +93,8 @@ namespace Manatee.Trello
 						Items.Add(message.Data.GetFromCache<Board>(Auth));
 					break;
 				case EntityRequestType.Member_Read_Boards:
-					if (!message.Properties.Contains(nameof(Board.Members))) return;
+					if (!message.Properties.Contains(nameof(Board.Members)) ||
+					    message.Data.Members == null) return;
 					board = Items.FirstOrDefault(b => b.Id == message.Data.Id);
 					var memberIds = message.Data.Members.Select(m => m.Id).ToList();
 					if (!memberIds.Contains(OwnerId) && board != null)

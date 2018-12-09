@@ -1,3 +1,11 @@
+# 3.4.4
+
+*Released on 9 Dec, 2018*
+
+<span id="patch">patch</span>
+
+Fixed exception when refreshing board members collection but when `Board.DownloadedFields` does not contain `Board.Fields.Members`.
+
 # 3.4.3
 
 *Released on 1 Nov, 2018*

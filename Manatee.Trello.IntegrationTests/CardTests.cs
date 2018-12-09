@@ -271,5 +271,65 @@ namespace Manatee.Trello.IntegrationTests
 
 			card.Members.Count().Should().Be(1);
 		}
-	}
+
+		[Test]
+		public async Task LimitReturnsAFewComments()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			for (int i = 0; i < 20; i++)
+			{
+				await card.Comments.Add($"comment {i}");
+			}
+
+			await TestEnvironment.RunClean(async () =>
+				{
+					try
+					{
+						Card.DownloadedFields &= ~Card.Fields.Actions;
+						Card.DownloadedFields |= Card.Fields.Comments;
+
+						var newCard = TestEnvironment.Current.Factory.Card(card.Id);
+						newCard.Comments.Limit = 10;
+						await newCard.Comments.Refresh();
+
+						Assert.AreEqual(10, newCard.Comments.Count());
+					}
+					finally
+					{
+						Card.DownloadedFields &= ~Card.Fields.Comments;
+						Card.DownloadedFields |= Card.Fields.Actions;
+					}
+				});
+		}
+
+		[Test]
+		public async Task LimitReturnsManyComments()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			for (int i = 0; i < 100; i++)
+			{
+				await card.Comments.Add($"comment {i}");
+			}
+
+			await TestEnvironment.RunClean(async () =>
+				{
+					try
+					{
+						Card.DownloadedFields &= ~Card.Fields.Actions;
+						Card.DownloadedFields |= Card.Fields.Comments;
+
+						var newCard = TestEnvironment.Current.Factory.Card(card.Id);
+						newCard.Comments.Limit = 70;
+						await newCard.Comments.Refresh();
+
+						Assert.AreEqual(70, newCard.Comments.Count());
+					}
+					finally
+					{
+						Card.DownloadedFields &= ~Card.Fields.Comments;
+						Card.DownloadedFields |= Card.Fields.Actions;
+					}
+				});
+		}
+    }
 }

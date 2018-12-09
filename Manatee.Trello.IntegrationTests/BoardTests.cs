@@ -78,29 +78,32 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task DownloadsEverything()
 		{
-			try
-			{
-				TrelloConfiguration.EnableConsistencyProcessing = false;
+			await TestEnvironment.RunClean(async () =>
+				{
+					try
+					{
+						TrelloConfiguration.EnableConsistencyProcessing = false;
 
-				Board.DownloadedFields |= Board.Fields.Cards;
+						Board.DownloadedFields |= Board.Fields.Cards;
 
-				var board = TestEnvironment.Current.Board;
-				var card = await TestEnvironment.Current.BuildCard();
-				var listName = card.List.Name;
+						var board = TestEnvironment.Current.Board;
+						var card = await TestEnvironment.Current.BuildCard();
+						var listName = card.List.Name;
 
-				board.Lists[listName].Should().BeNull();
-				TrelloConfiguration.EnableConsistencyProcessing = true;
-				TrelloConfiguration.Cache.Remove(card);
+						board.Lists[listName].Should().BeNull();
+						TrelloConfiguration.EnableConsistencyProcessing = true;
+						TrelloConfiguration.Cache.Remove(card);
 
-				await board.Refresh(true);
+						await board.Refresh(true);
 
-				board.Lists[listName].Cards.Should().NotBeEmpty();
-			}
-			finally
-			{
-				Board.DownloadedFields &= ~Board.Fields.Cards;
-				TrelloConfiguration.EnableConsistencyProcessing = false;
-			}
+						board.Lists[listName].Cards.Should().NotBeEmpty();
+						board.Memberships.Should().NotBeEmpty();
+					}
+					finally
+					{
+						Board.DownloadedFields &= ~Board.Fields.Cards;
+					}
+				});
 		}
 	}
 }
