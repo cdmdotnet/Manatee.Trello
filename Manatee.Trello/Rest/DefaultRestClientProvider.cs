@@ -18,12 +18,12 @@ namespace Manatee.Trello.Rest
 		/// <summary>
 		/// Creates requests for the client.
 		/// </summary>
-		public IRestRequestProvider RequestProvider { get; }
+		public virtual IRestRequestProvider RequestProvider { get; }
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="DefaultRestClientProvider"/> class.
 		/// </summary>
-		private DefaultRestClientProvider()
+		protected DefaultRestClientProvider()
 		{
 			RequestProvider = new WebApiRequestProvider();
 		}
@@ -41,7 +41,7 @@ namespace Manatee.Trello.Rest
 		/// </summary>
 		/// <param name="apiBaseUrl">The base URL to be used by the client</param>
 		/// <returns>An instance of <see cref="IRestClient"/>.</returns>
-		public IRestClient CreateRestClient(string apiBaseUrl)
+		public virtual IRestClient CreateRestClient(string apiBaseUrl)
 		{
 			return _client ?? (_client = new WebApiClient(apiBaseUrl));
 		}
@@ -55,7 +55,7 @@ namespace Manatee.Trello.Rest
 			GC.SuppressFinalize(this);
 		}
 
-		private void Dispose(bool disposing)
+		protected virtual void Dispose(bool disposing)
 		{
 			if (disposing)
 			{
