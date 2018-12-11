@@ -55,6 +55,10 @@ namespace Manatee.Trello.Rest
 			GC.SuppressFinalize(this);
 		}
 
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
+		/// <param name="disposing">Pass true if explicitly disposing; false if being called from the finalizer.</param>
 		protected virtual void Dispose(bool disposing)
 		{
 			if (disposing)
