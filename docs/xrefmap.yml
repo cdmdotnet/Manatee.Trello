@@ -19914,6 +19914,19 @@ references:
   commentId: T:Manatee.Trello.Rest.DefaultRestClientProvider
   fullName: Manatee.Trello.Rest.DefaultRestClientProvider
   nameWithType: DefaultRestClientProvider
+- uid: Manatee.Trello.Rest.DefaultRestClientProvider.#ctor
+  name: DefaultRestClientProvider()
+  href: api/Manatee.Trello.Rest.DefaultRestClientProvider.html#Manatee_Trello_Rest_DefaultRestClientProvider__ctor
+  commentId: M:Manatee.Trello.Rest.DefaultRestClientProvider.#ctor
+  fullName: Manatee.Trello.Rest.DefaultRestClientProvider.DefaultRestClientProvider()
+  nameWithType: DefaultRestClientProvider.DefaultRestClientProvider()
+- uid: Manatee.Trello.Rest.DefaultRestClientProvider.#ctor*
+  name: DefaultRestClientProvider
+  href: api/Manatee.Trello.Rest.DefaultRestClientProvider.html#Manatee_Trello_Rest_DefaultRestClientProvider__ctor_
+  commentId: Overload:Manatee.Trello.Rest.DefaultRestClientProvider.#ctor
+  isSpec: "True"
+  fullName: Manatee.Trello.Rest.DefaultRestClientProvider.DefaultRestClientProvider
+  nameWithType: DefaultRestClientProvider.DefaultRestClientProvider
 - uid: Manatee.Trello.Rest.DefaultRestClientProvider.CreateRestClient(System.String)
   name: CreateRestClient(String)
   href: api/Manatee.Trello.Rest.DefaultRestClientProvider.html#Manatee_Trello_Rest_DefaultRestClientProvider_CreateRestClient_System_String_
@@ -19933,6 +19946,12 @@ references:
   commentId: M:Manatee.Trello.Rest.DefaultRestClientProvider.Dispose
   fullName: Manatee.Trello.Rest.DefaultRestClientProvider.Dispose()
   nameWithType: DefaultRestClientProvider.Dispose()
+- uid: Manatee.Trello.Rest.DefaultRestClientProvider.Dispose(System.Boolean)
+  name: Dispose(Boolean)
+  href: api/Manatee.Trello.Rest.DefaultRestClientProvider.html#Manatee_Trello_Rest_DefaultRestClientProvider_Dispose_System_Boolean_
+  commentId: M:Manatee.Trello.Rest.DefaultRestClientProvider.Dispose(System.Boolean)
+  fullName: Manatee.Trello.Rest.DefaultRestClientProvider.Dispose(System.Boolean)
+  nameWithType: DefaultRestClientProvider.Dispose(Boolean)
 - uid: Manatee.Trello.Rest.DefaultRestClientProvider.Dispose*
   name: Dispose
   href: api/Manatee.Trello.Rest.DefaultRestClientProvider.html#Manatee_Trello_Rest_DefaultRestClientProvider_Dispose_
@@ -21622,6 +21641,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.TrelloConfiguration.EnableDeepDownloads
   nameWithType: TrelloConfiguration.EnableDeepDownloads
+- uid: Manatee.Trello.TrelloConfiguration.HttpClientFactory
+  name: HttpClientFactory
+  href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_HttpClientFactory
+  commentId: P:Manatee.Trello.TrelloConfiguration.HttpClientFactory
+  fullName: Manatee.Trello.TrelloConfiguration.HttpClientFactory
+  nameWithType: TrelloConfiguration.HttpClientFactory
+- uid: Manatee.Trello.TrelloConfiguration.HttpClientFactory*
+  name: HttpClientFactory
+  href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_HttpClientFactory_
+  commentId: Overload:Manatee.Trello.TrelloConfiguration.HttpClientFactory
+  isSpec: "True"
+  fullName: Manatee.Trello.TrelloConfiguration.HttpClientFactory
+  nameWithType: TrelloConfiguration.HttpClientFactory
 - uid: Manatee.Trello.TrelloConfiguration.JsonFactory
   name: JsonFactory
   href: api/Manatee.Trello.TrelloConfiguration.html#Manatee_Trello_TrelloConfiguration_JsonFactory
