@@ -72,6 +72,16 @@ Features:
 
 The free version will permit 300 downloads and 300 uploads per hour.  If you need more than this, please consider [purchasing a license](usage/licensing.html).
 
+# Who uses Manatee.Trello?
+
+<div class="image-row image-center">
+    <a href="https://octopus.com/"><img src="https://octopus.com/images/company/Logo-Text-BlueBlackTransparent-400_rgb.png"></a>
+    <a href="https://www.nirvc.com/"><img src="https://www.nirvc.com/img/Logo.png"></a>
+    <a href="https://www.vs-sistemas.com/inicio"><img src="https://www.vs-sistemas.com/Content/images/logo_vs_sistemas.png"></a>
+    <a href="http://www.satorianalytics.com/"><img src="images/clients/satori-logo.png"></a>
+    <a href="https://www.alliancereservations.com/"><img src="images/clients/arnlogo-white.png"></a>
+</div>
+
 # How it all started
 
 When I started this project in 2012, I was a software support developer, which meant that when other people’s code did something it wasn't supposed to, I was on the team that determined where the bug was and fixed it.  As such we had a plethora of systems dedicated to managing our list of found problems.

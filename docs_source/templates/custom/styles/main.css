@@ -39,3 +39,17 @@
   padding: 3px 5px 3px 5px;
   text-shadow: 1px 1px #000000;
 }
+
+.image-row {
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+  display: flex;   
+  flex-wrap: wrap;
+}
+
+.image-row a {
+  padding: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+}
