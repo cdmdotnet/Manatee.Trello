@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using Manatee.Trello.Internal.Caching;
 using Manatee.Trello.Internal.Logging;
@@ -21,6 +22,7 @@ namespace Manatee.Trello
 		private static ICache _cache;
 		private static IJsonFactory _jsonFactory;
 		private static Func<IRestResponse, int, bool> _retryPredicate;
+		private static Func<HttpClient> _httpClientFactory;
 
 		/// <summary>
 		/// Specifies the serializer for the REST client.
@@ -127,6 +129,15 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
+		/// Gets or sets the method by which the default REST provider creates instances of <see cref="HttpClient"/>.  This can be overridden to provide custom client initialization.
+		/// </summary>
+		public static Func<HttpClient> HttpClientFactory
+		{
+			get { return _httpClientFactory ?? (() => new HttpClient()); }
+			set { _httpClientFactory = value; }
+		}
+
+		/// <summary>
 		/// Specifies that changes on one entity will be relationally tracked throughout the system.  This functionality is opt-in; the default is false.
 		/// </summary>
 		/// <remarks>
@@ -170,7 +181,7 @@ namespace Manatee.Trello
 		private static bool DefaultRetry(IRestResponse response, int callCount)
 		{
 			var retry = RetryStatusCodes.Contains(response.StatusCode) &&
-			            callCount <= MaxRetryCount;
+						callCount <= MaxRetryCount;
 			if (retry)
 				Thread.Sleep(DelayBetweenRetries);
 			return retry;

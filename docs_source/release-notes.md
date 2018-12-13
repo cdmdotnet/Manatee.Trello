@@ -1,3 +1,11 @@
+# 3.5.0
+
+*Released on 9 Dec, 2018*
+
+<span id="patch">patch</span>
+
+([#251](https://github.com/gregsdennis/Manatee.Trello/issues/251)) Added `TrelloConfiguration.HttpClientFactory` to provide a mechanism to initialize `HttpClient` instances for the default REST client.
+
 # 3.4.4
 
 *Released on 9 Dec, 2018*

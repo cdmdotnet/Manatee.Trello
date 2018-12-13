@@ -21,7 +21,7 @@ namespace Manatee.Trello.Rest
 #endif
 		public WebApiClient(string baseUri)
 		{
-			_client = new HttpClient();
+			_client = TrelloConfiguration.HttpClientFactory();
 			_baseUri = baseUri;
 		}
 
