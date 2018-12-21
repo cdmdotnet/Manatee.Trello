@@ -75,8 +75,8 @@ namespace Manatee.Trello.IntegrationTests
 			var textField = await TestEnvironment.Current.Board.CustomFields.Add("TextField", CustomFieldType.Text);
 			var dateField = await TestEnvironment.Current.Board.CustomFields.Add("DateField", CustomFieldType.DateTime);
 			var dropDownField = await TestEnvironment.Current.Board.CustomFields.Add("DropDownField", CustomFieldType.DropDown, CancellationToken.None,
-			                                                                         TestEnvironment.Current.Factory.DropDownOption("one"),
-			                                                                         TestEnvironment.Current.Factory.DropDownOption("two"));
+																					 TestEnvironment.Current.Factory.DropDownOption("one"),
+																					 TestEnvironment.Current.Factory.DropDownOption("two"));
 			var checkBoxField = await TestEnvironment.Current.Board.CustomFields.Add("CheckBoxField", CustomFieldType.CheckBox);
 
 			var card = await TestEnvironment.Current.BuildCard();
@@ -157,7 +157,7 @@ namespace Manatee.Trello.IntegrationTests
 			finally
 			{
 				Card.DownloadedFields = (Card.Fields) Enum.GetValues(typeof(Card.Fields)).Cast<int>().Sum() &
-				                        ~Card.Fields.Comments;
+										~Card.Fields.Comments;
 			}
 		}
 
@@ -331,5 +331,5 @@ namespace Manatee.Trello.IntegrationTests
 					}
 				});
 		}
-    }
+	}
 }

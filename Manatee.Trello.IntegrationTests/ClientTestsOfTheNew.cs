@@ -101,5 +101,29 @@ namespace Manatee.Trello.IntegrationTests
 					board.Lists.Count(l => l.Name == "Done").Should().Be(1);
 				});
 		}
+
+		[Test]
+		public async Task Issue277_NumericCustomFields()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			await TestEnvironment.Current.Board.EnsurePowerUp(new CustomFieldsPowerUp());
+			var definition = await TestEnvironment.Current.Board.CustomFields.Add("planned time", CustomFieldType.Number);
+			await TestEnvironment.Current.Board.CustomFields.Refresh(true);
+			await definition.SetValueForCard(card, 0.5);
+			await card.CustomFields.Refresh(true);
+
+			var field = card.CustomFields.First(x => x.Definition.Name.ToLower() == "planned time");
+			Console.WriteLine("field as string: {0}", field);
+			var numberField = field as NumberField;
+			Console.WriteLine("number field value: {0}", numberField?.Value);
+			Assert.AreEqual(0.5, numberField?.Value);
+
+			decimal.TryParse(card.CustomFields.First(x => x.Definition.Name.ToLower() == "planned time").ToString()
+			                     .Split('-')[1].Trim(), out var plannedTime);
+
+			Console.WriteLine("parsed value: {0}", plannedTime);
+
+			Assert.AreEqual(0.5m, plannedTime);
+		}
 	}
 }
