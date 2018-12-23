@@ -125,5 +125,23 @@ namespace Manatee.Trello.IntegrationTests
 
 			Assert.AreEqual(0.5m, plannedTime);
 		}
+
+		[Test]
+		public async Task Issue277_SetCustomFieldInBrowser()
+		{
+			var card = TestEnvironment.Current.Factory.Card("KU54lK54");
+			await card.Refresh();
+
+			// client way
+			decimal.TryParse(card.CustomFields.First(x => x.Definition.Name.ToLower() == "field #1")
+			    .ToString()
+			    .Split('-')[1].Trim(), out var fieldValue);
+
+			fieldValue.Should().Be(5.8m);
+
+			// via field
+			var field = card.CustomFields.First(x => x.Definition.Name.ToLower() == "field #1") as NumberField;
+			field.Value.Should().Be(5.8);
+		}
 	}
 }
