@@ -9,6 +9,11 @@ namespace Manatee.Trello.Json
 	public interface IJsonToken : IJsonCacheable
 	{
 		/// <summary>
+		/// Gets or sets the token itself.
+		/// </summary>
+		[JsonSpecialSerialization]
+		string TokenValue { get; set; }
+		/// <summary>
 		/// Gets or sets the identifier of the application which requested the token.
 		/// </summary>
 		[JsonDeserialize]

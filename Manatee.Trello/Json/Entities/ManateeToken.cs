@@ -8,6 +8,7 @@ namespace Manatee.Trello.Json.Entities
 	internal class ManateeToken : IJsonToken, IJsonSerializable
 	{
 		public string Id { get; set; }
+		public string TokenValue { get; set; }
 		public string Identifier { get; set; }
 		public IJsonMember Member { get; set; }
 		public DateTime? DateCreated { get; set; }

@@ -16,7 +16,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.UnitTests
 {
 	[TestFixture]
-	[Ignore("This test fixture for development purposes only.")]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
@@ -26,21 +26,19 @@ namespace Manatee.Trello.UnitTests
 		{
 			await Run(async ct =>
 				{
-					Card.DownloadedFields |= Card.Fields.CustomFields;
+					var token = _factory.Token(TrelloAuthorization.Default.UserToken);
+					await token.Refresh(true, ct);
 
-					var board = _factory.Board(TrelloIds.BoardId);
-					await board.Refresh(ct: ct);
+					Console.WriteLine(token);
 
-					await board.Cards.Refresh(ct: ct);
-
-					Console.WriteLine(board.Cards[0].CustomFields[0].Definition.Name);
+					Assert.IsNotNull(token);
 				});
 		}
 
 		private static async Task Run(Func<CancellationToken, Task> action)
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
-			TrelloAuthorization.Default.UserToken = TrelloIds.UserToken;
+			TrelloAuthorization.Default.UserToken = Environment.GetEnvironmentVariable("TRELLO_USER_TOKEN");
 
 			await action(CancellationToken.None);
 

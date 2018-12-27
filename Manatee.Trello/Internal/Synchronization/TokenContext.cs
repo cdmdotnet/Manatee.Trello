@@ -65,10 +65,10 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
-		public TokenContext(string id, TrelloAuthorization auth)
+		public TokenContext(string tokenValue, TrelloAuthorization auth)
 			: base(auth)
 		{
-			Data.Id = id;
+			Data.TokenValue = tokenValue;
 			Data.Permissions = new List<IJsonTokenPermission>();
 			MemberPermissions = new TokenPermissionContext(Auth);
 			Data.Permissions.Add(MemberPermissions.Data);
@@ -109,7 +109,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public override Endpoint GetRefreshEndpoint()
 		{
 			return EndpointFactory.Build(EntityRequestType.Token_Read_Refresh,
-			                             new Dictionary<string, object> {{"_token", Data.Id}});
+			                             new Dictionary<string, object> {{"_token", Data.TokenValue}});
 		}
 
 		protected override Dictionary<string, object> GetParameters()
@@ -120,11 +120,13 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected override Endpoint GetDeleteEndpoint()
 		{
 			return EndpointFactory.Build(EntityRequestType.Token_Write_Delete,
-			                             new Dictionary<string, object> {{ "_id", Data.Id}});
+			                             new Dictionary<string, object> {{ "_id", Data.TokenValue}});
 		}
 
 		protected override IEnumerable<string> MergeDependencies(IJsonToken json, bool overwrite)
 		{
+			if (json.Permissions == null) return Enumerable.Empty<string>();
+
 			return MemberPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Member), overwrite)
 			                        .Concat(BoardPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Board), overwrite))
 			                        .Concat(OrganizationPermissions.Merge(json.Permissions.FirstOrDefault(p => p.ModelType == TokenModelType.Organization), overwrite));
