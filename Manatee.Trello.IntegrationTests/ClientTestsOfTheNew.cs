@@ -132,7 +132,7 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			var card = await TestEnvironment.Current.BuildCard();
 			await TestEnvironment.Current.Board.EnsurePowerUp(new CustomFieldsPowerUp());
-			var definition = await TestEnvironment.Current.Board.CustomFields.Add("planned time", CustomFieldType.Number);
+			var definition = await TestEnvironment.Current.Board.CustomFields.Add("planned time (greek)", CustomFieldType.Number);
 			await TestEnvironment.Current.Board.CustomFields.Refresh(true);
 			await definition.SetValueForCard(card, 0.5);
 			var currentCulture = CultureInfo.CurrentCulture;
@@ -142,13 +142,13 @@ namespace Manatee.Trello.IntegrationTests
 				CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("el-GR");
 
 				await card.CustomFields.Refresh(true);
-				var field = card.CustomFields.First(x => x.Definition.Name.ToLower() == "planned time");
+				var field = card.CustomFields.First(x => x.Definition.Name.ToLower() == "planned time (greek)");
 				Console.WriteLine("field as string: {0}", field);
 				var numberField = field as NumberField;
 				Console.WriteLine("number field value: {0}", numberField?.Value);
 				Assert.AreEqual(0.5, numberField?.Value);
 
-				decimal.TryParse(card.CustomFields.First(x => x.Definition.Name.ToLower() == "planned time").ToString()
+				decimal.TryParse(card.CustomFields.First(x => x.Definition.Name.ToLower() == "planned time (greek)").ToString()
 				                     .Split('-')[1].Trim(), out var plannedTime);
 
 				Console.WriteLine("parsed value: {0}", plannedTime);
