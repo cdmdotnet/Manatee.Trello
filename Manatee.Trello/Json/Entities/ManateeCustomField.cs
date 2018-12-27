@@ -44,7 +44,7 @@ namespace Manatee.Trello.Json.Entities
 							break;
 						}
 						var numberString = value.TryGetString("number");
-						Number = numberString != null && double.TryParse(numberString, out var number)
+						Number = numberString != null && double.TryParse(numberString, NumberStyles.Any, CultureInfo.InvariantCulture, out var number)
 							         ? number
 							         : (double?) null;
 						if (Number != null)
