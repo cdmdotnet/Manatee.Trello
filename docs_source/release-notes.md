@@ -1,3 +1,11 @@
+# 3.5.1
+
+*Released on 27 Dec, 2018*
+
+<span id="patch">patch</span>
+
+([#277](https://github.com/gregsdennis/Manatee.Trello/issues/277)) Custom fields parse incorrectly in non-English cultures.  (See issue for explanation.)
+
 # 3.5.0
 
 *Released on 9 Dec, 2018*
