@@ -6,6 +6,8 @@
 
 ([#277](https://github.com/gregsdennis/Manatee.Trello/issues/277)) Custom fields parse incorrectly in non-English cultures.  (See issue for explanation.)
 
+`ArgumentNullException` when working with token objects.  The API calls for tokens can only be used with the token value, not the object ID (like all other objects).  The library has been updated to use the token value for these API calls instead.
+
 # 3.5.0
 
 *Released on 9 Dec, 2018*

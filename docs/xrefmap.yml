@@ -15804,6 +15804,19 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.Json.IJsonToken.Permissions
   nameWithType: IJsonToken.Permissions
+- uid: Manatee.Trello.Json.IJsonToken.TokenValue
+  name: TokenValue
+  href: api/Manatee.Trello.Json.IJsonToken.html#Manatee_Trello_Json_IJsonToken_TokenValue
+  commentId: P:Manatee.Trello.Json.IJsonToken.TokenValue
+  fullName: Manatee.Trello.Json.IJsonToken.TokenValue
+  nameWithType: IJsonToken.TokenValue
+- uid: Manatee.Trello.Json.IJsonToken.TokenValue*
+  name: TokenValue
+  href: api/Manatee.Trello.Json.IJsonToken.html#Manatee_Trello_Json_IJsonToken_TokenValue_
+  commentId: Overload:Manatee.Trello.Json.IJsonToken.TokenValue
+  isSpec: "True"
+  fullName: Manatee.Trello.Json.IJsonToken.TokenValue
+  nameWithType: IJsonToken.TokenValue
 - uid: Manatee.Trello.Json.IJsonTokenPermission
   name: IJsonTokenPermission
   href: api/Manatee.Trello.Json.IJsonTokenPermission.html
