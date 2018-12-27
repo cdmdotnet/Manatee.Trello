@@ -12,11 +12,13 @@ namespace Manatee.Trello
 	/// </summary>
 	public class ListCollection : ReadOnlyListCollection, IListCollection
 	{
+#pragma warning disable CS0809
 		/// <summary>
 		/// (Obsolete) Indicates the maximum number of items to return.
 		/// </summary>
 		[Obsolete("Trello does not support limiting lists.")]
 		public override int? Limit { get; set; }
+#pragma warning restore CS0809
 
 		internal ListCollection(Func<string> getOwnerId, TrelloAuthorization auth)
 			: base(getOwnerId, auth) { }
