@@ -26,27 +26,27 @@ namespace Manatee.Trello
 			/// Indicates the Id property should be populated.
 			/// </summary>
 			[Display(Description="identifier")]
-			Id,
+			Id = 1,
 			/// <summary>
 			/// Indicates the Member property should be populated.
 			/// </summary>
-			[Display(Description="member")]
-			Member,
+			[Display(Description="idMember")]
+			Member = 1 << 1,
 			/// <summary>
 			/// Indicates the DateCreated property should be populated.
 			/// </summary>
 			[Display(Description="dateCreated")]
-			DateCreated,
+			DateCreated = 1 << 2,
 			/// <summary>
 			/// Indicates the DateExpires property should be populated.
 			/// </summary>
 			[Display(Description="dateExpires")]
-			DateExpires,
+			DateExpires = 1 << 3,
 			/// <summary>
 			/// Indicates the Permissions property should be populated.
 			/// </summary>
 			[Display(Description="permissions")]
-			Permissions,
+			Permissions = 1 << 4,
 			// TODO: (#164) add
 			//Webhooks
 		}

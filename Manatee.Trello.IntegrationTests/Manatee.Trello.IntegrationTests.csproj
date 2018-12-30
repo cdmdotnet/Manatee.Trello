@@ -72,6 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StackOverflowTests.cs" />
     <Compile Include="TestExtensions.cs" />
+    <Compile Include="TokenTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Manatee.Trello.Tests.Common\Manatee.Trello.Tests.Common.csproj">
