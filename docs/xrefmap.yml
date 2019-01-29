@@ -735,6 +735,12 @@ references:
   commentId: F:Manatee.Trello.ActionType.DeleteCheckItem
   fullName: Manatee.Trello.ActionType.DeleteCheckItem
   nameWithType: ActionType.DeleteCheckItem
+- uid: Manatee.Trello.ActionType.DeleteCustomField
+  name: DeleteCustomField
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_DeleteCustomField
+  commentId: F:Manatee.Trello.ActionType.DeleteCustomField
+  fullName: Manatee.Trello.ActionType.DeleteCustomField
+  nameWithType: ActionType.DeleteCustomField
 - uid: Manatee.Trello.ActionType.DeleteLabel
   name: DeleteLabel
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_DeleteLabel
