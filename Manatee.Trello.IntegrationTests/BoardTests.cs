@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
@@ -103,6 +104,39 @@ namespace Manatee.Trello.IntegrationTests
 					{
 						Board.DownloadedFields &= ~Board.Fields.Cards;
 					}
+				});
+		}
+
+		[Test]
+		public async Task DeleteCustomField_RefreshCard()
+		{
+			await TestEnvironment.RunClean(async () =>
+				{
+					var board = TestEnvironment.Current.Board;
+					try
+					{
+						await board.PowerUps.EnablePowerUp(new CustomFieldsPowerUp());
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine("Powerup probably already enabled.");
+						Console.WriteLine(e.Message);
+					}
+
+					var field = await board.CustomFields.Add(nameof(DeleteCustomField_RefreshCard)+"Field", CustomFieldType.Text);
+					var card = await TestEnvironment.Current.BuildCard();
+
+					await field.SetValueForCard(card, "a value");
+					await card.Refresh(true);
+
+					((TextField)card.CustomFields[0]).Value.Should().Be("a value");
+
+					await field.Delete();
+
+					Board.DownloadedFields |= Board.Fields.Actions;
+					await board.Refresh(true);
+
+					await card.Refresh(true);
 				});
 		}
 	}

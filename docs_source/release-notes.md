@@ -1,3 +1,11 @@
+# 3.6.0
+
+*Released on 30 Jan, 2019*
+
+<span id="feature">feature</span> <span id="patch">patch</span> 
+
+([#280](https://github.com/gregsdennis/Manatee.Trello/issues/280)) ([#281](https://github.com/gregsdennis/Manatee.Trello/issues/281)) New action type for deleted custom fields.  This manifested when refreshing a card that contained data for a custom field after that custom field definition was deleted.
+
 # 3.5.1
 
 *Released on 27 Dec, 2018*
