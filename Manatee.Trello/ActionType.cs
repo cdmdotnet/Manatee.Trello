@@ -203,6 +203,12 @@ namespace Manatee.Trello
 		[Display(Description = "deleteCheckItem")]
 		public static readonly ActionType DeleteCheckItem;
 
+		///// <summary>
+		///// Indicates a <see cref="CheckList"/> was created.
+		///// </summary>
+		//[Display(Description = "deleteCustomField")]
+		//public static readonly ActionType DeleteCustomField;
+
 		/// <summary>
 		/// Indicates a <see cref="Label"/> was deleted.
 		/// </summary>
