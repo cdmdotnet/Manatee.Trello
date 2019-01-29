@@ -187,6 +187,7 @@ namespace Manatee.Trello
 					{ActionType.CreateLabel, a => $"{a.Creator} created label {a.Data.Label}."},
 					{ActionType.CreateOrganizationInvitation, a => $"{a.Creator} invited {a.Data.Member} to organization {a.Data.Organization}."},
 					{ActionType.DeleteCheckItem, a => $"{a.Creator} deleted check item {a.Data.CheckItem}."},
+					{ActionType.DeleteCustomField, a => $"{a.Creator} deleted custom field {a.Data.CustomField}."},
 					{ActionType.DeleteLabel, a => $"{a.Creator} deleted label {a.Data.Label}."},
 					{ActionType.MakeAdminOfOrganization, a => $"{a.Creator} made {a.Data.Member} of organization {a.Data.Organization}."},
 					{ActionType.RemoveAdminFromBoard, a => $"{a.Creator} removed {a.Data.Member} as an admin from board {a.Data.Board}."},

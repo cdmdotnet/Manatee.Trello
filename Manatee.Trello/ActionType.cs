@@ -150,7 +150,7 @@ namespace Manatee.Trello
 		public static readonly ActionType CreateChecklist;
 
 		/// <summary>
-		/// Indicates a <see cref="CheckList"/> was created.
+		/// Indicates a <see cref="CustomFieldDefinition"/> was created.
 		/// </summary>
 		[Display(Description = "createCustomField")]
 		public static readonly ActionType CreateCustomField;
@@ -203,11 +203,11 @@ namespace Manatee.Trello
 		[Display(Description = "deleteCheckItem")]
 		public static readonly ActionType DeleteCheckItem;
 
-		///// <summary>
-		///// Indicates a <see cref="CheckList"/> was created.
-		///// </summary>
-		//[Display(Description = "deleteCustomField")]
-		//public static readonly ActionType DeleteCustomField;
+		/// <summary>
+		/// Indicates a <see cref="CustomFieldDefinition"/> was deleted.
+		/// </summary>
+		[Display(Description = "deleteCustomField")]
+		public static readonly ActionType DeleteCustomField;
 
 		/// <summary>
 		/// Indicates a <see cref="Label"/> was deleted.
