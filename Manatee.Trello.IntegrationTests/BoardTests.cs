@@ -108,7 +108,7 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public async Task DeleteCustomField()
+		public async Task DeleteCustomField_RefreshCard()
 		{
 			await TestEnvironment.RunClean(async () =>
 				{
@@ -123,24 +123,20 @@ namespace Manatee.Trello.IntegrationTests
 						Console.WriteLine(e.Message);
 					}
 
-					var field = await board.CustomFields.Add(nameof(DeleteCustomField), CustomFieldType.Text);
-					var card = await board.Lists[0].Cards.Add(nameof(DeleteCustomField) + "Card");
+					var field = await board.CustomFields.Add(nameof(DeleteCustomField_RefreshCard)+"Field", CustomFieldType.Text);
+					var card = await TestEnvironment.Current.BuildCard();
 
 					await field.SetValueForCard(card, "a value");
-
 					await card.Refresh(true);
 
-					((TextField) card.CustomFields[0]).Value.Should().Be("a value");
+					((TextField)card.CustomFields[0]).Value.Should().Be("a value");
 
 					await field.Delete();
 
 					Board.DownloadedFields |= Board.Fields.Actions;
-					await board.Refresh();
+					await board.Refresh(true);
 
-					Card.DownloadedFields |= Card.Fields.Actions;
-					Card.DownloadedFields &= ~Card.Fields.Comments;
-
-					Console.WriteLine(string.Join("\n", board.Actions.Select(a => a.Type)));
+					await card.Refresh(true);
 				});
 		}
 	}

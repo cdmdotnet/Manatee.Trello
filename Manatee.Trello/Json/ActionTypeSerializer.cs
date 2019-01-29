@@ -19,7 +19,11 @@ namespace Manatee.Trello.Json
 
 		public object Deserialize(SerializationContext context)
 		{
-			return ActionType.TryParse(context.LocalValue.String, out var actionType) ? actionType : (ActionType?)null;
+			return ActionType.TryParse(context.LocalValue.String, out var actionType) 
+				       ? actionType
+				       : throw new TrelloInteractionException($"{nameof(ActionType)} '{context.LocalValue.String}' is not a recognized value.  " +
+				                                              $"It may be a new value that Trello introduced since this version of Manatee.Trello.  " +
+				                                              $"Please report it by logging an issue in GitHub or contacting me via my Slack workspace.");
 		}
 	}
 }
