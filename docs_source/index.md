@@ -80,6 +80,7 @@ The free version will permit 300 downloads and 300 uploads per hour.  If you nee
     <a href="https://www.vs-sistemas.com/inicio"><img src="https://www.vs-sistemas.com/Content/images/logo_vs_sistemas.png"></a>
     <a href="http://www.satorianalytics.com/"><img src="images/clients/satori-logo.png"></a>
     <a href="https://www.alliancereservations.com/"><img src="images/clients/arnlogo-white.png"></a>
+    <a href="http://www.softiceit.co.za/"><img src="http://www.softiceit.co.za/images/SOFTICEITNew.png"></a>
 </div>
 
 # How it all started
