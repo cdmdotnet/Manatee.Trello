@@ -3593,6 +3593,17 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/clients/SOFTICEITNew.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/clients/SOFTICEITNew.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/clients/arnlogo-white.png",
       "output": {
         "resource": {
@@ -3655,7 +3666,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "vP6M9nMs6tI1C+rnuE8p1Q=="
+          "hash": "Y7IjubwhzWToNur4ZBhfDA=="
         }
       },
       "is_incremental": false,
@@ -3808,11 +3819,11 @@
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         }
