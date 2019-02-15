@@ -214,4 +214,3 @@ namespace Manatee.Trello.Rest
 		}
 	}
 }
-}
