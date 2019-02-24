@@ -1,3 +1,11 @@
+# 3.6.1
+
+*Released on 25 Feb, 2019*
+
+<span id="patch">patch</span> 
+
+([#284](https://github.com/gregsdennis/Manatee.Trello/issues/284)) Card collection not refreshing custom fields.  Found that nested resources weren't being included in the request correctly.  This fix correctly includes cards as nested fields in the request to refresh a board.  [#286](https://github.com/gregsdennis/Manatee.Trello/issues/286) has been created to validate other nested resources are being called correctly./
+
 # 3.6.0
 
 *Released on 30 Jan, 2019*

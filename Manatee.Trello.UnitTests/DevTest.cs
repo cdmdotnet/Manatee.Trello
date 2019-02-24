@@ -26,12 +26,11 @@ namespace Manatee.Trello.UnitTests
 		{
 			await Run(async ct =>
 				{
-					var token = _factory.Token(TrelloAuthorization.Default.UserToken);
-					await token.Refresh(true, ct);
+					Board.DownloadedFields |= Board.Fields.Cards;
+					var board = _factory.Board(TrelloIds.BoardId);
+					await board.Refresh(ct: ct);
 
-					Console.WriteLine(token);
-
-					Assert.IsNotNull(token);
+					Console.WriteLine(board.Cards["Card"].CustomFields[0].Definition.Name);
 				});
 		}
 

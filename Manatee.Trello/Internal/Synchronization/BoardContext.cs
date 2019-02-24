@@ -190,6 +190,8 @@ namespace Manatee.Trello.Internal.Synchronization
 						Parameters["card_attachments"] = "true";
 					if (Card.DownloadedFields.HasFlag(Card.Fields.Stickers))
 						Parameters["card_stickers"] = "true";
+					if (Card.DownloadedFields.HasFlag(Card.Fields.CustomFields))
+						Parameters["card_customFieldItems"] = "true";
 				}
 				if (parameterFields.HasFlag(Board.Fields.CustomFields))
 					Parameters["customFields"] = "true";
