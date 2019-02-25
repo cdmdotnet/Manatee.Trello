@@ -49,7 +49,7 @@ namespace Manatee.Trello
 			IncorporateLimit();
 
 			var allParameters = AdditionalParameters.Concat(ListContext.CurrentParameters)
-			                                        .ToDictionary(kvp => kvp.Key == "filter" ? kvp.Key : $"list_{kvp.Key}", kvp => kvp.Value);
+			                                        .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Read_Lists, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<List<IJsonList>>(Auth, endpoint, ct, allParameters);
 

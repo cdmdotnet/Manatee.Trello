@@ -86,7 +86,7 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the List property should be populated.
 			/// </summary>
-			[Display(Description = "list")]
+			[Display(Description = "idList")]
 			List = 1 << 10,
 
 			/// <summary>
