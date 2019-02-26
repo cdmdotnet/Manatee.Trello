@@ -64,7 +64,8 @@
 
 <p><em>Released on 25 Feb, 2019</em></p>
 <p><span id="patch">patch</span></p>
-<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/284">#284</a>) Card collection not refreshing custom fields.  Found that nested resources weren't being included in the request correctly.  This fix correctly includes cards as nested fields in the request to refresh a board.  <a href="https://github.com/gregsdennis/Manatee.Trello/issues/286">#286</a> has been created to validate other nested resources are being called correctly./</p>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/283">#283</a>) Adding attachments to cards via URLs was sad because the attachment URL wouldn't be properly encoded.  This resulted in the removal of parameters from the attachment URL (it'd be absorbed into the API URL).
+(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/284">#284</a>) Card collection not refreshing custom fields.  Found that nested resources weren't being included in the request correctly.  This fix correctly includes cards as nested fields in the request to refresh a board.  <a href="https://github.com/gregsdennis/Manatee.Trello/issues/286">#286</a> has been created to validate other nested resources are being called correctly.</p>
 <h1 id="360">3.6.0</h1>
 <p><em>Released on 30 Jan, 2019</em></p>
 <p><span id="feature">feature</span> <span id="patch">patch</span></p>
