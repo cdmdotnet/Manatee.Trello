@@ -5,6 +5,7 @@
 <span id="patch">patch</span> 
 
 ([#283](https://github.com/gregsdennis/Manatee.Trello/issues/283)) Adding attachments to cards via URLs was sad because the attachment URL wouldn't be properly encoded.  This resulted in the removal of parameters from the attachment URL (it'd be absorbed into the API URL).
+
 ([#284](https://github.com/gregsdennis/Manatee.Trello/issues/284)) Card collection not refreshing custom fields.  Found that nested resources weren't being included in the request correctly.  This fix correctly includes cards as nested fields in the request to refresh a board.  [#286](https://github.com/gregsdennis/Manatee.Trello/issues/286) has been created to validate other nested resources are being called correctly.
 
 # 3.6.0
