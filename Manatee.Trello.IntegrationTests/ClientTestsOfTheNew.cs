@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace Manatee.Trello.IntegrationTests
 {

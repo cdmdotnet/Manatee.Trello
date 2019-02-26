@@ -210,9 +210,11 @@ namespace Manatee.Trello.IntegrationTests
 				var card = await TestEnvironment.Current.BuildCard();
 
 				var comment = await card.Comments.Add("a comment");
+				card.Comments.Count().Should().Be(0);
 				await card.Refresh(true);
 
 				card.Comments.Count().Should().Be(1);
+				card.Comments[0].Creator.Should().Be(TestEnvironment.Current.Me);
 
 				await comment.Delete();
 				await card.Refresh(true);
