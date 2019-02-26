@@ -40,6 +40,7 @@ namespace Manatee.Trello.Rest
 		{
 			return ExecuteAsync(request, ct);
 		}
+
 		public Task<IRestResponse<T>> Execute<T>(IRestRequest request, CancellationToken ct)
 			where T : class
 		{
@@ -49,7 +50,7 @@ namespace Manatee.Trello.Rest
 		private async Task<IRestResponse> ExecuteAsync(IRestRequest request, CancellationToken ct)
 		{
 			IRestResponse response;
-			var webRequest = (WebApiRestRequest)request;
+			var webRequest = (WebApiRestRequest) request;
 			switch (request.Method)
 			{
 				case RestMethod.Get:
@@ -67,8 +68,10 @@ namespace Manatee.Trello.Rest
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
 			return response;
 		}
+
 		private async Task<IRestResponse<T>> ExecuteAsync<T>(IRestRequest request, CancellationToken ct)
 			where T : class
 		{
@@ -91,8 +94,10 @@ namespace Manatee.Trello.Rest
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
 			return response;
 		}
+
 		private static async Task<IRestResponse> ExecuteWithRetry(Func<Task<HttpResponseMessage>> call)
 		{
 			IRestResponse restResponse;
@@ -104,12 +109,14 @@ namespace Manatee.Trello.Rest
 				response = await call();
 				restResponse = await MapResponse(response);
 			} while (TrelloConfiguration.RetryPredicate(restResponse, count));
+
 			if (!response.IsSuccessStatusCode)
 				throw new HttpRequestException("Received a failure from Trello.\n" +
-											   $"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-											   $"Content: {restResponse.Content}");
+				                               $"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
+				                               $"Content: {restResponse.Content}");
 			return restResponse;
 		}
+
 		private static async Task<IRestResponse> MapResponse(HttpResponseMessage response)
 		{
 			var restResponse = new WebApiRestResponse
@@ -118,9 +125,10 @@ namespace Manatee.Trello.Rest
 					StatusCode = response.StatusCode
 				};
 			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-										  $"Content: {restResponse.Content}");
+			                              $"Content: {restResponse.Content}");
 			return restResponse;
 		}
+
 		private static async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<Task<HttpResponseMessage>> call) where T : class
 		{
 			IRestResponse<T> restResponse;
@@ -131,8 +139,10 @@ namespace Manatee.Trello.Rest
 				var response = await call();
 				restResponse = await MapResponse<T>(response);
 			} while (TrelloConfiguration.RetryPredicate(restResponse, count));
+
 			return restResponse;
 		}
+
 		private static async Task<IRestResponse<T>> MapResponse<T>(HttpResponseMessage response) where T : class
 		{
 			var restResponse = new WebApiRestResponse<T>
@@ -154,8 +164,10 @@ namespace Manatee.Trello.Rest
 			{
 				restResponse.Exception = e;
 			}
+
 			return restResponse;
 		}
+
 		private static HttpContent GetContent(WebApiRestRequest request)
 		{
 			if (request.File != null)
@@ -166,6 +178,7 @@ namespace Manatee.Trello.Rest
 					var content = new StringContent(parameter.Value.ToString());
 					formData.Add(content, $"\"{parameter.Key}\"");
 				}
+
 				var byteContent = new ByteArrayContent(request.File);
 				formData.Add(byteContent, "\"file\"", $"\"{request.FileName}\"");
 				return formData;
@@ -179,11 +192,12 @@ namespace Manatee.Trello.Rest
 
 			return jsonContent;
 		}
+
 		private string GetFullResource(WebApiRestRequest request)
 		{
 			if (request.File != null)
 				return $"{_baseUri}/{request.Resource}";
-			return $"{_baseUri}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={kvp.Value}").ToList())}";
+			return $"{_baseUri}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={UrlEncode(kvp.Value)}").ToList())}";
 		}
 
 		private void Dispose(bool disposing)
@@ -192,6 +206,11 @@ namespace Manatee.Trello.Rest
 			{
 				_client?.Dispose();
 			}
+		}
+
+		private static string UrlEncode(object value)
+		{
+			return WebUtility.UrlEncode(value.ToString());
 		}
 	}
 }
