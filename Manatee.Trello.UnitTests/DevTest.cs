@@ -1,12 +1,15 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Manatee.Json;
+using Manatee.Json.Serialization;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Tests.Common;

@@ -1,0 +1,143 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="netstandard" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Net.Http" #>
+<#@ assembly name="$(SolutionDir)\Tools\Humanizer.dll" #>
+<#@ assembly name="$(SolutionDir)\Tools\Manatee.Json.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.CodeDom" #>
+<#@ import namespace="System.CodeDom.Compiler" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Net" #>
+<#@ import namespace="System.Net.Http" #>
+<#@ import namespace="System.Threading" #>
+<#@ import namespace="System.Threading.Tasks" #>
+<#@ import namespace="Humanizer" #>
+<#@ import namespace="Manatee.Json" #>
+<#@ import namespace="Manatee.Json.Serialization" #>
+<#@ output extension=".generated.cs" #>
+<#
+	var emojis = GetEmojiData().Result;
+#>
+/* This is a generated file.
+ * Do not hand edit!
+ */
+using System;
+
+namespace Manatee.Trello
+{
+	/// <summary>
+	/// All Trello-supported reaction emojis.  Generated on <#= DateTime.Now.ToString("yyyy-MM-dd") #>.
+	/// </summary>
+	public static class Emojis
+	{
+<#
+		foreach(var e in emojis)
+		{
+#>
+		/// <summary>
+		/// <see cref="Emoji"/> for "<#= e.ShortName #>".
+		/// </summary>
+		public static readonly Emoji <#= CSharpize(e.ShortName) #> = new Emoji(
+			<#= Stringify(e.Unified) #>,
+			<#= Stringify(e.Name) #>,
+			<#= Stringify(e.Native) #>,
+			<#= Stringify(e.ShortName) #>,
+			<#= StringifyList(e.ShortNames) #>,
+			<#= Stringify(e.Text) #>,
+			<#= StringifyList(e.Texts) #>,
+			<#= Stringify(e.Category) #>,
+			<#= e.SheetX #>,
+			<#= e.SheetY #>,
+			<#= Stringify(e.Tts) #>,
+			<#= StringifyList(e.Keywords) #>);
+<#
+		}
+#>
+	}
+}
+
+<#+
+	private class EmojiResponse
+	{
+		public List<LocalEmoji> Trello { get; set; }
+	}
+	public class LocalEmoji
+	{
+		// functions as ID
+		public string Unified { get; set; }
+		public string Native { get; set; }
+		public string Name { get; set; }
+		public string ShortName { get; set; }
+		public List<string> ShortNames { get; set; }
+		public string Text { get; set; }
+		public List<string> Texts { get; set; }
+		public string Category { get; set; }
+		public int SheetX { get; set; }
+		public int SheetY { get; set; }
+		public string Tts { get; set; }
+		public List<string> Keywords { get; set; }
+	}
+
+	public async Task<List<LocalEmoji>> GetEmojiData()
+	{
+		var serializer = new JsonSerializer();
+		List<LocalEmoji> data;
+		using (var client = new HttpClient())
+		using (var response = await client.GetAsync("https://api.trello.com/1/emoji?spritesheets=false&key=062109670e7f56b88783721892f8f66f"))
+		{
+			var content = await response.Content.ReadAsStringAsync();
+			Console.WriteLine(content);
+			var json = JsonValue.Parse(content);
+			data = serializer.Deserialize<EmojiResponse>(json).Trello;
+		}
+
+		return data;
+	}
+
+	public string Stringify(string s)
+	{
+		return s == null ? "null" : ToLiteral(s);
+	}
+
+	public string StringifyList(List<string> s)
+	{
+		return s == null ? "null" : "new []{ " + string.Join(", ", s.Select(sn => ToLiteral(sn))) + "}";
+	}
+
+	public string ToLiteral(string input)
+	{
+		using (var writer = new StringWriter())
+		{
+			using (var provider = CodeDomProvider.CreateProvider("CSharp"))
+			{
+				provider.GenerateCodeFromExpression(new CodePrimitiveExpression(input), writer, null);
+				return writer.ToString();
+			}
+		}
+	}
+
+	public string CSharpize(string s)
+	{
+		s = SpecialCase(s);
+
+		return new Regex("[^a-zA-Z0-9 ]").Replace(s, " ").Dehumanize();
+	}
+
+	public string SpecialCase(string s)
+	{
+		switch (s)
+		{
+			case "+1": return "thumbs up";
+			case "-1": return "thumbs down";
+			case "8ball": return "eight ball";
+			case "1234": return "one two three four";
+			case "100": return "one hundred";
+			default: return s;
+		}
+	}
+
+#>
