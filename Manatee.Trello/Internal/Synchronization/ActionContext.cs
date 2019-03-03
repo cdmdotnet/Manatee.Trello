@@ -30,6 +30,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 
 		public ActionDataContext ActionDataContext { get; }
+		public CommentReactionCollection Reactions { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
 
 		static ActionContext()
@@ -74,6 +75,8 @@ namespace Manatee.Trello.Internal.Synchronization
 			ActionDataContext = new ActionDataContext(Auth);
 			ActionDataContext.SubmitRequested += ct => HandleSubmitRequested("Text", ct);
 			Data.Data = ActionDataContext.Data;
+
+			Reactions = new CommentReactionCollection(() => Data.Id, auth);
 		}
 
 		public static void UpdateParameters()

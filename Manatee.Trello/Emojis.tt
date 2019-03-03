@@ -32,7 +32,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// All Trello-supported reaction emojis.  Generated on <#= DateTime.Now.ToString("yyyy-MM-dd") #>.
 	/// </summary>
-	public static class Emojis
+	public static partial class Emojis
 	{
 <#
 		foreach(var e in emojis)
@@ -52,9 +52,35 @@ namespace Manatee.Trello
 			<#= Stringify(e.Category) #>,
 			<#= e.SheetX #>,
 			<#= e.SheetY #>,
+			SkinVariationType.None,
 			<#= Stringify(e.Tts) #>,
 			<#= StringifyList(e.Keywords) #>);
 <#
+			if (e.SkinVariations != null)
+			{
+				foreach(var v in e.SkinVariations.Values)
+				{
+#>
+		/// <summary>
+		/// <see cref="Emoji"/> for "<#= e.ShortName #>".
+		/// </summary>
+		public static readonly Emoji <#= CSharpize(e.ShortName) #>_<#= GetSkinVariationType(v.Unified).Split('.')[1] #> = new Emoji(
+			<#= Stringify(v.Unified) #>,
+			<#= Stringify(e.Name) #>,
+			<#= Stringify(v.Native) #>,
+			<#= Stringify(e.ShortName) #>,
+			<#= StringifyList(e.ShortNames) #>,
+			<#= Stringify(e.Text) #>,
+			<#= StringifyList(e.Texts) #>,
+			<#= Stringify(e.Category) #>,
+			<#= v.SheetX #>,
+			<#= v.SheetY #>,
+			<#= GetSkinVariationType(v.Unified) #>,
+			<#= Stringify(e.Tts) #>,
+			<#= StringifyList(e.Keywords) #>);
+<#
+				}
+			}
 		}
 #>
 	}
@@ -80,6 +106,7 @@ namespace Manatee.Trello
 		public int SheetY { get; set; }
 		public string Tts { get; set; }
 		public List<string> Keywords { get; set; }
+		public Dictionary<string, LocalEmoji> SkinVariations { get; set; }
 	}
 
 	public async Task<List<LocalEmoji>> GetEmojiData()
@@ -137,6 +164,22 @@ namespace Manatee.Trello
 			case "1234": return "one two three four";
 			case "100": return "one hundred";
 			default: return s;
+		}
+	}
+
+	public string GetSkinVariationType(string unified)
+	{
+		var parts = unified.Split('-');
+		if (parts.Length < 2) return "SkinVariationType.None";
+
+		switch (parts[1])
+		{
+			case "1F3FB": return "SkinVariationType.Light";
+			case "1F3FC": return "SkinVariationType.MediumLight";
+			case "1F3FD": return "SkinVariationType.Medium";
+			case "1F3FE": return "SkinVariationType.MediumDark";
+			case "1F3FF": return "SkinVariationType.Dark";
+			default: return "SkinVariationType.None";
 		}
 	}
 

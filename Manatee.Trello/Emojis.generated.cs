@@ -6,9 +6,9 @@ using System;
 namespace Manatee.Trello
 {
 	/// <summary>
-	/// All Trello-supported reaction emojis.  Generated on 2019-03-02.
+	/// All Trello-supported reaction emojis.  Generated on 2019-03-04.
 	/// </summary>
-	public static class Emojis
+	public static partial class Emojis
 	{
 		/// <summary>
 		/// <see cref="Emoji"/> for "grinning".
@@ -24,6 +24,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			24,
+			SkinVariationType.None,
 			"grinning face",
 			new []{ "face", "grin", "grinning face"});
 		/// <summary>
@@ -40,6 +41,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			25,
+			SkinVariationType.None,
 			"beaming face with smiling eyes",
 			new []{ "beaming face with smiling eyes", "eye", "face", "grin", "smile"});
 		/// <summary>
@@ -56,6 +58,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			26,
+			SkinVariationType.None,
 			"face with tears of joy",
 			new []{ "face", "face with tears of joy", "joy", "laugh", "tear"});
 		/// <summary>
@@ -72,6 +75,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			26,
+			SkinVariationType.None,
 			"rolling on the floor laughing",
 			new []{ "face", "floor", "laugh", "rolling", "rolling on the floor laughing"});
 		/// <summary>
@@ -88,6 +92,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			27,
+			SkinVariationType.None,
 			"grinning face with big eyes",
 			new []{ "face", "grinning face with big eyes", "mouth", "open", "smile"});
 		/// <summary>
@@ -104,6 +109,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			28,
+			SkinVariationType.None,
 			"grinning face with smiling eyes",
 			new []{ "eye", "face", "grinning face with smiling eyes", "mouth", "open", "smile"});
 		/// <summary>
@@ -120,6 +126,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			29,
+			SkinVariationType.None,
 			"grinning face with sweat",
 			new []{ "cold", "face", "grinning face with sweat", "open", "smile", "sweat"});
 		/// <summary>
@@ -136,6 +143,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			30,
+			SkinVariationType.None,
 			"grinning squinting face",
 			new []{ "face", "grinning squinting face", "laugh", "mouth", "open", "satisfied", "smile"});
 		/// <summary>
@@ -152,6 +160,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			33,
+			SkinVariationType.None,
 			"winking face",
 			new []{ "face", "wink", "winking face"});
 		/// <summary>
@@ -168,6 +177,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			34,
+			SkinVariationType.None,
 			"smiling face with smiling eyes",
 			new []{ "blush", "eye", "face", "smile", "smiling face with smiling eyes"});
 		/// <summary>
@@ -184,6 +194,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			35,
+			SkinVariationType.None,
 			"face savoring food",
 			new []{ "delicious", "face", "face savoring food", "savouring", "smile", "um", "yum"});
 		/// <summary>
@@ -200,6 +211,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			38,
+			SkinVariationType.None,
 			"smiling face with sunglasses",
 			new []{ "bright", "cool", "eye", "eyewear", "face", "glasses", "smile", "smiling face with sunglasses", "sun", "sunglasses"});
 		/// <summary>
@@ -216,6 +228,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			37,
+			SkinVariationType.None,
 			"smiling face with heart-eyes",
 			new []{ "eye", "face", "love", "smile", "smiling face with heart-eyes"});
 		/// <summary>
@@ -232,6 +245,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			48,
+			SkinVariationType.None,
 			"face blowing a kiss",
 			new []{ "face", "face blowing a kiss", "kiss"});
 		/// <summary>
@@ -248,6 +262,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			47,
+			SkinVariationType.None,
 			"kissing face",
 			new []{ "face", "kiss", "kissing face"});
 		/// <summary>
@@ -264,6 +279,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			49,
+			SkinVariationType.None,
 			"kissing face with smiling eyes",
 			new []{ "eye", "face", "kiss", "kissing face with smiling eyes", "smile"});
 		/// <summary>
@@ -280,6 +296,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			50,
+			SkinVariationType.None,
 			"kissing face with closed eyes",
 			new []{ "closed", "eye", "face", "kiss", "kissing face with closed eyes"});
 		/// <summary>
@@ -296,6 +313,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			47,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -312,6 +330,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			38,
+			SkinVariationType.None,
 			"slightly smiling face",
 			new []{ "face", "slightly smiling face", "smile"});
 		/// <summary>
@@ -328,6 +347,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			31,
+			SkinVariationType.None,
 			"hugging face",
 			new []{ "face", "hug", "hugging"});
 		/// <summary>
@@ -344,6 +364,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			49,
+			SkinVariationType.None,
 			"star-struck",
 			new []{ "eyes", "face", "grinning", "star", "star-struck"});
 		/// <summary>
@@ -360,6 +381,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			28,
+			SkinVariationType.None,
 			"thinking face",
 			new []{ "face", "thinking"});
 		/// <summary>
@@ -376,6 +398,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			48,
+			SkinVariationType.None,
 			"face with raised eyebrow",
 			new []{ "distrust", "face with raised eyebrow", "skeptic"});
 		/// <summary>
@@ -392,6 +415,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			40,
+			SkinVariationType.None,
 			"neutral face",
 			new []{ "deadpan", "face", "neutral"});
 		/// <summary>
@@ -408,6 +432,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			41,
+			SkinVariationType.None,
 			"expressionless face",
 			new []{ "expressionless", "face", "inexpressive", "unexpressive"});
 		/// <summary>
@@ -424,6 +449,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			26,
+			SkinVariationType.None,
 			"face without mouth",
 			new []{ "face", "face without mouth", "mouth", "quiet", "silent"});
 		/// <summary>
@@ -440,6 +466,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			40,
+			SkinVariationType.None,
 			"face with rolling eyes",
 			new []{ "eyes", "face", "face with rolling eyes", "rolling"});
 		/// <summary>
@@ -456,6 +483,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			39,
+			SkinVariationType.None,
 			"smirking face",
 			new []{ "face", "smirk", "smirking face"});
 		/// <summary>
@@ -472,6 +500,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			7,
+			SkinVariationType.None,
 			"persevering face",
 			new []{ "face", "persevere", "persevering face"});
 		/// <summary>
@@ -488,6 +517,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			9,
+			SkinVariationType.None,
 			"sad but relieved face",
 			new []{ "disappointed", "face", "relieved", "sad but relieved face", "whew"});
 		/// <summary>
@@ -504,6 +534,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			18,
+			SkinVariationType.None,
 			"face with open mouth",
 			new []{ "face", "face with open mouth", "mouth", "open", "sympathy"});
 		/// <summary>
@@ -520,6 +551,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			24,
+			SkinVariationType.None,
 			"zipper-mouth face",
 			new []{ "face", "mouth", "zipper", "zipper-mouth face"});
 		/// <summary>
@@ -536,6 +568,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			19,
+			SkinVariationType.None,
 			"hushed face",
 			new []{ "face", "hushed", "stunned", "surprised"});
 		/// <summary>
@@ -552,6 +585,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			14,
+			SkinVariationType.None,
 			"sleepy face",
 			new []{ "face", "sleep", "sleepy face"});
 		/// <summary>
@@ -568,6 +602,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			15,
+			SkinVariationType.None,
 			"tired face",
 			new []{ "face", "tired"});
 		/// <summary>
@@ -584,6 +619,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			24,
+			SkinVariationType.None,
 			"sleeping face",
 			new []{ "face", "sleep", "sleeping face", "zzz"});
 		/// <summary>
@@ -600,6 +636,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			36,
+			SkinVariationType.None,
 			"relieved face",
 			new []{ "face", "relieved"});
 		/// <summary>
@@ -616,6 +653,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			51,
+			SkinVariationType.None,
 			"face with tongue",
 			new []{ "face", "face with tongue", "tongue"});
 		/// <summary>
@@ -632,6 +670,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			0,
+			SkinVariationType.None,
 			"winking face with tongue",
 			new []{ "eye", "face", "joke", "tongue", "wink", "winking face with tongue"});
 		/// <summary>
@@ -648,6 +687,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			1,
+			SkinVariationType.None,
 			"squinting face with tongue",
 			new []{ "eye", "face", "horrible", "squinting face with tongue", "taste", "tongue"});
 		/// <summary>
@@ -664,6 +704,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			27,
+			SkinVariationType.None,
 			"drooling face",
 			new []{ "drooling", "face"});
 		/// <summary>
@@ -680,6 +721,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			42,
+			SkinVariationType.None,
 			"unamused face",
 			new []{ "face", "unamused", "unhappy"});
 		/// <summary>
@@ -696,6 +738,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			43,
+			SkinVariationType.None,
 			"downcast face with sweat",
 			new []{ "cold", "downcast face with sweat", "face", "sweat"});
 		/// <summary>
@@ -712,6 +755,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			44,
+			SkinVariationType.None,
 			"pensive face",
 			new []{ "dejected", "face", "pensive"});
 		/// <summary>
@@ -728,6 +772,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			45,
+			SkinVariationType.None,
 			"confused face",
 			new []{ "confused", "face"});
 		/// <summary>
@@ -744,6 +789,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			39,
+			SkinVariationType.None,
 			"upside-down face",
 			new []{ "face", "upside-down"});
 		/// <summary>
@@ -760,6 +806,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			25,
+			SkinVariationType.None,
 			"money-mouth face",
 			new []{ "face", "money", "money-mouth face", "mouth"});
 		/// <summary>
@@ -776,6 +823,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			22,
+			SkinVariationType.None,
 			"astonished face",
 			new []{ "astonished", "face", "shocked", "totally"});
 		/// <summary>
@@ -792,6 +840,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			47,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -808,6 +857,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			37,
+			SkinVariationType.None,
 			"slightly frowning face",
 			new []{ "face", "frown", "slightly frowning face"});
 		/// <summary>
@@ -824,6 +874,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			46,
+			SkinVariationType.None,
 			"confounded face",
 			new []{ "confounded", "face"});
 		/// <summary>
@@ -840,6 +891,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			2,
+			SkinVariationType.None,
 			"disappointed face",
 			new []{ "disappointed", "face"});
 		/// <summary>
@@ -856,6 +908,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			3,
+			SkinVariationType.None,
 			"worried face",
 			new []{ "face", "worried"});
 		/// <summary>
@@ -872,6 +925,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			8,
+			SkinVariationType.None,
 			"face with steam from nose",
 			new []{ "face", "face with steam from nose", "triumph", "won"});
 		/// <summary>
@@ -888,6 +942,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			6,
+			SkinVariationType.None,
 			"crying face",
 			new []{ "cry", "crying face", "face", "sad", "tear"});
 		/// <summary>
@@ -904,6 +959,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			17,
+			SkinVariationType.None,
 			"loudly crying face",
 			new []{ "cry", "face", "loudly crying face", "sad", "sob", "tear"});
 		/// <summary>
@@ -920,6 +976,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			10,
+			SkinVariationType.None,
 			"frowning face with open mouth",
 			new []{ "face", "frown", "frowning face with open mouth", "mouth", "open"});
 		/// <summary>
@@ -936,6 +993,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			11,
+			SkinVariationType.None,
 			"anguished face",
 			new []{ "anguished", "face"});
 		/// <summary>
@@ -952,6 +1010,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			12,
+			SkinVariationType.None,
 			"fearful face",
 			new []{ "face", "fear", "fearful", "scared"});
 		/// <summary>
@@ -968,6 +1027,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			13,
+			SkinVariationType.None,
 			"weary face",
 			new []{ "face", "tired", "weary"});
 		/// <summary>
@@ -984,6 +1044,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			3,
+			SkinVariationType.None,
 			"exploding head",
 			new []{ "exploding head", "shocked"});
 		/// <summary>
@@ -1000,6 +1061,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			16,
+			SkinVariationType.None,
 			"grimacing face",
 			new []{ "face", "grimace", "grimacing face"});
 		/// <summary>
@@ -1016,6 +1078,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			20,
+			SkinVariationType.None,
 			"anxious face with sweat",
 			new []{ "anxious face with sweat", "blue", "cold", "face", "mouth", "open", "rushed", "sweat"});
 		/// <summary>
@@ -1032,6 +1095,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			21,
+			SkinVariationType.None,
 			"face screaming in fear",
 			new []{ "face", "face screaming in fear", "fear", "fearful", "munch", "scared", "scream"});
 		/// <summary>
@@ -1048,6 +1112,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			23,
+			SkinVariationType.None,
 			"flushed face",
 			new []{ "dazed", "face", "flushed"});
 		/// <summary>
@@ -1064,6 +1129,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			50,
+			SkinVariationType.None,
 			"zany face",
 			new []{ "eye", "goofy", "large", "small", "zany face"});
 		/// <summary>
@@ -1080,6 +1146,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			25,
+			SkinVariationType.None,
 			"dizzy face",
 			new []{ "dizzy", "face"});
 		/// <summary>
@@ -1096,6 +1163,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			5,
+			SkinVariationType.None,
 			"pouting face",
 			new []{ "angry", "face", "mad", "pouting", "rage", "red"});
 		/// <summary>
@@ -1112,6 +1180,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			4,
+			SkinVariationType.None,
 			"angry face",
 			new []{ "angry", "face", "mad"});
 		/// <summary>
@@ -1128,6 +1197,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			0,
+			SkinVariationType.None,
 			"face with symbols on mouth",
 			new []{ "face with symbols on mouth", "swearing"});
 		/// <summary>
@@ -1144,6 +1214,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			27,
+			SkinVariationType.None,
 			"face with medical mask",
 			new []{ "cold", "doctor", "face", "face with medical mask", "mask", "medicine", "sick"});
 		/// <summary>
@@ -1160,6 +1231,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			26,
+			SkinVariationType.None,
 			"face with thermometer",
 			new []{ "face", "face with thermometer", "ill", "sick", "thermometer"});
 		/// <summary>
@@ -1176,6 +1248,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			29,
+			SkinVariationType.None,
 			"face with head-bandage",
 			new []{ "bandage", "face", "face with head-bandage", "hurt", "injury"});
 		/// <summary>
@@ -1192,6 +1265,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			25,
+			SkinVariationType.None,
 			"nauseated face",
 			new []{ "face", "nauseated", "vomit"});
 		/// <summary>
@@ -1208,6 +1282,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			2,
+			SkinVariationType.None,
 			"face vomiting",
 			new []{ "face vomiting", "sick", "vomit"});
 		/// <summary>
@@ -1224,6 +1299,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			47,
+			SkinVariationType.None,
 			"sneezing face",
 			new []{ "face", "gesundheit", "sneeze", "sneezing face"});
 		/// <summary>
@@ -1240,6 +1316,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			31,
+			SkinVariationType.None,
 			"smiling face with halo",
 			new []{ "angel", "face", "fairy tale", "fantasy", "halo", "innocent", "smile", "smiling face with halo"});
 		/// <summary>
@@ -1256,6 +1333,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			23,
+			SkinVariationType.None,
 			"cowboy hat face",
 			new []{ "cowboy", "cowgirl", "face", "hat"});
 		/// <summary>
@@ -1272,6 +1350,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			28,
+			SkinVariationType.None,
 			"lying face",
 			new []{ "face", "lie", "lying face", "pinocchio"});
 		/// <summary>
@@ -1288,6 +1367,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			51,
+			SkinVariationType.None,
 			"shushing face",
 			new []{ "quiet", "shush", "shushing face"});
 		/// <summary>
@@ -1304,6 +1384,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			1,
+			SkinVariationType.None,
 			"face with hand over mouth",
 			new []{ "face with hand over mouth", "whoops"});
 		/// <summary>
@@ -1320,6 +1401,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			42,
 			49,
+			SkinVariationType.None,
 			"face with monocle",
 			new []{ "face with monocle", "stuffy"});
 		/// <summary>
@@ -1336,6 +1418,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			27,
+			SkinVariationType.None,
 			"nerd face",
 			new []{ "face", "geek", "nerd"});
 		/// <summary>
@@ -1352,6 +1435,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			32,
+			SkinVariationType.None,
 			"smiling face with horns",
 			new []{ "face", "fairy tale", "fantasy", "horns", "smile", "smiling face with horns"});
 		/// <summary>
@@ -1368,6 +1452,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			51,
+			SkinVariationType.None,
 			"angry face with horns",
 			new []{ "angry face with horns", "demon", "devil", "face", "fairy tale", "fantasy", "imp"});
 		/// <summary>
@@ -1384,6 +1469,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			24,
+			SkinVariationType.None,
 			"clown face",
 			new []{ "clown", "face"});
 		/// <summary>
@@ -1400,6 +1486,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			40,
+			SkinVariationType.None,
 			"ogre",
 			new []{ "creature", "face", "fairy tale", "fantasy", "monster", "ogre"});
 		/// <summary>
@@ -1416,6 +1503,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			41,
+			SkinVariationType.None,
 			"goblin",
 			new []{ "creature", "face", "fairy tale", "fantasy", "goblin", "monster"});
 		/// <summary>
@@ -1432,6 +1520,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			0,
+			SkinVariationType.None,
 			"skull",
 			new []{ "death", "face", "fairy tale", "monster", "skull"});
 		/// <summary>
@@ -1448,6 +1537,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			47,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -1464,6 +1554,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			42,
+			SkinVariationType.None,
 			"ghost",
 			new []{ "creature", "face", "fairy tale", "fantasy", "ghost", "monster"});
 		/// <summary>
@@ -1480,6 +1571,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			49,
+			SkinVariationType.None,
 			"alien",
 			new []{ "alien", "creature", "extraterrestrial", "face", "fairy tale", "fantasy", "monster", "ufo"});
 		/// <summary>
@@ -1496,6 +1588,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			50,
+			SkinVariationType.None,
 			"alien monster",
 			new []{ "alien", "creature", "extraterrestrial", "face", "fairy tale", "fantasy", "monster", "ufo"});
 		/// <summary>
@@ -1512,6 +1605,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			30,
+			SkinVariationType.None,
 			"robot face",
 			new []{ "face", "monster", "robot"});
 		/// <summary>
@@ -1528,6 +1622,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			15,
+			SkinVariationType.None,
 			"pile of poo",
 			new []{ "comic", "dung", "face", "monster", "pile of poo", "poo", "poop"});
 		/// <summary>
@@ -1544,6 +1639,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			30,
+			SkinVariationType.None,
 			"grinning cat face",
 			new []{ "cat", "face", "grinning cat face", "mouth", "open", "smile"});
 		/// <summary>
@@ -1560,6 +1656,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			28,
+			SkinVariationType.None,
 			"grinning cat face with smiling eyes",
 			new []{ "cat", "eye", "face", "grin", "grinning cat face with smiling eyes", "smile"});
 		/// <summary>
@@ -1576,6 +1673,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			29,
+			SkinVariationType.None,
 			"cat face with tears of joy",
 			new []{ "cat", "cat face with tears of joy", "face", "joy", "tear"});
 		/// <summary>
@@ -1592,6 +1690,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			31,
+			SkinVariationType.None,
 			"smiling cat face with heart-eyes",
 			new []{ "cat", "eye", "face", "love", "smile", "smiling cat face with heart-eyes"});
 		/// <summary>
@@ -1608,6 +1707,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			32,
+			SkinVariationType.None,
 			"cat face with wry smile",
 			new []{ "cat", "cat face with wry smile", "face", "ironic", "smile", "wry"});
 		/// <summary>
@@ -1624,6 +1724,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			33,
+			SkinVariationType.None,
 			"kissing cat face",
 			new []{ "cat", "eye", "face", "kiss", "kissing cat face"});
 		/// <summary>
@@ -1640,6 +1741,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			36,
+			SkinVariationType.None,
 			"weary cat face",
 			new []{ "cat", "face", "oh", "surprised", "weary"});
 		/// <summary>
@@ -1656,6 +1758,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			35,
+			SkinVariationType.None,
 			"crying cat face",
 			new []{ "cat", "cry", "crying cat face", "face", "sad", "tear"});
 		/// <summary>
@@ -1672,6 +1775,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			34,
+			SkinVariationType.None,
 			"pouting cat face",
 			new []{ "cat", "face", "pouting"});
 		/// <summary>
@@ -1688,6 +1792,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			32,
 			43,
+			SkinVariationType.None,
 			"see-no-evil monkey",
 			new []{ "evil", "face", "forbidden", "gesture", "monkey", "no", "not", "prohibited", "see", "see-no-evil monkey"});
 		/// <summary>
@@ -1704,6 +1809,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			32,
 			44,
+			SkinVariationType.None,
 			"hear-no-evil monkey",
 			new []{ "evil", "face", "forbidden", "gesture", "hear", "hear-no-evil monkey", "monkey", "no", "not", "prohibited"});
 		/// <summary>
@@ -1720,6 +1826,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			32,
 			45,
+			SkinVariationType.None,
 			"speak-no-evil monkey",
 			new []{ "evil", "face", "forbidden", "gesture", "monkey", "no", "not", "prohibited", "speak", "speak-no-evil monkey"});
 		/// <summary>
@@ -1736,6 +1843,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			10,
+			SkinVariationType.None,
+			"baby",
+			new []{ "baby", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "baby".
+		/// </summary>
+		public static readonly Emoji Baby_Light = new Emoji(
+			"1F476-1F3FB",
+			"BABY",
+			"👶🏻",
+			"baby",
+			new []{ "baby"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			11,
+			SkinVariationType.Light,
+			"baby",
+			new []{ "baby", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "baby".
+		/// </summary>
+		public static readonly Emoji Baby_MediumLight = new Emoji(
+			"1F476-1F3FC",
+			"BABY",
+			"👶🏼",
+			"baby",
+			new []{ "baby"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			12,
+			SkinVariationType.MediumLight,
+			"baby",
+			new []{ "baby", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "baby".
+		/// </summary>
+		public static readonly Emoji Baby_Medium = new Emoji(
+			"1F476-1F3FD",
+			"BABY",
+			"👶🏽",
+			"baby",
+			new []{ "baby"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			13,
+			SkinVariationType.Medium,
+			"baby",
+			new []{ "baby", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "baby".
+		/// </summary>
+		public static readonly Emoji Baby_MediumDark = new Emoji(
+			"1F476-1F3FE",
+			"BABY",
+			"👶🏾",
+			"baby",
+			new []{ "baby"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			14,
+			SkinVariationType.MediumDark,
+			"baby",
+			new []{ "baby", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "baby".
+		/// </summary>
+		public static readonly Emoji Baby_Dark = new Emoji(
+			"1F476-1F3FF",
+			"BABY",
+			"👶🏿",
+			"baby",
+			new []{ "baby"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			15,
+			SkinVariationType.Dark,
 			"baby",
 			new []{ "baby", "young"});
 		/// <summary>
@@ -1752,6 +1945,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			43,
 			4,
+			SkinVariationType.None,
+			"child",
+			new []{ "child", "gender-neutral", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "child".
+		/// </summary>
+		public static readonly Emoji Child_Light = new Emoji(
+			"1F9D2-1F3FB",
+			"CHILD",
+			"🧒🏻",
+			"child",
+			new []{ "child"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			5,
+			SkinVariationType.Light,
+			"child",
+			new []{ "child", "gender-neutral", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "child".
+		/// </summary>
+		public static readonly Emoji Child_MediumLight = new Emoji(
+			"1F9D2-1F3FC",
+			"CHILD",
+			"🧒🏼",
+			"child",
+			new []{ "child"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			6,
+			SkinVariationType.MediumLight,
+			"child",
+			new []{ "child", "gender-neutral", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "child".
+		/// </summary>
+		public static readonly Emoji Child_Medium = new Emoji(
+			"1F9D2-1F3FD",
+			"CHILD",
+			"🧒🏽",
+			"child",
+			new []{ "child"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			7,
+			SkinVariationType.Medium,
+			"child",
+			new []{ "child", "gender-neutral", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "child".
+		/// </summary>
+		public static readonly Emoji Child_MediumDark = new Emoji(
+			"1F9D2-1F3FE",
+			"CHILD",
+			"🧒🏾",
+			"child",
+			new []{ "child"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			8,
+			SkinVariationType.MediumDark,
+			"child",
+			new []{ "child", "gender-neutral", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "child".
+		/// </summary>
+		public static readonly Emoji Child_Dark = new Emoji(
+			"1F9D2-1F3FF",
+			"CHILD",
+			"🧒🏿",
+			"child",
+			new []{ "child"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			9,
+			SkinVariationType.Dark,
 			"child",
 			new []{ "child", "gender-neutral", "young"});
 		/// <summary>
@@ -1768,6 +2047,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			42,
+			SkinVariationType.None,
+			"boy",
+			new []{ "boy", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "boy".
+		/// </summary>
+		public static readonly Emoji Boy_Light = new Emoji(
+			"1F466-1F3FB",
+			"BOY",
+			"👦🏻",
+			"boy",
+			new []{ "boy"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			43,
+			SkinVariationType.Light,
+			"boy",
+			new []{ "boy", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "boy".
+		/// </summary>
+		public static readonly Emoji Boy_MediumLight = new Emoji(
+			"1F466-1F3FC",
+			"BOY",
+			"👦🏼",
+			"boy",
+			new []{ "boy"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			44,
+			SkinVariationType.MediumLight,
+			"boy",
+			new []{ "boy", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "boy".
+		/// </summary>
+		public static readonly Emoji Boy_Medium = new Emoji(
+			"1F466-1F3FD",
+			"BOY",
+			"👦🏽",
+			"boy",
+			new []{ "boy"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			45,
+			SkinVariationType.Medium,
+			"boy",
+			new []{ "boy", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "boy".
+		/// </summary>
+		public static readonly Emoji Boy_MediumDark = new Emoji(
+			"1F466-1F3FE",
+			"BOY",
+			"👦🏾",
+			"boy",
+			new []{ "boy"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			46,
+			SkinVariationType.MediumDark,
+			"boy",
+			new []{ "boy", "young"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "boy".
+		/// </summary>
+		public static readonly Emoji Boy_Dark = new Emoji(
+			"1F466-1F3FF",
+			"BOY",
+			"👦🏿",
+			"boy",
+			new []{ "boy"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			47,
+			SkinVariationType.Dark,
 			"boy",
 			new []{ "boy", "young"});
 		/// <summary>
@@ -1784,6 +2149,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			48,
+			SkinVariationType.None,
+			"girl",
+			new []{ "girl", "Virgo", "young", "zodiac"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "girl".
+		/// </summary>
+		public static readonly Emoji Girl_Light = new Emoji(
+			"1F467-1F3FB",
+			"GIRL",
+			"👧🏻",
+			"girl",
+			new []{ "girl"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			49,
+			SkinVariationType.Light,
+			"girl",
+			new []{ "girl", "Virgo", "young", "zodiac"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "girl".
+		/// </summary>
+		public static readonly Emoji Girl_MediumLight = new Emoji(
+			"1F467-1F3FC",
+			"GIRL",
+			"👧🏼",
+			"girl",
+			new []{ "girl"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			50,
+			SkinVariationType.MediumLight,
+			"girl",
+			new []{ "girl", "Virgo", "young", "zodiac"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "girl".
+		/// </summary>
+		public static readonly Emoji Girl_Medium = new Emoji(
+			"1F467-1F3FD",
+			"GIRL",
+			"👧🏽",
+			"girl",
+			new []{ "girl"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			51,
+			SkinVariationType.Medium,
+			"girl",
+			new []{ "girl", "Virgo", "young", "zodiac"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "girl".
+		/// </summary>
+		public static readonly Emoji Girl_MediumDark = new Emoji(
+			"1F467-1F3FE",
+			"GIRL",
+			"👧🏾",
+			"girl",
+			new []{ "girl"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			0,
+			SkinVariationType.MediumDark,
+			"girl",
+			new []{ "girl", "Virgo", "young", "zodiac"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "girl".
+		/// </summary>
+		public static readonly Emoji Girl_Dark = new Emoji(
+			"1F467-1F3FF",
+			"GIRL",
+			"👧🏿",
+			"girl",
+			new []{ "girl"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			1,
+			SkinVariationType.Dark,
 			"girl",
 			new []{ "girl", "Virgo", "young", "zodiac"});
 		/// <summary>
@@ -1800,6 +2251,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			42,
 			50,
+			SkinVariationType.None,
+			"adult",
+			new []{ "adult", "gender-neutral"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "adult".
+		/// </summary>
+		public static readonly Emoji Adult_Light = new Emoji(
+			"1F9D1-1F3FB",
+			"ADULT",
+			"🧑🏻",
+			"adult",
+			new []{ "adult"},
+			null,
+			null,
+			"Smileys & People",
+			42,
+			51,
+			SkinVariationType.Light,
+			"adult",
+			new []{ "adult", "gender-neutral"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "adult".
+		/// </summary>
+		public static readonly Emoji Adult_MediumLight = new Emoji(
+			"1F9D1-1F3FC",
+			"ADULT",
+			"🧑🏼",
+			"adult",
+			new []{ "adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			0,
+			SkinVariationType.MediumLight,
+			"adult",
+			new []{ "adult", "gender-neutral"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "adult".
+		/// </summary>
+		public static readonly Emoji Adult_Medium = new Emoji(
+			"1F9D1-1F3FD",
+			"ADULT",
+			"🧑🏽",
+			"adult",
+			new []{ "adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			1,
+			SkinVariationType.Medium,
+			"adult",
+			new []{ "adult", "gender-neutral"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "adult".
+		/// </summary>
+		public static readonly Emoji Adult_MediumDark = new Emoji(
+			"1F9D1-1F3FE",
+			"ADULT",
+			"🧑🏾",
+			"adult",
+			new []{ "adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			2,
+			SkinVariationType.MediumDark,
+			"adult",
+			new []{ "adult", "gender-neutral"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "adult".
+		/// </summary>
+		public static readonly Emoji Adult_Dark = new Emoji(
+			"1F9D1-1F3FF",
+			"ADULT",
+			"🧑🏿",
+			"adult",
+			new []{ "adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			3,
+			SkinVariationType.Dark,
 			"adult",
 			new []{ "adult", "gender-neutral"});
 		/// <summary>
@@ -1816,6 +2353,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			11,
+			SkinVariationType.None,
+			"man",
+			new []{ "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man".
+		/// </summary>
+		public static readonly Emoji Man_Light = new Emoji(
+			"1F468-1F3FB",
+			"MAN",
+			"👨🏻",
+			"man",
+			new []{ "man"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			12,
+			SkinVariationType.Light,
+			"man",
+			new []{ "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man".
+		/// </summary>
+		public static readonly Emoji Man_MediumLight = new Emoji(
+			"1F468-1F3FC",
+			"MAN",
+			"👨🏼",
+			"man",
+			new []{ "man"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			13,
+			SkinVariationType.MediumLight,
+			"man",
+			new []{ "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man".
+		/// </summary>
+		public static readonly Emoji Man_Medium = new Emoji(
+			"1F468-1F3FD",
+			"MAN",
+			"👨🏽",
+			"man",
+			new []{ "man"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			14,
+			SkinVariationType.Medium,
+			"man",
+			new []{ "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man".
+		/// </summary>
+		public static readonly Emoji Man_MediumDark = new Emoji(
+			"1F468-1F3FE",
+			"MAN",
+			"👨🏾",
+			"man",
+			new []{ "man"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			15,
+			SkinVariationType.MediumDark,
+			"man",
+			new []{ "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man".
+		/// </summary>
+		public static readonly Emoji Man_Dark = new Emoji(
+			"1F468-1F3FF",
+			"MAN",
+			"👨🏿",
+			"man",
+			new []{ "man"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			16,
+			SkinVariationType.Dark,
 			"man",
 			new []{ "man"});
 		/// <summary>
@@ -1832,6 +2455,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			21,
 			14,
+			SkinVariationType.None,
+			"blond-haired man",
+			new []{ "blond", "blond-haired person", "blond-haired man", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-man".
+		/// </summary>
+		public static readonly Emoji BlondHairedMan_Light = new Emoji(
+			"1F471-1F3FB-200D-2642-FE0F",
+			null,
+			"👱🏻‍♂️",
+			"blond-haired-man",
+			new []{ "blond-haired-man"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			15,
+			SkinVariationType.Light,
+			"blond-haired man",
+			new []{ "blond", "blond-haired person", "blond-haired man", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-man".
+		/// </summary>
+		public static readonly Emoji BlondHairedMan_MediumLight = new Emoji(
+			"1F471-1F3FC-200D-2642-FE0F",
+			null,
+			"👱🏼‍♂️",
+			"blond-haired-man",
+			new []{ "blond-haired-man"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			16,
+			SkinVariationType.MediumLight,
+			"blond-haired man",
+			new []{ "blond", "blond-haired person", "blond-haired man", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-man".
+		/// </summary>
+		public static readonly Emoji BlondHairedMan_Medium = new Emoji(
+			"1F471-1F3FD-200D-2642-FE0F",
+			null,
+			"👱🏽‍♂️",
+			"blond-haired-man",
+			new []{ "blond-haired-man"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			17,
+			SkinVariationType.Medium,
+			"blond-haired man",
+			new []{ "blond", "blond-haired person", "blond-haired man", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-man".
+		/// </summary>
+		public static readonly Emoji BlondHairedMan_MediumDark = new Emoji(
+			"1F471-1F3FE-200D-2642-FE0F",
+			null,
+			"👱🏾‍♂️",
+			"blond-haired-man",
+			new []{ "blond-haired-man"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			18,
+			SkinVariationType.MediumDark,
+			"blond-haired man",
+			new []{ "blond", "blond-haired person", "blond-haired man", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-man".
+		/// </summary>
+		public static readonly Emoji BlondHairedMan_Dark = new Emoji(
+			"1F471-1F3FF-200D-2642-FE0F",
+			null,
+			"👱🏿‍♂️",
+			"blond-haired-man",
+			new []{ "blond-haired-man"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			19,
+			SkinVariationType.Dark,
 			"blond-haired man",
 			new []{ "blond", "blond-haired person", "blond-haired man", "man"});
 		/// <summary>
@@ -1848,6 +2557,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			43,
 			16,
+			SkinVariationType.None,
+			"bearded person",
+			new []{ "beard", "bearded person"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bearded_person".
+		/// </summary>
+		public static readonly Emoji BeardedPerson_Light = new Emoji(
+			"1F9D4-1F3FB",
+			"BEARDED PERSON",
+			"🧔🏻",
+			"bearded_person",
+			new []{ "bearded_person"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			17,
+			SkinVariationType.Light,
+			"bearded person",
+			new []{ "beard", "bearded person"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bearded_person".
+		/// </summary>
+		public static readonly Emoji BeardedPerson_MediumLight = new Emoji(
+			"1F9D4-1F3FC",
+			"BEARDED PERSON",
+			"🧔🏼",
+			"bearded_person",
+			new []{ "bearded_person"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			18,
+			SkinVariationType.MediumLight,
+			"bearded person",
+			new []{ "beard", "bearded person"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bearded_person".
+		/// </summary>
+		public static readonly Emoji BeardedPerson_Medium = new Emoji(
+			"1F9D4-1F3FD",
+			"BEARDED PERSON",
+			"🧔🏽",
+			"bearded_person",
+			new []{ "bearded_person"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			19,
+			SkinVariationType.Medium,
+			"bearded person",
+			new []{ "beard", "bearded person"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bearded_person".
+		/// </summary>
+		public static readonly Emoji BeardedPerson_MediumDark = new Emoji(
+			"1F9D4-1F3FE",
+			"BEARDED PERSON",
+			"🧔🏾",
+			"bearded_person",
+			new []{ "bearded_person"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			20,
+			SkinVariationType.MediumDark,
+			"bearded person",
+			new []{ "beard", "bearded person"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bearded_person".
+		/// </summary>
+		public static readonly Emoji BeardedPerson_Dark = new Emoji(
+			"1F9D4-1F3FF",
+			"BEARDED PERSON",
+			"🧔🏿",
+			"bearded_person",
+			new []{ "bearded_person"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			21,
+			SkinVariationType.Dark,
 			"bearded person",
 			new []{ "beard", "bearded person"});
 		/// <summary>
@@ -1864,6 +2659,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			23,
+			SkinVariationType.None,
+			"woman",
+			new []{ "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman".
+		/// </summary>
+		public static readonly Emoji Woman_Light = new Emoji(
+			"1F469-1F3FB",
+			"WOMAN",
+			"👩🏻",
+			"woman",
+			new []{ "woman"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			24,
+			SkinVariationType.Light,
+			"woman",
+			new []{ "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman".
+		/// </summary>
+		public static readonly Emoji Woman_MediumLight = new Emoji(
+			"1F469-1F3FC",
+			"WOMAN",
+			"👩🏼",
+			"woman",
+			new []{ "woman"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			25,
+			SkinVariationType.MediumLight,
+			"woman",
+			new []{ "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman".
+		/// </summary>
+		public static readonly Emoji Woman_Medium = new Emoji(
+			"1F469-1F3FD",
+			"WOMAN",
+			"👩🏽",
+			"woman",
+			new []{ "woman"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			26,
+			SkinVariationType.Medium,
+			"woman",
+			new []{ "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman".
+		/// </summary>
+		public static readonly Emoji Woman_MediumDark = new Emoji(
+			"1F469-1F3FE",
+			"WOMAN",
+			"👩🏾",
+			"woman",
+			new []{ "woman"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			27,
+			SkinVariationType.MediumDark,
+			"woman",
+			new []{ "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman".
+		/// </summary>
+		public static readonly Emoji Woman_Dark = new Emoji(
+			"1F469-1F3FF",
+			"WOMAN",
+			"👩🏿",
+			"woman",
+			new []{ "woman"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			28,
+			SkinVariationType.Dark,
 			"woman",
 			new []{ "woman"});
 		/// <summary>
@@ -1880,6 +2761,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			21,
 			8,
+			SkinVariationType.None,
+			"blond-haired woman",
+			new []{ "blond", "blond-haired person", "blond-haired woman", "blonde", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-woman".
+		/// </summary>
+		public static readonly Emoji BlondHairedWoman_Light = new Emoji(
+			"1F471-1F3FB-200D-2640-FE0F",
+			null,
+			"👱🏻‍♀️",
+			"blond-haired-woman",
+			new []{ "blond-haired-woman"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			9,
+			SkinVariationType.Light,
+			"blond-haired woman",
+			new []{ "blond", "blond-haired person", "blond-haired woman", "blonde", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-woman".
+		/// </summary>
+		public static readonly Emoji BlondHairedWoman_MediumLight = new Emoji(
+			"1F471-1F3FC-200D-2640-FE0F",
+			null,
+			"👱🏼‍♀️",
+			"blond-haired-woman",
+			new []{ "blond-haired-woman"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			10,
+			SkinVariationType.MediumLight,
+			"blond-haired woman",
+			new []{ "blond", "blond-haired person", "blond-haired woman", "blonde", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-woman".
+		/// </summary>
+		public static readonly Emoji BlondHairedWoman_Medium = new Emoji(
+			"1F471-1F3FD-200D-2640-FE0F",
+			null,
+			"👱🏽‍♀️",
+			"blond-haired-woman",
+			new []{ "blond-haired-woman"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			11,
+			SkinVariationType.Medium,
+			"blond-haired woman",
+			new []{ "blond", "blond-haired person", "blond-haired woman", "blonde", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-woman".
+		/// </summary>
+		public static readonly Emoji BlondHairedWoman_MediumDark = new Emoji(
+			"1F471-1F3FE-200D-2640-FE0F",
+			null,
+			"👱🏾‍♀️",
+			"blond-haired-woman",
+			new []{ "blond-haired-woman"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			12,
+			SkinVariationType.MediumDark,
+			"blond-haired woman",
+			new []{ "blond", "blond-haired person", "blond-haired woman", "blonde", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "blond-haired-woman".
+		/// </summary>
+		public static readonly Emoji BlondHairedWoman_Dark = new Emoji(
+			"1F471-1F3FF-200D-2640-FE0F",
+			null,
+			"👱🏿‍♀️",
+			"blond-haired-woman",
+			new []{ "blond-haired-woman"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			13,
+			SkinVariationType.Dark,
 			"blond-haired woman",
 			new []{ "blond", "blond-haired person", "blond-haired woman", "blonde", "woman"});
 		/// <summary>
@@ -1896,6 +2863,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			43,
 			10,
+			SkinVariationType.None,
+			"older adult",
+			new []{ "gender-neutral", "old", "older adult"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_adult".
+		/// </summary>
+		public static readonly Emoji OlderAdult_Light = new Emoji(
+			"1F9D3-1F3FB",
+			"OLDER ADULT",
+			"🧓🏻",
+			"older_adult",
+			new []{ "older_adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			11,
+			SkinVariationType.Light,
+			"older adult",
+			new []{ "gender-neutral", "old", "older adult"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_adult".
+		/// </summary>
+		public static readonly Emoji OlderAdult_MediumLight = new Emoji(
+			"1F9D3-1F3FC",
+			"OLDER ADULT",
+			"🧓🏼",
+			"older_adult",
+			new []{ "older_adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			12,
+			SkinVariationType.MediumLight,
+			"older adult",
+			new []{ "gender-neutral", "old", "older adult"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_adult".
+		/// </summary>
+		public static readonly Emoji OlderAdult_Medium = new Emoji(
+			"1F9D3-1F3FD",
+			"OLDER ADULT",
+			"🧓🏽",
+			"older_adult",
+			new []{ "older_adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			13,
+			SkinVariationType.Medium,
+			"older adult",
+			new []{ "gender-neutral", "old", "older adult"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_adult".
+		/// </summary>
+		public static readonly Emoji OlderAdult_MediumDark = new Emoji(
+			"1F9D3-1F3FE",
+			"OLDER ADULT",
+			"🧓🏾",
+			"older_adult",
+			new []{ "older_adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			14,
+			SkinVariationType.MediumDark,
+			"older adult",
+			new []{ "gender-neutral", "old", "older adult"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_adult".
+		/// </summary>
+		public static readonly Emoji OlderAdult_Dark = new Emoji(
+			"1F9D3-1F3FF",
+			"OLDER ADULT",
+			"🧓🏿",
+			"older_adult",
+			new []{ "older_adult"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			15,
+			SkinVariationType.Dark,
 			"older adult",
 			new []{ "gender-neutral", "old", "older adult"});
 		/// <summary>
@@ -1912,6 +2965,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			21,
 			50,
+			SkinVariationType.None,
+			"old man",
+			new []{ "man", "old"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_man".
+		/// </summary>
+		public static readonly Emoji OlderMan_Light = new Emoji(
+			"1F474-1F3FB",
+			"OLDER MAN",
+			"👴🏻",
+			"older_man",
+			new []{ "older_man"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			51,
+			SkinVariationType.Light,
+			"old man",
+			new []{ "man", "old"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_man".
+		/// </summary>
+		public static readonly Emoji OlderMan_MediumLight = new Emoji(
+			"1F474-1F3FC",
+			"OLDER MAN",
+			"👴🏼",
+			"older_man",
+			new []{ "older_man"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			0,
+			SkinVariationType.MediumLight,
+			"old man",
+			new []{ "man", "old"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_man".
+		/// </summary>
+		public static readonly Emoji OlderMan_Medium = new Emoji(
+			"1F474-1F3FD",
+			"OLDER MAN",
+			"👴🏽",
+			"older_man",
+			new []{ "older_man"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			1,
+			SkinVariationType.Medium,
+			"old man",
+			new []{ "man", "old"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_man".
+		/// </summary>
+		public static readonly Emoji OlderMan_MediumDark = new Emoji(
+			"1F474-1F3FE",
+			"OLDER MAN",
+			"👴🏾",
+			"older_man",
+			new []{ "older_man"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			2,
+			SkinVariationType.MediumDark,
+			"old man",
+			new []{ "man", "old"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_man".
+		/// </summary>
+		public static readonly Emoji OlderMan_Dark = new Emoji(
+			"1F474-1F3FF",
+			"OLDER MAN",
+			"👴🏿",
+			"older_man",
+			new []{ "older_man"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			3,
+			SkinVariationType.Dark,
 			"old man",
 			new []{ "man", "old"});
 		/// <summary>
@@ -1928,6 +3067,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			4,
+			SkinVariationType.None,
+			"old woman",
+			new []{ "old", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_woman".
+		/// </summary>
+		public static readonly Emoji OlderWoman_Light = new Emoji(
+			"1F475-1F3FB",
+			"OLDER WOMAN",
+			"👵🏻",
+			"older_woman",
+			new []{ "older_woman"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			5,
+			SkinVariationType.Light,
+			"old woman",
+			new []{ "old", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_woman".
+		/// </summary>
+		public static readonly Emoji OlderWoman_MediumLight = new Emoji(
+			"1F475-1F3FC",
+			"OLDER WOMAN",
+			"👵🏼",
+			"older_woman",
+			new []{ "older_woman"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			6,
+			SkinVariationType.MediumLight,
+			"old woman",
+			new []{ "old", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_woman".
+		/// </summary>
+		public static readonly Emoji OlderWoman_Medium = new Emoji(
+			"1F475-1F3FD",
+			"OLDER WOMAN",
+			"👵🏽",
+			"older_woman",
+			new []{ "older_woman"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			7,
+			SkinVariationType.Medium,
+			"old woman",
+			new []{ "old", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_woman".
+		/// </summary>
+		public static readonly Emoji OlderWoman_MediumDark = new Emoji(
+			"1F475-1F3FE",
+			"OLDER WOMAN",
+			"👵🏾",
+			"older_woman",
+			new []{ "older_woman"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			8,
+			SkinVariationType.MediumDark,
+			"old woman",
+			new []{ "old", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "older_woman".
+		/// </summary>
+		public static readonly Emoji OlderWoman_Dark = new Emoji(
+			"1F475-1F3FF",
+			"OLDER WOMAN",
+			"👵🏿",
+			"older_woman",
+			new []{ "older_woman"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			9,
+			SkinVariationType.Dark,
 			"old woman",
 			new []{ "old", "woman"});
 		/// <summary>
@@ -1944,6 +3169,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			43,
+			SkinVariationType.None,
+			"man health worker",
+			new []{ "doctor", "healthcare", "man", "man health worker", "nurse", "therapist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-doctor".
+		/// </summary>
+		public static readonly Emoji MaleDoctor_Light = new Emoji(
+			"1F468-1F3FB-200D-2695-FE0F",
+			null,
+			"👨🏻‍⚕️",
+			"male-doctor",
+			new []{ "male-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			44,
+			SkinVariationType.Light,
+			"man health worker",
+			new []{ "doctor", "healthcare", "man", "man health worker", "nurse", "therapist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-doctor".
+		/// </summary>
+		public static readonly Emoji MaleDoctor_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-2695-FE0F",
+			null,
+			"👨🏼‍⚕️",
+			"male-doctor",
+			new []{ "male-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			45,
+			SkinVariationType.MediumLight,
+			"man health worker",
+			new []{ "doctor", "healthcare", "man", "man health worker", "nurse", "therapist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-doctor".
+		/// </summary>
+		public static readonly Emoji MaleDoctor_Medium = new Emoji(
+			"1F468-1F3FD-200D-2695-FE0F",
+			null,
+			"👨🏽‍⚕️",
+			"male-doctor",
+			new []{ "male-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			46,
+			SkinVariationType.Medium,
+			"man health worker",
+			new []{ "doctor", "healthcare", "man", "man health worker", "nurse", "therapist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-doctor".
+		/// </summary>
+		public static readonly Emoji MaleDoctor_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-2695-FE0F",
+			null,
+			"👨🏾‍⚕️",
+			"male-doctor",
+			new []{ "male-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			47,
+			SkinVariationType.MediumDark,
+			"man health worker",
+			new []{ "doctor", "healthcare", "man", "man health worker", "nurse", "therapist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-doctor".
+		/// </summary>
+		public static readonly Emoji MaleDoctor_Dark = new Emoji(
+			"1F468-1F3FF-200D-2695-FE0F",
+			null,
+			"👨🏿‍⚕️",
+			"male-doctor",
+			new []{ "male-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			48,
+			SkinVariationType.Dark,
 			"man health worker",
 			new []{ "doctor", "healthcare", "man", "man health worker", "nurse", "therapist"});
 		/// <summary>
@@ -1960,6 +3271,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			1,
+			SkinVariationType.None,
+			"woman health worker",
+			new []{ "doctor", "healthcare", "nurse", "therapist", "woman", "woman health worker"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-doctor".
+		/// </summary>
+		public static readonly Emoji FemaleDoctor_Light = new Emoji(
+			"1F469-1F3FB-200D-2695-FE0F",
+			null,
+			"👩🏻‍⚕️",
+			"female-doctor",
+			new []{ "female-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			2,
+			SkinVariationType.Light,
+			"woman health worker",
+			new []{ "doctor", "healthcare", "nurse", "therapist", "woman", "woman health worker"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-doctor".
+		/// </summary>
+		public static readonly Emoji FemaleDoctor_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-2695-FE0F",
+			null,
+			"👩🏼‍⚕️",
+			"female-doctor",
+			new []{ "female-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			3,
+			SkinVariationType.MediumLight,
+			"woman health worker",
+			new []{ "doctor", "healthcare", "nurse", "therapist", "woman", "woman health worker"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-doctor".
+		/// </summary>
+		public static readonly Emoji FemaleDoctor_Medium = new Emoji(
+			"1F469-1F3FD-200D-2695-FE0F",
+			null,
+			"👩🏽‍⚕️",
+			"female-doctor",
+			new []{ "female-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			4,
+			SkinVariationType.Medium,
+			"woman health worker",
+			new []{ "doctor", "healthcare", "nurse", "therapist", "woman", "woman health worker"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-doctor".
+		/// </summary>
+		public static readonly Emoji FemaleDoctor_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-2695-FE0F",
+			null,
+			"👩🏾‍⚕️",
+			"female-doctor",
+			new []{ "female-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			5,
+			SkinVariationType.MediumDark,
+			"woman health worker",
+			new []{ "doctor", "healthcare", "nurse", "therapist", "woman", "woman health worker"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-doctor".
+		/// </summary>
+		public static readonly Emoji FemaleDoctor_Dark = new Emoji(
+			"1F469-1F3FF-200D-2695-FE0F",
+			null,
+			"👩🏿‍⚕️",
+			"female-doctor",
+			new []{ "female-doctor"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			6,
+			SkinVariationType.Dark,
 			"woman health worker",
 			new []{ "doctor", "healthcare", "nurse", "therapist", "woman", "woman health worker"});
 		/// <summary>
@@ -1976,6 +3373,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			14,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-student".
+		/// </summary>
+		public static readonly Emoji MaleStudent_Light = new Emoji(
+			"1F468-1F3FB-200D-1F393",
+			null,
+			"👨🏻‍🎓",
+			"male-student",
+			new []{ "male-student"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			15,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-student".
+		/// </summary>
+		public static readonly Emoji MaleStudent_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F393",
+			null,
+			"👨🏼‍🎓",
+			"male-student",
+			new []{ "male-student"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			16,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-student".
+		/// </summary>
+		public static readonly Emoji MaleStudent_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F393",
+			null,
+			"👨🏽‍🎓",
+			"male-student",
+			new []{ "male-student"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			17,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-student".
+		/// </summary>
+		public static readonly Emoji MaleStudent_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F393",
+			null,
+			"👨🏾‍🎓",
+			"male-student",
+			new []{ "male-student"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			18,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-student".
+		/// </summary>
+		public static readonly Emoji MaleStudent_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F393",
+			null,
+			"👨🏿‍🎓",
+			"male-student",
+			new []{ "male-student"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			19,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -1992,6 +3475,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			29,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-student".
+		/// </summary>
+		public static readonly Emoji FemaleStudent_Light = new Emoji(
+			"1F469-1F3FB-200D-1F393",
+			null,
+			"👩🏻‍🎓",
+			"female-student",
+			new []{ "female-student"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			30,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-student".
+		/// </summary>
+		public static readonly Emoji FemaleStudent_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F393",
+			null,
+			"👩🏼‍🎓",
+			"female-student",
+			new []{ "female-student"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			31,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-student".
+		/// </summary>
+		public static readonly Emoji FemaleStudent_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F393",
+			null,
+			"👩🏽‍🎓",
+			"female-student",
+			new []{ "female-student"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			32,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-student".
+		/// </summary>
+		public static readonly Emoji FemaleStudent_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F393",
+			null,
+			"👩🏾‍🎓",
+			"female-student",
+			new []{ "female-student"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			33,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-student".
+		/// </summary>
+		public static readonly Emoji FemaleStudent_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F393",
+			null,
+			"👩🏿‍🎓",
+			"female-student",
+			new []{ "female-student"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			34,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2008,6 +3577,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			32,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-teacher".
+		/// </summary>
+		public static readonly Emoji MaleTeacher_Light = new Emoji(
+			"1F468-1F3FB-200D-1F3EB",
+			null,
+			"👨🏻‍🏫",
+			"male-teacher",
+			new []{ "male-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			33,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-teacher".
+		/// </summary>
+		public static readonly Emoji MaleTeacher_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F3EB",
+			null,
+			"👨🏼‍🏫",
+			"male-teacher",
+			new []{ "male-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			34,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-teacher".
+		/// </summary>
+		public static readonly Emoji MaleTeacher_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F3EB",
+			null,
+			"👨🏽‍🏫",
+			"male-teacher",
+			new []{ "male-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			35,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-teacher".
+		/// </summary>
+		public static readonly Emoji MaleTeacher_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F3EB",
+			null,
+			"👨🏾‍🏫",
+			"male-teacher",
+			new []{ "male-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			36,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-teacher".
+		/// </summary>
+		public static readonly Emoji MaleTeacher_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F3EB",
+			null,
+			"👨🏿‍🏫",
+			"male-teacher",
+			new []{ "male-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			37,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2024,6 +3679,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			47,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-teacher".
+		/// </summary>
+		public static readonly Emoji FemaleTeacher_Light = new Emoji(
+			"1F469-1F3FB-200D-1F3EB",
+			null,
+			"👩🏻‍🏫",
+			"female-teacher",
+			new []{ "female-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			48,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-teacher".
+		/// </summary>
+		public static readonly Emoji FemaleTeacher_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F3EB",
+			null,
+			"👩🏼‍🏫",
+			"female-teacher",
+			new []{ "female-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			49,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-teacher".
+		/// </summary>
+		public static readonly Emoji FemaleTeacher_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F3EB",
+			null,
+			"👩🏽‍🏫",
+			"female-teacher",
+			new []{ "female-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			50,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-teacher".
+		/// </summary>
+		public static readonly Emoji FemaleTeacher_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F3EB",
+			null,
+			"👩🏾‍🏫",
+			"female-teacher",
+			new []{ "female-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			51,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-teacher".
+		/// </summary>
+		public static readonly Emoji FemaleTeacher_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F3EB",
+			null,
+			"👩🏿‍🏫",
+			"female-teacher",
+			new []{ "female-teacher"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			0,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2040,6 +3781,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			49,
+			SkinVariationType.None,
+			"man judge",
+			new []{ "justice", "man", "man judge", "scales"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-judge".
+		/// </summary>
+		public static readonly Emoji MaleJudge_Light = new Emoji(
+			"1F468-1F3FB-200D-2696-FE0F",
+			null,
+			"👨🏻‍⚖️",
+			"male-judge",
+			new []{ "male-judge"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			50,
+			SkinVariationType.Light,
+			"man judge",
+			new []{ "justice", "man", "man judge", "scales"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-judge".
+		/// </summary>
+		public static readonly Emoji MaleJudge_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-2696-FE0F",
+			null,
+			"👨🏼‍⚖️",
+			"male-judge",
+			new []{ "male-judge"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			51,
+			SkinVariationType.MediumLight,
+			"man judge",
+			new []{ "justice", "man", "man judge", "scales"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-judge".
+		/// </summary>
+		public static readonly Emoji MaleJudge_Medium = new Emoji(
+			"1F468-1F3FD-200D-2696-FE0F",
+			null,
+			"👨🏽‍⚖️",
+			"male-judge",
+			new []{ "male-judge"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			0,
+			SkinVariationType.Medium,
+			"man judge",
+			new []{ "justice", "man", "man judge", "scales"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-judge".
+		/// </summary>
+		public static readonly Emoji MaleJudge_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-2696-FE0F",
+			null,
+			"👨🏾‍⚖️",
+			"male-judge",
+			new []{ "male-judge"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			1,
+			SkinVariationType.MediumDark,
+			"man judge",
+			new []{ "justice", "man", "man judge", "scales"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-judge".
+		/// </summary>
+		public static readonly Emoji MaleJudge_Dark = new Emoji(
+			"1F468-1F3FF-200D-2696-FE0F",
+			null,
+			"👨🏿‍⚖️",
+			"male-judge",
+			new []{ "male-judge"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			2,
+			SkinVariationType.Dark,
 			"man judge",
 			new []{ "justice", "man", "man judge", "scales"});
 		/// <summary>
@@ -2056,6 +3883,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			7,
+			SkinVariationType.None,
+			"woman judge",
+			new []{ "judge", "scales", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-judge".
+		/// </summary>
+		public static readonly Emoji FemaleJudge_Light = new Emoji(
+			"1F469-1F3FB-200D-2696-FE0F",
+			null,
+			"👩🏻‍⚖️",
+			"female-judge",
+			new []{ "female-judge"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			8,
+			SkinVariationType.Light,
+			"woman judge",
+			new []{ "judge", "scales", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-judge".
+		/// </summary>
+		public static readonly Emoji FemaleJudge_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-2696-FE0F",
+			null,
+			"👩🏼‍⚖️",
+			"female-judge",
+			new []{ "female-judge"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			9,
+			SkinVariationType.MediumLight,
+			"woman judge",
+			new []{ "judge", "scales", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-judge".
+		/// </summary>
+		public static readonly Emoji FemaleJudge_Medium = new Emoji(
+			"1F469-1F3FD-200D-2696-FE0F",
+			null,
+			"👩🏽‍⚖️",
+			"female-judge",
+			new []{ "female-judge"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			10,
+			SkinVariationType.Medium,
+			"woman judge",
+			new []{ "judge", "scales", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-judge".
+		/// </summary>
+		public static readonly Emoji FemaleJudge_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-2696-FE0F",
+			null,
+			"👩🏾‍⚖️",
+			"female-judge",
+			new []{ "female-judge"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			11,
+			SkinVariationType.MediumDark,
+			"woman judge",
+			new []{ "judge", "scales", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-judge".
+		/// </summary>
+		public static readonly Emoji FemaleJudge_Dark = new Emoji(
+			"1F469-1F3FF-200D-2696-FE0F",
+			null,
+			"👩🏿‍⚖️",
+			"female-judge",
+			new []{ "female-judge"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			12,
+			SkinVariationType.Dark,
 			"woman judge",
 			new []{ "judge", "scales", "woman"});
 		/// <summary>
@@ -2072,6 +3985,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			2,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-farmer".
+		/// </summary>
+		public static readonly Emoji MaleFarmer_Light = new Emoji(
+			"1F468-1F3FB-200D-1F33E",
+			null,
+			"👨🏻‍🌾",
+			"male-farmer",
+			new []{ "male-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			3,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-farmer".
+		/// </summary>
+		public static readonly Emoji MaleFarmer_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F33E",
+			null,
+			"👨🏼‍🌾",
+			"male-farmer",
+			new []{ "male-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			4,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-farmer".
+		/// </summary>
+		public static readonly Emoji MaleFarmer_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F33E",
+			null,
+			"👨🏽‍🌾",
+			"male-farmer",
+			new []{ "male-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			5,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-farmer".
+		/// </summary>
+		public static readonly Emoji MaleFarmer_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F33E",
+			null,
+			"👨🏾‍🌾",
+			"male-farmer",
+			new []{ "male-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			6,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-farmer".
+		/// </summary>
+		public static readonly Emoji MaleFarmer_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F33E",
+			null,
+			"👨🏿‍🌾",
+			"male-farmer",
+			new []{ "male-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			7,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2088,6 +4087,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			17,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-farmer".
+		/// </summary>
+		public static readonly Emoji FemaleFarmer_Light = new Emoji(
+			"1F469-1F3FB-200D-1F33E",
+			null,
+			"👩🏻‍🌾",
+			"female-farmer",
+			new []{ "female-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			18,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-farmer".
+		/// </summary>
+		public static readonly Emoji FemaleFarmer_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F33E",
+			null,
+			"👩🏼‍🌾",
+			"female-farmer",
+			new []{ "female-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			19,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-farmer".
+		/// </summary>
+		public static readonly Emoji FemaleFarmer_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F33E",
+			null,
+			"👩🏽‍🌾",
+			"female-farmer",
+			new []{ "female-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			20,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-farmer".
+		/// </summary>
+		public static readonly Emoji FemaleFarmer_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F33E",
+			null,
+			"👩🏾‍🌾",
+			"female-farmer",
+			new []{ "female-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			21,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-farmer".
+		/// </summary>
+		public static readonly Emoji FemaleFarmer_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F33E",
+			null,
+			"👩🏿‍🌾",
+			"female-farmer",
+			new []{ "female-farmer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			22,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2104,6 +4189,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			8,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-cook".
+		/// </summary>
+		public static readonly Emoji MaleCook_Light = new Emoji(
+			"1F468-1F3FB-200D-1F373",
+			null,
+			"👨🏻‍🍳",
+			"male-cook",
+			new []{ "male-cook"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			9,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-cook".
+		/// </summary>
+		public static readonly Emoji MaleCook_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F373",
+			null,
+			"👨🏼‍🍳",
+			"male-cook",
+			new []{ "male-cook"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			10,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-cook".
+		/// </summary>
+		public static readonly Emoji MaleCook_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F373",
+			null,
+			"👨🏽‍🍳",
+			"male-cook",
+			new []{ "male-cook"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			11,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-cook".
+		/// </summary>
+		public static readonly Emoji MaleCook_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F373",
+			null,
+			"👨🏾‍🍳",
+			"male-cook",
+			new []{ "male-cook"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			12,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-cook".
+		/// </summary>
+		public static readonly Emoji MaleCook_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F373",
+			null,
+			"👨🏿‍🍳",
+			"male-cook",
+			new []{ "male-cook"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			13,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2120,6 +4291,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			23,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-cook".
+		/// </summary>
+		public static readonly Emoji FemaleCook_Light = new Emoji(
+			"1F469-1F3FB-200D-1F373",
+			null,
+			"👩🏻‍🍳",
+			"female-cook",
+			new []{ "female-cook"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			24,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-cook".
+		/// </summary>
+		public static readonly Emoji FemaleCook_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F373",
+			null,
+			"👩🏼‍🍳",
+			"female-cook",
+			new []{ "female-cook"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			25,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-cook".
+		/// </summary>
+		public static readonly Emoji FemaleCook_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F373",
+			null,
+			"👩🏽‍🍳",
+			"female-cook",
+			new []{ "female-cook"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			26,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-cook".
+		/// </summary>
+		public static readonly Emoji FemaleCook_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F373",
+			null,
+			"👩🏾‍🍳",
+			"female-cook",
+			new []{ "female-cook"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			27,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-cook".
+		/// </summary>
+		public static readonly Emoji FemaleCook_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F373",
+			null,
+			"👩🏿‍🍳",
+			"female-cook",
+			new []{ "female-cook"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			28,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2136,6 +4393,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			19,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-mechanic".
+		/// </summary>
+		public static readonly Emoji MaleMechanic_Light = new Emoji(
+			"1F468-1F3FB-200D-1F527",
+			null,
+			"👨🏻‍🔧",
+			"male-mechanic",
+			new []{ "male-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			20,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-mechanic".
+		/// </summary>
+		public static readonly Emoji MaleMechanic_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F527",
+			null,
+			"👨🏼‍🔧",
+			"male-mechanic",
+			new []{ "male-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			21,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-mechanic".
+		/// </summary>
+		public static readonly Emoji MaleMechanic_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F527",
+			null,
+			"👨🏽‍🔧",
+			"male-mechanic",
+			new []{ "male-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			22,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-mechanic".
+		/// </summary>
+		public static readonly Emoji MaleMechanic_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F527",
+			null,
+			"👨🏾‍🔧",
+			"male-mechanic",
+			new []{ "male-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			23,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-mechanic".
+		/// </summary>
+		public static readonly Emoji MaleMechanic_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F527",
+			null,
+			"👨🏿‍🔧",
+			"male-mechanic",
+			new []{ "male-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			24,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2152,6 +4495,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			29,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-mechanic".
+		/// </summary>
+		public static readonly Emoji FemaleMechanic_Light = new Emoji(
+			"1F469-1F3FB-200D-1F527",
+			null,
+			"👩🏻‍🔧",
+			"female-mechanic",
+			new []{ "female-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			30,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-mechanic".
+		/// </summary>
+		public static readonly Emoji FemaleMechanic_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F527",
+			null,
+			"👩🏼‍🔧",
+			"female-mechanic",
+			new []{ "female-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			31,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-mechanic".
+		/// </summary>
+		public static readonly Emoji FemaleMechanic_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F527",
+			null,
+			"👩🏽‍🔧",
+			"female-mechanic",
+			new []{ "female-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			32,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-mechanic".
+		/// </summary>
+		public static readonly Emoji FemaleMechanic_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F527",
+			null,
+			"👩🏾‍🔧",
+			"female-mechanic",
+			new []{ "female-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			33,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-mechanic".
+		/// </summary>
+		public static readonly Emoji FemaleMechanic_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F527",
+			null,
+			"👩🏿‍🔧",
+			"female-mechanic",
+			new []{ "female-mechanic"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			34,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2168,6 +4597,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			38,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-factory-worker".
+		/// </summary>
+		public static readonly Emoji MaleFactoryWorker_Light = new Emoji(
+			"1F468-1F3FB-200D-1F3ED",
+			null,
+			"👨🏻‍🏭",
+			"male-factory-worker",
+			new []{ "male-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			39,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-factory-worker".
+		/// </summary>
+		public static readonly Emoji MaleFactoryWorker_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F3ED",
+			null,
+			"👨🏼‍🏭",
+			"male-factory-worker",
+			new []{ "male-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			40,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-factory-worker".
+		/// </summary>
+		public static readonly Emoji MaleFactoryWorker_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F3ED",
+			null,
+			"👨🏽‍🏭",
+			"male-factory-worker",
+			new []{ "male-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			41,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-factory-worker".
+		/// </summary>
+		public static readonly Emoji MaleFactoryWorker_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F3ED",
+			null,
+			"👨🏾‍🏭",
+			"male-factory-worker",
+			new []{ "male-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			42,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-factory-worker".
+		/// </summary>
+		public static readonly Emoji MaleFactoryWorker_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F3ED",
+			null,
+			"👨🏿‍🏭",
+			"male-factory-worker",
+			new []{ "male-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			43,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2184,6 +4699,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			1,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-factory-worker".
+		/// </summary>
+		public static readonly Emoji FemaleFactoryWorker_Light = new Emoji(
+			"1F469-1F3FB-200D-1F3ED",
+			null,
+			"👩🏻‍🏭",
+			"female-factory-worker",
+			new []{ "female-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			2,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-factory-worker".
+		/// </summary>
+		public static readonly Emoji FemaleFactoryWorker_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F3ED",
+			null,
+			"👩🏼‍🏭",
+			"female-factory-worker",
+			new []{ "female-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			3,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-factory-worker".
+		/// </summary>
+		public static readonly Emoji FemaleFactoryWorker_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F3ED",
+			null,
+			"👩🏽‍🏭",
+			"female-factory-worker",
+			new []{ "female-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			4,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-factory-worker".
+		/// </summary>
+		public static readonly Emoji FemaleFactoryWorker_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F3ED",
+			null,
+			"👩🏾‍🏭",
+			"female-factory-worker",
+			new []{ "female-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			5,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-factory-worker".
+		/// </summary>
+		public static readonly Emoji FemaleFactoryWorker_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F3ED",
+			null,
+			"👩🏿‍🏭",
+			"female-factory-worker",
+			new []{ "female-factory-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			6,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2200,6 +4801,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			13,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-office-worker".
+		/// </summary>
+		public static readonly Emoji MaleOfficeWorker_Light = new Emoji(
+			"1F468-1F3FB-200D-1F4BC",
+			null,
+			"👨🏻‍💼",
+			"male-office-worker",
+			new []{ "male-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			14,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-office-worker".
+		/// </summary>
+		public static readonly Emoji MaleOfficeWorker_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F4BC",
+			null,
+			"👨🏼‍💼",
+			"male-office-worker",
+			new []{ "male-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			15,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-office-worker".
+		/// </summary>
+		public static readonly Emoji MaleOfficeWorker_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F4BC",
+			null,
+			"👨🏽‍💼",
+			"male-office-worker",
+			new []{ "male-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			16,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-office-worker".
+		/// </summary>
+		public static readonly Emoji MaleOfficeWorker_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F4BC",
+			null,
+			"👨🏾‍💼",
+			"male-office-worker",
+			new []{ "male-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			17,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-office-worker".
+		/// </summary>
+		public static readonly Emoji MaleOfficeWorker_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F4BC",
+			null,
+			"👨🏿‍💼",
+			"male-office-worker",
+			new []{ "male-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			18,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2216,6 +4903,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			23,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-office-worker".
+		/// </summary>
+		public static readonly Emoji FemaleOfficeWorker_Light = new Emoji(
+			"1F469-1F3FB-200D-1F4BC",
+			null,
+			"👩🏻‍💼",
+			"female-office-worker",
+			new []{ "female-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			24,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-office-worker".
+		/// </summary>
+		public static readonly Emoji FemaleOfficeWorker_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F4BC",
+			null,
+			"👩🏼‍💼",
+			"female-office-worker",
+			new []{ "female-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			25,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-office-worker".
+		/// </summary>
+		public static readonly Emoji FemaleOfficeWorker_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F4BC",
+			null,
+			"👩🏽‍💼",
+			"female-office-worker",
+			new []{ "female-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			26,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-office-worker".
+		/// </summary>
+		public static readonly Emoji FemaleOfficeWorker_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F4BC",
+			null,
+			"👩🏾‍💼",
+			"female-office-worker",
+			new []{ "female-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			27,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-office-worker".
+		/// </summary>
+		public static readonly Emoji FemaleOfficeWorker_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F4BC",
+			null,
+			"👩🏿‍💼",
+			"female-office-worker",
+			new []{ "female-office-worker"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			28,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2232,6 +5005,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			25,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-scientist".
+		/// </summary>
+		public static readonly Emoji MaleScientist_Light = new Emoji(
+			"1F468-1F3FB-200D-1F52C",
+			null,
+			"👨🏻‍🔬",
+			"male-scientist",
+			new []{ "male-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			26,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-scientist".
+		/// </summary>
+		public static readonly Emoji MaleScientist_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F52C",
+			null,
+			"👨🏼‍🔬",
+			"male-scientist",
+			new []{ "male-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			27,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-scientist".
+		/// </summary>
+		public static readonly Emoji MaleScientist_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F52C",
+			null,
+			"👨🏽‍🔬",
+			"male-scientist",
+			new []{ "male-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			28,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-scientist".
+		/// </summary>
+		public static readonly Emoji MaleScientist_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F52C",
+			null,
+			"👨🏾‍🔬",
+			"male-scientist",
+			new []{ "male-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			29,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-scientist".
+		/// </summary>
+		public static readonly Emoji MaleScientist_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F52C",
+			null,
+			"👨🏿‍🔬",
+			"male-scientist",
+			new []{ "male-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			30,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2248,6 +5107,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			35,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-scientist".
+		/// </summary>
+		public static readonly Emoji FemaleScientist_Light = new Emoji(
+			"1F469-1F3FB-200D-1F52C",
+			null,
+			"👩🏻‍🔬",
+			"female-scientist",
+			new []{ "female-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			36,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-scientist".
+		/// </summary>
+		public static readonly Emoji FemaleScientist_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F52C",
+			null,
+			"👩🏼‍🔬",
+			"female-scientist",
+			new []{ "female-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			37,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-scientist".
+		/// </summary>
+		public static readonly Emoji FemaleScientist_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F52C",
+			null,
+			"👩🏽‍🔬",
+			"female-scientist",
+			new []{ "female-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			38,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-scientist".
+		/// </summary>
+		public static readonly Emoji FemaleScientist_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F52C",
+			null,
+			"👩🏾‍🔬",
+			"female-scientist",
+			new []{ "female-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			39,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-scientist".
+		/// </summary>
+		public static readonly Emoji FemaleScientist_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F52C",
+			null,
+			"👩🏿‍🔬",
+			"female-scientist",
+			new []{ "female-scientist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			40,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2264,6 +5209,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			7,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-technologist".
+		/// </summary>
+		public static readonly Emoji MaleTechnologist_Light = new Emoji(
+			"1F468-1F3FB-200D-1F4BB",
+			null,
+			"👨🏻‍💻",
+			"male-technologist",
+			new []{ "male-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			8,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-technologist".
+		/// </summary>
+		public static readonly Emoji MaleTechnologist_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F4BB",
+			null,
+			"👨🏼‍💻",
+			"male-technologist",
+			new []{ "male-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			9,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-technologist".
+		/// </summary>
+		public static readonly Emoji MaleTechnologist_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F4BB",
+			null,
+			"👨🏽‍💻",
+			"male-technologist",
+			new []{ "male-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			10,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-technologist".
+		/// </summary>
+		public static readonly Emoji MaleTechnologist_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F4BB",
+			null,
+			"👨🏾‍💻",
+			"male-technologist",
+			new []{ "male-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			11,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-technologist".
+		/// </summary>
+		public static readonly Emoji MaleTechnologist_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F4BB",
+			null,
+			"👨🏿‍💻",
+			"male-technologist",
+			new []{ "male-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			12,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2280,6 +5311,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			17,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-technologist".
+		/// </summary>
+		public static readonly Emoji FemaleTechnologist_Light = new Emoji(
+			"1F469-1F3FB-200D-1F4BB",
+			null,
+			"👩🏻‍💻",
+			"female-technologist",
+			new []{ "female-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			18,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-technologist".
+		/// </summary>
+		public static readonly Emoji FemaleTechnologist_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F4BB",
+			null,
+			"👩🏼‍💻",
+			"female-technologist",
+			new []{ "female-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			19,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-technologist".
+		/// </summary>
+		public static readonly Emoji FemaleTechnologist_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F4BB",
+			null,
+			"👩🏽‍💻",
+			"female-technologist",
+			new []{ "female-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			20,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-technologist".
+		/// </summary>
+		public static readonly Emoji FemaleTechnologist_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F4BB",
+			null,
+			"👩🏾‍💻",
+			"female-technologist",
+			new []{ "female-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			21,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-technologist".
+		/// </summary>
+		public static readonly Emoji FemaleTechnologist_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F4BB",
+			null,
+			"👩🏿‍💻",
+			"female-technologist",
+			new []{ "female-technologist"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			22,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2296,6 +5413,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			20,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-singer".
+		/// </summary>
+		public static readonly Emoji MaleSinger_Light = new Emoji(
+			"1F468-1F3FB-200D-1F3A4",
+			null,
+			"👨🏻‍🎤",
+			"male-singer",
+			new []{ "male-singer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			21,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-singer".
+		/// </summary>
+		public static readonly Emoji MaleSinger_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F3A4",
+			null,
+			"👨🏼‍🎤",
+			"male-singer",
+			new []{ "male-singer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			22,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-singer".
+		/// </summary>
+		public static readonly Emoji MaleSinger_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F3A4",
+			null,
+			"👨🏽‍🎤",
+			"male-singer",
+			new []{ "male-singer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			23,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-singer".
+		/// </summary>
+		public static readonly Emoji MaleSinger_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F3A4",
+			null,
+			"👨🏾‍🎤",
+			"male-singer",
+			new []{ "male-singer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			24,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-singer".
+		/// </summary>
+		public static readonly Emoji MaleSinger_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F3A4",
+			null,
+			"👨🏿‍🎤",
+			"male-singer",
+			new []{ "male-singer"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			25,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2312,6 +5515,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			35,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-singer".
+		/// </summary>
+		public static readonly Emoji FemaleSinger_Light = new Emoji(
+			"1F469-1F3FB-200D-1F3A4",
+			null,
+			"👩🏻‍🎤",
+			"female-singer",
+			new []{ "female-singer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			36,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-singer".
+		/// </summary>
+		public static readonly Emoji FemaleSinger_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F3A4",
+			null,
+			"👩🏼‍🎤",
+			"female-singer",
+			new []{ "female-singer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			37,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-singer".
+		/// </summary>
+		public static readonly Emoji FemaleSinger_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F3A4",
+			null,
+			"👩🏽‍🎤",
+			"female-singer",
+			new []{ "female-singer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			38,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-singer".
+		/// </summary>
+		public static readonly Emoji FemaleSinger_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F3A4",
+			null,
+			"👩🏾‍🎤",
+			"female-singer",
+			new []{ "female-singer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			39,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-singer".
+		/// </summary>
+		public static readonly Emoji FemaleSinger_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F3A4",
+			null,
+			"👩🏿‍🎤",
+			"female-singer",
+			new []{ "female-singer"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			40,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2328,6 +5617,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			26,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-artist".
+		/// </summary>
+		public static readonly Emoji MaleArtist_Light = new Emoji(
+			"1F468-1F3FB-200D-1F3A8",
+			null,
+			"👨🏻‍🎨",
+			"male-artist",
+			new []{ "male-artist"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			27,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-artist".
+		/// </summary>
+		public static readonly Emoji MaleArtist_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F3A8",
+			null,
+			"👨🏼‍🎨",
+			"male-artist",
+			new []{ "male-artist"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			28,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-artist".
+		/// </summary>
+		public static readonly Emoji MaleArtist_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F3A8",
+			null,
+			"👨🏽‍🎨",
+			"male-artist",
+			new []{ "male-artist"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			29,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-artist".
+		/// </summary>
+		public static readonly Emoji MaleArtist_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F3A8",
+			null,
+			"👨🏾‍🎨",
+			"male-artist",
+			new []{ "male-artist"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			30,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-artist".
+		/// </summary>
+		public static readonly Emoji MaleArtist_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F3A8",
+			null,
+			"👨🏿‍🎨",
+			"male-artist",
+			new []{ "male-artist"},
+			null,
+			null,
+			"Smileys & People",
+			16,
+			31,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2344,6 +5719,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			41,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-artist".
+		/// </summary>
+		public static readonly Emoji FemaleArtist_Light = new Emoji(
+			"1F469-1F3FB-200D-1F3A8",
+			null,
+			"👩🏻‍🎨",
+			"female-artist",
+			new []{ "female-artist"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			42,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-artist".
+		/// </summary>
+		public static readonly Emoji FemaleArtist_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F3A8",
+			null,
+			"👩🏼‍🎨",
+			"female-artist",
+			new []{ "female-artist"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			43,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-artist".
+		/// </summary>
+		public static readonly Emoji FemaleArtist_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F3A8",
+			null,
+			"👩🏽‍🎨",
+			"female-artist",
+			new []{ "female-artist"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			44,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-artist".
+		/// </summary>
+		public static readonly Emoji FemaleArtist_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F3A8",
+			null,
+			"👩🏾‍🎨",
+			"female-artist",
+			new []{ "female-artist"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			45,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-artist".
+		/// </summary>
+		public static readonly Emoji FemaleArtist_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F3A8",
+			null,
+			"👩🏿‍🎨",
+			"female-artist",
+			new []{ "female-artist"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			46,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2360,6 +5821,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			3,
+			SkinVariationType.None,
+			"man pilot",
+			new []{ "man", "pilot", "plane"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-pilot".
+		/// </summary>
+		public static readonly Emoji MalePilot_Light = new Emoji(
+			"1F468-1F3FB-200D-2708-FE0F",
+			null,
+			"👨🏻‍✈️",
+			"male-pilot",
+			new []{ "male-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			4,
+			SkinVariationType.Light,
+			"man pilot",
+			new []{ "man", "pilot", "plane"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-pilot".
+		/// </summary>
+		public static readonly Emoji MalePilot_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-2708-FE0F",
+			null,
+			"👨🏼‍✈️",
+			"male-pilot",
+			new []{ "male-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			5,
+			SkinVariationType.MediumLight,
+			"man pilot",
+			new []{ "man", "pilot", "plane"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-pilot".
+		/// </summary>
+		public static readonly Emoji MalePilot_Medium = new Emoji(
+			"1F468-1F3FD-200D-2708-FE0F",
+			null,
+			"👨🏽‍✈️",
+			"male-pilot",
+			new []{ "male-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			6,
+			SkinVariationType.Medium,
+			"man pilot",
+			new []{ "man", "pilot", "plane"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-pilot".
+		/// </summary>
+		public static readonly Emoji MalePilot_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-2708-FE0F",
+			null,
+			"👨🏾‍✈️",
+			"male-pilot",
+			new []{ "male-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			7,
+			SkinVariationType.MediumDark,
+			"man pilot",
+			new []{ "man", "pilot", "plane"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-pilot".
+		/// </summary>
+		public static readonly Emoji MalePilot_Dark = new Emoji(
+			"1F468-1F3FF-200D-2708-FE0F",
+			null,
+			"👨🏿‍✈️",
+			"male-pilot",
+			new []{ "male-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			18,
+			8,
+			SkinVariationType.Dark,
 			"man pilot",
 			new []{ "man", "pilot", "plane"});
 		/// <summary>
@@ -2376,6 +5923,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			13,
+			SkinVariationType.None,
+			"woman pilot",
+			new []{ "pilot", "plane", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-pilot".
+		/// </summary>
+		public static readonly Emoji FemalePilot_Light = new Emoji(
+			"1F469-1F3FB-200D-2708-FE0F",
+			null,
+			"👩🏻‍✈️",
+			"female-pilot",
+			new []{ "female-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			14,
+			SkinVariationType.Light,
+			"woman pilot",
+			new []{ "pilot", "plane", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-pilot".
+		/// </summary>
+		public static readonly Emoji FemalePilot_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-2708-FE0F",
+			null,
+			"👩🏼‍✈️",
+			"female-pilot",
+			new []{ "female-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			15,
+			SkinVariationType.MediumLight,
+			"woman pilot",
+			new []{ "pilot", "plane", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-pilot".
+		/// </summary>
+		public static readonly Emoji FemalePilot_Medium = new Emoji(
+			"1F469-1F3FD-200D-2708-FE0F",
+			null,
+			"👩🏽‍✈️",
+			"female-pilot",
+			new []{ "female-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			16,
+			SkinVariationType.Medium,
+			"woman pilot",
+			new []{ "pilot", "plane", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-pilot".
+		/// </summary>
+		public static readonly Emoji FemalePilot_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-2708-FE0F",
+			null,
+			"👩🏾‍✈️",
+			"female-pilot",
+			new []{ "female-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			17,
+			SkinVariationType.MediumDark,
+			"woman pilot",
+			new []{ "pilot", "plane", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-pilot".
+		/// </summary>
+		public static readonly Emoji FemalePilot_Dark = new Emoji(
+			"1F469-1F3FF-200D-2708-FE0F",
+			null,
+			"👩🏿‍✈️",
+			"female-pilot",
+			new []{ "female-pilot"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			18,
+			SkinVariationType.Dark,
 			"woman pilot",
 			new []{ "pilot", "plane", "woman"});
 		/// <summary>
@@ -2392,6 +6025,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			31,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-astronaut".
+		/// </summary>
+		public static readonly Emoji MaleAstronaut_Light = new Emoji(
+			"1F468-1F3FB-200D-1F680",
+			null,
+			"👨🏻‍🚀",
+			"male-astronaut",
+			new []{ "male-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			32,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-astronaut".
+		/// </summary>
+		public static readonly Emoji MaleAstronaut_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F680",
+			null,
+			"👨🏼‍🚀",
+			"male-astronaut",
+			new []{ "male-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			33,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-astronaut".
+		/// </summary>
+		public static readonly Emoji MaleAstronaut_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F680",
+			null,
+			"👨🏽‍🚀",
+			"male-astronaut",
+			new []{ "male-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			34,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-astronaut".
+		/// </summary>
+		public static readonly Emoji MaleAstronaut_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F680",
+			null,
+			"👨🏾‍🚀",
+			"male-astronaut",
+			new []{ "male-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			35,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-astronaut".
+		/// </summary>
+		public static readonly Emoji MaleAstronaut_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F680",
+			null,
+			"👨🏿‍🚀",
+			"male-astronaut",
+			new []{ "male-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			36,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2408,6 +6127,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			41,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-astronaut".
+		/// </summary>
+		public static readonly Emoji FemaleAstronaut_Light = new Emoji(
+			"1F469-1F3FB-200D-1F680",
+			null,
+			"👩🏻‍🚀",
+			"female-astronaut",
+			new []{ "female-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			42,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-astronaut".
+		/// </summary>
+		public static readonly Emoji FemaleAstronaut_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F680",
+			null,
+			"👩🏼‍🚀",
+			"female-astronaut",
+			new []{ "female-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			43,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-astronaut".
+		/// </summary>
+		public static readonly Emoji FemaleAstronaut_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F680",
+			null,
+			"👩🏽‍🚀",
+			"female-astronaut",
+			new []{ "female-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			44,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-astronaut".
+		/// </summary>
+		public static readonly Emoji FemaleAstronaut_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F680",
+			null,
+			"👩🏾‍🚀",
+			"female-astronaut",
+			new []{ "female-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			45,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-astronaut".
+		/// </summary>
+		public static readonly Emoji FemaleAstronaut_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F680",
+			null,
+			"👩🏿‍🚀",
+			"female-astronaut",
+			new []{ "female-astronaut"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			46,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2424,6 +6229,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			37,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-firefighter".
+		/// </summary>
+		public static readonly Emoji MaleFirefighter_Light = new Emoji(
+			"1F468-1F3FB-200D-1F692",
+			null,
+			"👨🏻‍🚒",
+			"male-firefighter",
+			new []{ "male-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			38,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-firefighter".
+		/// </summary>
+		public static readonly Emoji MaleFirefighter_MediumLight = new Emoji(
+			"1F468-1F3FC-200D-1F692",
+			null,
+			"👨🏼‍🚒",
+			"male-firefighter",
+			new []{ "male-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			39,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-firefighter".
+		/// </summary>
+		public static readonly Emoji MaleFirefighter_Medium = new Emoji(
+			"1F468-1F3FD-200D-1F692",
+			null,
+			"👨🏽‍🚒",
+			"male-firefighter",
+			new []{ "male-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			40,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-firefighter".
+		/// </summary>
+		public static readonly Emoji MaleFirefighter_MediumDark = new Emoji(
+			"1F468-1F3FE-200D-1F692",
+			null,
+			"👨🏾‍🚒",
+			"male-firefighter",
+			new []{ "male-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			41,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-firefighter".
+		/// </summary>
+		public static readonly Emoji MaleFirefighter_Dark = new Emoji(
+			"1F468-1F3FF-200D-1F692",
+			null,
+			"👨🏿‍🚒",
+			"male-firefighter",
+			new []{ "male-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			17,
+			42,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2440,6 +6331,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			47,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-firefighter".
+		/// </summary>
+		public static readonly Emoji FemaleFirefighter_Light = new Emoji(
+			"1F469-1F3FB-200D-1F692",
+			null,
+			"👩🏻‍🚒",
+			"female-firefighter",
+			new []{ "female-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			48,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-firefighter".
+		/// </summary>
+		public static readonly Emoji FemaleFirefighter_MediumLight = new Emoji(
+			"1F469-1F3FC-200D-1F692",
+			null,
+			"👩🏼‍🚒",
+			"female-firefighter",
+			new []{ "female-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			49,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-firefighter".
+		/// </summary>
+		public static readonly Emoji FemaleFirefighter_Medium = new Emoji(
+			"1F469-1F3FD-200D-1F692",
+			null,
+			"👩🏽‍🚒",
+			"female-firefighter",
+			new []{ "female-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			50,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-firefighter".
+		/// </summary>
+		public static readonly Emoji FemaleFirefighter_MediumDark = new Emoji(
+			"1F469-1F3FE-200D-1F692",
+			null,
+			"👩🏾‍🚒",
+			"female-firefighter",
+			new []{ "female-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			19,
+			51,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-firefighter".
+		/// </summary>
+		public static readonly Emoji FemaleFirefighter_Dark = new Emoji(
+			"1F469-1F3FF-200D-1F692",
+			null,
+			"👩🏿‍🚒",
+			"female-firefighter",
+			new []{ "female-firefighter"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			0,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2456,6 +6433,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			39,
+			SkinVariationType.None,
+			"man police officer",
+			new []{ "cop", "officer", "police", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-police-officer".
+		/// </summary>
+		public static readonly Emoji MalePoliceOfficer_Light = new Emoji(
+			"1F46E-1F3FB-200D-2642-FE0F",
+			null,
+			"👮🏻‍♂️",
+			"male-police-officer",
+			new []{ "male-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			40,
+			SkinVariationType.Light,
+			"man police officer",
+			new []{ "cop", "officer", "police", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-police-officer".
+		/// </summary>
+		public static readonly Emoji MalePoliceOfficer_MediumLight = new Emoji(
+			"1F46E-1F3FC-200D-2642-FE0F",
+			null,
+			"👮🏼‍♂️",
+			"male-police-officer",
+			new []{ "male-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			41,
+			SkinVariationType.MediumLight,
+			"man police officer",
+			new []{ "cop", "officer", "police", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-police-officer".
+		/// </summary>
+		public static readonly Emoji MalePoliceOfficer_Medium = new Emoji(
+			"1F46E-1F3FD-200D-2642-FE0F",
+			null,
+			"👮🏽‍♂️",
+			"male-police-officer",
+			new []{ "male-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			42,
+			SkinVariationType.Medium,
+			"man police officer",
+			new []{ "cop", "officer", "police", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-police-officer".
+		/// </summary>
+		public static readonly Emoji MalePoliceOfficer_MediumDark = new Emoji(
+			"1F46E-1F3FE-200D-2642-FE0F",
+			null,
+			"👮🏾‍♂️",
+			"male-police-officer",
+			new []{ "male-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			43,
+			SkinVariationType.MediumDark,
+			"man police officer",
+			new []{ "cop", "officer", "police", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-police-officer".
+		/// </summary>
+		public static readonly Emoji MalePoliceOfficer_Dark = new Emoji(
+			"1F46E-1F3FF-200D-2642-FE0F",
+			null,
+			"👮🏿‍♂️",
+			"male-police-officer",
+			new []{ "male-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			44,
+			SkinVariationType.Dark,
 			"man police officer",
 			new []{ "cop", "officer", "police", "man"});
 		/// <summary>
@@ -2472,6 +6535,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			33,
+			SkinVariationType.None,
+			"woman police officer",
+			new []{ "cop", "officer", "police", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-police-officer".
+		/// </summary>
+		public static readonly Emoji FemalePoliceOfficer_Light = new Emoji(
+			"1F46E-1F3FB-200D-2640-FE0F",
+			null,
+			"👮🏻‍♀️",
+			"female-police-officer",
+			new []{ "female-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			34,
+			SkinVariationType.Light,
+			"woman police officer",
+			new []{ "cop", "officer", "police", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-police-officer".
+		/// </summary>
+		public static readonly Emoji FemalePoliceOfficer_MediumLight = new Emoji(
+			"1F46E-1F3FC-200D-2640-FE0F",
+			null,
+			"👮🏼‍♀️",
+			"female-police-officer",
+			new []{ "female-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			35,
+			SkinVariationType.MediumLight,
+			"woman police officer",
+			new []{ "cop", "officer", "police", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-police-officer".
+		/// </summary>
+		public static readonly Emoji FemalePoliceOfficer_Medium = new Emoji(
+			"1F46E-1F3FD-200D-2640-FE0F",
+			null,
+			"👮🏽‍♀️",
+			"female-police-officer",
+			new []{ "female-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			36,
+			SkinVariationType.Medium,
+			"woman police officer",
+			new []{ "cop", "officer", "police", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-police-officer".
+		/// </summary>
+		public static readonly Emoji FemalePoliceOfficer_MediumDark = new Emoji(
+			"1F46E-1F3FE-200D-2640-FE0F",
+			null,
+			"👮🏾‍♀️",
+			"female-police-officer",
+			new []{ "female-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			37,
+			SkinVariationType.MediumDark,
+			"woman police officer",
+			new []{ "cop", "officer", "police", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-police-officer".
+		/// </summary>
+		public static readonly Emoji FemalePoliceOfficer_Dark = new Emoji(
+			"1F46E-1F3FF-200D-2640-FE0F",
+			null,
+			"👮🏿‍♀️",
+			"female-police-officer",
+			new []{ "female-police-officer"},
+			null,
+			null,
+			"Smileys & People",
+			20,
+			38,
+			SkinVariationType.Dark,
 			"woman police officer",
 			new []{ "cop", "officer", "police", "woman"});
 		/// <summary>
@@ -2488,6 +6637,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			29,
 			11,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleuth_or_spy".
+		/// </summary>
+		public static readonly Emoji SleuthOrSpy_Light = new Emoji(
+			"1F575-1F3FB",
+			null,
+			"🕵🏻",
+			"sleuth_or_spy",
+			new []{ "sleuth_or_spy"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			12,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleuth_or_spy".
+		/// </summary>
+		public static readonly Emoji SleuthOrSpy_MediumLight = new Emoji(
+			"1F575-1F3FC",
+			null,
+			"🕵🏼",
+			"sleuth_or_spy",
+			new []{ "sleuth_or_spy"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			13,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleuth_or_spy".
+		/// </summary>
+		public static readonly Emoji SleuthOrSpy_Medium = new Emoji(
+			"1F575-1F3FD",
+			null,
+			"🕵🏽",
+			"sleuth_or_spy",
+			new []{ "sleuth_or_spy"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			14,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleuth_or_spy".
+		/// </summary>
+		public static readonly Emoji SleuthOrSpy_MediumDark = new Emoji(
+			"1F575-1F3FE",
+			null,
+			"🕵🏾",
+			"sleuth_or_spy",
+			new []{ "sleuth_or_spy"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			15,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleuth_or_spy".
+		/// </summary>
+		public static readonly Emoji SleuthOrSpy_Dark = new Emoji(
+			"1F575-1F3FF",
+			null,
+			"🕵🏿",
+			"sleuth_or_spy",
+			new []{ "sleuth_or_spy"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			16,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2504,6 +6739,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			29,
 			5,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-detective".
+		/// </summary>
+		public static readonly Emoji MaleDetective_Light = new Emoji(
+			"1F575-1F3FB-200D-2642-FE0F",
+			null,
+			"🕵🏻‍♂️",
+			"male-detective",
+			new []{ "male-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			6,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-detective".
+		/// </summary>
+		public static readonly Emoji MaleDetective_MediumLight = new Emoji(
+			"1F575-1F3FC-200D-2642-FE0F",
+			null,
+			"🕵🏼‍♂️",
+			"male-detective",
+			new []{ "male-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			7,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-detective".
+		/// </summary>
+		public static readonly Emoji MaleDetective_Medium = new Emoji(
+			"1F575-1F3FD-200D-2642-FE0F",
+			null,
+			"🕵🏽‍♂️",
+			"male-detective",
+			new []{ "male-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			8,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-detective".
+		/// </summary>
+		public static readonly Emoji MaleDetective_MediumDark = new Emoji(
+			"1F575-1F3FE-200D-2642-FE0F",
+			null,
+			"🕵🏾‍♂️",
+			"male-detective",
+			new []{ "male-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			9,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-detective".
+		/// </summary>
+		public static readonly Emoji MaleDetective_Dark = new Emoji(
+			"1F575-1F3FF-200D-2642-FE0F",
+			null,
+			"🕵🏿‍♂️",
+			"male-detective",
+			new []{ "male-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			10,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2520,6 +6841,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			28,
 			51,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-detective".
+		/// </summary>
+		public static readonly Emoji FemaleDetective_Light = new Emoji(
+			"1F575-1F3FB-200D-2640-FE0F",
+			null,
+			"🕵🏻‍♀️",
+			"female-detective",
+			new []{ "female-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			0,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-detective".
+		/// </summary>
+		public static readonly Emoji FemaleDetective_MediumLight = new Emoji(
+			"1F575-1F3FC-200D-2640-FE0F",
+			null,
+			"🕵🏼‍♀️",
+			"female-detective",
+			new []{ "female-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			1,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-detective".
+		/// </summary>
+		public static readonly Emoji FemaleDetective_Medium = new Emoji(
+			"1F575-1F3FD-200D-2640-FE0F",
+			null,
+			"🕵🏽‍♀️",
+			"female-detective",
+			new []{ "female-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			2,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-detective".
+		/// </summary>
+		public static readonly Emoji FemaleDetective_MediumDark = new Emoji(
+			"1F575-1F3FE-200D-2640-FE0F",
+			null,
+			"🕵🏾‍♀️",
+			"female-detective",
+			new []{ "female-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			3,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-detective".
+		/// </summary>
+		public static readonly Emoji FemaleDetective_Dark = new Emoji(
+			"1F575-1F3FF-200D-2640-FE0F",
+			null,
+			"🕵🏿‍♀️",
+			"female-detective",
+			new []{ "female-detective"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			4,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -2536,6 +6943,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			25,
+			SkinVariationType.None,
+			"man guard",
+			new []{ "guard", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-guard".
+		/// </summary>
+		public static readonly Emoji MaleGuard_Light = new Emoji(
+			"1F482-1F3FB-200D-2642-FE0F",
+			null,
+			"💂🏻‍♂️",
+			"male-guard",
+			new []{ "male-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			26,
+			SkinVariationType.Light,
+			"man guard",
+			new []{ "guard", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-guard".
+		/// </summary>
+		public static readonly Emoji MaleGuard_MediumLight = new Emoji(
+			"1F482-1F3FC-200D-2642-FE0F",
+			null,
+			"💂🏼‍♂️",
+			"male-guard",
+			new []{ "male-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			27,
+			SkinVariationType.MediumLight,
+			"man guard",
+			new []{ "guard", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-guard".
+		/// </summary>
+		public static readonly Emoji MaleGuard_Medium = new Emoji(
+			"1F482-1F3FD-200D-2642-FE0F",
+			null,
+			"💂🏽‍♂️",
+			"male-guard",
+			new []{ "male-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			28,
+			SkinVariationType.Medium,
+			"man guard",
+			new []{ "guard", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-guard".
+		/// </summary>
+		public static readonly Emoji MaleGuard_MediumDark = new Emoji(
+			"1F482-1F3FE-200D-2642-FE0F",
+			null,
+			"💂🏾‍♂️",
+			"male-guard",
+			new []{ "male-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			29,
+			SkinVariationType.MediumDark,
+			"man guard",
+			new []{ "guard", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-guard".
+		/// </summary>
+		public static readonly Emoji MaleGuard_Dark = new Emoji(
+			"1F482-1F3FF-200D-2642-FE0F",
+			null,
+			"💂🏿‍♂️",
+			"male-guard",
+			new []{ "male-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			30,
+			SkinVariationType.Dark,
 			"man guard",
 			new []{ "guard", "man"});
 		/// <summary>
@@ -2552,6 +7045,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			19,
+			SkinVariationType.None,
+			"woman guard",
+			new []{ "guard", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-guard".
+		/// </summary>
+		public static readonly Emoji FemaleGuard_Light = new Emoji(
+			"1F482-1F3FB-200D-2640-FE0F",
+			null,
+			"💂🏻‍♀️",
+			"female-guard",
+			new []{ "female-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			20,
+			SkinVariationType.Light,
+			"woman guard",
+			new []{ "guard", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-guard".
+		/// </summary>
+		public static readonly Emoji FemaleGuard_MediumLight = new Emoji(
+			"1F482-1F3FC-200D-2640-FE0F",
+			null,
+			"💂🏼‍♀️",
+			"female-guard",
+			new []{ "female-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			21,
+			SkinVariationType.MediumLight,
+			"woman guard",
+			new []{ "guard", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-guard".
+		/// </summary>
+		public static readonly Emoji FemaleGuard_Medium = new Emoji(
+			"1F482-1F3FD-200D-2640-FE0F",
+			null,
+			"💂🏽‍♀️",
+			"female-guard",
+			new []{ "female-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			22,
+			SkinVariationType.Medium,
+			"woman guard",
+			new []{ "guard", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-guard".
+		/// </summary>
+		public static readonly Emoji FemaleGuard_MediumDark = new Emoji(
+			"1F482-1F3FE-200D-2640-FE0F",
+			null,
+			"💂🏾‍♀️",
+			"female-guard",
+			new []{ "female-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			23,
+			SkinVariationType.MediumDark,
+			"woman guard",
+			new []{ "guard", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-guard".
+		/// </summary>
+		public static readonly Emoji FemaleGuard_Dark = new Emoji(
+			"1F482-1F3FF-200D-2640-FE0F",
+			null,
+			"💂🏿‍♀️",
+			"female-guard",
+			new []{ "female-guard"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			24,
+			SkinVariationType.Dark,
 			"woman guard",
 			new []{ "guard", "woman"});
 		/// <summary>
@@ -2568,6 +7147,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			22,
+			SkinVariationType.None,
+			"man construction worker",
+			new []{ "construction", "hat", "worker", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-construction-worker".
+		/// </summary>
+		public static readonly Emoji MaleConstructionWorker_Light = new Emoji(
+			"1F477-1F3FB-200D-2642-FE0F",
+			null,
+			"👷🏻‍♂️",
+			"male-construction-worker",
+			new []{ "male-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			23,
+			SkinVariationType.Light,
+			"man construction worker",
+			new []{ "construction", "hat", "worker", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-construction-worker".
+		/// </summary>
+		public static readonly Emoji MaleConstructionWorker_MediumLight = new Emoji(
+			"1F477-1F3FC-200D-2642-FE0F",
+			null,
+			"👷🏼‍♂️",
+			"male-construction-worker",
+			new []{ "male-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			24,
+			SkinVariationType.MediumLight,
+			"man construction worker",
+			new []{ "construction", "hat", "worker", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-construction-worker".
+		/// </summary>
+		public static readonly Emoji MaleConstructionWorker_Medium = new Emoji(
+			"1F477-1F3FD-200D-2642-FE0F",
+			null,
+			"👷🏽‍♂️",
+			"male-construction-worker",
+			new []{ "male-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			25,
+			SkinVariationType.Medium,
+			"man construction worker",
+			new []{ "construction", "hat", "worker", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-construction-worker".
+		/// </summary>
+		public static readonly Emoji MaleConstructionWorker_MediumDark = new Emoji(
+			"1F477-1F3FE-200D-2642-FE0F",
+			null,
+			"👷🏾‍♂️",
+			"male-construction-worker",
+			new []{ "male-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			26,
+			SkinVariationType.MediumDark,
+			"man construction worker",
+			new []{ "construction", "hat", "worker", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male-construction-worker".
+		/// </summary>
+		public static readonly Emoji MaleConstructionWorker_Dark = new Emoji(
+			"1F477-1F3FF-200D-2642-FE0F",
+			null,
+			"👷🏿‍♂️",
+			"male-construction-worker",
+			new []{ "male-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			27,
+			SkinVariationType.Dark,
 			"man construction worker",
 			new []{ "construction", "hat", "worker", "man"});
 		/// <summary>
@@ -2584,6 +7249,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			16,
+			SkinVariationType.None,
+			"woman construction worker",
+			new []{ "construction", "hat", "worker", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-construction-worker".
+		/// </summary>
+		public static readonly Emoji FemaleConstructionWorker_Light = new Emoji(
+			"1F477-1F3FB-200D-2640-FE0F",
+			null,
+			"👷🏻‍♀️",
+			"female-construction-worker",
+			new []{ "female-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			17,
+			SkinVariationType.Light,
+			"woman construction worker",
+			new []{ "construction", "hat", "worker", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-construction-worker".
+		/// </summary>
+		public static readonly Emoji FemaleConstructionWorker_MediumLight = new Emoji(
+			"1F477-1F3FC-200D-2640-FE0F",
+			null,
+			"👷🏼‍♀️",
+			"female-construction-worker",
+			new []{ "female-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			18,
+			SkinVariationType.MediumLight,
+			"woman construction worker",
+			new []{ "construction", "hat", "worker", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-construction-worker".
+		/// </summary>
+		public static readonly Emoji FemaleConstructionWorker_Medium = new Emoji(
+			"1F477-1F3FD-200D-2640-FE0F",
+			null,
+			"👷🏽‍♀️",
+			"female-construction-worker",
+			new []{ "female-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			19,
+			SkinVariationType.Medium,
+			"woman construction worker",
+			new []{ "construction", "hat", "worker", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-construction-worker".
+		/// </summary>
+		public static readonly Emoji FemaleConstructionWorker_MediumDark = new Emoji(
+			"1F477-1F3FE-200D-2640-FE0F",
+			null,
+			"👷🏾‍♀️",
+			"female-construction-worker",
+			new []{ "female-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			20,
+			SkinVariationType.MediumDark,
+			"woman construction worker",
+			new []{ "construction", "hat", "worker", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female-construction-worker".
+		/// </summary>
+		public static readonly Emoji FemaleConstructionWorker_Dark = new Emoji(
+			"1F477-1F3FF-200D-2640-FE0F",
+			null,
+			"👷🏿‍♀️",
+			"female-construction-worker",
+			new []{ "female-construction-worker"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			21,
+			SkinVariationType.Dark,
 			"woman construction worker",
 			new []{ "construction", "hat", "worker", "woman"});
 		/// <summary>
@@ -2600,6 +7351,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			28,
+			SkinVariationType.None,
+			"prince",
+			new []{ "prince"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "prince".
+		/// </summary>
+		public static readonly Emoji Prince_Light = new Emoji(
+			"1F934-1F3FB",
+			"PRINCE",
+			"🤴🏻",
+			"prince",
+			new []{ "prince"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			29,
+			SkinVariationType.Light,
+			"prince",
+			new []{ "prince"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "prince".
+		/// </summary>
+		public static readonly Emoji Prince_MediumLight = new Emoji(
+			"1F934-1F3FC",
+			"PRINCE",
+			"🤴🏼",
+			"prince",
+			new []{ "prince"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			30,
+			SkinVariationType.MediumLight,
+			"prince",
+			new []{ "prince"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "prince".
+		/// </summary>
+		public static readonly Emoji Prince_Medium = new Emoji(
+			"1F934-1F3FD",
+			"PRINCE",
+			"🤴🏽",
+			"prince",
+			new []{ "prince"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			31,
+			SkinVariationType.Medium,
+			"prince",
+			new []{ "prince"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "prince".
+		/// </summary>
+		public static readonly Emoji Prince_MediumDark = new Emoji(
+			"1F934-1F3FE",
+			"PRINCE",
+			"🤴🏾",
+			"prince",
+			new []{ "prince"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			32,
+			SkinVariationType.MediumDark,
+			"prince",
+			new []{ "prince"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "prince".
+		/// </summary>
+		public static readonly Emoji Prince_Dark = new Emoji(
+			"1F934-1F3FF",
+			"PRINCE",
+			"🤴🏿",
+			"prince",
+			new []{ "prince"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			33,
+			SkinVariationType.Dark,
 			"prince",
 			new []{ "prince"});
 		/// <summary>
@@ -2616,6 +7453,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			34,
+			SkinVariationType.None,
+			"princess",
+			new []{ "fairy tale", "fantasy", "princess"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "princess".
+		/// </summary>
+		public static readonly Emoji Princess_Light = new Emoji(
+			"1F478-1F3FB",
+			"PRINCESS",
+			"👸🏻",
+			"princess",
+			new []{ "princess"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			35,
+			SkinVariationType.Light,
+			"princess",
+			new []{ "fairy tale", "fantasy", "princess"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "princess".
+		/// </summary>
+		public static readonly Emoji Princess_MediumLight = new Emoji(
+			"1F478-1F3FC",
+			"PRINCESS",
+			"👸🏼",
+			"princess",
+			new []{ "princess"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			36,
+			SkinVariationType.MediumLight,
+			"princess",
+			new []{ "fairy tale", "fantasy", "princess"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "princess".
+		/// </summary>
+		public static readonly Emoji Princess_Medium = new Emoji(
+			"1F478-1F3FD",
+			"PRINCESS",
+			"👸🏽",
+			"princess",
+			new []{ "princess"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			37,
+			SkinVariationType.Medium,
+			"princess",
+			new []{ "fairy tale", "fantasy", "princess"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "princess".
+		/// </summary>
+		public static readonly Emoji Princess_MediumDark = new Emoji(
+			"1F478-1F3FE",
+			"PRINCESS",
+			"👸🏾",
+			"princess",
+			new []{ "princess"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			38,
+			SkinVariationType.MediumDark,
+			"princess",
+			new []{ "fairy tale", "fantasy", "princess"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "princess".
+		/// </summary>
+		public static readonly Emoji Princess_Dark = new Emoji(
+			"1F478-1F3FF",
+			"PRINCESS",
+			"👸🏿",
+			"princess",
+			new []{ "princess"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			39,
+			SkinVariationType.Dark,
 			"princess",
 			new []{ "fairy tale", "fantasy", "princess"});
 		/// <summary>
@@ -2632,6 +7555,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			21,
 			38,
+			SkinVariationType.None,
+			"man wearing turban",
+			new []{ "person wearing turban", "turban", "man", "man wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-wearing-turban".
+		/// </summary>
+		public static readonly Emoji ManWearingTurban_Light = new Emoji(
+			"1F473-1F3FB-200D-2642-FE0F",
+			null,
+			"👳🏻‍♂️",
+			"man-wearing-turban",
+			new []{ "man-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			39,
+			SkinVariationType.Light,
+			"man wearing turban",
+			new []{ "person wearing turban", "turban", "man", "man wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-wearing-turban".
+		/// </summary>
+		public static readonly Emoji ManWearingTurban_MediumLight = new Emoji(
+			"1F473-1F3FC-200D-2642-FE0F",
+			null,
+			"👳🏼‍♂️",
+			"man-wearing-turban",
+			new []{ "man-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			40,
+			SkinVariationType.MediumLight,
+			"man wearing turban",
+			new []{ "person wearing turban", "turban", "man", "man wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-wearing-turban".
+		/// </summary>
+		public static readonly Emoji ManWearingTurban_Medium = new Emoji(
+			"1F473-1F3FD-200D-2642-FE0F",
+			null,
+			"👳🏽‍♂️",
+			"man-wearing-turban",
+			new []{ "man-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			41,
+			SkinVariationType.Medium,
+			"man wearing turban",
+			new []{ "person wearing turban", "turban", "man", "man wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-wearing-turban".
+		/// </summary>
+		public static readonly Emoji ManWearingTurban_MediumDark = new Emoji(
+			"1F473-1F3FE-200D-2642-FE0F",
+			null,
+			"👳🏾‍♂️",
+			"man-wearing-turban",
+			new []{ "man-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			42,
+			SkinVariationType.MediumDark,
+			"man wearing turban",
+			new []{ "person wearing turban", "turban", "man", "man wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-wearing-turban".
+		/// </summary>
+		public static readonly Emoji ManWearingTurban_Dark = new Emoji(
+			"1F473-1F3FF-200D-2642-FE0F",
+			null,
+			"👳🏿‍♂️",
+			"man-wearing-turban",
+			new []{ "man-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			43,
+			SkinVariationType.Dark,
 			"man wearing turban",
 			new []{ "person wearing turban", "turban", "man", "man wearing turban"});
 		/// <summary>
@@ -2648,6 +7657,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			21,
 			32,
+			SkinVariationType.None,
+			"woman wearing turban",
+			new []{ "person wearing turban", "turban", "woman", "woman wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-wearing-turban".
+		/// </summary>
+		public static readonly Emoji WomanWearingTurban_Light = new Emoji(
+			"1F473-1F3FB-200D-2640-FE0F",
+			null,
+			"👳🏻‍♀️",
+			"woman-wearing-turban",
+			new []{ "woman-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			33,
+			SkinVariationType.Light,
+			"woman wearing turban",
+			new []{ "person wearing turban", "turban", "woman", "woman wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-wearing-turban".
+		/// </summary>
+		public static readonly Emoji WomanWearingTurban_MediumLight = new Emoji(
+			"1F473-1F3FC-200D-2640-FE0F",
+			null,
+			"👳🏼‍♀️",
+			"woman-wearing-turban",
+			new []{ "woman-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			34,
+			SkinVariationType.MediumLight,
+			"woman wearing turban",
+			new []{ "person wearing turban", "turban", "woman", "woman wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-wearing-turban".
+		/// </summary>
+		public static readonly Emoji WomanWearingTurban_Medium = new Emoji(
+			"1F473-1F3FD-200D-2640-FE0F",
+			null,
+			"👳🏽‍♀️",
+			"woman-wearing-turban",
+			new []{ "woman-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			35,
+			SkinVariationType.Medium,
+			"woman wearing turban",
+			new []{ "person wearing turban", "turban", "woman", "woman wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-wearing-turban".
+		/// </summary>
+		public static readonly Emoji WomanWearingTurban_MediumDark = new Emoji(
+			"1F473-1F3FE-200D-2640-FE0F",
+			null,
+			"👳🏾‍♀️",
+			"woman-wearing-turban",
+			new []{ "woman-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			36,
+			SkinVariationType.MediumDark,
+			"woman wearing turban",
+			new []{ "person wearing turban", "turban", "woman", "woman wearing turban"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-wearing-turban".
+		/// </summary>
+		public static readonly Emoji WomanWearingTurban_Dark = new Emoji(
+			"1F473-1F3FF-200D-2640-FE0F",
+			null,
+			"👳🏿‍♀️",
+			"woman-wearing-turban",
+			new []{ "woman-wearing-turban"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			37,
+			SkinVariationType.Dark,
 			"woman wearing turban",
 			new []{ "person wearing turban", "turban", "woman", "woman wearing turban"});
 		/// <summary>
@@ -2664,6 +7759,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			21,
 			26,
+			SkinVariationType.None,
+			"man with Chinese cap",
+			new []{ "gua pi mao", "hat", "man", "man with Chinese cap"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_with_gua_pi_mao".
+		/// </summary>
+		public static readonly Emoji ManWithGuaPiMao_Light = new Emoji(
+			"1F472-1F3FB",
+			"MAN WITH GUA PI MAO",
+			"👲🏻",
+			"man_with_gua_pi_mao",
+			new []{ "man_with_gua_pi_mao"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			27,
+			SkinVariationType.Light,
+			"man with Chinese cap",
+			new []{ "gua pi mao", "hat", "man", "man with Chinese cap"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_with_gua_pi_mao".
+		/// </summary>
+		public static readonly Emoji ManWithGuaPiMao_MediumLight = new Emoji(
+			"1F472-1F3FC",
+			"MAN WITH GUA PI MAO",
+			"👲🏼",
+			"man_with_gua_pi_mao",
+			new []{ "man_with_gua_pi_mao"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			28,
+			SkinVariationType.MediumLight,
+			"man with Chinese cap",
+			new []{ "gua pi mao", "hat", "man", "man with Chinese cap"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_with_gua_pi_mao".
+		/// </summary>
+		public static readonly Emoji ManWithGuaPiMao_Medium = new Emoji(
+			"1F472-1F3FD",
+			"MAN WITH GUA PI MAO",
+			"👲🏽",
+			"man_with_gua_pi_mao",
+			new []{ "man_with_gua_pi_mao"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			29,
+			SkinVariationType.Medium,
+			"man with Chinese cap",
+			new []{ "gua pi mao", "hat", "man", "man with Chinese cap"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_with_gua_pi_mao".
+		/// </summary>
+		public static readonly Emoji ManWithGuaPiMao_MediumDark = new Emoji(
+			"1F472-1F3FE",
+			"MAN WITH GUA PI MAO",
+			"👲🏾",
+			"man_with_gua_pi_mao",
+			new []{ "man_with_gua_pi_mao"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			30,
+			SkinVariationType.MediumDark,
+			"man with Chinese cap",
+			new []{ "gua pi mao", "hat", "man", "man with Chinese cap"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_with_gua_pi_mao".
+		/// </summary>
+		public static readonly Emoji ManWithGuaPiMao_Dark = new Emoji(
+			"1F472-1F3FF",
+			"MAN WITH GUA PI MAO",
+			"👲🏿",
+			"man_with_gua_pi_mao",
+			new []{ "man_with_gua_pi_mao"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			31,
+			SkinVariationType.Dark,
 			"man with Chinese cap",
 			new []{ "gua pi mao", "hat", "man", "man with Chinese cap"});
 		/// <summary>
@@ -2680,6 +7861,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			43,
 			22,
+			SkinVariationType.None,
+			"woman with headscarf",
+			new []{ "headscarf", "hijab", "mantilla", "tichel", "woman with headscarf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_headscarf".
+		/// </summary>
+		public static readonly Emoji PersonWithHeadscarf_Light = new Emoji(
+			"1F9D5-1F3FB",
+			"PERSON WITH HEADSCARF",
+			"🧕🏻",
+			"person_with_headscarf",
+			new []{ "person_with_headscarf"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			23,
+			SkinVariationType.Light,
+			"woman with headscarf",
+			new []{ "headscarf", "hijab", "mantilla", "tichel", "woman with headscarf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_headscarf".
+		/// </summary>
+		public static readonly Emoji PersonWithHeadscarf_MediumLight = new Emoji(
+			"1F9D5-1F3FC",
+			"PERSON WITH HEADSCARF",
+			"🧕🏼",
+			"person_with_headscarf",
+			new []{ "person_with_headscarf"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			24,
+			SkinVariationType.MediumLight,
+			"woman with headscarf",
+			new []{ "headscarf", "hijab", "mantilla", "tichel", "woman with headscarf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_headscarf".
+		/// </summary>
+		public static readonly Emoji PersonWithHeadscarf_Medium = new Emoji(
+			"1F9D5-1F3FD",
+			"PERSON WITH HEADSCARF",
+			"🧕🏽",
+			"person_with_headscarf",
+			new []{ "person_with_headscarf"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			25,
+			SkinVariationType.Medium,
+			"woman with headscarf",
+			new []{ "headscarf", "hijab", "mantilla", "tichel", "woman with headscarf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_headscarf".
+		/// </summary>
+		public static readonly Emoji PersonWithHeadscarf_MediumDark = new Emoji(
+			"1F9D5-1F3FE",
+			"PERSON WITH HEADSCARF",
+			"🧕🏾",
+			"person_with_headscarf",
+			new []{ "person_with_headscarf"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			26,
+			SkinVariationType.MediumDark,
+			"woman with headscarf",
+			new []{ "headscarf", "hijab", "mantilla", "tichel", "woman with headscarf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_headscarf".
+		/// </summary>
+		public static readonly Emoji PersonWithHeadscarf_Dark = new Emoji(
+			"1F9D5-1F3FF",
+			"PERSON WITH HEADSCARF",
+			"🧕🏿",
+			"person_with_headscarf",
+			new []{ "person_with_headscarf"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			27,
+			SkinVariationType.Dark,
 			"woman with headscarf",
 			new []{ "headscarf", "hijab", "mantilla", "tichel", "woman with headscarf"});
 		/// <summary>
@@ -2696,6 +7963,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			34,
+			SkinVariationType.None,
+			"man in tuxedo",
+			new []{ "groom", "man", "man in tuxedo", "tuxedo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_tuxedo".
+		/// </summary>
+		public static readonly Emoji ManInTuxedo_Light = new Emoji(
+			"1F935-1F3FB",
+			"MAN IN TUXEDO",
+			"🤵🏻",
+			"man_in_tuxedo",
+			new []{ "man_in_tuxedo"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			35,
+			SkinVariationType.Light,
+			"man in tuxedo",
+			new []{ "groom", "man", "man in tuxedo", "tuxedo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_tuxedo".
+		/// </summary>
+		public static readonly Emoji ManInTuxedo_MediumLight = new Emoji(
+			"1F935-1F3FC",
+			"MAN IN TUXEDO",
+			"🤵🏼",
+			"man_in_tuxedo",
+			new []{ "man_in_tuxedo"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			36,
+			SkinVariationType.MediumLight,
+			"man in tuxedo",
+			new []{ "groom", "man", "man in tuxedo", "tuxedo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_tuxedo".
+		/// </summary>
+		public static readonly Emoji ManInTuxedo_Medium = new Emoji(
+			"1F935-1F3FD",
+			"MAN IN TUXEDO",
+			"🤵🏽",
+			"man_in_tuxedo",
+			new []{ "man_in_tuxedo"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			37,
+			SkinVariationType.Medium,
+			"man in tuxedo",
+			new []{ "groom", "man", "man in tuxedo", "tuxedo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_tuxedo".
+		/// </summary>
+		public static readonly Emoji ManInTuxedo_MediumDark = new Emoji(
+			"1F935-1F3FE",
+			"MAN IN TUXEDO",
+			"🤵🏾",
+			"man_in_tuxedo",
+			new []{ "man_in_tuxedo"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			38,
+			SkinVariationType.MediumDark,
+			"man in tuxedo",
+			new []{ "groom", "man", "man in tuxedo", "tuxedo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_tuxedo".
+		/// </summary>
+		public static readonly Emoji ManInTuxedo_Dark = new Emoji(
+			"1F935-1F3FF",
+			"MAN IN TUXEDO",
+			"🤵🏿",
+			"man_in_tuxedo",
+			new []{ "man_in_tuxedo"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			39,
+			SkinVariationType.Dark,
 			"man in tuxedo",
 			new []{ "groom", "man", "man in tuxedo", "tuxedo"});
 		/// <summary>
@@ -2712,6 +8065,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			21,
 			2,
+			SkinVariationType.None,
+			"bride with veil",
+			new []{ "bride", "bride with veil", "veil", "wedding"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bride_with_veil".
+		/// </summary>
+		public static readonly Emoji BrideWithVeil_Light = new Emoji(
+			"1F470-1F3FB",
+			"BRIDE WITH VEIL",
+			"👰🏻",
+			"bride_with_veil",
+			new []{ "bride_with_veil"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			3,
+			SkinVariationType.Light,
+			"bride with veil",
+			new []{ "bride", "bride with veil", "veil", "wedding"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bride_with_veil".
+		/// </summary>
+		public static readonly Emoji BrideWithVeil_MediumLight = new Emoji(
+			"1F470-1F3FC",
+			"BRIDE WITH VEIL",
+			"👰🏼",
+			"bride_with_veil",
+			new []{ "bride_with_veil"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			4,
+			SkinVariationType.MediumLight,
+			"bride with veil",
+			new []{ "bride", "bride with veil", "veil", "wedding"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bride_with_veil".
+		/// </summary>
+		public static readonly Emoji BrideWithVeil_Medium = new Emoji(
+			"1F470-1F3FD",
+			"BRIDE WITH VEIL",
+			"👰🏽",
+			"bride_with_veil",
+			new []{ "bride_with_veil"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			5,
+			SkinVariationType.Medium,
+			"bride with veil",
+			new []{ "bride", "bride with veil", "veil", "wedding"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bride_with_veil".
+		/// </summary>
+		public static readonly Emoji BrideWithVeil_MediumDark = new Emoji(
+			"1F470-1F3FE",
+			"BRIDE WITH VEIL",
+			"👰🏾",
+			"bride_with_veil",
+			new []{ "bride_with_veil"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			6,
+			SkinVariationType.MediumDark,
+			"bride with veil",
+			new []{ "bride", "bride with veil", "veil", "wedding"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bride_with_veil".
+		/// </summary>
+		public static readonly Emoji BrideWithVeil_Dark = new Emoji(
+			"1F470-1F3FF",
+			"BRIDE WITH VEIL",
+			"👰🏿",
+			"bride_with_veil",
+			new []{ "bride_with_veil"},
+			null,
+			null,
+			"Smileys & People",
+			21,
+			7,
+			SkinVariationType.Dark,
 			"bride with veil",
 			new []{ "bride", "bride with veil", "veil", "wedding"});
 		/// <summary>
@@ -2728,6 +8167,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			4,
+			SkinVariationType.None,
+			"pregnant woman",
+			new []{ "pregnant", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pregnant_woman".
+		/// </summary>
+		public static readonly Emoji PregnantWoman_Light = new Emoji(
+			"1F930-1F3FB",
+			"PREGNANT WOMAN",
+			"🤰🏻",
+			"pregnant_woman",
+			new []{ "pregnant_woman"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			5,
+			SkinVariationType.Light,
+			"pregnant woman",
+			new []{ "pregnant", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pregnant_woman".
+		/// </summary>
+		public static readonly Emoji PregnantWoman_MediumLight = new Emoji(
+			"1F930-1F3FC",
+			"PREGNANT WOMAN",
+			"🤰🏼",
+			"pregnant_woman",
+			new []{ "pregnant_woman"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			6,
+			SkinVariationType.MediumLight,
+			"pregnant woman",
+			new []{ "pregnant", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pregnant_woman".
+		/// </summary>
+		public static readonly Emoji PregnantWoman_Medium = new Emoji(
+			"1F930-1F3FD",
+			"PREGNANT WOMAN",
+			"🤰🏽",
+			"pregnant_woman",
+			new []{ "pregnant_woman"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			7,
+			SkinVariationType.Medium,
+			"pregnant woman",
+			new []{ "pregnant", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pregnant_woman".
+		/// </summary>
+		public static readonly Emoji PregnantWoman_MediumDark = new Emoji(
+			"1F930-1F3FE",
+			"PREGNANT WOMAN",
+			"🤰🏾",
+			"pregnant_woman",
+			new []{ "pregnant_woman"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			8,
+			SkinVariationType.MediumDark,
+			"pregnant woman",
+			new []{ "pregnant", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pregnant_woman".
+		/// </summary>
+		public static readonly Emoji PregnantWoman_Dark = new Emoji(
+			"1F930-1F3FF",
+			"PREGNANT WOMAN",
+			"🤰🏿",
+			"pregnant_woman",
+			new []{ "pregnant_woman"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			9,
+			SkinVariationType.Dark,
 			"pregnant woman",
 			new []{ "pregnant", "woman"});
 		/// <summary>
@@ -2744,6 +8269,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			10,
+			SkinVariationType.None,
+			"breast-feeding",
+			new []{ "baby", "breast", "breast-feeding", "nursing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "breast-feeding".
+		/// </summary>
+		public static readonly Emoji BreastFeeding_Light = new Emoji(
+			"1F931-1F3FB",
+			"BREAST-FEEDING",
+			"🤱🏻",
+			"breast-feeding",
+			new []{ "breast-feeding"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			11,
+			SkinVariationType.Light,
+			"breast-feeding",
+			new []{ "baby", "breast", "breast-feeding", "nursing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "breast-feeding".
+		/// </summary>
+		public static readonly Emoji BreastFeeding_MediumLight = new Emoji(
+			"1F931-1F3FC",
+			"BREAST-FEEDING",
+			"🤱🏼",
+			"breast-feeding",
+			new []{ "breast-feeding"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			12,
+			SkinVariationType.MediumLight,
+			"breast-feeding",
+			new []{ "baby", "breast", "breast-feeding", "nursing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "breast-feeding".
+		/// </summary>
+		public static readonly Emoji BreastFeeding_Medium = new Emoji(
+			"1F931-1F3FD",
+			"BREAST-FEEDING",
+			"🤱🏽",
+			"breast-feeding",
+			new []{ "breast-feeding"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			13,
+			SkinVariationType.Medium,
+			"breast-feeding",
+			new []{ "baby", "breast", "breast-feeding", "nursing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "breast-feeding".
+		/// </summary>
+		public static readonly Emoji BreastFeeding_MediumDark = new Emoji(
+			"1F931-1F3FE",
+			"BREAST-FEEDING",
+			"🤱🏾",
+			"breast-feeding",
+			new []{ "breast-feeding"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			14,
+			SkinVariationType.MediumDark,
+			"breast-feeding",
+			new []{ "baby", "breast", "breast-feeding", "nursing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "breast-feeding".
+		/// </summary>
+		public static readonly Emoji BreastFeeding_Dark = new Emoji(
+			"1F931-1F3FF",
+			"BREAST-FEEDING",
+			"🤱🏿",
+			"breast-feeding",
+			new []{ "breast-feeding"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			15,
+			SkinVariationType.Dark,
 			"breast-feeding",
 			new []{ "baby", "breast", "breast-feeding", "nursing"});
 		/// <summary>
@@ -2760,6 +8371,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			22,
 			43,
+			SkinVariationType.None,
+			"baby angel",
+			new []{ "angel", "baby", "face", "fairy tale", "fantasy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "angel".
+		/// </summary>
+		public static readonly Emoji Angel_Light = new Emoji(
+			"1F47C-1F3FB",
+			"BABY ANGEL",
+			"👼🏻",
+			"angel",
+			new []{ "angel"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			44,
+			SkinVariationType.Light,
+			"baby angel",
+			new []{ "angel", "baby", "face", "fairy tale", "fantasy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "angel".
+		/// </summary>
+		public static readonly Emoji Angel_MediumLight = new Emoji(
+			"1F47C-1F3FC",
+			"BABY ANGEL",
+			"👼🏼",
+			"angel",
+			new []{ "angel"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			45,
+			SkinVariationType.MediumLight,
+			"baby angel",
+			new []{ "angel", "baby", "face", "fairy tale", "fantasy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "angel".
+		/// </summary>
+		public static readonly Emoji Angel_Medium = new Emoji(
+			"1F47C-1F3FD",
+			"BABY ANGEL",
+			"👼🏽",
+			"angel",
+			new []{ "angel"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			46,
+			SkinVariationType.Medium,
+			"baby angel",
+			new []{ "angel", "baby", "face", "fairy tale", "fantasy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "angel".
+		/// </summary>
+		public static readonly Emoji Angel_MediumDark = new Emoji(
+			"1F47C-1F3FE",
+			"BABY ANGEL",
+			"👼🏾",
+			"angel",
+			new []{ "angel"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			47,
+			SkinVariationType.MediumDark,
+			"baby angel",
+			new []{ "angel", "baby", "face", "fairy tale", "fantasy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "angel".
+		/// </summary>
+		public static readonly Emoji Angel_Dark = new Emoji(
+			"1F47C-1F3FF",
+			"BABY ANGEL",
+			"👼🏿",
+			"angel",
+			new []{ "angel"},
+			null,
+			null,
+			"Smileys & People",
+			22,
+			48,
+			SkinVariationType.Dark,
 			"baby angel",
 			new []{ "angel", "baby", "face", "fairy tale", "fantasy"});
 		/// <summary>
@@ -2776,6 +8473,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			8,
 			19,
+			SkinVariationType.None,
+			"Santa Claus",
+			new []{ "celebration", "Christmas", "claus", "father", "santa", "Santa Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "santa".
+		/// </summary>
+		public static readonly Emoji Santa_Light = new Emoji(
+			"1F385-1F3FB",
+			"FATHER CHRISTMAS",
+			"🎅🏻",
+			"santa",
+			new []{ "santa"},
+			null,
+			null,
+			"Smileys & People",
+			8,
+			20,
+			SkinVariationType.Light,
+			"Santa Claus",
+			new []{ "celebration", "Christmas", "claus", "father", "santa", "Santa Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "santa".
+		/// </summary>
+		public static readonly Emoji Santa_MediumLight = new Emoji(
+			"1F385-1F3FC",
+			"FATHER CHRISTMAS",
+			"🎅🏼",
+			"santa",
+			new []{ "santa"},
+			null,
+			null,
+			"Smileys & People",
+			8,
+			21,
+			SkinVariationType.MediumLight,
+			"Santa Claus",
+			new []{ "celebration", "Christmas", "claus", "father", "santa", "Santa Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "santa".
+		/// </summary>
+		public static readonly Emoji Santa_Medium = new Emoji(
+			"1F385-1F3FD",
+			"FATHER CHRISTMAS",
+			"🎅🏽",
+			"santa",
+			new []{ "santa"},
+			null,
+			null,
+			"Smileys & People",
+			8,
+			22,
+			SkinVariationType.Medium,
+			"Santa Claus",
+			new []{ "celebration", "Christmas", "claus", "father", "santa", "Santa Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "santa".
+		/// </summary>
+		public static readonly Emoji Santa_MediumDark = new Emoji(
+			"1F385-1F3FE",
+			"FATHER CHRISTMAS",
+			"🎅🏾",
+			"santa",
+			new []{ "santa"},
+			null,
+			null,
+			"Smileys & People",
+			8,
+			23,
+			SkinVariationType.MediumDark,
+			"Santa Claus",
+			new []{ "celebration", "Christmas", "claus", "father", "santa", "Santa Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "santa".
+		/// </summary>
+		public static readonly Emoji Santa_Dark = new Emoji(
+			"1F385-1F3FF",
+			"FATHER CHRISTMAS",
+			"🎅🏿",
+			"santa",
+			new []{ "santa"},
+			null,
+			null,
+			"Smileys & People",
+			8,
+			24,
+			SkinVariationType.Dark,
 			"Santa Claus",
 			new []{ "celebration", "Christmas", "claus", "father", "santa", "Santa Claus"});
 		/// <summary>
@@ -2792,6 +8575,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			40,
+			SkinVariationType.None,
+			"Mrs. Claus",
+			new []{ "celebration", "Christmas", "claus", "mother", "Mrs.", "Mrs. Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mrs_claus".
+		/// </summary>
+		public static readonly Emoji MrsClaus_Light = new Emoji(
+			"1F936-1F3FB",
+			"MOTHER CHRISTMAS",
+			"🤶🏻",
+			"mrs_claus",
+			new []{ "mrs_claus", "mother_christmas"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			41,
+			SkinVariationType.Light,
+			"Mrs. Claus",
+			new []{ "celebration", "Christmas", "claus", "mother", "Mrs.", "Mrs. Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mrs_claus".
+		/// </summary>
+		public static readonly Emoji MrsClaus_MediumLight = new Emoji(
+			"1F936-1F3FC",
+			"MOTHER CHRISTMAS",
+			"🤶🏼",
+			"mrs_claus",
+			new []{ "mrs_claus", "mother_christmas"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			42,
+			SkinVariationType.MediumLight,
+			"Mrs. Claus",
+			new []{ "celebration", "Christmas", "claus", "mother", "Mrs.", "Mrs. Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mrs_claus".
+		/// </summary>
+		public static readonly Emoji MrsClaus_Medium = new Emoji(
+			"1F936-1F3FD",
+			"MOTHER CHRISTMAS",
+			"🤶🏽",
+			"mrs_claus",
+			new []{ "mrs_claus", "mother_christmas"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			43,
+			SkinVariationType.Medium,
+			"Mrs. Claus",
+			new []{ "celebration", "Christmas", "claus", "mother", "Mrs.", "Mrs. Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mrs_claus".
+		/// </summary>
+		public static readonly Emoji MrsClaus_MediumDark = new Emoji(
+			"1F936-1F3FE",
+			"MOTHER CHRISTMAS",
+			"🤶🏾",
+			"mrs_claus",
+			new []{ "mrs_claus", "mother_christmas"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			44,
+			SkinVariationType.MediumDark,
+			"Mrs. Claus",
+			new []{ "celebration", "Christmas", "claus", "mother", "Mrs.", "Mrs. Claus"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mrs_claus".
+		/// </summary>
+		public static readonly Emoji MrsClaus_Dark = new Emoji(
+			"1F936-1F3FF",
+			"MOTHER CHRISTMAS",
+			"🤶🏿",
+			"mrs_claus",
+			new []{ "mrs_claus", "mother_christmas"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			45,
+			SkinVariationType.Dark,
 			"Mrs. Claus",
 			new []{ "celebration", "Christmas", "claus", "mother", "Mrs.", "Mrs. Claus"});
 		/// <summary>
@@ -2808,6 +8677,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			44,
 			30,
+			SkinVariationType.None,
+			"woman mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "woman mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_mage".
+		/// </summary>
+		public static readonly Emoji FemaleMage_Light = new Emoji(
+			"1F9D9-1F3FB-200D-2640-FE0F",
+			null,
+			"🧙🏻‍♀️",
+			"female_mage",
+			new []{ "female_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			31,
+			SkinVariationType.Light,
+			"woman mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "woman mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_mage".
+		/// </summary>
+		public static readonly Emoji FemaleMage_MediumLight = new Emoji(
+			"1F9D9-1F3FC-200D-2640-FE0F",
+			null,
+			"🧙🏼‍♀️",
+			"female_mage",
+			new []{ "female_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			32,
+			SkinVariationType.MediumLight,
+			"woman mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "woman mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_mage".
+		/// </summary>
+		public static readonly Emoji FemaleMage_Medium = new Emoji(
+			"1F9D9-1F3FD-200D-2640-FE0F",
+			null,
+			"🧙🏽‍♀️",
+			"female_mage",
+			new []{ "female_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			33,
+			SkinVariationType.Medium,
+			"woman mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "woman mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_mage".
+		/// </summary>
+		public static readonly Emoji FemaleMage_MediumDark = new Emoji(
+			"1F9D9-1F3FE-200D-2640-FE0F",
+			null,
+			"🧙🏾‍♀️",
+			"female_mage",
+			new []{ "female_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			34,
+			SkinVariationType.MediumDark,
+			"woman mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "woman mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_mage".
+		/// </summary>
+		public static readonly Emoji FemaleMage_Dark = new Emoji(
+			"1F9D9-1F3FF-200D-2640-FE0F",
+			null,
+			"🧙🏿‍♀️",
+			"female_mage",
+			new []{ "female_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			35,
+			SkinVariationType.Dark,
 			"woman mage",
 			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "woman mage"});
 		/// <summary>
@@ -2824,6 +8779,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			44,
 			36,
+			SkinVariationType.None,
+			"man mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "man mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_mage".
+		/// </summary>
+		public static readonly Emoji MaleMage_Light = new Emoji(
+			"1F9D9-1F3FB-200D-2642-FE0F",
+			null,
+			"🧙🏻‍♂️",
+			"male_mage",
+			new []{ "male_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			37,
+			SkinVariationType.Light,
+			"man mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "man mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_mage".
+		/// </summary>
+		public static readonly Emoji MaleMage_MediumLight = new Emoji(
+			"1F9D9-1F3FC-200D-2642-FE0F",
+			null,
+			"🧙🏼‍♂️",
+			"male_mage",
+			new []{ "male_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			38,
+			SkinVariationType.MediumLight,
+			"man mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "man mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_mage".
+		/// </summary>
+		public static readonly Emoji MaleMage_Medium = new Emoji(
+			"1F9D9-1F3FD-200D-2642-FE0F",
+			null,
+			"🧙🏽‍♂️",
+			"male_mage",
+			new []{ "male_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			39,
+			SkinVariationType.Medium,
+			"man mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "man mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_mage".
+		/// </summary>
+		public static readonly Emoji MaleMage_MediumDark = new Emoji(
+			"1F9D9-1F3FE-200D-2642-FE0F",
+			null,
+			"🧙🏾‍♂️",
+			"male_mage",
+			new []{ "male_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			40,
+			SkinVariationType.MediumDark,
+			"man mage",
+			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "man mage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_mage".
+		/// </summary>
+		public static readonly Emoji MaleMage_Dark = new Emoji(
+			"1F9D9-1F3FF-200D-2642-FE0F",
+			null,
+			"🧙🏿‍♂️",
+			"male_mage",
+			new []{ "male_mage"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			41,
+			SkinVariationType.Dark,
 			"man mage",
 			new []{ "mage", "sorcerer", "sorceress", "witch", "wizard", "man mage"});
 		/// <summary>
@@ -2840,6 +8881,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			44,
 			48,
+			SkinVariationType.None,
+			"woman fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "woman fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_fairy".
+		/// </summary>
+		public static readonly Emoji FemaleFairy_Light = new Emoji(
+			"1F9DA-1F3FB-200D-2640-FE0F",
+			null,
+			"🧚🏻‍♀️",
+			"female_fairy",
+			new []{ "female_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			49,
+			SkinVariationType.Light,
+			"woman fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "woman fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_fairy".
+		/// </summary>
+		public static readonly Emoji FemaleFairy_MediumLight = new Emoji(
+			"1F9DA-1F3FC-200D-2640-FE0F",
+			null,
+			"🧚🏼‍♀️",
+			"female_fairy",
+			new []{ "female_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			50,
+			SkinVariationType.MediumLight,
+			"woman fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "woman fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_fairy".
+		/// </summary>
+		public static readonly Emoji FemaleFairy_Medium = new Emoji(
+			"1F9DA-1F3FD-200D-2640-FE0F",
+			null,
+			"🧚🏽‍♀️",
+			"female_fairy",
+			new []{ "female_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			51,
+			SkinVariationType.Medium,
+			"woman fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "woman fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_fairy".
+		/// </summary>
+		public static readonly Emoji FemaleFairy_MediumDark = new Emoji(
+			"1F9DA-1F3FE-200D-2640-FE0F",
+			null,
+			"🧚🏾‍♀️",
+			"female_fairy",
+			new []{ "female_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			0,
+			SkinVariationType.MediumDark,
+			"woman fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "woman fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_fairy".
+		/// </summary>
+		public static readonly Emoji FemaleFairy_Dark = new Emoji(
+			"1F9DA-1F3FF-200D-2640-FE0F",
+			null,
+			"🧚🏿‍♀️",
+			"female_fairy",
+			new []{ "female_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			1,
+			SkinVariationType.Dark,
 			"woman fairy",
 			new []{ "fairy", "Oberon", "Puck", "Titania", "woman fairy"});
 		/// <summary>
@@ -2856,6 +8983,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			45,
 			2,
+			SkinVariationType.None,
+			"man fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "man fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_fairy".
+		/// </summary>
+		public static readonly Emoji MaleFairy_Light = new Emoji(
+			"1F9DA-1F3FB-200D-2642-FE0F",
+			null,
+			"🧚🏻‍♂️",
+			"male_fairy",
+			new []{ "male_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			3,
+			SkinVariationType.Light,
+			"man fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "man fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_fairy".
+		/// </summary>
+		public static readonly Emoji MaleFairy_MediumLight = new Emoji(
+			"1F9DA-1F3FC-200D-2642-FE0F",
+			null,
+			"🧚🏼‍♂️",
+			"male_fairy",
+			new []{ "male_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			4,
+			SkinVariationType.MediumLight,
+			"man fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "man fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_fairy".
+		/// </summary>
+		public static readonly Emoji MaleFairy_Medium = new Emoji(
+			"1F9DA-1F3FD-200D-2642-FE0F",
+			null,
+			"🧚🏽‍♂️",
+			"male_fairy",
+			new []{ "male_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			5,
+			SkinVariationType.Medium,
+			"man fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "man fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_fairy".
+		/// </summary>
+		public static readonly Emoji MaleFairy_MediumDark = new Emoji(
+			"1F9DA-1F3FE-200D-2642-FE0F",
+			null,
+			"🧚🏾‍♂️",
+			"male_fairy",
+			new []{ "male_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			6,
+			SkinVariationType.MediumDark,
+			"man fairy",
+			new []{ "fairy", "Oberon", "Puck", "Titania", "man fairy"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_fairy".
+		/// </summary>
+		public static readonly Emoji MaleFairy_Dark = new Emoji(
+			"1F9DA-1F3FF-200D-2642-FE0F",
+			null,
+			"🧚🏿‍♂️",
+			"male_fairy",
+			new []{ "male_fairy"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			7,
+			SkinVariationType.Dark,
 			"man fairy",
 			new []{ "fairy", "Oberon", "Puck", "Titania", "man fairy"});
 		/// <summary>
@@ -2872,6 +9085,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			45,
 			14,
+			SkinVariationType.None,
+			"woman vampire",
+			new []{ "Dracula", "undead", "vampire", "woman vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_vampire".
+		/// </summary>
+		public static readonly Emoji FemaleVampire_Light = new Emoji(
+			"1F9DB-1F3FB-200D-2640-FE0F",
+			null,
+			"🧛🏻‍♀️",
+			"female_vampire",
+			new []{ "female_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			15,
+			SkinVariationType.Light,
+			"woman vampire",
+			new []{ "Dracula", "undead", "vampire", "woman vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_vampire".
+		/// </summary>
+		public static readonly Emoji FemaleVampire_MediumLight = new Emoji(
+			"1F9DB-1F3FC-200D-2640-FE0F",
+			null,
+			"🧛🏼‍♀️",
+			"female_vampire",
+			new []{ "female_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			16,
+			SkinVariationType.MediumLight,
+			"woman vampire",
+			new []{ "Dracula", "undead", "vampire", "woman vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_vampire".
+		/// </summary>
+		public static readonly Emoji FemaleVampire_Medium = new Emoji(
+			"1F9DB-1F3FD-200D-2640-FE0F",
+			null,
+			"🧛🏽‍♀️",
+			"female_vampire",
+			new []{ "female_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			17,
+			SkinVariationType.Medium,
+			"woman vampire",
+			new []{ "Dracula", "undead", "vampire", "woman vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_vampire".
+		/// </summary>
+		public static readonly Emoji FemaleVampire_MediumDark = new Emoji(
+			"1F9DB-1F3FE-200D-2640-FE0F",
+			null,
+			"🧛🏾‍♀️",
+			"female_vampire",
+			new []{ "female_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			18,
+			SkinVariationType.MediumDark,
+			"woman vampire",
+			new []{ "Dracula", "undead", "vampire", "woman vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_vampire".
+		/// </summary>
+		public static readonly Emoji FemaleVampire_Dark = new Emoji(
+			"1F9DB-1F3FF-200D-2640-FE0F",
+			null,
+			"🧛🏿‍♀️",
+			"female_vampire",
+			new []{ "female_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			19,
+			SkinVariationType.Dark,
 			"woman vampire",
 			new []{ "Dracula", "undead", "vampire", "woman vampire"});
 		/// <summary>
@@ -2888,6 +9187,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			45,
 			20,
+			SkinVariationType.None,
+			"man vampire",
+			new []{ "Dracula", "undead", "vampire", "man vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_vampire".
+		/// </summary>
+		public static readonly Emoji MaleVampire_Light = new Emoji(
+			"1F9DB-1F3FB-200D-2642-FE0F",
+			null,
+			"🧛🏻‍♂️",
+			"male_vampire",
+			new []{ "male_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			21,
+			SkinVariationType.Light,
+			"man vampire",
+			new []{ "Dracula", "undead", "vampire", "man vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_vampire".
+		/// </summary>
+		public static readonly Emoji MaleVampire_MediumLight = new Emoji(
+			"1F9DB-1F3FC-200D-2642-FE0F",
+			null,
+			"🧛🏼‍♂️",
+			"male_vampire",
+			new []{ "male_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			22,
+			SkinVariationType.MediumLight,
+			"man vampire",
+			new []{ "Dracula", "undead", "vampire", "man vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_vampire".
+		/// </summary>
+		public static readonly Emoji MaleVampire_Medium = new Emoji(
+			"1F9DB-1F3FD-200D-2642-FE0F",
+			null,
+			"🧛🏽‍♂️",
+			"male_vampire",
+			new []{ "male_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			23,
+			SkinVariationType.Medium,
+			"man vampire",
+			new []{ "Dracula", "undead", "vampire", "man vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_vampire".
+		/// </summary>
+		public static readonly Emoji MaleVampire_MediumDark = new Emoji(
+			"1F9DB-1F3FE-200D-2642-FE0F",
+			null,
+			"🧛🏾‍♂️",
+			"male_vampire",
+			new []{ "male_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			24,
+			SkinVariationType.MediumDark,
+			"man vampire",
+			new []{ "Dracula", "undead", "vampire", "man vampire"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_vampire".
+		/// </summary>
+		public static readonly Emoji MaleVampire_Dark = new Emoji(
+			"1F9DB-1F3FF-200D-2642-FE0F",
+			null,
+			"🧛🏿‍♂️",
+			"male_vampire",
+			new []{ "male_vampire"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			25,
+			SkinVariationType.Dark,
 			"man vampire",
 			new []{ "Dracula", "undead", "vampire", "man vampire"});
 		/// <summary>
@@ -2904,6 +9289,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			45,
 			32,
+			SkinVariationType.None,
+			"mermaid",
+			new []{ "mermaid", "merman", "merperson", "merwoman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mermaid".
+		/// </summary>
+		public static readonly Emoji Mermaid_Light = new Emoji(
+			"1F9DC-1F3FB-200D-2640-FE0F",
+			null,
+			"🧜🏻‍♀️",
+			"mermaid",
+			new []{ "mermaid"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			33,
+			SkinVariationType.Light,
+			"mermaid",
+			new []{ "mermaid", "merman", "merperson", "merwoman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mermaid".
+		/// </summary>
+		public static readonly Emoji Mermaid_MediumLight = new Emoji(
+			"1F9DC-1F3FC-200D-2640-FE0F",
+			null,
+			"🧜🏼‍♀️",
+			"mermaid",
+			new []{ "mermaid"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			34,
+			SkinVariationType.MediumLight,
+			"mermaid",
+			new []{ "mermaid", "merman", "merperson", "merwoman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mermaid".
+		/// </summary>
+		public static readonly Emoji Mermaid_Medium = new Emoji(
+			"1F9DC-1F3FD-200D-2640-FE0F",
+			null,
+			"🧜🏽‍♀️",
+			"mermaid",
+			new []{ "mermaid"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			35,
+			SkinVariationType.Medium,
+			"mermaid",
+			new []{ "mermaid", "merman", "merperson", "merwoman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mermaid".
+		/// </summary>
+		public static readonly Emoji Mermaid_MediumDark = new Emoji(
+			"1F9DC-1F3FE-200D-2640-FE0F",
+			null,
+			"🧜🏾‍♀️",
+			"mermaid",
+			new []{ "mermaid"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			36,
+			SkinVariationType.MediumDark,
+			"mermaid",
+			new []{ "mermaid", "merman", "merperson", "merwoman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "mermaid".
+		/// </summary>
+		public static readonly Emoji Mermaid_Dark = new Emoji(
+			"1F9DC-1F3FF-200D-2640-FE0F",
+			null,
+			"🧜🏿‍♀️",
+			"mermaid",
+			new []{ "mermaid"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			37,
+			SkinVariationType.Dark,
 			"mermaid",
 			new []{ "mermaid", "merman", "merperson", "merwoman"});
 		/// <summary>
@@ -2920,6 +9391,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			45,
 			38,
+			SkinVariationType.None,
+			"merman",
+			new []{ "mermaid", "merman", "merperson", "merwoman", "Triton"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "merman".
+		/// </summary>
+		public static readonly Emoji Merman_Light = new Emoji(
+			"1F9DC-1F3FB-200D-2642-FE0F",
+			null,
+			"🧜🏻‍♂️",
+			"merman",
+			new []{ "merman"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			39,
+			SkinVariationType.Light,
+			"merman",
+			new []{ "mermaid", "merman", "merperson", "merwoman", "Triton"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "merman".
+		/// </summary>
+		public static readonly Emoji Merman_MediumLight = new Emoji(
+			"1F9DC-1F3FC-200D-2642-FE0F",
+			null,
+			"🧜🏼‍♂️",
+			"merman",
+			new []{ "merman"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			40,
+			SkinVariationType.MediumLight,
+			"merman",
+			new []{ "mermaid", "merman", "merperson", "merwoman", "Triton"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "merman".
+		/// </summary>
+		public static readonly Emoji Merman_Medium = new Emoji(
+			"1F9DC-1F3FD-200D-2642-FE0F",
+			null,
+			"🧜🏽‍♂️",
+			"merman",
+			new []{ "merman"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			41,
+			SkinVariationType.Medium,
+			"merman",
+			new []{ "mermaid", "merman", "merperson", "merwoman", "Triton"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "merman".
+		/// </summary>
+		public static readonly Emoji Merman_MediumDark = new Emoji(
+			"1F9DC-1F3FE-200D-2642-FE0F",
+			null,
+			"🧜🏾‍♂️",
+			"merman",
+			new []{ "merman"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			42,
+			SkinVariationType.MediumDark,
+			"merman",
+			new []{ "mermaid", "merman", "merperson", "merwoman", "Triton"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "merman".
+		/// </summary>
+		public static readonly Emoji Merman_Dark = new Emoji(
+			"1F9DC-1F3FF-200D-2642-FE0F",
+			null,
+			"🧜🏿‍♂️",
+			"merman",
+			new []{ "merman"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			43,
+			SkinVariationType.Dark,
 			"merman",
 			new []{ "mermaid", "merman", "merperson", "merwoman", "Triton"});
 		/// <summary>
@@ -2936,6 +9493,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			45,
 			50,
+			SkinVariationType.None,
+			"woman elf",
+			new []{ "elf", "magical", "woman elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_elf".
+		/// </summary>
+		public static readonly Emoji FemaleElf_Light = new Emoji(
+			"1F9DD-1F3FB-200D-2640-FE0F",
+			null,
+			"🧝🏻‍♀️",
+			"female_elf",
+			new []{ "female_elf"},
+			null,
+			null,
+			"Smileys & People",
+			45,
+			51,
+			SkinVariationType.Light,
+			"woman elf",
+			new []{ "elf", "magical", "woman elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_elf".
+		/// </summary>
+		public static readonly Emoji FemaleElf_MediumLight = new Emoji(
+			"1F9DD-1F3FC-200D-2640-FE0F",
+			null,
+			"🧝🏼‍♀️",
+			"female_elf",
+			new []{ "female_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			0,
+			SkinVariationType.MediumLight,
+			"woman elf",
+			new []{ "elf", "magical", "woman elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_elf".
+		/// </summary>
+		public static readonly Emoji FemaleElf_Medium = new Emoji(
+			"1F9DD-1F3FD-200D-2640-FE0F",
+			null,
+			"🧝🏽‍♀️",
+			"female_elf",
+			new []{ "female_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			1,
+			SkinVariationType.Medium,
+			"woman elf",
+			new []{ "elf", "magical", "woman elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_elf".
+		/// </summary>
+		public static readonly Emoji FemaleElf_MediumDark = new Emoji(
+			"1F9DD-1F3FE-200D-2640-FE0F",
+			null,
+			"🧝🏾‍♀️",
+			"female_elf",
+			new []{ "female_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			2,
+			SkinVariationType.MediumDark,
+			"woman elf",
+			new []{ "elf", "magical", "woman elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "female_elf".
+		/// </summary>
+		public static readonly Emoji FemaleElf_Dark = new Emoji(
+			"1F9DD-1F3FF-200D-2640-FE0F",
+			null,
+			"🧝🏿‍♀️",
+			"female_elf",
+			new []{ "female_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			3,
+			SkinVariationType.Dark,
 			"woman elf",
 			new []{ "elf", "magical", "woman elf"});
 		/// <summary>
@@ -2952,6 +9595,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			4,
+			SkinVariationType.None,
+			"man elf",
+			new []{ "elf", "magical", "man elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_elf".
+		/// </summary>
+		public static readonly Emoji MaleElf_Light = new Emoji(
+			"1F9DD-1F3FB-200D-2642-FE0F",
+			null,
+			"🧝🏻‍♂️",
+			"male_elf",
+			new []{ "male_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			5,
+			SkinVariationType.Light,
+			"man elf",
+			new []{ "elf", "magical", "man elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_elf".
+		/// </summary>
+		public static readonly Emoji MaleElf_MediumLight = new Emoji(
+			"1F9DD-1F3FC-200D-2642-FE0F",
+			null,
+			"🧝🏼‍♂️",
+			"male_elf",
+			new []{ "male_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			6,
+			SkinVariationType.MediumLight,
+			"man elf",
+			new []{ "elf", "magical", "man elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_elf".
+		/// </summary>
+		public static readonly Emoji MaleElf_Medium = new Emoji(
+			"1F9DD-1F3FD-200D-2642-FE0F",
+			null,
+			"🧝🏽‍♂️",
+			"male_elf",
+			new []{ "male_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			7,
+			SkinVariationType.Medium,
+			"man elf",
+			new []{ "elf", "magical", "man elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_elf".
+		/// </summary>
+		public static readonly Emoji MaleElf_MediumDark = new Emoji(
+			"1F9DD-1F3FE-200D-2642-FE0F",
+			null,
+			"🧝🏾‍♂️",
+			"male_elf",
+			new []{ "male_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			8,
+			SkinVariationType.MediumDark,
+			"man elf",
+			new []{ "elf", "magical", "man elf"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "male_elf".
+		/// </summary>
+		public static readonly Emoji MaleElf_Dark = new Emoji(
+			"1F9DD-1F3FF-200D-2642-FE0F",
+			null,
+			"🧝🏿‍♂️",
+			"male_elf",
+			new []{ "male_elf"},
+			null,
+			null,
+			"Smileys & People",
+			46,
+			9,
+			SkinVariationType.Dark,
 			"man elf",
 			new []{ "elf", "magical", "man elf"});
 		/// <summary>
@@ -2968,6 +9697,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			16,
+			SkinVariationType.None,
 			"woman genie",
 			new []{ "djinn", "genie", "woman genie"});
 		/// <summary>
@@ -2984,6 +9714,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			17,
+			SkinVariationType.None,
 			"man genie",
 			new []{ "djinn", "genie", "man genie"});
 		/// <summary>
@@ -3000,6 +9731,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			19,
+			SkinVariationType.None,
 			"woman zombie",
 			new []{ "undead", "walking dead", "zombie", "woman zombie"});
 		/// <summary>
@@ -3016,6 +9748,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			20,
+			SkinVariationType.None,
 			"man zombie",
 			new []{ "undead", "walking dead", "zombie", "man zombie"});
 		/// <summary>
@@ -3032,6 +9765,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			33,
 			24,
+			SkinVariationType.None,
+			"man frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-frowning".
+		/// </summary>
+		public static readonly Emoji ManFrowning_Light = new Emoji(
+			"1F64D-1F3FB-200D-2642-FE0F",
+			null,
+			"🙍🏻‍♂️",
+			"man-frowning",
+			new []{ "man-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			25,
+			SkinVariationType.Light,
+			"man frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-frowning".
+		/// </summary>
+		public static readonly Emoji ManFrowning_MediumLight = new Emoji(
+			"1F64D-1F3FC-200D-2642-FE0F",
+			null,
+			"🙍🏼‍♂️",
+			"man-frowning",
+			new []{ "man-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			26,
+			SkinVariationType.MediumLight,
+			"man frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-frowning".
+		/// </summary>
+		public static readonly Emoji ManFrowning_Medium = new Emoji(
+			"1F64D-1F3FD-200D-2642-FE0F",
+			null,
+			"🙍🏽‍♂️",
+			"man-frowning",
+			new []{ "man-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			27,
+			SkinVariationType.Medium,
+			"man frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-frowning".
+		/// </summary>
+		public static readonly Emoji ManFrowning_MediumDark = new Emoji(
+			"1F64D-1F3FE-200D-2642-FE0F",
+			null,
+			"🙍🏾‍♂️",
+			"man-frowning",
+			new []{ "man-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			28,
+			SkinVariationType.MediumDark,
+			"man frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-frowning".
+		/// </summary>
+		public static readonly Emoji ManFrowning_Dark = new Emoji(
+			"1F64D-1F3FF-200D-2642-FE0F",
+			null,
+			"🙍🏿‍♂️",
+			"man-frowning",
+			new []{ "man-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			29,
+			SkinVariationType.Dark,
 			"man frowning",
 			new []{ "frown", "gesture", "person frowning", "frowning", "man"});
 		/// <summary>
@@ -3048,6 +9867,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			33,
 			18,
+			SkinVariationType.None,
+			"woman frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-frowning".
+		/// </summary>
+		public static readonly Emoji WomanFrowning_Light = new Emoji(
+			"1F64D-1F3FB-200D-2640-FE0F",
+			null,
+			"🙍🏻‍♀️",
+			"woman-frowning",
+			new []{ "woman-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			19,
+			SkinVariationType.Light,
+			"woman frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-frowning".
+		/// </summary>
+		public static readonly Emoji WomanFrowning_MediumLight = new Emoji(
+			"1F64D-1F3FC-200D-2640-FE0F",
+			null,
+			"🙍🏼‍♀️",
+			"woman-frowning",
+			new []{ "woman-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			20,
+			SkinVariationType.MediumLight,
+			"woman frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-frowning".
+		/// </summary>
+		public static readonly Emoji WomanFrowning_Medium = new Emoji(
+			"1F64D-1F3FD-200D-2640-FE0F",
+			null,
+			"🙍🏽‍♀️",
+			"woman-frowning",
+			new []{ "woman-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			21,
+			SkinVariationType.Medium,
+			"woman frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-frowning".
+		/// </summary>
+		public static readonly Emoji WomanFrowning_MediumDark = new Emoji(
+			"1F64D-1F3FE-200D-2640-FE0F",
+			null,
+			"🙍🏾‍♀️",
+			"woman-frowning",
+			new []{ "woman-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			22,
+			SkinVariationType.MediumDark,
+			"woman frowning",
+			new []{ "frown", "gesture", "person frowning", "frowning", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-frowning".
+		/// </summary>
+		public static readonly Emoji WomanFrowning_Dark = new Emoji(
+			"1F64D-1F3FF-200D-2640-FE0F",
+			null,
+			"🙍🏿‍♀️",
+			"woman-frowning",
+			new []{ "woman-frowning"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			23,
+			SkinVariationType.Dark,
 			"woman frowning",
 			new []{ "frown", "gesture", "person frowning", "frowning", "woman"});
 		/// <summary>
@@ -3064,6 +9969,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			33,
 			42,
+			SkinVariationType.None,
+			"man pouting",
+			new []{ "gesture", "person pouting", "pouting", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-pouting".
+		/// </summary>
+		public static readonly Emoji ManPouting_Light = new Emoji(
+			"1F64E-1F3FB-200D-2642-FE0F",
+			null,
+			"🙎🏻‍♂️",
+			"man-pouting",
+			new []{ "man-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			43,
+			SkinVariationType.Light,
+			"man pouting",
+			new []{ "gesture", "person pouting", "pouting", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-pouting".
+		/// </summary>
+		public static readonly Emoji ManPouting_MediumLight = new Emoji(
+			"1F64E-1F3FC-200D-2642-FE0F",
+			null,
+			"🙎🏼‍♂️",
+			"man-pouting",
+			new []{ "man-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			44,
+			SkinVariationType.MediumLight,
+			"man pouting",
+			new []{ "gesture", "person pouting", "pouting", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-pouting".
+		/// </summary>
+		public static readonly Emoji ManPouting_Medium = new Emoji(
+			"1F64E-1F3FD-200D-2642-FE0F",
+			null,
+			"🙎🏽‍♂️",
+			"man-pouting",
+			new []{ "man-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			45,
+			SkinVariationType.Medium,
+			"man pouting",
+			new []{ "gesture", "person pouting", "pouting", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-pouting".
+		/// </summary>
+		public static readonly Emoji ManPouting_MediumDark = new Emoji(
+			"1F64E-1F3FE-200D-2642-FE0F",
+			null,
+			"🙎🏾‍♂️",
+			"man-pouting",
+			new []{ "man-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			46,
+			SkinVariationType.MediumDark,
+			"man pouting",
+			new []{ "gesture", "person pouting", "pouting", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-pouting".
+		/// </summary>
+		public static readonly Emoji ManPouting_Dark = new Emoji(
+			"1F64E-1F3FF-200D-2642-FE0F",
+			null,
+			"🙎🏿‍♂️",
+			"man-pouting",
+			new []{ "man-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			47,
+			SkinVariationType.Dark,
 			"man pouting",
 			new []{ "gesture", "person pouting", "pouting", "man"});
 		/// <summary>
@@ -3080,6 +10071,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			33,
 			36,
+			SkinVariationType.None,
+			"woman pouting",
+			new []{ "gesture", "person pouting", "pouting", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-pouting".
+		/// </summary>
+		public static readonly Emoji WomanPouting_Light = new Emoji(
+			"1F64E-1F3FB-200D-2640-FE0F",
+			null,
+			"🙎🏻‍♀️",
+			"woman-pouting",
+			new []{ "woman-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			37,
+			SkinVariationType.Light,
+			"woman pouting",
+			new []{ "gesture", "person pouting", "pouting", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-pouting".
+		/// </summary>
+		public static readonly Emoji WomanPouting_MediumLight = new Emoji(
+			"1F64E-1F3FC-200D-2640-FE0F",
+			null,
+			"🙎🏼‍♀️",
+			"woman-pouting",
+			new []{ "woman-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			38,
+			SkinVariationType.MediumLight,
+			"woman pouting",
+			new []{ "gesture", "person pouting", "pouting", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-pouting".
+		/// </summary>
+		public static readonly Emoji WomanPouting_Medium = new Emoji(
+			"1F64E-1F3FD-200D-2640-FE0F",
+			null,
+			"🙎🏽‍♀️",
+			"woman-pouting",
+			new []{ "woman-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			39,
+			SkinVariationType.Medium,
+			"woman pouting",
+			new []{ "gesture", "person pouting", "pouting", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-pouting".
+		/// </summary>
+		public static readonly Emoji WomanPouting_MediumDark = new Emoji(
+			"1F64E-1F3FE-200D-2640-FE0F",
+			null,
+			"🙎🏾‍♀️",
+			"woman-pouting",
+			new []{ "woman-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			40,
+			SkinVariationType.MediumDark,
+			"woman pouting",
+			new []{ "gesture", "person pouting", "pouting", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-pouting".
+		/// </summary>
+		public static readonly Emoji WomanPouting_Dark = new Emoji(
+			"1F64E-1F3FF-200D-2640-FE0F",
+			null,
+			"🙎🏿‍♀️",
+			"woman-pouting",
+			new []{ "woman-pouting"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			41,
+			SkinVariationType.Dark,
 			"woman pouting",
 			new []{ "gesture", "person pouting", "pouting", "woman"});
 		/// <summary>
@@ -3096,6 +10173,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			47,
+			SkinVariationType.None,
+			"man gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "man", "man gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-no".
+		/// </summary>
+		public static readonly Emoji ManGesturingNo_Light = new Emoji(
+			"1F645-1F3FB-200D-2642-FE0F",
+			null,
+			"🙅🏻‍♂️",
+			"man-gesturing-no",
+			new []{ "man-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			48,
+			SkinVariationType.Light,
+			"man gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "man", "man gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-no".
+		/// </summary>
+		public static readonly Emoji ManGesturingNo_MediumLight = new Emoji(
+			"1F645-1F3FC-200D-2642-FE0F",
+			null,
+			"🙅🏼‍♂️",
+			"man-gesturing-no",
+			new []{ "man-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			49,
+			SkinVariationType.MediumLight,
+			"man gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "man", "man gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-no".
+		/// </summary>
+		public static readonly Emoji ManGesturingNo_Medium = new Emoji(
+			"1F645-1F3FD-200D-2642-FE0F",
+			null,
+			"🙅🏽‍♂️",
+			"man-gesturing-no",
+			new []{ "man-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			50,
+			SkinVariationType.Medium,
+			"man gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "man", "man gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-no".
+		/// </summary>
+		public static readonly Emoji ManGesturingNo_MediumDark = new Emoji(
+			"1F645-1F3FE-200D-2642-FE0F",
+			null,
+			"🙅🏾‍♂️",
+			"man-gesturing-no",
+			new []{ "man-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			51,
+			SkinVariationType.MediumDark,
+			"man gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "man", "man gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-no".
+		/// </summary>
+		public static readonly Emoji ManGesturingNo_Dark = new Emoji(
+			"1F645-1F3FF-200D-2642-FE0F",
+			null,
+			"🙅🏿‍♂️",
+			"man-gesturing-no",
+			new []{ "man-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			0,
+			SkinVariationType.Dark,
 			"man gesturing NO",
 			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "man", "man gesturing NO"});
 		/// <summary>
@@ -3112,6 +10275,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			31,
 			41,
+			SkinVariationType.None,
+			"woman gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "woman", "woman gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-no".
+		/// </summary>
+		public static readonly Emoji WomanGesturingNo_Light = new Emoji(
+			"1F645-1F3FB-200D-2640-FE0F",
+			null,
+			"🙅🏻‍♀️",
+			"woman-gesturing-no",
+			new []{ "woman-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			42,
+			SkinVariationType.Light,
+			"woman gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "woman", "woman gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-no".
+		/// </summary>
+		public static readonly Emoji WomanGesturingNo_MediumLight = new Emoji(
+			"1F645-1F3FC-200D-2640-FE0F",
+			null,
+			"🙅🏼‍♀️",
+			"woman-gesturing-no",
+			new []{ "woman-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			43,
+			SkinVariationType.MediumLight,
+			"woman gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "woman", "woman gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-no".
+		/// </summary>
+		public static readonly Emoji WomanGesturingNo_Medium = new Emoji(
+			"1F645-1F3FD-200D-2640-FE0F",
+			null,
+			"🙅🏽‍♀️",
+			"woman-gesturing-no",
+			new []{ "woman-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			44,
+			SkinVariationType.Medium,
+			"woman gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "woman", "woman gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-no".
+		/// </summary>
+		public static readonly Emoji WomanGesturingNo_MediumDark = new Emoji(
+			"1F645-1F3FE-200D-2640-FE0F",
+			null,
+			"🙅🏾‍♀️",
+			"woman-gesturing-no",
+			new []{ "woman-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			45,
+			SkinVariationType.MediumDark,
+			"woman gesturing NO",
+			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "woman", "woman gesturing NO"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-no".
+		/// </summary>
+		public static readonly Emoji WomanGesturingNo_Dark = new Emoji(
+			"1F645-1F3FF-200D-2640-FE0F",
+			null,
+			"🙅🏿‍♀️",
+			"woman-gesturing-no",
+			new []{ "woman-gesturing-no"},
+			null,
+			null,
+			"Smileys & People",
+			31,
+			46,
+			SkinVariationType.Dark,
 			"woman gesturing NO",
 			new []{ "forbidden", "gesture", "hand", "no", "not", "person gesturing NO", "prohibited", "woman", "woman gesturing NO"});
 		/// <summary>
@@ -3128,6 +10377,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			32,
 			13,
+			SkinVariationType.None,
+			"man gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "man", "man gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji ManGesturingOk_Light = new Emoji(
+			"1F646-1F3FB-200D-2642-FE0F",
+			null,
+			"🙆🏻‍♂️",
+			"man-gesturing-ok",
+			new []{ "man-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			14,
+			SkinVariationType.Light,
+			"man gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "man", "man gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji ManGesturingOk_MediumLight = new Emoji(
+			"1F646-1F3FC-200D-2642-FE0F",
+			null,
+			"🙆🏼‍♂️",
+			"man-gesturing-ok",
+			new []{ "man-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			15,
+			SkinVariationType.MediumLight,
+			"man gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "man", "man gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji ManGesturingOk_Medium = new Emoji(
+			"1F646-1F3FD-200D-2642-FE0F",
+			null,
+			"🙆🏽‍♂️",
+			"man-gesturing-ok",
+			new []{ "man-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			16,
+			SkinVariationType.Medium,
+			"man gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "man", "man gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji ManGesturingOk_MediumDark = new Emoji(
+			"1F646-1F3FE-200D-2642-FE0F",
+			null,
+			"🙆🏾‍♂️",
+			"man-gesturing-ok",
+			new []{ "man-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			17,
+			SkinVariationType.MediumDark,
+			"man gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "man", "man gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji ManGesturingOk_Dark = new Emoji(
+			"1F646-1F3FF-200D-2642-FE0F",
+			null,
+			"🙆🏿‍♂️",
+			"man-gesturing-ok",
+			new []{ "man-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			18,
+			SkinVariationType.Dark,
 			"man gesturing OK",
 			new []{ "gesture", "hand", "OK", "person gesturing OK", "man", "man gesturing OK"});
 		/// <summary>
@@ -3144,6 +10479,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			32,
 			7,
+			SkinVariationType.None,
+			"woman gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "woman", "woman gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji WomanGesturingOk_Light = new Emoji(
+			"1F646-1F3FB-200D-2640-FE0F",
+			null,
+			"🙆🏻‍♀️",
+			"woman-gesturing-ok",
+			new []{ "woman-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			8,
+			SkinVariationType.Light,
+			"woman gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "woman", "woman gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji WomanGesturingOk_MediumLight = new Emoji(
+			"1F646-1F3FC-200D-2640-FE0F",
+			null,
+			"🙆🏼‍♀️",
+			"woman-gesturing-ok",
+			new []{ "woman-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			9,
+			SkinVariationType.MediumLight,
+			"woman gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "woman", "woman gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji WomanGesturingOk_Medium = new Emoji(
+			"1F646-1F3FD-200D-2640-FE0F",
+			null,
+			"🙆🏽‍♀️",
+			"woman-gesturing-ok",
+			new []{ "woman-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			10,
+			SkinVariationType.Medium,
+			"woman gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "woman", "woman gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji WomanGesturingOk_MediumDark = new Emoji(
+			"1F646-1F3FE-200D-2640-FE0F",
+			null,
+			"🙆🏾‍♀️",
+			"woman-gesturing-ok",
+			new []{ "woman-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			11,
+			SkinVariationType.MediumDark,
+			"woman gesturing OK",
+			new []{ "gesture", "hand", "OK", "person gesturing OK", "woman", "woman gesturing OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-gesturing-ok".
+		/// </summary>
+		public static readonly Emoji WomanGesturingOk_Dark = new Emoji(
+			"1F646-1F3FF-200D-2640-FE0F",
+			null,
+			"🙆🏿‍♀️",
+			"woman-gesturing-ok",
+			new []{ "woman-gesturing-ok"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			12,
+			SkinVariationType.Dark,
 			"woman gesturing OK",
 			new []{ "gesture", "hand", "OK", "person gesturing OK", "woman", "woman gesturing OK"});
 		/// <summary>
@@ -3160,6 +10581,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			7,
+			SkinVariationType.None,
+			"man tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "man", "man tipping hand", "tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-tipping-hand".
+		/// </summary>
+		public static readonly Emoji ManTippingHand_Light = new Emoji(
+			"1F481-1F3FB-200D-2642-FE0F",
+			null,
+			"💁🏻‍♂️",
+			"man-tipping-hand",
+			new []{ "man-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			8,
+			SkinVariationType.Light,
+			"man tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "man", "man tipping hand", "tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-tipping-hand".
+		/// </summary>
+		public static readonly Emoji ManTippingHand_MediumLight = new Emoji(
+			"1F481-1F3FC-200D-2642-FE0F",
+			null,
+			"💁🏼‍♂️",
+			"man-tipping-hand",
+			new []{ "man-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			9,
+			SkinVariationType.MediumLight,
+			"man tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "man", "man tipping hand", "tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-tipping-hand".
+		/// </summary>
+		public static readonly Emoji ManTippingHand_Medium = new Emoji(
+			"1F481-1F3FD-200D-2642-FE0F",
+			null,
+			"💁🏽‍♂️",
+			"man-tipping-hand",
+			new []{ "man-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			10,
+			SkinVariationType.Medium,
+			"man tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "man", "man tipping hand", "tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-tipping-hand".
+		/// </summary>
+		public static readonly Emoji ManTippingHand_MediumDark = new Emoji(
+			"1F481-1F3FE-200D-2642-FE0F",
+			null,
+			"💁🏾‍♂️",
+			"man-tipping-hand",
+			new []{ "man-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			11,
+			SkinVariationType.MediumDark,
+			"man tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "man", "man tipping hand", "tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-tipping-hand".
+		/// </summary>
+		public static readonly Emoji ManTippingHand_Dark = new Emoji(
+			"1F481-1F3FF-200D-2642-FE0F",
+			null,
+			"💁🏿‍♂️",
+			"man-tipping-hand",
+			new []{ "man-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			12,
+			SkinVariationType.Dark,
 			"man tipping hand",
 			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "man", "man tipping hand", "tipping hand"});
 		/// <summary>
@@ -3176,6 +10683,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			1,
+			SkinVariationType.None,
+			"woman tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "tipping hand", "woman", "woman tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-tipping-hand".
+		/// </summary>
+		public static readonly Emoji WomanTippingHand_Light = new Emoji(
+			"1F481-1F3FB-200D-2640-FE0F",
+			null,
+			"💁🏻‍♀️",
+			"woman-tipping-hand",
+			new []{ "woman-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			2,
+			SkinVariationType.Light,
+			"woman tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "tipping hand", "woman", "woman tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-tipping-hand".
+		/// </summary>
+		public static readonly Emoji WomanTippingHand_MediumLight = new Emoji(
+			"1F481-1F3FC-200D-2640-FE0F",
+			null,
+			"💁🏼‍♀️",
+			"woman-tipping-hand",
+			new []{ "woman-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			3,
+			SkinVariationType.MediumLight,
+			"woman tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "tipping hand", "woman", "woman tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-tipping-hand".
+		/// </summary>
+		public static readonly Emoji WomanTippingHand_Medium = new Emoji(
+			"1F481-1F3FD-200D-2640-FE0F",
+			null,
+			"💁🏽‍♀️",
+			"woman-tipping-hand",
+			new []{ "woman-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			4,
+			SkinVariationType.Medium,
+			"woman tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "tipping hand", "woman", "woman tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-tipping-hand".
+		/// </summary>
+		public static readonly Emoji WomanTippingHand_MediumDark = new Emoji(
+			"1F481-1F3FE-200D-2640-FE0F",
+			null,
+			"💁🏾‍♀️",
+			"woman-tipping-hand",
+			new []{ "woman-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			5,
+			SkinVariationType.MediumDark,
+			"woman tipping hand",
+			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "tipping hand", "woman", "woman tipping hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-tipping-hand".
+		/// </summary>
+		public static readonly Emoji WomanTippingHand_Dark = new Emoji(
+			"1F481-1F3FF-200D-2640-FE0F",
+			null,
+			"💁🏿‍♀️",
+			"woman-tipping-hand",
+			new []{ "woman-tipping-hand"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			6,
+			SkinVariationType.Dark,
 			"woman tipping hand",
 			new []{ "hand", "help", "information", "person tipping hand", "sassy", "tipping", "tipping hand", "woman", "woman tipping hand"});
 		/// <summary>
@@ -3192,6 +10785,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			33,
 			0,
+			SkinVariationType.None,
+			"man raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "man", "man raising hand", "raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-raising-hand".
+		/// </summary>
+		public static readonly Emoji ManRaisingHand_Light = new Emoji(
+			"1F64B-1F3FB-200D-2642-FE0F",
+			null,
+			"🙋🏻‍♂️",
+			"man-raising-hand",
+			new []{ "man-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			1,
+			SkinVariationType.Light,
+			"man raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "man", "man raising hand", "raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-raising-hand".
+		/// </summary>
+		public static readonly Emoji ManRaisingHand_MediumLight = new Emoji(
+			"1F64B-1F3FC-200D-2642-FE0F",
+			null,
+			"🙋🏼‍♂️",
+			"man-raising-hand",
+			new []{ "man-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			2,
+			SkinVariationType.MediumLight,
+			"man raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "man", "man raising hand", "raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-raising-hand".
+		/// </summary>
+		public static readonly Emoji ManRaisingHand_Medium = new Emoji(
+			"1F64B-1F3FD-200D-2642-FE0F",
+			null,
+			"🙋🏽‍♂️",
+			"man-raising-hand",
+			new []{ "man-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			3,
+			SkinVariationType.Medium,
+			"man raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "man", "man raising hand", "raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-raising-hand".
+		/// </summary>
+		public static readonly Emoji ManRaisingHand_MediumDark = new Emoji(
+			"1F64B-1F3FE-200D-2642-FE0F",
+			null,
+			"🙋🏾‍♂️",
+			"man-raising-hand",
+			new []{ "man-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			4,
+			SkinVariationType.MediumDark,
+			"man raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "man", "man raising hand", "raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-raising-hand".
+		/// </summary>
+		public static readonly Emoji ManRaisingHand_Dark = new Emoji(
+			"1F64B-1F3FF-200D-2642-FE0F",
+			null,
+			"🙋🏿‍♂️",
+			"man-raising-hand",
+			new []{ "man-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			5,
+			SkinVariationType.Dark,
 			"man raising hand",
 			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "man", "man raising hand", "raising hand"});
 		/// <summary>
@@ -3208,6 +10887,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			32,
 			46,
+			SkinVariationType.None,
+			"woman raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "raising hand", "woman", "woman raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-raising-hand".
+		/// </summary>
+		public static readonly Emoji WomanRaisingHand_Light = new Emoji(
+			"1F64B-1F3FB-200D-2640-FE0F",
+			null,
+			"🙋🏻‍♀️",
+			"woman-raising-hand",
+			new []{ "woman-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			47,
+			SkinVariationType.Light,
+			"woman raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "raising hand", "woman", "woman raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-raising-hand".
+		/// </summary>
+		public static readonly Emoji WomanRaisingHand_MediumLight = new Emoji(
+			"1F64B-1F3FC-200D-2640-FE0F",
+			null,
+			"🙋🏼‍♀️",
+			"woman-raising-hand",
+			new []{ "woman-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			48,
+			SkinVariationType.MediumLight,
+			"woman raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "raising hand", "woman", "woman raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-raising-hand".
+		/// </summary>
+		public static readonly Emoji WomanRaisingHand_Medium = new Emoji(
+			"1F64B-1F3FD-200D-2640-FE0F",
+			null,
+			"🙋🏽‍♀️",
+			"woman-raising-hand",
+			new []{ "woman-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			49,
+			SkinVariationType.Medium,
+			"woman raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "raising hand", "woman", "woman raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-raising-hand".
+		/// </summary>
+		public static readonly Emoji WomanRaisingHand_MediumDark = new Emoji(
+			"1F64B-1F3FE-200D-2640-FE0F",
+			null,
+			"🙋🏾‍♀️",
+			"woman-raising-hand",
+			new []{ "woman-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			50,
+			SkinVariationType.MediumDark,
+			"woman raising hand",
+			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "raising hand", "woman", "woman raising hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-raising-hand".
+		/// </summary>
+		public static readonly Emoji WomanRaisingHand_Dark = new Emoji(
+			"1F64B-1F3FF-200D-2640-FE0F",
+			null,
+			"🙋🏿‍♀️",
+			"woman-raising-hand",
+			new []{ "woman-raising-hand"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			51,
+			SkinVariationType.Dark,
 			"woman raising hand",
 			new []{ "gesture", "hand", "happy", "person raising hand", "raised", "raising hand", "woman", "woman raising hand"});
 		/// <summary>
@@ -3224,6 +10989,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			32,
 			31,
+			SkinVariationType.None,
+			"man bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bowing".
+		/// </summary>
+		public static readonly Emoji ManBowing_Light = new Emoji(
+			"1F647-1F3FB-200D-2642-FE0F",
+			null,
+			"🙇🏻‍♂️",
+			"man-bowing",
+			new []{ "man-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			32,
+			SkinVariationType.Light,
+			"man bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bowing".
+		/// </summary>
+		public static readonly Emoji ManBowing_MediumLight = new Emoji(
+			"1F647-1F3FC-200D-2642-FE0F",
+			null,
+			"🙇🏼‍♂️",
+			"man-bowing",
+			new []{ "man-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			33,
+			SkinVariationType.MediumLight,
+			"man bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bowing".
+		/// </summary>
+		public static readonly Emoji ManBowing_Medium = new Emoji(
+			"1F647-1F3FD-200D-2642-FE0F",
+			null,
+			"🙇🏽‍♂️",
+			"man-bowing",
+			new []{ "man-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			34,
+			SkinVariationType.Medium,
+			"man bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bowing".
+		/// </summary>
+		public static readonly Emoji ManBowing_MediumDark = new Emoji(
+			"1F647-1F3FE-200D-2642-FE0F",
+			null,
+			"🙇🏾‍♂️",
+			"man-bowing",
+			new []{ "man-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			35,
+			SkinVariationType.MediumDark,
+			"man bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bowing".
+		/// </summary>
+		public static readonly Emoji ManBowing_Dark = new Emoji(
+			"1F647-1F3FF-200D-2642-FE0F",
+			null,
+			"🙇🏿‍♂️",
+			"man-bowing",
+			new []{ "man-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			36,
+			SkinVariationType.Dark,
 			"man bowing",
 			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "man"});
 		/// <summary>
@@ -3240,6 +11091,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			32,
 			25,
+			SkinVariationType.None,
+			"woman bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bowing".
+		/// </summary>
+		public static readonly Emoji WomanBowing_Light = new Emoji(
+			"1F647-1F3FB-200D-2640-FE0F",
+			null,
+			"🙇🏻‍♀️",
+			"woman-bowing",
+			new []{ "woman-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			26,
+			SkinVariationType.Light,
+			"woman bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bowing".
+		/// </summary>
+		public static readonly Emoji WomanBowing_MediumLight = new Emoji(
+			"1F647-1F3FC-200D-2640-FE0F",
+			null,
+			"🙇🏼‍♀️",
+			"woman-bowing",
+			new []{ "woman-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			27,
+			SkinVariationType.MediumLight,
+			"woman bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bowing".
+		/// </summary>
+		public static readonly Emoji WomanBowing_Medium = new Emoji(
+			"1F647-1F3FD-200D-2640-FE0F",
+			null,
+			"🙇🏽‍♀️",
+			"woman-bowing",
+			new []{ "woman-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			28,
+			SkinVariationType.Medium,
+			"woman bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bowing".
+		/// </summary>
+		public static readonly Emoji WomanBowing_MediumDark = new Emoji(
+			"1F647-1F3FE-200D-2640-FE0F",
+			null,
+			"🙇🏾‍♀️",
+			"woman-bowing",
+			new []{ "woman-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			29,
+			SkinVariationType.MediumDark,
+			"woman bowing",
+			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bowing".
+		/// </summary>
+		public static readonly Emoji WomanBowing_Dark = new Emoji(
+			"1F647-1F3FF-200D-2640-FE0F",
+			null,
+			"🙇🏿‍♀️",
+			"woman-bowing",
+			new []{ "woman-bowing"},
+			null,
+			null,
+			"Smileys & People",
+			32,
+			30,
+			SkinVariationType.Dark,
 			"woman bowing",
 			new []{ "apology", "bow", "gesture", "person bowing", "sorry", "bowing", "favor", "woman"});
 		/// <summary>
@@ -3256,6 +11193,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			35,
+			SkinVariationType.None,
+			"man facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "man", "man facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-facepalming".
+		/// </summary>
+		public static readonly Emoji ManFacepalming_Light = new Emoji(
+			"1F926-1F3FB-200D-2642-FE0F",
+			null,
+			"🤦🏻‍♂️",
+			"man-facepalming",
+			new []{ "man-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			36,
+			SkinVariationType.Light,
+			"man facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "man", "man facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-facepalming".
+		/// </summary>
+		public static readonly Emoji ManFacepalming_MediumLight = new Emoji(
+			"1F926-1F3FC-200D-2642-FE0F",
+			null,
+			"🤦🏼‍♂️",
+			"man-facepalming",
+			new []{ "man-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			37,
+			SkinVariationType.MediumLight,
+			"man facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "man", "man facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-facepalming".
+		/// </summary>
+		public static readonly Emoji ManFacepalming_Medium = new Emoji(
+			"1F926-1F3FD-200D-2642-FE0F",
+			null,
+			"🤦🏽‍♂️",
+			"man-facepalming",
+			new []{ "man-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			38,
+			SkinVariationType.Medium,
+			"man facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "man", "man facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-facepalming".
+		/// </summary>
+		public static readonly Emoji ManFacepalming_MediumDark = new Emoji(
+			"1F926-1F3FE-200D-2642-FE0F",
+			null,
+			"🤦🏾‍♂️",
+			"man-facepalming",
+			new []{ "man-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			39,
+			SkinVariationType.MediumDark,
+			"man facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "man", "man facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-facepalming".
+		/// </summary>
+		public static readonly Emoji ManFacepalming_Dark = new Emoji(
+			"1F926-1F3FF-200D-2642-FE0F",
+			null,
+			"🤦🏿‍♂️",
+			"man-facepalming",
+			new []{ "man-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			40,
+			SkinVariationType.Dark,
 			"man facepalming",
 			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "man", "man facepalming"});
 		/// <summary>
@@ -3272,6 +11295,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			29,
+			SkinVariationType.None,
+			"woman facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "woman", "woman facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-facepalming".
+		/// </summary>
+		public static readonly Emoji WomanFacepalming_Light = new Emoji(
+			"1F926-1F3FB-200D-2640-FE0F",
+			null,
+			"🤦🏻‍♀️",
+			"woman-facepalming",
+			new []{ "woman-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			30,
+			SkinVariationType.Light,
+			"woman facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "woman", "woman facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-facepalming".
+		/// </summary>
+		public static readonly Emoji WomanFacepalming_MediumLight = new Emoji(
+			"1F926-1F3FC-200D-2640-FE0F",
+			null,
+			"🤦🏼‍♀️",
+			"woman-facepalming",
+			new []{ "woman-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			31,
+			SkinVariationType.MediumLight,
+			"woman facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "woman", "woman facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-facepalming".
+		/// </summary>
+		public static readonly Emoji WomanFacepalming_Medium = new Emoji(
+			"1F926-1F3FD-200D-2640-FE0F",
+			null,
+			"🤦🏽‍♀️",
+			"woman-facepalming",
+			new []{ "woman-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			32,
+			SkinVariationType.Medium,
+			"woman facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "woman", "woman facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-facepalming".
+		/// </summary>
+		public static readonly Emoji WomanFacepalming_MediumDark = new Emoji(
+			"1F926-1F3FE-200D-2640-FE0F",
+			null,
+			"🤦🏾‍♀️",
+			"woman-facepalming",
+			new []{ "woman-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			33,
+			SkinVariationType.MediumDark,
+			"woman facepalming",
+			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "woman", "woman facepalming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-facepalming".
+		/// </summary>
+		public static readonly Emoji WomanFacepalming_Dark = new Emoji(
+			"1F926-1F3FF-200D-2640-FE0F",
+			null,
+			"🤦🏿‍♀️",
+			"woman-facepalming",
+			new []{ "woman-facepalming"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			34,
+			SkinVariationType.Dark,
 			"woman facepalming",
 			new []{ "disbelief", "exasperation", "face", "palm", "person facepalming", "facepalm", "woman", "woman facepalming"});
 		/// <summary>
@@ -3288,6 +11397,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			40,
 			0,
+			SkinVariationType.None,
+			"man shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "man", "man shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-shrugging".
+		/// </summary>
+		public static readonly Emoji ManShrugging_Light = new Emoji(
+			"1F937-1F3FB-200D-2642-FE0F",
+			null,
+			"🤷🏻‍♂️",
+			"man-shrugging",
+			new []{ "man-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			1,
+			SkinVariationType.Light,
+			"man shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "man", "man shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-shrugging".
+		/// </summary>
+		public static readonly Emoji ManShrugging_MediumLight = new Emoji(
+			"1F937-1F3FC-200D-2642-FE0F",
+			null,
+			"🤷🏼‍♂️",
+			"man-shrugging",
+			new []{ "man-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			2,
+			SkinVariationType.MediumLight,
+			"man shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "man", "man shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-shrugging".
+		/// </summary>
+		public static readonly Emoji ManShrugging_Medium = new Emoji(
+			"1F937-1F3FD-200D-2642-FE0F",
+			null,
+			"🤷🏽‍♂️",
+			"man-shrugging",
+			new []{ "man-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			3,
+			SkinVariationType.Medium,
+			"man shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "man", "man shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-shrugging".
+		/// </summary>
+		public static readonly Emoji ManShrugging_MediumDark = new Emoji(
+			"1F937-1F3FE-200D-2642-FE0F",
+			null,
+			"🤷🏾‍♂️",
+			"man-shrugging",
+			new []{ "man-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			4,
+			SkinVariationType.MediumDark,
+			"man shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "man", "man shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-shrugging".
+		/// </summary>
+		public static readonly Emoji ManShrugging_Dark = new Emoji(
+			"1F937-1F3FF-200D-2642-FE0F",
+			null,
+			"🤷🏿‍♂️",
+			"man-shrugging",
+			new []{ "man-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			5,
+			SkinVariationType.Dark,
 			"man shrugging",
 			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "man", "man shrugging"});
 		/// <summary>
@@ -3304,6 +11499,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			46,
+			SkinVariationType.None,
+			"woman shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "woman", "woman shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-shrugging".
+		/// </summary>
+		public static readonly Emoji WomanShrugging_Light = new Emoji(
+			"1F937-1F3FB-200D-2640-FE0F",
+			null,
+			"🤷🏻‍♀️",
+			"woman-shrugging",
+			new []{ "woman-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			47,
+			SkinVariationType.Light,
+			"woman shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "woman", "woman shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-shrugging".
+		/// </summary>
+		public static readonly Emoji WomanShrugging_MediumLight = new Emoji(
+			"1F937-1F3FC-200D-2640-FE0F",
+			null,
+			"🤷🏼‍♀️",
+			"woman-shrugging",
+			new []{ "woman-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			48,
+			SkinVariationType.MediumLight,
+			"woman shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "woman", "woman shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-shrugging".
+		/// </summary>
+		public static readonly Emoji WomanShrugging_Medium = new Emoji(
+			"1F937-1F3FD-200D-2640-FE0F",
+			null,
+			"🤷🏽‍♀️",
+			"woman-shrugging",
+			new []{ "woman-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			49,
+			SkinVariationType.Medium,
+			"woman shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "woman", "woman shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-shrugging".
+		/// </summary>
+		public static readonly Emoji WomanShrugging_MediumDark = new Emoji(
+			"1F937-1F3FE-200D-2640-FE0F",
+			null,
+			"🤷🏾‍♀️",
+			"woman-shrugging",
+			new []{ "woman-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			50,
+			SkinVariationType.MediumDark,
+			"woman shrugging",
+			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "woman", "woman shrugging"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-shrugging".
+		/// </summary>
+		public static readonly Emoji WomanShrugging_Dark = new Emoji(
+			"1F937-1F3FF-200D-2640-FE0F",
+			null,
+			"🤷🏿‍♀️",
+			"woman-shrugging",
+			new []{ "woman-shrugging"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			51,
+			SkinVariationType.Dark,
 			"woman shrugging",
 			new []{ "doubt", "ignorance", "indifference", "person shrugging", "shrug", "woman", "woman shrugging"});
 		/// <summary>
@@ -3320,6 +11601,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			4,
+			SkinVariationType.None,
+			"man getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "man", "man getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-massage".
+		/// </summary>
+		public static readonly Emoji ManGettingMassage_Light = new Emoji(
+			"1F486-1F3FB-200D-2642-FE0F",
+			null,
+			"💆🏻‍♂️",
+			"man-getting-massage",
+			new []{ "man-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			5,
+			SkinVariationType.Light,
+			"man getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "man", "man getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-massage".
+		/// </summary>
+		public static readonly Emoji ManGettingMassage_MediumLight = new Emoji(
+			"1F486-1F3FC-200D-2642-FE0F",
+			null,
+			"💆🏼‍♂️",
+			"man-getting-massage",
+			new []{ "man-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			6,
+			SkinVariationType.MediumLight,
+			"man getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "man", "man getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-massage".
+		/// </summary>
+		public static readonly Emoji ManGettingMassage_Medium = new Emoji(
+			"1F486-1F3FD-200D-2642-FE0F",
+			null,
+			"💆🏽‍♂️",
+			"man-getting-massage",
+			new []{ "man-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			7,
+			SkinVariationType.Medium,
+			"man getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "man", "man getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-massage".
+		/// </summary>
+		public static readonly Emoji ManGettingMassage_MediumDark = new Emoji(
+			"1F486-1F3FE-200D-2642-FE0F",
+			null,
+			"💆🏾‍♂️",
+			"man-getting-massage",
+			new []{ "man-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			8,
+			SkinVariationType.MediumDark,
+			"man getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "man", "man getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-massage".
+		/// </summary>
+		public static readonly Emoji ManGettingMassage_Dark = new Emoji(
+			"1F486-1F3FF-200D-2642-FE0F",
+			null,
+			"💆🏿‍♂️",
+			"man-getting-massage",
+			new []{ "man-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			9,
+			SkinVariationType.Dark,
 			"man getting massage",
 			new []{ "face", "massage", "person getting massage", "salon", "man", "man getting massage"});
 		/// <summary>
@@ -3336,6 +11703,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			50,
+			SkinVariationType.None,
+			"woman getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "woman", "woman getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-massage".
+		/// </summary>
+		public static readonly Emoji WomanGettingMassage_Light = new Emoji(
+			"1F486-1F3FB-200D-2640-FE0F",
+			null,
+			"💆🏻‍♀️",
+			"woman-getting-massage",
+			new []{ "woman-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			51,
+			SkinVariationType.Light,
+			"woman getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "woman", "woman getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-massage".
+		/// </summary>
+		public static readonly Emoji WomanGettingMassage_MediumLight = new Emoji(
+			"1F486-1F3FC-200D-2640-FE0F",
+			null,
+			"💆🏼‍♀️",
+			"woman-getting-massage",
+			new []{ "woman-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			0,
+			SkinVariationType.MediumLight,
+			"woman getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "woman", "woman getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-massage".
+		/// </summary>
+		public static readonly Emoji WomanGettingMassage_Medium = new Emoji(
+			"1F486-1F3FD-200D-2640-FE0F",
+			null,
+			"💆🏽‍♀️",
+			"woman-getting-massage",
+			new []{ "woman-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			1,
+			SkinVariationType.Medium,
+			"woman getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "woman", "woman getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-massage".
+		/// </summary>
+		public static readonly Emoji WomanGettingMassage_MediumDark = new Emoji(
+			"1F486-1F3FE-200D-2640-FE0F",
+			null,
+			"💆🏾‍♀️",
+			"woman-getting-massage",
+			new []{ "woman-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			2,
+			SkinVariationType.MediumDark,
+			"woman getting massage",
+			new []{ "face", "massage", "person getting massage", "salon", "woman", "woman getting massage"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-massage".
+		/// </summary>
+		public static readonly Emoji WomanGettingMassage_Dark = new Emoji(
+			"1F486-1F3FF-200D-2640-FE0F",
+			null,
+			"💆🏿‍♀️",
+			"woman-getting-massage",
+			new []{ "woman-getting-massage"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			3,
+			SkinVariationType.Dark,
 			"woman getting massage",
 			new []{ "face", "massage", "person getting massage", "salon", "woman", "woman getting massage"});
 		/// <summary>
@@ -3352,6 +11805,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			22,
+			SkinVariationType.None,
+			"man getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "man", "man getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-haircut".
+		/// </summary>
+		public static readonly Emoji ManGettingHaircut_Light = new Emoji(
+			"1F487-1F3FB-200D-2642-FE0F",
+			null,
+			"💇🏻‍♂️",
+			"man-getting-haircut",
+			new []{ "man-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			23,
+			SkinVariationType.Light,
+			"man getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "man", "man getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-haircut".
+		/// </summary>
+		public static readonly Emoji ManGettingHaircut_MediumLight = new Emoji(
+			"1F487-1F3FC-200D-2642-FE0F",
+			null,
+			"💇🏼‍♂️",
+			"man-getting-haircut",
+			new []{ "man-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			24,
+			SkinVariationType.MediumLight,
+			"man getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "man", "man getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-haircut".
+		/// </summary>
+		public static readonly Emoji ManGettingHaircut_Medium = new Emoji(
+			"1F487-1F3FD-200D-2642-FE0F",
+			null,
+			"💇🏽‍♂️",
+			"man-getting-haircut",
+			new []{ "man-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			25,
+			SkinVariationType.Medium,
+			"man getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "man", "man getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-haircut".
+		/// </summary>
+		public static readonly Emoji ManGettingHaircut_MediumDark = new Emoji(
+			"1F487-1F3FE-200D-2642-FE0F",
+			null,
+			"💇🏾‍♂️",
+			"man-getting-haircut",
+			new []{ "man-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			26,
+			SkinVariationType.MediumDark,
+			"man getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "man", "man getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-getting-haircut".
+		/// </summary>
+		public static readonly Emoji ManGettingHaircut_Dark = new Emoji(
+			"1F487-1F3FF-200D-2642-FE0F",
+			null,
+			"💇🏿‍♂️",
+			"man-getting-haircut",
+			new []{ "man-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			27,
+			SkinVariationType.Dark,
 			"man getting haircut",
 			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "man", "man getting haircut"});
 		/// <summary>
@@ -3368,6 +11907,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			16,
+			SkinVariationType.None,
+			"woman getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "woman", "woman getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-haircut".
+		/// </summary>
+		public static readonly Emoji WomanGettingHaircut_Light = new Emoji(
+			"1F487-1F3FB-200D-2640-FE0F",
+			null,
+			"💇🏻‍♀️",
+			"woman-getting-haircut",
+			new []{ "woman-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			17,
+			SkinVariationType.Light,
+			"woman getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "woman", "woman getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-haircut".
+		/// </summary>
+		public static readonly Emoji WomanGettingHaircut_MediumLight = new Emoji(
+			"1F487-1F3FC-200D-2640-FE0F",
+			null,
+			"💇🏼‍♀️",
+			"woman-getting-haircut",
+			new []{ "woman-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			18,
+			SkinVariationType.MediumLight,
+			"woman getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "woman", "woman getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-haircut".
+		/// </summary>
+		public static readonly Emoji WomanGettingHaircut_Medium = new Emoji(
+			"1F487-1F3FD-200D-2640-FE0F",
+			null,
+			"💇🏽‍♀️",
+			"woman-getting-haircut",
+			new []{ "woman-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			19,
+			SkinVariationType.Medium,
+			"woman getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "woman", "woman getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-haircut".
+		/// </summary>
+		public static readonly Emoji WomanGettingHaircut_MediumDark = new Emoji(
+			"1F487-1F3FE-200D-2640-FE0F",
+			null,
+			"💇🏾‍♀️",
+			"woman-getting-haircut",
+			new []{ "woman-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			20,
+			SkinVariationType.MediumDark,
+			"woman getting haircut",
+			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "woman", "woman getting haircut"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-getting-haircut".
+		/// </summary>
+		public static readonly Emoji WomanGettingHaircut_Dark = new Emoji(
+			"1F487-1F3FF-200D-2640-FE0F",
+			null,
+			"💇🏿‍♀️",
+			"woman-getting-haircut",
+			new []{ "woman-getting-haircut"},
+			null,
+			null,
+			"Smileys & People",
+			24,
+			21,
+			SkinVariationType.Dark,
 			"woman getting haircut",
 			new []{ "barber", "beauty", "haircut", "parlor", "person getting haircut", "woman", "woman getting haircut"});
 		/// <summary>
@@ -3384,6 +12009,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			36,
 			15,
+			SkinVariationType.None,
+			"man walking",
+			new []{ "hike", "person walking", "walk", "walking", "man", "man walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-walking".
+		/// </summary>
+		public static readonly Emoji ManWalking_Light = new Emoji(
+			"1F6B6-1F3FB-200D-2642-FE0F",
+			null,
+			"🚶🏻‍♂️",
+			"man-walking",
+			new []{ "man-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			16,
+			SkinVariationType.Light,
+			"man walking",
+			new []{ "hike", "person walking", "walk", "walking", "man", "man walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-walking".
+		/// </summary>
+		public static readonly Emoji ManWalking_MediumLight = new Emoji(
+			"1F6B6-1F3FC-200D-2642-FE0F",
+			null,
+			"🚶🏼‍♂️",
+			"man-walking",
+			new []{ "man-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			17,
+			SkinVariationType.MediumLight,
+			"man walking",
+			new []{ "hike", "person walking", "walk", "walking", "man", "man walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-walking".
+		/// </summary>
+		public static readonly Emoji ManWalking_Medium = new Emoji(
+			"1F6B6-1F3FD-200D-2642-FE0F",
+			null,
+			"🚶🏽‍♂️",
+			"man-walking",
+			new []{ "man-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			18,
+			SkinVariationType.Medium,
+			"man walking",
+			new []{ "hike", "person walking", "walk", "walking", "man", "man walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-walking".
+		/// </summary>
+		public static readonly Emoji ManWalking_MediumDark = new Emoji(
+			"1F6B6-1F3FE-200D-2642-FE0F",
+			null,
+			"🚶🏾‍♂️",
+			"man-walking",
+			new []{ "man-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			19,
+			SkinVariationType.MediumDark,
+			"man walking",
+			new []{ "hike", "person walking", "walk", "walking", "man", "man walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-walking".
+		/// </summary>
+		public static readonly Emoji ManWalking_Dark = new Emoji(
+			"1F6B6-1F3FF-200D-2642-FE0F",
+			null,
+			"🚶🏿‍♂️",
+			"man-walking",
+			new []{ "man-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			20,
+			SkinVariationType.Dark,
 			"man walking",
 			new []{ "hike", "person walking", "walk", "walking", "man", "man walking"});
 		/// <summary>
@@ -3400,6 +12111,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			36,
 			9,
+			SkinVariationType.None,
+			"woman walking",
+			new []{ "hike", "person walking", "walk", "walking", "woman", "woman walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-walking".
+		/// </summary>
+		public static readonly Emoji WomanWalking_Light = new Emoji(
+			"1F6B6-1F3FB-200D-2640-FE0F",
+			null,
+			"🚶🏻‍♀️",
+			"woman-walking",
+			new []{ "woman-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			10,
+			SkinVariationType.Light,
+			"woman walking",
+			new []{ "hike", "person walking", "walk", "walking", "woman", "woman walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-walking".
+		/// </summary>
+		public static readonly Emoji WomanWalking_MediumLight = new Emoji(
+			"1F6B6-1F3FC-200D-2640-FE0F",
+			null,
+			"🚶🏼‍♀️",
+			"woman-walking",
+			new []{ "woman-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			11,
+			SkinVariationType.MediumLight,
+			"woman walking",
+			new []{ "hike", "person walking", "walk", "walking", "woman", "woman walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-walking".
+		/// </summary>
+		public static readonly Emoji WomanWalking_Medium = new Emoji(
+			"1F6B6-1F3FD-200D-2640-FE0F",
+			null,
+			"🚶🏽‍♀️",
+			"woman-walking",
+			new []{ "woman-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			12,
+			SkinVariationType.Medium,
+			"woman walking",
+			new []{ "hike", "person walking", "walk", "walking", "woman", "woman walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-walking".
+		/// </summary>
+		public static readonly Emoji WomanWalking_MediumDark = new Emoji(
+			"1F6B6-1F3FE-200D-2640-FE0F",
+			null,
+			"🚶🏾‍♀️",
+			"woman-walking",
+			new []{ "woman-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			13,
+			SkinVariationType.MediumDark,
+			"woman walking",
+			new []{ "hike", "person walking", "walk", "walking", "woman", "woman walking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-walking".
+		/// </summary>
+		public static readonly Emoji WomanWalking_Dark = new Emoji(
+			"1F6B6-1F3FF-200D-2640-FE0F",
+			null,
+			"🚶🏿‍♀️",
+			"woman-walking",
+			new []{ "woman-walking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			14,
+			SkinVariationType.Dark,
 			"woman walking",
 			new []{ "hike", "person walking", "walk", "walking", "woman", "woman walking"});
 		/// <summary>
@@ -3416,6 +12213,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			9,
 			40,
+			SkinVariationType.None,
+			"man running",
+			new []{ "marathon", "person running", "running", "man", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-running".
+		/// </summary>
+		public static readonly Emoji ManRunning_Light = new Emoji(
+			"1F3C3-1F3FB-200D-2642-FE0F",
+			null,
+			"🏃🏻‍♂️",
+			"man-running",
+			new []{ "man-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			41,
+			SkinVariationType.Light,
+			"man running",
+			new []{ "marathon", "person running", "running", "man", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-running".
+		/// </summary>
+		public static readonly Emoji ManRunning_MediumLight = new Emoji(
+			"1F3C3-1F3FC-200D-2642-FE0F",
+			null,
+			"🏃🏼‍♂️",
+			"man-running",
+			new []{ "man-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			42,
+			SkinVariationType.MediumLight,
+			"man running",
+			new []{ "marathon", "person running", "running", "man", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-running".
+		/// </summary>
+		public static readonly Emoji ManRunning_Medium = new Emoji(
+			"1F3C3-1F3FD-200D-2642-FE0F",
+			null,
+			"🏃🏽‍♂️",
+			"man-running",
+			new []{ "man-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			43,
+			SkinVariationType.Medium,
+			"man running",
+			new []{ "marathon", "person running", "running", "man", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-running".
+		/// </summary>
+		public static readonly Emoji ManRunning_MediumDark = new Emoji(
+			"1F3C3-1F3FE-200D-2642-FE0F",
+			null,
+			"🏃🏾‍♂️",
+			"man-running",
+			new []{ "man-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			44,
+			SkinVariationType.MediumDark,
+			"man running",
+			new []{ "marathon", "person running", "running", "man", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-running".
+		/// </summary>
+		public static readonly Emoji ManRunning_Dark = new Emoji(
+			"1F3C3-1F3FF-200D-2642-FE0F",
+			null,
+			"🏃🏿‍♂️",
+			"man-running",
+			new []{ "man-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			45,
+			SkinVariationType.Dark,
 			"man running",
 			new []{ "marathon", "person running", "running", "man", "racing"});
 		/// <summary>
@@ -3432,6 +12315,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			9,
 			34,
+			SkinVariationType.None,
+			"woman running",
+			new []{ "marathon", "person running", "running", "racing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-running".
+		/// </summary>
+		public static readonly Emoji WomanRunning_Light = new Emoji(
+			"1F3C3-1F3FB-200D-2640-FE0F",
+			null,
+			"🏃🏻‍♀️",
+			"woman-running",
+			new []{ "woman-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			35,
+			SkinVariationType.Light,
+			"woman running",
+			new []{ "marathon", "person running", "running", "racing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-running".
+		/// </summary>
+		public static readonly Emoji WomanRunning_MediumLight = new Emoji(
+			"1F3C3-1F3FC-200D-2640-FE0F",
+			null,
+			"🏃🏼‍♀️",
+			"woman-running",
+			new []{ "woman-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			36,
+			SkinVariationType.MediumLight,
+			"woman running",
+			new []{ "marathon", "person running", "running", "racing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-running".
+		/// </summary>
+		public static readonly Emoji WomanRunning_Medium = new Emoji(
+			"1F3C3-1F3FD-200D-2640-FE0F",
+			null,
+			"🏃🏽‍♀️",
+			"woman-running",
+			new []{ "woman-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			37,
+			SkinVariationType.Medium,
+			"woman running",
+			new []{ "marathon", "person running", "running", "racing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-running".
+		/// </summary>
+		public static readonly Emoji WomanRunning_MediumDark = new Emoji(
+			"1F3C3-1F3FE-200D-2640-FE0F",
+			null,
+			"🏃🏾‍♀️",
+			"woman-running",
+			new []{ "woman-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			38,
+			SkinVariationType.MediumDark,
+			"woman running",
+			new []{ "marathon", "person running", "running", "racing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-running".
+		/// </summary>
+		public static readonly Emoji WomanRunning_Dark = new Emoji(
+			"1F3C3-1F3FF-200D-2640-FE0F",
+			null,
+			"🏃🏿‍♀️",
+			"woman-running",
+			new []{ "woman-running"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			39,
+			SkinVariationType.Dark,
 			"woman running",
 			new []{ "marathon", "person running", "running", "racing", "woman"});
 		/// <summary>
@@ -3448,6 +12417,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			37,
+			SkinVariationType.None,
+			"woman dancing",
+			new []{ "dancing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "dancer".
+		/// </summary>
+		public static readonly Emoji Dancer_Light = new Emoji(
+			"1F483-1F3FB",
+			"DANCER",
+			"💃🏻",
+			"dancer",
+			new []{ "dancer"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			38,
+			SkinVariationType.Light,
+			"woman dancing",
+			new []{ "dancing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "dancer".
+		/// </summary>
+		public static readonly Emoji Dancer_MediumLight = new Emoji(
+			"1F483-1F3FC",
+			"DANCER",
+			"💃🏼",
+			"dancer",
+			new []{ "dancer"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			39,
+			SkinVariationType.MediumLight,
+			"woman dancing",
+			new []{ "dancing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "dancer".
+		/// </summary>
+		public static readonly Emoji Dancer_Medium = new Emoji(
+			"1F483-1F3FD",
+			"DANCER",
+			"💃🏽",
+			"dancer",
+			new []{ "dancer"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			40,
+			SkinVariationType.Medium,
+			"woman dancing",
+			new []{ "dancing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "dancer".
+		/// </summary>
+		public static readonly Emoji Dancer_MediumDark = new Emoji(
+			"1F483-1F3FE",
+			"DANCER",
+			"💃🏾",
+			"dancer",
+			new []{ "dancer"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			41,
+			SkinVariationType.MediumDark,
+			"woman dancing",
+			new []{ "dancing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "dancer".
+		/// </summary>
+		public static readonly Emoji Dancer_Dark = new Emoji(
+			"1F483-1F3FF",
+			"DANCER",
+			"💃🏿",
+			"dancer",
+			new []{ "dancer"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			42,
+			SkinVariationType.Dark,
 			"woman dancing",
 			new []{ "dancing", "woman"});
 		/// <summary>
@@ -3464,6 +12519,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			29,
 			21,
+			SkinVariationType.None,
+			"man dancing",
+			new []{ "dance", "man", "man dancing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_dancing".
+		/// </summary>
+		public static readonly Emoji ManDancing_Light = new Emoji(
+			"1F57A-1F3FB",
+			"MAN DANCING",
+			"🕺🏻",
+			"man_dancing",
+			new []{ "man_dancing"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			22,
+			SkinVariationType.Light,
+			"man dancing",
+			new []{ "dance", "man", "man dancing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_dancing".
+		/// </summary>
+		public static readonly Emoji ManDancing_MediumLight = new Emoji(
+			"1F57A-1F3FC",
+			"MAN DANCING",
+			"🕺🏼",
+			"man_dancing",
+			new []{ "man_dancing"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			23,
+			SkinVariationType.MediumLight,
+			"man dancing",
+			new []{ "dance", "man", "man dancing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_dancing".
+		/// </summary>
+		public static readonly Emoji ManDancing_Medium = new Emoji(
+			"1F57A-1F3FD",
+			"MAN DANCING",
+			"🕺🏽",
+			"man_dancing",
+			new []{ "man_dancing"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			24,
+			SkinVariationType.Medium,
+			"man dancing",
+			new []{ "dance", "man", "man dancing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_dancing".
+		/// </summary>
+		public static readonly Emoji ManDancing_MediumDark = new Emoji(
+			"1F57A-1F3FE",
+			"MAN DANCING",
+			"🕺🏾",
+			"man_dancing",
+			new []{ "man_dancing"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			25,
+			SkinVariationType.MediumDark,
+			"man dancing",
+			new []{ "dance", "man", "man dancing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_dancing".
+		/// </summary>
+		public static readonly Emoji ManDancing_Dark = new Emoji(
+			"1F57A-1F3FF",
+			"MAN DANCING",
+			"🕺🏿",
+			"man_dancing",
+			new []{ "man_dancing"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			26,
+			SkinVariationType.Dark,
 			"man dancing",
 			new []{ "dance", "man", "man dancing"});
 		/// <summary>
@@ -3480,6 +12621,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			21,
 			0,
+			SkinVariationType.None,
 			"men with bunny ears",
 			new []{ "bunny ear", "dancer", "partying", "people with bunny ears", "men", "men with bunny ears"});
 		/// <summary>
@@ -3496,6 +12638,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			51,
+			SkinVariationType.None,
 			"women with bunny ears",
 			new []{ "bunny ear", "dancer", "partying", "people with bunny ears", "women", "women with bunny ears"});
 		/// <summary>
@@ -3512,6 +12655,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			43,
 			28,
+			SkinVariationType.None,
+			"woman in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "woman in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji WomanInSteamyRoom_Light = new Emoji(
+			"1F9D6-1F3FB-200D-2640-FE0F",
+			null,
+			"🧖🏻‍♀️",
+			"woman_in_steamy_room",
+			new []{ "woman_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			29,
+			SkinVariationType.Light,
+			"woman in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "woman in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji WomanInSteamyRoom_MediumLight = new Emoji(
+			"1F9D6-1F3FC-200D-2640-FE0F",
+			null,
+			"🧖🏼‍♀️",
+			"woman_in_steamy_room",
+			new []{ "woman_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			30,
+			SkinVariationType.MediumLight,
+			"woman in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "woman in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji WomanInSteamyRoom_Medium = new Emoji(
+			"1F9D6-1F3FD-200D-2640-FE0F",
+			null,
+			"🧖🏽‍♀️",
+			"woman_in_steamy_room",
+			new []{ "woman_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			31,
+			SkinVariationType.Medium,
+			"woman in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "woman in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji WomanInSteamyRoom_MediumDark = new Emoji(
+			"1F9D6-1F3FE-200D-2640-FE0F",
+			null,
+			"🧖🏾‍♀️",
+			"woman_in_steamy_room",
+			new []{ "woman_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			32,
+			SkinVariationType.MediumDark,
+			"woman in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "woman in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji WomanInSteamyRoom_Dark = new Emoji(
+			"1F9D6-1F3FF-200D-2640-FE0F",
+			null,
+			"🧖🏿‍♀️",
+			"woman_in_steamy_room",
+			new []{ "woman_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			33,
+			SkinVariationType.Dark,
 			"woman in steamy room",
 			new []{ "person in steamy room", "sauna", "steam room", "woman in steamy room"});
 		/// <summary>
@@ -3528,6 +12757,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			43,
 			34,
+			SkinVariationType.None,
+			"man in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "man in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji ManInSteamyRoom_Light = new Emoji(
+			"1F9D6-1F3FB-200D-2642-FE0F",
+			null,
+			"🧖🏻‍♂️",
+			"man_in_steamy_room",
+			new []{ "man_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			35,
+			SkinVariationType.Light,
+			"man in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "man in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji ManInSteamyRoom_MediumLight = new Emoji(
+			"1F9D6-1F3FC-200D-2642-FE0F",
+			null,
+			"🧖🏼‍♂️",
+			"man_in_steamy_room",
+			new []{ "man_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			36,
+			SkinVariationType.MediumLight,
+			"man in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "man in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji ManInSteamyRoom_Medium = new Emoji(
+			"1F9D6-1F3FD-200D-2642-FE0F",
+			null,
+			"🧖🏽‍♂️",
+			"man_in_steamy_room",
+			new []{ "man_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			37,
+			SkinVariationType.Medium,
+			"man in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "man in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji ManInSteamyRoom_MediumDark = new Emoji(
+			"1F9D6-1F3FE-200D-2642-FE0F",
+			null,
+			"🧖🏾‍♂️",
+			"man_in_steamy_room",
+			new []{ "man_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			38,
+			SkinVariationType.MediumDark,
+			"man in steamy room",
+			new []{ "person in steamy room", "sauna", "steam room", "man in steamy room"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_steamy_room".
+		/// </summary>
+		public static readonly Emoji ManInSteamyRoom_Dark = new Emoji(
+			"1F9D6-1F3FF-200D-2642-FE0F",
+			null,
+			"🧖🏿‍♂️",
+			"man_in_steamy_room",
+			new []{ "man_in_steamy_room"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			39,
+			SkinVariationType.Dark,
 			"man in steamy room",
 			new []{ "person in steamy room", "sauna", "steam room", "man in steamy room"});
 		/// <summary>
@@ -3544,6 +12859,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			43,
 			46,
+			SkinVariationType.None,
+			"woman climbing",
+			new []{ "climber", "person climbing", "woman climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_climbing".
+		/// </summary>
+		public static readonly Emoji WomanClimbing_Light = new Emoji(
+			"1F9D7-1F3FB-200D-2640-FE0F",
+			null,
+			"🧗🏻‍♀️",
+			"woman_climbing",
+			new []{ "woman_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			47,
+			SkinVariationType.Light,
+			"woman climbing",
+			new []{ "climber", "person climbing", "woman climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_climbing".
+		/// </summary>
+		public static readonly Emoji WomanClimbing_MediumLight = new Emoji(
+			"1F9D7-1F3FC-200D-2640-FE0F",
+			null,
+			"🧗🏼‍♀️",
+			"woman_climbing",
+			new []{ "woman_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			48,
+			SkinVariationType.MediumLight,
+			"woman climbing",
+			new []{ "climber", "person climbing", "woman climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_climbing".
+		/// </summary>
+		public static readonly Emoji WomanClimbing_Medium = new Emoji(
+			"1F9D7-1F3FD-200D-2640-FE0F",
+			null,
+			"🧗🏽‍♀️",
+			"woman_climbing",
+			new []{ "woman_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			49,
+			SkinVariationType.Medium,
+			"woman climbing",
+			new []{ "climber", "person climbing", "woman climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_climbing".
+		/// </summary>
+		public static readonly Emoji WomanClimbing_MediumDark = new Emoji(
+			"1F9D7-1F3FE-200D-2640-FE0F",
+			null,
+			"🧗🏾‍♀️",
+			"woman_climbing",
+			new []{ "woman_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			50,
+			SkinVariationType.MediumDark,
+			"woman climbing",
+			new []{ "climber", "person climbing", "woman climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_climbing".
+		/// </summary>
+		public static readonly Emoji WomanClimbing_Dark = new Emoji(
+			"1F9D7-1F3FF-200D-2640-FE0F",
+			null,
+			"🧗🏿‍♀️",
+			"woman_climbing",
+			new []{ "woman_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			43,
+			51,
+			SkinVariationType.Dark,
 			"woman climbing",
 			new []{ "climber", "person climbing", "woman climbing"});
 		/// <summary>
@@ -3560,6 +12961,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			44,
 			0,
+			SkinVariationType.None,
+			"man climbing",
+			new []{ "climber", "person climbing", "man climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_climbing".
+		/// </summary>
+		public static readonly Emoji ManClimbing_Light = new Emoji(
+			"1F9D7-1F3FB-200D-2642-FE0F",
+			null,
+			"🧗🏻‍♂️",
+			"man_climbing",
+			new []{ "man_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			1,
+			SkinVariationType.Light,
+			"man climbing",
+			new []{ "climber", "person climbing", "man climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_climbing".
+		/// </summary>
+		public static readonly Emoji ManClimbing_MediumLight = new Emoji(
+			"1F9D7-1F3FC-200D-2642-FE0F",
+			null,
+			"🧗🏼‍♂️",
+			"man_climbing",
+			new []{ "man_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			2,
+			SkinVariationType.MediumLight,
+			"man climbing",
+			new []{ "climber", "person climbing", "man climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_climbing".
+		/// </summary>
+		public static readonly Emoji ManClimbing_Medium = new Emoji(
+			"1F9D7-1F3FD-200D-2642-FE0F",
+			null,
+			"🧗🏽‍♂️",
+			"man_climbing",
+			new []{ "man_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			3,
+			SkinVariationType.Medium,
+			"man climbing",
+			new []{ "climber", "person climbing", "man climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_climbing".
+		/// </summary>
+		public static readonly Emoji ManClimbing_MediumDark = new Emoji(
+			"1F9D7-1F3FE-200D-2642-FE0F",
+			null,
+			"🧗🏾‍♂️",
+			"man_climbing",
+			new []{ "man_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			4,
+			SkinVariationType.MediumDark,
+			"man climbing",
+			new []{ "climber", "person climbing", "man climbing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_climbing".
+		/// </summary>
+		public static readonly Emoji ManClimbing_Dark = new Emoji(
+			"1F9D7-1F3FF-200D-2642-FE0F",
+			null,
+			"🧗🏿‍♂️",
+			"man_climbing",
+			new []{ "man_climbing"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			5,
+			SkinVariationType.Dark,
 			"man climbing",
 			new []{ "climber", "person climbing", "man climbing"});
 		/// <summary>
@@ -3576,6 +13063,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			44,
 			12,
+			SkinVariationType.None,
+			"woman in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "woman in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji WomanInLotusPosition_Light = new Emoji(
+			"1F9D8-1F3FB-200D-2640-FE0F",
+			null,
+			"🧘🏻‍♀️",
+			"woman_in_lotus_position",
+			new []{ "woman_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			13,
+			SkinVariationType.Light,
+			"woman in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "woman in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji WomanInLotusPosition_MediumLight = new Emoji(
+			"1F9D8-1F3FC-200D-2640-FE0F",
+			null,
+			"🧘🏼‍♀️",
+			"woman_in_lotus_position",
+			new []{ "woman_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			14,
+			SkinVariationType.MediumLight,
+			"woman in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "woman in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji WomanInLotusPosition_Medium = new Emoji(
+			"1F9D8-1F3FD-200D-2640-FE0F",
+			null,
+			"🧘🏽‍♀️",
+			"woman_in_lotus_position",
+			new []{ "woman_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			15,
+			SkinVariationType.Medium,
+			"woman in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "woman in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji WomanInLotusPosition_MediumDark = new Emoji(
+			"1F9D8-1F3FE-200D-2640-FE0F",
+			null,
+			"🧘🏾‍♀️",
+			"woman_in_lotus_position",
+			new []{ "woman_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			16,
+			SkinVariationType.MediumDark,
+			"woman in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "woman in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji WomanInLotusPosition_Dark = new Emoji(
+			"1F9D8-1F3FF-200D-2640-FE0F",
+			null,
+			"🧘🏿‍♀️",
+			"woman_in_lotus_position",
+			new []{ "woman_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			17,
+			SkinVariationType.Dark,
 			"woman in lotus position",
 			new []{ "meditation", "person in lotus position", "yoga", "woman in lotus position"});
 		/// <summary>
@@ -3592,6 +13165,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			44,
 			18,
+			SkinVariationType.None,
+			"man in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "man in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji ManInLotusPosition_Light = new Emoji(
+			"1F9D8-1F3FB-200D-2642-FE0F",
+			null,
+			"🧘🏻‍♂️",
+			"man_in_lotus_position",
+			new []{ "man_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			19,
+			SkinVariationType.Light,
+			"man in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "man in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji ManInLotusPosition_MediumLight = new Emoji(
+			"1F9D8-1F3FC-200D-2642-FE0F",
+			null,
+			"🧘🏼‍♂️",
+			"man_in_lotus_position",
+			new []{ "man_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			20,
+			SkinVariationType.MediumLight,
+			"man in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "man in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji ManInLotusPosition_Medium = new Emoji(
+			"1F9D8-1F3FD-200D-2642-FE0F",
+			null,
+			"🧘🏽‍♂️",
+			"man_in_lotus_position",
+			new []{ "man_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			21,
+			SkinVariationType.Medium,
+			"man in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "man in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji ManInLotusPosition_MediumDark = new Emoji(
+			"1F9D8-1F3FE-200D-2642-FE0F",
+			null,
+			"🧘🏾‍♂️",
+			"man_in_lotus_position",
+			new []{ "man_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			22,
+			SkinVariationType.MediumDark,
+			"man in lotus position",
+			new []{ "meditation", "person in lotus position", "yoga", "man in lotus position"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_lotus_position".
+		/// </summary>
+		public static readonly Emoji ManInLotusPosition_Dark = new Emoji(
+			"1F9D8-1F3FF-200D-2642-FE0F",
+			null,
+			"🧘🏿‍♂️",
+			"man_in_lotus_position",
+			new []{ "man_in_lotus_position"},
+			null,
+			null,
+			"Smileys & People",
+			44,
+			23,
+			SkinVariationType.Dark,
 			"man in lotus position",
 			new []{ "meditation", "person in lotus position", "yoga", "man in lotus position"});
 		/// <summary>
@@ -3608,6 +13267,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			36,
 			36,
+			SkinVariationType.None,
+			"person taking bath",
+			new []{ "bath", "bathtub", "person taking bath"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bath".
+		/// </summary>
+		public static readonly Emoji Bath_Light = new Emoji(
+			"1F6C0-1F3FB",
+			"BATH",
+			"🛀🏻",
+			"bath",
+			new []{ "bath"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			37,
+			SkinVariationType.Light,
+			"person taking bath",
+			new []{ "bath", "bathtub", "person taking bath"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bath".
+		/// </summary>
+		public static readonly Emoji Bath_MediumLight = new Emoji(
+			"1F6C0-1F3FC",
+			"BATH",
+			"🛀🏼",
+			"bath",
+			new []{ "bath"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			38,
+			SkinVariationType.MediumLight,
+			"person taking bath",
+			new []{ "bath", "bathtub", "person taking bath"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bath".
+		/// </summary>
+		public static readonly Emoji Bath_Medium = new Emoji(
+			"1F6C0-1F3FD",
+			"BATH",
+			"🛀🏽",
+			"bath",
+			new []{ "bath"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			39,
+			SkinVariationType.Medium,
+			"person taking bath",
+			new []{ "bath", "bathtub", "person taking bath"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bath".
+		/// </summary>
+		public static readonly Emoji Bath_MediumDark = new Emoji(
+			"1F6C0-1F3FE",
+			"BATH",
+			"🛀🏾",
+			"bath",
+			new []{ "bath"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			40,
+			SkinVariationType.MediumDark,
+			"person taking bath",
+			new []{ "bath", "bathtub", "person taking bath"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "bath".
+		/// </summary>
+		public static readonly Emoji Bath_Dark = new Emoji(
+			"1F6C0-1F3FF",
+			"BATH",
+			"🛀🏿",
+			"bath",
+			new []{ "bath"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			41,
+			SkinVariationType.Dark,
 			"person taking bath",
 			new []{ "bath", "bathtub", "person taking bath"});
 		/// <summary>
@@ -3624,6 +13369,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			36,
 			48,
+			SkinVariationType.None,
+			"person in bed",
+			new []{ "hotel", "person in bed", "sleep"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleeping_accommodation".
+		/// </summary>
+		public static readonly Emoji SleepingAccommodation_Light = new Emoji(
+			"1F6CC-1F3FB",
+			"SLEEPING ACCOMMODATION",
+			"🛌🏻",
+			"sleeping_accommodation",
+			new []{ "sleeping_accommodation"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			49,
+			SkinVariationType.Light,
+			"person in bed",
+			new []{ "hotel", "person in bed", "sleep"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleeping_accommodation".
+		/// </summary>
+		public static readonly Emoji SleepingAccommodation_MediumLight = new Emoji(
+			"1F6CC-1F3FC",
+			"SLEEPING ACCOMMODATION",
+			"🛌🏼",
+			"sleeping_accommodation",
+			new []{ "sleeping_accommodation"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			50,
+			SkinVariationType.MediumLight,
+			"person in bed",
+			new []{ "hotel", "person in bed", "sleep"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleeping_accommodation".
+		/// </summary>
+		public static readonly Emoji SleepingAccommodation_Medium = new Emoji(
+			"1F6CC-1F3FD",
+			"SLEEPING ACCOMMODATION",
+			"🛌🏽",
+			"sleeping_accommodation",
+			new []{ "sleeping_accommodation"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			51,
+			SkinVariationType.Medium,
+			"person in bed",
+			new []{ "hotel", "person in bed", "sleep"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleeping_accommodation".
+		/// </summary>
+		public static readonly Emoji SleepingAccommodation_MediumDark = new Emoji(
+			"1F6CC-1F3FE",
+			"SLEEPING ACCOMMODATION",
+			"🛌🏾",
+			"sleeping_accommodation",
+			new []{ "sleeping_accommodation"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			0,
+			SkinVariationType.MediumDark,
+			"person in bed",
+			new []{ "hotel", "person in bed", "sleep"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "sleeping_accommodation".
+		/// </summary>
+		public static readonly Emoji SleepingAccommodation_Dark = new Emoji(
+			"1F6CC-1F3FF",
+			"SLEEPING ACCOMMODATION",
+			"🛌🏿",
+			"sleeping_accommodation",
+			new []{ "sleeping_accommodation"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			1,
+			SkinVariationType.Dark,
 			"person in bed",
 			new []{ "hotel", "person in bed", "sleep"});
 		/// <summary>
@@ -3640,6 +13471,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			28,
 			45,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_business_suit_levitating".
+		/// </summary>
+		public static readonly Emoji ManInBusinessSuitLevitating_Light = new Emoji(
+			"1F574-1F3FB",
+			null,
+			"🕴🏻",
+			"man_in_business_suit_levitating",
+			new []{ "man_in_business_suit_levitating"},
+			null,
+			null,
+			"Smileys & People",
+			28,
+			46,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_business_suit_levitating".
+		/// </summary>
+		public static readonly Emoji ManInBusinessSuitLevitating_MediumLight = new Emoji(
+			"1F574-1F3FC",
+			null,
+			"🕴🏼",
+			"man_in_business_suit_levitating",
+			new []{ "man_in_business_suit_levitating"},
+			null,
+			null,
+			"Smileys & People",
+			28,
+			47,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_business_suit_levitating".
+		/// </summary>
+		public static readonly Emoji ManInBusinessSuitLevitating_Medium = new Emoji(
+			"1F574-1F3FD",
+			null,
+			"🕴🏽",
+			"man_in_business_suit_levitating",
+			new []{ "man_in_business_suit_levitating"},
+			null,
+			null,
+			"Smileys & People",
+			28,
+			48,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_business_suit_levitating".
+		/// </summary>
+		public static readonly Emoji ManInBusinessSuitLevitating_MediumDark = new Emoji(
+			"1F574-1F3FE",
+			null,
+			"🕴🏾",
+			"man_in_business_suit_levitating",
+			new []{ "man_in_business_suit_levitating"},
+			null,
+			null,
+			"Smileys & People",
+			28,
+			49,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man_in_business_suit_levitating".
+		/// </summary>
+		public static readonly Emoji ManInBusinessSuitLevitating_Dark = new Emoji(
+			"1F574-1F3FF",
+			null,
+			"🕴🏿",
+			"man_in_business_suit_levitating",
+			new []{ "man_in_business_suit_levitating"},
+			null,
+			null,
+			"Smileys & People",
+			28,
+			50,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3656,6 +13573,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -3672,6 +13590,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			40,
+			SkinVariationType.None,
 			"bust in silhouette",
 			new []{ "bust", "bust in silhouette", "silhouette"});
 		/// <summary>
@@ -3688,6 +13607,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			41,
+			SkinVariationType.None,
 			"busts in silhouette",
 			new []{ "bust", "busts in silhouette", "silhouette"});
 		/// <summary>
@@ -3704,6 +13624,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			40,
 			48,
+			SkinVariationType.None,
 			"person fencing",
 			new []{ "fencer", "fencing", "person fencing", "sword"});
 		/// <summary>
@@ -3720,6 +13641,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			10,
 			20,
+			SkinVariationType.None,
+			"horse racing",
+			new []{ "horse", "jockey", "racehorse", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "horse_racing".
+		/// </summary>
+		public static readonly Emoji HorseRacing_Light = new Emoji(
+			"1F3C7-1F3FB",
+			"HORSE RACING",
+			"🏇🏻",
+			"horse_racing",
+			new []{ "horse_racing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			21,
+			SkinVariationType.Light,
+			"horse racing",
+			new []{ "horse", "jockey", "racehorse", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "horse_racing".
+		/// </summary>
+		public static readonly Emoji HorseRacing_MediumLight = new Emoji(
+			"1F3C7-1F3FC",
+			"HORSE RACING",
+			"🏇🏼",
+			"horse_racing",
+			new []{ "horse_racing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			22,
+			SkinVariationType.MediumLight,
+			"horse racing",
+			new []{ "horse", "jockey", "racehorse", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "horse_racing".
+		/// </summary>
+		public static readonly Emoji HorseRacing_Medium = new Emoji(
+			"1F3C7-1F3FD",
+			"HORSE RACING",
+			"🏇🏽",
+			"horse_racing",
+			new []{ "horse_racing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			23,
+			SkinVariationType.Medium,
+			"horse racing",
+			new []{ "horse", "jockey", "racehorse", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "horse_racing".
+		/// </summary>
+		public static readonly Emoji HorseRacing_MediumDark = new Emoji(
+			"1F3C7-1F3FE",
+			"HORSE RACING",
+			"🏇🏾",
+			"horse_racing",
+			new []{ "horse_racing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			24,
+			SkinVariationType.MediumDark,
+			"horse racing",
+			new []{ "horse", "jockey", "racehorse", "racing"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "horse_racing".
+		/// </summary>
+		public static readonly Emoji HorseRacing_Dark = new Emoji(
+			"1F3C7-1F3FF",
+			"HORSE RACING",
+			"🏇🏿",
+			"horse_racing",
+			new []{ "horse_racing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			25,
+			SkinVariationType.Dark,
 			"horse racing",
 			new []{ "horse", "jockey", "racehorse", "racing"});
 		/// <summary>
@@ -3736,6 +13743,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			48,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -3752,6 +13760,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			9,
 			28,
+			SkinVariationType.None,
+			"snowboarder",
+			new []{ "ski", "snow", "snowboard", "snowboarder"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "snowboarder".
+		/// </summary>
+		public static readonly Emoji Snowboarder_Light = new Emoji(
+			"1F3C2-1F3FB",
+			"SNOWBOARDER",
+			"🏂🏻",
+			"snowboarder",
+			new []{ "snowboarder"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			29,
+			SkinVariationType.Light,
+			"snowboarder",
+			new []{ "ski", "snow", "snowboard", "snowboarder"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "snowboarder".
+		/// </summary>
+		public static readonly Emoji Snowboarder_MediumLight = new Emoji(
+			"1F3C2-1F3FC",
+			"SNOWBOARDER",
+			"🏂🏼",
+			"snowboarder",
+			new []{ "snowboarder"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			30,
+			SkinVariationType.MediumLight,
+			"snowboarder",
+			new []{ "ski", "snow", "snowboard", "snowboarder"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "snowboarder".
+		/// </summary>
+		public static readonly Emoji Snowboarder_Medium = new Emoji(
+			"1F3C2-1F3FD",
+			"SNOWBOARDER",
+			"🏂🏽",
+			"snowboarder",
+			new []{ "snowboarder"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			31,
+			SkinVariationType.Medium,
+			"snowboarder",
+			new []{ "ski", "snow", "snowboard", "snowboarder"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "snowboarder".
+		/// </summary>
+		public static readonly Emoji Snowboarder_MediumDark = new Emoji(
+			"1F3C2-1F3FE",
+			"SNOWBOARDER",
+			"🏂🏾",
+			"snowboarder",
+			new []{ "snowboarder"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			32,
+			SkinVariationType.MediumDark,
+			"snowboarder",
+			new []{ "ski", "snow", "snowboard", "snowboarder"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "snowboarder".
+		/// </summary>
+		public static readonly Emoji Snowboarder_Dark = new Emoji(
+			"1F3C2-1F3FF",
+			"SNOWBOARDER",
+			"🏂🏿",
+			"snowboarder",
+			new []{ "snowboarder"},
+			null,
+			null,
+			"Smileys & People",
+			9,
+			33,
+			SkinVariationType.Dark,
 			"snowboarder",
 			new []{ "ski", "snow", "snowboard", "snowboarder"});
 		/// <summary>
@@ -3768,6 +13862,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			11,
 			24,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "golfer".
+		/// </summary>
+		public static readonly Emoji Golfer_Light = new Emoji(
+			"1F3CC-1F3FB",
+			null,
+			"🏌🏻",
+			"golfer",
+			new []{ "golfer"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			25,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "golfer".
+		/// </summary>
+		public static readonly Emoji Golfer_MediumLight = new Emoji(
+			"1F3CC-1F3FC",
+			null,
+			"🏌🏼",
+			"golfer",
+			new []{ "golfer"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			26,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "golfer".
+		/// </summary>
+		public static readonly Emoji Golfer_Medium = new Emoji(
+			"1F3CC-1F3FD",
+			null,
+			"🏌🏽",
+			"golfer",
+			new []{ "golfer"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			27,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "golfer".
+		/// </summary>
+		public static readonly Emoji Golfer_MediumDark = new Emoji(
+			"1F3CC-1F3FE",
+			null,
+			"🏌🏾",
+			"golfer",
+			new []{ "golfer"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			28,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "golfer".
+		/// </summary>
+		public static readonly Emoji Golfer_Dark = new Emoji(
+			"1F3CC-1F3FF",
+			null,
+			"🏌🏿",
+			"golfer",
+			new []{ "golfer"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			29,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3784,6 +13964,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			11,
 			18,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-golfing".
+		/// </summary>
+		public static readonly Emoji ManGolfing_Light = new Emoji(
+			"1F3CC-1F3FB-200D-2642-FE0F",
+			null,
+			"🏌🏻‍♂️",
+			"man-golfing",
+			new []{ "man-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			19,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-golfing".
+		/// </summary>
+		public static readonly Emoji ManGolfing_MediumLight = new Emoji(
+			"1F3CC-1F3FC-200D-2642-FE0F",
+			null,
+			"🏌🏼‍♂️",
+			"man-golfing",
+			new []{ "man-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			20,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-golfing".
+		/// </summary>
+		public static readonly Emoji ManGolfing_Medium = new Emoji(
+			"1F3CC-1F3FD-200D-2642-FE0F",
+			null,
+			"🏌🏽‍♂️",
+			"man-golfing",
+			new []{ "man-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			21,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-golfing".
+		/// </summary>
+		public static readonly Emoji ManGolfing_MediumDark = new Emoji(
+			"1F3CC-1F3FE-200D-2642-FE0F",
+			null,
+			"🏌🏾‍♂️",
+			"man-golfing",
+			new []{ "man-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			22,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-golfing".
+		/// </summary>
+		public static readonly Emoji ManGolfing_Dark = new Emoji(
+			"1F3CC-1F3FF-200D-2642-FE0F",
+			null,
+			"🏌🏿‍♂️",
+			"man-golfing",
+			new []{ "man-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			23,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3800,6 +14066,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			11,
 			12,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-golfing".
+		/// </summary>
+		public static readonly Emoji WomanGolfing_Light = new Emoji(
+			"1F3CC-1F3FB-200D-2640-FE0F",
+			null,
+			"🏌🏻‍♀️",
+			"woman-golfing",
+			new []{ "woman-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			13,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-golfing".
+		/// </summary>
+		public static readonly Emoji WomanGolfing_MediumLight = new Emoji(
+			"1F3CC-1F3FC-200D-2640-FE0F",
+			null,
+			"🏌🏼‍♀️",
+			"woman-golfing",
+			new []{ "woman-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			14,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-golfing".
+		/// </summary>
+		public static readonly Emoji WomanGolfing_Medium = new Emoji(
+			"1F3CC-1F3FD-200D-2640-FE0F",
+			null,
+			"🏌🏽‍♀️",
+			"woman-golfing",
+			new []{ "woman-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			15,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-golfing".
+		/// </summary>
+		public static readonly Emoji WomanGolfing_MediumDark = new Emoji(
+			"1F3CC-1F3FE-200D-2640-FE0F",
+			null,
+			"🏌🏾‍♀️",
+			"woman-golfing",
+			new []{ "woman-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			16,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-golfing".
+		/// </summary>
+		public static readonly Emoji WomanGolfing_Dark = new Emoji(
+			"1F3CC-1F3FF-200D-2640-FE0F",
+			null,
+			"🏌🏿‍♀️",
+			"woman-golfing",
+			new []{ "woman-golfing"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			17,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3816,6 +14168,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			10,
 			6,
+			SkinVariationType.None,
+			"man surfing",
+			new []{ "person surfing", "surfing", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-surfing".
+		/// </summary>
+		public static readonly Emoji ManSurfing_Light = new Emoji(
+			"1F3C4-1F3FB-200D-2642-FE0F",
+			null,
+			"🏄🏻‍♂️",
+			"man-surfing",
+			new []{ "man-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			7,
+			SkinVariationType.Light,
+			"man surfing",
+			new []{ "person surfing", "surfing", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-surfing".
+		/// </summary>
+		public static readonly Emoji ManSurfing_MediumLight = new Emoji(
+			"1F3C4-1F3FC-200D-2642-FE0F",
+			null,
+			"🏄🏼‍♂️",
+			"man-surfing",
+			new []{ "man-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			8,
+			SkinVariationType.MediumLight,
+			"man surfing",
+			new []{ "person surfing", "surfing", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-surfing".
+		/// </summary>
+		public static readonly Emoji ManSurfing_Medium = new Emoji(
+			"1F3C4-1F3FD-200D-2642-FE0F",
+			null,
+			"🏄🏽‍♂️",
+			"man-surfing",
+			new []{ "man-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			9,
+			SkinVariationType.Medium,
+			"man surfing",
+			new []{ "person surfing", "surfing", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-surfing".
+		/// </summary>
+		public static readonly Emoji ManSurfing_MediumDark = new Emoji(
+			"1F3C4-1F3FE-200D-2642-FE0F",
+			null,
+			"🏄🏾‍♂️",
+			"man-surfing",
+			new []{ "man-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			10,
+			SkinVariationType.MediumDark,
+			"man surfing",
+			new []{ "person surfing", "surfing", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-surfing".
+		/// </summary>
+		public static readonly Emoji ManSurfing_Dark = new Emoji(
+			"1F3C4-1F3FF-200D-2642-FE0F",
+			null,
+			"🏄🏿‍♂️",
+			"man-surfing",
+			new []{ "man-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			11,
+			SkinVariationType.Dark,
 			"man surfing",
 			new []{ "person surfing", "surfing", "man"});
 		/// <summary>
@@ -3832,6 +14270,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			10,
 			0,
+			SkinVariationType.None,
+			"woman surfing",
+			new []{ "person surfing", "surfing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-surfing".
+		/// </summary>
+		public static readonly Emoji WomanSurfing_Light = new Emoji(
+			"1F3C4-1F3FB-200D-2640-FE0F",
+			null,
+			"🏄🏻‍♀️",
+			"woman-surfing",
+			new []{ "woman-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			1,
+			SkinVariationType.Light,
+			"woman surfing",
+			new []{ "person surfing", "surfing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-surfing".
+		/// </summary>
+		public static readonly Emoji WomanSurfing_MediumLight = new Emoji(
+			"1F3C4-1F3FC-200D-2640-FE0F",
+			null,
+			"🏄🏼‍♀️",
+			"woman-surfing",
+			new []{ "woman-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			2,
+			SkinVariationType.MediumLight,
+			"woman surfing",
+			new []{ "person surfing", "surfing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-surfing".
+		/// </summary>
+		public static readonly Emoji WomanSurfing_Medium = new Emoji(
+			"1F3C4-1F3FD-200D-2640-FE0F",
+			null,
+			"🏄🏽‍♀️",
+			"woman-surfing",
+			new []{ "woman-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			3,
+			SkinVariationType.Medium,
+			"woman surfing",
+			new []{ "person surfing", "surfing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-surfing".
+		/// </summary>
+		public static readonly Emoji WomanSurfing_MediumDark = new Emoji(
+			"1F3C4-1F3FE-200D-2640-FE0F",
+			null,
+			"🏄🏾‍♀️",
+			"woman-surfing",
+			new []{ "woman-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			4,
+			SkinVariationType.MediumDark,
+			"woman surfing",
+			new []{ "person surfing", "surfing", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-surfing".
+		/// </summary>
+		public static readonly Emoji WomanSurfing_Dark = new Emoji(
+			"1F3C4-1F3FF-200D-2640-FE0F",
+			null,
+			"🏄🏿‍♀️",
+			"woman-surfing",
+			new []{ "woman-surfing"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			5,
+			SkinVariationType.Dark,
 			"woman surfing",
 			new []{ "person surfing", "surfing", "woman"});
 		/// <summary>
@@ -3848,6 +14372,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			34,
 			49,
+			SkinVariationType.None,
+			"man rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "man", "man rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-rowing-boat".
+		/// </summary>
+		public static readonly Emoji ManRowingBoat_Light = new Emoji(
+			"1F6A3-1F3FB-200D-2642-FE0F",
+			null,
+			"🚣🏻‍♂️",
+			"man-rowing-boat",
+			new []{ "man-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			50,
+			SkinVariationType.Light,
+			"man rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "man", "man rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-rowing-boat".
+		/// </summary>
+		public static readonly Emoji ManRowingBoat_MediumLight = new Emoji(
+			"1F6A3-1F3FC-200D-2642-FE0F",
+			null,
+			"🚣🏼‍♂️",
+			"man-rowing-boat",
+			new []{ "man-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			51,
+			SkinVariationType.MediumLight,
+			"man rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "man", "man rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-rowing-boat".
+		/// </summary>
+		public static readonly Emoji ManRowingBoat_Medium = new Emoji(
+			"1F6A3-1F3FD-200D-2642-FE0F",
+			null,
+			"🚣🏽‍♂️",
+			"man-rowing-boat",
+			new []{ "man-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			0,
+			SkinVariationType.Medium,
+			"man rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "man", "man rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-rowing-boat".
+		/// </summary>
+		public static readonly Emoji ManRowingBoat_MediumDark = new Emoji(
+			"1F6A3-1F3FE-200D-2642-FE0F",
+			null,
+			"🚣🏾‍♂️",
+			"man-rowing-boat",
+			new []{ "man-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			1,
+			SkinVariationType.MediumDark,
+			"man rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "man", "man rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-rowing-boat".
+		/// </summary>
+		public static readonly Emoji ManRowingBoat_Dark = new Emoji(
+			"1F6A3-1F3FF-200D-2642-FE0F",
+			null,
+			"🚣🏿‍♂️",
+			"man-rowing-boat",
+			new []{ "man-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			2,
+			SkinVariationType.Dark,
 			"man rowing boat",
 			new []{ "boat", "person rowing boat", "rowboat", "man", "man rowing boat"});
 		/// <summary>
@@ -3864,6 +14474,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			34,
 			43,
+			SkinVariationType.None,
+			"woman rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "woman", "woman rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-rowing-boat".
+		/// </summary>
+		public static readonly Emoji WomanRowingBoat_Light = new Emoji(
+			"1F6A3-1F3FB-200D-2640-FE0F",
+			null,
+			"🚣🏻‍♀️",
+			"woman-rowing-boat",
+			new []{ "woman-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			44,
+			SkinVariationType.Light,
+			"woman rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "woman", "woman rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-rowing-boat".
+		/// </summary>
+		public static readonly Emoji WomanRowingBoat_MediumLight = new Emoji(
+			"1F6A3-1F3FC-200D-2640-FE0F",
+			null,
+			"🚣🏼‍♀️",
+			"woman-rowing-boat",
+			new []{ "woman-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			45,
+			SkinVariationType.MediumLight,
+			"woman rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "woman", "woman rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-rowing-boat".
+		/// </summary>
+		public static readonly Emoji WomanRowingBoat_Medium = new Emoji(
+			"1F6A3-1F3FD-200D-2640-FE0F",
+			null,
+			"🚣🏽‍♀️",
+			"woman-rowing-boat",
+			new []{ "woman-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			46,
+			SkinVariationType.Medium,
+			"woman rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "woman", "woman rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-rowing-boat".
+		/// </summary>
+		public static readonly Emoji WomanRowingBoat_MediumDark = new Emoji(
+			"1F6A3-1F3FE-200D-2640-FE0F",
+			null,
+			"🚣🏾‍♀️",
+			"woman-rowing-boat",
+			new []{ "woman-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			47,
+			SkinVariationType.MediumDark,
+			"woman rowing boat",
+			new []{ "boat", "person rowing boat", "rowboat", "woman", "woman rowing boat"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-rowing-boat".
+		/// </summary>
+		public static readonly Emoji WomanRowingBoat_Dark = new Emoji(
+			"1F6A3-1F3FF-200D-2640-FE0F",
+			null,
+			"🚣🏿‍♀️",
+			"woman-rowing-boat",
+			new []{ "woman-rowing-boat"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			48,
+			SkinVariationType.Dark,
 			"woman rowing boat",
 			new []{ "boat", "person rowing boat", "rowboat", "woman", "woman rowing boat"});
 		/// <summary>
@@ -3880,6 +14576,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			10,
 			34,
+			SkinVariationType.None,
+			"man swimming",
+			new []{ "person swimming", "swim", "man", "man swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-swimming".
+		/// </summary>
+		public static readonly Emoji ManSwimming_Light = new Emoji(
+			"1F3CA-1F3FB-200D-2642-FE0F",
+			null,
+			"🏊🏻‍♂️",
+			"man-swimming",
+			new []{ "man-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			35,
+			SkinVariationType.Light,
+			"man swimming",
+			new []{ "person swimming", "swim", "man", "man swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-swimming".
+		/// </summary>
+		public static readonly Emoji ManSwimming_MediumLight = new Emoji(
+			"1F3CA-1F3FC-200D-2642-FE0F",
+			null,
+			"🏊🏼‍♂️",
+			"man-swimming",
+			new []{ "man-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			36,
+			SkinVariationType.MediumLight,
+			"man swimming",
+			new []{ "person swimming", "swim", "man", "man swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-swimming".
+		/// </summary>
+		public static readonly Emoji ManSwimming_Medium = new Emoji(
+			"1F3CA-1F3FD-200D-2642-FE0F",
+			null,
+			"🏊🏽‍♂️",
+			"man-swimming",
+			new []{ "man-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			37,
+			SkinVariationType.Medium,
+			"man swimming",
+			new []{ "person swimming", "swim", "man", "man swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-swimming".
+		/// </summary>
+		public static readonly Emoji ManSwimming_MediumDark = new Emoji(
+			"1F3CA-1F3FE-200D-2642-FE0F",
+			null,
+			"🏊🏾‍♂️",
+			"man-swimming",
+			new []{ "man-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			38,
+			SkinVariationType.MediumDark,
+			"man swimming",
+			new []{ "person swimming", "swim", "man", "man swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-swimming".
+		/// </summary>
+		public static readonly Emoji ManSwimming_Dark = new Emoji(
+			"1F3CA-1F3FF-200D-2642-FE0F",
+			null,
+			"🏊🏿‍♂️",
+			"man-swimming",
+			new []{ "man-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			39,
+			SkinVariationType.Dark,
 			"man swimming",
 			new []{ "person swimming", "swim", "man", "man swimming"});
 		/// <summary>
@@ -3896,6 +14678,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			10,
 			28,
+			SkinVariationType.None,
+			"woman swimming",
+			new []{ "person swimming", "swim", "woman", "woman swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-swimming".
+		/// </summary>
+		public static readonly Emoji WomanSwimming_Light = new Emoji(
+			"1F3CA-1F3FB-200D-2640-FE0F",
+			null,
+			"🏊🏻‍♀️",
+			"woman-swimming",
+			new []{ "woman-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			29,
+			SkinVariationType.Light,
+			"woman swimming",
+			new []{ "person swimming", "swim", "woman", "woman swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-swimming".
+		/// </summary>
+		public static readonly Emoji WomanSwimming_MediumLight = new Emoji(
+			"1F3CA-1F3FC-200D-2640-FE0F",
+			null,
+			"🏊🏼‍♀️",
+			"woman-swimming",
+			new []{ "woman-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			30,
+			SkinVariationType.MediumLight,
+			"woman swimming",
+			new []{ "person swimming", "swim", "woman", "woman swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-swimming".
+		/// </summary>
+		public static readonly Emoji WomanSwimming_Medium = new Emoji(
+			"1F3CA-1F3FD-200D-2640-FE0F",
+			null,
+			"🏊🏽‍♀️",
+			"woman-swimming",
+			new []{ "woman-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			31,
+			SkinVariationType.Medium,
+			"woman swimming",
+			new []{ "person swimming", "swim", "woman", "woman swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-swimming".
+		/// </summary>
+		public static readonly Emoji WomanSwimming_MediumDark = new Emoji(
+			"1F3CA-1F3FE-200D-2640-FE0F",
+			null,
+			"🏊🏾‍♀️",
+			"woman-swimming",
+			new []{ "woman-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			32,
+			SkinVariationType.MediumDark,
+			"woman swimming",
+			new []{ "person swimming", "swim", "woman", "woman swimming"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-swimming".
+		/// </summary>
+		public static readonly Emoji WomanSwimming_Dark = new Emoji(
+			"1F3CA-1F3FF-200D-2640-FE0F",
+			null,
+			"🏊🏿‍♀️",
+			"woman-swimming",
+			new []{ "woman-swimming"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			33,
+			SkinVariationType.Dark,
 			"woman swimming",
 			new []{ "person swimming", "swim", "woman", "woman swimming"});
 		/// <summary>
@@ -3912,6 +14780,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			49,
 			6,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_ball".
+		/// </summary>
+		public static readonly Emoji PersonWithBall_Light = new Emoji(
+			"26F9-1F3FB",
+			null,
+			"⛹🏻",
+			"person_with_ball",
+			new []{ "person_with_ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			7,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_ball".
+		/// </summary>
+		public static readonly Emoji PersonWithBall_MediumLight = new Emoji(
+			"26F9-1F3FC",
+			null,
+			"⛹🏼",
+			"person_with_ball",
+			new []{ "person_with_ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			8,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_ball".
+		/// </summary>
+		public static readonly Emoji PersonWithBall_Medium = new Emoji(
+			"26F9-1F3FD",
+			null,
+			"⛹🏽",
+			"person_with_ball",
+			new []{ "person_with_ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			9,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_ball".
+		/// </summary>
+		public static readonly Emoji PersonWithBall_MediumDark = new Emoji(
+			"26F9-1F3FE",
+			null,
+			"⛹🏾",
+			"person_with_ball",
+			new []{ "person_with_ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			10,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "person_with_ball".
+		/// </summary>
+		public static readonly Emoji PersonWithBall_Dark = new Emoji(
+			"26F9-1F3FF",
+			null,
+			"⛹🏿",
+			"person_with_ball",
+			new []{ "person_with_ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			11,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3928,6 +14882,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			49,
 			0,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji ManBouncingBall_Light = new Emoji(
+			"26F9-1F3FB-200D-2642-FE0F",
+			null,
+			"⛹🏻‍♂️",
+			"man-bouncing-ball",
+			new []{ "man-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			1,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji ManBouncingBall_MediumLight = new Emoji(
+			"26F9-1F3FC-200D-2642-FE0F",
+			null,
+			"⛹🏼‍♂️",
+			"man-bouncing-ball",
+			new []{ "man-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			2,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji ManBouncingBall_Medium = new Emoji(
+			"26F9-1F3FD-200D-2642-FE0F",
+			null,
+			"⛹🏽‍♂️",
+			"man-bouncing-ball",
+			new []{ "man-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			3,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji ManBouncingBall_MediumDark = new Emoji(
+			"26F9-1F3FE-200D-2642-FE0F",
+			null,
+			"⛹🏾‍♂️",
+			"man-bouncing-ball",
+			new []{ "man-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			4,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji ManBouncingBall_Dark = new Emoji(
+			"26F9-1F3FF-200D-2642-FE0F",
+			null,
+			"⛹🏿‍♂️",
+			"man-bouncing-ball",
+			new []{ "man-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			5,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3944,6 +14984,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			48,
 			46,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji WomanBouncingBall_Light = new Emoji(
+			"26F9-1F3FB-200D-2640-FE0F",
+			null,
+			"⛹🏻‍♀️",
+			"woman-bouncing-ball",
+			new []{ "woman-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			48,
+			47,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji WomanBouncingBall_MediumLight = new Emoji(
+			"26F9-1F3FC-200D-2640-FE0F",
+			null,
+			"⛹🏼‍♀️",
+			"woman-bouncing-ball",
+			new []{ "woman-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			48,
+			48,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji WomanBouncingBall_Medium = new Emoji(
+			"26F9-1F3FD-200D-2640-FE0F",
+			null,
+			"⛹🏽‍♀️",
+			"woman-bouncing-ball",
+			new []{ "woman-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			48,
+			49,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji WomanBouncingBall_MediumDark = new Emoji(
+			"26F9-1F3FE-200D-2640-FE0F",
+			null,
+			"⛹🏾‍♀️",
+			"woman-bouncing-ball",
+			new []{ "woman-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			48,
+			50,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-bouncing-ball".
+		/// </summary>
+		public static readonly Emoji WomanBouncingBall_Dark = new Emoji(
+			"26F9-1F3FF-200D-2640-FE0F",
+			null,
+			"⛹🏿‍♀️",
+			"woman-bouncing-ball",
+			new []{ "woman-bouncing-ball"},
+			null,
+			null,
+			"Smileys & People",
+			48,
+			51,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3960,6 +15086,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			11,
 			6,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "weight_lifter".
+		/// </summary>
+		public static readonly Emoji WeightLifter_Light = new Emoji(
+			"1F3CB-1F3FB",
+			null,
+			"🏋🏻",
+			"weight_lifter",
+			new []{ "weight_lifter"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			7,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "weight_lifter".
+		/// </summary>
+		public static readonly Emoji WeightLifter_MediumLight = new Emoji(
+			"1F3CB-1F3FC",
+			null,
+			"🏋🏼",
+			"weight_lifter",
+			new []{ "weight_lifter"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			8,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "weight_lifter".
+		/// </summary>
+		public static readonly Emoji WeightLifter_Medium = new Emoji(
+			"1F3CB-1F3FD",
+			null,
+			"🏋🏽",
+			"weight_lifter",
+			new []{ "weight_lifter"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			9,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "weight_lifter".
+		/// </summary>
+		public static readonly Emoji WeightLifter_MediumDark = new Emoji(
+			"1F3CB-1F3FE",
+			null,
+			"🏋🏾",
+			"weight_lifter",
+			new []{ "weight_lifter"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			10,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "weight_lifter".
+		/// </summary>
+		public static readonly Emoji WeightLifter_Dark = new Emoji(
+			"1F3CB-1F3FF",
+			null,
+			"🏋🏿",
+			"weight_lifter",
+			new []{ "weight_lifter"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			11,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3976,6 +15188,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			11,
 			0,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-lifting-weights".
+		/// </summary>
+		public static readonly Emoji ManLiftingWeights_Light = new Emoji(
+			"1F3CB-1F3FB-200D-2642-FE0F",
+			null,
+			"🏋🏻‍♂️",
+			"man-lifting-weights",
+			new []{ "man-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			1,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-lifting-weights".
+		/// </summary>
+		public static readonly Emoji ManLiftingWeights_MediumLight = new Emoji(
+			"1F3CB-1F3FC-200D-2642-FE0F",
+			null,
+			"🏋🏼‍♂️",
+			"man-lifting-weights",
+			new []{ "man-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			2,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-lifting-weights".
+		/// </summary>
+		public static readonly Emoji ManLiftingWeights_Medium = new Emoji(
+			"1F3CB-1F3FD-200D-2642-FE0F",
+			null,
+			"🏋🏽‍♂️",
+			"man-lifting-weights",
+			new []{ "man-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			3,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-lifting-weights".
+		/// </summary>
+		public static readonly Emoji ManLiftingWeights_MediumDark = new Emoji(
+			"1F3CB-1F3FE-200D-2642-FE0F",
+			null,
+			"🏋🏾‍♂️",
+			"man-lifting-weights",
+			new []{ "man-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			4,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-lifting-weights".
+		/// </summary>
+		public static readonly Emoji ManLiftingWeights_Dark = new Emoji(
+			"1F3CB-1F3FF-200D-2642-FE0F",
+			null,
+			"🏋🏿‍♂️",
+			"man-lifting-weights",
+			new []{ "man-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			11,
+			5,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -3992,6 +15290,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			10,
 			46,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-lifting-weights".
+		/// </summary>
+		public static readonly Emoji WomanLiftingWeights_Light = new Emoji(
+			"1F3CB-1F3FB-200D-2640-FE0F",
+			null,
+			"🏋🏻‍♀️",
+			"woman-lifting-weights",
+			new []{ "woman-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			47,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-lifting-weights".
+		/// </summary>
+		public static readonly Emoji WomanLiftingWeights_MediumLight = new Emoji(
+			"1F3CB-1F3FC-200D-2640-FE0F",
+			null,
+			"🏋🏼‍♀️",
+			"woman-lifting-weights",
+			new []{ "woman-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			48,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-lifting-weights".
+		/// </summary>
+		public static readonly Emoji WomanLiftingWeights_Medium = new Emoji(
+			"1F3CB-1F3FD-200D-2640-FE0F",
+			null,
+			"🏋🏽‍♀️",
+			"woman-lifting-weights",
+			new []{ "woman-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			49,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-lifting-weights".
+		/// </summary>
+		public static readonly Emoji WomanLiftingWeights_MediumDark = new Emoji(
+			"1F3CB-1F3FE-200D-2640-FE0F",
+			null,
+			"🏋🏾‍♀️",
+			"woman-lifting-weights",
+			new []{ "woman-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			50,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-lifting-weights".
+		/// </summary>
+		public static readonly Emoji WomanLiftingWeights_Dark = new Emoji(
+			"1F3CB-1F3FF-200D-2640-FE0F",
+			null,
+			"🏋🏿‍♀️",
+			"woman-lifting-weights",
+			new []{ "woman-lifting-weights"},
+			null,
+			null,
+			"Smileys & People",
+			10,
+			51,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -4008,6 +15392,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			35,
 			31,
+			SkinVariationType.None,
+			"man biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-biking".
+		/// </summary>
+		public static readonly Emoji ManBiking_Light = new Emoji(
+			"1F6B4-1F3FB-200D-2642-FE0F",
+			null,
+			"🚴🏻‍♂️",
+			"man-biking",
+			new []{ "man-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			32,
+			SkinVariationType.Light,
+			"man biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-biking".
+		/// </summary>
+		public static readonly Emoji ManBiking_MediumLight = new Emoji(
+			"1F6B4-1F3FC-200D-2642-FE0F",
+			null,
+			"🚴🏼‍♂️",
+			"man-biking",
+			new []{ "man-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			33,
+			SkinVariationType.MediumLight,
+			"man biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-biking".
+		/// </summary>
+		public static readonly Emoji ManBiking_Medium = new Emoji(
+			"1F6B4-1F3FD-200D-2642-FE0F",
+			null,
+			"🚴🏽‍♂️",
+			"man-biking",
+			new []{ "man-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			34,
+			SkinVariationType.Medium,
+			"man biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-biking".
+		/// </summary>
+		public static readonly Emoji ManBiking_MediumDark = new Emoji(
+			"1F6B4-1F3FE-200D-2642-FE0F",
+			null,
+			"🚴🏾‍♂️",
+			"man-biking",
+			new []{ "man-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			35,
+			SkinVariationType.MediumDark,
+			"man biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-biking".
+		/// </summary>
+		public static readonly Emoji ManBiking_Dark = new Emoji(
+			"1F6B4-1F3FF-200D-2642-FE0F",
+			null,
+			"🚴🏿‍♂️",
+			"man-biking",
+			new []{ "man-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			36,
+			SkinVariationType.Dark,
 			"man biking",
 			new []{ "bicycle", "biking", "cyclist", "person biking", "man"});
 		/// <summary>
@@ -4024,6 +15494,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			35,
 			25,
+			SkinVariationType.None,
+			"woman biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-biking".
+		/// </summary>
+		public static readonly Emoji WomanBiking_Light = new Emoji(
+			"1F6B4-1F3FB-200D-2640-FE0F",
+			null,
+			"🚴🏻‍♀️",
+			"woman-biking",
+			new []{ "woman-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			26,
+			SkinVariationType.Light,
+			"woman biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-biking".
+		/// </summary>
+		public static readonly Emoji WomanBiking_MediumLight = new Emoji(
+			"1F6B4-1F3FC-200D-2640-FE0F",
+			null,
+			"🚴🏼‍♀️",
+			"woman-biking",
+			new []{ "woman-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			27,
+			SkinVariationType.MediumLight,
+			"woman biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-biking".
+		/// </summary>
+		public static readonly Emoji WomanBiking_Medium = new Emoji(
+			"1F6B4-1F3FD-200D-2640-FE0F",
+			null,
+			"🚴🏽‍♀️",
+			"woman-biking",
+			new []{ "woman-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			28,
+			SkinVariationType.Medium,
+			"woman biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-biking".
+		/// </summary>
+		public static readonly Emoji WomanBiking_MediumDark = new Emoji(
+			"1F6B4-1F3FE-200D-2640-FE0F",
+			null,
+			"🚴🏾‍♀️",
+			"woman-biking",
+			new []{ "woman-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			29,
+			SkinVariationType.MediumDark,
+			"woman biking",
+			new []{ "bicycle", "biking", "cyclist", "person biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-biking".
+		/// </summary>
+		public static readonly Emoji WomanBiking_Dark = new Emoji(
+			"1F6B4-1F3FF-200D-2640-FE0F",
+			null,
+			"🚴🏿‍♀️",
+			"woman-biking",
+			new []{ "woman-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			30,
+			SkinVariationType.Dark,
 			"woman biking",
 			new []{ "bicycle", "biking", "cyclist", "person biking", "woman"});
 		/// <summary>
@@ -4040,6 +15596,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			35,
 			49,
+			SkinVariationType.None,
+			"man mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "man", "man mountain biking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-mountain-biking".
+		/// </summary>
+		public static readonly Emoji ManMountainBiking_Light = new Emoji(
+			"1F6B5-1F3FB-200D-2642-FE0F",
+			null,
+			"🚵🏻‍♂️",
+			"man-mountain-biking",
+			new []{ "man-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			50,
+			SkinVariationType.Light,
+			"man mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "man", "man mountain biking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-mountain-biking".
+		/// </summary>
+		public static readonly Emoji ManMountainBiking_MediumLight = new Emoji(
+			"1F6B5-1F3FC-200D-2642-FE0F",
+			null,
+			"🚵🏼‍♂️",
+			"man-mountain-biking",
+			new []{ "man-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			51,
+			SkinVariationType.MediumLight,
+			"man mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "man", "man mountain biking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-mountain-biking".
+		/// </summary>
+		public static readonly Emoji ManMountainBiking_Medium = new Emoji(
+			"1F6B5-1F3FD-200D-2642-FE0F",
+			null,
+			"🚵🏽‍♂️",
+			"man-mountain-biking",
+			new []{ "man-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			0,
+			SkinVariationType.Medium,
+			"man mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "man", "man mountain biking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-mountain-biking".
+		/// </summary>
+		public static readonly Emoji ManMountainBiking_MediumDark = new Emoji(
+			"1F6B5-1F3FE-200D-2642-FE0F",
+			null,
+			"🚵🏾‍♂️",
+			"man-mountain-biking",
+			new []{ "man-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			1,
+			SkinVariationType.MediumDark,
+			"man mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "man", "man mountain biking"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-mountain-biking".
+		/// </summary>
+		public static readonly Emoji ManMountainBiking_Dark = new Emoji(
+			"1F6B5-1F3FF-200D-2642-FE0F",
+			null,
+			"🚵🏿‍♂️",
+			"man-mountain-biking",
+			new []{ "man-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			36,
+			2,
+			SkinVariationType.Dark,
 			"man mountain biking",
 			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "man", "man mountain biking"});
 		/// <summary>
@@ -4056,6 +15698,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			35,
 			43,
+			SkinVariationType.None,
+			"woman mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-mountain-biking".
+		/// </summary>
+		public static readonly Emoji WomanMountainBiking_Light = new Emoji(
+			"1F6B5-1F3FB-200D-2640-FE0F",
+			null,
+			"🚵🏻‍♀️",
+			"woman-mountain-biking",
+			new []{ "woman-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			44,
+			SkinVariationType.Light,
+			"woman mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-mountain-biking".
+		/// </summary>
+		public static readonly Emoji WomanMountainBiking_MediumLight = new Emoji(
+			"1F6B5-1F3FC-200D-2640-FE0F",
+			null,
+			"🚵🏼‍♀️",
+			"woman-mountain-biking",
+			new []{ "woman-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			45,
+			SkinVariationType.MediumLight,
+			"woman mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-mountain-biking".
+		/// </summary>
+		public static readonly Emoji WomanMountainBiking_Medium = new Emoji(
+			"1F6B5-1F3FD-200D-2640-FE0F",
+			null,
+			"🚵🏽‍♀️",
+			"woman-mountain-biking",
+			new []{ "woman-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			46,
+			SkinVariationType.Medium,
+			"woman mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-mountain-biking".
+		/// </summary>
+		public static readonly Emoji WomanMountainBiking_MediumDark = new Emoji(
+			"1F6B5-1F3FE-200D-2640-FE0F",
+			null,
+			"🚵🏾‍♀️",
+			"woman-mountain-biking",
+			new []{ "woman-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			47,
+			SkinVariationType.MediumDark,
+			"woman mountain biking",
+			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "biking", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-mountain-biking".
+		/// </summary>
+		public static readonly Emoji WomanMountainBiking_Dark = new Emoji(
+			"1F6B5-1F3FF-200D-2640-FE0F",
+			null,
+			"🚵🏿‍♀️",
+			"woman-mountain-biking",
+			new []{ "woman-mountain-biking"},
+			null,
+			null,
+			"Smileys & People",
+			35,
+			48,
+			SkinVariationType.Dark,
 			"woman mountain biking",
 			new []{ "bicycle", "bicyclist", "bike", "cyclist", "mountain", "person mountain biking", "biking", "woman"});
 		/// <summary>
@@ -4072,6 +15800,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			11,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4088,6 +15817,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			11,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4104,6 +15834,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			40,
 			18,
+			SkinVariationType.None,
+			"man cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "man", "man cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-cartwheeling".
+		/// </summary>
+		public static readonly Emoji ManCartwheeling_Light = new Emoji(
+			"1F938-1F3FB-200D-2642-FE0F",
+			null,
+			"🤸🏻‍♂️",
+			"man-cartwheeling",
+			new []{ "man-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			19,
+			SkinVariationType.Light,
+			"man cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "man", "man cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-cartwheeling".
+		/// </summary>
+		public static readonly Emoji ManCartwheeling_MediumLight = new Emoji(
+			"1F938-1F3FC-200D-2642-FE0F",
+			null,
+			"🤸🏼‍♂️",
+			"man-cartwheeling",
+			new []{ "man-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			20,
+			SkinVariationType.MediumLight,
+			"man cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "man", "man cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-cartwheeling".
+		/// </summary>
+		public static readonly Emoji ManCartwheeling_Medium = new Emoji(
+			"1F938-1F3FD-200D-2642-FE0F",
+			null,
+			"🤸🏽‍♂️",
+			"man-cartwheeling",
+			new []{ "man-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			21,
+			SkinVariationType.Medium,
+			"man cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "man", "man cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-cartwheeling".
+		/// </summary>
+		public static readonly Emoji ManCartwheeling_MediumDark = new Emoji(
+			"1F938-1F3FE-200D-2642-FE0F",
+			null,
+			"🤸🏾‍♂️",
+			"man-cartwheeling",
+			new []{ "man-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			22,
+			SkinVariationType.MediumDark,
+			"man cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "man", "man cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-cartwheeling".
+		/// </summary>
+		public static readonly Emoji ManCartwheeling_Dark = new Emoji(
+			"1F938-1F3FF-200D-2642-FE0F",
+			null,
+			"🤸🏿‍♂️",
+			"man-cartwheeling",
+			new []{ "man-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			23,
+			SkinVariationType.Dark,
 			"man cartwheeling",
 			new []{ "cartwheel", "gymnastics", "person cartwheeling", "man", "man cartwheeling"});
 		/// <summary>
@@ -4120,6 +15936,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			40,
 			12,
+			SkinVariationType.None,
+			"woman cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "woman", "woman cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-cartwheeling".
+		/// </summary>
+		public static readonly Emoji WomanCartwheeling_Light = new Emoji(
+			"1F938-1F3FB-200D-2640-FE0F",
+			null,
+			"🤸🏻‍♀️",
+			"woman-cartwheeling",
+			new []{ "woman-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			13,
+			SkinVariationType.Light,
+			"woman cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "woman", "woman cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-cartwheeling".
+		/// </summary>
+		public static readonly Emoji WomanCartwheeling_MediumLight = new Emoji(
+			"1F938-1F3FC-200D-2640-FE0F",
+			null,
+			"🤸🏼‍♀️",
+			"woman-cartwheeling",
+			new []{ "woman-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			14,
+			SkinVariationType.MediumLight,
+			"woman cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "woman", "woman cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-cartwheeling".
+		/// </summary>
+		public static readonly Emoji WomanCartwheeling_Medium = new Emoji(
+			"1F938-1F3FD-200D-2640-FE0F",
+			null,
+			"🤸🏽‍♀️",
+			"woman-cartwheeling",
+			new []{ "woman-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			15,
+			SkinVariationType.Medium,
+			"woman cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "woman", "woman cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-cartwheeling".
+		/// </summary>
+		public static readonly Emoji WomanCartwheeling_MediumDark = new Emoji(
+			"1F938-1F3FE-200D-2640-FE0F",
+			null,
+			"🤸🏾‍♀️",
+			"woman-cartwheeling",
+			new []{ "woman-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			16,
+			SkinVariationType.MediumDark,
+			"woman cartwheeling",
+			new []{ "cartwheel", "gymnastics", "person cartwheeling", "woman", "woman cartwheeling"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-cartwheeling".
+		/// </summary>
+		public static readonly Emoji WomanCartwheeling_Dark = new Emoji(
+			"1F938-1F3FF-200D-2640-FE0F",
+			null,
+			"🤸🏿‍♀️",
+			"woman-cartwheeling",
+			new []{ "woman-cartwheeling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			17,
+			SkinVariationType.Dark,
 			"woman cartwheeling",
 			new []{ "cartwheel", "gymnastics", "person cartwheeling", "woman", "woman cartwheeling"});
 		/// <summary>
@@ -4136,6 +16038,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			40,
 			50,
+			SkinVariationType.None,
 			"men wrestling",
 			new []{ "people wrestling", "wrestle", "wrestler", "men", "men wrestling"});
 		/// <summary>
@@ -4152,6 +16055,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			40,
 			49,
+			SkinVariationType.None,
 			"women wrestling",
 			new []{ "people wrestling", "wrestle", "wrestler", "women", "women wrestling"});
 		/// <summary>
@@ -4168,6 +16072,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			41,
 			6,
+			SkinVariationType.None,
+			"man playing water polo",
+			new []{ "person playing water polo", "polo", "water", "man", "man playing water polo", "water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji ManPlayingWaterPolo_Light = new Emoji(
+			"1F93D-1F3FB-200D-2642-FE0F",
+			null,
+			"🤽🏻‍♂️",
+			"man-playing-water-polo",
+			new []{ "man-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			7,
+			SkinVariationType.Light,
+			"man playing water polo",
+			new []{ "person playing water polo", "polo", "water", "man", "man playing water polo", "water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji ManPlayingWaterPolo_MediumLight = new Emoji(
+			"1F93D-1F3FC-200D-2642-FE0F",
+			null,
+			"🤽🏼‍♂️",
+			"man-playing-water-polo",
+			new []{ "man-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			8,
+			SkinVariationType.MediumLight,
+			"man playing water polo",
+			new []{ "person playing water polo", "polo", "water", "man", "man playing water polo", "water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji ManPlayingWaterPolo_Medium = new Emoji(
+			"1F93D-1F3FD-200D-2642-FE0F",
+			null,
+			"🤽🏽‍♂️",
+			"man-playing-water-polo",
+			new []{ "man-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			9,
+			SkinVariationType.Medium,
+			"man playing water polo",
+			new []{ "person playing water polo", "polo", "water", "man", "man playing water polo", "water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji ManPlayingWaterPolo_MediumDark = new Emoji(
+			"1F93D-1F3FE-200D-2642-FE0F",
+			null,
+			"🤽🏾‍♂️",
+			"man-playing-water-polo",
+			new []{ "man-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			10,
+			SkinVariationType.MediumDark,
+			"man playing water polo",
+			new []{ "person playing water polo", "polo", "water", "man", "man playing water polo", "water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji ManPlayingWaterPolo_Dark = new Emoji(
+			"1F93D-1F3FF-200D-2642-FE0F",
+			null,
+			"🤽🏿‍♂️",
+			"man-playing-water-polo",
+			new []{ "man-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			11,
+			SkinVariationType.Dark,
 			"man playing water polo",
 			new []{ "person playing water polo", "polo", "water", "man", "man playing water polo", "water polo"});
 		/// <summary>
@@ -4184,6 +16174,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			41,
 			0,
+			SkinVariationType.None,
+			"woman playing water polo",
+			new []{ "person playing water polo", "polo", "water", "water polo", "woman", "woman playing water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji WomanPlayingWaterPolo_Light = new Emoji(
+			"1F93D-1F3FB-200D-2640-FE0F",
+			null,
+			"🤽🏻‍♀️",
+			"woman-playing-water-polo",
+			new []{ "woman-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			1,
+			SkinVariationType.Light,
+			"woman playing water polo",
+			new []{ "person playing water polo", "polo", "water", "water polo", "woman", "woman playing water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji WomanPlayingWaterPolo_MediumLight = new Emoji(
+			"1F93D-1F3FC-200D-2640-FE0F",
+			null,
+			"🤽🏼‍♀️",
+			"woman-playing-water-polo",
+			new []{ "woman-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			2,
+			SkinVariationType.MediumLight,
+			"woman playing water polo",
+			new []{ "person playing water polo", "polo", "water", "water polo", "woman", "woman playing water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji WomanPlayingWaterPolo_Medium = new Emoji(
+			"1F93D-1F3FD-200D-2640-FE0F",
+			null,
+			"🤽🏽‍♀️",
+			"woman-playing-water-polo",
+			new []{ "woman-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			3,
+			SkinVariationType.Medium,
+			"woman playing water polo",
+			new []{ "person playing water polo", "polo", "water", "water polo", "woman", "woman playing water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji WomanPlayingWaterPolo_MediumDark = new Emoji(
+			"1F93D-1F3FE-200D-2640-FE0F",
+			null,
+			"🤽🏾‍♀️",
+			"woman-playing-water-polo",
+			new []{ "woman-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			4,
+			SkinVariationType.MediumDark,
+			"woman playing water polo",
+			new []{ "person playing water polo", "polo", "water", "water polo", "woman", "woman playing water polo"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-water-polo".
+		/// </summary>
+		public static readonly Emoji WomanPlayingWaterPolo_Dark = new Emoji(
+			"1F93D-1F3FF-200D-2640-FE0F",
+			null,
+			"🤽🏿‍♀️",
+			"woman-playing-water-polo",
+			new []{ "woman-playing-water-polo"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			5,
+			SkinVariationType.Dark,
 			"woman playing water polo",
 			new []{ "person playing water polo", "polo", "water", "water polo", "woman", "woman playing water polo"});
 		/// <summary>
@@ -4200,6 +16276,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			41,
 			24,
+			SkinVariationType.None,
+			"man playing handball",
+			new []{ "ball", "handball", "person playing handball", "man", "man playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-handball".
+		/// </summary>
+		public static readonly Emoji ManPlayingHandball_Light = new Emoji(
+			"1F93E-1F3FB-200D-2642-FE0F",
+			null,
+			"🤾🏻‍♂️",
+			"man-playing-handball",
+			new []{ "man-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			25,
+			SkinVariationType.Light,
+			"man playing handball",
+			new []{ "ball", "handball", "person playing handball", "man", "man playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-handball".
+		/// </summary>
+		public static readonly Emoji ManPlayingHandball_MediumLight = new Emoji(
+			"1F93E-1F3FC-200D-2642-FE0F",
+			null,
+			"🤾🏼‍♂️",
+			"man-playing-handball",
+			new []{ "man-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			26,
+			SkinVariationType.MediumLight,
+			"man playing handball",
+			new []{ "ball", "handball", "person playing handball", "man", "man playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-handball".
+		/// </summary>
+		public static readonly Emoji ManPlayingHandball_Medium = new Emoji(
+			"1F93E-1F3FD-200D-2642-FE0F",
+			null,
+			"🤾🏽‍♂️",
+			"man-playing-handball",
+			new []{ "man-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			27,
+			SkinVariationType.Medium,
+			"man playing handball",
+			new []{ "ball", "handball", "person playing handball", "man", "man playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-handball".
+		/// </summary>
+		public static readonly Emoji ManPlayingHandball_MediumDark = new Emoji(
+			"1F93E-1F3FE-200D-2642-FE0F",
+			null,
+			"🤾🏾‍♂️",
+			"man-playing-handball",
+			new []{ "man-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			28,
+			SkinVariationType.MediumDark,
+			"man playing handball",
+			new []{ "ball", "handball", "person playing handball", "man", "man playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-playing-handball".
+		/// </summary>
+		public static readonly Emoji ManPlayingHandball_Dark = new Emoji(
+			"1F93E-1F3FF-200D-2642-FE0F",
+			null,
+			"🤾🏿‍♂️",
+			"man-playing-handball",
+			new []{ "man-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			29,
+			SkinVariationType.Dark,
 			"man playing handball",
 			new []{ "ball", "handball", "person playing handball", "man", "man playing handball"});
 		/// <summary>
@@ -4216,6 +16378,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			41,
 			18,
+			SkinVariationType.None,
+			"woman playing handball",
+			new []{ "ball", "handball", "person playing handball", "woman", "woman playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-handball".
+		/// </summary>
+		public static readonly Emoji WomanPlayingHandball_Light = new Emoji(
+			"1F93E-1F3FB-200D-2640-FE0F",
+			null,
+			"🤾🏻‍♀️",
+			"woman-playing-handball",
+			new []{ "woman-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			19,
+			SkinVariationType.Light,
+			"woman playing handball",
+			new []{ "ball", "handball", "person playing handball", "woman", "woman playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-handball".
+		/// </summary>
+		public static readonly Emoji WomanPlayingHandball_MediumLight = new Emoji(
+			"1F93E-1F3FC-200D-2640-FE0F",
+			null,
+			"🤾🏼‍♀️",
+			"woman-playing-handball",
+			new []{ "woman-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			20,
+			SkinVariationType.MediumLight,
+			"woman playing handball",
+			new []{ "ball", "handball", "person playing handball", "woman", "woman playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-handball".
+		/// </summary>
+		public static readonly Emoji WomanPlayingHandball_Medium = new Emoji(
+			"1F93E-1F3FD-200D-2640-FE0F",
+			null,
+			"🤾🏽‍♀️",
+			"woman-playing-handball",
+			new []{ "woman-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			21,
+			SkinVariationType.Medium,
+			"woman playing handball",
+			new []{ "ball", "handball", "person playing handball", "woman", "woman playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-handball".
+		/// </summary>
+		public static readonly Emoji WomanPlayingHandball_MediumDark = new Emoji(
+			"1F93E-1F3FE-200D-2640-FE0F",
+			null,
+			"🤾🏾‍♀️",
+			"woman-playing-handball",
+			new []{ "woman-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			22,
+			SkinVariationType.MediumDark,
+			"woman playing handball",
+			new []{ "ball", "handball", "person playing handball", "woman", "woman playing handball"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-playing-handball".
+		/// </summary>
+		public static readonly Emoji WomanPlayingHandball_Dark = new Emoji(
+			"1F93E-1F3FF-200D-2640-FE0F",
+			null,
+			"🤾🏿‍♀️",
+			"woman-playing-handball",
+			new []{ "woman-playing-handball"},
+			null,
+			null,
+			"Smileys & People",
+			41,
+			23,
+			SkinVariationType.Dark,
 			"woman playing handball",
 			new []{ "ball", "handball", "person playing handball", "woman", "woman playing handball"});
 		/// <summary>
@@ -4232,6 +16480,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			40,
 			36,
+			SkinVariationType.None,
+			"man juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-juggling".
+		/// </summary>
+		public static readonly Emoji ManJuggling_Light = new Emoji(
+			"1F939-1F3FB-200D-2642-FE0F",
+			null,
+			"🤹🏻‍♂️",
+			"man-juggling",
+			new []{ "man-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			37,
+			SkinVariationType.Light,
+			"man juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-juggling".
+		/// </summary>
+		public static readonly Emoji ManJuggling_MediumLight = new Emoji(
+			"1F939-1F3FC-200D-2642-FE0F",
+			null,
+			"🤹🏼‍♂️",
+			"man-juggling",
+			new []{ "man-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			38,
+			SkinVariationType.MediumLight,
+			"man juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-juggling".
+		/// </summary>
+		public static readonly Emoji ManJuggling_Medium = new Emoji(
+			"1F939-1F3FD-200D-2642-FE0F",
+			null,
+			"🤹🏽‍♂️",
+			"man-juggling",
+			new []{ "man-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			39,
+			SkinVariationType.Medium,
+			"man juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-juggling".
+		/// </summary>
+		public static readonly Emoji ManJuggling_MediumDark = new Emoji(
+			"1F939-1F3FE-200D-2642-FE0F",
+			null,
+			"🤹🏾‍♂️",
+			"man-juggling",
+			new []{ "man-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			40,
+			SkinVariationType.MediumDark,
+			"man juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "man"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "man-juggling".
+		/// </summary>
+		public static readonly Emoji ManJuggling_Dark = new Emoji(
+			"1F939-1F3FF-200D-2642-FE0F",
+			null,
+			"🤹🏿‍♂️",
+			"man-juggling",
+			new []{ "man-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			41,
+			SkinVariationType.Dark,
 			"man juggling",
 			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "man"});
 		/// <summary>
@@ -4248,6 +16582,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			40,
 			30,
+			SkinVariationType.None,
+			"woman juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-juggling".
+		/// </summary>
+		public static readonly Emoji WomanJuggling_Light = new Emoji(
+			"1F939-1F3FB-200D-2640-FE0F",
+			null,
+			"🤹🏻‍♀️",
+			"woman-juggling",
+			new []{ "woman-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			31,
+			SkinVariationType.Light,
+			"woman juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-juggling".
+		/// </summary>
+		public static readonly Emoji WomanJuggling_MediumLight = new Emoji(
+			"1F939-1F3FC-200D-2640-FE0F",
+			null,
+			"🤹🏼‍♀️",
+			"woman-juggling",
+			new []{ "woman-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			32,
+			SkinVariationType.MediumLight,
+			"woman juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-juggling".
+		/// </summary>
+		public static readonly Emoji WomanJuggling_Medium = new Emoji(
+			"1F939-1F3FD-200D-2640-FE0F",
+			null,
+			"🤹🏽‍♀️",
+			"woman-juggling",
+			new []{ "woman-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			33,
+			SkinVariationType.Medium,
+			"woman juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-juggling".
+		/// </summary>
+		public static readonly Emoji WomanJuggling_MediumDark = new Emoji(
+			"1F939-1F3FE-200D-2640-FE0F",
+			null,
+			"🤹🏾‍♀️",
+			"woman-juggling",
+			new []{ "woman-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			34,
+			SkinVariationType.MediumDark,
+			"woman juggling",
+			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "woman"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "woman-juggling".
+		/// </summary>
+		public static readonly Emoji WomanJuggling_Dark = new Emoji(
+			"1F939-1F3FF-200D-2640-FE0F",
+			null,
+			"🤹🏿‍♀️",
+			"woman-juggling",
+			new []{ "woman-juggling"},
+			null,
+			null,
+			"Smileys & People",
+			40,
+			35,
+			SkinVariationType.Dark,
 			"woman juggling",
 			new []{ "balance", "juggle", "multitask", "person juggling", "skill", "juggling", "woman"});
 		/// <summary>
@@ -4264,6 +16684,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			30,
+			SkinVariationType.None,
 			"man and woman holding hands",
 			new []{ "couple", "hand", "hold", "man", "man and woman holding hands", "woman"});
 		/// <summary>
@@ -4280,6 +16701,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			31,
+			SkinVariationType.None,
 			"two men holding hands",
 			new []{ "couple", "Gemini", "hand", "hold", "man", "twins", "two men holding hands", "zodiac"});
 		/// <summary>
@@ -4296,6 +16718,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			32,
+			SkinVariationType.None,
 			"two women holding hands",
 			new []{ "couple", "hand", "hold", "two women holding hands", "woman"});
 		/// <summary>
@@ -4312,6 +16735,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			41,
+			SkinVariationType.None,
 			"kiss",
 			new []{ "couple", "kiss"});
 		/// <summary>
@@ -4328,6 +16752,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			21,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4344,6 +16769,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4360,6 +16786,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			22,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4376,6 +16803,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			43,
+			SkinVariationType.None,
 			"couple with heart",
 			new []{ "couple", "couple with heart", "love"});
 		/// <summary>
@@ -4392,6 +16820,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4408,6 +16837,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			18,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4424,6 +16854,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4440,6 +16871,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			20,
 			29,
+			SkinVariationType.None,
 			"family",
 			new []{ "family"});
 		/// <summary>
@@ -4456,6 +16888,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4472,6 +16905,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4488,6 +16922,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4504,6 +16939,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4520,6 +16956,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4536,6 +16973,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			49,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4552,6 +16990,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4568,6 +17007,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4584,6 +17024,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			50,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4600,6 +17041,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			17,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4616,6 +17058,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4632,6 +17075,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4648,6 +17092,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4664,6 +17109,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4680,6 +17126,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4696,6 +17143,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4712,6 +17160,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4728,6 +17177,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			48,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4744,6 +17194,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			46,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4760,6 +17211,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			16,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4776,6 +17228,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4792,6 +17245,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4808,6 +17262,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4824,6 +17279,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4840,6 +17296,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			19,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -4856,6 +17313,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			22,
+			SkinVariationType.None,
+			"selfie",
+			new []{ "camera", "phone", "selfie"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "selfie".
+		/// </summary>
+		public static readonly Emoji Selfie_Light = new Emoji(
+			"1F933-1F3FB",
+			"SELFIE",
+			"🤳🏻",
+			"selfie",
+			new []{ "selfie"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			23,
+			SkinVariationType.Light,
+			"selfie",
+			new []{ "camera", "phone", "selfie"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "selfie".
+		/// </summary>
+		public static readonly Emoji Selfie_MediumLight = new Emoji(
+			"1F933-1F3FC",
+			"SELFIE",
+			"🤳🏼",
+			"selfie",
+			new []{ "selfie"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			24,
+			SkinVariationType.MediumLight,
+			"selfie",
+			new []{ "camera", "phone", "selfie"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "selfie".
+		/// </summary>
+		public static readonly Emoji Selfie_Medium = new Emoji(
+			"1F933-1F3FD",
+			"SELFIE",
+			"🤳🏽",
+			"selfie",
+			new []{ "selfie"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			25,
+			SkinVariationType.Medium,
+			"selfie",
+			new []{ "camera", "phone", "selfie"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "selfie".
+		/// </summary>
+		public static readonly Emoji Selfie_MediumDark = new Emoji(
+			"1F933-1F3FE",
+			"SELFIE",
+			"🤳🏾",
+			"selfie",
+			new []{ "selfie"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			26,
+			SkinVariationType.MediumDark,
+			"selfie",
+			new []{ "camera", "phone", "selfie"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "selfie".
+		/// </summary>
+		public static readonly Emoji Selfie_Dark = new Emoji(
+			"1F933-1F3FF",
+			"SELFIE",
+			"🤳🏿",
+			"selfie",
+			new []{ "selfie"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			27,
+			SkinVariationType.Dark,
 			"selfie",
 			new []{ "camera", "phone", "selfie"});
 		/// <summary>
@@ -4872,6 +17415,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			16,
+			SkinVariationType.None,
+			"flexed biceps",
+			new []{ "biceps", "comic", "flex", "flexed biceps", "muscle"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "muscle".
+		/// </summary>
+		public static readonly Emoji Muscle_Light = new Emoji(
+			"1F4AA-1F3FB",
+			"FLEXED BICEPS",
+			"💪🏻",
+			"muscle",
+			new []{ "muscle"},
+			null,
+			null,
+			"Smileys & People",
+			25,
+			17,
+			SkinVariationType.Light,
+			"flexed biceps",
+			new []{ "biceps", "comic", "flex", "flexed biceps", "muscle"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "muscle".
+		/// </summary>
+		public static readonly Emoji Muscle_MediumLight = new Emoji(
+			"1F4AA-1F3FC",
+			"FLEXED BICEPS",
+			"💪🏼",
+			"muscle",
+			new []{ "muscle"},
+			null,
+			null,
+			"Smileys & People",
+			25,
+			18,
+			SkinVariationType.MediumLight,
+			"flexed biceps",
+			new []{ "biceps", "comic", "flex", "flexed biceps", "muscle"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "muscle".
+		/// </summary>
+		public static readonly Emoji Muscle_Medium = new Emoji(
+			"1F4AA-1F3FD",
+			"FLEXED BICEPS",
+			"💪🏽",
+			"muscle",
+			new []{ "muscle"},
+			null,
+			null,
+			"Smileys & People",
+			25,
+			19,
+			SkinVariationType.Medium,
+			"flexed biceps",
+			new []{ "biceps", "comic", "flex", "flexed biceps", "muscle"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "muscle".
+		/// </summary>
+		public static readonly Emoji Muscle_MediumDark = new Emoji(
+			"1F4AA-1F3FE",
+			"FLEXED BICEPS",
+			"💪🏾",
+			"muscle",
+			new []{ "muscle"},
+			null,
+			null,
+			"Smileys & People",
+			25,
+			20,
+			SkinVariationType.MediumDark,
+			"flexed biceps",
+			new []{ "biceps", "comic", "flex", "flexed biceps", "muscle"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "muscle".
+		/// </summary>
+		public static readonly Emoji Muscle_Dark = new Emoji(
+			"1F4AA-1F3FF",
+			"FLEXED BICEPS",
+			"💪🏿",
+			"muscle",
+			new []{ "muscle"},
+			null,
+			null,
+			"Smileys & People",
+			25,
+			21,
+			SkinVariationType.Dark,
 			"flexed biceps",
 			new []{ "biceps", "comic", "flex", "flexed biceps", "muscle"});
 		/// <summary>
@@ -4888,6 +17517,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			19,
+			SkinVariationType.None,
+			"backhand index pointing left",
+			new []{ "backhand", "backhand index pointing left", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_left".
+		/// </summary>
+		public static readonly Emoji PointLeft_Light = new Emoji(
+			"1F448-1F3FB",
+			"WHITE LEFT POINTING BACKHAND INDEX",
+			"👈🏻",
+			"point_left",
+			new []{ "point_left"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			20,
+			SkinVariationType.Light,
+			"backhand index pointing left",
+			new []{ "backhand", "backhand index pointing left", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_left".
+		/// </summary>
+		public static readonly Emoji PointLeft_MediumLight = new Emoji(
+			"1F448-1F3FC",
+			"WHITE LEFT POINTING BACKHAND INDEX",
+			"👈🏼",
+			"point_left",
+			new []{ "point_left"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			21,
+			SkinVariationType.MediumLight,
+			"backhand index pointing left",
+			new []{ "backhand", "backhand index pointing left", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_left".
+		/// </summary>
+		public static readonly Emoji PointLeft_Medium = new Emoji(
+			"1F448-1F3FD",
+			"WHITE LEFT POINTING BACKHAND INDEX",
+			"👈🏽",
+			"point_left",
+			new []{ "point_left"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			22,
+			SkinVariationType.Medium,
+			"backhand index pointing left",
+			new []{ "backhand", "backhand index pointing left", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_left".
+		/// </summary>
+		public static readonly Emoji PointLeft_MediumDark = new Emoji(
+			"1F448-1F3FE",
+			"WHITE LEFT POINTING BACKHAND INDEX",
+			"👈🏾",
+			"point_left",
+			new []{ "point_left"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			23,
+			SkinVariationType.MediumDark,
+			"backhand index pointing left",
+			new []{ "backhand", "backhand index pointing left", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_left".
+		/// </summary>
+		public static readonly Emoji PointLeft_Dark = new Emoji(
+			"1F448-1F3FF",
+			"WHITE LEFT POINTING BACKHAND INDEX",
+			"👈🏿",
+			"point_left",
+			new []{ "point_left"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			24,
+			SkinVariationType.Dark,
 			"backhand index pointing left",
 			new []{ "backhand", "backhand index pointing left", "finger", "hand", "index", "point"});
 		/// <summary>
@@ -4904,6 +17619,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			25,
+			SkinVariationType.None,
+			"backhand index pointing right",
+			new []{ "backhand", "backhand index pointing right", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_right".
+		/// </summary>
+		public static readonly Emoji PointRight_Light = new Emoji(
+			"1F449-1F3FB",
+			"WHITE RIGHT POINTING BACKHAND INDEX",
+			"👉🏻",
+			"point_right",
+			new []{ "point_right"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			26,
+			SkinVariationType.Light,
+			"backhand index pointing right",
+			new []{ "backhand", "backhand index pointing right", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_right".
+		/// </summary>
+		public static readonly Emoji PointRight_MediumLight = new Emoji(
+			"1F449-1F3FC",
+			"WHITE RIGHT POINTING BACKHAND INDEX",
+			"👉🏼",
+			"point_right",
+			new []{ "point_right"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			27,
+			SkinVariationType.MediumLight,
+			"backhand index pointing right",
+			new []{ "backhand", "backhand index pointing right", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_right".
+		/// </summary>
+		public static readonly Emoji PointRight_Medium = new Emoji(
+			"1F449-1F3FD",
+			"WHITE RIGHT POINTING BACKHAND INDEX",
+			"👉🏽",
+			"point_right",
+			new []{ "point_right"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			28,
+			SkinVariationType.Medium,
+			"backhand index pointing right",
+			new []{ "backhand", "backhand index pointing right", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_right".
+		/// </summary>
+		public static readonly Emoji PointRight_MediumDark = new Emoji(
+			"1F449-1F3FE",
+			"WHITE RIGHT POINTING BACKHAND INDEX",
+			"👉🏾",
+			"point_right",
+			new []{ "point_right"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			29,
+			SkinVariationType.MediumDark,
+			"backhand index pointing right",
+			new []{ "backhand", "backhand index pointing right", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_right".
+		/// </summary>
+		public static readonly Emoji PointRight_Dark = new Emoji(
+			"1F449-1F3FF",
+			"WHITE RIGHT POINTING BACKHAND INDEX",
+			"👉🏿",
+			"point_right",
+			new []{ "point_right"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			30,
+			SkinVariationType.Dark,
 			"backhand index pointing right",
 			new []{ "backhand", "backhand index pointing right", "finger", "hand", "index", "point"});
 		/// <summary>
@@ -4920,6 +17721,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			47,
 			26,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up".
+		/// </summary>
+		public static readonly Emoji PointUp_Light = new Emoji(
+			"261D-1F3FB",
+			"WHITE UP POINTING INDEX",
+			"☝🏻",
+			"point_up",
+			new []{ "point_up"},
+			null,
+			null,
+			"Smileys & People",
+			47,
+			27,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up".
+		/// </summary>
+		public static readonly Emoji PointUp_MediumLight = new Emoji(
+			"261D-1F3FC",
+			"WHITE UP POINTING INDEX",
+			"☝🏼",
+			"point_up",
+			new []{ "point_up"},
+			null,
+			null,
+			"Smileys & People",
+			47,
+			28,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up".
+		/// </summary>
+		public static readonly Emoji PointUp_Medium = new Emoji(
+			"261D-1F3FD",
+			"WHITE UP POINTING INDEX",
+			"☝🏽",
+			"point_up",
+			new []{ "point_up"},
+			null,
+			null,
+			"Smileys & People",
+			47,
+			29,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up".
+		/// </summary>
+		public static readonly Emoji PointUp_MediumDark = new Emoji(
+			"261D-1F3FE",
+			"WHITE UP POINTING INDEX",
+			"☝🏾",
+			"point_up",
+			new []{ "point_up"},
+			null,
+			null,
+			"Smileys & People",
+			47,
+			30,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up".
+		/// </summary>
+		public static readonly Emoji PointUp_Dark = new Emoji(
+			"261D-1F3FF",
+			"WHITE UP POINTING INDEX",
+			"☝🏿",
+			"point_up",
+			new []{ "point_up"},
+			null,
+			null,
+			"Smileys & People",
+			47,
+			31,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -4936,6 +17823,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			7,
+			SkinVariationType.None,
+			"backhand index pointing up",
+			new []{ "backhand", "backhand index pointing up", "finger", "hand", "index", "point", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up_2".
+		/// </summary>
+		public static readonly Emoji PointUp2_Light = new Emoji(
+			"1F446-1F3FB",
+			"WHITE UP POINTING BACKHAND INDEX",
+			"👆🏻",
+			"point_up_2",
+			new []{ "point_up_2"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			8,
+			SkinVariationType.Light,
+			"backhand index pointing up",
+			new []{ "backhand", "backhand index pointing up", "finger", "hand", "index", "point", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up_2".
+		/// </summary>
+		public static readonly Emoji PointUp2_MediumLight = new Emoji(
+			"1F446-1F3FC",
+			"WHITE UP POINTING BACKHAND INDEX",
+			"👆🏼",
+			"point_up_2",
+			new []{ "point_up_2"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			9,
+			SkinVariationType.MediumLight,
+			"backhand index pointing up",
+			new []{ "backhand", "backhand index pointing up", "finger", "hand", "index", "point", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up_2".
+		/// </summary>
+		public static readonly Emoji PointUp2_Medium = new Emoji(
+			"1F446-1F3FD",
+			"WHITE UP POINTING BACKHAND INDEX",
+			"👆🏽",
+			"point_up_2",
+			new []{ "point_up_2"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			10,
+			SkinVariationType.Medium,
+			"backhand index pointing up",
+			new []{ "backhand", "backhand index pointing up", "finger", "hand", "index", "point", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up_2".
+		/// </summary>
+		public static readonly Emoji PointUp2_MediumDark = new Emoji(
+			"1F446-1F3FE",
+			"WHITE UP POINTING BACKHAND INDEX",
+			"👆🏾",
+			"point_up_2",
+			new []{ "point_up_2"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			11,
+			SkinVariationType.MediumDark,
+			"backhand index pointing up",
+			new []{ "backhand", "backhand index pointing up", "finger", "hand", "index", "point", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_up_2".
+		/// </summary>
+		public static readonly Emoji PointUp2_Dark = new Emoji(
+			"1F446-1F3FF",
+			"WHITE UP POINTING BACKHAND INDEX",
+			"👆🏿",
+			"point_up_2",
+			new []{ "point_up_2"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			12,
+			SkinVariationType.Dark,
 			"backhand index pointing up",
 			new []{ "backhand", "backhand index pointing up", "finger", "hand", "index", "point", "up"});
 		/// <summary>
@@ -4952,6 +17925,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			29,
 			38,
+			SkinVariationType.None,
+			"middle finger",
+			new []{ "finger", "hand", "middle finger"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "middle_finger".
+		/// </summary>
+		public static readonly Emoji MiddleFinger_Light = new Emoji(
+			"1F595-1F3FB",
+			"REVERSED HAND WITH MIDDLE FINGER EXTENDED",
+			"🖕🏻",
+			"middle_finger",
+			new []{ "middle_finger", "reversed_hand_with_middle_finger_extended"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			39,
+			SkinVariationType.Light,
+			"middle finger",
+			new []{ "finger", "hand", "middle finger"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "middle_finger".
+		/// </summary>
+		public static readonly Emoji MiddleFinger_MediumLight = new Emoji(
+			"1F595-1F3FC",
+			"REVERSED HAND WITH MIDDLE FINGER EXTENDED",
+			"🖕🏼",
+			"middle_finger",
+			new []{ "middle_finger", "reversed_hand_with_middle_finger_extended"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			40,
+			SkinVariationType.MediumLight,
+			"middle finger",
+			new []{ "finger", "hand", "middle finger"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "middle_finger".
+		/// </summary>
+		public static readonly Emoji MiddleFinger_Medium = new Emoji(
+			"1F595-1F3FD",
+			"REVERSED HAND WITH MIDDLE FINGER EXTENDED",
+			"🖕🏽",
+			"middle_finger",
+			new []{ "middle_finger", "reversed_hand_with_middle_finger_extended"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			41,
+			SkinVariationType.Medium,
+			"middle finger",
+			new []{ "finger", "hand", "middle finger"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "middle_finger".
+		/// </summary>
+		public static readonly Emoji MiddleFinger_MediumDark = new Emoji(
+			"1F595-1F3FE",
+			"REVERSED HAND WITH MIDDLE FINGER EXTENDED",
+			"🖕🏾",
+			"middle_finger",
+			new []{ "middle_finger", "reversed_hand_with_middle_finger_extended"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			42,
+			SkinVariationType.MediumDark,
+			"middle finger",
+			new []{ "finger", "hand", "middle finger"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "middle_finger".
+		/// </summary>
+		public static readonly Emoji MiddleFinger_Dark = new Emoji(
+			"1F595-1F3FF",
+			"REVERSED HAND WITH MIDDLE FINGER EXTENDED",
+			"🖕🏿",
+			"middle_finger",
+			new []{ "middle_finger", "reversed_hand_with_middle_finger_extended"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			43,
+			SkinVariationType.Dark,
 			"middle finger",
 			new []{ "finger", "hand", "middle finger"});
 		/// <summary>
@@ -4968,6 +18027,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			13,
+			SkinVariationType.None,
+			"backhand index pointing down",
+			new []{ "backhand", "backhand index pointing down", "down", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_down".
+		/// </summary>
+		public static readonly Emoji PointDown_Light = new Emoji(
+			"1F447-1F3FB",
+			"WHITE DOWN POINTING BACKHAND INDEX",
+			"👇🏻",
+			"point_down",
+			new []{ "point_down"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			14,
+			SkinVariationType.Light,
+			"backhand index pointing down",
+			new []{ "backhand", "backhand index pointing down", "down", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_down".
+		/// </summary>
+		public static readonly Emoji PointDown_MediumLight = new Emoji(
+			"1F447-1F3FC",
+			"WHITE DOWN POINTING BACKHAND INDEX",
+			"👇🏼",
+			"point_down",
+			new []{ "point_down"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			15,
+			SkinVariationType.MediumLight,
+			"backhand index pointing down",
+			new []{ "backhand", "backhand index pointing down", "down", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_down".
+		/// </summary>
+		public static readonly Emoji PointDown_Medium = new Emoji(
+			"1F447-1F3FD",
+			"WHITE DOWN POINTING BACKHAND INDEX",
+			"👇🏽",
+			"point_down",
+			new []{ "point_down"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			16,
+			SkinVariationType.Medium,
+			"backhand index pointing down",
+			new []{ "backhand", "backhand index pointing down", "down", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_down".
+		/// </summary>
+		public static readonly Emoji PointDown_MediumDark = new Emoji(
+			"1F447-1F3FE",
+			"WHITE DOWN POINTING BACKHAND INDEX",
+			"👇🏾",
+			"point_down",
+			new []{ "point_down"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			17,
+			SkinVariationType.MediumDark,
+			"backhand index pointing down",
+			new []{ "backhand", "backhand index pointing down", "down", "finger", "hand", "index", "point"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "point_down".
+		/// </summary>
+		public static readonly Emoji PointDown_Dark = new Emoji(
+			"1F447-1F3FF",
+			"WHITE DOWN POINTING BACKHAND INDEX",
+			"👇🏿",
+			"point_down",
+			new []{ "point_down"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			18,
+			SkinVariationType.Dark,
 			"backhand index pointing down",
 			new []{ "backhand", "backhand index pointing down", "down", "finger", "hand", "index", "point"});
 		/// <summary>
@@ -4984,6 +18129,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			49,
 			30,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "v".
+		/// </summary>
+		public static readonly Emoji V_Light = new Emoji(
+			"270C-1F3FB",
+			"VICTORY HAND",
+			"✌🏻",
+			"v",
+			new []{ "v"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			31,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "v".
+		/// </summary>
+		public static readonly Emoji V_MediumLight = new Emoji(
+			"270C-1F3FC",
+			"VICTORY HAND",
+			"✌🏼",
+			"v",
+			new []{ "v"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			32,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "v".
+		/// </summary>
+		public static readonly Emoji V_Medium = new Emoji(
+			"270C-1F3FD",
+			"VICTORY HAND",
+			"✌🏽",
+			"v",
+			new []{ "v"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			33,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "v".
+		/// </summary>
+		public static readonly Emoji V_MediumDark = new Emoji(
+			"270C-1F3FE",
+			"VICTORY HAND",
+			"✌🏾",
+			"v",
+			new []{ "v"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			34,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "v".
+		/// </summary>
+		public static readonly Emoji V_Dark = new Emoji(
+			"270C-1F3FF",
+			"VICTORY HAND",
+			"✌🏿",
+			"v",
+			new []{ "v"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			35,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -5000,6 +18231,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			11,
+			SkinVariationType.None,
+			"crossed fingers",
+			new []{ "cross", "crossed fingers", "finger", "hand", "luck"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "crossed_fingers".
+		/// </summary>
+		public static readonly Emoji CrossedFingers_Light = new Emoji(
+			"1F91E-1F3FB",
+			"HAND WITH INDEX AND MIDDLE FINGERS CROSSED",
+			"🤞🏻",
+			"crossed_fingers",
+			new []{ "crossed_fingers", "hand_with_index_and_middle_fingers_crossed"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			12,
+			SkinVariationType.Light,
+			"crossed fingers",
+			new []{ "cross", "crossed fingers", "finger", "hand", "luck"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "crossed_fingers".
+		/// </summary>
+		public static readonly Emoji CrossedFingers_MediumLight = new Emoji(
+			"1F91E-1F3FC",
+			"HAND WITH INDEX AND MIDDLE FINGERS CROSSED",
+			"🤞🏼",
+			"crossed_fingers",
+			new []{ "crossed_fingers", "hand_with_index_and_middle_fingers_crossed"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			13,
+			SkinVariationType.MediumLight,
+			"crossed fingers",
+			new []{ "cross", "crossed fingers", "finger", "hand", "luck"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "crossed_fingers".
+		/// </summary>
+		public static readonly Emoji CrossedFingers_Medium = new Emoji(
+			"1F91E-1F3FD",
+			"HAND WITH INDEX AND MIDDLE FINGERS CROSSED",
+			"🤞🏽",
+			"crossed_fingers",
+			new []{ "crossed_fingers", "hand_with_index_and_middle_fingers_crossed"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			14,
+			SkinVariationType.Medium,
+			"crossed fingers",
+			new []{ "cross", "crossed fingers", "finger", "hand", "luck"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "crossed_fingers".
+		/// </summary>
+		public static readonly Emoji CrossedFingers_MediumDark = new Emoji(
+			"1F91E-1F3FE",
+			"HAND WITH INDEX AND MIDDLE FINGERS CROSSED",
+			"🤞🏾",
+			"crossed_fingers",
+			new []{ "crossed_fingers", "hand_with_index_and_middle_fingers_crossed"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			15,
+			SkinVariationType.MediumDark,
+			"crossed fingers",
+			new []{ "cross", "crossed fingers", "finger", "hand", "luck"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "crossed_fingers".
+		/// </summary>
+		public static readonly Emoji CrossedFingers_Dark = new Emoji(
+			"1F91E-1F3FF",
+			"HAND WITH INDEX AND MIDDLE FINGERS CROSSED",
+			"🤞🏿",
+			"crossed_fingers",
+			new []{ "crossed_fingers", "hand_with_index_and_middle_fingers_crossed"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			16,
+			SkinVariationType.Dark,
 			"crossed fingers",
 			new []{ "cross", "crossed fingers", "finger", "hand", "luck"});
 		/// <summary>
@@ -5016,6 +18333,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			29,
 			44,
+			SkinVariationType.None,
+			"vulcan salute",
+			new []{ "finger", "hand", "spock", "vulcan", "vulcan salute"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "spock-hand".
+		/// </summary>
+		public static readonly Emoji SpockHand_Light = new Emoji(
+			"1F596-1F3FB",
+			"RAISED HAND WITH PART BETWEEN MIDDLE AND RING FINGERS",
+			"🖖🏻",
+			"spock-hand",
+			new []{ "spock-hand"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			45,
+			SkinVariationType.Light,
+			"vulcan salute",
+			new []{ "finger", "hand", "spock", "vulcan", "vulcan salute"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "spock-hand".
+		/// </summary>
+		public static readonly Emoji SpockHand_MediumLight = new Emoji(
+			"1F596-1F3FC",
+			"RAISED HAND WITH PART BETWEEN MIDDLE AND RING FINGERS",
+			"🖖🏼",
+			"spock-hand",
+			new []{ "spock-hand"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			46,
+			SkinVariationType.MediumLight,
+			"vulcan salute",
+			new []{ "finger", "hand", "spock", "vulcan", "vulcan salute"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "spock-hand".
+		/// </summary>
+		public static readonly Emoji SpockHand_Medium = new Emoji(
+			"1F596-1F3FD",
+			"RAISED HAND WITH PART BETWEEN MIDDLE AND RING FINGERS",
+			"🖖🏽",
+			"spock-hand",
+			new []{ "spock-hand"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			47,
+			SkinVariationType.Medium,
+			"vulcan salute",
+			new []{ "finger", "hand", "spock", "vulcan", "vulcan salute"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "spock-hand".
+		/// </summary>
+		public static readonly Emoji SpockHand_MediumDark = new Emoji(
+			"1F596-1F3FE",
+			"RAISED HAND WITH PART BETWEEN MIDDLE AND RING FINGERS",
+			"🖖🏾",
+			"spock-hand",
+			new []{ "spock-hand"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			48,
+			SkinVariationType.MediumDark,
+			"vulcan salute",
+			new []{ "finger", "hand", "spock", "vulcan", "vulcan salute"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "spock-hand".
+		/// </summary>
+		public static readonly Emoji SpockHand_Dark = new Emoji(
+			"1F596-1F3FF",
+			"RAISED HAND WITH PART BETWEEN MIDDLE AND RING FINGERS",
+			"🖖🏿",
+			"spock-hand",
+			new []{ "spock-hand"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			49,
+			SkinVariationType.Dark,
 			"vulcan salute",
 			new []{ "finger", "hand", "spock", "vulcan", "vulcan salute"});
 		/// <summary>
@@ -5032,6 +18435,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			32,
+			SkinVariationType.None,
+			"sign of the horns",
+			new []{ "finger", "hand", "horns", "rock-on", "sign of the horns"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "the_horns".
+		/// </summary>
+		public static readonly Emoji TheHorns_Light = new Emoji(
+			"1F918-1F3FB",
+			"SIGN OF THE HORNS",
+			"🤘🏻",
+			"the_horns",
+			new []{ "the_horns", "sign_of_the_horns"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			33,
+			SkinVariationType.Light,
+			"sign of the horns",
+			new []{ "finger", "hand", "horns", "rock-on", "sign of the horns"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "the_horns".
+		/// </summary>
+		public static readonly Emoji TheHorns_MediumLight = new Emoji(
+			"1F918-1F3FC",
+			"SIGN OF THE HORNS",
+			"🤘🏼",
+			"the_horns",
+			new []{ "the_horns", "sign_of_the_horns"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			34,
+			SkinVariationType.MediumLight,
+			"sign of the horns",
+			new []{ "finger", "hand", "horns", "rock-on", "sign of the horns"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "the_horns".
+		/// </summary>
+		public static readonly Emoji TheHorns_Medium = new Emoji(
+			"1F918-1F3FD",
+			"SIGN OF THE HORNS",
+			"🤘🏽",
+			"the_horns",
+			new []{ "the_horns", "sign_of_the_horns"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			35,
+			SkinVariationType.Medium,
+			"sign of the horns",
+			new []{ "finger", "hand", "horns", "rock-on", "sign of the horns"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "the_horns".
+		/// </summary>
+		public static readonly Emoji TheHorns_MediumDark = new Emoji(
+			"1F918-1F3FE",
+			"SIGN OF THE HORNS",
+			"🤘🏾",
+			"the_horns",
+			new []{ "the_horns", "sign_of_the_horns"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			36,
+			SkinVariationType.MediumDark,
+			"sign of the horns",
+			new []{ "finger", "hand", "horns", "rock-on", "sign of the horns"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "the_horns".
+		/// </summary>
+		public static readonly Emoji TheHorns_Dark = new Emoji(
+			"1F918-1F3FF",
+			"SIGN OF THE HORNS",
+			"🤘🏿",
+			"the_horns",
+			new []{ "the_horns", "sign_of_the_horns"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			37,
+			SkinVariationType.Dark,
 			"sign of the horns",
 			new []{ "finger", "hand", "horns", "rock-on", "sign of the horns"});
 		/// <summary>
@@ -5048,6 +18537,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			38,
+			SkinVariationType.None,
+			"call me hand",
+			new []{ "call", "call me hand", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "call_me_hand".
+		/// </summary>
+		public static readonly Emoji CallMeHand_Light = new Emoji(
+			"1F919-1F3FB",
+			"CALL ME HAND",
+			"🤙🏻",
+			"call_me_hand",
+			new []{ "call_me_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			39,
+			SkinVariationType.Light,
+			"call me hand",
+			new []{ "call", "call me hand", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "call_me_hand".
+		/// </summary>
+		public static readonly Emoji CallMeHand_MediumLight = new Emoji(
+			"1F919-1F3FC",
+			"CALL ME HAND",
+			"🤙🏼",
+			"call_me_hand",
+			new []{ "call_me_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			40,
+			SkinVariationType.MediumLight,
+			"call me hand",
+			new []{ "call", "call me hand", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "call_me_hand".
+		/// </summary>
+		public static readonly Emoji CallMeHand_Medium = new Emoji(
+			"1F919-1F3FD",
+			"CALL ME HAND",
+			"🤙🏽",
+			"call_me_hand",
+			new []{ "call_me_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			41,
+			SkinVariationType.Medium,
+			"call me hand",
+			new []{ "call", "call me hand", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "call_me_hand".
+		/// </summary>
+		public static readonly Emoji CallMeHand_MediumDark = new Emoji(
+			"1F919-1F3FE",
+			"CALL ME HAND",
+			"🤙🏾",
+			"call_me_hand",
+			new []{ "call_me_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			42,
+			SkinVariationType.MediumDark,
+			"call me hand",
+			new []{ "call", "call me hand", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "call_me_hand".
+		/// </summary>
+		public static readonly Emoji CallMeHand_Dark = new Emoji(
+			"1F919-1F3FF",
+			"CALL ME HAND",
+			"🤙🏿",
+			"call_me_hand",
+			new []{ "call_me_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			43,
+			SkinVariationType.Dark,
 			"call me hand",
 			new []{ "call", "call me hand", "hand"});
 		/// <summary>
@@ -5064,6 +18639,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			29,
 			32,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hand_with_fingers_splayed".
+		/// </summary>
+		public static readonly Emoji RaisedHandWithFingersSplayed_Light = new Emoji(
+			"1F590-1F3FB",
+			null,
+			"🖐🏻",
+			"raised_hand_with_fingers_splayed",
+			new []{ "raised_hand_with_fingers_splayed"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			33,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hand_with_fingers_splayed".
+		/// </summary>
+		public static readonly Emoji RaisedHandWithFingersSplayed_MediumLight = new Emoji(
+			"1F590-1F3FC",
+			null,
+			"🖐🏼",
+			"raised_hand_with_fingers_splayed",
+			new []{ "raised_hand_with_fingers_splayed"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			34,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hand_with_fingers_splayed".
+		/// </summary>
+		public static readonly Emoji RaisedHandWithFingersSplayed_Medium = new Emoji(
+			"1F590-1F3FD",
+			null,
+			"🖐🏽",
+			"raised_hand_with_fingers_splayed",
+			new []{ "raised_hand_with_fingers_splayed"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			35,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hand_with_fingers_splayed".
+		/// </summary>
+		public static readonly Emoji RaisedHandWithFingersSplayed_MediumDark = new Emoji(
+			"1F590-1F3FE",
+			null,
+			"🖐🏾",
+			"raised_hand_with_fingers_splayed",
+			new []{ "raised_hand_with_fingers_splayed"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			36,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hand_with_fingers_splayed".
+		/// </summary>
+		public static readonly Emoji RaisedHandWithFingersSplayed_Dark = new Emoji(
+			"1F590-1F3FF",
+			null,
+			"🖐🏿",
+			"raised_hand_with_fingers_splayed",
+			new []{ "raised_hand_with_fingers_splayed"},
+			null,
+			null,
+			"Smileys & People",
+			29,
+			37,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -5080,6 +18741,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			49,
 			24,
+			SkinVariationType.None,
+			"raised hand",
+			new []{ "hand", "raised hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "hand".
+		/// </summary>
+		public static readonly Emoji Hand_Light = new Emoji(
+			"270B-1F3FB",
+			"RAISED HAND",
+			"✋🏻",
+			"hand",
+			new []{ "hand", "raised_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			25,
+			SkinVariationType.Light,
+			"raised hand",
+			new []{ "hand", "raised hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "hand".
+		/// </summary>
+		public static readonly Emoji Hand_MediumLight = new Emoji(
+			"270B-1F3FC",
+			"RAISED HAND",
+			"✋🏼",
+			"hand",
+			new []{ "hand", "raised_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			26,
+			SkinVariationType.MediumLight,
+			"raised hand",
+			new []{ "hand", "raised hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "hand".
+		/// </summary>
+		public static readonly Emoji Hand_Medium = new Emoji(
+			"270B-1F3FD",
+			"RAISED HAND",
+			"✋🏽",
+			"hand",
+			new []{ "hand", "raised_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			27,
+			SkinVariationType.Medium,
+			"raised hand",
+			new []{ "hand", "raised hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "hand".
+		/// </summary>
+		public static readonly Emoji Hand_MediumDark = new Emoji(
+			"270B-1F3FE",
+			"RAISED HAND",
+			"✋🏾",
+			"hand",
+			new []{ "hand", "raised_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			28,
+			SkinVariationType.MediumDark,
+			"raised hand",
+			new []{ "hand", "raised hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "hand".
+		/// </summary>
+		public static readonly Emoji Hand_Dark = new Emoji(
+			"270B-1F3FF",
+			"RAISED HAND",
+			"✋🏿",
+			"hand",
+			new []{ "hand", "raised_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			29,
+			SkinVariationType.Dark,
 			"raised hand",
 			new []{ "hand", "raised hand"});
 		/// <summary>
@@ -5096,6 +18843,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			43,
+			SkinVariationType.None,
+			"OK hand",
+			new []{ "hand", "OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ok_hand".
+		/// </summary>
+		public static readonly Emoji OkHand_Light = new Emoji(
+			"1F44C-1F3FB",
+			"OK HAND SIGN",
+			"👌🏻",
+			"ok_hand",
+			new []{ "ok_hand"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			44,
+			SkinVariationType.Light,
+			"OK hand",
+			new []{ "hand", "OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ok_hand".
+		/// </summary>
+		public static readonly Emoji OkHand_MediumLight = new Emoji(
+			"1F44C-1F3FC",
+			"OK HAND SIGN",
+			"👌🏼",
+			"ok_hand",
+			new []{ "ok_hand"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			45,
+			SkinVariationType.MediumLight,
+			"OK hand",
+			new []{ "hand", "OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ok_hand".
+		/// </summary>
+		public static readonly Emoji OkHand_Medium = new Emoji(
+			"1F44C-1F3FD",
+			"OK HAND SIGN",
+			"👌🏽",
+			"ok_hand",
+			new []{ "ok_hand"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			46,
+			SkinVariationType.Medium,
+			"OK hand",
+			new []{ "hand", "OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ok_hand".
+		/// </summary>
+		public static readonly Emoji OkHand_MediumDark = new Emoji(
+			"1F44C-1F3FE",
+			"OK HAND SIGN",
+			"👌🏾",
+			"ok_hand",
+			new []{ "ok_hand"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			47,
+			SkinVariationType.MediumDark,
+			"OK hand",
+			new []{ "hand", "OK"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ok_hand".
+		/// </summary>
+		public static readonly Emoji OkHand_Dark = new Emoji(
+			"1F44C-1F3FF",
+			"OK HAND SIGN",
+			"👌🏿",
+			"ok_hand",
+			new []{ "ok_hand"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			48,
+			SkinVariationType.Dark,
 			"OK hand",
 			new []{ "hand", "OK"});
 		/// <summary>
@@ -5112,6 +18945,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			49,
+			SkinVariationType.None,
+			"thumbs up",
+			new []{ "+1", "hand", "thumb", "thumbs up", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "+1".
+		/// </summary>
+		public static readonly Emoji ThumbsUp_Light = new Emoji(
+			"1F44D-1F3FB",
+			"THUMBS UP SIGN",
+			"👍🏻",
+			"+1",
+			new []{ "+1", "thumbsup"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			50,
+			SkinVariationType.Light,
+			"thumbs up",
+			new []{ "+1", "hand", "thumb", "thumbs up", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "+1".
+		/// </summary>
+		public static readonly Emoji ThumbsUp_MediumLight = new Emoji(
+			"1F44D-1F3FC",
+			"THUMBS UP SIGN",
+			"👍🏼",
+			"+1",
+			new []{ "+1", "thumbsup"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			51,
+			SkinVariationType.MediumLight,
+			"thumbs up",
+			new []{ "+1", "hand", "thumb", "thumbs up", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "+1".
+		/// </summary>
+		public static readonly Emoji ThumbsUp_Medium = new Emoji(
+			"1F44D-1F3FD",
+			"THUMBS UP SIGN",
+			"👍🏽",
+			"+1",
+			new []{ "+1", "thumbsup"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			0,
+			SkinVariationType.Medium,
+			"thumbs up",
+			new []{ "+1", "hand", "thumb", "thumbs up", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "+1".
+		/// </summary>
+		public static readonly Emoji ThumbsUp_MediumDark = new Emoji(
+			"1F44D-1F3FE",
+			"THUMBS UP SIGN",
+			"👍🏾",
+			"+1",
+			new []{ "+1", "thumbsup"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			1,
+			SkinVariationType.MediumDark,
+			"thumbs up",
+			new []{ "+1", "hand", "thumb", "thumbs up", "up"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "+1".
+		/// </summary>
+		public static readonly Emoji ThumbsUp_Dark = new Emoji(
+			"1F44D-1F3FF",
+			"THUMBS UP SIGN",
+			"👍🏿",
+			"+1",
+			new []{ "+1", "thumbsup"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			2,
+			SkinVariationType.Dark,
 			"thumbs up",
 			new []{ "+1", "hand", "thumb", "thumbs up", "up"});
 		/// <summary>
@@ -5128,6 +19047,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			3,
+			SkinVariationType.None,
+			"thumbs down",
+			new []{ "-1", "down", "hand", "thumb", "thumbs down"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "-1".
+		/// </summary>
+		public static readonly Emoji ThumbsDown_Light = new Emoji(
+			"1F44E-1F3FB",
+			"THUMBS DOWN SIGN",
+			"👎🏻",
+			"-1",
+			new []{ "-1", "thumbsdown"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			4,
+			SkinVariationType.Light,
+			"thumbs down",
+			new []{ "-1", "down", "hand", "thumb", "thumbs down"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "-1".
+		/// </summary>
+		public static readonly Emoji ThumbsDown_MediumLight = new Emoji(
+			"1F44E-1F3FC",
+			"THUMBS DOWN SIGN",
+			"👎🏼",
+			"-1",
+			new []{ "-1", "thumbsdown"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			5,
+			SkinVariationType.MediumLight,
+			"thumbs down",
+			new []{ "-1", "down", "hand", "thumb", "thumbs down"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "-1".
+		/// </summary>
+		public static readonly Emoji ThumbsDown_Medium = new Emoji(
+			"1F44E-1F3FD",
+			"THUMBS DOWN SIGN",
+			"👎🏽",
+			"-1",
+			new []{ "-1", "thumbsdown"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			6,
+			SkinVariationType.Medium,
+			"thumbs down",
+			new []{ "-1", "down", "hand", "thumb", "thumbs down"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "-1".
+		/// </summary>
+		public static readonly Emoji ThumbsDown_MediumDark = new Emoji(
+			"1F44E-1F3FE",
+			"THUMBS DOWN SIGN",
+			"👎🏾",
+			"-1",
+			new []{ "-1", "thumbsdown"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			7,
+			SkinVariationType.MediumDark,
+			"thumbs down",
+			new []{ "-1", "down", "hand", "thumb", "thumbs down"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "-1".
+		/// </summary>
+		public static readonly Emoji ThumbsDown_Dark = new Emoji(
+			"1F44E-1F3FF",
+			"THUMBS DOWN SIGN",
+			"👎🏿",
+			"-1",
+			new []{ "-1", "thumbsdown"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			8,
+			SkinVariationType.Dark,
 			"thumbs down",
 			new []{ "-1", "down", "hand", "thumb", "thumbs down"});
 		/// <summary>
@@ -5144,6 +19149,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			49,
 			18,
+			SkinVariationType.None,
+			"raised fist",
+			new []{ "clenched", "fist", "hand", "punch", "raised fist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "fist".
+		/// </summary>
+		public static readonly Emoji Fist_Light = new Emoji(
+			"270A-1F3FB",
+			"RAISED FIST",
+			"✊🏻",
+			"fist",
+			new []{ "fist"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			19,
+			SkinVariationType.Light,
+			"raised fist",
+			new []{ "clenched", "fist", "hand", "punch", "raised fist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "fist".
+		/// </summary>
+		public static readonly Emoji Fist_MediumLight = new Emoji(
+			"270A-1F3FC",
+			"RAISED FIST",
+			"✊🏼",
+			"fist",
+			new []{ "fist"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			20,
+			SkinVariationType.MediumLight,
+			"raised fist",
+			new []{ "clenched", "fist", "hand", "punch", "raised fist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "fist".
+		/// </summary>
+		public static readonly Emoji Fist_Medium = new Emoji(
+			"270A-1F3FD",
+			"RAISED FIST",
+			"✊🏽",
+			"fist",
+			new []{ "fist"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			21,
+			SkinVariationType.Medium,
+			"raised fist",
+			new []{ "clenched", "fist", "hand", "punch", "raised fist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "fist".
+		/// </summary>
+		public static readonly Emoji Fist_MediumDark = new Emoji(
+			"270A-1F3FE",
+			"RAISED FIST",
+			"✊🏾",
+			"fist",
+			new []{ "fist"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			22,
+			SkinVariationType.MediumDark,
+			"raised fist",
+			new []{ "clenched", "fist", "hand", "punch", "raised fist"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "fist".
+		/// </summary>
+		public static readonly Emoji Fist_Dark = new Emoji(
+			"270A-1F3FF",
+			"RAISED FIST",
+			"✊🏿",
+			"fist",
+			new []{ "fist"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			23,
+			SkinVariationType.Dark,
 			"raised fist",
 			new []{ "clenched", "fist", "hand", "punch", "raised fist"});
 		/// <summary>
@@ -5160,6 +19251,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			31,
+			SkinVariationType.None,
+			"oncoming fist",
+			new []{ "clenched", "fist", "hand", "oncoming fist", "punch"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "facepunch".
+		/// </summary>
+		public static readonly Emoji Facepunch_Light = new Emoji(
+			"1F44A-1F3FB",
+			"FISTED HAND SIGN",
+			"👊🏻",
+			"facepunch",
+			new []{ "facepunch", "punch"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			32,
+			SkinVariationType.Light,
+			"oncoming fist",
+			new []{ "clenched", "fist", "hand", "oncoming fist", "punch"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "facepunch".
+		/// </summary>
+		public static readonly Emoji Facepunch_MediumLight = new Emoji(
+			"1F44A-1F3FC",
+			"FISTED HAND SIGN",
+			"👊🏼",
+			"facepunch",
+			new []{ "facepunch", "punch"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			33,
+			SkinVariationType.MediumLight,
+			"oncoming fist",
+			new []{ "clenched", "fist", "hand", "oncoming fist", "punch"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "facepunch".
+		/// </summary>
+		public static readonly Emoji Facepunch_Medium = new Emoji(
+			"1F44A-1F3FD",
+			"FISTED HAND SIGN",
+			"👊🏽",
+			"facepunch",
+			new []{ "facepunch", "punch"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			34,
+			SkinVariationType.Medium,
+			"oncoming fist",
+			new []{ "clenched", "fist", "hand", "oncoming fist", "punch"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "facepunch".
+		/// </summary>
+		public static readonly Emoji Facepunch_MediumDark = new Emoji(
+			"1F44A-1F3FE",
+			"FISTED HAND SIGN",
+			"👊🏾",
+			"facepunch",
+			new []{ "facepunch", "punch"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			35,
+			SkinVariationType.MediumDark,
+			"oncoming fist",
+			new []{ "clenched", "fist", "hand", "oncoming fist", "punch"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "facepunch".
+		/// </summary>
+		public static readonly Emoji Facepunch_Dark = new Emoji(
+			"1F44A-1F3FF",
+			"FISTED HAND SIGN",
+			"👊🏿",
+			"facepunch",
+			new []{ "facepunch", "punch"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			36,
+			SkinVariationType.Dark,
 			"oncoming fist",
 			new []{ "clenched", "fist", "hand", "oncoming fist", "punch"});
 		/// <summary>
@@ -5176,6 +19353,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			50,
+			SkinVariationType.None,
+			"left-facing fist",
+			new []{ "fist", "left-facing fist", "leftwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "left-facing_fist".
+		/// </summary>
+		public static readonly Emoji LeftFacingFist_Light = new Emoji(
+			"1F91B-1F3FB",
+			"LEFT-FACING FIST",
+			"🤛🏻",
+			"left-facing_fist",
+			new []{ "left-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			51,
+			SkinVariationType.Light,
+			"left-facing fist",
+			new []{ "fist", "left-facing fist", "leftwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "left-facing_fist".
+		/// </summary>
+		public static readonly Emoji LeftFacingFist_MediumLight = new Emoji(
+			"1F91B-1F3FC",
+			"LEFT-FACING FIST",
+			"🤛🏼",
+			"left-facing_fist",
+			new []{ "left-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			0,
+			SkinVariationType.MediumLight,
+			"left-facing fist",
+			new []{ "fist", "left-facing fist", "leftwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "left-facing_fist".
+		/// </summary>
+		public static readonly Emoji LeftFacingFist_Medium = new Emoji(
+			"1F91B-1F3FD",
+			"LEFT-FACING FIST",
+			"🤛🏽",
+			"left-facing_fist",
+			new []{ "left-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			1,
+			SkinVariationType.Medium,
+			"left-facing fist",
+			new []{ "fist", "left-facing fist", "leftwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "left-facing_fist".
+		/// </summary>
+		public static readonly Emoji LeftFacingFist_MediumDark = new Emoji(
+			"1F91B-1F3FE",
+			"LEFT-FACING FIST",
+			"🤛🏾",
+			"left-facing_fist",
+			new []{ "left-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			2,
+			SkinVariationType.MediumDark,
+			"left-facing fist",
+			new []{ "fist", "left-facing fist", "leftwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "left-facing_fist".
+		/// </summary>
+		public static readonly Emoji LeftFacingFist_Dark = new Emoji(
+			"1F91B-1F3FF",
+			"LEFT-FACING FIST",
+			"🤛🏿",
+			"left-facing_fist",
+			new []{ "left-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			3,
+			SkinVariationType.Dark,
 			"left-facing fist",
 			new []{ "fist", "left-facing fist", "leftwards"});
 		/// <summary>
@@ -5192,6 +19455,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			4,
+			SkinVariationType.None,
+			"right-facing fist",
+			new []{ "fist", "right-facing fist", "rightwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "right-facing_fist".
+		/// </summary>
+		public static readonly Emoji RightFacingFist_Light = new Emoji(
+			"1F91C-1F3FB",
+			"RIGHT-FACING FIST",
+			"🤜🏻",
+			"right-facing_fist",
+			new []{ "right-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			5,
+			SkinVariationType.Light,
+			"right-facing fist",
+			new []{ "fist", "right-facing fist", "rightwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "right-facing_fist".
+		/// </summary>
+		public static readonly Emoji RightFacingFist_MediumLight = new Emoji(
+			"1F91C-1F3FC",
+			"RIGHT-FACING FIST",
+			"🤜🏼",
+			"right-facing_fist",
+			new []{ "right-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			6,
+			SkinVariationType.MediumLight,
+			"right-facing fist",
+			new []{ "fist", "right-facing fist", "rightwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "right-facing_fist".
+		/// </summary>
+		public static readonly Emoji RightFacingFist_Medium = new Emoji(
+			"1F91C-1F3FD",
+			"RIGHT-FACING FIST",
+			"🤜🏽",
+			"right-facing_fist",
+			new []{ "right-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			7,
+			SkinVariationType.Medium,
+			"right-facing fist",
+			new []{ "fist", "right-facing fist", "rightwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "right-facing_fist".
+		/// </summary>
+		public static readonly Emoji RightFacingFist_MediumDark = new Emoji(
+			"1F91C-1F3FE",
+			"RIGHT-FACING FIST",
+			"🤜🏾",
+			"right-facing_fist",
+			new []{ "right-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			8,
+			SkinVariationType.MediumDark,
+			"right-facing fist",
+			new []{ "fist", "right-facing fist", "rightwards"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "right-facing_fist".
+		/// </summary>
+		public static readonly Emoji RightFacingFist_Dark = new Emoji(
+			"1F91C-1F3FF",
+			"RIGHT-FACING FIST",
+			"🤜🏿",
+			"right-facing_fist",
+			new []{ "right-facing_fist"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			9,
+			SkinVariationType.Dark,
 			"right-facing fist",
 			new []{ "fist", "right-facing fist", "rightwards"});
 		/// <summary>
@@ -5208,6 +19557,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			44,
+			SkinVariationType.None,
+			"raised back of hand",
+			new []{ "backhand", "raised", "raised back of hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_back_of_hand".
+		/// </summary>
+		public static readonly Emoji RaisedBackOfHand_Light = new Emoji(
+			"1F91A-1F3FB",
+			"RAISED BACK OF HAND",
+			"🤚🏻",
+			"raised_back_of_hand",
+			new []{ "raised_back_of_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			45,
+			SkinVariationType.Light,
+			"raised back of hand",
+			new []{ "backhand", "raised", "raised back of hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_back_of_hand".
+		/// </summary>
+		public static readonly Emoji RaisedBackOfHand_MediumLight = new Emoji(
+			"1F91A-1F3FC",
+			"RAISED BACK OF HAND",
+			"🤚🏼",
+			"raised_back_of_hand",
+			new []{ "raised_back_of_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			46,
+			SkinVariationType.MediumLight,
+			"raised back of hand",
+			new []{ "backhand", "raised", "raised back of hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_back_of_hand".
+		/// </summary>
+		public static readonly Emoji RaisedBackOfHand_Medium = new Emoji(
+			"1F91A-1F3FD",
+			"RAISED BACK OF HAND",
+			"🤚🏽",
+			"raised_back_of_hand",
+			new []{ "raised_back_of_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			47,
+			SkinVariationType.Medium,
+			"raised back of hand",
+			new []{ "backhand", "raised", "raised back of hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_back_of_hand".
+		/// </summary>
+		public static readonly Emoji RaisedBackOfHand_MediumDark = new Emoji(
+			"1F91A-1F3FE",
+			"RAISED BACK OF HAND",
+			"🤚🏾",
+			"raised_back_of_hand",
+			new []{ "raised_back_of_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			48,
+			SkinVariationType.MediumDark,
+			"raised back of hand",
+			new []{ "backhand", "raised", "raised back of hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_back_of_hand".
+		/// </summary>
+		public static readonly Emoji RaisedBackOfHand_Dark = new Emoji(
+			"1F91A-1F3FF",
+			"RAISED BACK OF HAND",
+			"🤚🏿",
+			"raised_back_of_hand",
+			new []{ "raised_back_of_hand"},
+			null,
+			null,
+			"Smileys & People",
+			37,
+			49,
+			SkinVariationType.Dark,
 			"raised back of hand",
 			new []{ "backhand", "raised", "raised back of hand"});
 		/// <summary>
@@ -5224,6 +19659,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			37,
+			SkinVariationType.None,
+			"waving hand",
+			new []{ "hand", "wave", "waving"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "wave".
+		/// </summary>
+		public static readonly Emoji Wave_Light = new Emoji(
+			"1F44B-1F3FB",
+			"WAVING HAND SIGN",
+			"👋🏻",
+			"wave",
+			new []{ "wave"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			38,
+			SkinVariationType.Light,
+			"waving hand",
+			new []{ "hand", "wave", "waving"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "wave".
+		/// </summary>
+		public static readonly Emoji Wave_MediumLight = new Emoji(
+			"1F44B-1F3FC",
+			"WAVING HAND SIGN",
+			"👋🏼",
+			"wave",
+			new []{ "wave"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			39,
+			SkinVariationType.MediumLight,
+			"waving hand",
+			new []{ "hand", "wave", "waving"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "wave".
+		/// </summary>
+		public static readonly Emoji Wave_Medium = new Emoji(
+			"1F44B-1F3FD",
+			"WAVING HAND SIGN",
+			"👋🏽",
+			"wave",
+			new []{ "wave"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			40,
+			SkinVariationType.Medium,
+			"waving hand",
+			new []{ "hand", "wave", "waving"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "wave".
+		/// </summary>
+		public static readonly Emoji Wave_MediumDark = new Emoji(
+			"1F44B-1F3FE",
+			"WAVING HAND SIGN",
+			"👋🏾",
+			"wave",
+			new []{ "wave"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			41,
+			SkinVariationType.MediumDark,
+			"waving hand",
+			new []{ "hand", "wave", "waving"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "wave".
+		/// </summary>
+		public static readonly Emoji Wave_Dark = new Emoji(
+			"1F44B-1F3FF",
+			"WAVING HAND SIGN",
+			"👋🏿",
+			"wave",
+			new []{ "wave"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			42,
+			SkinVariationType.Dark,
 			"waving hand",
 			new []{ "hand", "wave", "waving"});
 		/// <summary>
@@ -5240,6 +19761,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			17,
+			SkinVariationType.None,
+			"love-you gesture",
+			new []{ "hand", "ILY", "love-you gesture"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "i_love_you_hand_sign".
+		/// </summary>
+		public static readonly Emoji ILoveYouHandSign_Light = new Emoji(
+			"1F91F-1F3FB",
+			"I LOVE YOU HAND SIGN",
+			"🤟🏻",
+			"i_love_you_hand_sign",
+			new []{ "i_love_you_hand_sign"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			18,
+			SkinVariationType.Light,
+			"love-you gesture",
+			new []{ "hand", "ILY", "love-you gesture"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "i_love_you_hand_sign".
+		/// </summary>
+		public static readonly Emoji ILoveYouHandSign_MediumLight = new Emoji(
+			"1F91F-1F3FC",
+			"I LOVE YOU HAND SIGN",
+			"🤟🏼",
+			"i_love_you_hand_sign",
+			new []{ "i_love_you_hand_sign"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			19,
+			SkinVariationType.MediumLight,
+			"love-you gesture",
+			new []{ "hand", "ILY", "love-you gesture"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "i_love_you_hand_sign".
+		/// </summary>
+		public static readonly Emoji ILoveYouHandSign_Medium = new Emoji(
+			"1F91F-1F3FD",
+			"I LOVE YOU HAND SIGN",
+			"🤟🏽",
+			"i_love_you_hand_sign",
+			new []{ "i_love_you_hand_sign"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			20,
+			SkinVariationType.Medium,
+			"love-you gesture",
+			new []{ "hand", "ILY", "love-you gesture"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "i_love_you_hand_sign".
+		/// </summary>
+		public static readonly Emoji ILoveYouHandSign_MediumDark = new Emoji(
+			"1F91F-1F3FE",
+			"I LOVE YOU HAND SIGN",
+			"🤟🏾",
+			"i_love_you_hand_sign",
+			new []{ "i_love_you_hand_sign"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			21,
+			SkinVariationType.MediumDark,
+			"love-you gesture",
+			new []{ "hand", "ILY", "love-you gesture"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "i_love_you_hand_sign".
+		/// </summary>
+		public static readonly Emoji ILoveYouHandSign_Dark = new Emoji(
+			"1F91F-1F3FF",
+			"I LOVE YOU HAND SIGN",
+			"🤟🏿",
+			"i_love_you_hand_sign",
+			new []{ "i_love_you_hand_sign"},
+			null,
+			null,
+			"Smileys & People",
+			38,
+			22,
+			SkinVariationType.Dark,
 			"love-you gesture",
 			new []{ "hand", "ILY", "love-you gesture"});
 		/// <summary>
@@ -5256,6 +19863,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			49,
 			36,
+			SkinVariationType.None,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "writing_hand".
+		/// </summary>
+		public static readonly Emoji WritingHand_Light = new Emoji(
+			"270D-1F3FB",
+			null,
+			"✍🏻",
+			"writing_hand",
+			new []{ "writing_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			37,
+			SkinVariationType.Light,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "writing_hand".
+		/// </summary>
+		public static readonly Emoji WritingHand_MediumLight = new Emoji(
+			"270D-1F3FC",
+			null,
+			"✍🏼",
+			"writing_hand",
+			new []{ "writing_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			38,
+			SkinVariationType.MediumLight,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "writing_hand".
+		/// </summary>
+		public static readonly Emoji WritingHand_Medium = new Emoji(
+			"270D-1F3FD",
+			null,
+			"✍🏽",
+			"writing_hand",
+			new []{ "writing_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			39,
+			SkinVariationType.Medium,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "writing_hand".
+		/// </summary>
+		public static readonly Emoji WritingHand_MediumDark = new Emoji(
+			"270D-1F3FE",
+			null,
+			"✍🏾",
+			"writing_hand",
+			new []{ "writing_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			40,
+			SkinVariationType.MediumDark,
+			null,
+			null);
+		/// <summary>
+		/// <see cref="Emoji"/> for "writing_hand".
+		/// </summary>
+		public static readonly Emoji WritingHand_Dark = new Emoji(
+			"270D-1F3FF",
+			null,
+			"✍🏿",
+			"writing_hand",
+			new []{ "writing_hand"},
+			null,
+			null,
+			"Smileys & People",
+			49,
+			41,
+			SkinVariationType.Dark,
 			null,
 			null);
 		/// <summary>
@@ -5272,6 +19965,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			9,
+			SkinVariationType.None,
+			"clapping hands",
+			new []{ "clap", "clapping hands", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "clap".
+		/// </summary>
+		public static readonly Emoji Clap_Light = new Emoji(
+			"1F44F-1F3FB",
+			"CLAPPING HANDS SIGN",
+			"👏🏻",
+			"clap",
+			new []{ "clap"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			10,
+			SkinVariationType.Light,
+			"clapping hands",
+			new []{ "clap", "clapping hands", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "clap".
+		/// </summary>
+		public static readonly Emoji Clap_MediumLight = new Emoji(
+			"1F44F-1F3FC",
+			"CLAPPING HANDS SIGN",
+			"👏🏼",
+			"clap",
+			new []{ "clap"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			11,
+			SkinVariationType.MediumLight,
+			"clapping hands",
+			new []{ "clap", "clapping hands", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "clap".
+		/// </summary>
+		public static readonly Emoji Clap_Medium = new Emoji(
+			"1F44F-1F3FD",
+			"CLAPPING HANDS SIGN",
+			"👏🏽",
+			"clap",
+			new []{ "clap"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			12,
+			SkinVariationType.Medium,
+			"clapping hands",
+			new []{ "clap", "clapping hands", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "clap".
+		/// </summary>
+		public static readonly Emoji Clap_MediumDark = new Emoji(
+			"1F44F-1F3FE",
+			"CLAPPING HANDS SIGN",
+			"👏🏾",
+			"clap",
+			new []{ "clap"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			13,
+			SkinVariationType.MediumDark,
+			"clapping hands",
+			new []{ "clap", "clapping hands", "hand"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "clap".
+		/// </summary>
+		public static readonly Emoji Clap_Dark = new Emoji(
+			"1F44F-1F3FF",
+			"CLAPPING HANDS SIGN",
+			"👏🏿",
+			"clap",
+			new []{ "clap"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			14,
+			SkinVariationType.Dark,
 			"clapping hands",
 			new []{ "clap", "clapping hands", "hand"});
 		/// <summary>
@@ -5288,6 +20067,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			15,
+			SkinVariationType.None,
+			"open hands",
+			new []{ "hand", "open", "open hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "open_hands".
+		/// </summary>
+		public static readonly Emoji OpenHands_Light = new Emoji(
+			"1F450-1F3FB",
+			"OPEN HANDS SIGN",
+			"👐🏻",
+			"open_hands",
+			new []{ "open_hands"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			16,
+			SkinVariationType.Light,
+			"open hands",
+			new []{ "hand", "open", "open hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "open_hands".
+		/// </summary>
+		public static readonly Emoji OpenHands_MediumLight = new Emoji(
+			"1F450-1F3FC",
+			"OPEN HANDS SIGN",
+			"👐🏼",
+			"open_hands",
+			new []{ "open_hands"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			17,
+			SkinVariationType.MediumLight,
+			"open hands",
+			new []{ "hand", "open", "open hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "open_hands".
+		/// </summary>
+		public static readonly Emoji OpenHands_Medium = new Emoji(
+			"1F450-1F3FD",
+			"OPEN HANDS SIGN",
+			"👐🏽",
+			"open_hands",
+			new []{ "open_hands"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			18,
+			SkinVariationType.Medium,
+			"open hands",
+			new []{ "hand", "open", "open hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "open_hands".
+		/// </summary>
+		public static readonly Emoji OpenHands_MediumDark = new Emoji(
+			"1F450-1F3FE",
+			"OPEN HANDS SIGN",
+			"👐🏾",
+			"open_hands",
+			new []{ "open_hands"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			19,
+			SkinVariationType.MediumDark,
+			"open hands",
+			new []{ "hand", "open", "open hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "open_hands".
+		/// </summary>
+		public static readonly Emoji OpenHands_Dark = new Emoji(
+			"1F450-1F3FF",
+			"OPEN HANDS SIGN",
+			"👐🏿",
+			"open_hands",
+			new []{ "open_hands"},
+			null,
+			null,
+			"Smileys & People",
+			15,
+			20,
+			SkinVariationType.Dark,
 			"open hands",
 			new []{ "hand", "open", "open hands"});
 		/// <summary>
@@ -5304,6 +20169,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			33,
 			12,
+			SkinVariationType.None,
+			"raising hands",
+			new []{ "celebration", "gesture", "hand", "hooray", "raised", "raising hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hands".
+		/// </summary>
+		public static readonly Emoji RaisedHands_Light = new Emoji(
+			"1F64C-1F3FB",
+			"PERSON RAISING BOTH HANDS IN CELEBRATION",
+			"🙌🏻",
+			"raised_hands",
+			new []{ "raised_hands"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			13,
+			SkinVariationType.Light,
+			"raising hands",
+			new []{ "celebration", "gesture", "hand", "hooray", "raised", "raising hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hands".
+		/// </summary>
+		public static readonly Emoji RaisedHands_MediumLight = new Emoji(
+			"1F64C-1F3FC",
+			"PERSON RAISING BOTH HANDS IN CELEBRATION",
+			"🙌🏼",
+			"raised_hands",
+			new []{ "raised_hands"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			14,
+			SkinVariationType.MediumLight,
+			"raising hands",
+			new []{ "celebration", "gesture", "hand", "hooray", "raised", "raising hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hands".
+		/// </summary>
+		public static readonly Emoji RaisedHands_Medium = new Emoji(
+			"1F64C-1F3FD",
+			"PERSON RAISING BOTH HANDS IN CELEBRATION",
+			"🙌🏽",
+			"raised_hands",
+			new []{ "raised_hands"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			15,
+			SkinVariationType.Medium,
+			"raising hands",
+			new []{ "celebration", "gesture", "hand", "hooray", "raised", "raising hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hands".
+		/// </summary>
+		public static readonly Emoji RaisedHands_MediumDark = new Emoji(
+			"1F64C-1F3FE",
+			"PERSON RAISING BOTH HANDS IN CELEBRATION",
+			"🙌🏾",
+			"raised_hands",
+			new []{ "raised_hands"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			16,
+			SkinVariationType.MediumDark,
+			"raising hands",
+			new []{ "celebration", "gesture", "hand", "hooray", "raised", "raising hands"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "raised_hands".
+		/// </summary>
+		public static readonly Emoji RaisedHands_Dark = new Emoji(
+			"1F64C-1F3FF",
+			"PERSON RAISING BOTH HANDS IN CELEBRATION",
+			"🙌🏿",
+			"raised_hands",
+			new []{ "raised_hands"},
+			null,
+			null,
+			"Smileys & People",
+			33,
+			17,
+			SkinVariationType.Dark,
 			"raising hands",
 			new []{ "celebration", "gesture", "hand", "hooray", "raised", "raising hands"});
 		/// <summary>
@@ -5320,6 +20271,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			39,
 			16,
+			SkinVariationType.None,
+			"palms up together",
+			new []{ "palms up together", "prayer"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "palms_up_together".
+		/// </summary>
+		public static readonly Emoji PalmsUpTogether_Light = new Emoji(
+			"1F932-1F3FB",
+			"PALMS UP TOGETHER",
+			"🤲🏻",
+			"palms_up_together",
+			new []{ "palms_up_together"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			17,
+			SkinVariationType.Light,
+			"palms up together",
+			new []{ "palms up together", "prayer"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "palms_up_together".
+		/// </summary>
+		public static readonly Emoji PalmsUpTogether_MediumLight = new Emoji(
+			"1F932-1F3FC",
+			"PALMS UP TOGETHER",
+			"🤲🏼",
+			"palms_up_together",
+			new []{ "palms_up_together"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			18,
+			SkinVariationType.MediumLight,
+			"palms up together",
+			new []{ "palms up together", "prayer"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "palms_up_together".
+		/// </summary>
+		public static readonly Emoji PalmsUpTogether_Medium = new Emoji(
+			"1F932-1F3FD",
+			"PALMS UP TOGETHER",
+			"🤲🏽",
+			"palms_up_together",
+			new []{ "palms_up_together"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			19,
+			SkinVariationType.Medium,
+			"palms up together",
+			new []{ "palms up together", "prayer"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "palms_up_together".
+		/// </summary>
+		public static readonly Emoji PalmsUpTogether_MediumDark = new Emoji(
+			"1F932-1F3FE",
+			"PALMS UP TOGETHER",
+			"🤲🏾",
+			"palms_up_together",
+			new []{ "palms_up_together"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			20,
+			SkinVariationType.MediumDark,
+			"palms up together",
+			new []{ "palms up together", "prayer"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "palms_up_together".
+		/// </summary>
+		public static readonly Emoji PalmsUpTogether_Dark = new Emoji(
+			"1F932-1F3FF",
+			"PALMS UP TOGETHER",
+			"🤲🏿",
+			"palms_up_together",
+			new []{ "palms_up_together"},
+			null,
+			null,
+			"Smileys & People",
+			39,
+			21,
+			SkinVariationType.Dark,
 			"palms up together",
 			new []{ "palms up together", "prayer"});
 		/// <summary>
@@ -5336,6 +20373,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			34,
 			2,
+			SkinVariationType.None,
+			"folded hands",
+			new []{ "ask", "bow", "folded", "folded hands", "gesture", "hand", "please", "pray", "thanks"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pray".
+		/// </summary>
+		public static readonly Emoji Pray_Light = new Emoji(
+			"1F64F-1F3FB",
+			"PERSON WITH FOLDED HANDS",
+			"🙏🏻",
+			"pray",
+			new []{ "pray"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			3,
+			SkinVariationType.Light,
+			"folded hands",
+			new []{ "ask", "bow", "folded", "folded hands", "gesture", "hand", "please", "pray", "thanks"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pray".
+		/// </summary>
+		public static readonly Emoji Pray_MediumLight = new Emoji(
+			"1F64F-1F3FC",
+			"PERSON WITH FOLDED HANDS",
+			"🙏🏼",
+			"pray",
+			new []{ "pray"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			4,
+			SkinVariationType.MediumLight,
+			"folded hands",
+			new []{ "ask", "bow", "folded", "folded hands", "gesture", "hand", "please", "pray", "thanks"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pray".
+		/// </summary>
+		public static readonly Emoji Pray_Medium = new Emoji(
+			"1F64F-1F3FD",
+			"PERSON WITH FOLDED HANDS",
+			"🙏🏽",
+			"pray",
+			new []{ "pray"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			5,
+			SkinVariationType.Medium,
+			"folded hands",
+			new []{ "ask", "bow", "folded", "folded hands", "gesture", "hand", "please", "pray", "thanks"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pray".
+		/// </summary>
+		public static readonly Emoji Pray_MediumDark = new Emoji(
+			"1F64F-1F3FE",
+			"PERSON WITH FOLDED HANDS",
+			"🙏🏾",
+			"pray",
+			new []{ "pray"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			6,
+			SkinVariationType.MediumDark,
+			"folded hands",
+			new []{ "ask", "bow", "folded", "folded hands", "gesture", "hand", "please", "pray", "thanks"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "pray".
+		/// </summary>
+		public static readonly Emoji Pray_Dark = new Emoji(
+			"1F64F-1F3FF",
+			"PERSON WITH FOLDED HANDS",
+			"🙏🏿",
+			"pray",
+			new []{ "pray"},
+			null,
+			null,
+			"Smileys & People",
+			34,
+			7,
+			SkinVariationType.Dark,
 			"folded hands",
 			new []{ "ask", "bow", "folded", "folded hands", "gesture", "hand", "please", "pray", "thanks"});
 		/// <summary>
@@ -5352,6 +20475,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			38,
 			10,
+			SkinVariationType.None,
 			"handshake",
 			new []{ "agreement", "hand", "handshake", "meeting", "shake"});
 		/// <summary>
@@ -5368,6 +20492,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			44,
+			SkinVariationType.None,
+			"nail polish",
+			new []{ "care", "cosmetics", "manicure", "nail", "polish"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nail_care".
+		/// </summary>
+		public static readonly Emoji NailCare_Light = new Emoji(
+			"1F485-1F3FB",
+			"NAIL POLISH",
+			"💅🏻",
+			"nail_care",
+			new []{ "nail_care"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			45,
+			SkinVariationType.Light,
+			"nail polish",
+			new []{ "care", "cosmetics", "manicure", "nail", "polish"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nail_care".
+		/// </summary>
+		public static readonly Emoji NailCare_MediumLight = new Emoji(
+			"1F485-1F3FC",
+			"NAIL POLISH",
+			"💅🏼",
+			"nail_care",
+			new []{ "nail_care"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			46,
+			SkinVariationType.MediumLight,
+			"nail polish",
+			new []{ "care", "cosmetics", "manicure", "nail", "polish"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nail_care".
+		/// </summary>
+		public static readonly Emoji NailCare_Medium = new Emoji(
+			"1F485-1F3FD",
+			"NAIL POLISH",
+			"💅🏽",
+			"nail_care",
+			new []{ "nail_care"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			47,
+			SkinVariationType.Medium,
+			"nail polish",
+			new []{ "care", "cosmetics", "manicure", "nail", "polish"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nail_care".
+		/// </summary>
+		public static readonly Emoji NailCare_MediumDark = new Emoji(
+			"1F485-1F3FE",
+			"NAIL POLISH",
+			"💅🏾",
+			"nail_care",
+			new []{ "nail_care"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			48,
+			SkinVariationType.MediumDark,
+			"nail polish",
+			new []{ "care", "cosmetics", "manicure", "nail", "polish"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nail_care".
+		/// </summary>
+		public static readonly Emoji NailCare_Dark = new Emoji(
+			"1F485-1F3FF",
+			"NAIL POLISH",
+			"💅🏿",
+			"nail_care",
+			new []{ "nail_care"},
+			null,
+			null,
+			"Smileys & People",
+			23,
+			49,
+			SkinVariationType.Dark,
 			"nail polish",
 			new []{ "care", "cosmetics", "manicure", "nail", "polish"});
 		/// <summary>
@@ -5384,6 +20594,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			13,
 			45,
+			SkinVariationType.None,
+			"ear",
+			new []{ "body", "ear"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ear".
+		/// </summary>
+		public static readonly Emoji Ear_Light = new Emoji(
+			"1F442-1F3FB",
+			"EAR",
+			"👂🏻",
+			"ear",
+			new []{ "ear"},
+			null,
+			null,
+			"Smileys & People",
+			13,
+			46,
+			SkinVariationType.Light,
+			"ear",
+			new []{ "body", "ear"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ear".
+		/// </summary>
+		public static readonly Emoji Ear_MediumLight = new Emoji(
+			"1F442-1F3FC",
+			"EAR",
+			"👂🏼",
+			"ear",
+			new []{ "ear"},
+			null,
+			null,
+			"Smileys & People",
+			13,
+			47,
+			SkinVariationType.MediumLight,
+			"ear",
+			new []{ "body", "ear"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ear".
+		/// </summary>
+		public static readonly Emoji Ear_Medium = new Emoji(
+			"1F442-1F3FD",
+			"EAR",
+			"👂🏽",
+			"ear",
+			new []{ "ear"},
+			null,
+			null,
+			"Smileys & People",
+			13,
+			48,
+			SkinVariationType.Medium,
+			"ear",
+			new []{ "body", "ear"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ear".
+		/// </summary>
+		public static readonly Emoji Ear_MediumDark = new Emoji(
+			"1F442-1F3FE",
+			"EAR",
+			"👂🏾",
+			"ear",
+			new []{ "ear"},
+			null,
+			null,
+			"Smileys & People",
+			13,
+			49,
+			SkinVariationType.MediumDark,
+			"ear",
+			new []{ "body", "ear"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "ear".
+		/// </summary>
+		public static readonly Emoji Ear_Dark = new Emoji(
+			"1F442-1F3FF",
+			"EAR",
+			"👂🏿",
+			"ear",
+			new []{ "ear"},
+			null,
+			null,
+			"Smileys & People",
+			13,
+			50,
+			SkinVariationType.Dark,
 			"ear",
 			new []{ "body", "ear"});
 		/// <summary>
@@ -5400,6 +20696,92 @@ namespace Manatee.Trello
 			"Smileys & People",
 			13,
 			51,
+			SkinVariationType.None,
+			"nose",
+			new []{ "body", "nose"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nose".
+		/// </summary>
+		public static readonly Emoji Nose_Light = new Emoji(
+			"1F443-1F3FB",
+			"NOSE",
+			"👃🏻",
+			"nose",
+			new []{ "nose"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			0,
+			SkinVariationType.Light,
+			"nose",
+			new []{ "body", "nose"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nose".
+		/// </summary>
+		public static readonly Emoji Nose_MediumLight = new Emoji(
+			"1F443-1F3FC",
+			"NOSE",
+			"👃🏼",
+			"nose",
+			new []{ "nose"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			1,
+			SkinVariationType.MediumLight,
+			"nose",
+			new []{ "body", "nose"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nose".
+		/// </summary>
+		public static readonly Emoji Nose_Medium = new Emoji(
+			"1F443-1F3FD",
+			"NOSE",
+			"👃🏽",
+			"nose",
+			new []{ "nose"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			2,
+			SkinVariationType.Medium,
+			"nose",
+			new []{ "body", "nose"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nose".
+		/// </summary>
+		public static readonly Emoji Nose_MediumDark = new Emoji(
+			"1F443-1F3FE",
+			"NOSE",
+			"👃🏾",
+			"nose",
+			new []{ "nose"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			3,
+			SkinVariationType.MediumDark,
+			"nose",
+			new []{ "body", "nose"});
+		/// <summary>
+		/// <see cref="Emoji"/> for "nose".
+		/// </summary>
+		public static readonly Emoji Nose_Dark = new Emoji(
+			"1F443-1F3FF",
+			"NOSE",
+			"👃🏿",
+			"nose",
+			new []{ "nose"},
+			null,
+			null,
+			"Smileys & People",
+			14,
+			4,
+			SkinVariationType.Dark,
 			"nose",
 			new []{ "body", "nose"});
 		/// <summary>
@@ -5416,6 +20798,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			39,
+			SkinVariationType.None,
 			"footprints",
 			new []{ "clothing", "footprint", "footprints", "print"});
 		/// <summary>
@@ -5432,6 +20815,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			13,
 			42,
+			SkinVariationType.None,
 			"eyes",
 			new []{ "eye", "eyes", "face"});
 		/// <summary>
@@ -5448,6 +20832,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			13,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -5464,6 +20849,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			13,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -5480,6 +20866,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			22,
+			SkinVariationType.None,
 			"brain",
 			new []{ "brain", "intelligent"});
 		/// <summary>
@@ -5496,6 +20883,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			6,
+			SkinVariationType.None,
 			"tongue",
 			new []{ "body", "tongue"});
 		/// <summary>
@@ -5512,6 +20900,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			14,
 			5,
+			SkinVariationType.None,
 			"mouth",
 			new []{ "lips", "mouth"});
 		/// <summary>
@@ -5528,6 +20917,7 @@ namespace Manatee.Trello
 			"Skin Tones",
 			12,
 			25,
+			SkinVariationType.None,
 			"light skin tone",
 			new []{ "light skin tone", "skin tone", "type 1–2"});
 		/// <summary>
@@ -5544,6 +20934,7 @@ namespace Manatee.Trello
 			"Skin Tones",
 			12,
 			26,
+			SkinVariationType.None,
 			"medium-light skin tone",
 			new []{ "medium-light skin tone", "skin tone", "type 3"});
 		/// <summary>
@@ -5560,6 +20951,7 @@ namespace Manatee.Trello
 			"Skin Tones",
 			12,
 			27,
+			SkinVariationType.None,
 			"medium skin tone",
 			new []{ "medium skin tone", "skin tone", "type 4"});
 		/// <summary>
@@ -5576,6 +20968,7 @@ namespace Manatee.Trello
 			"Skin Tones",
 			12,
 			28,
+			SkinVariationType.None,
 			"medium-dark skin tone",
 			new []{ "medium-dark skin tone", "skin tone", "type 5"});
 		/// <summary>
@@ -5592,6 +20985,7 @@ namespace Manatee.Trello
 			"Skin Tones",
 			12,
 			29,
+			SkinVariationType.None,
 			"dark skin tone",
 			new []{ "dark skin tone", "skin tone", "type 6"});
 		/// <summary>
@@ -5608,6 +21002,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			37,
+			SkinVariationType.None,
 			"kiss mark",
 			new []{ "kiss", "kiss mark", "lips"});
 		/// <summary>
@@ -5624,6 +21019,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			50,
+			SkinVariationType.None,
 			"heart with arrow",
 			new []{ "arrow", "cupid", "heart with arrow"});
 		/// <summary>
@@ -5640,6 +21036,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			3,
+			SkinVariationType.None,
 			"heart with ribbon",
 			new []{ "heart with ribbon", "ribbon", "valentine"});
 		/// <summary>
@@ -5656,6 +21053,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			48,
+			SkinVariationType.None,
 			"sparkling heart",
 			new []{ "excited", "sparkle", "sparkling heart"});
 		/// <summary>
@@ -5672,6 +21070,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			49,
+			SkinVariationType.None,
 			"growing heart",
 			new []{ "excited", "growing", "growing heart", "nervous", "pulse"});
 		/// <summary>
@@ -5688,6 +21087,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			45,
+			SkinVariationType.None,
 			"beating heart",
 			new []{ "beating", "beating heart", "heartbeat", "pulsating"});
 		/// <summary>
@@ -5704,6 +21104,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			4,
+			SkinVariationType.None,
 			"revolving hearts",
 			new []{ "revolving", "revolving hearts"});
 		/// <summary>
@@ -5720,6 +21121,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			47,
+			SkinVariationType.None,
 			"two hearts",
 			new []{ "love", "two hearts"});
 		/// <summary>
@@ -5736,6 +21138,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			38,
+			SkinVariationType.None,
 			"love letter",
 			new []{ "heart", "letter", "love", "mail"});
 		/// <summary>
@@ -5752,6 +21155,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			50,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -5768,6 +21172,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			46,
+			SkinVariationType.None,
 			"broken heart",
 			new []{ "break", "broken", "broken heart"});
 		/// <summary>
@@ -5784,6 +21189,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			50,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -5800,6 +21206,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			23,
+			SkinVariationType.None,
 			"orange heart",
 			new []{ "orange", "orange heart"});
 		/// <summary>
@@ -5816,6 +21223,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			1,
+			SkinVariationType.None,
 			"yellow heart",
 			new []{ "yellow", "yellow heart"});
 		/// <summary>
@@ -5832,6 +21240,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			0,
+			SkinVariationType.None,
 			"green heart",
 			new []{ "green", "green heart"});
 		/// <summary>
@@ -5848,6 +21257,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			51,
+			SkinVariationType.None,
 			"blue heart",
 			new []{ "blue", "blue heart"});
 		/// <summary>
@@ -5864,6 +21274,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			2,
+			SkinVariationType.None,
 			"purple heart",
 			new []{ "purple", "purple heart"});
 		/// <summary>
@@ -5880,6 +21291,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			29,
 			50,
+			SkinVariationType.None,
 			"black heart",
 			new []{ "black", "black heart", "evil", "wicked"});
 		/// <summary>
@@ -5896,6 +21308,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			5,
+			SkinVariationType.None,
 			"heart decoration",
 			new []{ "heart", "heart decoration"});
 		/// <summary>
@@ -5912,6 +21325,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			10,
+			SkinVariationType.None,
 			"zzz",
 			new []{ "comic", "sleep", "zzz"});
 		/// <summary>
@@ -5928,6 +21342,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			8,
+			SkinVariationType.None,
 			"anger symbol",
 			new []{ "anger symbol", "angry", "comic", "mad"});
 		/// <summary>
@@ -5944,6 +21359,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			9,
+			SkinVariationType.None,
 			"bomb",
 			new []{ "bomb", "comic"});
 		/// <summary>
@@ -5960,6 +21376,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			11,
+			SkinVariationType.None,
 			"collision",
 			new []{ "boom", "collision", "comic"});
 		/// <summary>
@@ -5976,6 +21393,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			12,
+			SkinVariationType.None,
 			"sweat droplets",
 			new []{ "comic", "splashing", "sweat", "sweat droplets"});
 		/// <summary>
@@ -5992,6 +21410,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			14,
+			SkinVariationType.None,
 			"dashing away",
 			new []{ "comic", "dash", "dashing away", "running"});
 		/// <summary>
@@ -6008,6 +21427,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			22,
+			SkinVariationType.None,
 			"dizzy",
 			new []{ "comic", "dizzy", "star"});
 		/// <summary>
@@ -6024,6 +21444,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			23,
+			SkinVariationType.None,
 			"speech balloon",
 			new []{ "balloon", "bubble", "comic", "dialog", "speech"});
 		/// <summary>
@@ -6040,6 +21461,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -6056,6 +21478,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			30,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -6072,6 +21495,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			25,
 			24,
+			SkinVariationType.None,
 			"thought balloon",
 			new []{ "balloon", "bubble", "comic", "thought"});
 		/// <summary>
@@ -6088,6 +21512,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			28,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -6104,6 +21529,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			23,
+			SkinVariationType.None,
 			"glasses",
 			new []{ "clothing", "eye", "eyeglasses", "eyewear", "glasses"});
 		/// <summary>
@@ -6120,6 +21546,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			29,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -6136,6 +21563,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			24,
+			SkinVariationType.None,
 			"necktie",
 			new []{ "clothing", "necktie", "tie"});
 		/// <summary>
@@ -6152,6 +21580,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			25,
+			SkinVariationType.None,
 			"t-shirt",
 			new []{ "clothing", "shirt", "t-shirt", "tshirt"});
 		/// <summary>
@@ -6168,6 +21597,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			26,
+			SkinVariationType.None,
 			"jeans",
 			new []{ "clothing", "jeans", "pants", "trousers"});
 		/// <summary>
@@ -6184,6 +21614,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			25,
+			SkinVariationType.None,
 			"scarf",
 			new []{ "neck", "scarf"});
 		/// <summary>
@@ -6200,6 +21631,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			26,
+			SkinVariationType.None,
 			"gloves",
 			new []{ "gloves", "hand"});
 		/// <summary>
@@ -6216,6 +21648,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			27,
+			SkinVariationType.None,
 			"coat",
 			new []{ "coat", "jacket"});
 		/// <summary>
@@ -6232,6 +21665,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			28,
+			SkinVariationType.None,
 			"socks",
 			new []{ "socks", "stocking"});
 		/// <summary>
@@ -6248,6 +21682,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			27,
+			SkinVariationType.None,
 			"dress",
 			new []{ "clothing", "dress"});
 		/// <summary>
@@ -6264,6 +21699,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			28,
+			SkinVariationType.None,
 			"kimono",
 			new []{ "clothing", "kimono"});
 		/// <summary>
@@ -6280,6 +21716,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			29,
+			SkinVariationType.None,
 			"bikini",
 			new []{ "bikini", "clothing", "swim"});
 		/// <summary>
@@ -6296,6 +21733,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			30,
+			SkinVariationType.None,
 			"woman’s clothes",
 			new []{ "clothing", "woman", "woman’s clothes"});
 		/// <summary>
@@ -6312,6 +21750,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			31,
+			SkinVariationType.None,
 			"purse",
 			new []{ "clothing", "coin", "purse"});
 		/// <summary>
@@ -6328,6 +21767,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			32,
+			SkinVariationType.None,
 			"handbag",
 			new []{ "bag", "clothing", "handbag", "purse"});
 		/// <summary>
@@ -6344,6 +21784,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			33,
+			SkinVariationType.None,
 			"clutch bag",
 			new []{ "bag", "clothing", "clutch bag", "pouch"});
 		/// <summary>
@@ -6360,6 +21801,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			37,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -6376,6 +21818,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			8,
 			37,
+			SkinVariationType.None,
 			"backpack",
 			new []{ "backpack", "bag", "rucksack", "satchel", "school"});
 		/// <summary>
@@ -6392,6 +21835,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			34,
+			SkinVariationType.None,
 			"man’s shoe",
 			new []{ "clothing", "man", "man’s shoe", "shoe"});
 		/// <summary>
@@ -6408,6 +21852,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			35,
+			SkinVariationType.None,
 			"running shoe",
 			new []{ "athletic", "clothing", "running shoe", "shoe", "sneaker"});
 		/// <summary>
@@ -6424,6 +21869,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			36,
+			SkinVariationType.None,
 			"high-heeled shoe",
 			new []{ "clothing", "heel", "high-heeled shoe", "shoe", "woman"});
 		/// <summary>
@@ -6440,6 +21886,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			37,
+			SkinVariationType.None,
 			"woman’s sandal",
 			new []{ "clothing", "sandal", "shoe", "woman", "woman’s sandal"});
 		/// <summary>
@@ -6456,6 +21903,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			38,
+			SkinVariationType.None,
 			"woman’s boot",
 			new []{ "boot", "clothing", "shoe", "woman", "woman’s boot"});
 		/// <summary>
@@ -6472,6 +21920,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			21,
+			SkinVariationType.None,
 			"crown",
 			new []{ "clothing", "crown", "king", "queen"});
 		/// <summary>
@@ -6488,6 +21937,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			15,
 			22,
+			SkinVariationType.None,
 			"woman’s hat",
 			new []{ "clothing", "hat", "woman", "woman’s hat"});
 		/// <summary>
@@ -6504,6 +21954,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			9,
 			3,
+			SkinVariationType.None,
 			"top hat",
 			new []{ "clothing", "hat", "top", "tophat"});
 		/// <summary>
@@ -6520,6 +21971,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			8,
 			38,
+			SkinVariationType.None,
 			"graduation cap",
 			new []{ "cap", "celebration", "clothing", "graduation", "hat"});
 		/// <summary>
@@ -6536,6 +21988,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			46,
 			24,
+			SkinVariationType.None,
 			"billed cap",
 			new []{ "baseball cap", "billed cap"});
 		/// <summary>
@@ -6552,6 +22005,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			48,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -6568,6 +22022,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			27,
 			1,
+			SkinVariationType.None,
 			"prayer beads",
 			new []{ "beads", "clothing", "necklace", "prayer", "religion"});
 		/// <summary>
@@ -6584,6 +22039,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			23,
 			43,
+			SkinVariationType.None,
 			"lipstick",
 			new []{ "cosmetics", "lipstick", "makeup"});
 		/// <summary>
@@ -6600,6 +22056,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			39,
+			SkinVariationType.None,
 			"ring",
 			new []{ "diamond", "ring"});
 		/// <summary>
@@ -6616,6 +22073,7 @@ namespace Manatee.Trello
 			"Smileys & People",
 			24,
 			40,
+			SkinVariationType.None,
 			"gem stone",
 			new []{ "diamond", "gem", "gem stone", "jewel"});
 		/// <summary>
@@ -6632,6 +22090,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			31,
+			SkinVariationType.None,
 			"monkey face",
 			new []{ "face", "monkey"});
 		/// <summary>
@@ -6648,6 +22107,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			48,
+			SkinVariationType.None,
 			"monkey",
 			new []{ "monkey"});
 		/// <summary>
@@ -6664,6 +22124,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			37,
+			SkinVariationType.None,
 			"gorilla",
 			new []{ "gorilla"});
 		/// <summary>
@@ -6680,6 +22141,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			32,
+			SkinVariationType.None,
 			"dog face",
 			new []{ "dog", "face", "pet"});
 		/// <summary>
@@ -6696,6 +22158,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			51,
+			SkinVariationType.None,
 			"dog",
 			new []{ "dog", "pet"});
 		/// <summary>
@@ -6712,6 +22175,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			19,
+			SkinVariationType.None,
 			"poodle",
 			new []{ "dog", "poodle"});
 		/// <summary>
@@ -6728,6 +22192,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			36,
+			SkinVariationType.None,
 			"wolf face",
 			new []{ "face", "wolf"});
 		/// <summary>
@@ -6744,6 +22209,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			34,
+			SkinVariationType.None,
 			"fox face",
 			new []{ "face", "fox"});
 		/// <summary>
@@ -6760,6 +22226,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			27,
+			SkinVariationType.None,
 			"cat face",
 			new []{ "cat", "face", "pet"});
 		/// <summary>
@@ -6776,6 +22243,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			38,
+			SkinVariationType.None,
 			"cat",
 			new []{ "cat", "pet"});
 		/// <summary>
@@ -6792,6 +22260,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			25,
+			SkinVariationType.None,
 			"lion face",
 			new []{ "face", "Leo", "lion", "zodiac"});
 		/// <summary>
@@ -6808,6 +22277,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			25,
+			SkinVariationType.None,
 			"tiger face",
 			new []{ "face", "tiger"});
 		/// <summary>
@@ -6824,6 +22294,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			35,
+			SkinVariationType.None,
 			"tiger",
 			new []{ "tiger"});
 		/// <summary>
@@ -6840,6 +22311,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			36,
+			SkinVariationType.None,
 			"leopard",
 			new []{ "leopard"});
 		/// <summary>
@@ -6856,6 +22328,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			30,
+			SkinVariationType.None,
 			"horse face",
 			new []{ "face", "horse"});
 		/// <summary>
@@ -6872,6 +22345,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			44,
+			SkinVariationType.None,
 			"horse",
 			new []{ "equestrian", "horse", "racehorse", "racing"});
 		/// <summary>
@@ -6888,6 +22362,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			28,
+			SkinVariationType.None,
 			"unicorn face",
 			new []{ "face", "unicorn"});
 		/// <summary>
@@ -6904,6 +22379,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			43,
+			SkinVariationType.None,
 			"zebra",
 			new []{ "stripe", "zebra"});
 		/// <summary>
@@ -6920,6 +22396,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			36,
+			SkinVariationType.None,
 			"deer",
 			new []{ "deer"});
 		/// <summary>
@@ -6936,6 +22413,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			24,
+			SkinVariationType.None,
 			"cow face",
 			new []{ "cow", "face"});
 		/// <summary>
@@ -6952,6 +22430,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			32,
+			SkinVariationType.None,
 			"ox",
 			new []{ "bull", "ox", "Taurus", "zodiac"});
 		/// <summary>
@@ -6968,6 +22447,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			33,
+			SkinVariationType.None,
 			"water buffalo",
 			new []{ "buffalo", "water"});
 		/// <summary>
@@ -6984,6 +22464,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			34,
+			SkinVariationType.None,
 			"cow",
 			new []{ "cow"});
 		/// <summary>
@@ -7000,6 +22481,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			33,
+			SkinVariationType.None,
 			"pig face",
 			new []{ "face", "pig"});
 		/// <summary>
@@ -7016,6 +22498,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			0,
+			SkinVariationType.None,
 			"pig",
 			new []{ "pig", "sow"});
 		/// <summary>
@@ -7032,6 +22515,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			1,
+			SkinVariationType.None,
 			"boar",
 			new []{ "boar", "pig"});
 		/// <summary>
@@ -7048,6 +22532,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			39,
+			SkinVariationType.None,
 			"pig nose",
 			new []{ "face", "nose", "pig"});
 		/// <summary>
@@ -7064,6 +22549,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			45,
+			SkinVariationType.None,
 			"ram",
 			new []{ "Aries", "male", "ram", "sheep", "zodiac"});
 		/// <summary>
@@ -7080,6 +22566,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			47,
+			SkinVariationType.None,
 			"ewe",
 			new []{ "ewe", "female", "sheep"});
 		/// <summary>
@@ -7096,6 +22583,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			46,
+			SkinVariationType.None,
 			"goat",
 			new []{ "Capricorn", "goat", "zodiac"});
 		/// <summary>
@@ -7112,6 +22600,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			20,
+			SkinVariationType.None,
 			"camel",
 			new []{ "camel", "dromedary", "hump"});
 		/// <summary>
@@ -7128,6 +22617,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			21,
+			SkinVariationType.None,
 			"two-hump camel",
 			new []{ "bactrian", "camel", "hump", "two-hump camel"});
 		/// <summary>
@@ -7144,6 +22634,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			42,
+			SkinVariationType.None,
 			"giraffe",
 			new []{ "giraffe", "spots"});
 		/// <summary>
@@ -7160,6 +22651,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			2,
+			SkinVariationType.None,
 			"elephant",
 			new []{ "elephant"});
 		/// <summary>
@@ -7176,6 +22668,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			39,
+			SkinVariationType.None,
 			"rhinoceros",
 			new []{ "rhinoceros"});
 		/// <summary>
@@ -7192,6 +22685,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			23,
+			SkinVariationType.None,
 			"mouse face",
 			new []{ "face", "mouse"});
 		/// <summary>
@@ -7208,6 +22702,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			31,
+			SkinVariationType.None,
 			"mouse",
 			new []{ "mouse"});
 		/// <summary>
@@ -7224,6 +22719,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			30,
+			SkinVariationType.None,
 			"rat",
 			new []{ "rat"});
 		/// <summary>
@@ -7240,6 +22736,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			35,
+			SkinVariationType.None,
 			"hamster face",
 			new []{ "face", "hamster", "pet"});
 		/// <summary>
@@ -7256,6 +22753,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			26,
+			SkinVariationType.None,
 			"rabbit face",
 			new []{ "bunny", "face", "pet", "rabbit"});
 		/// <summary>
@@ -7272,6 +22770,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			37,
+			SkinVariationType.None,
 			"rabbit",
 			new []{ "bunny", "pet", "rabbit"});
 		/// <summary>
@@ -7288,6 +22787,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -7304,6 +22804,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			44,
+			SkinVariationType.None,
 			"hedgehog",
 			new []{ "hedgehog", "spiny"});
 		/// <summary>
@@ -7320,6 +22821,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			31,
+			SkinVariationType.None,
 			"bat",
 			new []{ "bat", "vampire"});
 		/// <summary>
@@ -7336,6 +22838,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			37,
+			SkinVariationType.None,
 			"bear face",
 			new []{ "bear", "face"});
 		/// <summary>
@@ -7352,6 +22855,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			18,
+			SkinVariationType.None,
 			"koala",
 			new []{ "bear", "koala"});
 		/// <summary>
@@ -7368,6 +22872,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			38,
+			SkinVariationType.None,
 			"panda face",
 			new []{ "face", "panda"});
 		/// <summary>
@@ -7384,6 +22889,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			40,
+			SkinVariationType.None,
 			"paw prints",
 			new []{ "feet", "paw", "paw prints", "print"});
 		/// <summary>
@@ -7400,6 +22906,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			27,
+			SkinVariationType.None,
 			"turkey",
 			new []{ "bird", "turkey"});
 		/// <summary>
@@ -7416,6 +22923,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			50,
+			SkinVariationType.None,
 			"chicken",
 			new []{ "bird", "chicken"});
 		/// <summary>
@@ -7432,6 +22940,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			49,
+			SkinVariationType.None,
 			"rooster",
 			new []{ "bird", "rooster"});
 		/// <summary>
@@ -7448,6 +22957,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			13,
+			SkinVariationType.None,
 			"hatching chick",
 			new []{ "baby", "bird", "chick", "hatching"});
 		/// <summary>
@@ -7464,6 +22974,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			14,
+			SkinVariationType.None,
 			"baby chick",
 			new []{ "baby", "bird", "chick"});
 		/// <summary>
@@ -7480,6 +22991,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			15,
+			SkinVariationType.None,
 			"front-facing baby chick",
 			new []{ "baby", "bird", "chick", "front-facing baby chick"});
 		/// <summary>
@@ -7496,6 +23008,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			16,
+			SkinVariationType.None,
 			"bird",
 			new []{ "bird"});
 		/// <summary>
@@ -7512,6 +23025,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			17,
+			SkinVariationType.None,
 			"penguin",
 			new []{ "bird", "penguin"});
 		/// <summary>
@@ -7528,6 +23042,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			28,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -7544,6 +23059,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			29,
+			SkinVariationType.None,
 			"eagle",
 			new []{ "bird", "eagle"});
 		/// <summary>
@@ -7560,6 +23076,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			30,
+			SkinVariationType.None,
 			"duck",
 			new []{ "bird", "duck"});
 		/// <summary>
@@ -7576,6 +23093,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			33,
+			SkinVariationType.None,
 			"owl",
 			new []{ "bird", "owl", "wise"});
 		/// <summary>
@@ -7592,6 +23110,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			34,
+			SkinVariationType.None,
 			"frog face",
 			new []{ "face", "frog"});
 		/// <summary>
@@ -7608,6 +23127,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			40,
+			SkinVariationType.None,
 			"crocodile",
 			new []{ "crocodile"});
 		/// <summary>
@@ -7624,6 +23144,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			12,
+			SkinVariationType.None,
 			"turtle",
 			new []{ "terrapin", "tortoise", "turtle"});
 		/// <summary>
@@ -7640,6 +23161,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			38,
+			SkinVariationType.None,
 			"lizard",
 			new []{ "lizard", "reptile"});
 		/// <summary>
@@ -7656,6 +23178,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			43,
+			SkinVariationType.None,
 			"snake",
 			new []{ "bearer", "Ophiuchus", "serpent", "snake", "zodiac"});
 		/// <summary>
@@ -7672,6 +23195,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			28,
+			SkinVariationType.None,
 			"dragon face",
 			new []{ "dragon", "face", "fairy tale"});
 		/// <summary>
@@ -7688,6 +23212,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			39,
+			SkinVariationType.None,
 			"dragon",
 			new []{ "dragon", "fairy tale"});
 		/// <summary>
@@ -7704,6 +23229,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			45,
+			SkinVariationType.None,
 			"sauropod",
 			new []{ "brachiosaurus", "brontosaurus", "diplodocus", "sauropod"});
 		/// <summary>
@@ -7720,6 +23246,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			46,
+			SkinVariationType.None,
 			"T-Rex",
 			new []{ "T-Rex", "Tyrannosaurus Rex"});
 		/// <summary>
@@ -7736,6 +23263,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			29,
+			SkinVariationType.None,
 			"spouting whale",
 			new []{ "face", "spouting", "whale"});
 		/// <summary>
@@ -7752,6 +23280,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			41,
+			SkinVariationType.None,
 			"whale",
 			new []{ "whale"});
 		/// <summary>
@@ -7768,6 +23297,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			22,
+			SkinVariationType.None,
 			"dolphin",
 			new []{ "dolphin", "flipper"});
 		/// <summary>
@@ -7784,6 +23314,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			9,
+			SkinVariationType.None,
 			"fish",
 			new []{ "fish", "Pisces", "zodiac"});
 		/// <summary>
@@ -7800,6 +23331,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			10,
+			SkinVariationType.None,
 			"tropical fish",
 			new []{ "fish", "tropical"});
 		/// <summary>
@@ -7816,6 +23348,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			11,
+			SkinVariationType.None,
 			"blowfish",
 			new []{ "blowfish", "fish"});
 		/// <summary>
@@ -7832,6 +23365,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			32,
+			SkinVariationType.None,
 			"shark",
 			new []{ "fish", "shark"});
 		/// <summary>
@@ -7848,6 +23382,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			3,
+			SkinVariationType.None,
 			"octopus",
 			new []{ "octopus"});
 		/// <summary>
@@ -7864,6 +23399,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			4,
+			SkinVariationType.None,
 			"spiral shell",
 			new []{ "shell", "spiral"});
 		/// <summary>
@@ -7880,6 +23416,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			24,
+			SkinVariationType.None,
 			"crab",
 			new []{ "Cancer", "crab", "zodiac"});
 		/// <summary>
@@ -7896,6 +23433,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			40,
+			SkinVariationType.None,
 			"shrimp",
 			new []{ "food", "shellfish", "shrimp", "small"});
 		/// <summary>
@@ -7912,6 +23450,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			41,
+			SkinVariationType.None,
 			"squid",
 			new []{ "food", "molusc", "squid"});
 		/// <summary>
@@ -7928,6 +23467,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			42,
+			SkinVariationType.None,
 			"snail",
 			new []{ "snail"});
 		/// <summary>
@@ -7944,6 +23484,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			35,
+			SkinVariationType.None,
 			"butterfly",
 			new []{ "butterfly", "insect", "pretty"});
 		/// <summary>
@@ -7960,6 +23501,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			5,
+			SkinVariationType.None,
 			"bug",
 			new []{ "bug", "insect"});
 		/// <summary>
@@ -7976,6 +23518,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			6,
+			SkinVariationType.None,
 			"ant",
 			new []{ "ant", "insect"});
 		/// <summary>
@@ -7992,6 +23535,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			7,
+			SkinVariationType.None,
 			"honeybee",
 			new []{ "bee", "honeybee", "insect"});
 		/// <summary>
@@ -8008,6 +23552,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			13,
 			8,
+			SkinVariationType.None,
 			"lady beetle",
 			new []{ "beetle", "insect", "lady beetle", "ladybird", "ladybug"});
 		/// <summary>
@@ -8024,6 +23569,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			47,
+			SkinVariationType.None,
 			"cricket",
 			new []{ "cricket", "grasshopper"});
 		/// <summary>
@@ -8040,6 +23586,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			29,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -8056,6 +23603,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			29,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -8072,6 +23620,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			42,
 			26,
+			SkinVariationType.None,
 			"scorpion",
 			new []{ "scorpio", "Scorpio", "scorpion", "zodiac"});
 		/// <summary>
@@ -8088,6 +23637,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			24,
 			42,
+			SkinVariationType.None,
 			"bouquet",
 			new []{ "bouquet", "flower"});
 		/// <summary>
@@ -8104,6 +23654,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			46,
+			SkinVariationType.None,
 			"cherry blossom",
 			new []{ "blossom", "cherry", "flower"});
 		/// <summary>
@@ -8120,6 +23671,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			25,
 			25,
+			SkinVariationType.None,
 			"white flower",
 			new []{ "flower", "white flower"});
 		/// <summary>
@@ -8136,6 +23688,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			12,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -8152,6 +23705,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			47,
+			SkinVariationType.None,
 			"rose",
 			new []{ "flower", "rose"});
 		/// <summary>
@@ -8168,6 +23722,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			41,
 			36,
+			SkinVariationType.None,
 			"wilted flower",
 			new []{ "flower", "wilted"});
 		/// <summary>
@@ -8184,6 +23739,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			48,
+			SkinVariationType.None,
 			"hibiscus",
 			new []{ "flower", "hibiscus"});
 		/// <summary>
@@ -8200,6 +23756,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			49,
+			SkinVariationType.None,
 			"sunflower",
 			new []{ "flower", "sun", "sunflower"});
 		/// <summary>
@@ -8216,6 +23773,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			50,
+			SkinVariationType.None,
 			"blossom",
 			new []{ "blossom", "flower"});
 		/// <summary>
@@ -8232,6 +23790,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			45,
+			SkinVariationType.None,
 			"tulip",
 			new []{ "flower", "tulip"});
 		/// <summary>
@@ -8248,6 +23807,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			39,
+			SkinVariationType.None,
 			"seedling",
 			new []{ "seedling", "young"});
 		/// <summary>
@@ -8264,6 +23824,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			40,
+			SkinVariationType.None,
 			"evergreen tree",
 			new []{ "evergreen tree", "tree"});
 		/// <summary>
@@ -8280,6 +23841,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			41,
+			SkinVariationType.None,
 			"deciduous tree",
 			new []{ "deciduous", "shedding", "tree"});
 		/// <summary>
@@ -8296,6 +23858,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			42,
+			SkinVariationType.None,
 			"palm tree",
 			new []{ "palm", "tree"});
 		/// <summary>
@@ -8312,6 +23875,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			6,
 			43,
+			SkinVariationType.None,
 			"cactus",
 			new []{ "cactus", "plant"});
 		/// <summary>
@@ -8328,6 +23892,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			7,
 			0,
+			SkinVariationType.None,
 			"sheaf of rice",
 			new []{ "ear", "grain", "rice", "sheaf of rice"});
 		/// <summary>
@@ -8344,6 +23909,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			7,
 			1,
+			SkinVariationType.None,
 			"herb",
 			new []{ "herb", "leaf"});
 		/// <summary>
@@ -8360,6 +23926,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			47,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -8376,6 +23943,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			7,
 			2,
+			SkinVariationType.None,
 			"four leaf clover",
 			new []{ "4", "clover", "four", "four-leaf clover", "leaf"});
 		/// <summary>
@@ -8392,6 +23960,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			7,
 			3,
+			SkinVariationType.None,
 			"maple leaf",
 			new []{ "falling", "leaf", "maple"});
 		/// <summary>
@@ -8408,6 +23977,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			7,
 			4,
+			SkinVariationType.None,
 			"fallen leaf",
 			new []{ "fallen leaf", "falling", "leaf"});
 		/// <summary>
@@ -8424,6 +23994,7 @@ namespace Manatee.Trello
 			"Animals & Nature",
 			7,
 			5,
+			SkinVariationType.None,
 			"leaf fluttering in wind",
 			new []{ "blow", "flutter", "leaf", "leaf fluttering in wind", "wind"});
 		/// <summary>
@@ -8440,6 +24011,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			9,
+			SkinVariationType.None,
 			"grapes",
 			new []{ "fruit", "grape", "grapes"});
 		/// <summary>
@@ -8456,6 +24028,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			10,
+			SkinVariationType.None,
 			"melon",
 			new []{ "fruit", "melon"});
 		/// <summary>
@@ -8472,6 +24045,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			11,
+			SkinVariationType.None,
 			"watermelon",
 			new []{ "fruit", "watermelon"});
 		/// <summary>
@@ -8488,6 +24062,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			12,
+			SkinVariationType.None,
 			"tangerine",
 			new []{ "fruit", "orange", "tangerine"});
 		/// <summary>
@@ -8504,6 +24079,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			13,
+			SkinVariationType.None,
 			"lemon",
 			new []{ "citrus", "fruit", "lemon"});
 		/// <summary>
@@ -8520,6 +24096,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			14,
+			SkinVariationType.None,
 			"banana",
 			new []{ "banana", "fruit"});
 		/// <summary>
@@ -8536,6 +24113,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			15,
+			SkinVariationType.None,
 			"pineapple",
 			new []{ "fruit", "pineapple"});
 		/// <summary>
@@ -8552,6 +24130,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			16,
+			SkinVariationType.None,
 			"red apple",
 			new []{ "apple", "fruit", "red"});
 		/// <summary>
@@ -8568,6 +24147,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			17,
+			SkinVariationType.None,
 			"green apple",
 			new []{ "apple", "fruit", "green"});
 		/// <summary>
@@ -8584,6 +24164,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			18,
+			SkinVariationType.None,
 			"pear",
 			new []{ "fruit", "pear"});
 		/// <summary>
@@ -8600,6 +24181,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			19,
+			SkinVariationType.None,
 			"peach",
 			new []{ "fruit", "peach"});
 		/// <summary>
@@ -8616,6 +24198,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			20,
+			SkinVariationType.None,
 			"cherries",
 			new []{ "berries", "cherries", "cherry", "fruit", "red"});
 		/// <summary>
@@ -8632,6 +24215,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			21,
+			SkinVariationType.None,
 			"strawberry",
 			new []{ "berry", "fruit", "strawberry"});
 		/// <summary>
@@ -8648,6 +24232,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			9,
+			SkinVariationType.None,
 			"kiwi fruit",
 			new []{ "food", "fruit", "kiwi"});
 		/// <summary>
@@ -8664,6 +24249,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			7,
+			SkinVariationType.None,
 			"tomato",
 			new []{ "fruit", "tomato", "vegetable"});
 		/// <summary>
@@ -8680,6 +24266,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			17,
+			SkinVariationType.None,
 			"coconut",
 			new []{ "coconut", "palm", "piña colada"});
 		/// <summary>
@@ -8696,6 +24283,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			41,
 			49,
+			SkinVariationType.None,
 			"avocado",
 			new []{ "avocado", "food", "fruit"});
 		/// <summary>
@@ -8712,6 +24300,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			8,
+			SkinVariationType.None,
 			"eggplant",
 			new []{ "aubergine", "eggplant", "vegetable"});
 		/// <summary>
@@ -8728,6 +24317,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			0,
+			SkinVariationType.None,
 			"potato",
 			new []{ "food", "potato", "vegetable"});
 		/// <summary>
@@ -8744,6 +24334,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			1,
+			SkinVariationType.None,
 			"carrot",
 			new []{ "carrot", "food", "vegetable"});
 		/// <summary>
@@ -8760,6 +24351,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			6,
 			51,
+			SkinVariationType.None,
 			"ear of corn",
 			new []{ "corn", "ear", "ear of corn", "maize", "maze"});
 		/// <summary>
@@ -8776,6 +24368,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			6,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -8792,6 +24385,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			41,
 			50,
+			SkinVariationType.None,
 			"cucumber",
 			new []{ "cucumber", "food", "pickle", "vegetable"});
 		/// <summary>
@@ -8808,6 +24402,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			18,
+			SkinVariationType.None,
 			"broccoli",
 			new []{ "broccoli", "wild cabbage"});
 		/// <summary>
@@ -8824,6 +24419,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			6,
+			SkinVariationType.None,
 			"mushroom",
 			new []{ "mushroom", "toadstool"});
 		/// <summary>
@@ -8840,6 +24436,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			8,
+			SkinVariationType.None,
 			"peanuts",
 			new []{ "food", "nut", "peanut", "peanuts", "vegetable"});
 		/// <summary>
@@ -8856,6 +24453,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			6,
 			38,
+			SkinVariationType.None,
 			"chestnut",
 			new []{ "chestnut", "plant"});
 		/// <summary>
@@ -8872,6 +24470,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			32,
+			SkinVariationType.None,
 			"bread",
 			new []{ "bread", "loaf"});
 		/// <summary>
@@ -8888,6 +24487,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			41,
 			48,
+			SkinVariationType.None,
 			"croissant",
 			new []{ "bread", "crescent roll", "croissant", "food", "french"});
 		/// <summary>
@@ -8904,6 +24504,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			2,
+			SkinVariationType.None,
 			"baguette bread",
 			new []{ "baguette", "bread", "food", "french"});
 		/// <summary>
@@ -8920,6 +24521,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			20,
+			SkinVariationType.None,
 			"pretzel",
 			new []{ "pretzel", "twisted"});
 		/// <summary>
@@ -8936,6 +24538,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			10,
+			SkinVariationType.None,
 			"pancakes",
 			new []{ "crêpe", "food", "hotcake", "pancake", "pancakes"});
 		/// <summary>
@@ -8952,6 +24555,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			48,
+			SkinVariationType.None,
 			"cheese wedge",
 			new []{ "cheese", "cheese wedge"});
 		/// <summary>
@@ -8968,6 +24572,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			24,
+			SkinVariationType.None,
 			"meat on bone",
 			new []{ "bone", "meat", "meat on bone"});
 		/// <summary>
@@ -8984,6 +24589,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			25,
+			SkinVariationType.None,
 			"poultry leg",
 			new []{ "bone", "chicken", "drumstick", "leg", "poultry"});
 		/// <summary>
@@ -9000,6 +24606,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			21,
+			SkinVariationType.None,
 			"cut of meat",
 			new []{ "chop", "cut of meat", "lambchop", "porkchop", "steak"});
 		/// <summary>
@@ -9016,6 +24623,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			41,
 			51,
+			SkinVariationType.None,
 			"bacon",
 			new []{ "bacon", "food", "meat"});
 		/// <summary>
@@ -9032,6 +24640,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			22,
+			SkinVariationType.None,
 			"hamburger",
 			new []{ "burger", "hamburger"});
 		/// <summary>
@@ -9048,6 +24657,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			33,
+			SkinVariationType.None,
 			"french fries",
 			new []{ "french", "fries"});
 		/// <summary>
@@ -9064,6 +24674,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			23,
+			SkinVariationType.None,
 			"pizza",
 			new []{ "cheese", "pizza", "slice"});
 		/// <summary>
@@ -9080,6 +24691,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			6,
 			35,
+			SkinVariationType.None,
 			"hot dog",
 			new []{ "frankfurter", "hot dog", "hotdog", "sausage"});
 		/// <summary>
@@ -9096,6 +24708,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			22,
+			SkinVariationType.None,
 			"sandwich",
 			new []{ "bread", "sandwich"});
 		/// <summary>
@@ -9112,6 +24725,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			6,
 			36,
+			SkinVariationType.None,
 			"taco",
 			new []{ "mexican", "taco"});
 		/// <summary>
@@ -9128,6 +24742,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			6,
 			37,
+			SkinVariationType.None,
 			"burrito",
 			new []{ "burrito", "mexican", "wrap"});
 		/// <summary>
@@ -9144,6 +24759,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			5,
+			SkinVariationType.None,
 			"stuffed flatbread",
 			new []{ "falafel", "flatbread", "food", "gyro", "kebab", "stuffed"});
 		/// <summary>
@@ -9160,6 +24776,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			6,
+			SkinVariationType.None,
 			"egg",
 			new []{ "egg", "food"});
 		/// <summary>
@@ -9176,6 +24793,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			1,
+			SkinVariationType.None,
 			"cooking",
 			new []{ "cooking", "egg", "frying", "pan"});
 		/// <summary>
@@ -9192,6 +24810,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			4,
+			SkinVariationType.None,
 			"shallow pan of food",
 			new []{ "casserole", "food", "paella", "pan", "shallow", "shallow pan of food"});
 		/// <summary>
@@ -9208,6 +24827,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			0,
+			SkinVariationType.None,
 			"pot of food",
 			new []{ "pot", "pot of food", "stew"});
 		/// <summary>
@@ -9224,6 +24844,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			15,
+			SkinVariationType.None,
 			"bowl with spoon",
 			new []{ "bowl with spoon", "breakfast", "cereal", "congee"});
 		/// <summary>
@@ -9240,6 +24861,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			3,
+			SkinVariationType.None,
 			"green salad",
 			new []{ "food", "green", "salad"});
 		/// <summary>
@@ -9256,6 +24878,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			13,
+			SkinVariationType.None,
 			"popcorn",
 			new []{ "popcorn"});
 		/// <summary>
@@ -9272,6 +24895,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			23,
+			SkinVariationType.None,
 			"canned food",
 			new []{ "can", "canned food"});
 		/// <summary>
@@ -9288,6 +24912,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			51,
+			SkinVariationType.None,
 			"bento box",
 			new []{ "bento", "box"});
 		/// <summary>
@@ -9304,6 +24929,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			26,
+			SkinVariationType.None,
 			"rice cracker",
 			new []{ "cracker", "rice"});
 		/// <summary>
@@ -9320,6 +24946,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			27,
+			SkinVariationType.None,
 			"rice ball",
 			new []{ "ball", "Japanese", "rice"});
 		/// <summary>
@@ -9336,6 +24963,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			28,
+			SkinVariationType.None,
 			"cooked rice",
 			new []{ "cooked", "rice"});
 		/// <summary>
@@ -9352,6 +24980,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			29,
+			SkinVariationType.None,
 			"curry rice",
 			new []{ "curry", "rice"});
 		/// <summary>
@@ -9368,6 +24997,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			30,
+			SkinVariationType.None,
 			"steaming bowl",
 			new []{ "bowl", "noodle", "ramen", "steaming"});
 		/// <summary>
@@ -9384,6 +25014,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			31,
+			SkinVariationType.None,
 			"spaghetti",
 			new []{ "pasta", "spaghetti"});
 		/// <summary>
@@ -9400,6 +25031,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			34,
+			SkinVariationType.None,
 			"roasted sweet potato",
 			new []{ "potato", "roasted", "sweet"});
 		/// <summary>
@@ -9416,6 +25048,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			36,
+			SkinVariationType.None,
 			"oden",
 			new []{ "kebab", "oden", "seafood", "skewer", "stick"});
 		/// <summary>
@@ -9432,6 +25065,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			37,
+			SkinVariationType.None,
 			"sushi",
 			new []{ "sushi"});
 		/// <summary>
@@ -9448,6 +25082,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			38,
+			SkinVariationType.None,
 			"fried shrimp",
 			new []{ "fried", "prawn", "shrimp", "tempura"});
 		/// <summary>
@@ -9464,6 +25099,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			39,
+			SkinVariationType.None,
 			"fish cake with swirl",
 			new []{ "cake", "fish", "fish cake with swirl", "pastry", "swirl"});
 		/// <summary>
@@ -9480,6 +25116,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			35,
+			SkinVariationType.None,
 			"dango",
 			new []{ "dango", "dessert", "Japanese", "skewer", "stick", "sweet"});
 		/// <summary>
@@ -9496,6 +25133,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			11,
+			SkinVariationType.None,
 			"dumpling",
 			new []{ "dumpling", "empanada", "gyōza", "jiaozi", "pierogi", "potsticker"});
 		/// <summary>
@@ -9512,6 +25150,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			12,
+			SkinVariationType.None,
 			"fortune cookie",
 			new []{ "fortune cookie", "prophecy"});
 		/// <summary>
@@ -9528,6 +25167,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			13,
+			SkinVariationType.None,
 			"takeout box",
 			new []{ "oyster pail", "takeout box"});
 		/// <summary>
@@ -9544,6 +25184,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			40,
+			SkinVariationType.None,
 			"soft ice cream",
 			new []{ "cream", "dessert", "ice", "icecream", "soft", "sweet"});
 		/// <summary>
@@ -9560,6 +25201,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			41,
+			SkinVariationType.None,
 			"shaved ice",
 			new []{ "dessert", "ice", "shaved", "sweet"});
 		/// <summary>
@@ -9576,6 +25218,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			42,
+			SkinVariationType.None,
 			"ice cream",
 			new []{ "cream", "dessert", "ice", "sweet"});
 		/// <summary>
@@ -9592,6 +25235,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			43,
+			SkinVariationType.None,
 			"doughnut",
 			new []{ "dessert", "donut", "doughnut", "sweet"});
 		/// <summary>
@@ -9608,6 +25252,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			44,
+			SkinVariationType.None,
 			"cookie",
 			new []{ "cookie", "dessert", "sweet"});
 		/// <summary>
@@ -9624,6 +25269,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			16,
+			SkinVariationType.None,
 			"birthday cake",
 			new []{ "birthday", "cake", "celebration", "dessert", "pastry", "sweet"});
 		/// <summary>
@@ -9640,6 +25286,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			50,
+			SkinVariationType.None,
 			"shortcake",
 			new []{ "cake", "dessert", "pastry", "shortcake", "slice", "sweet"});
 		/// <summary>
@@ -9656,6 +25303,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			19,
+			SkinVariationType.None,
 			"pie",
 			new []{ "filling", "pastry", "pie"});
 		/// <summary>
@@ -9672,6 +25320,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			45,
+			SkinVariationType.None,
 			"chocolate bar",
 			new []{ "bar", "chocolate", "dessert", "sweet"});
 		/// <summary>
@@ -9688,6 +25337,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			46,
+			SkinVariationType.None,
 			"candy",
 			new []{ "candy", "dessert", "sweet"});
 		/// <summary>
@@ -9704,6 +25354,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			47,
+			SkinVariationType.None,
 			"lollipop",
 			new []{ "candy", "dessert", "lollipop", "sweet"});
 		/// <summary>
@@ -9720,6 +25371,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			48,
+			SkinVariationType.None,
 			"custard",
 			new []{ "custard", "dessert", "pudding", "sweet"});
 		/// <summary>
@@ -9736,6 +25388,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			7,
 			49,
+			SkinVariationType.None,
 			"honey pot",
 			new []{ "honey", "honeypot", "pot", "sweet"});
 		/// <summary>
@@ -9752,6 +25405,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			10,
+			SkinVariationType.None,
 			"baby bottle",
 			new []{ "baby", "bottle", "drink", "milk"});
 		/// <summary>
@@ -9768,6 +25422,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			7,
+			SkinVariationType.None,
 			"glass of milk",
 			new []{ "drink", "glass", "glass of milk", "milk"});
 		/// <summary>
@@ -9784,6 +25439,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			47,
 			24,
+			SkinVariationType.None,
 			"hot beverage",
 			new []{ "beverage", "coffee", "drink", "hot", "steaming", "tea"});
 		/// <summary>
@@ -9800,6 +25456,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			3,
+			SkinVariationType.None,
 			"teacup without handle",
 			new []{ "beverage", "cup", "drink", "tea", "teacup", "teacup without handle"});
 		/// <summary>
@@ -9816,6 +25473,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			4,
+			SkinVariationType.None,
 			"sake",
 			new []{ "bar", "beverage", "bottle", "cup", "drink", "sake"});
 		/// <summary>
@@ -9832,6 +25490,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			12,
+			SkinVariationType.None,
 			"bottle with popping cork",
 			new []{ "bar", "bottle", "bottle with popping cork", "cork", "drink", "popping"});
 		/// <summary>
@@ -9848,6 +25507,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			5,
+			SkinVariationType.None,
 			"wine glass",
 			new []{ "bar", "beverage", "drink", "glass", "wine"});
 		/// <summary>
@@ -9864,6 +25524,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			6,
+			SkinVariationType.None,
 			"cocktail glass",
 			new []{ "bar", "cocktail", "drink", "glass"});
 		/// <summary>
@@ -9880,6 +25541,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			7,
+			SkinVariationType.None,
 			"tropical drink",
 			new []{ "bar", "drink", "tropical"});
 		/// <summary>
@@ -9896,6 +25558,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			8,
+			SkinVariationType.None,
 			"beer mug",
 			new []{ "bar", "beer", "drink", "mug"});
 		/// <summary>
@@ -9912,6 +25575,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			9,
+			SkinVariationType.None,
 			"clinking beer mugs",
 			new []{ "bar", "beer", "clink", "clinking beer mugs", "drink", "mug"});
 		/// <summary>
@@ -9928,6 +25592,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			41,
 			38,
+			SkinVariationType.None,
 			"clinking glasses",
 			new []{ "celebrate", "clink", "clinking glasses", "drink", "glass"});
 		/// <summary>
@@ -9944,6 +25609,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			41,
 			39,
+			SkinVariationType.None,
 			"tumbler glass",
 			new []{ "glass", "liquor", "shot", "tumbler", "whisky"});
 		/// <summary>
@@ -9960,6 +25626,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			16,
+			SkinVariationType.None,
 			"cup with straw",
 			new []{ "cup with straw", "juice", "soda"});
 		/// <summary>
@@ -9976,6 +25643,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			42,
 			14,
+			SkinVariationType.None,
 			"chopsticks",
 			new []{ "chopsticks", "hashi"});
 		/// <summary>
@@ -9992,6 +25660,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10008,6 +25677,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			8,
 			2,
+			SkinVariationType.None,
 			"fork and knife",
 			new []{ "cooking", "cutlery", "fork", "fork and knife", "knife"});
 		/// <summary>
@@ -10024,6 +25694,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			41,
 			40,
+			SkinVariationType.None,
 			"spoon",
 			new []{ "spoon", "tableware"});
 		/// <summary>
@@ -10040,6 +25711,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			27,
 			44,
+			SkinVariationType.None,
 			"kitchen knife",
 			new []{ "cooking", "hocho", "kitchen knife", "knife", "tool", "weapon"});
 		/// <summary>
@@ -10056,6 +25728,7 @@ namespace Manatee.Trello
 			"Food & Drink",
 			12,
 			24,
+			SkinVariationType.None,
 			"amphora",
 			new []{ "amphora", "Aquarius", "cooking", "drink", "jug", "tool", "weapon", "zodiac"});
 		/// <summary>
@@ -10072,6 +25745,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			5,
+			SkinVariationType.None,
 			"globe showing Europe-Africa",
 			new []{ "Africa", "earth", "Europe", "globe", "globe showing Europe-Africa", "world"});
 		/// <summary>
@@ -10088,6 +25762,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			6,
+			SkinVariationType.None,
 			"globe showing Americas",
 			new []{ "Americas", "earth", "globe", "globe showing Americas", "world"});
 		/// <summary>
@@ -10104,6 +25779,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			7,
+			SkinVariationType.None,
 			"globe showing Asia-Australia",
 			new []{ "Asia", "Australia", "earth", "globe", "globe showing Asia-Australia", "world"});
 		/// <summary>
@@ -10120,6 +25796,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			8,
+			SkinVariationType.None,
 			"globe with meridians",
 			new []{ "earth", "globe", "globe with meridians", "meridians", "world"});
 		/// <summary>
@@ -10136,6 +25813,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			30,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10152,6 +25830,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			30,
 			22,
+			SkinVariationType.None,
 			"map of Japan",
 			new []{ "Japan", "map", "map of Japan"});
 		/// <summary>
@@ -10168,6 +25847,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			37,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10184,6 +25864,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10200,6 +25881,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			3,
+			SkinVariationType.None,
 			"volcano",
 			new []{ "eruption", "mountain", "volcano"});
 		/// <summary>
@@ -10216,6 +25898,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			30,
 			19,
+			SkinVariationType.None,
 			"mount fuji",
 			new []{ "fuji", "mount fuji", "mountain"});
 		/// <summary>
@@ -10232,6 +25915,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10248,6 +25932,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10264,6 +25949,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10280,6 +25966,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			46,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10296,6 +25983,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10312,6 +26000,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			48,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10328,6 +26017,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10344,6 +26034,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10360,6 +26051,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10376,6 +26068,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10392,6 +26085,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			49,
+			SkinVariationType.None,
 			"house",
 			new []{ "home", "house"});
 		/// <summary>
@@ -10408,6 +26102,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			50,
+			SkinVariationType.None,
 			"house with garden",
 			new []{ "garden", "home", "house", "house with garden"});
 		/// <summary>
@@ -10424,6 +26119,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			51,
+			SkinVariationType.None,
 			"office building",
 			new []{ "building", "office building"});
 		/// <summary>
@@ -10440,6 +26136,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			0,
+			SkinVariationType.None,
 			"Japanese post office",
 			new []{ "Japanese", "Japanese post office", "post"});
 		/// <summary>
@@ -10456,6 +26153,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			1,
+			SkinVariationType.None,
 			"post office",
 			new []{ "European", "post", "post office"});
 		/// <summary>
@@ -10472,6 +26170,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			2,
+			SkinVariationType.None,
 			"hospital",
 			new []{ "doctor", "hospital", "medicine"});
 		/// <summary>
@@ -10488,6 +26187,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			3,
+			SkinVariationType.None,
 			"bank",
 			new []{ "bank", "building"});
 		/// <summary>
@@ -10504,6 +26204,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			5,
+			SkinVariationType.None,
 			"hotel",
 			new []{ "building", "hotel"});
 		/// <summary>
@@ -10520,6 +26221,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			6,
+			SkinVariationType.None,
 			"love hotel",
 			new []{ "hotel", "love"});
 		/// <summary>
@@ -10536,6 +26238,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			7,
+			SkinVariationType.None,
 			"convenience store",
 			new []{ "convenience", "store"});
 		/// <summary>
@@ -10552,6 +26255,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			8,
+			SkinVariationType.None,
 			"school",
 			new []{ "building", "school"});
 		/// <summary>
@@ -10568,6 +26272,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			9,
+			SkinVariationType.None,
 			"department store",
 			new []{ "department", "store"});
 		/// <summary>
@@ -10584,6 +26289,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			10,
+			SkinVariationType.None,
 			"factory",
 			new []{ "building", "factory"});
 		/// <summary>
@@ -10600,6 +26306,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			12,
+			SkinVariationType.None,
 			"Japanese castle",
 			new []{ "castle", "Japanese"});
 		/// <summary>
@@ -10616,6 +26323,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			12,
 			13,
+			SkinVariationType.None,
 			"castle",
 			new []{ "castle", "European"});
 		/// <summary>
@@ -10632,6 +26340,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			24,
 			44,
+			SkinVariationType.None,
 			"wedding",
 			new []{ "chapel", "romance", "wedding"});
 		/// <summary>
@@ -10648,6 +26357,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			30,
 			20,
+			SkinVariationType.None,
 			"Tokyo tower",
 			new []{ "Tokyo", "tower"});
 		/// <summary>
@@ -10664,6 +26374,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			30,
 			21,
+			SkinVariationType.None,
 			"Statue of Liberty",
 			new []{ "liberty", "statue", "Statue of Liberty"});
 		/// <summary>
@@ -10680,6 +26391,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			37,
+			SkinVariationType.None,
 			"church",
 			new []{ "Christian", "church", "cross", "religion"});
 		/// <summary>
@@ -10696,6 +26408,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			15,
+			SkinVariationType.None,
 			"mosque",
 			new []{ "islam", "mosque", "Muslim", "religion"});
 		/// <summary>
@@ -10712,6 +26425,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			16,
+			SkinVariationType.None,
 			"synagogue",
 			new []{ "Jew", "Jewish", "religion", "synagogue", "temple"});
 		/// <summary>
@@ -10728,6 +26442,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			36,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10744,6 +26459,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			14,
+			SkinVariationType.None,
 			"kaaba",
 			new []{ "islam", "kaaba", "Muslim", "religion"});
 		/// <summary>
@@ -10760,6 +26476,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			40,
+			SkinVariationType.None,
 			"fountain",
 			new []{ "fountain"});
 		/// <summary>
@@ -10776,6 +26493,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			49,
 			12,
+			SkinVariationType.None,
 			"tent",
 			new []{ "camping", "tent"});
 		/// <summary>
@@ -10792,6 +26510,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			5,
 			45,
+			SkinVariationType.None,
 			"foggy",
 			new []{ "fog", "foggy"});
 		/// <summary>
@@ -10808,6 +26527,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			5,
 			47,
+			SkinVariationType.None,
 			"night with stars",
 			new []{ "night", "night with stars", "star"});
 		/// <summary>
@@ -10824,6 +26544,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			11,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10840,6 +26561,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			5,
 			48,
+			SkinVariationType.None,
 			"sunrise over mountains",
 			new []{ "morning", "mountain", "sun", "sunrise", "sunrise over mountains"});
 		/// <summary>
@@ -10856,6 +26578,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			5,
 			49,
+			SkinVariationType.None,
 			"sunrise",
 			new []{ "morning", "sun", "sunrise"});
 		/// <summary>
@@ -10872,6 +26595,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			5,
 			50,
+			SkinVariationType.None,
 			"cityscape at dusk",
 			new []{ "city", "cityscape at dusk", "dusk", "evening", "landscape", "sun", "sunset"});
 		/// <summary>
@@ -10888,6 +26612,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			5,
 			51,
+			SkinVariationType.None,
 			"sunset",
 			new []{ "dusk", "sun", "sunset"});
 		/// <summary>
@@ -10904,6 +26629,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			1,
+			SkinVariationType.None,
 			"bridge at night",
 			new []{ "bridge", "bridge at night", "night"});
 		/// <summary>
@@ -10920,6 +26646,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -10936,6 +26663,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			4,
+			SkinVariationType.None,
 			"milky way",
 			new []{ "milky way", "space"});
 		/// <summary>
@@ -10952,6 +26680,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			8,
 			46,
+			SkinVariationType.None,
 			"carousel horse",
 			new []{ "carousel", "horse"});
 		/// <summary>
@@ -10968,6 +26697,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			8,
 			47,
+			SkinVariationType.None,
 			"ferris wheel",
 			new []{ "amusement park", "ferris", "wheel"});
 		/// <summary>
@@ -10984,6 +26714,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			8,
 			48,
+			SkinVariationType.None,
 			"roller coaster",
 			new []{ "amusement park", "coaster", "roller"});
 		/// <summary>
@@ -11000,6 +26731,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			24,
 			34,
+			SkinVariationType.None,
 			"barber pole",
 			new []{ "barber", "haircut", "pole"});
 		/// <summary>
@@ -11016,6 +26748,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			9,
 			4,
+			SkinVariationType.None,
 			"circus tent",
 			new []{ "circus", "tent"});
 		/// <summary>
@@ -11032,6 +26765,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			10,
+			SkinVariationType.None,
 			"locomotive",
 			new []{ "engine", "locomotive", "railway", "steam", "train"});
 		/// <summary>
@@ -11048,6 +26782,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			11,
+			SkinVariationType.None,
 			"railway car",
 			new []{ "car", "electric", "railway", "train", "tram", "trolleybus"});
 		/// <summary>
@@ -11064,6 +26799,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			12,
+			SkinVariationType.None,
 			"high-speed train",
 			new []{ "high-speed train", "railway", "shinkansen", "speed", "train"});
 		/// <summary>
@@ -11080,6 +26816,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			13,
+			SkinVariationType.None,
 			"bullet train",
 			new []{ "bullet", "railway", "shinkansen", "speed", "train"});
 		/// <summary>
@@ -11096,6 +26833,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			14,
+			SkinVariationType.None,
 			"train",
 			new []{ "railway", "train"});
 		/// <summary>
@@ -11112,6 +26850,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			15,
+			SkinVariationType.None,
 			"metro",
 			new []{ "metro", "subway"});
 		/// <summary>
@@ -11128,6 +26867,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			16,
+			SkinVariationType.None,
 			"light rail",
 			new []{ "light rail", "railway"});
 		/// <summary>
@@ -11144,6 +26884,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			17,
+			SkinVariationType.None,
 			"station",
 			new []{ "railway", "station", "train"});
 		/// <summary>
@@ -11160,6 +26901,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			18,
+			SkinVariationType.None,
 			"tram",
 			new []{ "tram", "trolleybus"});
 		/// <summary>
@@ -11176,6 +26918,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			37,
+			SkinVariationType.None,
 			"monorail",
 			new []{ "monorail", "vehicle"});
 		/// <summary>
@@ -11192,6 +26935,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			38,
+			SkinVariationType.None,
 			"mountain railway",
 			new []{ "car", "mountain", "railway"});
 		/// <summary>
@@ -11208,6 +26952,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			19,
+			SkinVariationType.None,
 			"tram car",
 			new []{ "car", "tram", "trolleybus"});
 		/// <summary>
@@ -11224,6 +26969,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			20,
+			SkinVariationType.None,
 			"bus",
 			new []{ "bus", "vehicle"});
 		/// <summary>
@@ -11240,6 +26986,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			21,
+			SkinVariationType.None,
 			"oncoming bus",
 			new []{ "bus", "oncoming"});
 		/// <summary>
@@ -11256,6 +27003,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			22,
+			SkinVariationType.None,
 			"trolleybus",
 			new []{ "bus", "tram", "trolley", "trolleybus"});
 		/// <summary>
@@ -11272,6 +27020,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			24,
+			SkinVariationType.None,
 			"minibus",
 			new []{ "bus", "minibus"});
 		/// <summary>
@@ -11288,6 +27037,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			25,
+			SkinVariationType.None,
 			"ambulance",
 			new []{ "ambulance", "vehicle"});
 		/// <summary>
@@ -11304,6 +27054,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			26,
+			SkinVariationType.None,
 			"fire engine",
 			new []{ "engine", "fire", "truck"});
 		/// <summary>
@@ -11320,6 +27071,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			27,
+			SkinVariationType.None,
 			"police car",
 			new []{ "car", "patrol", "police"});
 		/// <summary>
@@ -11336,6 +27088,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			28,
+			SkinVariationType.None,
 			"oncoming police car",
 			new []{ "car", "oncoming", "police"});
 		/// <summary>
@@ -11352,6 +27105,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			29,
+			SkinVariationType.None,
 			"taxi",
 			new []{ "taxi", "vehicle"});
 		/// <summary>
@@ -11368,6 +27122,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			30,
+			SkinVariationType.None,
 			"oncoming taxi",
 			new []{ "oncoming", "taxi"});
 		/// <summary>
@@ -11384,6 +27139,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			31,
+			SkinVariationType.None,
 			"automobile",
 			new []{ "automobile", "car"});
 		/// <summary>
@@ -11400,6 +27156,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			32,
+			SkinVariationType.None,
 			"oncoming automobile",
 			new []{ "automobile", "car", "oncoming"});
 		/// <summary>
@@ -11416,6 +27173,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			33,
+			SkinVariationType.None,
 			"sport utility vehicle",
 			new []{ "recreational", "sport utility", "sport utility vehicle"});
 		/// <summary>
@@ -11432,6 +27190,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			34,
+			SkinVariationType.None,
 			"delivery truck",
 			new []{ "delivery", "truck"});
 		/// <summary>
@@ -11448,6 +27207,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			35,
+			SkinVariationType.None,
 			"articulated lorry",
 			new []{ "articulated lorry", "lorry", "semi", "truck"});
 		/// <summary>
@@ -11464,6 +27224,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			36,
+			SkinVariationType.None,
 			"tractor",
 			new []{ "tractor", "vehicle"});
 		/// <summary>
@@ -11480,6 +27241,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			35,
 			23,
+			SkinVariationType.None,
 			"bicycle",
 			new []{ "bicycle", "bike"});
 		/// <summary>
@@ -11496,6 +27258,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			19,
+			SkinVariationType.None,
 			"kick scooter",
 			new []{ "kick", "scooter"});
 		/// <summary>
@@ -11512,6 +27275,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			20,
+			SkinVariationType.None,
 			"motor scooter",
 			new []{ "motor", "scooter"});
 		/// <summary>
@@ -11528,6 +27292,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			23,
+			SkinVariationType.None,
 			"bus stop",
 			new []{ "bus", "busstop", "stop"});
 		/// <summary>
@@ -11544,6 +27309,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11560,6 +27326,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11576,6 +27343,7 @@ namespace Manatee.Trello
 			"Objects",
 			37,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11592,6 +27360,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			49,
 			13,
+			SkinVariationType.None,
 			"fuel pump",
 			new []{ "diesel", "fuel", "fuelpump", "gas", "pump", "station"});
 		/// <summary>
@@ -11608,6 +27377,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			35,
 			13,
+			SkinVariationType.None,
 			"police car light",
 			new []{ "beacon", "car", "light", "police", "revolving"});
 		/// <summary>
@@ -11624,6 +27394,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			35,
 			10,
+			SkinVariationType.None,
 			"horizontal traffic light",
 			new []{ "horizontal traffic light", "light", "signal", "traffic"});
 		/// <summary>
@@ -11640,6 +27411,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			35,
 			11,
+			SkinVariationType.None,
 			"vertical traffic light",
 			new []{ "light", "signal", "traffic", "vertical traffic light"});
 		/// <summary>
@@ -11656,6 +27428,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			6,
+			SkinVariationType.None,
 			"stop sign",
 			new []{ "octagonal", "sign", "stop"});
 		/// <summary>
@@ -11672,6 +27445,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			35,
 			12,
+			SkinVariationType.None,
 			"construction",
 			new []{ "barrier", "construction"});
 		/// <summary>
@@ -11688,6 +27462,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			12,
+			SkinVariationType.None,
 			"anchor",
 			new []{ "anchor", "ship", "tool"});
 		/// <summary>
@@ -11704,6 +27479,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			43,
+			SkinVariationType.None,
 			"sailboat",
 			new []{ "boat", "resort", "sailboat", "sea", "yacht"});
 		/// <summary>
@@ -11720,6 +27496,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			21,
+			SkinVariationType.None,
 			"canoe",
 			new []{ "boat", "canoe"});
 		/// <summary>
@@ -11736,6 +27513,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			35,
 			9,
+			SkinVariationType.None,
 			"speedboat",
 			new []{ "boat", "speedboat"});
 		/// <summary>
@@ -11752,6 +27530,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11768,6 +27547,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11784,6 +27564,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11800,6 +27581,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			42,
+			SkinVariationType.None,
 			"ship",
 			new []{ "boat", "passenger", "ship"});
 		/// <summary>
@@ -11816,6 +27598,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			49,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11832,6 +27615,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11848,6 +27632,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			15,
+			SkinVariationType.None,
 			"airplane departure",
 			new []{ "aeroplane", "airplane", "check-in", "departure", "departures"});
 		/// <summary>
@@ -11864,6 +27649,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			16,
+			SkinVariationType.None,
 			"airplane arrival",
 			new []{ "aeroplane", "airplane", "airplane arrival", "arrivals", "arriving", "landing"});
 		/// <summary>
@@ -11880,6 +27666,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			25,
 			37,
+			SkinVariationType.None,
 			"seat",
 			new []{ "chair", "seat"});
 		/// <summary>
@@ -11896,6 +27683,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			9,
+			SkinVariationType.None,
 			"helicopter",
 			new []{ "helicopter", "vehicle"});
 		/// <summary>
@@ -11912,6 +27700,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			39,
+			SkinVariationType.None,
 			"suspension railway",
 			new []{ "railway", "suspension"});
 		/// <summary>
@@ -11928,6 +27717,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			40,
+			SkinVariationType.None,
 			"mountain cableway",
 			new []{ "cable", "gondola", "mountain", "mountain cableway"});
 		/// <summary>
@@ -11944,6 +27734,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			41,
+			SkinVariationType.None,
 			"aerial tramway",
 			new []{ "aerial", "cable", "car", "gondola", "tramway"});
 		/// <summary>
@@ -11960,6 +27751,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -11976,6 +27768,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			34,
 			8,
+			SkinVariationType.None,
 			"rocket",
 			new []{ "rocket", "space"});
 		/// <summary>
@@ -11992,6 +27785,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			23,
+			SkinVariationType.None,
 			"flying saucer",
 			new []{ "flying saucer", "UFO"});
 		/// <summary>
@@ -12008,6 +27802,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12024,6 +27819,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			46,
 			42,
+			SkinVariationType.None,
 			"hourglass done",
 			new []{ "hourglass done", "sand", "timer"});
 		/// <summary>
@@ -12040,6 +27836,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			3,
+			SkinVariationType.None,
 			"hourglass not done",
 			new []{ "hourglass", "hourglass not done", "sand", "timer"});
 		/// <summary>
@@ -12056,6 +27853,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			46,
 			41,
+			SkinVariationType.None,
 			"watch",
 			new []{ "clock", "watch"});
 		/// <summary>
@@ -12072,6 +27870,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			0,
+			SkinVariationType.None,
 			"alarm clock",
 			new []{ "alarm", "clock"});
 		/// <summary>
@@ -12088,6 +27887,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12104,6 +27904,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12120,6 +27921,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12136,6 +27938,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			29,
+			SkinVariationType.None,
 			"twelve o’clock",
 			new []{ "00", "12", "12:00", "clock", "o’clock", "twelve"});
 		/// <summary>
@@ -12152,6 +27955,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			41,
+			SkinVariationType.None,
 			"twelve-thirty",
 			new []{ "12", "12:30", "30", "clock", "thirty", "twelve", "twelve-thirty"});
 		/// <summary>
@@ -12168,6 +27972,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			18,
+			SkinVariationType.None,
 			"one o’clock",
 			new []{ "00", "1", "1:00", "clock", "o’clock", "one"});
 		/// <summary>
@@ -12184,6 +27989,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			30,
+			SkinVariationType.None,
 			"one-thirty",
 			new []{ "1", "1:30", "30", "clock", "one", "one-thirty", "thirty"});
 		/// <summary>
@@ -12200,6 +28006,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			19,
+			SkinVariationType.None,
 			"two o’clock",
 			new []{ "00", "2", "2:00", "clock", "o’clock", "two"});
 		/// <summary>
@@ -12216,6 +28023,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			31,
+			SkinVariationType.None,
 			"two-thirty",
 			new []{ "2", "2:30", "30", "clock", "thirty", "two", "two-thirty"});
 		/// <summary>
@@ -12232,6 +28040,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			20,
+			SkinVariationType.None,
 			"three o’clock",
 			new []{ "00", "3", "3:00", "clock", "o’clock", "three"});
 		/// <summary>
@@ -12248,6 +28057,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			32,
+			SkinVariationType.None,
 			"three-thirty",
 			new []{ "3", "3:30", "30", "clock", "thirty", "three", "three-thirty"});
 		/// <summary>
@@ -12264,6 +28074,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			21,
+			SkinVariationType.None,
 			"four o’clock",
 			new []{ "00", "4", "4:00", "clock", "four", "o’clock"});
 		/// <summary>
@@ -12280,6 +28091,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			33,
+			SkinVariationType.None,
 			"four-thirty",
 			new []{ "30", "4", "4:30", "clock", "four", "four-thirty", "thirty"});
 		/// <summary>
@@ -12296,6 +28108,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			22,
+			SkinVariationType.None,
 			"five o’clock",
 			new []{ "00", "5", "5:00", "clock", "five", "o’clock"});
 		/// <summary>
@@ -12312,6 +28125,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			34,
+			SkinVariationType.None,
 			"five-thirty",
 			new []{ "30", "5", "5:30", "clock", "five", "five-thirty", "thirty"});
 		/// <summary>
@@ -12328,6 +28142,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			23,
+			SkinVariationType.None,
 			"six o’clock",
 			new []{ "00", "6", "6:00", "clock", "o’clock", "six"});
 		/// <summary>
@@ -12344,6 +28159,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			35,
+			SkinVariationType.None,
 			"six-thirty",
 			new []{ "30", "6", "6:30", "clock", "six", "six-thirty", "thirty"});
 		/// <summary>
@@ -12360,6 +28176,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			24,
+			SkinVariationType.None,
 			"seven o’clock",
 			new []{ "00", "7", "7:00", "clock", "o’clock", "seven"});
 		/// <summary>
@@ -12376,6 +28193,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			36,
+			SkinVariationType.None,
 			"seven-thirty",
 			new []{ "30", "7", "7:30", "clock", "seven", "seven-thirty", "thirty"});
 		/// <summary>
@@ -12392,6 +28210,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			25,
+			SkinVariationType.None,
 			"eight o’clock",
 			new []{ "00", "8", "8:00", "clock", "eight", "o’clock"});
 		/// <summary>
@@ -12408,6 +28227,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			37,
+			SkinVariationType.None,
 			"eight-thirty",
 			new []{ "30", "8", "8:30", "clock", "eight", "eight-thirty", "thirty"});
 		/// <summary>
@@ -12424,6 +28244,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			26,
+			SkinVariationType.None,
 			"nine o’clock",
 			new []{ "00", "9", "9:00", "clock", "nine", "o’clock"});
 		/// <summary>
@@ -12440,6 +28261,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			38,
+			SkinVariationType.None,
 			"nine-thirty",
 			new []{ "30", "9", "9:30", "clock", "nine", "nine-thirty", "thirty"});
 		/// <summary>
@@ -12456,6 +28278,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			27,
+			SkinVariationType.None,
 			"ten o’clock",
 			new []{ "00", "10", "10:00", "clock", "o’clock", "ten"});
 		/// <summary>
@@ -12472,6 +28295,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			39,
+			SkinVariationType.None,
 			"ten-thirty",
 			new []{ "10", "10:30", "30", "clock", "ten", "ten-thirty", "thirty"});
 		/// <summary>
@@ -12488,6 +28312,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			28,
+			SkinVariationType.None,
 			"eleven o’clock",
 			new []{ "00", "11", "11:00", "clock", "eleven", "o’clock"});
 		/// <summary>
@@ -12504,6 +28329,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			28,
 			40,
+			SkinVariationType.None,
 			"eleven-thirty",
 			new []{ "11", "11:30", "30", "clock", "eleven", "eleven-thirty", "thirty"});
 		/// <summary>
@@ -12520,6 +28346,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			9,
+			SkinVariationType.None,
 			"new moon",
 			new []{ "dark", "moon", "new moon"});
 		/// <summary>
@@ -12536,6 +28363,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			10,
+			SkinVariationType.None,
 			"waxing crescent moon",
 			new []{ "crescent", "moon", "waxing"});
 		/// <summary>
@@ -12552,6 +28380,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			11,
+			SkinVariationType.None,
 			"first quarter moon",
 			new []{ "first quarter moon", "moon", "quarter"});
 		/// <summary>
@@ -12568,6 +28397,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			12,
+			SkinVariationType.None,
 			"waxing gibbous moon",
 			new []{ "gibbous", "moon", "waxing"});
 		/// <summary>
@@ -12584,6 +28414,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			13,
+			SkinVariationType.None,
 			"full moon",
 			new []{ "full", "moon"});
 		/// <summary>
@@ -12600,6 +28431,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			14,
+			SkinVariationType.None,
 			"waning gibbous moon",
 			new []{ "gibbous", "moon", "waning"});
 		/// <summary>
@@ -12616,6 +28448,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			15,
+			SkinVariationType.None,
 			"last quarter moon",
 			new []{ "last quarter moon", "moon", "quarter"});
 		/// <summary>
@@ -12632,6 +28465,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			16,
+			SkinVariationType.None,
 			"waning crescent moon",
 			new []{ "crescent", "moon", "waning"});
 		/// <summary>
@@ -12648,6 +28482,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			17,
+			SkinVariationType.None,
 			"crescent moon",
 			new []{ "crescent", "moon"});
 		/// <summary>
@@ -12664,6 +28499,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			18,
+			SkinVariationType.None,
 			"new moon face",
 			new []{ "face", "moon", "new moon face"});
 		/// <summary>
@@ -12680,6 +28516,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			19,
+			SkinVariationType.None,
 			"first quarter moon face",
 			new []{ "face", "first quarter moon face", "moon", "quarter"});
 		/// <summary>
@@ -12696,6 +28533,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			20,
+			SkinVariationType.None,
 			"last quarter moon face",
 			new []{ "face", "last quarter moon face", "moon", "quarter"});
 		/// <summary>
@@ -12712,6 +28550,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12728,6 +28567,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12744,6 +28584,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			21,
+			SkinVariationType.None,
 			"full moon face",
 			new []{ "bright", "face", "full", "moon"});
 		/// <summary>
@@ -12760,6 +28601,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			22,
+			SkinVariationType.None,
 			"sun with face",
 			new []{ "bright", "face", "sun", "sun with face"});
 		/// <summary>
@@ -12776,6 +28618,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			50,
 			22,
+			SkinVariationType.None,
 			"star",
 			new []{ "star"});
 		/// <summary>
@@ -12792,6 +28635,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			23,
+			SkinVariationType.None,
 			"glowing star",
 			new []{ "glittery", "glow", "glowing star", "shining", "sparkle", "star"});
 		/// <summary>
@@ -12808,6 +28652,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			24,
+			SkinVariationType.None,
 			"shooting star",
 			new []{ "falling", "shooting", "star"});
 		/// <summary>
@@ -12824,6 +28669,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12840,6 +28686,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			29,
+			SkinVariationType.None,
 			"sun behind cloud",
 			new []{ "cloud", "sun", "sun behind cloud"});
 		/// <summary>
@@ -12856,6 +28703,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12872,6 +28720,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			26,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12888,6 +28737,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			27,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12904,6 +28754,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			28,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12920,6 +28771,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			29,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12936,6 +28788,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12952,6 +28805,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12968,6 +28822,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -12984,6 +28839,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13000,6 +28856,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13016,6 +28873,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			5,
 			44,
+			SkinVariationType.None,
 			"cyclone",
 			new []{ "cyclone", "dizzy", "hurricane", "twister", "typhoon"});
 		/// <summary>
@@ -13032,6 +28890,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			0,
+			SkinVariationType.None,
 			"rainbow",
 			new []{ "rain", "rainbow"});
 		/// <summary>
@@ -13048,6 +28907,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			5,
 			46,
+			SkinVariationType.None,
 			"closed umbrella",
 			new []{ "closed umbrella", "clothing", "rain", "umbrella"});
 		/// <summary>
@@ -13064,6 +28924,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13080,6 +28941,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			23,
+			SkinVariationType.None,
 			"umbrella with rain drops",
 			new []{ "clothing", "drop", "rain", "umbrella", "umbrella with rain drops"});
 		/// <summary>
@@ -13096,6 +28958,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13112,6 +28975,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			21,
+			SkinVariationType.None,
 			"high voltage",
 			new []{ "danger", "electric", "electricity", "high voltage", "lightning", "voltage", "zap"});
 		/// <summary>
@@ -13128,6 +28992,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			49,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13144,6 +29009,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13160,6 +29026,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			48,
 			28,
+			SkinVariationType.None,
 			"snowman without snow",
 			new []{ "cold", "snow", "snowman", "snowman without snow"});
 		/// <summary>
@@ -13176,6 +29043,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			47,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13192,6 +29060,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			27,
 			39,
+			SkinVariationType.None,
 			"fire",
 			new []{ "fire", "flame", "tool"});
 		/// <summary>
@@ -13208,6 +29077,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			25,
 			13,
+			SkinVariationType.None,
 			"droplet",
 			new []{ "cold", "comic", "drop", "droplet", "sweat"});
 		/// <summary>
@@ -13224,6 +29094,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			6,
 			2,
+			SkinVariationType.None,
 			"water wave",
 			new []{ "ocean", "water", "wave"});
 		/// <summary>
@@ -13240,6 +29111,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			17,
+			SkinVariationType.None,
 			"jack-o-lantern",
 			new []{ "celebration", "halloween", "jack", "jack-o-lantern", "lantern"});
 		/// <summary>
@@ -13256,6 +29128,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			18,
+			SkinVariationType.None,
 			"Christmas tree",
 			new []{ "celebration", "Christmas", "tree"});
 		/// <summary>
@@ -13272,6 +29145,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			25,
+			SkinVariationType.None,
 			"fireworks",
 			new []{ "celebration", "fireworks"});
 		/// <summary>
@@ -13288,6 +29162,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			26,
+			SkinVariationType.None,
 			"sparkler",
 			new []{ "celebration", "fireworks", "sparkle", "sparkler"});
 		/// <summary>
@@ -13304,6 +29179,7 @@ namespace Manatee.Trello
 			"Activities",
 			49,
 			48,
+			SkinVariationType.None,
 			"sparkles",
 			new []{ "sparkle", "sparkles", "star"});
 		/// <summary>
@@ -13320,6 +29196,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			27,
+			SkinVariationType.None,
 			"balloon",
 			new []{ "balloon", "celebration"});
 		/// <summary>
@@ -13336,6 +29213,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			28,
+			SkinVariationType.None,
 			"party popper",
 			new []{ "celebration", "party", "popper", "tada"});
 		/// <summary>
@@ -13352,6 +29230,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			29,
+			SkinVariationType.None,
 			"confetti ball",
 			new []{ "ball", "celebration", "confetti"});
 		/// <summary>
@@ -13368,6 +29247,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			30,
+			SkinVariationType.None,
 			"tanabata tree",
 			new []{ "banner", "celebration", "Japanese", "tanabata tree", "tree"});
 		/// <summary>
@@ -13384,6 +29264,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			32,
+			SkinVariationType.None,
 			"pine decoration",
 			new []{ "bamboo", "celebration", "Japanese", "pine", "pine decoration"});
 		/// <summary>
@@ -13400,6 +29281,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			33,
+			SkinVariationType.None,
 			"Japanese dolls",
 			new []{ "celebration", "doll", "festival", "Japanese", "Japanese dolls"});
 		/// <summary>
@@ -13416,6 +29298,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			34,
+			SkinVariationType.None,
 			"carp streamer",
 			new []{ "carp", "celebration", "streamer"});
 		/// <summary>
@@ -13432,6 +29315,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			35,
+			SkinVariationType.None,
 			"wind chime",
 			new []{ "bell", "celebration", "chime", "wind"});
 		/// <summary>
@@ -13448,6 +29332,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			36,
+			SkinVariationType.None,
 			"moon viewing ceremony",
 			new []{ "celebration", "ceremony", "moon", "moon viewing ceremony"});
 		/// <summary>
@@ -13464,6 +29349,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			14,
+			SkinVariationType.None,
 			"ribbon",
 			new []{ "celebration", "ribbon"});
 		/// <summary>
@@ -13480,6 +29366,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			15,
+			SkinVariationType.None,
 			"wrapped gift",
 			new []{ "box", "celebration", "gift", "present", "wrapped"});
 		/// <summary>
@@ -13496,6 +29383,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13512,6 +29400,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13528,6 +29417,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			5,
+			SkinVariationType.None,
 			"ticket",
 			new []{ "admission", "ticket"});
 		/// <summary>
@@ -13544,6 +29434,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13560,6 +29451,7 @@ namespace Manatee.Trello
 			"Activities",
 			10,
 			19,
+			SkinVariationType.None,
 			"trophy",
 			new []{ "prize", "trophy"});
 		/// <summary>
@@ -13576,6 +29468,7 @@ namespace Manatee.Trello
 			"Activities",
 			10,
 			18,
+			SkinVariationType.None,
 			"sports medal",
 			new []{ "medal", "sports medal"});
 		/// <summary>
@@ -13592,6 +29485,7 @@ namespace Manatee.Trello
 			"Activities",
 			41,
 			42,
+			SkinVariationType.None,
 			"1st place medal",
 			new []{ "1st place medal", "first", "gold", "medal"});
 		/// <summary>
@@ -13608,6 +29502,7 @@ namespace Manatee.Trello
 			"Activities",
 			41,
 			43,
+			SkinVariationType.None,
 			"2nd place medal",
 			new []{ "2nd place medal", "medal", "second", "silver"});
 		/// <summary>
@@ -13624,6 +29519,7 @@ namespace Manatee.Trello
 			"Activities",
 			41,
 			44,
+			SkinVariationType.None,
 			"3rd place medal",
 			new []{ "3rd place medal", "bronze", "medal", "third"});
 		/// <summary>
@@ -13640,6 +29536,7 @@ namespace Manatee.Trello
 			"Activities",
 			48,
 			26,
+			SkinVariationType.None,
 			"soccer ball",
 			new []{ "ball", "football", "soccer"});
 		/// <summary>
@@ -13656,6 +29553,7 @@ namespace Manatee.Trello
 			"Activities",
 			48,
 			27,
+			SkinVariationType.None,
 			"baseball",
 			new []{ "ball", "baseball"});
 		/// <summary>
@@ -13672,6 +29570,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			26,
+			SkinVariationType.None,
 			"basketball",
 			new []{ "ball", "basketball", "hoop"});
 		/// <summary>
@@ -13688,6 +29587,7 @@ namespace Manatee.Trello
 			"Activities",
 			11,
 			33,
+			SkinVariationType.None,
 			"volleyball",
 			new []{ "ball", "game", "volleyball"});
 		/// <summary>
@@ -13704,6 +29604,7 @@ namespace Manatee.Trello
 			"Activities",
 			10,
 			26,
+			SkinVariationType.None,
 			"american football",
 			new []{ "american", "ball", "football"});
 		/// <summary>
@@ -13720,6 +29621,7 @@ namespace Manatee.Trello
 			"Activities",
 			10,
 			27,
+			SkinVariationType.None,
 			"rugby football",
 			new []{ "ball", "football", "rugby"});
 		/// <summary>
@@ -13736,6 +29638,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			24,
+			SkinVariationType.None,
 			"tennis",
 			new []{ "ball", "racquet", "tennis"});
 		/// <summary>
@@ -13752,6 +29655,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			13,
+			SkinVariationType.None,
 			"bowling",
 			new []{ "ball", "bowling", "game"});
 		/// <summary>
@@ -13768,6 +29672,7 @@ namespace Manatee.Trello
 			"Activities",
 			11,
 			32,
+			SkinVariationType.None,
 			"cricket game",
 			new []{ "ball", "bat", "cricket game", "game"});
 		/// <summary>
@@ -13784,6 +29689,7 @@ namespace Manatee.Trello
 			"Activities",
 			11,
 			34,
+			SkinVariationType.None,
 			"field hockey",
 			new []{ "ball", "field", "game", "hockey", "stick"});
 		/// <summary>
@@ -13800,6 +29706,7 @@ namespace Manatee.Trello
 			"Activities",
 			11,
 			35,
+			SkinVariationType.None,
 			"ice hockey",
 			new []{ "game", "hockey", "ice", "puck", "stick"});
 		/// <summary>
@@ -13816,6 +29723,7 @@ namespace Manatee.Trello
 			"Activities",
 			11,
 			36,
+			SkinVariationType.None,
 			"ping pong",
 			new []{ "ball", "bat", "game", "paddle", "ping pong", "table tennis"});
 		/// <summary>
@@ -13832,6 +29740,7 @@ namespace Manatee.Trello
 			"Activities",
 			12,
 			22,
+			SkinVariationType.None,
 			"badminton",
 			new []{ "badminton", "birdie", "game", "racquet", "shuttlecock"});
 		/// <summary>
@@ -13848,6 +29757,7 @@ namespace Manatee.Trello
 			"Activities",
 			41,
 			45,
+			SkinVariationType.None,
 			"boxing glove",
 			new []{ "boxing", "glove"});
 		/// <summary>
@@ -13864,6 +29774,7 @@ namespace Manatee.Trello
 			"Activities",
 			41,
 			46,
+			SkinVariationType.None,
 			"martial arts uniform",
 			new []{ "judo", "karate", "martial arts", "martial arts uniform", "taekwondo", "uniform"});
 		/// <summary>
@@ -13880,6 +29791,7 @@ namespace Manatee.Trello
 			"Activities",
 			41,
 			41,
+			SkinVariationType.None,
 			"goal net",
 			new []{ "goal", "net"});
 		/// <summary>
@@ -13896,6 +29808,7 @@ namespace Manatee.Trello
 			"Activities",
 			48,
 			41,
+			SkinVariationType.None,
 			"flag in hole",
 			new []{ "flag in hole", "golf", "hole"});
 		/// <summary>
@@ -13912,6 +29825,7 @@ namespace Manatee.Trello
 			"Activities",
 			48,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -13928,6 +29842,7 @@ namespace Manatee.Trello
 			"Activities",
 			8,
 			49,
+			SkinVariationType.None,
 			"fishing pole",
 			new []{ "fish", "fishing pole", "pole"});
 		/// <summary>
@@ -13944,6 +29859,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			23,
+			SkinVariationType.None,
 			"running shirt",
 			new []{ "athletics", "running", "sash", "shirt"});
 		/// <summary>
@@ -13960,6 +29876,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			25,
+			SkinVariationType.None,
 			"skis",
 			new []{ "ski", "skis", "snow"});
 		/// <summary>
@@ -13976,6 +29893,7 @@ namespace Manatee.Trello
 			"Activities",
 			37,
 			22,
+			SkinVariationType.None,
 			"sled",
 			new []{ "sled", "sledge", "sleigh"});
 		/// <summary>
@@ -13992,6 +29910,7 @@ namespace Manatee.Trello
 			"Activities",
 			41,
 			47,
+			SkinVariationType.None,
 			"curling stone",
 			new []{ "curling stone", "game", "rock"});
 		/// <summary>
@@ -14008,6 +29927,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			9,
+			SkinVariationType.None,
 			"direct hit",
 			new []{ "bull", "bullseye", "dart", "direct hit", "eye", "game", "hit", "target"});
 		/// <summary>
@@ -14024,6 +29944,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			11,
+			SkinVariationType.None,
 			"pool 8 ball",
 			new []{ "8", "ball", "billiard", "eight", "game", "pool 8 ball"});
 		/// <summary>
@@ -14040,6 +29961,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			48,
+			SkinVariationType.None,
 			"crystal ball",
 			new []{ "ball", "crystal", "fairy tale", "fantasy", "fortune", "tool"});
 		/// <summary>
@@ -14056,6 +29978,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			8,
+			SkinVariationType.None,
 			"video game",
 			new []{ "controller", "game", "video game"});
 		/// <summary>
@@ -14072,6 +29995,7 @@ namespace Manatee.Trello
 			"Activities",
 			29,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14088,6 +30012,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			9,
 			10,
+			SkinVariationType.None,
 			"slot machine",
 			new []{ "game", "slot", "slot machine"});
 		/// <summary>
@@ -14104,6 +30029,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			12,
+			SkinVariationType.None,
 			"game die",
 			new []{ "dice", "die", "game"});
 		/// <summary>
@@ -14120,6 +30046,7 @@ namespace Manatee.Trello
 			"Activities",
 			48,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14136,6 +30063,7 @@ namespace Manatee.Trello
 			"Activities",
 			48,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14152,6 +30080,7 @@ namespace Manatee.Trello
 			"Activities",
 			48,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14168,6 +30097,7 @@ namespace Manatee.Trello
 			"Activities",
 			48,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14184,6 +30114,7 @@ namespace Manatee.Trello
 			"Activities",
 			0,
 			15,
+			SkinVariationType.None,
 			"joker",
 			new []{ "card", "game", "joker", "wildcard"});
 		/// <summary>
@@ -14200,6 +30131,7 @@ namespace Manatee.Trello
 			"Activities",
 			0,
 			14,
+			SkinVariationType.None,
 			"mahjong red dragon",
 			new []{ "game", "mahjong", "mahjong red dragon", "red"});
 		/// <summary>
@@ -14216,6 +30148,7 @@ namespace Manatee.Trello
 			"Activities",
 			9,
 			14,
+			SkinVariationType.None,
 			"flower playing cards",
 			new []{ "card", "flower", "flower playing cards", "game", "Japanese", "playing"});
 		/// <summary>
@@ -14232,6 +30165,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			9,
 			7,
+			SkinVariationType.None,
 			"performing arts",
 			new []{ "art", "mask", "performing", "performing arts", "theater", "theatre"});
 		/// <summary>
@@ -14248,6 +30182,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			30,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14264,6 +30199,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			9,
 			2,
+			SkinVariationType.None,
 			"artist palette",
 			new []{ "art", "artist palette", "museum", "painting", "palette"});
 		/// <summary>
@@ -14280,6 +30216,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			9,
+			SkinVariationType.None,
 			"muted speaker",
 			new []{ "mute", "muted speaker", "quiet", "silent", "speaker"});
 		/// <summary>
@@ -14296,6 +30233,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			10,
+			SkinVariationType.None,
 			"speaker low volume",
 			new []{ "soft", "speaker low volume"});
 		/// <summary>
@@ -14312,6 +30250,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			11,
+			SkinVariationType.None,
 			"speaker medium volume",
 			new []{ "medium", "speaker medium volume"});
 		/// <summary>
@@ -14328,6 +30267,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			12,
+			SkinVariationType.None,
 			"speaker high volume",
 			new []{ "loud", "speaker high volume"});
 		/// <summary>
@@ -14344,6 +30284,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			25,
+			SkinVariationType.None,
 			"loudspeaker",
 			new []{ "loud", "loudspeaker", "public address"});
 		/// <summary>
@@ -14360,6 +30301,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			26,
+			SkinVariationType.None,
 			"megaphone",
 			new []{ "cheering", "megaphone"});
 		/// <summary>
@@ -14376,6 +30318,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			38,
+			SkinVariationType.None,
 			"postal horn",
 			new []{ "horn", "post", "postal"});
 		/// <summary>
@@ -14392,6 +30335,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			22,
+			SkinVariationType.None,
 			"bell",
 			new []{ "bell"});
 		/// <summary>
@@ -14408,6 +30352,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			23,
+			SkinVariationType.None,
 			"bell with slash",
 			new []{ "bell", "bell with slash", "forbidden", "mute", "no", "not", "prohibited", "quiet", "silent"});
 		/// <summary>
@@ -14424,6 +30369,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			22,
+			SkinVariationType.None,
 			"musical score",
 			new []{ "music", "musical score", "score"});
 		/// <summary>
@@ -14440,6 +30386,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			15,
+			SkinVariationType.None,
 			"musical note",
 			new []{ "music", "musical note", "note"});
 		/// <summary>
@@ -14456,6 +30403,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			16,
+			SkinVariationType.None,
 			"musical notes",
 			new []{ "music", "musical notes", "note", "notes"});
 		/// <summary>
@@ -14472,6 +30420,7 @@ namespace Manatee.Trello
 			"Objects",
 			8,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14488,6 +30437,7 @@ namespace Manatee.Trello
 			"Objects",
 			8,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14504,6 +30454,7 @@ namespace Manatee.Trello
 			"Objects",
 			8,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14520,6 +30471,7 @@ namespace Manatee.Trello
 			"Objects",
 			8,
 			50,
+			SkinVariationType.None,
 			"microphone",
 			new []{ "karaoke", "mic", "microphone"});
 		/// <summary>
@@ -14536,6 +30488,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			1,
+			SkinVariationType.None,
 			"headphone",
 			new []{ "earbud", "headphone"});
 		/// <summary>
@@ -14552,6 +30505,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			50,
+			SkinVariationType.None,
 			"radio",
 			new []{ "radio", "video"});
 		/// <summary>
@@ -14568,6 +30522,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			17,
+			SkinVariationType.None,
 			"saxophone",
 			new []{ "instrument", "music", "sax", "saxophone"});
 		/// <summary>
@@ -14584,6 +30539,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			18,
+			SkinVariationType.None,
 			"guitar",
 			new []{ "guitar", "instrument", "music"});
 		/// <summary>
@@ -14600,6 +30556,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			19,
+			SkinVariationType.None,
 			"musical keyboard",
 			new []{ "instrument", "keyboard", "music", "musical keyboard", "piano"});
 		/// <summary>
@@ -14616,6 +30573,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			20,
+			SkinVariationType.None,
 			"trumpet",
 			new []{ "instrument", "music", "trumpet"});
 		/// <summary>
@@ -14632,6 +30590,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			21,
+			SkinVariationType.None,
 			"violin",
 			new []{ "instrument", "music", "violin"});
 		/// <summary>
@@ -14648,6 +30607,7 @@ namespace Manatee.Trello
 			"Objects",
 			41,
 			37,
+			SkinVariationType.None,
 			"drum",
 			new []{ "drum", "drumsticks", "music"});
 		/// <summary>
@@ -14664,6 +30624,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			40,
+			SkinVariationType.None,
 			"mobile phone",
 			new []{ "cell", "mobile", "phone", "telephone"});
 		/// <summary>
@@ -14680,6 +30641,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			41,
+			SkinVariationType.None,
 			"mobile phone with arrow",
 			new []{ "arrow", "call", "cell", "mobile", "mobile phone with arrow", "phone", "receive", "telephone"});
 		/// <summary>
@@ -14696,6 +30658,7 @@ namespace Manatee.Trello
 			"Objects",
 			47,
 			21,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14712,6 +30675,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			21,
+			SkinVariationType.None,
 			"telephone receiver",
 			new []{ "phone", "receiver", "telephone"});
 		/// <summary>
@@ -14728,6 +30692,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			22,
+			SkinVariationType.None,
 			"pager",
 			new []{ "pager"});
 		/// <summary>
@@ -14744,6 +30709,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			23,
+			SkinVariationType.None,
 			"fax machine",
 			new []{ "fax", "fax machine"});
 		/// <summary>
@@ -14760,6 +30726,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			13,
+			SkinVariationType.None,
 			"battery",
 			new []{ "battery"});
 		/// <summary>
@@ -14776,6 +30743,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			14,
+			SkinVariationType.None,
 			"electric plug",
 			new []{ "electric", "electricity", "plug"});
 		/// <summary>
@@ -14792,6 +30760,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			38,
+			SkinVariationType.None,
 			"laptop computer",
 			new []{ "computer", "laptop computer", "pc", "personal"});
 		/// <summary>
@@ -14808,6 +30777,7 @@ namespace Manatee.Trello
 			"Objects",
 			29,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14824,6 +30794,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14840,6 +30811,7 @@ namespace Manatee.Trello
 			"Objects",
 			46,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14856,6 +30828,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14872,6 +30845,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14888,6 +30862,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			40,
+			SkinVariationType.None,
 			"computer disk",
 			new []{ "computer", "disk", "minidisk", "optical"});
 		/// <summary>
@@ -14904,6 +30879,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			41,
+			SkinVariationType.None,
 			"floppy disk",
 			new []{ "computer", "disk", "floppy"});
 		/// <summary>
@@ -14920,6 +30896,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			42,
+			SkinVariationType.None,
 			"optical disk",
 			new []{ "cd", "computer", "disk", "optical"});
 		/// <summary>
@@ -14936,6 +30913,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			43,
+			SkinVariationType.None,
 			"dvd",
 			new []{ "blu-ray", "computer", "disk", "dvd", "optical"});
 		/// <summary>
@@ -14952,6 +30930,7 @@ namespace Manatee.Trello
 			"Objects",
 			8,
 			51,
+			SkinVariationType.None,
 			"movie camera",
 			new []{ "camera", "cinema", "movie"});
 		/// <summary>
@@ -14968,6 +30947,7 @@ namespace Manatee.Trello
 			"Objects",
 			8,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -14984,6 +30964,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15000,6 +30981,7 @@ namespace Manatee.Trello
 			"Objects",
 			9,
 			6,
+			SkinVariationType.None,
 			"clapper board",
 			new []{ "clapper", "clapper board", "movie"});
 		/// <summary>
@@ -15016,6 +30998,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			49,
+			SkinVariationType.None,
 			"television",
 			new []{ "television", "tv", "video"});
 		/// <summary>
@@ -15032,6 +31015,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			46,
+			SkinVariationType.None,
 			"camera",
 			new []{ "camera", "video"});
 		/// <summary>
@@ -15048,6 +31032,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			47,
+			SkinVariationType.None,
 			"camera with flash",
 			new []{ "camera", "camera with flash", "flash", "video"});
 		/// <summary>
@@ -15064,6 +31049,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			48,
+			SkinVariationType.None,
 			"video camera",
 			new []{ "camera", "video"});
 		/// <summary>
@@ -15080,6 +31066,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			51,
+			SkinVariationType.None,
 			"videocassette",
 			new []{ "tape", "vhs", "video", "videocassette"});
 		/// <summary>
@@ -15096,6 +31083,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			15,
+			SkinVariationType.None,
 			"magnifying glass tilted left",
 			new []{ "glass", "magnifying", "magnifying glass tilted left", "search", "tool"});
 		/// <summary>
@@ -15112,6 +31100,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			16,
+			SkinVariationType.None,
 			"magnifying glass tilted right",
 			new []{ "glass", "magnifying", "magnifying glass tilted right", "search", "tool"});
 		/// <summary>
@@ -15128,6 +31117,7 @@ namespace Manatee.Trello
 			"Objects",
 			28,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15144,6 +31134,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			7,
+			SkinVariationType.None,
 			"light bulb",
 			new []{ "bulb", "comic", "electric", "idea", "light"});
 		/// <summary>
@@ -15160,6 +31151,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			40,
+			SkinVariationType.None,
 			"flashlight",
 			new []{ "electric", "flashlight", "light", "tool", "torch"});
 		/// <summary>
@@ -15176,6 +31168,7 @@ namespace Manatee.Trello
 			"Objects",
 			12,
 			11,
+			SkinVariationType.None,
 			"red paper lantern",
 			new []{ "bar", "lantern", "light", "red", "red paper lantern"});
 		/// <summary>
@@ -15192,6 +31185,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			11,
+			SkinVariationType.None,
 			"notebook with decorative cover",
 			new []{ "book", "cover", "decorated", "notebook", "notebook with decorative cover"});
 		/// <summary>
@@ -15208,6 +31202,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			12,
+			SkinVariationType.None,
 			"closed book",
 			new []{ "book", "closed"});
 		/// <summary>
@@ -15224,6 +31219,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			13,
+			SkinVariationType.None,
 			"open book",
 			new []{ "book", "open"});
 		/// <summary>
@@ -15240,6 +31236,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			14,
+			SkinVariationType.None,
 			"green book",
 			new []{ "book", "green"});
 		/// <summary>
@@ -15256,6 +31253,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			15,
+			SkinVariationType.None,
 			"blue book",
 			new []{ "blue", "book"});
 		/// <summary>
@@ -15272,6 +31270,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			16,
+			SkinVariationType.None,
 			"orange book",
 			new []{ "book", "orange"});
 		/// <summary>
@@ -15288,6 +31287,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			17,
+			SkinVariationType.None,
 			"books",
 			new []{ "book", "books"});
 		/// <summary>
@@ -15304,6 +31304,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			10,
+			SkinVariationType.None,
 			"notebook",
 			new []{ "notebook"});
 		/// <summary>
@@ -15320,6 +31321,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			9,
+			SkinVariationType.None,
 			"ledger",
 			new []{ "ledger", "notebook"});
 		/// <summary>
@@ -15336,6 +31338,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			46,
+			SkinVariationType.None,
 			"page with curl",
 			new []{ "curl", "document", "page", "page with curl"});
 		/// <summary>
@@ -15352,6 +31355,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			19,
+			SkinVariationType.None,
 			"scroll",
 			new []{ "paper", "scroll"});
 		/// <summary>
@@ -15368,6 +31372,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			47,
+			SkinVariationType.None,
 			"page facing up",
 			new []{ "document", "page", "page facing up"});
 		/// <summary>
@@ -15384,6 +31389,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			39,
+			SkinVariationType.None,
 			"newspaper",
 			new []{ "news", "newspaper", "paper"});
 		/// <summary>
@@ -15400,6 +31406,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15416,6 +31423,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			8,
+			SkinVariationType.None,
 			"bookmark tabs",
 			new []{ "bookmark", "mark", "marker", "tabs"});
 		/// <summary>
@@ -15432,6 +31440,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			24,
+			SkinVariationType.None,
 			"bookmark",
 			new []{ "bookmark", "mark"});
 		/// <summary>
@@ -15448,6 +31457,7 @@ namespace Manatee.Trello
 			"Objects",
 			12,
 			21,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15464,6 +31474,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			27,
+			SkinVariationType.None,
 			"money bag",
 			new []{ "bag", "dollar", "money", "moneybag"});
 		/// <summary>
@@ -15480,6 +31491,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			31,
+			SkinVariationType.None,
 			"yen banknote",
 			new []{ "bank", "banknote", "bill", "currency", "money", "note", "yen"});
 		/// <summary>
@@ -15496,6 +31508,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			32,
+			SkinVariationType.None,
 			"dollar banknote",
 			new []{ "bank", "banknote", "bill", "currency", "dollar", "money", "note"});
 		/// <summary>
@@ -15512,6 +31525,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			33,
+			SkinVariationType.None,
 			"euro banknote",
 			new []{ "bank", "banknote", "bill", "currency", "euro", "money", "note"});
 		/// <summary>
@@ -15528,6 +31542,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			34,
+			SkinVariationType.None,
 			"pound banknote",
 			new []{ "bank", "banknote", "bill", "currency", "money", "note", "pound"});
 		/// <summary>
@@ -15544,6 +31559,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			35,
+			SkinVariationType.None,
 			"money with wings",
 			new []{ "bank", "banknote", "bill", "dollar", "fly", "money", "money with wings", "note", "wings"});
 		/// <summary>
@@ -15560,6 +31576,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			30,
+			SkinVariationType.None,
 			"credit card",
 			new []{ "bank", "card", "credit", "money"});
 		/// <summary>
@@ -15576,6 +31593,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			36,
+			SkinVariationType.None,
 			"chart increasing with yen",
 			new []{ "bank", "chart", "chart increasing with yen", "currency", "graph", "growth", "market", "money", "rise", "trend", "upward", "yen"});
 		/// <summary>
@@ -15592,6 +31610,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			28,
+			SkinVariationType.None,
 			"currency exchange",
 			new []{ "bank", "currency", "exchange", "money"});
 		/// <summary>
@@ -15608,6 +31627,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			29,
+			SkinVariationType.None,
 			"heavy dollar sign",
 			new []{ "currency", "dollar", "heavy dollar sign", "money"});
 		/// <summary>
@@ -15624,6 +31644,7 @@ namespace Manatee.Trello
 			"Objects",
 			49,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15640,6 +31661,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			30,
+			SkinVariationType.None,
 			"e-mail",
 			new []{ "e-mail", "email", "letter", "mail"});
 		/// <summary>
@@ -15656,6 +31678,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			31,
+			SkinVariationType.None,
 			"incoming envelope",
 			new []{ "e-mail", "email", "envelope", "incoming", "letter", "mail", "receive"});
 		/// <summary>
@@ -15672,6 +31695,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			32,
+			SkinVariationType.None,
 			"envelope with arrow",
 			new []{ "arrow", "down", "e-mail", "email", "envelope", "envelope with arrow", "letter", "mail", "outgoing", "sent"});
 		/// <summary>
@@ -15688,6 +31712,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			27,
+			SkinVariationType.None,
 			"outbox tray",
 			new []{ "box", "letter", "mail", "outbox", "sent", "tray"});
 		/// <summary>
@@ -15704,6 +31729,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			28,
+			SkinVariationType.None,
 			"inbox tray",
 			new []{ "box", "inbox", "letter", "mail", "receive", "tray"});
 		/// <summary>
@@ -15720,6 +31746,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			29,
+			SkinVariationType.None,
 			"package",
 			new []{ "box", "package", "parcel"});
 		/// <summary>
@@ -15736,6 +31763,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			34,
+			SkinVariationType.None,
 			"closed mailbox with raised flag",
 			new []{ "closed", "closed mailbox with raised flag", "mail", "mailbox", "postbox"});
 		/// <summary>
@@ -15752,6 +31780,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			33,
+			SkinVariationType.None,
 			"closed mailbox with lowered flag",
 			new []{ "closed", "closed mailbox with lowered flag", "lowered", "mail", "mailbox", "postbox"});
 		/// <summary>
@@ -15768,6 +31797,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			35,
+			SkinVariationType.None,
 			"open mailbox with raised flag",
 			new []{ "mail", "mailbox", "open", "open mailbox with raised flag", "postbox"});
 		/// <summary>
@@ -15784,6 +31814,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			36,
+			SkinVariationType.None,
 			"open mailbox with lowered flag",
 			new []{ "lowered", "mail", "mailbox", "open", "open mailbox with lowered flag", "postbox"});
 		/// <summary>
@@ -15800,6 +31831,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			37,
+			SkinVariationType.None,
 			"postbox",
 			new []{ "mail", "mailbox", "postbox"});
 		/// <summary>
@@ -15816,6 +31848,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15832,6 +31865,7 @@ namespace Manatee.Trello
 			"Objects",
 			49,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15848,6 +31882,7 @@ namespace Manatee.Trello
 			"Objects",
 			49,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15864,6 +31899,7 @@ namespace Manatee.Trello
 			"Objects",
 			29,
 			29,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15880,6 +31916,7 @@ namespace Manatee.Trello
 			"Objects",
 			29,
 			28,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15896,6 +31933,7 @@ namespace Manatee.Trello
 			"Objects",
 			29,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15912,6 +31950,7 @@ namespace Manatee.Trello
 			"Objects",
 			29,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -15928,6 +31967,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			20,
+			SkinVariationType.None,
 			"memo",
 			new []{ "memo", "pencil"});
 		/// <summary>
@@ -15944,6 +31984,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			39,
+			SkinVariationType.None,
 			"briefcase",
 			new []{ "briefcase"});
 		/// <summary>
@@ -15960,6 +32001,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			44,
+			SkinVariationType.None,
 			"file folder",
 			new []{ "file", "folder"});
 		/// <summary>
@@ -15976,6 +32018,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			45,
+			SkinVariationType.None,
 			"open file folder",
 			new []{ "file", "folder", "open"});
 		/// <summary>
@@ -15992,6 +32035,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16008,6 +32052,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			48,
+			SkinVariationType.None,
 			"calendar",
 			new []{ "calendar", "date"});
 		/// <summary>
@@ -16024,6 +32069,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			49,
+			SkinVariationType.None,
 			"tear-off calendar",
 			new []{ "calendar", "tear-off calendar"});
 		/// <summary>
@@ -16040,6 +32086,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16056,6 +32103,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16072,6 +32120,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			50,
+			SkinVariationType.None,
 			"card index",
 			new []{ "card", "index", "rolodex"});
 		/// <summary>
@@ -16088,6 +32137,7 @@ namespace Manatee.Trello
 			"Objects",
 			25,
 			51,
+			SkinVariationType.None,
 			"chart increasing",
 			new []{ "chart", "chart increasing", "graph", "growth", "trend", "upward"});
 		/// <summary>
@@ -16104,6 +32154,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			0,
+			SkinVariationType.None,
 			"chart decreasing",
 			new []{ "chart", "chart decreasing", "down", "graph", "trend"});
 		/// <summary>
@@ -16120,6 +32171,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			1,
+			SkinVariationType.None,
 			"bar chart",
 			new []{ "bar", "chart", "graph"});
 		/// <summary>
@@ -16136,6 +32188,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			2,
+			SkinVariationType.None,
 			"clipboard",
 			new []{ "clipboard"});
 		/// <summary>
@@ -16152,6 +32205,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			3,
+			SkinVariationType.None,
 			"pushpin",
 			new []{ "pin", "pushpin"});
 		/// <summary>
@@ -16168,6 +32222,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			4,
+			SkinVariationType.None,
 			"round pushpin",
 			new []{ "pin", "pushpin", "round pushpin"});
 		/// <summary>
@@ -16184,6 +32239,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			5,
+			SkinVariationType.None,
 			"paperclip",
 			new []{ "paperclip"});
 		/// <summary>
@@ -16200,6 +32256,7 @@ namespace Manatee.Trello
 			"Objects",
 			29,
 			27,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16216,6 +32273,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			6,
+			SkinVariationType.None,
 			"straight ruler",
 			new []{ "ruler", "straight edge", "straight ruler"});
 		/// <summary>
@@ -16232,6 +32290,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			7,
+			SkinVariationType.None,
 			"triangular ruler",
 			new []{ "ruler", "set", "triangle", "triangular ruler"});
 		/// <summary>
@@ -16248,6 +32307,7 @@ namespace Manatee.Trello
 			"Objects",
 			49,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16264,6 +32324,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16280,6 +32341,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16296,6 +32358,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16312,6 +32375,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			20,
+			SkinVariationType.None,
 			"locked",
 			new []{ "closed", "locked"});
 		/// <summary>
@@ -16328,6 +32392,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			21,
+			SkinVariationType.None,
 			"unlocked",
 			new []{ "lock", "open", "unlock", "unlocked"});
 		/// <summary>
@@ -16344,6 +32409,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			17,
+			SkinVariationType.None,
 			"locked with pen",
 			new []{ "ink", "lock", "locked with pen", "nib", "pen", "privacy"});
 		/// <summary>
@@ -16360,6 +32426,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			18,
+			SkinVariationType.None,
 			"locked with key",
 			new []{ "closed", "key", "lock", "locked with key", "secure"});
 		/// <summary>
@@ -16376,6 +32443,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			19,
+			SkinVariationType.None,
 			"key",
 			new []{ "key", "lock", "password"});
 		/// <summary>
@@ -16392,6 +32460,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16408,6 +32477,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			42,
+			SkinVariationType.None,
 			"hammer",
 			new []{ "hammer", "tool"});
 		/// <summary>
@@ -16424,6 +32494,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16440,6 +32511,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16456,6 +32528,7 @@ namespace Manatee.Trello
 			"Objects",
 			37,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16472,6 +32545,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16488,6 +32562,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16504,6 +32579,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			45,
+			SkinVariationType.None,
 			"pistol",
 			new []{ "gun", "handgun", "pistol", "revolver", "tool", "weapon"});
 		/// <summary>
@@ -16520,6 +32596,7 @@ namespace Manatee.Trello
 			"Objects",
 			12,
 			23,
+			SkinVariationType.None,
 			"bow and arrow",
 			new []{ "archer", "archery", "arrow", "bow", "bow and arrow", "Sagittarius", "tool", "weapon", "zodiac"});
 		/// <summary>
@@ -16536,6 +32613,7 @@ namespace Manatee.Trello
 			"Objects",
 			37,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16552,6 +32630,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			41,
+			SkinVariationType.None,
 			"wrench",
 			new []{ "spanner", "tool", "wrench"});
 		/// <summary>
@@ -16568,6 +32647,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			43,
+			SkinVariationType.None,
 			"nut and bolt",
 			new []{ "bolt", "nut", "nut and bolt", "tool"});
 		/// <summary>
@@ -16584,6 +32664,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16600,6 +32681,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16616,6 +32698,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16632,6 +32715,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			25,
+			SkinVariationType.None,
 			"link",
 			new []{ "link"});
 		/// <summary>
@@ -16648,6 +32732,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16664,6 +32749,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16680,6 +32766,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			46,
+			SkinVariationType.None,
 			"microscope",
 			new []{ "microscope", "science", "tool"});
 		/// <summary>
@@ -16696,6 +32783,7 @@ namespace Manatee.Trello
 			"Objects",
 			27,
 			47,
+			SkinVariationType.None,
 			"telescope",
 			new []{ "science", "telescope", "tool"});
 		/// <summary>
@@ -16712,6 +32800,7 @@ namespace Manatee.Trello
 			"Objects",
 			26,
 			24,
+			SkinVariationType.None,
 			"satellite antenna",
 			new []{ "antenna", "dish", "satellite"});
 		/// <summary>
@@ -16728,6 +32817,7 @@ namespace Manatee.Trello
 			"Objects",
 			24,
 			35,
+			SkinVariationType.None,
 			"syringe",
 			new []{ "doctor", "medicine", "needle", "shot", "sick", "syringe", "tool"});
 		/// <summary>
@@ -16744,6 +32834,7 @@ namespace Manatee.Trello
 			"Objects",
 			24,
 			36,
+			SkinVariationType.None,
 			"pill",
 			new []{ "doctor", "medicine", "pill", "sick"});
 		/// <summary>
@@ -16760,6 +32851,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			35,
 			15,
+			SkinVariationType.None,
 			"door",
 			new []{ "door"});
 		/// <summary>
@@ -16776,6 +32868,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			37,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16792,6 +32885,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			36,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16808,6 +32902,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			36,
 			33,
+			SkinVariationType.None,
 			"toilet",
 			new []{ "toilet"});
 		/// <summary>
@@ -16824,6 +32919,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			36,
 			35,
+			SkinVariationType.None,
 			"shower",
 			new []{ "shower", "water"});
 		/// <summary>
@@ -16840,6 +32936,7 @@ namespace Manatee.Trello
 			"Travel & Places",
 			36,
 			42,
+			SkinVariationType.None,
 			"bathtub",
 			new []{ "bath", "bathtub"});
 		/// <summary>
@@ -16856,6 +32953,7 @@ namespace Manatee.Trello
 			"Objects",
 			37,
 			7,
+			SkinVariationType.None,
 			"shopping cart",
 			new []{ "cart", "shopping", "trolley"});
 		/// <summary>
@@ -16872,6 +32970,7 @@ namespace Manatee.Trello
 			"Objects",
 			35,
 			17,
+			SkinVariationType.None,
 			"cigarette",
 			new []{ "cigarette", "smoking"});
 		/// <summary>
@@ -16888,6 +32987,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			24,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16904,6 +33004,7 @@ namespace Manatee.Trello
 			"Objects",
 			48,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -16920,6 +33021,7 @@ namespace Manatee.Trello
 			"Objects",
 			30,
 			23,
+			SkinVariationType.None,
 			"moai",
 			new []{ "face", "moai", "moyai", "statue"});
 		/// <summary>
@@ -16936,6 +33038,7 @@ namespace Manatee.Trello
 			"Symbols",
 			12,
 			4,
+			SkinVariationType.None,
 			"ATM sign",
 			new []{ "atm", "ATM sign", "automated", "bank", "teller"});
 		/// <summary>
@@ -16952,6 +33055,7 @@ namespace Manatee.Trello
 			"Symbols",
 			35,
 			19,
+			SkinVariationType.None,
 			"litter in bin sign",
 			new []{ "litter", "litter bin", "litter in bin sign"});
 		/// <summary>
@@ -16968,6 +33072,7 @@ namespace Manatee.Trello
 			"Symbols",
 			35,
 			21,
+			SkinVariationType.None,
 			"potable water",
 			new []{ "drinking", "potable", "water"});
 		/// <summary>
@@ -16984,6 +33089,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			10,
+			SkinVariationType.None,
 			"wheelchair symbol",
 			new []{ "access", "wheelchair symbol"});
 		/// <summary>
@@ -17000,6 +33106,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			29,
+			SkinVariationType.None,
 			"men’s room",
 			new []{ "lavatory", "man", "men’s room", "restroom", "wc"});
 		/// <summary>
@@ -17016,6 +33123,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			30,
+			SkinVariationType.None,
 			"women’s room",
 			new []{ "lavatory", "restroom", "wc", "woman", "women’s room"});
 		/// <summary>
@@ -17032,6 +33140,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			31,
+			SkinVariationType.None,
 			"restroom",
 			new []{ "lavatory", "restroom", "WC"});
 		/// <summary>
@@ -17048,6 +33157,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			32,
+			SkinVariationType.None,
 			"baby symbol",
 			new []{ "baby", "baby symbol", "changing"});
 		/// <summary>
@@ -17064,6 +33174,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			34,
+			SkinVariationType.None,
 			"water closet",
 			new []{ "closet", "lavatory", "restroom", "water", "wc"});
 		/// <summary>
@@ -17080,6 +33191,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			43,
+			SkinVariationType.None,
 			"passport control",
 			new []{ "control", "passport"});
 		/// <summary>
@@ -17096,6 +33208,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			44,
+			SkinVariationType.None,
 			"customs",
 			new []{ "customs"});
 		/// <summary>
@@ -17112,6 +33225,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			45,
+			SkinVariationType.None,
 			"baggage claim",
 			new []{ "baggage", "claim"});
 		/// <summary>
@@ -17128,6 +33242,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			46,
+			SkinVariationType.None,
 			"left luggage",
 			new []{ "baggage", "left luggage", "locker", "luggage"});
 		/// <summary>
@@ -17144,6 +33259,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17160,6 +33276,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			28,
+			SkinVariationType.None,
 			"children crossing",
 			new []{ "child", "children crossing", "crossing", "pedestrian", "traffic"});
 		/// <summary>
@@ -17176,6 +33293,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			35,
+			SkinVariationType.None,
 			"no entry",
 			new []{ "entry", "forbidden", "no", "not", "prohibited", "traffic"});
 		/// <summary>
@@ -17192,6 +33310,7 @@ namespace Manatee.Trello
 			"Symbols",
 			35,
 			16,
+			SkinVariationType.None,
 			"prohibited",
 			new []{ "entry", "forbidden", "no", "not", "prohibited"});
 		/// <summary>
@@ -17208,6 +33327,7 @@ namespace Manatee.Trello
 			"Symbols",
 			35,
 			24,
+			SkinVariationType.None,
 			"no bicycles",
 			new []{ "bicycle", "bike", "forbidden", "no", "no bicycles", "not", "prohibited"});
 		/// <summary>
@@ -17224,6 +33344,7 @@ namespace Manatee.Trello
 			"Symbols",
 			35,
 			18,
+			SkinVariationType.None,
 			"no smoking",
 			new []{ "forbidden", "no", "not", "prohibited", "smoking"});
 		/// <summary>
@@ -17240,6 +33361,7 @@ namespace Manatee.Trello
 			"Symbols",
 			35,
 			20,
+			SkinVariationType.None,
 			"no littering",
 			new []{ "forbidden", "litter", "no", "no littering", "not", "prohibited"});
 		/// <summary>
@@ -17256,6 +33378,7 @@ namespace Manatee.Trello
 			"Symbols",
 			35,
 			22,
+			SkinVariationType.None,
 			"non-potable water",
 			new []{ "non-drinking", "non-potable", "water"});
 		/// <summary>
@@ -17272,6 +33395,7 @@ namespace Manatee.Trello
 			"Symbols",
 			36,
 			27,
+			SkinVariationType.None,
 			"no pedestrians",
 			new []{ "forbidden", "no", "no pedestrians", "not", "pedestrian", "prohibited"});
 		/// <summary>
@@ -17288,6 +33412,7 @@ namespace Manatee.Trello
 			"Symbols",
 			26,
 			44,
+			SkinVariationType.None,
 			"no mobile phones",
 			new []{ "cell", "forbidden", "mobile", "no", "no mobile phones", "not", "phone", "prohibited", "telephone"});
 		/// <summary>
@@ -17304,6 +33429,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			32,
+			SkinVariationType.None,
 			"no one under eighteen",
 			new []{ "18", "age restriction", "eighteen", "forbidden", "no", "no one under eighteen", "not", "prohibited", "underage"});
 		/// <summary>
@@ -17320,6 +33446,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17336,6 +33463,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17352,6 +33480,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17368,6 +33497,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			36,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17384,6 +33514,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17400,6 +33531,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			37,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17416,6 +33548,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17432,6 +33565,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17448,6 +33582,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17464,6 +33599,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			35,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17480,6 +33616,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17496,6 +33633,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17512,6 +33650,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17528,6 +33667,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17544,6 +33684,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17560,6 +33701,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17576,6 +33718,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			5,
+			SkinVariationType.None,
 			"clockwise vertical arrows",
 			new []{ "arrow", "clockwise", "clockwise vertical arrows", "reload"});
 		/// <summary>
@@ -17592,6 +33735,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			6,
+			SkinVariationType.None,
 			"counterclockwise arrows button",
 			new []{ "anticlockwise", "arrow", "counterclockwise", "counterclockwise arrows button", "withershins"});
 		/// <summary>
@@ -17608,6 +33752,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			27,
+			SkinVariationType.None,
 			"BACK arrow",
 			new []{ "arrow", "back", "BACK arrow"});
 		/// <summary>
@@ -17624,6 +33769,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			28,
+			SkinVariationType.None,
 			"END arrow",
 			new []{ "arrow", "end", "END arrow"});
 		/// <summary>
@@ -17640,6 +33786,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			29,
+			SkinVariationType.None,
 			"ON! arrow",
 			new []{ "arrow", "mark", "on", "ON! arrow"});
 		/// <summary>
@@ -17656,6 +33803,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			30,
+			SkinVariationType.None,
 			"SOON arrow",
 			new []{ "arrow", "soon", "SOON arrow"});
 		/// <summary>
@@ -17672,6 +33820,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			31,
+			SkinVariationType.None,
 			"TOP arrow",
 			new []{ "arrow", "top", "TOP arrow", "up"});
 		/// <summary>
@@ -17688,6 +33837,7 @@ namespace Manatee.Trello
 			"Symbols",
 			37,
 			5,
+			SkinVariationType.None,
 			"place of worship",
 			new []{ "place of worship", "religion", "worship"});
 		/// <summary>
@@ -17704,6 +33854,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17720,6 +33871,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17736,6 +33888,7 @@ namespace Manatee.Trello
 			"Symbols",
 			49,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17752,6 +33905,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17768,6 +33922,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17784,6 +33939,7 @@ namespace Manatee.Trello
 			"Symbols",
 			49,
 			46,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17800,6 +33956,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			35,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17816,6 +33973,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			36,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17832,6 +33990,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			37,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -17848,6 +34007,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			17,
+			SkinVariationType.None,
 			"menorah",
 			new []{ "candelabrum", "candlestick", "menorah", "religion"});
 		/// <summary>
@@ -17864,6 +34024,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			49,
+			SkinVariationType.None,
 			"dotted six-pointed star",
 			new []{ "dotted six-pointed star", "fortune", "star"});
 		/// <summary>
@@ -17880,6 +34041,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			44,
+			SkinVariationType.None,
 			"Aries",
 			new []{ "Aries", "ram", "zodiac"});
 		/// <summary>
@@ -17896,6 +34058,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			45,
+			SkinVariationType.None,
 			"Taurus",
 			new []{ "bull", "ox", "Taurus", "zodiac"});
 		/// <summary>
@@ -17912,6 +34075,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			46,
+			SkinVariationType.None,
 			"Gemini",
 			new []{ "Gemini", "twins", "zodiac"});
 		/// <summary>
@@ -17928,6 +34092,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			47,
+			SkinVariationType.None,
 			"Cancer",
 			new []{ "Cancer", "crab", "zodiac"});
 		/// <summary>
@@ -17944,6 +34109,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			48,
+			SkinVariationType.None,
 			"Leo",
 			new []{ "Leo", "lion", "zodiac"});
 		/// <summary>
@@ -17960,6 +34126,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			49,
+			SkinVariationType.None,
 			"Virgo",
 			new []{ "Virgo", "zodiac"});
 		/// <summary>
@@ -17976,6 +34143,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			50,
+			SkinVariationType.None,
 			"Libra",
 			new []{ "balance", "justice", "Libra", "scales", "zodiac"});
 		/// <summary>
@@ -17992,6 +34160,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			51,
+			SkinVariationType.None,
 			"Scorpio",
 			new []{ "Scorpio", "scorpion", "scorpius", "zodiac"});
 		/// <summary>
@@ -18008,6 +34177,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			0,
+			SkinVariationType.None,
 			"Sagittarius",
 			new []{ "archer", "Sagittarius", "zodiac"});
 		/// <summary>
@@ -18024,6 +34194,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			1,
+			SkinVariationType.None,
 			"Capricorn",
 			new []{ "Capricorn", "goat", "zodiac"});
 		/// <summary>
@@ -18040,6 +34211,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			2,
+			SkinVariationType.None,
 			"Aquarius",
 			new []{ "Aquarius", "bearer", "water", "zodiac"});
 		/// <summary>
@@ -18056,6 +34228,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			3,
+			SkinVariationType.None,
 			"Pisces",
 			new []{ "fish", "Pisces", "zodiac"});
 		/// <summary>
@@ -18072,6 +34245,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			31,
+			SkinVariationType.None,
 			"Ophiuchus",
 			new []{ "bearer", "Ophiuchus", "serpent", "snake", "zodiac"});
 		/// <summary>
@@ -18088,6 +34262,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			2,
+			SkinVariationType.None,
 			"shuffle tracks button",
 			new []{ "arrow", "crossed", "shuffle tracks button"});
 		/// <summary>
@@ -18104,6 +34279,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			3,
+			SkinVariationType.None,
 			"repeat button",
 			new []{ "arrow", "clockwise", "repeat", "repeat button"});
 		/// <summary>
@@ -18120,6 +34296,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			4,
+			SkinVariationType.None,
 			"repeat single button",
 			new []{ "arrow", "clockwise", "once", "repeat single button"});
 		/// <summary>
@@ -18136,6 +34313,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18152,6 +34330,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			45,
+			SkinVariationType.None,
 			"fast-forward button",
 			new []{ "arrow", "double", "fast", "fast-forward button", "forward"});
 		/// <summary>
@@ -18168,6 +34347,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			49,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18184,6 +34364,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18200,6 +34381,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18216,6 +34398,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			46,
+			SkinVariationType.None,
 			"fast reverse button",
 			new []{ "arrow", "double", "fast reverse button", "rewind"});
 		/// <summary>
@@ -18232,6 +34415,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			50,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18248,6 +34432,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			10,
+			SkinVariationType.None,
 			"upwards button",
 			new []{ "arrow", "button", "red", "upwards button"});
 		/// <summary>
@@ -18264,6 +34449,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			47,
+			SkinVariationType.None,
 			"fast up button",
 			new []{ "arrow", "double", "fast up button"});
 		/// <summary>
@@ -18280,6 +34466,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			11,
+			SkinVariationType.None,
 			"downwards button",
 			new []{ "arrow", "button", "down", "downwards button", "red"});
 		/// <summary>
@@ -18296,6 +34483,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			48,
+			SkinVariationType.None,
 			"fast down button",
 			new []{ "arrow", "double", "down", "fast down button"});
 		/// <summary>
@@ -18312,6 +34500,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18328,6 +34517,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18344,6 +34534,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18360,6 +34551,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18376,6 +34568,7 @@ namespace Manatee.Trello
 			"Symbols",
 			9,
 			0,
+			SkinVariationType.None,
 			"cinema",
 			new []{ "camera", "cinema", "film", "movie"});
 		/// <summary>
@@ -18392,6 +34585,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			7,
+			SkinVariationType.None,
 			"dim button",
 			new []{ "brightness", "dim", "dim button", "low"});
 		/// <summary>
@@ -18408,6 +34602,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			8,
+			SkinVariationType.None,
 			"bright button",
 			new []{ "bright", "bright button", "brightness"});
 		/// <summary>
@@ -18424,6 +34619,7 @@ namespace Manatee.Trello
 			"Symbols",
 			26,
 			45,
+			SkinVariationType.None,
 			"antenna bars",
 			new []{ "antenna", "antenna bars", "bar", "cell", "mobile", "phone", "signal", "telephone"});
 		/// <summary>
@@ -18440,6 +34636,7 @@ namespace Manatee.Trello
 			"Symbols",
 			26,
 			42,
+			SkinVariationType.None,
 			"vibration mode",
 			new []{ "cell", "mobile", "mode", "phone", "telephone", "vibration"});
 		/// <summary>
@@ -18456,6 +34653,7 @@ namespace Manatee.Trello
 			"Symbols",
 			26,
 			43,
+			SkinVariationType.None,
 			"mobile phone off",
 			new []{ "cell", "mobile", "off", "phone", "telephone"});
 		/// <summary>
@@ -18472,6 +34670,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18488,6 +34687,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18504,6 +34704,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18520,6 +34721,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18536,6 +34738,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18552,6 +34755,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			51,
+			SkinVariationType.None,
 			"trident emblem",
 			new []{ "anchor", "emblem", "ship", "tool", "trident"});
 		/// <summary>
@@ -18568,6 +34772,7 @@ namespace Manatee.Trello
 			"Symbols",
 			26,
 			18,
+			SkinVariationType.None,
 			"name badge",
 			new []{ "badge", "name"});
 		/// <summary>
@@ -18584,6 +34789,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			50,
+			SkinVariationType.None,
 			"Japanese symbol for beginner",
 			new []{ "beginner", "chevron", "green", "Japanese", "Japanese symbol for beginner", "leaf", "tool", "yellow"});
 		/// <summary>
@@ -18600,6 +34806,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			23,
+			SkinVariationType.None,
 			"heavy large circle",
 			new []{ "circle", "heavy large circle", "o"});
 		/// <summary>
@@ -18616,6 +34823,7 @@ namespace Manatee.Trello
 			"Symbols",
 			49,
 			15,
+			SkinVariationType.None,
 			"white heavy check mark",
 			new []{ "check", "mark", "white heavy check mark"});
 		/// <summary>
@@ -18632,6 +34840,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			22,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18648,6 +34857,7 @@ namespace Manatee.Trello
 			"Symbols",
 			49,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18664,6 +34874,7 @@ namespace Manatee.Trello
 			"Symbols",
 			49,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18680,6 +34891,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			1,
+			SkinVariationType.None,
 			"cross mark",
 			new []{ "cancel", "cross mark", "mark", "multiplication", "multiply", "x"});
 		/// <summary>
@@ -18696,6 +34908,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			2,
+			SkinVariationType.None,
 			"cross mark button",
 			new []{ "cross mark button", "mark", "square"});
 		/// <summary>
@@ -18712,6 +34925,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			9,
+			SkinVariationType.None,
 			"heavy plus sign",
 			new []{ "heavy plus sign", "math", "plus"});
 		/// <summary>
@@ -18728,6 +34942,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			10,
+			SkinVariationType.None,
 			"heavy minus sign",
 			new []{ "heavy minus sign", "math", "minus"});
 		/// <summary>
@@ -18744,6 +34959,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			11,
+			SkinVariationType.None,
 			"heavy division sign",
 			new []{ "division", "heavy division sign", "math"});
 		/// <summary>
@@ -18760,6 +34976,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			13,
+			SkinVariationType.None,
 			"curly loop",
 			new []{ "curl", "curly loop", "loop"});
 		/// <summary>
@@ -18776,6 +34993,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			14,
+			SkinVariationType.None,
 			"double curly loop",
 			new []{ "curl", "double", "double curly loop", "loop"});
 		/// <summary>
@@ -18792,6 +35010,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18808,6 +35027,7 @@ namespace Manatee.Trello
 			"Symbols",
 			49,
 			49,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18824,6 +35044,7 @@ namespace Manatee.Trello
 			"Symbols",
 			49,
 			50,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18840,6 +35061,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18856,6 +35078,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			29,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18872,6 +35095,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18888,6 +35112,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			3,
+			SkinVariationType.None,
 			"question mark",
 			new []{ "mark", "punctuation", "question"});
 		/// <summary>
@@ -18904,6 +35129,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			4,
+			SkinVariationType.None,
 			"white question mark",
 			new []{ "mark", "outlined", "punctuation", "question", "white question mark"});
 		/// <summary>
@@ -18920,6 +35146,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			5,
+			SkinVariationType.None,
 			"white exclamation mark",
 			new []{ "exclamation", "mark", "outlined", "punctuation", "white exclamation mark"});
 		/// <summary>
@@ -18936,6 +35163,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			6,
+			SkinVariationType.None,
 			"exclamation mark",
 			new []{ "exclamation", "mark", "punctuation"});
 		/// <summary>
@@ -18952,6 +35180,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			24,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18968,6 +35197,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -18984,6 +35214,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19000,6 +35231,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19016,6 +35248,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19032,6 +35265,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19048,6 +35282,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19064,6 +35299,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19080,6 +35316,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19096,6 +35333,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19112,6 +35350,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19128,6 +35367,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19144,6 +35384,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19160,6 +35401,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19176,6 +35418,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19192,6 +35435,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19208,6 +35452,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19224,6 +35469,7 @@ namespace Manatee.Trello
 			"Symbols",
 			25,
 			26,
+			SkinVariationType.None,
 			"hundred points",
 			new []{ "100", "full", "hundred", "hundred points", "score"});
 		/// <summary>
@@ -19240,6 +35486,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			34,
+			SkinVariationType.None,
 			"input latin uppercase",
 			new []{ "ABCD", "input", "latin", "letters", "uppercase"});
 		/// <summary>
@@ -19256,6 +35503,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			35,
+			SkinVariationType.None,
 			"input latin lowercase",
 			new []{ "abcd", "input", "latin", "letters", "lowercase"});
 		/// <summary>
@@ -19272,6 +35520,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			36,
+			SkinVariationType.None,
 			"input numbers",
 			new []{ "1234", "input", "numbers"});
 		/// <summary>
@@ -19288,6 +35537,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			37,
+			SkinVariationType.None,
 			"input symbols",
 			new []{ "〒♪&%", "input", "input symbols"});
 		/// <summary>
@@ -19304,6 +35554,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			38,
+			SkinVariationType.None,
 			"input latin letters",
 			new []{ "abc", "alphabet", "input", "latin", "letters"});
 		/// <summary>
@@ -19320,6 +35571,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19336,6 +35588,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			20,
+			SkinVariationType.None,
 			"AB button (blood type)",
 			new []{ "ab", "AB button (blood type)", "blood type"});
 		/// <summary>
@@ -19352,6 +35605,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19368,6 +35622,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			21,
+			SkinVariationType.None,
 			"CL button",
 			new []{ "cl", "CL button"});
 		/// <summary>
@@ -19384,6 +35639,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			22,
+			SkinVariationType.None,
 			"COOL button",
 			new []{ "cool", "COOL button"});
 		/// <summary>
@@ -19400,6 +35656,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			23,
+			SkinVariationType.None,
 			"FREE button",
 			new []{ "free", "FREE button"});
 		/// <summary>
@@ -19416,6 +35673,7 @@ namespace Manatee.Trello
 			"Symbols",
 			46,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19432,6 +35690,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			24,
+			SkinVariationType.None,
 			"ID button",
 			new []{ "id", "ID button", "identity"});
 		/// <summary>
@@ -19448,6 +35707,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19464,6 +35724,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			25,
+			SkinVariationType.None,
 			"NEW button",
 			new []{ "new", "NEW button"});
 		/// <summary>
@@ -19480,6 +35741,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			26,
+			SkinVariationType.None,
 			"NG button",
 			new []{ "ng", "NG button"});
 		/// <summary>
@@ -19496,6 +35758,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19512,6 +35775,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			27,
+			SkinVariationType.None,
 			"OK button",
 			new []{ "OK", "OK button"});
 		/// <summary>
@@ -19528,6 +35792,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19544,6 +35809,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			28,
+			SkinVariationType.None,
 			"SOS button",
 			new []{ "help", "sos", "SOS button"});
 		/// <summary>
@@ -19560,6 +35826,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			29,
+			SkinVariationType.None,
 			"UP! button",
 			new []{ "mark", "up", "UP! button"});
 		/// <summary>
@@ -19576,6 +35843,7 @@ namespace Manatee.Trello
 			"Symbols",
 			0,
 			30,
+			SkinVariationType.None,
 			"VS button",
 			new []{ "versus", "vs", "VS button"});
 		/// <summary>
@@ -19592,6 +35860,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			29,
+			SkinVariationType.None,
 			"Japanese “here” button",
 			new []{ "“here”", "Japanese", "Japanese “here” button", "katakana", "ココ"});
 		/// <summary>
@@ -19608,6 +35877,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19624,6 +35894,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19640,6 +35911,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			37,
+			SkinVariationType.None,
 			"Japanese “not free of charge” button",
 			new []{ "“not free of charge”", "ideograph", "Japanese", "Japanese “not free of charge” button", "有"});
 		/// <summary>
@@ -19656,6 +35928,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			32,
+			SkinVariationType.None,
 			"Japanese “reserved” button",
 			new []{ "“reserved”", "ideograph", "Japanese", "Japanese “reserved” button", "指"});
 		/// <summary>
@@ -19672,6 +35945,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			42,
+			SkinVariationType.None,
 			"Japanese “bargain” button",
 			new []{ "“bargain”", "ideograph", "Japanese", "Japanese “bargain” button", "得"});
 		/// <summary>
@@ -19688,6 +35962,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			40,
+			SkinVariationType.None,
 			"Japanese “discount” button",
 			new []{ "“discount”", "ideograph", "Japanese", "Japanese “discount” button", "割"});
 		/// <summary>
@@ -19704,6 +35979,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			31,
+			SkinVariationType.None,
 			"Japanese “free of charge” button",
 			new []{ "“free of charge”", "ideograph", "Japanese", "Japanese “free of charge” button", "無"});
 		/// <summary>
@@ -19720,6 +35996,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			33,
+			SkinVariationType.None,
 			"Japanese “prohibited” button",
 			new []{ "“prohibited”", "ideograph", "Japanese", "Japanese “prohibited” button", "禁"});
 		/// <summary>
@@ -19736,6 +36013,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			43,
+			SkinVariationType.None,
 			"Japanese “acceptable” button",
 			new []{ "“acceptable”", "ideograph", "Japanese", "Japanese “acceptable” button", "可"});
 		/// <summary>
@@ -19752,6 +36030,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			39,
+			SkinVariationType.None,
 			"Japanese “application” button",
 			new []{ "“application”", "ideograph", "Japanese", "Japanese “application” button", "申"});
 		/// <summary>
@@ -19768,6 +36047,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			35,
+			SkinVariationType.None,
 			"Japanese “passing grade” button",
 			new []{ "“passing grade”", "ideograph", "Japanese", "Japanese “passing grade” button", "合"});
 		/// <summary>
@@ -19784,6 +36064,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			34,
+			SkinVariationType.None,
 			"Japanese “vacancy” button",
 			new []{ "“vacancy”", "ideograph", "Japanese", "Japanese “vacancy” button", "空"});
 		/// <summary>
@@ -19800,6 +36081,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			26,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19816,6 +36098,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			27,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19832,6 +36115,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			41,
+			SkinVariationType.None,
 			"Japanese “open for business” button",
 			new []{ "“open for business”", "ideograph", "Japanese", "Japanese “open for business” button", "営"});
 		/// <summary>
@@ -19848,6 +36132,7 @@ namespace Manatee.Trello
 			"Symbols",
 			5,
 			36,
+			SkinVariationType.None,
 			"Japanese “no vacancy” button",
 			new []{ "“no vacancy”", "ideograph", "Japanese", "Japanese “no vacancy” button", "満"});
 		/// <summary>
@@ -19864,6 +36149,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			2,
+			SkinVariationType.None,
 			"red circle",
 			new []{ "circle", "geometric", "red"});
 		/// <summary>
@@ -19880,6 +36166,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			3,
+			SkinVariationType.None,
 			"blue circle",
 			new []{ "blue", "circle", "geometric"});
 		/// <summary>
@@ -19896,6 +36183,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			22,
+			SkinVariationType.None,
 			"white circle",
 			new []{ "circle", "geometric", "white circle"});
 		/// <summary>
@@ -19912,6 +36200,7 @@ namespace Manatee.Trello
 			"Symbols",
 			48,
 			23,
+			SkinVariationType.None,
 			"black circle",
 			new []{ "black circle", "circle", "geometric"});
 		/// <summary>
@@ -19928,6 +36217,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			21,
+			SkinVariationType.None,
 			"white large square",
 			new []{ "geometric", "square", "white large square"});
 		/// <summary>
@@ -19944,6 +36234,7 @@ namespace Manatee.Trello
 			"Symbols",
 			50,
 			20,
+			SkinVariationType.None,
 			"black large square",
 			new []{ "black large square", "geometric", "square"});
 		/// <summary>
@@ -19960,6 +36251,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19976,6 +36268,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -19992,6 +36285,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			14,
+			SkinVariationType.None,
 			"white medium-small square",
 			new []{ "geometric", "square", "white medium-small square"});
 		/// <summary>
@@ -20008,6 +36302,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			15,
+			SkinVariationType.None,
 			"black medium-small square",
 			new []{ "black medium-small square", "geometric", "square"});
 		/// <summary>
@@ -20024,6 +36319,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20040,6 +36336,7 @@ namespace Manatee.Trello
 			"Symbols",
 			47,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20056,6 +36353,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			4,
+			SkinVariationType.None,
 			"large orange diamond",
 			new []{ "diamond", "geometric", "large orange diamond", "orange"});
 		/// <summary>
@@ -20072,6 +36370,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			5,
+			SkinVariationType.None,
 			"large blue diamond",
 			new []{ "blue", "diamond", "geometric", "large blue diamond"});
 		/// <summary>
@@ -20088,6 +36387,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			6,
+			SkinVariationType.None,
 			"small orange diamond",
 			new []{ "diamond", "geometric", "orange", "small orange diamond"});
 		/// <summary>
@@ -20104,6 +36404,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			7,
+			SkinVariationType.None,
 			"small blue diamond",
 			new []{ "blue", "diamond", "geometric", "small blue diamond"});
 		/// <summary>
@@ -20120,6 +36421,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			8,
+			SkinVariationType.None,
 			"red triangle pointed up",
 			new []{ "geometric", "red", "red triangle pointed up"});
 		/// <summary>
@@ -20136,6 +36438,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			9,
+			SkinVariationType.None,
 			"red triangle pointed down",
 			new []{ "down", "geometric", "red", "red triangle pointed down"});
 		/// <summary>
@@ -20152,6 +36455,7 @@ namespace Manatee.Trello
 			"Symbols",
 			25,
 			6,
+			SkinVariationType.None,
 			"diamond with a dot",
 			new []{ "comic", "diamond", "diamond with a dot", "geometric", "inside"});
 		/// <summary>
@@ -20168,6 +36472,7 @@ namespace Manatee.Trello
 			"Symbols",
 			27,
 			26,
+			SkinVariationType.None,
 			"radio button",
 			new []{ "button", "geometric", "radio"});
 		/// <summary>
@@ -20184,6 +36489,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			0,
+			SkinVariationType.None,
 			"black square button",
 			new []{ "black square button", "button", "geometric", "square"});
 		/// <summary>
@@ -20200,6 +36506,7 @@ namespace Manatee.Trello
 			"Symbols",
 			28,
 			1,
+			SkinVariationType.None,
 			"white square button",
 			new []{ "button", "geometric", "outlined", "square", "white square button"});
 		/// <summary>
@@ -20216,6 +36523,7 @@ namespace Manatee.Trello
 			"Flags",
 			9,
 			27,
+			SkinVariationType.None,
 			"chequered flag",
 			new []{ "checkered", "chequered", "chequered flag", "racing"});
 		/// <summary>
@@ -20232,6 +36540,7 @@ namespace Manatee.Trello
 			"Flags",
 			35,
 			14,
+			SkinVariationType.None,
 			"triangular flag",
 			new []{ "post", "triangular flag"});
 		/// <summary>
@@ -20248,6 +36557,7 @@ namespace Manatee.Trello
 			"Flags",
 			8,
 			31,
+			SkinVariationType.None,
 			"crossed flags",
 			new []{ "celebration", "cross", "crossed", "crossed flags", "Japanese"});
 		/// <summary>
@@ -20264,6 +36574,7 @@ namespace Manatee.Trello
 			"Flags",
 			12,
 			19,
+			SkinVariationType.None,
 			"black flag",
 			new []{ "black flag", "waving"});
 		/// <summary>
@@ -20280,6 +36591,7 @@ namespace Manatee.Trello
 			"Flags",
 			12,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20296,6 +36608,7 @@ namespace Manatee.Trello
 			"Flags",
 			12,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20312,6 +36625,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20328,6 +36642,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20344,6 +36659,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20360,6 +36676,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20376,6 +36693,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			35,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20392,6 +36710,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			36,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20408,6 +36727,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			37,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20424,6 +36744,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20440,6 +36761,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20456,6 +36778,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20472,6 +36795,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20488,6 +36812,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20504,6 +36829,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20520,6 +36846,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20536,6 +36863,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20552,6 +36880,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			46,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20568,6 +36897,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20584,6 +36914,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			48,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20600,6 +36931,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			49,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20616,6 +36948,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			50,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20632,6 +36965,7 @@ namespace Manatee.Trello
 			"Flags",
 			0,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20648,6 +36982,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20664,6 +36999,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20680,6 +37016,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20696,6 +37033,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20712,6 +37050,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20728,6 +37067,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20744,6 +37084,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20760,6 +37101,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20776,6 +37118,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20792,6 +37135,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20808,6 +37152,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20824,6 +37169,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20840,6 +37186,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20856,6 +37203,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20872,6 +37220,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20888,6 +37237,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20904,6 +37254,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20920,6 +37271,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20936,6 +37288,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20952,6 +37305,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20968,6 +37322,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -20984,6 +37339,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			21,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21000,6 +37356,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			22,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21016,6 +37373,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			23,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21032,6 +37390,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			24,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21048,6 +37407,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21064,6 +37424,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			26,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21080,6 +37441,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			27,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21096,6 +37458,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			28,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21112,6 +37475,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			29,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21128,6 +37492,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21144,6 +37509,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21160,6 +37526,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21176,6 +37543,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21192,6 +37560,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21208,6 +37577,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			35,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21224,6 +37594,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			36,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21240,6 +37611,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			37,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21256,6 +37628,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21272,6 +37645,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21288,6 +37662,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21304,6 +37679,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21320,6 +37696,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21336,6 +37713,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21352,6 +37730,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21368,6 +37747,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21384,6 +37764,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			46,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21400,6 +37781,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21416,6 +37798,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			48,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21432,6 +37815,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			49,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21448,6 +37832,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			50,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21464,6 +37849,7 @@ namespace Manatee.Trello
 			"Flags",
 			1,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21480,6 +37866,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21496,6 +37883,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21512,6 +37900,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21528,6 +37917,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21544,6 +37934,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21560,6 +37951,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21576,6 +37968,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21592,6 +37985,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21608,6 +38002,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21624,6 +38019,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21640,6 +38036,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21656,6 +38053,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21672,6 +38070,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21688,6 +38087,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21704,6 +38104,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21720,6 +38121,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21736,6 +38138,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21752,6 +38155,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21768,6 +38172,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21784,6 +38189,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21800,6 +38206,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21816,6 +38223,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			21,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21832,6 +38240,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			22,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21848,6 +38257,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			23,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21864,6 +38274,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			24,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21880,6 +38291,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21896,6 +38308,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			26,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21912,6 +38325,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			27,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21928,6 +38342,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			28,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21944,6 +38359,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			29,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21960,6 +38376,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21976,6 +38393,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -21992,6 +38410,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22008,6 +38427,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22024,6 +38444,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22040,6 +38461,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			35,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22056,6 +38478,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			36,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22072,6 +38495,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			37,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22088,6 +38512,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22104,6 +38529,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22120,6 +38546,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22136,6 +38563,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22152,6 +38580,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22168,6 +38597,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22184,6 +38614,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22200,6 +38631,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22216,6 +38648,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			46,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22232,6 +38665,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22248,6 +38682,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			48,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22264,6 +38699,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			49,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22280,6 +38716,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			50,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22296,6 +38733,7 @@ namespace Manatee.Trello
 			"Flags",
 			2,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22312,6 +38750,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22328,6 +38767,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22344,6 +38784,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22360,6 +38801,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22376,6 +38818,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22392,6 +38835,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22408,6 +38852,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22424,6 +38869,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22440,6 +38886,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22456,6 +38903,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22472,6 +38920,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22488,6 +38937,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22504,6 +38954,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22520,6 +38971,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22536,6 +38988,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22552,6 +39005,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22568,6 +39022,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22584,6 +39039,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22600,6 +39056,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22616,6 +39073,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22632,6 +39090,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22648,6 +39107,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			21,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22664,6 +39124,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			22,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22680,6 +39141,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			23,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22696,6 +39158,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			24,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22712,6 +39175,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22728,6 +39192,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			26,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22744,6 +39209,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			27,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22760,6 +39226,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			28,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22776,6 +39243,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			29,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22792,6 +39260,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22808,6 +39277,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22824,6 +39294,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22840,6 +39311,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22856,6 +39328,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22872,6 +39345,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			35,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22888,6 +39362,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			36,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22904,6 +39379,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			37,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22920,6 +39396,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22936,6 +39413,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22952,6 +39430,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22968,6 +39447,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -22984,6 +39464,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23000,6 +39481,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23016,6 +39498,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23032,6 +39515,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23048,6 +39532,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			46,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23064,6 +39549,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23080,6 +39566,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			48,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23096,6 +39583,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			49,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23112,6 +39600,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			50,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23128,6 +39617,7 @@ namespace Manatee.Trello
 			"Flags",
 			3,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23144,6 +39634,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23160,6 +39651,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23176,6 +39668,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23192,6 +39685,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23208,6 +39702,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23224,6 +39719,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23240,6 +39736,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23256,6 +39753,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23272,6 +39770,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23288,6 +39787,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			9,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23304,6 +39804,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23320,6 +39821,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23336,6 +39838,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23352,6 +39855,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23368,6 +39872,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23384,6 +39889,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23400,6 +39906,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23416,6 +39923,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23432,6 +39940,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23448,6 +39957,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23464,6 +39974,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23480,6 +39991,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			21,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23496,6 +40008,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			22,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23512,6 +40025,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			23,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23528,6 +40042,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			24,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23544,6 +40059,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23560,6 +40076,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			26,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23576,6 +40093,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			27,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23592,6 +40110,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			28,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23608,6 +40127,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			29,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23624,6 +40144,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			30,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23640,6 +40161,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			31,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23656,6 +40178,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			32,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23672,6 +40195,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			33,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23688,6 +40212,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			34,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23704,6 +40229,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			35,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23720,6 +40246,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			36,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23736,6 +40263,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			37,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23752,6 +40280,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			38,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23768,6 +40297,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			39,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23784,6 +40314,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			40,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23800,6 +40331,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			41,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23816,6 +40348,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			42,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23832,6 +40365,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			43,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23848,6 +40382,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			44,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23864,6 +40399,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			45,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23880,6 +40416,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			46,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23896,6 +40433,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			47,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23912,6 +40450,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			48,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23928,6 +40467,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			49,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23944,6 +40484,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			50,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23960,6 +40501,7 @@ namespace Manatee.Trello
 			"Flags",
 			4,
 			51,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23976,6 +40518,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			0,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -23992,6 +40535,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			1,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24008,6 +40552,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			2,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24024,6 +40569,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			3,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24040,6 +40586,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			4,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24056,6 +40603,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			5,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24072,6 +40620,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			6,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24088,6 +40637,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			7,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24104,6 +40654,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			8,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24120,6 +40671,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			10,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24136,6 +40688,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			11,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24152,6 +40705,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			12,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24168,6 +40722,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			13,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24184,6 +40739,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			14,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24200,6 +40756,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			15,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24216,6 +40773,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24232,6 +40790,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24248,6 +40807,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24264,6 +40824,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			19,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24280,6 +40841,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			20,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24296,6 +40858,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			21,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24312,6 +40875,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			22,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24328,6 +40892,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			23,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24344,6 +40909,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			24,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24360,6 +40926,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			25,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24376,6 +40943,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			26,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24392,6 +40960,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			27,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24408,6 +40977,7 @@ namespace Manatee.Trello
 			"Flags",
 			5,
 			28,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24424,6 +40994,7 @@ namespace Manatee.Trello
 			"Flags",
 			12,
 			16,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24440,6 +41011,7 @@ namespace Manatee.Trello
 			"Flags",
 			12,
 			17,
+			SkinVariationType.None,
 			null,
 			null);
 		/// <summary>
@@ -24456,6 +41028,7 @@ namespace Manatee.Trello
 			"Flags",
 			12,
 			18,
+			SkinVariationType.None,
 			null,
 			null);
 	}

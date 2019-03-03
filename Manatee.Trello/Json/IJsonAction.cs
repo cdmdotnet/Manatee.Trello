@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Manatee.Trello.Json
 {
@@ -33,5 +34,10 @@ namespace Manatee.Trello.Json
 		/// </summary>
 		[JsonSerialize]
 		string Text { get; set; }
+		/// <summary>
+		/// Gets or sets the list of reactions for comment actions.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonCommentReaction> Reactions { get; set; }
 	}
 }
