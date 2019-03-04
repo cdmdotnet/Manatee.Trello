@@ -51,7 +51,7 @@ namespace Manatee.Trello
 			EventAggregator.Unsubscribe(this);
 			Items.AddRange(newData.Select(jc =>
 				{
-					var reaction = jc.GetFromCache<CommentReaction, IJsonCommentReaction>(Auth);
+					var reaction = jc.GetFromCache<CommentReaction, IJsonCommentReaction>(Auth, true, OwnerId);
 					reaction.Json = jc;
 					return reaction;
 				}));

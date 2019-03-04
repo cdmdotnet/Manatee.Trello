@@ -15,7 +15,7 @@ namespace Manatee.Trello.Internal.DataAccess
 				{
 					{EntityRequestType.Action_Read_Refresh, () => new Endpoint(RestMethod.Get, "actions", "_id")},
 					{EntityRequestType.Action_Read_Reactions, () => new Endpoint(RestMethod.Get, "actions", "_id", "reactions")},
-					{EntityRequestType.Action_Write_AddReaction, () => new Endpoint(RestMethod.Post, "actions", "_actionId", "reactions")},
+					{EntityRequestType.Action_Write_AddReaction, () => new Endpoint(RestMethod.Post, "actions", "_id", "reactions")},
 					{EntityRequestType.Action_Write_Delete, () => new Endpoint(RestMethod.Delete, "actions", "_id")},
 					{EntityRequestType.Action_Write_Update, () => new Endpoint(RestMethod.Put, "actions", "_id")},
 					{EntityRequestType.Attachment_Read_Refresh, () => new Endpoint(RestMethod.Get, "cards", "_cardId", "attachments", "_id")},
@@ -159,13 +159,13 @@ namespace Manatee.Trello.Internal.DataAccess
 				foreach (var parameter in requiredParameters)
 				{
 					if (!parameters.ContainsKey(parameter))
-						throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
+						throw new Exception($"Attempted to build endpoint {requestType} with incomplete parameter collection.");
 					var value = parameters[parameter] ?? string.Empty;
 					endpoint.Resolve(parameter, value.ToString());
 				}
 			}
 			else if (requiredParameters.Any())
-				throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
+				throw new Exception($"Attempted to build endpoint {requestType} with incomplete parameter collection.");
 			return endpoint;
 		}
 	}

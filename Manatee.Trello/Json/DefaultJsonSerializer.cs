@@ -83,6 +83,7 @@ namespace Manatee.Trello.Json
 			serializer.AbstractionMap.Map<IJsonCard, ManateeCard>();
 			serializer.AbstractionMap.Map<IJsonCheckItem, ManateeCheckItem>();
 			serializer.AbstractionMap.Map<IJsonCheckList, ManateeCheckList>();
+			serializer.AbstractionMap.Map<IJsonCommentReaction, ManateeCommentReaction>();
 			serializer.AbstractionMap.Map<IJsonCustomField, ManateeCustomField>();
 			serializer.AbstractionMap.Map<IJsonCustomDropDownOption, ManateeCustomDropDownOption>();
 			serializer.AbstractionMap.Map<IJsonCustomFieldDefinition, ManateeCustomFieldDefinition>();

@@ -228,6 +228,38 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
+		public async Task CanReactToComment()
+		{
+			try
+			{
+				Card.DownloadedFields |= Card.Fields.Comments;
+				Card.DownloadedFields &= ~Card.Fields.Actions;
+
+				var card = await TestEnvironment.Current.BuildCard();
+				var comment = await card.Comments.Add("a comment");
+
+				var reaction = await comment.Reactions.Add(Emojis.Bamboo);
+
+				reaction.Emoji.Should().Be(Emojis.Bamboo);
+
+				await TestEnvironment.RunClean(async () =>
+					{
+						var cardCopy = TestEnvironment.Current.Factory.Card(card.Id);
+						await cardCopy.Comments.Refresh();
+
+						cardCopy.Comments[0].Reactions.Should().Contain(r => r.Emoji == Emojis.Bamboo);
+					});
+
+				await reaction.Delete();
+			}
+			finally
+			{
+				Card.DownloadedFields |= Card.Fields.Actions;
+				Card.DownloadedFields &= ~Card.Fields.Comments;
+			}
+		}
+
+		[Test]
 		public async Task CreatingWithShortId()
 		{
 			var card = await TestEnvironment.Current.BuildCard();

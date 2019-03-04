@@ -104,6 +104,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["memberCreator"] = "true";
 					Parameters["memberCreator_fields"] = MemberContext.CurrentParameters["fields"];
 				}
+				if (parameterFields.HasFlag(Action.Fields.Reactions))
+					Parameters["reactions"] = "true";
 			}
 		}
 
@@ -146,7 +148,15 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override IEnumerable<string> MergeDependencies(IJsonAction json, bool overwrite)
 		{
-			return ActionDataContext.Merge(json.Data, overwrite);
+			var properties = ActionDataContext.Merge(json.Data, overwrite).ToList();
+
+			if (json.Reactions != null)
+			{
+				Reactions.Update(json.Reactions.Select(a => a.GetFromCache<CommentReaction, IJsonCommentReaction>(Auth, overwrite, Data.Id)));
+				properties.Add(nameof(Card.Actions));
+			}
+
+			return properties;
 		}
 	}
 }

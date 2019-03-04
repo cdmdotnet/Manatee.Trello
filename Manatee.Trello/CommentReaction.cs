@@ -14,7 +14,7 @@ namespace Manatee.Trello
 		Action Comment { get; }
 		Emoji Emoji { get; }
 		Member Member { get; }
-		Task Delete(CancellationToken ct);
+		Task Delete(CancellationToken ct = default(CancellationToken));
 	}
 
 	public class CommentReaction : ICommentReaction, IMergeJson<IJsonCommentReaction>
@@ -35,10 +35,16 @@ namespace Manatee.Trello
 			set { _context.Merge(value); }
 		}
 
-		internal CommentReaction(IJsonCommentReaction json, TrelloAuthorization auth)
+		internal CommentReaction(IJsonCommentReaction json, string ownerId, TrelloAuthorization auth)
 		{
 			Id = json.Id;
-			_context = new CommentReactionContext(json.Id, json.Comment.Id, auth);
+			_context = new CommentReactionContext(json.Id, ownerId, auth);
+
+			_comment = new Field<Action>(_context, nameof(Comment));
+			_emoji = new Field<Emoji>(_context, nameof(Emoji));
+			_member = new Field<Member>(_context, nameof(Member));
+
+			_context.Merge(json);
 		}
 
 		void IMergeJson<IJsonCommentReaction>.Merge(IJsonCommentReaction json, bool overwrite)

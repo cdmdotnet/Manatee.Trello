@@ -14,7 +14,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Properties = new Dictionary<string, Property<IJsonCommentReaction>>
 				{
 					{
-						nameof(CommentReaction.Emoji),
+						nameof(CommentReaction.Comment),
 						new Property<IJsonCommentReaction, Action>((d, a) => d.Comment?.GetFromCache<Action, IJsonAction>(a),
 						                                           (d, o) => d.Comment = o?.Json)
 					},
@@ -27,7 +27,7 @@ namespace Manatee.Trello.Internal.Synchronization
 						new Property<IJsonCommentReaction, string>((d, a) => d.Id, (d, o) => d.Id = o)
 					},
 					{
-						nameof(CommentReaction.Emoji),
+						nameof(CommentReaction.Member),
 						new Property<IJsonCommentReaction, Member>((d, a) => d.Member?.GetFromCache<Member, IJsonMember>(a),
 						                                           (d, o) => d.Member = o?.Json)
 					}
