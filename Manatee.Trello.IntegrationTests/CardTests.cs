@@ -251,6 +251,14 @@ namespace Manatee.Trello.IntegrationTests
 					});
 
 				await reaction.Delete();
+
+				await TestEnvironment.RunClean(async () =>
+					{
+						var cardCopy = TestEnvironment.Current.Factory.Card(card.Id);
+						await cardCopy.Comments.Refresh();
+
+						cardCopy.Comments[0].Reactions.Should().BeEmpty();
+					});
 			}
 			finally
 			{

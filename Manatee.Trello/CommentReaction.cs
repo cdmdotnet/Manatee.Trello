@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.Synchronization;
@@ -9,14 +6,9 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello
 {
-	public interface ICommentReaction : ICacheable
-	{
-		Action Comment { get; }
-		Emoji Emoji { get; }
-		Member Member { get; }
-		Task Delete(CancellationToken ct = default(CancellationToken));
-	}
-
+	/// <summary>
+	/// Represents a reaction to a card comment.
+	/// </summary>
 	public class CommentReaction : ICommentReaction, IMergeJson<IJsonCommentReaction>
 	{
 		private readonly Field<Action> _comment;
@@ -24,9 +16,24 @@ namespace Manatee.Trello
 		private readonly Field<Member> _member;
 		private readonly CommentReactionContext _context;
 
+		/// <summary>
+		/// Gets the comment (<see cref="Action"/>) reacted to.
+		/// </summary>
 		public Action Comment => _comment.Value;
+
+		/// <summary>
+		/// Gets the emoji used for the reaction.
+		/// </summary>
 		public Emoji Emoji => _emoji.Value;
+
+		/// <summary>
+		/// Gets an ID on which matching can be performed.
+		/// </summary>
 		public string Id { get; }
+
+		/// <summary>
+		/// Gets the member who posted the reaction.
+		/// </summary>
 		public Member Member => _member.Value;
 
 		internal IJsonCommentReaction Json
@@ -52,6 +59,13 @@ namespace Manatee.Trello
 			_context.Merge(json, overwrite);
 		}
 
+		/// <summary>
+		/// Deletes the reaction.
+		/// </summary>
+		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
+		/// <remarks>
+		/// This permanently deletes the reaction from Trello's server, however, this object will remain in memory and all properties will remain accessible.
+		/// </remarks>
 		public Task Delete(CancellationToken ct = default(CancellationToken))
 		{
 			return _context.Delete(ct);
