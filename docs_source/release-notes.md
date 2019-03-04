@@ -1,3 +1,11 @@
+# 3.7.0
+
+*Released on 5 Mar, 2019*
+
+<span id="feature">feature</span>
+
+([#136](https://github.com/gregsdennis/Manatee.Trello/issues/136)) Emoji reactions can now be added/removed from card comments.
+
 # 3.6.1
 
 *Released on 25 Feb, 2019*

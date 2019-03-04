@@ -6,6 +6,8 @@ namespace Manatee.Trello.Internal.DataAccess
 #pragma warning disable 1591
 		Unsupported,
 		Action_Read_Refresh,
+		Action_Read_Reactions,
+		Action_Write_AddReaction,
 		Action_Write_Delete,
 		Action_Write_Update,
 		Attachment_Read_Refresh,
@@ -67,6 +69,8 @@ namespace Manatee.Trello.Internal.DataAccess
 		CheckList_Write_AddCheckItem,
 		CheckList_Write_Delete,
 		CheckList_Write_Update,
+		CommentReaction_Read_Refresh,
+		CommentReaction_Write_Delete,
 		CustomField_Read_Refresh,
 		CustomField_Write_Update,
 		CustomFieldDefinition_Read_Options,

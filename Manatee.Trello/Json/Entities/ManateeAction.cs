@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 
@@ -12,6 +13,7 @@ namespace Manatee.Trello.Json.Entities
 		public ActionType? Type { get; set; }
 		public DateTime? Date { get; set; }
 		public string Text { get; set; }
+		public List<IJsonCommentReaction> Reactions { get; set; }
 
 		public virtual void FromJson(JsonValue json, JsonSerializer serializer)
 		{
@@ -22,6 +24,7 @@ namespace Manatee.Trello.Json.Entities
 			Data = obj.Deserialize<IJsonActionData>(serializer, "data");
 			Type = obj.Deserialize<ActionType?>(serializer, "type");
 			Date = obj.Deserialize<DateTime?>(serializer, "date");
+			Reactions = obj.Deserialize<List<IJsonCommentReaction>>(serializer, "reactions");
 		}
 		public virtual JsonValue ToJson(JsonSerializer serializer)
 		{

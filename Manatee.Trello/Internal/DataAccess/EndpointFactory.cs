@@ -14,6 +14,8 @@ namespace Manatee.Trello.Internal.DataAccess
 			_library = new Dictionary<EntityRequestType, Func<Endpoint>>
 				{
 					{EntityRequestType.Action_Read_Refresh, () => new Endpoint(RestMethod.Get, "actions", "_id")},
+					{EntityRequestType.Action_Read_Reactions, () => new Endpoint(RestMethod.Get, "actions", "_id", "reactions")},
+					{EntityRequestType.Action_Write_AddReaction, () => new Endpoint(RestMethod.Post, "actions", "_id", "reactions")},
 					{EntityRequestType.Action_Write_Delete, () => new Endpoint(RestMethod.Delete, "actions", "_id")},
 					{EntityRequestType.Action_Write_Update, () => new Endpoint(RestMethod.Put, "actions", "_id")},
 					{EntityRequestType.Attachment_Read_Refresh, () => new Endpoint(RestMethod.Get, "cards", "_cardId", "attachments", "_id")},
@@ -73,6 +75,8 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.CheckList_Write_AddCheckItem, () => new Endpoint(RestMethod.Post, "checklists", "_id", "checkItems")},
 					{EntityRequestType.CheckList_Write_Delete, () => new Endpoint(RestMethod.Delete, "checklists", "_id")},
 					{EntityRequestType.CheckList_Write_Update, () => new Endpoint(RestMethod.Put, "checklists", "_id")},
+					{EntityRequestType.CommentReaction_Read_Refresh, () => new Endpoint(RestMethod.Get, "actions", "_actionId", "reactions", "_id")},
+					{EntityRequestType.CommentReaction_Write_Delete, () => new Endpoint(RestMethod.Delete, "actions", "_actionId", "reactions", "_id")},
 					{EntityRequestType.CustomField_Read_Refresh, () => new Endpoint(RestMethod.Get, "card", "_cardId", "customFieldItems", "_id")},
 					{EntityRequestType.CustomField_Write_Update, () => new Endpoint(RestMethod.Put, "card", "_cardId", "customField", "_id", "item")},
 					{EntityRequestType.CustomFieldDefinition_Read_Options, () => new Endpoint(RestMethod.Get, "customFields", "_id", "options")},
@@ -155,13 +159,13 @@ namespace Manatee.Trello.Internal.DataAccess
 				foreach (var parameter in requiredParameters)
 				{
 					if (!parameters.ContainsKey(parameter))
-						throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
+						throw new Exception($"Attempted to build endpoint {requestType} with incomplete parameter collection.");
 					var value = parameters[parameter] ?? string.Empty;
 					endpoint.Resolve(parameter, value.ToString());
 				}
 			}
 			else if (requiredParameters.Any())
-				throw new Exception("Attempted to build endpoint with incomplete parameter collection.");
+				throw new Exception($"Attempted to build endpoint {requestType} with incomplete parameter collection.");
 			return endpoint;
 		}
 	}

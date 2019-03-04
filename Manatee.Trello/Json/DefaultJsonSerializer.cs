@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
-using Manatee.Json;
+﻿using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Json.Entities;
 using Manatee.Trello.Rest;
@@ -28,6 +26,7 @@ namespace Manatee.Trello.Json
 			InitializeAbstractionMap(_serializer);
 			SerializerFactory.AddSerializer(new ActionTypeSerializer());
 			SerializerFactory.AddSerializer(new DateTimeSerializer());
+			SerializerFactory.AddSerializer(new EmojiSerializer());
 		}
 
 		/// <summary>
@@ -84,6 +83,7 @@ namespace Manatee.Trello.Json
 			serializer.AbstractionMap.Map<IJsonCard, ManateeCard>();
 			serializer.AbstractionMap.Map<IJsonCheckItem, ManateeCheckItem>();
 			serializer.AbstractionMap.Map<IJsonCheckList, ManateeCheckList>();
+			serializer.AbstractionMap.Map<IJsonCommentReaction, ManateeCommentReaction>();
 			serializer.AbstractionMap.Map<IJsonCustomField, ManateeCustomField>();
 			serializer.AbstractionMap.Map<IJsonCustomDropDownOption, ManateeCustomDropDownOption>();
 			serializer.AbstractionMap.Map<IJsonCustomFieldDefinition, ManateeCustomFieldDefinition>();

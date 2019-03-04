@@ -20,6 +20,7 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof (IJsonBoardBackground), typeof (BoardBackground)},
 					{typeof (IJsonCard), typeof (Card)},
 					{typeof (IJsonCheckList), typeof (CheckList)},
+					{typeof (IJsonCommentReaction), typeof (CommentReaction)},
 					{typeof (IJsonLabel), typeof (Label)},
 					{typeof (IJsonList), typeof (List)},
 					{typeof (IJsonMember), typeof (Member)},
@@ -35,6 +36,7 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof(BoardBackground), (j, a, p) => new BoardBackground((string) p?[0], (IJsonBoardBackground) j, a)},
 					{typeof(Card), (j, a, p) => new Card((IJsonCard) j, a)},
 					{typeof(CheckList), (j, a, p) => new CheckList((IJsonCheckList) j, a)},
+					{typeof(CommentReaction), (j, a, p) => _BuildCommentReaction((IJsonCommentReaction) j, a, p)},
 					{typeof(CustomField), (j, a, p) => _BuildCustomField((IJsonCustomField) j, a, p)},
 					{typeof(CustomFieldDefinition), (j, a, p) => new CustomFieldDefinition((IJsonCustomFieldDefinition) j, a)},
 					{typeof(DropDownOption), (j, a, p) => new DropDownOption((IJsonCustomDropDownOption) j, a)},
@@ -46,7 +48,7 @@ namespace Manatee.Trello.Internal.Caching
 					{typeof(StarredBoard), (j, a, p) => new StarredBoard((string) p[0], (IJsonStarredBoard) j, a)},
 					{typeof(Notification), (j, a, p) => new Notification((IJsonNotification) j, a)},
 					{typeof(Token), (j, a, p) => new Token((IJsonToken) j, a)},
-					{typeof(IPowerUp), (j, a, p) => BuildConfiguredPowerUp((IJsonPowerUp) j, a) ?? new UnknownPowerUp((IJsonPowerUp) j, a)},
+					{typeof(IPowerUp), (j, a, p) => _BuildConfiguredPowerUp((IJsonPowerUp) j, a) ?? new UnknownPowerUp((IJsonPowerUp) j, a)},
 					{typeof(PowerUpData), (j, a, p) => new PowerUpData((IJsonPowerUpData) j, a)},
 				};
 		}
@@ -93,11 +95,17 @@ namespace Manatee.Trello.Internal.Caching
 			return obj;
 		}
 
-		private static IPowerUp BuildConfiguredPowerUp(IJsonPowerUp json, TrelloAuthorization auth)
+		private static IPowerUp _BuildConfiguredPowerUp(IJsonPowerUp json, TrelloAuthorization auth)
 		{
 			if (!TrelloConfiguration.RegisteredPowerUps.TryGetValue(json.Id, out var factory)) return null;
 
 			return factory(json, auth);
+		}
+
+		private static CommentReaction _BuildCommentReaction(IJsonCommentReaction json, TrelloAuthorization auth, object[] parameters)
+		{
+			var ownerId = parameters[0] as string;
+			return new CommentReaction(json, ownerId, auth);
 		}
 
 		private static CustomField _BuildCustomField(this IJsonCustomField json, TrelloAuthorization auth, object[] parameters)

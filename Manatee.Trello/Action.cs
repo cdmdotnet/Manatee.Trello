@@ -25,23 +25,28 @@ namespace Manatee.Trello
 			/// <summary>
 			/// Indicates the Data property should be populated.
 			/// </summary>
-			[Display(Description="data")]
+			[Display(Description = "data")]
 			Data = 1,
 			/// <summary>
 			/// Indicates the Date property should be populated.
 			/// </summary>
-			[Display(Description="date")]
+			[Display(Description = "date")]
 			Date = 1 << 1,
 			/// <summary>
 			/// Indicates the Creator property should be populated.
 			/// </summary>
-			[Display(Description="memberCreator")]
+			[Display(Description = "memberCreator")]
 			Creator = 1 << 2,
 			/// <summary>
 			/// Indicates the Type property should be populated.
 			/// </summary>
-			[Display(Description="type")]
+			[Display(Description = "type")]
 			Type = 1 << 3,
+			/// <summary>
+			/// Indicates the Reactions property should be populated.
+			/// </summary>
+			[Display(Description = "reactions")]
+			Reactions = 1 << 4
 		}
 
 		private static readonly Dictionary<ActionType, Func<Action, string>> StringDefinitions;
@@ -108,6 +113,14 @@ namespace Manatee.Trello
 			}
 			private set { _id = value; }
 		}
+
+		/// <summary>
+		/// Gets the collection of reactions.
+		/// </summary>
+		/// <remarks>
+		/// Reactions require that the action is a comment.
+		/// </remarks>
+		public ICommentReactionCollection Reactions => _context.Reactions;
 
 		/// <summary>
 		/// Gets the type of action.

@@ -31,6 +31,14 @@ namespace Manatee.Trello
 		DateTime? Date { get; }
 
 		/// <summary>
+		/// Gets the collection of reactions.
+		/// </summary>
+		/// <remarks>
+		/// Reactions require that the action is a comment.
+		/// </remarks>
+		ICommentReactionCollection Reactions { get; }
+
+		/// <summary>
 		/// Gets the type of action.
 		/// </summary>
 		ActionType? Type { get; }
