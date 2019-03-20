@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentAssertions;
+using Manatee.Trello.Tests.Common;
 using NUnit.Framework;
 using DateTime = System.DateTime;
 
@@ -94,5 +96,35 @@ namespace Manatee.Trello.IntegrationTests
 					Assert.AreEqual(selection.Text, field.Value.Text);
 				});
 		}
+
+		[Test]
+		public async Task BoardRefreshWithCardsGetsCustomFieldDefinitionName()
+		{
+			await TestEnvironment.Current.Board.EnsurePowerUp(new CustomFieldsPowerUp());
+			var card = await TestEnvironment.Current.BuildCard();
+			var fieldDef = await TestEnvironment.Current.Board.CustomFields.Add(nameof(BoardRefreshWithCardsGetsCustomFieldDefinitionName), CustomFieldType.Text);
+			var field = await fieldDef.SetValueForCard(card, "test");
+			field.Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomFieldDefinitionName));
+
+			await card.Refresh();
+			card.CustomFields[0].Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomFieldDefinitionName));
+
+			await TestEnvironment.RunClean(async () =>
+				{
+					try
+					{
+						Board.DownloadedFields |= Board.Fields.Cards;
+						var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
+						await board.Refresh();
+
+						board.Cards[card.Id].CustomFields[0].Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomFieldDefinitionName));
+					}
+					finally
+					{
+						Board.DownloadedFields &= ~Board.Fields.Cards;
+					}
+				});
+		}
+
 	}
 }
