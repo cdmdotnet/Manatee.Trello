@@ -53,6 +53,37 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
+		public async Task Issue249_CommentCreator()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			var comment = await card.Comments.Add(nameof(Issue249_CommentCreator) + " test comment");
+
+			await TestEnvironment.RunClean(async () =>
+				{
+					try
+					{
+						Card.DownloadedFields |= Card.Fields.Comments;
+						Card.DownloadedFields &= ~Card.Fields.Actions;
+
+						var cardCopy = TestEnvironment.Current.Factory.Card(card.Id);
+						await cardCopy.Refresh();
+
+						cardCopy.Comments.Count().Should().Be(1);
+
+						var commentCopy = cardCopy.Comments[0];
+						commentCopy.Id.Should().Be(comment.Id);
+						commentCopy.Creator.Should().NotBeNull();
+						commentCopy.Creator.UserName.Should().Be(TestEnvironment.Current.Me.UserName);
+					}
+					finally
+					{
+						Card.DownloadedFields |= Card.Fields.Actions;
+						Card.DownloadedFields &= ~Card.Fields.Comments;
+					}
+				});
+		}
+
+		[Test]
 		public async Task Issue254a_CardListIsNull()
 		{
 			var card = await TestEnvironment.Current.BuildCard();
