@@ -31,7 +31,7 @@ namespace Manatee.Trello.UnitTests
 				{
 					Board.DownloadedFields |= Board.Fields.Cards;
 					var board = _factory.Board(TrelloIds.BoardId);
-					//await board.CustomFields.Refresh(ct: ct);
+					await board.CustomFields.Refresh(ct: ct);
 					await board.Refresh(ct: ct);
 
 					Assert.IsNotNull(board.Cards[TrelloIds.CardId].CustomFields[0].Definition.Name);
