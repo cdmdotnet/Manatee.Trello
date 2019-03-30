@@ -1,3 +1,12 @@
+# 3.8.0
+
+*Released on 5 Mar, 2019*
+
+<span id="feature">feature</span> <span id="patch">patch</span> 
+
+([#249](https://github.com/gregsdennis/Manatee.Trello/issues/249)) Comment creator wasn't being downloaded.
+([#292](https://github.com/gregsdennis/Manatee.Trello/issues/292)) Custom field names not downloaded as part of board refresh.  This appeared to succeed most of the time, but in scenarios where it didn't, a refresh on the `board.CustomFields` collection directly fixed the issue.
+
 # 3.7.0
 
 *Released on 5 Mar, 2019*
