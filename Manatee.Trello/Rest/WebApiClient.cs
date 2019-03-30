@@ -155,7 +155,8 @@ namespace Manatee.Trello.Rest
 			try
 			{
 				var body = restResponse.Content;
-				if (response.Content.Headers.ContentType.MediaType == "text/plain")
+				if (!response.IsSuccessStatusCode ||
+				    response.Content.Headers.ContentType.MediaType == "text/plain")
 					restResponse.Exception = new TrelloInteractionException(body);
 				else
 					restResponse.Data = TrelloConfiguration.Deserializer.Deserialize<T>(body);
