@@ -7,15 +7,15 @@ using NUnit.Framework;
 
 namespace Manatee.Trello.IntegrationTests
 {
+	// Due to indexing and/or data distribution latency on the Trello servers, these tests
+	// must be performed on pre-existing data.  Let's hope that the sandbox remains in a
+	// good state...
 	[TestFixture]
 	public class SearchTests
 	{
 		[Test]
 		public async Task SearchReturnsCards()
 		{
-			// Due to indexing and/or data distribution latency on the Trello servers, this test
-			// must be performed on pre-existing data.  Let's hope that the sandbox remains in a
-			// good state...
 			var board = TestEnvironment.Current.Factory.Board(TrelloIds.BoardId);
 			var search = TestEnvironment.Current.Factory.Search("backup", modelTypes: SearchModelType.Cards, context: new[] {board});
 
@@ -28,9 +28,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task SearchForCardsWithLabel()
 		{
-			// Due to indexing and/or data distribution latency on the Trello servers, this test
-			// must be performed on pre-existing data.  Let's hope that the sandbox remains in a
-			// good state...
 			var board = TestEnvironment.Current.Factory.Board(TrelloIds.BoardId);
 
 			await board.Refresh();
@@ -52,16 +49,13 @@ namespace Manatee.Trello.IntegrationTests
 		{
 			Assert.ThrowsAsync<TrelloInteractionException>(async () =>
 				{
-					// Due to indexing and/or data distribution latency on the Trello servers, this test
-					// must be performed on pre-existing data.  Let's hope that the sandbox remains in a
-					// good state...
 					var board = TestEnvironment.Current.Factory.Board(TrelloIds.BoardId);
 
 					await board.Refresh();
 
 					TrelloConfiguration.Cache.Remove(board);
 					var shortId = board.ShortLink;
-					board = TestEnvironment.Current.Factory.Board(shortId);
+					board = new Board(shortId);
 
 					var search = TestEnvironment.Current.Factory.Search("backup", modelTypes: SearchModelType.Cards, context: new[] {board});
 
