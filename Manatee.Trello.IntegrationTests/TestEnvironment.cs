@@ -79,7 +79,7 @@ namespace Manatee.Trello.IntegrationTests
 				if (Board != null)
 					await Board.Delete();
 			}
-			catch
+			catch (Exception)
 			{
 			}
 
@@ -88,7 +88,7 @@ namespace Manatee.Trello.IntegrationTests
 				if (Organization != null)
 					await Organization.Delete();
 			}
-			catch
+			catch (Exception)
 			{
 			}
 
@@ -97,7 +97,7 @@ namespace Manatee.Trello.IntegrationTests
 				var licenseCounts = File.ReadAllText("Manatee.Trello.run");
 				Console.WriteLine(licenseCounts);
 			}
-			catch
+			catch (Exception)
 			{
 			}
 		}

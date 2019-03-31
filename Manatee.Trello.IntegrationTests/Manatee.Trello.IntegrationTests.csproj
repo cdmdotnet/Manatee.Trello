@@ -63,6 +63,7 @@
     <Compile Include="CheckListTests.cs" />
     <Compile Include="ClientTestsOfAntiquity.cs" />
     <Compile Include="ClientTestsOfTheNew.cs" />
+    <Compile Include="CustomFieldTests.cs" />
     <Compile Include="LocalOnlyConsoleLog.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="ManualTests.cs" />
