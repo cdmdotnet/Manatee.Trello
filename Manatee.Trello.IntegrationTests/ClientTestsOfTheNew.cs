@@ -210,5 +210,29 @@ namespace Manatee.Trello.IntegrationTests
 			var field = card.CustomFields.First(x => x.Definition.Name.ToLower() == "field #1") as NumberField;
 			field.Value.Should().Be(5.8);
 		}
+
+		[Test]
+		public async Task Slack_MovingCardToNewListRemovesHistory()
+		{
+			await TestEnvironment.RunClean(async () =>
+				{
+					var card = await TestEnvironment.Current.BuildCard();
+					var newList = await TestEnvironment.Current.BuildList("TargetList");
+					await card.Refresh(true);
+
+					card.List.Id.Should().NotBe(newList.Id);
+					card.Actions.Should().NotBeEmpty();
+
+					var actionCount = card.Actions.Count();
+
+					await card.Refresh(true);
+					card.List = newList;
+					await TrelloProcessor.Flush();
+
+					await card.Refresh(true);
+					card.List.Id.Should().Be(newList.Id);
+					card.Actions.Count().Should().BeGreaterThan(actionCount);
+				});
+		}
 	}
 }

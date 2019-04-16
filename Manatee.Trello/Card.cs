@@ -190,7 +190,7 @@ namespace Manatee.Trello
 		/// Gets the collection of actions performed on this card.
 		/// </summary>
 		/// <remarks>By default imposed by Trello, this contains actions of type <see cref="ActionType.CommentCard"/>.</remarks>
-		public IReadOnlyActionCollection Actions { get; }
+		public IReadOnlyActionCollection Actions => _context.Actions;
 
 		/// <summary>
 		/// Gets the collection of attachments contained in the card.
@@ -428,7 +428,6 @@ namespace Manatee.Trello
 			_context = new CardContext(id, auth);
 			_context.Synchronized += Synchronized;
 
-			Actions = new ReadOnlyActionCollection(typeof(Card), () => id, auth);
 			Badges = new Badges(_context.BadgesContext);
 			_board = new Field<Board>(_context, nameof(Board));
 			_board.AddRule(NotNullRule<Board>.Instance);

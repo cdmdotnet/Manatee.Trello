@@ -24,6 +24,8 @@ namespace Manatee.Trello.Internal.Licensing
 			public DateTime SessionExpiry { get; set; }
 		}
 
+		public const int MaxOperationCount = 300;
+
 		private const string BuyMeText = "Please see https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html for information on purchasing a license.";
 		private const string LicenseEnvironmentVariable = "TRELLO_LICENSE_TRACKING";
 
@@ -31,14 +33,17 @@ namespace Manatee.Trello.Internal.Licensing
 		private static readonly object CountsLock;
 		private static readonly JsonSerializer Serializer;
 
-		private static long _retrievalCount;
-		private static long _submissionCount;
-		private static DateTime _sessionExpiry;
 		private static LicenseDetails _registeredLicense;
 		private static Timer _resetTimer;
 		private static bool _holdPersistence;
+		private static long _retrievalCount;
+		private static long _submissionCount;
 
 		public static TimeSpan SessionDuration { get; set; } = TimeSpan.FromHours(1);
+
+		public static long RetrievalCount => _retrievalCount;
+		public static long SubmissionCount => _submissionCount;
+		public static DateTime SessionExpiry { get; set; }
 
 		static LicenseHelpers()
 		{
@@ -53,7 +58,7 @@ namespace Manatee.Trello.Internal.Licensing
 		{
 			_retrievalCount = 0;
 			_submissionCount = 0;
-			_sessionExpiry = DateTime.Now.Add(SessionDuration);
+			SessionExpiry = DateTime.Now.Add(SessionDuration);
 		}
 
 		private static void LoadCurrentState()
@@ -82,7 +87,7 @@ namespace Manatee.Trello.Internal.Licensing
 
 			_retrievalCount = details.Retrievals;
 			_submissionCount = details.Submissions;
-			_sessionExpiry = details.SessionExpiry;
+			SessionExpiry = details.SessionExpiry;
 #endif
 		}
 
@@ -92,13 +97,12 @@ namespace Manatee.Trello.Internal.Licensing
 
 			EnsureResetTimer();
 
-			const int maxOperationCount = 300;
 			Interlocked.Increment(ref _retrievalCount);
 			SaveCurrentState();
 
-			if (_retrievalCount > maxOperationCount)
-				throw new LicenseException($"The free-quota limit of {maxOperationCount} data retrievals per hour has been reached. " +
-				                           $"The current session will reset at {_sessionExpiry:g}. " + 
+			if (RetrievalCount > MaxOperationCount)
+				throw new LicenseException($"The free-quota limit of {MaxOperationCount} data retrievals per hour has been reached. " +
+				                           $"The current session will reset at {SessionExpiry:g}. " + 
 				                           BuyMeText);
 		}
 
@@ -108,13 +112,12 @@ namespace Manatee.Trello.Internal.Licensing
 
 			EnsureResetTimer();
 
-			const int maxOperationCount = 300;
 			Interlocked.Increment(ref _submissionCount);
 			SaveCurrentState();
 
-			if (_submissionCount > maxOperationCount)
-				throw new LicenseException($"The free-quota limit of {maxOperationCount} data submissions per hour has been reached. " +
-				                           $"The current session will reset at {_sessionExpiry:g}. " + 
+			if (SubmissionCount > MaxOperationCount)
+				throw new LicenseException($"The free-quota limit of {MaxOperationCount} data submissions per hour has been reached. " +
+				                           $"The current session will reset at {SessionExpiry:g}. " + 
 				                           BuyMeText);
 		}
 
@@ -123,9 +126,9 @@ namespace Manatee.Trello.Internal.Licensing
 #if !NETSTANDARD1_3
 			var newDetails = new RunDetails
 				{
-					Retrievals = _retrievalCount,
-					Submissions = _submissionCount,
-					SessionExpiry = _sessionExpiry
+					Retrievals = RetrievalCount,
+					Submissions = SubmissionCount,
+					SessionExpiry = SessionExpiry
 				};
 
 			var json = Serializer.Serialize(newDetails);
@@ -156,7 +159,7 @@ namespace Manatee.Trello.Internal.Licensing
 				if (_resetTimer != null) return;
 
 				var now = DateTime.Now;
-				DateTime expiry = _sessionExpiry;
+				DateTime expiry = SessionExpiry;
 				if (expiry == DateTime.MinValue)
 					expiry = now;
 
