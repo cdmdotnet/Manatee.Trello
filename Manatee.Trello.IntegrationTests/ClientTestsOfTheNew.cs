@@ -229,6 +229,7 @@ namespace Manatee.Trello.IntegrationTests
 					card.List = newList;
 					await TrelloProcessor.Flush();
 
+					await card.Refresh(true);
 					card.List.Id.Should().Be(newList.Id);
 					card.Actions.Count().Should().BeGreaterThan(actionCount);
 				});
