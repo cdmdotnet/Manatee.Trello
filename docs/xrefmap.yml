@@ -31187,6 +31187,45 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.License.RegisterLicense
   nameWithType: License.RegisterLicense
+- uid: Manatee.Trello.License.RemainingRetrievals
+  name: RemainingRetrievals
+  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RemainingRetrievals
+  commentId: P:Manatee.Trello.License.RemainingRetrievals
+  fullName: Manatee.Trello.License.RemainingRetrievals
+  nameWithType: License.RemainingRetrievals
+- uid: Manatee.Trello.License.RemainingRetrievals*
+  name: RemainingRetrievals
+  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RemainingRetrievals_
+  commentId: Overload:Manatee.Trello.License.RemainingRetrievals
+  isSpec: "True"
+  fullName: Manatee.Trello.License.RemainingRetrievals
+  nameWithType: License.RemainingRetrievals
+- uid: Manatee.Trello.License.RemainingSubmissions
+  name: RemainingSubmissions
+  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RemainingSubmissions
+  commentId: P:Manatee.Trello.License.RemainingSubmissions
+  fullName: Manatee.Trello.License.RemainingSubmissions
+  nameWithType: License.RemainingSubmissions
+- uid: Manatee.Trello.License.RemainingSubmissions*
+  name: RemainingSubmissions
+  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RemainingSubmissions_
+  commentId: Overload:Manatee.Trello.License.RemainingSubmissions
+  isSpec: "True"
+  fullName: Manatee.Trello.License.RemainingSubmissions
+  nameWithType: License.RemainingSubmissions
+- uid: Manatee.Trello.License.SessionResetTime
+  name: SessionResetTime
+  href: api/Manatee.Trello.License.html#Manatee_Trello_License_SessionResetTime
+  commentId: P:Manatee.Trello.License.SessionResetTime
+  fullName: Manatee.Trello.License.SessionResetTime
+  nameWithType: License.SessionResetTime
+- uid: Manatee.Trello.License.SessionResetTime*
+  name: SessionResetTime
+  href: api/Manatee.Trello.License.html#Manatee_Trello_License_SessionResetTime_
+  commentId: Overload:Manatee.Trello.License.SessionResetTime
+  isSpec: "True"
+  fullName: Manatee.Trello.License.SessionResetTime
+  nameWithType: License.SessionResetTime
 - uid: Manatee.Trello.LicenseException
   name: LicenseException
   href: api/Manatee.Trello.LicenseException.html
