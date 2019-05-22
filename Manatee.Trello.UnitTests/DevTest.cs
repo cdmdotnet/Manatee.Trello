@@ -11,6 +11,7 @@ using FluentAssertions;
 using Manatee.Json;
 using Manatee.Json.Serialization;
 using Manatee.Trello.Internal;
+using Manatee.Trello.Internal.Logging;
 using Manatee.Trello.Rest;
 using Manatee.Trello.Tests.Common;
 using Moq;
@@ -27,11 +28,13 @@ namespace Manatee.Trello.UnitTests
 		[Test]
 		public async Task TestMethod1()
 		{
+			TrelloConfiguration.Log = new DebugLog();
+
 			await Run(async ct =>
 				{
 					Board.DownloadedFields |= Board.Fields.Cards;
 					var board = _factory.Board(TrelloIds.BoardId);
-					await board.CustomFields.Refresh(ct: ct);
+					//await board.CustomFields.Refresh(ct: ct);
 					await board.Refresh(ct: ct);
 
 					Assert.IsNotNull(board.Cards[TrelloIds.CardId].CustomFields[0].Definition.Name);

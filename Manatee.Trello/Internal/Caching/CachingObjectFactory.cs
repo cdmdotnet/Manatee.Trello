@@ -66,8 +66,14 @@ namespace Manatee.Trello.Internal.Caching
 		{
 			if (json == null) return null;
 
-			return TryGetFromCache<T>(json) ??
-			       (T) JsonFactory[typeof(T)](json, auth, null);
+			var cache = TryGetFromCache<T>(json);
+			if (cache == null)
+			{
+				TrelloConfiguration.Log.Debug($"{typeof(T).Name} with ID {json.Id} not found.  Building...");
+				return (T) JsonFactory[typeof(T)](json, auth, null);
+			}
+			return cache;
+
 		}
 		public static T GetFromCache<T, TJson>(this TJson json, TrelloAuthorization auth, bool overwrite = true, params object[] parameters)
 			where T : class, ICacheable, IMergeJson<TJson>
@@ -75,8 +81,14 @@ namespace Manatee.Trello.Internal.Caching
 		{
 			if (json == null) return null;
 
-			return TryGetFromCache<T, TJson>(json, overwrite) ??
-			       (T) JsonFactory[typeof(T)](json, auth, parameters);
+			var cache = TryGetFromCache<T, TJson>(json, overwrite);
+			if (cache == null)
+			{
+				TrelloConfiguration.Log.Debug($"{typeof(T).Name} with ID {json.Id} not found.  Building...");
+				return (T) JsonFactory[typeof(T)](json, auth, parameters);
+			}
+			return cache;
+
 		}
 
 		public static T TryGetFromCache<T>(this IJsonCacheable json)

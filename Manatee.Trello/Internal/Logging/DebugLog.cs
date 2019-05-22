@@ -34,7 +34,8 @@ namespace Manatee.Trello.Internal.Logging
 		}
 		private static void Post(string output)
 		{
-			System.Diagnostics.Debug.WriteLine(output);
+			//System.Diagnostics.Debug.WriteLine(output);
+			Console.WriteLine(output);
 		}
 	}
 }
