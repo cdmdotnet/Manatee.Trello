@@ -234,7 +234,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		internal IEnumerable<string> Merge(TJson json, bool overwrite = true)
 		{
-			if (json is IAcceptId mergable && !mergable.ValidForMerge) return Enumerable.Empty<string>();
+			if (json is IAcceptId mergeable && !mergeable.ValidForMerge) return Enumerable.Empty<string>();
 
 			IEnumerable<string> allProperties;
 

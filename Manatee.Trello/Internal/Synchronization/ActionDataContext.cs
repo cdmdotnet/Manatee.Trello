@@ -93,8 +93,8 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 					{
 						nameof(ActionData.CustomField),
-						new Property<IJsonActionData, CustomFieldDefinition>((d, a) => d.CustomField != null // TODO
-							                                                                ? d.CustomField.GetFromCache<CustomFieldDefinition, IJsonCustomFieldDefinition>(a, false)
+						new Property<IJsonActionData, CustomFieldDefinition>((d, a) => d.CustomField != null
+							                                                                ? new CustomFieldDefinition(d.CustomField, TrelloAuthorization.Null)
 							                                                                : null,
 						                                           (d, o) =>
 							                                           {

@@ -98,16 +98,16 @@ namespace Manatee.Trello.IntegrationTests
 		}
 
 		[Test]
-		public async Task BoardRefreshWithCardsGetsCustomFieldDefinitionName()
+		public async Task BoardRefreshWithCardsGetsCustomTextFieldDefinitionName()
 		{
 			await TestEnvironment.Current.Board.EnsurePowerUp(new CustomFieldsPowerUp());
 			var card = await TestEnvironment.Current.BuildCard();
-			var fieldDef = await TestEnvironment.Current.Board.CustomFields.Add(nameof(BoardRefreshWithCardsGetsCustomFieldDefinitionName), CustomFieldType.Text);
+			var fieldDef = await TestEnvironment.Current.Board.CustomFields.Add(nameof(BoardRefreshWithCardsGetsCustomTextFieldDefinitionName), CustomFieldType.Text);
 			var field = await fieldDef.SetValueForCard(card, "test");
-			field.Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomFieldDefinitionName));
+			field.Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomTextFieldDefinitionName));
 
 			await card.Refresh();
-			card.CustomFields[0].Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomFieldDefinitionName));
+			card.CustomFields[0].Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomTextFieldDefinitionName));
 
 			await TestEnvironment.RunClean(async () =>
 				{
@@ -117,7 +117,36 @@ namespace Manatee.Trello.IntegrationTests
 						var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
 						await board.Refresh();
 
-						board.Cards[card.Id].CustomFields[0].Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomFieldDefinitionName));
+						board.Cards[card.Id].CustomFields[0].Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomTextFieldDefinitionName));
+					}
+					finally
+					{
+						Board.DownloadedFields &= ~Board.Fields.Cards;
+					}
+				});
+		}
+
+		[Test]
+		public async Task BoardRefreshWithCardsGetsCustomNumberFieldDefinitionName()
+		{
+			await TestEnvironment.Current.Board.EnsurePowerUp(new CustomFieldsPowerUp());
+			var card = await TestEnvironment.Current.BuildCard();
+			var fieldDef = await TestEnvironment.Current.Board.CustomFields.Add(nameof(BoardRefreshWithCardsGetsCustomNumberFieldDefinitionName), CustomFieldType.Number);
+			var field = await fieldDef.SetValueForCard(card, 4.5);
+			field.Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomNumberFieldDefinitionName));
+
+			await card.Refresh();
+			card.CustomFields[0].Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomNumberFieldDefinitionName));
+
+			await TestEnvironment.RunClean(async () =>
+				{
+					try
+					{
+						Board.DownloadedFields |= Board.Fields.Cards;
+						var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
+						await board.Refresh();
+
+						board.Cards[card.Id].CustomFields[0].Definition.Name.Should().Be(nameof(BoardRefreshWithCardsGetsCustomNumberFieldDefinitionName));
 					}
 					finally
 					{

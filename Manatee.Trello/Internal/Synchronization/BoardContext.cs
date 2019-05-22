@@ -281,7 +281,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			}
 			if (json.CustomFields != null)
 			{
-				CustomFields.Update(json.CustomFields.Select(a => a.GetFromCache<CustomFieldDefinition>(Auth)));
+				CustomFields.Update(json.CustomFields.Select(a => a.GetFromCache<CustomFieldDefinition, IJsonCustomFieldDefinition>(Auth, overwrite)));
 				properties.Add(nameof(Board.CustomFields));
 			}
 			if (json.Labels != null)

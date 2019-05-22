@@ -196,19 +196,23 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task Issue277_SetCustomFieldInBrowser()
 		{
-			var card = TestEnvironment.Current.Factory.Card("KU54lK54");
-			await card.Refresh();
+			await TestEnvironment.RunClean(async () =>
+				{
+					var card = TestEnvironment.Current.Factory.Card("KU54lK54");
+					await card.Refresh();
+					await card.Board.Refresh();
 
-			// client way
-			decimal.TryParse(card.CustomFields.First(x => x.Definition.Name.ToLower() == "field #1")
-			    .ToString()
-			    .Split('-')[1].Trim(), out var fieldValue);
+					// client way
+					decimal.TryParse(card.CustomFields.First(x => x.Definition.Name.ToLower() == "field #1")
+					                     .ToString()
+					                     .Split('-')[1].Trim(), out var fieldValue);
 
-			fieldValue.Should().Be(5.8m);
+					fieldValue.Should().Be(5.8m);
 
-			// via field
-			var field = card.CustomFields.First(x => x.Definition.Name.ToLower() == "field #1") as NumberField;
-			field.Value.Should().Be(5.8);
+					// via field
+					var field = card.CustomFields.First(x => x.Definition.Name.ToLower() == "field #1") as NumberField;
+					field.Value.Should().Be(5.8);
+				});
 		}
 
 		[Test]
