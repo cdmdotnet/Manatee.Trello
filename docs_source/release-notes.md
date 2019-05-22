@@ -1,3 +1,11 @@
+# 3.8.1
+
+*Released on 17 Apr, 2019*
+
+<span id="patch">patch</span> 
+
+([#292](https://github.com/gregsdennis/Manatee.Trello/issues/292)) (again) Custom field names not downloaded as part of board refresh.  Culprit was that the JSON for the board's custom fields collection wasn't being merged when the collection was updated, so items were added but not updated.
+
 # 3.8.0
 
 *Released on 17 Apr, 2019*
