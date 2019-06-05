@@ -140,6 +140,7 @@ namespace Manatee.Trello
 		private readonly Field<string> _shortUrl;
 		private readonly BoardContext _context;
 
+		private bool _validateId = true;
 		private string _id;
 		private DateTime? _creation;
 		private static Fields _downloadedFields;
@@ -204,7 +205,7 @@ namespace Manatee.Trello
 		{
 			get
 			{
-				if (!_context.HasValidId)
+				if (_validateId && !_context.HasValidId)
 					_context.Synchronize(true, CancellationToken.None).Wait();
 				return _id;
 			}
@@ -472,11 +473,13 @@ namespace Manatee.Trello
 
 		private void Synchronized(IEnumerable<string> properties)
 		{
-			if (Id != _context.Data.Id)
+			_validateId = false;
+			if (Id != _context.Data.Id && _context.HasValidId)
 			{
 				TrelloConfiguration.Cache.Add(this);
 				Id = _context.Data.Id;
 			}
+			_validateId = true;
 
 			var handler = Updated;
 			handler?.Invoke(this, properties);
