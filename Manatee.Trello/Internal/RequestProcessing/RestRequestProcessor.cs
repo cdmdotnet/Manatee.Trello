@@ -11,19 +11,44 @@ namespace Manatee.Trello.Internal.RequestProcessing
 	{
 		private const string BaseUrl = @"https://trello.com/1";
 
-		private static IRestClient Client => TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
-
 		public static event Func<Task> LastCall;
 
 		public static Task<IRestResponse> AddRequest(IRestRequest request, CancellationToken ct)
 		{
-			return Process(() => Client.Execute(request, ct), request, ct);
+			return Process(async (r, c) => await UseIfDisposable(r, c), request, ct);
 		}
+
 		public static Task<IRestResponse> AddRequest<T>(IRestRequest request, CancellationToken ct)
 			where T : class
 		{
-			return Process(async () => await Client.Execute<T>(request, ct), request, ct);
+			return Process(async (r, c) => await UseIfDisposable<T>(r, c), request, ct);
 		}
+
+		private static async Task<IRestResponse> UseIfDisposable(IRestRequest request, CancellationToken ct)
+		{
+			var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
+			if (client is IDisposable disposableClient)
+				using (disposableClient)
+				{
+					return await client.Execute(request, ct);
+				}
+
+			return await client.Execute(request, ct);
+		}
+
+		private static async Task<IRestResponse> UseIfDisposable<T>(IRestRequest request, CancellationToken ct)
+			where T : class
+		{
+			var client = TrelloConfiguration.RestClientProvider.CreateRestClient(BaseUrl);
+			if (client is IDisposable disposableClient)
+				using (disposableClient)
+				{
+					return await client.Execute<T>(request, ct);
+				}
+
+			return await client.Execute<T>(request, ct);
+		}
+
 		public static async Task Flush()
 		{
 			if (LastCall == null) return;
@@ -33,7 +58,9 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			await Task.WhenAll(handlers.Select(h => h()));
 		}
 
-		private static async Task<IRestResponse> Process(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)
+		private static async Task<IRestResponse> Process(Func<IRestRequest, CancellationToken, Task<IRestResponse>> ask,
+			IRestRequest request,
+			CancellationToken ct)
 		{
 			IRestResponse response;
 			try
@@ -49,7 +76,10 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 			return response;
 		}
-		private static async Task<IRestResponse> Execute(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)
+
+		private static async Task<IRestResponse> Execute(Func<IRestRequest, CancellationToken, Task<IRestResponse>> ask,
+			IRestRequest request,
+			CancellationToken ct)
 		{
 			IRestResponse response;
 			if (!ct.IsCancellationRequested)
@@ -57,7 +87,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 				LogRequest(request, "Sending");
 				try
 				{
-					response = await ask();
+					response = await ask(request, ct);
 					LogResponse(response, "Received");
 				}
 				catch (Exception e)
@@ -75,10 +105,12 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 			return response;
 		}
+
 		private static void LogRequest(IRestRequest request, string action)
 		{
 			TrelloConfiguration.Log.Info("{2}: {0} {1}", request.Method, request.Resource, action);
 		}
+
 		private static void LogResponse(IRestResponse response, string action)
 		{
 			TrelloConfiguration.Log.Info("{0}: {1}", action, response.Content);
