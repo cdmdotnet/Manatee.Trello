@@ -180,6 +180,9 @@ namespace Manatee.Trello.Internal.Licensing
 
 		public static void RegisterLicense(string license)
 		{
+			if (_registeredLicense != null)
+				throw new LicenseException("License should be registered only once.  Switching licenses while running is not supported.");
+
 			var releaseDateAttribute = typeof(LicenseHelpers).GetTypeInfo()
 			                                                 .Assembly
 			                                                 .GetCustomAttribute<ReleaseDateAttribute>();
