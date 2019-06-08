@@ -1,3 +1,15 @@
+# 3.8.2
+
+*Released on XX XXX, 2019*
+
+<span id="patch">patch</span> 
+
+Added guard to prevent license from being registered multiple times.
+
+Added proper disposal of `HttpClient` and related objects.
+
+Fixed an issue where objects instantiated with short IDs (e.g. cards) call the Trello API twice during during initial refresh.
+
 # 3.8.1
 
 *Released on 17 Apr, 2019*

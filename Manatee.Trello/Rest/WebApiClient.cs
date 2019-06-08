@@ -21,7 +21,6 @@ namespace Manatee.Trello.Rest
 #endif
 		public WebApiClient(string baseUri)
 		{
-			_client = TrelloConfiguration.HttpClientFactory();
 			_baseUri = baseUri;
 		}
 
@@ -51,19 +50,20 @@ namespace Manatee.Trello.Rest
 		{
 			IRestResponse response;
 			var webRequest = (WebApiRestRequest) request;
+			var client = TrelloConfiguration.HttpClientFactory();
 			switch (request.Method)
 			{
 				case RestMethod.Get:
-					response = await ExecuteWithRetry(() => _client.GetAsync(GetFullResource(webRequest), ct));
+					response = await ExecuteWithRetry(() => client.GetAsync(GetFullResource(webRequest), ct));
 					break;
 				case RestMethod.Put:
-					response = await ExecuteWithRetry(() => _client.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
+					response = await ExecuteWithRetry(() => client.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Post:
-					response = await ExecuteWithRetry(() => _client.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
+					response = await ExecuteWithRetry(() => client.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Delete:
-					response = await ExecuteWithRetry(() => _client.DeleteAsync(GetFullResource(webRequest), ct));
+					response = await ExecuteWithRetry(() => client.DeleteAsync(GetFullResource(webRequest), ct));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -77,19 +77,20 @@ namespace Manatee.Trello.Rest
 		{
 			IRestResponse<T> response;
 			var webRequest = (WebApiRestRequest) request;
+			var client = TrelloConfiguration.HttpClientFactory();
 			switch (request.Method)
 			{
 				case RestMethod.Get:
-					response = await ExecuteWithRetry<T>(() => _client.GetAsync(GetFullResource(webRequest), ct));
+					response = await ExecuteWithRetry<T>(() => client.GetAsync(GetFullResource(webRequest), ct));
 					break;
 				case RestMethod.Put:
-					response = await ExecuteWithRetry<T>(() => _client.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
+					response = await ExecuteWithRetry<T>(() => client.PutAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Post:
-					response = await ExecuteWithRetry<T>(() => _client.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
+					response = await ExecuteWithRetry<T>(() => client.PostAsync(GetFullResource(webRequest), GetContent(webRequest), ct));
 					break;
 				case RestMethod.Delete:
-					response = await ExecuteWithRetry<T>(() => _client.DeleteAsync(GetFullResource(webRequest), ct));
+					response = await ExecuteWithRetry<T>(() => client.DeleteAsync(GetFullResource(webRequest), ct));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -126,8 +127,8 @@ namespace Manatee.Trello.Rest
 					Content = await response.Content.ReadAsStringAsync(),
 					StatusCode = response.StatusCode
 				};
-			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-			                              $"Content: {restResponse.Content}");
+			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int)response.StatusCode})\n" +
+										  $"Content: {restResponse.Content}");
 			return restResponse;
 		}
 
@@ -154,8 +155,8 @@ namespace Manatee.Trello.Rest
 					Content = await response.Content.ReadAsStringAsync(),
 					StatusCode = response.StatusCode
 				};
-			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-			                              $"Content: {restResponse.Content}");
+			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int)response.StatusCode})\n" +
+										  $"Content: {restResponse.Content}");
 			try
 			{
 				var body = restResponse.Content;
