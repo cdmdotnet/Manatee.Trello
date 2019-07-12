@@ -191,3 +191,9 @@ To run the tests, you'll need to store your user token in an environment variabl
 ### Code style and maintenance
 
 I use [Jetbrains Resharper](https://www.jetbrains.com/resharper/) in Visual Studio to maintain the code style (and for many of the other things that it does).  The solution is set up with team style settings, so if you're using Resharper the settings should automatically load.  Please follow the suggestions.
+
+### Appreciation
+
+If you've enjoyed using this library and you'd like to contribute financially but don't need a license, please use the button below.
+
+[![Donate](https://i.imgur.com/Fkk2ET1.png)](https://ko-fi.com/gregsdennis)
