@@ -24,6 +24,12 @@ namespace Manatee.Trello
 		public static readonly ActionType Unknown;
 
 		/// <summary>
+		/// Indicates a <see cref="Member"/> accepted an invitation to an Enterprise (not supported).
+		/// </summary>
+		[Display(Description = "acceptEnterpriseJoinRequest")]
+		public static readonly ActionType AcceptEnterpriseJoinRequest;
+
+		/// <summary>
 		/// Indicates a <see cref="Member"/> was added to a <see cref="Board"/>.
 		/// </summary>
 		[Display(Description = "addAdminToBoard")]
@@ -44,6 +50,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates a <see cref="Member"/> pinned a <see cref="Board"/>.
 		/// </summary>
+		// NOTE: not in Trello docs
 		[Display(Description = "addBoardsPinnedToMember")]
 		public static readonly ActionType AddBoardsPinnedToMember;
 
@@ -82,6 +89,18 @@ namespace Manatee.Trello
 		/// </summary>
 		[Display(Description = "addToOrganizationBoard")]
 		public static readonly ActionType AddToOrganizationBoard;
+
+		/// <summary>
+		/// Indicates a <see cref="Organization"/> was added to an Enterprise (not supported).
+		/// </summary>
+		[Display(Description = "addOrganizationToEnterprise")]
+		public static readonly ActionType AddOrganizationToEnterprise;
+
+		/// <summary>
+		/// Indicates a plugin (<see cref="PowerUp"/>) was added to an Enterprise (not supported) whitelist.
+		/// </summary>
+		[Display(Description = "addToEnterprisePluginWhitelist")]
+		public static readonly ActionType AddToEnterprisePluginWhitelist;
 
 		/// <summary>
 		/// Indicates a comment was added to a <see cref="Card"/>.
@@ -146,12 +165,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates a <see cref="CheckList"/> was created.
 		/// </summary>
+		// NOTE: Not in Trello docs
 		[Display(Description = "createChecklist")]
 		public static readonly ActionType CreateChecklist;
 
 		/// <summary>
 		/// Indicates a <see cref="CustomFieldDefinition"/> was created.
 		/// </summary>
+		// NOTE: Not in Trello docs
 		[Display(Description = "createCustomField")]
 		public static readonly ActionType CreateCustomField;
 
@@ -180,6 +201,27 @@ namespace Manatee.Trello
 		public static readonly ActionType CreateOrganizationInvitation;
 
 		/// <summary>
+		/// Indicates a <see cref="Member"/> was deactivated on a <see cref="Board"/>.
+		/// </summary>
+		// NOTE: Not in Trello docs
+		[Display(Description = "deactivatedMemberInBoard")]
+		public static readonly ActionType DeactivatedMemberInBoard;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was deactivated on an Enterprise (not supported).
+		/// </summary>
+		// NOTE: Not in Trello docs
+		[Display(Description = "deactivatedMemberInEnterprise")]
+		public static readonly ActionType DeactivatedMemberInEnterprise;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was deactivated on as <see cref="Organization"/>.
+		/// </summary>
+		// NOTE: Not in Trello docs
+		[Display(Description = "deactivatedMemberInOrganization")]
+		public static readonly ActionType DeactivatedMemberInOrganization;
+
+		/// <summary>
 		/// Indicates an <see cref="Attachment"/> was deleted from a <see cref="Card"/>.
 		/// </summary>
 		[Display(Description = "deleteAttachmentFromCard")]
@@ -206,6 +248,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates a <see cref="CustomFieldDefinition"/> was deleted.
 		/// </summary>
+		// NOTE: Not in Trello docs
 		[Display(Description = "deleteCustomField")]
 		public static readonly ActionType DeleteCustomField;
 
@@ -220,6 +263,12 @@ namespace Manatee.Trello
 		/// </summary>
 		[Display(Description = "deleteOrganizationInvitation")]
 		public static readonly ActionType DeleteOrganizationInvitation;
+
+		/// <summary>
+		/// Indicates a plugin (<see cref="PowerUp") whitelist was disabled for an Enterprise (not supported).
+		/// </summary>
+		[Display(Description = "disableEnterprisePluginWhitelist")]
+		public static readonly ActionType DisableEnterprisePluginWhitelist;
 
 		/// <summary>
 		/// Indicates a power-up was disabled.
@@ -238,6 +287,12 @@ namespace Manatee.Trello
 		/// </summary>
 		[Display(Description = "emailCard")]
 		public static readonly ActionType EmailCard;
+
+		/// <summary>
+		/// Indicates a plugin (<see cref="PowerUp") whitelist was enabled for an Enterprise (not supported).
+		/// </summary>
+		[Display(Description = "enableEnterprisePluginWhitelist")]
+		public static readonly ActionType EnableEnterprisePluginWhitelist;
 
 		/// <summary>
 		/// Indicates a power-up was enabled.
@@ -312,6 +367,41 @@ namespace Manatee.Trello
 		public static readonly ActionType MoveListToBoard;
 
 		/// <summary>
+		/// Indicates a <see cref="CommentReaction"/> was added.
+		/// </summary>
+		// NOTE: Not in Trello docs.
+		[Display(Description = "reactionAdded")]
+		public static readonly ActionType ReactionAdded;
+
+		/// <summary>
+		/// Indicates a <see cref="CommentReaction"/> was removed.
+		/// </summary>
+		// NOTE: Not in Trello docs.
+		[Display(Description = "reactionRemoved")]
+		public static readonly ActionType ReactionRemoved;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was reactivated on a <see cref="Board"/>.
+		/// </summary>
+		// NOTE: Not in Trello docs
+		[Display(Description = "reactivatedMemberInBoard")]
+		public static readonly ActionType ReactivatedMemberInBoard;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was reactivated on an Enterprise (not supported).
+		/// </summary>
+		// NOTE: Not in Trello docs
+		[Display(Description = "reactivatedMemberInEnterprise")]
+		public static readonly ActionType ReactivatedMemberInEnterprise;
+
+		/// <summary>
+		/// Indicates a <see cref="Member"/> was reactivated on as <see cref="Organization"/>.
+		/// </summary>
+		// NOTE: Not in Trello docs
+		[Display(Description = "reactivatedMemberInOrganization")]
+		public static readonly ActionType ReactivatedMemberInOrganization;
+
+		/// <summary>
 		/// Indicates a <see cref="Member"/> was removed as an admin from a <see cref="Board"/>.
 		/// </summary>
 		[Display(Description = "removeAdminFromBoard")]
@@ -326,6 +416,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates an <see cref="Member"/> unpinnned a <see cref="Board"/>.
 		/// </summary>
+		// NOTE: Not in Trello docs
 		[Display(Description = "removeBoardsPinnedFromMember")]
 		public static readonly ActionType RemoveBoardsPinnedFromMember;
 
@@ -334,6 +425,12 @@ namespace Manatee.Trello
 		/// </summary>
 		[Display(Description = "removeChecklistFromCard")]
 		public static readonly ActionType RemoveChecklistFromCard;
+
+		/// <summary>
+		/// Indicates a plugin (<see cref="PowerUp") was removed from an Enterprise (not supported) whitelist.
+		/// </summary>
+		[Display(Description = "removeFromEnterprisePluginWhitelist")]
+		public static readonly ActionType RemoveFromEnterprisePluginWhitelist;
 
 		/// <summary>
 		/// Indicates an <see cref="Organization"/> was removed from a <see cref="Board"/>.
@@ -364,6 +461,12 @@ namespace Manatee.Trello
 		/// </summary>
 		[Display(Description = "removeMemberFromOrganization")]
 		public static readonly ActionType RemoveMemberFromOrganization;
+
+		/// <summary>
+		/// Indicates an <see cref="Organization"/> was removed from an Enterprise (not supported).
+		/// </summary>
+		[Display(Description = "removeOrganizationFromEnterprise")]
+		public static readonly ActionType RemoveOrganizationFromEnterprise;
 
 		/// <summary>
 		/// Indicates an invitation to a <see cref="Board"/> was created.
@@ -404,12 +507,14 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates that a <see cref="CustomField"/> was updated.
 		/// </summary>
+		// NOTE: Not in Trello docs
 		[Display(Description = "updateCustomField")]
 		public static readonly ActionType UpdateCustomField;
 
 		/// <summary>
 		/// Indicates that a <see cref="CustomField"/> was updated.
 		/// </summary>
+		// NOTE: Not in Trello docs
 		[Display(Description = "updateCustomFieldItem")]
 		public static readonly ActionType UpdateCustomFieldItem;
 

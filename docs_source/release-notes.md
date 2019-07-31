@@ -1,3 +1,9 @@
+# 3.9.0
+
+*Released on 1 Aug, 2019*
+
+Added new action types, some of which are *not* listed in their documentation.
+
 # 3.8.1
 
 *Released on 17 Apr, 2019*
