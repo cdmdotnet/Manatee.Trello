@@ -535,6 +535,12 @@ references:
   commentId: T:Manatee.Trello.ActionType
   fullName: Manatee.Trello.ActionType
   nameWithType: ActionType
+- uid: Manatee.Trello.ActionType.AcceptEnterpriseJoinRequest
+  name: AcceptEnterpriseJoinRequest
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_AcceptEnterpriseJoinRequest
+  commentId: F:Manatee.Trello.ActionType.AcceptEnterpriseJoinRequest
+  fullName: Manatee.Trello.ActionType.AcceptEnterpriseJoinRequest
+  nameWithType: ActionType.AcceptEnterpriseJoinRequest
 - uid: Manatee.Trello.ActionType.AddAdminToBoard
   name: AddAdminToBoard
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_AddAdminToBoard
@@ -589,6 +595,18 @@ references:
   commentId: F:Manatee.Trello.ActionType.AddMemberToOrganization
   fullName: Manatee.Trello.ActionType.AddMemberToOrganization
   nameWithType: ActionType.AddMemberToOrganization
+- uid: Manatee.Trello.ActionType.AddOrganizationToEnterprise
+  name: AddOrganizationToEnterprise
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_AddOrganizationToEnterprise
+  commentId: F:Manatee.Trello.ActionType.AddOrganizationToEnterprise
+  fullName: Manatee.Trello.ActionType.AddOrganizationToEnterprise
+  nameWithType: ActionType.AddOrganizationToEnterprise
+- uid: Manatee.Trello.ActionType.AddToEnterprisePluginWhitelist
+  name: AddToEnterprisePluginWhitelist
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_AddToEnterprisePluginWhitelist
+  commentId: F:Manatee.Trello.ActionType.AddToEnterprisePluginWhitelist
+  fullName: Manatee.Trello.ActionType.AddToEnterprisePluginWhitelist
+  nameWithType: ActionType.AddToEnterprisePluginWhitelist
 - uid: Manatee.Trello.ActionType.AddToOrganizationBoard
   name: AddToOrganizationBoard
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_AddToOrganizationBoard
@@ -717,6 +735,24 @@ references:
   commentId: F:Manatee.Trello.ActionType.CreateOrganizationInvitation
   fullName: Manatee.Trello.ActionType.CreateOrganizationInvitation
   nameWithType: ActionType.CreateOrganizationInvitation
+- uid: Manatee.Trello.ActionType.DeactivatedMemberInBoard
+  name: DeactivatedMemberInBoard
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_DeactivatedMemberInBoard
+  commentId: F:Manatee.Trello.ActionType.DeactivatedMemberInBoard
+  fullName: Manatee.Trello.ActionType.DeactivatedMemberInBoard
+  nameWithType: ActionType.DeactivatedMemberInBoard
+- uid: Manatee.Trello.ActionType.DeactivatedMemberInEnterprise
+  name: DeactivatedMemberInEnterprise
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_DeactivatedMemberInEnterprise
+  commentId: F:Manatee.Trello.ActionType.DeactivatedMemberInEnterprise
+  fullName: Manatee.Trello.ActionType.DeactivatedMemberInEnterprise
+  nameWithType: ActionType.DeactivatedMemberInEnterprise
+- uid: Manatee.Trello.ActionType.DeactivatedMemberInOrganization
+  name: DeactivatedMemberInOrganization
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_DeactivatedMemberInOrganization
+  commentId: F:Manatee.Trello.ActionType.DeactivatedMemberInOrganization
+  fullName: Manatee.Trello.ActionType.DeactivatedMemberInOrganization
+  nameWithType: ActionType.DeactivatedMemberInOrganization
 - uid: Manatee.Trello.ActionType.DefaultForCardActions
   name: DefaultForCardActions
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_DefaultForCardActions
@@ -772,6 +808,12 @@ references:
   commentId: F:Manatee.Trello.ActionType.DeleteOrganizationInvitation
   fullName: Manatee.Trello.ActionType.DeleteOrganizationInvitation
   nameWithType: ActionType.DeleteOrganizationInvitation
+- uid: Manatee.Trello.ActionType.DisableEnterprisePluginWhitelist
+  name: DisableEnterprisePluginWhitelist
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_DisableEnterprisePluginWhitelist
+  commentId: F:Manatee.Trello.ActionType.DisableEnterprisePluginWhitelist
+  fullName: Manatee.Trello.ActionType.DisableEnterprisePluginWhitelist
+  nameWithType: ActionType.DisableEnterprisePluginWhitelist
 - uid: Manatee.Trello.ActionType.DisablePlugin
   name: DisablePlugin
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_DisablePlugin
@@ -790,6 +832,12 @@ references:
   commentId: F:Manatee.Trello.ActionType.EmailCard
   fullName: Manatee.Trello.ActionType.EmailCard
   nameWithType: ActionType.EmailCard
+- uid: Manatee.Trello.ActionType.EnableEnterprisePluginWhitelist
+  name: EnableEnterprisePluginWhitelist
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_EnableEnterprisePluginWhitelist
+  commentId: F:Manatee.Trello.ActionType.EnableEnterprisePluginWhitelist
+  fullName: Manatee.Trello.ActionType.EnableEnterprisePluginWhitelist
+  nameWithType: ActionType.EnableEnterprisePluginWhitelist
 - uid: Manatee.Trello.ActionType.EnablePlugin
   name: EnablePlugin
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_EnablePlugin
@@ -1024,6 +1072,36 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ActionType.Inequality
   nameWithType: ActionType.Inequality
+- uid: Manatee.Trello.ActionType.ReactionAdded
+  name: ReactionAdded
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_ReactionAdded
+  commentId: F:Manatee.Trello.ActionType.ReactionAdded
+  fullName: Manatee.Trello.ActionType.ReactionAdded
+  nameWithType: ActionType.ReactionAdded
+- uid: Manatee.Trello.ActionType.ReactionRemoved
+  name: ReactionRemoved
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_ReactionRemoved
+  commentId: F:Manatee.Trello.ActionType.ReactionRemoved
+  fullName: Manatee.Trello.ActionType.ReactionRemoved
+  nameWithType: ActionType.ReactionRemoved
+- uid: Manatee.Trello.ActionType.ReactivatedMemberInBoard
+  name: ReactivatedMemberInBoard
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_ReactivatedMemberInBoard
+  commentId: F:Manatee.Trello.ActionType.ReactivatedMemberInBoard
+  fullName: Manatee.Trello.ActionType.ReactivatedMemberInBoard
+  nameWithType: ActionType.ReactivatedMemberInBoard
+- uid: Manatee.Trello.ActionType.ReactivatedMemberInEnterprise
+  name: ReactivatedMemberInEnterprise
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_ReactivatedMemberInEnterprise
+  commentId: F:Manatee.Trello.ActionType.ReactivatedMemberInEnterprise
+  fullName: Manatee.Trello.ActionType.ReactivatedMemberInEnterprise
+  nameWithType: ActionType.ReactivatedMemberInEnterprise
+- uid: Manatee.Trello.ActionType.ReactivatedMemberInOrganization
+  name: ReactivatedMemberInOrganization
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_ReactivatedMemberInOrganization
+  commentId: F:Manatee.Trello.ActionType.ReactivatedMemberInOrganization
+  fullName: Manatee.Trello.ActionType.ReactivatedMemberInOrganization
+  nameWithType: ActionType.ReactivatedMemberInOrganization
 - uid: Manatee.Trello.ActionType.RemoveAdminFromBoard
   name: RemoveAdminFromBoard
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_RemoveAdminFromBoard
@@ -1048,6 +1126,12 @@ references:
   commentId: F:Manatee.Trello.ActionType.RemoveChecklistFromCard
   fullName: Manatee.Trello.ActionType.RemoveChecklistFromCard
   nameWithType: ActionType.RemoveChecklistFromCard
+- uid: Manatee.Trello.ActionType.RemoveFromEnterprisePluginWhitelist
+  name: RemoveFromEnterprisePluginWhitelist
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_RemoveFromEnterprisePluginWhitelist
+  commentId: F:Manatee.Trello.ActionType.RemoveFromEnterprisePluginWhitelist
+  fullName: Manatee.Trello.ActionType.RemoveFromEnterprisePluginWhitelist
+  nameWithType: ActionType.RemoveFromEnterprisePluginWhitelist
 - uid: Manatee.Trello.ActionType.RemoveFromOrganizationBoard
   name: RemoveFromOrganizationBoard
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_RemoveFromOrganizationBoard
@@ -1078,6 +1162,12 @@ references:
   commentId: F:Manatee.Trello.ActionType.RemoveMemberFromOrganization
   fullName: Manatee.Trello.ActionType.RemoveMemberFromOrganization
   nameWithType: ActionType.RemoveMemberFromOrganization
+- uid: Manatee.Trello.ActionType.RemoveOrganizationFromEnterprise
+  name: RemoveOrganizationFromEnterprise
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_RemoveOrganizationFromEnterprise
+  commentId: F:Manatee.Trello.ActionType.RemoveOrganizationFromEnterprise
+  fullName: Manatee.Trello.ActionType.RemoveOrganizationFromEnterprise
+  nameWithType: ActionType.RemoveOrganizationFromEnterprise
 - uid: Manatee.Trello.ActionType.System#IComparable#CompareTo(System.Object)
   name: IComparable.CompareTo(Object)
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_System_IComparable_CompareTo_System_Object_
@@ -33049,6 +33139,18 @@ references:
   commentId: F:Manatee.Trello.NotificationType.MentionedOnCard
   fullName: Manatee.Trello.NotificationType.MentionedOnCard
   nameWithType: NotificationType.MentionedOnCard
+- uid: Manatee.Trello.NotificationType.ReactionAdded
+  name: ReactionAdded
+  href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_ReactionAdded
+  commentId: F:Manatee.Trello.NotificationType.ReactionAdded
+  fullName: Manatee.Trello.NotificationType.ReactionAdded
+  nameWithType: NotificationType.ReactionAdded
+- uid: Manatee.Trello.NotificationType.ReactionRemoved
+  name: ReactionRemoved
+  href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_ReactionRemoved
+  commentId: F:Manatee.Trello.NotificationType.ReactionRemoved
+  fullName: Manatee.Trello.NotificationType.ReactionRemoved
+  nameWithType: NotificationType.ReactionRemoved
 - uid: Manatee.Trello.NotificationType.RemovedFromBoard
   name: RemovedFromBoard
   href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_RemovedFromBoard

@@ -10,17 +10,11 @@
 *.sln.docstates
 *.vcxproj.filters
 
-# AutoWiki
-AutoWiki/
-
-# jekyll docs
-docs/_site/
-docs/**/*.dll
-docs/**/*.pdb
-docs/**/*.xml
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+
+# Documentation tools
+docfx.*/
 
 # Build results
 [Dd]ebug/
