@@ -97,7 +97,7 @@ namespace Manatee.Trello
 		public static readonly ActionType AddOrganizationToEnterprise;
 
 		/// <summary>
-		/// Indicates a plugin (<see cref="PowerUp"/>) was added to an Enterprise (not supported) whitelist.
+		/// Indicates a plugin (<see cref="PowerUpBase"/>) was added to an Enterprise (not supported) whitelist.
 		/// </summary>
 		[Display(Description = "addToEnterprisePluginWhitelist")]
 		public static readonly ActionType AddToEnterprisePluginWhitelist;
@@ -265,7 +265,7 @@ namespace Manatee.Trello
 		public static readonly ActionType DeleteOrganizationInvitation;
 
 		/// <summary>
-		/// Indicates a plugin (<see cref="PowerUp") whitelist was disabled for an Enterprise (not supported).
+		/// Indicates a plugin (<see cref="PowerUpBase"/>) whitelist was disabled for an Enterprise (not supported).
 		/// </summary>
 		[Display(Description = "disableEnterprisePluginWhitelist")]
 		public static readonly ActionType DisableEnterprisePluginWhitelist;
@@ -289,7 +289,7 @@ namespace Manatee.Trello
 		public static readonly ActionType EmailCard;
 
 		/// <summary>
-		/// Indicates a plugin (<see cref="PowerUp") whitelist was enabled for an Enterprise (not supported).
+		/// Indicates a plugin (<see cref="PowerUpBase"/>) whitelist was enabled for an Enterprise (not supported).
 		/// </summary>
 		[Display(Description = "enableEnterprisePluginWhitelist")]
 		public static readonly ActionType EnableEnterprisePluginWhitelist;
@@ -427,7 +427,7 @@ namespace Manatee.Trello
 		public static readonly ActionType RemoveChecklistFromCard;
 
 		/// <summary>
-		/// Indicates a plugin (<see cref="PowerUp") was removed from an Enterprise (not supported) whitelist.
+		/// Indicates a plugin (<see cref="PowerUpBase"/>) was removed from an Enterprise (not supported) whitelist.
 		/// </summary>
 		[Display(Description = "removeFromEnterprisePluginWhitelist")]
 		public static readonly ActionType RemoveFromEnterprisePluginWhitelist;

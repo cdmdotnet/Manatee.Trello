@@ -124,9 +124,19 @@ namespace Manatee.Trello
 		[Display(Description = "memberJoinedTrello")]
 		MemberJoinedTrello = 1 << 21,
 		/// <summary>
+		/// Indicates the current member joined Trello.
+		/// </summary>
+		[Display(Description = "reactionAdded")]
+		ReactionAdded = 1 << 22,
+		/// <summary>
+		/// Indicates the current member joined Trello.
+		/// </summary>
+		[Display(Description = "reactionRemoved")]
+		ReactionRemoved = 1 << 23,
+		/// <summary>
 		/// Indicates all notification types.
 		/// </summary>
 		[Display(Description="all")]
-		All = (1 << 22) - 1,
+		All = (1 << 24) - 1,
 	}
 }

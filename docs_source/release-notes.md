@@ -1,3 +1,9 @@
+# 3.10.0
+
+*Released on 6 Aug, 2019*
+
+Added new notification types which correspond with the action types added in 3.9.0, some of which are *not* listed in their documentation.
+
 # 3.9.0
 
 *Released on 1 Aug, 2019*
