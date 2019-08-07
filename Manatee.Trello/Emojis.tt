@@ -39,7 +39,7 @@ namespace Manatee.Trello
 		{
 #>
 		/// <summary>
-		/// <see cref="Emoji"/> for "<#= e.ShortName #>".
+		/// <see cref="Emoji"/> for `:<#= e.ShortName #>:` <#= e.Native #>.
 		/// </summary>
 		public static readonly Emoji <#= CSharpize(e.ShortName) #> = new Emoji(
 			<#= Stringify(e.Unified) #>,
@@ -62,7 +62,7 @@ namespace Manatee.Trello
 				{
 #>
 		/// <summary>
-		/// <see cref="Emoji"/> for "<#= e.ShortName #>".
+		/// <see cref="Emoji"/> for `:<#= e.ShortName #>::<#= GetSkinVariationText(v.Unified) #>:`.
 		/// </summary>
 		public static readonly Emoji <#= CSharpize(e.ShortName) #>_<#= GetSkinVariationType(v.Unified).Split('.')[1] #> = new Emoji(
 			<#= Stringify(v.Unified) #>,
@@ -180,6 +180,22 @@ namespace Manatee.Trello
 			case "1F3FE": return "SkinVariationType.MediumDark";
 			case "1F3FF": return "SkinVariationType.Dark";
 			default: return "SkinVariationType.None";
+		}
+	}
+
+	public string GetSkinVariationText(string unified)
+	{
+		var parts = unified.Split('-');
+		if (parts.Length < 2) return "SkinVariationType.None";
+
+		switch (parts[1])
+		{
+			case "1F3FB": return "skin-tone-2";
+			case "1F3FC": return "skin-tone-3";
+			case "1F3FD": return "skin-tone-4";
+			case "1F3FE": return "skin-tone-5";
+			case "1F3FF": return "skin-tone-6";
+			default: return string.Empty;
 		}
 	}
 
