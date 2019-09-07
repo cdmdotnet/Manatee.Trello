@@ -1,3 +1,9 @@
+# 3.10.1
+
+*Released on 7 Sept, 2019*
+
+([#306](https://github.com/gregsdennis/Manatee.Trello/issues/306)) Fixes a performance issue when consistency processing is disabled.
+
 # 3.10.0
 
 *Released on 6 Aug, 2019*
