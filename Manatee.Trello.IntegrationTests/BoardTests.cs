@@ -87,14 +87,14 @@ namespace Manatee.Trello.IntegrationTests
 
 						Board.DownloadedFields |= Board.Fields.Cards;
 
-						var board = TestEnvironment.Current.Board;
 						var card = await TestEnvironment.Current.BuildCard();
 						var listName = card.List.Name;
 
-						board.Lists[listName].Should().BeNull();
 						TrelloConfiguration.EnableConsistencyProcessing = true;
 						TrelloConfiguration.Cache.Remove(card);
+						TrelloConfiguration.Cache.Remove(card.List);
 
+						var board = TestEnvironment.Current.Factory.Board(TestEnvironment.Current.Board.Id);
 						await board.Refresh(true);
 
 						board.Lists[listName].Cards.Should().NotBeEmpty();

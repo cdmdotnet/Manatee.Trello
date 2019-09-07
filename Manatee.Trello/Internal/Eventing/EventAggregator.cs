@@ -53,6 +53,8 @@ namespace Manatee.Trello.Internal.Eventing
 
 		public static void Subscribe(IHandle subscriber)
 		{
+			if (!TrelloConfiguration.EnableConsistencyProcessing) return;
+
 			if (subscriber == null) throw new ArgumentNullException(nameof(subscriber));
 
 			lock (Handlers)
@@ -65,6 +67,8 @@ namespace Manatee.Trello.Internal.Eventing
 
 		public static void Unsubscribe(IHandle subscriber)
 		{
+			if (!TrelloConfiguration.EnableConsistencyProcessing) return;
+
 			if (subscriber == null) throw new ArgumentNullException(nameof(subscriber));
 
 			lock (Handlers)
@@ -78,6 +82,8 @@ namespace Manatee.Trello.Internal.Eventing
 
 		public static void Publish(object message)
 		{
+			if (!TrelloConfiguration.EnableConsistencyProcessing) return;
+
 			if (message == null) throw new ArgumentNullException(nameof(message));
 
 			Handler[] toNotify;
