@@ -1,12 +1,11 @@
 # Manatee.Trello
 
-[![NuGet version (Manatee.Trello)](https://img.shields.io/nuget/v/Manatee.Trello.svg?svg=true)](https://www.nuget.org/packages/Manatee.Trello/)
+[![NuGet version](https://img.shields.io/nuget/v/Manatee.Trello.svg?svg=true)](https://www.nuget.org/packages/Manatee.Trello/)
 [![Build status](https://ci.appveyor.com/api/projects/status/qdlvb960nc7eik2w/branch/master?svg=true)](https://ci.appveyor.com/project/gregsdennis/manatee-trello/branch/master)
 [![AppVeyor tests](https://img.shields.io/appveyor/tests/gregsdennis/manatee-trello?svg=true)](https://ci.appveyor.com/project/gregsdennis/manatee-trello/branch/master)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/gregsdennis/Manatee.Trello.svg)](http://isitmaintained.com/project/gregsdennis/Manatee.Trello "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/gregsdennis/Manatee.Trello.svg)](http://isitmaintained.com/project/gregsdennis/Manatee.Trello "Average time to resolve an issue")
-
-![GitHub](https://img.shields.io/github/license/gregsdennis/Manatee.Trello)
+![License](https://img.shields.io/github/license/gregsdennis/Manatee.Trello)
 
 <a href="https://join.slack.com/t/manateeopensource/shared_invite/enQtMzU4MjgzMjgyNzU3LWQ0ODM5ZTVhMTVhODY1Mjk5MTIxMjgxZjI2NWRiZWZkYmExMDM0MDRjNGE4OWRkMjYxMTc1M2ViMTZiYzM0OTI"><img src="/Resources/Slack_RGB.svg" alt="Discuss on Slack" title="Discuss on Slack" height="75"></a>
 <a href="http://www.jetbrains.com/resharper"><img src="/Resources/Resharper.svg" alt="Made with Jetbrains Resharper" title="Made with Jetbrains Resharper" height="75"></a>
