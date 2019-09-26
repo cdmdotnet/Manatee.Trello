@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.IntegrationTests
 {
 	[TestFixture]
-	[Ignore("These tests are here for posterity, but the scenarios need to be included in whatever test suite is written.")]
+	[Ignore("These tests are here for posterity, but they need to be rewritten to work with the newer test suite.")]
 	public class ClientTestsOfAntiquity
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
