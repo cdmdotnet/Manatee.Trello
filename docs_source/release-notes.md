@@ -2,7 +2,7 @@
 
 *Released on 25 Sept, 2019*
 
-([#310](https://github.com/gregsdennis/Manatee.Trello/issues/310)) Trello board download returns error: `invalid value for plugins`.  Trello recently started validating this as one of `[none, enabled, available, all]`, though what Manatee.Trello was passing (`true`) seemed to have been working.  This update changes the passed value to `enabled`, which was the originally intended functionality.
+([#310](https://github.com/gregsdennis/Manatee.Trello/issues/310)) Trello board download returns error: `invalid value for plugins`.  Trello recently started validating this as one of `[none, enabled, available, all]`, though what Manatee.Trello was passing (`true`) seemed to have been working.  This update changes the passed value to `enabled`, which was the originally intended functionality.  Also see [this issue filed with Trello](https://community.developer.atlassian.com/t/custom-fields-in-the-api-broken/32133?u=gregsdennis).
 
 # 3.10.1
 
