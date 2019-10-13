@@ -70,8 +70,6 @@ Features:
     - Webhooks
         - Add/Edit/Delete
 
-The free version will permit 300 downloads and 300 uploads per hour.  If you need more than this, please consider [purchasing a license](usage/licensing.html).
-
 # Who uses Manatee.Trello?
 
 <div class="image-row image-center">

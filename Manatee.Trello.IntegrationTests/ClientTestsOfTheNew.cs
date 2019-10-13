@@ -238,5 +238,30 @@ namespace Manatee.Trello.IntegrationTests
 					card.Actions.Count().Should().BeGreaterThan(actionCount);
 				});
 		}
+
+		[Test]
+		public async Task MovingACard()
+		{
+			var board = TestEnvironment.Current.Board;
+
+			async Task MoveCard(string cardId, string listId)
+			{
+				await board.Refresh(true);
+				var card = TestEnvironment.Current.Factory.Card(cardId);
+				var list = board.Lists.FirstOrDefault(x => x.Id == listId);
+
+				if (card == null || list == null)
+					return;
+
+				card.List = list;
+			}
+
+			var testCard = await TestEnvironment.Current.BuildCard();
+			var destinationList = await TestEnvironment.Current.BuildList(nameof(MovingACard) + " Destination");
+
+			await MoveCard(testCard.Id, destinationList.Id);
+
+			await TrelloProcessor.Flush();
+		}
 	}
 }

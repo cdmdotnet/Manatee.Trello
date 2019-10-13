@@ -69,18 +69,11 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="licensing">Licensing</h1>
 
-<p>Out of the box, Manatee.Trello supports 300 downloads and 300 uploads per hour.  If more activity is required for your application, please purchase a license.</p>
-<p>Licenses come in three varieties:</p>
-<ul>
-<li><strong>Open Source Development</strong> - Free licenses may be issued for projects that are developed openly and made free to the public.</li>
-<li><strong>Single Developer</strong> - For individual developers <em>US $99 annually</em></li>
-<li><strong>Site-wide</strong> - For multiple developers within a single domain <em>US $799 annually</em></li>
-</ul>
-<p>Annual licenses are valid for all major versions released within a calendar year of the date of purchase.</p>
-<p>In addition to unlimited calls to Trello, license holder will also receive priority support for any identified bugs and features requests.</p>
-<p>Please feel free to <a href="mailto:gregsdennis@yahoo.com">email me</a> with your licensing needs.</p>
+<p>As of v3.10.3, licenses will no longer be required.  For previous versions, please use the following key, which will remove all imposed limitations.</p>
+<pre><code>656622119-qUT8+J05IvRlosEnAaIZTsGeQBA7mcVNDiTaW49xIOgOq6O/Ay5z9dVFK0dJaQaalYMPLtMj5NeajqSG/Rmkykbi1a13COTZoy15wajYcG/SkcD1eWFwmWFR5ucBWwPOcjhJPfIoofUwe2qhaPd9CEcSayv2zlUlBlSSqI0cM1t7IklkIjo2NTY2MjIxMTksIkV4cGlyeURhdGUiOiIyMDIwLTA4LTAxVDAwOjAwOjAwIiwiVHlwZSI6IlRyZWxsb0J1c2luZXNzIn0=
+</code></pre>
 <h2 id="applying-your-license">Applying your license</h2>
-<p>Once you have acquired a license file, you'll need to register it with Manatee.Trello.  To do that, first read in the file content, the pass that content to the <code>License.RegisterLicense()</code> static method.</p>
+<p>To register your license key, the pass the content to the <code>License.RegisterLicense()</code> static method.</p>
 <pre><code class="lang-csharp">var content = File.ReadAllText(&quot;[path to your license file]&quot;);
 License.RegisterLicense(content);
 </code></pre>

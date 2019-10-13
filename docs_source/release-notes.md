@@ -1,3 +1,13 @@
+# 3.10.3
+
+*Released on 25 Sept, 2019*
+
+Marked `License` class obsolete.  Please use the following license key with this and previous versions until a new major version is release, removing the `License` class
+
+```
+656622119-qUT8+J05IvRlosEnAaIZTsGeQBA7mcVNDiTaW49xIOgOq6O/Ay5z9dVFK0dJaQaalYMPLtMj5NeajqSG/Rmkykbi1a13COTZoy15wajYcG/SkcD1eWFwmWFR5ucBWwPOcjhJPfIoofUwe2qhaPd9CEcSayv2zlUlBlSSqI0cM1t7IklkIjo2NTY2MjIxMTksIkV4cGlyeURhdGUiOiIyMDIwLTA4LTAxVDAwOjAwOjAwIiwiVHlwZSI6IlRyZWxsb0J1c2luZXNzIn0=
+```
+
 # 3.10.2
 
 *Released on 25 Sept, 2019*

@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal;
 using Manatee.Trello.Internal.DataAccess;
-using Manatee.Trello.Internal.Licensing;
 using Manatee.Trello.Internal.RequestProcessing;
 using Manatee.Trello.Json;
 
@@ -18,9 +17,9 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Signals the processor that the application is shutting down.  The processor will perform a "last call" for pending requests.
 		/// </summary>
-		public static async Task Flush()
+		public static Task Flush()
 		{
-			await LicenseHelpers.Batch(RestRequestProcessor.Flush());
+			return RestRequestProcessor.Flush();
 		}
 
 		/// <summary>
@@ -30,7 +29,6 @@ namespace Manatee.Trello
 		/// <param name="auth">The <see cref="TrelloAuthorization"/> under which the notification should be processed</param>
 		public static void ProcessNotification(string content, TrelloAuthorization auth = null)
 		{
-			LicenseHelpers.IncrementAndCheckRetrieveCount();
 			var notification = TrelloConfiguration.Deserializer.Deserialize<IJsonWebhookNotification>(content);
 			var action = new Action(notification.Action, auth);
 
@@ -57,7 +55,7 @@ namespace Manatee.Trello
 			                                               .GroupBy(gc => gc.index / 10, gc => gc.entity)
 			                                               .Select(g => g.ToList()));
 
-			return LicenseHelpers.Batch(Task.WhenAll(batches.Select(g => _RefreshBatch(g, ct))));
+			return Task.WhenAll(batches.Select(g => _RefreshBatch(g, ct)));
 		}
 
 		private static async Task _RefreshBatch(List<IBatchRefresh> batch, CancellationToken ct)

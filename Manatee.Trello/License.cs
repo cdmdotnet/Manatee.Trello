@@ -5,7 +5,6 @@
 #endregion
 
 using System;
-using Manatee.Trello.Internal.Licensing;
 
 namespace Manatee.Trello
 
@@ -13,6 +12,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Manages the license used with Manatee.Trello. Please see https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html for information on purchasing a license.
 	/// </summary>
+	[Obsolete("Licenses will no longer be enforced as of this version.")]
 	public static class License
 	{
 		/// <summary>
@@ -32,20 +32,19 @@ namespace Manatee.Trello
 		/// </example>
 		public static void RegisterLicense(string license)
 		{
-			LicenseHelpers.RegisterLicense(license);
 		}
 
 		/// <summary>
 		/// Gets the number of data fetches remaining in the current session.
 		/// </summary>
-		public static long RemainingRetrievals => LicenseHelpers.MaxOperationCount - LicenseHelpers.RetrievalCount;
+		public static long RemainingRetrievals => long.MaxValue;
 		/// <summary>
 		/// Gets the number of data submissions remaining in the current session.
 		/// </summary>
-		public static long RemainingSubmissions => LicenseHelpers.MaxOperationCount - LicenseHelpers.SubmissionCount;
+		public static long RemainingSubmissions => long.MaxValue;
 		/// <summary>
 		/// Gets the time of the start of the next session.
 		/// </summary>
-		public static DateTime SessionResetTime => LicenseHelpers.SessionExpiry;
+		public static DateTime SessionResetTime => DateTime.MaxValue;
 	}
 }

@@ -1,22 +1,14 @@
 # Licensing
 
-Out of the box, Manatee.Trello supports 300 downloads and 300 uploads per hour.  If more activity is required for your application, please purchase a license.
+As of v3.10.3, licenses will no longer be required.  For previous versions, please use the following key, which will remove all imposed limitations.
 
-Licenses come in three varieties:
-
-- **Open Source Development** - Free licenses may be issued for projects that are developed openly and made free to the public.
-- **Single Developer** - For individual developers *US $99 annually*
-- **Site-wide** - For multiple developers within a single domain *US $799 annually*
-
-Annual licenses are valid for all major versions released within a calendar year of the date of purchase.
-
-In addition to unlimited calls to Trello, license holder will also receive priority support for any identified bugs and features requests.
-
-Please feel free to [email me](mailto:gregsdennis@yahoo.com) with your licensing needs.
+```
+656622119-qUT8+J05IvRlosEnAaIZTsGeQBA7mcVNDiTaW49xIOgOq6O/Ay5z9dVFK0dJaQaalYMPLtMj5NeajqSG/Rmkykbi1a13COTZoy15wajYcG/SkcD1eWFwmWFR5ucBWwPOcjhJPfIoofUwe2qhaPd9CEcSayv2zlUlBlSSqI0cM1t7IklkIjo2NTY2MjIxMTksIkV4cGlyeURhdGUiOiIyMDIwLTA4LTAxVDAwOjAwOjAwIiwiVHlwZSI6IlRyZWxsb0J1c2luZXNzIn0=
+```
 
 ## Applying your license
 
-Once you have acquired a license file, you'll need to register it with Manatee.Trello.  To do that, first read in the file content, the pass that content to the `License.RegisterLicense()` static method.
+To register your license key, the pass the content to the `License.RegisterLicense()` static method.
 
 ```csharp
 var content = File.ReadAllText("[path to your license file]");

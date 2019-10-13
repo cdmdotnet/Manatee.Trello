@@ -166,12 +166,6 @@ Features:
 
 See the [docs](https://gregsdennis.github.io/Manatee.Trello) for more information on how to use this wonderful library!
 
-## Extended use
-
-As of version 3, a [licensing model](https://gregsdennis.github.io/Manatee.Trello/usage/licensing.html) has been introduced.
-
-If you're planning on using this for your organization, please consider purchasing a license.
-
 ## Contributing
 
 If you have questions, experience problems, or feature ideas, please create an issue.

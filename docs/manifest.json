@@ -3766,18 +3766,15 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "Y7IjubwhzWToNur4ZBhfDA=="
+          "hash": "PPlWf4hXGGYXCRY7FknDyA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -3786,7 +3783,7 @@
       "output": {
         ".html": {
           "relative_path": "release-notes.html",
-          "hash": "P0ie160CasuAwPA6X1i6Xg=="
+          "hash": "/rkWNMOpI2Ofr4rHF38/3g=="
         }
       },
       "is_incremental": false,
@@ -3840,10 +3837,10 @@
       "output": {
         ".html": {
           "relative_path": "usage/licensing.html",
-          "hash": "nCRDiDNyxAzBAuMYZBD1aA=="
+          "hash": "cpzdp2h7u97y7k7NwghzHA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -3922,17 +3919,17 @@
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
           "incrementalPhase": "build"
         }
       }
