@@ -94,9 +94,6 @@
       <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html#Manatee_Trello_IReadOnlyCollection_1_Item_System_Int32_">IReadOnlyCollection&lt;IOrganizationMembership&gt;.Item[Int32]</a>
     </div>
     <div>
-      <span class="xref">System.Collections.Generic.IEnumerable&lt;Manatee.Trello.IOrganizationMembership&gt;.GetEnumerator()</span>
-    </div>
-    <div>
       <a class="xref" href="Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_System_Threading_CancellationToken_">IRefreshable.Refresh(Boolean, CancellationToken)</a>
     </div>
   </div>
@@ -104,7 +101,7 @@
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_IOrganizationMembershipCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IOrganizationMembershipCollection : IReadOnlyOrganizationMembershipCollection, IReadOnlyCollection&lt;IOrganizationMembership&gt;, IEnumerable&lt;IOrganizationMembership&gt;, IEnumerable, IRefreshable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IOrganizationMembershipCollection : IReadOnlyOrganizationMembershipCollection, IReadOnlyCollection&lt;IOrganizationMembership&gt;, IEnumerable&lt;IOrganizationMembership&gt;, IRefreshable</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -122,7 +119,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;IOrganizationMembership&gt; Add(IMember member, OrganizationMembershipType membership, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;IOrganizationMembership&gt; Add(IMember member, OrganizationMembershipType membership, CancellationToken ct = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -184,7 +181,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task Remove(IMember member, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">Task Remove(IMember member, CancellationToken ct = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

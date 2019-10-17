@@ -1168,23 +1168,6 @@ references:
   commentId: F:Manatee.Trello.ActionType.RemoveOrganizationFromEnterprise
   fullName: Manatee.Trello.ActionType.RemoveOrganizationFromEnterprise
   nameWithType: ActionType.RemoveOrganizationFromEnterprise
-- uid: Manatee.Trello.ActionType.System#IComparable#CompareTo(System.Object)
-  name: IComparable.CompareTo(Object)
-  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_System_IComparable_CompareTo_System_Object_
-  commentId: M:Manatee.Trello.ActionType.System#IComparable#CompareTo(System.Object)
-  name.vb: System.IComparable.CompareTo(Object)
-  fullName: Manatee.Trello.ActionType.System.IComparable.CompareTo(System.Object)
-  nameWithType: ActionType.IComparable.CompareTo(Object)
-  nameWithType.vb: ActionType.System.IComparable.CompareTo(Object)
-- uid: Manatee.Trello.ActionType.System#IComparable#CompareTo*
-  name: IComparable.CompareTo
-  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_System_IComparable_CompareTo_
-  commentId: Overload:Manatee.Trello.ActionType.System#IComparable#CompareTo
-  isSpec: "True"
-  name.vb: System.IComparable.CompareTo
-  fullName: Manatee.Trello.ActionType.System.IComparable.CompareTo
-  nameWithType: ActionType.IComparable.CompareTo
-  nameWithType.vb: ActionType.System.IComparable.CompareTo
 - uid: Manatee.Trello.ActionType.ToString
   name: ToString()
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_ToString
@@ -34725,25 +34708,6 @@ references:
   fullName.vb: Manatee.Trello.ReadOnlyCollection(Of T).Refresh
   nameWithType: ReadOnlyCollection<T>.Refresh
   nameWithType.vb: ReadOnlyCollection(Of T).Refresh
-- uid: Manatee.Trello.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator
-  name: IEnumerable.GetEnumerator()
-  href: api/Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_System_Collections_IEnumerable_GetEnumerator
-  commentId: M:Manatee.Trello.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator
-  name.vb: System.Collections.IEnumerable.GetEnumerator()
-  fullName: Manatee.Trello.ReadOnlyCollection<T>.System.Collections.IEnumerable.GetEnumerator()
-  fullName.vb: Manatee.Trello.ReadOnlyCollection(Of T).System.Collections.IEnumerable.GetEnumerator()
-  nameWithType: ReadOnlyCollection<T>.IEnumerable.GetEnumerator()
-  nameWithType.vb: ReadOnlyCollection(Of T).System.Collections.IEnumerable.GetEnumerator()
-- uid: Manatee.Trello.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator*
-  name: IEnumerable.GetEnumerator
-  href: api/Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_System_Collections_IEnumerable_GetEnumerator_
-  commentId: Overload:Manatee.Trello.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator
-  isSpec: "True"
-  name.vb: System.Collections.IEnumerable.GetEnumerator
-  fullName: Manatee.Trello.ReadOnlyCollection<T>.System.Collections.IEnumerable.GetEnumerator
-  fullName.vb: Manatee.Trello.ReadOnlyCollection(Of T).System.Collections.IEnumerable.GetEnumerator
-  nameWithType: ReadOnlyCollection<T>.IEnumerable.GetEnumerator
-  nameWithType.vb: ReadOnlyCollection(Of T).System.Collections.IEnumerable.GetEnumerator
 - uid: Manatee.Trello.ReadOnlyCommentReactionCollection
   name: ReadOnlyCommentReactionCollection
   href: api/Manatee.Trello.ReadOnlyCommentReactionCollection.html

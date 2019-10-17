@@ -94,9 +94,6 @@
       <a class="xref" href="Manatee.Trello.IReadOnlyCollection-1.html#Manatee_Trello_IReadOnlyCollection_1_Item_System_Int32_">IReadOnlyCollection&lt;ICard&gt;.Item[Int32]</a>
     </div>
     <div>
-      <span class="xref">System.Collections.Generic.IEnumerable&lt;Manatee.Trello.ICard&gt;.GetEnumerator()</span>
-    </div>
-    <div>
       <a class="xref" href="Manatee.Trello.IRefreshable.html#Manatee_Trello_IRefreshable_Refresh_System_Boolean_System_Threading_CancellationToken_">IRefreshable.Refresh(Boolean, CancellationToken)</a>
     </div>
   </div>
@@ -104,7 +101,7 @@
   <h6><strong>Assembly</strong>: Manatee.Trello.dll</h6>
   <h5 id="Manatee_Trello_ICardCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ICardCollection : IReadOnlyCardCollection, IReadOnlyCollection&lt;ICard&gt;, IEnumerable&lt;ICard&gt;, IEnumerable, IRefreshable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ICardCollection : IReadOnlyCardCollection, IReadOnlyCollection&lt;ICard&gt;, IEnumerable&lt;ICard&gt;, IRefreshable</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -122,7 +119,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;ICard&gt; Add(ICard source, CardCopyKeepFromSourceOptions keep = CardCopyKeepFromSourceOptions.None, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;ICard&gt; Add(ICard source, CardCopyKeepFromSourceOptions keep = default(CardCopyKeepFromSourceOptions), CancellationToken ct = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -184,7 +181,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;ICard&gt; Add(string name, string description = null, Position position = null, DateTime? dueDate = default(DateTime? ), bool? isComplete = default(bool? ), IEnumerable&lt;IMember&gt; members = null, IEnumerable&lt;ILabel&gt; labels = null, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;ICard&gt; Add(string name, string description = null, Position position = null, DateTime? dueDate = null, bool? isComplete = null, IEnumerable&lt;IMember&gt; members = null, IEnumerable&lt;ILabel&gt; labels = null, CancellationToken ct = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -276,7 +273,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;ICard&gt; Add(string name, string sourceUrl, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;ICard&gt; Add(string name, string sourceUrl, CancellationToken ct = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

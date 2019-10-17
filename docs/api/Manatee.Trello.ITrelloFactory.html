@@ -434,7 +434,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;IMe&gt; Me(CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;IMe&gt; Me(CancellationToken ct = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -543,7 +543,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IMemberSearch MemberSearch(string query, int? limit = default(int? ), IBoard board = null, IOrganization organization = null, bool? restrictToOrganization = default(bool? ), TrelloAuthorization auth = null)</code></pre>
+    <pre><code class="lang-csharp hljs">IMemberSearch MemberSearch(string query, int? limit = null, IBoard board = null, IOrganization organization = null, bool? restrictToOrganization = null, TrelloAuthorization auth = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -735,7 +735,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ISearch Search(ISearchQuery query, int? limit = default(int? ), SearchModelType modelTypes = SearchModelType.Actions | SearchModelType.Boards | SearchModelType.Cards | SearchModelType.Members | SearchModelType.Organizations | SearchModelType.All, IEnumerable&lt;IQueryable&gt; context = null, bool isPartial = false, TrelloAuthorization auth = null)</code></pre>
+    <pre><code class="lang-csharp hljs">ISearch Search(ISearchQuery query, int? limit = null, SearchModelType modelTypes = default(SearchModelType), IEnumerable&lt;IQueryable&gt; context = null, bool isPartial = false, TrelloAuthorization auth = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -815,7 +815,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ISearch Search(string query, int? limit = default(int? ), SearchModelType modelTypes = SearchModelType.Actions | SearchModelType.Boards | SearchModelType.Cards | SearchModelType.Members | SearchModelType.Organizations | SearchModelType.All, IEnumerable&lt;IQueryable&gt; context = null, bool isPartial = false, TrelloAuthorization auth = null)</code></pre>
+    <pre><code class="lang-csharp hljs">ISearch Search(string query, int? limit = null, SearchModelType modelTypes = default(SearchModelType), IEnumerable&lt;IQueryable&gt; context = null, bool isPartial = false, TrelloAuthorization auth = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -983,7 +983,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;IWebhook&lt;T&gt;&gt; Webhook&lt;T&gt;(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null, CancellationToken ct = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">Task&lt;IWebhook&lt;T&gt;&gt; Webhook&lt;T&gt;(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null, CancellationToken ct = null)
     where T : class, ICanWebhook</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
