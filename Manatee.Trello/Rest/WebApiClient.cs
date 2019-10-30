@@ -124,12 +124,13 @@ namespace Manatee.Trello.Rest
 					Content = await response.Content.ReadAsStringAsync(),
 					StatusCode = response.StatusCode
 				};
-			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-			                              $"Content: {restResponse.Content}");
+			TrelloConfiguration.Log.Info($"Status Code: {response.StatusCode} ({(int) response.StatusCode})");
+			TrelloConfiguration.Log.Debug($"\tContent: {restResponse.Content}");
 			return restResponse;
 		}
 
-		private static async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<Task<HttpResponseMessage>> call) where T : class
+		private static async Task<IRestResponse<T>> ExecuteWithRetry<T>(Func<Task<HttpResponseMessage>> call)
+			where T : class
 		{
 			IRestResponse<T> restResponse;
 			var count = 0;
@@ -143,15 +144,16 @@ namespace Manatee.Trello.Rest
 			return restResponse;
 		}
 
-		private static async Task<IRestResponse<T>> MapResponse<T>(HttpResponseMessage response) where T : class
+		private static async Task<IRestResponse<T>> MapResponse<T>(HttpResponseMessage response)
+			where T : class
 		{
 			var restResponse = new WebApiRestResponse<T>
 				{
 					Content = await response.Content.ReadAsStringAsync(),
 					StatusCode = response.StatusCode
 				};
-			TrelloConfiguration.Log.Debug($"Status Code: {response.StatusCode} ({(int) response.StatusCode})\n" +
-			                              $"Content: {restResponse.Content}");
+			TrelloConfiguration.Log.Info($"Status Code: {response.StatusCode} ({(int) response.StatusCode})");
+			TrelloConfiguration.Log.Debug($"\tContent: {restResponse.Content}");
 			try
 			{
 				var body = restResponse.Content;
@@ -182,6 +184,8 @@ namespace Manatee.Trello.Rest
 
 				var byteContent = new ByteArrayContent(request.File);
 				formData.Add(byteContent, "\"file\"", $"\"{request.FileName}\"");
+				TrelloConfiguration.Log.Debug($"\tContent: {formData}");
+
 				return formData;
 			}
 
@@ -190,15 +194,17 @@ namespace Manatee.Trello.Rest
 			var body = TrelloConfiguration.Serializer.Serialize(request.Body);
 			var jsonContent = new StringContent(body);
 			jsonContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+			TrelloConfiguration.Log.Debug($"\tContent: {body}");
 
 			return jsonContent;
 		}
 
 		private string GetFullResource(WebApiRestRequest request)
 		{
+			TrelloConfiguration.Log.Info($"Sending: {request.Method} {request.Resource}");
 			if (request.File != null)
 				return $"{_baseUri}/{request.Resource}";
-			return $"{_baseUri}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={UrlEncode(kvp.Value)}").ToList())}";
+			return $"{_baseUri}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={UrlEncode(kvp.Value)}"))}";
 		}
 
 		private void Dispose(bool disposing)

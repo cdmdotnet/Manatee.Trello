@@ -47,7 +47,7 @@ namespace Manatee.Trello
 		/// Trello imposes a limit of 10 entities per call.  Therefore this method will break all entities into batches
 		/// of 10 and make a single call for each, returning when all have completed.
 		/// </remarks>
-		public static Task Refresh(IEnumerable<IBatchRefreshable> entities, CancellationToken ct = default(CancellationToken))
+		public static Task Refresh(IEnumerable<IBatchRefreshable> entities, CancellationToken ct = default)
 		{
 			var groupedByAuth = entities.OfType<IBatchRefresh>()
 			                            .GroupBy(e => e.Auth);

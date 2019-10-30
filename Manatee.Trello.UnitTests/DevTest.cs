@@ -29,7 +29,7 @@ namespace Manatee.Trello.UnitTests
 		[Test]
 		public async Task TestMethod1()
 		{
-			TrelloConfiguration.Log = new DebugLog();
+			TrelloConfiguration.Log = new ConsoleLog();
 
 			await Run(async ct =>
 				{

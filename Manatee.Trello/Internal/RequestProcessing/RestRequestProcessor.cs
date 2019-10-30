@@ -52,11 +52,9 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			IRestResponse response;
 			if (!ct.IsCancellationRequested)
 			{
-				LogRequest(request, "Sending");
 				try
 				{
 					response = await ask();
-					LogResponse(response, "Received");
 				}
 				catch (Exception e)
 				{
@@ -67,19 +65,10 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			}
 			else
 			{
-				LogRequest(request, "Stubbing");
 				response = new NullRestResponse();
 			}
 
 			return response;
-		}
-		private static void LogRequest(IRestRequest request, string action)
-		{
-			TrelloConfiguration.Log.Info("{2}: {0} {1}", request.Method, request.Resource, action);
-		}
-		private static void LogResponse(IRestResponse response, string action)
-		{
-			TrelloConfiguration.Log.Info("{0}: {1}", action, response.Content);
 		}
 	}
 }
