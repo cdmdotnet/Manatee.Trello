@@ -54,7 +54,7 @@ namespace Manatee.Trello
 			[Display(Description="starred")]
 			Starred = 1 << 5,
 			/// <summary>
-			/// Indicates the Preferencess property should be populated.
+			/// Indicates the Preferences property should be populated.
 			/// </summary>
 			[Display(Description="prefs")]
 			Preferencess = 1 << 6,
@@ -430,7 +430,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This permanently deletes the board from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public async Task Delete(CancellationToken ct = default(CancellationToken))
+		public async Task Delete(CancellationToken ct = default)
 		{
 			await _context.Delete(ct);
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
@@ -442,7 +442,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default)
 		{
 			return _context.Synchronize(force, ct);
 		}

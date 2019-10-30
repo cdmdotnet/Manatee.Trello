@@ -14,6 +14,6 @@ namespace Manatee.Trello
 		/// <param name="data">The byte data of the file to attach.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The newly created <see cref="IBoardBackground"/>.</returns>
-		Task<IBoardBackground> Add(byte[] data, CancellationToken ct = default(CancellationToken));
+		Task<IBoardBackground> Add(byte[] data, CancellationToken ct = default);
 	}
 }

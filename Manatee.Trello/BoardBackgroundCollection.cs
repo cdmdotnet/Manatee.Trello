@@ -24,7 +24,7 @@ namespace Manatee.Trello
 		/// <param name="data">The byte data of the file to attach.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The newly created <see cref="IBoardBackground"/>.</returns>
-		public async Task<IBoardBackground> Add(byte[] data, CancellationToken ct = default(CancellationToken))
+		public async Task<IBoardBackground> Add(byte[] data, CancellationToken ct = default)
 		{
 			var parameters = new Dictionary<string, object> {{RestFile.ParameterKey, new RestFile {ContentBytes = data}}};
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_AddBoardBackground, new Dictionary<string, object> {{"_id", OwnerId}});

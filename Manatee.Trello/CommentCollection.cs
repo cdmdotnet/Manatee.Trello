@@ -25,7 +25,7 @@ namespace Manatee.Trello
 		/// <param name="text">The content of the comment.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The <see cref="IAction"/> associated with the comment.</returns>
-		public async Task<IAction> Add(string text, CancellationToken ct = default(CancellationToken))
+		public async Task<IAction> Add(string text, CancellationToken ct = default)
 		{
 			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, text);
 			if (error != null)

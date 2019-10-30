@@ -33,7 +33,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="label">The label to add.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Add(ILabel label, CancellationToken ct = default(CancellationToken))
+		public async Task Add(ILabel label, CancellationToken ct = default)
 		{
 			var error = NotNullRule<ILabel>.Instance.Validate(null, label);
 			if (error != null)
@@ -55,7 +55,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="label">The label to add.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Remove(ILabel label, CancellationToken ct = default(CancellationToken))
+		public async Task Remove(ILabel label, CancellationToken ct = default)
 		{
 			var error = NotNullRule<ILabel>.Instance.Validate(null, label);
 			if (error != null)

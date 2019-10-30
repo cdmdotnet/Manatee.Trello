@@ -31,14 +31,14 @@ namespace Manatee.Trello
 		private readonly NotificationDataContext _context;
 
 		/// <summary>
-		/// Gets an assocated attachment.
+		/// Gets an associated attachment.
 		/// </summary>
 		/// <associated-notification-types>
 		/// - AddedAttachmentToCard
 		/// </associated-notification-types>
 		public IAttachment Attachment => _attachment.Value;
 		/// <summary>
-		/// Gets an assocated board.
+		/// Gets an associated board.
 		/// </summary>
 		/// <associated-notification-types>
 		/// - AddedToBoard
@@ -49,15 +49,15 @@ namespace Manatee.Trello
 		/// </associated-notification-types>
 		public IBoard Board => _board.Value;
 		/// <summary>
-		/// Gets an assocated board.
+		/// Gets an associated board.
 		/// </summary>
 		public IBoard BoardSource => _boardSource.Value;
 		/// <summary>
-		/// Gets an assocated board.
+		/// Gets an associated board.
 		/// </summary>
 		public IBoard BoardTarget => _boardTarget.Value;
 		/// <summary>
-		/// Gets an assocated card.
+		/// Gets an associated card.
 		/// </summary>
 		/// <associated-notification-types>
 		/// - AddedAttachmentToCard
@@ -74,22 +74,22 @@ namespace Manatee.Trello
 		/// </associated-notification-types>
 		public ICard Card => _card.Value;
 		/// <summary>
-		/// Gets an assocated card.
+		/// Gets an associated card.
 		/// </summary>
 		public ICard CardSource => _cardSource.Value;
 		/// <summary>
-		/// Gets an assocated checklist item.
+		/// Gets an associated checklist item.
 		/// </summary>
 		/// <associated-notification-types>
 		/// - UpdateCheckItemStateOnCard
 		/// </associated-notification-types>
 		public ICheckItem CheckItem => _checkItem.Value;
 		/// <summary>
-		/// Gets an assocated checklist.
+		/// Gets an associated checklist.
 		/// </summary>
 		public ICheckList CheckList => _checkList.Value;
 		/// <summary>
-		/// Gets an assocated list.
+		/// Gets an associated list.
 		/// </summary>
 		public IList List => _list.Value;
 		/// <summary>
@@ -107,7 +107,7 @@ namespace Manatee.Trello
 		/// </remarks>
 		public IList ListBefore => _listBefore.Value;
 		/// <summary>
-		/// Gets an assocated member.
+		/// Gets an associated member.
 		/// </summary>
 		/// <associated-notification-types>
 		/// - AddedMemberToCard
@@ -144,7 +144,7 @@ namespace Manatee.Trello
 		/// </associated-notification-types>
 		public string OldText => _oldText.Value;
 		/// <summary>
-		/// Gets an assocated organization.
+		/// Gets an associated organization.
 		/// </summary>
 		/// <associated-notification-types>
 		/// - AddedToOrganization
@@ -154,7 +154,7 @@ namespace Manatee.Trello
 		/// </associated-notification-types>
 		public IOrganization Organization => _organization.Value;
 		/// <summary>
-		/// Gets assocated text.
+		/// Gets associated text.
 		/// </summary>
 		/// <associated-notification-types>
 		/// - CommentCard

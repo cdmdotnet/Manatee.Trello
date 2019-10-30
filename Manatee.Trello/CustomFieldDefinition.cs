@@ -105,7 +105,7 @@ namespace Manatee.Trello
 		/// Deletes the field definition.
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Delete(CancellationToken ct = default(CancellationToken))
+		public async Task Delete(CancellationToken ct = default)
 		{
 			await _context.Delete(ct);
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
@@ -117,7 +117,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default)
 		{
 			return _context.Synchronize(force, ct);
 		}
@@ -135,7 +135,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		public async Task<ICustomField<double?>> SetValueForCard(ICard card, double? value,
-		                                                         CancellationToken ct = default(CancellationToken))
+		                                                         CancellationToken ct = default)
 		{
 			NotNullRule<ICard>.Instance.Validate(null, card);
 			NullableHasValueRule<double>.Instance.Validate(null, value);
@@ -151,7 +151,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		public async Task<ICustomField<bool?>> SetValueForCard(ICard card, bool? value,
-		                                                       CancellationToken ct = default(CancellationToken))
+		                                                       CancellationToken ct = default)
 		{
 			NotNullRule<ICard>.Instance.Validate(null, card);
 			NullableHasValueRule<bool>.Instance.Validate(null, value);
@@ -167,7 +167,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		public async Task<ICustomField<string>> SetValueForCard(ICard card, string value,
-		                                                        CancellationToken ct = default(CancellationToken))
+		                                                        CancellationToken ct = default)
 		{
 			NotNullRule<ICard>.Instance.Validate(null, card);
 			NotNullRule<string>.Instance.Validate(null, value);
@@ -183,7 +183,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		public async Task<ICustomField<IDropDownOption>> SetValueForCard(ICard card, IDropDownOption value,
-		                                                                 CancellationToken ct = default(CancellationToken))
+		                                                                 CancellationToken ct = default)
 		{
 			NotNullRule<ICard>.Instance.Validate(null, card);
 			NotNullRule<IDropDownOption>.Instance.Validate(null, value);
@@ -199,7 +199,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>The custom field instance.</returns>
 		public async Task<ICustomField<DateTime?>> SetValueForCard(ICard card, DateTime? value,
-		                                                           CancellationToken ct = default(CancellationToken))
+		                                                           CancellationToken ct = default)
 		{
 			NotNullRule<ICard>.Instance.Validate(null, card);
 			NullableHasValueRule<DateTime>.Instance.Validate(null, value);

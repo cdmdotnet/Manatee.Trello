@@ -83,7 +83,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This performs a call to the API to get the member authorized by <see cref="TrelloAuthorization.Default"/>.
 		/// </remarks>
-		public async Task<IMe> Me(CancellationToken ct = default(CancellationToken))
+		public async Task<IMe> Me(CancellationToken ct = default)
 		{
 			var id = await Trello.Me.GetId(ct);
 			var me = TrelloConfiguration.Cache.Find<Me>(id) ?? new Me(id);
@@ -205,7 +205,7 @@ namespace Manatee.Trello
 		/// <returns>An <see cref="IWebhook{T}"/></returns>
 		public async Task<IWebhook<T>> Webhook<T>(T target, string callBackUrl, string description = null,
 		                                          TrelloAuthorization auth = null,
-		                                          CancellationToken ct = default(CancellationToken))
+		                                          CancellationToken ct = default)
 			where T : class, ICanWebhook
 		{
 			return await Trello.Webhook<T>.Create(target, callBackUrl, description, auth, ct);

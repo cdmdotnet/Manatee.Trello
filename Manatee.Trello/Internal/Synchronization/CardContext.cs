@@ -52,6 +52,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			               Card.Fields.IsArchived |
 			               Card.Fields.IsComplete |
 			               Card.Fields.IsSubscribed |
+			               Card.Fields.Labels |
 			               Card.Fields.List |
 			               Card.Fields.ManualCoverAttachment |
 			               Card.Fields.Name |

@@ -38,7 +38,7 @@ namespace Manatee.Trello
 		private readonly ActionDataContext _context;
 
 		/// <summary>
-		/// Gets an assocated attachment.
+		/// Gets an associated attachment.
 		/// </summary>
 		/// <associated-action-types>
 		/// - AddAttachmentToCard
@@ -46,7 +46,7 @@ namespace Manatee.Trello
 		/// </associated-action-types>
 		public IAttachment Attachment => _attachment.Value;
 		/// <summary>
-		/// Gets an assocated board.
+		/// Gets an associated board.
 		/// </summary>
 		/// <associated-action-types>
 		/// - AddMemberToBoard
@@ -62,21 +62,21 @@ namespace Manatee.Trello
 		/// </associated-action-types>
 		public IBoard Board => _board.Value;
 		/// <summary>
-		/// Gets an assocated board.
+		/// Gets an associated board.
 		/// </summary>
 		/// <associated-action-types>
 		/// - CopyBoard
 		/// </associated-action-types>
 		public IBoard BoardSource => _boardSource.Value;
 		/// <summary>
-		/// Gets an assocated board.
+		/// Gets an associated board.
 		/// </summary>
 		/// <associated-action-types>
 		/// - CopyBoardx
 		/// </associated-action-types>
 		public IBoard BoardTarget => _boardTarget.Value;
 		/// <summary>
-		/// Gets an assocated card.
+		/// Gets an associated card.
 		/// </summary>
 		/// <associated-action-types>
 		/// - AddAttachmentToCard
@@ -102,14 +102,14 @@ namespace Manatee.Trello
 		/// </associated-action-types>
 		public ICard Card => _card.Value;
 		/// <summary>
-		/// Gets an assocated card.
+		/// Gets an associated card.
 		/// </summary>
 		/// <associated-action-types>
 		/// - CopyCard
 		/// </associated-action-types>
 		public ICard CardSource => _cardSource.Value;
 		/// <summary>
-		/// Gets an assocated checklist item.
+		/// Gets an associated checklist item.
 		/// </summary>
 		/// <associated-action-types>
 		/// - ConvertToCardFromCheckItem
@@ -117,7 +117,7 @@ namespace Manatee.Trello
 		/// </associated-action-types>
 		public ICheckItem CheckItem => _checkItem.Value;
 		/// <summary>
-		/// Gets an assocated checklist.
+		/// Gets an associated checklist.
 		/// </summary>
 		/// <associated-action-types>
 		/// - AddChecklistToCard
@@ -149,7 +149,7 @@ namespace Manatee.Trello
 		/// </summary>
 		public DateTime? LastEdited => _lastEdited.Value;
 		/// <summary>
-		/// Gets an assocated list.
+		/// Gets an associated list.
 		/// </summary>
 		/// <associated-action-types>
 		/// - CreateList
@@ -181,7 +181,7 @@ namespace Manatee.Trello
 		/// </remarks>
 		public IList ListBefore => _listBefore.Value;
 		/// <summary>
-		/// Gets an assocated member.
+		/// Gets an associated member.
 		/// </summary>
 		/// <associated-action-types>
 		/// - AddMemberToBoard
@@ -253,7 +253,7 @@ namespace Manatee.Trello
 		/// </associated-action-types>
 		public IPowerUp PowerUp => _powerUp.Value;
 		/// <summary>
-		/// Gets assocated text.
+		/// Gets associated text.
 		/// </summary>
 		/// <associated-action-types>
 		/// - CommentCard

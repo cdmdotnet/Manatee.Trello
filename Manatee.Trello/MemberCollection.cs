@@ -22,7 +22,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <param name="member">The member to add.</param>
-		public async Task Add(IMember member, CancellationToken ct = default(CancellationToken))
+		public async Task Add(IMember member, CancellationToken ct = default)
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
@@ -50,7 +50,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <param name="member">The member to remove.</param>
-		public async Task Remove(IMember member, CancellationToken ct = default(CancellationToken))
+		public async Task Remove(IMember member, CancellationToken ct = default)
 		{
 			var error = NotNullRule<IMember>.Instance.Validate(null, member);
 			if (error != null)
