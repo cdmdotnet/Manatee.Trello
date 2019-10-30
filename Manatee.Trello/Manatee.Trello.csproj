@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>A fully object-oriented .Net wrapper for the TrelloAPI.</Description>
     <Version>3.10.3</Version>
@@ -17,31 +18,12 @@
     <FileVersion>3.10.3.0</FileVersion>
     <Authors>gregsdennis</Authors>
     <Company>Little Crab Solutions</Company>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
-    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <DefineConstants>NET45</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'!='net45'">
-    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Manatee.Trello.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/gregsdennis/Manatee.Trello</RepositoryUrl>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-  </ItemGroup>
-
   <ItemGroup>
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="Manatee.Json" Version="10.0.4" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
