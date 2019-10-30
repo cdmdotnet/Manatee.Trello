@@ -74,7 +74,6 @@ namespace Manatee.Trello.UnitTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = Environment.GetEnvironmentVariable("TRELLO_USER_TOKEN");
-			License.RegisterLicense(Environment.GetEnvironmentVariable("TRELLO_LICENSE"));
 
 			await action(CancellationToken.None);
 
