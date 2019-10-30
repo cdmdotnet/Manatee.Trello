@@ -108,6 +108,7 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
+
 		public MemberContext(string id, bool isMe, TrelloAuthorization auth)
 			: base(auth)
 		{
@@ -128,14 +129,15 @@ namespace Manatee.Trello.Internal.Synchronization
 				Organizations = new ReadOnlyOrganizationCollection(() => Data.Id, auth);
 				StarredBoards = new ReadOnlyStarredBoardCollection(() => Data.Id, auth);
 			}
-			Boards.Refreshed += (s, e) => OnMerged(new[] {nameof(Boards) });
-			BoardBackgrounds.Refreshed += (s, e) => OnMerged(new[] {nameof(BoardBackgrounds) });
-			Organizations.Refreshed += (s, e) => OnMerged(new[] {nameof(Organizations) });
-			StarredBoards.Refreshed += (s, e) => OnMerged(new[] {nameof(StarredBoards) });
+
+			Boards.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Boards)});
+			BoardBackgrounds.Refreshed += (s, e) => OnMerged(new List<string> {nameof(BoardBackgrounds)});
+			Organizations.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Organizations)});
+			StarredBoards.Refreshed += (s, e) => OnMerged(new List<string> {nameof(StarredBoards)});
 			Cards = new ReadOnlyCardCollection(EntityRequestType.Member_Read_Cards, () => Data.Id, auth);
-			Cards.Refreshed += (s, e) => OnMerged(new[] {nameof(Cards) });
+			Cards.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Cards)});
 			Notifications = new ReadOnlyNotificationCollection(() => Data.Id, auth);
-			Notifications.Refreshed += (s, e) => OnMerged(new[] { nameof(Notifications) });
+			Notifications.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Notifications)});
 
 			MemberPreferencesContext = new MemberPreferencesContext(Auth);
 			MemberPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);

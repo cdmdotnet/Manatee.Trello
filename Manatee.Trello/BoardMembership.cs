@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents the permission level a member has on a board.
 	/// </summary>
-	public class BoardMembership : IBoardMembership, IMergeJson<IJsonBoardMembership>, IBatchRefresh
+	public class BoardMembership : IBoardMembership, IMergeJson<IJsonBoardMembership>, IBatchRefresh, IHandleSynchronization
 	{
 		private readonly Field<Member> _member;
 		private readonly Field<BoardMembershipType?> _memberType;
@@ -70,7 +70,7 @@ namespace Manatee.Trello
 		{
 			Id = json.Id;
 			_context = new BoardMembershipContext(Id, ownerId, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_member = new Field<Member>(_context, nameof(Member));
 			_memberType = new Field<BoardMembershipType?>(_context, nameof(MemberType));
@@ -117,7 +117,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

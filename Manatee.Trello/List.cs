@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a list.
 	/// </summary>
-	public class List : IList, IMergeJson<IJsonList>, IBatchRefresh
+	public class List : IList, IMergeJson<IJsonList>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for lists.
@@ -201,7 +201,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new ListContext(id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_board = new Field<Board>(_context, nameof(Board));
 			_board.AddRule(NotNullRule<Board>.Instance);
@@ -272,7 +272,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

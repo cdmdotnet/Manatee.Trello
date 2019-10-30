@@ -94,15 +94,15 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Organization), () => Data.Id, auth);
-			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions)});
+			Actions.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Actions)});
 			Boards = new BoardCollection(typeof(Organization), () => Data.Id, auth);
-			Boards.Refreshed += (s, e) => OnMerged(new[] {nameof(Boards)});
+			Boards.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Boards)});
 			Members = new ReadOnlyMemberCollection(EntityRequestType.Organization_Read_Members, () => Data.Id, auth);
-			Members.Refreshed += (s, e) => OnMerged(new[] {nameof(Members)});
+			Members.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Members)});
 			Memberships = new OrganizationMembershipCollection(() => Data.Id, auth);
-			Memberships.Refreshed += (s, e) => OnMerged(new[] {nameof(Memberships)});
+			Memberships.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Memberships)});
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Organization_Read_PowerUpData, () => Data.Id, auth);
-			PowerUpData.Refreshed += (s, e) => OnMerged(new[] {nameof(PowerUpData)});
+			PowerUpData.Refreshed += (s, e) => OnMerged(new List<string> {nameof(PowerUpData)});
 
 			OrganizationPreferencesContext = new OrganizationPreferencesContext(Auth);
 			OrganizationPreferencesContext.SubmitRequested += ct => HandleSubmitRequested("Preferences", ct);

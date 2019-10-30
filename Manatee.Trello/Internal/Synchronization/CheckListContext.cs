@@ -68,13 +68,14 @@ namespace Manatee.Trello.Internal.Synchronization
 					},
 				};
 		}
+
 		public CheckListContext(string id, TrelloAuthorization auth)
 			: base(auth)
 		{
 			Data.Id = id;
 
 			CheckItems = new CheckItemCollection(this, auth);
-			CheckItems.Refreshed += (s, e) => OnMerged(new[] {nameof(CheckItems)});
+			CheckItems.Refreshed += (s, e) => OnMerged(new List<string> {nameof(CheckItems)});
 		}
 
 		public static void UpdateParameters()

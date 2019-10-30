@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a board.
 	/// </summary>
-	public class Board : IBoard, IMergeJson<IJsonBoard>, IBatchRefresh
+	public class Board : IBoard, IMergeJson<IJsonBoard>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for boards.
@@ -376,7 +376,7 @@ namespace Manatee.Trello
 		public Board(string id, TrelloAuthorization auth = null)
 		{
 			_context = new BoardContext(id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 			Id = id;
 
 			_description = new Field<string>(_context, nameof(Description));
@@ -470,7 +470,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			if (Id != _context.Data.Id)
 			{

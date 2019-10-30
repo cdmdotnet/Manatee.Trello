@@ -13,7 +13,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a custom field definition.
 	/// </summary>
-	public class CustomFieldDefinition : ICustomFieldDefinition, IMergeJson<IJsonCustomFieldDefinition>, IBatchRefresh
+	public class CustomFieldDefinition : ICustomFieldDefinition, IMergeJson<IJsonCustomFieldDefinition>, IBatchRefresh, IHandleSynchronization
 	{
 		private readonly Field<IBoard> _board;
 		private readonly Field<string> _fieldGroup;
@@ -98,7 +98,7 @@ namespace Manatee.Trello
 				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 		}
 
 		/// <summary>
@@ -225,7 +225,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

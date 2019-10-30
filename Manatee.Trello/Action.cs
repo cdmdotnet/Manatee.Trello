@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an action performed on Trello objects.
 	/// </summary>
-	public class Action : IAction, IMergeJson<IJsonAction>, IBatchRefresh
+	public class Action : IAction, IMergeJson<IJsonAction>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for actions.
@@ -226,7 +226,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new ActionContext(id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_creator = new Field<Member>(_context, nameof(Creator));
 			_date = new Field<DateTime?>(_context, nameof(Date));
@@ -290,7 +290,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

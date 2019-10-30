@@ -14,8 +14,7 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>, IBatchRefresh
-		where T : class, ICanWebhook
+	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>, IBatchRefresh, IHandleSynchronization where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
 		private readonly Field<string> _description;
@@ -89,7 +88,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new WebhookContext<T>(Id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
 			_callBackUrl.AddRule(UriRule.Instance);
@@ -107,7 +106,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = context;
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
 			_callBackUrl.AddRule(UriRule.Instance);
@@ -177,7 +176,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

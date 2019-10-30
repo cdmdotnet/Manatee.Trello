@@ -137,25 +137,25 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Card), () => Data.Id, auth);
-			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions)});
+			Actions.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Actions)});
 			Attachments = new AttachmentCollection(() => Data.Id, auth);
-			Attachments.Refreshed += (s, e) => OnMerged(new[] {nameof(Attachments)});
+			Attachments.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Attachments)});
 			CheckLists = new CheckListCollection(() => Data.Id, auth);
-			CheckLists.Refreshed += (s, e) => OnMerged(new[] {nameof(CheckLists)});
+			CheckLists.Refreshed += (s, e) => OnMerged(new List<string> {nameof(CheckLists)});
 			Comments = new CommentCollection(() => Data.Id, auth);
-			Comments.Refreshed += (s, e) => OnMerged(new[] {nameof(Comments)});
+			Comments.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Comments)});
 			CustomFields = new ReadOnlyCustomFieldCollection(() => Data.Id, auth);
-			CustomFields.Refreshed += (s, e) => OnMerged(new[] {nameof(CustomFields)});
+			CustomFields.Refreshed += (s, e) => OnMerged(new List<string> {nameof(CustomFields)});
 			Labels = new CardLabelCollection(this, auth);
-			Labels.Refreshed += (s, e) => OnMerged(new[] {nameof(Labels)});
+			Labels.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Labels)});
 			Members = new MemberCollection(() => Data.Id, auth);
-			Members.Refreshed += (s, e) => OnMerged(new[] {nameof(Members)});
+			Members.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Members)});
 			PowerUpData = new ReadOnlyPowerUpDataCollection(EntityRequestType.Card_Read_PowerUpData, () => Data.Id, auth);
-			PowerUpData.Refreshed += (s, e) => OnMerged(new[] {nameof(PowerUpData)});
+			PowerUpData.Refreshed += (s, e) => OnMerged(new List<string> {nameof(PowerUpData)});
 			Stickers = new CardStickerCollection(() => Data.Id, auth);
-			Stickers.Refreshed += (s, e) => OnMerged(new[] {nameof(Stickers)});
+			Stickers.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Stickers)});
 			VotingMembers = new ReadOnlyMemberCollection(EntityRequestType.Card_Read_MembersVoted, () => Data.Id, auth);
-			VotingMembers.Refreshed += (s, e) => OnMerged(new[] {nameof(VotingMembers)});
+			VotingMembers.Refreshed += (s, e) => OnMerged(new List<string> {nameof(VotingMembers)});
 
 			BadgesContext = new BadgesContext(Auth);
 

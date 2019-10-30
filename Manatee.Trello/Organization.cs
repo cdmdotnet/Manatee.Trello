@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an organization.
 	/// </summary>
-	public class Organization : IOrganization, IMergeJson<IJsonOrganization>, IBatchRefresh
+	public class Organization : IOrganization, IMergeJson<IJsonOrganization>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for organizations (teams).
@@ -226,7 +226,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new OrganizationContext(id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_description = new Field<string>(_context, nameof(Description));
 			_displayName = new Field<string>(_context, nameof(DisplayName));
@@ -309,7 +309,7 @@ namespace Manatee.Trello
 			return DisplayName;
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

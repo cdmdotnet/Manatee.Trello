@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a checklist item.
 	/// </summary>
-	public class CheckItem : ICheckItem, IMergeJson<IJsonCheckItem>, IBatchRefresh
+	public class CheckItem : ICheckItem, IMergeJson<IJsonCheckItem>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for check items.
@@ -150,7 +150,7 @@ namespace Manatee.Trello
 				TrelloConfiguration.Cache.Add(this);
 
 			_context.Merge(json);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 		}
 
 		/// <summary>
@@ -201,7 +201,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

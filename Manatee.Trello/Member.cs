@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member.
 	/// </summary>
-	public class Member : IMember, IMergeJson<IJsonMember>, IBatchRefresh
+	public class Member : IMember, IMergeJson<IJsonMember>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for members.
@@ -327,7 +327,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new MemberContext(id, isMe, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_avatarUrl = new Field<string>(_context, nameof(AvatarUrl));
 			_bio = new Field<string>(_context, nameof(Bio));
@@ -400,7 +400,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

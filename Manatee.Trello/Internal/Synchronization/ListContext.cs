@@ -83,9 +83,9 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(List), () => Data.Id, auth);
-			Actions.Refreshed += (s, e) => OnMerged(new[] {nameof(Actions)});
+			Actions.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Actions)});
 			Cards = new CardCollection(() => Data.Id, auth);
-			Cards.Refreshed += (s, e) => OnMerged(new[] {nameof(Cards)});
+			Cards.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Cards)});
 		}
 
 		public static void UpdateParameters()

@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a card.
 	/// </summary>
-	public class Card : ICard, IMergeJson<IJsonCard>, IBatchRefresh
+	public class Card : ICard, IMergeJson<IJsonCard>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for cards.
@@ -426,7 +426,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new CardContext(id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			Badges = new Badges(_context.BadgesContext);
 			_board = new Field<Board>(_context, nameof(Board));
@@ -521,7 +521,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			if (Id != _context.Data.Id)
 			{

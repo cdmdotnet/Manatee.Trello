@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a user token.
 	/// </summary>
-	public class Token : IToken, IMergeJson<IJsonToken>, IBatchRefresh
+	public class Token : IToken, IMergeJson<IJsonToken>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for tokens.
@@ -147,7 +147,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new TokenContext(id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_appName = new Field<string>(_context, nameof(AppName));
 			BoardPermissions = new TokenPermission(_context.BoardPermissions);
@@ -213,7 +213,7 @@ namespace Manatee.Trello
 			return AppName;
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 		}

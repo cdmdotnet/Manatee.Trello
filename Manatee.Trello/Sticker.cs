@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a sticker on a card.
 	/// </summary>
-	public class Sticker : ISticker, IMergeJson<IJsonSticker>, IBatchRefresh
+	public class Sticker : ISticker, IMergeJson<IJsonSticker>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for stickers.
@@ -205,7 +205,7 @@ namespace Manatee.Trello
 		{
 			Id = json.Id;
 			_context = new StickerContext(Id, ownerId, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_left = new Field<double?>(_context, nameof(Left));
 			_left.AddRule(NullableHasValueRule<double>.Instance);
@@ -272,7 +272,7 @@ namespace Manatee.Trello
 			return Name;
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

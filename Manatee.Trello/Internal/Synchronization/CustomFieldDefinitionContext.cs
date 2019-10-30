@@ -80,7 +80,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			Data.Id = id;
 
 			DropDownOptions = new DropDownOptionCollection(() => Data.Id, auth);
-			DropDownOptions.Refreshed += (s, e) => OnMerged(new[] {nameof(DropDownOptions)});
+			DropDownOptions.Refreshed += (s, e) => OnMerged(new List<string> {nameof(DropDownOptions)});
 
 			DisplayInfo = new CustomFieldDisplayInfoContext(auth);
 			DisplayInfo.SubmitRequested += ct => HandleSubmitRequested("Display", ct);

@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an attachment to a card.
 	/// </summary>
-	public class Attachment : IAttachment, IMergeJson<IJsonAttachment>, IBatchRefresh
+	public class Attachment : IAttachment, IMergeJson<IJsonAttachment>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for attachments.
@@ -198,7 +198,7 @@ namespace Manatee.Trello
 		{
 			Id = json.Id;
 			_context = new AttachmentContext(Id, ownerId, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_bytes = new Field<int?>(_context, nameof(Bytes));
 			_date = new Field<DateTime?>(_context, nameof(Date));
@@ -264,7 +264,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;
