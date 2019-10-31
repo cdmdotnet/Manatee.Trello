@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Manatee.Trello.Tests.Common</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
