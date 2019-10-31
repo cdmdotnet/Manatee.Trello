@@ -103,10 +103,10 @@ namespace Manatee.Trello
 			_context.Merge(_myJson);
 		}
 
-		internal static async Task<string> GetId(CancellationToken ct)
+		internal static async Task<string> GetId(TrelloAuthorization auth, CancellationToken ct)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Service_Read_Me);
-			_myJson = await JsonRepository.Execute<IJsonMember>(TrelloAuthorization.Default, endpoint, ct);
+			_myJson = await JsonRepository.Execute<IJsonMember>(auth, endpoint, ct);
 
 			// If this object exists in the cache already as a regular Member, it needs to be replaced.
 			var meAsMember = TrelloConfiguration.Cache.Find<Member>(_myJson.Id);
