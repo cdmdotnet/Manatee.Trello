@@ -73,7 +73,7 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		IMemberSearch MemberSearch(string query, int? limit = null, IBoard board = null, IOrganization organization = null, 
-								   bool? restrictToOrganization = null, TrelloAuthorization auth = null);
+		                           bool? restrictToOrganization = null, TrelloAuthorization auth = null);
 		/// <summary>
 		/// Creates an <see cref="INotification"/>.
 		/// </summary>
@@ -106,7 +106,7 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) The authorization.</param>
 		/// <returns>An <see cref="ISearch"/></returns>
 		ISearch Search(ISearchQuery query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
-				       IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null);
+		               IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null);
 
 		/// <summary>
 		/// Creates an <see cref="ISearch"/>.
@@ -119,7 +119,7 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) The authorization.</param>
 		/// <returns>An <see cref="ISearch"/></returns>
 		ISearch Search(string query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
-				       IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null);
+		               IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null);
 
 		/// <summary>
 		/// Creates an <see cref="IToken"/>.
@@ -139,7 +139,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>An <see cref="IWebhook{T}"/></returns>
 		Task<IWebhook<T>> Webhook<T>(T target, string callBackUrl, string description = null, TrelloAuthorization auth = null,
-								     CancellationToken ct = default)
+		                             CancellationToken ct = default)
 			where T : class, ICanWebhook;
 
 		/// <summary>

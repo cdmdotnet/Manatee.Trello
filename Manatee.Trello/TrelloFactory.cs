@@ -117,7 +117,7 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) Custom authorization parameters. When not provided,
 		/// <see cref="TrelloAuthorization.Default"/> will be used.</param>
 		public IMemberSearch MemberSearch(string query, int? limit = null, IBoard board = null, IOrganization organization = null,
-										  bool? restrictToOrganization = null, TrelloAuthorization auth = null)
+		                                  bool? restrictToOrganization = null, TrelloAuthorization auth = null)
 		{
 			return new MemberSearch(query, limit, board, organization, restrictToOrganization, auth);
 		}
@@ -164,7 +164,7 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) The authorization.</param>
 		/// <returns>An <see cref="ISearch"/></returns>
 		public ISearch Search(ISearchQuery query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
-						      IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null)
+		                      IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null)
 		{
 			return new Search(query, limit, modelTypes, context, auth, isPartial);
 		}
@@ -180,7 +180,7 @@ namespace Manatee.Trello
 		/// <param name="auth">(Optional) The authorization.</param>
 		/// <returns>An <see cref="ISearch"/></returns>
 		public ISearch Search(string query, int? limit = null, SearchModelType modelTypes = SearchModelType.All,
-						      IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null)
+		                      IEnumerable<IQueryable> context = null, bool isPartial = false, TrelloAuthorization auth = null)
 		{
 			return new Search(query, limit, modelTypes, context, auth, isPartial);
 		}
@@ -206,8 +206,8 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>An <see cref="IWebhook{T}"/></returns>
 		public async Task<IWebhook<T>> Webhook<T>(T target, string callBackUrl, string description = null,
-												  TrelloAuthorization auth = null,
-												  CancellationToken ct = default)
+		                                          TrelloAuthorization auth = null,
+		                                          CancellationToken ct = default)
 			where T : class, ICanWebhook
 		{
 			return await Trello.Webhook<T>.Create(target, callBackUrl, description, auth, ct);
