@@ -36,27 +36,27 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			public void Invoke(List<string> properties)
 			{
-				List<IHandleSynchronization> handlersToInvoke;
-
+				List<WeakReference<IHandleSynchronization>> handlers;
 				lock (_handlers)
 				{
-					var handlersWithTargets = _handlers.Select(h =>
-						                                   {
-							                                   h.TryGetTarget(out var target);
-							                                   return new {handler = h, target};
-						                                   }).ToList();
-					handlersToInvoke = handlersWithTargets.Where(h => h.target != null).Select(h => h.target).ToList();
-					var handlersToRemove = handlersWithTargets.Where(h => h.target == null).ToList();
+					handlers = _handlers.ToList();
+				}
+				var handlersToRemove = handlers.Where(h => !_Invoke(h, properties)).ToList();
+				lock (_handlers)
+				{
 					foreach (var handler in handlersToRemove)
 					{
-						_handlers.Remove(handler.handler);
+						_handlers.Remove(handler);
 					}
 				}
+			}
 
-				foreach (var handler in handlersToInvoke)
-				{
-					handler.HandleSynchronized(properties);
-				}
+			private static bool _Invoke(WeakReference<IHandleSynchronization> handler, List<string> properties)
+			{
+				if (!handler.TryGetTarget(out var target)) return false;
+
+				target.HandleSynchronized(properties);
+				return true;
 			}
 		}
 
@@ -306,15 +306,13 @@ namespace Manatee.Trello.Internal.Synchronization
 
 			var finalProperties = allProperties.ToList();
 
-			// ReSharper disable PossibleMultipleEnumeration
-			if (allProperties.Any())
+			if (finalProperties.Any())
 			{
 				OnMerged(finalProperties);
 				RaiseUpdated(finalProperties);
 			}
 
-			return allProperties;
-			// ReSharper restore PossibleMultipleEnumeration
+			return finalProperties;
 		}
 		internal void ClearChanges()
 		{
