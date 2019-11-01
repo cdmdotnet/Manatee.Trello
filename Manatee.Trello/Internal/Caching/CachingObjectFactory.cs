@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Caching
@@ -56,9 +57,17 @@ namespace Manatee.Trello.Internal.Caching
 		public static ICacheable GetFromCache(this IJsonCacheable json, TrelloAuthorization auth)
 		{
 			if (json == null) return null;
+			Type jsonType = json.GetType();
+			if (!jsonType.IsInterface)
+			{
+				jsonType = JsonTypeMap.Keys.Intersect(jsonType.GetInterfaces()).FirstOrDefault();
+				if (jsonType == null)
+					throw new InvalidOperationException($"Type `{json.GetType().Name}` implements more than one Manatee.Trello.Json interface.  " +
+					                                    $"Please provide separate classes for each interface.");
+			}
 
 			return TrelloConfiguration.Cache.Find<ICacheable>(json.Id) ??
-			       JsonFactory[JsonTypeMap[json.GetType()]](json, auth, null);
+			       JsonFactory[JsonTypeMap[jsonType]](json, auth, null);
 		}
 
 		public static T GetFromCache<T>(this IJsonCacheable json, TrelloAuthorization auth)
