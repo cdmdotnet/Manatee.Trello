@@ -1,6 +1,6 @@
 # --------------------- MASTER BRANCH --------------------------
 
-  - branches:
+- branches:
     only:
       - master
   image: Visual Studio 2019
