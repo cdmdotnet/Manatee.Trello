@@ -1,5 +1,9 @@
 image: Visual Studio 2019
 
+environment:
+  TRELLO_USER_TOKEN:
+    secure: oGHK1DyFnLAtCRElo6phkzdQQulfNZKGaL1c+Ytwf54kPf87aPv/bxqpYSnHdAgJ0/ruNwK2Ufx5aqHR3705Uh4HdvCOCd6391S8wx+sVR0=
+
 build:
   project: Manatee.Trello.sln
 
@@ -10,3 +14,12 @@ before_build:
  - nuget restore Manatee.Trello.sln
  - dotnet restore Manatee.Trello.sln
  - git submodule update --init
+
+deploy:
+  provider: NuGet
+  # server:                  # remove to push to NuGet.org
+  api_key:
+    secure: 0DpgELXSkUlWoanPj51ZRVPnIi0QeIGPsA6vTwiMTu/7FTA3QIOP3D8QFO/eFBhb
+  skip_symbols: false
+  # symbol_server:           # remove to push symbols to SymbolSource.org
+  artifact: /.*\.nupkg/
