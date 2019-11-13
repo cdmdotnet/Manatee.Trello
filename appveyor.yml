@@ -46,6 +46,7 @@
     - cmd: build-docs.bat
     # EDIT the origin of your repository - have to reset it here because AppVeyor pulls from SSH, but GitHub won't accept SSH pushes
     - git remote set-url origin https://github.com/gregsdennis/Manatee.Trello.git
+    - git checkout master
     - git add -A
     - git commit -a -m "regenerated docs"
     - git push
