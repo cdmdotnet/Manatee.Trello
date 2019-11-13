@@ -3,6 +3,9 @@
 - branches:
     only:
       - master
+  skip_commits:
+    files:
+    - docs/**/*
   image: Visual Studio 2019
   environment:
     TRELLO_USER_TOKEN:

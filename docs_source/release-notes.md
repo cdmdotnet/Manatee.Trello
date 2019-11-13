@@ -1,3 +1,19 @@
+# 4.0.0
+
+*Release on 13 Nov, 2019*
+
+## Breaking Changes
+
+The library is now only built for .Net Standard 2.0.  This change removes .Net Framework 4.5 and .Net Core 2.0 as build targets.
+
+All types used to manage licenses have been removed.
+
+## Other changes
+
+([#308](https://github.com/gregsdennis/Manatee.Trello/issues/308)) Memory leak found.  A significant part of this was the synchronization contexts used to manage entity data.  Updating to weak references in some areas alleviates this.
+
+Improved logging around requests.
+
 # 3.10.3
 
 *Released on 25 Sept, 2019*
