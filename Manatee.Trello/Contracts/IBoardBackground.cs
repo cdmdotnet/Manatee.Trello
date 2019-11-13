@@ -53,6 +53,6 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="ct"></param>
 		/// <returns></returns>
-		Task Delete(CancellationToken ct = default(CancellationToken));
+		Task Delete(CancellationToken ct = default);
 	}
 }

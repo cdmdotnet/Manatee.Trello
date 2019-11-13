@@ -14,8 +14,7 @@ namespace Manatee.Trello
 	/// Represents a webhook.
 	/// </summary>
 	/// <typeparam name="T">The type of object to which the webhook is attached.</typeparam>
-	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>, IBatchRefresh
-		where T : class, ICanWebhook
+	public class Webhook<T> : IWebhook<T>, IMergeJson<IJsonWebhook>, IBatchRefresh, IHandleSynchronization where T : class, ICanWebhook
 	{
 		private readonly Field<string> _callBackUrl;
 		private readonly Field<string> _description;
@@ -89,7 +88,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new WebhookContext<T>(Id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
 			_callBackUrl.AddRule(UriRule.Instance);
@@ -107,7 +106,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = context;
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_callBackUrl = new Field<string>(_context, nameof(CallBackUrl));
 			_callBackUrl.AddRule(UriRule.Instance);
@@ -130,7 +129,7 @@ namespace Manatee.Trello
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		public static async Task<Webhook<T>> Create(T target, string callBackUrl, string description = null,
 		                                            TrelloAuthorization auth = null, 
-		                                            CancellationToken ct = default(CancellationToken))
+		                                            CancellationToken ct = default)
 		{
 			var context = new WebhookContext<T>(auth);
 			var id = await context.Create(target, description, callBackUrl, ct);
@@ -144,7 +143,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This permanently deletes the webhook from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public async Task Delete(CancellationToken ct = default(CancellationToken))
+		public async Task Delete(CancellationToken ct = default)
 		{
 			await _context.Delete(ct);
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
@@ -156,7 +155,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default)
 		{
 			return _context.Synchronize(force, ct);
 		}
@@ -177,7 +176,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

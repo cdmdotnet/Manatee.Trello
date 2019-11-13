@@ -54,6 +54,6 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This permanently deletes the action from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		Task Delete(CancellationToken ct = default(CancellationToken));
+		Task Delete(CancellationToken ct = default);
 	}
 }

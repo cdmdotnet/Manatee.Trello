@@ -145,7 +145,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="ct"></param>
 		/// <returns></returns>
-		public Task Delete(CancellationToken ct = default(CancellationToken))
+		public Task Delete(CancellationToken ct = default)
 		{
 			if (Type != BoardBackgroundType.Custom)
 				throw new InvalidOperationException("Cannot delete Trello-provided board backgrounds.");

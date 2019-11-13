@@ -13,12 +13,12 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="powerUp">The power-up to enable.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task EnablePowerUp(IPowerUp powerUp, CancellationToken ct = default(CancellationToken));
+		Task EnablePowerUp(IPowerUp powerUp, CancellationToken ct = default);
 		/// <summary>
 		/// Disables a power-up for a board.
 		/// </summary>
 		/// <param name="powerUp">The power-up to disble.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task DisablePowerUp(IPowerUp powerUp, CancellationToken ct = default(CancellationToken));
+		Task DisablePowerUp(IPowerUp powerUp, CancellationToken ct = default);
 	}
 }

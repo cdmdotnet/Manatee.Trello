@@ -31,7 +31,7 @@ namespace Manatee.Trello
 		/// <exception cref="ValidationException{T}">Thrown when <paramref name="name"/> is null, empty, or whitespace.</exception>
 		/// <exception cref="ValidationException{Int32}">Thrown when <paramref name="rotation"/> is less than 0 or greater than 359.</exception>
 		public async Task<ISticker> Add(string name, double left, double top, int zIndex = 0, int rotation = 0,
-		                                CancellationToken ct = default(CancellationToken))
+		                                CancellationToken ct = default)
 		{
 			var error = NotNullOrWhiteSpaceRule.Instance.Validate(null, name);
 			if (error != null)
@@ -59,7 +59,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="sticker">The sticker to remove.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task Remove(Sticker sticker, CancellationToken ct = default(CancellationToken))
+		public async Task Remove(Sticker sticker, CancellationToken ct = default)
 		{
 			var error = NotNullRule<Sticker>.Instance.Validate(null, sticker);
 			if (error != null)

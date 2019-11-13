@@ -14,7 +14,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a notification.
 	/// </summary>
-	public class Notification : INotification, IMergeJson<IJsonNotification>, IBatchRefresh
+	public class Notification : INotification, IMergeJson<IJsonNotification>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for notifications.
@@ -164,7 +164,7 @@ namespace Manatee.Trello
 		{
 			Id = id;
 			_context = new NotificationContext(id, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_creator = new Field<Member>(_context, nameof(Creator));
 			_date = new Field<DateTime?>(_context, nameof(Date));
@@ -186,7 +186,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default)
 		{
 			return _context.Synchronize(force, ct);
 		}
@@ -215,7 +215,7 @@ namespace Manatee.Trello
 			return Type.HasValue ? _stringDefinitions[Type.Value](this) : "Notification type could not be determined.";
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

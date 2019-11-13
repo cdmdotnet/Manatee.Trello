@@ -15,7 +15,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents an attachment to a card.
 	/// </summary>
-	public class Attachment : IAttachment, IMergeJson<IJsonAttachment>, IBatchRefresh
+	public class Attachment : IAttachment, IMergeJson<IJsonAttachment>, IBatchRefresh, IHandleSynchronization
 	{
 		/// <summary>
 		/// Enumerates the data which can be pulled for attachments.
@@ -198,7 +198,7 @@ namespace Manatee.Trello
 		{
 			Id = json.Id;
 			_context = new AttachmentContext(Id, ownerId, auth);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_bytes = new Field<int?>(_context, nameof(Bytes));
 			_date = new Field<DateTime?>(_context, nameof(Date));
@@ -225,7 +225,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This permanently deletes the attachment from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public async Task Delete(CancellationToken ct = default(CancellationToken))
+		public async Task Delete(CancellationToken ct = default)
 		{
 			await _context.Delete(ct);
 			if (TrelloConfiguration.RemoveDeletedItemsFromCache)
@@ -236,7 +236,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default)
 		{
 			return _context.Synchronize(force, ct);
 		}
@@ -264,7 +264,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			Id = _context.Data.Id;
 			var handler = Updated;

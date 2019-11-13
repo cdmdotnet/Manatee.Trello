@@ -12,7 +12,7 @@ namespace Manatee.Trello
 	/// <summary>
 	/// Represents a member's board star.
 	/// </summary>
-	public class StarredBoard : IStarredBoard, IMergeJson<IJsonStarredBoard>, IBatchRefresh
+	public class StarredBoard : IStarredBoard, IMergeJson<IJsonStarredBoard>, IBatchRefresh, IHandleSynchronization
 	{
 		private readonly Field<IBoard> _board;
 		private readonly Field<Position> _position;
@@ -53,7 +53,7 @@ namespace Manatee.Trello
 		{
 			Id = json.Id;
 			_context = new StarredBoardContext(memberId, Id, auth ?? TrelloAuthorization.Default);
-			_context.Synchronized += Synchronized;
+			_context.Synchronized.Add(this);
 
 			_board = new Field<IBoard>(_context, nameof(Board));
 			_position = new Field<Position>(_context, nameof(Position));
@@ -74,7 +74,7 @@ namespace Manatee.Trello
 		/// <remarks>
 		/// This permanently deletes the star from Trello's server, however, this object will remain in memory and all properties will remain accessible.
 		/// </remarks>
-		public Task Delete(CancellationToken ct = default(CancellationToken))
+		public Task Delete(CancellationToken ct = default)
 		{
 			return _context.Delete(ct);
 		}
@@ -84,7 +84,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default)
 		{
 			return _context.Synchronize(force, ct);
 		}
@@ -100,7 +100,7 @@ namespace Manatee.Trello
 			_context.Merge(json);
 		}
 
-		private void Synchronized(IEnumerable<string> properties)
+		void IHandleSynchronization.HandleSynchronized(IEnumerable<string> properties)
 		{
 			var handler = Updated;
 			handler?.Invoke(this, properties);

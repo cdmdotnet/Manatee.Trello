@@ -13,13 +13,13 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="label">The label to add.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Add(ILabel label, CancellationToken ct = default(CancellationToken));
+		Task Add(ILabel label, CancellationToken ct = default);
 
 		/// <summary>
 		/// Removes a label from the collection.
 		/// </summary>
 		/// <param name="label">The label to add.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		Task Remove(ILabel label, CancellationToken ct = default(CancellationToken));
+		Task Remove(ILabel label, CancellationToken ct = default);
 	}
 }

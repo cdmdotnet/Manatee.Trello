@@ -64,14 +64,10 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="force">Indicates that the refresh should ignore the value in <see cref="TrelloConfiguration.RefreshThrottle"/> and make the call to the API.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public Task Refresh(bool force = false, CancellationToken ct = default(CancellationToken))
+		public Task Refresh(bool force = false, CancellationToken ct = default)
 		{
 			if (Auth == TrelloAuthorization.Null)
-#if NET45
-				return Task.Run(() => { }, ct);
-#else
 				return Task.CompletedTask;
-#endif
 
 			Refreshed?.Invoke(this, new EventArgs());
 

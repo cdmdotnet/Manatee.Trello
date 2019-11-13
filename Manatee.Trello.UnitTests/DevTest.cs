@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace Manatee.Trello.UnitTests
 {
 	[TestFixture]
-	[Ignore("This test fixture for development purposes only.")]
+	//[Ignore("This test fixture for development purposes only.")]
 	public class DevTest
 	{
 		private readonly TrelloFactory _factory = new TrelloFactory();
@@ -29,7 +29,7 @@ namespace Manatee.Trello.UnitTests
 		[Test]
 		public async Task TestMethod1()
 		{
-			TrelloConfiguration.Log = new DebugLog();
+			TrelloConfiguration.Log = new ConsoleLog();
 
 			await Run(async ct =>
 				{
@@ -41,7 +41,7 @@ namespace Manatee.Trello.UnitTests
 						watch.Stop();
 						Console.WriteLine(watch.ElapsedMilliseconds);
 						Console.WriteLine();
-						//TrelloConfiguration.Cache.Clear();
+						TrelloConfiguration.Cache.Clear();
 					}
 				});
 		}
@@ -74,7 +74,6 @@ namespace Manatee.Trello.UnitTests
 		{
 			TrelloAuthorization.Default.AppKey = TrelloIds.AppKey;
 			TrelloAuthorization.Default.UserToken = Environment.GetEnvironmentVariable("TRELLO_USER_TOKEN");
-			License.RegisterLicense(Environment.GetEnvironmentVariable("TRELLO_LICENSE"));
 
 			await action(CancellationToken.None);
 

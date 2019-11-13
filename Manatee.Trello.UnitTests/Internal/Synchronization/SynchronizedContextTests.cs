@@ -143,7 +143,7 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 					{
 						NewData = new SynchronizedData {Test = "one"}
 					};
-				target.Synchronized += properties => counter++;
+				target.PublicSynchronized += properties => counter++;
 
 				await target.Synchronize(false, CancellationToken.None);
 
@@ -195,7 +195,7 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 				{
 					NewData = new SynchronizedData {Test = "one"}
 				};
-			target.Synchronized += properties => counter++;
+			target.PublicSynchronized += properties => counter++;
 
 			target.Merge(new SynchronizedData {Test = "two"});
 
@@ -226,7 +226,7 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 		}
 
 		[Test]
-		public async Task DependantContextRequestsChangeTriggersSubmission()
+		public async Task DependentContextRequestsChangeTriggersSubmission()
 		{
 			MockHost.MockJson();
 			MockHost.JsonFactory.Setup(f => f.Create<SynchronizedData>())

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.DataAccess;
@@ -14,6 +15,8 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 
 		public SynchronizedData NewData { get; set; }
 		public bool SupportsUpdates { get; set; } = true;
+
+		public event Action<List<string>> PublicSynchronized;
 
 		static SynchronizedObject()
 		{
@@ -69,6 +72,12 @@ namespace Manatee.Trello.UnitTests.Internal.Synchronization
 		protected override bool CanUpdate()
 		{
 			return SupportsUpdates;
+		}
+
+		protected override void OnMerged(List<string> properties)
+		{
+			PublicSynchronized?.Invoke(properties);
+			base.OnMerged(properties);
 		}
 	}
 }

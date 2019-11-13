@@ -10,8 +10,56 @@ using Manatee.Trello.Json;
 
 namespace Manatee.Trello.Internal.Synchronization
 {
+	internal interface IHandleSynchronization
+	{
+		void HandleSynchronized(IEnumerable<string> properties);
+	}
+
 	internal abstract class SynchronizationContext
 	{
+		public class WeakMulticastDelegate
+		{
+			private readonly List<WeakReference<IHandleSynchronization>> _handlers;
+
+			public WeakMulticastDelegate()
+			{
+				_handlers = new List<WeakReference<IHandleSynchronization>>();
+			}
+
+			public void Add(IHandleSynchronization handler)
+			{
+				lock (_handlers)
+				{
+					_handlers.Add(new WeakReference<IHandleSynchronization>(handler));
+				}
+			}
+
+			public void Invoke(List<string> properties)
+			{
+				List<WeakReference<IHandleSynchronization>> handlers;
+				lock (_handlers)
+				{
+					handlers = _handlers.ToList();
+				}
+				var handlersToRemove = handlers.Where(h => !_Invoke(h, properties)).ToList();
+				lock (_handlers)
+				{
+					foreach (var handler in handlersToRemove)
+					{
+						_handlers.Remove(handler);
+					}
+				}
+			}
+
+			private static bool _Invoke(WeakReference<IHandleSynchronization> handler, List<string> properties)
+			{
+				if (!handler.TryGetTarget(out var target)) return false;
+
+				target.HandleSynchronized(properties);
+				return true;
+			}
+		}
+
 		private readonly Timer _timer;
 		private readonly SemaphoreSlim _semaphore;
 		private readonly object _updateLock, _expireLock;
@@ -23,7 +71,7 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected bool ManagesSubmissions { get; }
 
-		public event Action<IEnumerable<string>> Synchronized;
+		public WeakMulticastDelegate Synchronized { get; }
 
 		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer)
 		{
@@ -41,6 +89,7 @@ namespace Manatee.Trello.Internal.Synchronization
 			_expires = DateTime.MinValue;
 			RestRequestProcessor.LastCall += _TimerElapsed;
 			Auth = auth ?? TrelloAuthorization.Default;
+			Synchronized = new WeakMulticastDelegate();
 		}
 		~SynchronizationContext()
 		{
@@ -75,11 +124,9 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected abstract void Merge(object newData);
 		protected abstract Task Submit(CancellationToken ct);
 
-
-		protected void OnMerged(IEnumerable<string> properties)
+		protected virtual void OnMerged(List<string> properties)
 		{
-			var handler = Synchronized;
-			handler?.Invoke(properties);
+			Synchronized.Invoke(properties);
 		}
 		protected void CancelUpdate()
 		{
@@ -183,11 +230,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		protected virtual Task SubmitData(TJson json, CancellationToken ct)
 		{
-#if NET45
-			return Task.Run(() => { }, ct);
-#else
 			return Task.CompletedTask;
-#endif
 		}
 		protected virtual void ApplyDependentChanges(TJson json) {}
 
@@ -261,17 +304,15 @@ namespace Manatee.Trello.Internal.Synchronization
 				allProperties = propertyNames.Concat(MergeDependencies(json, overwrite));
 			}
 
-			allProperties = allProperties.ToList();
+			var finalProperties = allProperties.ToList();
 
-			// ReSharper disable PossibleMultipleEnumeration
-			if (allProperties.Any())
+			if (finalProperties.Any())
 			{
-				OnMerged(allProperties);
-				RaiseUpdated(allProperties);
+				OnMerged(finalProperties);
+				RaiseUpdated(finalProperties);
 			}
 
-			return allProperties;
-			// ReSharper restore PossibleMultipleEnumeration
+			return finalProperties;
 		}
 		internal void ClearChanges()
 		{

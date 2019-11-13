@@ -22,7 +22,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="powerUp">The power-up to enable.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task EnablePowerUp(IPowerUp powerUp, CancellationToken ct = default(CancellationToken))
+		public async Task EnablePowerUp(IPowerUp powerUp, CancellationToken ct = default)
 		{
 			var json = TrelloConfiguration.JsonFactory.Create<IJsonPowerUp>();
 			json.Id = powerUp.Id;
@@ -40,7 +40,7 @@ namespace Manatee.Trello
 		/// </summary>
 		/// <param name="powerUp">The power-up to disble.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		public async Task DisablePowerUp(IPowerUp powerUp, CancellationToken ct = default(CancellationToken))
+		public async Task DisablePowerUp(IPowerUp powerUp, CancellationToken ct = default)
 		{
 			var endpoint = EndpointFactory.Build(EntityRequestType.Board_Write_DisablePowerUp,
 			                                     new Dictionary<string, object>
