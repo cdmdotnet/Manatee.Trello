@@ -2,6 +2,8 @@
 
 *Release on 13 Nov, 2019*
 
+<span id="break">breaking change</span> <span id="patch">patch</span> 
+
 ## Breaking Changes
 
 The library is now only built for .Net Standard 2.0.  This change removes .Net Framework 4.5 and .Net Core 2.0 as build targets.
@@ -18,6 +20,8 @@ Improved logging around requests.
 
 *Released on 25 Sept, 2019*
 
+<span id="patch">patch</span> 
+
 Marked `License` class obsolete.  Please use the following license key with this and previous versions until a new major version is release, removing the `License` class
 
 ```
@@ -28,17 +32,23 @@ Marked `License` class obsolete.  Please use the following license key with this
 
 *Released on 25 Sept, 2019*
 
+<span id="patch">patch</span> 
+
 ([#310](https://github.com/gregsdennis/Manatee.Trello/issues/310)) Trello board download returns error: `invalid value for plugins`.  Trello recently started validating this as one of `[none, enabled, available, all]`, though what Manatee.Trello was passing (`true`) seemed to have been working.  This update changes the passed value to `enabled`, which was the originally intended functionality.  Also see [this issue filed with Trello](https://community.developer.atlassian.com/t/custom-fields-in-the-api-broken/32133?u=gregsdennis).
 
 # 3.10.1
 
 *Released on 7 Sept, 2019*
 
+<span id="patch">patch</span> 
+
 ([#306](https://github.com/gregsdennis/Manatee.Trello/issues/306)) Fixes a performance issue when consistency processing is disabled.
 
 # 3.10.0
 
 *Released on 6 Aug, 2019*
+
+<span id="feature">feature</span> 
 
 Added new notification types which correspond with the action types added in 3.9.0, some of which are *not* listed in their documentation.
 
