@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>3.10.3 </title>
+    <title>4.0.0 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="3.10.3 ">
+    <meta name="title" content="4.0.0 ">
     <meta name="generator" content="docfx 2.43.2.0">
     
     <link rel="shortcut icon" href="favicon.ico">
@@ -60,20 +60,33 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="3103">3.10.3</h1>
+<h1 id="400">4.0.0</h1>
 
+<p><em>Release on 13 Nov, 2019</em></p>
+<p><span id="break">breaking change</span> <span id="patch">patch</span></p>
+<h2 id="breaking-changes">Breaking Changes</h2>
+<p>The library is now only built for .Net Standard 2.0.  This change removes .Net Framework 4.5 and .Net Core 2.0 as build targets.</p>
+<p>All types used to manage licenses have been removed.</p>
+<h2 id="other-changes">Other changes</h2>
+<p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/308">#308</a>) Memory leak found.  A significant part of this was the synchronization contexts used to manage entity data.  Updating to weak references in some areas alleviates this.</p>
+<p>Improved logging around requests.</p>
+<h1 id="3103">3.10.3</h1>
 <p><em>Released on 25 Sept, 2019</em></p>
+<p><span id="patch">patch</span></p>
 <p>Marked <code>License</code> class obsolete.  Please use the following license key with this and previous versions until a new major version is release, removing the <code>License</code> class</p>
 <pre><code>656622119-qUT8+J05IvRlosEnAaIZTsGeQBA7mcVNDiTaW49xIOgOq6O/Ay5z9dVFK0dJaQaalYMPLtMj5NeajqSG/Rmkykbi1a13COTZoy15wajYcG/SkcD1eWFwmWFR5ucBWwPOcjhJPfIoofUwe2qhaPd9CEcSayv2zlUlBlSSqI0cM1t7IklkIjo2NTY2MjIxMTksIkV4cGlyeURhdGUiOiIyMDIwLTA4LTAxVDAwOjAwOjAwIiwiVHlwZSI6IlRyZWxsb0J1c2luZXNzIn0=
 </code></pre>
 <h1 id="3102">3.10.2</h1>
 <p><em>Released on 25 Sept, 2019</em></p>
+<p><span id="patch">patch</span></p>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/310">#310</a>) Trello board download returns error: <code>invalid value for plugins</code>.  Trello recently started validating this as one of <code>[none, enabled, available, all]</code>, though what Manatee.Trello was passing (<code>true</code>) seemed to have been working.  This update changes the passed value to <code>enabled</code>, which was the originally intended functionality.  Also see <a href="https://community.developer.atlassian.com/t/custom-fields-in-the-api-broken/32133?u=gregsdennis">this issue filed with Trello</a>.</p>
 <h1 id="3101">3.10.1</h1>
 <p><em>Released on 7 Sept, 2019</em></p>
+<p><span id="patch">patch</span></p>
 <p>(<a href="https://github.com/gregsdennis/Manatee.Trello/issues/306">#306</a>) Fixes a performance issue when consistency processing is disabled.</p>
 <h1 id="3100">3.10.0</h1>
 <p><em>Released on 6 Aug, 2019</em></p>
+<p><span id="feature">feature</span></p>
 <p>Added new notification types which correspond with the action types added in 3.9.0, some of which are <em>not</em> listed in their documentation.</p>
 <h1 id="390">3.9.0</h1>
 <p><em>Released on 1 Aug, 2019</em></p>
