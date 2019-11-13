@@ -1168,6 +1168,23 @@ references:
   commentId: F:Manatee.Trello.ActionType.RemoveOrganizationFromEnterprise
   fullName: Manatee.Trello.ActionType.RemoveOrganizationFromEnterprise
   nameWithType: ActionType.RemoveOrganizationFromEnterprise
+- uid: Manatee.Trello.ActionType.System#IComparable#CompareTo(System.Object)
+  name: IComparable.CompareTo(Object)
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_System_IComparable_CompareTo_System_Object_
+  commentId: M:Manatee.Trello.ActionType.System#IComparable#CompareTo(System.Object)
+  name.vb: System.IComparable.CompareTo(Object)
+  fullName: Manatee.Trello.ActionType.System.IComparable.CompareTo(System.Object)
+  nameWithType: ActionType.IComparable.CompareTo(Object)
+  nameWithType.vb: ActionType.System.IComparable.CompareTo(Object)
+- uid: Manatee.Trello.ActionType.System#IComparable#CompareTo*
+  name: IComparable.CompareTo
+  href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_System_IComparable_CompareTo_
+  commentId: Overload:Manatee.Trello.ActionType.System#IComparable#CompareTo
+  isSpec: "True"
+  name.vb: System.IComparable.CompareTo
+  fullName: Manatee.Trello.ActionType.System.IComparable.CompareTo
+  nameWithType: ActionType.IComparable.CompareTo
+  nameWithType.vb: ActionType.System.IComparable.CompareTo
 - uid: Manatee.Trello.ActionType.ToString
   name: ToString()
   href: api/Manatee.Trello.ActionType.html#Manatee_Trello_ActionType_ToString
@@ -31241,70 +31258,6 @@ references:
   commentId: F:Manatee.Trello.LabelColor.Yellow
   fullName: Manatee.Trello.LabelColor.Yellow
   nameWithType: LabelColor.Yellow
-- uid: Manatee.Trello.License
-  name: License
-  href: api/Manatee.Trello.License.html
-  commentId: T:Manatee.Trello.License
-  fullName: Manatee.Trello.License
-  nameWithType: License
-- uid: Manatee.Trello.License.RegisterLicense(System.String)
-  name: RegisterLicense(String)
-  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RegisterLicense_System_String_
-  commentId: M:Manatee.Trello.License.RegisterLicense(System.String)
-  fullName: Manatee.Trello.License.RegisterLicense(System.String)
-  nameWithType: License.RegisterLicense(String)
-- uid: Manatee.Trello.License.RegisterLicense*
-  name: RegisterLicense
-  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RegisterLicense_
-  commentId: Overload:Manatee.Trello.License.RegisterLicense
-  isSpec: "True"
-  fullName: Manatee.Trello.License.RegisterLicense
-  nameWithType: License.RegisterLicense
-- uid: Manatee.Trello.License.RemainingRetrievals
-  name: RemainingRetrievals
-  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RemainingRetrievals
-  commentId: P:Manatee.Trello.License.RemainingRetrievals
-  fullName: Manatee.Trello.License.RemainingRetrievals
-  nameWithType: License.RemainingRetrievals
-- uid: Manatee.Trello.License.RemainingRetrievals*
-  name: RemainingRetrievals
-  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RemainingRetrievals_
-  commentId: Overload:Manatee.Trello.License.RemainingRetrievals
-  isSpec: "True"
-  fullName: Manatee.Trello.License.RemainingRetrievals
-  nameWithType: License.RemainingRetrievals
-- uid: Manatee.Trello.License.RemainingSubmissions
-  name: RemainingSubmissions
-  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RemainingSubmissions
-  commentId: P:Manatee.Trello.License.RemainingSubmissions
-  fullName: Manatee.Trello.License.RemainingSubmissions
-  nameWithType: License.RemainingSubmissions
-- uid: Manatee.Trello.License.RemainingSubmissions*
-  name: RemainingSubmissions
-  href: api/Manatee.Trello.License.html#Manatee_Trello_License_RemainingSubmissions_
-  commentId: Overload:Manatee.Trello.License.RemainingSubmissions
-  isSpec: "True"
-  fullName: Manatee.Trello.License.RemainingSubmissions
-  nameWithType: License.RemainingSubmissions
-- uid: Manatee.Trello.License.SessionResetTime
-  name: SessionResetTime
-  href: api/Manatee.Trello.License.html#Manatee_Trello_License_SessionResetTime
-  commentId: P:Manatee.Trello.License.SessionResetTime
-  fullName: Manatee.Trello.License.SessionResetTime
-  nameWithType: License.SessionResetTime
-- uid: Manatee.Trello.License.SessionResetTime*
-  name: SessionResetTime
-  href: api/Manatee.Trello.License.html#Manatee_Trello_License_SessionResetTime_
-  commentId: Overload:Manatee.Trello.License.SessionResetTime
-  isSpec: "True"
-  fullName: Manatee.Trello.License.SessionResetTime
-  nameWithType: License.SessionResetTime
-- uid: Manatee.Trello.LicenseException
-  name: LicenseException
-  href: api/Manatee.Trello.LicenseException.html
-  commentId: T:Manatee.Trello.LicenseException
-  fullName: Manatee.Trello.LicenseException
-  nameWithType: LicenseException
 - uid: Manatee.Trello.List
   name: List
   href: api/Manatee.Trello.List.html
@@ -34708,6 +34661,25 @@ references:
   fullName.vb: Manatee.Trello.ReadOnlyCollection(Of T).Refresh
   nameWithType: ReadOnlyCollection<T>.Refresh
   nameWithType.vb: ReadOnlyCollection(Of T).Refresh
+- uid: Manatee.Trello.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:Manatee.Trello.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: Manatee.Trello.ReadOnlyCollection<T>.System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: Manatee.Trello.ReadOnlyCollection(Of T).System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: ReadOnlyCollection<T>.IEnumerable.GetEnumerator()
+  nameWithType.vb: ReadOnlyCollection(Of T).System.Collections.IEnumerable.GetEnumerator()
+- uid: Manatee.Trello.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/Manatee.Trello.ReadOnlyCollection-1.html#Manatee_Trello_ReadOnlyCollection_1_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:Manatee.Trello.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: Manatee.Trello.ReadOnlyCollection<T>.System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: Manatee.Trello.ReadOnlyCollection(Of T).System.Collections.IEnumerable.GetEnumerator
+  nameWithType: ReadOnlyCollection<T>.IEnumerable.GetEnumerator
+  nameWithType.vb: ReadOnlyCollection(Of T).System.Collections.IEnumerable.GetEnumerator
 - uid: Manatee.Trello.ReadOnlyCommentReactionCollection
   name: ReadOnlyCommentReactionCollection
   href: api/Manatee.Trello.ReadOnlyCommentReactionCollection.html
