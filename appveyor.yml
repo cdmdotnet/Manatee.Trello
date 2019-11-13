@@ -15,6 +15,10 @@ before_build:
  - dotnet restore Manatee.Trello.sln
  - git submodule update --init
 
+artifacts:
+  - path: '**/*.nupkg'
+    name: Nuget Pkg
+
 deploy:
   provider: NuGet
   # server:                  # remove to push to NuGet.org
