@@ -10,8 +10,8 @@
   environment:
     TRELLO_USER_TOKEN:
       secure: oGHK1DyFnLAtCRElo6phkzdQQulfNZKGaL1c+Ytwf54kPf87aPv/bxqpYSnHdAgJ0/ruNwK2Ufx5aqHR3705Uh4HdvCOCd6391S8wx+sVR0=
-    access_token:
-      secure: J0rJCR/NgyzYYG2Gi4yZm6CSSogyFgZN0GQ20H/Jtmpjb+Hjbb4K7gDoPh26hAmX
+    gh_access_token:
+      secure: jm9ZkMmKGxetJfX6wsjFYUYiLhsX1yC7185wYdFHLicXGUD+vm5ywPNfK3mWSPzk
 
   build:
     project: Manatee.Trello.sln
@@ -45,7 +45,7 @@
     # EDIT your Git email and name
     - git config --global user.email gregsdennis@yahoo.com
     - git config --global user.name "Greg Dennis"
-    - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+    - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:gh_access_token):x-oauth-basic@github.com`n"
     - cmd: build-docs.bat
     # EDIT the origin of your repository - have to reset it here because AppVeyor pulls from SSH, but GitHub won't accept SSH pushes
     - git remote set-url origin https://github.com/gregsdennis/Manatee.Trello.git
