@@ -78,14 +78,16 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Creates an <see cref="IMe"/>.
 		/// </summary>
+		/// <param name="auth">(Optional) The authorization.</param>
 		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
 		/// <returns>An <see cref="IMe"/></returns>
 		/// <remarks>
-		/// This performs a call to the API to get the member authorized by <see cref="TrelloAuthorization.Default"/>.
+		/// Performs a call to the API to get the member authorized by the provided <see cref="TrelloAuthorization"/> 
+		/// parameter or,if it is null, by <see cref="TrelloAuthorization.Default"/>.
 		/// </remarks>
-		public async Task<IMe> Me(CancellationToken ct = default)
+		public async Task<IMe> Me(TrelloAuthorization auth = null, CancellationToken ct = default)
 		{
-			var id = await Trello.Me.GetId(ct);
+			var id = await Trello.Me.GetId(auth ?? TrelloAuthorization.Default, ct);
 			var me = TrelloConfiguration.Cache.Find<Me>(id) ?? new Me(id);
 
 			await me.Refresh(false, ct);
