@@ -4,6 +4,14 @@
 
 <span id="break">breaking change</span> <span id="patch">patch</span> 
 
+([#313](https://github.com/gregsdennis/Manatee.Trello/issues/313)) Augment `Me()` constructor by adding a `TrelloAuthorization` parameter to allow downloading multiple `Me` objects.  Note that this potentially allows simultaneous admin access to multiple accounts based on the level of access granted by the tokens.
+
+# 4.0.0
+
+*Release on 13 Nov, 2019*
+
+<span id="break">breaking change</span> <span id="patch">patch</span> 
+
 ## Breaking Changes
 
 The library is now only built for .Net Standard 2.0.  This change removes .Net Framework 4.5 and .Net Core 2.0 as build targets.
