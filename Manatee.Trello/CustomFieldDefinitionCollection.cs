@@ -42,6 +42,8 @@ namespace Manatee.Trello
 			json.Board = TrelloConfiguration.JsonFactory.Create<IJsonBoard>();
 			json.Board.Id = OwnerId;
 			json.Type = type;
+			json.Display = TrelloConfiguration.JsonFactory.Create<IJsonCustomFieldDisplayInfo>();
+			json.Display.CardFront = true;
 			if (type == CustomFieldType.DropDown)
 			{
 				json.Options = options.Select((o, i) =>

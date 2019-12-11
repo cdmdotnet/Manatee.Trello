@@ -263,5 +263,32 @@ namespace Manatee.Trello.IntegrationTests
 
 			await TrelloProcessor.Flush();
 		}
+
+		[Test]
+		public async Task Issue317_ActionFilter_BeforeDate()
+		{
+			var card = await TestEnvironment.Current.BuildCard();
+			for (int i = 0; i < 10; i++)
+			{
+				await card.Comments.Add(i.ToString());
+			}
+
+			await Task.Delay(10000);
+			var timeStamp = DateTime.Now;
+			await Task.Delay(10000);
+
+			for (int i = 10; i < 20; i++)
+			{
+				await card.Comments.Add(i.ToString());
+			}
+			// sadly, it takes some time for trello to catch up...
+			await Task.Delay(10000);
+
+			card.Actions.Filter(timeStamp, null);
+			await card.Actions.Refresh(true);
+
+			card.Actions.Count().Should().Be(10);
+			card.Actions[0].CreationDate.ToLocalTime().Should().BeAfter(timeStamp);
+		}
 	}
 }
