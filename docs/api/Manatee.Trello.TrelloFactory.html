@@ -455,19 +455,19 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Me_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Me(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Me_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Me(Manatee.Trello.TrelloAuthorization%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L86">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L88">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Me_" data-uid="Manatee.Trello.TrelloFactory.Me*"></a>
-  <h4 id="Manatee_Trello_TrelloFactory_Me_System_Threading_CancellationToken_" data-uid="Manatee.Trello.TrelloFactory.Me(System.Threading.CancellationToken)">Me(CancellationToken)</h4>
+  <h4 id="Manatee_Trello_TrelloFactory_Me_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_" data-uid="Manatee.Trello.TrelloFactory.Me(Manatee.Trello.TrelloAuthorization,System.Threading.CancellationToken)">Me(TrelloAuthorization, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Creates an <a class="xref" href="Manatee.Trello.IMe.html">IMe</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IMe&gt; Me(CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;IMe&gt; Me(TrelloAuthorization auth = null, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -479,6 +479,12 @@
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td><a class="xref" href="Manatee.Trello.TrelloAuthorization.html">TrelloAuthorization</a></td>
+        <td><span class="parametername">auth</span></td>
+        <td><p>(Optional) The authorization.</p>
+</td>
+      </tr>
       <tr>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
@@ -503,15 +509,16 @@
       </tr>
     </tbody>
   </table>
-  <h5 id="Manatee_Trello_TrelloFactory_Me_System_Threading_CancellationToken__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This performs a call to the API to get the member authorized by <a class="xref" href="Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_Default">Default</a>.</p>
+  <h5 id="Manatee_Trello_TrelloFactory_Me_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Performs a call to the API to get the member authorized by the provided <a class="xref" href="Manatee.Trello.TrelloAuthorization.html">TrelloAuthorization</a>
+parameter or,if it is null, by <a class="xref" href="Manatee.Trello.TrelloAuthorization.html#Manatee_Trello_TrelloAuthorization_Default">Default</a>.</p>
 </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Member_System_String_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Member(System.String%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L102">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L104">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Member_" data-uid="Manatee.Trello.TrelloFactory.Member*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_Member_System_String_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Member(System.String,Manatee.Trello.TrelloAuthorization)">Member(String, TrelloAuthorization)</h4>
@@ -567,7 +574,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_MemberSearch_System_String_System_Nullable_System_Int32__Manatee_Trello_IBoard_Manatee_Trello_IOrganization_System_Nullable_System_Boolean__Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.MemberSearch(System.String%2CSystem.Nullable%7BSystem.Int32%7D%2CManatee.Trello.IBoard%2CManatee.Trello.IOrganization%2CSystem.Nullable%7BSystem.Boolean%7D%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L117">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L119">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_MemberSearch_" data-uid="Manatee.Trello.TrelloFactory.MemberSearch*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_MemberSearch_System_String_System_Nullable_System_Int32__Manatee_Trello_IBoard_Manatee_Trello_IOrganization_System_Nullable_System_Boolean__Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.MemberSearch(System.String,System.Nullable{System.Int32},Manatee.Trello.IBoard,Manatee.Trello.IOrganization,System.Nullable{System.Boolean},Manatee.Trello.TrelloAuthorization)">MemberSearch(String, Nullable&lt;Int32&gt;, IBoard, IOrganization, Nullable&lt;Boolean&gt;, TrelloAuthorization)</h4>
@@ -647,7 +654,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Notification_System_String_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Notification(System.String%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L129">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L131">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Notification_" data-uid="Manatee.Trello.TrelloFactory.Notification*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_Notification_System_String_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Notification(System.String,Manatee.Trello.TrelloAuthorization)">Notification(String, TrelloAuthorization)</h4>
@@ -703,7 +710,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Organization_System_String_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Organization(System.String%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L140">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L142">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Organization_" data-uid="Manatee.Trello.TrelloFactory.Organization*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_Organization_System_String_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Organization(System.String,Manatee.Trello.TrelloAuthorization)">Organization(String, TrelloAuthorization)</h4>
@@ -759,7 +766,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Search_Manatee_Trello_ISearchQuery_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_System_Collections_Generic_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Search(Manatee.Trello.ISearchQuery%2CSystem.Nullable%7BSystem.Int32%7D%2CManatee.Trello.SearchModelType%2CSystem.Collections.Generic.IEnumerable%7BManatee.Trello.IQueryable%7D%2CSystem.Boolean%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L164">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L166">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Search_" data-uid="Manatee.Trello.TrelloFactory.Search*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_Search_Manatee_Trello_ISearchQuery_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_System_Collections_Generic_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Search(Manatee.Trello.ISearchQuery,System.Nullable{System.Int32},Manatee.Trello.SearchModelType,System.Collections.Generic.IEnumerable{Manatee.Trello.IQueryable},System.Boolean,Manatee.Trello.TrelloAuthorization)">Search(ISearchQuery, Nullable&lt;Int32&gt;, SearchModelType, IEnumerable&lt;IQueryable&gt;, Boolean, TrelloAuthorization)</h4>
@@ -839,7 +846,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Search_System_String_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_System_Collections_Generic_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Search(System.String%2CSystem.Nullable%7BSystem.Int32%7D%2CManatee.Trello.SearchModelType%2CSystem.Collections.Generic.IEnumerable%7BManatee.Trello.IQueryable%7D%2CSystem.Boolean%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L180">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L182">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Search_" data-uid="Manatee.Trello.TrelloFactory.Search*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_Search_System_String_System_Nullable_System_Int32__Manatee_Trello_SearchModelType_System_Collections_Generic_IEnumerable_Manatee_Trello_IQueryable__System_Boolean_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Search(System.String,System.Nullable{System.Int32},Manatee.Trello.SearchModelType,System.Collections.Generic.IEnumerable{Manatee.Trello.IQueryable},System.Boolean,Manatee.Trello.TrelloAuthorization)">Search(String, Nullable&lt;Int32&gt;, SearchModelType, IEnumerable&lt;IQueryable&gt;, Boolean, TrelloAuthorization)</h4>
@@ -919,7 +926,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_SearchQuery.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.SearchQuery%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L149">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L151">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_SearchQuery_" data-uid="Manatee.Trello.TrelloFactory.SearchQuery*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_SearchQuery" data-uid="Manatee.Trello.TrelloFactory.SearchQuery">SearchQuery()</h4>
@@ -951,7 +958,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Token_System_String_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Token(System.String%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L192">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L194">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Token_" data-uid="Manatee.Trello.TrelloFactory.Token*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_Token_System_String_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Token(System.String,Manatee.Trello.TrelloAuthorization)">Token(String, TrelloAuthorization)</h4>
@@ -1007,7 +1014,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Webhook__1___0_System_String_System_String_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Webhook%60%601(%60%600%2CSystem.String%2CSystem.String%2CManatee.Trello.TrelloAuthorization%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L206">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L208">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Webhook_" data-uid="Manatee.Trello.TrelloFactory.Webhook*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_Webhook__1___0_System_String_System_String_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_" data-uid="Manatee.Trello.TrelloFactory.Webhook``1(``0,System.String,System.String,Manatee.Trello.TrelloAuthorization,System.Threading.CancellationToken)">Webhook&lt;T&gt;(T, String, String, TrelloAuthorization, CancellationToken)</h4>
@@ -1097,7 +1104,7 @@
     <a href="https://github.com/gregsdennis/Manatee.Trello/new/master/apiSpec/new?filename=Manatee_Trello_TrelloFactory_Webhook__1_System_String_Manatee_Trello_TrelloAuthorization_.md&amp;value=---%0Auid%3A%20Manatee.Trello.TrelloFactory.Webhook%60%601(System.String%2CManatee.Trello.TrelloAuthorization)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L220">View Source</a>
+    <a href="https://github.com/gregsdennis/Manatee.Trello/blob/master/Manatee.Trello/TrelloFactory.cs/#L222">View Source</a>
   </span>
   <a id="Manatee_Trello_TrelloFactory_Webhook_" data-uid="Manatee.Trello.TrelloFactory.Webhook*"></a>
   <h4 id="Manatee_Trello_TrelloFactory_Webhook__1_System_String_Manatee_Trello_TrelloAuthorization_" data-uid="Manatee.Trello.TrelloFactory.Webhook``1(System.String,Manatee.Trello.TrelloAuthorization)">Webhook&lt;T&gt;(String, TrelloAuthorization)</h4>

@@ -26153,12 +26153,12 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.ITrelloFactory.List
   nameWithType: ITrelloFactory.List
-- uid: Manatee.Trello.ITrelloFactory.Me(System.Threading.CancellationToken)
-  name: Me(CancellationToken)
-  href: api/Manatee.Trello.ITrelloFactory.html#Manatee_Trello_ITrelloFactory_Me_System_Threading_CancellationToken_
-  commentId: M:Manatee.Trello.ITrelloFactory.Me(System.Threading.CancellationToken)
-  fullName: Manatee.Trello.ITrelloFactory.Me(System.Threading.CancellationToken)
-  nameWithType: ITrelloFactory.Me(CancellationToken)
+- uid: Manatee.Trello.ITrelloFactory.Me(Manatee.Trello.TrelloAuthorization,System.Threading.CancellationToken)
+  name: Me(TrelloAuthorization, CancellationToken)
+  href: api/Manatee.Trello.ITrelloFactory.html#Manatee_Trello_ITrelloFactory_Me_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_
+  commentId: M:Manatee.Trello.ITrelloFactory.Me(Manatee.Trello.TrelloAuthorization,System.Threading.CancellationToken)
+  fullName: Manatee.Trello.ITrelloFactory.Me(Manatee.Trello.TrelloAuthorization, System.Threading.CancellationToken)
+  nameWithType: ITrelloFactory.Me(TrelloAuthorization, CancellationToken)
 - uid: Manatee.Trello.ITrelloFactory.Me*
   name: Me
   href: api/Manatee.Trello.ITrelloFactory.html#Manatee_Trello_ITrelloFactory_Me_
@@ -36944,12 +36944,12 @@ references:
   isSpec: "True"
   fullName: Manatee.Trello.TrelloFactory.List
   nameWithType: TrelloFactory.List
-- uid: Manatee.Trello.TrelloFactory.Me(System.Threading.CancellationToken)
-  name: Me(CancellationToken)
-  href: api/Manatee.Trello.TrelloFactory.html#Manatee_Trello_TrelloFactory_Me_System_Threading_CancellationToken_
-  commentId: M:Manatee.Trello.TrelloFactory.Me(System.Threading.CancellationToken)
-  fullName: Manatee.Trello.TrelloFactory.Me(System.Threading.CancellationToken)
-  nameWithType: TrelloFactory.Me(CancellationToken)
+- uid: Manatee.Trello.TrelloFactory.Me(Manatee.Trello.TrelloAuthorization,System.Threading.CancellationToken)
+  name: Me(TrelloAuthorization, CancellationToken)
+  href: api/Manatee.Trello.TrelloFactory.html#Manatee_Trello_TrelloFactory_Me_Manatee_Trello_TrelloAuthorization_System_Threading_CancellationToken_
+  commentId: M:Manatee.Trello.TrelloFactory.Me(Manatee.Trello.TrelloAuthorization,System.Threading.CancellationToken)
+  fullName: Manatee.Trello.TrelloFactory.Me(Manatee.Trello.TrelloAuthorization, System.Threading.CancellationToken)
+  nameWithType: TrelloFactory.Me(TrelloAuthorization, CancellationToken)
 - uid: Manatee.Trello.TrelloFactory.Me*
   name: Me
   href: api/Manatee.Trello.TrelloFactory.html#Manatee_Trello_TrelloFactory_Me_
