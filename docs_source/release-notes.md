@@ -1,14 +1,22 @@
-# 4.0.0
+# 4.1.1
 
-*Release on 13 Nov, 2019*
+*Released on 15 Dec, 2019*
 
-<span id="break">breaking change</span> <span id="patch">patch</span> 
+<span id="patch">patch</span> 
+
+Fixed issue where `Action.Creator` is not populated when Trello returns `memberCreator` instead of `idMemberCreator`.
+
+# 4.1.0
+
+*Released on 12 Dec, 2019*
+
+<span id="feature">feature</span> 
 
 ([#313](https://github.com/gregsdennis/Manatee.Trello/issues/313)) Augment `Me()` constructor by adding a `TrelloAuthorization` parameter to allow downloading multiple `Me` objects.  Note that this potentially allows simultaneous admin access to multiple accounts based on the level of access granted by the tokens.
 
 # 4.0.0
 
-*Release on 13 Nov, 2019*
+*Released on 13 Nov, 2019*
 
 <span id="break">breaking change</span> <span id="patch">patch</span> 
 

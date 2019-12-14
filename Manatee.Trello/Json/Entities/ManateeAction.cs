@@ -20,7 +20,8 @@ namespace Manatee.Trello.Json.Entities
 			if (json.Type != JsonValueType.Object) return;
 			var obj = json.Object;
 			Id = obj.TryGetString("id");
-			MemberCreator = obj.Deserialize<IJsonMember>(serializer, "idMemberCreator");
+			MemberCreator = obj.Deserialize<IJsonMember>(serializer, "memberCreator") ??
+							obj.Deserialize<IJsonMember>(serializer, "idMemberCreator");
 			Data = obj.Deserialize<IJsonActionData>(serializer, "data");
 			Type = obj.Deserialize<ActionType?>(serializer, "type");
 			Date = obj.Deserialize<DateTime?>(serializer, "date");
