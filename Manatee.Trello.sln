@@ -24,8 +24,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manatee.Trello.IntegrationT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manatee.Trello.UnitTests", "Manatee.Trello.UnitTests\Manatee.Trello.UnitTests.csproj", "{AF22CC38-319D-47CB-8046-42C4140C6B2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "trelloTest", "trelloTest\trelloTest.csproj", "{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,22 +100,6 @@ Global
 		{AF22CC38-319D-47CB-8046-42C4140C6B2A}.Release-4.5|Any CPU.Build.0 = Release|Any CPU
 		{AF22CC38-319D-47CB-8046-42C4140C6B2A}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
 		{AF22CC38-319D-47CB-8046-42C4140C6B2A}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-3.5|Any CPU.ActiveCfg = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-3.5|Any CPU.Build.0 = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-3.5C|Any CPU.ActiveCfg = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-3.5C|Any CPU.Build.0 = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-4.0|Any CPU.ActiveCfg = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-4.0|Any CPU.Build.0 = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-4.0C|Any CPU.ActiveCfg = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-4.0C|Any CPU.Build.0 = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-4.5|Any CPU.ActiveCfg = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-4.5|Any CPU.Build.0 = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
-		{0B7DA755-DCFA-4C41-9CF3-587CF4E0E1BA}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
