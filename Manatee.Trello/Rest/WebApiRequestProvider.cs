@@ -24,7 +24,7 @@ namespace Manatee.Trello.Rest
 					if (parameter.Key == RestFile.ParameterKey)
 					{
 						var rf = (RestFile)parameter.Value;
-						request.AddFile(parameter.Key, rf.ContentBytes, rf.FileName);
+						request.AddFile(parameter.Key, rf.FilePath, rf.FileName);
 					}
 					else
 					{

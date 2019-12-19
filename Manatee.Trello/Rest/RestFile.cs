@@ -15,8 +15,8 @@
 		/// </summary>
 		public string FileName { get; set; }
 		/// <summary>
-		/// The file data
+		/// The file path
 		/// </summary>
-		public byte[] ContentBytes { get; set; }
+		public string FilePath { get; set; }
 	}
 }

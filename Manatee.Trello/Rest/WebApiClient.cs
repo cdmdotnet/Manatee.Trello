@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -176,11 +177,15 @@ namespace Manatee.Trello.Rest
 					formData.Add(content, $"\"{parameter.Key}\"");
 				}
 
-				var byteContent = new ByteArrayContent(request.File);
-				formData.Add(byteContent, "\"file\"", $"\"{request.FileName}\"");
-				TrelloConfiguration.Log.Debug($"\tContent: {formData}");
 
-				return formData;
+                var fileStream = File.Open(request.File, FileMode.Open);
+                var fileInfo = new FileInfo(request.File);
+                formData.Add(new StreamContent(fileStream), "\"file\"", string.Format("\"{0}\"", "as" + fileInfo.Extension));
+                formData.Add(new StringContent("mimeType"), "image/png");
+                formData.Add(new StringContent("name"), request.FileName);
+                TrelloConfiguration.Log.Debug($"\tContent: {formData}");
+
+                return formData;
 			}
 
 			if (request.Body == null) return null;
