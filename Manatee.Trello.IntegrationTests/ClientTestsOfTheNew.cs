@@ -21,7 +21,7 @@ namespace Manatee.Trello.IntegrationTests
 			var list = board.Lists.Last();
 			var cards = list.Cards;
 			var sourceCard = await TestEnvironment.Current.BuildCard();
-			var pdf = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Files/test.pdf");
+			var pdf = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Files/smallest-jpeg.jpg");
 			await sourceCard.Attachments.AddAttachment(pdf, "smallest-jpeg.jpg");
 
 
