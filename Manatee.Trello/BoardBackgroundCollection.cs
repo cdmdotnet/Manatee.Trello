@@ -28,7 +28,7 @@ namespace Manatee.Trello
 		public async Task<IBoardBackground> Add(string filePath, CancellationToken ct = default)
 		{
             if (!File.Exists(filePath)) throw new Exception(filePath + " Invalid file path");
-            var parameters = new Dictionary<string, object> {{RestFile.ParameterKey, new RestFile {FilePath = filePath } }};
+            var parameters = new Dictionary<string, object> {{RestFile.ParameterKey, new RestFile {FilePath = filePath , FileName = "BoardBackground"} }};
 			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_AddBoardBackground, new Dictionary<string, object> {{"_id", OwnerId}});
 			var newData = await JsonRepository.Execute<IJsonBoardBackground>(Auth, endpoint, ct, parameters);
 
