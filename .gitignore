@@ -279,5 +279,3 @@ __pycache__/
 
 # Apple add these stupid files to every folder
 .DS_Store
-#My test code
-trelloTest

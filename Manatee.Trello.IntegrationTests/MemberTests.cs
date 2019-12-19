@@ -58,8 +58,7 @@ namespace Manatee.Trello.IntegrationTests
 			await me.BoardBackgrounds.Refresh(true);
 
 			var imagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Files/logo.png");
-			var data = File.ReadAllBytes(imagePath);
-			var newBackground = await me.BoardBackgrounds.Add(data);
+			var newBackground = await me.BoardBackgrounds.Add(imagePath);
 
 			newBackground.Should().NotBeNull();
 			newBackground.Type.Should().Be(BoardBackgroundType.Custom);
