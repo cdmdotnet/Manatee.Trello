@@ -1,3 +1,13 @@
+# 4.1.2
+
+*Released on 17 Jan, 2020*
+
+<span id="patch">patch</span> 
+
+([#323](https://github.com/gregsdennis/Manatee.Trello/issues/323)) Auth information supplied in `ITrelloFactory.Me()` is not propagated to the created object.  See also [#313](https://github.com/gregsdennis/Manatee.Trello/issues/313).
+
+Upgraded Manatee.Json reference to v12.0.2.
+
 # 4.1.1
 
 *Released on 15 Dec, 2019*
