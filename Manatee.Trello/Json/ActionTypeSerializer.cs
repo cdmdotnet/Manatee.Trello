@@ -7,7 +7,7 @@ namespace Manatee.Trello.Json
 	{
 		public bool ShouldMaintainReferences => false;
 
-		public bool Handles(SerializationContext context)
+		public bool Handles(SerializationContextBase context)
 		{
 			return context.InferredType == typeof(ActionType);
 		}
@@ -17,7 +17,7 @@ namespace Manatee.Trello.Json
 			return context.Source?.ToString();
 		}
 
-		public object Deserialize(SerializationContext context)
+		public object Deserialize(DeserializationContext context)
 		{
 			return ActionType.TryParse(context.LocalValue.String, out var actionType) 
 				       ? actionType
