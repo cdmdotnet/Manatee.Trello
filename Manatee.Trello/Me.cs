@@ -94,8 +94,8 @@ namespace Manatee.Trello
 			set { base.UserName = value; }
 		}
 
-		internal Me(string id)
-			: base(id, true, TrelloAuthorization.Default)
+		internal Me(string id, TrelloAuthorization auth)
+			: base(id, true, auth)
 		{
 			_email = new Field<string>(_context, nameof(Email));
 			Preferences = new MemberPreferences(_context.MemberPreferencesContext);
