@@ -12,6 +12,7 @@ namespace Manatee.Trello.Internal.Synchronization
 {
 	internal class MemberContext : SynchronizationContext<IJsonMember>
 	{
+		private readonly bool _isMe;
 		private static readonly Dictionary<string, object> Parameters;
 		private static readonly Member.Fields MemberFields;
 
@@ -44,17 +45,17 @@ namespace Manatee.Trello.Internal.Synchronization
 			Parameters = new Dictionary<string, object>();
 			MemberFields = Member.Fields.AvatarUrl |
 			               Member.Fields.Bio |
-			               Member.Fields.IsConfirmed |
-			               Member.Fields.Email |
-			               Member.Fields.FullName |
-			               Member.Fields.Initials |
-			               Member.Fields.LoginTypes |
-			               Member.Fields.MemberType |
-			               Member.Fields.OneTimeMessagesDismissed |
-			               Member.Fields.Preferencess |
-			               Member.Fields.Status |
-			               Member.Fields.Trophies |
-			               Member.Fields.Url |
+						   Member.Fields.IsConfirmed |
+						   Member.Fields.Email |
+						   Member.Fields.FullName |
+						   Member.Fields.Initials |
+						   Member.Fields.LoginTypes |
+						   Member.Fields.MemberType |
+						   Member.Fields.OneTimeMessagesDismissed |
+						   Member.Fields.Preferencess |
+						   Member.Fields.Status |
+						   Member.Fields.Trophies |
+						   Member.Fields.Url |
 			               Member.Fields.Username;
 			Properties = new Dictionary<string, Property<IJsonMember>>
 				{
@@ -112,6 +113,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public MemberContext(string id, bool isMe, TrelloAuthorization auth)
 			: base(auth)
 		{
+			_isMe = isMe;
 			Data.Id = id;
 
 			Actions = new ReadOnlyActionCollection(typeof(Member), () => Data.Id, auth);
@@ -169,7 +171,6 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["actions"] = "all";
 					Parameters["actions_format"] = "list";
 				}
-
 				if (parameterFields.HasFlag(Member.Fields.Boards))
 				{
 					Parameters["boards"] = "all";
@@ -180,20 +181,11 @@ namespace Manatee.Trello.Internal.Synchronization
 					Parameters["cards"] = "all";
 					Parameters["card_fields"] = CardContext.CurrentParameters["fields"]; ;
 				}
-				if (parameterFields.HasFlag(Member.Fields.Notifications))
-				{
-					Parameters["notifications"] = "all";
-					Parameters["notification_fields"] = NotificationContext.CurrentParameters["fields"];
-				}
 				if (parameterFields.HasFlag(Member.Fields.Organizations))
 				{
 					Parameters["organizations"] = "all";
 					Parameters["organization_fields"] = OrganizationContext.CurrentParameters["fields"];
 				}
-				if (parameterFields.HasFlag(Member.Fields.StarredBoards))
-					Parameters["boardStars"] = "true";
-				if (parameterFields.HasFlag(Member.Fields.BoardBackgrounds))
-					Parameters["boardBackgrounds"] = "custom";
 			}
 		}
 
@@ -205,6 +197,25 @@ namespace Manatee.Trello.Internal.Synchronization
 
 		protected override Dictionary<string, object> GetParameters()
 		{
+			if (_isMe)
+			{
+				Dictionary<string, object> parameters;
+				lock (Parameters)
+				{
+					parameters = Parameters.ToDictionary(x => x.Key, x => x.Value);
+				}
+				if (Member.DownloadedFields.HasFlag(Member.Fields.Notifications))
+				{
+					parameters["notifications"] = "all";
+					parameters["notification_fields"] = NotificationContext.CurrentParameters["fields"];
+				}
+				if (Member.DownloadedFields.HasFlag(Member.Fields.StarredBoards))
+					parameters["boardStars"] = "true";
+				if (Member.DownloadedFields.HasFlag(Member.Fields.BoardBackgrounds))
+					parameters["boardBackgrounds"] = "custom";
+				return parameters;
+			}
+
 			return CurrentParameters;
 		}
 

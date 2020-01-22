@@ -19,7 +19,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the source type for the member's avatar.
 		/// </summary>
-		[Obsolete("Trello has depricated this property.")]
+		[Obsolete("Trello has deprecated this property.")]
 		public new AvatarSource? AvatarSource
 		{
 			get { return null; }
@@ -69,7 +69,7 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Gets the collection of notificaitons for the member.
+		/// Gets the collection of notifications for the member.
 		/// </summary>
 		public IReadOnlyNotificationCollection Notifications => _context.Notifications;
 		/// <summary>
@@ -94,8 +94,8 @@ namespace Manatee.Trello
 			set { base.UserName = value; }
 		}
 
-		internal Me(string id)
-			: base(id, true, TrelloAuthorization.Default)
+		internal Me(string id, TrelloAuthorization auth)
+			: base(id, true, auth)
 		{
 			_email = new Field<string>(_context, nameof(Email));
 			Preferences = new MemberPreferences(_context.MemberPreferencesContext);

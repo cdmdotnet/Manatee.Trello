@@ -120,12 +120,15 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task Issue34_CardsNotDownloading()
 		{
 			//app key and token, user required to enter token
-			TrelloAuthorization.Default.AppKey = "440a184b181002cf00f63713a7f51191";
-			TrelloAuthorization.Default.UserToken = "dfd8dd877fa1775db502f891370fb26882a4d8bad41a1cc8cf1a58874b21322b";
+			var auth = new TrelloAuthorization
+				{
+					AppKey = "440a184b181002cf00f63713a7f51191",
+					UserToken = "dfd8dd877fa1775db502f891370fb26882a4d8bad41a1cc8cf1a58874b21322b"
+				};
 
 			TrelloConfiguration.ThrowOnTrelloError = true;
 
-			Console.WriteLine(await _factory.Me());
+			Console.WriteLine(await _factory.Me(auth));
 			var boardID = "574e95edd8a4fc16207f7079";
 			var board = _factory.Board(boardID);
 			Console.WriteLine(board);

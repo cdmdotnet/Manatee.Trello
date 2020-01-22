@@ -7,7 +7,7 @@ namespace Manatee.Trello.Json
 	{
 		public bool ShouldMaintainReferences => true;
 
-		public bool Handles(SerializationContext context)
+		public bool Handles(SerializationContextBase context)
 		{
 			return context.InferredType == typeof(Emoji);
 		}
@@ -21,7 +21,7 @@ namespace Manatee.Trello.Json
 				};
 		}
 
-		public object Deserialize(SerializationContext context)
+		public object Deserialize(DeserializationContext context)
 		{
 			return Emojis.GetByUnicodeId(context.LocalValue.Object.TryGetString("unified"));
 		}

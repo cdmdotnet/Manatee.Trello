@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Manatee.Trello.Internal
 {
@@ -127,6 +128,17 @@ namespace Manatee.Trello.Internal
 			foreach (Enum value in Enum.GetValues(input.GetType()))
 				if (input.HasFlag(value))
 					yield return value;
+		}
+
+		public static string Mask(this string source)
+		{
+			var sb = new StringBuilder();
+			for (int i = 0; i < source.Length; i++)
+			{
+				sb.Append(i % 5 == 0 ? '_' : source[i]);
+			}
+
+			return sb.ToString();
 		}
 	}
 }

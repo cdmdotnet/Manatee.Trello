@@ -9,7 +9,7 @@ namespace Manatee.Trello.Json
 	{
 		public bool ShouldMaintainReferences => false;
 
-		public bool Handles(SerializationContext context)
+		public bool Handles(SerializationContextBase context)
 		{
 			return context.InferredType == typeof(DateTime);
 		}
@@ -24,7 +24,7 @@ namespace Manatee.Trello.Json
 			return dateString;
 		}
 
-		public object Deserialize(SerializationContext context)
+		public object Deserialize(DeserializationContext context)
 		{
 			var dateString = context.LocalValue.String;
 			if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var date))
