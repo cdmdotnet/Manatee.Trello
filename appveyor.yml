@@ -63,6 +63,7 @@
   environment:
     TRELLO_USER_TOKEN:
       secure: oGHK1DyFnLAtCRElo6phkzdQQulfNZKGaL1c+Ytwf54kPf87aPv/bxqpYSnHdAgJ0/ruNwK2Ufx5aqHR3705Uh4HdvCOCd6391S8wx+sVR0=
+    TRELLO_TEST_OUTPUT: true
 
   build:
     project: Manatee.Trello.sln
