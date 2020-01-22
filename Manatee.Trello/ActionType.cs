@@ -469,6 +469,12 @@ namespace Manatee.Trello
 		public static readonly ActionType RemoveOrganizationFromEnterprise;
 
 		/// <summary>
+		/// Indicates a <see cref="Board"/> that had been previously closed was reopened.
+		/// </summary>
+		[Display(Description = "reopenBoard")]
+		public static readonly ActionType ReopenBoard;
+
+		/// <summary>
 		/// Indicates an invitation to a <see cref="Board"/> was created.
 		/// </summary>
 		[Display(Description = "unconfirmedBoardInvitation")]

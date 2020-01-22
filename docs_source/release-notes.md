@@ -1,8 +1,16 @@
 # 4.2.0
 
-*Released on 17 Jan, 2020*
+*Released on 22 Jan, 2020*
 
 <span id="patch">patch</span> 
+
+([#327](https://github.com/gregsdennis/Manatee.Trello/issues/327)) New `ActionType` discovered: `reopenBoard`.
+
+# 4.2.0
+
+*Released on 22 Jan, 2020*
+
+<span id="feature">feature</span> 
 
 ([#323](https://github.com/gregsdennis/Manatee.Trello/issues/323)) Auth information supplied in `ITrelloFactory.Me()` is not propagated to the created object.  See also [#313](https://github.com/gregsdennis/Manatee.Trello/issues/313).
 
