@@ -154,7 +154,7 @@ namespace Manatee.Trello
 				
 					{NotificationType.ReactionAdded, n => $"{n.Data.Member} added a reaction to a comment in card {n.Data.Card}."},
 					{NotificationType.ReactionRemoved, n => $"{n.Data.Member} removed a reaction from a comment in card {n.Data.Card}"},
-					{NotificationType.ReopenedBoard, n => $"{n.Data.Member} reopened board {n.Data.Board}"},
+					{NotificationType.ReopenBoard, n => $"{n.Data.Member} reopened board {n.Data.Board}"},
 				};
 			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}

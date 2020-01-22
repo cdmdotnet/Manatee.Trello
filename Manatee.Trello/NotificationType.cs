@@ -136,8 +136,8 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Indicates the current member joined Trello.
 		/// </summary>
-		[Display(Description = "reopenedBoard")]
-		ReopenedBoard = 1 << 24,
+		[Display(Description = "reopenBoard")]
+		ReopenBoard = 1 << 24,
 		/// <summary>
 		/// Indicates all notification types.
 		/// </summary>
