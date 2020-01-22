@@ -2673,7 +2673,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Manatee.Trello.NotificationType.html",
-          "hash": "bIhZtsle8owVuuozAtvRQA=="
+          "hash": "Qlc8sK/uSl6EPC/b0nfywQ=="
         }
       },
       "is_incremental": false,
@@ -3759,7 +3759,7 @@
       "output": {
         ".html": {
           "relative_path": "release-notes.html",
-          "hash": "HKXTolr2cgVs+WBvfjVZUQ=="
+          "hash": "S2ZyYZzkL5BbS6b7KnXxxg=="
         }
       },
       "is_incremental": false,
@@ -3906,11 +3906,10 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 0,
+          "total_file_count": 296,
           "skipped_file_count": 0
         },
         "ConceptualDocumentProcessor": {
@@ -3919,15 +3918,16 @@
           "total_file_count": 18,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 296,
-          "skipped_file_count": 0
-        },
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0
