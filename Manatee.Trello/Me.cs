@@ -69,7 +69,7 @@ namespace Manatee.Trello
 		}
 
 		/// <summary>
-		/// Gets the collection of notificaitons for the member.
+		/// Gets the collection of notifications for the member.
 		/// </summary>
 		public IReadOnlyNotificationCollection Notifications => _context.Notifications;
 		/// <summary>
