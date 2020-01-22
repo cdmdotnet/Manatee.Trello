@@ -199,11 +199,6 @@ namespace Manatee.Trello.Rest
 			TrelloConfiguration.Log.Info($"Sending: {request.Method} {request.Resource}");
 			if (request.File != null)
 				return $"{_baseUri}/{request.Resource}";
-			if (request.Parameters.ContainsKey("token"))
-			{
-				var token = (string) request.Parameters["token"];
-				TrelloConfiguration.Log.Debug($"Masked Token: {token.Mask()}");
-			}
 			return $"{_baseUri}/{request.Resource}?{string.Join("&", request.Parameters.Select(kvp => $"{kvp.Key}={UrlEncode(kvp.Value)}"))}";
 		}
 

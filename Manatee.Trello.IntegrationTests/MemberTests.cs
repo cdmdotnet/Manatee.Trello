@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -14,8 +13,6 @@ namespace Manatee.Trello.IntegrationTests
 		[Test]
 		public async Task BasicData()
 		{
-			var me = TestEnvironment.Current.Me;
-			Console.WriteLine(me.UserName);
 			var member = TestEnvironment.Current.Factory.Member("s_littlecrabsolutions");
 
 			await member.Refresh();

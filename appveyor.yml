@@ -9,7 +9,7 @@
   image: Visual Studio 2019
   environment:
     TRELLO_USER_TOKEN:
-      secure: MVOScsOCEctoRKQizNACkYB/o00wIGZUIg3ds0hHMSmF2NCYpdSQixogKbnxzkEIDJ48us87MkcYk5lgD921+bbptaEE9oSUHim7uQMz1zI=
+      secure: oGHK1DyFnLAtCRElo6phkzdQQulfNZKGaL1c+Ytwf54kPf87aPv/bxqpYSnHdAgJ0/ruNwK2Ufx5aqHR3705Uh4HdvCOCd6391S8wx+sVR0=
     gh_access_token:
       secure: jm9ZkMmKGxetJfX6wsjFYUYiLhsX1yC7185wYdFHLicXGUD+vm5ywPNfK3mWSPzk
 
@@ -62,7 +62,7 @@
   image: Visual Studio 2019
   environment:
     TRELLO_USER_TOKEN:
-      secure: MVOScsOCEctoRKQizNACkYB/o00wIGZUIg3ds0hHMSmF2NCYpdSQixogKbnxzkEIDJ48us87MkcYk5lgD921+bbptaEE9oSUHim7uQMz1zI=
+      secure: oGHK1DyFnLAtCRElo6phkzdQQulfNZKGaL1c+Ytwf54kPf87aPv/bxqpYSnHdAgJ0/ruNwK2Ufx5aqHR3705Uh4HdvCOCd6391S8wx+sVR0=
     TRELLO_TEST_OUTPUT: true
 
   build:
