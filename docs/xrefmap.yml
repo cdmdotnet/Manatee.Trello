@@ -33117,6 +33117,12 @@ references:
   commentId: F:Manatee.Trello.NotificationType.RemovedMemberFromCard
   fullName: Manatee.Trello.NotificationType.RemovedMemberFromCard
   nameWithType: NotificationType.RemovedMemberFromCard
+- uid: Manatee.Trello.NotificationType.ReopenedBoard
+  name: ReopenedBoard
+  href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_ReopenedBoard
+  commentId: F:Manatee.Trello.NotificationType.ReopenedBoard
+  fullName: Manatee.Trello.NotificationType.ReopenedBoard
+  nameWithType: NotificationType.ReopenedBoard
 - uid: Manatee.Trello.NotificationType.Unknown
   name: Unknown
   href: api/Manatee.Trello.NotificationType.html#Manatee_Trello_NotificationType_Unknown
