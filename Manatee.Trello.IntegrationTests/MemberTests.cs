@@ -15,6 +15,8 @@ namespace Manatee.Trello.IntegrationTests
 		public async Task BasicData()
 		{
 			var member = TestEnvironment.Current.Factory.Member("s_littlecrabsolutions");
+			var me = TestEnvironment.Current.Me;
+			Console.WriteLine(me.UserName);
 
 			await member.Refresh();
 
