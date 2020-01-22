@@ -19,7 +19,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets or sets the source type for the member's avatar.
 		/// </summary>
-		[Obsolete("Trello has depricated this property.")]
+		[Obsolete("Trello has deprecated this property.")]
 		public new AvatarSource? AvatarSource
 		{
 			get { return null; }
