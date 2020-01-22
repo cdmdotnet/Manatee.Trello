@@ -1,4 +1,12 @@
-# 4.2.0
+# 4.2.2
+
+*Released on 22 Jan, 2020*
+
+<span id="patch">patch</span> 
+
+([#327](https://github.com/gregsdennis/Manatee.Trello/issues/327)) New `NotificationType` discovered: `reopenBoard`.  (We'll get it right eventually.)
+
+# 4.2.1
 
 *Released on 22 Jan, 2020*
 

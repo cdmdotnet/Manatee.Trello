@@ -151,6 +151,10 @@ namespace Manatee.Trello
 					{NotificationType.CardDueSoon, n => $"Card {n.Data.Card} is due soon."},
 					{NotificationType.AddAttachmentToCard, n => $"{n.Creator} added an attachment to {n.Data.Card}."},
 					{NotificationType.MemberJoinedTrello, n => $"{n.Data.Member} joined Trello!"},
+				
+					{NotificationType.ReactionAdded, n => $"{n.Data.Member} added a reaction to a comment in card {n.Data.Card}."},
+					{NotificationType.ReactionRemoved, n => $"{n.Data.Member} removed a reaction from a comment in card {n.Data.Card}"},
+					{NotificationType.ReopenedBoard, n => $"{n.Data.Member} reopened board {n.Data.Board}"},
 				};
 			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}

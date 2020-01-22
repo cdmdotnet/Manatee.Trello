@@ -214,6 +214,22 @@ namespace Manatee.Trello
 					{ActionType.VoteOnCard, a => $"{a.Creator} voted for card {a.Data.Card}."},
 					{ActionType.UpdateCustomField, a => $"{a.Creator} updated the definition of custom field {a.Data.CustomField} on board {a.Data.Board}."},
 					{ActionType.UpdateCustomFieldItem, a => $"{a.Creator} updated custom field {a.Data.CustomField} on card {a.Data.Card}."},
+					{ActionType.ReopenBoard, a => $"{a.Creator} reopened board {a.Data.Board}."},
+					{ActionType.RemoveOrganizationFromEnterprise, a => $"{a.Creator} removed organization {a.Data.Organization} from an enterprise account."},
+					{ActionType.ReactionAdded, a => $"{a.Creator} reacted to a comment on card {a.Data.Card}."},
+					{ActionType.ReactionRemoved, a => $"{a.Creator} removed a reaction from a comment on card {a.Data.Card}."},
+					{ActionType.ReactivatedMemberInBoard, a => $"{a.Creator} reactivated a member for board {a.Data.Board}."},
+					{ActionType.ReactivatedMemberInEnterprise, a => $"{a.Creator} reactivated a member for an enterprise account."},
+					{ActionType.ReactivatedMemberInOrganization, a => $"{a.Creator} reactivated a member for organization {a.Data.Organization}."},
+					{ActionType.RemoveFromEnterprisePluginWhitelist, a => $"{a.Creator} removed a plugin from an enterprise plugin whitelist."},
+					{ActionType.EnableEnterprisePluginWhitelist, a => $"{a.Creator} enabled the plugin whitelist for an enterprise account."},
+					{ActionType.DisableEnterprisePluginWhitelist, a => $"{a.Creator} disabled the plugin whitelist for an enterprise account."},
+					{ActionType.DeactivatedMemberInBoard, a => $"{a.Creator} deactivated {a.Data.Member} on board {a.Data.Board}."},
+					{ActionType.DeactivatedMemberInEnterprise, a => $"{a.Creator} deactivated {a.Data.Member} in an enterprise account."},
+					{ActionType.DeactivatedMemberInOrganization, a => $"{a.Creator} deactivated {a.Data.Member} in organization {a.Data.Organization}."},
+					{ActionType.AddOrganizationToEnterprise, a => $"{a.Creator} added organization {a.Data.Organization} to an enterprise account."},
+					{ActionType.AddToEnterprisePluginWhitelist, a => $"{a.Creator} added a plugin to an enterprise plugin whitelist."},
+					{ActionType.AcceptEnterpriseJoinRequest, a => $"{a.Creator} accepted an invitation to join an enterprise account."},
 				};
 			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
