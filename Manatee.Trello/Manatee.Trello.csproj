@@ -20,7 +20,6 @@
     <Company>Little Crab Solutions</Company>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Manatee.Trello.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/gregsdennis/Manatee.Trello</RepositoryUrl>
-    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
