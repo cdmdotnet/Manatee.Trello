@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29418.71
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{29C1914C-949C-4B23-BC09-94D0843D0B1B}"
 EndProject
@@ -23,6 +23,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manatee.Trello.IntegrationTests", "Manatee.Trello.IntegrationTests\Manatee.Trello.IntegrationTests.csproj", "{D3819A0C-71E3-4867-BAEE-23F1CB3DD56A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manatee.Trello.UnitTests", "Manatee.Trello.UnitTests\Manatee.Trello.UnitTests.csproj", "{AF22CC38-319D-47CB-8046-42C4140C6B2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +102,22 @@ Global
 		{AF22CC38-319D-47CB-8046-42C4140C6B2A}.Release-4.5|Any CPU.Build.0 = Release|Any CPU
 		{AF22CC38-319D-47CB-8046-42C4140C6B2A}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
 		{AF22CC38-319D-47CB-8046-42C4140C6B2A}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-3.5|Any CPU.ActiveCfg = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-3.5|Any CPU.Build.0 = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-3.5C|Any CPU.ActiveCfg = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-3.5C|Any CPU.Build.0 = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-4.0|Any CPU.ActiveCfg = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-4.0|Any CPU.Build.0 = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-4.0C|Any CPU.ActiveCfg = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-4.0C|Any CPU.Build.0 = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-4.5|Any CPU.ActiveCfg = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-4.5|Any CPU.Build.0 = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{A9321D6B-177E-4E01-BE7B-63FBAABD40DD}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
