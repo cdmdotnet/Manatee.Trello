@@ -30,13 +30,13 @@ namespace Manatee.Trello.Rest
 
                 public void AddFile(string key, byte[] contentBytes, string fileName)
                 {
-			        File = contentBytes;
-			        FileName = fileName;
+                        File = contentBytes;
+                        FileName = fileName;
 	        }
                 public void AddFile(string key, string filePath, string fileName)
                 {
-                    FilePath = filePath;
-                    FileName = fileName;
+                        FilePath = filePath;
+                        FileName = fileName;
                 }
     }
 }
