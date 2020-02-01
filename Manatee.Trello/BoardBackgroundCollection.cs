@@ -20,34 +20,36 @@ namespace Manatee.Trello
 		}
 
 
-        /// <summary>
-		/// Adds a custom board background.
-		/// </summary>
-		/// <param name="data">The byte data of the file to attach.</param>
-		/// <param name="ct">(Optional) A cancellation token for async processing.</param>
-		/// <returns>The newly created <see cref="IBoardBackground"/>.</returns>
+                /// <summary>
+                /// Adds a custom board background.
+                /// </summary>
+                /// <param name="data">The byte data of the file to attach.</param>
+                /// <param name="ct">(Optional) A cancellation token for async processing.</param>
+                /// <returns>The newly created <see cref="IBoardBackground"/>.</returns>
 		public async Task<IBoardBackground> Add(byte[] data, CancellationToken ct = default)
-        {
-            var parameters = new Dictionary<string, object> { { RestFile.ParameterKey, new RestFile { ContentBytes = data } } };
-            var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_AddBoardBackground, new Dictionary<string, object> { { "_id", OwnerId } });
-            var newData = await JsonRepository.Execute<IJsonBoardBackground>(Auth, endpoint, ct, parameters);
+                {
+                    var parameters = new Dictionary<string, object> { { RestFile.ParameterKey, new RestFile { ContentBytes = data } } };
+                    var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_AddBoardBackground, new Dictionary<string, object> { { "_id", OwnerId } });
+                    var newData = await JsonRepository.Execute<IJsonBoardBackground>(Auth, endpoint, ct, parameters);
 
-            return new BoardBackground(OwnerId, newData, Auth);
-        }
-        /// <summary>
-        /// Adds a custom board background.
-        /// </summary>
-        /// <param name="filePath">The path of the file to attach.</param>
-        /// <param name="ct">(Optional) A cancellation token for async processing.</param>
-        /// <returns>The newly created <see cref="IBoardBackground"/>.</returns>
-        public async Task<IBoardBackground> Add(string filePath, CancellationToken ct = default)
+                    return new BoardBackground(OwnerId, newData, Auth);
+                }
+
+                /// <summary>
+                /// Adds a custom board background.
+                /// </summary>
+                /// <param name="filePath">The path of the file to attach.</param>
+                /// <param name="ct">(Optional) A cancellation token for async processing.</param>
+                /// <returns>The newly created <see cref="IBoardBackground"/>.</returns>
+                public async Task<IBoardBackground> Add(string filePath, CancellationToken ct = default)
 		{
-            if (!File.Exists(filePath)) throw new Exception(filePath + " Invalid file path");
-            var parameters = new Dictionary<string, object> {{RestFile.ParameterKey, new RestFile {FilePath = filePath , FileName = "BoardBackground"} }};
-			var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_AddBoardBackground, new Dictionary<string, object> {{"_id", OwnerId}});
-			var newData = await JsonRepository.Execute<IJsonBoardBackground>(Auth, endpoint, ct, parameters);
+                    if (!File.Exists(filePath)) throw new Exception(filePath + " Invalid file path");
 
-			return new BoardBackground(OwnerId, newData, Auth);
+                        var parameters = new Dictionary<string, object> {{RestFile.ParameterKey, new RestFile {FilePath = filePath , FileName = "BoardBackground"} }};
+                        var endpoint = EndpointFactory.Build(EntityRequestType.Member_Write_AddBoardBackground, new Dictionary<string, object> {{"_id", OwnerId}});
+                        var newData = await JsonRepository.Execute<IJsonBoardBackground>(Auth, endpoint, ct, parameters);
+
+                        return new BoardBackground(OwnerId, newData, Auth);
 		}
     }
 }

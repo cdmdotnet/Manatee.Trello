@@ -177,23 +177,23 @@ namespace Manatee.Trello.Rest
 					formData.Add(content, $"\"{parameter.Key}\"");
 				}
 
-                if (request.FilePath != null)
-                {
-                    var fileStream = File.Open(request.FilePath, FileMode.Open);
-                    var fileInfo = new FileInfo(request.FilePath);
-                    formData.Add(new StreamContent(fileStream), "\"file\"", string.Format("\"{0}\"", "as" + fileInfo.Extension));
-                    formData.Add(new StringContent("mimeType"), "image/"+ fileInfo.Extension.Remove(0,1));
-                    formData.Add(new StringContent("name"), request.FileName);
-                    TrelloConfiguration.Log.Debug($"\tContent: {formData}");
-                }
-                else
-                {
-                    var byteContent = new ByteArrayContent(request.File);
-                    formData.Add(byteContent, "\"file\"", $"\"{request.FileName}\"");
-                    TrelloConfiguration.Log.Debug($"\tContent: {formData}");
-                }
+                                if (request.FilePath != null)
+                                {
+                                    var fileStream = File.Open(request.FilePath, FileMode.Open);
+                                    var fileInfo = new FileInfo(request.FilePath);
+                                    formData.Add(new StreamContent(fileStream), "\"file\"", string.Format("\"{0}\"", "as" + fileInfo.Extension));
+                                    formData.Add(new StringContent("mimeType"), "image/"+ fileInfo.Extension.Remove(0,1));
+                                    formData.Add(new StringContent("name"), request.FileName);
+                                    TrelloConfiguration.Log.Debug($"\tContent: {formData}");
+                                }
+                                else
+                                {
+                                    var byteContent = new ByteArrayContent(request.File);
+                                    formData.Add(byteContent, "\"file\"", $"\"{request.FileName}\"");
+                                    TrelloConfiguration.Log.Debug($"\tContent: {formData}");
+                                }
 
-                return formData;
+                                return formData;
 			}
 
 			if (request.Body == null) return null;

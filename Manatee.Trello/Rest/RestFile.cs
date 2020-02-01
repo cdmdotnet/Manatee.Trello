@@ -15,14 +15,14 @@
 		/// </summary>
 		public string FileName { get; set; }
        
-        /// <summary>
-        /// The file data
-        /// </summary>
-        public byte[] ContentBytes { get; set; }
+                /// <summary>
+                /// The file data
+                /// </summary>
+                public byte[] ContentBytes { get; set; }
 
-        /// <summary>
-        /// The file path
-        /// </summary>
-        public string FilePath { get; set; }
+                /// <summary>
+                /// The file path
+                /// </summary>
+                public string FilePath { get; set; }
 	}
 }
