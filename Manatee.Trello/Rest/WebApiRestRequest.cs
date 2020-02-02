@@ -10,8 +10,9 @@ namespace Manatee.Trello.Rest
 
 		internal Dictionary<string, object> Parameters { get; }
 		internal object Body { get; private set; }
-		internal byte[] File { get; private set; }
-		internal string FileName { get; private set; }
+                internal byte[] File { get; private set; }
+                internal string FilePath { get; private set; }
+                internal string FileName { get; private set; }
 
 		public WebApiRestRequest()
 		{
@@ -27,10 +28,15 @@ namespace Manatee.Trello.Rest
 			Body = body;
 		}
 
-		public void AddFile(string key, byte[] contentBytes, string fileName)
-		{
-			File = contentBytes;
-			FileName = fileName;
-		}
-	}
+                public void AddFile(string key, byte[] contentBytes, string fileName)
+                {
+                        File = contentBytes;
+                        FileName = fileName;
+	        }
+                public void AddFile(string key, string filePath, string fileName)
+                {
+                        FilePath = filePath;
+                        FileName = fileName;
+                }
+    }
 }
