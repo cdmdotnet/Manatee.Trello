@@ -22,9 +22,14 @@ namespace Manatee.Trello
 		[Display(Description="org")]
 		Org,
 		/// <summary>
+		/// Indicates that the board may be viewed by any member of the enterprise to which the board belongs.
+		/// </summary>
+		[Display(Description="enterprise")]
+		Enterprise,
+		/// <summary>
 		/// Indicates that anyone (even non-Trello users) may view the board.
 		/// </summary>
-		[Display(Description="public")]
+		[Display(Description = "public")]
 		Public
 	}
 }

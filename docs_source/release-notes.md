@@ -1,3 +1,11 @@
+# 4.3.0
+
+*Released on 6 Mar, 2020*
+
+<span id="feature">feature</span> 
+
+([#332](https://github.com/gregsdennis/Manatee.Trello/issues/332)) Added `Enterprise` to `BoardPermissionLevel`.
+
 # 4.2.3
 
 *Released on 22 Jan, 2020*
