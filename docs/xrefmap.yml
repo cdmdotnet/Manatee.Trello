@@ -3123,6 +3123,12 @@ references:
   commentId: T:Manatee.Trello.BoardPermissionLevel
   fullName: Manatee.Trello.BoardPermissionLevel
   nameWithType: BoardPermissionLevel
+- uid: Manatee.Trello.BoardPermissionLevel.Enterprise
+  name: Enterprise
+  href: api/Manatee.Trello.BoardPermissionLevel.html#Manatee_Trello_BoardPermissionLevel_Enterprise
+  commentId: F:Manatee.Trello.BoardPermissionLevel.Enterprise
+  fullName: Manatee.Trello.BoardPermissionLevel.Enterprise
+  nameWithType: BoardPermissionLevel.Enterprise
 - uid: Manatee.Trello.BoardPermissionLevel.Org
   name: Org
   href: api/Manatee.Trello.BoardPermissionLevel.html#Manatee_Trello_BoardPermissionLevel_Org
