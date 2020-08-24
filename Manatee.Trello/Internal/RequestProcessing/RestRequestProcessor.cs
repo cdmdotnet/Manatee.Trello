@@ -31,7 +31,7 @@ namespace Manatee.Trello.Internal.RequestProcessing
 
 			await Task.WhenAll(handlers.Select(h => h()));
 			
-			handlers = null;
+			LastCall = null;
 		}
 
 		private static async Task<IRestResponse> Process(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)
