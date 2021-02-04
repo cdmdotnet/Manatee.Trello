@@ -146,7 +146,6 @@ namespace Manatee.Trello
 					{NotificationType.RemovedFromOrganization, n => $"{n.Creator} removed member {n.Data.Member} from organization {n.Data.Organization}."},
 					{NotificationType.MentionedOnCard, n => $"{n.Creator} mentioned you on card {n.Data.Card}: '{n.Data.Text}'."},
 					{NotificationType.UpdateCheckItemStateOnCard, n => $"{n.Creator} updated checkItem {n.Data.CheckItem} on card {n.Data.Card}."},
-					{NotificationType.CreateCheckItem, n => $"{n.Creator} added checkItem {n.Data.CheckItem} on card {n.Data.Card}" },
 					{NotificationType.MakeAdminOfBoard, n => $"{n.Creator} made member {n.Data.Member} an admin of board {n.Data.Board}."},
 					{NotificationType.MakeAdminOfOrganization, n => $"{n.Creator} made member {n.Data.Member} an admin of organization {n.Data.Organization}."},
 					{NotificationType.CardDueSoon, n => $"Card {n.Data.Card} is due soon."},

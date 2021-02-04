@@ -144,14 +144,9 @@ namespace Manatee.Trello
 		[Display(Description = "butlerRuleFailedBoard")]
 		ButlerRuleFailedBoard = 1 << 25,
 		/// <summary>
-		/// Indicates check list item was created.
-		/// </summary>
-		[Display(Description = "createCheckItem")]
-		CreateCheckItem = 1 << 26,
-		/// <summary>
 		/// Indicates all notification types.
 		/// </summary>
 		[Display(Description="all")]
-		All = (1 << 27) - 1,
+		All = (1 << 26) - 1,
 	}
 }
