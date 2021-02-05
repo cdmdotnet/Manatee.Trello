@@ -139,9 +139,14 @@ namespace Manatee.Trello
 		[Display(Description = "reopenBoard")]
 		ReopenBoard = 1 << 24,
 		/// <summary>
+		/// Indicates butler rule failed on board.
+		/// </summary>
+		[Display(Description = "butlerRuleFailedBoard")]
+		ButlerRuleFailedBoard = 1 << 25,
+		/// <summary>
 		/// Indicates all notification types.
 		/// </summary>
 		[Display(Description="all")]
-		All = (1 << 25) - 1,
+		All = (1 << 26) - 1,
 	}
 }

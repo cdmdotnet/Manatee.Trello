@@ -5,7 +5,7 @@
     <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>A fully object-oriented .Net wrapper for the TrelloAPI.</Description>
-    <Version>4.3.0</Version>
+    <Version>4.4.0</Version>
     <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
     <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
@@ -15,7 +15,7 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
-    <FileVersion>4.3.0.0</FileVersion>
+    <FileVersion>4.4.0.0</FileVersion>
     <Authors>gregsdennis</Authors>
     <Company>Little Crab Solutions</Company>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Manatee.Trello.xml</DocumentationFile>

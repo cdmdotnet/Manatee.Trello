@@ -230,6 +230,7 @@ namespace Manatee.Trello
 					{ActionType.AddOrganizationToEnterprise, a => $"{a.Creator} added organization {a.Data.Organization} to an enterprise account."},
 					{ActionType.AddToEnterprisePluginWhitelist, a => $"{a.Creator} added a plugin to an enterprise plugin whitelist."},
 					{ActionType.AcceptEnterpriseJoinRequest, a => $"{a.Creator} accepted an invitation to join an enterprise account."},
+					{ActionType.CreateCheckItem, n => $"{n.Creator} added checkItem {n.Data.CheckItem} on card {n.Data.Card}" },
 				};
 			DownloadedFields = (Fields)Enum.GetValues(typeof(Fields)).Cast<int>().Sum();
 		}
