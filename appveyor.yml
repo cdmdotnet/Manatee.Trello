@@ -9,9 +9,9 @@
   image: Visual Studio 2019
   environment:
     TRELLO_USER_TOKEN:
-      secure: oGHK1DyFnLAtCRElo6phkzdQQulfNZKGaL1c+Ytwf54kPf87aPv/bxqpYSnHdAgJ0/ruNwK2Ufx5aqHR3705Uh4HdvCOCd6391S8wx+sVR0=
+      secure: iXz20fHGEYGyCzM6ORJau88f4MDufdinOhxQeylwIlyXSNRMI3Xu/hy+3pu4rbn56cCjA0ygpY1pwmK/TG15P/kkJLe8Idcbgl9+kYeaNrw=
     gh_access_token:
-      secure: jm9ZkMmKGxetJfX6wsjFYUYiLhsX1yC7185wYdFHLicXGUD+vm5ywPNfK3mWSPzk
+      secure: WTbEX6xQeGKTxfQGqeqfkO8XI6oKlc/bWR+dp8teSnQsGo22e+bhbj6zp33Zq8Kq
 
   build:
     project: Manatee.Trello.sln
@@ -32,7 +32,7 @@
     provider: NuGet
     # server:                  # remove to push to NuGet.org
     api_key:
-      secure: I2uIJbT1h5SIKT6RD4n4V+b302AX4q/a4NmvFy65IjKlCYE/Fo9BMqGoDNeylnNQ
+      secure: F7U8mhZHK/BKgGeJ24Kj4xuWo1UwBVZQV5iH1JgsZ6eGUwCMno4GoHC9Tl3VDaso
     skip_symbols: false
     # symbol_server:           # remove to push symbols to SymbolSource.org
     artifact: /.*\.nupkg/
@@ -62,7 +62,7 @@
   image: Visual Studio 2019
   environment:
     TRELLO_USER_TOKEN:
-      secure: oGHK1DyFnLAtCRElo6phkzdQQulfNZKGaL1c+Ytwf54kPf87aPv/bxqpYSnHdAgJ0/ruNwK2Ufx5aqHR3705Uh4HdvCOCd6391S8wx+sVR0=
+      secure: iXz20fHGEYGyCzM6ORJau88f4MDufdinOhxQeylwIlyXSNRMI3Xu/hy+3pu4rbn56cCjA0ygpY1pwmK/TG15P/kkJLe8Idcbgl9+kYeaNrw=
     TRELLO_TEST_OUTPUT: true
 
   build:
