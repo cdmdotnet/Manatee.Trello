@@ -1,52 +1,57 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <TargetFrameworkIdentifier>.NETStandard</TargetFrameworkIdentifier>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Description>A fully object-oriented .Net wrapper for the TrelloAPI.</Description>
-    <Version>4.4.0</Version>
-    <Copyright>Copyright © 2018 Little Crab Solutions</Copyright>
-    <PackageLicenseUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
-    <PackageIconUrl>https://github.com/gregsdennis/Manatee.Trello/blob/master/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
-    <PackageProjectUrl>https://gregsdennis.github.io/Manatee.Trello/</PackageProjectUrl>
-    <PackageTags>api wrapper trello manatee</PackageTags>
-    <PackageReleaseNotes>Please see https://gregsdennis.github.io/Manatee.Trello/release-notes.html</PackageReleaseNotes>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-    <FileVersion>4.4.0.0</FileVersion>
-    <Authors>gregsdennis</Authors>
-    <Company>Little Crab Solutions</Company>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Manatee.Trello.xml</DocumentationFile>
-    <RepositoryUrl>https://github.com/gregsdennis/Manatee.Trello</RepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>NET472;netstandard2.0</TargetFrameworks>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>A fully object-oriented .Net wrapper for the TrelloAPI.</Description>
+		<Version>4.4.1.2</Version>
+		<Copyright>Copyright © 2021 Chinchilla Software</Copyright>
+		<PackageId>Manatee.Trello.Net</PackageId>
+		<PackageLicenseUrl>https://github.com/Chinchilla-Software-Com/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
+		<PackageIconUrl>https://github.com/Chinchilla-Software-Com/Manatee.Trello/blob/master/Resources/Manatee-Trello-Icon.png</PackageIconUrl>
+		<PackageProjectUrl>https://gregsdennis.github.io/Manatee.Trello/</PackageProjectUrl>
+		<PackageTags>api wrapper trello manatee</PackageTags>
+		<PackageReleaseNotes>Please see https://gregsdennis.github.io/Manatee.Trello/release-notes.html</PackageReleaseNotes>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>Manatee.Trello.snk</AssemblyOriginatorKeyFile>
+		<AssemblyVersion>4.0.0.0</AssemblyVersion>
+		<FileVersion>4.4.1.0</FileVersion>
+		<Authors>Chinchilla-Software-Com</Authors>
+		<Company>Chinchilla Software</Company>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Manatee.Trello.xml</DocumentationFile>
+		<RepositoryUrl>https://github.com/Chinchilla-Software-Com/Manatee.Trello</RepositoryUrl>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-    <PackageReference Include="Manatee.Json" Version="12.3.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
+	<PropertyGroup>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+		<PackageReference Include="Manatee.Json" Version="12.3.0" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Emojis.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Emojis.generated.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Emojis.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>Emojis.generated.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Emojis.generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Emojis.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Emojis.generated.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Emojis.tt</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
 </Project>

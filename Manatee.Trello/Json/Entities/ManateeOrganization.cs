@@ -20,6 +20,7 @@ namespace Manatee.Trello.Json.Entities
 		public List<IJsonBoard> Boards { get; set; }
 		public List<IJsonMember> Members { get; set; }
 		public List<IJsonOrganizationMembership> Memberships { get; set; }
+		public List<IJsonCollaborator> Collaborators { get; set; }
 		public List<IJsonPowerUpData> PowerUpData { get; set; }
 		public IJsonOrganizationPreferences Prefs { get; set; }
 		public bool ValidForMerge { get; set; }
@@ -43,6 +44,7 @@ namespace Manatee.Trello.Json.Entities
 					Prefs = obj.Deserialize<IJsonOrganizationPreferences>(serializer, "prefs");
 					Actions = obj.Deserialize<List<IJsonAction>>(serializer, "actions");
 					Boards = obj.Deserialize<List<IJsonBoard>>(serializer, "boards");
+					Collaborators = obj.Deserialize<List<IJsonCollaborator>>(serializer, "collaborators");
 					Members = obj.Deserialize<List<IJsonMember>>(serializer, "members");
 					Memberships = obj.Deserialize<List<IJsonOrganizationMembership>>(serializer, "memberships");
 					PowerUpData = obj.Deserialize<List<IJsonPowerUpData>>(serializer, "pluginData");

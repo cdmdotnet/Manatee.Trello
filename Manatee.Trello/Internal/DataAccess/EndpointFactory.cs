@@ -122,6 +122,7 @@ namespace Manatee.Trello.Internal.DataAccess
 					{EntityRequestType.Organization_Write_Delete, () => new Endpoint(RestMethod.Delete, "organizations", "_id")},
 					{EntityRequestType.Organization_Write_RemoveMember, () => new Endpoint(RestMethod.Delete, "organizations", "_id", "members", "_memberId")},
 					{EntityRequestType.Organization_Write_Update, () => new Endpoint(RestMethod.Put, "organizations", "_id")},
+					{EntityRequestType.OrganizationCollaborator_Read_Refresh, () => new Endpoint(RestMethod.Get, "organizations", "_id")},
 					{EntityRequestType.OrganizationMembership_Read_Refresh, () => new Endpoint(RestMethod.Get, "organizations", "_organizationId", "memberships", "_id")},
 					{EntityRequestType.OrganizationMembership_Write_Update, () => new Endpoint(RestMethod.Put, "organizations", "_organizationId", "memberships", "_id")},
 					{EntityRequestType.OrganizationPreferences_Read_Refresh, () => new Endpoint(RestMethod.Get, "organizations", "_id", "prefs")},
