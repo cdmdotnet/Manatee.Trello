@@ -561,6 +561,12 @@ namespace Manatee.Trello
 		public static readonly ActionType VoteOnCard;
 
 		/// <summary>
+		/// Indicates a <see cref="CheckItem"/> was created.
+		/// </summary>
+		[Display(Description = "createCheckItem")]
+		public static readonly ActionType CreateCheckItem;
+
+		/// <summary>
 		/// Indictes the default set of values returned by <see cref="Card.Actions"/>.
 		/// </summary>
 		public static ActionType DefaultForCardActions { get; } = CommentCard | UpdateCard;

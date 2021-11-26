@@ -21,7 +21,7 @@ namespace Manatee.Trello.IntegrationTests
 			member.AvatarUrl.Should().NotBeNullOrEmpty();
 			member.Bio.Should().NotBeNull();
 			member.FullName.Should().Be("Little Crab Solutions");
-			member.Initials.Should().Be("MOS");
+			member.Initials.Should().Be("LS");
 			member.IsConfirmed.Should().Be(true);
 			member.Mention.Should().Be("@s_littlecrabsolutions");
 			member.Status.Should().NotBeNull();
