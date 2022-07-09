@@ -9,10 +9,10 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "rENsMj62iJhIIMRUUKpB2Q=="
+          "hash": "ou5HFur/Q+hmxkwjM2yjCA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -21,10 +21,10 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "FFBj5vdapjj+XdCoehJRiA=="
+          "hash": "Wdkqn9BGUAOHtFsY3iSvAQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -33,10 +33,10 @@
       "output": {
         ".html": {
           "relative_path": "examples/adding-card.html",
-          "hash": "Lt8tk4OmbRxmnbmRmPMQAg=="
+          "hash": "ZzohkddmzXRow36eHrnh3g=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -45,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "examples/changing-data.html",
-          "hash": "D8achitWU9QewfVpYqd9Zg=="
+          "hash": "ZH3A+6RVrD4iQKqWWR9Afw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "examples/delete-checkitem.html",
-          "hash": "1dU97i7XFpeWg51Us7JHqA=="
+          "hash": "Safst5Zx+a8qS9E0a5z+xQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -69,10 +69,10 @@
       "output": {
         ".html": {
           "relative_path": "examples/getting-boards.html",
-          "hash": "X0f6hWGOD5RpaaA/QB6nBA=="
+          "hash": "C0ZJy9bm7b8GTmcrUccc1w=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -81,10 +81,10 @@
       "output": {
         ".html": {
           "relative_path": "examples/known-card.html",
-          "hash": "hMWK8nDBUMqH3jNEEAfrSw=="
+          "hash": "W9OkBk60Uv2X+oXjeDgoQw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -105,10 +105,10 @@
       "output": {
         ".html": {
           "relative_path": "examples/webhook.html",
-          "hash": "sbGd3sib8HuEqE8BaMnayQ=="
+          "hash": "iVj1RqgNAPfL1xrHrY8sZQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -183,10 +183,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "axq/azn2G+GOnwWuQ8lx0w=="
+          "hash": "Fawh3Jn9ksP5vazf4sbu9w=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -195,10 +195,10 @@
       "output": {
         ".html": {
           "relative_path": "release-notes.html",
-          "hash": "8R9gqwRA42MemLy4TUMMaQ=="
+          "hash": "ondDwtqzcTL176Z9Gn6Y/Q=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -222,10 +222,10 @@
       "output": {
         ".html": {
           "relative_path": "usage/configuration.html",
-          "hash": "VdLgX0+ZWjz2lvdUPiraHQ=="
+          "hash": "TBzQFzhxO8Svo2twX8SigA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -237,10 +237,10 @@
       "output": {
         ".html": {
           "relative_path": "usage/getting-started.html",
-          "hash": "MLYnDN6munnDQitJB6+y3A=="
+          "hash": "GIZ7zmkEUCI8cmec0KtnPg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -249,10 +249,10 @@
       "output": {
         ".html": {
           "relative_path": "usage/licensing.html",
-          "hash": "8Z2PYC3pbD3j5NFGz9EJXg=="
+          "hash": "2truPhn5gDDN3PmIHQqr2A=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -261,10 +261,10 @@
       "output": {
         ".html": {
           "relative_path": "usage/power-ups.html",
-          "hash": "+IoJeHvbx2IKtC5Bd8hAlg=="
+          "hash": "DNDwysijcTqdPvVdR5ms/Q=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -273,10 +273,10 @@
       "output": {
         ".html": {
           "relative_path": "usage/supplying-your-own-json-serializer.html",
-          "hash": "Ux4HR71bHh4CHR7eBVKupg=="
+          "hash": "uZKd0170I9AxCdFLesXBbA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -288,10 +288,10 @@
       "output": {
         ".html": {
           "relative_path": "usage/supplying-your-own-rest-client.html",
-          "hash": "u1LISUD7MvndsOA6eX1PWQ=="
+          "hash": "LDachG50cVLprl+C3rOg4w=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -300,10 +300,10 @@
       "output": {
         ".html": {
           "relative_path": "usage/support.html",
-          "hash": "x4PoKw4IAo2b3dg0b7x/3Q=="
+          "hash": "otXIc7oOvtrC+Xor4FwnSw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -324,20 +324,22 @@
       "output": {
         ".html": {
           "relative_path": "usage/webhooks.html",
-          "hash": "BDGLq/cWL2kYIK8e5gniBw=="
+          "hash": "g0eg3DWGkOekccHLigysfA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     }
   ],
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
         "ResourceDocumentProcessor": {
@@ -347,25 +349,25 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": true,
-          "incrementalPhase": "build",
-          "total_file_count": 18,
-          "skipped_file_count": 18
-        },
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 18,
+          "skipped_file_count": 0
         }
       }
     },
     {
       "status": {
-        "can_incremental": true,
-        "details": "Can support incremental post processing.",
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
         "incrementalPhase": "postProcessing",
         "total_file_count": 0,
         "skipped_file_count": 0
