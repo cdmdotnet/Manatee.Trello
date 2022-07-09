@@ -30,6 +30,8 @@ namespace Manatee.Trello.Internal.RequestProcessing
 			var handlers = LastCall.GetInvocationList().Cast<Func<Task>>();
 
 			await Task.WhenAll(handlers.Select(h => h()));
+			
+			LastCall = null;
 		}
 
 		private static async Task<IRestResponse> Process(Func<Task<IRestResponse>> ask, IRestRequest request, CancellationToken ct)
