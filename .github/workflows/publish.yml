@@ -27,8 +27,6 @@ jobs:
         dotnet pack -c Release -property:SolutionDir=.\ -p:Version=${{ env.nuGetVersionNumber }} Manatee.Trello\Manatee.Trello.csproj -p:PackageVersion=${{ env.nuGetFullVersionNumber}} --include-symbols -p:SymbolPackageFormat=snupkg --include-source -o Packaged
     - name: Push with dotnet CLI
       run: |
-        .nuget\NuGet.exe source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/cdmdotnet/index.json" -UserName cdmdotnet -Password ${{ secrets.NUGET_PUBLISH_TOKEN }}
-        .nuget\NuGet.exe setapikey ${{ secrets.NUGET_PUBLISH_TOKEN }} -Source "https://nuget.pkg.github.com/cdmdotnet/index.json"
         dotnet nuget push Packaged\*.nupkg -k ${{ secrets.NUGET_PUBLISH_TOKEN }} -s https://api.nuget.org/v3/index.json
   tag:
     runs-on: ubuntu-latest
