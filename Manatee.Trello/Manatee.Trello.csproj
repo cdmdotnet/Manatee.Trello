@@ -6,7 +6,7 @@
 		<Description>A fully object-oriented .Net wrapper for the TrelloAPI.</Description>
 		<Version>4.4.1.3</Version>
 		<Copyright>Copyright © 2021 Chinchilla Software</Copyright>
-		<PackageId>Manatee.Trello.Net</PackageId>
+		<PackageId>Manatee.Trello</PackageId>
 		<PackageLicenseUrl>https://github.com/Chinchilla-Software-Com/Manatee.Trello/blob/master/LICENSE.txt</PackageLicenseUrl>
 		<PackageIcon>images\package-icon.png</PackageIcon>
 		<PackageProjectUrl>https://gregsdennis.github.io/Manatee.Trello/</PackageProjectUrl>
