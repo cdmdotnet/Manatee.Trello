@@ -1,11 +1,3 @@
-<div style="border: 2px solid #EDDA5A; background-color: #EAE1A7; border-radius: 10px; padding: 10px 10px 0 10px;">
-After careful consideration, I have decided to stop supporting this library in favor of a [GraphQL API](https://graphqello.com) alternative.  A client library for that API is in-progress.
-
-Thank you to all those who helped make this library better through code contributions, bug reports, and feature suggestions.
-
-If you are interested in taking over development of this library, please DM me on Slack (link on the support page) to discuss options.
-</div>
-
 # Welcome!
 
 Manatee.Trello is a .Net wrapper for [Trello’s RESTful API](https://developers.trello.com/advanced-reference) written C#.  The goal of this library is to expose the functionality of Trello as an intuitive, fully object-oriented design that allows the developer to interact with Trello objects in a way familiar to the average .Net developer.
