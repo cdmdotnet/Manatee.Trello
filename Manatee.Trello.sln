@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
 		build.bat = build.bat
+		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
 		nuget-restore.ps1 = nuget-restore.ps1
+		.github\workflows\publish.yml = .github\workflows\publish.yml
 		README.md = README.md
 		docs_source\release-notes.md = docs_source\release-notes.md
 	EndProjectSection
