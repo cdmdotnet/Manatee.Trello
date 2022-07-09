@@ -1,3 +1,13 @@
+# 4.4.0
+
+*Released on 9 Jul, 2022*
+
+<span id="feature">feature</span> 
+
+- Added collaborators to organisations
+- Minor improvements to parallel task handling
+- Fixes some memory leaks
+
 # 4.3.0
 
 *Released on 6 Mar, 2020*
