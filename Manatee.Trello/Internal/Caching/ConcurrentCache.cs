@@ -23,7 +23,11 @@ namespace Manatee.Trello.Internal.Caching
 		public T Find<T>(string id)
 			where T : class, ICacheable
 		{
-			return _collection.TryGetValue(id, out var obj) ? obj as T : null;
+			return string.IsNullOrWhiteSpace(id)
+				? null
+				: _collection.TryGetValue(id, out var obj)
+					? obj as T
+					: null;
 		}
 
 		public void Remove(ICacheable obj)

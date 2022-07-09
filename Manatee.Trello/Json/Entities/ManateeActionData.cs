@@ -20,6 +20,7 @@ namespace Manatee.Trello.Json.Entities
 		public IJsonList List { get; set; }
 		public IJsonList ListAfter { get; set; }
 		public IJsonList ListBefore { get; set; }
+		public IJsonCollaborator Collaborator { get; set; }
 		public IJsonMember Member { get; set; }
 		public IJsonOrganization Org { get; set; }
 		public IJsonActionOldData Old { get; set; }

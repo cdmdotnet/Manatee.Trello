@@ -1,4 +1,6 @@
-After careful consideration, I have decided to stop supporting this library in favor of a [GraphQL API](https://graphqello.com) alternative.  A client library for that API is in-progress.
+# No Longer Maintained
+
+After careful consideration, I have decided to stop supporting this library.
 
 Thank you to all those who helped make this library better through code contributions, bug reports, and feature suggestions.
 

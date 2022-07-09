@@ -46,6 +46,11 @@ namespace Manatee.Trello
 		IReadOnlyMemberCollection Members { get; }
 
 		/// <summary>
+		/// Gets the collection of collaborators who belong to the organization.
+		/// </summary>
+		IReadOnlyCollaboratorCollection Collaborators { get; }
+
+		/// <summary>
 		/// Gets the collection of members and their priveledges on this organization.
 		/// </summary>
 		IOrganizationMembershipCollection Memberships { get; }
