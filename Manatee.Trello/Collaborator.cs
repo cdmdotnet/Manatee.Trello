@@ -27,13 +27,13 @@ namespace Manatee.Trello
 			/// Indicates the AvatarHash property should be populated.
 			/// </summary>
 			[Display(Description="avatarHash")]
-			[Obsolete("Trello has depricated this property.")]
+			[Obsolete("Trello has deprecated this property.")]
 			AvatarHash = 1,
 			/// <summary>
 			/// Indicates the AvatarSource property should be populated.
 			/// </summary>
 			[Display(Description="avatarSource")]
-			[Obsolete("Trello has depricated this property.")]
+			[Obsolete("Trello has deprecated this property.")]
 			AvatarSource = 1 << 1,
 			/// <summary>
 			/// Indicates the Bio property should be populated.
@@ -113,7 +113,7 @@ namespace Manatee.Trello
 		/// <summary>
 		/// Gets the source type for the collaborator's avatar.
 		/// </summary>
-		[Obsolete("Trello has depricated this property.")]
+		[Obsolete("Trello has deprecated this property.")]
 		public AvatarSource? AvatarSource => null;
 
 		/// <summary>

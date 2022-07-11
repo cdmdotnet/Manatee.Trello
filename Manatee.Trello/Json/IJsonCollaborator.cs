@@ -19,7 +19,7 @@ namespace Manatee.Trello.Json
 		/// Gets or sets the member's avatar hash.
 		/// </summary>
 		[JsonDeserialize]
-		[Obsolete("Trello has depricated this property.")]
+		[Obsolete("Trello has deprecated this property.")]
 		string AvatarHash { get; set; }
 		/// <summary>
 		/// Gets or sets the member's avatar hash.
