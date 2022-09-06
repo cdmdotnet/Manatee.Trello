@@ -120,6 +120,7 @@ namespace Manatee.Trello.Internal.DataAccess
 		Organization_Write_Delete,
 		Organization_Write_RemoveMember,
 		Organization_Write_Update,
+		OrganizationCollaborator_Read_Refresh,
 		OrganizationMembership_Read_Refresh,
 		OrganizationMembership_Write_Update,
 		OrganizationPreferences_Read_Refresh,

@@ -33,6 +33,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		public BoardCollection Boards { get; }
 		public ReadOnlyMemberCollection Members { get; }
 		public OrganizationMembershipCollection Memberships { get; }
+		public ReadOnlyCollaboratorCollection Collaborators { get; }
 		public ReadOnlyPowerUpDataCollection PowerUpData { get; }
 		public OrganizationPreferencesContext OrganizationPreferencesContext { get; }
 		public virtual bool HasValidId => IdRule.Instance.Validate(Data.Id, null) == null;
@@ -97,6 +98,8 @@ namespace Manatee.Trello.Internal.Synchronization
 			Actions.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Actions)});
 			Boards = new BoardCollection(typeof(Organization), () => Data.Id, auth);
 			Boards.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Boards)});
+			Collaborators = new ReadOnlyCollaboratorCollection(() => Data.Id, auth);
+			Collaborators.Refreshed += (s, e) => OnMerged(new List<string> { nameof(Collaborators) });
 			Members = new ReadOnlyMemberCollection(EntityRequestType.Organization_Read_Members, () => Data.Id, auth);
 			Members.Refreshed += (s, e) => OnMerged(new List<string> {nameof(Members)});
 			Memberships = new OrganizationMembershipCollection(() => Data.Id, auth);

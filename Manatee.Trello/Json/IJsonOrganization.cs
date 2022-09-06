@@ -74,6 +74,11 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		List<IJsonBoard> Boards { get; set; }
 		/// <summary>
+		/// Gets or sets a collection of collaborators.
+		/// </summary>
+		[JsonDeserialize]
+		List<IJsonCollaborator> Collaborators { get; set; }
+		/// <summary>
 		/// Gets or sets a collection of members.
 		/// </summary>
 		[JsonDeserialize]

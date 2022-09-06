@@ -1,0 +1,47 @@
+name: Publish to NuGet
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  nuGetVersionNumber: 4.4
+  nuGetFullVersionNumber: 4.4.${{ github.run_number }}
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2019]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup dotnet CLI
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: Pack with dotnet CLI
+      run: |
+        dotnet pack -c Release -property:SolutionDir=.\ -p:Version=${{ env.nuGetVersionNumber }} Manatee.Trello\Manatee.Trello.csproj -p:PackageVersion=${{ env.nuGetFullVersionNumber}} --include-symbols -p:SymbolPackageFormat=snupkg --include-source -o Packaged
+    - name: Push with dotnet CLI
+      run: |
+        dotnet nuget push Packaged\*.nupkg -k ${{ secrets.NUGET_PUBLISH_TOKEN }} -s https://api.nuget.org/v3/index.json
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Bump version and push release
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v5.6
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        custom_tag: releases/${{ env.nuGetVersionNumber }}/${{ env.nuGetFullVersionNumber}}
+        tag_prefix: 
+    - name: Create a GitHub release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ steps.tag_version.outputs.new_tag }}
+        name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}

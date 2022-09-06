@@ -149,7 +149,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(true, CancellationToken.None).Wait();
+					Task.Run(async () => { await _context.Synchronize(true, CancellationToken.None); }).Wait();
 				return _id;
 			}
 			private set { _id = value; }
@@ -159,6 +159,10 @@ namespace Manatee.Trello
 		/// </summary>
 		public bool IsBusinessClass => _isBusinessClass.Value;
 
+		/// <summary>
+		/// Gets the collection of collaborators who belong to the organization.
+		/// </summary>
+		public IReadOnlyCollaboratorCollection Collaborators => _context.Collaborators;
 		/// <summary>
 		/// Gets the collection of members who belong to the organization.
 		/// </summary>

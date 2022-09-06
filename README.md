@@ -1,11 +1,3 @@
-# No Longer Maintained
-
-After careful consideration, I have decided to stop supporting this library.
-
-Thank you to all those who helped make this library better through code contributions, bug reports, and feature suggestions.
-
-If you are interested in taking over development of this library, please DM me on Slack (link below) to discuss options.
-
 # Manatee.Trello
 
 [![NuGet version](https://img.shields.io/nuget/v/Manatee.Trello.svg?svg=true)](https://www.nuget.org/packages/Manatee.Trello/)
@@ -18,7 +10,7 @@ If you are interested in taking over development of this library, please DM me o
 <a href="https://join.slack.com/t/manateeopensource/shared_invite/enQtMzU4MjgzMjgyNzU3LWZjYzAzYzY3NjY1MjY3ODI0ZGJiZjc3Nzk1MDM5NTNlMjMyOTE0MzMxYWVjMjdiOGU1NDY5OGVhMGQ5YzY4Zjg"><img src="/Resources/Slack_RGB.svg" alt="Discuss on Slack" title="Discuss on Slack" height="75"></a>
 <a href="http://www.jetbrains.com/resharper"><img src="/Resources/Resharper.svg" alt="Made with Jetbrains Resharper" title="Made with Jetbrains Resharper" height="75"></a>
 
-**Documentation for this library can be found [here](https://gregsdennis.github.io/Manatee.Trello).**
+**Documentation for this library can be found [here](https://cdmdotnet.github.io/Manatee.Trello).**
 
 The primary goal of Manatee.Trello is to provide an intuitive, object-oriented representation of Trello entities.  Other API wrappers that I encounter contain service objects with functions that return little more than non-functional DTOs (data transfer objects) to represent the entities.
 
@@ -172,7 +164,7 @@ Features:
     - Webhooks
         - Add/Edit/Delete
 
-See the [docs](https://gregsdennis.github.io/Manatee.Trello) for more information on how to use this wonderful library!
+See the [docs](https://cdmdotnet.github.io/Manatee.Trello) for more information on how to use this wonderful library!
 
 ## Contributing
 

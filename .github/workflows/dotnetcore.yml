@@ -1,0 +1,25 @@
+name: Build Core Framework
+
+on: [push]
+
+env:
+  nuGetVersionNumber: 4.4
+  nuGetFullVersionNumber: 4.4.${{ github.run_number }}
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2019]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: Pack with dotnet CLI
+      run: |
+        dotnet pack -c Release -p:Version=${{ env.nuGetVersionNumber }} Manatee.Trello\Manatee.Trello.csproj -p:PackageVersion=${{ env.nuGetFullVersionNumber}} --version-suffix beta-$(date +%Y%m%d%H%M%S) --include-symbols -p:SymbolPackageFormat=snupkg --include-source -o Packaged

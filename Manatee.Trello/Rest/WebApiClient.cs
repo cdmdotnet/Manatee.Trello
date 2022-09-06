@@ -101,8 +101,9 @@ namespace Manatee.Trello.Rest
 			do
 			{
 				count++;
-				response = await call();
-				restResponse = await MapResponse(response);
+				using(response = await call()) {
+					restResponse = await MapResponse(response);
+				}
 			} while (TrelloConfiguration.RetryPredicate(restResponse, count));
 
 			if (!response.IsSuccessStatusCode)
@@ -132,8 +133,9 @@ namespace Manatee.Trello.Rest
 			do
 			{
 				count++;
-				var response = await call();
-				restResponse = await MapResponse<T>(response);
+				using(var response = await call()) {
+					restResponse = await MapResponse<T>(response);
+				}
 			} while (TrelloConfiguration.RetryPredicate(restResponse, count));
 
 			return restResponse;

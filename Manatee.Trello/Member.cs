@@ -243,7 +243,7 @@ namespace Manatee.Trello
 			get
 			{
 				if (!_context.HasValidId)
-					_context.Synchronize(true, CancellationToken.None).Wait();
+					Task.Run(async () => { await _context.Synchronize(true, CancellationToken.None); }).Wait();
 				return _id;
 			}
 			private set { _id = value; }

@@ -48,6 +48,11 @@ namespace Manatee.Trello.Json
 		[JsonDeserialize]
 		IJsonCheckList CheckList { get; set; }
 		/// <summary>
+		/// Gets or sets a collaborator associated with the action if any.
+		/// </summary>
+		[JsonDeserialize]
+		IJsonCollaborator Collaborator { get; set; }
+		/// <summary>
 		/// Gets or sets a custom field definition associated with the action if any.
 		/// </summary>
 		[JsonDeserialize]

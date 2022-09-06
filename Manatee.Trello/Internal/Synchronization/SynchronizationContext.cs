@@ -95,6 +95,7 @@ namespace Manatee.Trello.Internal.Synchronization
 		}
 		~SynchronizationContext()
 		{
+			RestRequestProcessor.LastCall -= _TimerElapsed;
 			_timer?.Dispose();
 		}
 
