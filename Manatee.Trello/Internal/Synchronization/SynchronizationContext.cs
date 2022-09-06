@@ -76,17 +76,19 @@ namespace Manatee.Trello.Internal.Synchronization
 		protected SynchronizationContext(TrelloAuthorization auth, bool useTimer)
 		{
 			ManagesSubmissions = useTimer;
-			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
-			{
-				_timer = new Timer(async state => await _TimerElapsed(), null,
-				                   TrelloConfiguration.ChangeSubmissionTime,
-				                   TrelloConfiguration.ChangeSubmissionTime);
-			}
 
 			_updateLock = new object();
 			_expireLock = new object();
 			_semaphore = new SemaphoreSlim(1, 1);
 			_expires = DateTime.MinValue;
+
+			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
+			{
+				_timer = new Timer(async state => await _TimerElapsed(), null,
+					TrelloConfiguration.ChangeSubmissionTime,
+					TrelloConfiguration.ChangeSubmissionTime);
+			}
+
 			RestRequestProcessor.LastCall += _TimerElapsed;
 			Auth = auth ?? TrelloAuthorization.Default;
 			Synchronized = new WeakMulticastDelegate();
