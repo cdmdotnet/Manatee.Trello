@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Manatee.Trello.Internal.RequestProcessing;
@@ -60,6 +61,11 @@ namespace Manatee.Trello.Internal.DataAccess
 				TrelloConfiguration.Log.Error(response.Exception);
 				if (TrelloConfiguration.ThrowOnTrelloError)
 				{
+					if (response.StatusCode != 0)
+					{
+						throw new HttpRequestException($"HTTP Error {response.StatusCode}", response.Exception);
+					}
+
 					throw response.Exception;
 				}
 			}
