@@ -85,8 +85,8 @@ namespace Manatee.Trello.Internal.Synchronization
 			if (useTimer && TrelloConfiguration.ChangeSubmissionTime.Milliseconds != 0)
 			{
 				_timer = new Timer(async state => await _TimerElapsed(), null,
-					TrelloConfiguration.ChangeSubmissionTime,
-					TrelloConfiguration.ChangeSubmissionTime);
+								TrelloConfiguration.ChangeSubmissionTime,
+								TrelloConfiguration.ChangeSubmissionTime);
 			}
 
 			RestRequestProcessor.LastCall += _TimerElapsed;
