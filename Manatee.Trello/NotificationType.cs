@@ -144,6 +144,11 @@ namespace Manatee.Trello
 		[Display(Description = "butlerRuleFailedBoard")]
 		ButlerRuleFailedBoard = 1 << 25,
 		/// <summary>
+		/// Indicates that an acess is requested to an organization
+		/// </summary>
+		[Display(Description = "requestAccessToOrganization")]
+		RequestAccessToOrganization = 1 << 26,
+		/// <summary>
 		/// Indicates all notification types.
 		/// </summary>
 		[Display(Description="all")]
